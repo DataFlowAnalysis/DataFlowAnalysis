@@ -11,7 +11,7 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
     public UserActionSequenceElement(T element) {
         super(element, new Stack<>());
     }
-    
+
     @Override
     public List<DataFlowVariable> evaluateDataFlow(List<DataFlowVariable> variables) {
         // TODO Auto-generated method stub

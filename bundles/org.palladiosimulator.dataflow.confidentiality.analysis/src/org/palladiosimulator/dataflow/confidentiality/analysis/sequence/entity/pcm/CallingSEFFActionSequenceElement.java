@@ -8,11 +8,13 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.D
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
 
-public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<ExternalCallAction> implements CallReturnBehavior {
+public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<ExternalCallAction>
+        implements CallReturnBehavior {
 
     private final boolean isCalling;
-    
-    public CallingSEFFActionSequenceElement(ExternalCallAction element, Stack<AssemblyContext> context, boolean isCalling) {
+
+    public CallingSEFFActionSequenceElement(ExternalCallAction element, Stack<AssemblyContext> context,
+            boolean isCalling) {
         super(element, context);
         this.isCalling = isCalling;
         // TODO Auto-generated constructor stub
@@ -22,10 +24,9 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
     public boolean isCalling() {
         return this.isCalling;
     }
-    
+
     // TODO: Custom hash and equals required?
-    
-    
+
     @Override
     public List<DataFlowVariable> evaluateDataFlow(List<DataFlowVariable> variables) {
         // TODO Auto-generated method stub

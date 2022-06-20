@@ -7,7 +7,7 @@ import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 
 public class PCMActionSequenceFinder implements ActionSequenceFinder {
-    
+
     private final UsageModel usageModel;
     private final Allocation allocationModel;
 
@@ -18,7 +18,9 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
 
     @Override
     public List<ActionSequence> findAllSequences() {
-        // TODO Auto-generated method stub
+        // only for testing purposes
+        System.out.println("Finding sequences with models " + usageModel.getUsageScenario_UsageModel()
+            .size() + "usage scenarios and allocation: " + allocationModel.getEntityName());
         return null;
     }
 

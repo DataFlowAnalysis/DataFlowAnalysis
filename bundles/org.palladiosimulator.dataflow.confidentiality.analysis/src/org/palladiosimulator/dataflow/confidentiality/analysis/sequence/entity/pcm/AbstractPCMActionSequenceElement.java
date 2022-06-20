@@ -42,5 +42,5 @@ public abstract class AbstractPCMActionSequenceElement<T extends EObject> extend
         AbstractPCMActionSequenceElement other = (AbstractPCMActionSequenceElement) obj;
         return Objects.equals(context, other.context) && Objects.equals(element, other.element);
     }
-    
+
 }

@@ -2,7 +2,7 @@ package org.palladiosimulator.dataflow.confidentiality.analysis;
 
 import org.junit.jupiter.api.Test;
 
-public class DataFlowAnalysisTest {
+public class DataFlowConfidentialityAnalysisTest {
 
     @Test
     public void testBranchingOnlineShop() {

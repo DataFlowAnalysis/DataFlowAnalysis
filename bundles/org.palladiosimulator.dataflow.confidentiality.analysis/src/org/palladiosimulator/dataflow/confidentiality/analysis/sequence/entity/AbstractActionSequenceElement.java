@@ -12,13 +12,13 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
     public AbstractActionSequenceElement() {
         this.dataFlowVariables = Optional.empty();
     }
-    
+
     public abstract List<DataFlowVariable> evaluateDataFlow(List<DataFlowVariable> variables);
 
     public Optional<List<DataFlowVariable>> getAllDataFlowVariables() {
         return this.dataFlowVariables;
     }
-    
+
     public boolean isEvaluated() {
         return this.dataFlowVariables.isPresent();
     }

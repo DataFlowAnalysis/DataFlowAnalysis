@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?>
+<target name="Target Platform" sequenceNumber="1">
+	<locations>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="release" refresh="true">
+			<unit id="de.uka.ipd.sdq.identifier.feature.feature.group" version="2.1.0.201611171324"/>
+			<unit id="org.palladiosimulator.commons.stoex.sdk.feature.group" version="tbd"/>
+			<repository location="https://updatesite.palladio-simulator.com/palladio-core-commons/releases/latest/"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly" refresh="true">
+			<unit id="de.uka.ipd.sdq.identifier.feature.feature.group" version="2.1.0.201611171324"/>
+			<repository location="https://updatesite.palladio-simulator.com/palladio-core-commons/nightly/"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="release" refresh="true">
+			<unit id="org.palladiosimulator.pcm.feature.feature.group" version="4.1.0.201709282114"/>
+			<repository location="https://updatesite.palladio-simulator.com/palladio-core-pcm/releases/latest/"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly" refresh="true">
+			<unit id="org.palladiosimulator.pcm.feature.feature.group" version="4.1.0.201709282114"/>
+			<repository location="https://updatesite.palladio-simulator.com/palladio-core-pcm/nightly/"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly">
+			<unit id="org.palladiosimulator.pcm.edit" version="0.0.0"/>
+			<repository location="https://updatesite.palladio-simulator.com/palladio-editors-commons/nightly/"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="release">
+			<unit id="org.palladiosimulator.pcm.edit" version="0.0.0"/>
+			<repository location="https://updatesite.palladio-simulator.com/palladio-editors-commons/releases/latest"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="release" refresh="true">
+			<unit id="de.uka.ipd.sdq.workflow.feature.core.feature.group" version="2.2.3.201709282207"/>
+			<repository location="https://updatesite.palladio-simulator.com/palladio-supporting-workflowengine/releases/latest/"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly" refresh="true">
+			<unit id="de.uka.ipd.sdq.workflow.feature.core.feature.group" version="2.2.3.201709282207"/>
+			<repository location="https://updatesite.palladio-simulator.com/palladio-supporting-workflowengine/nightly/"/>
+		</location>
+			<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly" refresh="true">
+			<unit id="tools.mdsd.library.emfeditutils" version="0.0.0"/>
+			<repository location="https://updatesite.mdsd.tools/library-emfeditutils/nightly/"/>
+		</location>
+	</locations>
+</target>

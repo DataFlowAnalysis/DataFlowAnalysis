@@ -10,6 +10,7 @@ jobs:
       - uses: PalladioSimulator/Palladio-Build-ActionsPipeline@v2
         with:
           use-display-output: true
+          java-version: 17
           deploy-updatesite: 'releng/org.palladiosimulator.dataflow.confidentiality.pcm.analysis.updatesite/target/repository'
           server-ssh-key: ${{ secrets.DEPLOYMENT_SERVER_SSH_KEY }}
           remote-host: ${{ secrets.DEPLOYMENT_REMOTE_HOST }}

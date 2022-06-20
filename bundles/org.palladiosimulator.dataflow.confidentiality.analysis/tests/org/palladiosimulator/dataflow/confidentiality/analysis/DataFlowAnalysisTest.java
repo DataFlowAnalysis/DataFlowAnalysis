@@ -1,0 +1,18 @@
+package org.palladiosimulator.dataflow.confidentiality.analysis;
+
+import org.junit.jupiter.api.Test;
+
+public class DataFlowAnalysisTest {
+
+    @Test
+    public void testBranchingOnlineShop() {
+        System.out.println("This is just for testing!");
+        
+        final var usageModelPath = "models/BranchingOnlineShop/default.usagemodel";
+        final var allocationPath = "models/BranchingOnlineShop/default.allocation";
+
+        final var analysis = new StandaloneDataFlowConfidentialtyAnalysis(usageModelPath, allocationPath);
+        analysis.findAllSequences();
+    }
+
+}

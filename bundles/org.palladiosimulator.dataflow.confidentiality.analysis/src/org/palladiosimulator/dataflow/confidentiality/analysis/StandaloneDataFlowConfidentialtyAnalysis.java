@@ -12,7 +12,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.modelversioning.emfprofile.registry.IProfileRegistry;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.ActionSequenceFinder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.PCMActionSequenceFinder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
@@ -23,12 +22,14 @@ import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 
 import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
+import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder;
 import tools.mdsd.library.standalone.initialization.emfprofiles.EMFProfileInitializationTask;
 import tools.mdsd.library.standalone.initialization.log4j.Log4jInitilizationTask;
 
 public class StandaloneDataFlowConfidentialtyAnalysis {
     private static final String EMF_PROFILE_NAME = "org.palladiosimulator.dataflow.confidentiality.pcm.model.profile";
     private static final String EMF_PROFILE_PATH = "profile.emfprofile_diagram";
+    private final static String PLUGIN_PATH = "org.palladiosimulator.dataflow.confidentiality.analysis";
 
     private final Logger logger = Logger.getLogger(StandaloneDataFlowConfidentialtyAnalysis.class);
     private final ResourceSet resourceSet = new ResourceSetImpl();
@@ -40,11 +41,9 @@ public class StandaloneDataFlowConfidentialtyAnalysis {
     private UsageModel usageModel;
     private List<PCMDataDictionary> dataDictionaries;
 
-    public StandaloneDataFlowConfidentialtyAnalysis(URI usageModelURI, URI allocationModelURI) {
-        this.usageModelURI = usageModelURI;
-        this.allocationModelURI = allocationModelURI;
-
-        logger.info("Starting standalone data flow analysis.");
+    public StandaloneDataFlowConfidentialtyAnalysis(String relativeUsageModelPath, String relativeAllocationModelPath) {
+        this.usageModelURI = getRelativePluginURI(relativeUsageModelPath);
+        this.allocationModelURI = getRelativePluginURI(relativeAllocationModelPath);
 
         if (!initStandaloneAnalysis()) {
             logger.warn("Standalone initialization of the data flow analysis failed.");
@@ -64,6 +63,16 @@ public class StandaloneDataFlowConfidentialtyAnalysis {
     }
 
     private boolean initStandaloneAnalysis() {
+        try {
+            StandaloneInitializerBuilder.builder()
+                .registerProjectURI(StandaloneDataFlowConfidentialtyAnalysis.class, PLUGIN_PATH)
+                .build()
+                .init();
+        } catch (StandaloneInitializationException e1) {
+            logger.error("Unable to initialize standalone environment.");
+            e1.printStackTrace();
+        }
+
         try {
             new Log4jInitilizationTask().initilizationWithoutPlatform();
         } catch (StandaloneInitializationException e) {
@@ -138,6 +147,10 @@ public class StandaloneDataFlowConfidentialtyAnalysis {
             }
         }
         return false;
+    }
+    
+    private URI getRelativePluginURI(String relativePath) {
+        return URI.createPlatformPluginURI("/" + PLUGIN_PATH + "/" + relativePath, false);
     }
 
 }

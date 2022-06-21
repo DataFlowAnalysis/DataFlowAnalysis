@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -63,6 +64,7 @@ public class StandaloneDataFlowConfidentialtyAnalysis {
     }
 
     private boolean initStandaloneAnalysis() {
+        EcorePlugin.ExtensionProcessor.process(null);
         try {
             StandaloneInitializerBuilder.builder()
                 .registerProjectURI(StandaloneDataFlowConfidentialtyAnalysis.class, PLUGIN_PATH)
@@ -113,7 +115,7 @@ public class StandaloneDataFlowConfidentialtyAnalysis {
 
     // Partially based on Palladio's ResourceSetPartition
     private EObject loadModelContent(URI modelURI) {
-        final Resource resource = this.resourceSet.getResource(modelURI, false);
+        final Resource resource = this.resourceSet.getResource(modelURI, true);
 
         if (resource == null) {
             throw new IllegalArgumentException(String.format("Model with URI %s could not be loaded.", modelURI));

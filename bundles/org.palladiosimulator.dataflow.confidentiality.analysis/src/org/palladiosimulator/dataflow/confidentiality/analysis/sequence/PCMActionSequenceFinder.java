@@ -19,8 +19,8 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
     @Override
     public List<ActionSequence> findAllSequences() {
         // only for testing purposes
-        System.out.println("Finding sequences with models " + usageModel.getUsageScenario_UsageModel()
-            .size() + "usage scenarios and allocation: " + allocationModel.getEntityName());
+        System.out.println("Finding sequences with " + usageModel.getUsageScenario_UsageModel()
+            .size() + " usage scenarios and allocation model: " + allocationModel.getEntityName());
         return null;
     }
 

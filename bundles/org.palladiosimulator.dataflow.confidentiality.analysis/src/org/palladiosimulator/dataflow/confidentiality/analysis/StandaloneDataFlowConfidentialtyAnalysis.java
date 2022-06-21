@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
@@ -13,6 +14,10 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.linking.impl.AbstractCleaningLinker;
+import org.eclipse.xtext.linking.impl.DefaultLinkingService;
+import org.eclipse.xtext.parser.antlr.AbstractInternalAntlrParser;
+import org.eclipse.xtext.resource.containers.ResourceSetBasedAllContainersStateProvider;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.ActionSequenceFinder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.PCMActionSequenceFinder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
@@ -28,8 +33,8 @@ import tools.mdsd.library.standalone.initialization.emfprofiles.EMFProfileInitia
 import tools.mdsd.library.standalone.initialization.log4j.Log4jInitilizationTask;
 
 public class StandaloneDataFlowConfidentialtyAnalysis {
-    private static final String EMF_PROFILE_NAME = "org.palladiosimulator.dataflow.confidentiality.pcm.model.profile";
-    private static final String EMF_PROFILE_PATH = "profile.emfprofile_diagram";
+    private static final String EMF_PROFILE_PLUGIN = "org.palladiosimulator.dataflow.confidentiality.pcm.model.profile";
+    private static final String EMF_PROFILE_NAME = "profile.emfprofile_diagram";
     private final static String PLUGIN_PATH = "org.palladiosimulator.dataflow.confidentiality.analysis";
 
     private final Logger logger = Logger.getLogger(StandaloneDataFlowConfidentialtyAnalysis.class);
@@ -46,15 +51,21 @@ public class StandaloneDataFlowConfidentialtyAnalysis {
         this.usageModelURI = getRelativePluginURI(relativeUsageModelPath);
         this.allocationModelURI = getRelativePluginURI(relativeAllocationModelPath);
 
-        if (!initStandaloneAnalysis()) {
+        if (initStandaloneAnalysis()) {
+            logger.info("Successfully initialized standalone data flow analysis.");
+        } else {
             logger.warn("Standalone initialization of the data flow analysis failed.");
             return;
         }
 
-        if (!loadModels()) {
+        if (loadModels()) {
+            logger.info("Successfully loaded required models for the data flow analysis.");
+        } else {
             logger.warn("Failed loading the required models for the data flow analysis.");
             return;
         }
+
+        logger.info("Finished standalone data flow analysis setup.");
     }
 
     // only for testing purposes
@@ -65,18 +76,20 @@ public class StandaloneDataFlowConfidentialtyAnalysis {
 
     private boolean initStandaloneAnalysis() {
         EcorePlugin.ExtensionProcessor.process(null);
-        try {
-            StandaloneInitializerBuilder.builder()
-                .registerProjectURI(StandaloneDataFlowConfidentialtyAnalysis.class, PLUGIN_PATH)
-                .build()
-                .init();
-        } catch (StandaloneInitializationException e1) {
-            logger.error("Unable to initialize standalone environment.");
-            e1.printStackTrace();
-        }
 
         try {
             new Log4jInitilizationTask().initilizationWithoutPlatform();
+
+            Logger.getLogger(AbstractInternalAntlrParser.class)
+                .setLevel(Level.WARN);
+            Logger.getLogger(DefaultLinkingService.class)
+                .setLevel(Level.WARN);
+            Logger.getLogger(ResourceSetBasedAllContainersStateProvider.class)
+                .setLevel(Level.WARN);
+            Logger.getLogger(AbstractCleaningLinker.class)
+                .setLevel(Level.WARN);
+            logger.info("Successfully initialized standalone log4j for the data flow analysis.");
+
         } catch (StandaloneInitializationException e) {
             logger.error("Unable to initialize standalone log4j for the data flow analysis.");
             e.printStackTrace();
@@ -84,15 +97,27 @@ public class StandaloneDataFlowConfidentialtyAnalysis {
         }
 
         try {
-            new EMFProfileInitializationTask(EMF_PROFILE_NAME, EMF_PROFILE_PATH).initilizationWithoutPlatform();
+            StandaloneInitializerBuilder.builder()
+                .registerProjectURI(StandaloneDataFlowConfidentialtyAnalysis.class, PLUGIN_PATH)
+                .build()
+                .init();
+            logger.info("Successfully initialized standalone environment for the data flow analysis.");
+        } catch (StandaloneInitializationException e) {
+            logger.error("Unable to initialize standalone environment for the data flow analysis.");
+            e.printStackTrace();
+            return false;
+        }
+
+        try {
+            new EMFProfileInitializationTask(EMF_PROFILE_PLUGIN, EMF_PROFILE_NAME).initilizationWithoutPlatform();
+            logger.info("Successfully initialized standalone EMF Profiles for the data flow analysis.");
         } catch (final StandaloneInitializationException e) {
-            logger.error("Unable to initialize standalone EMF Profile for data flow analysis.");
+            logger.error("Unable to initialize standalone EMF Profile for the data flow analysis.");
             e.printStackTrace();
             return false;
         }
 
         DDDslStandaloneSetup.doSetup();
-
         return true;
     }
 
@@ -101,10 +126,15 @@ public class StandaloneDataFlowConfidentialtyAnalysis {
             this.usageModel = (UsageModel) loadModelContent(usageModelURI);
             this.allocationModel = (Allocation) loadModelContent(allocationModelURI);
 
+            // This is required to load other models like data dictionaries
+            resolveAllProxies();
+
             this.dataDictionaries = lookupElementOfType(DictionaryPackage.eINSTANCE.getPCMDataDictionary()).stream()
                 .filter(PCMDataDictionary.class::isInstance)
                 .map(PCMDataDictionary.class::cast)
                 .collect(Collectors.toList());
+
+            logger.info(String.format("Successfully loaded %d data dictionaries.", this.dataDictionaries.size()));
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return false;
@@ -150,7 +180,26 @@ public class StandaloneDataFlowConfidentialtyAnalysis {
         }
         return false;
     }
-    
+
+    // Partially based on Palladio's ResourceSetPartition
+    private void resolveAllProxies() {
+        ArrayList<Resource> currentResources = null;
+        int initialResourceCount = this.resourceSet.getResources()
+            .size();
+
+        do {
+            currentResources = new ArrayList<Resource>(this.resourceSet.getResources());
+            for (final Resource r : currentResources) {
+                EcoreUtil.resolveAll(r);
+            }
+        } while (currentResources.size() != this.resourceSet.getResources()
+            .size());
+
+        int additionalResourceCount = this.resourceSet.getResources()
+            .size() - initialResourceCount;
+        logger.info(String.format("Additionally resolved %d resources.", additionalResourceCount));
+    }
+
     private URI getRelativePluginURI(String relativePath) {
         return URI.createPlatformPluginURI("/" + PLUGIN_PATH + "/" + relativePath, false);
     }

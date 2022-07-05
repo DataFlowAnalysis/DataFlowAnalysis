@@ -32,7 +32,7 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder
 import tools.mdsd.library.standalone.initialization.emfprofiles.EMFProfileInitializationTask;
 import tools.mdsd.library.standalone.initialization.log4j.Log4jInitilizationTask;
 
-public class StandaloneDataFlowConfidentialtyAnalysis {
+public class StandaloneDataFlowConfidentialtyAnalysis implements DataFlowConfidentialityAnalysis {
     private static final String EMF_PROFILE_PLUGIN = "org.palladiosimulator.dataflow.confidentiality.pcm.model.profile";
     private static final String EMF_PROFILE_NAME = "profile.emfprofile_diagram";
     private final static String PLUGIN_PATH = "org.palladiosimulator.dataflow.confidentiality.analysis";
@@ -43,32 +43,38 @@ public class StandaloneDataFlowConfidentialtyAnalysis {
     private final URI usageModelURI;
     private final URI allocationModelURI;
 
-    private Allocation allocationModel;
-    private UsageModel usageModel;
+    private Allocation allocationModel = null;
+    private UsageModel usageModel = null;
     private List<PCMDataDictionary> dataDictionaries;
 
     public StandaloneDataFlowConfidentialtyAnalysis(String relativeUsageModelPath, String relativeAllocationModelPath) {
         this.usageModelURI = getRelativePluginURI(relativeUsageModelPath);
         this.allocationModelURI = getRelativePluginURI(relativeAllocationModelPath);
-
-        if (initStandaloneAnalysis()) {
-            logger.info("Successfully initialized standalone data flow analysis.");
-        } else {
-            logger.warn("Standalone initialization of the data flow analysis failed.");
-            return;
-        }
-
-        if (loadModels()) {
-            logger.info("Successfully loaded required models for the data flow analysis.");
-        } else {
-            logger.warn("Failed loading the required models for the data flow analysis.");
-            return;
-        }
-
-        logger.info("Finished standalone data flow analysis setup.");
     }
 
-    // only for testing purposes
+    @Override
+    public boolean initalizeAnalysis() {
+        if (initStandaloneAnalysis()) {
+            logger.info("Successfully initialized standalone data flow analysis.");
+            return true;
+        } else {
+            logger.warn("Standalone initialization of the data flow analysis failed.");
+            return false;
+        }
+    }
+
+    @Override
+    public boolean loadModels() {
+        if (loadRequiredModels()) {
+            logger.info("Successfully loaded required models for the data flow analysis.");
+            return true;
+        } else {
+            logger.warn("Failed loading the required models for the data flow analysis.");
+            return false;
+        }
+    }
+
+    @Override
     public List<ActionSequence> findAllSequences() {
         ActionSequenceFinder sequenceFinder = new PCMActionSequenceFinder(usageModel, allocationModel);
         return sequenceFinder.findAllSequences();
@@ -121,10 +127,12 @@ public class StandaloneDataFlowConfidentialtyAnalysis {
         return true;
     }
 
-    private boolean loadModels() {
+    private boolean loadRequiredModels() {
         try {
             this.usageModel = (UsageModel) loadModelContent(usageModelURI);
             this.allocationModel = (Allocation) loadModelContent(allocationModelURI);
+
+            logger.info("Successfully loaded usage model and allocation model.");
 
             // This is required to load other models like data dictionaries
             resolveAllProxies();
@@ -134,7 +142,8 @@ public class StandaloneDataFlowConfidentialtyAnalysis {
                 .map(PCMDataDictionary.class::cast)
                 .collect(Collectors.toList());
 
-            logger.info(String.format("Successfully loaded %d data dictionaries.", this.dataDictionaries.size()));
+            logger.info(String.format("Successfully loaded %d data %s.", this.dataDictionaries.size(),
+                    this.dataDictionaries.size() > 1 ? "dictionaries" : "dictionary"));
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return false;
@@ -197,10 +206,11 @@ public class StandaloneDataFlowConfidentialtyAnalysis {
 
         int additionalResourceCount = this.resourceSet.getResources()
             .size() - initialResourceCount;
-        logger.info(String.format("Additionally resolved %d resources.", additionalResourceCount));
+        logger.info(String.format("Successfully resolved %d additional resources.", additionalResourceCount));
     }
 
     private URI getRelativePluginURI(String relativePath) {
+        // FIXME: Might not be platform independent enough although it works on windows
         return URI.createPlatformPluginURI("/" + PLUGIN_PATH + "/" + relativePath, false);
     }
 

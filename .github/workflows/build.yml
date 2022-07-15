@@ -7,7 +7,7 @@ jobs:
   Palladio-Addons-DataFlowConfidentiality-Analysis:
     runs-on: self-hosted
     steps:
-      - uses: PalladioSimulator/Palladio-Build-ActionsPipeline@v2
+      - uses: PalladioSimulator/Palladio-Build-ActionsPipeline@728a5d1ca9c75d9adf05f2b398f4ddc879944a32
         with:
           use-display-output: true
           java-version: 17
@@ -17,3 +17,4 @@ jobs:
           remote-port: ${{ secrets.DEPLOYMENT_REMOTE_PORT }}
           remote-user: ${{ secrets.DEPLOYMENT_REMOTE_USER }}
           remote-target: ${{ secrets.DEPLOYMENT_REMOTE_TARGET }}
+          no-caching: true

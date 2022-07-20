@@ -1,6 +1,7 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis;
 
 import java.util.List;
+
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
 
 public interface DataFlowConfidentialityAnalysis {

@@ -1,7 +1,7 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm;
 
+import java.util.Deque;
 import java.util.Objects;
-import java.util.Stack;
 
 import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
@@ -9,10 +9,10 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 public abstract class AbstractPCMActionSequenceElement<T extends EObject> extends AbstractActionSequenceElement<T> {
 
-    private final Stack<AssemblyContext> context;
+    private final Deque<AssemblyContext> context;
     private final T element;
 
-    public AbstractPCMActionSequenceElement(T element, Stack<AssemblyContext> context) {
+    public AbstractPCMActionSequenceElement(T element, Deque<AssemblyContext> context) {
         this.element = element;
         this.context = context;
     }
@@ -21,7 +21,7 @@ public abstract class AbstractPCMActionSequenceElement<T extends EObject> extend
         return element;
     }
 
-    public Stack<AssemblyContext> getContext() {
+    public Deque<AssemblyContext> getContext() {
         return context;
     }
 

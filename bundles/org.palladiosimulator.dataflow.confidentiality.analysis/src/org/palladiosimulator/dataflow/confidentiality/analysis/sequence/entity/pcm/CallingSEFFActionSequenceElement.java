@@ -1,7 +1,7 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm;
 
+import java.util.Deque;
 import java.util.List;
-import java.util.Stack;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CallReturnBehavior;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
@@ -13,7 +13,7 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
 
     private final boolean isCalling;
 
-    public CallingSEFFActionSequenceElement(ExternalCallAction element, Stack<AssemblyContext> context,
+    public CallingSEFFActionSequenceElement(ExternalCallAction element, Deque<AssemblyContext> context,
             boolean isCalling) {
         super(element, context);
         this.isCalling = isCalling;

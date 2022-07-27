@@ -7,7 +7,7 @@ jobs:
   Palladio-Addons-DataFlowConfidentiality-Analysis:
     runs-on: self-hosted
     steps:
-      - uses: PalladioSimulator/Palladio-Build-ActionsPipeline@v2
+      - uses: PalladioSimulator/Palladio-Build-ActionsPipeline@No-Caching-Input
         with:
           use-display-output: true
           java-version: 17

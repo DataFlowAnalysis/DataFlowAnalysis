@@ -7,13 +7,14 @@ jobs:
   Palladio-Addons-DataFlowConfidentiality-Analysis:
     runs-on: self-hosted
     steps:
-      - uses: PalladioSimulator/Palladio-Build-ActionsPipeline@v2
+      - uses: PalladioSimulator/Palladio-Build-ActionsPipeline@No-Caching-Input
         with:
           use-display-output: true
-          java-version: 17
+          java-version: 11
           deploy-updatesite: 'releng/org.palladiosimulator.dataflow.confidentiality.pcm.analysis.updatesite/target/repository'
           server-ssh-key: ${{ secrets.DEPLOYMENT_SERVER_SSH_KEY }}
           remote-host: ${{ secrets.DEPLOYMENT_REMOTE_HOST }}
           remote-port: ${{ secrets.DEPLOYMENT_REMOTE_PORT }}
           remote-user: ${{ secrets.DEPLOYMENT_REMOTE_USER }}
           remote-target: ${{ secrets.DEPLOYMENT_REMOTE_TARGET }}
+          no-caching: true

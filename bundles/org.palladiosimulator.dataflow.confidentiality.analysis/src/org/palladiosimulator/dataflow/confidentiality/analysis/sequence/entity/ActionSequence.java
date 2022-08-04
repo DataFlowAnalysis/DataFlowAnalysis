@@ -10,6 +10,10 @@ public class ActionSequence {
     public ActionSequence() {
         this.elements = new ArrayList<>();
     }
+    
+    public ActionSequence(List<AbstractActionSequenceElement<?>> elements) {
+        this.elements = elements;
+    }
 
     public void addElement(AbstractActionSequenceElement<?> element) {
         this.elements.add(element);

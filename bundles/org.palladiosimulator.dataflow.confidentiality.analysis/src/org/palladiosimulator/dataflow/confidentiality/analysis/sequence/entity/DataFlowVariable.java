@@ -20,6 +20,10 @@ public class DataFlowVariable {
     public void addCharacteristic(CharacteristicValue characteristic) {
         this.characteristics.add(characteristic);
     }
+    
+    public boolean hasCharacteristic(CharacteristicValue characteristic) {
+        return this.characteristics.contains(characteristic);
+    }
 
     public List<CharacteristicValue> getAllCharacteristics() {
         return this.characteristics;

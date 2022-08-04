@@ -15,7 +15,7 @@ public class DataFlowConfidentialityAnalysisTest {
         final var usageModelPath = createModelPath("models/BranchingOnlineShop/default.usagemodel");
         final var allocationPath = createModelPath("models/BranchingOnlineShop/default.allocation");
 
-        final DataFlowConfidentialityAnalysis analysis = new StandaloneDataFlowConfidentialtyAnalysis(usageModelPath, allocationPath);
+        final DataFlowConfidentialityAnalysis analysis = new StandalonePCMDataFlowConfidentialtyAnalysis(usageModelPath, allocationPath);
         
         analysis.initalizeAnalysis();
         analysis.loadModels();

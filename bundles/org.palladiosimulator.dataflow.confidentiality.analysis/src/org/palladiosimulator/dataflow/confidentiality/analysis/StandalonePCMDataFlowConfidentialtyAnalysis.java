@@ -32,12 +32,12 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder
 import tools.mdsd.library.standalone.initialization.emfprofiles.EMFProfileInitializationTask;
 import tools.mdsd.library.standalone.initialization.log4j.Log4jInitilizationTask;
 
-public class StandaloneDataFlowConfidentialtyAnalysis implements DataFlowConfidentialityAnalysis {
+public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConfidentialityAnalysis {
     private static final String EMF_PROFILE_PLUGIN = "org.palladiosimulator.dataflow.confidentiality.pcm.model.profile";
     private static final String EMF_PROFILE_NAME = "profile.emfprofile_diagram";
     private final static String PLUGIN_PATH = "org.palladiosimulator.dataflow.confidentiality.analysis";
 
-    private final Logger logger = Logger.getLogger(StandaloneDataFlowConfidentialtyAnalysis.class);
+    private final Logger logger = Logger.getLogger(StandalonePCMDataFlowConfidentialtyAnalysis.class);
     private final ResourceSet resourceSet = new ResourceSetImpl();
 
     private final URI usageModelURI;
@@ -47,7 +47,7 @@ public class StandaloneDataFlowConfidentialtyAnalysis implements DataFlowConfide
     private UsageModel usageModel = null;
     private List<PCMDataDictionary> dataDictionaries;
 
-    public StandaloneDataFlowConfidentialtyAnalysis(String relativeUsageModelPath, String relativeAllocationModelPath) {
+    public StandalonePCMDataFlowConfidentialtyAnalysis(String relativeUsageModelPath, String relativeAllocationModelPath) {
         this.usageModelURI = getRelativePluginURI(relativeUsageModelPath);
         this.allocationModelURI = getRelativePluginURI(relativeAllocationModelPath);
     }
@@ -104,7 +104,7 @@ public class StandaloneDataFlowConfidentialtyAnalysis implements DataFlowConfide
 
         try {
             StandaloneInitializerBuilder.builder()
-                .registerProjectURI(StandaloneDataFlowConfidentialtyAnalysis.class, PLUGIN_PATH)
+                .registerProjectURI(StandalonePCMDataFlowConfidentialtyAnalysis.class, PLUGIN_PATH)
                 .build()
                 .init();
             logger.info("Successfully initialized standalone environment for the data flow analysis.");
@@ -143,7 +143,7 @@ public class StandaloneDataFlowConfidentialtyAnalysis implements DataFlowConfide
                 .collect(Collectors.toList());
 
             logger.info(String.format("Successfully loaded %d data %s.", this.dataDictionaries.size(),
-                    this.dataDictionaries.size() > 1 ? "dictionaries" : "dictionary"));
+                    this.dataDictionaries.size() == 1 ? "dictionary" : "dictionaries"));
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return false;

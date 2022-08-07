@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm;
+package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm;
 
 import java.util.Deque;
 

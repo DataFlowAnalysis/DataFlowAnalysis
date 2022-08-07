@@ -14,9 +14,17 @@ public class ActionSequence {
     public ActionSequence(List<AbstractActionSequenceElement<?>> elements) {
         this.elements = elements;
     }
+    
+    public ActionSequence(ActionSequence sequence) {
+        this(sequence.getElements());
+    }
 
     public void addElement(AbstractActionSequenceElement<?> element) {
         this.elements.add(element);
+    }
+    
+    public List<AbstractActionSequenceElement<?>> getElements() {
+        return this.elements;
     }
 
     public void evaluateDataFlow() {

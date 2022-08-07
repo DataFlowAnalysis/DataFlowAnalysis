@@ -87,7 +87,7 @@ public class PCMQueryUtils {
 
         Deque<AssemblyContext> newContexts = new ArrayDeque<>(context);
         ProvidedRole role = providedRole;
-        InterfaceProvidingEntity providingComponent = role.getProvidingEntity_ProvidedRole();
+        InterfaceProvidingEntity providingComponent = role.getProvidingEntity_ProvidedRole(); // FIXME: This is null / not resolved correctly in the test model
 
         while (providingComponent instanceof ComposedStructure) {
             Optional<ProvidedDelegationConnector> connector = findProvidedDelegationConnector(
@@ -170,7 +170,7 @@ public class PCMQueryUtils {
                 .getProvidingAssemblyContext_AssemblyConnector();
             OperationProvidedRole providedRole = assemblyConnector.get()
                 .getProvidedRole_AssemblyConnector();
-            newContexts.push(newAssemblyContext); // TODO: Unclear what += means in xtend
+            newContexts.add(newAssemblyContext);
             return findCalledSEFF(providedRole, calledSignature, newContexts);
         } else {
 

@@ -181,7 +181,7 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
     // Partially based on Palladio's ResourceSetPartition
     private boolean isTargetInResource(final EClass targetType, final Resource resource) {
         if (resource != null) {
-            for (EObject c : resource.getContents()) {
+            for (EObject c : resource.getContents()) { // FIXME: Does not get the content of the data dictionary
                 if (targetType.isSuperTypeOf(c.eClass())) {
                     return true;
                 }

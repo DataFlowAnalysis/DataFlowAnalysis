@@ -146,7 +146,7 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
                 return new ArrayList<ActionSequence>();
             } else {
                 Deque<AbstractPCMActionSequenceElement<?>> callers = new ArrayDeque<>();
-                callers.push(callingEntity); // FIXME: Unclear whether += in xtend means push or add
+                callers.add(callingEntity);
 
                 return findSequencesForSEFFAction(SEFFStartAction.get(), calledSEFF.get()
                     .getContext(), callers, currentActionSequence);
@@ -208,7 +208,7 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
                 .getSuccessor_AbstractAction();
             return findSequencesForSEFFAction(successor, context, callers, previousSequence);
         } else {
-            AbstractPCMActionSequenceElement<?> caller = callers.pop();
+            AbstractPCMActionSequenceElement<?> caller = callers.removeLast();
             return returnToCaller(caller, callers, previousSequence);
         }
     }
@@ -237,7 +237,7 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
                 logger.warn("Unable to find SEFF start action.");
                 return new ArrayList<ActionSequence>();
             } else {
-                callers.push(callingEntity); // FIXME: Unclear whether += in xtend means push or add
+                callers.add(callingEntity);
                 return findSequencesForSEFFAction(SEFFStartAction.get(), calledSEFF.get()
                     .getContext(), callers, currentActionSequence);
             }

@@ -52,8 +52,6 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
     public StandalonePCMDataFlowConfidentialtyAnalysis(String relativeUsageModelPath, String relativeAllocationModelPath) {
         this.usageModelURI = getRelativePluginURI2(relativeUsageModelPath);
         this.allocationModelURI = getRelativePluginURI2(relativeAllocationModelPath);
-        
-        this.resourceSet.getLoadOptions().put(XtextResource.OPTION_RESOLVE_ALL, true);
     }
 
     @Override

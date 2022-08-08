@@ -17,10 +17,12 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.linking.impl.AbstractCleaningLinker;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.parser.antlr.AbstractInternalAntlrParser;
+import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.containers.ResourceSetBasedAllContainersStateProvider;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.ActionSequenceFinder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMActionSequenceFinder;
+import org.palladiosimulator.dataflow.confidentiality.analysis.testmodels.Activator;
 import org.palladiosimulator.dataflow.confidentiality.pcm.dddsl.DDDslStandaloneSetup;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.DictionaryPackage;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.PCMDataDictionary;
@@ -48,8 +50,10 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
     private List<PCMDataDictionary> dataDictionaries;
 
     public StandalonePCMDataFlowConfidentialtyAnalysis(String relativeUsageModelPath, String relativeAllocationModelPath) {
-        this.usageModelURI = getRelativePluginURI(relativeUsageModelPath);
-        this.allocationModelURI = getRelativePluginURI(relativeAllocationModelPath);
+        this.usageModelURI = getRelativePluginURI2(relativeUsageModelPath);
+        this.allocationModelURI = getRelativePluginURI2(relativeAllocationModelPath);
+        
+        this.resourceSet.getLoadOptions().put(XtextResource.OPTION_RESOLVE_ALL, true);
     }
 
     @Override
@@ -104,6 +108,8 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
 
         try {
             StandaloneInitializerBuilder.builder()
+            	.registerProjectURI(Activator.class,
+                        "org.palladiosimulator.dataflow.confidentiality.analysis.testmodels")
                 .registerProjectURI(StandalonePCMDataFlowConfidentialtyAnalysis.class, PLUGIN_PATH)
                 .build()
                 .init();
@@ -212,6 +218,10 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
     private URI getRelativePluginURI(String relativePath) {
         // FIXME: Might not be platform independent enough although it works on windows
         return URI.createPlatformPluginURI("/" + PLUGIN_PATH + "/" + relativePath, false);
+    }
+    private URI getRelativePluginURI2(String relativePath) {
+        // FIXME: Might not be platform independent enough although it works on windows
+        return URI.createPlatformPluginURI("/org.palladiosimulator.dataflow.confidentiality.analysis.testmodels" + relativePath, false);
     }
 
 }

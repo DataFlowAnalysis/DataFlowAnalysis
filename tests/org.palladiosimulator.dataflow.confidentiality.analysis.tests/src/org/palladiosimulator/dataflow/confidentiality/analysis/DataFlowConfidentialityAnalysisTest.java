@@ -1,10 +1,11 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class DataFlowConfidentialityAnalysisTest {
     
-    private static String TEST_MODEL_PROJECT_PATH = "../../tests/org.palladiosimulator.dataflow.confidentiality.analysis.testmodels";
+    private static String TEST_MODEL_PROJECT_PATH = "";
     
     private static String createModelPath(String relativePath) {
         return String.format("%s/%s", TEST_MODEL_PROJECT_PATH, relativePath);
@@ -19,7 +20,7 @@ public class DataFlowConfidentialityAnalysisTest {
         
         analysis.initalizeAnalysis();
         analysis.loadModels();
-        analysis.findAllSequences();
+        Assertions.assertFalse(analysis.findAllSequences().isEmpty());
     }
 
 }

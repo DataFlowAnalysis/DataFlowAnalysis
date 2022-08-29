@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.Plugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -17,12 +18,10 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.linking.impl.AbstractCleaningLinker;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.parser.antlr.AbstractInternalAntlrParser;
-import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.containers.ResourceSetBasedAllContainersStateProvider;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.ActionSequenceFinder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMActionSequenceFinder;
-import org.palladiosimulator.dataflow.confidentiality.analysis.testmodels.Activator;
 import org.palladiosimulator.dataflow.confidentiality.pcm.dddsl.DDDslStandaloneSetup;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.DictionaryPackage;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.PCMDataDictionary;
@@ -48,10 +47,17 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
     private Allocation allocationModel = null;
     private UsageModel usageModel = null;
     private List<PCMDataDictionary> dataDictionaries;
+    
+    private String modelProjectPath = "";
+    private Class<? extends Plugin> modelProjectActivator;
 
-    public StandalonePCMDataFlowConfidentialtyAnalysis(String relativeUsageModelPath, String relativeAllocationModelPath) {
-        this.usageModelURI = getRelativePluginURI2(relativeUsageModelPath);
-        this.allocationModelURI = getRelativePluginURI2(relativeAllocationModelPath);
+    public StandalonePCMDataFlowConfidentialtyAnalysis(String modelProjectURL, Class<? extends Plugin> modelProjectActivator, String relativeUsageModelPath,
+            String relativeAllocationModelPath) {
+        this.modelProjectPath = modelProjectURL;
+        this.modelProjectActivator = modelProjectActivator;
+        
+        this.usageModelURI = getRelativePluginURI(relativeUsageModelPath);
+        this.allocationModelURI = getRelativePluginURI(relativeAllocationModelPath);
     }
 
     @Override
@@ -60,8 +66,7 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
             logger.info("Successfully initialized standalone data flow analysis.");
             return true;
         } else {
-            logger.warn("Standalone initialization of the data flow analysis failed.");
-            return false;
+            throw new IllegalStateException("Standalone initialization of the data flow analysis failed.");
         }
     }
 
@@ -71,8 +76,7 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
             logger.info("Successfully loaded required models for the data flow analysis.");
             return true;
         } else {
-            logger.warn("Failed loading the required models for the data flow analysis.");
-            return false;
+            throw new IllegalStateException("Failed loading the required models for the data flow analysis.");
         }
     }
 
@@ -106,8 +110,7 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
 
         try {
             StandaloneInitializerBuilder.builder()
-            	.registerProjectURI(Activator.class,
-                        "org.palladiosimulator.dataflow.confidentiality.analysis.testmodels")
+                .registerProjectURI(this.modelProjectActivator, this.modelProjectPath)
                 .registerProjectURI(StandalonePCMDataFlowConfidentialtyAnalysis.class, PLUGIN_PATH)
                 .build()
                 .init();
@@ -138,7 +141,6 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
 
             logger.info("Successfully loaded usage model and allocation model.");
 
-            // This is required to load other models like data dictionaries
             resolveAllProxies();
 
             this.dataDictionaries = lookupElementOfType(DictionaryPackage.eINSTANCE.getPCMDataDictionary()).stream()
@@ -185,7 +187,8 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
     // Partially based on Palladio's ResourceSetPartition
     private boolean isTargetInResource(final EClass targetType, final Resource resource) {
         if (resource != null) {
-            for (EObject c : resource.getContents()) { // FIXME: Does not get the content of the data dictionary
+            for (EObject c : resource.getContents()) { // FIXME: Does not get the content of the
+                                                       // data dictionary
                 if (targetType.isSuperTypeOf(c.eClass())) {
                     return true;
                 }
@@ -215,11 +218,8 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
 
     private URI getRelativePluginURI(String relativePath) {
         // FIXME: Might not be platform independent enough although it works on windows
-        return URI.createPlatformPluginURI("/" + PLUGIN_PATH + "/" + relativePath, false);
-    }
-    private URI getRelativePluginURI2(String relativePath) {
-        // FIXME: Might not be platform independent enough although it works on windows
-        return URI.createPlatformPluginURI("/org.palladiosimulator.dataflow.confidentiality.analysis.testmodels" + relativePath, false);
+        return URI.createPlatformPluginURI(
+                "/" + this.modelProjectPath + "/" + relativePath, false);
     }
 
 }

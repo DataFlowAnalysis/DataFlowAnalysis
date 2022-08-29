@@ -126,8 +126,7 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
     private List<ActionSequence> findSequencesForEntryLevelSystemCall(EntryLevelSystemCall currentAction,
             ActionSequence previousSequence) {
         var callingEntity = new CallingUserActionSequenceElement(currentAction, true);
-        ActionSequence currentActionSequence = new ActionSequence(previousSequence);
-        currentActionSequence.addElement(callingEntity);
+        ActionSequence currentActionSequence = new ActionSequence(previousSequence, callingEntity);
 
         OperationProvidedRole calledRole = currentAction.getProvidedRole_EntryLevelSystemCall();
         OperationSignature calledSignature = currentAction.getOperationSignature__EntryLevelSystemCall();
@@ -156,8 +155,8 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
 
     private List<ActionSequence> findSequencesForUserActionReturning(EntryLevelSystemCall currentAction,
             ActionSequence previousSequence) {
-        ActionSequence currentActionSequence = new ActionSequence(previousSequence);
-        currentActionSequence.addElement(new CallingUserActionSequenceElement(currentAction, false));
+        ActionSequence currentActionSequence = new ActionSequence(previousSequence,
+                new CallingUserActionSequenceElement(currentAction, false));
         return findSequencesForUserAction(currentAction.getSuccessor(), currentActionSequence);
     }
 
@@ -218,8 +217,7 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
             ActionSequence previousSequence) {
 
         var callingEntity = new CallingSEFFActionSequenceElement(currentAction, context, true);
-        ActionSequence currentActionSequence = new ActionSequence(previousSequence);
-        currentActionSequence.addElement(callingEntity);
+        ActionSequence currentActionSequence = new ActionSequence(previousSequence, callingEntity);
 
         OperationRequiredRole calledRole = currentAction.getRole_ExternalService();
         OperationSignature calledSignature = currentAction.getCalledService_ExternalService();
@@ -250,8 +248,8 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
             ActionSequence previousSequence) {
 
         var newEntity = new SEFFActionSequenceElement<>(currentAction, context);
-        ActionSequence currentActionSequence = new ActionSequence(previousSequence);
-        currentActionSequence.addElement(newEntity);
+        ActionSequence currentActionSequence = new ActionSequence(previousSequence, newEntity);
+
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context, callers,
                 currentActionSequence);
     }
@@ -274,8 +272,8 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
     private List<ActionSequence> findSequencesForSEFFActionReturning(ExternalCallAction currentAction,
             Deque<AssemblyContext> context, Deque<AbstractPCMActionSequenceElement<?>> callers,
             ActionSequence previousSequence) {
-        ActionSequence currentActionSequence = new ActionSequence(previousSequence);
-        currentActionSequence.addElement(new CallingSEFFActionSequenceElement(currentAction, context, false));
+        ActionSequence currentActionSequence = new ActionSequence(previousSequence,
+                new CallingSEFFActionSequenceElement(currentAction, context, false));
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context, callers,
                 currentActionSequence);
     }

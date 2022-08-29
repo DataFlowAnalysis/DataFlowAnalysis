@@ -10,30 +10,52 @@ public class ActionSequence {
     public ActionSequence() {
         this.elements = new ArrayList<>();
     }
-    
+
     public ActionSequence(List<AbstractActionSequenceElement<?>> elements) {
         this.elements = elements;
     }
-    
+
     public ActionSequence(ActionSequence sequence) {
         this(sequence.getElements());
     }
 
-    public void addElement(AbstractActionSequenceElement<?> element) {
-        this.elements.add(element);
-    }
-    
-    public List<AbstractActionSequenceElement<?>> getElements() {
-        return this.elements;
+    public ActionSequence(AbstractActionSequenceElement<?>... elements) {
+        this.elements = List.of(elements);
     }
 
-    public void evaluateDataFlow() {
+    public ActionSequence(ActionSequence sequence, AbstractActionSequenceElement<?>... newElements) {
+        // TODO: Find a smarter way to do this. Java is so dumb compared to Scala...
+        var allElements = new ArrayList<AbstractActionSequenceElement<?>>();
+        
+        for (var element : sequence.getElements()) {
+            allElements.add(element);
+        }
+        
+        for (var element: newElements) {
+            allElements.add(element);
+        }
+      
+        this.elements = allElements;
+    }
+
+    public List<AbstractActionSequenceElement<?>> getElements() {
+        return List.copyOf(this.elements);
+    }
+
+    public ActionSequence evaluateDataFlow() {
         var iterator = elements.iterator();
         List<DataFlowVariable> currentVariables = new ArrayList<>();
+        List<AbstractActionSequenceElement<?>> evaluatedElements = new ArrayList<>();
 
         while (iterator.hasNext()) {
             AbstractActionSequenceElement<?> nextElement = iterator.next();
-            currentVariables = nextElement.evaluateDataFlow(currentVariables);
+            AbstractActionSequenceElement<?> evaluatedElement = nextElement.evaluateDataFlow(currentVariables);
+
+            evaluatedElements.add(evaluatedElement);
+            currentVariables = evaluatedElement.getAllDataFlowVariables()
+                .get();
         }
+
+        return new ActionSequence(evaluatedElements);
     }
 }

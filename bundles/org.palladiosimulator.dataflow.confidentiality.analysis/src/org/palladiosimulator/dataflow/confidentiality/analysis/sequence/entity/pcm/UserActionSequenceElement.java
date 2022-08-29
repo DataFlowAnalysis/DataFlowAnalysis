@@ -3,6 +3,7 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.
 import java.util.ArrayDeque;
 import java.util.List;
 
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 
@@ -13,7 +14,7 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
     }
 
     @Override
-    public List<DataFlowVariable> evaluateDataFlow(List<DataFlowVariable> variables) {
+    public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables) {
         // TODO Auto-generated method stub
         return null;
     }

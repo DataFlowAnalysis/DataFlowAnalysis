@@ -2,6 +2,7 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.
 
 import java.util.List;
 
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CallReturnBehavior;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
@@ -25,7 +26,7 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
     // TODO: Custom hash and equals required?
 
     @Override
-    public List<DataFlowVariable> evaluateDataFlow(List<DataFlowVariable> variables) {
+    public AbstractActionSequenceElement<EntryLevelSystemCall> evaluateDataFlow(List<DataFlowVariable> variables) {
         // TODO Auto-generated method stub
         return null;
     }

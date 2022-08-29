@@ -222,7 +222,7 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
         OperationRequiredRole calledRole = currentAction.getRole_ExternalService();
         OperationSignature calledSignature = currentAction.getCalledService_ExternalService();
         Optional<SEFFWithContext> calledSEFF = PCMQueryUtils.findCalledSEFF(calledRole, calledSignature,
-                new ArrayDeque<>());
+                context);
 
         if (calledSEFF.isEmpty()) {
             return new ArrayList<ActionSequence>();

@@ -306,4 +306,4 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
     }
 
 } // TODO: There might be some refactoring potential as user and seff action handling has similiar
-  // structure
+  // structure. Seems to violate the SRP. Solution might be, e.g., a facade or more utility classes

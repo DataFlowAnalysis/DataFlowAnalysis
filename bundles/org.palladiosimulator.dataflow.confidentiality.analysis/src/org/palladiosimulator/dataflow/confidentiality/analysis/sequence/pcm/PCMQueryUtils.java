@@ -94,8 +94,7 @@ public class PCMQueryUtils {
                     (ComposedStructure) providingComponent, role);
 
             if (connector.isEmpty()) {
-                logger.error("Unable to find provided delegation connector.");
-                return Optional.empty();
+                throw new IllegalStateException("Unable to find provided delegation connector.");
             } else {
                 AssemblyContext assemblyContext = connector.get()
                     .getAssemblyContext_ProvidedDelegationConnector();
@@ -119,15 +118,13 @@ public class PCMQueryUtils {
                 .findFirst();
 
             if (SEFF.isEmpty()) {
-                logger.error("Unable to find called seff.");
-                return Optional.empty();
+                throw new IllegalStateException("Unable to find called seff.");
             } else {
                 return Optional.of(new SEFFWithContext(SEFF.get(), newContexts));
             }
 
         } else {
-            logger.warn("Unable to find called seff.");
-            return Optional.empty();
+            throw new IllegalStateException("Unable to find called seff.");
         }
     }
 
@@ -186,8 +183,7 @@ public class PCMQueryUtils {
                 .findFirst();
 
             if (outerRequiredRole.isEmpty()) {
-                logger.error("Unable to retrieve outer required role.");
-                return Optional.empty();
+                throw new IllegalStateException("Unable to retrieve outer required role.");
             } else {
                 newContexts.remove(newContexts.getLast());
                 return findCalledSEFF(outerRequiredRole.get(), calledSignature, newContexts);

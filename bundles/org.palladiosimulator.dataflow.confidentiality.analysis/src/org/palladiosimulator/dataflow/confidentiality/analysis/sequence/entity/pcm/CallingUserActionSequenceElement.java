@@ -30,5 +30,16 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
         // TODO Auto-generated method stub
         return null;
     }
+    
+    @Override
+    public String toString() {
+        String calling = isCalling ? "calling" : "returning";
+        return String.format("%s / %s (%s, %s))", this.getClass()
+            .getSimpleName(), calling,
+                this.getElement()
+                    .getEntityName(),
+                this.getElement()
+                    .getId());
+    }
 
 }

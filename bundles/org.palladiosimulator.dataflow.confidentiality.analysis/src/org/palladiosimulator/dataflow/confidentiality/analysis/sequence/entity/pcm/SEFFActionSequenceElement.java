@@ -21,4 +21,14 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
         return null;
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s (%s, %s))", this.getClass()
+            .getSimpleName(),
+                this.getElement()
+                    .getEntityName(),
+                this.getElement()
+                    .getId());
+    }
+
 }

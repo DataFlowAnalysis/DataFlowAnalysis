@@ -18,8 +18,12 @@ public class DataFlowConfidentialityAnalysisTest {
 
         analysis.initalizeAnalysis();
         analysis.loadModels();
-        Assertions.assertFalse(analysis.findAllSequences()
-            .isEmpty());
+        var allSequences = analysis.findAllSequences();
+        allSequences.stream()
+            .map(it -> it.toString())
+            .forEach(System.out::println);
+
+        Assertions.assertFalse(allSequences.isEmpty());
     }
 
 }

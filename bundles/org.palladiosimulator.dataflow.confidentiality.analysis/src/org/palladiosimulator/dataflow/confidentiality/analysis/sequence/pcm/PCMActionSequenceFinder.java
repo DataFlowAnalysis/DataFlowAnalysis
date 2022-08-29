@@ -89,9 +89,9 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
             return findSequencesForEntryLevelSystemCall((EntryLevelSystemCall) currentAction, previousSequence);
 
         } else {
-            logger.warn(String.format("The type %s is not supported in usage scenarios.", currentAction.getClass()
-                .getName()));
-            return null;
+            throw new IllegalArgumentException(
+                    String.format("The type %s is not supported in usage scenarios.", currentAction.getClass()
+                        .getName()));
         }
     }
 
@@ -141,8 +141,7 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
                 .getSteps_Behaviour());
 
             if (SEFFStartAction.isEmpty()) {
-                logger.warn("Unable to find SEFF start action.");
-                return new ArrayList<ActionSequence>();
+                throw new IllegalStateException("Unable to find SEFF start action.");
             } else {
                 Deque<AbstractPCMActionSequenceElement<?>> callers = new ArrayDeque<>();
                 callers.add(callingEntity);
@@ -182,9 +181,9 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
             return findSequencesForSEFFBranchAction((BranchAction) currentAction, context, callers, previousSequence);
 
         } else {
-            logger.warn(String.format("The type %s is not supported in SEFFs", currentAction.getClass()
-                .getName()));
-            return null;
+            throw new IllegalArgumentException(
+                    String.format("The type %s is not supported in SEFFs", currentAction.getClass()
+                        .getName()));
         }
     }
 
@@ -221,8 +220,7 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
 
         OperationRequiredRole calledRole = currentAction.getRole_ExternalService();
         OperationSignature calledSignature = currentAction.getCalledService_ExternalService();
-        Optional<SEFFWithContext> calledSEFF = PCMQueryUtils.findCalledSEFF(calledRole, calledSignature,
-                context);
+        Optional<SEFFWithContext> calledSEFF = PCMQueryUtils.findCalledSEFF(calledRole, calledSignature, context);
 
         if (calledSEFF.isEmpty()) {
             return new ArrayList<ActionSequence>();
@@ -232,8 +230,7 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
                 .getSteps_Behaviour());
 
             if (SEFFStartAction.isEmpty()) {
-                logger.warn("Unable to find SEFF start action.");
-                return new ArrayList<ActionSequence>();
+                throw new IllegalStateException("Unable to find SEFF start action.");
             } else {
                 callers.add(callingEntity);
                 return findSequencesForSEFFAction(SEFFStartAction.get(), calledSEFF.get()
@@ -288,17 +285,16 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
             return returnToSEFFCaller((CallingSEFFActionSequenceElement) caller, callers, previousSequence);
 
         } else {
-            logger.warn(String.format("No dispatch logic for call of type %s available.", caller.getClass()
-                .getSimpleName()));
-            return null;
+            throw new IllegalArgumentException(
+                    String.format("No dispatch logic for call of type %s available.", caller.getClass()
+                        .getSimpleName()));
         }
     }
 
     private List<ActionSequence> returnToUserCaller(CallingUserActionSequenceElement caller,
             Deque<AbstractPCMActionSequenceElement<?>> callers, ActionSequence previousSequence) {
         if (!callers.isEmpty()) {
-            logger.error("Illegal state in action sequence finder.");
-            return null;
+            throw new IllegalStateException("Illegal state in action sequence finder.");
         } else {
             return findSequencesForUserActionReturning(caller.getElement(), previousSequence);
         }

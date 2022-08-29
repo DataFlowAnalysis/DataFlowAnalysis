@@ -23,5 +23,8 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
     public boolean isEvaluated() {
         return this.dataFlowVariables.isPresent();
     }
+    
+    @Override
+    public abstract String toString();
 
 }

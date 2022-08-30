@@ -87,7 +87,7 @@ public class PCMQueryUtils {
 
         Deque<AssemblyContext> newContexts = new ArrayDeque<>(context);
         ProvidedRole role = providedRole;
-        InterfaceProvidingEntity providingComponent = role.getProvidingEntity_ProvidedRole(); // FIXME: This is null / not resolved correctly in the test model
+        InterfaceProvidingEntity providingComponent = role.getProvidingEntity_ProvidedRole();
 
         while (providingComponent instanceof ComposedStructure) {
             Optional<ProvidedDelegationConnector> connector = findProvidedDelegationConnector(

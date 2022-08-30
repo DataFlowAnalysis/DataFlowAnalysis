@@ -2,6 +2,7 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class ActionSequence {
 
@@ -24,18 +25,9 @@ public class ActionSequence {
     }
 
     public ActionSequence(ActionSequence sequence, AbstractActionSequenceElement<?>... newElements) {
-        // TODO: Find a smarter way to do this. Java is so dumb compared to Scala...
-        var allElements = new ArrayList<AbstractActionSequenceElement<?>>();
-
-        for (var element : sequence.getElements()) {
-            allElements.add(element);
-        }
-
-        for (var element : newElements) {
-            allElements.add(element);
-        }
-
-        this.elements = allElements;
+        this.elements = Stream.concat(sequence.getElements()
+            .stream(), Stream.of(newElements))
+            .toList();
     }
 
     public List<AbstractActionSequenceElement<?>> getElements() {
@@ -64,6 +56,6 @@ public class ActionSequence {
         return this.getElements()
             .stream()
             .map(it -> it.toString())
-            .reduce("", (t, u) -> String.format("%s\n%s", t, u)); // FIXME: Use platform independent line separator
+            .reduce("", (t, u) -> String.format("%s%s%s", t, System.lineSeparator(), u));
     }
 }

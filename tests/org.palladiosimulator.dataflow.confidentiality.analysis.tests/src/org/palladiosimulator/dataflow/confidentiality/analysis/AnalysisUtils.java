@@ -12,7 +12,7 @@ public class AnalysisUtils {
         // Utility class
     }
 
-    public static String TEST_MODEL_PROJECT_PATH = "org.palladiosimulator.dataflow.confidentiality.analysis.testmodels";
+    public static String TEST_MODEL_PROJECT_NAME = "org.palladiosimulator.dataflow.confidentiality.analysis.testmodels";
 
     public static void assertSequenceElement(ActionSequence sequence, int index, Class<?> expectedType) {
         assertNotNull(sequence.getElements());

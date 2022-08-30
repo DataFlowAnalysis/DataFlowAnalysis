@@ -1,7 +1,10 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Level;
@@ -20,6 +23,7 @@ import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.parser.antlr.AbstractInternalAntlrParser;
 import org.eclipse.xtext.resource.containers.ResourceSetBasedAllContainersStateProvider;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.ActionSequenceFinder;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMActionSequenceFinder;
 import org.palladiosimulator.dataflow.confidentiality.pcm.dddsl.DDDslStandaloneSetup;
@@ -47,43 +51,57 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
     private Allocation allocationModel = null;
     private UsageModel usageModel = null;
     private List<PCMDataDictionary> dataDictionaries;
-    
-    private String modelProjectPath = "";
+
+    private String modelProjectName = "";
     private Class<? extends Plugin> modelProjectActivator;
 
-    public StandalonePCMDataFlowConfidentialtyAnalysis(String modelProjectURL, Class<? extends Plugin> modelProjectActivator, String relativeUsageModelPath,
+    public StandalonePCMDataFlowConfidentialtyAnalysis(String modelProjectName,
+            Class<? extends Plugin> modelProjectActivator, String relativeUsageModelPath,
             String relativeAllocationModelPath) {
-        this.modelProjectPath = modelProjectURL;
+        this.modelProjectName = modelProjectName;
         this.modelProjectActivator = modelProjectActivator;
-        
+
         this.usageModelURI = getRelativePluginURI(relativeUsageModelPath);
         this.allocationModelURI = getRelativePluginURI(relativeAllocationModelPath);
-    }
-
-    @Override
-    public boolean initalizeAnalysis() {
-        if (initStandaloneAnalysis()) {
-            logger.info("Successfully initialized standalone data flow analysis.");
-            return true;
-        } else {
-            throw new IllegalStateException("Standalone initialization of the data flow analysis failed.");
-        }
-    }
-
-    @Override
-    public boolean loadModels() {
-        if (loadRequiredModels()) {
-            logger.info("Successfully loaded required models for the data flow analysis.");
-            return true;
-        } else {
-            throw new IllegalStateException("Failed loading the required models for the data flow analysis.");
-        }
     }
 
     @Override
     public List<ActionSequence> findAllSequences() {
         ActionSequenceFinder sequenceFinder = new PCMActionSequenceFinder(usageModel, allocationModel);
         return sequenceFinder.findAllSequences();
+    }
+
+    @Override
+    public List<ActionSequence> evaluateDataFlows(List<ActionSequence> sequences) {
+        return sequences.stream()
+            .map(it -> it.evaluateDataFlow())
+            .toList();
+    }
+
+    @Override
+    public List<AbstractActionSequenceElement<?>> queryDataFlow(ActionSequence sequence,
+            Predicate<? super AbstractActionSequenceElement<?>> condition) {
+        return sequence.getElements()
+            .stream()
+            .filter(condition)
+            .toList();
+    }
+
+    @Override
+    public boolean initalizeAnalysis() {
+        if (initStandaloneAnalysis()) {
+            logger.info("Successfully initialized standalone data flow analysis.");
+        } else {
+            throw new IllegalStateException("Standalone initialization of the data flow analysis failed.");
+        }
+
+        if (loadRequiredModels()) {
+            logger.info("Successfully loaded required models for the data flow analysis.");
+        } else {
+            throw new IllegalStateException("Failed loading the required models for the data flow analysis.");
+        }
+
+        return true;
     }
 
     private boolean initStandaloneAnalysis() {
@@ -110,7 +128,7 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
 
         try {
             StandaloneInitializerBuilder.builder()
-                .registerProjectURI(this.modelProjectActivator, this.modelProjectPath)
+                .registerProjectURI(this.modelProjectActivator, this.modelProjectName)
                 .registerProjectURI(StandalonePCMDataFlowConfidentialtyAnalysis.class, PLUGIN_PATH)
                 .build()
                 .init();
@@ -187,8 +205,7 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
     // Partially based on Palladio's ResourceSetPartition
     private boolean isTargetInResource(final EClass targetType, final Resource resource) {
         if (resource != null) {
-            for (EObject c : resource.getContents()) { // FIXME: Does not get the content of the
-                                                       // data dictionary
+            for (EObject c : resource.getContents()) {
                 if (targetType.isSuperTypeOf(c.eClass())) {
                     return true;
                 }
@@ -217,9 +234,9 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
     }
 
     private URI getRelativePluginURI(String relativePath) {
-        // FIXME: Might not be platform independent enough although it works on windows
-        return URI.createPlatformPluginURI(
-                "/" + this.modelProjectPath + "/" + relativePath, false);
+        String path = Paths.get(this.modelProjectName, relativePath)
+            .toString();
+        return URI.createPlatformPluginURI(path, false);
     }
 
 }

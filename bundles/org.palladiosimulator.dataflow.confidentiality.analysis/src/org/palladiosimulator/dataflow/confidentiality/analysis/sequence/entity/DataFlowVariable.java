@@ -1,26 +1,21 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
-public class DataFlowVariable {
-
-    private final String variableName;
-    private final List<CharacteristicValue> characteristics;
+public record DataFlowVariable(String variableName, List<CharacteristicValue> characteristics) {
 
     public DataFlowVariable(String variableName) {
-        this.variableName = variableName;
-        this.characteristics = new ArrayList<>();
+        this(variableName, List.of());
     }
 
-    public String getVariableName() {
-        return variableName;
+    public DataFlowVariable addCharacteristic(CharacteristicValue characteristic) {
+        List<CharacteristicValue> newCharacteristics = Stream
+            .concat(characteristics.stream(), Stream.of(characteristic))
+            .toList();
+        return new DataFlowVariable(variableName, newCharacteristics);
     }
 
-    public void addCharacteristic(CharacteristicValue characteristic) {
-        this.characteristics.add(characteristic);
-    }
-    
     public boolean hasCharacteristic(CharacteristicValue characteristic) {
         return this.characteristics.contains(characteristic);
     }

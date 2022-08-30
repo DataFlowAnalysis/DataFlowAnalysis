@@ -15,11 +15,11 @@ public class AnalysisUtils {
     public static String TEST_MODEL_PROJECT_NAME = "org.palladiosimulator.dataflow.confidentiality.analysis.testmodels";
 
     public static void assertSequenceElement(ActionSequence sequence, int index, Class<?> expectedType) {
-        assertNotNull(sequence.getElements());
-        assertTrue(sequence.getElements()
+        assertNotNull(sequence.elements());
+        assertTrue(sequence.elements()
             .size() >= index + 1);
 
-        Class<?> actualType = sequence.getElements()
+        Class<?> actualType = sequence.elements()
             .get(index)
             .getClass();
 
@@ -27,9 +27,9 @@ public class AnalysisUtils {
     }
 
     public static void assertSequenceElements(ActionSequence sequence, Class<?>... expectedElementTypes) {
-        var elements = sequence.getElements();
+        var elements = sequence.elements();
 
-        assertEquals(sequence.getElements()
+        assertEquals(sequence.elements()
             .size(), expectedElementTypes.length);
 
         for (int i = 0; i < expectedElementTypes.length; i++) {

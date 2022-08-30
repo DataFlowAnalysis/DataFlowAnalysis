@@ -4,38 +4,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class ActionSequence {
-
-    private final List<AbstractActionSequenceElement<?>> elements;
-
-    public ActionSequence() {
-        this.elements = new ArrayList<>();
-    }
+public record ActionSequence(List<AbstractActionSequenceElement<?>> elements) {
 
     public ActionSequence(List<AbstractActionSequenceElement<?>> elements) {
-        this.elements = elements;
+        this.elements = List.copyOf(elements);
+    }
+
+    public ActionSequence() {
+        this(List.of());
     }
 
     public ActionSequence(ActionSequence sequence) {
-        this(sequence.getElements());
+        this(sequence.elements());
     }
 
     public ActionSequence(AbstractActionSequenceElement<?>... elements) {
-        this.elements = List.of(elements);
+        this(List.of(elements));
     }
 
     public ActionSequence(ActionSequence sequence, AbstractActionSequenceElement<?>... newElements) {
-        this.elements = Stream.concat(sequence.getElements()
+        this(Stream.concat(sequence.elements()
             .stream(), Stream.of(newElements))
-            .toList();
-    }
-
-    public List<AbstractActionSequenceElement<?>> getElements() {
-        return List.copyOf(this.elements);
+            .toList());
     }
 
     public ActionSequence evaluateDataFlow() {
-        var iterator = elements.iterator();
+        var iterator = this.elements()
+            .iterator();
         List<DataFlowVariable> currentVariables = new ArrayList<>();
         List<AbstractActionSequenceElement<?>> evaluatedElements = new ArrayList<>();
 
@@ -44,8 +39,7 @@ public class ActionSequence {
             AbstractActionSequenceElement<?> evaluatedElement = nextElement.evaluateDataFlow(currentVariables);
 
             evaluatedElements.add(evaluatedElement);
-            currentVariables = evaluatedElement.getAllDataFlowVariables()
-                .get();
+            currentVariables = evaluatedElement.getAllDataFlowVariables();
         }
 
         return new ActionSequence(evaluatedElements);
@@ -53,7 +47,7 @@ public class ActionSequence {
 
     @Override
     public String toString() {
-        return this.getElements()
+        return this.elements()
             .stream()
             .map(it -> it.toString())
             .reduce("", (t, u) -> String.format("%s%s%s", t, System.lineSeparator(), u));

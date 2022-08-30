@@ -3,7 +3,6 @@ package org.palladiosimulator.dataflow.confidentiality.analysis;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -37,6 +36,7 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder
 import tools.mdsd.library.standalone.initialization.emfprofiles.EMFProfileInitializationTask;
 import tools.mdsd.library.standalone.initialization.log4j.Log4jInitilizationTask;
 
+// FIXME: Requires some refactoring
 public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConfidentialityAnalysis {
     private static final String EMF_PROFILE_PLUGIN = "org.palladiosimulator.dataflow.confidentiality.pcm.model.profile";
     private static final String EMF_PROFILE_NAME = "profile.emfprofile_diagram";
@@ -81,7 +81,7 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
     @Override
     public List<AbstractActionSequenceElement<?>> queryDataFlow(ActionSequence sequence,
             Predicate<? super AbstractActionSequenceElement<?>> condition) {
-        return sequence.getElements()
+        return sequence.elements()
             .stream()
             .filter(condition)
             .toList();

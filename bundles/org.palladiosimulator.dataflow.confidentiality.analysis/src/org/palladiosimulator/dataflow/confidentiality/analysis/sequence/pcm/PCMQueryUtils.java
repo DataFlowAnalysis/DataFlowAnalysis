@@ -24,6 +24,8 @@ import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.StartAction;
 import org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour;
 import org.palladiosimulator.pcm.usagemodel.Start;
+import org.palladiosimulator.pcm.usagemodel.UsageModel;
+import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 public class PCMQueryUtils {
 
@@ -36,8 +38,8 @@ public class PCMQueryUtils {
     public static Optional<Start> getStartActionOfScenarioBehavior(ScenarioBehaviour scenarioBehavior) {
         List<Start> candidates = scenarioBehavior.getActions_ScenarioBehaviour()
             .stream()
-            .filter(it -> it instanceof Start)
-            .map(it -> (Start) it)
+            .filter(Start.class::isInstance)
+            .map(Start.class::cast)
             .toList();
 
         if (candidates.size() > 1) {
@@ -51,9 +53,18 @@ public class PCMQueryUtils {
 
     public static Optional<StartAction> getFirstStartActionInActionList(List<AbstractAction> actionList) {
         return actionList.stream()
-            .filter(it -> it instanceof StartAction)
-            .map(it -> (StartAction) it)
+            .filter(StartAction.class::isInstance)
+            .map(StartAction.class::cast)
             .findFirst();
+    }
+    
+    public static List<Start> findStartActionsForUsageModel(UsageModel usageModel) {
+        return usageModel.getUsageScenario_UsageModel()
+            .stream()
+            .map(UsageScenario::getScenarioBehaviour_UsageScenario)
+            .map(PCMQueryUtils::getStartActionOfScenarioBehavior)
+            .flatMap(Optional::stream)
+            .toList();
     }
 
     @SuppressWarnings("unchecked")
@@ -111,8 +122,8 @@ public class PCMQueryUtils {
 
             Optional<ResourceDemandingSEFF> SEFF = component.getServiceEffectSpecifications__BasicComponent()
                 .stream()
-                .filter(it -> it instanceof ResourceDemandingSEFF)
-                .map(it -> (ResourceDemandingSEFF) it)
+                .filter(ResourceDemandingSEFF.class::isInstance)
+                .map(ResourceDemandingSEFF.class::cast)
                 .filter(it -> it.getDescribedService__SEFF()
                     .equals(calledSignature))
                 .findFirst();
@@ -153,8 +164,8 @@ public class PCMQueryUtils {
         // test if there is an assembly connector satisfying the required role
         Optional<AssemblyConnector> assemblyConnector = composedStructure.getConnectors__ComposedStructure()
             .stream()
-            .filter(it -> it instanceof AssemblyConnector)
-            .map(it -> (AssemblyConnector) it)
+            .filter(AssemblyConnector.class::isInstance)
+            .map(AssemblyConnector.class::cast)
             .filter(it -> it.getRequiredRole_AssemblyConnector()
                 .equals(requiredRole))
             .filter(it -> it.getRequiringAssemblyContext_AssemblyConnector()
@@ -174,12 +185,12 @@ public class PCMQueryUtils {
             // go to the parent composed structure to satisfy the required role
             Optional<RequiredRole> outerRequiredRole = composedStructure.getConnectors__ComposedStructure()
                 .stream()
-                .filter(it -> it instanceof RequiredDelegationConnector)
-                .map(it -> (RequiredDelegationConnector) it)
+                .filter(RequiredDelegationConnector.class::isInstance)
+                .map(RequiredDelegationConnector.class::cast)
                 .filter(it -> it.getInnerRequiredRole_RequiredDelegationConnector()
                     .equals(requiredRole))
                 .map(it -> it.getOuterRequiredRole_RequiredDelegationConnector())
-                .map(it -> (RequiredRole) it)
+                .map(RequiredRole.class::cast)
                 .findFirst();
 
             if (outerRequiredRole.isEmpty()) {
@@ -195,8 +206,8 @@ public class PCMQueryUtils {
             ProvidedRole outerRole) {
         return component.getConnectors__ComposedStructure()
             .stream()
-            .filter(it -> it instanceof ProvidedDelegationConnector)
-            .map(it -> (ProvidedDelegationConnector) it)
+            .filter(ProvidedDelegationConnector.class::isInstance)
+            .map(ProvidedDelegationConnector.class::cast)
             .filter(it -> it.getOuterProvidedRole_ProvidedDelegationConnector()
                 .equals(outerRole))
             .findFirst();

@@ -1,20 +1,16 @@
-
 name: Build Pipeline
 
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
   Palladio-Addons-DataFlowConfidentiality-Analysis:
-    runs-on: self-hosted
-    steps:
-      - uses: PalladioSimulator/Palladio-Build-ActionsPipeline@No-Caching-Input
-        with:
-          use-display-output: true
-          java-version: 11
-          deploy-updatesite: 'releng/org.palladiosimulator.dataflow.confidentiality.pcm.analysis.updatesite/target/repository'
-          server-ssh-key: ${{ secrets.DEPLOYMENT_SERVER_SSH_KEY }}
-          remote-host: ${{ secrets.DEPLOYMENT_REMOTE_HOST }}
-          remote-port: ${{ secrets.DEPLOYMENT_REMOTE_PORT }}
-          remote-user: ${{ secrets.DEPLOYMENT_REMOTE_USER }}
-          remote-target: ${{ secrets.DEPLOYMENT_REMOTE_TARGET }}
-          no-caching: true
+    uses: PalladioSimulator/Palladio-Build-ActionsPipeline/.github/workflows/build.yml@v3.2
+    with:
+      use-display-output: true
+      deploy-updatesite: 'releng/org.palladiosimulator.dataflow.confidentiality.pcm.analysis.updatesite/target/repository'
+    secrets:
+      SERVER_SSH_KEY: ${{ secrets.DEPLOYMENT_SERVER_SSH_KEY }}
+      REMOTE_HOST: ${{ secrets.DEPLOYMENT_REMOTE_HOST }}
+      REMOTE_PORT: ${{ secrets.DEPLOYMENT_REMOTE_PORT }}
+      REMOTE_USER: ${{ secrets.DEPLOYMENT_REMOTE_USER }}
+      REMOTE_TARGET: ${{ secrets.DEPLOYMENT_REMOTE_TARGET }}

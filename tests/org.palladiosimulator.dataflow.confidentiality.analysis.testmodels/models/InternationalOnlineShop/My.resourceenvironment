@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:characteristics="http://palladiosimulator.org/dataflow/confidentiality/pcm/0.1.0/characteristics" xmlns:emfprofileapplication="http://www.modelversioning.org/emfprofile/application/1.1" xmlns:org.palladiosimulator.dataflow.confidentiality.pcm.model.profile="org.palladiosimulator.dataflow.confidentiality.pcm.model.profile" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2">
+  <resourceenvironment:ResourceEnvironment>
+    <linkingResources__ResourceEnvironment id="_3n5CgITgEeywmO_IpTxeAg" entityName="PublicInternet" connectedResourceContainers_LinkingResource="_qvz80ITgEeywmO_IpTxeAg _upfkIITgEeywmO_IpTxeAg">
+      <communicationLinkResourceSpecifications_LinkingResource id="_3n5CgYTgEeywmO_IpTxeAg">
+        <latency_CommunicationLinkResourceSpecification/>
+        <throughput_CommunicationLinkResourceSpecification/>
+      </communicationLinkResourceSpecifications_LinkingResource>
+    </linkingResources__ResourceEnvironment>
+    <resourceContainer_ResourceEnvironment id="_qvz80ITgEeywmO_IpTxeAg" entityName="OnPremiseServer"/>
+    <resourceContainer_ResourceEnvironment id="_upfkIITgEeywmO_IpTxeAg" entityName="CloudServer"/>
+  </resourceenvironment:ResourceEnvironment>
+  <emfprofileapplication:ProfileApplication>
+    <stereotypeApplications xsi:type="org.palladiosimulator.dataflow.confidentiality.pcm.model.profile:Characterisable" appliedTo="_qvz80ITgEeywmO_IpTxeAg">
+      <extension href="../../plugin/org.palladiosimulator.dataflow.confidentiality.pcm.model.profile/profile.emfprofile_diagram#_5cGYIBB1EeuGl5fMWzDLAw"/>
+      <characteristics xsi:type="characteristics:EnumCharacteristic" href="My.resourceenvironment.characteristics#_d3OrYIThEeywmO_IpTxeAg"/>
+    </stereotypeApplications>
+    <stereotypeApplications xsi:type="org.palladiosimulator.dataflow.confidentiality.pcm.model.profile:Characterisable" appliedTo="_upfkIITgEeywmO_IpTxeAg">
+      <extension href="../../plugin/org.palladiosimulator.dataflow.confidentiality.pcm.model.profile/profile.emfprofile_diagram#_5cGYIBB1EeuGl5fMWzDLAw"/>
+      <characteristics xsi:type="characteristics:EnumCharacteristic" href="My.resourceenvironment.characteristics#_hxeTYIThEeywmO_IpTxeAg"/>
+    </stereotypeApplications>
+    <importedProfiles nsURI="org.palladiosimulator.dataflow.confidentiality.pcm.model.profile" location="platform:/plugin/org.palladiosimulator.dataflow.confidentiality.pcm.model.profile/profile.emfprofile_diagram"/>
+  </emfprofileapplication:ProfileApplication>
+</xmi:XMI>

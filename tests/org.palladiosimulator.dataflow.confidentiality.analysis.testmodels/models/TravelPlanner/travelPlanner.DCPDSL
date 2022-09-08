@@ -1,0 +1,12 @@
+import "platform:/resource/TravelPlanner_06_RBACAnalysisWithIssue/travelPlanner.pddc"
+
+type AssignedRoles:AssignedRoles
+type GrantedRoles:GrantedRoles
+
+constraint AtLeastOneMatchingRoleRequired {
+	data.attribute.GrantedRoles.$dataRoles{}
+		NEVER FLOWS
+	element.property.AssignedRoles.$subjectRoles{}
+		WHERE
+	isEmpty(intersection(subjectRoles,dataRoles))
+}

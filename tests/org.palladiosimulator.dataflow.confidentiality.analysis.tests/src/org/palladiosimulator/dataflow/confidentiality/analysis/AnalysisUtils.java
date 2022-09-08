@@ -1,10 +1,13 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.CallingSEFFActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.CallingUserActionSequenceElement;
 
 public class AnalysisUtils {
 
@@ -45,6 +48,30 @@ public class AnalysisUtils {
     private static String createProblemMessage(int index, Class<?> expectedType, Class<?> actualType) {
         return String.format("Type missmatch at index %d. Expected: %s, actual: %s.", index,
                 expectedType.getSimpleName(), actualType.getSimpleName());
+    }
+    
+    public static void assertSEFFSequenceElementContent(ActionSequence sequence, int index, String expectedName) {
+    	assertNotNull(sequence.elements());
+    	assertTrue(sequence.elements().size() >= index + 1);
+    	
+    	var element = sequence.elements().get(index);
+    	
+    	assertInstanceOf(CallingSEFFActionSequenceElement.class, element);
+    	
+    	var sequenceElement = (CallingSEFFActionSequenceElement) element;
+    	assertEquals(expectedName, sequenceElement.getElement().getEntityName());
+    }
+    
+    public static void assertUserSequenceElementContent(ActionSequence sequence, int index, String expectedName) {
+    	assertNotNull(sequence.elements());
+    	assertTrue(sequence.elements().size() >= index + 1);
+    	
+    	var element = sequence.elements().get(index);
+    	
+    	assertInstanceOf(CallingUserActionSequenceElement.class, element);
+    	
+    	var sequenceElement = (CallingUserActionSequenceElement) element;
+    	assertEquals(expectedName, sequenceElement.getElement().getEntityName());
     }
 
 }

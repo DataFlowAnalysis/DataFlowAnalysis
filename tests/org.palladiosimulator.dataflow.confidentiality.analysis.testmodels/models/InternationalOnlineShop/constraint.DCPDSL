@@ -1,0 +1,8 @@
+import "platform:/resource/InternationalOnlineShop/dic.pddc"
+
+type DataSensitivity : DataSensitivity
+type ServerLocation : ServerLocation
+
+constraint NoPersonalDataToNonEUServers {
+	data.attribute.DataSensitivity.Personal NEVER FLOWS element.property.ServerLocation.nonEU
+}

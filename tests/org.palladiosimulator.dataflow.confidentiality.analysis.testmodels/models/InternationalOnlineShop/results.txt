@@ -1,0 +1,11 @@
+-------------- GENERAL ---------------
+Constraint count: 1
+------------ CONSTRAINT 1 ------------
+Constraint name: "NoPersonalDataToNonEUServers"
+Violations found: 1
+--------- CONSTRAINT DETAILS ---------
+Data Characteristics: "DataSensitivity" set to "Personal"
+Condition: NEVER FLOWS
+Destination Characteristics: "ServerLocation" set to "nonEU"
+------- CONSTRAINT VIOLATIONS --------
+1. "userData (ekgs5hidhs4ol5ahmkkhrm6yw)" is not allowed to be input in "SEFF Entry Assembly_DatabaseService.storeUserData (1x3qe4pjfxu8ytbc2wabhieuj)".

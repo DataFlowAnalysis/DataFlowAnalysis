@@ -13,14 +13,21 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
         this.dataFlowVariables = Optional.empty();
     }
 
-    public abstract List<DataFlowVariable> evaluateDataFlow(List<DataFlowVariable> variables);
+    public AbstractActionSequenceElement(List<DataFlowVariable> variables) {
+        this.dataFlowVariables = Optional.of(List.copyOf(variables));
+    }
 
-    public Optional<List<DataFlowVariable>> getAllDataFlowVariables() {
-        return this.dataFlowVariables;
+    public abstract AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables);
+
+    public List<DataFlowVariable> getAllDataFlowVariables() {
+        return this.dataFlowVariables.orElseThrow(IllegalStateException::new);
     }
 
     public boolean isEvaluated() {
         return this.dataFlowVariables.isPresent();
     }
+
+    @Override
+    public abstract String toString();
 
 }

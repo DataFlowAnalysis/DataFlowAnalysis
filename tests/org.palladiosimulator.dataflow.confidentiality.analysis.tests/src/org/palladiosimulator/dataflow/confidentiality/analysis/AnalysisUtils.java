@@ -17,6 +17,13 @@ public class AnalysisUtils {
 
     public static String TEST_MODEL_PROJECT_NAME = "org.palladiosimulator.dataflow.confidentiality.analysis.testmodels";
 
+    /**
+     * <em>Assert</em> that {@code sequence} at index {@code index} and {@code expectedType} are of the same class.
+	 * <p>If {@code sequence} are {@code null}, they are considered unequal
+     * @param sequence ActionSequence to be inspected
+     * @param index Index into the {@code sequence} to be compared
+     * @param expectedType Expected type of the given ActionSequence at the given index
+     */
     public static void assertSequenceElement(ActionSequence sequence, int index, Class<?> expectedType) {
         assertNotNull(sequence.elements());
         assertTrue(sequence.elements()
@@ -29,9 +36,16 @@ public class AnalysisUtils {
         assertEquals(expectedType, actualType, createProblemMessage(index, expectedType, actualType));
     }
 
+    /**
+     * <em>Assert</em> that {@code sequence} and {@code expectedType} are of the same class at every index.
+	 * <p>If {@code sequence} is {@code null} or the sequences are of different length, they are considered unequal
+     * @param sequence ActionSequence to be inspected
+     * @param expectedType Expected types of the given ActionSequence at all indexes
+     */
     public static void assertSequenceElements(ActionSequence sequence, Class<?>... expectedElementTypes) {
         var elements = sequence.elements();
 
+        assertNotNull(elements);
         assertEquals(sequence.elements()
             .size(), expectedElementTypes.length);
 
@@ -45,11 +59,25 @@ public class AnalysisUtils {
         }
     }
 
+    /**
+     * Creates a problem message for the sequence assertions at a given index with the expected and actual type
+     * @param index Index into the sequence, that was incorrect
+     * @param expectedType Expected class of the sequence at the given index
+     * @param actualType Actual class of the sequence at the given index
+     * @return Problem message for the assertion
+     */
     private static String createProblemMessage(int index, Class<?> expectedType, Class<?> actualType) {
         return String.format("Type missmatch at index %d. Expected: %s, actual: %s.", index,
                 expectedType.getSimpleName(), actualType.getSimpleName());
     }
     
+    /**
+     * <em>Assert</em> that {@code sequence} at the given {@code index} has the entity name of {@code expectedName} and is a SEFF Element
+	 * <p>If both {@code sequence} or {@code expectedName} are {@code null} or the sequences are of different length, they are considered unequal
+     * @param sequence ActionSequence to be inspected
+     * @param index Index into the given sequence
+     * @param expectedName Expected name at the given {@code index} into the given {@code sequence}
+     */
     public static void assertSEFFSequenceElementContent(ActionSequence sequence, int index, String expectedName) {
     	assertNotNull(sequence.elements());
     	assertTrue(sequence.elements().size() >= index + 1);
@@ -62,6 +90,13 @@ public class AnalysisUtils {
     	assertEquals(expectedName, sequenceElement.getElement().getEntityName());
     }
     
+    /**
+     * <em>Assert</em> that {@code sequence} at the given {@code index} has the entity name of {@code expectedName} and is a User Element
+	 * <p>If both {@code sequence} or {@code expectedName} are {@code null} or the sequences are of different length, they are considered unequal
+     * @param sequence ActionSequence to be inspected
+     * @param index Index into the given sequence
+     * @param expectedName Expected name at the given {@code index} into the given {@code sequence}
+     */
     public static void assertUserSequenceElementContent(ActionSequence sequence, int index, String expectedName) {
     	assertNotNull(sequence.elements());
     	assertTrue(sequence.elements().size() >= index + 1);

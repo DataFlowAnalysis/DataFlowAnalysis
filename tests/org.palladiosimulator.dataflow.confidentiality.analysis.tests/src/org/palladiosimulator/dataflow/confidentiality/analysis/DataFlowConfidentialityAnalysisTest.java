@@ -13,7 +13,6 @@ import java.nio.file.Paths;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.CallingSEFFActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.CallingUserActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.SEFFActionSequenceElement;
@@ -23,6 +22,9 @@ public class DataFlowConfidentialityAnalysisTest {
 	
 	private static StandalonePCMDataFlowConfidentialtyAnalysis analysis;
 	
+	/**
+	 * Initializes the analysis with the BranchingOnlineShop test model and initializes the Analysis
+	 */
 	@BeforeAll
 	public static void initializeAnalysis() {
         final var usageModelPath = Paths.get("models", "BranchingOnlineShop", "default.usagemodel").toString();
@@ -34,6 +36,9 @@ public class DataFlowConfidentialityAnalysisTest {
         analysis.initalizeAnalysis();
 	}
 
+	/**
+	 * Tests the standalone analysis by executing the ActionSequenceFinder. Fails if no sequences can be found
+	 */
     @Test
     public void testStandaloneAnalysis() {
         var allSequences = analysis.findAllSequences();
@@ -44,12 +49,20 @@ public class DataFlowConfidentialityAnalysisTest {
         assertFalse(allSequences.isEmpty());
     }
     
+    /**
+     * Tests the expected amount of ActionSequences. 
+     * <p> Fails if the analysis does not find two sequences
+     */
     @Test
     public void testPCMActionSequenceFinderCount() {
     	var allSequences = analysis.findAllSequences();
     	assertEquals(2, allSequences.size(), String.format("Expected two dataflow sequences, but found %s sequences", allSequences.size()));
     }
 
+    /**
+     * Tests the expected sequence of elements
+     * <p> Fails if the analysis does not find the correct Classes for the first sequence
+     */
     @Test
     public void testPCMActionSequenceFinderTypes() {
         var allSequences = analysis.findAllSequences();
@@ -72,6 +85,10 @@ public class DataFlowConfidentialityAnalysisTest {
         assertSequenceElement(allSequences.get(1), 8, SEFFActionSequenceElement.class);
     }
 
+    /**
+     * Tests the content of the action sequences
+     * <p> Fails if the analysis does not find the correct entity name for elements in the ActionSequence
+     */
     @Test
     public void testPCMActionSequenceFinderContent() {
     	var allSequences = analysis.findAllSequences();

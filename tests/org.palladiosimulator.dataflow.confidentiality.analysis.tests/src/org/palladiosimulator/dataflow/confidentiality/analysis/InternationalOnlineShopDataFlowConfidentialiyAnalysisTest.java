@@ -21,6 +21,9 @@ public class InternationalOnlineShopDataFlowConfidentialiyAnalysisTest {
 	
 	private static StandalonePCMDataFlowConfidentialtyAnalysis analysis;
 	
+	/**
+	 * Initializes the analysis with the InternationalOnlineShop test model and initializes the Analysis
+	 */
 	@BeforeAll
 	public static void setupAnalysis() {
         final var usageModelPath = Paths.get("models", "InternationalOnlineShop", "default.usagemodel").toString();
@@ -32,6 +35,9 @@ public class InternationalOnlineShopDataFlowConfidentialiyAnalysisTest {
         analysis.initalizeAnalysis();
 	}
 	
+	/**
+	 * Tests the standalone analysis by executing the ActionSequenceFinder. Fails if no sequences can be found
+	 */
 	@Test
 	public void testStandaloneAnalysis() {
         var allSequences = analysis.findAllSequences();
@@ -42,12 +48,20 @@ public class InternationalOnlineShopDataFlowConfidentialiyAnalysisTest {
         assertFalse(allSequences.isEmpty());
 	}
 	
+	/**
+     * Tests the expected amount of ActionSequences. 
+     * <p> Fails if the analysis does not find two sequences
+     */
 	@Test
 	public void testDataFlowAnalysisPathCount() {
 		var allSequences = analysis.findAllSequences();
 		assertEquals(1, allSequences.size());
 	}
 
+	/**
+     * Tests the expected sequence of elements
+     * <p> Fails if the analysis does not find the correct Classes for the first sequence
+     */
 	@Test
 	public void testDataFlowAnalysisPath() {
 		var allSequences = analysis.findAllSequences();
@@ -69,6 +83,10 @@ public class InternationalOnlineShopDataFlowConfidentialiyAnalysisTest {
 				CallingUserActionSequenceElement.class);// UserAction-Return: BuyEntryLevelSystemCall
 	}
 
+	/**
+     * Tests the content of the action sequences
+     * <p> Fails if the analysis does not find the correct entity name for elements in the ActionSequence
+     */
     @Test
     public void testDataFlowAnalysisContent() {
     	var allSequences = analysis.findAllSequences();

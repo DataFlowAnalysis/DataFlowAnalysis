@@ -14,11 +14,15 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
         super(element, context);
         // TODO Auto-generated constructor stub
     }
+    
+    public SEFFActionSequenceElement(SEFFActionSequenceElement<T> oldElement, List<DataFlowVariable> variables) {
+    	super(oldElement, variables);
+    }
 
     @Override
     public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables) {
-        // TODO Auto-generated method stub
-        return null;
+    	System.out.println("Skipping element: " + this.getElement().getEntityName());
+    	return new SEFFActionSequenceElement<>(this, variables);
     }
 
     @Override

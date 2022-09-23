@@ -12,11 +12,15 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
     public UserActionSequenceElement(T element) {
         super(element, new ArrayDeque<>());
     }
+    
+    public UserActionSequenceElement(UserActionSequenceElement<T> oldElement, List<DataFlowVariable> variables) {
+    	super(oldElement, variables);
+    }
 
     @Override
     public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables) {
-        // TODO Auto-generated method stub
-        return null;
+    	System.out.println("Skipping element: " + this.getElement().getEntityName());
+        return new UserActionSequenceElement<T>(this, variables);
     }
 
     @Override

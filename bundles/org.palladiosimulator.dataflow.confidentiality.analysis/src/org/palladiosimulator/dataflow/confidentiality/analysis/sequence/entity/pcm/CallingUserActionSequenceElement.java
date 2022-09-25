@@ -15,7 +15,10 @@ import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCha
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
+import org.palladiosimulator.pcm.seff.SetVariableAction;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
+
+import com.google.common.collect.Streams;
 
 public class CallingUserActionSequenceElement extends UserActionSequenceElement<EntryLevelSystemCall>
         implements CallReturnBehavior {
@@ -46,53 +49,16 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
      */
     @Override
     public AbstractActionSequenceElement<EntryLevelSystemCall> evaluateDataFlow(List<DataFlowVariable> variables) {
-//    	List<DataFlowVariable> newVariables = new ArrayList<>(variables);
-//    	var inputParameterUsage = super.getElement().getInputParameterUsages_EntryLevelSystemCall();
-//    	for (VariableUsage parameterUsage : inputParameterUsage) {
-//    		var variableCharacterisations = parameterUsage.getVariableCharacterisation_VariableUsage();
-//    		for (VariableCharacterisation variableCharacterisation : variableCharacterisations) {
-//    			if (!(variableCharacterisation instanceof ConfidentialityVariableCharacterisation)) {
-//    				continue;
-//    			}
-//    			var confidentialityVariable = (ConfidentialityVariableCharacterisation) variableCharacterisation;
-//    			var lhs = (LhsEnumCharacteristicReference) confidentialityVariable.getLhs();
-//    			// var newValue = confidentialityVariable.getRhs(); // Can be True, Or, etc.
-//    			
-//    			var variable = parameterUsage.getNamedReference__VariableUsage().getReferenceName();
-//    			var characteristicType = (EnumCharacteristicType) lhs.getCharacteristicType();
-//    			var value = lhs.getLiteral();
-//    			
-//    			if (variables.stream().anyMatch(it -> it.variableName().equals(variable))) {
-//    				// Variable exists in scope
-//    				var characteristicValue = characteristicType != null ? characteristicType.getName() : "*";
-//    				var textValue = value != null ? value.getName() : "*";
-//    				//System.out.printf("%s.%s.%s modified at %s.%n", variable, characteristicValue, textValue, this.getElement().getEntityName());
-//    			} else {
-//    				// Variable does not exist in scope
-//    				DataFlowVariable newVariable = new DataFlowVariable(variable);
-//    				newVariable.addCharacteristic(new CharacteristicValue(characteristicType, value));
-//    				newVariables.add(newVariable);
-//    				var characteristicValue = characteristicType != null ? characteristicType.getName() : "*";
-//    				var textValue = value != null ? value.getName() : "*";
-//    				//System.out.printf("%s.%s.%s created at %s.%n", variable, characteristicValue, textValue, this.getElement().getEntityName());
-//    			}
-//    			
-//    		}
-//   	}
-    	
-    	var newVariables = new ArrayList<>(variables);
-    	super.getElement().getInputParameterUsages_EntryLevelSystemCall().stream()
-	    	.flatMap(it -> it.getVariableCharacterisation_VariableUsage().stream())
-	    	.map(ConfidentialityVariableCharacterisation.class::cast)
-	    	.forEach(it -> evaluateVariableCharacterisation(it, variables, newVariables));
-    	
-    	AbstractActionSequenceElement<EntryLevelSystemCall> evaluatedElement = new CallingUserActionSequenceElement(this, newVariables);
-       return evaluatedElement;
-    }
-    
-    private void evaluateVariableCharacterisation(ConfidentialityVariableCharacterisation confidentialityVariable, List<DataFlowVariable> oldVariables, List<DataFlowVariable> newVariables) {
-    	var rhs = confidentialityVariable.getRhs();
-    	CharacteristicsCalculator.evaluateLhs(confidentialityVariable, "Placeholder", oldVariables, newVariables);
+    	List<DataFlowVariable> currentVariables = new ArrayList<>(variables);
+    	var elementStream = Streams.concat(super.getElement().getInputParameterUsages_EntryLevelSystemCall().stream(), super.getElement().getOutputParameterUsages_EntryLevelSystemCall().stream());
+    	List<VariableCharacterisation> dataflowElements = elementStream
+	    	.flatMap(it -> it.getVariableCharacterisation_VariableUsage().stream()).toList();
+
+    	for (VariableCharacterisation dataflowElement : dataflowElements) {
+    		currentVariables = CharacteristicsCalculator.evaluate(dataflowElement, currentVariables);
+    	}
+    	AbstractActionSequenceElement<EntryLevelSystemCall> evaluatedElement = new CallingUserActionSequenceElement(this, currentVariables);
+    	return evaluatedElement;
     }
     
     @Override

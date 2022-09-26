@@ -37,23 +37,20 @@ public class CharacteristicsCalculator {
 		
 		var rightHandSide = confidentialityVariable.getRhs();
 		
-		var existingVariable = variables.stream().filter(it -> it.variableName().equals(variableName)).findAny().orElse(new DataFlowVariable(variableName));
+		var existingVariable = variables.stream()
+				.filter(it -> it.variableName().equals(variableName))
+				.findAny()
+				.orElse(new DataFlowVariable(variableName));
 		
 		// 2. Process wildcards
-		List<CharacteristicValue> modifiedCharacteristics;
-		if (characteristicValue == null && characteristicType != null) {
-			modifiedCharacteristics = discoverNewVariables(existingVariable, Optional.of(characteristicType));
-		} else if (characteristicValue == null && characteristicType == null) {
-			modifiedCharacteristics = discoverNewVariables(existingVariable, Optional.empty());
-		} else {
-			modifiedCharacteristics = List.of(existingVariable.getAllCharacteristics().stream().filter(it -> it.characteristicLiteral().getName().equals(characteristicValue.getName()) && it.characteristicType().getName().equals(characteristicType.getName())).findAny().orElse(new CharacteristicValue(characteristicType, characteristicValue)));
-		}
+		List<CharacteristicValue> modifiedCharacteristics= calculateModifiedCharacteristics(existingVariable, characteristicType, characteristicValue);
 		
 		// 3. Create new modified DataFlowVariable
 		DataFlowVariable computedVariable = new DataFlowVariable(variableName);
 		var unmodifiedCharacteristics = existingVariable.getAllCharacteristics().stream()
 				.filter(it -> !modifiedCharacteristics.contains(it))
 				.collect(Collectors.toList());
+		
 		for (CharacteristicValue umodifedCharacteristic : unmodifiedCharacteristics) {
 			computedVariable = computedVariable.addCharacteristic(umodifedCharacteristic);
 			System.out.println("Found unmodified at: " + computedVariable.variableName() + "." + umodifedCharacteristic.characteristicType().getName() + "." + umodifedCharacteristic.characteristicLiteral().getName());
@@ -68,6 +65,20 @@ public class CharacteristicsCalculator {
 		computedVariables.add(computedVariable);
 		
 		return computedVariables;
+	}
+	
+	private static List<CharacteristicValue> calculateModifiedCharacteristics(DataFlowVariable existingVariable, EnumCharacteristicType characteristicType, Literal characteristicValue) {
+		if (characteristicValue == null && characteristicType != null) {
+			return discoverNewVariables(existingVariable, Optional.of(characteristicType));
+		} else if (characteristicValue == null && characteristicType == null) {
+			return discoverNewVariables(existingVariable, Optional.empty());
+		} else {
+			return List.of(existingVariable.getAllCharacteristics().stream()
+					.filter(it -> it.characteristicLiteral().getName().equals(characteristicValue.getName()))
+					.filter(it -> it.characteristicType().getName().equals(characteristicType.getName()))
+					.findAny()
+					.orElse(new CharacteristicValue(characteristicType, characteristicValue)));
+		}
 	}
 	
 	public static boolean evaluateModifiedCharacteristic(Term term, CharacteristicValue characteristicValue, List<DataFlowVariable> dataflowVariables) {

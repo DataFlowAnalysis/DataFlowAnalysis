@@ -25,10 +25,22 @@ import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 public class CharacteristicsCalculator {
     private List<DataFlowVariable> currentVariables;
 
+    /**
+     * Initialize Characteristic Calculator with initial Variables
+     * 
+     * @param initialVariables
+     *            DataFlowVariables of the previous ActionSequence Element
+     */
     public CharacteristicsCalculator(List<DataFlowVariable> initialVariables) {
-        this.currentVariables = initialVariables;
+        this.currentVariables = new ArrayList<>(initialVariables);
     }
 
+    /**
+     * Evaluate a Variable Characterization with the current Variables
+     * 
+     * @param variableCharacterisation
+     *            Variable Characterization at the Sequence Element
+     */
     public void evaluate(VariableCharacterisation variableCharacterisation) {
         // 1. Find variable with given name
         var variableName = variableCharacterisation.getVariableUsage_VariableCharacterisation()
@@ -71,6 +83,18 @@ public class CharacteristicsCalculator {
         currentVariables.add(computedVariable);
     }
 
+    /**
+     * Calculates the list of modified characteristics with the given characteristic types and
+     * values
+     * 
+     * @param existingVariable
+     *            DataFlowVariable which should be modified
+     * @param characteristicType
+     *            Bound for the characteristic type. May be null to allow a wildcard
+     * @param characteristicValue
+     *            Bound for the characteristic value. May be null to allow a wildcard
+     * @return Returns the list of all characteristics that are modified with the given bounds
+     */
     private List<CharacteristicValue> calculateModifiedCharacteristics(DataFlowVariable existingVariable,
             EnumCharacteristicType characteristicType, Literal characteristicValue) {
         if (characteristicValue == null && characteristicType != null) {
@@ -91,6 +115,15 @@ public class CharacteristicsCalculator {
         }
     }
 
+    /**
+     * Evaluates the term (e.g. Right Hand Side) of a given Variable Characterization
+     * 
+     * @param term
+     *            Right Hand Side of the expression
+     * @param characteristicValue
+     *            Characteristic value that is modified
+     * @return Returns, whether the characteristic value should be set
+     */
     public boolean evaluateTerm(Term term, CharacteristicValue characteristicValue) {
         if (term instanceof True) {
             return true;
@@ -112,6 +145,16 @@ public class CharacteristicsCalculator {
         }
     }
 
+    /**
+     * Evaluates a named reference with a given characteristic value
+     * 
+     * @param characteristicReference
+     *            Right hand side with a reference to a characteristic
+     * @param characteristicValue
+     *            Characteristic value that is modified
+     * @return Returns, whether the characteristic reference evaluates to true or false (or is
+     *         undefined)
+     */
     public boolean evaluateNamedReference(NamedEnumCharacteristicReference characteristicReference,
             CharacteristicValue characteristicValue) {
         var optionalDataflowVariable = this.currentVariables.stream()
@@ -169,6 +212,17 @@ public class CharacteristicsCalculator {
         }
     }
 
+    /**
+     * Discovers all possible characteristics of a variable with an optional bound for the
+     * characteristic type
+     * 
+     * @param variable
+     *            DataFlowVariable of which the characteristics should be discovered
+     * @param characteristicType
+     *            Optional bound for the discovered characteristics
+     * @return List of characteristics available for the given variable and satisfying the possible
+     *         bound
+     */
     private static List<CharacteristicValue> discoverNewVariables(DataFlowVariable variable,
             Optional<EnumCharacteristicType> characteristicType) {
         List<CharacteristicValue> updatedCharacteristicValues = new ArrayList<>();
@@ -201,6 +255,12 @@ public class CharacteristicsCalculator {
         return updatedCharacteristicValues;
     }
 
+    /**
+     * Returns the list of DataFlowVariables that were calculated according to the
+     * VariableCharacterizations provided
+     * 
+     * @return List of DataFlowVariables after evaluating
+     */
     public List<DataFlowVariable> getCalculatedCharacteristics() {
         return this.currentVariables;
     }

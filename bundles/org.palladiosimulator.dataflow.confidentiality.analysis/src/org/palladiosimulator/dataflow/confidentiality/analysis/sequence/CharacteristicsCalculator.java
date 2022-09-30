@@ -124,7 +124,7 @@ public class CharacteristicsCalculator {
      *            Characteristic value that is modified
      * @return Returns, whether the characteristic value should be set
      */
-    public boolean evaluateTerm(Term term, CharacteristicValue characteristicValue) {
+    private boolean evaluateTerm(Term term, CharacteristicValue characteristicValue) {
         if (term instanceof True) {
             return true;
         } else if (term instanceof False) {
@@ -155,7 +155,7 @@ public class CharacteristicsCalculator {
      * @return Returns, whether the characteristic reference evaluates to true or false (or is
      *         undefined)
      */
-    public boolean evaluateNamedReference(NamedEnumCharacteristicReference characteristicReference,
+    private boolean evaluateNamedReference(NamedEnumCharacteristicReference characteristicReference,
             CharacteristicValue characteristicValue) {
         var optionalDataflowVariable = this.currentVariables.stream()
             .filter(it -> it.variableName()
@@ -166,50 +166,23 @@ public class CharacteristicsCalculator {
             return false;
         }
         var dataflowVariable = optionalDataflowVariable.get();
-        if (characteristicReference.getLiteral() == null && characteristicReference.getCharacteristicType() != null) {
-            var characteristicSearchValue = dataflowVariable.getAllCharacteristics()
-                .stream()
-                .filter(it -> it.characteristicType()
-                    .getName()
-                    .equals(characteristicReference.getCharacteristicType()
-                        .getName()))
-                .filter(it -> it.characteristicLiteral()
-                    .getName()
-                    .equals(characteristicValue.characteristicLiteral()
-                        .getName()))
-                .findAny();
-            return !characteristicSearchValue.isEmpty()
-                    && dataflowVariable.hasCharacteristic(characteristicSearchValue.get());
-        } else if (characteristicReference.getLiteral() == null
-                && characteristicReference.getCharacteristicType() == null) {
-            var characteristicSearchValue = dataflowVariable.getAllCharacteristics()
-                .stream()
-                .filter(it -> it.characteristicType()
-                    .getName()
-                    .equals(characteristicValue.characteristicType()
-                        .getName()))
-                .filter(it -> it.characteristicLiteral()
-                    .getName()
-                    .equals(characteristicValue.characteristicLiteral()
-                        .getName()))
-                .findAny();
-            return !characteristicSearchValue.isEmpty()
-                    && dataflowVariable.hasCharacteristic(characteristicSearchValue.get());
-        } else {
-            var characteristicSearchValue = dataflowVariable.getAllCharacteristics()
-                .stream()
-                .filter(it -> it.characteristicType()
-                    .getName()
-                    .equals(characteristicReference.getCharacteristicType()
-                        .getName()))
-                .filter(it -> it.characteristicLiteral()
-                    .getName()
-                    .equals(characteristicReference.getLiteral()
-                        .getName()))
-                .findAny();
-            return !characteristicSearchValue.isEmpty()
-                    && dataflowVariable.hasCharacteristic(characteristicSearchValue.get());
-        }
+        var characteristicReferenceType = characteristicReference.getCharacteristicType() != null
+                ? characteristicReference.getCharacteristicType()
+                : characteristicValue.characteristicType();
+        var characteristicReferenceValue = characteristicReference.getLiteral() != null
+                ? characteristicReference.getLiteral()
+                : characteristicValue.characteristicLiteral();
+
+        var characteristic = dataflowVariable.getAllCharacteristics()
+            .stream()
+            .filter(it -> it.characteristicType()
+                .getName()
+                .equals(characteristicReferenceType.getName()))
+            .filter(it -> it.characteristicLiteral()
+                .getName()
+                .equals(characteristicReferenceValue.getName()))
+            .findAny();
+        return !characteristic.isEmpty() && dataflowVariable.hasCharacteristic(characteristic.get());
     }
 
     /**

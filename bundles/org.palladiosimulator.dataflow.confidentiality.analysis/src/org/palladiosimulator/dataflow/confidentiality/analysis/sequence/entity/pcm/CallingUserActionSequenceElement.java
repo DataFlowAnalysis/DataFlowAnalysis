@@ -1,21 +1,12 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.CharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CallReturnBehavior;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
-import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.ConfidentialityVariableCharacterisation;
-import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.expression.LhsEnumCharacteristicReference;
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristicType;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
-import org.palladiosimulator.pcm.parameter.VariableUsage;
-import org.palladiosimulator.pcm.seff.ExternalCallAction;
-import org.palladiosimulator.pcm.seff.SetVariableAction;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 
 import com.google.common.collect.Streams;
@@ -30,10 +21,11 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
         this.isCalling = isCalling;
         // TODO Auto-generated constructor stub
     }
-    
-    public CallingUserActionSequenceElement(CallingUserActionSequenceElement oldElement, List<DataFlowVariable> variables) {
-    	super(oldElement, variables);
-    	this.isCalling = oldElement.isCalling();
+
+    public CallingUserActionSequenceElement(CallingUserActionSequenceElement oldElement,
+            List<DataFlowVariable> variables) {
+        super(oldElement, variables);
+        this.isCalling = oldElement.isCalling();
     }
 
     @Override
@@ -44,23 +36,27 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
     // TODO: Custom hash and equals required?
 
     /**
-     * Input:       ccd  .    GrantedRoles  . User := true
-     * Elements: variable.characteristicType.value := Term
+     * Input: ccd . GrantedRoles . User := true Elements: variable.characteristicType.value := Term
      */
     @Override
     public AbstractActionSequenceElement<EntryLevelSystemCall> evaluateDataFlow(List<DataFlowVariable> variables) {
-    	List<DataFlowVariable> currentVariables = new ArrayList<>(variables);
-    	var elementStream = Streams.concat(super.getElement().getInputParameterUsages_EntryLevelSystemCall().stream(), super.getElement().getOutputParameterUsages_EntryLevelSystemCall().stream());
-    	List<VariableCharacterisation> dataflowElements = elementStream
-	    	.flatMap(it -> it.getVariableCharacterisation_VariableUsage().stream()).toList();
+        var elementStream = Streams.concat(super.getElement().getInputParameterUsages_EntryLevelSystemCall()
+            .stream(),
+                super.getElement().getOutputParameterUsages_EntryLevelSystemCall()
+                    .stream());
+        List<VariableCharacterisation> dataflowElements = elementStream
+            .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
+                .stream())
+            .toList();
 
-    	for (VariableCharacterisation dataflowElement : dataflowElements) {
-    		currentVariables = CharacteristicsCalculator.evaluate(dataflowElement, currentVariables);
-    	}
-    	AbstractActionSequenceElement<EntryLevelSystemCall> evaluatedElement = new CallingUserActionSequenceElement(this, currentVariables);
-    	return evaluatedElement;
+        CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(variables);
+        dataflowElements.stream()
+            .forEach(it -> characteristicsCalculator.evaluate(it));
+        AbstractActionSequenceElement<EntryLevelSystemCall> evaluatedElement = new CallingUserActionSequenceElement(
+                this, characteristicsCalculator.getCalculatedCharacteristics());
+        return evaluatedElement;
     }
-    
+
     @Override
     public String toString() {
         String calling = isCalling ? "calling" : "returning";

@@ -19,6 +19,14 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.p
 
 public class DataflowSequenceFinderTest extends AnalysisFeatureTest {
 
+    /**
+     * Tests whether the analysis finds the correct amount of sequences
+     * 
+     * @param analysis
+     *            Analysis model that should be tested
+     * @param expectedSequences
+     *            Expected number of sequences
+     */
     @ParameterizedTest
     @MethodSource("testCountProvider")
     public void testCount(StandalonePCMDataFlowConfidentialtyAnalysis analysis, int expectedSequences) {
@@ -27,6 +35,12 @@ public class DataflowSequenceFinderTest extends AnalysisFeatureTest {
                 String.format("Expected two dataflow sequences, but found %s sequences", allSequences.size()));
     }
 
+    /**
+     * Provides a list of arguments to the {@code testCount} Test. The list contains the arguments
+     * to the test method
+     * 
+     * @return List of arguments to the test method
+     */
     private static Stream<Arguments> testCountProvider() {
         return Stream.of(Arguments.of(onlineShopAnalysis, 2), Arguments.of(internationalOnlineShopAnalysis, 1),
                 Arguments.of(travelPlannerAnalysis, 2));

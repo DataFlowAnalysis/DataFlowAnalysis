@@ -43,20 +43,12 @@ public class DataflowSequenceFinderTest extends AnalysisFeatureTest {
 
         assertEquals(allSequences.size(), 2);
 
-        assertSequenceElements(allSequences.get(0), CallingUserActionSequenceElement.class, // UserAction-Call:
-                                                                                            // ViewEntryLevelSystemCall
-                CallingSEFFActionSequenceElement.class, // SEFFAction-Call: DatabaseLoadInventory
-                SEFFActionSequenceElement.class, // SEFFAction: Return
-                CallingSEFFActionSequenceElement.class, // SEFFAction-Return: DatabaseLoadInventory
-                SEFFActionSequenceElement.class, // SEFFAction: Return
-                CallingUserActionSequenceElement.class, // UserAction-Return:
-                                                        // ViewEntryLevelSystemCall
-
-                CallingUserActionSequenceElement.class, // UserAction-Call: BuyEntryLevelSystemCall
-                CallingSEFFActionSequenceElement.class, // SEFFAction-Call: SaveInventoryCall
-                CallingSEFFActionSequenceElement.class, // SEFFAction-Return: SaveInventoryCall
-                CallingUserActionSequenceElement.class);// UserAction-Return:
-                                                        // BuyEntryLevelSystemCall
+        assertSequenceElements(allSequences.get(0), CallingUserActionSequenceElement.class,
+                CallingSEFFActionSequenceElement.class, SEFFActionSequenceElement.class,
+                CallingSEFFActionSequenceElement.class, SEFFActionSequenceElement.class,
+                CallingUserActionSequenceElement.class, CallingUserActionSequenceElement.class,
+                CallingSEFFActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
+                CallingUserActionSequenceElement.class);
 
         assertSequenceElement(allSequences.get(1), 8, SEFFActionSequenceElement.class);
     }
@@ -71,22 +63,13 @@ public class DataflowSequenceFinderTest extends AnalysisFeatureTest {
         var allSequences = internationalOnlineShopAnalysis.findAllSequences();
         assertEquals(1, allSequences.size());
 
-        assertSequenceElements(allSequences.get(0), CallingUserActionSequenceElement.class, // UserAction-Call:
-                                                                                            // ViewEntryLevelSystemCall
-                CallingSEFFActionSequenceElement.class, // SEFFAction-Call: DatabaseLoadInventory
-                SEFFActionSequenceElement.class, // SEFF-Action: Return
-                CallingSEFFActionSequenceElement.class, // SEFFAction-Return: DatabaseLoadInventory
-                SEFFActionSequenceElement.class, // SEFF-Action: Return
-                CallingUserActionSequenceElement.class, // UserAction-Return:
-                                                        // ViewEntryLevelSystemCall
-
-                CallingUserActionSequenceElement.class, // UserAction-Call: BuyEntryLevelSystemCall
-                CallingSEFFActionSequenceElement.class, // SEFFAction-Call: DatabaseStoreInventory
-                CallingSEFFActionSequenceElement.class, // SEFFAction-Return: DatabaseStoreInventory
-                CallingSEFFActionSequenceElement.class, // SEFFAction-Call: DatabaseStoreUserData
-                CallingSEFFActionSequenceElement.class, // SEFFAction-Return: DatabaseStoreUserData
-                CallingUserActionSequenceElement.class);// UserAction-Return:
-                                                        // BuyEntryLevelSystemCall
+        assertSequenceElements(allSequences.get(0), CallingUserActionSequenceElement.class,
+                CallingSEFFActionSequenceElement.class, SEFFActionSequenceElement.class,
+                CallingSEFFActionSequenceElement.class, SEFFActionSequenceElement.class,
+                CallingUserActionSequenceElement.class, CallingUserActionSequenceElement.class,
+                CallingSEFFActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
+                CallingSEFFActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
+                CallingUserActionSequenceElement.class);
     }
 
     /**
@@ -99,45 +82,19 @@ public class DataflowSequenceFinderTest extends AnalysisFeatureTest {
         var allSequences = travelPlannerAnalysis.findAllSequences();
         assertEquals(2, allSequences.size());
 
-        assertSequenceElements(allSequences.get(0), CallingUserActionSequenceElement.class, // UserAction-Call:
-                                                                                            // Store
-                                                                                            // CreditCardDetails
-                CallingUserActionSequenceElement.class, // UserAction-Return: Store
-                                                        // CreditCardDetails
+        assertSequenceElements(allSequences.get(0), CallingUserActionSequenceElement.class,
+                CallingUserActionSequenceElement.class, CallingUserActionSequenceElement.class,
+                CallingSEFFActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
+                CallingSEFFActionSequenceElement.class, SEFFActionSequenceElement.class,
+                CallingSEFFActionSequenceElement.class, SEFFActionSequenceElement.class,
+                CallingUserActionSequenceElement.class, CallingUserActionSequenceElement.class,
+                CallingUserActionSequenceElement.class, CallingUserActionSequenceElement.class,
+                CallingSEFFActionSequenceElement.class, SEFFActionSequenceElement.class,
+                CallingSEFFActionSequenceElement.class, SEFFActionSequenceElement.class,
+                CallingUserActionSequenceElement.class);
 
-                CallingUserActionSequenceElement.class, // UserAction-Call: Look for flights
-                CallingSEFFActionSequenceElement.class, // SEFFAction-Call: Request flights from
-                                                        // Airline
-                CallingSEFFActionSequenceElement.class, // SEFFAction-Call: Read flights from
-                                                        // Database
-                CallingSEFFActionSequenceElement.class, // SEFFAction-Return: Read flights from
-                                                        // Database
-                SEFFActionSequenceElement.class, // SEFFAction: Select flights based on query and
-                                                 // return selection
-                CallingSEFFActionSequenceElement.class, // SEFFAction-Return: Request flights from
-                                                        // Airline
-                SEFFActionSequenceElement.class, // SEFFAction: Return found flights
-                CallingUserActionSequenceElement.class, // UserAction-Return: Look for flights1
-
-                CallingUserActionSequenceElement.class, // UserAction-Call: Load CreditCardDetails
-                CallingUserActionSequenceElement.class, // UserAction-Return: Load CreditCardDetails
-
-                CallingUserActionSequenceElement.class, // UserAction-Call: Book flight using
-                                                        // CreditCardDetails
-                CallingSEFFActionSequenceElement.class, // SEFFAction-Call: Ask Airline to book
-                                                        // flight
-                SEFFActionSequenceElement.class, // SEFF-Action: Return confirmation
-                CallingSEFFActionSequenceElement.class, // SEFFAction-Return: Ask Airline to book
-                                                        // flight
-                SEFFActionSequenceElement.class, // SEFF-Action: Return confirmation
-                CallingUserActionSequenceElement.class);// UserAction-Return: Book flight using
-                                                        // CreditCardDetails
-
-        assertSequenceElements(allSequences.get(1), CallingUserActionSequenceElement.class, // UserAction-Call:
-                                                                                            // Add
-                                                                                            // scheduled
-                                                                                            // flight
-                CallingUserActionSequenceElement.class); // UserAction-Return: Add scheduled flight
+        assertSequenceElements(allSequences.get(1), CallingUserActionSequenceElement.class,
+                CallingUserActionSequenceElement.class);
     }
 
     /**

@@ -212,9 +212,12 @@ public class AnalysisUtils {
             .stream()
             .filter(it -> it.variableName()
                 .equals(variableName))
-            .findAny()
-            .orElseThrow();
-        assertTrue(dataflowVariable.characteristics()
+            .findAny();
+        if (dataflowVariable.isEmpty()) {
+            return;
+        }
+        assertTrue(dataflowVariable.get()
+            .characteristics()
             .stream()
             .filter(it -> it.characteristicType()
                 .getName()

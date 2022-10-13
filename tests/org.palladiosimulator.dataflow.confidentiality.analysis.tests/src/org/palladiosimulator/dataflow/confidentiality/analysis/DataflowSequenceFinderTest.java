@@ -3,13 +3,14 @@ package org.palladiosimulator.dataflow.confidentiality.analysis;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisUtils.assertSEFFSequenceElementContent;
-import static org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisUtils.assertSequenceElement;
 import static org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisUtils.assertSequenceElements;
 import static org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisUtils.assertUserSequenceElementContent;
 
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -28,6 +29,7 @@ public class DataflowSequenceFinderTest extends AnalysisFeatureTest {
      *            Expected number of sequences
      */
     @ParameterizedTest
+    @DisplayName("Should return the correct number of sequences")
     @MethodSource("testCountProvider")
     public void testCount(StandalonePCMDataFlowConfidentialtyAnalysis analysis, int expectedSequences) {
         var allSequences = analysis.findAllSequences();
@@ -46,113 +48,108 @@ public class DataflowSequenceFinderTest extends AnalysisFeatureTest {
                 Arguments.of(travelPlannerAnalysis, 2));
     }
 
-    /**
-     * Tests the expected sequence of elements
-     * <p>
-     * Fails if the analysis does not find the correct Classes for the first sequence
-     */
-    @Test
-    public void testOnlineShopPath() {
-        var allSequences = onlineShopAnalysis.findAllSequences();
+    @ParameterizedTest
+    @DisplayName("Should return the correct sequence of Dataflow Variables")
+    @MethodSource("testPathProvider")
+    public void testPath(StandalonePCMDataFlowConfidentialtyAnalysis analysis, List<List<Class<?>>> classes) {
+        var sequences = analysis.findAllSequences();
 
-        assertEquals(allSequences.size(), 2);
+        assertTrue(sequences.size() >= classes.size());
 
-        assertSequenceElements(allSequences.get(0), CallingUserActionSequenceElement.class,
-                CallingSEFFActionSequenceElement.class, SEFFActionSequenceElement.class,
-                CallingSEFFActionSequenceElement.class, SEFFActionSequenceElement.class,
-                CallingUserActionSequenceElement.class, CallingUserActionSequenceElement.class,
-                CallingSEFFActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
-                CallingUserActionSequenceElement.class);
-
-        assertSequenceElement(allSequences.get(1), 8, SEFFActionSequenceElement.class);
+        for (int i = 0; i < classes.size(); i++) {
+            assertSequenceElements(sequences.get(i), classes.get(i));
+        }
     }
 
     /**
-     * Tests the expected sequence of elements
-     * <p>
-     * Fails if the analysis does not find the correct Classes for the first sequence
+     * Provides a list of arguments to the {@code testPath} Test. The list contains the arguments to
+     * the test method
+     * 
+     * @return List of arguments to the test method
      */
-    @Test
-    public void testInternationalOnlineShopPath() {
-        var allSequences = internationalOnlineShopAnalysis.findAllSequences();
-        assertEquals(1, allSequences.size());
-
-        assertSequenceElements(allSequences.get(0), CallingUserActionSequenceElement.class,
-                CallingSEFFActionSequenceElement.class, SEFFActionSequenceElement.class,
-                CallingSEFFActionSequenceElement.class, SEFFActionSequenceElement.class,
-                CallingUserActionSequenceElement.class, CallingUserActionSequenceElement.class,
-                CallingSEFFActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
-                CallingSEFFActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
-                CallingUserActionSequenceElement.class);
+    private static Stream<Arguments> testPathProvider() {
+        return Stream.of(
+                Arguments.of(onlineShopAnalysis,
+                        List.of(List.of(CallingUserActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
+                                SEFFActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
+                                SEFFActionSequenceElement.class, CallingUserActionSequenceElement.class,
+                                CallingUserActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
+                                CallingSEFFActionSequenceElement.class, CallingUserActionSequenceElement.class))),
+                Arguments.of(internationalOnlineShopAnalysis,
+                        List.of(List.of(CallingUserActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
+                                SEFFActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
+                                SEFFActionSequenceElement.class, CallingUserActionSequenceElement.class,
+                                CallingUserActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
+                                CallingSEFFActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
+                                CallingSEFFActionSequenceElement.class, CallingUserActionSequenceElement.class))),
+                Arguments.of(travelPlannerAnalysis, List.of(
+                        List.of(CallingUserActionSequenceElement.class, CallingUserActionSequenceElement.class,
+                                CallingUserActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
+                                CallingSEFFActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
+                                SEFFActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
+                                SEFFActionSequenceElement.class, CallingUserActionSequenceElement.class,
+                                CallingUserActionSequenceElement.class, CallingUserActionSequenceElement.class,
+                                CallingUserActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
+                                SEFFActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
+                                SEFFActionSequenceElement.class, CallingUserActionSequenceElement.class),
+                        List.of(CallingUserActionSequenceElement.class, CallingUserActionSequenceElement.class))));
     }
 
     /**
-     * Tests the expected sequence of elements
-     * <p>
-     * Fails if the analysis does not find the correct Classes for the first sequence
-     */
-    @Test
-    public void testTravelPlannerPath() {
-        var allSequences = travelPlannerAnalysis.findAllSequences();
-        assertEquals(2, allSequences.size());
-
-        assertSequenceElements(allSequences.get(0), CallingUserActionSequenceElement.class,
-                CallingUserActionSequenceElement.class, CallingUserActionSequenceElement.class,
-                CallingSEFFActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
-                CallingSEFFActionSequenceElement.class, SEFFActionSequenceElement.class,
-                CallingSEFFActionSequenceElement.class, SEFFActionSequenceElement.class,
-                CallingUserActionSequenceElement.class, CallingUserActionSequenceElement.class,
-                CallingUserActionSequenceElement.class, CallingUserActionSequenceElement.class,
-                CallingSEFFActionSequenceElement.class, SEFFActionSequenceElement.class,
-                CallingSEFFActionSequenceElement.class, SEFFActionSequenceElement.class,
-                CallingUserActionSequenceElement.class);
-
-        assertSequenceElements(allSequences.get(1), CallingUserActionSequenceElement.class,
-                CallingUserActionSequenceElement.class);
-    }
-
-    /**
-     * Tests the content of the action sequences
+     * Tests the content of some SEFF Action Sequence Elements
      * <p>
      * Fails if the analysis does not find the correct entity name for elements in the
      * ActionSequence
      */
-    @Test
-    public void testOnlineShopContent() {
-        var allSequences = onlineShopAnalysis.findAllSequences();
-        assertTrue(allSequences.size() > 0);
+    @ParameterizedTest
+    @DisplayName("Action sequence should contain correct SEFF action content")
+    @MethodSource("testSEFFContentProvider")
+    public void testSEFFContent(StandalonePCMDataFlowConfidentialtyAnalysis analyis, Map<Integer, String> expected) {
+        var sequences = analyis.findAllSequences();
 
-        assertUserSequenceElementContent(allSequences.get(0), 0, "ViewEntryLevelSystemCall");
-        assertSEFFSequenceElementContent(allSequences.get(0), 1, "DatabaseLoadInventory");
+        for (var entry : expected.entrySet()) {
+            assertSEFFSequenceElementContent(sequences.get(0), entry.getKey(), entry.getValue());
+        }
     }
 
     /**
-     * Tests the content of the action sequences
+     * Provides a list of arguments to the {@code testSEFFContent} Test. The list contains the
+     * arguments to the test method
+     * 
+     * @return List of arguments to the test method
+     */
+    private static Stream<Arguments> testSEFFContentProvider() {
+        return Stream.of(Arguments.of(onlineShopAnalysis, Map.of(1, "DatabaseLoadInventory")),
+                Arguments.of(internationalOnlineShopAnalysis, Map.of(9, "DatabaseStoreUserData")),
+                Arguments.of(travelPlannerAnalysis, Map.of(13, "ask airline to book flight")));
+    }
+
+    /**
+     * Tests the content of some User Action Sequence Elements
      * <p>
      * Fails if the analysis does not find the correct entity name for elements in the
      * ActionSequence
      */
-    @Test
-    public void testInternationalOnlineShopContent() {
-        var allSequences = internationalOnlineShopAnalysis.findAllSequences();
-        assertTrue(allSequences.size() > 0);
+    @ParameterizedTest
+    @DisplayName("Action sequence should contain correct user action content")
+    @MethodSource("testUserContentProvider")
+    public void testUserContent(StandalonePCMDataFlowConfidentialtyAnalysis analyis, Map<Integer, String> expected) {
+        var sequences = analyis.findAllSequences();
 
-        assertUserSequenceElementContent(allSequences.get(0), 6, "BuyEntryLevelSystemCall");
-        assertSEFFSequenceElementContent(allSequences.get(0), 9, "DatabaseStoreUserData");
+        for (var entry : expected.entrySet()) {
+            assertUserSequenceElementContent(sequences.get(0), entry.getKey(), entry.getValue());
+        }
     }
 
     /**
-     * Tests the content of the action sequences
-     * <p>
-     * Fails if the analysis does not find the correct entity name for elements in the
-     * ActionSequence
+     * Provides a list of arguments to the {@code testUserContent} Test. The list contains the
+     * arguments to the test method
+     * 
+     * @return List of arguments to the test method
      */
-    @Test
-    public void testTravelPlannerContent() {
-        var allSequences = travelPlannerAnalysis.findAllSequences();
-        assertTrue(allSequences.size() > 0);
-
-        assertUserSequenceElementContent(allSequences.get(0), 2, "look for flights");
-        assertSEFFSequenceElementContent(allSequences.get(0), 13, "ask airline to book flight");
+    private static Stream<Arguments> testUserContentProvider() {
+        return Stream.of(Arguments.of(onlineShopAnalysis, Map.of(0, "ViewEntryLevelSystemCall")),
+                Arguments.of(internationalOnlineShopAnalysis, Map.of(6, "BuyEntryLevelSystemCall")),
+                Arguments.of(travelPlannerAnalysis, Map.of(2, "look for flights")));
     }
 }

@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.CallingSEFFActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.CallingUserActionSequenceElement;
@@ -54,15 +56,15 @@ public class AnalysisUtils {
      * @param expectedType
      *            Expected types of the given ActionSequence at all indexes
      */
-    public static void assertSequenceElements(ActionSequence sequence, Class<?>... expectedElementTypes) {
+    public static void assertSequenceElements(ActionSequence sequence, List<Class<?>> expectedElementTypes) {
         var elements = sequence.elements();
 
         assertNotNull(elements);
         assertEquals(sequence.elements()
-            .size(), expectedElementTypes.length);
+            .size(), expectedElementTypes.size());
 
-        for (int i = 0; i < expectedElementTypes.length; i++) {
-            Class<?> expectedType = expectedElementTypes[i];
+        for (int i = 0; i < expectedElementTypes.size(); i++) {
+            Class<?> expectedType = expectedElementTypes.get(i);
             Class<?> actualType = elements.get(i)
                 .getClass();
 

@@ -11,8 +11,6 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
 
-import com.google.common.collect.Streams;
-
 public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<ExternalCallAction>
         implements CallReturnBehavior {
 
@@ -43,10 +41,10 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
      */
     @Override
     public AbstractActionSequenceElement<ExternalCallAction> evaluateDataFlow(List<DataFlowVariable> variables) {
-        var elementStream = Streams.concat(super.getElement().getInputVariableUsages__CallAction()
-            .stream(),
-                super.getElement().getReturnVariableUsage__CallReturnAction()
-                    .stream());
+        var elementStream = this.isCalling ? super.getElement().getInputVariableUsages__CallAction()
+            .stream()
+                : super.getElement().getReturnVariableUsage__CallReturnAction()
+                    .stream();
         List<VariableCharacterisation> elements = elementStream
             .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
                 .stream())

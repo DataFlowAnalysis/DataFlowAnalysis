@@ -9,8 +9,6 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.D
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 
-import com.google.common.collect.Streams;
-
 public class CallingUserActionSequenceElement extends UserActionSequenceElement<EntryLevelSystemCall>
         implements CallReturnBehavior {
 
@@ -40,10 +38,10 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
      */
     @Override
     public AbstractActionSequenceElement<EntryLevelSystemCall> evaluateDataFlow(List<DataFlowVariable> variables) {
-        var elementStream = Streams.concat(super.getElement().getInputParameterUsages_EntryLevelSystemCall()
-            .stream(),
-                super.getElement().getOutputParameterUsages_EntryLevelSystemCall()
-                    .stream());
+        var elementStream = this.isCalling ? super.getElement().getInputParameterUsages_EntryLevelSystemCall()
+            .stream()
+                : super.getElement().getOutputParameterUsages_EntryLevelSystemCall()
+                    .stream();
         List<VariableCharacterisation> dataflowElements = elementStream
             .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
                 .stream())

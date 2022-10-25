@@ -5,6 +5,7 @@ import java.util.List;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.CharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CallReturnBehavior;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
@@ -20,9 +21,8 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
         // TODO Auto-generated constructor stub
     }
 
-    public CallingUserActionSequenceElement(CallingUserActionSequenceElement oldElement,
-            List<DataFlowVariable> variables) {
-        super(oldElement, variables);
+    public CallingUserActionSequenceElement(CallingUserActionSequenceElement oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {
+        super(oldElement, dataFlowVariables, nodeVariables);
         this.isCalling = oldElement.isCalling();
     }
 
@@ -38,6 +38,7 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
      */
     @Override
     public AbstractActionSequenceElement<EntryLevelSystemCall> evaluateDataFlow(List<DataFlowVariable> variables) {
+    	List<CharacteristicValue> nodeVariables = List.of();
         var elementStream = this.isCalling ? super.getElement().getInputParameterUsages_EntryLevelSystemCall()
             .stream()
                 : super.getElement().getOutputParameterUsages_EntryLevelSystemCall()
@@ -51,7 +52,7 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
         dataflowElements.stream()
             .forEach(it -> characteristicsCalculator.evaluate(it));
         AbstractActionSequenceElement<EntryLevelSystemCall> evaluatedElement = new CallingUserActionSequenceElement(
-                this, characteristicsCalculator.getCalculatedCharacteristics());
+                this, characteristicsCalculator.getCalculatedCharacteristics(), nodeVariables);
         return evaluatedElement;
     }
 

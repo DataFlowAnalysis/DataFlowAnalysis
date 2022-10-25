@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.CharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
@@ -18,12 +19,13 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
         // TODO Auto-generated constructor stub
     }
 
-    public SEFFActionSequenceElement(SEFFActionSequenceElement<T> oldElement, List<DataFlowVariable> variables) {
-        super(oldElement, variables);
+    public SEFFActionSequenceElement(SEFFActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {
+        super(oldElement, dataFlowVariables, nodeVariables);
     }
 
     @Override
     public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables) {
+    	List<CharacteristicValue> nodeVariables = List.of();
         List<VariableCharacterisation> dataflowElements = ((SetVariableAction) super.getElement())
             .getLocalVariableUsages_SetVariableAction()
             .stream()
@@ -33,7 +35,7 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
         CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(variables);
         dataflowElements.stream()
             .forEach(it -> characteristicsCalculator.evaluate(it));
-        return new SEFFActionSequenceElement<>(this, characteristicsCalculator.getCalculatedCharacteristics());
+        return new SEFFActionSequenceElement<>(this, characteristicsCalculator.getCalculatedCharacteristics(), nodeVariables);
     }
 
     @Override

@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
@@ -19,8 +20,8 @@ public abstract class AbstractPCMActionSequenceElement<T extends EObject> extend
         this.context = context;
     }
     
-    public AbstractPCMActionSequenceElement(AbstractPCMActionSequenceElement<T> oldElement, List<DataFlowVariable> variables) {
-    	super(variables);
+    public AbstractPCMActionSequenceElement(AbstractPCMActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {
+    	super(dataFlowVariables, nodeVariables);
     	this.element = oldElement.getElement();
     	this.context = oldElement.getContext();
     }

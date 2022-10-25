@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.CharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
@@ -16,12 +17,13 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
         super(element, new ArrayDeque<>());
     }
 
-    public UserActionSequenceElement(UserActionSequenceElement<T> oldElement, List<DataFlowVariable> variables) {
-        super(oldElement, variables);
+    public UserActionSequenceElement(UserActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {
+        super(oldElement, dataFlowVariables, nodeVariables);
     }
 
     @Override
     public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables) {
+    	List<CharacteristicValue> nodeVariables = List.of();
         List<VariableCharacterisation> dataflowElements = ((SetVariableAction) super.getElement())
             .getLocalVariableUsages_SetVariableAction()
             .stream()
@@ -30,7 +32,7 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
             .toList();
         CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(variables);
         dataflowElements.forEach(it -> characteristicsCalculator.evaluate(it));
-        return new UserActionSequenceElement<T>(this, characteristicsCalculator.getCalculatedCharacteristics());
+        return new UserActionSequenceElement<T>(this, characteristicsCalculator.getCalculatedCharacteristics(), nodeVariables);
     }
 
     @Override

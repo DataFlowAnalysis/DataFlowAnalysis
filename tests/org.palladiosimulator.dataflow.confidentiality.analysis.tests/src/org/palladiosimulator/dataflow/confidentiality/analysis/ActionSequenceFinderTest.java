@@ -18,7 +18,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.p
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.CallingUserActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.SEFFActionSequenceElement;
 
-public class DataflowSequenceFinderTest extends BaseTest {
+public class ActionSequenceFinderTest extends BaseTest {
 
     /**
      * Tests whether the analysis finds the correct amount of sequences

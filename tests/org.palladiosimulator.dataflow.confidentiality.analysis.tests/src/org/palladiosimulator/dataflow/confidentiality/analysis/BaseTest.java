@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.BeforeAll;
 import org.palladiosimulator.dataflow.confidentiality.analysis.testmodels.Activator;
 
-public class AnalysisFeatureTest {
+public class BaseTest {
     protected static StandalonePCMDataFlowConfidentialtyAnalysis onlineShopAnalysis;
     protected static StandalonePCMDataFlowConfidentialtyAnalysis internationalOnlineShopAnalysis;
     protected static StandalonePCMDataFlowConfidentialtyAnalysis travelPlannerAnalysis;

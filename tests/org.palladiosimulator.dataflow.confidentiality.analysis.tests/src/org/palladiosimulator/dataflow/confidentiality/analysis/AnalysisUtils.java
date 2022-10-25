@@ -64,12 +64,7 @@ public class AnalysisUtils {
             .size(), expectedElementTypes.size());
 
         for (int i = 0; i < expectedElementTypes.size(); i++) {
-            Class<?> expectedType = expectedElementTypes.get(i);
-            Class<?> actualType = elements.get(i)
-                .getClass();
-
-            assertEquals(expectedType, actualType, createProblemMessage(i, expectedType, actualType));
-
+        	assertSequenceElement(sequence, i, expectedElementTypes.get(i));
         }
     }
 

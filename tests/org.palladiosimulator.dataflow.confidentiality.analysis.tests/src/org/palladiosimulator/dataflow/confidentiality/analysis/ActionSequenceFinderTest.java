@@ -14,9 +14,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.CallingSEFFActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.CallingUserActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.SEFFActionSequenceElement;
 
 public class ActionSequenceFinderTest extends BaseTest {
 
@@ -63,36 +60,15 @@ public class ActionSequenceFinderTest extends BaseTest {
 
     /**
      * Provides a list of arguments to the {@code testPath} Test. The list contains the arguments to
-     * the test method
+     * the test method. The Paths for all test models can be found in {@link ActionSequenceFinderPaths}
      * 
      * @return List of arguments to the test method
      */
     private Stream<Arguments> testPathProvider() {
         return Stream.of(
-                Arguments.of(onlineShopAnalysis,
-                        List.of(List.of(CallingUserActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
-                                SEFFActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
-                                SEFFActionSequenceElement.class, CallingUserActionSequenceElement.class,
-                                CallingUserActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
-                                CallingSEFFActionSequenceElement.class, CallingUserActionSequenceElement.class))),
-                Arguments.of(internationalOnlineShopAnalysis,
-                        List.of(List.of(CallingUserActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
-                                SEFFActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
-                                SEFFActionSequenceElement.class, CallingUserActionSequenceElement.class,
-                                CallingUserActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
-                                CallingSEFFActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
-                                CallingSEFFActionSequenceElement.class, CallingUserActionSequenceElement.class))),
-                Arguments.of(travelPlannerAnalysis, List.of(
-                        List.of(CallingUserActionSequenceElement.class, CallingUserActionSequenceElement.class,
-                                CallingUserActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
-                                CallingSEFFActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
-                                SEFFActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
-                                SEFFActionSequenceElement.class, CallingUserActionSequenceElement.class,
-                                CallingUserActionSequenceElement.class, CallingUserActionSequenceElement.class,
-                                CallingUserActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
-                                SEFFActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
-                                SEFFActionSequenceElement.class, CallingUserActionSequenceElement.class),
-                        List.of(CallingUserActionSequenceElement.class, CallingUserActionSequenceElement.class))));
+                Arguments.of(onlineShopAnalysis, ActionSequenceFinderPaths.onlineShopPaths),
+                Arguments.of(internationalOnlineShopAnalysis, ActionSequenceFinderPaths.internationalOnlineShopPaths),
+                Arguments.of(travelPlannerAnalysis, ActionSequenceFinderPaths.travelPlannerPaths));
     }
 
     /**

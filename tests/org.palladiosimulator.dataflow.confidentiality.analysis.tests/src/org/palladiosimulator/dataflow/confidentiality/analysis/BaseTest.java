@@ -5,15 +5,18 @@ import static org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisUt
 import java.nio.file.Paths;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.palladiosimulator.dataflow.confidentiality.analysis.testmodels.Activator;
 
+@TestInstance(Lifecycle.PER_CLASS)
 public class BaseTest {
-    protected static StandalonePCMDataFlowConfidentialtyAnalysis onlineShopAnalysis;
-    protected static StandalonePCMDataFlowConfidentialtyAnalysis internationalOnlineShopAnalysis;
-    protected static StandalonePCMDataFlowConfidentialtyAnalysis travelPlannerAnalysis;
+    protected StandalonePCMDataFlowConfidentialtyAnalysis onlineShopAnalysis;
+    protected StandalonePCMDataFlowConfidentialtyAnalysis internationalOnlineShopAnalysis;
+    protected StandalonePCMDataFlowConfidentialtyAnalysis travelPlannerAnalysis;
 
     @BeforeAll
-    public static void initializeOnlineShopAnalysis() {
+    public void initializeOnlineShopAnalysis() {
         final var usageModelPath = Paths.get("models", "BranchingOnlineShop", "default.usagemodel")
             .toString();
         final var allocationPath = Paths.get("models", "BranchingOnlineShop", "default.allocation")
@@ -26,7 +29,7 @@ public class BaseTest {
     }
 
     @BeforeAll
-    public static void initializeInternationalOnlineShopAnalysis() {
+    public void initializeInternationalOnlineShopAnalysis() {
         final var usageModelPath = Paths.get("models", "InternationalOnlineShop", "default.usagemodel")
             .toString();
         final var allocationPath = Paths.get("models", "InternationalOnlineShop", "default.allocation")
@@ -39,7 +42,7 @@ public class BaseTest {
     }
 
     @BeforeAll
-    public static void initializeTravelPlannerAnalysis() {
+    public void initializeTravelPlannerAnalysis() {
         final var usageModelPath = Paths.get("models", "TravelPlanner", "travelPlanner.usagemodel")
             .toString();
         final var allocationPath = Paths.get("models", "TravelPlanner", "travelPlanner.allocation")

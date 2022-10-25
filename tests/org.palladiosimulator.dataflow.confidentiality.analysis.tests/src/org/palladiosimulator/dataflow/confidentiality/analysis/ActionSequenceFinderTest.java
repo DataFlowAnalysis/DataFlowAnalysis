@@ -43,7 +43,7 @@ public class ActionSequenceFinderTest extends BaseTest {
      * 
      * @return List of arguments to the test method
      */
-    private static Stream<Arguments> testCountProvider() {
+    private Stream<Arguments> testCountProvider() {
         return Stream.of(Arguments.of(onlineShopAnalysis, 2), Arguments.of(internationalOnlineShopAnalysis, 1),
                 Arguments.of(travelPlannerAnalysis, 2));
     }
@@ -67,7 +67,7 @@ public class ActionSequenceFinderTest extends BaseTest {
      * 
      * @return List of arguments to the test method
      */
-    private static Stream<Arguments> testPathProvider() {
+    private Stream<Arguments> testPathProvider() {
         return Stream.of(
                 Arguments.of(onlineShopAnalysis,
                         List.of(List.of(CallingUserActionSequenceElement.class, CallingSEFFActionSequenceElement.class,
@@ -118,7 +118,7 @@ public class ActionSequenceFinderTest extends BaseTest {
      * 
      * @return List of arguments to the test method
      */
-    private static Stream<Arguments> testSEFFContentProvider() {
+    private Stream<Arguments> testSEFFContentProvider() {
         return Stream.of(Arguments.of(onlineShopAnalysis, Map.of(1, "DatabaseLoadInventory")),
                 Arguments.of(internationalOnlineShopAnalysis, Map.of(9, "DatabaseStoreUserData")),
                 Arguments.of(travelPlannerAnalysis, Map.of(13, "ask airline to book flight")));
@@ -147,7 +147,7 @@ public class ActionSequenceFinderTest extends BaseTest {
      * 
      * @return List of arguments to the test method
      */
-    private static Stream<Arguments> testUserContentProvider() {
+    private Stream<Arguments> testUserContentProvider() {
         return Stream.of(Arguments.of(onlineShopAnalysis, Map.of(0, "ViewEntryLevelSystemCall")),
                 Arguments.of(internationalOnlineShopAnalysis, Map.of(6, "BuyEntryLevelSystemCall")),
                 Arguments.of(travelPlannerAnalysis, Map.of(2, "look for flights")));

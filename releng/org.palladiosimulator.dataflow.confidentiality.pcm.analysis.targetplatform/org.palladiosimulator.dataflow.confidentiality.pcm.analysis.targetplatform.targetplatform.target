@@ -67,6 +67,14 @@
 			<unit id="org.palladiosimulator.mdsdprofiles.api" version="0.0.0"/>
 			<repository location="https://updatesite.palladio-simulator.com/palladio-supporting-mdsdprofiles/releases/latest/"/>
 		</location>
-	
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+			<unit id="org.junit.jupiter.api" version="0.0.0"/>
+			<unit id="org.junit.jupiter.params" version="0.0.0"/>
+			<repository location="https://download.eclipse.org/eclipse/updates/4.22/R-4.22-202111241800/"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+			<unit id="org.hamcrest.library" version="0.0.0"/>
+			<repository location="https://download.eclipse.org/tools/orbit/downloads/2021-12/"/>
+		</location>
 	</locations>
 </target>

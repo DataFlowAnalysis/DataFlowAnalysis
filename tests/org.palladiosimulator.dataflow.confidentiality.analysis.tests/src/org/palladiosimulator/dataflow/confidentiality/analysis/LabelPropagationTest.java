@@ -1,8 +1,8 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis;
 
-import static org.junit.Assert.assertTrue;
 import static org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisUtils.assertCharacteristicAbsent;
 import static org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisUtils.assertCharacteristicPresent;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.stream.Stream;
 

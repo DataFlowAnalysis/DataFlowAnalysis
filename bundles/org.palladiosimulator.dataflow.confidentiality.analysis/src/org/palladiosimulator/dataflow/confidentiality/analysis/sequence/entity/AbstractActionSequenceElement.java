@@ -21,7 +21,7 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
     }
 
     public abstract AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables);
-
+    
     public List<DataFlowVariable> getAllDataFlowVariables() {
         return this.dataFlowVariables.orElseThrow(IllegalStateException::new);
     }

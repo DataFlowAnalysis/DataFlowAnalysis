@@ -41,7 +41,7 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
      */
     @Override
     public AbstractActionSequenceElement<ExternalCallAction> evaluateDataFlow(List<DataFlowVariable> variables) {
-    	List<CharacteristicValue> nodeVariables = List.of();
+    	List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics();
         var elementStream = this.isCalling ? super.getElement().getInputVariableUsages__CallAction()
             .stream()
                 : super.getElement().getReturnVariableUsage__CallReturnAction()
@@ -51,7 +51,7 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
                 .stream())
             .toList();
 
-        CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(variables);
+        CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(variables, nodeVariables);
         elements.stream()
             .forEach(it -> characteristicsCalculator.evaluate(it));
         AbstractActionSequenceElement<ExternalCallAction> evaluatedElement = new CallingSEFFActionSequenceElement(this,

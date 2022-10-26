@@ -31,8 +31,11 @@ public class CharacteristicsCalculator {
      * @param initialVariables
      *            DataFlowVariables of the previous ActionSequence Element
      */
-    public CharacteristicsCalculator(List<DataFlowVariable> initialVariables) {
+    public CharacteristicsCalculator(List<DataFlowVariable> initialVariables, List<CharacteristicValue> nodeVariables) {
         this.currentVariables = new ArrayList<>(initialVariables);
+        DataFlowVariable nodeCharacteristicContainer = new DataFlowVariable("container");
+        nodeVariables.forEach(it -> nodeCharacteristicContainer.addCharacteristic(it));
+        currentVariables.add(nodeCharacteristicContainer);
     }
 
     /**

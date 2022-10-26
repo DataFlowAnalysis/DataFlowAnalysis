@@ -2,13 +2,20 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.
 
 import java.util.List;
 
+import org.palladiosimulator.dataflow.confidentiality.analysis.PCMAnalysisUtils;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.CharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CallReturnBehavior;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMQueryUtils;
+import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
+import org.palladiosimulator.dataflow.confidentiality.pcm.model.profile.ProfileConstants;
+import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
+import org.palladiosimulator.mdsdprofiles.api.StereotypeAPI;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
+import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 public class CallingUserActionSequenceElement extends UserActionSequenceElement<EntryLevelSystemCall>
         implements CallReturnBehavior {
@@ -38,7 +45,9 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
      */
     @Override
     public AbstractActionSequenceElement<EntryLevelSystemCall> evaluateDataFlow(List<DataFlowVariable> variables) {
-    	List<CharacteristicValue> nodeVariables = List.of();
+    	// TODO: Generate list of node variables for sequence element
+    	List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics();
+    	
         var elementStream = this.isCalling ? super.getElement().getInputParameterUsages_EntryLevelSystemCall()
             .stream()
                 : super.getElement().getOutputParameterUsages_EntryLevelSystemCall()
@@ -48,7 +57,7 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
                 .stream())
             .toList();
 
-        CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(variables);
+        CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(variables, nodeVariables);
         dataflowElements.stream()
             .forEach(it -> characteristicsCalculator.evaluate(it));
         AbstractActionSequenceElement<EntryLevelSystemCall> evaluatedElement = new CallingUserActionSequenceElement(

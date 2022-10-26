@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QMLDeclarations:QMLDeclarations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:QMLContract="http:///QMLContract.ecore" xmlns:QMLDeclarations="http:///QMLDeclarations.ecore" xmlns:QMLProfile="http:///QMLProfile.ecore" id="_VR3S4ITzEeywmO_IpTxeAg">
+  <qmlDeclarations xsi:type="QMLProfile:SimpleQMLProfile" id="_ZDpicITzEeywmO_IpTxeAg" entityName="test">
+    <usageModel href="default.usagemodel#/0"/>
+    <requirements xsi:type="QMLProfile:UsageScenarioRequirement" id="_mW7WYITzEeywmO_IpTxeAg" requireContract="_dJzfgoTzEeywmO_IpTxeAg">
+      <usageScenario href="default.usagemodel#_LPnI8CHdEd6lJo4DCALHMw"/>
+    </requirements>
+  </qmlDeclarations>
+  <qmlDeclarations xsi:type="QMLContract:SimpleQMLContract" id="_dJzfgoTzEeywmO_IpTxeAg" entityName="Test">
+    <criteria xsi:type="QMLContract:Objective" id="_xmGkkITzEeywmO_IpTxeAg">
+      <dimension href="../../plugin/org.palladiosimulator.pcm.dataflow.confidentiality.qml/model/Dimension_Confidentiality.qmlcontracttype#_lzV00Fv5EeyWNI3A5PdLkQ"/>
+      <aspects xsi:type="QMLContract:Value" id="_2tFshITzEeywmO_IpTxeAg">
+        <aspectRequirement xsi:type="QMLContract:Goal" id="_3M9fYYTzEeywmO_IpTxeAg">
+          <aspectRequirementLiteral xsi:type="QMLContract:NumericLiteral" id="_4jaU8ITzEeywmO_IpTxeAg" value="-1.0"/>
+        </aspectRequirement>
+      </aspects>
+    </criteria>
+    <criteria xsi:type="QMLContract:Constraint" id="_1y-cJoWMEeyEfPY5WOXurg">
+      <dimension href="../../plugin/org.palladiosimulator.pcm.dataflow.confidentiality.qml/model/Dimension_Confidentiality.qmlcontracttype#_lzV00Fv5EeyWNI3A5PdLkQ"/>
+      <aspects xsi:type="QMLContract:Value" id="_2usdhIWMEeyEfPY5WOXurg">
+        <aspectRequirement xsi:type="QMLContract:Restriction" id="_4DSR4IWMEeyEfPY5WOXurg">
+          <aspectRequirementLiteral xsi:type="QMLContract:NumericLiteral" id="_4ngZQIWMEeyEfPY5WOXurg"/>
+        </aspectRequirement>
+      </aspects>
+    </criteria>
+    <contractType href="../../plugin/org.palladiosimulator.pcm.dataflow.confidentiality.qml/model/ConfidentialityContract.qmlcontracttype#_BBLcEHe6EeyqWdwf1u0RUg"/>
+  </qmlDeclarations>
+</QMLDeclarations:QMLDeclarations>

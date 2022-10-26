@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DataDictionaryCharacterized="http://palladiosimulator.org/dataflow/dictionary/characterized/1.0" xmlns:confidentiality="http://palladiosimulator.org/dataflow/confidentiality/pcm/0.1.0" xmlns:expression="http://palladiosimulator.org/dataflow/confidentiality/pcm/0.1.0/expression" xmlns:expressions="http://palladiosimulator.org/dataflow/dictionary/characterized/expressions/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="_dqFLECHbEd6tG9VclJz3cw" entityName="defaultRepository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_S65rQITiEeywmO_IpTxeAg" entityName="OnlineShop">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_nGZewITjEeywmO_IpTxeAg" entityName="OnlineShop.UserInterface" providedInterface__OperationProvidedRole="_UhSk0ITjEeywmO_IpTxeAg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_ozX98ITjEeywmO_IpTxeAg" entityName="OnlineShop.DatabaseInterface" requiredInterface__OperationRequiredRole="_XGAZwITiEeywmO_IpTxeAg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_nGpWYITjEeywmO_IpTxeAg" describedService__SEFF="_W8bxkITjEeywmO_IpTxeAg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_nGp9cITjEeywmO_IpTxeAg" successor_AbstractAction="_yVL18ITkEeywmO_IpTxeAg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_nGp9cYTjEeywmO_IpTxeAg" predecessor_AbstractAction="_11NAEITkEeywmO_IpTxeAg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_yVL18ITkEeywmO_IpTxeAg" entityName="DatabaseStoreInventory" predecessor_AbstractAction="_nGp9cITjEeywmO_IpTxeAg" successor_AbstractAction="_11NAEITkEeywmO_IpTxeAg" calledService_ExternalService="_ENtBkITjEeywmO_IpTxeAg" role_ExternalService="_ozX98ITjEeywmO_IpTxeAg">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_mtJJ4YTmEeywmO_IpTxeAg"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_mtJJ4oTmEeywmO_IpTxeAg">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="inventory"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="inventory"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_11NAEITkEeywmO_IpTxeAg" entityName="DatabaseStoreUserData" predecessor_AbstractAction="_yVL18ITkEeywmO_IpTxeAg" successor_AbstractAction="_nGp9cYTjEeywmO_IpTxeAg" calledService_ExternalService="_lb5hQITiEeywmO_IpTxeAg" role_ExternalService="_ozX98ITjEeywmO_IpTxeAg">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_EDi4poTmEeywmO_IpTxeAg"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_EDi4p4TmEeywmO_IpTxeAg">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="userData"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="userData"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_fv6SAITmEeywmO_IpTxeAg" describedService__SEFF="_YWtP0ITmEeywmO_IpTxeAg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_gGipUITmEeywmO_IpTxeAg" successor_AbstractAction="_1JoBkITmEeywmO_IpTxeAg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_gGipUYTmEeywmO_IpTxeAg" predecessor_AbstractAction="_tMGKUITmEeywmO_IpTxeAg"/>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_tMGKUITmEeywmO_IpTxeAg" entityName="RETURN" predecessor_AbstractAction="_1JoBkITmEeywmO_IpTxeAg" successor_AbstractAction="_gGipUYTmEeywmO_IpTxeAg">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_ENSODoTnEeywmO_IpTxeAg"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_ENSOD4TnEeywmO_IpTxeAg">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="inventory"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_1JoBkITmEeywmO_IpTxeAg" entityName="DatabaseLoadInventory" predecessor_AbstractAction="_gGipUITmEeywmO_IpTxeAg" successor_AbstractAction="_tMGKUITmEeywmO_IpTxeAg" calledService_ExternalService="_8XSe8ITiEeywmO_IpTxeAg" role_ExternalService="_ozX98ITjEeywmO_IpTxeAg">
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_AbfXbYTnEeywmO_IpTxeAg"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_AbfXboTnEeywmO_IpTxeAg">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="inventory"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_I9a5AITjEeywmO_IpTxeAg" entityName="DatabaseService">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_oGOkEITjEeywmO_IpTxeAg" entityName="DatabaseService.DatabaseInterface" providedInterface__OperationProvidedRole="_XGAZwITiEeywmO_IpTxeAg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_oGPLIITjEeywmO_IpTxeAg" describedService__SEFF="_8XSe8ITiEeywmO_IpTxeAg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_oGPyMITjEeywmO_IpTxeAg" successor_AbstractAction="_IFQ3EITlEeywmO_IpTxeAg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_oGPyMYTjEeywmO_IpTxeAg" predecessor_AbstractAction="_IFQ3EITlEeywmO_IpTxeAg"/>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_IFQ3EITlEeywmO_IpTxeAg" entityName="RETURN" predecessor_AbstractAction="_oGPyMITjEeywmO_IpTxeAg" successor_AbstractAction="_oGPyMYTjEeywmO_IpTxeAg">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_O6XGoITlEeywmO_IpTxeAg">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="dic.pddc#_AQnL0IThEeywmO_IpTxeAg-characteristicTypes@0"/>
+              <literal href="dic.pddc#_AQnL0IThEeywmO_IpTxeAg-characteristicEnumerations@0.literals@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_O6XGoYTlEeywmO_IpTxeAg"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_oGmXgITjEeywmO_IpTxeAg" describedService__SEFF="_lb5hQITiEeywmO_IpTxeAg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_oGmXgYTjEeywmO_IpTxeAg" successor_AbstractAction="_oGmXgoTjEeywmO_IpTxeAg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_oGmXgoTjEeywmO_IpTxeAg" predecessor_AbstractAction="_oGmXgYTjEeywmO_IpTxeAg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_oGykwITjEeywmO_IpTxeAg" describedService__SEFF="_ENtBkITjEeywmO_IpTxeAg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_oGzL0ITjEeywmO_IpTxeAg" successor_AbstractAction="_oGzL0YTjEeywmO_IpTxeAg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_oGzL0YTjEeywmO_IpTxeAg" predecessor_AbstractAction="_oGzL0ITjEeywmO_IpTxeAg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_XGAZwITiEeywmO_IpTxeAg" entityName="DatabaseInterface">
+    <signatures__OperationInterface id="_lb5hQITiEeywmO_IpTxeAg" entityName="storeUserData">
+      <parameters__OperationSignature dataType__Parameter="_pKnOsITiEeywmO_IpTxeAg" parameterName="userData"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_8XSe8ITiEeywmO_IpTxeAg" entityName="loadInventory" returnType__OperationSignature="_wWHMEITiEeywmO_IpTxeAg"/>
+    <signatures__OperationInterface id="_ENtBkITjEeywmO_IpTxeAg" entityName="updateInventory">
+      <parameters__OperationSignature dataType__Parameter="_wWHMEITiEeywmO_IpTxeAg" parameterName="inventory"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_UhSk0ITjEeywmO_IpTxeAg" entityName="UserInterface">
+    <signatures__OperationInterface id="_W8bxkITjEeywmO_IpTxeAg" entityName="buy">
+      <parameters__OperationSignature dataType__Parameter="_pKnOsITiEeywmO_IpTxeAg" parameterName="userData"/>
+      <parameters__OperationSignature dataType__Parameter="_wWHMEITiEeywmO_IpTxeAg" parameterName="inventory"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_YWtP0ITmEeywmO_IpTxeAg" entityName="view" returnType__OperationSignature="_wWHMEITiEeywmO_IpTxeAg"/>
+  </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_pKnOsITiEeywmO_IpTxeAg" entityName="UserDetails"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_wWHMEITiEeywmO_IpTxeAg" entityName="InventoryListing"/>
+</repository:Repository>

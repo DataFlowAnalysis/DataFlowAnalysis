@@ -31,10 +31,10 @@ public class CharacteristicsCalculator {
      * @param initialVariables
      *            DataFlowVariables of the previous ActionSequence Element
      */
-    public CharacteristicsCalculator(List<DataFlowVariable> initialVariables, List<CharacteristicValue> nodeVariables) {
+    public CharacteristicsCalculator(List<DataFlowVariable> initialVariables, List<CharacteristicValue> nodeCharacteristics) {
         this.currentVariables = new ArrayList<>(initialVariables);
         DataFlowVariable nodeCharacteristicContainer = new DataFlowVariable("container");
-        nodeVariables.forEach(it -> nodeCharacteristicContainer.addCharacteristic(it));
+        nodeCharacteristics.forEach(it -> nodeCharacteristicContainer.addCharacteristic(it));
         currentVariables.add(nodeCharacteristicContainer);
     }
 
@@ -238,6 +238,8 @@ public class CharacteristicsCalculator {
      * @return List of DataFlowVariables after evaluating
      */
     public List<DataFlowVariable> getCalculatedCharacteristics() {
-        return this.currentVariables;
+        return this.currentVariables.stream()
+        		.filter(df -> !df.variableName().equals("container"))
+        		.collect(Collectors.toList());
     }
 }

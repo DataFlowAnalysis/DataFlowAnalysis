@@ -11,6 +11,7 @@ jobs:
         with:
           use-display-output: true
           java-version: 17
+          runner-label: ubuntu-latest
           deploy-updatesite: 'releng/org.palladiosimulator.dataflow.confidentiality.pcm.analysis.updatesite/target/repository'
           server-ssh-key: ${{ secrets.DEPLOYMENT_SERVER_SSH_KEY }}
           remote-host: ${{ secrets.DEPLOYMENT_REMOTE_HOST }}

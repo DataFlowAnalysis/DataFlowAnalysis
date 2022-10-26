@@ -40,7 +40,7 @@ public class LabelPropagationTest extends AnalysisFeatureTest {
      * 
      * @return Returns a stream of test data used for each invocation
      */
-    private static Stream<Arguments> characteristicsPresentProvider() {
+    private Stream<Arguments> characteristicsPresentProvider() {
         return Stream.of(Arguments.of(travelPlannerAnalysis, 0, 0, "ccd", "GrantedRoles", "User"),
                 Arguments.of(travelPlannerAnalysis, 0, 2, "query", "GrantedRoles", "User"),
                 Arguments.of(travelPlannerAnalysis, 0, 2, "query", "GrantedRoles", "Airline"),
@@ -84,7 +84,7 @@ public class LabelPropagationTest extends AnalysisFeatureTest {
      * 
      * @return Returns a stream of test data used for each invocation
      */
-    private static Stream<Arguments> characteristicsAbsentProvider() {
+    private Stream<Arguments> characteristicsAbsentProvider() {
         return Stream.of(Arguments.of(travelPlannerAnalysis, 0, 6, "RETURN", "GrantedRoles", "User"),
                 Arguments.of(travelPlannerAnalysis, 0, 6, "RETURN", "GrantedRoles", "Airline"),
                 Arguments.of(onlineShopAnalysis, 0, 0, "RETURN", "DataSensitivity", "Public"),

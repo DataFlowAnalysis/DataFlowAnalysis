@@ -8,16 +8,16 @@ import org.eclipse.emf.ecore.EObject;
 public abstract class AbstractActionSequenceElement<T extends EObject> {
 
     private final Optional<List<DataFlowVariable>> dataFlowVariables;
-    private final Optional<List<CharacteristicValue>> nodeVariables;
+    private final Optional<List<CharacteristicValue>> nodeCharacteristics;
 
     public AbstractActionSequenceElement() {
         this.dataFlowVariables = Optional.empty();
-        this.nodeVariables = Optional.empty();
+        this.nodeCharacteristics = Optional.empty();
     }
 
-    public AbstractActionSequenceElement(List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {
+    public AbstractActionSequenceElement(List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
         this.dataFlowVariables = Optional.of(List.copyOf(dataFlowVariables));
-        this.nodeVariables = Optional.of(List.copyOf(nodeVariables));
+        this.nodeCharacteristics = Optional.of(List.copyOf(nodeCharacteristics));
     }
 
     public abstract AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables);
@@ -26,8 +26,8 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
         return this.dataFlowVariables.orElseThrow(IllegalStateException::new);
     }
     
-    public List<CharacteristicValue> getAllNodeVariables() {
-    	return this.nodeVariables.orElseThrow(IllegalStateException::new);
+    public List<CharacteristicValue> getAllNodeCharacteristics() {
+    	return this.nodeCharacteristics.orElseThrow(IllegalStateException::new);
     }
 
     public boolean isEvaluated() {

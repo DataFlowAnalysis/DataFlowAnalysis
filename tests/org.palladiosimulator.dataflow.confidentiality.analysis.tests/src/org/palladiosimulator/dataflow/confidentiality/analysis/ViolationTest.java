@@ -45,7 +45,7 @@ public class ViolationTest extends AnalysisFeatureTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean travelPlannerCondition(AbstractActionSequenceElement<?> node) {
-    	var assignedRoles = node.getAllNodeVariables().stream()
+    	var assignedRoles = node.getAllNodeCharacteristics().stream()
     			.filter(cv -> cv.characteristicType().getName().equals("AssignedRoles"))
     			.map(cv -> cv.characteristicLiteral())
     			.collect(Collectors.toList());
@@ -63,7 +63,7 @@ public class ViolationTest extends AnalysisFeatureTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean internationalOnlineShopCondition(AbstractActionSequenceElement<?> node) {
-    	var serverLocation = node.getAllNodeVariables().stream()
+    	var serverLocation = node.getAllNodeCharacteristics().stream()
     			.filter(cv -> cv.characteristicType().getName().equals("ServerLocation"))
     			.map(cv -> cv.characteristicLiteral())
     			.collect(Collectors.toList());

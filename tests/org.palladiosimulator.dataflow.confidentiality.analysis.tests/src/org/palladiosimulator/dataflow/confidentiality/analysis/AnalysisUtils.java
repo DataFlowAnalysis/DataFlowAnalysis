@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.CallingSEFFActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.CallingUserActionSequenceElement;
@@ -43,8 +45,8 @@ public class AnalysisUtils {
     }
 
     /**
-     * <em>Assert</em> that {@code sequence} and {@code expectedType} are of the same class at every
-     * index.
+     * <em>Assert</em> that the elements in {@code sequence} and {@code expectedType} are ordered
+     * like the provided list of classes
      * <p>
      * If {@code sequence} is {@code null} or the sequences are of different length, they are
      * considered unequal
@@ -54,20 +56,15 @@ public class AnalysisUtils {
      * @param expectedType
      *            Expected types of the given ActionSequence at all indexes
      */
-    public static void assertSequenceElements(ActionSequence sequence, Class<?>... expectedElementTypes) {
+    public static void assertSequenceElements(ActionSequence sequence, List<Class<?>> expectedElementTypes) {
         var elements = sequence.elements();
 
         assertNotNull(elements);
         assertEquals(sequence.elements()
-            .size(), expectedElementTypes.length);
+            .size(), expectedElementTypes.size());
 
-        for (int i = 0; i < expectedElementTypes.length; i++) {
-            Class<?> expectedType = expectedElementTypes[i];
-            Class<?> actualType = elements.get(i)
-                .getClass();
-
-            assertEquals(expectedType, actualType, createProblemMessage(i, expectedType, actualType));
-
+        for (int i = 0; i < expectedElementTypes.size(); i++) {
+        	assertSequenceElement(sequence, i, expectedElementTypes.get(i));
         }
     }
 

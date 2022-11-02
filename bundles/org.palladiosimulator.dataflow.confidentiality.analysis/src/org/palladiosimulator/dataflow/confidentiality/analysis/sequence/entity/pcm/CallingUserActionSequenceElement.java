@@ -1,6 +1,7 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.PCMAnalysisUtils;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.CharacteristicsCalculator;
@@ -47,17 +48,19 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
     	// TODO: Generate list of node variables for sequence element
     	List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics();
     	
-        var elementStream = this.isCalling ? super.getElement().getInputParameterUsages_EntryLevelSystemCall()
-            .stream()
-                : super.getElement().getOutputParameterUsages_EntryLevelSystemCall()
-                    .stream();
-        List<VariableCharacterisation> dataflowElements = elementStream
-            .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
-                .stream())
-            .toList();
+    	List<VariableCharacterisation> variableCharacterisations = this.isCalling ?
+    			super.getElement().getInputParameterUsages_EntryLevelSystemCall().stream()
+    			.flatMap(it -> it.getVariableCharacterisation_VariableUsage()
+    	                .stream())
+    	            .collect(Collectors.toList())
+                :
+                super.getElement().getOutputParameterUsages_EntryLevelSystemCall().stream()
+                .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
+                        .stream())
+                    .collect(Collectors.toList());
 
         CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(variables, nodeVariables);
-        dataflowElements.stream()
+        variableCharacterisations.stream()
             .forEach(it -> characteristicsCalculator.evaluate(it));
         AbstractActionSequenceElement<EntryLevelSystemCall> evaluatedElement = new CallingUserActionSequenceElement(
                 this, characteristicsCalculator.getCalculatedCharacteristics(), nodeVariables);

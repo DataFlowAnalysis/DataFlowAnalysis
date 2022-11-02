@@ -2,6 +2,7 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.
 
 import java.util.Deque;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.CharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
@@ -35,21 +36,22 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
 
     // TODO: Custom hash and equals required?
 
-    
     @Override
     public AbstractActionSequenceElement<ExternalCallAction> evaluateDataFlow(List<DataFlowVariable> variables) {
     	List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics();
-        var elementStream = this.isCalling ? super.getElement().getInputVariableUsages__CallAction()
-            .stream()
-                : super.getElement().getReturnVariableUsage__CallReturnAction()
-                    .stream();
-        List<VariableCharacterisation> elements = elementStream
-            .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
-                .stream())
-            .toList();
+        List<VariableCharacterisation> variableCharacterisations = this.isCalling ? 
+        		super.getElement().getInputVariableUsages__CallAction().stream()
+        		.flatMap(it -> it.getVariableCharacterisation_VariableUsage()
+                        .stream())
+                    .collect(Collectors.toList())
+                : 
+                super.getElement().getReturnVariableUsage__CallReturnAction().stream()
+                .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
+                        .stream())
+                .collect(Collectors.toList());
 
         CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(variables, nodeVariables);
-        elements.stream()
+        variableCharacterisations.stream()
             .forEach(it -> characteristicsCalculator.evaluate(it));
         AbstractActionSequenceElement<ExternalCallAction> evaluatedElement = new CallingSEFFActionSequenceElement(this,
                 characteristicsCalculator.getCalculatedCharacteristics(), nodeVariables);

@@ -31,14 +31,14 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
     @Override
     public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables) {
     	List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics();
-        List<VariableCharacterisation> dataflowElements = ((SetVariableAction) super.getElement())
+        List<VariableCharacterisation> variableCharacterisations = ((SetVariableAction) super.getElement())
             .getLocalVariableUsages_SetVariableAction()
             .stream()
             .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
                 .stream())
             .toList();
         CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(variables, nodeVariables);
-        dataflowElements.forEach(it -> characteristicsCalculator.evaluate(it));
+        variableCharacterisations.forEach(it -> characteristicsCalculator.evaluate(it));
         return new UserActionSequenceElement<T>(this, characteristicsCalculator.getCalculatedCharacteristics(), nodeVariables);
     }
     

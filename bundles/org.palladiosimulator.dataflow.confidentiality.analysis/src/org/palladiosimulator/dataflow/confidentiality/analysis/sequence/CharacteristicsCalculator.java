@@ -22,6 +22,8 @@ import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCha
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.expressions.True;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 
+import de.uka.ipd.sdq.stoex.AbstractNamedReference;
+
 public class CharacteristicsCalculator {
     private List<DataFlowVariable> currentVariables;
 
@@ -62,28 +64,48 @@ public class CharacteristicsCalculator {
      */
     public void evaluate(VariableCharacterisation variableCharacterisation) {
         // 1. Find variable with given name
-        var variableName = variableCharacterisation.getVariableUsage_VariableCharacterisation()
-            .getNamedReference__VariableUsage()
-            .getReferenceName();
         var confidentialityVariable = (ConfidentialityVariableCharacterisation) variableCharacterisation;
         var leftHandSide = (LhsEnumCharacteristicReference) confidentialityVariable.getLhs();
-        var characteristicType = (EnumCharacteristicType) leftHandSide.getCharacteristicType();
-        var characteristicValue = leftHandSide.getLiteral();
+        
+        
+        EnumCharacteristicType characteristicType = (EnumCharacteristicType) leftHandSide.getCharacteristicType();
+        Literal characteristicValue = leftHandSide.getLiteral();
+        Term rightHandSide = confidentialityVariable.getRhs();
 
-        var rightHandSide = confidentialityVariable.getRhs();
+        AbstractNamedReference reference = variableCharacterisation.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage();
+        DataFlowVariable existingVariable = getDataFlowVariableByReference(reference).orElse(new DataFlowVariable(reference.getReferenceName()));
 
-        var existingVariable = this.currentVariables.stream()
-            .filter(it -> it.variableName()
-                .equals(variableName))
-            .findAny()
-            .orElse(new DataFlowVariable(variableName));
+        List<CharacteristicValue> modifiedCharacteristics = calculateModifiedCharacteristics(existingVariable, characteristicType, characteristicValue);
 
-        // 2. Process wildcards
-        List<CharacteristicValue> modifiedCharacteristics = calculateModifiedCharacteristics(existingVariable,
-                characteristicType, characteristicValue);
-
-        // 3. Create new modified DataFlowVariable
-        DataFlowVariable computedVariable = new DataFlowVariable(variableName);
+        DataFlowVariable modifedVariable = createModifiedDataFlowVariable(existingVariable, modifiedCharacteristics, rightHandSide);
+        currentVariables.remove(existingVariable);
+        currentVariables.add(modifedVariable);
+    }
+    
+    /**
+     * Get a DataFlowVariable by a named reference
+     * 
+     * @param variableCharacterisation Named reference, which contains the name of the DataFlowVariable
+     * @return Returns an Optional containing the DataFlowVariable, if the variable can be found in the list of currently available DataFlowVariables
+     */
+    private Optional<DataFlowVariable> getDataFlowVariableByReference(AbstractNamedReference reference) {
+    	String variableName = reference.getReferenceName();
+    	return this.currentVariables.stream()
+                .filter(it -> it.variableName()
+                        .equals(variableName))
+                    .findAny();
+    }
+    
+    /**
+     * Creates a modified DataFlowVariable according to the old characteristics of the existing variable and the modified characteristics.
+     * 
+     * @param existingVariable Existing DataFlowVariable with the same name
+     * @param modifiedCharacteristics Characteristics of the DataFlowVariable that are modified
+     * @param rightHandSide Right hand side of the variable characterization, to indicate whether a characteristic is added or not
+     * @return Returns a new DataFlowVariable with the updated characteristics
+     */
+    private DataFlowVariable createModifiedDataFlowVariable(DataFlowVariable existingVariable, List<CharacteristicValue> modifiedCharacteristics, Term rightHandSide) {
+    	DataFlowVariable computedVariable = new DataFlowVariable(existingVariable.variableName());
         var unmodifiedCharacteristics = existingVariable.getAllCharacteristics()
             .stream()
             .filter(it -> !modifiedCharacteristics.contains(it))
@@ -98,8 +120,7 @@ public class CharacteristicsCalculator {
                 computedVariable = computedVariable.addCharacteristic(modifedCharacteristic);
             }
         }
-        currentVariables.remove(existingVariable);
-        currentVariables.add(computedVariable);
+        return computedVariable;
     }
 
     /**
@@ -176,11 +197,7 @@ public class CharacteristicsCalculator {
      */
     private boolean evaluateNamedReference(NamedEnumCharacteristicReference characteristicReference,
             CharacteristicValue characteristicValue) {
-        var optionalDataflowVariable = this.currentVariables.stream()
-            .filter(it -> it.variableName()
-                .equals(characteristicReference.getNamedReference()
-                    .getReferenceName()))
-            .findAny();
+        var optionalDataflowVariable = getDataFlowVariableByReference(characteristicReference.getNamedReference());
         if (optionalDataflowVariable.isEmpty()) {
             return false;
         }

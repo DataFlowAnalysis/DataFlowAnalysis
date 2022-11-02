@@ -21,7 +21,6 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
             boolean isCalling) {
         super(element, context);
         this.isCalling = isCalling;
-        // TODO Auto-generated constructor stub
     }
 
     public CallingSEFFActionSequenceElement(CallingSEFFActionSequenceElement oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {
@@ -36,9 +35,7 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
 
     // TODO: Custom hash and equals required?
 
-    /**
-     * Input: ccd . GrantedRoles . User := true Elements: variable.characteristicType.value := Term
-     */
+    
     @Override
     public AbstractActionSequenceElement<ExternalCallAction> evaluateDataFlow(List<DataFlowVariable> variables) {
     	List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics();

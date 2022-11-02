@@ -26,7 +26,6 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
 
     public SEFFActionSequenceElement(T element, Deque<AssemblyContext> context) {
         super(element, context);
-        // TODO Auto-generated constructor stub
     }
 
     public SEFFActionSequenceElement(SEFFActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {

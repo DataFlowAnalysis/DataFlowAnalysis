@@ -25,7 +25,6 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
     public CallingUserActionSequenceElement(EntryLevelSystemCall element, boolean isCalling) {
         super(element);
         this.isCalling = isCalling;
-        // TODO Auto-generated constructor stub
     }
 
     public CallingUserActionSequenceElement(CallingUserActionSequenceElement oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {

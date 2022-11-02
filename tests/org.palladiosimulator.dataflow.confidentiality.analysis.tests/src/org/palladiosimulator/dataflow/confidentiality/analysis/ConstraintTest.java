@@ -4,7 +4,6 @@ package org.palladiosimulator.dataflow.confidentiality.analysis;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.DisplayName;
@@ -45,15 +44,8 @@ public class ConstraintTest extends AnalysisFeatureTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean travelPlannerCondition(AbstractActionSequenceElement<?> node) {
-    	var assignedRoles = node.getAllNodeCharacteristics().stream()
-    			.filter(cv -> cv.characteristicType().getName().equals("AssignedRoles"))
-    			.map(cv -> cv.characteristicLiteral())
-    			.collect(Collectors.toList());
-    	var grantedRoles = node.getAllDataFlowVariables().stream()
-    			.flatMap(df -> df.getAllCharacteristics().stream())
-    			.filter(cv -> cv.characteristicType().getName().equals("GrantedRoles"))
-    			.map(cv -> cv.characteristicLiteral())
-    			.collect(Collectors.toList());
+    	var assignedRoles = node.getNodeCharacteristicsWithName("AssignedRoles");
+    	var grantedRoles = node.getDataFlowCharacteristicsWithName("GrantedRoles");
     	return assignedRoles.stream().noneMatch(ar -> grantedRoles.contains(ar));
     }
     
@@ -63,15 +55,8 @@ public class ConstraintTest extends AnalysisFeatureTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean internationalOnlineShopCondition(AbstractActionSequenceElement<?> node) {
-    	var serverLocation = node.getAllNodeCharacteristics().stream()
-    			.filter(cv -> cv.characteristicType().getName().equals("ServerLocation"))
-    			.map(cv -> cv.characteristicLiteral())
-    			.collect(Collectors.toList());
-    	var dataSensitivity = node.getAllDataFlowVariables().stream()
-    			.flatMap(df -> df.getAllCharacteristics().stream())
-    			.filter(cv -> cv.characteristicType().getName().equals("DataSensitivity"))
-    			.map(cv -> cv.characteristicLiteral())
-    			.collect(Collectors.toList());
+    	var serverLocation = node.getNodeCharacteristicsWithName("ServerLocation");
+    	var dataSensitivity = node.getDataFlowCharacteristicsWithName("DataSensitivity");
     	return dataSensitivity.stream().anyMatch(l -> l.getName().equals("Personal")) && serverLocation.stream().anyMatch(l -> l.getName().equals("nonEU"));
     }
 }

@@ -26,16 +26,28 @@ public class CharacteristicsCalculator {
     private List<DataFlowVariable> currentVariables;
 
     /**
-     * Initialize Characteristic Calculator with initial Variables
+     * Initialize Characteristic Calculator with initial variables.
+     * In addition the read-only container for node characteristics is created. See {@link createNodeCharacteristicsContainer}
      * 
      * @param initialVariables
      *            DataFlowVariables of the previous ActionSequence Element
      */
     public CharacteristicsCalculator(List<DataFlowVariable> initialVariables, List<CharacteristicValue> nodeCharacteristics) {
         this.currentVariables = new ArrayList<>(initialVariables);
-        DataFlowVariable nodeCharacteristicContainer = new DataFlowVariable("container");
+        createNodeCharacteristicsContainer(nodeCharacteristics);
+    }
+    
+    /**
+     * Create the container for node characteristics. 
+     * Each node characteristic is saved within the container DataFlowVariable with it's characteristic type and value.
+     * <p>
+     * Furthermore, node characteristics cannot be modified by variable characterisations, so this variable is read-only.
+     * @param nodeCharacteristics
+     */
+    private void createNodeCharacteristicsContainer(List<CharacteristicValue> nodeCharacteristics) {
+    	DataFlowVariable nodeCharacteristicContainer = new DataFlowVariable("container");
         nodeCharacteristics.forEach(it -> nodeCharacteristicContainer.addCharacteristic(it));
-        currentVariables.add(nodeCharacteristicContainer);
+        this.currentVariables.add(nodeCharacteristicContainer);
     }
 
     /**

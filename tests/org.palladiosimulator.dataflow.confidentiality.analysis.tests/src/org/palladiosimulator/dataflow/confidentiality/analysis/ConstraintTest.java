@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 
-public class ViolationTest extends AnalysisFeatureTest {
+public class ConstraintTest extends AnalysisFeatureTest {
 	/**
      * Tests, whether the analysis correctly identifies violations for the travel planner model
      * <p>

@@ -51,7 +51,11 @@ public class CharacteristicsCalculator {
     }
 
     /**
-     * Evaluate a Variable Characterization with the current Variables
+     * Evaluate a Variable Characterization with the current Variables and update the internal state of the characteristics calculator.
+     * This method should be called for each Variable Characterization (e.g. Stoex)
+     * <p>
+     * For easier use, the state of characteristics at a given sequence element, is managed and updated by calling this method.
+     * The final DataflowVariables for an element are accessed with {@link getCalculatedVariables}.
      * 
      * @param variableCharacterisation
      *            Variable Characterization at the Sequence Element

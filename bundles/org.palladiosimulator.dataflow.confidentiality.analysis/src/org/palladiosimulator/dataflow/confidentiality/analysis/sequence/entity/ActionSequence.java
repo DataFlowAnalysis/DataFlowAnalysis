@@ -39,7 +39,7 @@ public record ActionSequence(List<AbstractActionSequenceElement<?>> elements) {
             AbstractActionSequenceElement<?> evaluatedElement = nextElement.evaluateDataFlow(currentVariables);
 
             evaluatedElements.add(evaluatedElement);
-            currentVariables = evaluatedElement.getAllDataFlowVariables();
+           currentVariables = evaluatedElement.getAllDataFlowVariables();
         }
 
         return new ActionSequence(evaluatedElements);

@@ -4,8 +4,11 @@ import java.util.ArrayDeque;
 import java.util.List;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMQueryUtils;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
+import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 public class UserActionSequenceElement<T extends AbstractUserAction> extends AbstractPCMActionSequenceElement<T> {
 
@@ -13,10 +16,20 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
         super(element, new ArrayDeque<>());
     }
 
+    public UserActionSequenceElement(UserActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {
+        super(oldElement, dataFlowVariables, nodeVariables);
+    }
+
     @Override
     public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables) {
-        // TODO Auto-generated method stub
-        return null;
+    	List<CharacteristicValue> nodeCharacteristics = this.evaluateNodeCharacteristics();
+        List<DataFlowVariable> dataFlowVariables = this.evaluateDataFlowCharacteristics(variables, nodeCharacteristics);
+        return new UserActionSequenceElement<T>(this, dataFlowVariables, nodeCharacteristics);
+    }
+    
+    protected List<CharacteristicValue> evaluateNodeCharacteristics() {
+    	var usageScenario = PCMQueryUtils.findParentOfType(this.getElement(), UsageScenario.class, false).get();
+    	return this.evaluateNodeCharacteristics(usageScenario);
     }
 
     @Override

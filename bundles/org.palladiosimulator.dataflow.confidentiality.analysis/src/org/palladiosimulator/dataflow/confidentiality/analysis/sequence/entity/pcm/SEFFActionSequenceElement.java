@@ -1,24 +1,59 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.palladiosimulator.dataflow.confidentiality.analysis.PCMAnalysisUtils;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
+import org.palladiosimulator.pcm.allocation.Allocation;
+import org.palladiosimulator.pcm.allocation.AllocationPackage;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 
 public class SEFFActionSequenceElement<T extends AbstractAction> extends AbstractPCMActionSequenceElement<T> {
 
     public SEFFActionSequenceElement(T element, Deque<AssemblyContext> context) {
         super(element, context);
-        // TODO Auto-generated constructor stub
+    }
+
+    public SEFFActionSequenceElement(SEFFActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {
+        super(oldElement, dataFlowVariables, nodeVariables);
     }
 
     @Override
     public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables) {
-        // TODO Auto-generated method stub
-        return null;
+    	List<CharacteristicValue> nodeCharacteristics = this.evaluateNodeCharacteristics();
+        List<DataFlowVariable> dataFlowVariables = this.evaluateDataFlowCharacteristics(variables, nodeCharacteristics);
+        return new SEFFActionSequenceElement<T>(this, dataFlowVariables, nodeCharacteristics);
+    }
+    
+    protected List<CharacteristicValue> evaluateNodeCharacteristics() {
+    	List<CharacteristicValue> nodeVariables = new ArrayList<>();
+    	
+    	var allocations = PCMAnalysisUtils.lookupElementOfType(AllocationPackage.eINSTANCE.getAllocation()).stream()
+    			.filter(Allocation.class::isInstance)
+    			.map(Allocation.class::cast)
+    			.collect(Collectors.toList());
+    	
+    	var allocation = allocations.stream()
+    			.filter(it -> it.getAllocationContexts_Allocation().stream()
+    					.map(alloc -> alloc.getAssemblyContext_AllocationContext())
+    					.anyMatch(this.getContext().getFirst()::equals)
+    					)
+    			.findFirst()
+    			.orElseThrow();
+    	
+    	var resourceContainers = allocation.getTargetResourceEnvironment_Allocation().getResourceContainer_ResourceEnvironment();
+    	
+    	for (ResourceContainer container : resourceContainers) {
+    		nodeVariables.addAll(this.evaluateNodeCharacteristics(container));
+    	}
+    	return nodeVariables;
     }
 
     @Override

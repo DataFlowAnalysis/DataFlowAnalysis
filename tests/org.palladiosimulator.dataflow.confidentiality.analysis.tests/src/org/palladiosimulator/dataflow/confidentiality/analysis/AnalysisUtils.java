@@ -143,4 +143,86 @@ public class AnalysisUtils {
             .getEntityName());
     }
 
+    /**
+     * <em>Assert</em> that {@code sequence} at the given {@code index} has the given characteristic
+     * type and value.
+     * <p>
+     * If both {@code sequence} or {@code expectedName} are {@code null} or the sequences are of
+     * different length, they are considered unequal
+     * 
+     * @param sequence
+     *            ActionSequence to be inspected
+     * @param index
+     *            Index into the given sequence
+     * @param variableName
+     *            Name of the DataFlow variable at the given {@code index}
+     * @param characteristicType
+     *            Expected characteristic type at the given {@code index}
+     * @param characteristicValue
+     *            Expected characteristic value at the given {@code index}
+     */
+    public static void assertCharacteristicPresent(ActionSequence sequence, int index, String variableName,
+            String characteristicType, String characteristicValue) {
+        var sequenceElement = sequence.elements()
+            .get(index);
+        var dataflowVariable = sequenceElement.getAllDataFlowVariables()
+            .stream()
+            .filter(it -> it.variableName()
+                .equals(variableName))
+            .findAny()
+            .orElseThrow();
+        assertTrue(dataflowVariable.characteristics()
+            .stream()
+            .filter(it -> it.characteristicType()
+                .getName()
+                .equals(characteristicType))
+            .filter(it -> it.characteristicLiteral()
+                .getName()
+                .equals(characteristicValue))
+            .findAny()
+            .isPresent());
+    }
+
+    /**
+     * <em>Assert</em> that {@code sequence} at the given {@code index} does not have the given
+     * characteristic type and value.
+     * <p>
+     * If both {@code sequence} or {@code expectedName} are {@code null} or the sequences are of
+     * different length, they are considered unequal
+     * 
+     * @param sequence
+     *            ActionSequence to be inspected
+     * @param index
+     *            Index into the given sequence
+     * @param variableName
+     *            Name of the DataFlow variable at the given {@code index}
+     * @param characteristicType
+     *            Expected characteristic type at the given {@code index}
+     * @param characteristicValue
+     *            Expected characteristic value at the given {@code index}
+     */
+    public static void assertCharacteristicAbsent(ActionSequence sequence, int index, String variableName,
+            String characteristicType, String characteristicValue) {
+        var sequenceElement = sequence.elements()
+            .get(index);
+        var dataflowVariable = sequenceElement.getAllDataFlowVariables()
+            .stream()
+            .filter(it -> it.variableName()
+                .equals(variableName))
+            .findAny();
+        if (dataflowVariable.isEmpty()) {
+            return;
+        }
+        assertTrue(dataflowVariable.get()
+            .characteristics()
+            .stream()
+            .filter(it -> it.characteristicType()
+                .getName()
+                .equals(characteristicType))
+            .filter(it -> it.characteristicLiteral()
+                .getName()
+                .equals(characteristicValue))
+            .findAny()
+            .isEmpty());
+    }
 }

@@ -154,8 +154,10 @@ public class PCMFinderUtils {
     private static List<ActionSequence> findSequencesForSEFFStartAction(StartAction currentAction,
             Deque<AssemblyContext> context, Deque<AbstractPCMActionSequenceElement<?>> callers,
             ActionSequence previousSequence) {
+    	var startElement = new SEFFActionSequenceElement<StartAction>(currentAction, context);
+    	var currentSequence = new ActionSequence(previousSequence, startElement);
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context, callers,
-                previousSequence);
+                currentSequence);
     }
 
     private static List<ActionSequence> findSequencesForSEFFStopAction(StopAction currentAction,

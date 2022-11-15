@@ -10,6 +10,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.A
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
 import org.palladiosimulator.pcm.allocation.Allocation;
+import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.allocation.AllocationPackage;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
@@ -48,10 +49,16 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
     			.findFirst()
     			.orElseThrow();
     	
-    	var resourceContainers = allocation.getTargetResourceEnvironment_Allocation().getResourceContainer_ResourceEnvironment();
+    	var allocationContexts = allocation.getAllocationContexts_Allocation();
     	
-    	for (ResourceContainer container : resourceContainers) {
-    		nodeVariables.addAll(this.evaluateNodeCharacteristics(container));
+    	if (this.getElement().getEntityName().equals("DatabaseStoreUserData")) {
+    		System.out.println("Found element");
+    	}
+    	    	
+    	for (AllocationContext allocationContext : allocationContexts) {
+    		if (this.getContext().contains(allocationContext.getAssemblyContext_AllocationContext())) {
+        		nodeVariables.addAll(this.evaluateNodeCharacteristics(allocationContext.getResourceContainer_AllocationContext()));
+    		}
     	}
     	return nodeVariables;
     }

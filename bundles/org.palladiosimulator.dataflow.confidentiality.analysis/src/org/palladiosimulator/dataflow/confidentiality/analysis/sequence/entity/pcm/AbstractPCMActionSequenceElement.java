@@ -17,6 +17,7 @@ import org.palladiosimulator.mdsdprofiles.api.StereotypeAPI;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
+import org.palladiosimulator.pcm.seff.StartAction;
 
 public abstract class AbstractPCMActionSequenceElement<T extends EObject> extends AbstractActionSequenceElement<T> {
 
@@ -35,6 +36,11 @@ public abstract class AbstractPCMActionSequenceElement<T extends EObject> extend
     }
    
     protected List<DataFlowVariable> evaluateDataFlowCharacteristics(List<DataFlowVariable> variables, List<CharacteristicValue> nodeCharacteristics) {
+    	if (this.getElement() instanceof StartAction) {
+    		return variables;
+    	} else if (!(this.getElement() instanceof SetVariableAction)) {
+    		throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");
+    	}
     	List<VariableCharacterisation> variableCharacterisations = ((SetVariableAction) this.getElement())
                 .getLocalVariableUsages_SetVariableAction()
                 .stream()

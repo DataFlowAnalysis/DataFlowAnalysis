@@ -15,7 +15,7 @@ Furthermore, the Activator class, found at the project tests/org.palladiosimulat
 The `projectName` in the example code is determined by the project name of the modelling project.
 The `usageModelPath` and `allocationModelPath` describes the path of the usage and allocation model relative to the root of the modelling project
 
-The Basic analysis can be executed with the following example:
+A basic analysis can be executed with the following example:
 
 ```java
 public class Main {
@@ -38,4 +38,4 @@ public class Main {
 }
 ```
 
-Additional examples for the TravelPlanner, InternationalOnlineShop and BranchingOnlineShop can be found in the tests and testmodel projects.
+Additional examples for the TravelPlanner, InternationalOnlineShop and BranchingOnlineShop can be found in the tests and testmodel projects, that can be found at the tests folder in the root of the project.

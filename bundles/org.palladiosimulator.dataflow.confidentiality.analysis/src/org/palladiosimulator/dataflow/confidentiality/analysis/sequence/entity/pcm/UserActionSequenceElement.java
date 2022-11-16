@@ -13,7 +13,7 @@ import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 public class UserActionSequenceElement<T extends AbstractUserAction> extends AbstractPCMActionSequenceElement<T> {
 
     public UserActionSequenceElement(T element) {
-        super(element, new ArrayDeque<>());
+        super(element, new ArrayDeque<>(), List.of());
     }
 
     public UserActionSequenceElement(UserActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {

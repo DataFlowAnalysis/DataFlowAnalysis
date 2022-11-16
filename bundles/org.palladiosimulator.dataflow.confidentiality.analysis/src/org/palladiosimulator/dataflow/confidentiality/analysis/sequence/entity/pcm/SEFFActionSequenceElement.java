@@ -13,13 +13,14 @@ import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.allocation.AllocationPackage;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 
 public class SEFFActionSequenceElement<T extends AbstractAction> extends AbstractPCMActionSequenceElement<T> {
 
-    public SEFFActionSequenceElement(T element, Deque<AssemblyContext> context) {
-        super(element, context);
+    public SEFFActionSequenceElement(T element, Deque<AssemblyContext> context, List<VariableUsage> variableUsage) {
+        super(element, context, variableUsage);
     }
 
     public SEFFActionSequenceElement(SEFFActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {

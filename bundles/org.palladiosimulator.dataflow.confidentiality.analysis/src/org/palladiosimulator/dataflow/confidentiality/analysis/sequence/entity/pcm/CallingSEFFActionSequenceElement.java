@@ -1,5 +1,6 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,6 +12,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.C
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
+import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
 
 public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<ExternalCallAction>
@@ -18,9 +20,9 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
 
     private final boolean isCalling;
 
-    public CallingSEFFActionSequenceElement(ExternalCallAction element, Deque<AssemblyContext> context,
+    public CallingSEFFActionSequenceElement(ExternalCallAction element, Deque<AssemblyContext> context, List<VariableUsage> variableUsage,
             boolean isCalling) {
-        super(element, context);
+        super(element, context, variableUsage);
         this.isCalling = isCalling;
     }
 
@@ -38,6 +40,23 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
 
     @Override
     public AbstractActionSequenceElement<ExternalCallAction> evaluateDataFlow(List<DataFlowVariable> variables) {
+    	var passedVariables = this.getElement().getInputVariableUsages__CallAction();
+    	List<DataFlowVariable> passedDataFlowVariables = new ArrayList<>();
+    	for (VariableUsage variableUsage : passedVariables) {
+    		String variableName = variableUsage.getNamedReference__VariableUsage().getReferenceName();
+    		DataFlowVariable usedDataFlowVariable = variables.stream()
+    				.filter(it -> it.variableName().equals(variableName))
+    				.findAny()
+    				.orElse(new DataFlowVariable(variableName));
+    		passedDataFlowVariables.add(usedDataFlowVariable);
+    	}
+    	
+    	DataFlowVariable returnValue = variables.stream()
+				.filter(it -> it.variableName().equals("RETURN"))
+				.findAny()
+				.orElse(new DataFlowVariable("RETURN"));
+    	passedDataFlowVariables.add(returnValue);
+    	
     	List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics();
         List<VariableCharacterisation> variableCharacterisations = this.isCalling ? 
         		super.getElement().getInputVariableUsages__CallAction().stream()
@@ -50,7 +69,7 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
                         .stream())
                 .collect(Collectors.toList());
 
-        CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(variables, nodeVariables);
+        CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(passedDataFlowVariables, nodeVariables);
         variableCharacterisations.stream()
             .forEach(it -> characteristicsCalculator.evaluate(it));
         AbstractActionSequenceElement<ExternalCallAction> evaluatedElement = new CallingSEFFActionSequenceElement(this,

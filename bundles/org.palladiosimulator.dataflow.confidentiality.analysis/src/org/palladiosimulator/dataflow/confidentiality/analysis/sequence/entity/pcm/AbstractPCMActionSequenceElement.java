@@ -16,24 +16,32 @@ import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCha
 import org.palladiosimulator.mdsdprofiles.api.StereotypeAPI;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
+import org.palladiosimulator.pcm.parameter.VariableUsage;
+import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
 import org.palladiosimulator.pcm.seff.StartAction;
 
 public abstract class AbstractPCMActionSequenceElement<T extends EObject> extends AbstractActionSequenceElement<T> {
 
     private final Deque<AssemblyContext> context;
-    private final T element;
+    private final T element;	
+    private final List<Parameter> parameter;
 
-    public AbstractPCMActionSequenceElement(T element, Deque<AssemblyContext> context) {
+
+    public AbstractPCMActionSequenceElement(T element, Deque<AssemblyContext> context, List<Parameter> parameter) {
         this.element = element;
         this.context = context;
+        this.parameter = parameter;
     }
     
     public AbstractPCMActionSequenceElement(AbstractPCMActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {
     	super(dataFlowVariables, nodeVariables);
     	this.element = oldElement.getElement();
     	this.context = oldElement.getContext();
+    	this.parameter = oldElement.getParameter();
     }
+    
+    abstract List<DataFlowVariable> getAvailableDataFlowVariables(List<DataFlowVariable> variables);
    
     protected List<DataFlowVariable> evaluateDataFlowCharacteristics(List<DataFlowVariable> variables, List<CharacteristicValue> nodeCharacteristics) {
     	if (this.getElement() instanceof StartAction) {
@@ -41,13 +49,16 @@ public abstract class AbstractPCMActionSequenceElement<T extends EObject> extend
     	} else if (!(this.getElement() instanceof SetVariableAction)) {
     		throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");
     	}
+    	
+    	List<DataFlowVariable> availableDataFlowVariables = this.getAvailableDataFlowVariables(variables);
+    	
     	List<VariableCharacterisation> variableCharacterisations = ((SetVariableAction) this.getElement())
                 .getLocalVariableUsages_SetVariableAction()
                 .stream()
                 .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
                     .stream())
                 .toList();
-            CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(variables, nodeCharacteristics);
+            CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(availableDataFlowVariables, nodeCharacteristics);
             variableCharacterisations.forEach(it -> characteristicsCalculator.evaluate(it));
             return characteristicsCalculator.getCalculatedCharacteristics();
     }
@@ -72,6 +83,10 @@ public abstract class AbstractPCMActionSequenceElement<T extends EObject> extend
 
     public Deque<AssemblyContext> getContext() {
         return context;
+    }
+
+    public List<Parameter> getParameter() {
+    	return this.parameter;
     }
 
     @Override

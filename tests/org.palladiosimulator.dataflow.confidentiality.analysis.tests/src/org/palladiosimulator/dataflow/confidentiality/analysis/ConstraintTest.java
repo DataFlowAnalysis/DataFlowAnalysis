@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -16,7 +17,9 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.AbstractPCMActionSequenceElement;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
+import org.palladiosimulator.pcm.repository.Parameter;
 
 public class ConstraintTest extends AnalysisFeatureTest {
 
@@ -37,11 +40,25 @@ public class ConstraintTest extends AnalysisFeatureTest {
         logger.setLevel(Level.TRACE);
 
         var sequences = analysis.findAllSequences();
+        var sequence = sequences.get(0);
+        sequence.elements().stream()
+        .map(AbstractPCMActionSequenceElement.class::cast)
+        .forEach(it -> System.out.printf("Node %s has parameters %s%n", it, param(it.getParameter())));
+        System.out.println("----------------------------------");
+        System.out.println("----------------------------------");
+        System.out.println("----------------------------------");
+        System.out.println("----------------------------------");
         var propagationResult = analysis.evaluateDataFlows(sequences);
 
         var result = analysis.queryDataFlow(propagationResult.get(0), contraint);
         printViolation(result);
         assertEquals(noViolations, result.isEmpty());
+    }
+    
+    private String param(List<Parameter> parameter) {
+    	StringJoiner builder = new StringJoiner(",");
+    	parameter.forEach(it -> builder.add(it.getParameterName()));
+    	return "[" + builder.toString() + "]";
     }
 
     private Stream<Arguments> violationTestProvider() {

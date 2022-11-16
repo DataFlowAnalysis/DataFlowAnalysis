@@ -27,6 +27,11 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
         return new UserActionSequenceElement<T>(this, dataFlowVariables, nodeCharacteristics);
     }
     
+    @Override
+    public List<DataFlowVariable> getAvailableDataFlowVariables(List<DataFlowVariable> variables) {
+    	return variables;
+    }
+    
     protected List<CharacteristicValue> evaluateNodeCharacteristics() {
     	var usageScenario = PCMQueryUtils.findParentOfType(this.getElement(), UsageScenario.class, false).get();
     	return this.evaluateNodeCharacteristics(usageScenario);

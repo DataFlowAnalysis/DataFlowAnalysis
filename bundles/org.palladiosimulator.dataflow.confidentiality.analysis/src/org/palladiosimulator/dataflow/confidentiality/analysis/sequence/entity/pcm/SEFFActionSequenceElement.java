@@ -14,13 +14,14 @@ import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.allocation.AllocationPackage;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
+import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 
 public class SEFFActionSequenceElement<T extends AbstractAction> extends AbstractPCMActionSequenceElement<T> {
-
-    public SEFFActionSequenceElement(T element, Deque<AssemblyContext> context, List<VariableUsage> variableUsage) {
-        super(element, context, variableUsage);
+	
+    public SEFFActionSequenceElement(T element, Deque<AssemblyContext> context, List<Parameter> parameters) {
+        super(element, context, parameters);
     }
 
     public SEFFActionSequenceElement(SEFFActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {
@@ -32,6 +33,16 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
     	List<CharacteristicValue> nodeCharacteristics = this.evaluateNodeCharacteristics();
         List<DataFlowVariable> dataFlowVariables = this.evaluateDataFlowCharacteristics(variables, nodeCharacteristics);
         return new SEFFActionSequenceElement<T>(this, dataFlowVariables, nodeCharacteristics);
+    }
+    
+    @Override
+    public List<DataFlowVariable> getAvailableDataFlowVariables(List<DataFlowVariable> variables) {
+    	List<String> availableVariableNames = this.getParameter().stream()
+    			.map(it -> it.getParameterName())
+    			.collect(Collectors.toList());
+    	return variables.stream()
+    			.filter(it -> availableVariableNames.stream().anyMatch(st -> it.variableName().equals(st)))
+    			.collect(Collectors.toList());
     }
     
     protected List<CharacteristicValue> evaluateNodeCharacteristics() {

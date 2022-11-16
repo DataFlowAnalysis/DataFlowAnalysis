@@ -66,6 +66,19 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
                 this, characteristicsCalculator.getCalculatedCharacteristics(), nodeVariables);
         return evaluatedElement;
     }
+    
+    @Override
+    public List<DataFlowVariable> getAvailableDataFlowVariables(List<DataFlowVariable> variables) {
+    	List<String> availableVariableNames = this.getParameter().stream()
+    			.map(it -> it.getParameterName())
+    			.collect(Collectors.toList());
+    	if (!this.isCalling()) {
+    		availableVariableNames.add("RETURN");
+    	}
+    	return variables.stream()
+    			.filter(it -> availableVariableNames.contains(it.variableName()))
+    			.collect(Collectors.toList());
+    }
 
     @Override
     public String toString() {

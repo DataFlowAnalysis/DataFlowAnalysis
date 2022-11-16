@@ -12,7 +12,7 @@ The ´projectName´ in the example code is determined by the project name of the
 The ´usageModelPath´ and ´allocationModelPath´ describes the path of the usage and allocation model relative to the root of the modelling project
 
 The Basic analysis can be executed with the following example:
-´´
+´´´´
 public class Main {
   public static void main(String[] args) {
     var projectName = "name.of.the.model.project";
@@ -31,6 +31,6 @@ public class Main {
     );
   }
 }
-´´
+´´´´
 
 Additional examples for the TravelPlanner, InternationalOnlineShop and BranchingOnlineShop can be found in the tests and testmodel projects.

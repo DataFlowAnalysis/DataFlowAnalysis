@@ -1,4 +1,8 @@
 # Palladio-Addons-DataFlowConfidentiality-Analysis
+
+This repository contains an analysis to extract dataflows from a palladio modelling project, analyze their data characteristics and formulate constraints to check if definied bounds are respected by the model.
+For more information visit the [official page](https://fluidtrust.ipd.kit.edu/home/) of the project.
+
 ## Installation
 - Install the latest version of the Eclipse Modelling Tools from the [official site](https://www.eclipse.org/downloads/packages/)
 - Clone this repository
@@ -8,8 +12,8 @@
 ## Usage
 First step of using the project is to create a modelling project in Eclipse.
 Furthermore, the Activator class, found at the project tests/org.palladiosimulator.dataflow.confidentiality.analysis.tests, is needed to load the model placed in the modelling project.
-The ´projectName´ in the example code is determined by the project name of the modelling project.
-The ´usageModelPath´ and ´allocationModelPath´ describes the path of the usage and allocation model relative to the root of the modelling project
+The `projectName` in the example code is determined by the project name of the modelling project.
+The `usageModelPath` and `allocationModelPath` describes the path of the usage and allocation model relative to the root of the modelling project
 
 The Basic analysis can be executed with the following example:
 

@@ -6,8 +6,8 @@ For more information visit the [official page](https://fluidtrust.ipd.kit.edu/ho
 ## Installation
 - Install the latest version of the Eclipse Modelling Tools from the [official site](https://www.eclipse.org/downloads/packages/)
 - Clone this repository
-- Import the .e2f file into Eclipse to install the dependencies of the project. This is achieved by going to File->Import->General->Install from File
-- Import the projects in the bundels folder into Eclipse
+- Import the dependencies.p2f file into Eclipse to install the dependencies of the project. This is achieved by going to File->Import->General->Install from File
+- Import the projects in the bundles folder into Eclipse
 
 ## Usage
 First step of using the project is to create a modelling project in Eclipse.

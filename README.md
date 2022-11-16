@@ -13,7 +13,7 @@ The ´usageModelPath´ and ´allocationModelPath´ describes the path of the usa
 
 The Basic analysis can be executed with the following example:
 
-````
+```java
 public class Main {
   public static void main(String[] args) {
     var projectName = "name.of.the.model.project";
@@ -32,6 +32,6 @@ public class Main {
     );
   }
 }
-````
+```
 
 Additional examples for the TravelPlanner, InternationalOnlineShop and BranchingOnlineShop can be found in the tests and testmodel projects.

@@ -2,6 +2,7 @@ package org.palladiosimulator.dataflow.confidentiality.analysis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.StringJoiner;
@@ -16,6 +17,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.AbstractPCMActionSequenceElement;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
@@ -40,17 +42,29 @@ public class ConstraintTest extends AnalysisFeatureTest {
         logger.setLevel(Level.TRACE);
 
         var sequences = analysis.findAllSequences();
-        var sequence = sequences.get(0);
-        sequence.elements().stream()
-        .map(AbstractPCMActionSequenceElement.class::cast)
-        .forEach(it -> System.out.printf("Node %s has parameters %s%n", it, param(it.getParameter())));
+        for (ActionSequence sequence : sequences) {
+            sequence.elements().stream()
+            .map(AbstractPCMActionSequenceElement.class::cast)
+            .forEach(it -> System.out.printf("Node %s has parameters %s%n", it, param(it.getParameter())));
+            System.out.println("");
+        }
         System.out.println("----------------------------------");
         System.out.println("----------------------------------");
         System.out.println("----------------------------------");
         System.out.println("----------------------------------");
-        var propagationResult = analysis.evaluateDataFlows(sequences);
+        
+        // TODO: Remove tempoary ordering
+        List<ActionSequence> orderedList = new ArrayList<>();
+        if (sequences.size() == 2) {
+        	orderedList.add(sequences.get(1));
+        	orderedList.add(sequences.get(0));
+        } else {
+        	orderedList.addAll(sequences);
+        }
+        
+        var propagationResult = analysis.evaluateDataFlows(orderedList);
 
-        var result = analysis.queryDataFlow(propagationResult.get(0), contraint);
+        var result = analysis.queryDataFlow(propagationResult.get(1), contraint);
         printViolation(result);
         assertEquals(noViolations, result.isEmpty());
     }
@@ -65,7 +79,7 @@ public class ConstraintTest extends AnalysisFeatureTest {
         Predicate<AbstractActionSequenceElement<?>> travelPlannerContraint = node -> travelPlannerCondition(node);
         Predicate<AbstractActionSequenceElement<?>> internationalOnlineShopContraint = node -> internationalOnlineShopCondition(
                 node);
-        return Stream.of(Arguments.of(travelPlannerAnalysis, travelPlannerContraint, true),
+        return Stream.of(Arguments.of(travelPlannerAnalysis, travelPlannerContraint, false),
                 Arguments.of(internationalOnlineShopAnalysis, internationalOnlineShopContraint, false));
     }
 

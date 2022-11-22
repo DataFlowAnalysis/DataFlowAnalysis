@@ -62,10 +62,6 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
     			.orElseThrow();
     	
     	var allocationContexts = allocation.getAllocationContexts_Allocation();
-    	
-    	if (this.getElement().getEntityName().equals("DatabaseStoreUserData")) {
-    		System.out.println("Found element");
-    	}
     	    	
     	for (AllocationContext allocationContext : allocationContexts) {
     		if (this.getContext().contains(allocationContext.getAssemblyContext_AllocationContext())) {

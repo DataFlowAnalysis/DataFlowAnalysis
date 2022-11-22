@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm;
+package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.finder;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -11,9 +11,10 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.p
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.CallingSEFFActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.CallingUserActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.SEFFActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.UserActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMQueryUtils;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.SEFFWithContext;
+import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.Parameter;
@@ -25,109 +26,9 @@ import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
 import org.palladiosimulator.pcm.seff.StartAction;
 import org.palladiosimulator.pcm.seff.StopAction;
-import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
-import org.palladiosimulator.pcm.usagemodel.Branch;
-import org.palladiosimulator.pcm.usagemodel.BranchTransition;
-import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
-import org.palladiosimulator.pcm.usagemodel.Start;
-import org.palladiosimulator.pcm.usagemodel.Stop;
 
-public class PCMFinderUtils {
-
-    private PCMFinderUtils() {
-        // Utility class
-    }
-
-    public static List<ActionSequence> findSequencesForUserAction(AbstractUserAction currentAction,
-            ActionSequence previousSequence) {
-        if (currentAction instanceof Start) {
-            return findSequencesForUserStartAction((Start) currentAction, previousSequence);
-
-        } else if (currentAction instanceof Stop) {
-            return findSequencesForUserStopAction((Stop) currentAction, previousSequence);
-
-        } else if (currentAction instanceof Branch) {
-            return findSequencesForUserBranchAction((Branch) currentAction, previousSequence);
-
-        } else if (currentAction instanceof EntryLevelSystemCall) {
-            return findSequencesForEntryLevelSystemCall((EntryLevelSystemCall) currentAction, previousSequence);
-
-        } else {
-            throw new IllegalArgumentException(
-                    String.format("The type %s is not supported in usage scenarios.", currentAction.getClass()
-                        .getName()));
-        }
-    }
-
-    private static List<ActionSequence> findSequencesForUserStartAction(Start currentAction,
-            ActionSequence previousSequence) {
-        return findSequencesForUserAction(currentAction.getSuccessor(), previousSequence);
-    }
-
-    private static List<ActionSequence> findSequencesForUserStopAction(Stop currentAction,
-            ActionSequence previousSequence) {
-        Optional<AbstractUserAction> parentAction = PCMQueryUtils.findParentOfType(currentAction,
-                AbstractUserAction.class, false);
-
-        if (parentAction.isEmpty()) {
-            return List.of(previousSequence);
-        } else {
-            return findSequencesForUserAction(parentAction.get()
-                .getSuccessor(), previousSequence);
-        }
-    }
-
-    private static List<ActionSequence> findSequencesForUserBranchAction(Branch currentAction,
-            ActionSequence previousSequence) {
-        return currentAction.getBranchTransitions_Branch()
-            .stream()
-            .map(BranchTransition::getBranchedBehaviour_BranchTransition)
-            .map(PCMQueryUtils::getStartActionOfScenarioBehavior)
-            .flatMap(Optional::stream)
-            .map(it -> findSequencesForUserAction(it, previousSequence))
-            .flatMap(List::stream)
-            .toList();
-    }
-
-    private static List<ActionSequence> findSequencesForEntryLevelSystemCall(EntryLevelSystemCall currentAction,
-            ActionSequence previousSequence) {
-        var callingEntity = new CallingUserActionSequenceElement(currentAction, true);
-        ActionSequence currentActionSequence = new ActionSequence(previousSequence, callingEntity);
-
-        OperationProvidedRole calledRole = currentAction.getProvidedRole_EntryLevelSystemCall();
-        OperationSignature calledSignature = currentAction.getOperationSignature__EntryLevelSystemCall();
-        Optional<SEFFWithContext> calledSEFF = PCMQueryUtils.findCalledSEFF(calledRole, calledSignature,
-                new ArrayDeque<>());
-
-        if (calledSEFF.isEmpty()) {
-            return new ArrayList<ActionSequence>();
-        } else {
-            Optional<StartAction> SEFFStartAction = PCMQueryUtils.getFirstStartActionInActionList(calledSEFF.get()
-                .seff()
-                .getSteps_Behaviour());
-
-            if (SEFFStartAction.isEmpty()) {
-                throw new IllegalStateException("Unable to find SEFF start action.");
-            } else {
-                Deque<AbstractPCMActionSequenceElement<?>> callers = new ArrayDeque<>();
-                callers.add(callingEntity);
-                
-                List<Parameter> availableVariables = getParametersCaller(callingEntity);
-
-                return findSequencesForSEFFAction(SEFFStartAction.get(), calledSEFF.get()
-                    .context(), callers, availableVariables ,currentActionSequence);
-            }
-        }
-    }
-
-    private static List<ActionSequence> findSequencesForUserActionReturning(EntryLevelSystemCall currentAction,
-            ActionSequence previousSequence) {
-        ActionSequence currentActionSequence = new ActionSequence(previousSequence,
-                new CallingUserActionSequenceElement(currentAction, false));
-        return findSequencesForUserAction(currentAction.getSuccessor(), currentActionSequence);
-    }
-
-    private static List<ActionSequence> findSequencesForSEFFAction(AbstractAction currentAction,
+public class PCMSEFFFinderUtils {
+	public static List<ActionSequence> findSequencesForSEFFAction(AbstractAction currentAction,
             Deque<AssemblyContext> context, Deque<AbstractPCMActionSequenceElement<?>> callers, List<Parameter> availableVariables,
             ActionSequence previousSequence) {
 
@@ -194,8 +95,14 @@ public class PCMFinderUtils {
         Optional<SEFFWithContext> calledSEFF = PCMQueryUtils.findCalledSEFF(calledRole, calledSignature, context);
 
         if (calledSEFF.isEmpty()) {
-            return new ArrayList<ActionSequence>();
+            return List.of(previousSequence);
         } else {
+        	if (calledSEFF.get().seff().getBasicComponent_ServiceEffectSpecification() instanceof OperationalDataStoreComponent) {
+        		callers.add(callingEntity);
+                List<Parameter> availableToCallee = calledSignature.getParameters__OperationSignature();
+        		return PCMDatabaseFinderUtils.findSequencesForDatabaseAction(calledSEFF.get(), 
+        				calledSEFF.get().context(), callers, availableToCallee, currentActionSequence);
+        	}
             Optional<StartAction> SEFFStartAction = PCMQueryUtils.getFirstStartActionInActionList(calledSEFF.get()
                 .seff()
                 .getSteps_Behaviour());
@@ -247,7 +154,7 @@ public class PCMFinderUtils {
                 currentActionSequence);
     }
 
-    private static List<ActionSequence> returnToCaller(AbstractPCMActionSequenceElement<?> caller,
+    public static List<ActionSequence> returnToCaller(AbstractPCMActionSequenceElement<?> caller,
             Deque<AbstractPCMActionSequenceElement<?>> callers, List<Parameter> availableVariables, ActionSequence previousSequence) {
 
         if (caller instanceof CallingUserActionSequenceElement) {
@@ -268,7 +175,7 @@ public class PCMFinderUtils {
         if (!callers.isEmpty()) {
             throw new IllegalStateException("Illegal state in action sequence finder.");
         } else {
-            return findSequencesForUserActionReturning(caller.getElement(), previousSequence);
+            return PCMUserFinderUtils.findSequencesForUserActionReturning(caller.getElement(), previousSequence);
         }
     }
 
@@ -277,7 +184,10 @@ public class PCMFinderUtils {
         return findSequencesForSEFFActionReturning(caller.getElement(), caller.getContext(), callers, availableVariables, previousSequence);
     }
     
-    private static List<Parameter> getParametersCaller(AbstractPCMActionSequenceElement<?> caller) {
+    // TODO: Duplicate
+
+    
+    public static List<Parameter> getParametersCaller(AbstractPCMActionSequenceElement<?> caller) {
     	if (caller instanceof CallingUserActionSequenceElement) {
     		CallingUserActionSequenceElement callingUserElement = (CallingUserActionSequenceElement) caller;
     		return callingUserElement.getElement().getOperationSignature__EntryLevelSystemCall().getParameters__OperationSignature();

@@ -1,6 +1,7 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm;
 
 import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.List;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
@@ -21,7 +22,7 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
     }
 
     @Override
-    public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables) {
+    public AbstractActionSequenceElement<T> evaluateDataFlow(Deque<List<DataFlowVariable>> variables) {
     	List<CharacteristicValue> nodeCharacteristics = this.evaluateNodeCharacteristics();
         List<DataFlowVariable> dataFlowVariables = this.evaluateDataFlowCharacteristics(variables, nodeCharacteristics);
         return new UserActionSequenceElement<T>(this, dataFlowVariables, nodeCharacteristics);

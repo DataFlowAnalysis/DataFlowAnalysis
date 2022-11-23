@@ -1,5 +1,6 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm;
 
+import java.util.Deque;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,8 +45,8 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
      * Input: ccd . GrantedRoles . User := true Elements: variable.characteristicType.value := Term
      */
     @Override
-    public AbstractActionSequenceElement<EntryLevelSystemCall> evaluateDataFlow(List<DataFlowVariable> variables) {
-    	// TODO: Generate list of node variables for sequence element
+    public AbstractActionSequenceElement<EntryLevelSystemCall> evaluateDataFlow(Deque<List<DataFlowVariable>> variables) {
+    	List<DataFlowVariable> newDataFlowVariables = variables.getLast();
     	List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics();
     	
     	List<VariableCharacterisation> variableCharacterisations = this.isCalling ?
@@ -59,11 +60,14 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
                         .stream())
                     .collect(Collectors.toList());
 
-        CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(variables, nodeVariables);
+        CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(newDataFlowVariables, nodeVariables);
         variableCharacterisations.stream()
             .forEach(it -> characteristicsCalculator.evaluate(it));
         AbstractActionSequenceElement<EntryLevelSystemCall> evaluatedElement = new CallingUserActionSequenceElement(
                 this, characteristicsCalculator.getCalculatedCharacteristics(), nodeVariables);
+        if (!this.isCalling()) {
+        	
+        }
         return evaluatedElement;
     }
     

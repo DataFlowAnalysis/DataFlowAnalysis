@@ -29,7 +29,7 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
     }
 
     @Override
-    public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables) {
+    public AbstractActionSequenceElement<T> evaluateDataFlow(Deque<List<DataFlowVariable>> variables) {
     	List<CharacteristicValue> nodeCharacteristics = this.evaluateNodeCharacteristics();
         List<DataFlowVariable> dataFlowVariables = this.evaluateDataFlowCharacteristics(variables, nodeCharacteristics);
         return new SEFFActionSequenceElement<T>(this, dataFlowVariables, nodeCharacteristics);

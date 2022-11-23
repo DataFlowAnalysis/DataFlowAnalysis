@@ -40,8 +40,14 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
     // TODO: Custom hash and equals required?
 
     @Override
-    public AbstractActionSequenceElement<ExternalCallAction> evaluateDataFlow(List<DataFlowVariable> variables) {
-    	List<DataFlowVariable> passedDataFlowVariables = this.getAvailableDataFlowVariables(variables);
+    public AbstractActionSequenceElement<ExternalCallAction> evaluateDataFlow(Deque<List<DataFlowVariable>> variables) {
+    	List<DataFlowVariable> newDataFlowVariables;
+    	if (this.isCalling()) {
+    		newDataFlowVariables = variables.getLast();
+    	} else {
+    		variables.pop();
+    		newDataFlowVariables = variables.getLast();
+    	}
     	
     	List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics();
         List<VariableCharacterisation> variableCharacterisations = this.isCalling ? 
@@ -55,7 +61,7 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
                         .stream())
                 .collect(Collectors.toList());
 
-        CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(passedDataFlowVariables, nodeVariables);
+        CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(newDataFlowVariables, nodeVariables);
         variableCharacterisations.stream()
             .forEach(it -> characteristicsCalculator.evaluate(it));
         AbstractActionSequenceElement<ExternalCallAction> evaluatedElement = new CallingSEFFActionSequenceElement(this,

@@ -18,14 +18,13 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.Parameter;
 
 public class DatabaseActionSequenceElement<T extends OperationalDataStoreComponent> extends AbstractPCMActionSequenceElement<T> {
-	// TODO: Implement better, please ;(
-	private static HashMap<String, List<CharacteristicValue>> tempStore = new HashMap<>();
-	
+	private DataStore dataStore;
 	private boolean isWriting;
 	
-	public DatabaseActionSequenceElement(T element, Deque<AssemblyContext> context, List<Parameter> parameters, boolean isWriting) {
+	public DatabaseActionSequenceElement(T element, Deque<AssemblyContext> context, List<Parameter> parameters, boolean isWriting, DataStore dataStore) {
         super(element, context, parameters);
         this.isWriting = isWriting;
+        this.dataStore = dataStore;
     }
 	
 	public DatabaseActionSequenceElement(DatabaseActionSequenceElement<T> oldElement, 
@@ -33,31 +32,28 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 			List<CharacteristicValue> nodeVariables) {
 		super(oldElement, dataFlowVariables, nodeVariables);
 		this.isWriting = oldElement.isWriting();
+		this.dataStore = oldElement.getDataStore();
 	}
 
 	@Override
-	public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables) {
+	public AbstractActionSequenceElement<T> evaluateDataFlow(Deque<List<DataFlowVariable>> variables) {
 		List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics();
-		List<DataFlowVariable> availableDataFlowVariables = this.getAvailableDataFlowVariables(variables);
+		List<DataFlowVariable> newDataFlowVariables = new ArrayList<>(variables.getLast());
 		if (this.isWriting()) {
 			String dataSourceName = this.getParameter().get(0).getParameterName();
-			DataFlowVariable dataSource = availableDataFlowVariables.stream()
+			DataFlowVariable dataSource = newDataFlowVariables.stream()
 					.filter(it -> it.variableName().equals(dataSourceName))
 					.findAny().orElse(new DataFlowVariable(dataSourceName));
-			DatabaseActionSequenceElement.tempStore.put(this.getElement().getEntityName(), dataSource.characteristics());
-			return new DatabaseActionSequenceElement<>(this, availableDataFlowVariables, nodeVariables);
+			dataStore.setCharacteristicValues(dataSource.characteristics());
+			return new DatabaseActionSequenceElement<>(this, newDataFlowVariables, nodeVariables);
 		}
 		DataFlowVariable modifiedVariable = new DataFlowVariable("RETURN");
-		List<CharacteristicValue> storedData = DatabaseActionSequenceElement.tempStore.get(this.getElement().getEntityName());
-		if (storedData == null) {
-			availableDataFlowVariables.add(modifiedVariable);
-			return new DatabaseActionSequenceElement<>(this, availableDataFlowVariables, nodeVariables);
-		}
+		List<CharacteristicValue> storedData = dataStore.getCharacteristicValues();
 		for(CharacteristicValue characteristicValue : storedData) {
 			modifiedVariable = modifiedVariable.addCharacteristic(characteristicValue);
 		}
-		availableDataFlowVariables.add(modifiedVariable);
-		return new DatabaseActionSequenceElement<>(this, availableDataFlowVariables, nodeVariables);
+		newDataFlowVariables.add(modifiedVariable);
+		return new DatabaseActionSequenceElement<>(this, newDataFlowVariables, nodeVariables);
 	}
 	
     protected List<CharacteristicValue> evaluateNodeCharacteristics() {
@@ -93,6 +89,10 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 	
 	public boolean isWriting() {
 		return this.isWriting;
+	}
+	
+	public DataStore getDataStore() {
+		return dataStore;
 	}
 
 	@Override

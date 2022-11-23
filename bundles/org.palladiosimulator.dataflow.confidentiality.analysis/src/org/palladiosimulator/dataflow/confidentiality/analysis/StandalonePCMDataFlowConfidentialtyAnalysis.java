@@ -2,6 +2,7 @@ package org.palladiosimulator.dataflow.confidentiality.analysis;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -63,7 +64,9 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
 
     @Override
     public List<ActionSequence> evaluateDataFlows(List<ActionSequence> sequences) {
-        return sequences.stream()
+    	List<ActionSequence> sortedSequences = new ArrayList<>(sequences);
+    	Collections.sort(sortedSequences);
+        return sortedSequences.stream()
             .map(it -> it.evaluateDataFlow())
             .toList();
     }

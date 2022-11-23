@@ -1,5 +1,6 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity;
 
+import java.util.Deque;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,7 +24,7 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
         this.nodeCharacteristics = Optional.of(List.copyOf(nodeCharacteristics));
     }
 
-    public abstract AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables);
+    public abstract AbstractActionSequenceElement<T> evaluateDataFlow(Deque<List<DataFlowVariable>> variables);
     
     /**
      * Returns a list of characteristic literals that are set for a given characteristic type in the list of all node characteristics

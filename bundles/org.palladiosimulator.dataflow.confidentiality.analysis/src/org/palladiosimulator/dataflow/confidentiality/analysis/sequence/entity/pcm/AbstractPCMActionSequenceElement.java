@@ -43,22 +43,21 @@ public abstract class AbstractPCMActionSequenceElement<T extends EObject> extend
     
     abstract List<DataFlowVariable> getAvailableDataFlowVariables(List<DataFlowVariable> variables);
    
-    protected List<DataFlowVariable> evaluateDataFlowCharacteristics(List<DataFlowVariable> variables, List<CharacteristicValue> nodeCharacteristics) {
+    protected List<DataFlowVariable> evaluateDataFlowCharacteristics(Deque<List<DataFlowVariable>> variables, List<CharacteristicValue> nodeCharacteristics) {
     	if (this.getElement() instanceof StartAction) {
-    		return variables;
+    		List<DataFlowVariable> methodDataFlowVariables = this.getAvailableDataFlowVariables(variables.getLast());
+    		variables.addLast(methodDataFlowVariables);
+    		return methodDataFlowVariables;
     	} else if (!(this.getElement() instanceof SetVariableAction)) {
     		throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");
     	}
-    	
-    	List<DataFlowVariable> availableDataFlowVariables = this.getAvailableDataFlowVariables(variables);
-    	
     	List<VariableCharacterisation> variableCharacterisations = ((SetVariableAction) this.getElement())
                 .getLocalVariableUsages_SetVariableAction()
                 .stream()
                 .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
                     .stream())
                 .toList();
-            CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(availableDataFlowVariables, nodeCharacteristics);
+            CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(variables.getLast(), nodeCharacteristics);
             variableCharacterisations.forEach(it -> characteristicsCalculator.evaluate(it));
             return characteristicsCalculator.getCalculatedCharacteristics();
     }

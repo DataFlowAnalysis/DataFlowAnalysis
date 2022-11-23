@@ -49,22 +49,10 @@ public class ConstraintTest extends AnalysisFeatureTest {
             System.out.println("");
         }
         System.out.println("----------------------------------");
-        System.out.println("----------------------------------");
-        System.out.println("----------------------------------");
-        System.out.println("----------------------------------");
         
-        // TODO: Remove tempoary ordering
-        List<ActionSequence> orderedList = new ArrayList<>();
-        if (sequences.size() == 2) {
-        	orderedList.add(sequences.get(1));
-        	orderedList.add(sequences.get(0));
-        } else {
-        	orderedList.addAll(sequences);
-        }
-        
-        var propagationResult = analysis.evaluateDataFlows(orderedList);
+        var propagationResult = analysis.evaluateDataFlows(sequences);
 
-        var result = analysis.queryDataFlow(propagationResult.get(1), contraint);
+        var result = analysis.queryDataFlow(propagationResult.get(0), contraint);
         printViolation(result);
         assertEquals(noViolations, result.isEmpty());
     }

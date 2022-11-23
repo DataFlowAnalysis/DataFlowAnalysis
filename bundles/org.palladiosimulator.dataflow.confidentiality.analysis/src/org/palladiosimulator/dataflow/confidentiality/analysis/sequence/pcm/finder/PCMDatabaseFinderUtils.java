@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.AbstractPCMActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.DataStore;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.DatabaseActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.SEFFWithContext;
@@ -20,21 +21,25 @@ public class PCMDatabaseFinderUtils {
 	}
 	
 	public static List<ActionSequence> findSequencesForDatabaseAction(SEFFWithContext seff,
-            Deque<AssemblyContext> context, Deque<AbstractPCMActionSequenceElement<?>> callers, List<Parameter> availableVariables,
+            SEFFFinderContext context,
             ActionSequence previousSequence) {
 		boolean isWriting = true;
 		if (seff.seff().getDescribedService__SEFF().getEntityName().equals("get")) {
 			isWriting = false;
 		}
 		OperationalDataStoreComponent currentAction = (OperationalDataStoreComponent) seff.seff().getBasicComponent_ServiceEffectSpecification();
-		var newEntity = new DatabaseActionSequenceElement<>(currentAction, context, availableVariables, isWriting);
+		DataStore dataStore = context.getDataStores().stream()
+				.filter(it -> it.getDatabaseComponentName().equals(currentAction.getEntityName()))
+				.findAny().orElse(new DataStore(currentAction.getEntityName()));
+		context.addDataStore(dataStore);
+		var newEntity = new DatabaseActionSequenceElement<>(currentAction, context.getContext(), context.getAvailableVariables(), isWriting, dataStore);
 		ActionSequence currentSequence = new ActionSequence(previousSequence, newEntity);
 		
-		return returnToCaller(currentAction, context, callers, availableVariables, currentSequence);
+		return returnToCaller(currentAction, context, currentSequence);
     }
 	
 	private static List<ActionSequence> returnToCaller(OperationalDataStoreComponent currentAction,
-            Deque<AssemblyContext> context, Deque<AbstractPCMActionSequenceElement<?>> callers, List<Parameter> availableVariables,
+            SEFFFinderContext context,
             ActionSequence previousSequence) {
 		Optional<AbstractAction> parentAction = PCMQueryUtils.findParentOfType(currentAction, AbstractAction.class,
                 false);
@@ -42,11 +47,11 @@ public class PCMDatabaseFinderUtils {
         if (parentAction.isPresent()) {
             AbstractAction successor = parentAction.get()
                 .getSuccessor_AbstractAction();
-            return PCMSEFFFinderUtils.findSequencesForSEFFAction(successor, context, callers, availableVariables, previousSequence);
+            return PCMSEFFFinderUtils.findSequencesForSEFFAction(successor, context, previousSequence);
         } else {
-            AbstractPCMActionSequenceElement<?> caller = callers.removeLast();
-            List<Parameter> parentVariables = PCMSEFFFinderUtils.getParametersCaller(caller);
-            return PCMSEFFFinderUtils.returnToCaller(caller, callers, parentVariables, previousSequence);
+            AbstractPCMActionSequenceElement<?> caller = context.getLastCaller();
+            context.updateParametersForCallerReturning(caller);
+            return PCMSEFFFinderUtils.returnToCaller(caller, context, previousSequence);
         }
 	}
 }

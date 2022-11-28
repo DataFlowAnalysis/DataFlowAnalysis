@@ -15,14 +15,17 @@ import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.allocation.AllocationPackage;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
+import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
 import org.palladiosimulator.pcm.seff.StartAction;
 
 public class SEFFActionSequenceElement<T extends AbstractAction> extends AbstractPCMActionSequenceElement<T> {
+	private List<Parameter> parameter;
 	
-    public SEFFActionSequenceElement(T element, Deque<AssemblyContext> context) {
+    public SEFFActionSequenceElement(T element, Deque<AssemblyContext> context, List<Parameter> parameter) {
         super(element, context);
+        this.parameter = parameter;
     }
 
     public SEFFActionSequenceElement(SEFFActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {
@@ -33,7 +36,13 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
     public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables) {
     	List<CharacteristicValue> nodeCharacteristics = this.evaluateNodeCharacteristics();
         if (this.getElement() instanceof StartAction) {
-    		return new SEFFActionSequenceElement<T>(this, new ArrayList<>(variables), nodeCharacteristics);
+        	List<String> dataflowParameter = this.parameter.stream()
+        			.map(it -> it.getParameterName())
+        			.collect(Collectors.toList());
+        	List<DataFlowVariable> passedVariables = variables.stream()
+        			.filter(it -> dataflowParameter.contains(it.variableName()))
+        			.collect(Collectors.toList());
+        	return new SEFFActionSequenceElement<T>(this, new ArrayList<>(passedVariables), nodeCharacteristics);
     	} else if (!(this.getElement() instanceof SetVariableAction)) {
     		throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");
     	}
@@ -73,6 +82,10 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
     	}
     	return nodeVariables;
     }
+    
+    public List<Parameter> getParameter() {
+		return parameter;
+	}
 
     @Override
     public String toString() {

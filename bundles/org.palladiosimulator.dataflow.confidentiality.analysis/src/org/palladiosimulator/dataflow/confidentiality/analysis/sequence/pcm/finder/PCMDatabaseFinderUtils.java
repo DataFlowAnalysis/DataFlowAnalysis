@@ -62,6 +62,7 @@ public class PCMDatabaseFinderUtils {
             return PCMSEFFFinderUtils.findSequencesForSEFFAction(successor, context, previousSequence);
         } else {
             AbstractPCMActionSequenceElement<?> caller = context.getLastCaller();
+            context.updateParameterForCallerReturning(caller);
             return PCMSEFFFinderUtils.returnToCaller(caller, context, previousSequence);
         }
 	}

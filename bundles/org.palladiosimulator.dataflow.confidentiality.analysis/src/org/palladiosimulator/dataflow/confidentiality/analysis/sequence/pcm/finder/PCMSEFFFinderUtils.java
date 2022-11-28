@@ -49,7 +49,7 @@ public class PCMSEFFFinderUtils {
     }
 
     private static List<ActionSequence> findSequencesForSEFFStartAction(StartAction currentAction, SEFFFinderContext context, ActionSequence previousSequence) {
-    	var startElement = new SEFFActionSequenceElement<StartAction>(currentAction, context.getContext());
+    	var startElement = new SEFFActionSequenceElement<StartAction>(currentAction, context.getContext(), context.getParameter());
     	var currentSequence = new ActionSequence(previousSequence, startElement);
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context, currentSequence);
     }
@@ -65,6 +65,7 @@ public class PCMSEFFFinderUtils {
             return findSequencesForSEFFAction(successor, context, previousSequence);
         } else {
             AbstractPCMActionSequenceElement<?> caller = context.getLastCaller();
+            context.updateParameterForCallerReturning(caller);
             return returnToCaller(caller, context, previousSequence);
         }
     }
@@ -72,7 +73,7 @@ public class PCMSEFFFinderUtils {
     private static List<ActionSequence> findSequencesForSEFFExternalCallAction(ExternalCallAction currentAction, SEFFFinderContext context,
             ActionSequence previousSequence) {
 
-        var callingEntity = new CallingSEFFActionSequenceElement(currentAction, context.getContext(), true);
+        var callingEntity = new CallingSEFFActionSequenceElement(currentAction, context.getContext(), context.getParameter(), true);
         ActionSequence currentActionSequence = new ActionSequence(previousSequence, callingEntity);
 
         OperationRequiredRole calledRole = currentAction.getRole_ExternalService();
@@ -84,6 +85,7 @@ public class PCMSEFFFinderUtils {
         } else {
         	if (calledSEFF.get().seff().getBasicComponent_ServiceEffectSpecification() instanceof OperationalDataStoreComponent) {
         		context.addCaller(callingEntity);
+        		context.updateParametersForCall(calledSignature.getParameters__OperationSignature());
         		context.updateSEFFContext(calledSEFF.get().context());
         		return PCMDatabaseFinderUtils.findSequencesForDatabaseAction(calledSEFF.get(), 
         				context, currentActionSequence);
@@ -97,6 +99,7 @@ public class PCMSEFFFinderUtils {
             } else {
             	context.addCaller(callingEntity);
             	context.updateSEFFContext(calledSEFF.get().context());
+            	context.updateParametersForCall(calledSignature.getParameters__OperationSignature());
             	
                 return findSequencesForSEFFAction(SEFFStartAction.get(), context, currentActionSequence);
             }
@@ -108,7 +111,7 @@ public class PCMSEFFFinderUtils {
             SEFFFinderContext context,
             ActionSequence previousSequence) {
 
-        var newEntity = new SEFFActionSequenceElement<>(currentAction, context.getContext());
+        var newEntity = new SEFFActionSequenceElement<>(currentAction, context.getContext(), context.getParameter());
         ActionSequence currentActionSequence = new ActionSequence(previousSequence, newEntity);
 
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context,
@@ -134,7 +137,7 @@ public class PCMSEFFFinderUtils {
             SEFFFinderContext context,
             ActionSequence previousSequence) {
         ActionSequence currentActionSequence = new ActionSequence(previousSequence,
-                new CallingSEFFActionSequenceElement(currentAction, context.getContext(), false));
+                new CallingSEFFActionSequenceElement(currentAction, context.getContext(), context.getParameter(), false));
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context,
                 currentActionSequence);
     }

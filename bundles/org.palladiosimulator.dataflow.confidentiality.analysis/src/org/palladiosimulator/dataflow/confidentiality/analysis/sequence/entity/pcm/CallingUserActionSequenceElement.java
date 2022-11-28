@@ -1,5 +1,6 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,12 +36,7 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
     public AbstractActionSequenceElement<EntryLevelSystemCall> evaluateDataFlow(List<DataFlowVariable> variables) {
     	List<DataFlowVariable> newDataFlowVariables;
     	if (this.isCalling()) {
-    		List<String> parameter = this.getElement().getOperationSignature__EntryLevelSystemCall().getParameters__OperationSignature().stream()
-    				.map(it -> it.getParameterName())
-    				.collect(Collectors.toList());
-    		newDataFlowVariables = variables.stream()
-    				.filter(it -> parameter.contains(it.variableName()))
-    				.collect(Collectors.toList());
+    		newDataFlowVariables = new ArrayList<>(variables);
     	} else {
     		newDataFlowVariables = variables.stream()
 				.filter(it -> it.variableName().equals("RETURN"))

@@ -1,8 +1,6 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

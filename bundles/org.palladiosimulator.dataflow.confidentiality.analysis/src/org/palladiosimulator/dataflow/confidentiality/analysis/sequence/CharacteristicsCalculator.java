@@ -3,7 +3,9 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.sequence;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
+import java.util.Comparator;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.PCMAnalysisUtils;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
@@ -63,7 +65,6 @@ public class CharacteristicsCalculator {
      *            Variable Characterization at the Sequence Element
      */
     public void evaluate(VariableCharacterisation variableCharacterisation) {
-        // 1. Find variable with given name
         var confidentialityVariable = (ConfidentialityVariableCharacterisation) variableCharacterisation;
         var leftHandSide = (LhsEnumCharacteristicReference) confidentialityVariable.getLhs();
         
@@ -117,7 +118,11 @@ public class CharacteristicsCalculator {
 
         for (CharacteristicValue modifedCharacteristic : modifiedCharacteristics) {
             if (evaluateTerm(rightHandSide, modifedCharacteristic)) {
-                computedVariable = computedVariable.addCharacteristic(modifedCharacteristic);
+            	if (computedVariable.getAllCharacteristics().stream()
+            			.filter(it -> it.characteristicType().getName().equals(modifedCharacteristic.characteristicType().getName()))
+            			.noneMatch(it -> it.characteristicLiteral().getName().equals(modifedCharacteristic.characteristicLiteral().getName()))) {
+            		computedVariable = computedVariable.addCharacteristic(modifedCharacteristic);
+            	}
             }
         }
         return computedVariable;
@@ -249,7 +254,9 @@ public class CharacteristicsCalculator {
                     .getName()))
             .filter(EnumCharacteristicType.class::isInstance)
             .map(EnumCharacteristicType.class::cast)
-            .collect(Collectors.toList());
+            .collect(Collectors.collectingAndThen(Collectors.toCollection(() -> 
+            	new TreeSet<EnumCharacteristicType>(Comparator.comparing(EnumCharacteristicType::getName))), 
+            ArrayList<EnumCharacteristicType>::new));
 
         characteristicTypes.stream()
             .forEach(enumCharacteristicType -> {

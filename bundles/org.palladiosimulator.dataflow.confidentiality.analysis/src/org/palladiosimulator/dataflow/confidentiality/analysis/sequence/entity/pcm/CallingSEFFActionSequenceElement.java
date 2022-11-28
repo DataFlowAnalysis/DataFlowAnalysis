@@ -1,5 +1,6 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,6 +12,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.C
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
+import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
 
 public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<ExternalCallAction>
@@ -18,8 +20,8 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
 
     private final boolean isCalling;
 
-    public CallingSEFFActionSequenceElement(ExternalCallAction element, Deque<AssemblyContext> context, boolean isCalling) {
-        super(element, context);
+    public CallingSEFFActionSequenceElement(ExternalCallAction element, Deque<AssemblyContext> context, List<Parameter> parameter, boolean isCalling) {
+        super(element, context, parameter);
         this.isCalling = isCalling;
     }
 
@@ -37,12 +39,7 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
     public AbstractActionSequenceElement<ExternalCallAction> evaluateDataFlow(List<DataFlowVariable> variables) {
     	List<DataFlowVariable> newDataFlowVariables;
     	if (this.isCalling()) {
-    		List<String> parameters = this.getElement().getCalledService_ExternalService().getParameters__OperationSignature().stream()
-    				.map(it -> it.getParameterName())
-    				.collect(Collectors.toList());
-    		newDataFlowVariables = variables.stream()
-    				.filter(it -> parameters.contains(it.variableName()))
-    				.collect(Collectors.toList());
+    		newDataFlowVariables = new ArrayList<>(variables);
     	} else {
     		newDataFlowVariables = variables.stream()
     				.filter(it -> it.variableName().equals("RETURN"))

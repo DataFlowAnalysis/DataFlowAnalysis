@@ -95,7 +95,7 @@ public class PCMUserFinderUtils {
         	if (calledSEFF.get().seff().getBasicComponent_ServiceEffectSpecification() instanceof OperationalDataStoreComponent) {
                 Deque<AbstractPCMActionSequenceElement<?>> callers = new ArrayDeque<>();
         		callers.add(callingEntity);
-        		SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get().context(), callers, dataStores);
+        		SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get().context(), callers, calledSignature.getParameters__OperationSignature(), dataStores);
         		
         		return PCMDatabaseFinderUtils.findSequencesForDatabaseAction(calledSEFF.get(), finderContext, currentActionSequence);
         	}
@@ -109,7 +109,7 @@ public class PCMUserFinderUtils {
                 Deque<AbstractPCMActionSequenceElement<?>> callers = new ArrayDeque<>();
                 callers.add(callingEntity);
 
-                SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get().context(), callers, dataStores);
+                SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get().context(), callers, calledSignature.getParameters__OperationSignature(), dataStores);
                 return PCMSEFFFinderUtils.findSequencesForSEFFAction(SEFFStartAction.get(), finderContext ,currentActionSequence);
             }
         }

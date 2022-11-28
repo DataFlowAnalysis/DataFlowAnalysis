@@ -1,13 +1,11 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity;
 
-import java.util.Deque;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
-import org.palladiosimulator.pcm.parameter.VariableUsage;
 
 public abstract class AbstractActionSequenceElement<T extends EObject> {
 

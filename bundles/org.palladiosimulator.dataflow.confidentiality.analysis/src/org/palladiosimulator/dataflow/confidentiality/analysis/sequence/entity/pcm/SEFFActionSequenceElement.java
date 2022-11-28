@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.PCMAnalysisUtils;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.CharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
@@ -13,15 +14,15 @@ import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.allocation.AllocationPackage;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.pcm.parameter.VariableUsage;
-import org.palladiosimulator.pcm.repository.Parameter;
-import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
+import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.seff.AbstractAction;
+import org.palladiosimulator.pcm.seff.SetVariableAction;
+import org.palladiosimulator.pcm.seff.StartAction;
 
 public class SEFFActionSequenceElement<T extends AbstractAction> extends AbstractPCMActionSequenceElement<T> {
 	
-    public SEFFActionSequenceElement(T element, Deque<AssemblyContext> context, List<Parameter> parameters) {
-        super(element, context, parameters);
+    public SEFFActionSequenceElement(T element, Deque<AssemblyContext> context) {
+        super(element, context);
     }
 
     public SEFFActionSequenceElement(SEFFActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {
@@ -29,20 +30,22 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
     }
 
     @Override
-    public AbstractActionSequenceElement<T> evaluateDataFlow(Deque<List<DataFlowVariable>> variables) {
+    public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables) {
     	List<CharacteristicValue> nodeCharacteristics = this.evaluateNodeCharacteristics();
-        List<DataFlowVariable> dataFlowVariables = this.evaluateDataFlowCharacteristics(variables, nodeCharacteristics);
-        return new SEFFActionSequenceElement<T>(this, dataFlowVariables, nodeCharacteristics);
-    }
-    
-    @Override
-    public List<DataFlowVariable> getAvailableDataFlowVariables(List<DataFlowVariable> variables) {
-    	List<String> availableVariableNames = this.getParameter().stream()
-    			.map(it -> it.getParameterName())
-    			.collect(Collectors.toList());
-    	return variables.stream()
-    			.filter(it -> availableVariableNames.stream().anyMatch(st -> it.variableName().equals(st)))
-    			.collect(Collectors.toList());
+        if (this.getElement() instanceof StartAction) {
+    		return new SEFFActionSequenceElement<T>(this, new ArrayList<>(variables), nodeCharacteristics);
+    	} else if (!(this.getElement() instanceof SetVariableAction)) {
+    		throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");
+    	}
+    	List<VariableCharacterisation> variableCharacterisations = ((SetVariableAction) this.getElement())
+                .getLocalVariableUsages_SetVariableAction()
+                .stream()
+                .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
+                    .stream())
+                .toList();
+    	CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(variables, nodeCharacteristics);
+        variableCharacterisations.forEach(it -> characteristicsCalculator.evaluate(it));
+        return new SEFFActionSequenceElement<T>(this, characteristicsCalculator.getCalculatedCharacteristics(), nodeCharacteristics);
     }
     
     protected List<CharacteristicValue> evaluateNodeCharacteristics() {

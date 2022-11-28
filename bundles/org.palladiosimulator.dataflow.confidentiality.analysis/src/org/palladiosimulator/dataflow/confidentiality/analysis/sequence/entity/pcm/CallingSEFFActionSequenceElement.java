@@ -1,6 +1,5 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm;
 
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,8 +11,6 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.C
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
-import org.palladiosimulator.pcm.parameter.VariableUsage;
-import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
 
 public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<ExternalCallAction>
@@ -21,9 +18,8 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
 
     private final boolean isCalling;
 
-    public CallingSEFFActionSequenceElement(ExternalCallAction element, Deque<AssemblyContext> context, List<Parameter> variableUsage,
-            boolean isCalling) {
-        super(element, context, variableUsage);
+    public CallingSEFFActionSequenceElement(ExternalCallAction element, Deque<AssemblyContext> context, boolean isCalling) {
+        super(element, context);
         this.isCalling = isCalling;
     }
 
@@ -36,17 +32,21 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
     public boolean isCalling() {
         return this.isCalling;
     }
-
-    // TODO: Custom hash and equals required?
-
+    
     @Override
-    public AbstractActionSequenceElement<ExternalCallAction> evaluateDataFlow(Deque<List<DataFlowVariable>> variables) {
+    public AbstractActionSequenceElement<ExternalCallAction> evaluateDataFlow(List<DataFlowVariable> variables) {
     	List<DataFlowVariable> newDataFlowVariables;
     	if (this.isCalling()) {
-    		newDataFlowVariables = variables.getLast();
+    		List<String> parameters = this.getElement().getCalledService_ExternalService().getParameters__OperationSignature().stream()
+    				.map(it -> it.getParameterName())
+    				.collect(Collectors.toList());
+    		newDataFlowVariables = variables.stream()
+    				.filter(it -> parameters.contains(it.variableName()))
+    				.collect(Collectors.toList());
     	} else {
-    		variables.pop();
-    		newDataFlowVariables = variables.getLast();
+    		newDataFlowVariables = variables.stream()
+    				.filter(it -> it.variableName().equals("RETURN"))
+    				.collect(Collectors.toList());;
     	}
     	
     	List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics();
@@ -67,19 +67,6 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
         AbstractActionSequenceElement<ExternalCallAction> evaluatedElement = new CallingSEFFActionSequenceElement(this,
                 characteristicsCalculator.getCalculatedCharacteristics(), nodeVariables);
         return evaluatedElement;
-    }
-
-    @Override
-    public List<DataFlowVariable> getAvailableDataFlowVariables(List<DataFlowVariable> variables) {
-    	List<String> availableVariableNames = this.getParameter().stream()
-    			.map(it -> it.getParameterName())
-    			.collect(Collectors.toList());
-    	if (!this.isCalling()) {
-    		availableVariableNames.add("RETURN");
-    	}
-    	return variables.stream()
-    			.filter(it -> availableVariableNames.contains(it.variableName()))
-    			.collect(Collectors.toList());
     }
     
     @Override

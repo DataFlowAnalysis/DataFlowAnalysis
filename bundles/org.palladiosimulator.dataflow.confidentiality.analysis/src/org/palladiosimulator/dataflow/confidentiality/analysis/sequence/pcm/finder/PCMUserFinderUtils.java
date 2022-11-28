@@ -15,7 +15,6 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.SEFF
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
-import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.seff.StartAction;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.Branch;
@@ -96,7 +95,7 @@ public class PCMUserFinderUtils {
         	if (calledSEFF.get().seff().getBasicComponent_ServiceEffectSpecification() instanceof OperationalDataStoreComponent) {
                 Deque<AbstractPCMActionSequenceElement<?>> callers = new ArrayDeque<>();
         		callers.add(callingEntity);
-        		SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get().context(), callers, calledSignature.getParameters__OperationSignature(), dataStores);
+        		SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get().context(), callers, dataStores);
         		
         		return PCMDatabaseFinderUtils.findSequencesForDatabaseAction(calledSEFF.get(), finderContext, currentActionSequence);
         	}
@@ -109,10 +108,8 @@ public class PCMUserFinderUtils {
             } else {
                 Deque<AbstractPCMActionSequenceElement<?>> callers = new ArrayDeque<>();
                 callers.add(callingEntity);
-                
-                List<Parameter> availableVariables = getParametersCaller(callingEntity);
 
-                SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get().context(), callers, availableVariables, dataStores);
+                SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get().context(), callers, dataStores);
                 return PCMSEFFFinderUtils.findSequencesForSEFFAction(SEFFStartAction.get(), finderContext ,currentActionSequence);
             }
         }
@@ -123,15 +120,5 @@ public class PCMUserFinderUtils {
         ActionSequence currentActionSequence = new ActionSequence(previousSequence,
                 new CallingUserActionSequenceElement(currentAction, false));
         return findSequencesForUserAction(currentAction.getSuccessor(), dataStores, currentActionSequence);
-    }
-    
-
-    // TODO: Duplicate
-    private static List<Parameter> getParametersCaller(AbstractPCMActionSequenceElement<?> caller) {
-    	if (caller instanceof CallingUserActionSequenceElement) {
-    		CallingUserActionSequenceElement callingUserElement = (CallingUserActionSequenceElement) caller;
-    		return callingUserElement.getElement().getOperationSignature__EntryLevelSystemCall().getParameters__OperationSignature();
-    	}
-    	return caller.getParameter();
     }
 }

@@ -1,8 +1,5 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.finder;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,10 +11,8 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.p
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.SEFFWithContext;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
-import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.seff.AbstractBranchTransition;
 import org.palladiosimulator.pcm.seff.BranchAction;
@@ -54,7 +49,7 @@ public class PCMSEFFFinderUtils {
     }
 
     private static List<ActionSequence> findSequencesForSEFFStartAction(StartAction currentAction, SEFFFinderContext context, ActionSequence previousSequence) {
-    	var startElement = new SEFFActionSequenceElement<StartAction>(currentAction, context.getContext(), context.getAvailableVariables());
+    	var startElement = new SEFFActionSequenceElement<StartAction>(currentAction, context.getContext());
     	var currentSequence = new ActionSequence(previousSequence, startElement);
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context, currentSequence);
     }
@@ -70,7 +65,6 @@ public class PCMSEFFFinderUtils {
             return findSequencesForSEFFAction(successor, context, previousSequence);
         } else {
             AbstractPCMActionSequenceElement<?> caller = context.getLastCaller();
-            context.updateParametersForCallerReturning(caller);
             return returnToCaller(caller, context, previousSequence);
         }
     }
@@ -78,7 +72,7 @@ public class PCMSEFFFinderUtils {
     private static List<ActionSequence> findSequencesForSEFFExternalCallAction(ExternalCallAction currentAction, SEFFFinderContext context,
             ActionSequence previousSequence) {
 
-        var callingEntity = new CallingSEFFActionSequenceElement(currentAction, context.getContext(), context.getAvailableVariables(), true);
+        var callingEntity = new CallingSEFFActionSequenceElement(currentAction, context.getContext(), true);
         ActionSequence currentActionSequence = new ActionSequence(previousSequence, callingEntity);
 
         OperationRequiredRole calledRole = currentAction.getRole_ExternalService();
@@ -90,7 +84,6 @@ public class PCMSEFFFinderUtils {
         } else {
         	if (calledSEFF.get().seff().getBasicComponent_ServiceEffectSpecification() instanceof OperationalDataStoreComponent) {
         		context.addCaller(callingEntity);
-        		context.updateParametersForCall(calledSignature.getParameters__OperationSignature());
         		context.updateSEFFContext(calledSEFF.get().context());
         		return PCMDatabaseFinderUtils.findSequencesForDatabaseAction(calledSEFF.get(), 
         				context, currentActionSequence);
@@ -103,7 +96,6 @@ public class PCMSEFFFinderUtils {
                 throw new IllegalStateException("Unable to find SEFF start action.");
             } else {
             	context.addCaller(callingEntity);
-            	context.updateParametersForCall(calledSignature.getParameters__OperationSignature());
             	context.updateSEFFContext(calledSEFF.get().context());
             	
                 return findSequencesForSEFFAction(SEFFStartAction.get(), context, currentActionSequence);
@@ -116,7 +108,7 @@ public class PCMSEFFFinderUtils {
             SEFFFinderContext context,
             ActionSequence previousSequence) {
 
-        var newEntity = new SEFFActionSequenceElement<>(currentAction, context.getContext(), context.getAvailableVariables());
+        var newEntity = new SEFFActionSequenceElement<>(currentAction, context.getContext());
         ActionSequence currentActionSequence = new ActionSequence(previousSequence, newEntity);
 
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context,
@@ -142,7 +134,7 @@ public class PCMSEFFFinderUtils {
             SEFFFinderContext context,
             ActionSequence previousSequence) {
         ActionSequence currentActionSequence = new ActionSequence(previousSequence,
-                new CallingSEFFActionSequenceElement(currentAction, context.getContext(), context.getAvailableVariables(), false));
+                new CallingSEFFActionSequenceElement(currentAction, context.getContext(), false));
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context,
                 currentActionSequence);
     }
@@ -176,16 +168,5 @@ public class PCMSEFFFinderUtils {
             SEFFFinderContext context, ActionSequence previousSequence) {
     	context.updateSEFFContext(caller.getContext());
         return findSequencesForSEFFActionReturning(caller.getElement(), context, previousSequence);
-    }
-    
-    // TODO: Duplicate
-
-    
-    public static List<Parameter> getParametersCaller(AbstractPCMActionSequenceElement<?> caller) {
-    	if (caller instanceof CallingUserActionSequenceElement) {
-    		CallingUserActionSequenceElement callingUserElement = (CallingUserActionSequenceElement) caller;
-    		return callingUserElement.getElement().getOperationSignature__EntryLevelSystemCall().getParameters__OperationSignature();
-    	}
-    	return caller.getParameter();
     }
 }

@@ -36,39 +36,26 @@ public class ConstraintTest extends AnalysisFeatureTest {
     @MethodSource("violationTestProvider")
     @ParameterizedTest
     public void violationTest(StandalonePCMDataFlowConfidentialtyAnalysis analysis,
-            Predicate<AbstractActionSequenceElement<?>> contraint, boolean noViolations) {
+            Predicate<AbstractActionSequenceElement<?>> contraint, int index, boolean noViolations) {
 
         // Change this to DEBUG if you're only interested in the found violations
         logger.setLevel(Level.TRACE);
 
         var sequences = analysis.findAllSequences();
-        for (ActionSequence sequence : sequences) {
-            sequence.elements().stream()
-            .map(AbstractPCMActionSequenceElement.class::cast)
-            .forEach(it -> System.out.printf("Node %s has parameters %s%n", it, param(it.getParameter())));
-            System.out.println("");
-        }
-        System.out.println("----------------------------------");
         
         var propagationResult = analysis.evaluateDataFlows(sequences);
 
-        var result = analysis.queryDataFlow(propagationResult.get(0), contraint);
+        var result = analysis.queryDataFlow(propagationResult.get(index), contraint);
         printViolation(result);
         assertEquals(noViolations, result.isEmpty());
-    }
-    
-    private String param(List<Parameter> parameter) {
-    	StringJoiner builder = new StringJoiner(",");
-    	parameter.forEach(it -> builder.add(it.getParameterName()));
-    	return "[" + builder.toString() + "]";
     }
 
     private Stream<Arguments> violationTestProvider() {
         Predicate<AbstractActionSequenceElement<?>> travelPlannerContraint = node -> travelPlannerCondition(node);
         Predicate<AbstractActionSequenceElement<?>> internationalOnlineShopContraint = node -> internationalOnlineShopCondition(
                 node);
-        return Stream.of(Arguments.of(travelPlannerAnalysis, travelPlannerContraint, false),
-                Arguments.of(internationalOnlineShopAnalysis, internationalOnlineShopContraint, false));
+        return Stream.of(Arguments.of(travelPlannerAnalysis, travelPlannerContraint, 1, false),
+                Arguments.of(internationalOnlineShopAnalysis, internationalOnlineShopContraint, 0, false));
     }
 
     /**

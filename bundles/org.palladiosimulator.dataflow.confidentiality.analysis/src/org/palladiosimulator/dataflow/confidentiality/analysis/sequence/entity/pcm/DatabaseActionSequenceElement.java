@@ -2,10 +2,10 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.
 
 import java.util.ArrayList;
 import java.util.Deque;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.PCMAnalysisUtils;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
@@ -15,14 +15,15 @@ import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.allocation.AllocationPackage;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.pcm.repository.Parameter;
 
 public class DatabaseActionSequenceElement<T extends OperationalDataStoreComponent> extends AbstractPCMActionSequenceElement<T> {
+	private final Logger logger = Logger.getLogger(DatabaseActionSequenceElement.class);
+	
 	private DataStore dataStore;
 	private boolean isWriting;
 	
-	public DatabaseActionSequenceElement(T element, Deque<AssemblyContext> context, List<Parameter> parameters, boolean isWriting, DataStore dataStore) {
-        super(element, context, parameters);
+	public DatabaseActionSequenceElement(T element, Deque<AssemblyContext> context, boolean isWriting, DataStore dataStore) {
+        super(element, context);
         this.isWriting = isWriting;
         this.dataStore = dataStore;
     }
@@ -36,11 +37,15 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 	}
 
 	@Override
-	public AbstractActionSequenceElement<T> evaluateDataFlow(Deque<List<DataFlowVariable>> variables) {
+	public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables) {
 		List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics();
-		List<DataFlowVariable> newDataFlowVariables = new ArrayList<>(variables.getLast());
+		List<DataFlowVariable> newDataFlowVariables = new ArrayList<>(variables);
 		if (this.isWriting()) {
-			String dataSourceName = this.getParameter().get(0).getParameterName();
+			if (this.getDataStore().getDatabaseVariableName().isEmpty()) {
+				logger.error("Writing to datastore element with name " + this.getDataStore().getDatabaseComponentName() + " failed, as datastore is never written to");
+				throw new IllegalStateException("Invalid Action Sequence, datastore is read before reading");
+			}
+			String dataSourceName = this.getDataStore().getDatabaseVariableName().get();
 			DataFlowVariable dataSource = newDataFlowVariables.stream()
 					.filter(it -> it.variableName().equals(dataSourceName))
 					.findAny().orElse(new DataFlowVariable(dataSourceName));
@@ -80,11 +85,6 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
     		}
     	}
     	return nodeVariables;
-    }
-
-	@Override
-    public List<DataFlowVariable> getAvailableDataFlowVariables(List<DataFlowVariable> variables) {
-    	return new ArrayList<>(variables);
     }
 	
 	public boolean isWriting() {

@@ -1,6 +1,5 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.finder;
 
-import java.util.Deque;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,11 +10,11 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.p
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.SEFFWithContext;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.pcm.repository.Parameter;
+import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 
 public class PCMDatabaseFinderUtils {
+	
 	private PCMDatabaseFinderUtils() {
 		// Utility class
 	}
@@ -27,12 +26,25 @@ public class PCMDatabaseFinderUtils {
 		if (seff.seff().getDescribedService__SEFF().getEntityName().equals("get")) {
 			isWriting = false;
 		}
-		OperationalDataStoreComponent currentAction = (OperationalDataStoreComponent) seff.seff().getBasicComponent_ServiceEffectSpecification();
-		DataStore dataStore = context.getDataStores().stream()
+		OperationalDataStoreComponent currentAction = (OperationalDataStoreComponent) seff.seff().getBasicComponent_ServiceEffectSpecification(); 
+		OperationSignature callSigniture = (OperationSignature) seff.seff().getDescribedService__SEFF();
+		Optional<DataStore> dataStore = context.getDataStores().stream()
 				.filter(it -> it.getDatabaseComponentName().equals(currentAction.getEntityName()))
-				.findAny().orElse(new DataStore(currentAction.getEntityName()));
-		context.addDataStore(dataStore);
-		var newEntity = new DatabaseActionSequenceElement<>(currentAction, context.getContext(), context.getAvailableVariables(), isWriting, dataStore);
+				.findAny();
+		
+		if (dataStore.isEmpty()) {
+			dataStore = Optional.of(new DataStore(currentAction.getEntityName()));
+			if (!callSigniture.getParameters__OperationSignature().isEmpty()) {
+				dataStore.get().setDatabaseVariableName(callSigniture.getParameters__OperationSignature().get(0).getParameterName());
+			}
+			context.addDataStore(dataStore.get());
+		} else if (isWriting) {
+			String variableName = callSigniture.getParameters__OperationSignature().get(0).getParameterName();
+			dataStore.get().setDatabaseVariableName(variableName);
+		}
+		
+		context.addDataStore(dataStore.get());
+		var newEntity = new DatabaseActionSequenceElement<>(currentAction, context.getContext(), isWriting, dataStore.get());
 		ActionSequence currentSequence = new ActionSequence(previousSequence, newEntity);
 		
 		return returnToCaller(currentAction, context, currentSequence);
@@ -50,7 +62,6 @@ public class PCMDatabaseFinderUtils {
             return PCMSEFFFinderUtils.findSequencesForSEFFAction(successor, context, previousSequence);
         } else {
             AbstractPCMActionSequenceElement<?> caller = context.getLastCaller();
-            context.updateParametersForCallerReturning(caller);
             return PCMSEFFFinderUtils.returnToCaller(caller, context, previousSequence);
         }
 	}

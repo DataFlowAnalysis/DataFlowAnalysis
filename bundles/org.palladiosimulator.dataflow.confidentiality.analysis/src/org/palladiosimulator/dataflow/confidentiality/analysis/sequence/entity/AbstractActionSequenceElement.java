@@ -24,7 +24,7 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
         this.nodeCharacteristics = Optional.of(List.copyOf(nodeCharacteristics));
     }
 
-    public abstract AbstractActionSequenceElement<T> evaluateDataFlow(Deque<List<DataFlowVariable>> variables);
+    public abstract AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables);
     
     /**
      * Returns a list of characteristic literals that are set for a given characteristic type in the list of all node characteristics

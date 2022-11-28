@@ -36,8 +36,7 @@ public record ActionSequence(List<AbstractActionSequenceElement<?>> elements) im
     public ActionSequence evaluateDataFlow() {
         var iterator = this.elements()
             .iterator();
-        Deque<List<DataFlowVariable>> currentVariables = new ArrayDeque<>();
-        currentVariables.add(new ArrayList<>());
+        List<DataFlowVariable> currentVariables = new ArrayList<>();
         List<AbstractActionSequenceElement<?>> evaluatedElements = new ArrayList<>();
 
         while (iterator.hasNext()) {
@@ -45,8 +44,7 @@ public record ActionSequence(List<AbstractActionSequenceElement<?>> elements) im
             AbstractActionSequenceElement<?> evaluatedElement = nextElement.evaluateDataFlow(currentVariables);
 
             evaluatedElements.add(evaluatedElement);
-            currentVariables.removeLast();
-            currentVariables.addLast(evaluatedElement.getAllDataFlowVariables());
+            currentVariables = evaluatedElement.getAllDataFlowVariables();
         }
 
         return new ActionSequence(evaluatedElements);

@@ -34,14 +34,7 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
     
     @Override
     public AbstractActionSequenceElement<EntryLevelSystemCall> evaluateDataFlow(List<DataFlowVariable> variables) {
-    	List<DataFlowVariable> newDataFlowVariables;
-    	if (this.isCalling()) {
-    		newDataFlowVariables = new ArrayList<>(variables);
-    	} else {
-    		newDataFlowVariables = variables.stream()
-				.filter(it -> it.variableName().equals("RETURN"))
-				.collect(Collectors.toList());
-    	}
+    	List<DataFlowVariable> newDataFlowVariables = new ArrayList<>(variables);
     			
     	List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics();
     	

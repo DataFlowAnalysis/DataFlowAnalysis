@@ -3,6 +3,7 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.PCMAnalysisUtils;
@@ -10,6 +11,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.Characte
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMQueryUtils;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.allocation.AllocationPackage;
@@ -17,6 +19,7 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.seff.AbstractAction;
+import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
 import org.palladiosimulator.pcm.seff.StartAction;
 
@@ -89,10 +92,16 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
 
     @Override
     public String toString() {
+    	String elementName = this.getElement().getEntityName();
+    	if (this.getElement() instanceof StartAction) {
+    		Optional<ResourceDemandingSEFF> seff = PCMQueryUtils.findParentOfType(this.getElement(), ResourceDemandingSEFF.class, false);
+    		if (seff.isPresent()) {
+    			elementName = "Begining " + seff.get().getDescribedService__SEFF().getEntityName();
+    		}
+    	}
         return String.format("%s (%s, %s))", this.getClass()
             .getSimpleName(),
-                this.getElement()
-                    .getEntityName(),
+                elementName,
                 this.getElement()
                     .getId());
     }

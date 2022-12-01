@@ -9,11 +9,13 @@ import java.util.stream.Stream;
 
 import javax.xml.crypto.Data;
 
+import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.CallingUserActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.DatabaseActionSequenceElement;
 
 public record ActionSequence(List<AbstractActionSequenceElement<?>> elements) implements Comparable<ActionSequence> {
-
+	private static final Logger logger = Logger.getLogger(ActionSequence.class);
+	
     public ActionSequence(List<AbstractActionSequenceElement<?>> elements) {
         this.elements = List.copyOf(elements);
     }
@@ -130,7 +132,8 @@ public record ActionSequence(List<AbstractActionSequenceElement<?>> elements) im
 			} else if (otherRequiredDatabases.containsAll(providedDatabases)) {
 				return -1;
 			} else {
-				return 0;
+				logger.error("Found incompatible set of Databases, Action Sequences depend on each other");
+				throw new IllegalStateException();
 			}
 		}
 	}

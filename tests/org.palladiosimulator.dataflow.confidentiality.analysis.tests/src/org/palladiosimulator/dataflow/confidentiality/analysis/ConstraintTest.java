@@ -72,7 +72,7 @@ public class ConstraintTest extends AnalysisFeatureTest {
         printNodeInformation(node);
 
         return assignedRoles.stream()
-            .noneMatch(ar -> grantedRoles.contains(ar));
+            .anyMatch(ar -> grantedRoles.contains(ar));
     }
 
     /**

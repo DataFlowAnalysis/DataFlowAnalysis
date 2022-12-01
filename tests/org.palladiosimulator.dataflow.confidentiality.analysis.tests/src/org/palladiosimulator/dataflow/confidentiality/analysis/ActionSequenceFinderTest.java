@@ -95,9 +95,9 @@ public class ActionSequenceFinderTest extends BaseTest {
      * @return List of arguments to the test method
      */
     private Stream<Arguments> testSEFFContentProvider() {
-        return Stream.of(Arguments.of(onlineShopAnalysis, Map.of(1, "DatabaseLoadInventory")),
-                Arguments.of(internationalOnlineShopAnalysis, Map.of(9, "DatabaseStoreUserData")),
-                Arguments.of(travelPlannerAnalysis, Map.of(13, "ask airline to book flight")));
+        return Stream.of(Arguments.of(onlineShopAnalysis, Map.of(2, "DatabaseLoadInventory")),
+                Arguments.of(internationalOnlineShopAnalysis, Map.of(13, "DatabaseStoreUserData")),
+                Arguments.of(travelPlannerAnalysis, Map.of(19, "ask airline to book flight")));
     }
 
     /**
@@ -109,8 +109,8 @@ public class ActionSequenceFinderTest extends BaseTest {
     @ParameterizedTest
     @DisplayName("Action sequence should contain correct user action content")
     @MethodSource("testUserContentProvider")
-    public void testUserContent(StandalonePCMDataFlowConfidentialtyAnalysis analyis, Map<Integer, String> expected) {
-        var sequences = analyis.findAllSequences();
+    public void testUserContent(StandalonePCMDataFlowConfidentialtyAnalysis analysis, Map<Integer, String> expected) {
+        var sequences = analysis.findAllSequences();
 
         for (var entry : expected.entrySet()) {
             assertUserSequenceElementContent(sequences.get(0), entry.getKey(), entry.getValue());
@@ -125,7 +125,7 @@ public class ActionSequenceFinderTest extends BaseTest {
      */
     private Stream<Arguments> testUserContentProvider() {
         return Stream.of(Arguments.of(onlineShopAnalysis, Map.of(0, "ViewEntryLevelSystemCall")),
-                Arguments.of(internationalOnlineShopAnalysis, Map.of(6, "BuyEntryLevelSystemCall")),
-                Arguments.of(travelPlannerAnalysis, Map.of(2, "look for flights")));
+                Arguments.of(internationalOnlineShopAnalysis, Map.of(8, "BuyEntryLevelSystemCall")),
+                Arguments.of(travelPlannerAnalysis, Map.of(3, "look for flights")));
     }
 }

@@ -28,6 +28,7 @@ public class SEFFFinderContext {
     public SEFFFinderContext(SEFFFinderContext context) {
     	this.context = new ArrayDeque<>(context.getContext());
     	this.callers = new ArrayDeque<>(context.getCallers());
+    	this.parameter = new ArrayList<>(context.getParameter());
     	this.dataStores = new ArrayList<>(context.getDataStores());
     }
     

@@ -19,7 +19,7 @@ public class LabelPropagationTest extends AnalysisFeatureTest {
      * <p>
      * Fails if the analysis does not propagate the correct characteristics to each ActionSequence
      */
-    @ParameterizedTest(name = "{index}. {3}.{4}.{5} present at index {2} in action sequence")
+    @ParameterizedTest
     @DisplayName("Sequence elements should have correct characteristics present")
     @MethodSource("characteristicsPresentProvider")
     public void characteristicsPresentTest(StandalonePCMDataFlowConfidentialtyAnalysis analysis, List<CharacteristicsData> characteristicsData) {
@@ -77,8 +77,10 @@ public class LabelPropagationTest extends AnalysisFeatureTest {
      * @return Returns a stream of test data used for each invocation
      */
     private Stream<Arguments> characteristicsAbsentProvider() {
-        return Stream.of(Arguments.of(travelPlannerAnalysis, 0, 6, "RETURN", "GrantedRoles", "User"),
-                Arguments.of(travelPlannerAnalysis, 0, 6, "RETURN", "GrantedRoles", "Airline"),
+        return Stream.of(
+        		Arguments.of(travelPlannerAnalysis, 1, 2, "ccd", "AssignedRoles", "User"),
+        		Arguments.of(travelPlannerAnalysis, 1, 6, "RETURN", "GrantedRoles", "User"),
+                Arguments.of(travelPlannerAnalysis, 1, 6, "RETURN", "GrantedRoles", "Airline"),
                 Arguments.of(onlineShopAnalysis, 0, 0, "RETURN", "DataSensitivity", "Public"),
                 Arguments.of(internationalOnlineShopAnalysis, 0, 0, "inventory", "DataSensivity", "Public"),
                 Arguments.of(internationalOnlineShopAnalysis, 0, 1, "RETURN", "DataSensivity", "Public"));

@@ -7,10 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.xml.crypto.Data;
-
 import org.apache.log4j.Logger;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.CallingUserActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.DatabaseActionSequenceElement;
 
 public record ActionSequence(List<AbstractActionSequenceElement<?>> elements) implements Comparable<ActionSequence> {
@@ -133,7 +130,7 @@ public record ActionSequence(List<AbstractActionSequenceElement<?>> elements) im
 				return -1;
 			} else {
 				logger.error("Found incompatible set of Databases, Action Sequences depend on each other");
-				throw new IllegalStateException();
+				throw new IllegalStateException("Cylic loop of databases found in action sequences");
 			}
 		}
 	}

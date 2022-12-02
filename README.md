@@ -4,7 +4,7 @@ This repository contains an analysis to extract dataflows from a palladio modell
 For more information visit the [official page](https://fluidtrust.ipd.kit.edu/home/) of the project.
 
 ## Installation
-- Install the latest version of the Eclipse Modelling Tools from the [official site](https://www.eclipse.org/downloads/packages/)
+- Install the version 2022-09 of the Eclipse Modelling Tools from the [official site](https://www.eclipse.org/downloads/packages/)
 - Clone this repository
 - Import the dependencies.p2f file into Eclipse to install the dependencies of the project. This is achieved by going to File->Import->General->Install from File
 - Import the projects in the bundles folder into Eclipse

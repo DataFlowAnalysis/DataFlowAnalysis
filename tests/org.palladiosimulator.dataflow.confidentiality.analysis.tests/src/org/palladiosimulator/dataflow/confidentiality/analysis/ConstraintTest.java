@@ -71,8 +71,7 @@ public class ConstraintTest extends AnalysisFeatureTest {
         List<Literal> grantedRoles = node.getDataFlowCharacteristicsWithName("GrantedRoles");
         printNodeInformation(node);
 
-        return assignedRoles.stream()
-            .anyMatch(ar -> grantedRoles.contains(ar));
+        return !grantedRoles.isEmpty() && grantedRoles.stream().distinct().filter(assignedRoles::contains).collect(Collectors.toList()).isEmpty();
     }
 
     /**

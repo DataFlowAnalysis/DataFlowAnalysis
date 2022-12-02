@@ -36,9 +36,6 @@ public record ActionSequence(List<AbstractActionSequenceElement<?>> elements) im
     }
 
     public ActionSequence evaluateDataFlow() {
-    	// TODO: Save variable frames for each Calling Element
-    	// TODO On Call: Duplicate current Variable Frame
-    	// TODO: On Return: Reuse old Variable Frame, and add RETURN Dataflow Variable
         var iterator = this.elements()
             .iterator();
         Deque<List<DataFlowVariable>> variableContexts = new ArrayDeque<>();
@@ -64,11 +61,18 @@ public record ActionSequence(List<AbstractActionSequenceElement<?>> elements) im
 
             evaluatedElements.add(evaluatedElement);
             
+            
             if (evaluatedElement instanceof CallReturnBehavior && ((CallReturnBehavior) evaluatedElement).isCalling()) {
             	// Calling a method, we need to create a new variable context with the existing variables
             	List<DataFlowVariable> callingDataFlowVariables = new ArrayList<>(evaluatedElement.getAllDataFlowVariables());
             	variableContexts.push(callingDataFlowVariables);
-            } else {
+            } else if (evaluatedElement instanceof CallReturnBehavior && ((CallReturnBehavior) nextElement).isReturning()) {
+            	List<DataFlowVariable> returingDataFlowVariables = evaluatedElement.getAllDataFlowVariables().stream()
+            			.filter(it -> !it.variableName().equals("RETURN"))
+            			.collect(Collectors.toList());
+            	variableContexts.pop();
+            	variableContexts.push(returingDataFlowVariables);
+            } else  {
             	// If no new context is required, replace current variable context
             	variableContexts.pop();
             	variableContexts.push(evaluatedElement.getAllDataFlowVariables());

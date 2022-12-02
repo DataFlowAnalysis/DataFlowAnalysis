@@ -67,11 +67,15 @@ public class ConstraintTest extends AnalysisFeatureTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean travelPlannerCondition(AbstractActionSequenceElement<?> node) {
-        List<Literal> assignedRoles = node.getNodeCharacteristicsWithName("AssignedRoles");
-        List<Literal> grantedRoles = node.getDataFlowCharacteristicsWithName("GrantedRoles");
         printNodeInformation(node);
+        
+        List<String> assignedRoles = node.getNodeCharacteristicsWithName("AssignedRoles").stream().map(it -> it.getName()).toList();
+        return node.getAllDataFlowVariables().stream().map(dfdVar -> {
+            List<String> grantedRoles = dfdVar.getAllCharacteristics().stream().map(it -> it.characteristicLiteral()).map(it -> it.getName()).toList();
+            
+            return !grantedRoles.isEmpty() && grantedRoles.stream().distinct().filter(assignedRoles::contains).collect(Collectors.toList()).isEmpty();
+        }).anyMatch(Boolean::valueOf);
 
-        return !grantedRoles.isEmpty() && grantedRoles.stream().distinct().filter(assignedRoles::contains).collect(Collectors.toList()).isEmpty();
     }
 
     /**

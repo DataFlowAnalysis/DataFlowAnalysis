@@ -24,16 +24,29 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 	private DataStore dataStore;
 	private boolean isWriting;
 	
+	/**
+	 * Create a new Database Action Sequence Element with the underlying Palladio Element, Assembly Context, DataStore and indication wheter the Data Store is written to
+	 * @param element Underlying Palladio Element
+	 * @param context Assembly Context of the SEFF 
+	 * @param isWriting Is true, if the data store is written to. Otherwise, the data store is read from
+	 * @param dataStore Reference to the data store that is attached to this Database Action Sequence Element
+	 */
 	public DatabaseActionSequenceElement(T element, Deque<AssemblyContext> context, boolean isWriting, DataStore dataStore) {
         super(element, context);
         this.isWriting = isWriting;
         this.dataStore = dataStore;
     }
 	
+	/**
+	 * Constructs a new Database Action Sequence Element given an old Database Action Sequence Element and an updated List of dataflow variables and Node characteristics
+	 * @param oldElement Old Database Action Sequence element, which attributes are copied
+	 * @param dataFlowVariables Updated list of dataflow variables
+	 * @param nodeCharacteristics Updated list of node characteristics
+	 */
 	public DatabaseActionSequenceElement(DatabaseActionSequenceElement<T> oldElement, 
 			List<DataFlowVariable> dataFlowVariables, 
-			List<CharacteristicValue> nodeVariables) {
-		super(oldElement, dataFlowVariables, nodeVariables);
+			List<CharacteristicValue> nodeCharacteristics) {
+		super(oldElement, dataFlowVariables, nodeCharacteristics);
 		this.isWriting = oldElement.isWriting();
 		this.dataStore = oldElement.getDataStore();
 	}

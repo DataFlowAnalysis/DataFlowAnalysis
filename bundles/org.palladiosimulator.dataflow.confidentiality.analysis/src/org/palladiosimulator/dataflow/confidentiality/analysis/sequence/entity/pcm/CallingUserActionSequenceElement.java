@@ -17,13 +17,24 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
 
     private final boolean isCalling;
 
+    /**
+     * Creates a new User Action Sequence Element with an underlying Palladio Element and indication whether the SEFF Action is calling
+     * @param element Underlying Palladio Element
+     * @param isCalling Is true, when another method is called. Otherwise, a called method is returned from
+     */
     public CallingUserActionSequenceElement(EntryLevelSystemCall element, boolean isCalling) {
         super(element);
         this.isCalling = isCalling;
     }
 
-    public CallingUserActionSequenceElement(CallingUserActionSequenceElement oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {
-        super(oldElement, dataFlowVariables, nodeVariables);
+    /**
+     * Constructs a new User Action Sequence element given an old element and a list of updated dataflow variables and node characteristics
+     * @param oldElement Old element, which attributes are copied
+     * @param dataFlowVariables List of updated data flow variables
+     * @param nodeCharacteristics List of updated node characteristics
+     */
+    public CallingUserActionSequenceElement(CallingUserActionSequenceElement oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+        super(oldElement, dataFlowVariables, nodeCharacteristics);
         this.isCalling = oldElement.isCalling();
     }
 

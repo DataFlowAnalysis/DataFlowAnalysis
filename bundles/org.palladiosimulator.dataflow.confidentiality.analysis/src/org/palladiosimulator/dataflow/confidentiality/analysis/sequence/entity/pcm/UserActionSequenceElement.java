@@ -17,7 +17,7 @@ import org.palladiosimulator.pcm.seff.StartAction;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 
 public class UserActionSequenceElement<T extends AbstractUserAction> extends AbstractPCMActionSequenceElement<T> {
-	private Logger logger = Logger.getLogger(UserActionSequenceElement.class);
+	private final Logger logger = Logger.getLogger(UserActionSequenceElement.class);
 
 	/**
 	 * Creates a new User Sequence Element with the given Palladio User Action Element
@@ -28,13 +28,13 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
     }
 
     /**
-     * Creates a new User Sequence Element using an old User Sequence Element and a list of updated DataFlow and Node variables
+     * Creates a new User Sequence Element using an old User Sequence Element and a list of updated dataflow variables and node characteristics
      * @param oldElement Old User Sequence element, which attributes shall be copied
-     * @param dataFlowVariables List of updated DataFlowVariables
-     * @param nodeVariables List of updated NodeVariables
+     * @param dataFlowVariables List of updated dataflow variables
+     * @param nodeCharacteristics List of updated node characteristics
      */
-    public UserActionSequenceElement(UserActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {
-        super(oldElement, dataFlowVariables, nodeVariables);
+    public UserActionSequenceElement(UserActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+        super(oldElement, dataFlowVariables, nodeCharacteristics);
     }
     
     @Override

@@ -20,13 +20,26 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
 
     private final boolean isCalling;
 
+    /**
+     * Creates a new SEFF Action Sequence Element with an underlying Palladio Element, Assembly Context, List of present parameter and indication whether the SEFF Action is calling
+     * @param element Underlying Palladio Element
+     * @param context Assembly Context of the SEFF
+     * @param parameter List of Parameters that are available for the calling SEFF
+     * @param isCalling Is true, when another method is called. Otherwise, a called method is returned from
+     */
     public CallingSEFFActionSequenceElement(ExternalCallAction element, Deque<AssemblyContext> context, List<Parameter> parameter, boolean isCalling) {
         super(element, context, parameter);
         this.isCalling = isCalling;
     }
 
-    public CallingSEFFActionSequenceElement(CallingSEFFActionSequenceElement oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {
-        super(oldElement, dataFlowVariables, nodeVariables);
+    /**
+     * Constructs a new SEFF Action Sequence element given an old element and a list of updated dataflow variables and node characteristics
+     * @param oldElement Old element, which attributes are copied
+     * @param dataFlowVariables List of updated data flow variables
+     * @param nodeCharacteristics List of updated node characteristics
+     */
+    public CallingSEFFActionSequenceElement(CallingSEFFActionSequenceElement oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+        super(oldElement, dataFlowVariables, nodeCharacteristics);
         this.isCalling = oldElement.isCalling();
     }
 

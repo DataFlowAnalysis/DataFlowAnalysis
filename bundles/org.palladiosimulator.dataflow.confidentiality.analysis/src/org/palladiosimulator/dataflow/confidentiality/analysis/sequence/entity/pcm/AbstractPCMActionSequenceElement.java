@@ -30,10 +30,10 @@ public abstract class AbstractPCMActionSequenceElement<T extends EObject> extend
      * Builds a new Sequence element with an existing element and a list of Node and DataFlow variables
      * @param oldElement Old element, which element and context should be copied
      * @param dataFlowVariables DataFlow variables, which should be present for the action sequence element
-     * @param nodeVariables Node variables, which should be present for the action sequence element
+     * @param nodeCharacteristics Node characteristics, which should be present for the action sequence element
      */
-    public AbstractPCMActionSequenceElement(AbstractPCMActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {
-    	super(dataFlowVariables, nodeVariables);
+    public AbstractPCMActionSequenceElement(AbstractPCMActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+    	super(dataFlowVariables, nodeCharacteristics);
     	this.element = oldElement.getElement();
     	this.context = oldElement.getContext();
     }

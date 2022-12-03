@@ -21,7 +21,6 @@ import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
 import org.palladiosimulator.pcm.seff.StartAction;
 import org.palladiosimulator.pcm.seff.StopAction;
-import org.palladiosimulator.pcm.usagemodel.BranchTransition;
 
 public class PCMSEFFFinderUtils {
 	public static List<ActionSequence> findSequencesForSEFFAction(AbstractAction currentAction, SEFFFinderContext context,

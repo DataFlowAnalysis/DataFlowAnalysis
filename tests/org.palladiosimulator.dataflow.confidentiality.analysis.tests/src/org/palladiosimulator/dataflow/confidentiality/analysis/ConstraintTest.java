@@ -1,11 +1,9 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertFalse;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.StringJoiner;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -19,9 +17,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.AbstractPCMActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
-import org.palladiosimulator.pcm.repository.Parameter;
 
 public class ConstraintTest extends AnalysisFeatureTest {
 
@@ -36,7 +33,7 @@ public class ConstraintTest extends AnalysisFeatureTest {
     @MethodSource("violationTestProvider")
     @ParameterizedTest
     public void violationTest(StandalonePCMDataFlowConfidentialtyAnalysis analysis,
-            Predicate<AbstractActionSequenceElement<?>> contraint, int index, boolean noViolations) {
+            Predicate<AbstractActionSequenceElement<?>> contraint) {
 
         // Change this to DEBUG if you're only interested in the found violations
         logger.setLevel(Level.TRACE);
@@ -45,17 +42,23 @@ public class ConstraintTest extends AnalysisFeatureTest {
         
         var propagationResult = analysis.evaluateDataFlows(sequences);
 
-        var result = analysis.queryDataFlow(propagationResult.get(index), contraint);
-        printViolation(result);
-        assertEquals(noViolations, result.isEmpty());
+        for (ActionSequence actionSequence : propagationResult) {
+        	var result = analysis.queryDataFlow(actionSequence, contraint);
+            printViolation(result);
+            assertFalse(result.isEmpty());
+        }
     }
 
+    /**
+     * Provides the parameters for the {@link violationTest} testcase by providing the test model and constraint to the analysis
+     * @return Stream of arguments needed to call the testcase
+     */
     private Stream<Arguments> violationTestProvider() {
         Predicate<AbstractActionSequenceElement<?>> travelPlannerContraint = node -> travelPlannerCondition(node);
         Predicate<AbstractActionSequenceElement<?>> internationalOnlineShopContraint = node -> internationalOnlineShopCondition(
                 node);
-        return Stream.of(Arguments.of(travelPlannerAnalysis, travelPlannerContraint, 1, false),
-                Arguments.of(internationalOnlineShopAnalysis, internationalOnlineShopContraint, 0, false));
+        return Stream.of(Arguments.of(travelPlannerAnalysis, travelPlannerContraint),
+                Arguments.of(internationalOnlineShopAnalysis, internationalOnlineShopContraint));
     }
 
     /**
@@ -67,15 +70,13 @@ public class ConstraintTest extends AnalysisFeatureTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean travelPlannerCondition(AbstractActionSequenceElement<?> node) {
+    	List<Literal> assignedRoles = node.getNodeCharacteristicsWithName("AssignedRoles");
+    	Map<DataFlowVariable, List<Literal>> grantedRoles = node.getDataFlowCharacteristicsWithName("GrantedRoles");
+    	
         printNodeInformation(node);
         
-        List<String> assignedRoles = node.getNodeCharacteristicsWithName("AssignedRoles").stream().map(it -> it.getName()).toList();
-        return node.getAllDataFlowVariables().stream().map(dfdVar -> {
-            List<String> grantedRoles = dfdVar.getAllCharacteristics().stream().map(it -> it.characteristicLiteral()).map(it -> it.getName()).toList();
-            
-            return !grantedRoles.isEmpty() && grantedRoles.stream().distinct().filter(assignedRoles::contains).collect(Collectors.toList()).isEmpty();
-        }).anyMatch(Boolean::valueOf);
-
+        return grantedRoles.isEmpty() || grantedRoles.values().stream()
+        .allMatch(assignedRoles::containsAll);
     }
 
     /**
@@ -88,7 +89,8 @@ public class ConstraintTest extends AnalysisFeatureTest {
      */
     private boolean internationalOnlineShopCondition(AbstractActionSequenceElement<?> node) {
         List<Literal> serverLocation = node.getNodeCharacteristicsWithName("ServerLocation");
-        List<Literal> dataSensitivity = node.getDataFlowCharacteristicsWithName("DataSensitivity");
+        List<Literal> dataSensitivity = node.getDataFlowCharacteristicsWithName("DataSensitivity").values().stream()
+        		.flatMap(it -> it.stream()).collect(Collectors.toList());
         printNodeInformation(node);
 
         return dataSensitivity.stream()

@@ -94,5 +94,45 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
 
     @Override
     public abstract String toString();
+    
+    /**
+     * Returns a string with detailed information about a node's characteristics, data flow
+     * variables and the variables' characteristics.
+     * 
+     * @param node
+     *            a sequence element after the label propagation happened
+     * @return a string with the node's string representation and a list of all related
+     *         characteristics types and literals
+     */
+    public String createPrintableNodeInformation() {
+        String template = "Propagated %s%s\tNode characteristics: %s%s\tData flow Variables:  %s%s";
+        String nodeCharacteristics = createPrintableCharacteristicsList(this.getAllNodeCharacteristics());
+        String dataCharacteristics = this.getAllDataFlowVariables()
+            .stream()
+            .map(e -> String.format("%s [%s]", e.variableName(),
+                    createPrintableCharacteristicsList(e.getAllCharacteristics())))
+            .collect(Collectors.joining(", "));
+
+        return String.format(template, this.toString(), System.lineSeparator(), nodeCharacteristics,
+                System.lineSeparator(), dataCharacteristics, System.lineSeparator());
+    }
+
+    /**
+     * Returns a string with the names of all characteristic types and selected literals of all
+     * characteristic values.
+     * 
+     * @param characteristics
+     *            a list of characteristics values
+     * @return a comma separated list of the format "type.literal, type.literal"
+     */
+    public String createPrintableCharacteristicsList(List<CharacteristicValue> characteristics) {
+        List<String> entries = characteristics.stream()
+            .map(it -> String.format("%s.%s", it.characteristicType()
+                .getName(),
+                    it.characteristicLiteral()
+                        .getName()))
+            .toList();
+        return String.join(", ", entries);
+    }
 
 }

@@ -24,7 +24,8 @@ public class Main {
     var usageModelPath = Paths.get("PATH", "TO", "THE", "USAGE", "MODEL");
     var allocationModelPath = Paths.get("PATH", "TO", "THE", "ALLOCATION", "MODEL");
     StandalonePCMDataFlowConfidentialtyAnalysis analysis = new StandalonePCMDataFlowConfidentialtyAnalysis(projectName, Activator.class, usageModelPath, allocationModelPath);
-
+    
+    analysis.setLoggerLevel(Logger.TRACE); // Set desired logger level. Level.TRACE provides additional propagation Information
     analysis.initializeAnalysis();
 
     List<DataFlowVariable> actionSequences = analysis.findAllSequences();

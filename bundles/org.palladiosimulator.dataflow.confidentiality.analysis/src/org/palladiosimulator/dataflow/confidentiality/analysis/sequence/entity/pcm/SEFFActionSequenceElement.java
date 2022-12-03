@@ -7,7 +7,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.PCMAnalysisUtils;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.CharacteristicsCalculator;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.DataFlowCharacteristicsCalculator;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.NodeCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
@@ -55,35 +56,14 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
                 .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
                     .stream())
                 .toList();
-    	CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(variables, nodeCharacteristics);
+    	DataFlowCharacteristicsCalculator characteristicsCalculator = new DataFlowCharacteristicsCalculator(variables, nodeCharacteristics);
         variableCharacterisations.forEach(it -> characteristicsCalculator.evaluate(it));
         return new SEFFActionSequenceElement<T>(this, characteristicsCalculator.getCalculatedCharacteristics(), nodeCharacteristics);
     }
     
     protected List<CharacteristicValue> evaluateNodeCharacteristics() {
-    	List<CharacteristicValue> nodeVariables = new ArrayList<>();
-    	
-    	var allocations = PCMAnalysisUtils.lookupElementOfType(AllocationPackage.eINSTANCE.getAllocation()).stream()
-    			.filter(Allocation.class::isInstance)
-    			.map(Allocation.class::cast)
-    			.collect(Collectors.toList());
-    	
-    	var allocation = allocations.stream()
-    			.filter(it -> it.getAllocationContexts_Allocation().stream()
-    					.map(alloc -> alloc.getAssemblyContext_AllocationContext())
-    					.anyMatch(this.getContext().getFirst()::equals)
-    					)
-    			.findFirst()
-    			.orElseThrow();
-    	
-    	var allocationContexts = allocation.getAllocationContexts_Allocation();
-    	    	
-    	for (AllocationContext allocationContext : allocationContexts) {
-    		if (this.getContext().contains(allocationContext.getAssemblyContext_AllocationContext())) {
-        		nodeVariables.addAll(this.evaluateNodeCharacteristics(allocationContext.getResourceContainer_AllocationContext()));
-    		}
-    	}
-    	return nodeVariables;
+    	NodeCharacteristicsCalculator characteristicsCalculator = new NodeCharacteristicsCalculator(this.getElement());
+    	return characteristicsCalculator.getNodeCharacteristics(Optional.of(this.getContext()));
     }
     
     public List<Parameter> getParameter() {

@@ -3,50 +3,68 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.CharacteristicsCalculator;
+import org.apache.log4j.Logger;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.DataFlowCharacteristicsCalculator;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.NodeCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMQueryUtils;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
 import org.palladiosimulator.pcm.seff.StartAction;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
-import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 public class UserActionSequenceElement<T extends AbstractUserAction> extends AbstractPCMActionSequenceElement<T> {
+	private Logger logger = Logger.getLogger(UserActionSequenceElement.class);
 
+	/**
+	 * Creates a new User Sequence Element with the given Palladio User Action Element
+	 * @param element
+	 */
     public UserActionSequenceElement(T element) {
         super(element, new ArrayDeque<>());
     }
 
+    /**
+     * Creates a new User Sequence Element using an old User Sequence Element and a list of updated DataFlow and Node variables
+     * @param oldElement Old User Sequence element, which attributes shall be copied
+     * @param dataFlowVariables List of updated DataFlowVariables
+     * @param nodeVariables List of updated NodeVariables
+     */
     public UserActionSequenceElement(UserActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {
         super(oldElement, dataFlowVariables, nodeVariables);
     }
-
+    
     @Override
     public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables) {
     	List<CharacteristicValue> nodeCharacteristics = this.evaluateNodeCharacteristics();
         if (this.getElement() instanceof StartAction) {
     		return new UserActionSequenceElement<T>(this, new ArrayList<>(variables), nodeCharacteristics);
     	} else if (!(this.getElement() instanceof SetVariableAction)) {
+    		logger.error("Found unexpected sequence element of unknown PCM type " + this.getElement().getClass().getName());
     		throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");
     	}
+        
     	List<VariableCharacterisation> variableCharacterisations = ((SetVariableAction) this.getElement())
                 .getLocalVariableUsages_SetVariableAction()
                 .stream()
                 .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
                     .stream())
                 .toList();
-    	CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(variables, nodeCharacteristics);
+    	DataFlowCharacteristicsCalculator characteristicsCalculator = new DataFlowCharacteristicsCalculator(variables, nodeCharacteristics);
         variableCharacterisations.forEach(it -> characteristicsCalculator.evaluate(it));
         return new UserActionSequenceElement<T>(this, characteristicsCalculator.getCalculatedCharacteristics(), nodeCharacteristics);
     }
     
+    /**
+     * Calculates the node characteristics for an {@link UserActionSequenceElement} using the {@link NodeCharacteristicsCalculator}
+     * @return List of CharacteristicValues which are present at the current node
+     */
     protected List<CharacteristicValue> evaluateNodeCharacteristics() {
-    	var usageScenario = PCMQueryUtils.findParentOfType(this.getElement(), UsageScenario.class, false).get();
-    	return this.evaluateNodeCharacteristics(usageScenario);
+    	NodeCharacteristicsCalculator characteristicsCalculator = new NodeCharacteristicsCalculator(this.getElement());
+    	return characteristicsCalculator.getNodeCharacteristics(Optional.empty());
     }
 
     @Override

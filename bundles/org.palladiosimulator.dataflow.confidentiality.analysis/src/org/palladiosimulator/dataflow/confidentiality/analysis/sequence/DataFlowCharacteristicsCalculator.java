@@ -26,7 +26,7 @@ import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
 
-public class CharacteristicsCalculator {
+public class DataFlowCharacteristicsCalculator {
     private List<DataFlowVariable> currentVariables;
 
     /**
@@ -36,7 +36,7 @@ public class CharacteristicsCalculator {
      * @param initialVariables
      *            DataFlowVariables of the previous ActionSequence Element
      */
-    public CharacteristicsCalculator(List<DataFlowVariable> initialVariables, List<CharacteristicValue> nodeCharacteristics) {
+    public DataFlowCharacteristicsCalculator(List<DataFlowVariable> initialVariables, List<CharacteristicValue> nodeCharacteristics) {
         this.currentVariables = new ArrayList<>(initialVariables);
         createNodeCharacteristicsContainer(nodeCharacteristics);
     }

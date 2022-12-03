@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.CharacteristicsCalculator;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.DataFlowCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CallReturnBehavior;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
@@ -34,10 +34,7 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
     
     @Override
     public AbstractActionSequenceElement<EntryLevelSystemCall> evaluateDataFlow(List<DataFlowVariable> variables) {
-    	List<DataFlowVariable> newDataFlowVariables = new ArrayList<>(variables);
-    			
-    	List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics();
-    	
+    	List<CharacteristicValue> nodeCharacteristics = this.evaluateNodeCharacteristics();
     	List<VariableCharacterisation> variableCharacterisations = this.isCalling ?
     			super.getElement().getInputParameterUsages_EntryLevelSystemCall().stream()
     			.flatMap(it -> it.getVariableCharacterisation_VariableUsage()
@@ -49,12 +46,10 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
                         .stream())
                     .collect(Collectors.toList());
 
-        CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(newDataFlowVariables, nodeVariables);
+        DataFlowCharacteristicsCalculator characteristicsCalculator = new DataFlowCharacteristicsCalculator(new ArrayList<>(variables), nodeCharacteristics);
         variableCharacterisations.stream()
             .forEach(it -> characteristicsCalculator.evaluate(it));
-        AbstractActionSequenceElement<EntryLevelSystemCall> evaluatedElement = new CallingUserActionSequenceElement(
-                this, characteristicsCalculator.getCalculatedCharacteristics(), nodeVariables);
-        return evaluatedElement;
+       return new CallingUserActionSequenceElement(this, characteristicsCalculator.getCalculatedCharacteristics(), nodeCharacteristics);
     }
 
     @Override

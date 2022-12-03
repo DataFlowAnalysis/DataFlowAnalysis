@@ -1,6 +1,5 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm;
 
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
@@ -9,10 +8,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
-import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
-import org.palladiosimulator.dataflow.confidentiality.pcm.model.profile.ProfileConstants;
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
-import org.palladiosimulator.mdsdprofiles.api.StereotypeAPI;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 public abstract class AbstractPCMActionSequenceElement<T extends EObject> extends AbstractActionSequenceElement<T> {
@@ -21,6 +16,11 @@ public abstract class AbstractPCMActionSequenceElement<T extends EObject> extend
     private final T element;	
 
 
+    /**
+     * Constructs a new Action Sequence Element with the underlying Palladio Element and Assembly Context
+     * @param element Underlying Palladio Element of the Sequence Element
+     * @param context Assembly context of the Palladio Element
+     */
     public AbstractPCMActionSequenceElement(T element, Deque<AssemblyContext> context) {
         this.element = element;
         this.context = context;
@@ -36,25 +36,6 @@ public abstract class AbstractPCMActionSequenceElement<T extends EObject> extend
     	super(dataFlowVariables, nodeVariables);
     	this.element = oldElement.getElement();
     	this.context = oldElement.getContext();
-    }
-    
-    /**
-     * Evaluates the node characteristics for an object that can be tagged with Characteristic Values
-     * @param object Object that can be tagged with Characteristic Values
-     * @return Returns a list of Characteristic Values that tag the provided object
-     */
-    protected List<CharacteristicValue> evaluateNodeCharacteristics(EObject object) {
-    	List<CharacteristicValue> nodeCharacteristics = new ArrayList<>();
-    	var enumCharacteristics = StereotypeAPI.<List<EnumCharacteristic>>getTaggedValueSafe(object, ProfileConstants.characterisable.getValue(), ProfileConstants.characterisable.getStereotype());
-    	if (enumCharacteristics.isPresent()) {
-    		var nodeEnumCharacteristics = enumCharacteristics.get();
-    		for (EnumCharacteristic nodeEnumCharacteristic : nodeEnumCharacteristics) {
-        		for (Literal nodeLiteral : nodeEnumCharacteristic.getValues()) {
-        			nodeCharacteristics.add(new CharacteristicValue(nodeEnumCharacteristic.getType(), nodeLiteral));
-        		}
-    		}
-    	}
-    	return nodeCharacteristics;
     }
 
     /**

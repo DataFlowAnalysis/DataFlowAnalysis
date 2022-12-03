@@ -22,6 +22,11 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
         this.nodeCharacteristics = Optional.of(List.copyOf(nodeCharacteristics));
     }
 
+    /**
+     * Evaluates the Data Flow at a given sequence element given the list of {@link DataFlowVariable}s that are received from the precursor
+     * @param variables List of {@link DataFlowVariable}s propagated from the precursor
+     * @return Returns a new Sequence element with the updated Node- and DataFlowVariables
+     */
     public abstract AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables);
     
     /**

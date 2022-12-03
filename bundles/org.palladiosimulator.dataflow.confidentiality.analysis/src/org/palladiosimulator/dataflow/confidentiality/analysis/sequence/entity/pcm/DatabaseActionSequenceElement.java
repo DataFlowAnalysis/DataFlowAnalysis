@@ -3,10 +3,12 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.PCMAnalysisUtils;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.NodeCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
@@ -40,15 +42,17 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 	public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables) {
 		List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics();
 		List<DataFlowVariable> newDataFlowVariables = new ArrayList<>(variables);
+		
 		if (this.isWriting()) {
 			String dataSourceName = this.getDataStore().getDatabaseVariableName().get();
 			DataFlowVariable dataSource = newDataFlowVariables.stream()
 					.filter(it -> it.variableName().equals(dataSourceName))
 					.findAny().orElse(new DataFlowVariable(dataSourceName));
-			dataStore.setCharacteristicValues(dataSource.characteristics());
+			dataStore.addCharacteristicValues(dataSource.characteristics());
 			return new DatabaseActionSequenceElement<>(this, newDataFlowVariables, nodeVariables);
 		}
-		if (this.dataStore.getCharacteristicValues().isEmpty()) {
+		
+		if (this.dataStore.getCharacteristicValues().isEmpty() || this.dataStore.getDatabaseVariableName().isEmpty()) {
 			logger.warn("Database " +  this.dataStore.getDatabaseComponentName() + " is read from without writing any values to it!");
 		}
 		
@@ -62,29 +66,8 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 	}
 	
     protected List<CharacteristicValue> evaluateNodeCharacteristics() {
-    	List<CharacteristicValue> nodeVariables = new ArrayList<>();
-    	
-    	var allocations = PCMAnalysisUtils.lookupElementOfType(AllocationPackage.eINSTANCE.getAllocation()).stream()
-    			.filter(Allocation.class::isInstance)
-    			.map(Allocation.class::cast)
-    			.collect(Collectors.toList());
-    	
-    	var allocation = allocations.stream()
-    			.filter(it -> it.getAllocationContexts_Allocation().stream()
-    					.map(alloc -> alloc.getAssemblyContext_AllocationContext())
-    					.anyMatch(this.getContext().getFirst()::equals)
-    					)
-    			.findFirst()
-    			.orElseThrow();
-    	
-    	var allocationContexts = allocation.getAllocationContexts_Allocation();
-    	    	
-    	for (AllocationContext allocationContext : allocationContexts) {
-    		if (this.getContext().contains(allocationContext.getAssemblyContext_AllocationContext())) {
-        		nodeVariables.addAll(this.evaluateNodeCharacteristics(allocationContext.getResourceContainer_AllocationContext()));
-    		}
-    	}
-    	return nodeVariables;
+    	NodeCharacteristicsCalculator characteristicsCalculator = new NodeCharacteristicsCalculator(this.getElement());
+    	return characteristicsCalculator.getNodeCharacteristics(Optional.of(this.getContext()));
     }
 	
 	public boolean isWriting() {

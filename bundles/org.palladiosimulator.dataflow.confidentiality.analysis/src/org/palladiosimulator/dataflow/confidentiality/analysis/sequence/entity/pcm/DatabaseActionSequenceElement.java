@@ -41,10 +41,6 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 		List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics();
 		List<DataFlowVariable> newDataFlowVariables = new ArrayList<>(variables);
 		if (this.isWriting()) {
-			if (this.getDataStore().getDatabaseVariableName().isEmpty()) {
-				logger.error("Writing to datastore element with name " + this.getDataStore().getDatabaseComponentName() + " failed, as datastore is never written to");
-				throw new IllegalStateException("Invalid Action Sequence, datastore is read before reading");
-			}
 			String dataSourceName = this.getDataStore().getDatabaseVariableName().get();
 			DataFlowVariable dataSource = newDataFlowVariables.stream()
 					.filter(it -> it.variableName().equals(dataSourceName))
@@ -52,6 +48,10 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 			dataStore.setCharacteristicValues(dataSource.characteristics());
 			return new DatabaseActionSequenceElement<>(this, newDataFlowVariables, nodeVariables);
 		}
+		if (this.dataStore.getCharacteristicValues().isEmpty()) {
+			logger.warn("Database " +  this.dataStore.getDatabaseComponentName() + " is read from without writing any values to it!");
+		}
+		
 		DataFlowVariable modifiedVariable = new DataFlowVariable("RETURN");
 		List<CharacteristicValue> storedData = dataStore.getCharacteristicValues();
 		for(CharacteristicValue characteristicValue : storedData) {

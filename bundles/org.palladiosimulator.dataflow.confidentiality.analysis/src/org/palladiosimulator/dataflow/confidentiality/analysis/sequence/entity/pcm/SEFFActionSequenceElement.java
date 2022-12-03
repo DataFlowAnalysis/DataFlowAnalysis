@@ -21,7 +21,7 @@ import org.palladiosimulator.pcm.seff.SetVariableAction;
 import org.palladiosimulator.pcm.seff.StartAction;
 
 public class SEFFActionSequenceElement<T extends AbstractAction> extends AbstractPCMActionSequenceElement<T> {
-	private final Logger logger = Logger.getLogger(SEFFActionSequenceElement.class);
+	private final Logger logger = Logger.getRootLogger();
 	
 	private final List<Parameter> parameter;
 	

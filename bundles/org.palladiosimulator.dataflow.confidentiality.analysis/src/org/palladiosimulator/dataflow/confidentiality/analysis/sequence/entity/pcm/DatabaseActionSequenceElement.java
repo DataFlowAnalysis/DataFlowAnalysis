@@ -15,7 +15,7 @@ import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 public class DatabaseActionSequenceElement<T extends OperationalDataStoreComponent> extends AbstractPCMActionSequenceElement<T> {
-	private final Logger logger = Logger.getLogger(DatabaseActionSequenceElement.class);
+	private final Logger logger = Logger.getRootLogger();
 	
 	private final DataStore dataStore;
 	private final boolean isWriting;

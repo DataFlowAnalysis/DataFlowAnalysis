@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ASCII"?>
+<system:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/dataflow/confidentiality/pcm/0.1.0/repository" xmlns:repository_1="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="_9ZMW8HQbEe2W39w_cTGxjg" entityName="New System">
+  <assemblyContexts__ComposedStructure id="_CFhGsHQdEe2W39w_cTGxjg" entityName="Assembly_CreditCardDatabase">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:OperationalDataStoreComponent" href="default.repository#_ngKYsHQcEe2W39w_cTGxjg"/>
+  </assemblyContexts__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_LUQHIHQdEe2W39w_cTGxjg" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_GCAxcHQdEe2W39w_cTGxjg" assemblyContext_ProvidedDelegationConnector="_CFhGsHQdEe2W39w_cTGxjg">
+    <innerProvidedRole_ProvidedDelegationConnector href="default.repository#__BAz4HQcEe2W39w_cTGxjg"/>
+  </connectors__ComposedStructure>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository_1:OperationProvidedRole" id="_GCAxcHQdEe2W39w_cTGxjg" entityName="CreditCardProviderProvidedRole">
+    <providedInterface__OperationProvidedRole href="default.repository#_rDzekHQcEe2W39w_cTGxjg"/>
+  </providedRoles_InterfaceProvidingEntity>
+</system:System>

@@ -189,4 +189,24 @@ public class ConstraintTest extends AnalysisFeatureTest {
     	printViolation(results);
     	assertFalse(results.isEmpty());
     }
+    
+    @Test
+    @DisplayName("Test whether datastores work correctly and ActionSequences are propagated in the correct sequence")
+    public void testDataStores() {
+    	var usageModelPath = Paths.get("models", "DatastoreTest", "default.usagemodel");
+    	var allocationPath = Paths.get("models", "DatastoreTest", "default.allocation");
+    	StandalonePCMDataFlowConfidentialtyAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
+    	
+    	List<ActionSequence> sequences = analysis.findAllSequences();
+    	List<ActionSequence> propagatedSequences = analysis.evaluateDataFlows(sequences);
+    	
+    	logger.setLevel(Level.TRACE);
+    	
+    	var results = analysis.queryDataFlow(propagatedSequences.get(0), node -> {
+    		printNodeInformation(node);
+            return travelPlannerCondition(node);
+    	});
+    	printViolation(results);
+    	assertFalse(results.isEmpty());
+    }
 }

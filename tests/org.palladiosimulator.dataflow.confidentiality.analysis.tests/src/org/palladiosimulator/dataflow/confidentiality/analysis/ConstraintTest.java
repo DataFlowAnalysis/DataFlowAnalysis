@@ -169,4 +169,24 @@ public class ConstraintTest extends AnalysisFeatureTest {
             .toList();
         return String.join(", ", entries);
     }
+    
+    @Test
+    @DisplayName("Test whether multiple assemblies propagate node characteristics to node")
+    public void testMultipleAssemblies() {
+    	var usageModelPath = Paths.get("models", "MultipleAssembliesTest", "default.usagemodel");
+    	var allocationPath = Paths.get("models", "MultipleAssembliesTest", "default.allocation");
+    	StandalonePCMDataFlowConfidentialtyAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
+    	
+    	List<ActionSequence> sequences = analysis.findAllSequences();
+    	List<ActionSequence> propagatedSequences = analysis.evaluateDataFlows(sequences);
+    	
+    	logger.setLevel(Level.TRACE);
+    	
+    	var results = analysis.queryDataFlow(propagatedSequences.get(0), node -> {
+    		printNodeInformation(node);
+            return internationalOnlineShopCondition(node);
+    	});
+    	printViolation(results);
+    	assertFalse(results.isEmpty());
+    }
 }

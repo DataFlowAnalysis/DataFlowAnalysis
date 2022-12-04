@@ -28,10 +28,19 @@ public class NodeCharacteristicsCalculator {
 	private Logger logger = Logger.getLogger(NodeCharacteristicsCalculator.class);
     private EObject node;
     
+    /**
+     * Creates a new node characteristic calculator with the given node
+     * @param node Node of which the characteristics should be calculated
+     */
     public NodeCharacteristicsCalculator(EObject node) {
     	this.node = node;
     }
     
+    /**
+     * Returns the node characteristics that are present at the given node with the assembly context provided. For User Actions the assembly context should be empty
+     * @param context SEFF assembly context provided to the method. Should be empty for User Seqeuence Elements
+     * @return Returns a list of node characteristics that are present at the current node
+     */
     public List<CharacteristicValue> getNodeCharacteristics(Optional<Deque<AssemblyContext>> context) {
     	if (this.node instanceof AbstractUserAction) {
     		return getUserNodeCharacteristics((AbstractUserAction) this.node);
@@ -44,11 +53,21 @@ public class NodeCharacteristicsCalculator {
     	throw new IllegalArgumentException("Cannot calculate node characteristics of unknown type");
     }
     
+    /**
+     * Returns the node characteristics present at a node in a usage scenario
+     * @param node Node in the usage scenario
+     * @return List of node variables present at the node
+     */
     private List<CharacteristicValue> getUserNodeCharacteristics(AbstractUserAction node) {
     	var usageScenario = PCMQueryUtils.findParentOfType(node, UsageScenario.class, false).get();
     	return this.evaluateNodeCharacteristics(usageScenario);
     }
     
+    /**
+     * Returns the node characteristics present at a node in a SEFF context
+     * @param context Context of the SEFF node
+     * @return List of node characteristics present at the given node in the context provided
+     */
     private List<CharacteristicValue> getSEFFNodeCharacteristics(Deque<AssemblyContext> context) {
     	List<CharacteristicValue> nodeVariables = new ArrayList<>();
     	

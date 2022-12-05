@@ -170,6 +170,9 @@ public class ConstraintTest extends AnalysisFeatureTest {
         return String.join(", ", entries);
     }
     
+    /**
+     * Test whether multiple assemblies pass their characteristics to their nodes
+     */
     @Test
     @DisplayName("Test whether multiple assemblies propagate node characteristics to node")
     public void testMultipleAssemblies() {
@@ -190,6 +193,9 @@ public class ConstraintTest extends AnalysisFeatureTest {
     	assertFalse(results.isEmpty());
     }
     
+    /**
+     * Test determining whether data stores correctly and are propagated in the correct order
+     */
     @Test
     @DisplayName("Test whether datastores work correctly and ActionSequences are propagated in the correct sequence")
     public void testDataStores() {
@@ -201,12 +207,20 @@ public class ConstraintTest extends AnalysisFeatureTest {
     	List<ActionSequence> propagatedSequences = analysis.evaluateDataFlows(sequences);
     	
     	logger.setLevel(Level.TRACE);
-    	
-    	var results = analysis.queryDataFlow(propagatedSequences.get(0), node -> {
-    		printNodeInformation(node);
-            return travelPlannerCondition(node);
-    	});
-    	printViolation(results);
-    	assertFalse(results.isEmpty());
-    }
+    		var results = analysis.queryDataFlow(propagatedSequences.get(1), node -> {
+        		List<Literal> assignedRoles = node.getNodeCharacteristicsWithName("AssignedRole");
+            	Map<DataFlowVariable, List<Literal>> grantedRoles = node.getDataFlowCharacteristicsWithName("GrantedRole");
+            	
+                printNodeInformation(node);
+                
+                if (assignedRoles.isEmpty()) {
+                	return false;
+                }
+                
+                return !grantedRoles.entrySet().stream()
+                		.allMatch(df -> df.getValue().stream().allMatch(it -> assignedRoles.contains(it)));
+        	});
+        	printViolation(results);
+        	assertFalse(results.isEmpty());
+    	}
 }

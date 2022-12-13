@@ -7,9 +7,9 @@ import java.util.Optional;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 
 public class DataStore {
-	private String databaseComponentName;
+	private final String databaseComponentName;
 	private Optional<String> databaseVariableName;
-	private List<CharacteristicValue> characteristicValues;
+	private final List<CharacteristicValue> characteristicValues;
 
 	/**
 	 * Create a new DataStore with a given Database component name, and an empty variable name, which might be unknown at the time of creation

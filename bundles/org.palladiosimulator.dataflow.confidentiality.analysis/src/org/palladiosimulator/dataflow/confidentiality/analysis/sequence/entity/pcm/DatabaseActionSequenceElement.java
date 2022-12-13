@@ -16,8 +16,8 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 public class DatabaseActionSequenceElement<T extends OperationalDataStoreComponent> extends AbstractPCMActionSequenceElement<T> {
 	private final Logger logger = Logger.getLogger(DatabaseActionSequenceElement.class);
 	
-	private DataStore dataStore;
-	private boolean isWriting;
+	private final DataStore dataStore;
+	private final boolean isWriting;
 	
 	/**
 	 * Create a new Database Action Sequence Element with the underlying Palladio Element, Assembly Context, DataStore and indication wheter the Data Store is written to

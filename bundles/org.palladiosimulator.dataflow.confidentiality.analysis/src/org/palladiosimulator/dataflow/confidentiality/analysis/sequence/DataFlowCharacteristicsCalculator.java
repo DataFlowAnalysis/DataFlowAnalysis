@@ -118,8 +118,11 @@ public class DataFlowCharacteristicsCalculator {
 
         for (CharacteristicValue modifedCharacteristic : modifiedCharacteristics) {
             if (evaluateTerm(rightHandSide, modifedCharacteristic)) {
-            	if (computedVariable.getAllCharacteristics().stream()
+            	List<CharacteristicValue> modifiedCharacteristicValues = computedVariable.getAllCharacteristics().stream()
             			.filter(it -> it.characteristicType().getName().equals(modifedCharacteristic.characteristicType().getName()))
+            			.collect(Collectors.toList());
+            	
+            	if (modifiedCharacteristicValues.stream()
             			.noneMatch(it -> it.characteristicLiteral().getName().equals(modifedCharacteristic.characteristicLiteral().getName()))) {
             		computedVariable = computedVariable.addCharacteristic(modifedCharacteristic);
             	}

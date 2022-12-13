@@ -33,7 +33,7 @@ public class ConstraintTest extends AnalysisFeatureTest {
     @MethodSource("violationTestProvider")
     @ParameterizedTest
     public void violationTest(StandalonePCMDataFlowConfidentialtyAnalysis analysis,
-            Predicate<AbstractActionSequenceElement<?>> contraint) {
+            Predicate<AbstractActionSequenceElement<?>> contraint, int sequenceIndex) {
 
         // Change this to DEBUG if you're only interested in the found violations
         logger.setLevel(Level.TRACE);
@@ -41,12 +41,9 @@ public class ConstraintTest extends AnalysisFeatureTest {
         var sequences = analysis.findAllSequences();
         
         var propagationResult = analysis.evaluateDataFlows(sequences);
-
-        for (ActionSequence actionSequence : propagationResult) {
-        	var result = analysis.queryDataFlow(actionSequence, contraint);
-            printViolation(result);
-            assertFalse(result.isEmpty());
-        }
+        var result = analysis.queryDataFlow(propagationResult.get(sequenceIndex), contraint);
+        printViolation(result);
+        assertFalse(result.isEmpty());
     }
 
     /**
@@ -57,8 +54,8 @@ public class ConstraintTest extends AnalysisFeatureTest {
         Predicate<AbstractActionSequenceElement<?>> travelPlannerContraint = node -> travelPlannerCondition(node);
         Predicate<AbstractActionSequenceElement<?>> internationalOnlineShopContraint = node -> internationalOnlineShopCondition(
                 node);
-        return Stream.of(Arguments.of(travelPlannerAnalysis, travelPlannerContraint),
-                Arguments.of(internationalOnlineShopAnalysis, internationalOnlineShopContraint));
+        return Stream.of(Arguments.of(travelPlannerAnalysis, travelPlannerContraint, 1),
+                Arguments.of(internationalOnlineShopAnalysis, internationalOnlineShopContraint, 0));
     }
 
     /**
@@ -70,13 +67,20 @@ public class ConstraintTest extends AnalysisFeatureTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean travelPlannerCondition(AbstractActionSequenceElement<?> node) {
-    	List<Literal> assignedRoles = node.getNodeCharacteristicsWithName("AssignedRoles");
+    	List<String> assignedRoles = node.getNodeCharacteristicsWithName("AssignedRoles").stream()
+    			.map(it -> it.getName())
+    			.collect(Collectors.toList());
     	Map<DataFlowVariable, List<Literal>> grantedRoles = node.getDataFlowCharacteristicsWithName("GrantedRoles");
     	
         printNodeInformation(node);
         
-        return grantedRoles.isEmpty() || grantedRoles.values().stream()
-        .allMatch(assignedRoles::containsAll);
+        return grantedRoles.entrySet().stream().map(dfd -> {
+        	return !dfd.getValue().isEmpty() && dfd.getValue().stream()
+        			.distinct()
+        			.filter(it -> assignedRoles.contains(it.getName()))
+        			.collect(Collectors.toList())
+        			.isEmpty();
+        }).anyMatch(Boolean::valueOf);
     }
 
     /**

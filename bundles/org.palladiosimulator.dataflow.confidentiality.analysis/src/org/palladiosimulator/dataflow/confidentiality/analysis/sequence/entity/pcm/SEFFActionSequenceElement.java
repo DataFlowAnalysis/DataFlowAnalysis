@@ -23,7 +23,7 @@ import org.palladiosimulator.pcm.seff.StartAction;
 public class SEFFActionSequenceElement<T extends AbstractAction> extends AbstractPCMActionSequenceElement<T> {
 	private final Logger logger = Logger.getLogger(SEFFActionSequenceElement.class);
 	
-	private List<Parameter> parameter;
+	private final List<Parameter> parameter;
 	
 	/**
 	 * Construct a new SEFF Action Sequence element with the given underlying Palladio Element, {@link AssemblyContext} and a list of passed {@link Parameter}.
@@ -44,6 +44,7 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
      */
     public SEFFActionSequenceElement(SEFFActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
         super(oldElement, dataFlowVariables, nodeCharacteristics);
+        this.parameter = oldElement.getParameter();
     }
 
     @Override

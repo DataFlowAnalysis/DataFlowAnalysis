@@ -9,10 +9,7 @@ import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMDataCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMNodeCharacteristicsCalculator;
-import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
-import org.palladiosimulator.pcm.seff.SetVariableAction;
 import org.palladiosimulator.pcm.seff.StartAction;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 
@@ -42,20 +39,9 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
     	List<CharacteristicValue> nodeCharacteristics = this.evaluateNodeCharacteristics();
         if (this.getElement() instanceof StartAction) {
     		return new UserActionSequenceElement<T>(this, new ArrayList<>(variables), nodeCharacteristics);
-    	} else if (!(this.getElement() instanceof SetVariableAction)) {
-    		logger.error("Found unexpected sequence element of unknown PCM type " + this.getElement().getClass().getName());
-    		throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");
-    	}
-        
-    	List<VariableCharacterisation> variableCharacterisations = ((SetVariableAction) this.getElement())
-                .getLocalVariableUsages_SetVariableAction()
-                .stream()
-                .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
-                    .stream())
-                .toList();
-    	PCMDataCharacteristicsCalculator characteristicsCalculator = new PCMDataCharacteristicsCalculator(variables, nodeCharacteristics);
-        variableCharacterisations.forEach(it -> characteristicsCalculator.evaluate(it));
-        return new UserActionSequenceElement<T>(this, characteristicsCalculator.getCalculatedCharacteristics(), nodeCharacteristics);
+    	} 
+    	logger.error("Found unexpected sequence element of unknown PCM type " + this.getElement().getClass().getName());
+    	throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");
     }
     
     /**

@@ -20,25 +20,26 @@ import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.allocation.AllocationPackage;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 public class NodeCharacteristicsCalculator {
-	private Logger logger = Logger.getLogger(NodeCharacteristicsCalculator.class);
-    private EObject node;
+	private final Logger logger = Logger.getLogger(NodeCharacteristicsCalculator.class);
+    private final Entity node;
     
     /**
      * Creates a new node characteristic calculator with the given node
-     * @param node Node of which the characteristics should be calculated
+     * @param node Node of which the characteristics should be calculated. Should either be a User or SEFF Action.
      */
-    public NodeCharacteristicsCalculator(EObject node) {
+    public NodeCharacteristicsCalculator(Entity node) {
     	this.node = node;
     }
     
     /**
      * Returns the node characteristics that are present at the given node with the assembly context provided. For User Actions the assembly context should be empty
-     * @param context SEFF assembly context provided to the method. Should be empty for User Seqeuence Elements
+     * @param context SEFF assembly context provided to the method. Should be empty for User Sequence Elements
      * @return Returns a list of node characteristics that are present at the current node
      */
     public List<CharacteristicValue> getNodeCharacteristics(Optional<Deque<AssemblyContext>> context) {

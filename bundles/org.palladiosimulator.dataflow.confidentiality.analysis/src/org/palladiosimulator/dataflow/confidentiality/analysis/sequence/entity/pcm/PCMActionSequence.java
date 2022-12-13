@@ -12,6 +12,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.A
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CallReturnBehavior;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
+import org.palladiosimulator.pcm.seff.StartAction;
 
 public class PCMActionSequence extends ActionSequence implements Comparable<PCMActionSequence> {
 	private static final Logger logger = Logger.getLogger(PCMActionSequence.class);
@@ -67,6 +68,18 @@ public class PCMActionSequence extends ActionSequence implements Comparable<PCMA
 	 * @param nextElement Next element that will be evaluated
 	 */
 	private void prepareCall(Deque<List<DataFlowVariable>> variableContexts, AbstractActionSequenceElement<?> nextElement) {
+		if (nextElement instanceof SEFFActionSequenceElement<?> && ((SEFFActionSequenceElement<?>) nextElement).getElement() instanceof StartAction) {
+			SEFFActionSequenceElement<?> startElement = (SEFFActionSequenceElement<?>) nextElement;
+			List<String> parameter = startElement.getParameter().stream()
+					.map(it -> it.getParameterName())
+					.collect(Collectors.toList());
+			
+			List<DataFlowVariable> presentDataFlowVariables = variableContexts.peek().stream()
+					.filter(it -> parameter.contains(it.variableName()))
+					.collect(Collectors.toList());
+			variableContexts.pop();
+			variableContexts.push(presentDataFlowVariables);
+		}
 		if (nextElement instanceof CallReturnBehavior && ((CallReturnBehavior) nextElement).isReturning()) {
         	// Returning from a method me need to look for the RETURN DataFlowVariable save it in the lower variable context, and discard the current one
         	List<DataFlowVariable> returningDataFlowVariables = variableContexts.peek().stream()
@@ -87,7 +100,6 @@ public class PCMActionSequence extends ActionSequence implements Comparable<PCMA
 	private void cleanupCall(Deque<List<DataFlowVariable>> variableContexts, 
 			AbstractActionSequenceElement<?> evaluatedElement) {
 		if (evaluatedElement instanceof CallReturnBehavior && ((CallReturnBehavior) evaluatedElement).isCalling()) {
-        	// Calling a method, we need to create a new variable context with the existing variables
         	List<DataFlowVariable> callingDataFlowVariables = new ArrayList<>(evaluatedElement.getAllDataFlowVariables());
         	variableContexts.push(callingDataFlowVariables);
         } else if (evaluatedElement instanceof CallReturnBehavior && ((CallReturnBehavior) evaluatedElement).isReturning()) {
@@ -97,7 +109,6 @@ public class PCMActionSequence extends ActionSequence implements Comparable<PCMA
         	variableContexts.pop();
         	variableContexts.push(returingDataFlowVariables);
         } else  {
-        	// If no new context is required, replace current variable context
         	variableContexts.pop();
         	variableContexts.push(evaluatedElement.getAllDataFlowVariables());
         }

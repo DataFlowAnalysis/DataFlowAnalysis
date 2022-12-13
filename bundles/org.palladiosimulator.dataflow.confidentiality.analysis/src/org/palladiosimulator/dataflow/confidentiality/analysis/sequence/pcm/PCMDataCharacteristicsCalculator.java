@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.sequence;
+package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
 
-public class DataCharacteristicsCalculator {
+public class PCMDataCharacteristicsCalculator {
     private List<DataFlowVariable> currentVariables;
 
     /**
@@ -36,7 +36,7 @@ public class DataCharacteristicsCalculator {
      * @param initialVariables
      *            DataFlowVariables of the previous ActionSequence Element
      */
-    public DataCharacteristicsCalculator(List<DataFlowVariable> initialVariables, List<CharacteristicValue> nodeCharacteristics) {
+    public PCMDataCharacteristicsCalculator(List<DataFlowVariable> initialVariables, List<CharacteristicValue> nodeCharacteristics) {
         this.currentVariables = new ArrayList<>(initialVariables);
         createNodeCharacteristicsContainer(nodeCharacteristics);
     }

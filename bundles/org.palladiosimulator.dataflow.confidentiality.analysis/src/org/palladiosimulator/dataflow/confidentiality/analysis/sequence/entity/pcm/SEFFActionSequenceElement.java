@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.DataCharacteristicsCalculator;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.NodeCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMDataCharacteristicsCalculator;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMNodeCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMQueryUtils;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
@@ -63,17 +63,17 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
                     .stream())
                 .toList();
     	
-    	DataCharacteristicsCalculator characteristicsCalculator = new DataCharacteristicsCalculator(variables, nodeCharacteristics);
+    	PCMDataCharacteristicsCalculator characteristicsCalculator = new PCMDataCharacteristicsCalculator(variables, nodeCharacteristics);
         variableCharacterisations.forEach(it -> characteristicsCalculator.evaluate(it));
         return new SEFFActionSequenceElement<T>(this, characteristicsCalculator.getCalculatedCharacteristics(), nodeCharacteristics);
     }
     
     /**
-     * Returns a list of Characteristic values that are present at the node using the {@link NodeCharacteristicsCalculator}
+     * Returns a list of Characteristic values that are present at the node using the {@link PCMNodeCharacteristicsCalculator}
      * @return List of Characteristic values present at node
      */
     protected List<CharacteristicValue> evaluateNodeCharacteristics() {
-    	NodeCharacteristicsCalculator characteristicsCalculator = new NodeCharacteristicsCalculator(this.getElement());
+    	PCMNodeCharacteristicsCalculator characteristicsCalculator = new PCMNodeCharacteristicsCalculator(this.getElement());
     	return characteristicsCalculator.getNodeCharacteristics(Optional.of(this.getContext()));
     }
     

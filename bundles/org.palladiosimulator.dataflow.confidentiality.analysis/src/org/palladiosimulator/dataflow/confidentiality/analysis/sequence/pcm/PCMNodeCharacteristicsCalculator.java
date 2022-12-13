@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.sequence;
+package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm;
 
 import java.util.ArrayList;
 import java.util.Deque;
@@ -10,7 +10,6 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.dataflow.confidentiality.analysis.PCMAnalysisUtils;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.profile.ProfileConstants;
@@ -25,15 +24,15 @@ import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
-public class NodeCharacteristicsCalculator {
-	private final Logger logger = Logger.getLogger(NodeCharacteristicsCalculator.class);
+public class PCMNodeCharacteristicsCalculator {
+	private final Logger logger = Logger.getLogger(PCMNodeCharacteristicsCalculator.class);
     private final Entity node;
     
     /**
      * Creates a new node characteristic calculator with the given node
      * @param node Node of which the characteristics should be calculated. Should either be a User or SEFF Action.
      */
-    public NodeCharacteristicsCalculator(Entity node) {
+    public PCMNodeCharacteristicsCalculator(Entity node) {
     	this.node = node;
     }
     
@@ -77,15 +76,19 @@ public class NodeCharacteristicsCalculator {
     			.map(Allocation.class::cast)
     			.collect(Collectors.toList());
     	
-    	var allocation = allocations.stream()
+    	Optional<Allocation> allocation = allocations.stream()
     			.filter(it -> it.getAllocationContexts_Allocation().stream()
     					.map(alloc -> alloc.getAssemblyContext_AllocationContext())
     					.anyMatch(context.getFirst()::equals)
-    					)
-    			.findFirst()
-    			.orElseThrow();
+    			)
+    			.findFirst();
     	
-    	var allocationContexts = allocation.getAllocationContexts_Allocation();
+    	if (allocation.isEmpty()) {
+    		logger.error("Could not find fitting allocation for assembly context of SEFF Node");
+    		throw new IllegalStateException();
+    	}
+    	
+    	var allocationContexts = allocation.get().getAllocationContexts_Allocation();
     	    	
     	for (AllocationContext allocationContext : allocationContexts) {
     		if (context.contains(allocationContext.getAssemblyContext_AllocationContext())) {

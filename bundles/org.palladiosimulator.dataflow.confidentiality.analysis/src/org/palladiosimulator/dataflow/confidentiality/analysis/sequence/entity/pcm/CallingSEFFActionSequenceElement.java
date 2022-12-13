@@ -5,11 +5,11 @@ import java.util.Deque;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.DataCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CallReturnBehavior;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMDataCharacteristicsCalculator;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.repository.Parameter;
@@ -64,7 +64,7 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
                         .stream())
                 .collect(Collectors.toList());
 
-        DataCharacteristicsCalculator characteristicsCalculator = new DataCharacteristicsCalculator(newDataFlowVariables, nodeVariables);
+        PCMDataCharacteristicsCalculator characteristicsCalculator = new PCMDataCharacteristicsCalculator(newDataFlowVariables, nodeVariables);
         variableCharacterisations.stream()
             .forEach(it -> characteristicsCalculator.evaluate(it));
         AbstractActionSequenceElement<ExternalCallAction> evaluatedElement = new CallingSEFFActionSequenceElement(this,

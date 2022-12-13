@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.DataFlowCharacteristicsCalculator;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.DataCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CallReturnBehavior;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
@@ -57,7 +57,7 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
                         .stream())
                     .collect(Collectors.toList());
 
-        DataFlowCharacteristicsCalculator characteristicsCalculator = new DataFlowCharacteristicsCalculator(new ArrayList<>(variables), nodeCharacteristics);
+        DataCharacteristicsCalculator characteristicsCalculator = new DataCharacteristicsCalculator(new ArrayList<>(variables), nodeCharacteristics);
         variableCharacterisations.stream()
             .forEach(it -> characteristicsCalculator.evaluate(it));
        return new CallingUserActionSequenceElement(this, characteristicsCalculator.getCalculatedCharacteristics(), nodeCharacteristics);

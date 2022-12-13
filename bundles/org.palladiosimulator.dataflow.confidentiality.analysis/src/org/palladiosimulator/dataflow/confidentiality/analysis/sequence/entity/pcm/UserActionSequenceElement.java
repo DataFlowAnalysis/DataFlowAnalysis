@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.DataFlowCharacteristicsCalculator;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.DataCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.NodeCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
@@ -53,7 +53,7 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
                 .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
                     .stream())
                 .toList();
-    	DataFlowCharacteristicsCalculator characteristicsCalculator = new DataFlowCharacteristicsCalculator(variables, nodeCharacteristics);
+    	DataCharacteristicsCalculator characteristicsCalculator = new DataCharacteristicsCalculator(variables, nodeCharacteristics);
         variableCharacterisations.forEach(it -> characteristicsCalculator.evaluate(it));
         return new UserActionSequenceElement<T>(this, characteristicsCalculator.getCalculatedCharacteristics(), nodeCharacteristics);
     }

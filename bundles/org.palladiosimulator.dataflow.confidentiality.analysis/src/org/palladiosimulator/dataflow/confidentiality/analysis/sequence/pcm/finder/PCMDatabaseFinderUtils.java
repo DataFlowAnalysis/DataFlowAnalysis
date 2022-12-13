@@ -3,10 +3,10 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.fin
 import java.util.List;
 import java.util.Optional;
 
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.AbstractPCMActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.DataStore;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.DatabaseActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.PCMActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.SEFFWithContext;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
@@ -19,9 +19,9 @@ public class PCMDatabaseFinderUtils {
 		// Utility class
 	}
 	
-	public static List<ActionSequence> findSequencesForDatabaseAction(SEFFWithContext seff,
+	public static List<PCMActionSequence> findSequencesForDatabaseAction(SEFFWithContext seff,
             SEFFFinderContext context,
-            ActionSequence previousSequence) {
+            PCMActionSequence previousSequence) {
 		boolean isWriting = true;
 		if (seff.seff().getDescribedService__SEFF().getEntityName().equals("get")) {
 			isWriting = false;
@@ -45,14 +45,14 @@ public class PCMDatabaseFinderUtils {
 		
 		context.addDataStore(dataStore.get());
 		var newEntity = new DatabaseActionSequenceElement<>(currentAction, context.getContext(), isWriting, dataStore.get());
-		ActionSequence currentSequence = new ActionSequence(previousSequence, newEntity);
+		PCMActionSequence currentSequence = new PCMActionSequence(previousSequence, newEntity);
 		
 		return returnToCaller(currentAction, context, currentSequence);
     }
 	
-	private static List<ActionSequence> returnToCaller(OperationalDataStoreComponent currentAction,
+	private static List<PCMActionSequence> returnToCaller(OperationalDataStoreComponent currentAction,
             SEFFFinderContext context,
-            ActionSequence previousSequence) {
+            PCMActionSequence previousSequence) {
 		Optional<AbstractAction> parentAction = PCMQueryUtils.findParentOfType(currentAction, AbstractAction.class,
                 false);
 

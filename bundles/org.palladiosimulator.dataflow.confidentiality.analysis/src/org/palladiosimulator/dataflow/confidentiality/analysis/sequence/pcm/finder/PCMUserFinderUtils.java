@@ -6,10 +6,10 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Optional;
 
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.AbstractPCMActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.CallingUserActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.DataStore;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.PCMActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.SEFFWithContext;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
@@ -28,8 +28,8 @@ public class PCMUserFinderUtils {
 		// Utility class
 	}
 	
-	public static List<ActionSequence> findSequencesForUserAction(AbstractUserAction currentAction, List<DataStore> dataStores,
-            ActionSequence previousSequence) {
+	public static List<PCMActionSequence> findSequencesForUserAction(AbstractUserAction currentAction, List<DataStore> dataStores,
+            PCMActionSequence previousSequence) {
         if (currentAction instanceof Start) {
             return findSequencesForUserStartAction((Start) currentAction, dataStores, previousSequence);
 
@@ -49,13 +49,13 @@ public class PCMUserFinderUtils {
         }
     }
 
-    private static List<ActionSequence> findSequencesForUserStartAction(Start currentAction, List<DataStore> dataStores,
-            ActionSequence previousSequence) {
+    private static List<PCMActionSequence> findSequencesForUserStartAction(Start currentAction, List<DataStore> dataStores,
+            PCMActionSequence previousSequence) {
         return findSequencesForUserAction(currentAction.getSuccessor(), dataStores, previousSequence);
     }
 
-    private static List<ActionSequence> findSequencesForUserStopAction(Stop currentAction, List<DataStore> dataStores,
-            ActionSequence previousSequence) {
+    private static List<PCMActionSequence> findSequencesForUserStopAction(Stop currentAction, List<DataStore> dataStores,
+            PCMActionSequence previousSequence) {
         Optional<AbstractUserAction> parentAction = PCMQueryUtils.findParentOfType(currentAction,
                 AbstractUserAction.class, false);
 
@@ -67,8 +67,8 @@ public class PCMUserFinderUtils {
         }
     }
 
-    private static List<ActionSequence> findSequencesForUserBranchAction(Branch currentAction, List<DataStore> dataStores,
-            ActionSequence previousSequence) {
+    private static List<PCMActionSequence> findSequencesForUserBranchAction(Branch currentAction, List<DataStore> dataStores,
+            PCMActionSequence previousSequence) {
         return currentAction.getBranchTransitions_Branch()
             .stream()
             .map(BranchTransition::getBranchedBehaviour_BranchTransition)
@@ -79,10 +79,10 @@ public class PCMUserFinderUtils {
             .toList();
     }
 
-    private static List<ActionSequence> findSequencesForEntryLevelSystemCall(EntryLevelSystemCall currentAction, List<DataStore> dataStores,
-            ActionSequence previousSequence) {
+    private static List<PCMActionSequence> findSequencesForEntryLevelSystemCall(EntryLevelSystemCall currentAction, List<DataStore> dataStores,
+            PCMActionSequence previousSequence) {
         var callingEntity = new CallingUserActionSequenceElement(currentAction, true);
-        ActionSequence currentActionSequence = new ActionSequence(previousSequence, callingEntity);
+        PCMActionSequence currentActionSequence = new PCMActionSequence(previousSequence, callingEntity);
 
         OperationProvidedRole calledRole = currentAction.getProvidedRole_EntryLevelSystemCall();
         OperationSignature calledSignature = currentAction.getOperationSignature__EntryLevelSystemCall();
@@ -90,7 +90,7 @@ public class PCMUserFinderUtils {
                 new ArrayDeque<>());
 
         if (calledSEFF.isEmpty()) {
-            return new ArrayList<ActionSequence>();
+            return new ArrayList<PCMActionSequence>();
         } else {
         	if (calledSEFF.get().seff().getBasicComponent_ServiceEffectSpecification() instanceof OperationalDataStoreComponent) {
                 Deque<AbstractPCMActionSequenceElement<?>> callers = new ArrayDeque<>();
@@ -115,9 +115,9 @@ public class PCMUserFinderUtils {
         }
     }
 
-    public static List<ActionSequence> findSequencesForUserActionReturning(EntryLevelSystemCall currentAction, List<DataStore> dataStores,
-            ActionSequence previousSequence) {
-        ActionSequence currentActionSequence = new ActionSequence(previousSequence,
+    public static List<PCMActionSequence> findSequencesForUserActionReturning(EntryLevelSystemCall currentAction, List<DataStore> dataStores,
+            PCMActionSequence previousSequence) {
+        PCMActionSequence currentActionSequence = new PCMActionSequence(previousSequence,
                 new CallingUserActionSequenceElement(currentAction, false));
         return findSequencesForUserAction(currentAction.getSuccessor(), dataStores, currentActionSequence);
     }

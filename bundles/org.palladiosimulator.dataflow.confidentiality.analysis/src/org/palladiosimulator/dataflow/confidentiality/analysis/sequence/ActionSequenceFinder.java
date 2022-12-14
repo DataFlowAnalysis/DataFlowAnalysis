@@ -6,6 +6,6 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.A
 
 public interface ActionSequenceFinder {
 
-    public List<ActionSequence> findAllSequences();
+    public List<? extends ActionSequence> findAllSequences();
 
 }

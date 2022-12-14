@@ -1,9 +1,11 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.sequence;
+package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
+import java.util.Comparator;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.PCMAnalysisUtils;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
@@ -24,7 +26,7 @@ import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
 
-public class CharacteristicsCalculator {
+public class PCMDataCharacteristicsCalculator {
     private List<DataFlowVariable> currentVariables;
 
     /**
@@ -34,7 +36,7 @@ public class CharacteristicsCalculator {
      * @param initialVariables
      *            DataFlowVariables of the previous ActionSequence Element
      */
-    public CharacteristicsCalculator(List<DataFlowVariable> initialVariables, List<CharacteristicValue> nodeCharacteristics) {
+    public PCMDataCharacteristicsCalculator(List<DataFlowVariable> initialVariables, List<CharacteristicValue> nodeCharacteristics) {
         this.currentVariables = new ArrayList<>(initialVariables);
         createNodeCharacteristicsContainer(nodeCharacteristics);
     }
@@ -63,7 +65,6 @@ public class CharacteristicsCalculator {
      *            Variable Characterization at the Sequence Element
      */
     public void evaluate(VariableCharacterisation variableCharacterisation) {
-        // 1. Find variable with given name
         var confidentialityVariable = (ConfidentialityVariableCharacterisation) variableCharacterisation;
         var leftHandSide = (LhsEnumCharacteristicReference) confidentialityVariable.getLhs();
         
@@ -117,7 +118,14 @@ public class CharacteristicsCalculator {
 
         for (CharacteristicValue modifedCharacteristic : modifiedCharacteristics) {
             if (evaluateTerm(rightHandSide, modifedCharacteristic)) {
-                computedVariable = computedVariable.addCharacteristic(modifedCharacteristic);
+            	List<CharacteristicValue> modifiedCharacteristicValues = computedVariable.getAllCharacteristics().stream()
+            			.filter(it -> it.characteristicType().getName().equals(modifedCharacteristic.characteristicType().getName()))
+            			.collect(Collectors.toList());
+            	
+            	if (modifiedCharacteristicValues.stream()
+            			.noneMatch(it -> it.characteristicLiteral().getName().equals(modifedCharacteristic.characteristicLiteral().getName()))) {
+            		computedVariable = computedVariable.addCharacteristic(modifedCharacteristic);
+            	}
             }
         }
         return computedVariable;
@@ -249,7 +257,9 @@ public class CharacteristicsCalculator {
                     .getName()))
             .filter(EnumCharacteristicType.class::isInstance)
             .map(EnumCharacteristicType.class::cast)
-            .collect(Collectors.toList());
+            .collect(Collectors.collectingAndThen(Collectors.toCollection(() -> 
+            	new TreeSet<EnumCharacteristicType>(Comparator.comparing(EnumCharacteristicType::getName))), 
+            ArrayList<EnumCharacteristicType>::new));
 
         characteristicTypes.stream()
             .forEach(enumCharacteristicType -> {

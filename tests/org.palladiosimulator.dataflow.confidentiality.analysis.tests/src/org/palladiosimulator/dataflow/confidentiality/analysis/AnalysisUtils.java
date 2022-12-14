@@ -33,11 +33,11 @@ public class AnalysisUtils {
      *            Expected type of the given ActionSequence at the given index
      */
     public static void assertSequenceElement(ActionSequence sequence, int index, Class<?> expectedType) {
-        assertNotNull(sequence.elements());
-        assertTrue(sequence.elements()
+        assertNotNull(sequence.getElements());
+        assertTrue(sequence.getElements()
             .size() >= index + 1);
 
-        Class<?> actualType = sequence.elements()
+        Class<?> actualType = sequence.getElements()
             .get(index)
             .getClass();
 
@@ -57,10 +57,10 @@ public class AnalysisUtils {
      *            Expected types of the given ActionSequence at all indexes
      */
     public static void assertSequenceElements(ActionSequence sequence, List<Class<?>> expectedElementTypes) {
-        var elements = sequence.elements();
+        var elements = sequence.getElements();
 
         assertNotNull(elements);
-        assertEquals(sequence.elements()
+        assertEquals(sequence.getElements()
             .size(), expectedElementTypes.size());
 
         for (int i = 0; i < expectedElementTypes.size(); i++) {
@@ -100,11 +100,11 @@ public class AnalysisUtils {
      *            Expected name at the given {@code index} into the given {@code sequence}
      */
     public static void assertSEFFSequenceElementContent(ActionSequence sequence, int index, String expectedName) {
-        assertNotNull(sequence.elements());
-        assertTrue(sequence.elements()
+        assertNotNull(sequence.getElements());
+        assertTrue(sequence.getElements()
             .size() >= index + 1);
 
-        var element = sequence.elements()
+        var element = sequence.getElements()
             .get(index);
 
         assertInstanceOf(CallingSEFFActionSequenceElement.class, element);
@@ -129,11 +129,11 @@ public class AnalysisUtils {
      *            Expected name at the given {@code index} into the given {@code sequence}
      */
     public static void assertUserSequenceElementContent(ActionSequence sequence, int index, String expectedName) {
-        assertNotNull(sequence.elements());
-        assertTrue(sequence.elements()
+        assertNotNull(sequence.getElements());
+        assertTrue(sequence.getElements()
             .size() >= index + 1);
 
-        var element = sequence.elements()
+        var element = sequence.getElements()
             .get(index);
 
         assertInstanceOf(CallingUserActionSequenceElement.class, element);
@@ -163,7 +163,7 @@ public class AnalysisUtils {
      */
     public static void assertCharacteristicPresent(ActionSequence sequence, int index, String variableName,
             String characteristicType, String characteristicValue) {
-        var sequenceElement = sequence.elements()
+        var sequenceElement = sequence.getElements()
             .get(index);
         var dataflowVariable = sequenceElement.getAllDataFlowVariables()
             .stream()
@@ -203,7 +203,7 @@ public class AnalysisUtils {
      */
     public static void assertCharacteristicAbsent(ActionSequence sequence, int index, String variableName,
             String characteristicType, String characteristicValue) {
-        var sequenceElement = sequence.elements()
+        var sequenceElement = sequence.getElements()
             .get(index);
         var dataflowVariable = sequenceElement.getAllDataFlowVariables()
             .stream()

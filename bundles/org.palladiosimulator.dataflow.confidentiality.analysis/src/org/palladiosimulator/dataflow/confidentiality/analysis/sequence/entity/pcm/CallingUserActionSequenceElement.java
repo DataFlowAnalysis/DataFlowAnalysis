@@ -1,35 +1,40 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.palladiosimulator.dataflow.confidentiality.analysis.PCMAnalysisUtils;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.CharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CallReturnBehavior;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMQueryUtils;
-import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
-import org.palladiosimulator.dataflow.confidentiality.pcm.model.profile.ProfileConstants;
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
-import org.palladiosimulator.mdsdprofiles.api.StereotypeAPI;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMDataCharacteristicsCalculator;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
-import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 public class CallingUserActionSequenceElement extends UserActionSequenceElement<EntryLevelSystemCall>
         implements CallReturnBehavior {
 
     private final boolean isCalling;
 
+    /**
+     * Creates a new User Action Sequence Element with an underlying Palladio Element and indication whether the SEFF Action is calling
+     * @param element Underlying Palladio Element
+     * @param isCalling Is true, when another method is called. Otherwise, a called method is returned from
+     */
     public CallingUserActionSequenceElement(EntryLevelSystemCall element, boolean isCalling) {
         super(element);
         this.isCalling = isCalling;
     }
 
-    public CallingUserActionSequenceElement(CallingUserActionSequenceElement oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeVariables) {
-        super(oldElement, dataFlowVariables, nodeVariables);
+    /**
+     * Constructs a new User Action Sequence element given an old element and a list of updated dataflow variables and node characteristics
+     * @param oldElement Old element, which attributes are copied
+     * @param dataFlowVariables List of updated data flow variables
+     * @param nodeCharacteristics List of updated node characteristics
+     */
+    public CallingUserActionSequenceElement(CallingUserActionSequenceElement oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+        super(oldElement, dataFlowVariables, nodeCharacteristics);
         this.isCalling = oldElement.isCalling();
     }
 
@@ -37,17 +42,10 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
     public boolean isCalling() {
         return this.isCalling;
     }
-
-    // TODO: Custom hash and equals required?
-
-    /**
-     * Input: ccd . GrantedRoles . User := true Elements: variable.characteristicType.value := Term
-     */
+    
     @Override
     public AbstractActionSequenceElement<EntryLevelSystemCall> evaluateDataFlow(List<DataFlowVariable> variables) {
-    	// TODO: Generate list of node variables for sequence element
-    	List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics();
-    	
+    	List<CharacteristicValue> nodeCharacteristics = this.evaluateNodeCharacteristics();
     	List<VariableCharacterisation> variableCharacterisations = this.isCalling ?
     			super.getElement().getInputParameterUsages_EntryLevelSystemCall().stream()
     			.flatMap(it -> it.getVariableCharacterisation_VariableUsage()
@@ -59,12 +57,10 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
                         .stream())
                     .collect(Collectors.toList());
 
-        CharacteristicsCalculator characteristicsCalculator = new CharacteristicsCalculator(variables, nodeVariables);
+        PCMDataCharacteristicsCalculator characteristicsCalculator = new PCMDataCharacteristicsCalculator(new ArrayList<>(variables), nodeCharacteristics);
         variableCharacterisations.stream()
             .forEach(it -> characteristicsCalculator.evaluate(it));
-        AbstractActionSequenceElement<EntryLevelSystemCall> evaluatedElement = new CallingUserActionSequenceElement(
-                this, characteristicsCalculator.getCalculatedCharacteristics(), nodeVariables);
-        return evaluatedElement;
+       return new CallingUserActionSequenceElement(this, characteristicsCalculator.getCalculatedCharacteristics(), nodeCharacteristics);
     }
 
     @Override

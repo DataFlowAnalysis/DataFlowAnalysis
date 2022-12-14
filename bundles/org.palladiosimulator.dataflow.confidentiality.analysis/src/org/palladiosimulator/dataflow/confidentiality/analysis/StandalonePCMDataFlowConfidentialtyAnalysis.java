@@ -1,6 +1,8 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis;
 
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -17,6 +19,7 @@ import org.eclipse.xtext.resource.containers.ResourceSetBasedAllContainersStateP
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.ActionSequenceFinder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.PCMActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMActionSequenceFinder;
 import org.palladiosimulator.dataflow.confidentiality.pcm.dddsl.DDDslStandaloneSetup;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.DictionaryPackage;
@@ -56,12 +59,19 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
     @Override
     public List<ActionSequence> findAllSequences() {
         ActionSequenceFinder sequenceFinder = new PCMActionSequenceFinder(usageModel, allocationModel);
-        return sequenceFinder.findAllSequences();
+        return sequenceFinder.findAllSequences().stream()
+        		.map(ActionSequence.class::cast)
+        		.collect(Collectors.toList());
     }
 
     @Override
     public List<ActionSequence> evaluateDataFlows(List<ActionSequence> sequences) {
-        return sequences.stream()
+    	List<PCMActionSequence> actionSequences = sequences.stream()
+    			.map(PCMActionSequence.class::cast)
+    			.collect(Collectors.toList());
+    	List<PCMActionSequence> sortedSequences = new ArrayList<>(actionSequences);
+    	Collections.sort(sortedSequences);
+        return sortedSequences.stream()
             .map(it -> it.evaluateDataFlow())
             .toList();
     }
@@ -69,7 +79,7 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
     @Override
     public List<AbstractActionSequenceElement<?>> queryDataFlow(ActionSequence sequence,
             Predicate<? super AbstractActionSequenceElement<?>> condition) {
-        return sequence.elements()
+        return sequence.getElements()
             .stream()
             .filter(condition)
             .toList();

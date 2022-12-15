@@ -24,9 +24,9 @@ import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
-public class NodeCharacteristicsCalculator {
-	private Logger logger = Logger.getRootLogger();
-    private EObject node;
+public class PCMNodeCharacteristicsCalculator {
+	private final Logger logger = Logger.getLogger(PCMNodeCharacteristicsCalculator.class);
+    private final EObject node;
     
     /**
      * Creates a new node characteristic calculator with the given node

@@ -37,6 +37,7 @@ public class ConstraintTest extends AnalysisFeatureTest {
 
         // Change this to DEBUG if you're only interested in the found violations
         logger.setLevel(Level.TRACE);
+        analysis.setLoggerLevel(Level.TRACE);
 
         var sequences = analysis.findAllSequences();
         

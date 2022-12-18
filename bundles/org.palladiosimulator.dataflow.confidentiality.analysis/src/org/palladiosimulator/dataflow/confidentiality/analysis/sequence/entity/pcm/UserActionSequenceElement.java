@@ -14,7 +14,7 @@ import org.palladiosimulator.pcm.seff.StartAction;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 
 public class UserActionSequenceElement<T extends AbstractUserAction> extends AbstractPCMActionSequenceElement<T> {
-	private final Logger logger = Logger.getRootLogger();
+	private final Logger logger = Logger.getLogger(UserActionSequenceElement.class);
 
 	/**
 	 * Creates a new User Sequence Element with the given Palladio User Action Element

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
@@ -57,6 +58,7 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 					.filter(it -> it.variableName().equals(dataSourceName))
 					.findAny().orElse(new DataFlowVariable(dataSourceName));
 			dataStore.addCharacteristicValues(dataSource.characteristics());
+			logger.trace(this.createPrintableDatabaseInformation(newDataFlowVariables));
 			return new DatabaseActionSequenceElement<>(this, newDataFlowVariables, nodeVariables);
 		}
 		
@@ -70,6 +72,7 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 			modifiedVariable = modifiedVariable.addCharacteristic(characteristicValue);
 		}
 		newDataFlowVariables.add(modifiedVariable);
+		logger.trace(this.createPrintableDatabaseInformation(List.of(modifiedVariable)));
 		return new DatabaseActionSequenceElement<>(this, newDataFlowVariables, nodeVariables);
 	}
 	
@@ -95,5 +98,16 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
                     .getEntityName(),
                 this.getElement()
                     .getId());
+	}
+	
+	public String createPrintableDatabaseInformation(List<DataFlowVariable> variables) {
+		String writing = isWriting ? "Writing DataFlowVariables: %s to" : "Reading DataFlowVariables: %s from";
+		String dataCharacteristics = variables
+	            .stream()
+	            .map(e -> String.format("%s [%s]", e.variableName(),
+	                    createPrintableCharacteristicsList(e.getAllCharacteristics())))
+	            .collect(Collectors.joining(", "));
+		String changedDataFlowVariables = String.format(writing, dataCharacteristics);
+		return String.format("%s node of Database Component %s", changedDataFlowVariables, this.getDataStore().getDatabaseComponentName());
 	}
 }

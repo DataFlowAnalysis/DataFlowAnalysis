@@ -7,6 +7,8 @@ import static org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisUt
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -23,6 +25,7 @@ public class LabelPropagationTest extends AnalysisFeatureTest {
     @DisplayName("Sequence elements should have correct characteristics present")
     @MethodSource("characteristicsPresentProvider")
     public void characteristicsPresentTest(StandalonePCMDataFlowConfidentialtyAnalysis analysis, List<CharacteristicsData> characteristicsData) {
+    	analysis.setLoggerLevel(Level.TRACE);
         var sequences = analysis.findAllSequences();
         var propagationResult = analysis.evaluateDataFlows(sequences);
 

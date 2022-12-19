@@ -101,6 +101,11 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
 
         return true;
     }
+    
+    public void setLoggerLevel(Level level) {
+    	Logger.getRootLogger().setLevel(level);
+    	Logger.getRootLogger().info("Changed log level to " + level.toString());
+    }
 
     private boolean initStandaloneAnalysis() {
         EcorePlugin.ExtensionProcessor.process(null);

@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.palladiosimulator</groupId>
 		<artifactId>eclipse-parent-updatesite</artifactId>
-		<version>0.7.5</version>
+		<version>0.8.2</version>
 	</parent>
 	<groupId>org.palladiosimulator.dataflow.confidentiality.pcm.analysis</groupId>
 	<artifactId>parent</artifactId>	
@@ -18,11 +18,6 @@
 	
 	<properties>
 		<org.palladiosimulator.maven.tychotprefresh.tplocation.2>${project.basedir}/releng/org.palladiosimulator.dataflow.confidentiality.pcm.analysis.targetplatform/org.palladiosimulator.dataflow.confidentiality.pcm.analysis.targetplatform.targetplatform.target</org.palladiosimulator.maven.tychotprefresh.tplocation.2>
-	<java.version>17</java.version>
-	<maven.compiler.target>17</maven.compiler.target>
-   	<maven.compiler.source>17</maven.compiler.source>
-	<tycho.version>2.7.0</tycho.version>
-	<checkstyle.version>9.3</checkstyle.version>
 	</properties>
 	
 	<modules>
@@ -31,156 +26,6 @@
 		<module>features</module>
 		<module>tests</module>
 	</modules>
-
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-checkstyle-plugin</artifactId>
-							<version>3.1.2</version>
-							<dependencies>
-								<dependency>
-									<groupId>com.puppycrawl.tools</groupId>
-									<artifactId>checkstyle</artifactId>
-									<version>${checkstyle.version}</version>
-								</dependency>
-							</dependencies>
-							<executions>
-								<execution>
-									<id>palladio-checkstyle</id>
-									<phase>package</phase>
-									<goals>
-										<goal>check</goal>
-									</goals>
-									<configuration>
-										<configLocation>https://raw.githubusercontent.com/PalladioSimulator/Palladio-Build-CodingConventions/master/misc/org.palladiosimulator.codeconventions/palladio-checkstyle-rules-8.29.xml</configLocation>
-										<failOnViolation>false</failOnViolation>
-									</configuration>
-								</execution>
-							</executions>
-						</plugin>
-			        <plugin>
-          				<groupId>org.eclipse.xtend</groupId>
-				        <artifactId>xtend-maven-plugin</artifactId>
-			          	<version>2.26.0</version>
-	          			<executions>
-            					<execution>
-              						<goals>
-                					<goal>compile</goal>
-                					<goal>xtend-install-debug-info</goal>
-                					<goal>testCompile</goal>
-                					<goal>xtend-test-install-debug-info</goal>
-					              	</goals>	
-            					</execution>
-          				</executions>
-          				<configuration>
-            					<outputDirectory>xtend-gen</outputDirectory>
-            					<javaSourceVersion>11</javaSourceVersion>
-          				</configuration>
-        			</plugin>
-        			<plugin>
-						<groupId>org.eclipse.tycho.extras</groupId>
-						<artifactId>tycho-eclipserun-plugin</artifactId>
-						<version>${tycho.version}</version>
-						<executions>
-							<execution>
-								<goals>
-									<goal>eclipse-run</goal>
-								</goals>
-								<phase>package</phase>
-							</execution>
-						</executions>
-						<configuration>
-							<applicationsArgs>
-								<args>-data</args>
-								<args>${project.build.directory}/eclipserun-work/</args>
-								<args>-application</args>
-								<args>org.eclipse.cbi.p2repo.cli.headless</args>
-								<args>aggregate</args>
-								<args>--buildModel</args>
-								<args>${updatesite.aggregator.filename}</args>^
-								<args>--smtpHost</args>
-								<args>${updatesite.aggregator.smtpHost}</args>
-								<args>--action</args>
-								<args>BUILD</args>
-							</applicationsArgs>
-							<dependencies>
-								<dependency>
-									<artifactId>org.eclipse.cbi.p2repo.aggregator.engine.feature</artifactId>
-									<type>eclipse-feature</type>
-								</dependency>
-								<dependency>
-									<artifactId>org.eclipse.equinox.core.feature</artifactId>
-									<type>eclipse-feature</type>
-								</dependency>
-								<dependency>
-									<artifactId>org.eclipse.equinox.p2.core.feature</artifactId>
-									<type>eclipse-feature</type>
-								</dependency>
-								<dependency>
-									<artifactId>org.eclipse.core.net</artifactId>
-									<type>eclipse-plugin</type>
-								</dependency>
-							</dependencies>
-							<repositories>
-								<repository>
-									<id>cbi-aggregator</id>
-									<layout>p2</layout>
-									<url>http://download.eclipse.org/cbi/updates/aggregator/headless/4.20/</url>
-								</repository>
-								<repository>
-									<id>Eclipse 2021-12</id>
-									<layout>p2</layout>
-									<url>http://download.eclipse.org/releases/2021-12</url>
-								</repository>
-							</repositories>
-							<work>${project.build.directory}/eclipserun-work</work>
-							<executionEnvironment>JavaSE-17</executionEnvironment>
-						</configuration>
-					</plugin>
-					<plugin>
-						 <groupId>org.eclipse.tycho</groupId>
-						 <artifactId>target-platform-configuration</artifactId>
-						 <version>${tycho.version}</version>
-	
-						 <configuration>
- 					<executionEnvironment>JavaSE-17</executionEnvironment>
-	
-					 </configuration>
-					</plugin>
-
-						<plugin>
-							<groupId>org.jacoco</groupId>
-							<artifactId>jacoco-maven-plugin</artifactId>
-							<version>0.8.7</version>
-							<executions>
-								<execution>
-									<id>jacoco-prepare</id>
-									<phase>generate-test-sources</phase>
-									<goals>
-										<goal>prepare-agent</goal>
-									</goals>
-								</execution>
-							</executions>
-						</plugin>
-						<plugin>
-							<groupId>org.eclipse.tycho</groupId>
-							<artifactId>tycho-surefire-plugin</artifactId>
-							<version>${tycho.version}</version>
-							<configuration>
-								<includes>
-									<include>**/*Test.java</include>
-									<include>**/*Tests.java</include>
-								</includes>
-								<failIfNoTests>false</failIfNoTests>
-								<!--<useJDK>BREE</useJDK>-->
-							</configuration>
-						</plugin>
-
-        		</plugins>
-		</pluginManagement>
-	</build>
 
 </project>
 

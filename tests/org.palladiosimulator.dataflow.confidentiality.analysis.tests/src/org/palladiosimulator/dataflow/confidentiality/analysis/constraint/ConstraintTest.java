@@ -1,7 +1,9 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis;
+package org.palladiosimulator.dataflow.confidentiality.analysis.constraint;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -14,9 +16,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisFeatureTest;
+import org.palladiosimulator.dataflow.confidentiality.analysis.ListAppender;
+import org.palladiosimulator.dataflow.confidentiality.analysis.StandalonePCMDataFlowConfidentialtyAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.DatabaseActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.PCMActionSequence;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
 
@@ -207,7 +213,7 @@ public class ConstraintTest extends AnalysisFeatureTest {
     	List<ActionSequence> propagatedSequences = analysis.evaluateDataFlows(sequences);
     	
     	logger.setLevel(Level.TRACE);
-    		var results = analysis.queryDataFlow(propagatedSequences.get(1), node -> {
+    	var results = analysis.queryDataFlow(propagatedSequences.get(1), node -> {
         		List<Literal> assignedRoles = node.getNodeCharacteristicsWithName("AssignedRole");
             	Map<DataFlowVariable, List<Literal>> grantedRoles = node.getDataFlowCharacteristicsWithName("GrantedRole");
             	
@@ -219,8 +225,74 @@ public class ConstraintTest extends AnalysisFeatureTest {
                 
                 return !grantedRoles.entrySet().stream()
                 		.allMatch(df -> df.getValue().stream().allMatch(it -> assignedRoles.contains(it)));
-        	});
-        	printViolation(results);
-        	assertFalse(results.isEmpty());
-    	}
+        });
+        printViolation(results);
+        assertFalse(results.isEmpty());
+    }
+    
+    @Test
+    @DisplayName("Test whether cycles in datastores are detected")
+    public void testCycleDataStores() {
+    	var usageModelPath = Paths.get("models", "CycleDatastoreTest", "default.usagemodel");
+    	var allocationPath = Paths.get("models", "CycleDatastoreTest", "default.allocation");
+    	StandalonePCMDataFlowConfidentialtyAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
+    	
+    	Logger logger = Logger.getLogger(PCMActionSequence.class);
+    	logger.setLevel(Level.DEBUG);
+    	ListAppender appender = new ListAppender();
+    	logger.addAppender(appender);
+    	
+    	List<ActionSequence> sequences = analysis.findAllSequences();
+    	assertThrows(IllegalStateException.class, () -> analysis.evaluateDataFlows(sequences));
+    	assertTrue(appender.loggedLevel(Level.ERROR));
+    }
+    
+    @Test
+    @DisplayName("Test whether read only datastores are detected")
+    public void testReadOnlyDatastore() {
+    	var usageModelPath = Paths.get("models", "ReadOnlyDatastore", "default.usagemodel");
+    	var allocationPath = Paths.get("models", "ReadOnlyDatastore", "default.allocation");
+    	StandalonePCMDataFlowConfidentialtyAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
+    	
+    	Logger logger = Logger.getLogger(DatabaseActionSequenceElement.class);
+    	logger.setLevel(Level.DEBUG);
+    	ListAppender appender = new ListAppender();
+    	logger.addAppender(appender);
+    	
+    	List<ActionSequence> sequences = analysis.findAllSequences();
+    	analysis.evaluateDataFlows(sequences);
+    	
+    	assertTrue(appender.loggedLevel(Level.WARN));
+    }
+    
+    /**
+     * Test determining whether return variables work correctly
+     */
+    @Test
+    @DisplayName("Test whether RETURN works correctly")
+    public void testReturnVariables() {
+    	var usageModelPath = Paths.get("models", "ReturnTestModel", "default.usagemodel");
+    	var allocationPath = Paths.get("models", "ReturnTestModel", "default.allocation");
+    	StandalonePCMDataFlowConfidentialtyAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
+    	
+    	List<ActionSequence> sequences = analysis.findAllSequences();
+    	List<ActionSequence> propagatedSequences = analysis.evaluateDataFlows(sequences);
+    	
+    	logger.setLevel(Level.TRACE);
+    	var results = analysis.queryDataFlow(propagatedSequences.get(0), node -> {
+        		List<Literal> assignedNode = node.getNodeCharacteristicsWithName("AssignedRole");
+            	List<Literal> assignedVariables = node.getDataFlowCharacteristicsWithName("AssignedRole").values().stream()
+            			.flatMap(it -> it.stream())
+            			.collect(Collectors.toList());
+            	
+                printNodeInformation(node);
+                if (assignedNode.isEmpty() || assignedVariables.isEmpty()) {
+                	return false;
+                }
+                assignedNode.removeAll(assignedVariables);
+                return !assignedNode.isEmpty();
+        });
+        printViolation(results);
+        assertFalse(results.isEmpty());
+    }
 }

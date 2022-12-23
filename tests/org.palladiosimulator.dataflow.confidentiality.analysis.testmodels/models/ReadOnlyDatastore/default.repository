@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ASCII"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:repository_1="http://palladiosimulator.org/dataflow/confidentiality/pcm/0.1.0/repository" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_umIvUILiEe2YyoqaKVkqog" entityName="New Repository">
+  <components__Repository xsi:type="repository_1:OperationalDataStoreComponent" id="_4eqToILiEe2YyoqaKVkqog" entityName="TestDatastore">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_6uFYkILiEe2YyoqaKVkqog" entityName="TestDatastore.TestDataProvider.OperationProvidedRole1" providedInterface__OperationProvidedRole="_v15uEILiEe2YyoqaKVkqog"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_D2MzoILjEe2YyoqaKVkqog" describedService__SEFF="__nG9AILiEe2YyoqaKVkqog">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_EMDH0ILjEe2YyoqaKVkqog" successor_AbstractAction="_EMDH0YLjEe2YyoqaKVkqog"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_EMDH0YLjEe2YyoqaKVkqog" predecessor_AbstractAction="_EMDH0ILjEe2YyoqaKVkqog"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_E8E2kILjEe2YyoqaKVkqog" describedService__SEFF="_zduJUILiEe2YyoqaKVkqog">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_Ft3f4ILjEe2YyoqaKVkqog" successor_AbstractAction="_Ft3f4YLjEe2YyoqaKVkqog"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_Ft3f4YLjEe2YyoqaKVkqog" predecessor_AbstractAction="_Ft3f4ILjEe2YyoqaKVkqog"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_v15uEILiEe2YyoqaKVkqog" entityName="TestDataProvider">
+    <signatures__OperationInterface id="_zduJUILiEe2YyoqaKVkqog" entityName="get" returnType__OperationSignature="_2wVwoILiEe2YyoqaKVkqog"/>
+    <signatures__OperationInterface id="__nG9AILiEe2YyoqaKVkqog" entityName="add">
+      <parameters__OperationSignature dataType__Parameter="_2wVwoILiEe2YyoqaKVkqog" parameterName="data"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_2wVwoILiEe2YyoqaKVkqog" entityName="TestData"/>
+</repository:Repository>

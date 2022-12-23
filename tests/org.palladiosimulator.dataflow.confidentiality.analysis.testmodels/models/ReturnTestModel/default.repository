@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ASCII"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DataDictionaryCharacterized="http://palladiosimulator.org/dataflow/dictionary/characterized/1.0" xmlns:confidentiality="http://palladiosimulator.org/dataflow/confidentiality/pcm/0.1.0" xmlns:expression="http://palladiosimulator.org/dataflow/confidentiality/pcm/0.1.0/expression" xmlns:expressions="http://palladiosimulator.org/dataflow/dictionary/characterized/expressions/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="_r0Pq8ILsEe2YyoqaKVkqog" entityName="New Repository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_EYNI8ILtEe2YyoqaKVkqog" entityName="BasicComponent1">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_GVVkAILtEe2YyoqaKVkqog" entityName="BasicComponent1.ExampleInterface.OperationProvidedRole1" providedInterface__OperationProvidedRole="__9a_sILsEe2YyoqaKVkqog"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_GVnQ0ILtEe2YyoqaKVkqog" describedService__SEFF="_AgZw8ILtEe2YyoqaKVkqog">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_GVnQ0YLtEe2YyoqaKVkqog" successor_AbstractAction="_IP6aUILtEe2YyoqaKVkqog"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_GVnQ0oLtEe2YyoqaKVkqog" predecessor_AbstractAction="_IP6aUILtEe2YyoqaKVkqog"/>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_IP6aUILtEe2YyoqaKVkqog" entityName="SetVariableAction1" predecessor_AbstractAction="_GVnQ0YLtEe2YyoqaKVkqog" successor_AbstractAction="_GVnQ0oLtEe2YyoqaKVkqog">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_SYiQIILtEe2YyoqaKVkqog">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="dic.pddc#_wBK-YILsEe2YyoqaKVkqog-characteristicTypes@0"/>
+              <literal href="dic.pddc#_wBK-YILsEe2YyoqaKVkqog-characteristicEnumerations@0.literals@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_SYiQIYLtEe2YyoqaKVkqog"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="__9a_sILsEe2YyoqaKVkqog" entityName="ExampleInterface">
+    <signatures__OperationInterface id="_AgZw8ILtEe2YyoqaKVkqog" entityName="exampleMethod" returnType__OperationSignature="_tBCYwILtEe2YyoqaKVkqog">
+      <parameters__OperationSignature dataType__Parameter="_tBCYwILtEe2YyoqaKVkqog" parameterName="data"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_tBCYwILtEe2YyoqaKVkqog" entityName="Data"/>
+</repository:Repository>

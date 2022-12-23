@@ -2,6 +2,7 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.constraint;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Paths;
 import java.util.List;

@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

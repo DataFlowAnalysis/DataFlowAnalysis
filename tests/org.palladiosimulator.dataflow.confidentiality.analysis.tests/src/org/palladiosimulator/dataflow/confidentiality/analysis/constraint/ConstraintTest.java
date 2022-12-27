@@ -25,6 +25,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.C
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.DatabaseActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.PCMActionSequence;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.UserActionSequenceElement;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
 
 public class ConstraintTest extends AnalysisFeatureTest {
@@ -295,5 +296,57 @@ public class ConstraintTest extends AnalysisFeatureTest {
         });
         printViolation(results);
         assertFalse(results.isEmpty());
+    }
+    
+    /**
+     * Test determining whether node characteristics work correctly
+     */
+    @Test
+    @DisplayName("Test whether node characteristics works correctly")
+    public void testNodeCharacteristics() {
+    	var usageModelPath = Paths.get("models", "NodeCharacteristicsTest", "default.usagemodel");
+    	var allocationPath = Paths.get("models", "NodeCharacteristicsTest", "default.allocation");
+    	StandalonePCMDataFlowConfidentialtyAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
+    	
+    	List<ActionSequence> sequences = analysis.findAllSequences();
+    	List<ActionSequence> propagatedSequences = analysis.evaluateDataFlows(sequences);
+    	
+    	logger.setLevel(Level.TRACE);
+    	var results = analysis.queryDataFlow(propagatedSequences.get(0), node -> {
+    		printNodeInformation(node);
+    		if (node instanceof UserActionSequenceElement<?>) {
+    			return node.getAllNodeCharacteristics().size() != 1;
+    		} else {
+            	return node.getAllNodeCharacteristics().size() != 2;
+    		}
+        });
+        printViolation(results);
+        assertTrue(results.isEmpty());
+    }
+    
+    /**
+     * Test determining whether node characteristics work correctly
+     */
+    @Test
+    @DisplayName("Test whether node characteristics with composite components works correctly")
+    public void testCompositeCharacteristics() {
+    	var usageModelPath = Paths.get("models", "CompositeCharacteristicsTest", "default.usagemodel");
+    	var allocationPath = Paths.get("models", "CompositeCharacteristicsTest", "default.allocation");
+    	StandalonePCMDataFlowConfidentialtyAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
+    	
+    	List<ActionSequence> sequences = analysis.findAllSequences();
+    	List<ActionSequence> propagatedSequences = analysis.evaluateDataFlows(sequences);
+    	
+    	logger.setLevel(Level.TRACE);
+    	var results = analysis.queryDataFlow(propagatedSequences.get(0), node -> {
+    		printNodeInformation(node);
+    		if (node instanceof UserActionSequenceElement<?>) {
+    			return node.getAllNodeCharacteristics().size() != 1;
+    		} else {
+            	return node.getAllNodeCharacteristics().size() != 3;
+    		}
+        });
+        printViolation(results);
+        assertTrue(results.isEmpty());
     }
 }

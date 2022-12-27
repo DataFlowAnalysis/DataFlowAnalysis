@@ -93,6 +93,7 @@ public class PCMNodeCharacteristicsCalculator {
     	for (AllocationContext allocationContext : allocationContexts) {
     		if (context.contains(allocationContext.getAssemblyContext_AllocationContext())) {
         		nodeVariables.addAll(this.evaluateNodeCharacteristics(allocationContext.getResourceContainer_AllocationContext()));
+        		nodeVariables.addAll(this.evaluateNodeCharacteristics(allocationContext.getAssemblyContext_AllocationContext()));
     		}
     	}
     	return nodeVariables;

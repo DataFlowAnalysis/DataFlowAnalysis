@@ -16,11 +16,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisFeatureTest;
+import org.palladiosimulator.dataflow.confidentiality.analysis.BaseTest;
 import org.palladiosimulator.dataflow.confidentiality.analysis.StandalonePCMDataFlowConfidentialtyAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.testmodels.Activator;
 
-public class LabelPropagationTest extends AnalysisFeatureTest {
+public class LabelPropagationTest extends BaseTest {
 
     /**
      * Tests the present characteristics of the found action sequences
@@ -113,7 +113,7 @@ public class LabelPropagationTest extends AnalysisFeatureTest {
         var analysedSequences = analysis.evaluateDataFlows(sequences);
 
         var sequence = analysedSequences.get(0);
-        var element = sequence.elements()
+        var element = sequence.getElements()
             .get(3);
         var nodeCharacteristics = element.getAllNodeCharacteristics();
         System.err.println(nodeCharacteristics.toArray());

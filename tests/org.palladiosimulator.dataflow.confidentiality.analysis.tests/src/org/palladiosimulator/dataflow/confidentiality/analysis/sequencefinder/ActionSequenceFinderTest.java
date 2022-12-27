@@ -14,10 +14,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisFeatureTest;
+import org.palladiosimulator.dataflow.confidentiality.analysis.BaseTest;
 import org.palladiosimulator.dataflow.confidentiality.analysis.StandalonePCMDataFlowConfidentialtyAnalysis;
 
-public class ActionSequenceFinderTest extends AnalysisFeatureTest {
+public class ActionSequenceFinderTest extends BaseTest {
 
     /**
      * Tests whether the analysis finds the correct amount of sequences

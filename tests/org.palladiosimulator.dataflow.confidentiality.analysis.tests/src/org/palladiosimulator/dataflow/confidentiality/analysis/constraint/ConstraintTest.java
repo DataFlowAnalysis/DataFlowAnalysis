@@ -14,13 +14,15 @@ import java.util.stream.Stream;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisFeatureTest;
+import org.palladiosimulator.dataflow.confidentiality.analysis.BaseTest;
 import org.palladiosimulator.dataflow.confidentiality.analysis.ListAppender;
 import org.palladiosimulator.dataflow.confidentiality.analysis.StandalonePCMDataFlowConfidentialtyAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.DatabaseActionSequenceElement;
@@ -28,7 +30,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.p
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.UserActionSequenceElement;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
 
-public class ConstraintTest extends AnalysisFeatureTest {
+public class ConstraintTest extends BaseTest {
 
     private final Logger logger = Logger.getLogger(ConstraintTest.class);
 

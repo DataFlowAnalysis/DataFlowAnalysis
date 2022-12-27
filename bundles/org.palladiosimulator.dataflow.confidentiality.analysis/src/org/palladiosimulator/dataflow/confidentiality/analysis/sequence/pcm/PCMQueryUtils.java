@@ -10,10 +10,12 @@ import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.ComposedStructure;
+import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector;
 import org.palladiosimulator.pcm.core.composition.RequiredDelegationConnector;
 import org.palladiosimulator.pcm.core.entity.InterfaceProvidingEntity;
 import org.palladiosimulator.pcm.repository.BasicComponent;
+import org.palladiosimulator.pcm.repository.CompositeComponent;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.ProvidedRole;
@@ -107,13 +109,38 @@ public class PCMQueryUtils {
             if (connector.isEmpty()) {
                 throw new IllegalStateException("Unable to find provided delegation connector.");
             } else {
-                AssemblyContext assemblyContext = connector.get()
-                    .getAssemblyContext_ProvidedDelegationConnector();
-                newContexts.add(assemblyContext);
-
-                role = connector.get()
-                    .getInnerProvidedRole_ProvidedDelegationConnector();
-                providingComponent = role.getProvidingEntity_ProvidedRole();
+            	if (connector.get().getAssemblyContext_ProvidedDelegationConnector() == null) {
+            		var query = PCMQueryUtils.findParentOfType(connector.get().getInnerProvidedRole_ProvidedDelegationConnector(), CompositeComponent.class, false);
+            		if (query.isEmpty()) {
+            			logger.error("Expected composite component, but cannot find parent composite component container");
+            			throw new IllegalStateException();
+            		}
+            		CompositeComponent compositeComponent = query.get();
+            		List<Connector> connectors = compositeComponent.getConnectors__ComposedStructure();
+            		Optional<ProvidedDelegationConnector> compositeConnector = connectors.stream()
+            				.filter(ProvidedDelegationConnector.class::isInstance)
+            				.map(ProvidedDelegationConnector.class::cast)
+            				.filter(it -> it.getOuterProvidedRole_ProvidedDelegationConnector().equals(connector.get().getInnerProvidedRole_ProvidedDelegationConnector()))
+            				.findAny();
+            		if (compositeConnector.isEmpty()) {
+            			logger.error("Expected composite component, but cannot find connector in composite component");
+            			throw new IllegalStateException();
+            		}
+            		AssemblyContext assemblyContext = compositeConnector.get().getAssemblyContext_ProvidedDelegationConnector();
+            		newContexts.add(assemblyContext);
+            		
+            		role = connector.get().getInnerProvidedRole_ProvidedDelegationConnector();
+            		providingComponent = role.getProvidingEntity_ProvidedRole();
+            		// FIXME: Providing component does not have a service effect specification
+            	} else {
+	                AssemblyContext assemblyContext = connector.get()
+	                    .getAssemblyContext_ProvidedDelegationConnector();
+	                newContexts.add(assemblyContext);
+	
+	                role = connector.get()
+	                    .getInnerProvidedRole_ProvidedDelegationConnector();
+	                providingComponent = role.getProvidingEntity_ProvidedRole();
+            	}
             }
         }
 

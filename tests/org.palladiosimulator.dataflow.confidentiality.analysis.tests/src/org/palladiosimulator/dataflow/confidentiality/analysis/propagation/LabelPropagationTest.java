@@ -95,26 +95,4 @@ public class LabelPropagationTest extends BaseTest {
                 Arguments.of(internationalOnlineShopAnalysis, 0, 0, "inventory", "DataSensivity", "Public"),
                 Arguments.of(internationalOnlineShopAnalysis, 0, 1, "RETURN", "DataSensivity", "Public"));
     }
-
-    @Test
-    public void containerAssemblyTest() {
-        final var usageModelPath = Paths.get("models", "ContainerTest", "default.usagemodel")
-            .toString();
-        final var allocationPath = Paths.get("models", "ContainerTest", "default.allocation")
-            .toString();
-
-        var analysis = new StandalonePCMDataFlowConfidentialtyAnalysis(TEST_MODEL_PROJECT_NAME, Activator.class,
-                usageModelPath, allocationPath);
-
-        analysis.initalizeAnalysis();
-
-        var sequences = analysis.findAllSequences();
-        var analysedSequences = analysis.evaluateDataFlows(sequences);
-
-        var sequence = analysedSequences.get(0);
-        var element = sequence.getElements()
-            .get(3);
-        var nodeCharacteristics = element.getAllNodeCharacteristics();
-        System.err.println(nodeCharacteristics.toArray());
-    }
 }

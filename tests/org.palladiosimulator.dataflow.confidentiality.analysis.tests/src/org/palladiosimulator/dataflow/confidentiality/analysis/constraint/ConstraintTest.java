@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.BaseTest;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
+
 public class ConstraintTest extends BaseTest {
 
     private final Logger logger = Logger.getLogger(ConstraintTest.class);

@@ -92,7 +92,7 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
     	if (this.getElement() instanceof StartAction) {
     		Optional<ResourceDemandingSEFF> seff = PCMQueryUtils.findParentOfType(this.getElement(), ResourceDemandingSEFF.class, false);
     		if (seff.isPresent()) {
-    			elementName = "Begining " + seff.get().getDescribedService__SEFF().getEntityName();
+    			elementName = "Beginning " + seff.get().getDescribedService__SEFF().getEntityName();
     		}
     	}
         return String.format("%s (%s, %s))", this.getClass()

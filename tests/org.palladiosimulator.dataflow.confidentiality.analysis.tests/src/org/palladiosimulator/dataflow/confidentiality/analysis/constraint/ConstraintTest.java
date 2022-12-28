@@ -1,8 +1,9 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.constraint;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.nio.file.Paths;
 import java.util.List;
@@ -34,41 +35,7 @@ public class ConstraintTest extends BaseTest {
 
     private final Logger logger = Logger.getLogger(ConstraintTest.class);
 
-    /**
-     * Tests, whether the analysis correctly identifies violations for the travel planner model
-     * <p>
-     * Fails if the analysis does not propagate the correct characteristics for each ActionSequence
-     */
-    @DisplayName("Find violations for the example model")
-    @MethodSource("violationTestProvider")
-    @ParameterizedTest
-    public void violationTest(StandalonePCMDataFlowConfidentialtyAnalysis analysis,
-            Predicate<AbstractActionSequenceElement<?>> contraint, int sequenceIndex) {
-
-        // Change this to DEBUG if you're only interested in the found violations
-        logger.setLevel(Level.TRACE);
-        analysis.setLoggerLevel(Level.TRACE);
-
-        var sequences = analysis.findAllSequences();
-        
-        var propagationResult = analysis.evaluateDataFlows(sequences);
-        var result = analysis.queryDataFlow(propagationResult.get(sequenceIndex), contraint);
-        printViolation(result);
-        assertFalse(result.isEmpty());
-    }
-
-    /**
-     * Provides the parameters for the {@link violationTest} testcase by providing the test model and constraint to the analysis
-     * @return Stream of arguments needed to call the testcase
-     */
-    private Stream<Arguments> violationTestProvider() {
-        Predicate<AbstractActionSequenceElement<?>> travelPlannerContraint = node -> travelPlannerCondition(node);
-        Predicate<AbstractActionSequenceElement<?>> internationalOnlineShopContraint = node -> internationalOnlineShopCondition(
-                node);
-        return Stream.of(Arguments.of(travelPlannerAnalysis, travelPlannerContraint, 1),
-                Arguments.of(internationalOnlineShopAnalysis, internationalOnlineShopContraint, 0));
-    }
-
+    
     /**
      * Indicates whether an element in an action sequence violates the constraint of the travel
      * planner model
@@ -114,124 +81,34 @@ public class ConstraintTest extends BaseTest {
                     .anyMatch(l -> l.getName()
                         .equals("nonEU"));
     }
-
-    /**
-     * Prints a violation with detailed information about the node where it occurred with its data
-     * flow variables and characteristics. The information is printed using the logger's debug
-     * function.
-     * 
-     * @param dataFlowQueryResult
-     *            the result of a data flow query call, a (potentially empty) list of sequence
-     *            elements
-     */
-    private void printViolation(List<AbstractActionSequenceElement<?>> dataFlowQueryResult) {
-        dataFlowQueryResult.forEach(it -> logger
-            .debug(String.format("Constraint violation found: %s", createPrintableNodeInformation(it))));
-    }
-
-    /**
-     * Prints detailed information of a node with its data flow variables and characteristics. The
-     * information is printed using the logger's trace function.
-     * 
-     * @param node
-     *            The sequence element whose information shall be printed
-     */
-    private void printNodeInformation(AbstractActionSequenceElement<?> node) {
-        logger.trace(String.format("Analyzing: %s", createPrintableNodeInformation(node)));
-    }
-
-    /**
-     * Returns a string with detailed information about a node's characteristics, data flow
-     * variables and the variables' characteristics.
-     * 
-     * @param node
-     *            a sequence element after the label propagation happened
-     * @return a string with the node's string representation and a list of all related
-     *         characteristics types and literals
-     */
-    private String createPrintableNodeInformation(AbstractActionSequenceElement<?> node) {
-        String template = "%s%s\tNode characteristics: %s%s\tData flow Variables:  %s%s";
-        String nodeCharacteristics = createPrintableCharacteristicsList(node.getAllNodeCharacteristics());
-        String dataCharacteristics = node.getAllDataFlowVariables()
-            .stream()
-            .map(e -> String.format("%s [%s]", e.variableName(),
-                    createPrintableCharacteristicsList(e.getAllCharacteristics())))
-            .collect(Collectors.joining(", "));
-
-        return String.format(template, node.toString(), System.lineSeparator(), nodeCharacteristics,
-                System.lineSeparator(), dataCharacteristics, System.lineSeparator());
-    }
-
-    /**
-     * Returns a string with the names of all characteristic types and selected literals of all
-     * characteristic values.
-     * 
-     * @param characteristics
-     *            a list of characteristics values
-     * @return a comma separated list of the format "type.literal, type.literal"
-     */
-    private String createPrintableCharacteristicsList(List<CharacteristicValue> characteristics) {
-        List<String> entries = characteristics.stream()
-            .map(it -> String.format("%s.%s", it.characteristicType()
-                .getName(),
-                    it.characteristicLiteral()
-                        .getName()))
-            .toList();
-        return String.join(", ", entries);
+    
+    
+    private boolean dataStoreCondition(AbstractActionSequenceElement<?> node) {
+    	List<Literal> assignedRoles = node.getNodeCharacteristicsWithName("AssignedRole");
+    	Map<DataFlowVariable, List<Literal>> grantedRoles = node.getDataFlowCharacteristicsWithName("GrantedRole");
+    	
+        printNodeInformation(node);
+        
+        if (assignedRoles.isEmpty()) {
+        	return false;
+        }
+        
+        return !grantedRoles.entrySet().stream()
+        		.allMatch(df -> df.getValue().stream().allMatch(it -> assignedRoles.contains(it)));
     }
     
-    /**
-     * Test whether multiple assemblies pass their characteristics to their nodes
-     */
-    @Test
-    @DisplayName("Test whether multiple assemblies propagate node characteristics to node")
-    public void testMultipleAssemblies() {
-    	var usageModelPath = Paths.get("models", "MultipleAssembliesTest", "default.usagemodel");
-    	var allocationPath = Paths.get("models", "MultipleAssembliesTest", "default.allocation");
-    	StandalonePCMDataFlowConfidentialtyAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
+    private boolean returnCondition(AbstractActionSequenceElement<?> node) {
+    	List<Literal> assignedNode = node.getNodeCharacteristicsWithName("AssignedRole");
+    	List<Literal> assignedVariables = node.getDataFlowCharacteristicsWithName("AssignedRole").values().stream()
+    			.flatMap(it -> it.stream())
+    			.collect(Collectors.toList());
     	
-    	List<ActionSequence> sequences = analysis.findAllSequences();
-    	List<ActionSequence> propagatedSequences = analysis.evaluateDataFlows(sequences);
-    	
-    	logger.setLevel(Level.TRACE);
-    	
-    	var results = analysis.queryDataFlow(propagatedSequences.get(0), node -> {
-    		printNodeInformation(node);
-            return internationalOnlineShopCondition(node);
-    	});
-    	printViolation(results);
-    	assertFalse(results.isEmpty());
-    }
-    
-    /**
-     * Test determining whether data stores correctly and are propagated in the correct order
-     */
-    @Test
-    @DisplayName("Test whether datastores work correctly and ActionSequences are propagated in the correct sequence")
-    public void testDataStores() {
-    	var usageModelPath = Paths.get("models", "DatastoreTest", "default.usagemodel");
-    	var allocationPath = Paths.get("models", "DatastoreTest", "default.allocation");
-    	StandalonePCMDataFlowConfidentialtyAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
-    	
-    	List<ActionSequence> sequences = analysis.findAllSequences();
-    	List<ActionSequence> propagatedSequences = analysis.evaluateDataFlows(sequences);
-    	
-    	logger.setLevel(Level.TRACE);
-    	var results = analysis.queryDataFlow(propagatedSequences.get(1), node -> {
-        		List<Literal> assignedRoles = node.getNodeCharacteristicsWithName("AssignedRole");
-            	Map<DataFlowVariable, List<Literal>> grantedRoles = node.getDataFlowCharacteristicsWithName("GrantedRole");
-            	
-                printNodeInformation(node);
-                
-                if (assignedRoles.isEmpty()) {
-                	return false;
-                }
-                
-                return !grantedRoles.entrySet().stream()
-                		.allMatch(df -> df.getValue().stream().allMatch(it -> assignedRoles.contains(it)));
-        });
-        printViolation(results);
-        assertFalse(results.isEmpty());
+        printNodeInformation(node);
+        if (assignedNode.isEmpty() || assignedVariables.isEmpty()) {
+        	return false;
+        }
+        assignedNode.removeAll(assignedVariables);
+        return !assignedNode.isEmpty();
     }
     
     @Test
@@ -267,37 +144,6 @@ public class ConstraintTest extends BaseTest {
     	analysis.evaluateDataFlows(sequences);
     	
     	assertTrue(appender.loggedLevel(Level.WARN));
-    }
-    
-    /**
-     * Test determining whether return variables work correctly
-     */
-    @Test
-    @DisplayName("Test whether RETURN works correctly")
-    public void testReturnVariables() {
-    	var usageModelPath = Paths.get("models", "ReturnTestModel", "default.usagemodel");
-    	var allocationPath = Paths.get("models", "ReturnTestModel", "default.allocation");
-    	StandalonePCMDataFlowConfidentialtyAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
-    	
-    	List<ActionSequence> sequences = analysis.findAllSequences();
-    	List<ActionSequence> propagatedSequences = analysis.evaluateDataFlows(sequences);
-    	
-    	logger.setLevel(Level.TRACE);
-    	var results = analysis.queryDataFlow(propagatedSequences.get(0), node -> {
-        		List<Literal> assignedNode = node.getNodeCharacteristicsWithName("AssignedRole");
-            	List<Literal> assignedVariables = node.getDataFlowCharacteristicsWithName("AssignedRole").values().stream()
-            			.flatMap(it -> it.stream())
-            			.collect(Collectors.toList());
-            	
-                printNodeInformation(node);
-                if (assignedNode.isEmpty() || assignedVariables.isEmpty()) {
-                	return false;
-                }
-                assignedNode.removeAll(assignedVariables);
-                return !assignedNode.isEmpty();
-        });
-        printViolation(results);
-        assertFalse(results.isEmpty());
     }
     
     /**
@@ -351,4 +197,194 @@ public class ConstraintTest extends BaseTest {
         printViolation(results);
         assertTrue(results.isEmpty());
     }
+    
+    private Stream<Arguments> provideTestConstraintResults() {
+    	Predicate<AbstractActionSequenceElement<?>> travelPlannerConstraint = node -> travelPlannerCondition(node);
+    	Predicate<AbstractActionSequenceElement<?>> internationalOnlineShopConstraint = node -> internationalOnlineShopCondition(node);
+
+    	StandalonePCMDataFlowConfidentialtyAnalysis mutipleAssembliesAnalysis = 
+    			super.initializeAnalysis(Paths.get("models", "MultipleAssembliesTest", "default.usagemodel"), Paths.get("models", "MultipleAssembliesTest", "default.allocation"));
+    	
+    	StandalonePCMDataFlowConfidentialtyAnalysis dataStoreAnalysis = 
+    			super.initializeAnalysis(Paths.get("models", "DatastoreTest", "default.usagemodel"), Paths.get("models", "DatastoreTest", "default.allocation"));
+    	Predicate<AbstractActionSequenceElement<?>> dataStoreConstraint = node -> dataStoreCondition(node);
+    	
+    	StandalonePCMDataFlowConfidentialtyAnalysis returnAnalysis = 
+    			super.initializeAnalysis(Paths.get("models", "ReturnTestModel", "default.usagemodel"), Paths.get("models", "ReturnTestModel", "default.allocation"));
+    	Predicate<AbstractActionSequenceElement<?>> returnConstraint = node -> returnCondition(node);
+    	
+    	return Stream.of(
+    			Arguments.of(travelPlannerAnalysis, travelPlannerConstraint, 
+    					List.of(
+    						new ConstraintData("_vorK8fVeEeuMKba1Qn68bg", 
+    							List.of(new CharacteristicValueData("AssignedRoles", "Airline")), 
+    							Map.of(
+    								"flight", List.of(new CharacteristicValueData("GrantedRoles", "User"), new CharacteristicValueData("GrantedRoles", "Airline")),
+    								"ccd", List.of(new CharacteristicValueData("GrantedRoles", "User"))
+    							)),
+    						
+    						new ConstraintData("_7HCu4PViEeuMKba1Qn68bg",
+    								List.of(new CharacteristicValueData("AssignedRoles", "Airline")), 
+    								Map.of(
+    									"flight", List.of(new CharacteristicValueData("GrantedRoles", "User"), new CharacteristicValueData("GrantedRoles", "Airline")),
+    									"ccd", List.of(new CharacteristicValueData("GrantedRoles", "User")),
+    									"RETRUN", List.of(new CharacteristicValueData("GrantedRoles", "User"), new CharacteristicValueData("GrantedRoles", "Airline"))
+    								))
+    					)),
+    			Arguments.of(internationalOnlineShopAnalysis, internationalOnlineShopConstraint,
+    					List.of(
+    						new ConstraintData("_oGmXgYTjEeywmO_IpTxeAg", 
+    							List.of(new CharacteristicValueData("ServerLocation", "nonEU")), 
+    							Map.of(
+    								"userData", List.of(new CharacteristicValueData("DataSensitivity", "Personal"))
+    							))
+    					)),
+    			Arguments.of(mutipleAssembliesAnalysis, internationalOnlineShopConstraint,
+    					List.of(
+    						new ConstraintData("_dQ568HQSEe2fd909RlIZZw", 
+    							List.of(new CharacteristicValueData("ServerLocation", "nonEU"), new CharacteristicValueData("ServerLocation", "EU")),
+    							Map.of(
+    								"userdata", List.of(new CharacteristicValueData("DataSensitivity", "Personal"))
+    							))
+    					)),
+    			Arguments.of(dataStoreAnalysis, dataStoreConstraint,
+    					List.of(
+    						new ConstraintData("_elixoHQdEe2W39w_cTGxjg", 
+    							List.of(new CharacteristicValueData("AssignedRole", "User")), 
+    							Map.of(
+    								"RETURN", List.of(new CharacteristicValueData("GrantedRole", "Admin")),
+    								"ccd", List.of(new CharacteristicValueData("GrantedRole", "Admin"))
+    							))
+    					)),
+    			/**
+    			 * Constraint violation found: CallingUserActionSequenceElement / returning (EntryLevelSystemCall1, _nOhAgILtEe2YyoqaKVkqog))
+	Node characteristics: AssignedRole.User
+	Data flow Variables:  RETURN [AssignedRole.Admin], data [AssignedRole.Admin]
+    			 */
+    			Arguments.of(returnAnalysis, returnConstraint,
+    					List.of(
+    						new ConstraintData("_nOhAgILtEe2YyoqaKVkqog",
+    							List.of(new CharacteristicValueData("AssignedRole", "User")),
+    							Map.of(
+    								"RETURN", List.of(new CharacteristicValueData("AssignedRole", "Admin")),
+    								"data", List.of(new CharacteristicValueData("AssignedRole", "Admin"))
+    							))
+    					))
+ 
+    	);
+    }
+    
+    /**
+     * Tests, whether the analysis correctly identifies violations for the example models
+     * <p>
+     * Fails if the analysis does not propagate the correct characteristics for each ActionSequence
+     */
+
+    @ParameterizedTest
+    @MethodSource("provideTestConstraintResults")
+    @DisplayName("Test results of the analysis with a constraint")
+    public void testContraintResults(StandalonePCMDataFlowConfidentialtyAnalysis analysis, Predicate<AbstractActionSequenceElement<?>> constraint, List<ConstraintData> constraintData) {
+    	analysis.setLoggerLevel(Level.TRACE);
+    	List<ActionSequence> actionSequences = analysis.findAllSequences();
+    	List<ActionSequence> evaluatedSequences = analysis.evaluateDataFlows(actionSequences);
+    	
+    	List<AbstractActionSequenceElement<?>> results = evaluatedSequences.stream()
+    			.map(it -> analysis.queryDataFlow(it, constraint))
+    			.flatMap(it -> it.stream())
+    			.collect(Collectors.toList());
+    	
+    	assertEquals(constraintData.size(), results.size(), "Incorrect amount of violations found");
+    	
+    	for(ConstraintData constraintNodeData : constraintData) {
+    		var violatingNode = results.stream()
+    				.filter(it -> constraintNodeData.matches(it))
+    				.findFirst();
+    		
+    		if (violatingNode.isEmpty()) {
+    			fail("Could not find node for expected constraint violation");
+    		}
+    		
+    		List<CharacteristicValue> nodeCharacteristics = violatingNode.get().getAllNodeCharacteristics();
+    		List<DataFlowVariable> dataFlowVariables = violatingNode.get().getAllDataFlowVariables();
+    		
+    		assertEquals(constraintNodeData.nodeCharacteristicsAmount(), nodeCharacteristics.size());
+    		assertEquals(constraintNodeData.dataFlowVariablesAmount(), dataFlowVariables.size());
+    		
+    		for(CharacteristicValue characteristicValue : nodeCharacteristics) {
+    			assertTrue(constraintNodeData.hasNodeCharacteristic(characteristicValue));
+    		}
+    		
+    		for(DataFlowVariable dataFlowVariable : dataFlowVariables) {
+    			assertTrue(constraintNodeData.hasDataFlowVariable(dataFlowVariable));
+    		}
+    	}
+    }
+    
+    
+    /**
+    * Prints a violation with detailed information about the node where it occurred with its data
+    * flow variables and characteristics. The information is printed using the logger's debug
+    * function.
+    * 
+    * @param dataFlowQueryResult
+    *            the result of a data flow query call, a (potentially empty) list of sequence
+    *            elements
+    */
+   private void printViolation(List<AbstractActionSequenceElement<?>> dataFlowQueryResult) {
+       dataFlowQueryResult.forEach(it -> logger
+           .debug(String.format("Constraint violation found: %s", createPrintableNodeInformation(it))));
+   }
+
+   /**
+    * Prints detailed information of a node with its data flow variables and characteristics. The
+    * information is printed using the logger's trace function.
+    * 
+    * @param node
+    *            The sequence element whose information shall be printed
+    */
+   private void printNodeInformation(AbstractActionSequenceElement<?> node) {
+       logger.trace(String.format("Analyzing: %s", createPrintableNodeInformation(node)));
+   }
+
+   /**
+    * Returns a string with detailed information about a node's characteristics, data flow
+    * variables and the variables' characteristics.
+    * 
+    * @param node
+    *            a sequence element after the label propagation happened
+    * @return a string with the node's string representation and a list of all related
+    *         characteristics types and literals
+    */
+   private String createPrintableNodeInformation(AbstractActionSequenceElement<?> node) {
+       String template = "%s%s\tNode characteristics: %s%s\tData flow Variables:  %s%s";
+       String nodeCharacteristics = createPrintableCharacteristicsList(node.getAllNodeCharacteristics());
+       String dataCharacteristics = node.getAllDataFlowVariables()
+           .stream()
+           .map(e -> String.format("%s [%s]", e.variableName(),
+                   createPrintableCharacteristicsList(e.getAllCharacteristics())))
+           .collect(Collectors.joining(", "));
+
+       return String.format(template, node.toString(), System.lineSeparator(), nodeCharacteristics,
+               System.lineSeparator(), dataCharacteristics, System.lineSeparator());
+   }
+
+   /**
+    * Returns a string with the names of all characteristic types and selected literals of all
+    * characteristic values.
+    * 
+    * @param characteristics
+    *            a list of characteristics values
+    * @return a comma separated list of the format "type.literal, type.literal"
+    */
+   private String createPrintableCharacteristicsList(List<CharacteristicValue> characteristics) {
+       List<String> entries = characteristics.stream()
+           .map(it -> String.format("%s.%s", it.characteristicType()
+               .getName(),
+                   it.characteristicLiteral()
+                       .getName()))
+           .toList();
+       return String.join(", ", entries);
+   }
 }
+
+

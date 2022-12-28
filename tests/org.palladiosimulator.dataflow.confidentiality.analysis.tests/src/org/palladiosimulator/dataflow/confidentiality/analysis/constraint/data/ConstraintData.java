@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.constraint;
+package org.palladiosimulator.dataflow.confidentiality.analysis.constraint.data;
 
 import java.util.List;
 import java.util.Map;

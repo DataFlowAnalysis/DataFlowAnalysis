@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.constraint;
+package org.palladiosimulator.dataflow.confidentiality.analysis.constraint.data;
 
 public class CharacteristicValueData {
 	private String characteristicType;

@@ -109,30 +109,6 @@ public class PCMQueryUtils {
             if (connector.isEmpty()) {
                 throw new IllegalStateException("Unable to find provided delegation connector.");
             } else {
-            	if (connector.get().getAssemblyContext_ProvidedDelegationConnector() == null) {
-            		var query = PCMQueryUtils.findParentOfType(connector.get().getInnerProvidedRole_ProvidedDelegationConnector(), CompositeComponent.class, false);
-            		if (query.isEmpty()) {
-            			logger.error("Expected composite component, but cannot find parent composite component container");
-            			throw new IllegalStateException();
-            		}
-            		CompositeComponent compositeComponent = query.get();
-            		List<Connector> connectors = compositeComponent.getConnectors__ComposedStructure();
-            		Optional<ProvidedDelegationConnector> compositeConnector = connectors.stream()
-            				.filter(ProvidedDelegationConnector.class::isInstance)
-            				.map(ProvidedDelegationConnector.class::cast)
-            				.filter(it -> it.getOuterProvidedRole_ProvidedDelegationConnector().equals(connector.get().getInnerProvidedRole_ProvidedDelegationConnector()))
-            				.findAny();
-            		if (compositeConnector.isEmpty()) {
-            			logger.error("Expected composite component, but cannot find connector in composite component");
-            			throw new IllegalStateException();
-            		}
-            		AssemblyContext assemblyContext = compositeConnector.get().getAssemblyContext_ProvidedDelegationConnector();
-            		newContexts.add(assemblyContext);
-            		
-            		role = connector.get().getInnerProvidedRole_ProvidedDelegationConnector();
-            		providingComponent = role.getProvidingEntity_ProvidedRole();
-            		// FIXME: Providing component does not have a service effect specification
-            	} else {
 	                AssemblyContext assemblyContext = connector.get()
 	                    .getAssemblyContext_ProvidedDelegationConnector();
 	                newContexts.add(assemblyContext);
@@ -140,7 +116,7 @@ public class PCMQueryUtils {
 	                role = connector.get()
 	                    .getInnerProvidedRole_ProvidedDelegationConnector();
 	                providingComponent = role.getProvidingEntity_ProvidedRole();
-            	}
+            	
             }
         }
 

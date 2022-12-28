@@ -2,8 +2,10 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm;
 
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
@@ -20,6 +22,7 @@ import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.allocation.AllocationPackage;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
+import org.palladiosimulator.pcm.repository.CompositeComponent;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
@@ -69,7 +72,7 @@ public class PCMNodeCharacteristicsCalculator {
      * @return List of node characteristics present at the given node in the context provided
      */
     private List<CharacteristicValue> getSEFFNodeCharacteristics(Deque<AssemblyContext> context) {
-    	List<CharacteristicValue> nodeVariables = new ArrayList<>();
+    	Set<CharacteristicValue> nodeVariables = new HashSet<>();
     	
     	var allocations = PCMAnalysisUtils.lookupElementOfType(AllocationPackage.eINSTANCE.getAllocation()).stream()
     			.filter(Allocation.class::isInstance)
@@ -78,9 +81,8 @@ public class PCMNodeCharacteristicsCalculator {
     	
     	Optional<Allocation> allocation = allocations.stream()
     			.filter(it -> it.getAllocationContexts_Allocation().stream()
-    					.map(alloc -> alloc.getAssemblyContext_AllocationContext())
-    					.anyMatch(context.getFirst()::equals)
-    			)
+    							.map(alloc -> alloc.getAssemblyContext_AllocationContext())
+    							.anyMatch(context.getFirst()::equals))
     			.findFirst();
     	
     	if (allocation.isEmpty()) {
@@ -89,15 +91,29 @@ public class PCMNodeCharacteristicsCalculator {
     	}
     	
     	var allocationContexts = allocation.get().getAllocationContexts_Allocation();
-    	    	
-    	for (AllocationContext allocationContext : allocationContexts) {
-    		if (context.contains(allocationContext.getAssemblyContext_AllocationContext())) {
-        		nodeVariables.addAll(this.evaluateNodeCharacteristics(allocationContext.getResourceContainer_AllocationContext()));
-        		nodeVariables.addAll(this.evaluateNodeCharacteristics(allocationContext.getAssemblyContext_AllocationContext()));
-    		}
-    	}
-    	return nodeVariables;
+	    for (AllocationContext allocationContext : allocationContexts) {
+	    	if (context.contains(allocationContext.getAssemblyContext_AllocationContext())) {
+	        	nodeVariables.addAll(this.evaluateNodeCharacteristics(allocationContext.getResourceContainer_AllocationContext()));
+	        	nodeVariables.addAll(this.evaluateNodeCharacteristics(allocationContext.getAssemblyContext_AllocationContext()));
+	        	if (allocationContext.getAssemblyContext_AllocationContext().getEncapsulatedComponent__AssemblyContext() instanceof CompositeComponent) {
+	        		nodeVariables.addAll(this.getCompositeCharacteristics(allocationContext, context));
+	        	}
+	    	}
+	    }
+    	return new ArrayList<>(nodeVariables);
 	}
+    
+    private List<CharacteristicValue> getCompositeCharacteristics(AllocationContext allocationContext, Deque<AssemblyContext> context) {
+    	List<CharacteristicValue> nodeVariables = new ArrayList<>();
+    	CompositeComponent compositeComponent = (CompositeComponent) allocationContext.getAssemblyContext_AllocationContext().getEncapsulatedComponent__AssemblyContext();
+		List<AssemblyContext> assemblyContexts = compositeComponent.getAssemblyContexts__ComposedStructure();
+		for (AssemblyContext assemblyContext : assemblyContexts) {
+			if (context.contains(assemblyContext)) {
+				nodeVariables.addAll(this.evaluateNodeCharacteristics(assemblyContext));
+			}
+		}
+		return nodeVariables;
+    }
     
     /**
      * Evaluates the node characteristics for an object that can be tagged with Characteristic Values

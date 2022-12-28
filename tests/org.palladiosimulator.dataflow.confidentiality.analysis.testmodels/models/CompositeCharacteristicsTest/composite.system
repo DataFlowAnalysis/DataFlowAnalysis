@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:characteristics="http://palladiosimulator.org/dataflow/confidentiality/pcm/0.1.0/characteristics" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:emfprofileapplication="http://www.modelversioning.org/emfprofile/application/1.1" xmlns:org.palladiosimulator.dataflow.confidentiality.pcm.model.profile="org.palladiosimulator.dataflow.confidentiality.pcm.model.profile" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2">
+  <system:System id="_lYylIIb3Ee2VxMFBcaddFA" entityName="CompositeSystem">
+    <assemblyContexts__ComposedStructure id="_n4SGYIb3Ee2VxMFBcaddFA" entityName="Assembly_CompositeComponent1">
+      <encapsulatedComponent__AssemblyContext xsi:type="repository:CompositeComponent" href="default.repository#_ZedMAIb1Ee2VxMFBcaddFA"/>
+    </assemblyContexts__ComposedStructure>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_qOP4MIb3Ee2VxMFBcaddFA" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_pWWm4Ib3Ee2VxMFBcaddFA" assemblyContext_ProvidedDelegationConnector="_n4SGYIb3Ee2VxMFBcaddFA">
+      <innerProvidedRole_ProvidedDelegationConnector href="default.repository#_8JMQQIb2Ee2VxMFBcaddFA"/>
+    </connectors__ComposedStructure>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_pWWm4Ib3Ee2VxMFBcaddFA" entityName="CallInterfaceProvidedRole">
+      <providedInterface__OperationProvidedRole href="default.repository#_L0pSAIYyEe2sIsBDcUYqLw"/>
+    </providedRoles_InterfaceProvidingEntity>
+  </system:System>
+  <emfprofileapplication:ProfileApplication>
+    <stereotypeApplications xsi:type="org.palladiosimulator.dataflow.confidentiality.pcm.model.profile:Characterisable" appliedTo="_n4SGYIb3Ee2VxMFBcaddFA">
+      <extension href="../../plugin/org.palladiosimulator.dataflow.confidentiality.pcm.model.profile/profile.emfprofile_diagram#_YMF8MBdpEeu98bd9ogearw"/>
+      <characteristics xsi:type="characteristics:EnumCharacteristic" href="composite.system.characteristics#_aFi9AIb8Ee2x1JKdew2GLQ"/>
+    </stereotypeApplications>
+    <importedProfiles nsURI="org.palladiosimulator.dataflow.confidentiality.pcm.model.profile" location="platform:/plugin/org.palladiosimulator.dataflow.confidentiality.pcm.model.profile/profile.emfprofile_diagram"/>
+  </emfprofileapplication:ProfileApplication>
+</xmi:XMI>

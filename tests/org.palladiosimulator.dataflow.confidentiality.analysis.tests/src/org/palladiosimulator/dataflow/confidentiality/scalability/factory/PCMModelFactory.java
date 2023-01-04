@@ -35,6 +35,7 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentFactory;
 import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.system.SystemFactory;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
+import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
 import com.google.inject.Injector;
@@ -151,5 +152,13 @@ public class PCMModelFactory {
 		for (Resource resource : this.resources) {
 			resource.save(Map.of());
 		}
+	}
+	
+	public PCMUsageFactory getUsageScenario() {
+		return new PCMUsageFactory(usageModel);
+	}
+	
+	public void addUsageScenario(UsageScenario usageScenario) {
+		usageModel.getUsageScenario_UsageModel().add(usageScenario);
 	}
 }

@@ -26,6 +26,7 @@ import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.system.SystemFactory;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
+import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
 public class PCMModelFactory {
@@ -137,5 +138,13 @@ public class PCMModelFactory {
 		OperationProvidedRole operationProvidedRole = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
 		operationProvidedRole.setProvidedInterface__OperationProvidedRole(providedInterface);
 		component.getProvidedRoles_InterfaceProvidingEntity().add(operationProvidedRole);
+	}
+	
+	public PCMUsageFactory getUsageScenario() {
+		return new PCMUsageFactory(usageModel);
+	}
+	
+	public void addUsageScenario(UsageScenario usageScenario) {
+		usageModel.getUsageScenario_UsageModel().add(usageScenario);
 	}
 }

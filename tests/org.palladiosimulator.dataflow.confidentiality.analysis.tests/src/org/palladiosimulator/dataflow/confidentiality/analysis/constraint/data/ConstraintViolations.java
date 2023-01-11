@@ -17,7 +17,7 @@ public class ConstraintViolations {
 						Map.of(
 							"flight", List.of(new CharacteristicValueData("GrantedRoles", "User"), new CharacteristicValueData("GrantedRoles", "Airline")),
 							"ccd", List.of(new CharacteristicValueData("GrantedRoles", "User")),
-							"RETRUN", List.of(new CharacteristicValueData("GrantedRoles", "User"), new CharacteristicValueData("GrantedRoles", "Airline"))
+							"RETURN", List.of(new CharacteristicValueData("GrantedRoles", "User"), new CharacteristicValueData("GrantedRoles", "Airline"))
 						))
 			);
 	

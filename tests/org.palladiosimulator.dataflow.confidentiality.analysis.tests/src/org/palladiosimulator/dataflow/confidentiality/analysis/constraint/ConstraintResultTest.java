@@ -178,7 +178,7 @@ public class ConstraintResultTest extends ConstraintTest {
     		List<DataFlowVariable> dataFlowVariables = violatingNode.get().getAllDataFlowVariables();
     		
     		assertEquals(constraintNodeData.nodeCharacteristicsCount(), nodeCharacteristics.size());
-    		assertEquals(constraintNodeData.dataFlowVariablesAmount(), dataFlowVariables.size());
+    		assertEquals(constraintNodeData.dataFlowVariablesCount(), dataFlowVariables.size());
     		
     		for(CharacteristicValue characteristicValue : nodeCharacteristics) {
     			assertTrue(constraintNodeData.hasNodeCharacteristic(characteristicValue));

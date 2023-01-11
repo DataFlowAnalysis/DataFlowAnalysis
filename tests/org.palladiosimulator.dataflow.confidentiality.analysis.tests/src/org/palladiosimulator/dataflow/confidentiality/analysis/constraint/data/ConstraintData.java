@@ -31,18 +31,26 @@ public class ConstraintData {
 	}
 	
 	public boolean hasNodeCharacteristic(CharacteristicValue actualCharacteristicValue) {
-		return true;
+		return hasCharacteristicValue(nodeCharacteristics, actualCharacteristicValue);
 	}
 	
 	public boolean hasDataFlowVariable(DataFlowVariable actualDataFlowVariable) {
-		return true;
+		List<CharacteristicValueData> expectedCharacteristicValues = this.dataFlowVariables.get(actualDataFlowVariable.variableName());
+		return actualDataFlowVariable.characteristics().stream()
+				.allMatch(it -> hasCharacteristicValue(expectedCharacteristicValues, it));
+	}
+	
+	private boolean hasCharacteristicValue(List<CharacteristicValueData> data, CharacteristicValue actualCharacteristicValue) {
+		return data.stream()
+		.filter(it -> actualCharacteristicValue.characteristicType().getName().equals(it.characteristicType()))
+		.anyMatch(it -> actualCharacteristicValue.characteristicLiteral().getName().equals(it.characteristicLiteral()));
 	}
 	
 	public int nodeCharacteristicsCount() {
 		return this.nodeCharacteristics.size();
 	}
 	
-	public int dataFlowVariablesAmount() {
+	public int dataFlowVariablesCount() {
 		return this.dataFlowVariables.size();
 	}
 }

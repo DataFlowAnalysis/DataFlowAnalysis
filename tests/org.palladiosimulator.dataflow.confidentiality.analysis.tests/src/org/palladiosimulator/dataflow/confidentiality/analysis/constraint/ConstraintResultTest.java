@@ -163,7 +163,7 @@ public class ConstraintResultTest extends ConstraintTest {
     			.flatMap(it -> it.stream())
     			.collect(Collectors.toList());
     	
-    	assertEquals(constraintData.size(), results.size(), "Incorrect amount of violations found");
+    	assertEquals(constraintData.size(), results.size(), "Incorrect count of violations found");
     	
     	for(ConstraintData constraintNodeData : constraintData) {
     		var violatingNode = results.stream()
@@ -177,7 +177,7 @@ public class ConstraintResultTest extends ConstraintTest {
     		List<CharacteristicValue> nodeCharacteristics = violatingNode.get().getAllNodeCharacteristics();
     		List<DataFlowVariable> dataFlowVariables = violatingNode.get().getAllDataFlowVariables();
     		
-    		assertEquals(constraintNodeData.nodeCharacteristicsAmount(), nodeCharacteristics.size());
+    		assertEquals(constraintNodeData.nodeCharacteristicsCount(), nodeCharacteristics.size());
     		assertEquals(constraintNodeData.dataFlowVariablesAmount(), dataFlowVariables.size());
     		
     		for(CharacteristicValue characteristicValue : nodeCharacteristics) {

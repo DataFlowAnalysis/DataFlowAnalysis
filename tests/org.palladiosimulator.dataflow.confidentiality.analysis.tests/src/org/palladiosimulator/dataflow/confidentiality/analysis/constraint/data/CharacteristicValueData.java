@@ -1,19 +1,8 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.constraint.data;
 
-public class CharacteristicValueData {
-	private String characteristicType;
-	private String characteristicValue;
-	
+public record CharacteristicValueData(String characteristicType, String characteristicValue) {
 	public CharacteristicValueData(String characteristicType, String characteristicValue) {
 		this.characteristicType = characteristicType;
 		this.characteristicValue = characteristicValue;
-	}
-	
-	public String getCharacteristicType() {
-		return characteristicType;
-	}
-	
-	public String getCharacteristicValue() {
-		return characteristicValue;
 	}
 }

@@ -35,8 +35,8 @@ public class PCMSEFFFactory {
 	public AbstractAction addSetVariableAction(String name) {
 		SetVariableAction setVariableAction = SeffFactory.eINSTANCE.createSetVariableAction();
 		setVariableAction.setEntityName(name);
-		setVariableAction.setPredecessor_AbstractAction(seff.getSteps_Behaviour().get(seff.getSteps_Behaviour().size() - 1));
-		seff.getSteps_Behaviour().get(seff.getSteps_Behaviour().size() - 1).setSuccessor_AbstractAction(setVariableAction);
+		// setVariableAction.setPredecessor_AbstractAction(seff.getSteps_Behaviour().get(seff.getSteps_Behaviour().size() - 1));
+		// seff.getSteps_Behaviour().get(seff.getSteps_Behaviour().size() - 1).setSuccessor_AbstractAction(setVariableAction);
 		return setVariableAction;
 	}
 	

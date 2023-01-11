@@ -1,5 +1,8 @@
 package org.palladiosimulator.dataflow.confidentiality.scalability.factory;
 
+import java.io.IOException;
+import java.util.Map;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
@@ -11,6 +14,7 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
 import org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector;
 import org.palladiosimulator.pcm.repository.BasicComponent;
+import org.palladiosimulator.pcm.repository.CompositeDataType;
 import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
@@ -61,12 +65,18 @@ public class PCMModelFactory {
 		allocationContext.setResourceContainer_AllocationContext(resourceContainer);
 	}
 	
-	public AssemblyContext addAssemblyContext(ProvidedDelegationConnector providedDelegation, RepositoryComponent repositoryComponent) {
+	public AssemblyContext addAssemblyContext(RepositoryComponent repositoryComponent) {
 		AssemblyContext assemblyContext = CompositionFactory.eINSTANCE.createAssemblyContext();
-		providedDelegation.setAssemblyContext_ProvidedDelegationConnector(assemblyContext);
 		assemblyContext.setEncapsulatedComponent__AssemblyContext(repositoryComponent);
 		system.getAssemblyContexts__ComposedStructure().add(assemblyContext);
 		return assemblyContext;
+	}
+	
+	public OperationProvidedRole addInterfaceOperationProvidedRole(OperationInterface providedInterface, BasicComponent basicComponent) {
+		OperationProvidedRole operationProvidedRole = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
+		operationProvidedRole.setProvidingEntity_ProvidedRole(basicComponent);
+		operationProvidedRole.setProvidedInterface__OperationProvidedRole(providedInterface);
+		return operationProvidedRole;
 	}
 	
 	public void addSystemOperationProvidedRole(OperationInterface providedInterface, AssemblyContext assemblyContext, BasicComponent basicComponent) {
@@ -111,6 +121,13 @@ public class PCMModelFactory {
 		return createdInterface;
 	}
 	
+	public DataType addDataType(String name) {
+		CompositeDataType dataType = RepositoryFactory.eINSTANCE.createCompositeDataType();
+		dataType.setRepository__DataType(repository);
+		dataType.setEntityName(name);
+		return dataType;
+	}
+	
 	public OperationSignature addOperationSigniture(String methodName, DataType returnDatatype) {
 		OperationSignature signature = RepositoryFactory.eINSTANCE.createOperationSignature();
 		signature.setEntityName(methodName);
@@ -146,5 +163,9 @@ public class PCMModelFactory {
 	
 	public void addUsageScenario(UsageScenario usageScenario) {
 		usageModel.getUsageScenario_UsageModel().add(usageScenario);
+	}
+	
+	public void saveModel() throws IOException {
+		this.resource.save(Map.of());
 	}
 }

@@ -38,7 +38,7 @@ public class ConstraintData {
 		return true;
 	}
 	
-	public int nodeCharacteristicsAmount() {
+	public int nodeCharacteristicsCount() {
 		return this.nodeCharacteristics.size();
 	}
 	

@@ -180,6 +180,7 @@ public class PCMActionSequence extends ActionSequence implements Comparable<PCMA
 			return 1;
 		} else {
 			logger.error("Found incompatible set of Databases, Action Sequences depend on each other");
+			logger.error("Offending sequences: " + this + ", " + otherSequence);
 			throw new IllegalStateException("Cylic loop of databases found in action sequences");
 		}
 	}

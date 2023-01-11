@@ -1,5 +1,10 @@
 package org.palladiosimulator.dataflow.confidentiality.scalability.factory;
 
+import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.ConfidentialityFactory;
+import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.ConfidentialityVariableCharacterisation;
+import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.CharacteristicsFactory;
+import org.palladiosimulator.mdsdprofiles.api.ProfileAPI;
+import org.palladiosimulator.pcm.PcmFactory;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
@@ -34,6 +39,16 @@ public class PCMUsageFactory {
 		scenarioBehaviour.getActions_ScenarioBehaviour().get(scenarioBehaviour.getActions_ScenarioBehaviour().size() - 1).setSuccessor(callAction);
 	}
 	
+	// Add action to usage
+	public void addAction() {
+		
+	}
+	
+	// Add confid to usage
+	public void addConfi() {
+		ConfidentialityVariableCharacterisation characterisation = ConfidentialityFactory.eINSTANCE.createConfidentialityVariableCharacterisation();
+		var test = CharacteristicsFactory.eINSTANCE;
+	}
 	
 	public UsageScenario getUsageScenario() {
 		AbstractUserAction stopAction = UsagemodelFactory.eINSTANCE.createStop();

@@ -161,4 +161,8 @@ public class PCMModelFactory {
 	public void addUsageScenario(UsageScenario usageScenario) {
 		usageModel.getUsageScenario_UsageModel().add(usageScenario);
 	}
+	
+	public void saveModel() throws IOException {
+		this.resource.save(Map.of());
+	}
 }

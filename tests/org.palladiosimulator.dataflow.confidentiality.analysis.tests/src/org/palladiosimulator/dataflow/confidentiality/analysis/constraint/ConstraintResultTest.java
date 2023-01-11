@@ -124,8 +124,8 @@ public class ConstraintResultTest extends ConstraintTest {
     	Predicate<AbstractActionSequenceElement<?>> travelPlannerConstraint = node -> travelPlannerCondition(node);
     	Predicate<AbstractActionSequenceElement<?>> internationalOnlineShopConstraint = node -> internationalOnlineShopCondition(node);
 
-    	StandalonePCMDataFlowConfidentialtyAnalysis mutipleAssembliesAnalysis = 
-    			super.initializeAnalysis(Paths.get("models", "MultipleAssembliesTest", "default.usagemodel"), Paths.get("models", "MultipleAssembliesTest", "default.allocation"));
+    	StandalonePCMDataFlowConfidentialtyAnalysis multipleResourcesTest = 
+    			super.initializeAnalysis(Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.usagemodel"), Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.allocation"));
     	
     	StandalonePCMDataFlowConfidentialtyAnalysis dataStoreAnalysis = 
     			super.initializeAnalysis(Paths.get("models", "DatastoreTest", "default.usagemodel"), Paths.get("models", "DatastoreTest", "default.allocation"));
@@ -138,7 +138,7 @@ public class ConstraintResultTest extends ConstraintTest {
     	return Stream.of(
     			Arguments.of(travelPlannerAnalysis, travelPlannerConstraint, ConstraintViolations.travelPlannerViolations),
     			Arguments.of(internationalOnlineShopAnalysis, internationalOnlineShopConstraint, ConstraintViolations.internationalOnlineShopViolations),
-    			Arguments.of(mutipleAssembliesAnalysis, internationalOnlineShopConstraint, ConstraintViolations.multipleAssembliesViolations),
+    			Arguments.of(multipleResourcesTest, internationalOnlineShopConstraint, ConstraintViolations.multipleRessourcesViolations),
     			Arguments.of(dataStoreAnalysis, dataStoreConstraint, ConstraintViolations.dataStoreViolations),
     			Arguments.of(returnAnalysis, returnConstraint, ConstraintViolations.returnViolations)
  

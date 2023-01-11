@@ -54,4 +54,8 @@ public class ConstraintViolations {
 						"data", List.of(new CharacteristicValueData("AssignedRole", "Admin"))
 					))
 			);
+	
+	private ConstraintViolations() {
+		// Utility class
+	}
 }

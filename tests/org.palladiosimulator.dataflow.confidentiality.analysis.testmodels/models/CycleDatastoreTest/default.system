@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ASCII"?>
+<system:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/dataflow/confidentiality/pcm/0.1.0/repository" xmlns:repository_1="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="_SxuWIHSdEe2cQ_miRw7qJw" entityName="New System">
+  <assemblyContexts__ComposedStructure id="_PwBmsIL2Ee2YyoqaKVkqog" entityName="Assembly_AccountDetailDatabase">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:OperationalDataStoreComponent" href="default.repository#_JQ4IznWfEe2NG7qLS51mLg"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_TWW0MIL2Ee2YyoqaKVkqog" entityName="Assembly_DataStoreComponent2">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:OperationalDataStoreComponent" href="default.repository#_A3mEwIL0Ee2YyoqaKVkqog"/>
+  </assemblyContexts__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_S3VV4IL2Ee2YyoqaKVkqog" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_JJ9zAHWgEe2NG7qLS51mLg" assemblyContext_ProvidedDelegationConnector="_PwBmsIL2Ee2YyoqaKVkqog">
+    <innerProvidedRole_ProvidedDelegationConnector href="default.repository#_7AA1wHWfEe2NG7qLS51mLg"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_VHaiIIL2Ee2YyoqaKVkqog" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_LMFzYIL0Ee2YyoqaKVkqog" assemblyContext_ProvidedDelegationConnector="_TWW0MIL2Ee2YyoqaKVkqog">
+    <innerProvidedRole_ProvidedDelegationConnector href="default.repository#_xur6AIL1Ee2YyoqaKVkqog"/>
+  </connectors__ComposedStructure>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository_1:OperationProvidedRole" id="_JJ9zAHWgEe2NG7qLS51mLg" entityName="AccountDetailsProviderProvidedRole">
+    <providedInterface__OperationProvidedRole href="default.repository#_LYIwMHWfEe2NG7qLS51mLg"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository_1:OperationProvidedRole" id="_LMFzYIL0Ee2YyoqaKVkqog" entityName="DataDetailsProviderProvidedRole">
+    <providedInterface__OperationProvidedRole href="default.repository#_2DisUILzEe2YyoqaKVkqog"/>
+  </providedRoles_InterfaceProvidingEntity>
+</system:System>

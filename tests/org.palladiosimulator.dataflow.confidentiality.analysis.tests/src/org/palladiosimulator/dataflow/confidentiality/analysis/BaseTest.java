@@ -2,6 +2,7 @@ package org.palladiosimulator.dataflow.confidentiality.analysis;
 
 import static org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
 
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -52,5 +53,11 @@ public class BaseTest {
                 Activator.class, usageModelPath, allocationPath);
 
         travelPlannerAnalysis.initalizeAnalysis();
+    }
+    
+    protected StandalonePCMDataFlowConfidentialtyAnalysis initializeAnalysis(Path usagePath, Path allocationPath) {
+    	var analysis = new StandalonePCMDataFlowConfidentialtyAnalysis(TEST_MODEL_PROJECT_NAME, Activator.class, usagePath.toString(), allocationPath.toString());
+    	analysis.initalizeAnalysis();
+    	return analysis;
     }
 }

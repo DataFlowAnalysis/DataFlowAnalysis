@@ -10,10 +10,12 @@ import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.ComposedStructure;
+import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector;
 import org.palladiosimulator.pcm.core.composition.RequiredDelegationConnector;
 import org.palladiosimulator.pcm.core.entity.InterfaceProvidingEntity;
 import org.palladiosimulator.pcm.repository.BasicComponent;
+import org.palladiosimulator.pcm.repository.CompositeComponent;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.ProvidedRole;
@@ -107,13 +109,14 @@ public class PCMQueryUtils {
             if (connector.isEmpty()) {
                 throw new IllegalStateException("Unable to find provided delegation connector.");
             } else {
-                AssemblyContext assemblyContext = connector.get()
-                    .getAssemblyContext_ProvidedDelegationConnector();
-                newContexts.add(assemblyContext);
-
-                role = connector.get()
-                    .getInnerProvidedRole_ProvidedDelegationConnector();
-                providingComponent = role.getProvidingEntity_ProvidedRole();
+	                AssemblyContext assemblyContext = connector.get()
+	                    .getAssemblyContext_ProvidedDelegationConnector();
+	                newContexts.add(assemblyContext);
+	
+	                role = connector.get()
+	                    .getInnerProvidedRole_ProvidedDelegationConnector();
+	                providingComponent = role.getProvidingEntity_ProvidedRole();
+            	
             }
         }
 

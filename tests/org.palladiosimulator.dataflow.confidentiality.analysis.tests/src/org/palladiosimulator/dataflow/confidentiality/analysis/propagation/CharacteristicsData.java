@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis;
+package org.palladiosimulator.dataflow.confidentiality.analysis.propagation;
 
 public class CharacteristicsData {
 	private int sequenceIndex;

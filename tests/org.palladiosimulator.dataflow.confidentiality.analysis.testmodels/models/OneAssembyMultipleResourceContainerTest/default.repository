@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ASCII"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:confidentiality="http://palladiosimulator.org/dataflow/confidentiality/pcm/0.1.0" xmlns:expression="http://palladiosimulator.org/dataflow/confidentiality/pcm/0.1.0/expression" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="_kmrncF9SEe2ZFM6wnMZzJA" entityName="New Repository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_Wv_LoHQSEe2fd909RlIZZw" entityName="ShopComponent">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_jbi4QHQSEe2fd909RlIZZw" entityName="ShopComponent.ShopInterface.OperationProvidedRole1" providedInterface__OperationProvidedRole="_5NnS4HQREe2fd909RlIZZw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_gB6qAHQSEe2fd909RlIZZw" entityName="ShopComponent.StoreUserDataInterface.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_DI7FcHQSEe2fd909RlIZZw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_jbkGYHQSEe2fd909RlIZZw" describedService__SEFF="_8aznoHQREe2fd909RlIZZw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_jbkGYXQSEe2fd909RlIZZw" successor_AbstractAction="_mVNNAHQSEe2fd909RlIZZw"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_jbkGYnQSEe2fd909RlIZZw" predecessor_AbstractAction="_mVNNAHQSEe2fd909RlIZZw"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_mVNNAHQSEe2fd909RlIZZw" entityName="SaveUserDataCall" predecessor_AbstractAction="_jbkGYXQSEe2fd909RlIZZw" successor_AbstractAction="_jbkGYnQSEe2fd909RlIZZw" calledService_ExternalService="_RmVKMHQSEe2fd909RlIZZw" role_ExternalService="_gB6qAHQSEe2fd909RlIZZw">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_E2V0EHQTEe2fd909RlIZZw"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_E2V0EXQTEe2fd909RlIZZw">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="userdata"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="userdata"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_auYT0HQSEe2fd909RlIZZw" entityName="UserDataComponent">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_dQgSUHQSEe2fd909RlIZZw" entityName="UserDataComponent.StoreUserDataInterface.OperationProvidedRole" providedInterface__OperationProvidedRole="_DI7FcHQSEe2fd909RlIZZw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_dQ5T4HQSEe2fd909RlIZZw" describedService__SEFF="_RmVKMHQSEe2fd909RlIZZw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_dQ568HQSEe2fd909RlIZZw" successor_AbstractAction="_dQ568XQSEe2fd909RlIZZw"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_dQ568XQSEe2fd909RlIZZw" predecessor_AbstractAction="_dQ568HQSEe2fd909RlIZZw"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_5NnS4HQREe2fd909RlIZZw" entityName="ShopInterface">
+    <signatures__OperationInterface id="_8aznoHQREe2fd909RlIZZw" entityName="buy">
+      <parameters__OperationSignature dataType__Parameter="_HpZnAHQSEe2fd909RlIZZw" parameterName="product"/>
+      <parameters__OperationSignature dataType__Parameter="_9z9y8HQREe2fd909RlIZZw" parameterName="userdata"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_DI7FcHQSEe2fd909RlIZZw" entityName="StoreUserDataInterface">
+    <signatures__OperationInterface id="_RmVKMHQSEe2fd909RlIZZw" entityName="saveUserData">
+      <parameters__OperationSignature dataType__Parameter="_9z9y8HQREe2fd909RlIZZw" parameterName="userdata"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_9z9y8HQREe2fd909RlIZZw" entityName="UserData"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_HpZnAHQSEe2fd909RlIZZw" entityName="Product"/>
+</repository:Repository>

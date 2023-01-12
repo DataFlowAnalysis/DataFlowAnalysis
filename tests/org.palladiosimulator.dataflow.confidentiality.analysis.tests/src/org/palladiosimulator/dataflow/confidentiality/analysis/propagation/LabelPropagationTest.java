@@ -1,20 +1,25 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis;
+package org.palladiosimulator.dataflow.confidentiality.analysis.propagation;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
 import static org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisUtils.assertCharacteristicAbsent;
 import static org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisUtils.assertCharacteristicPresent;
 
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Stream;
 
 import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.palladiosimulator.dataflow.confidentiality.analysis.BaseTest;
+import org.palladiosimulator.dataflow.confidentiality.analysis.StandalonePCMDataFlowConfidentialtyAnalysis;
+import org.palladiosimulator.dataflow.confidentiality.analysis.testmodels.Activator;
 
-public class LabelPropagationTest extends AnalysisFeatureTest {
+public class LabelPropagationTest extends BaseTest {
 
     /**
      * Tests the present characteristics of the found action sequences
@@ -30,10 +35,11 @@ public class LabelPropagationTest extends AnalysisFeatureTest {
         var propagationResult = analysis.evaluateDataFlows(sequences);
 
         for (CharacteristicsData characteristicData : characteristicsData) {
-        	assertTrue(propagationResult.size() >= characteristicData.getSequenceIndex());
+            assertTrue(propagationResult.size() >= characteristicData.getSequenceIndex());
 
-            assertCharacteristicPresent(propagationResult.get(characteristicData.getSequenceIndex()), characteristicData.getElementIndex(), characteristicData.getVariable(), characteristicData.getCharacteristicType(),
-                    characteristicData.getCharacteristicValue());
+            assertCharacteristicPresent(propagationResult.get(characteristicData.getSequenceIndex()),
+                    characteristicData.getElementIndex(), characteristicData.getVariable(),
+                    characteristicData.getCharacteristicType(), characteristicData.getCharacteristicValue());
         }
     }
 
@@ -47,9 +53,10 @@ public class LabelPropagationTest extends AnalysisFeatureTest {
      */
     private Stream<Arguments> characteristicsPresentProvider() {
         return Stream.of(
-        		Arguments.of(travelPlannerAnalysis, LabelPropagationCharacteristics.travelPlannerCharacteristics),
+                Arguments.of(travelPlannerAnalysis, LabelPropagationCharacteristics.travelPlannerCharacteristics),
                 Arguments.of(onlineShopAnalysis, LabelPropagationCharacteristics.onlineShopCharacteristics),
-                Arguments.of(internationalOnlineShopAnalysis, LabelPropagationCharacteristics.internationalOnlineShopCharacteristics));
+                Arguments.of(internationalOnlineShopAnalysis,
+                        LabelPropagationCharacteristics.internationalOnlineShopCharacteristics));
     }
 
     /**

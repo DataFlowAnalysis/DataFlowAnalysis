@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ASCII"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:repository_1="http://palladiosimulator.org/dataflow/confidentiality/pcm/0.1.0/repository" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_CSSmAHWfEe2NG7qLS51mLg" entityName="New Repository">
+  <components__Repository xsi:type="repository_1:OperationalDataStoreComponent" id="_JQ4IznWfEe2NG7qLS51mLg" entityName="AccountDetailDatabase">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_7AA1wHWfEe2NG7qLS51mLg" entityName="AccountDetailDatabase.AccountDetailsProvider.OperationProvidedRole1" providedInterface__OperationProvidedRole="_LYIwMHWfEe2NG7qLS51mLg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_7moJ0HWfEe2NG7qLS51mLg" describedService__SEFF="_fi3kIHWfEe2NG7qLS51mLg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_78E1YHWfEe2NG7qLS51mLg" successor_AbstractAction="_78FccHWfEe2NG7qLS51mLg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_78FccHWfEe2NG7qLS51mLg" predecessor_AbstractAction="_78E1YHWfEe2NG7qLS51mLg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_8UkN4HWfEe2NG7qLS51mLg" describedService__SEFF="_dtev0HWfEe2NG7qLS51mLg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_8wxBsHWfEe2NG7qLS51mLg" successor_AbstractAction="_8wxBsXWfEe2NG7qLS51mLg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_8wxBsXWfEe2NG7qLS51mLg" predecessor_AbstractAction="_8wxBsHWfEe2NG7qLS51mLg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository_1:OperationalDataStoreComponent" id="_A3mEwIL0Ee2YyoqaKVkqog" entityName="DataStoreComponent2">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_xur6AIL1Ee2YyoqaKVkqog" entityName="DataStoreComponent2.DataDetailsProvider.OperationProvidedRole1" providedInterface__OperationProvidedRole="_2DisUILzEe2YyoqaKVkqog"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_yk_28IL1Ee2YyoqaKVkqog" describedService__SEFF="_8v2MQILzEe2YyoqaKVkqog">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_y9AHQIL1Ee2YyoqaKVkqog" successor_AbstractAction="_y9AHQYL1Ee2YyoqaKVkqog"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_y9AHQYL1Ee2YyoqaKVkqog" predecessor_AbstractAction="_y9AHQIL1Ee2YyoqaKVkqog"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_zeE0AIL1Ee2YyoqaKVkqog" describedService__SEFF="_3zltoILzEe2YyoqaKVkqog">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_z5xRgIL1Ee2YyoqaKVkqog" successor_AbstractAction="_z5xRgYL1Ee2YyoqaKVkqog"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_z5xRgYL1Ee2YyoqaKVkqog" predecessor_AbstractAction="_z5xRgIL1Ee2YyoqaKVkqog"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_LYIwMHWfEe2NG7qLS51mLg" entityName="AccountDetailsProvider">
+    <signatures__OperationInterface id="_dtev0HWfEe2NG7qLS51mLg" entityName="get" returnType__OperationSignature="_0vXXEHWfEe2NG7qLS51mLg"/>
+    <signatures__OperationInterface id="_fi3kIHWfEe2NG7qLS51mLg" entityName="add">
+      <parameters__OperationSignature dataType__Parameter="_0vXXEHWfEe2NG7qLS51mLg" parameterName="ad"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_2DisUILzEe2YyoqaKVkqog" entityName="DataDetailsProvider">
+    <signatures__OperationInterface id="_3zltoILzEe2YyoqaKVkqog" entityName="get" returnType__OperationSignature="_5Fn9QILzEe2YyoqaKVkqog"/>
+    <signatures__OperationInterface id="_8v2MQILzEe2YyoqaKVkqog" entityName="add">
+      <parameters__OperationSignature dataType__Parameter="_5Fn9QILzEe2YyoqaKVkqog" parameterName="data"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_0vXXEHWfEe2NG7qLS51mLg" entityName="AccountDetails"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_5Fn9QILzEe2YyoqaKVkqog" entityName="DataDetails"/>
+</repository:Repository>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ASCII"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:repository_1="http://palladiosimulator.org/dataflow/confidentiality/pcm/0.1.0/repository" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_BggKkHQcEe2W39w_cTGxjg" entityName="New Repository">
+  <components__Repository xsi:type="repository_1:OperationalDataStoreComponent" id="_ngKYsHQcEe2W39w_cTGxjg" entityName="CreditCardDatabase">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="__BAz4HQcEe2W39w_cTGxjg" entityName="CreditCardDatabase.CreditCardProvider.OperationProvidedRole1" providedInterface__OperationProvidedRole="_rDzekHQcEe2W39w_cTGxjg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_w2vboHQeEe2W39w_cTGxjg" describedService__SEFF="_4acIgHQcEe2W39w_cTGxjg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_xNPQEHQeEe2W39w_cTGxjg" successor_AbstractAction="_xNPQEXQeEe2W39w_cTGxjg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_xNPQEXQeEe2W39w_cTGxjg" predecessor_AbstractAction="_xNPQEHQeEe2W39w_cTGxjg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_xpRr0HQeEe2W39w_cTGxjg" describedService__SEFF="_vFJ0IHQcEe2W39w_cTGxjg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_yJfc8HQeEe2W39w_cTGxjg" successor_AbstractAction="_yJfc8XQeEe2W39w_cTGxjg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_yJfc8XQeEe2W39w_cTGxjg" predecessor_AbstractAction="_yJfc8HQeEe2W39w_cTGxjg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_rDzekHQcEe2W39w_cTGxjg" entityName="CreditCardProvider">
+    <signatures__OperationInterface id="_vFJ0IHQcEe2W39w_cTGxjg" entityName="get" returnType__OperationSignature="_yEItwHQcEe2W39w_cTGxjg"/>
+    <signatures__OperationInterface id="_4acIgHQcEe2W39w_cTGxjg" entityName="add">
+      <parameters__OperationSignature dataType__Parameter="_yEItwHQcEe2W39w_cTGxjg" parameterName="ccd"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_yEItwHQcEe2W39w_cTGxjg" entityName="CreditCardDetail"/>
+</repository:Repository>

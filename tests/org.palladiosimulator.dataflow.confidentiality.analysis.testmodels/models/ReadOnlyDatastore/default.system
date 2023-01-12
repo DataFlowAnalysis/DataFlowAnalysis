@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ASCII"?>
+<system:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/dataflow/confidentiality/pcm/0.1.0/repository" xmlns:repository_1="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="_M1XuEILjEe2YyoqaKVkqog" entityName="New System">
+  <assemblyContexts__ComposedStructure id="_cMFZYILjEe2YyoqaKVkqog" entityName="Assembly_TestDatastore">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:OperationalDataStoreComponent" href="default.repository#_4eqToILiEe2YyoqaKVkqog"/>
+  </assemblyContexts__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_l1pUoILjEe2YyoqaKVkqog" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_kGJs8ILjEe2YyoqaKVkqog" assemblyContext_ProvidedDelegationConnector="_cMFZYILjEe2YyoqaKVkqog">
+    <innerProvidedRole_ProvidedDelegationConnector href="default.repository#_6uFYkILiEe2YyoqaKVkqog"/>
+  </connectors__ComposedStructure>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository_1:OperationProvidedRole" id="_kGJs8ILjEe2YyoqaKVkqog" entityName="TestDataProviderProvidedRole">
+    <providedInterface__OperationProvidedRole href="default.repository#_v15uEILiEe2YyoqaKVkqog"/>
+  </providedRoles_InterfaceProvidingEntity>
+</system:System>

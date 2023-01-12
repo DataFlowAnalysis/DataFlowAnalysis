@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:characteristics="http://palladiosimulator.org/dataflow/confidentiality/pcm/0.1.0/characteristics" xmlns:emfprofileapplication="http://www.modelversioning.org/emfprofile/application/1.1" xmlns:org.palladiosimulator.dataflow.confidentiality.pcm.model.profile="org.palladiosimulator.dataflow.confidentiality.pcm.model.profile" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2">
+  <repository:Repository id="_UnHmgIYtEe2sIsBDcUYqLw" entityName="New Repository">
+    <components__Repository xsi:type="repository:BasicComponent" id="_1JZl8IYtEe2sIsBDcUYqLw" entityName="CallComponent">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_4InJEIYtEe2sIsBDcUYqLw" entityName="CallComponent.CallInterface.OperationProvidedRole1" providedInterface__OperationProvidedRole="_yPq_wIYtEe2sIsBDcUYqLw"/>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_4JRQYIYtEe2sIsBDcUYqLw" describedService__SEFF="_z_sy8IYtEe2sIsBDcUYqLw">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_4JSegIYtEe2sIsBDcUYqLw" successor_AbstractAction="_4JTFkIYtEe2sIsBDcUYqLw"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_4JTFkIYtEe2sIsBDcUYqLw" predecessor_AbstractAction="_4JSegIYtEe2sIsBDcUYqLw"/>
+      </serviceEffectSpecifications__BasicComponent>
+    </components__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="_yPq_wIYtEe2sIsBDcUYqLw" entityName="CallInterface">
+      <signatures__OperationInterface id="_z_sy8IYtEe2sIsBDcUYqLw" entityName="call"/>
+    </interfaces__Repository>
+  </repository:Repository>
+  <emfprofileapplication:ProfileApplication>
+    <stereotypeApplications xsi:type="org.palladiosimulator.dataflow.confidentiality.pcm.model.profile:Characterisable">
+      <extension href="../../plugin/org.palladiosimulator.dataflow.confidentiality.pcm.model.profile/profile.emfprofile_diagram#_YMF8MBdpEeu98bd9ogearw"/>
+      <characteristics xsi:type="characteristics:EnumCharacteristic" href="default.repository.characteristics#_kiKRcIYuEe2sIsBDcUYqLw"/>
+    </stereotypeApplications>
+    <importedProfiles nsURI="org.palladiosimulator.dataflow.confidentiality.pcm.model.profile" location="platform:/plugin/org.palladiosimulator.dataflow.confidentiality.pcm.model.profile/profile.emfprofile_diagram"/>
+  </emfprofileapplication:ProfileApplication>
+</xmi:XMI>

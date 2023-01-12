@@ -1,0 +1,9 @@
+dictionary id "_FNCtwHQcEe2W39w_cTGxjg"
+
+enum Role {
+	User
+	Admin
+}
+
+enumCharacteristicType GrantedRole using Role
+enumCharacteristicType AssignedRole using Role

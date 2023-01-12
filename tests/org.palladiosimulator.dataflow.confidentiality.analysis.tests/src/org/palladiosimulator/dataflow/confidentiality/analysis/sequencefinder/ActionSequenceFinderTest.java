@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis;
+package org.palladiosimulator.dataflow.confidentiality.analysis.sequencefinder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -14,6 +14,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.palladiosimulator.dataflow.confidentiality.analysis.BaseTest;
+import org.palladiosimulator.dataflow.confidentiality.analysis.StandalonePCMDataFlowConfidentialtyAnalysis;
 
 public class ActionSequenceFinderTest extends BaseTest {
 

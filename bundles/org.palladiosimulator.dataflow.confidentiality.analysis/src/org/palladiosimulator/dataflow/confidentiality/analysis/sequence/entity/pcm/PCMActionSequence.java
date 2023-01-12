@@ -116,19 +116,51 @@ public class PCMActionSequence extends ActionSequence implements Comparable<PCMA
 	
     
     public List<String> getProvidedDatabases() {
-    	return this.getElements().stream()
+    	List<DatabaseActionSequenceElement<?>> potentialProvided = this.getElements().stream()
 				.filter(DatabaseActionSequenceElement.class::isInstance)
 				.map(DatabaseActionSequenceElement.class::cast)
 				.filter(it -> it.isWriting())
+				.collect(Collectors.toList());
+    	List<DatabaseActionSequenceElement<?>> providedDatabases = potentialProvided.stream()
+    			.filter(it -> !getRequiredBefore(it).contains(it.getDataStore().getDatabaseComponentName()))
+    			.collect(Collectors.toList());
+    	return providedDatabases.stream()
+    			.map(it -> it.getDataStore().getDatabaseComponentName())
+    			.collect(Collectors.toList());
+    }
+    
+    private List<String> getRequiredBefore(DatabaseActionSequenceElement<?> element) {
+    	int index = this.getElements().indexOf(element);
+    	return this.getElements().stream()
+				.filter(DatabaseActionSequenceElement.class::isInstance)
+				.map(DatabaseActionSequenceElement.class::cast)
+				.filter(it -> !it.isWriting())
+				.limit(index)
 				.map(it -> it.getDataStore().getDatabaseComponentName())
 				.collect(Collectors.toList());
     }
     
     public List<String> getRequiredDatabases() {
-    	return this.getElements().stream()
+    	List<DatabaseActionSequenceElement<?>> potentialRequired = this.getElements().stream()
 				.filter(DatabaseActionSequenceElement.class::isInstance)
 				.map(DatabaseActionSequenceElement.class::cast)
 				.filter(it -> !it.isWriting())
+				.collect(Collectors.toList());
+    	List<DatabaseActionSequenceElement<?>> requiredDatabases = potentialRequired.stream()
+    			.filter(it -> !getProvidedBefore(it).contains(it.getDataStore().getDatabaseComponentName()))
+    			.collect(Collectors.toList());
+    	return requiredDatabases.stream()
+    			.map(it -> it.getDataStore().getDatabaseComponentName())
+    			.collect(Collectors.toList());
+    }
+    
+    private List<String> getProvidedBefore(DatabaseActionSequenceElement<?> element) {
+    	int index = this.getElements().indexOf(element);
+    	return this.getElements().stream()
+				.filter(DatabaseActionSequenceElement.class::isInstance)
+				.map(DatabaseActionSequenceElement.class::cast)
+				.filter(it -> it.isWriting())
+				.limit(index)
 				.map(it -> it.getDataStore().getDatabaseComponentName())
 				.collect(Collectors.toList());
     }
@@ -147,20 +179,9 @@ public class PCMActionSequence extends ActionSequence implements Comparable<PCMA
 		} else if (!this.getRequiredDatabases().isEmpty() && otherSequence.getRequiredDatabases().isEmpty()) {
 			return 1;
 		} else {
-			List<String> requriredDatabases = this.getRequiredDatabases();
-			List<String> providedDatabases = this.getProvidedDatabases();
-			
-			List<String> otherRequiredDatabases = otherSequence.getRequiredDatabases();
-			List<String> otherProvidedDatabases = otherSequence.getProvidedDatabases();
-			
-			if (requriredDatabases.containsAll(otherProvidedDatabases)) {
-				return 1;
-			} else if (otherRequiredDatabases.containsAll(providedDatabases)) {
-				return -1;
-			} else {
-				logger.error("Found incompatible set of Databases, Action Sequences depend on each other");
-				throw new IllegalStateException("Cylic loop of databases found in action sequences");
-			}
+			logger.error("Found incompatible set of Databases, Action Sequences depend on each other");
+			logger.error("Problematic sequences: " + this + ", " + otherSequence);
+			throw new IllegalStateException("Cylic loop of databases found in action sequences");
 		}
 	}
 }

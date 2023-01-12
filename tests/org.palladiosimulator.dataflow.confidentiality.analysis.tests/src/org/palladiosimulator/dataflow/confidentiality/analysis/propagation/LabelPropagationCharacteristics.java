@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis;
+package org.palladiosimulator.dataflow.confidentiality.analysis.propagation;
 
 import java.util.List;
 

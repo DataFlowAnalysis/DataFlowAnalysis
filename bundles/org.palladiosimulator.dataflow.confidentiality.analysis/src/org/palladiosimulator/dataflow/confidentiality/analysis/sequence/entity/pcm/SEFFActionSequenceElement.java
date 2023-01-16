@@ -16,9 +16,12 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.seff.AbstractAction;
+import org.palladiosimulator.pcm.seff.AbstractBranchTransition;
+import org.palladiosimulator.pcm.seff.BranchAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
 import org.palladiosimulator.pcm.seff.StartAction;
+import org.palladiosimulator.pcm.usagemodel.BranchTransition;
 
 public class SEFFActionSequenceElement<T extends AbstractAction> extends AbstractPCMActionSequenceElement<T> {
 	private final Logger logger = Logger.getLogger(SEFFActionSequenceElement.class);
@@ -85,6 +88,15 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
     public List<Parameter> getParameter() {
 		return parameter;
 	}
+    
+    /**
+     * Returns whether a SEFF Action Sequence Element (i.e. Start Action) was created due to branching behavior
+     * @return Returns true, if the SEFF Action was created, because branching behavior was defined. Otherwise, the method returns false.
+     */
+    public boolean isBranching() {
+    	Optional<BranchAction> branchAction = PCMQueryUtils.findParentOfType(this.getElement(), BranchAction.class, false);
+    	return branchAction.isPresent();
+    }
 
     @Override
     public String toString() {
@@ -93,6 +105,11 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
     		Optional<ResourceDemandingSEFF> seff = PCMQueryUtils.findParentOfType(this.getElement(), ResourceDemandingSEFF.class, false);
     		if (seff.isPresent()) {
     			elementName = "Beginning " + seff.get().getDescribedService__SEFF().getEntityName();
+    		}
+    		if (this.isBranching()) {
+    			Optional<BranchAction> branchAction = PCMQueryUtils.findParentOfType(this.getElement(), BranchAction.class, false);
+    			Optional<AbstractBranchTransition> branchTransition = PCMQueryUtils.findParentOfType(this.getElement(), AbstractBranchTransition.class, false);
+    			elementName = "Branching " + seff.get().getDescribedService__SEFF().getEntityName() + "." + branchAction.get().getEntityName() + "." +  branchTransition.get().getEntityName();
     		}
     	}
         return String.format("%s (%s, %s))", this.getClass()

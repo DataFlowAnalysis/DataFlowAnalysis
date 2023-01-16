@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -18,6 +19,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.BaseTest;
 import org.palladiosimulator.dataflow.confidentiality.analysis.StandalonePCMDataFlowConfidentialtyAnalysis;
 
 public class ActionSequenceFinderTest extends BaseTest {
+	private final Logger logger = Logger.getLogger(ActionSequenceFinderTest.class);
 
     /**
      * Tests whether the analysis finds the correct amount of sequences
@@ -34,6 +36,7 @@ public class ActionSequenceFinderTest extends BaseTest {
         var allSequences = analysis.findAllSequences();
         assertEquals(expectedSequences, allSequences.size(),
                 String.format("Expected two dataflow sequences, but found %s sequences", allSequences.size()));
+        allSequences.stream().forEach(System.out::println);
     }
 
     /**

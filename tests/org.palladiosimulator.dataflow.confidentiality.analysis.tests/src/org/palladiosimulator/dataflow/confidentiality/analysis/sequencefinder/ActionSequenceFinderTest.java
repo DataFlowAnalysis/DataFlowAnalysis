@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -34,9 +35,10 @@ public class ActionSequenceFinderTest extends BaseTest {
     @MethodSource("testCountProvider")
     public void testCount(StandalonePCMDataFlowConfidentialtyAnalysis analysis, int expectedSequences) {
         var allSequences = analysis.findAllSequences();
+        analysis.setLoggerLevel(Level.TRACE);
         assertEquals(expectedSequences, allSequences.size(),
                 String.format("Expected two dataflow sequences, but found %s sequences", allSequences.size()));
-        allSequences.stream().forEach(System.out::println);
+        allSequences.stream().forEach(logger::trace);
     }
 
     /**

@@ -12,11 +12,11 @@
 			<repository location="https://updatesite.palladio-simulator.com/palladio-core-commons/nightly/"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="release" refresh="true">
-			<unit id="org.palladiosimulator.pcm.feature.feature.group" version="4.1.0.201709282114"/>
+			<unit id="org.palladiosimulator.pcm.feature.feature.group" version="0.0.0"/>
 			<repository location="https://updatesite.palladio-simulator.com/palladio-core-pcm/releases/latest/"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly" refresh="true">
-			<unit id="org.palladiosimulator.pcm.feature.feature.group" version="4.1.0.201709282114"/>
+			<unit id="org.palladiosimulator.pcm.feature.feature.group" version="0.0.0"/>
 			<repository location="https://updatesite.palladio-simulator.com/palladio-core-pcm/nightly/"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly">
@@ -70,11 +70,26 @@
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 			<unit id="org.junit.jupiter.api" version="0.0.0"/>
 			<unit id="org.junit.jupiter.params" version="0.0.0"/>
-			<repository location="https://download.eclipse.org/eclipse/updates/4.22/R-4.22-202111241800/"/>
+			<unit id="org.junit.jupiter.engine" version="0.0.0"/>
+			<unit id="org.junit.jupiter.migrationsupport" version="0.0.0"/>
+			<unit id="org.junit.platform.commons" version="0.0.0"/>
+			<unit id="org.junit.platform.engine" version="0.0.0"/>
+			<unit id="org.junit.platform.launcher" version="0.0.0"/>
+			<unit id="org.junit.platform.runner" version="0.0.0"/>
+			<unit id="org.junit.platform.suite.api" version="0.0.0"/>
+			<unit id="org.junit.platform.suite.commons" version="0.0.0"/>
+			<unit id="org.junit.platform.suite.engine" version="0.0.0"/>
+			<unit id="org.junit.vintage.engine" version="0.0.0"/>
+			<unit id="org.apiguardian" version="0.0.0"/>
+			<repository location="https://download.eclipse.org/tools/orbit/downloads/2022-12/"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 			<unit id="org.hamcrest.library" version="0.0.0"/>
-			<repository location="https://download.eclipse.org/tools/orbit/downloads/2021-12/"/>
+			<repository location="https://download.eclipse.org/tools/orbit/downloads/2022-12/"/>
 		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+			<unit id="org.apache.commons.math" version="0.0.0"/>
+			<repository location="https://download.eclipse.org/tools/orbit/downloads/2021-12/"/>
+			</location>
 	</locations>
 </target>

@@ -7,6 +7,7 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.Comparator;
 
+import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.PCMAnalysisUtils;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
@@ -74,7 +75,7 @@ public class PCMDataCharacteristicsCalculator {
         Term rightHandSide = confidentialityVariable.getRhs();
 
         AbstractNamedReference reference = variableCharacterisation.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage();
-        DataFlowVariable existingVariable = getDataFlowVariableByReference(reference).orElse(new DataFlowVariable(reference.getReferenceName()));
+        DataFlowVariable existingVariable = this.getDataFlowVariableByReference(reference).orElse(new DataFlowVariable(reference.getReferenceName()));
 
         List<CharacteristicValue> modifiedCharacteristics = calculateModifiedCharacteristics(existingVariable, characteristicType, characteristicValue);
 

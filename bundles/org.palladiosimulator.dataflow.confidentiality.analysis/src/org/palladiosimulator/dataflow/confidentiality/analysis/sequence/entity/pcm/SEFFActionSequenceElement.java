@@ -67,6 +67,11 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
                     .stream())
                 .toList();
     	
+    	variableCharacterisations.stream()
+    		.map(it -> it.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage().getReferenceName())
+    		.filter(it -> this.parameter.stream().map(param->param.getParameterName()).toList().contains(it))
+    		.forEach(it -> logger.warn("Unknown reference to variable " + it + " in variable characterisation in element " + this.toString()));
+    	
     	PCMDataCharacteristicsCalculator characteristicsCalculator = new PCMDataCharacteristicsCalculator(variables, nodeCharacteristics);
         variableCharacterisations.forEach(it -> characteristicsCalculator.evaluate(it));
         return new SEFFActionSequenceElement<T>(this, characteristicsCalculator.getCalculatedCharacteristics(), nodeCharacteristics);

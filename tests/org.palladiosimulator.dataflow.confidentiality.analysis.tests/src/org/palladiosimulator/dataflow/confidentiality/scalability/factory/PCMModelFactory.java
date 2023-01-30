@@ -6,6 +6,10 @@ import java.util.Map;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
+import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.CharacteristicsFactory;
+import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
+import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.DataDictionaryCharacterizedFactory;
+import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristicType;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.allocation.AllocationFactory;
@@ -163,6 +167,19 @@ public class PCMModelFactory {
 	
 	public void addUsageScenario(UsageScenario usageScenario) {
 		usageModel.getUsageScenario_UsageModel().add(usageScenario);
+	}
+	
+	public EnumCharacteristicType addEnumCharacteristicType(String name) {
+		EnumCharacteristicType type = DataDictionaryCharacterizedFactory.eINSTANCE.createEnumCharacteristicType();
+		type.setName(name);
+		return type;
+	}
+	
+	public EnumCharacteristic addEnumCharacteristic(EnumCharacteristicType type, String name) {
+		EnumCharacteristic characteristic = CharacteristicsFactory.eINSTANCE.createEnumCharacteristic();
+		characteristic.setEntityName(name);
+		characteristic.setType(type);
+		return characteristic;
 	}
 	
 	public void saveModel() throws IOException {

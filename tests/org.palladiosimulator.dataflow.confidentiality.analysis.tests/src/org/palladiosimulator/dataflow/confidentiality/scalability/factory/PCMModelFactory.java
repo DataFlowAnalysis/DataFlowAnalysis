@@ -162,6 +162,19 @@ public class PCMModelFactory {
 		usageModel.getUsageScenario_UsageModel().add(usageScenario);
 	}
 	
+	public EnumCharacteristicType addEnumCharacteristicType(String name) {
+		EnumCharacteristicType type = DataDictionaryCharacterizedFactory.eINSTANCE.createEnumCharacteristicType();
+		type.setName(name);
+		return type;
+	}
+	
+	public EnumCharacteristic addEnumCharacteristic(EnumCharacteristicType type, String name) {
+		EnumCharacteristic characteristic = CharacteristicsFactory.eINSTANCE.createEnumCharacteristic();
+		characteristic.setEntityName(name);
+		characteristic.setType(type);
+		return characteristic;
+	}
+	
 	public void saveModel() throws IOException {
 		this.resource.save(Map.of());
 	}

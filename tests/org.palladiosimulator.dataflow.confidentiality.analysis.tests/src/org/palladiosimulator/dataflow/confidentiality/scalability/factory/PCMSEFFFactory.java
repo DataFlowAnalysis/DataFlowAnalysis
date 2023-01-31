@@ -12,11 +12,9 @@ import org.palladiosimulator.pcm.seff.SetVariableAction;
 import org.palladiosimulator.pcm.seff.StopAction;
 
 public class PCMSEFFFactory {
-	private Repository repository;
 	private ResourceDemandingSEFF seff;
 	
 	public PCMSEFFFactory(Repository repository) {
-		this.repository = repository;
 		this.seff = SeffFactory.eINSTANCE.createResourceDemandingSEFF();
 	}
 	

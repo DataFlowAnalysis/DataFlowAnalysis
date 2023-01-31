@@ -2,7 +2,12 @@ package org.palladiosimulator.dataflow.confidentiality.scalability.factory;
 
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.ConfidentialityFactory;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.ConfidentialityVariableCharacterisation;
-import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.CharacteristicsFactory;
+import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
+import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.expression.ExpressionFactory;
+import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.expression.LhsEnumCharacteristicReference;
+import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
+import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.expressions.ExpressionsFactory;
+import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.expressions.Term;
 import org.palladiosimulator.pcm.parameter.ParameterFactory;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
@@ -14,12 +19,10 @@ import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
 public class PCMUsageFactory {
-	private UsageModel usageModel;
 	private UsageScenario usageScenario;
 	private ScenarioBehaviour scenarioBehaviour;
 	
 	public PCMUsageFactory(UsageModel usageModel) {
-		this.usageModel = usageModel;
 		this.usageScenario = UsagemodelFactory.eINSTANCE.createUsageScenario();
 		usageScenario.setUsageModel_UsageScenario(usageModel);
 		this.scenarioBehaviour = UsagemodelFactory.eINSTANCE.createScenarioBehaviour();
@@ -49,14 +52,18 @@ public class PCMUsageFactory {
 		characterisation.setRhs(null);
 	}
 	
-	public void addCharacterizationReturn() {
+	public void addCharacterizationReturn(EnumCharacteristic characteristic, Literal characteristicValue) {
 		VariableUsage usage = ParameterFactory.eINSTANCE.createVariableUsage();
 		ConfidentialityVariableCharacterisation characterisation = ConfidentialityFactory.eINSTANCE.createConfidentialityVariableCharacterisation();
 		EntryLevelSystemCall callAction = (EntryLevelSystemCall) scenarioBehaviour.getActions_ScenarioBehaviour().get(scenarioBehaviour.getActions_ScenarioBehaviour().size() - 1);
 		usage.setEntryLevelSystemCall_OutputParameterUsage(callAction);
 		characterisation.setVariableUsage_VariableCharacterisation(usage);
-		characterisation.setLhs(null);
-		characterisation.setRhs(null);
+		LhsEnumCharacteristicReference lhs = ExpressionFactory.eINSTANCE.createLhsEnumCharacteristicReference();
+ 		lhs.setCharacteristicType(characteristic.getType());
+		lhs.setLiteral(characteristicValue);
+		characterisation.setLhs(lhs);
+		Term term = ExpressionsFactory.eINSTANCE.createTrue();
+		characterisation.setRhs(term);
 	}
 	
 	public UsageScenario getUsageScenario() {

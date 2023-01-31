@@ -162,17 +162,24 @@ public class PCMModelFactory {
 		usageModel.getUsageScenario_UsageModel().add(usageScenario);
 	}
 	
-	public EnumCharacteristicType addEnumCharacteristicType(String name) {
+	public EnumCharacteristic addEnumCharacteristic(String name) {
+		EnumCharacteristic characteristic = CharacteristicsFactory.eINSTANCE.createEnumCharacteristic();
 		EnumCharacteristicType type = DataDictionaryCharacterizedFactory.eINSTANCE.createEnumCharacteristicType();
+		Enumeration enumeration = DataDictionaryCharacterizedFactory.eINSTANCE.createEnumeration();
 		type.setName(name);
-		return type;
+		enumeration.setName(name);
+		type.setType(enumeration);
+		characteristic.setEntityName(name);
+		return characteristic;
 	}
 	
-	public EnumCharacteristic addEnumCharacteristic(EnumCharacteristicType type, String name) {
-		EnumCharacteristic characteristic = CharacteristicsFactory.eINSTANCE.createEnumCharacteristic();
-		characteristic.setEntityName(name);
-		characteristic.setType(type);
-		return characteristic;
+	public void addEnumCharacteristic(EnumCharacteristic characteristic, String name) {
+		Literal literal = DataDictionaryCharacterizedFactory.eINSTANCE.createLiteral();
+		Enumeration enumeration = DataDictionaryCharacterizedFactory.eINSTANCE.createEnumeration();
+		literal.setName(name);
+		enumeration.setName(name);
+		literal.setEnum(enumeration);
+		characteristic.getValues().add(literal);
 	}
 	
 	public void saveModel() throws IOException {

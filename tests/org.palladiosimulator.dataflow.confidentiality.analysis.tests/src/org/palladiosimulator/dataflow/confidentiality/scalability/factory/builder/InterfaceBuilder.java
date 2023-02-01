@@ -7,20 +7,25 @@ import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.Parameter;
+import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
 
 public class InterfaceBuilder {
+	private Repository repository;
 	private OperationInterface operationInterface;
 	
 	
-	private InterfaceBuilder() {
+	private InterfaceBuilder(Repository repository) {
+		this.repository = repository;
 		this.operationInterface = RepositoryFactory.eINSTANCE.createOperationInterface();
 		this.operationInterface.setId(UUID.randomUUID().toString());
+		this.operationInterface.setRepository__Interface(repository);
+		this.repository.getInterfaces__Repository().add(operationInterface);
 	}
 
 	
-	public InterfaceBuilder builder() {
-		return new InterfaceBuilder();
+	public static InterfaceBuilder builder(Repository repository) {
+		return new InterfaceBuilder(repository);
 	}
 	
 	public InterfaceBuilder setName(String name) {
@@ -53,9 +58,5 @@ public class InterfaceBuilder {
 		signature.getParameters__OperationSignature().addAll(parameter);
 		signature.setReturnType__OperationSignature(returnType);
 		return this;
-	}
-	
-	public OperationInterface build() {
-		return this.operationInterface;
 	}
 }

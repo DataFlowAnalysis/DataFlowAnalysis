@@ -35,7 +35,6 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentFactory;
 import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.system.SystemFactory;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
-import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
 import com.google.inject.Injector;
@@ -154,32 +153,8 @@ public class PCMModelFactory {
 		}
 	}
 	
-	public PCMUsageFactory getUsageScenario() {
-		return new PCMUsageFactory(usageModel);
-	}
-	
-	public void addUsageScenario(UsageScenario usageScenario) {
-		usageModel.getUsageScenario_UsageModel().add(usageScenario);
-	}
-	
-	public EnumCharacteristic addEnumCharacteristic(String name) {
-		EnumCharacteristic characteristic = CharacteristicsFactory.eINSTANCE.createEnumCharacteristic();
-		EnumCharacteristicType type = DataDictionaryCharacterizedFactory.eINSTANCE.createEnumCharacteristicType();
-		Enumeration enumeration = DataDictionaryCharacterizedFactory.eINSTANCE.createEnumeration();
-		type.setName(name);
-		enumeration.setName(name);
-		type.setType(enumeration);
-		characteristic.setEntityName(name);
-		return characteristic;
-	}
-	
-	public void addEnumCharacteristic(EnumCharacteristic characteristic, String name) {
-		Literal literal = DataDictionaryCharacterizedFactory.eINSTANCE.createLiteral();
-		Enumeration enumeration = DataDictionaryCharacterizedFactory.eINSTANCE.createEnumeration();
-		literal.setName(name);
-		enumeration.setName(name);
-		literal.setEnum(enumeration);
-		characteristic.getValues().add(literal);
+	public UsageModel getUsageModel() {
+		return usageModel;
 	}
 	
 	public void saveModel() throws IOException {

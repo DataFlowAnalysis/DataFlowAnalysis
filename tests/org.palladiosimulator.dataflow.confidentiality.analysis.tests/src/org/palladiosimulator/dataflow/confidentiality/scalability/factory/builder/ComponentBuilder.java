@@ -2,6 +2,7 @@ package org.palladiosimulator.dataflow.confidentiality.scalability.factory.build
 
 import java.util.UUID;
 
+import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.ImplementationComponentType;
 import org.palladiosimulator.pcm.repository.OperationInterface;
@@ -23,6 +24,12 @@ public class ComponentBuilder {
 	
 	public static ComponentBuilder basicComponent(Repository repository) {
 		BasicComponent component = RepositoryFactory.eINSTANCE.createBasicComponent();
+		return new ComponentBuilder(component, repository);
+	}
+	
+	public static ComponentBuilder dataStore(Repository repository) {
+		OperationalDataStoreComponent component = 
+				org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.RepositoryFactory.eINSTANCE.createOperationalDataStoreComponent();
 		return new ComponentBuilder(component, repository);
 	}
 	

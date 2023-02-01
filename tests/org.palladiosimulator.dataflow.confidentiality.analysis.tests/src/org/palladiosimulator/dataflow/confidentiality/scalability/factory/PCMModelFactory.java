@@ -2,22 +2,18 @@ package org.palladiosimulator.dataflow.confidentiality.scalability.factory;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.UUID;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
+import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.AssemblyAllocationBuilder;
 import org.palladiosimulator.pcm.allocation.Allocation;
-import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.allocation.AllocationFactory;
-import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
-import org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector;
-import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.CompositeDataType;
 import org.palladiosimulator.pcm.repository.DataType;
-import org.palladiosimulator.pcm.repository.OperationInterface;
-import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
@@ -54,36 +50,13 @@ public class PCMModelFactory {
 		resource.getContents().add(usageModel);
 	}
 	
-	public void addAllocationContext(AssemblyContext assemblyContext, ResourceContainer resourceContainer) {
-		AllocationContext allocationContext = AllocationFactory.eINSTANCE.createAllocationContext();
-		allocationContext.setAllocation_AllocationContext(allocation);
-		allocationContext.setAssemblyContext_AllocationContext(assemblyContext);
-		allocationContext.setResourceContainer_AllocationContext(resourceContainer);
-	}
-	
-	public AssemblyContext addAssemblyContext(RepositoryComponent repositoryComponent) {
+	public AssemblyAllocationBuilder addAssemblyContext(String name, RepositoryComponent repositoryComponent) {
 		AssemblyContext assemblyContext = CompositionFactory.eINSTANCE.createAssemblyContext();
+		assemblyContext.setId(UUID.randomUUID().toString());
+		assemblyContext.setEntityName(name);
 		assemblyContext.setEncapsulatedComponent__AssemblyContext(repositoryComponent);
 		system.getAssemblyContexts__ComposedStructure().add(assemblyContext);
-		return assemblyContext;
-	}
-	
-	public void addSystemOperationProvidedRole(OperationInterface providedInterface, AssemblyContext assemblyContext, BasicComponent basicComponent) {
-		OperationProvidedRole providedRoleSystem = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
-		providedRoleSystem.setProvidedInterface__OperationProvidedRole(providedInterface);
-		providedRoleSystem.setProvidingEntity_ProvidedRole(system);
-		
-		OperationProvidedRole providedRoleAssembyContext = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
-		providedRoleAssembyContext.setProvidedInterface__OperationProvidedRole(providedInterface);
-		AssemblyConnector assemblyConnector = CompositionFactory.eINSTANCE.createAssemblyConnector();
-		assemblyConnector.setProvidingAssemblyContext_AssemblyConnector(assemblyContext);
-		assemblyConnector.setProvidedRole_AssemblyConnector(providedRoleAssembyContext);
-		providedRoleAssembyContext.setProvidingEntity_ProvidedRole(basicComponent);
-		
-		ProvidedDelegationConnector providedDelegationConnector = CompositionFactory.eINSTANCE.createProvidedDelegationConnector();
-		providedDelegationConnector.setInnerProvidedRole_ProvidedDelegationConnector(providedRoleAssembyContext);
-		providedDelegationConnector.setOuterProvidedRole_ProvidedDelegationConnector(providedRoleSystem);
-		providedDelegationConnector.setAssemblyContext_ProvidedDelegationConnector(assemblyContext);
+		return AssemblyAllocationBuilder.builder(system, allocation, assemblyContext);
 	}
 	
 	public ResourceContainer addResourceContainer(String name) {

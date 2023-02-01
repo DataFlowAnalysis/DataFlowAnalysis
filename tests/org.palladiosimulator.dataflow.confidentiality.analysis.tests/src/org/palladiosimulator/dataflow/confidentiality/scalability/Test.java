@@ -24,10 +24,9 @@ public class Test {
 				.addOperation("scalibilityTest")
 				.build();
 		ResourceContainer resourceContainer = model.addResourceContainer("Scaliblity Resource Container");
-		AssemblyContext assemblyContext = model.addAssemblyContext(component);
-		OperationProvidedRole role =  model.addInterfaceOperationProvidedRole(operationInterface, component);
-		model.addAllocationContext(assemblyContext, resourceContainer);
-		model.addSystemOperationProvidedRole(operationInterface, assemblyContext, component);
+		model.addAssemblyContext("ScalibiliyAssemblyContext", component)
+			.addAllocation("Scalibiliy Allocation", resourceContainer)
+			.addSystemProvidedRole("ScalilibtyProvidedRole", operationInterface);
 		System.out.println("Finished model generation");
 		try {
 			model.saveModel();

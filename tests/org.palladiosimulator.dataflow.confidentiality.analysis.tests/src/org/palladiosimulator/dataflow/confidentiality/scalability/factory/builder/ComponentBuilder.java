@@ -45,4 +45,7 @@ public class ComponentBuilder {
 		return this;
 	}
 
+	public ImplementationComponentType build() {
+		return this.component;
+	}
 }

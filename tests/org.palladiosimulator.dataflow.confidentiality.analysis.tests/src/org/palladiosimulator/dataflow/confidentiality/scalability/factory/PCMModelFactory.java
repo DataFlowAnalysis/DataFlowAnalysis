@@ -6,12 +6,6 @@ import java.util.Map;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
-import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.CharacteristicsFactory;
-import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.DataDictionaryCharacterizedFactory;
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristicType;
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Enumeration;
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.allocation.AllocationFactory;
@@ -24,8 +18,6 @@ import org.palladiosimulator.pcm.repository.CompositeDataType;
 import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
-import org.palladiosimulator.pcm.repository.OperationSignature;
-import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
@@ -36,7 +28,6 @@ import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.system.SystemFactory;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
-import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
 public class PCMModelFactory {
@@ -111,42 +102,11 @@ public class PCMModelFactory {
 		return resourceContainer;
 	}
 	
-	public BasicComponent addBasicComponent(String name) {
-		BasicComponent basicComponent = RepositoryFactory.eINSTANCE.createBasicComponent();
-		basicComponent.setEntityName(name);
-		basicComponent.setRepository__RepositoryComponent(repository);
-		repository.getComponents__Repository().add(basicComponent);
-		return basicComponent;
-	}
-	
-	public OperationInterface addInterface(String name) {
-		OperationInterface createdInterface = RepositoryFactory.eINSTANCE.createOperationInterface();
-		createdInterface.setEntityName(name);
-		createdInterface.setRepository__Interface(repository);
-		repository.getInterfaces__Repository().add(createdInterface);
-		return createdInterface;
-	}
-	
 	public DataType addDataType(String name) {
 		CompositeDataType dataType = RepositoryFactory.eINSTANCE.createCompositeDataType();
 		dataType.setRepository__DataType(repository);
 		dataType.setEntityName(name);
 		return dataType;
-	}
-	
-	public OperationSignature addOperationSigniture(String methodName, DataType returnDatatype) {
-		OperationSignature signature = RepositoryFactory.eINSTANCE.createOperationSignature();
-		signature.setEntityName(methodName);
-		signature.setReturnType__OperationSignature(returnDatatype);
-		return signature;
-	}
-	
-	public void addOperationParameter(OperationSignature signiture, Parameter parameter) {
-		signiture.getParameters__OperationSignature().add(parameter);
-	}
-	
-	public void addInterfaceSigniture(OperationInterface operationInterface, OperationSignature signature) {
-		operationInterface.getSignatures__OperationInterface().add(signature);
 	}
 	
 	public PCMSEFFFactory getSEFF() {
@@ -157,38 +117,12 @@ public class PCMModelFactory {
 		component.getServiceEffectSpecifications__BasicComponent().add(seff);
 	}
 	
-	public void setProvidedInterface(OperationInterface providedInterface, BasicComponent component) {
-		OperationProvidedRole operationProvidedRole = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
-		operationProvidedRole.setProvidedInterface__OperationProvidedRole(providedInterface);
-		component.getProvidedRoles_InterfaceProvidingEntity().add(operationProvidedRole);
+	public Repository getRepository() {
+		return repository;
 	}
 	
-	public PCMUsageFactory getUsageScenario() {
-		return new PCMUsageFactory(usageModel);
-	}
-	
-	public void addUsageScenario(UsageScenario usageScenario) {
-		usageModel.getUsageScenario_UsageModel().add(usageScenario);
-	}
-	
-	public EnumCharacteristic addEnumCharacteristic(String name) {
-		EnumCharacteristic characteristic = CharacteristicsFactory.eINSTANCE.createEnumCharacteristic();
-		EnumCharacteristicType type = DataDictionaryCharacterizedFactory.eINSTANCE.createEnumCharacteristicType();
-		Enumeration enumeration = DataDictionaryCharacterizedFactory.eINSTANCE.createEnumeration();
-		type.setName(name);
-		enumeration.setName(name);
-		type.setType(enumeration);
-		characteristic.setEntityName(name);
-		return characteristic;
-	}
-	
-	public void addEnumCharacteristic(EnumCharacteristic characteristic, String name) {
-		Literal literal = DataDictionaryCharacterizedFactory.eINSTANCE.createLiteral();
-		Enumeration enumeration = DataDictionaryCharacterizedFactory.eINSTANCE.createEnumeration();
-		literal.setName(name);
-		enumeration.setName(name);
-		literal.setEnum(enumeration);
-		characteristic.getValues().add(literal);
+	public UsageModel getUsageModel() {
+		return usageModel;
 	}
 	
 	public void saveModel() throws IOException {

@@ -66,8 +66,4 @@ public class InterfaceBuilder {
 		signature.setReturnType__OperationSignature(returnType);
 		return signature;
 	}
-	
-	public OperationInterface build() {
-		return this.operationInterface;
-	}
 }

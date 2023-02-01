@@ -24,7 +24,6 @@ import org.palladiosimulator.pcm.repository.RepositoryFactory;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentFactory;
-import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.system.SystemFactory;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
@@ -69,13 +68,6 @@ public class PCMModelFactory {
 		return assemblyContext;
 	}
 	
-	public OperationProvidedRole addInterfaceOperationProvidedRole(OperationInterface providedInterface, BasicComponent basicComponent) {
-		OperationProvidedRole operationProvidedRole = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
-		operationProvidedRole.setProvidingEntity_ProvidedRole(basicComponent);
-		operationProvidedRole.setProvidedInterface__OperationProvidedRole(providedInterface);
-		return operationProvidedRole;
-	}
-	
 	public void addSystemOperationProvidedRole(OperationInterface providedInterface, AssemblyContext assemblyContext, BasicComponent basicComponent) {
 		OperationProvidedRole providedRoleSystem = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
 		providedRoleSystem.setProvidedInterface__OperationProvidedRole(providedInterface);
@@ -107,14 +99,6 @@ public class PCMModelFactory {
 		dataType.setRepository__DataType(repository);
 		dataType.setEntityName(name);
 		return dataType;
-	}
-	
-	public PCMSEFFFactory getSEFF() {
-		return new PCMSEFFFactory(repository);
-	}
-	
-	public void addSEFF(BasicComponent component, ServiceEffectSpecification seff) {
-		component.getServiceEffectSpecifications__BasicComponent().add(seff);
 	}
 	
 	public Repository getRepository() {

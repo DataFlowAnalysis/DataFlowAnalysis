@@ -12,57 +12,30 @@ import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCha
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.expressions.Term;
 import org.palladiosimulator.pcm.parameter.ParameterFactory;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
-import org.palladiosimulator.pcm.repository.OperationProvidedRole;
-import org.palladiosimulator.pcm.repository.OperationSignature;
-import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
+import org.palladiosimulator.pcm.seff.SetVariableAction;
 
-public class UsageCallBuilder {
-	private EntryLevelSystemCall call;
+public class SEFFCharacteristicsBuilder {
+	private SetVariableAction action;
 	
-	private UsageCallBuilder(EntryLevelSystemCall call) {
-		this.call = call;
+	private SEFFCharacteristicsBuilder(SetVariableAction action) {
+		this.action = action;
+	}
+	
+	public static SEFFCharacteristicsBuilder builder(SetVariableAction action) {
+		return new SEFFCharacteristicsBuilder(action);
 	}
 
-	public static UsageCallBuilder builder(EntryLevelSystemCall call) {
-		return new UsageCallBuilder(call);
-	}
-	
-	public UsageCallBuilder setCallee(OperationProvidedRole providedRole, OperationSignature signature) {
-		this.call.setProvidedRole_EntryLevelSystemCall(providedRole);
-		this.call.setOperationSignature__EntryLevelSystemCall(signature);
-		return this;
-	}
-	
-	public UsageCallBuilder addInputCharacteristic(EnumCharacteristicType characteristicType, Optional<String> characteristicValue) {
+	public SEFFCharacteristicsBuilder addCharacteristic(EnumCharacteristicType characteristicType, Optional<String> characteristicValue) {
 		Literal literal = null;
 		if (characteristicValue.isPresent()) {
 			literal = characteristicType.getType().getLiterals().stream()
 					.filter(it -> it.getName().equalsIgnoreCase(characteristicValue.get()))
 					.findAny().orElseThrow(() -> new IllegalArgumentException("Unknown characteristic value"));
 		}
+		
 		VariableUsage usage = ParameterFactory.eINSTANCE.createVariableUsage();
 		ConfidentialityVariableCharacterisation characterisation = ConfidentialityFactory.eINSTANCE.createConfidentialityVariableCharacterisation();
-		usage.setEntryLevelSystemCall_InputParameterUsage(call);
-		characterisation.setVariableUsage_VariableCharacterisation(usage);
-		LhsEnumCharacteristicReference lhs = ExpressionFactory.eINSTANCE.createLhsEnumCharacteristicReference();
- 		lhs.setCharacteristicType(characteristicType);
-		lhs.setLiteral(literal);
-		characterisation.setLhs(lhs);
-		Term term = ExpressionsFactory.eINSTANCE.createTrue();
-		characterisation.setRhs(term);
-		return this;
-	}
-	
-	public UsageCallBuilder addOutputCharacteristic(EnumCharacteristicType characteristicType, Optional<String> characteristicValue) {
-		Literal literal = null;
-		if (characteristicValue.isPresent()) {
-			literal = characteristicType.getType().getLiterals().stream()
-					.filter(it -> it.getName().equalsIgnoreCase(characteristicValue.get()))
-					.findAny().orElseThrow(() -> new IllegalArgumentException("Unknown characteristic value"));
-		}
-		VariableUsage usage = ParameterFactory.eINSTANCE.createVariableUsage();
-		ConfidentialityVariableCharacterisation characterisation = ConfidentialityFactory.eINSTANCE.createConfidentialityVariableCharacterisation();
-		usage.setEntryLevelSystemCall_OutputParameterUsage(call);
+		usage.setSetVariableAction_VariableUsage(action);
 		characterisation.setVariableUsage_VariableCharacterisation(usage);
 		LhsEnumCharacteristicReference lhs = ExpressionFactory.eINSTANCE.createLhsEnumCharacteristicReference();
  		lhs.setCharacteristicType(characteristicType);

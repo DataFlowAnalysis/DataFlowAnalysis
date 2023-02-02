@@ -8,7 +8,6 @@ import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builde
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.InterfaceBuilder;
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.dataflow.SEFFBuilder;
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.dataflow.UsageBuilder;
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
@@ -28,7 +27,7 @@ public class Test {
 				.build();
 		ResourceContainer resourceContainer = model.addResourceContainer("Scaliblity Resource Container");
 		AssemblyAllocationBuilder assemblyAllocation = model.addAssemblyContext("ScalibiliyAssemblyContext", component)
-			.addAllocation("Scalibiliy Allocation", resourceContainer)
+			.addAllocation("Scalibiliy Allocation", resourceContainer);
 		
 		OperationProvidedRole providedRole =  assemblyAllocation.addSystemProvidedRole("ScalilibtyProvidedRole", operationInterface);
 		SEFFBuilder.builder(component, operationInterface.getSignatures__OperationInterface().get(0))
@@ -37,7 +36,7 @@ public class Test {
 		UsageBuilder.builder(model.getUsageModel())
 			.addCall("EntryLevelSystemCall")
 			.setCallee(providedRole, operationInterface.getSignatures__OperationInterface().get(0))
-			.build()
+			.buildCall()
 			.build();
 		System.out.println("Finished model generation");
 		try {

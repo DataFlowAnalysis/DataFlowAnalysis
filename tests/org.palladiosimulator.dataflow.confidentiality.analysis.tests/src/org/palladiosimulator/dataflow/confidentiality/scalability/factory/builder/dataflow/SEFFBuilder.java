@@ -47,7 +47,7 @@ public class SEFFBuilder {
 		call.setPredecessor_AbstractAction(this.lastAction);
 		this.lastAction.setSuccessor_AbstractAction(call);
 		this.lastAction = call;
-		return SEFFCallBuilder.builder(call);
+		return SEFFCallBuilder.builder(call, this);
 	}
 	
 	public void build() {

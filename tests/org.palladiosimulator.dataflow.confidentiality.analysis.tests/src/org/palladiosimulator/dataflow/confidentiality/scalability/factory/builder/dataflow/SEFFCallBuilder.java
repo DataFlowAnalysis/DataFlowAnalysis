@@ -17,14 +17,16 @@ import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
 
 public class SEFFCallBuilder {
+	private SEFFBuilder builder;
 	private ExternalCallAction call;
 	
-	private SEFFCallBuilder(ExternalCallAction call) {
+	private SEFFCallBuilder(ExternalCallAction call, SEFFBuilder builder) {
 		this.call = call;
+		this.builder = builder;
 	}
 	
-	public static SEFFCallBuilder builder(ExternalCallAction call) {
-		return new SEFFCallBuilder(call);
+	public static SEFFCallBuilder builder(ExternalCallAction call, SEFFBuilder builder) {
+		return new SEFFCallBuilder(call, builder);
 	}
 
 	public SEFFCallBuilder setCallee(OperationRequiredRole requiredRole, OperationSignature signature) {
@@ -72,5 +74,9 @@ public class SEFFCallBuilder {
 		Term term = ExpressionsFactory.eINSTANCE.createTrue();
 		characterisation.setRhs(term);
 		return this;
+	}
+	
+	public SEFFBuilder buildCall() {
+		return this.builder;
 	}
 }

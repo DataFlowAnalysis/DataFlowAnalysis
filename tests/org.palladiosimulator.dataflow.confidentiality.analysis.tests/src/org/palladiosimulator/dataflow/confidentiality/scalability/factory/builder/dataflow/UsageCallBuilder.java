@@ -74,7 +74,7 @@ public class UsageCallBuilder {
 		return this;
 	}
 	
-	public UsageBuilder build() {
+	public UsageBuilder buildCall() {
 		return this.builder;
 	}
 }

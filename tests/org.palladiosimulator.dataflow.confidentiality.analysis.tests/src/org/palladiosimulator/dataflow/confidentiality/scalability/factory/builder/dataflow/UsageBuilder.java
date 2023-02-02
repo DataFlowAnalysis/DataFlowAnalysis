@@ -50,7 +50,7 @@ public class UsageBuilder {
 		call.setPredecessor(lastAction);
 		this.lastAction.setSuccessor(call);
 		this.lastAction = call;
-		return UsageCallBuilder.builder(call);
+		return UsageCallBuilder.builder(call, this);
 	}
 	
 	public UsageBuilder addBranch(String name) {

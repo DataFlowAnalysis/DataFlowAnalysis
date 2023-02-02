@@ -41,7 +41,7 @@ public class AssemblyAllocationBuilder {
 		return this;
 	}
 	
-	public AssemblyAllocationBuilder addSystemRequiredRole(String name, OperationInterface operationInterface) {
+	public OperationRequiredRole addSystemRequiredRole(String name, OperationInterface operationInterface) {
 		OperationRequiredRole requiredRoleSystem = RepositoryFactory.eINSTANCE.createOperationRequiredRole();
 		requiredRoleSystem.setId(UUID.randomUUID().toString());
 		requiredRoleSystem.setEntityName(name);
@@ -59,10 +59,10 @@ public class AssemblyAllocationBuilder {
 		requiredDelegationConnector.setInnerRequiredRole_RequiredDelegationConnector(requiredRoleAssembyContext);
 		requiredDelegationConnector.setOuterRequiredRole_RequiredDelegationConnector(requiredRoleSystem);
 		requiredDelegationConnector.setAssemblyContext_RequiredDelegationConnector(assemblyContext);
-		return this;
+		return requiredRoleSystem;
 	}
 	
-	public AssemblyAllocationBuilder addSystemProvidedRole(String name, OperationInterface operationInterface) {
+	public OperationProvidedRole addSystemProvidedRole(String name, OperationInterface operationInterface) {
 		OperationProvidedRole providedRoleSystem = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
 		providedRoleSystem.setId(UUID.randomUUID().toString());
 		providedRoleSystem.setEntityName(name);
@@ -80,6 +80,6 @@ public class AssemblyAllocationBuilder {
 		providedDelegationConnector.setInnerProvidedRole_ProvidedDelegationConnector(providedRoleAssembyContext);
 		providedDelegationConnector.setOuterProvidedRole_ProvidedDelegationConnector(providedRoleSystem);
 		providedDelegationConnector.setAssemblyContext_ProvidedDelegationConnector(assemblyContext);
-		return this;
+		return providedRoleSystem;
 	}
 }

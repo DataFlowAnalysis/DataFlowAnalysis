@@ -82,6 +82,10 @@ public class PCMModelFactory {
 		return usageModel;
 	}
 	
+	public System getSystem() {
+		return system;
+	}
+	
 	public void saveModel() throws IOException {
 		this.resource.save(Map.of());
 	}

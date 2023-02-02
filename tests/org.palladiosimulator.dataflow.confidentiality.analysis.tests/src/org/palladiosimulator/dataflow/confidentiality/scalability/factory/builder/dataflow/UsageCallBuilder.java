@@ -17,14 +17,15 @@ import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 
 public class UsageCallBuilder {
+	private UsageBuilder builder;
 	private EntryLevelSystemCall call;
 	
-	private UsageCallBuilder(EntryLevelSystemCall call) {
+	private UsageCallBuilder(EntryLevelSystemCall call, UsageBuilder builder) {
 		this.call = call;
 	}
 
-	public static UsageCallBuilder builder(EntryLevelSystemCall call) {
-		return new UsageCallBuilder(call);
+	public static UsageCallBuilder builder(EntryLevelSystemCall call, UsageBuilder builder) {
+		return new UsageCallBuilder(call, builder);
 	}
 	
 	public UsageCallBuilder setCallee(OperationProvidedRole providedRole, OperationSignature signature) {
@@ -71,5 +72,9 @@ public class UsageCallBuilder {
 		Term term = ExpressionsFactory.eINSTANCE.createTrue();
 		characterisation.setRhs(term);
 		return this;
+	}
+	
+	public UsageBuilder build() {
+		return this.builder;
 	}
 }

@@ -3,8 +3,11 @@ package org.palladiosimulator.dataflow.confidentiality.scalability;
 import java.io.IOException;
 
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.PCMModelFactory;
+import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.AssemblyAllocationBuilder;
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.ComponentBuilder;
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.InterfaceBuilder;
+import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.dataflow.SEFFBuilder;
+import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.dataflow.UsageBuilder;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.OperationInterface;
@@ -24,9 +27,18 @@ public class Test {
 				.addOperation("scalibilityTest")
 				.build();
 		ResourceContainer resourceContainer = model.addResourceContainer("Scaliblity Resource Container");
-		model.addAssemblyContext("ScalibiliyAssemblyContext", component)
+		AssemblyAllocationBuilder assemblyAllocation = model.addAssemblyContext("ScalibiliyAssemblyContext", component)
 			.addAllocation("Scalibiliy Allocation", resourceContainer)
-			.addSystemProvidedRole("ScalilibtyProvidedRole", operationInterface);
+		
+		OperationProvidedRole providedRole =  assemblyAllocation.addSystemProvidedRole("ScalilibtyProvidedRole", operationInterface);
+		SEFFBuilder.builder(component, operationInterface.getSignatures__OperationInterface().get(0))
+			.addVariableAction("Scalibility Action")
+			.build();
+		UsageBuilder.builder(model.getUsageModel())
+			.addCall("EntryLevelSystemCall")
+			.setCallee(providedRole, operationInterface.getSignatures__OperationInterface().get(0))
+			.build()
+			.build();
 		System.out.println("Finished model generation");
 		try {
 			model.saveModel();

@@ -52,4 +52,9 @@ public class ExampleTest implements ScalibilityTest {
 		parameter.stopTiming();
 	}
 
+	@Override
+	public int getModelSize(int currentIndex) {
+		return (int) Math.pow(10, currentIndex);
+	}
+
 }

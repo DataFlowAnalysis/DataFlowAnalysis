@@ -2,6 +2,10 @@ package org.palladiosimulator.dataflow.confidentiality.scalability.factory.build
 
 import java.util.UUID;
 
+import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.CharacteristicsFactory;
+import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
+import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristicType;
+import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 import org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour;
@@ -39,6 +43,22 @@ public class UsageBuilder {
 	public UsageBuilder setName(String name) {
 		this.scenario.setEntityName(name.concat("Scenario"));
 		this.behaviour.setEntityName(name.concat("Behaviour"));
+		return this;
+	}
+	
+	public UsageBuilder addCharacteristic(EnumCharacteristicType characteristicType, String characteristicValue) {
+		Literal literal = characteristicType.getType().getLiterals().stream()
+					.filter(it -> it.getName().equalsIgnoreCase(characteristicValue))
+					.findAny().orElseThrow(() -> new IllegalArgumentException("Unknown characteristic value"));
+		EnumCharacteristic characteristic = CharacteristicsFactory.eINSTANCE.createEnumCharacteristic();
+		characteristic.setType(characteristicType);
+		characteristic.getValues().add(literal);
+		/*
+		UsageAssignee assignee = NodeCharacteristicsFactory.eINSTANCE.createUsageAssignee();
+		assignee.setUsageScenario(scenario);
+		assignee.getCharacteristics().add(characteristic);
+		assignments.getAssignees().add(assignee);
+		 */
 		return this;
 	}
 	

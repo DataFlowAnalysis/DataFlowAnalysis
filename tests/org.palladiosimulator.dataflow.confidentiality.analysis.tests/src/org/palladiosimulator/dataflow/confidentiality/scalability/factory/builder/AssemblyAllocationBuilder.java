@@ -2,6 +2,10 @@ package org.palladiosimulator.dataflow.confidentiality.scalability.factory.build
 
 import java.util.UUID;
 
+import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.CharacteristicsFactory;
+import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
+import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristicType;
+import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.allocation.AllocationFactory;
@@ -21,6 +25,9 @@ public class AssemblyAllocationBuilder {
 	private System system;
 	private Allocation allocation;
 	private AssemblyContext assemblyContext;
+	/*
+	private Assignments assignments;
+	 */
 	
 	private AssemblyAllocationBuilder(System system, Allocation allocation, AssemblyContext assemblyContext) {
 		this.system = system;
@@ -30,6 +37,22 @@ public class AssemblyAllocationBuilder {
 	
 	public static AssemblyAllocationBuilder builder(System system, Allocation allocation, AssemblyContext assemblyContext) {
 		return new AssemblyAllocationBuilder(system, allocation, assemblyContext);
+	}
+	
+	public AssemblyAllocationBuilder addCharacteristic(EnumCharacteristicType characteristicType, String characteristicValue) {
+		Literal literal = characteristicType.getType().getLiterals().stream()
+					.filter(it -> it.getName().equalsIgnoreCase(characteristicValue))
+					.findAny().orElseThrow(() -> new IllegalArgumentException("Unknown characteristic value"));
+		EnumCharacteristic characteristic = CharacteristicsFactory.eINSTANCE.createEnumCharacteristic();
+		characteristic.setType(characteristicType);
+		characteristic.getValues().add(literal);
+		/*
+		AssemblyAssignee assignee = NodeCharacteristicsFactory.eINSTANCE.createAssemblyAssignee();
+		assignee.setAssemblyContext(assemblyContext);
+		assignee.getCharacteristics().add(characteristic);
+		assignments.getAssignees().add(assignee);
+		 */
+		return this;
 	}
 	
 	public AssemblyAllocationBuilder addAllocation(String name, ResourceContainer resourceContainer) {

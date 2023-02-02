@@ -7,9 +7,13 @@ import java.util.UUID;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
+import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.CharacteristicsFactory;
+import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.DictionaryFactory;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.PCMDataDictionary;
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.AssemblyAllocationBuilder;
+import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristicType;
+import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -70,6 +74,21 @@ public class PCMModelFactory {
 		resourceContainer.setResourceEnvironment_ResourceContainer(resourceEnvironment);
 		resourceEnvironment.getResourceContainer_ResourceEnvironment().add(resourceContainer);
 		return resourceContainer;
+	}
+	
+	public void addCharacteristicResourceContainer(ResourceContainer container, EnumCharacteristicType characteristicType, String characteristicValue) {
+		Literal literal = characteristicType.getType().getLiterals().stream()
+					.filter(it -> it.getName().equalsIgnoreCase(characteristicValue))
+					.findAny().orElseThrow(() -> new IllegalArgumentException("Unknown characteristic value"));
+		EnumCharacteristic characteristic = CharacteristicsFactory.eINSTANCE.createEnumCharacteristic();
+		characteristic.setType(characteristicType);
+		characteristic.getValues().add(literal);
+		/*
+		ResourceAssignee assignee = NodeCharacteristicsFactory.eINSTANCE.createResourceAssignee();
+		assignee.setResourceContainer(container);
+		assignee.getCharacteristics().add(characteristic);
+		assignments.getAssignees().add(assignee);
+		 */
 	}
 	
 	public DataType addDataType(String name) {

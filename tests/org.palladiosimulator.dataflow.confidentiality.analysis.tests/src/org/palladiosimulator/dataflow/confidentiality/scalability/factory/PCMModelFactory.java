@@ -7,6 +7,8 @@ import java.util.UUID;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
+import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.DictionaryFactory;
+import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.PCMDataDictionary;
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.AssemblyAllocationBuilder;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationFactory;
@@ -33,6 +35,7 @@ public class PCMModelFactory {
 	private Repository repository;
 	private ResourceEnvironment resourceEnvironment;
 	private UsageModel usageModel;
+	private PCMDataDictionary dictionary;
 	
 	public PCMModelFactory(String filePath) {
 		resource = new XMLResourceImpl(URI.createFileURI(filePath));
@@ -42,12 +45,14 @@ public class PCMModelFactory {
 		repository = RepositoryFactory.eINSTANCE.createRepository();
 		resourceEnvironment = ResourceenvironmentFactory.eINSTANCE.createResourceEnvironment();
 		usageModel = UsagemodelFactory.eINSTANCE.createUsageModel();
+		dictionary = DictionaryFactory.eINSTANCE.createPCMDataDictionary();
 		
 		resource.getContents().add(system);
 		resource.getContents().add(allocation);
 		resource.getContents().add(repository);
 		resource.getContents().add(resourceEnvironment);
 		resource.getContents().add(usageModel);
+		resource.getContents().add(dictionary);
 	}
 	
 	public AssemblyAllocationBuilder addAssemblyContext(String name, RepositoryComponent repositoryComponent) {

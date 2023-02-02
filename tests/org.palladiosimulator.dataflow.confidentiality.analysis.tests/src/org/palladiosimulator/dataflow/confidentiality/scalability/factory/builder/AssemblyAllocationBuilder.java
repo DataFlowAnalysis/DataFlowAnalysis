@@ -25,6 +25,7 @@ public class AssemblyAllocationBuilder {
 	private AssemblyAllocationBuilder(System system, Allocation allocation, AssemblyContext assemblyContext) {
 		this.system = system;
 		this.allocation = allocation;
+		this.assemblyContext = assemblyContext;
 	}
 	
 	public static AssemblyAllocationBuilder builder(System system, Allocation allocation, AssemblyContext assemblyContext) {

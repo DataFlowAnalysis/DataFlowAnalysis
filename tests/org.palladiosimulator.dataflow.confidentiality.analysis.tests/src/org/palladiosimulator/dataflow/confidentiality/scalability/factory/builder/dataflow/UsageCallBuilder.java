@@ -22,6 +22,7 @@ public class UsageCallBuilder {
 	
 	private UsageCallBuilder(EntryLevelSystemCall call, UsageBuilder builder) {
 		this.call = call;
+		this.builder = builder;
 	}
 
 	public static UsageCallBuilder builder(EntryLevelSystemCall call, UsageBuilder builder) {

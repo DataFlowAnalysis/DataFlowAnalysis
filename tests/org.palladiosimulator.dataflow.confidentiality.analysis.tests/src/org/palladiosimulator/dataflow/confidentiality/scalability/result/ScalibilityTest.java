@@ -7,4 +7,3 @@ public interface ScalibilityTest {
 	int getModelSize(int currentIndex);
 	
 	String getTestName();
-}

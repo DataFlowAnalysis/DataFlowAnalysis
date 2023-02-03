@@ -1,6 +1,8 @@
 package org.palladiosimulator.dataflow.confidentiality.scalability.factory;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -32,7 +34,7 @@ import org.palladiosimulator.pcm.usagemodel.UsageModel;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
 public class PCMModelFactory {
-	private Resource resource;
+	private List<Resource> resources;
 	
 	private System system;
 	private Allocation allocation;
@@ -42,21 +44,37 @@ public class PCMModelFactory {
 	private PCMDataDictionary dictionary;
 	
 	public PCMModelFactory(String filePath) {
-		resource = new XMLResourceImpl(URI.createFileURI(filePath));
+		resources = new ArrayList<>();
 		
 		system = SystemFactory.eINSTANCE.createSystem();
-		allocation = AllocationFactory.eINSTANCE.createAllocation();
-		repository = RepositoryFactory.eINSTANCE.createRepository();
-		resourceEnvironment = ResourceenvironmentFactory.eINSTANCE.createResourceEnvironment();
-		usageModel = UsagemodelFactory.eINSTANCE.createUsageModel();
-		dictionary = DictionaryFactory.eINSTANCE.createPCMDataDictionary();
+		Resource systemResource = new XMLResourceImpl(URI.createFileURI(filePath + "/generated.system"));
+		systemResource.getContents().add(system);
+		resources.add(systemResource);
 		
-		resource.getContents().add(system);
-		resource.getContents().add(allocation);
-		resource.getContents().add(repository);
-		resource.getContents().add(resourceEnvironment);
-		resource.getContents().add(usageModel);
-		resource.getContents().add(dictionary);
+		allocation = AllocationFactory.eINSTANCE.createAllocation();
+		Resource allocationResource = new XMLResourceImpl(URI.createFileURI(filePath + "/generated.allocation"));
+		allocationResource.getContents().add(allocation);
+		resources.add(allocationResource);
+		
+		repository = RepositoryFactory.eINSTANCE.createRepository();
+		Resource repositoryResource = new XMLResourceImpl(URI.createFileURI(filePath + "/generated.repository"));
+		repositoryResource.getContents().add(repository);
+		resources.add(repositoryResource);
+		
+		resourceEnvironment = ResourceenvironmentFactory.eINSTANCE.createResourceEnvironment();
+		Resource resourceEnvironmentResource = new XMLResourceImpl(URI.createFileURI(filePath + "/generated.resourceenvironment"));
+		resourceEnvironmentResource.getContents().add(resourceEnvironment);
+		resources.add(resourceEnvironmentResource);
+		
+		usageModel = UsagemodelFactory.eINSTANCE.createUsageModel();
+		Resource usageResource = new XMLResourceImpl(URI.createFileURI(filePath + "/generated.usagemodel"));
+		usageResource.getContents().add(usageModel);
+		resources.add(usageResource);
+		
+		dictionary = DictionaryFactory.eINSTANCE.createPCMDataDictionary();
+		Resource dictionaryResource = new XMLResourceImpl(URI.createFileURI(filePath + "/generated.pddc"));
+		dictionaryResource.getContents().add(dictionary);
+		resources.add(dictionaryResource);
 	}
 	
 	public AssemblyAllocationBuilder addAssemblyContext(String name, RepositoryComponent repositoryComponent) {
@@ -111,6 +129,8 @@ public class PCMModelFactory {
 	}
 	
 	public void saveModel() throws IOException {
-		this.resource.save(Map.of());
+		for (Resource resource : this.resources) {
+			resource.save(Map.of());
+		}
 	}
 }

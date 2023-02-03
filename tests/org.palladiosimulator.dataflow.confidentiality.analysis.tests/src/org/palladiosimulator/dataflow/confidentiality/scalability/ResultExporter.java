@@ -5,7 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.StringJoiner;
 
 import org.palladiosimulator.dataflow.confidentiality.scalability.result.ScalibilityParameter;
@@ -33,6 +35,9 @@ public class ResultExporter {
 		string.add(Long.toString(parameter.getStartTime().toInstant().toEpochMilli()));
 		string.add(Long.toString(parameter.getStopTime().toInstant().toEpochMilli()));
 		
+		for(Entry<Date, String> entry : parameter.getLogEvents().entrySet()) {
+			string.add(entry.getKey().toInstant().toEpochMilli() + ":" + entry.getValue());
+		}
 		
 		try {
 			file.write(string.toString().getBytes());

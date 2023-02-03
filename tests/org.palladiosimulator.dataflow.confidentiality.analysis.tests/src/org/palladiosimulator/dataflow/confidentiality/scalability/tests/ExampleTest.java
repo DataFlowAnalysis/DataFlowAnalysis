@@ -18,11 +18,10 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 public class ExampleTest implements ScalibilityTest {
 
 	// TODO: Allow running analysis in memory instead of on file
-	// TODO: Save model correctly, currently not correctly saved. Useful for debugging
 	@Override
 	public void run(ScalibilityParameter parameter) {
 		parameter.startTiming();
-		PCMModelFactory model = new PCMModelFactory("file://example");
+		PCMModelFactory model = new PCMModelFactory("example");
 		BasicComponent component = (BasicComponent) ComponentBuilder
 				.basicComponent(model.getRepository())
 				.setName("ScalibilityComponent")
@@ -49,6 +48,11 @@ public class ExampleTest implements ScalibilityTest {
 		try {
 			model.saveModel();
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		parameter.stopTiming();

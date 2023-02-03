@@ -21,7 +21,6 @@ public class ExampleTest implements ScalibilityTest {
 	private final Logger logger = Logger.getLogger(ExampleTest.class);
 
 	// TODO: Allow running analysis in memory instead of on file
-	// TODO: Save model correctly, currently not correctly saved. Useful for debugging
 	@Override
 	public void run(ScalibilityParameter parameter) {
 		parameter.startTiming();

@@ -22,7 +22,7 @@ public class ExampleTest implements ScalibilityTest {
 	@Override
 	public void run(ScalibilityParameter parameter) {
 		parameter.startTiming();
-		PCMModelFactory model = new PCMModelFactory("file:/example");
+		PCMModelFactory model = new PCMModelFactory("file://example");
 		BasicComponent component = (BasicComponent) ComponentBuilder
 				.basicComponent(model.getRepository())
 				.setName("ScalibilityComponent")

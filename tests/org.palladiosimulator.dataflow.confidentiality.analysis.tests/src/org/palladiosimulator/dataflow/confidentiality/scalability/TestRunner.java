@@ -27,6 +27,7 @@ public class TestRunner {
 	
 	private void runTest(ScalibilityTest test) {
 		for(int i = 0; true; i++) {
+			// TODO: Build average of iterations
 			int modelSize = test.getModelSize(i);
 			logger.info("Running test with model size " + modelSize);
 			ScalibilityParameter parameter = new ScalibilityParameter(modelSize);

@@ -13,6 +13,7 @@ public class ScalibilityParameter implements Serializable {
 	private Date stopTime;
 	private Map<Date, String> logEvents;
 	private final int modelSize;
+	// TODO: Reference to test
 	
 	public ScalibilityParameter(int modelSize) {
 		this.modelSize = modelSize;

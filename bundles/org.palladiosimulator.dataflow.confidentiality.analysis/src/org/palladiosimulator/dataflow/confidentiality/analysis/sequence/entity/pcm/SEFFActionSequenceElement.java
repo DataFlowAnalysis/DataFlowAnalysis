@@ -21,7 +21,6 @@ import org.palladiosimulator.pcm.seff.BranchAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
 import org.palladiosimulator.pcm.seff.StartAction;
-import org.palladiosimulator.pcm.usagemodel.BranchTransition;
 
 public class SEFFActionSequenceElement<T extends AbstractAction> extends AbstractPCMActionSequenceElement<T> {
 	private final Logger logger = Logger.getLogger(SEFFActionSequenceElement.class);
@@ -66,11 +65,6 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
                 .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
                     .stream())
                 .toList();
-    	
-    	variableCharacterisations.stream()
-    		.map(it -> it.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage().getReferenceName())
-    		.filter(it -> this.parameter.stream().map(param->param.getParameterName()).toList().contains(it))
-    		.forEach(it -> logger.warn("Unknown reference to variable " + it + " in variable characterisation in element " + this.toString()));
     	
     	PCMDataCharacteristicsCalculator characteristicsCalculator = new PCMDataCharacteristicsCalculator(variables, nodeCharacteristics);
         variableCharacterisations.forEach(it -> characteristicsCalculator.evaluate(it));

@@ -11,6 +11,8 @@ import org.palladiosimulator.dataflow.confidentiality.scalability.result.Scalibi
 import org.palladiosimulator.dataflow.confidentiality.scalability.result.ScalibilityTest;
 
 public class TestRunner {
+	private static final int RUNS_PER_STAGE = 10;
+	
 	private final Logger logger = Logger.getLogger(TestRunner.class);
 	
 	private List<ScalibilityTest> tests;
@@ -27,17 +29,13 @@ public class TestRunner {
 	
 	private void runTest(ScalibilityTest test) {
 		for(int i = 0; true; i++) {
-			// TODO: Build average of iterations
-			int modelSize = test.getModelSize(i);
-			logger.info("Running test with model size " + modelSize);
-			ScalibilityParameter parameter = new ScalibilityParameter(modelSize);
-			test.run(parameter);
-			this.results.add(parameter);
-			saveResults();
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			for (int j = 0; j < RUNS_PER_STAGE; j++) {
+				int modelSize = test.getModelSize(i);
+				logger.info("Running test with model size " + modelSize);
+				ScalibilityParameter parameter = new ScalibilityParameter(modelSize, test.getTestName());
+				test.run(parameter);
+				this.results.add(parameter);
+				saveResults();
 			}
 		}
 	}

@@ -5,4 +5,6 @@ public interface ScalibilityTest {
 	void run(ScalibilityParameter parameter);
 	
 	int getModelSize(int currentIndex);
+	
+	String getTestName();
 }

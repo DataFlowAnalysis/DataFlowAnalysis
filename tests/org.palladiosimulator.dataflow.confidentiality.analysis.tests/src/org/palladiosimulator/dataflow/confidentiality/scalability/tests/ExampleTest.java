@@ -59,4 +59,8 @@ public class ExampleTest implements ScalibilityTest {
 		return (int) Math.pow(10, currentIndex);
 	}
 
+	@Override
+	public String getTestName() {
+		return "ExampleTest";
+	}
 }

@@ -13,11 +13,12 @@ public class ScalibilityParameter implements Serializable {
 	private Date stopTime;
 	private Map<Date, String> logEvents;
 	private final int modelSize;
-	// TODO: Reference to test
+	private final String testName;
 	
-	public ScalibilityParameter(int modelSize) {
+	public ScalibilityParameter(int modelSize, String testName) {
 		this.modelSize = modelSize;
 		this.logEvents = new HashMap<>();
+		this.testName = testName;
 	}
 	
 	public void startTiming() {
@@ -50,5 +51,9 @@ public class ScalibilityParameter implements Serializable {
 	
 	public Map<Date, String> getLogEvents() {
 		return new HashMap<>(this.logEvents);
+	}
+	
+	public String getTestName() {
+		return testName;
 	}
 }

@@ -20,7 +20,6 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 public class ExampleTest implements ScalibilityTest {
 	private final Logger logger = Logger.getLogger(ExampleTest.class);
 
-	// TODO: Allow running analysis in memory instead of on file
 	@Override
 	public void run(ScalibilityParameter parameter) {
 		parameter.startTiming();

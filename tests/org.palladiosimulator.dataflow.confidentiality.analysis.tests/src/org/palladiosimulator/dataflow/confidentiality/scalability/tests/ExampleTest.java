@@ -13,6 +13,7 @@ import org.palladiosimulator.dataflow.confidentiality.scalability.result.Scalibi
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
+import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 public class ExampleTest implements ScalibilityTest {
@@ -22,26 +23,27 @@ public class ExampleTest implements ScalibilityTest {
 	public void run(ScalibilityParameter parameter) {
 		parameter.startTiming();
 		PCMModelFactory model = new PCMModelFactory("example");
+		InterfaceBuilder operationInterfaceBuilder = InterfaceBuilder
+				.builder(model.getRepository())
+				.setName("Scalibility Interface");
+		OperationSignature signiture = operationInterfaceBuilder.addOperation("scalibilityTest");
+		OperationInterface operationInterface = operationInterfaceBuilder.build();
 		BasicComponent component = (BasicComponent) ComponentBuilder
 				.basicComponent(model.getRepository())
 				.setName("ScalibilityComponent")
-				.build();
-		OperationInterface operationInterface = InterfaceBuilder
-				.builder(model.getRepository())
-				.setName("Scalibility Interface")
-				.addOperation("scalibilityTest")
+				.provideInterface(operationInterface, "ScaliblityInterfaceProvider")
 				.build();
 		ResourceContainer resourceContainer = model.addResourceContainer("Scaliblity Resource Container");
 		AssemblyAllocationBuilder assemblyAllocation = model.addAssemblyContext("ScalibiliyAssemblyContext", component)
 			.addAllocation("Scalibiliy Allocation", resourceContainer);
 		
 		OperationProvidedRole providedRole =  assemblyAllocation.addSystemProvidedRole("ScalilibtyProvidedRole", operationInterface);
-		SEFFBuilder.builder(component, operationInterface.getSignatures__OperationInterface().get(0))
+		SEFFBuilder.builder(component, signiture)
 			.addVariableAction("Scalibility Action")
 			.build();
 		UsageBuilder.builder(model.getUsageModel())
 			.addCall("EntryLevelSystemCall")
-			.setCallee(providedRole, operationInterface.getSignatures__OperationInterface().get(0))
+			.setCallee(providedRole, signiture)
 			.buildCall()
 			.build();
 		parameter.logAction("Model generation finished");

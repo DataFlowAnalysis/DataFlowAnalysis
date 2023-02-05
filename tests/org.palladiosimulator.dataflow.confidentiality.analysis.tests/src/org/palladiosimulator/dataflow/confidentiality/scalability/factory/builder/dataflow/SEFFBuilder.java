@@ -20,6 +20,7 @@ public class SEFFBuilder {
 		this.lastAction = SeffFactory.eINSTANCE.createStartAction();
 		this.lastAction.setId(UUID.randomUUID().toString());
 		this.lastAction.setResourceDemandingBehaviour_AbstractAction(seff);
+		this.seff.getSteps_Behaviour().add(lastAction);
 	}
 	
 	public static SEFFBuilder builder(BasicComponent component, Signature signature) {
@@ -37,6 +38,7 @@ public class SEFFBuilder {
 		action.setPredecessor_AbstractAction(this.lastAction);
 		this.lastAction.setSuccessor_AbstractAction(action);
 		this.lastAction = action;
+		this.seff.getSteps_Behaviour().add(action);
 		return this;
 	}
 	
@@ -47,6 +49,7 @@ public class SEFFBuilder {
 		call.setPredecessor_AbstractAction(this.lastAction);
 		this.lastAction.setSuccessor_AbstractAction(call);
 		this.lastAction = call;
+		this.seff.getSteps_Behaviour().add(call);
 		return SEFFCallBuilder.builder(call, this);
 	}
 	
@@ -56,5 +59,6 @@ public class SEFFBuilder {
 		action.setResourceDemandingBehaviour_AbstractAction(seff);
 		action.setPredecessor_AbstractAction(this.lastAction);
 		this.lastAction.setSuccessor_AbstractAction(action);
+		this.seff.getSteps_Behaviour().add(action);
 	}
 }

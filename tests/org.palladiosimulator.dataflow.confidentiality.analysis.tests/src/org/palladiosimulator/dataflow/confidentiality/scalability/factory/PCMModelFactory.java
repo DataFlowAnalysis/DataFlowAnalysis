@@ -1,5 +1,6 @@
 package org.palladiosimulator.dataflow.confidentiality.scalability.factory;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,34 +46,35 @@ public class PCMModelFactory {
 	
 	public PCMModelFactory(String filePath) {
 		resources = new ArrayList<>();
+		File path = new File(filePath);
 		
 		system = SystemFactory.eINSTANCE.createSystem();
-		Resource systemResource = new XMLResourceImpl(URI.createFileURI(filePath + "/generated.system"));
+		Resource systemResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.system"));
 		systemResource.getContents().add(system);
 		resources.add(systemResource);
 		
 		allocation = AllocationFactory.eINSTANCE.createAllocation();
-		Resource allocationResource = new XMLResourceImpl(URI.createFileURI(filePath + "/generated.allocation"));
+		Resource allocationResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.allocation"));
 		allocationResource.getContents().add(allocation);
 		resources.add(allocationResource);
 		
 		repository = RepositoryFactory.eINSTANCE.createRepository();
-		Resource repositoryResource = new XMLResourceImpl(URI.createFileURI(filePath + "/generated.repository"));
+		Resource repositoryResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.repository"));
 		repositoryResource.getContents().add(repository);
 		resources.add(repositoryResource);
 		
 		resourceEnvironment = ResourceenvironmentFactory.eINSTANCE.createResourceEnvironment();
-		Resource resourceEnvironmentResource = new XMLResourceImpl(URI.createFileURI(filePath + "/generated.resourceenvironment"));
+		Resource resourceEnvironmentResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.resourceenvironment"));
 		resourceEnvironmentResource.getContents().add(resourceEnvironment);
 		resources.add(resourceEnvironmentResource);
 		
 		usageModel = UsagemodelFactory.eINSTANCE.createUsageModel();
-		Resource usageResource = new XMLResourceImpl(URI.createFileURI(filePath + "/generated.usagemodel"));
+		Resource usageResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.usagemodel"));
 		usageResource.getContents().add(usageModel);
 		resources.add(usageResource);
 		
 		dictionary = DictionaryFactory.eINSTANCE.createPCMDataDictionary();
-		Resource dictionaryResource = new XMLResourceImpl(URI.createFileURI(filePath + "/generated.pddc"));
+		Resource dictionaryResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.pddc"));
 		dictionaryResource.getContents().add(dictionary);
 		resources.add(dictionaryResource);
 	}

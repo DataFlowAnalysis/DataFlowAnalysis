@@ -33,31 +33,31 @@ public class InterfaceBuilder {
 		return this;
 	}
 	
-	public InterfaceBuilder addOperation(String name) {
+	public OperationSignature addOperation(String name) {
 		OperationSignature signature = RepositoryFactory.eINSTANCE.createOperationSignature();
 		signature.setId(UUID.randomUUID().toString());
 		signature.setEntityName(name);
-		signature.setInterface__OperationSignature(operationInterface);
-		return this;
+		signature.setInterface__OperationSignature(this.operationInterface);
+		return signature;
 	}
 	
-	public InterfaceBuilder addOperation(String name, List<Parameter> parameter) {
+	public OperationSignature addOperation(String name, List<Parameter> parameter) {
 		OperationSignature signature = RepositoryFactory.eINSTANCE.createOperationSignature();
 		signature.setId(UUID.randomUUID().toString());
 		signature.setEntityName(name);
 		signature.setInterface__OperationSignature(operationInterface);
 		signature.getParameters__OperationSignature().addAll(parameter);
-		return this;
+		return signature;
 	}
 	
-	public InterfaceBuilder addOperation(String name, List<Parameter> parameter, DataType returnType) {
+	public OperationSignature addOperation(String name, List<Parameter> parameter, DataType returnType) {
 		OperationSignature signature = RepositoryFactory.eINSTANCE.createOperationSignature();
 		signature.setId(UUID.randomUUID().toString());
 		signature.setEntityName(name);
 		signature.setInterface__OperationSignature(operationInterface);
 		signature.getParameters__OperationSignature().addAll(parameter);
 		signature.setReturnType__OperationSignature(returnType);
-		return this;
+		return signature;
 	}
 	
 	public OperationInterface build() {

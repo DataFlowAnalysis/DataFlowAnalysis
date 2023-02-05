@@ -62,6 +62,7 @@ public class AssemblyAllocationBuilder {
 		allocationContext.setAllocation_AllocationContext(allocation);
 		allocationContext.setAssemblyContext_AllocationContext(assemblyContext);
 		allocationContext.setResourceContainer_AllocationContext(resourceContainer);
+		this.allocation.getAllocationContexts_Allocation().add(allocationContext);
 		return this;
 	}
 	
@@ -74,15 +75,17 @@ public class AssemblyAllocationBuilder {
 		
 		OperationRequiredRole requiredRoleAssembyContext = RepositoryFactory.eINSTANCE.createOperationRequiredRole();
 		AssemblyConnector assemblyConnector = CompositionFactory.eINSTANCE.createAssemblyConnector();
-		requiredRoleAssembyContext.setRequiredInterface__OperationRequiredRole(operationInterface);
-		requiredRoleAssembyContext.setRequiringEntity_RequiredRole(assemblyContext.getEncapsulatedComponent__AssemblyContext());
 		assemblyConnector.setRequiringAssemblyContext_AssemblyConnector(assemblyContext);
 		assemblyConnector.setRequiredRole_AssemblyConnector(requiredRoleAssembyContext);
+		requiredRoleAssembyContext.setRequiredInterface__OperationRequiredRole(operationInterface);
+		requiredRoleAssembyContext.setRequiringEntity_RequiredRole(assemblyContext.getEncapsulatedComponent__AssemblyContext());
 		
 		RequiredDelegationConnector requiredDelegationConnector = CompositionFactory.eINSTANCE.createRequiredDelegationConnector();
 		requiredDelegationConnector.setInnerRequiredRole_RequiredDelegationConnector(requiredRoleAssembyContext);
 		requiredDelegationConnector.setOuterRequiredRole_RequiredDelegationConnector(requiredRoleSystem);
 		requiredDelegationConnector.setAssemblyContext_RequiredDelegationConnector(assemblyContext);
+		
+		this.system.getConnectors__ComposedStructure().add(requiredDelegationConnector);
 		return requiredRoleSystem;
 	}
 	
@@ -95,15 +98,17 @@ public class AssemblyAllocationBuilder {
 		
 		OperationProvidedRole providedRoleAssembyContext = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
 		providedRoleAssembyContext.setProvidedInterface__OperationProvidedRole(operationInterface);
+		providedRoleAssembyContext.setProvidingEntity_ProvidedRole(assemblyContext.getEncapsulatedComponent__AssemblyContext());
 		AssemblyConnector assemblyConnector = CompositionFactory.eINSTANCE.createAssemblyConnector();
 		assemblyConnector.setProvidingAssemblyContext_AssemblyConnector(assemblyContext);
 		assemblyConnector.setProvidedRole_AssemblyConnector(providedRoleAssembyContext);
-		providedRoleAssembyContext.setProvidingEntity_ProvidedRole(assemblyContext.getEncapsulatedComponent__AssemblyContext());
 		
 		ProvidedDelegationConnector providedDelegationConnector = CompositionFactory.eINSTANCE.createProvidedDelegationConnector();
 		providedDelegationConnector.setInnerProvidedRole_ProvidedDelegationConnector(providedRoleAssembyContext);
 		providedDelegationConnector.setOuterProvidedRole_ProvidedDelegationConnector(providedRoleSystem);
 		providedDelegationConnector.setAssemblyContext_ProvidedDelegationConnector(assemblyContext);
+		
+		this.system.getConnectors__ComposedStructure().add(providedDelegationConnector);
 		return providedRoleSystem;
 	}
 }

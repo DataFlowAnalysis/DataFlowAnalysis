@@ -38,9 +38,12 @@ public class ComponentBuilder {
 		return this;
 	}
 	
-	public ComponentBuilder provideInterface(OperationInterface operationInterface) {
+	public ComponentBuilder provideInterface(OperationInterface operationInterface, String name) {
 		OperationProvidedRole operationProvidedRole = RepositoryFactory.eINSTANCE.createOperationProvidedRole();
+		operationProvidedRole.setId(UUID.randomUUID().toString());
+		operationProvidedRole.setEntityName(name);
 		operationProvidedRole.setProvidedInterface__OperationProvidedRole(operationInterface);
+		operationProvidedRole.setProvidingEntity_ProvidedRole(component);
 		component.getProvidedRoles_InterfaceProvidingEntity().add(operationProvidedRole);
 		return this;
 	}

@@ -1,6 +1,8 @@
 package org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.palladiosimulator.pcm.repository.DataType;
@@ -41,12 +43,17 @@ public class InterfaceBuilder {
 		return signature;
 	}
 	
-	public OperationSignature addOperation(String name, List<Parameter> parameter) {
+	public OperationSignature addOperation(String name, Map<String, DataType> parameterData) {
 		OperationSignature signature = RepositoryFactory.eINSTANCE.createOperationSignature();
 		signature.setId(UUID.randomUUID().toString());
 		signature.setEntityName(name);
 		signature.setInterface__OperationSignature(operationInterface);
-		signature.getParameters__OperationSignature().addAll(parameter);
+		for(Entry<String, DataType> entry : parameterData.entrySet()) {
+			Parameter param =  RepositoryFactory.eINSTANCE.createParameter();
+			param.setParameterName(entry.getKey());
+			param.setDataType__Parameter(entry.getValue());
+			signature.getParameters__OperationSignature().add(param);
+		}
 		return signature;
 	}
 	

@@ -38,9 +38,11 @@ public class PCMModelFactory {
 	private List<Resource> resources;
 	
 	private System system;
+	private Resource allocationResource;
 	private Allocation allocation;
 	private Repository repository;
 	private ResourceEnvironment resourceEnvironment;
+	private Resource usageResource;
 	private UsageModel usageModel;
 	private PCMDataDictionary dictionary;
 	
@@ -54,9 +56,9 @@ public class PCMModelFactory {
 		resources.add(systemResource);
 		
 		allocation = AllocationFactory.eINSTANCE.createAllocation();
-		Resource allocationResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.allocation"));
-		allocationResource.getContents().add(allocation);
-		resources.add(allocationResource);
+		this.allocationResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.allocation"));
+		this.allocationResource.getContents().add(allocation);
+		resources.add(this.allocationResource);
 		
 		repository = RepositoryFactory.eINSTANCE.createRepository();
 		Resource repositoryResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.repository"));
@@ -69,9 +71,9 @@ public class PCMModelFactory {
 		resources.add(resourceEnvironmentResource);
 		
 		usageModel = UsagemodelFactory.eINSTANCE.createUsageModel();
-		Resource usageResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.usagemodel"));
-		usageResource.getContents().add(usageModel);
-		resources.add(usageResource);
+		this.usageResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.usagemodel"));
+		this.usageResource.getContents().add(usageModel);
+		resources.add(this.usageResource);
 		
 		dictionary = DictionaryFactory.eINSTANCE.createPCMDataDictionary();
 		Resource dictionaryResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.pddc"));
@@ -128,6 +130,18 @@ public class PCMModelFactory {
 	
 	public System getSystem() {
 		return system;
+	}
+	
+	public PCMDataDictionary getDictionary() {
+		return this.dictionary;
+	}
+	
+	public Resource getAllocationResource() {
+		return this.allocationResource;
+	}
+	
+	public Resource getUsageResource() {
+		return this.usageResource;
 	}
 	
 	public void saveModel() throws IOException {

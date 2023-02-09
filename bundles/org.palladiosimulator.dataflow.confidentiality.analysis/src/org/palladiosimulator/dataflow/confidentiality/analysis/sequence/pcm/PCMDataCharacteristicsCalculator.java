@@ -9,6 +9,7 @@ import java.util.Comparator;
 
 import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.PCMAnalysisUtils;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.ConfidentialityVariableCharacterisation;
@@ -28,6 +29,7 @@ import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
 
 public class PCMDataCharacteristicsCalculator {
+	private static final Logger logger = Logger.getLogger(PCMDataCharacteristicsCalculator.class);
     private List<DataFlowVariable> currentVariables;
 
     /**
@@ -285,5 +287,21 @@ public class PCMDataCharacteristicsCalculator {
         return this.currentVariables.stream()
         		.filter(df -> !df.variableName().equals("container"))
         		.collect(Collectors.toList());
+    }
+    
+    
+    public static void checkParameter(AbstractActionSequenceElement<?> element,
+    		List<String> parameter, List<VariableCharacterisation> variableCharacterisations) {
+    	List<String> referencedParameter =
+    			variableCharacterisations.stream()
+    			.map(it -> it.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage().getReferenceName())
+    			.toList();
+    	
+    	referencedParameter.stream()
+    	.filter(it -> !parameter.contains(it))
+    	.forEach(it -> {
+    		logger.warn("Unknown reference to variable " + it + " in variable characterisation in element " + element);
+    		logger.warn("Present variables:" + parameter + ", Referenced parameter: " + referencedParameter);
+    	});
     }
 }

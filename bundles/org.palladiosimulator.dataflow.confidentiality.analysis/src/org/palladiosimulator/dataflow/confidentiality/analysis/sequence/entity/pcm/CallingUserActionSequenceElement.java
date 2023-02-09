@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CallReturnBehavior;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
@@ -15,8 +14,6 @@ import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 
 public class CallingUserActionSequenceElement extends UserActionSequenceElement<EntryLevelSystemCall>
         implements CallReturnBehavior {
-	private final Logger logger = Logger.getLogger(CallingUserActionSequenceElement.class);
-
     private final boolean isCalling;
 
     /**
@@ -60,7 +57,11 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
                     .collect(Collectors.toList());
     	
     	if (this.isCalling()) {
-        	checkParameter(variableCharacterisations);
+        	List<String> parameter = 
+        			this.getElement().getOperationSignature__EntryLevelSystemCall().getParameters__OperationSignature().stream()
+        			.map(it -> it.getParameterName())
+        			.toList();
+        	PCMDataCharacteristicsCalculator.checkParameter(this, parameter, variableCharacterisations);
         }
     	
 
@@ -68,25 +69,6 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
         variableCharacterisations.stream()
             .forEach(it -> characteristicsCalculator.evaluate(it));
        return new CallingUserActionSequenceElement(this, characteristicsCalculator.getCalculatedCharacteristics(), nodeCharacteristics);
-    }
-    
-    private void checkParameter(List<VariableCharacterisation> variableCharacterisations) {
-    	List<String> parameter = 
-    			this.getElement().getOperationSignature__EntryLevelSystemCall().getParameters__OperationSignature().stream()
-    			.map(it -> it.getParameterName())
-    			.toList();
-    	
-    	List<String> referencedParameter =
-    			variableCharacterisations.stream()
-    			.map(it -> it.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage().getReferenceName())
-    			.toList();
-    	
-    	referencedParameter.stream()
-    	.filter(it -> !parameter.contains(it))
-    	.forEach(it -> {
-    		logger.warn("Unknown reference to variable " + it + " in variable characterisation in element " + this.toString());
-    		logger.warn("Present variables:" + parameter + ", Referenced parameter: " + referencedParameter);
-    	});
     }
 
     @Override

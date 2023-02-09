@@ -86,7 +86,6 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
     	.forEach(it -> {
     		logger.warn("Unknown reference to variable " + it + " in variable characterisation in element " + this.toString());
     		logger.warn("Present variables:" + parameter + ", Referenced parameter: " + referencedParameter);
-    		throw new IllegalStateException();
     	});
     }
 

@@ -1,11 +1,9 @@
 package org.palladiosimulator.dataflow.confidentiality.scalability.tests;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.apache.log4j.Level;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.palladiosimulator.dataflow.confidentiality.analysis.StandalonePCMDataFlowConfidentialtyAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
@@ -70,7 +68,6 @@ public class CharacteristicsPropagationTest implements ScalibilityTest {
 		StandalonePCMDataFlowConfidentialtyAnalysis analysis =
 				new StandalonePCMDataFlowConfidentialtyAnalysis("org.palladiosimulator.dataflow.confidentiality.analysis.testmodels", 
 						Activator.class, usageResource, allocationResource);
-		analysis.setLoggerLevel(Level.ERROR);
 		analysis.initalizeAnalysis();
 		parameter.logAction("InitializedAnalysis");
 		List<ActionSequence> sequences = analysis.findAllSequences();

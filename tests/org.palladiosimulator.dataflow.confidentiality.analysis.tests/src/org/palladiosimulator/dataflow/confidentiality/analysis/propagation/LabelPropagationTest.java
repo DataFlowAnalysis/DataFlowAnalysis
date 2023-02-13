@@ -1,23 +1,19 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.propagation;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
 import static org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisUtils.assertCharacteristicAbsent;
 import static org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisUtils.assertCharacteristicPresent;
 
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Stream;
 
 import org.apache.log4j.Level;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.palladiosimulator.dataflow.confidentiality.analysis.BaseTest;
 import org.palladiosimulator.dataflow.confidentiality.analysis.StandalonePCMDataFlowConfidentialtyAnalysis;
-import org.palladiosimulator.dataflow.confidentiality.analysis.testmodels.Activator;
 
 public class LabelPropagationTest extends BaseTest {
 

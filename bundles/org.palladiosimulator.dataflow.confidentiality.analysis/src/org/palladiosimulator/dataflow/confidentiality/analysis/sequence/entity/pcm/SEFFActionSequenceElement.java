@@ -21,7 +21,6 @@ import org.palladiosimulator.pcm.seff.BranchAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
 import org.palladiosimulator.pcm.seff.StartAction;
-import org.palladiosimulator.pcm.usagemodel.BranchTransition;
 
 public class SEFFActionSequenceElement<T extends AbstractAction> extends AbstractPCMActionSequenceElement<T> {
 	private final Logger logger = Logger.getLogger(SEFFActionSequenceElement.class);

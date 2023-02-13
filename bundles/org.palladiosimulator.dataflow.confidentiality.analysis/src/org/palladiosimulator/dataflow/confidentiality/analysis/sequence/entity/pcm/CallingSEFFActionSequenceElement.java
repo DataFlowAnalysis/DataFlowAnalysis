@@ -17,7 +17,6 @@ import org.palladiosimulator.pcm.seff.ExternalCallAction;
 
 public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<ExternalCallAction>
         implements CallReturnBehavior {
-
     private final boolean isCalling;
 
     /**
@@ -63,6 +62,15 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
                 .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
                         .stream())
                 .collect(Collectors.toList());
+        
+        if (this.isCalling()) {
+        	List<String> parameter = 
+        			this.getElement().getCalledService_ExternalService()
+        			.getParameters__OperationSignature().stream()
+        			.map(it -> it.getParameterName())
+        			.toList();
+        	PCMDataCharacteristicsCalculator.checkParameter(this, parameter, variableCharacterisations);
+        }
 
         PCMDataCharacteristicsCalculator characteristicsCalculator = new PCMDataCharacteristicsCalculator(newDataFlowVariables, nodeVariables);
         variableCharacterisations.stream()

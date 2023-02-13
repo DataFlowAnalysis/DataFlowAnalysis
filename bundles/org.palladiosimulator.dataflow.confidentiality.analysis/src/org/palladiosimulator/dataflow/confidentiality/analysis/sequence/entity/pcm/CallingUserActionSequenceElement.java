@@ -14,7 +14,6 @@ import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 
 public class CallingUserActionSequenceElement extends UserActionSequenceElement<EntryLevelSystemCall>
         implements CallReturnBehavior {
-
     private final boolean isCalling;
 
     /**
@@ -56,6 +55,15 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
                 .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
                         .stream())
                     .collect(Collectors.toList());
+    	
+    	if (this.isCalling()) {
+        	List<String> parameter = 
+        			this.getElement().getOperationSignature__EntryLevelSystemCall().getParameters__OperationSignature().stream()
+        			.map(it -> it.getParameterName())
+        			.toList();
+        	PCMDataCharacteristicsCalculator.checkParameter(this, parameter, variableCharacterisations);
+        }
+    	
 
         PCMDataCharacteristicsCalculator characteristicsCalculator = new PCMDataCharacteristicsCalculator(new ArrayList<>(variables), nodeCharacteristics);
         variableCharacterisations.stream()

@@ -10,6 +10,10 @@ import java.util.UUID;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
+import org.eclipse.emf.mwe.utils.StandaloneSetup;
+import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.resource.XtextResourceSet;
+import org.palladiosimulator.dataflow.confidentiality.pcm.dddsl.DDDslStandaloneSetup;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.CharacteristicsFactory;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.DictionaryFactory;
@@ -34,6 +38,8 @@ import org.palladiosimulator.pcm.system.SystemFactory;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
+import com.google.inject.Injector;
+
 public class PCMModelFactory {
 	private List<Resource> resources;
 	
@@ -46,7 +52,7 @@ public class PCMModelFactory {
 	private UsageModel usageModel;
 	private PCMDataDictionary dictionary;
 	
-	public PCMModelFactory(String filePath) {
+	public PCMModelFactory(String filePath) throws IOException {
 		resources = new ArrayList<>();
 		File path = new File(filePath);
 		
@@ -76,9 +82,13 @@ public class PCMModelFactory {
 		resources.add(this.usageResource);
 		
 		dictionary = DictionaryFactory.eINSTANCE.createPCMDataDictionary();
-		Resource dictionaryResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.pddc"));
-		dictionaryResource.getContents().add(dictionary);
-		resources.add(dictionaryResource);
+		URI uri = URI.createFileURI(path.getAbsolutePath() + "/generated.pddc");
+		new StandaloneSetup().setPlatformUri("../");
+		Injector injector = new DDDslStandaloneSetup().createInjectorAndDoEMFRegistration();
+		XtextResource resource = injector.getInstance(XtextResource.class);
+		resource.setURI(uri);
+		resource.getContents().add(dictionary);
+		resources.add(resource);
 	}
 	
 	public AssemblyAllocationBuilder addAssemblyContext(String name, RepositoryComponent repositoryComponent) {

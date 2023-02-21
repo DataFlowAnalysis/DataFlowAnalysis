@@ -2,6 +2,7 @@ package org.palladiosimulator.dataflow.confidentiality.scalability.tests;
 
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.PCMModelFactory;
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.AssemblyAllocationBuilder;
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.ComponentBuilder;
@@ -17,11 +18,18 @@ import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 public class ExampleTest implements ScalibilityTest {
+	private final Logger logger = Logger.getLogger(ExampleTest.class);
 
 	@Override
 	public void run(ScalibilityParameter parameter) {
 		parameter.startTiming();
-		PCMModelFactory model = new PCMModelFactory("example");
+		PCMModelFactory model;
+		try {
+			model = new PCMModelFactory("example");
+		} catch (IOException e) {
+			logger.error("Could not create model factory", e);
+			return;
+		}
 		InterfaceBuilder operationInterfaceBuilder = InterfaceBuilder
 				.builder(model.getRepository())
 				.setName("Scalibility Interface");

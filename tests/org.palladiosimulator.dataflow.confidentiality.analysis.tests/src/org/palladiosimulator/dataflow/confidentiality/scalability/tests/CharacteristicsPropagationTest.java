@@ -1,9 +1,12 @@
 package org.palladiosimulator.dataflow.confidentiality.scalability.tests;
 
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.palladiosimulator.dataflow.confidentiality.analysis.StandalonePCMDataFlowConfidentialtyAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
@@ -26,11 +29,18 @@ import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 public class CharacteristicsPropagationTest implements ScalibilityTest {
+	private final Logger logger = Logger.getLogger(CharacteristicsPropagationTest.class);
 
 	@Override
 	public void run(ScalibilityParameter parameter) {
 		parameter.startTiming();
-		PCMModelFactory factory = new PCMModelFactory("CharacteristicsPropagation");
+		PCMModelFactory factory;
+		try {
+			factory = new PCMModelFactory("CharacteristicsPropagation");
+		} catch (IOException e) {
+			logger.error("Unable to create model factory", e);
+			return;
+		}
 		ResourceContainer resourceContainer = factory.addResourceContainer("CharacteristicsServer");
 		DataType dataType = factory.addDataType("CharacteristicsDataType");
 		InterfaceBuilder interfaceBuilder = InterfaceBuilder.builder(factory.getRepository())
@@ -50,6 +60,7 @@ public class CharacteristicsPropagationTest implements ScalibilityTest {
 		SEFFBuilder.builder(component, operationSignature)
 			.build();
 		EnumCharacteristicType characteristic = CharacteristicBuilder.builder(factory.getDictionary())
+				.setName("CharacteristicsEnum")
 		.addCharacteristicValue("Set")
 		.addCharacteristicValue("NotSet")
 		.build();
@@ -62,12 +73,17 @@ public class CharacteristicsPropagationTest implements ScalibilityTest {
 				.buildCall();
 		}
 		builder.build();
+		try {
+			factory.saveModel();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		parameter.logAction("AnalysisExecution");
-		Resource usageResource = factory.getUsageResource();
-		Resource allocationResource = factory.getAllocationResource();
 		StandalonePCMDataFlowConfidentialtyAnalysis analysis =
 				new StandalonePCMDataFlowConfidentialtyAnalysis("org.palladiosimulator.dataflow.confidentiality.analysis.testmodels", 
-						Activator.class, usageResource, allocationResource);
+						Activator.class, 
+						Paths.get(".", "CharacteristicsPropagation/generated.usagemodel").toString(), 
+						Paths.get(".", "CharacteristicsPropagation/generated.allocation").toString());
 		analysis.initalizeAnalysis();
 		parameter.logAction("InitializedAnalysis");
 		List<ActionSequence> sequences = analysis.findAllSequences();

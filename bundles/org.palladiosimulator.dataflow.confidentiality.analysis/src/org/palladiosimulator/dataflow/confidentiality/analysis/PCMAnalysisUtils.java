@@ -26,6 +26,7 @@ public class PCMAnalysisUtils {
     
     public static void addResource(Resource resource) {
     	resourceSet.getResources().add(resource);
+    	EcoreUtil.resolveAll(resource);
     }
 
     // Partially based on Palladio's ResourceSetPartition

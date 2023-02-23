@@ -17,9 +17,14 @@ import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.DictionaryFactory;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.PCMDataDictionary;
+import org.palladiosimulator.dataflow.confidentiality.pcm.model.profile.ProfileConstants;
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.AssemblyAllocationBuilder;
+import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.node.LegacyCharacteristicBuilder;
+import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.node.NodeCharacteristicBuilder;
+import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.node.NodeCharacteristicBuilderImpl;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristicType;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
+import org.palladiosimulator.mdsdprofiles.api.ProfileAPI;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -49,7 +54,9 @@ public class PCMModelFactory {
 	private UsageModel usageModel;
 	private PCMDataDictionary dictionary;
 	
-	public PCMModelFactory(String filePath) throws IOException {
+	private NodeCharacteristicBuilder nodeCharacteristicBuilder;
+	
+	public PCMModelFactory(String filePath, boolean legacy) throws IOException {
 		resources = new ArrayList<>();
 		File path = new File(filePath);
 		
@@ -86,6 +93,16 @@ public class PCMModelFactory {
 		resource.setURI(uri);
 		resource.getContents().add(dictionary);
 		resources.add(resource);
+		
+		if(legacy) {
+			this.nodeCharacteristicBuilder = new LegacyCharacteristicBuilder();
+			// TODO: Import Profile, Currently not loaded, leads to error
+			ProfileAPI.applyProfile(usageResource, ProfileConstants.profileName);
+			ProfileAPI.applyProfile(resourceEnvironmentResource, ProfileConstants.profileName);
+			ProfileAPI.applyProfile(allocationResource, ProfileConstants.profileName);
+		} else {
+			this.nodeCharacteristicBuilder = new NodeCharacteristicBuilderImpl();
+		}
 	}
 	
 	public AssemblyAllocationBuilder addAssemblyContext(String name, RepositoryComponent repositoryComponent) {
@@ -94,7 +111,7 @@ public class PCMModelFactory {
 		assemblyContext.setEntityName(name);
 		assemblyContext.setEncapsulatedComponent__AssemblyContext(repositoryComponent);
 		system.getAssemblyContexts__ComposedStructure().add(assemblyContext);
-		return AssemblyAllocationBuilder.builder(system, allocation, assemblyContext);
+		return AssemblyAllocationBuilder.builder(system, allocation, assemblyContext, nodeCharacteristicBuilder);
 	}
 	
 	public ResourceContainer addResourceContainer(String name) {
@@ -112,12 +129,7 @@ public class PCMModelFactory {
 		EnumCharacteristic characteristic = CharacteristicsFactory.eINSTANCE.createEnumCharacteristic();
 		characteristic.setType(characteristicType);
 		characteristic.getValues().add(literal);
-		/*
-		ResourceAssignee assignee = NodeCharacteristicsFactory.eINSTANCE.createResourceAssignee();
-		assignee.setResourceContainer(container);
-		assignee.getCharacteristics().add(characteristic);
-		assignments.getAssignees().add(assignee);
-		 */
+		nodeCharacteristicBuilder.addCharacteristic(container, characteristic);
 	}
 	
 	public DataType addDataType(String name) {
@@ -145,6 +157,10 @@ public class PCMModelFactory {
 	
 	public List<Resource> getResources() {
 		return this.resources;
+	}
+	
+	public NodeCharacteristicBuilder getNodeCharacteristicBuilder() {
+		return nodeCharacteristicBuilder;
 	}
 	
 	public void saveModel() throws IOException {

@@ -25,7 +25,7 @@ public class ExampleTest implements ScalibilityTest {
 		parameter.startTiming();
 		PCMModelFactory model;
 		try {
-			model = new PCMModelFactory("example");
+			model = new PCMModelFactory("example", false);
 		} catch (IOException e) {
 			logger.error("Could not create model factory", e);
 			return;
@@ -48,7 +48,7 @@ public class ExampleTest implements ScalibilityTest {
 		SEFFBuilder.builder(component, signiture)
 			.addVariableAction("Scalibility Action")
 			.build();
-		UsageBuilder.builder(model.getUsageModel())
+		UsageBuilder.builder(model.getUsageModel(), model.getNodeCharacteristicBuilder())
 			.addCall("EntryLevelSystemCall")
 			.setCallee(providedRole, signiture)
 			.buildCall()

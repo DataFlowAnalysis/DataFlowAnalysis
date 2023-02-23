@@ -35,7 +35,7 @@ public class CharacteristicsPropagationTest implements ScalibilityTest {
 		parameter.startTiming();
 		PCMModelFactory factory;
 		try {
-			factory = new PCMModelFactory("CharacteristicsPropagation");
+			factory = new PCMModelFactory("CharacteristicsPropagation", true);
 		} catch (IOException e) {
 			logger.error("Unable to create model factory", e);
 			return;
@@ -57,13 +57,14 @@ public class CharacteristicsPropagationTest implements ScalibilityTest {
 		OperationProvidedRole providedRole = 
 				assemblyAllocation.addSystemProvidedRole("CharacteristicsProvider", operationInterface);
 		SEFFBuilder.builder(component, operationSignature)
-			.build();
+				.build();
 		EnumCharacteristicType characteristic = CharacteristicBuilder.builder(factory.getDictionary())
 				.setName("CharacteristicsEnum")
-		.addCharacteristicValue("Set")
-		.addCharacteristicValue("NotSet")
-		.build();
-		UsageBuilder builder = UsageBuilder.builder(factory.getUsageModel());
+				.addCharacteristicValue("Set")
+				.addCharacteristicValue("NotSet")
+				.build();
+		UsageBuilder builder = UsageBuilder.builder(factory.getUsageModel(), factory.getNodeCharacteristicBuilder());
+		builder.addCharacteristic(characteristic, "Set");
 		for(int i = 0; i < parameter.getModelSize(); i++) {
 			builder = builder.addCall("EntryLevelSystemCall" + i)
 				.setCallee(providedRole, operationSignature)
@@ -72,6 +73,11 @@ public class CharacteristicsPropagationTest implements ScalibilityTest {
 				.buildCall();
 		}
 		builder.build();
+		try {
+			factory.saveModel();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		parameter.logAction("AnalysisExecution");
 		StandalonePCMDataFlowConfidentialtyAnalysis analysis =
 				new StandalonePCMDataFlowConfidentialtyAnalysis("org.palladiosimulator.dataflow.confidentiality.analysis.testmodels", 

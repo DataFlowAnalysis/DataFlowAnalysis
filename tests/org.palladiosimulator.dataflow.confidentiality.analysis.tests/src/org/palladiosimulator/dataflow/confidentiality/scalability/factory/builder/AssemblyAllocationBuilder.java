@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.CharacteristicsFactory;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
+import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.node.NodeCharacteristicBuilder;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristicType;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
 import org.palladiosimulator.pcm.allocation.Allocation;
@@ -25,18 +26,22 @@ public class AssemblyAllocationBuilder {
 	private System system;
 	private Allocation allocation;
 	private AssemblyContext assemblyContext;
+	private NodeCharacteristicBuilder nodeCharacteristicBuilder;
 	/*
 	private Assignments assignments;
 	 */
 	
-	private AssemblyAllocationBuilder(System system, Allocation allocation, AssemblyContext assemblyContext) {
+	private AssemblyAllocationBuilder(System system, Allocation allocation, 
+			AssemblyContext assemblyContext, NodeCharacteristicBuilder nodeCharacteristicBuilder) {
 		this.system = system;
 		this.allocation = allocation;
 		this.assemblyContext = assemblyContext;
+		this.nodeCharacteristicBuilder = nodeCharacteristicBuilder;
 	}
 	
-	public static AssemblyAllocationBuilder builder(System system, Allocation allocation, AssemblyContext assemblyContext) {
-		return new AssemblyAllocationBuilder(system, allocation, assemblyContext);
+	public static AssemblyAllocationBuilder builder(System system, Allocation allocation, 
+			AssemblyContext assemblyContext, NodeCharacteristicBuilder nodeCharacteristicBuilder) {
+		return new AssemblyAllocationBuilder(system, allocation, assemblyContext, nodeCharacteristicBuilder);
 	}
 	
 	public AssemblyAllocationBuilder addCharacteristic(EnumCharacteristicType characteristicType, String characteristicValue) {
@@ -46,12 +51,7 @@ public class AssemblyAllocationBuilder {
 		EnumCharacteristic characteristic = CharacteristicsFactory.eINSTANCE.createEnumCharacteristic();
 		characteristic.setType(characteristicType);
 		characteristic.getValues().add(literal);
-		/*
-		AssemblyAssignee assignee = NodeCharacteristicsFactory.eINSTANCE.createAssemblyAssignee();
-		assignee.setAssemblyContext(assemblyContext);
-		assignee.getCharacteristics().add(characteristic);
-		assignments.getAssignees().add(assignee);
-		 */
+		nodeCharacteristicBuilder.addCharacteristic(assemblyContext, characteristic);
 		return this;
 	}
 	

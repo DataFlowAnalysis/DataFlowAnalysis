@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.CharacteristicsFactory;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
+import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.node.NodeCharacteristicBuilder;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristicType;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
@@ -19,9 +20,11 @@ public class UsageBuilder {
 	private UsageScenario scenario;
 	private ScenarioBehaviour behaviour;
 	private AbstractUserAction lastAction;
+	private NodeCharacteristicBuilder nodeCharacteristicBuilder;
 	
-	private UsageBuilder(UsageModel usage) {
+	private UsageBuilder(UsageModel usage, NodeCharacteristicBuilder nodeCharacteristicBuilder) {
 		this.usage = usage;
+		this.nodeCharacteristicBuilder = nodeCharacteristicBuilder;
 		this.scenario = UsagemodelFactory.eINSTANCE.createUsageScenario();
 		this.scenario.setId(UUID.randomUUID().toString());
 		this.behaviour = UsagemodelFactory.eINSTANCE.createScenarioBehaviour();
@@ -36,8 +39,8 @@ public class UsageBuilder {
 		this.behaviour.getActions_ScenarioBehaviour().add(lastAction);
 	}
 	
-	public static UsageBuilder builder(UsageModel usage) {
-		return new UsageBuilder(usage);
+	public static UsageBuilder builder(UsageModel usage, NodeCharacteristicBuilder nodeCharacteristicBuilder) {
+		return new UsageBuilder(usage, nodeCharacteristicBuilder);
 	}
 	
 	public UsageBuilder setName(String name) {
@@ -53,12 +56,7 @@ public class UsageBuilder {
 		EnumCharacteristic characteristic = CharacteristicsFactory.eINSTANCE.createEnumCharacteristic();
 		characteristic.setType(characteristicType);
 		characteristic.getValues().add(literal);
-		/*
-		UsageAssignee assignee = NodeCharacteristicsFactory.eINSTANCE.createUsageAssignee();
-		assignee.setUsageScenario(scenario);
-		assignee.getCharacteristics().add(characteristic);
-		assignments.getAssignees().add(assignee);
-		 */
+		nodeCharacteristicBuilder.addCharacteristic(scenario, characteristic);
 		return this;
 	}
 	

@@ -1,7 +1,6 @@
 package org.palladiosimulator.dataflow.confidentiality.scalability.tests;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -73,11 +72,6 @@ public class CharacteristicsPropagationTest implements ScalibilityTest {
 				.buildCall();
 		}
 		builder.build();
-		try {
-			factory.saveModel();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		parameter.logAction("AnalysisExecution");
 		StandalonePCMDataFlowConfidentialtyAnalysis analysis =
 				new StandalonePCMDataFlowConfidentialtyAnalysis("org.palladiosimulator.dataflow.confidentiality.analysis.testmodels", 

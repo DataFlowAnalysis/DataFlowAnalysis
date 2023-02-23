@@ -4,7 +4,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -13,11 +12,12 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.linking.impl.AbstractCleaningLinker;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.parser.antlr.AbstractInternalAntlrParser;
 import org.eclipse.xtext.resource.containers.ResourceSetBasedAllContainersStateProvider;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceLoader;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMURIResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.ActionSequenceFinder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
@@ -37,12 +37,8 @@ import tools.mdsd.library.standalone.initialization.log4j.Log4jInitilizationTask
 public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConfidentialityAnalysis {
     private final Logger logger = Logger.getLogger(StandalonePCMDataFlowConfidentialtyAnalysis.class);
 
-    private final Optional<URI> usageModelURI;
-    private final Optional<Resource> usageResource;
+    private PCMResourceLoader resourceLoader;
     private UsageModel usageModel;
-
-    private final Optional<URI> allocationModelURI;
-    private final Optional<Resource> allocationResource;
     private Allocation allocationModel;
 
     private List<PCMDataDictionary> dataDictionaries;
@@ -56,21 +52,15 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
         this.modelProjectName = modelProjectName;
         this.modelProjectActivator = modelProjectActivator;
 
-        this.usageModelURI = Optional.of(createRelativePluginURI(relativeUsageModelPath));
-        this.usageResource = Optional.empty();
-        this.allocationModelURI = Optional.of(createRelativePluginURI(relativeAllocationModelPath));
-        this.allocationResource = Optional.empty();
+        this.resourceLoader = new PCMURIResourceLoader(createRelativePluginURI(relativeUsageModelPath), 
+        		createRelativePluginURI(relativeAllocationModelPath));
     }
     
     public StandalonePCMDataFlowConfidentialtyAnalysis(String modelProjectName,
-            Class<? extends Plugin> modelProjectActivator, Resource usageResource, Resource allocationResource) {
+            Class<? extends Plugin> modelProjectActivator, PCMResourceLoader loader) {
     	this.modelProjectName = modelProjectName;
     	this.modelProjectActivator = modelProjectActivator;
-    	
-    	this.usageModelURI = Optional.empty();
-    	this.usageResource = Optional.of(usageResource);
-    	this.allocationModelURI = Optional.empty();
-    	this.allocationResource = Optional.of(allocationResource);
+    	this.resourceLoader = loader;
     }
 
     @Override
@@ -193,15 +183,10 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
 
     private boolean loadRequiredModels() {
         try {
-        	if (this.usageModelURI.isPresent() && this.allocationModelURI.isPresent()) {
-        		this.usageModel = (UsageModel) PCMAnalysisUtils.loadModelContent(usageModelURI.get());
-                this.allocationModel = (Allocation) PCMAnalysisUtils.loadModelContent(allocationModelURI.get());
-        	} else {
-        		PCMAnalysisUtils.addResource(this.usageResource.get());
-        		this.usageModel = (UsageModel) this.usageResource.get().getContents().get(0);
-        		PCMAnalysisUtils.addResource(this.allocationResource.get());
-        		this.allocationModel = (Allocation) this.allocationResource.get().getContents().get(0);
-        	}
+        	resourceLoader.loadRequiredResources();
+        	this.usageModel = resourceLoader.getUsageModel();
+        	this.allocationModel = resourceLoader.getAllocation();
+        
             logger.info("Successfully loaded usage model and allocation model.");
 
             PCMAnalysisUtils.resolveAllProxies();

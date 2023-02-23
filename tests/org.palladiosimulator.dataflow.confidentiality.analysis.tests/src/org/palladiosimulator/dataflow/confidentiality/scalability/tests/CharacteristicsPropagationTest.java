@@ -1,14 +1,13 @@
 package org.palladiosimulator.dataflow.confidentiality.scalability.tests;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.palladiosimulator.dataflow.confidentiality.analysis.StandalonePCMDataFlowConfidentialtyAnalysis;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceListLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.testmodels.Activator;
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.PCMModelFactory;
@@ -73,17 +72,10 @@ public class CharacteristicsPropagationTest implements ScalibilityTest {
 				.buildCall();
 		}
 		builder.build();
-		try {
-			factory.saveModel();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		parameter.logAction("AnalysisExecution");
 		StandalonePCMDataFlowConfidentialtyAnalysis analysis =
 				new StandalonePCMDataFlowConfidentialtyAnalysis("org.palladiosimulator.dataflow.confidentiality.analysis.testmodels", 
-						Activator.class, 
-						Paths.get(".", "CharacteristicsPropagation/generated.usagemodel").toString(), 
-						Paths.get(".", "CharacteristicsPropagation/generated.allocation").toString());
+						Activator.class, new PCMResourceListLoader(factory.getResources()));
 		analysis.initalizeAnalysis();
 		parameter.logAction("InitializedAnalysis");
 		List<ActionSequence> sequences = analysis.findAllSequences();

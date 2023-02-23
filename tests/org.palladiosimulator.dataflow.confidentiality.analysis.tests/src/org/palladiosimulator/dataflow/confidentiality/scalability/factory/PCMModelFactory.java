@@ -12,7 +12,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.emf.mwe.utils.StandaloneSetup;
 import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.resource.XtextResourceSet;
 import org.palladiosimulator.dataflow.confidentiality.pcm.dddsl.DDDslStandaloneSetup;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.CharacteristicsFactory;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
@@ -44,11 +43,9 @@ public class PCMModelFactory {
 	private List<Resource> resources;
 	
 	private System system;
-	private Resource allocationResource;
 	private Allocation allocation;
 	private Repository repository;
 	private ResourceEnvironment resourceEnvironment;
-	private Resource usageResource;
 	private UsageModel usageModel;
 	private PCMDataDictionary dictionary;
 	
@@ -62,9 +59,9 @@ public class PCMModelFactory {
 		resources.add(systemResource);
 		
 		allocation = AllocationFactory.eINSTANCE.createAllocation();
-		this.allocationResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.allocation"));
-		this.allocationResource.getContents().add(allocation);
-		resources.add(this.allocationResource);
+		Resource allocationResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.allocation"));
+		allocationResource.getContents().add(allocation);
+		resources.add(allocationResource);
 		
 		repository = RepositoryFactory.eINSTANCE.createRepository();
 		Resource repositoryResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.repository"));
@@ -77,9 +74,9 @@ public class PCMModelFactory {
 		resources.add(resourceEnvironmentResource);
 		
 		usageModel = UsagemodelFactory.eINSTANCE.createUsageModel();
-		this.usageResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.usagemodel"));
-		this.usageResource.getContents().add(usageModel);
-		resources.add(this.usageResource);
+		Resource usageResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.usagemodel"));
+		usageResource.getContents().add(usageModel);
+		resources.add(usageResource);
 		
 		dictionary = DictionaryFactory.eINSTANCE.createPCMDataDictionary();
 		URI uri = URI.createFileURI(path.getAbsolutePath() + "/generated.pddc");
@@ -146,12 +143,8 @@ public class PCMModelFactory {
 		return this.dictionary;
 	}
 	
-	public Resource getAllocationResource() {
-		return this.allocationResource;
-	}
-	
-	public Resource getUsageResource() {
-		return this.usageResource;
+	public List<Resource> getResources() {
+		return this.resources;
 	}
 	
 	public void saveModel() throws IOException {

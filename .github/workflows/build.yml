@@ -10,7 +10,6 @@ jobs:
       runner-label: ubuntu-latest
       no-caching: true
       java-version: 17
-      runner-label: ubuntu-latest
       deploy-updatesite: 'releng/org.palladiosimulator.dataflow.confidentiality.pcm.analysis.updatesite/target/repository'
     secrets:
       SERVER_SSH_KEY: ${{ secrets.DEPLOYMENT_SERVER_SSH_KEY }}

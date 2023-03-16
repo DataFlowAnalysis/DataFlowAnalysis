@@ -9,13 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.apache.log4j.Level;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.api.Test;
 import org.palladiosimulator.dataflow.confidentiality.analysis.StandalonePCMDataFlowConfidentialtyAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.constraint.data.ConstraintData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.constraint.data.ConstraintViolations;
@@ -117,32 +113,48 @@ public class ConstraintResultTest extends ConstraintTest {
     }
     
     /**
-     * Provides Arguments for the testConstraintResults test.
-     * @return Returns a stream of Arguments containing the test model with constraint and expected results
+     * Tests, whether the analysis correctly identifies violations for the example models
+     * <p>
+     * Fails if the analysis does not propagate the correct characteristics for each ActionSequence
      */
-    private Stream<Arguments> provideTestConstraintResults() {
-    	Predicate<AbstractActionSequenceElement<?>> travelPlannerConstraint = node -> travelPlannerCondition(node);
-    	Predicate<AbstractActionSequenceElement<?>> internationalOnlineShopConstraint = node -> internationalOnlineShopCondition(node);
-
-    	StandalonePCMDataFlowConfidentialtyAnalysis multipleResourcesTest = 
-    			super.initializeAnalysis(Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.usagemodel"), Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.allocation"));
+    @Test
+    public void travelPlannerTestConstraintResults() {
+    	travelPlannerAnalysis.setLoggerLevel(Level.TRACE);
+    	List<ActionSequence> actionSequences = travelPlannerAnalysis.findAllSequences();
+    	List<ActionSequence> evaluatedSequences = travelPlannerAnalysis.evaluateDataFlows(actionSequences);
+    	Predicate<AbstractActionSequenceElement<?>> constraint = node -> travelPlannerCondition(node);
+    	List<ConstraintData> constraintData = ConstraintViolations.travelPlannerViolations;
     	
-    	StandalonePCMDataFlowConfidentialtyAnalysis dataStoreAnalysis = 
-    			super.initializeAnalysis(Paths.get("models", "DatastoreTest", "default.usagemodel"), Paths.get("models", "DatastoreTest", "default.allocation"));
-    	Predicate<AbstractActionSequenceElement<?>> dataStoreConstraint = node -> dataStoreCondition(node);
+    	List<AbstractActionSequenceElement<?>> results = evaluatedSequences.stream()
+    			.map(it -> travelPlannerAnalysis.queryDataFlow(it, constraint))
+    			.flatMap(it -> it.stream())
+    			.collect(Collectors.toList());
     	
-    	StandalonePCMDataFlowConfidentialtyAnalysis returnAnalysis = 
-    			super.initializeAnalysis(Paths.get("models", "ReturnTestModel", "default.usagemodel"), Paths.get("models", "ReturnTestModel", "default.allocation"));
-    	Predicate<AbstractActionSequenceElement<?>> returnConstraint = node -> returnCondition(node);
+    	assertEquals(constraintData.size(), results.size(), "Incorrect count of violations found");
     	
-    	return Stream.of(
-    			Arguments.of(travelPlannerAnalysis, travelPlannerConstraint, ConstraintViolations.travelPlannerViolations),
-    			Arguments.of(internationalOnlineShopAnalysis, internationalOnlineShopConstraint, ConstraintViolations.internationalOnlineShopViolations),
-    			Arguments.of(multipleResourcesTest, internationalOnlineShopConstraint, ConstraintViolations.multipleRessourcesViolations),
-    			Arguments.of(dataStoreAnalysis, dataStoreConstraint, ConstraintViolations.dataStoreViolations),
-    			Arguments.of(returnAnalysis, returnConstraint, ConstraintViolations.returnViolations)
- 
-    	);
+    	for(ConstraintData constraintNodeData : constraintData) {
+    		var violatingNode = results.stream()
+    				.filter(it -> constraintNodeData.matches(it))
+    				.findFirst();
+    		
+    		if (violatingNode.isEmpty()) {
+    			fail("Could not find node for expected constraint violation");
+    		}
+    		
+    		List<CharacteristicValue> nodeCharacteristics = violatingNode.get().getAllNodeCharacteristics();
+    		List<DataFlowVariable> dataFlowVariables = violatingNode.get().getAllDataFlowVariables();
+    		
+    		assertEquals(constraintNodeData.nodeCharacteristicsCount(), nodeCharacteristics.size());
+    		assertEquals(constraintNodeData.dataFlowVariablesCount(), dataFlowVariables.size());
+    		
+    		for(CharacteristicValue characteristicValue : nodeCharacteristics) {
+    			assertTrue(constraintNodeData.hasNodeCharacteristic(characteristicValue));
+    		}
+    		
+    		for(DataFlowVariable dataFlowVariable : dataFlowVariables) {
+    			assertTrue(constraintNodeData.hasDataFlowVariable(dataFlowVariable));
+    		}
+    	}
     }
     
     /**
@@ -150,16 +162,157 @@ public class ConstraintResultTest extends ConstraintTest {
      * <p>
      * Fails if the analysis does not propagate the correct characteristics for each ActionSequence
      */
-    @ParameterizedTest
-    @MethodSource("provideTestConstraintResults")
-    @DisplayName("Test results of the analysis with a constraint")
-    public void testContraintResults(StandalonePCMDataFlowConfidentialtyAnalysis analysis, Predicate<AbstractActionSequenceElement<?>> constraint, List<ConstraintData> constraintData) {
+    @Test
+    public void internationalOnlineShopTestConstraintResults() {
+    	internationalOnlineShopAnalysis.setLoggerLevel(Level.TRACE);
+    	List<ActionSequence> actionSequences = internationalOnlineShopAnalysis.findAllSequences();
+    	List<ActionSequence> evaluatedSequences = internationalOnlineShopAnalysis.evaluateDataFlows(actionSequences);
+    	Predicate<AbstractActionSequenceElement<?>> constraint = node -> internationalOnlineShopCondition(node);
+    	List<ConstraintData> constraintData = ConstraintViolations.internationalOnlineShopViolations;
+    	
+    	List<AbstractActionSequenceElement<?>> results = evaluatedSequences.stream()
+    			.map(it -> internationalOnlineShopAnalysis.queryDataFlow(it, constraint))
+    			.flatMap(it -> it.stream())
+    			.collect(Collectors.toList());
+    	
+    	assertEquals(constraintData.size(), results.size(), "Incorrect count of violations found");
+    	
+    	for(ConstraintData constraintNodeData : constraintData) {
+    		var violatingNode = results.stream()
+    				.filter(it -> constraintNodeData.matches(it))
+    				.findFirst();
+    		
+    		if (violatingNode.isEmpty()) {
+    			fail("Could not find node for expected constraint violation");
+    		}
+    		
+    		List<CharacteristicValue> nodeCharacteristics = violatingNode.get().getAllNodeCharacteristics();
+    		List<DataFlowVariable> dataFlowVariables = violatingNode.get().getAllDataFlowVariables();
+    		
+    		assertEquals(constraintNodeData.nodeCharacteristicsCount(), nodeCharacteristics.size());
+    		assertEquals(constraintNodeData.dataFlowVariablesCount(), dataFlowVariables.size());
+    		
+    		for(CharacteristicValue characteristicValue : nodeCharacteristics) {
+    			assertTrue(constraintNodeData.hasNodeCharacteristic(characteristicValue));
+    		}
+    		
+    		for(DataFlowVariable dataFlowVariable : dataFlowVariables) {
+    			assertTrue(constraintNodeData.hasDataFlowVariable(dataFlowVariable));
+    		}
+    	}
+    }
+    
+    /**
+     * Tests, whether the analysis correctly identifies violations for the example models
+     * <p>
+     * Fails if the analysis does not propagate the correct characteristics for each ActionSequence
+     */
+    @Test
+    public void oneAssemblyMultipleResourceTestConstraintResults() {
+    	StandalonePCMDataFlowConfidentialtyAnalysis analysis = 
+    			super.initializeAnalysis(Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.usagemodel"), Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.allocation"));
     	analysis.setLoggerLevel(Level.TRACE);
     	List<ActionSequence> actionSequences = analysis.findAllSequences();
     	List<ActionSequence> evaluatedSequences = analysis.evaluateDataFlows(actionSequences);
+    	Predicate<AbstractActionSequenceElement<?>> constraint = node -> internationalOnlineShopCondition(node);
+    	List<ConstraintData> constraintData = ConstraintViolations.multipleRessourcesViolations;
     	
     	List<AbstractActionSequenceElement<?>> results = evaluatedSequences.stream()
     			.map(it -> analysis.queryDataFlow(it, constraint))
+    			.flatMap(it -> it.stream())
+    			.collect(Collectors.toList());
+    	
+    	assertEquals(constraintData.size(), results.size(), "Incorrect count of violations found");
+    	
+    	for(ConstraintData constraintNodeData : constraintData) {
+    		var violatingNode = results.stream()
+    				.filter(it -> constraintNodeData.matches(it))
+    				.findFirst();
+    		
+    		if (violatingNode.isEmpty()) {
+    			fail("Could not find node for expected constraint violation");
+    		}
+    		
+    		List<CharacteristicValue> nodeCharacteristics = violatingNode.get().getAllNodeCharacteristics();
+    		List<DataFlowVariable> dataFlowVariables = violatingNode.get().getAllDataFlowVariables();
+    		
+    		assertEquals(constraintNodeData.nodeCharacteristicsCount(), nodeCharacteristics.size());
+    		assertEquals(constraintNodeData.dataFlowVariablesCount(), dataFlowVariables.size());
+    		
+    		for(CharacteristicValue characteristicValue : nodeCharacteristics) {
+    			assertTrue(constraintNodeData.hasNodeCharacteristic(characteristicValue));
+    		}
+    		
+    		for(DataFlowVariable dataFlowVariable : dataFlowVariables) {
+    			assertTrue(constraintNodeData.hasDataFlowVariable(dataFlowVariable));
+    		}
+    	}
+    }
+    
+    /**
+     * Tests, whether the analysis correctly identifies violations for the example models
+     * <p>
+     * Fails if the analysis does not propagate the correct characteristics for each ActionSequence
+     */
+    @Test
+    public void dataStoreTestConstraintResults() {
+    	StandalonePCMDataFlowConfidentialtyAnalysis dataStoreAnalysis = 
+    			super.initializeAnalysis(Paths.get("models", "DatastoreTest", "default.usagemodel"), Paths.get("models", "DatastoreTest", "default.allocation"));
+    	Predicate<AbstractActionSequenceElement<?>> constraint = node -> dataStoreCondition(node);
+    	dataStoreAnalysis.setLoggerLevel(Level.TRACE);
+    	List<ActionSequence> actionSequences = dataStoreAnalysis.findAllSequences();
+    	List<ActionSequence> evaluatedSequences = dataStoreAnalysis.evaluateDataFlows(actionSequences);
+    	List<ConstraintData> constraintData = ConstraintViolations.dataStoreViolations;
+    	
+    	List<AbstractActionSequenceElement<?>> results = evaluatedSequences.stream()
+    			.map(it -> dataStoreAnalysis.queryDataFlow(it, constraint))
+    			.flatMap(it -> it.stream())
+    			.collect(Collectors.toList());
+    	
+    	assertEquals(constraintData.size(), results.size(), "Incorrect count of violations found");
+    	
+    	for(ConstraintData constraintNodeData : constraintData) {
+    		var violatingNode = results.stream()
+    				.filter(it -> constraintNodeData.matches(it))
+    				.findFirst();
+    		
+    		if (violatingNode.isEmpty()) {
+    			fail("Could not find node for expected constraint violation");
+    		}
+    		
+    		List<CharacteristicValue> nodeCharacteristics = violatingNode.get().getAllNodeCharacteristics();
+    		List<DataFlowVariable> dataFlowVariables = violatingNode.get().getAllDataFlowVariables();
+    		
+    		assertEquals(constraintNodeData.nodeCharacteristicsCount(), nodeCharacteristics.size());
+    		assertEquals(constraintNodeData.dataFlowVariablesCount(), dataFlowVariables.size());
+    		
+    		for(CharacteristicValue characteristicValue : nodeCharacteristics) {
+    			assertTrue(constraintNodeData.hasNodeCharacteristic(characteristicValue));
+    		}
+    		
+    		for(DataFlowVariable dataFlowVariable : dataFlowVariables) {
+    			assertTrue(constraintNodeData.hasDataFlowVariable(dataFlowVariable));
+    		}
+    	}
+    }
+    
+    /**
+     * Tests, whether the analysis correctly identifies violations for the example models
+     * <p>
+     * Fails if the analysis does not propagate the correct characteristics for each ActionSequence
+     */
+    @Test
+    public void returnTestConstraintResults() {
+    	StandalonePCMDataFlowConfidentialtyAnalysis returnAnalysis = 
+    			super.initializeAnalysis(Paths.get("models", "ReturnTestModel", "default.usagemodel"), Paths.get("models", "ReturnTestModel", "default.allocation"));
+    	Predicate<AbstractActionSequenceElement<?>> constraint = node -> returnCondition(node);
+    	returnAnalysis.setLoggerLevel(Level.TRACE);
+    	List<ActionSequence> actionSequences = returnAnalysis.findAllSequences();
+    	List<ActionSequence> evaluatedSequences = returnAnalysis.evaluateDataFlows(actionSequences);
+    	List<ConstraintData> constraintData = ConstraintViolations.returnViolations;
+    	
+    	List<AbstractActionSequenceElement<?>> results = evaluatedSequences.stream()
+    			.map(it -> returnAnalysis.queryDataFlow(it, constraint))
     			.flatMap(it -> it.stream())
     			.collect(Collectors.toList());
     	

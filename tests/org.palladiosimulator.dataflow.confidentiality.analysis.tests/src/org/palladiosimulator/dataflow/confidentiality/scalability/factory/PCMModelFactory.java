@@ -2,16 +2,28 @@ package org.palladiosimulator.dataflow.confidentiality.scalability.factory;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.Resource.Factory;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.emf.mwe.utils.StandaloneSetup;
 import org.eclipse.xtext.resource.XtextResource;
+import org.modelversioning.emfprofile.EMFProfileFactory;
+import org.modelversioning.emfprofile.Profile;
+import org.modelversioning.emfprofile.registry.IProfileRegistry;
+import org.modelversioning.emfprofileapplication.ProfileImport;
+import org.modelversioning.emfprofileapplication.impl.ProfileImportImpl;
+import org.palladiosimulator.dataflow.confidentiality.analysis.PCMAnalysisUtils;
+import org.palladiosimulator.dataflow.confidentiality.analysis.StandalonePCMDataFlowConfidentialtyAnalysis;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceListLoader;
+import org.palladiosimulator.dataflow.confidentiality.analysis.testmodels.Activator;
 import org.palladiosimulator.dataflow.confidentiality.pcm.dddsl.DDDslStandaloneSetup;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.CharacteristicsFactory;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
@@ -44,6 +56,11 @@ import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
 import com.google.inject.Injector;
 
+import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
+import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder;
+import tools.mdsd.library.standalone.initialization.emfprofiles.EMFProfileInitializationTask;
+import tools.mdsd.library.standalone.initialization.log4j.Log4jInitilizationTask;
+
 public class PCMModelFactory {
 	private List<Resource> resources;
 	
@@ -56,7 +73,7 @@ public class PCMModelFactory {
 	
 	private NodeCharacteristicBuilder nodeCharacteristicBuilder;
 	
-	public PCMModelFactory(String filePath, boolean legacy) throws IOException {
+	public PCMModelFactory(String filePath, boolean legacy, Class<?> activator, String modelPath) throws IOException {
 		resources = new ArrayList<>();
 		File path = new File(filePath);
 		
@@ -87,7 +104,7 @@ public class PCMModelFactory {
 		
 		dictionary = DictionaryFactory.eINSTANCE.createPCMDataDictionary();
 		URI uri = URI.createFileURI(path.getAbsolutePath() + "/generated.pddc");
-		new StandaloneSetup().setPlatformUri("../");
+		DDDslStandaloneSetup.doSetup();
 		Injector injector = new DDDslStandaloneSetup().createInjectorAndDoEMFRegistration();
 		XtextResource resource = injector.getInstance(XtextResource.class);
 		resource.setURI(uri);
@@ -97,6 +114,20 @@ public class PCMModelFactory {
 		if(legacy) {
 			this.nodeCharacteristicBuilder = new LegacyCharacteristicBuilder();
 			// TODO: Import Profile, Currently not loaded, leads to error
+			EcorePlugin.ExtensionProcessor.process(null);
+			try {
+				new Log4jInitilizationTask().initilizationWithoutPlatform();
+				StandaloneInitializerBuilder.builder()
+	                .registerProjectURI(activator, modelPath)
+	                .registerProjectURI(StandalonePCMDataFlowConfidentialtyAnalysis.class, PCMAnalysisUtils.PLUGIN_PATH)
+	                .build()
+	                .init();
+				new EMFProfileInitializationTask(PCMAnalysisUtils.EMF_PROFILE_PLUGIN, PCMAnalysisUtils.EMF_PROFILE_NAME)
+					.initilizationWithoutPlatform();
+			} catch (StandaloneInitializationException e) {
+				e.printStackTrace();
+				return;
+			}
 			ProfileAPI.applyProfile(usageResource, ProfileConstants.profileName);
 			ProfileAPI.applyProfile(resourceEnvironmentResource, ProfileConstants.profileName);
 			ProfileAPI.applyProfile(allocationResource, ProfileConstants.profileName);

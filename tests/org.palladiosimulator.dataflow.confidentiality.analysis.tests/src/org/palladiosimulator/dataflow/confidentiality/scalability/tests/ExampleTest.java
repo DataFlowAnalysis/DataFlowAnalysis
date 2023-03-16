@@ -3,6 +3,8 @@ package org.palladiosimulator.dataflow.confidentiality.scalability.tests;
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
+import org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisUtils;
+import org.palladiosimulator.dataflow.confidentiality.analysis.testmodels.Activator;
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.PCMModelFactory;
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.AssemblyAllocationBuilder;
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.ComponentBuilder;
@@ -25,7 +27,7 @@ public class ExampleTest implements ScalibilityTest {
 		parameter.startTiming();
 		PCMModelFactory model;
 		try {
-			model = new PCMModelFactory("example", false);
+			model = new PCMModelFactory("example", false, Activator.class, AnalysisUtils.TEST_MODEL_PROJECT_NAME);
 		} catch (IOException e) {
 			logger.error("Could not create model factory", e);
 			return;

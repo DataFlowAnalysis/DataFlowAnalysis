@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
+import org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisUtils;
 import org.palladiosimulator.dataflow.confidentiality.analysis.StandalonePCMDataFlowConfidentialtyAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceListLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
@@ -35,7 +36,8 @@ public class CharacteristicsPropagationTest implements ScalibilityTest {
 		parameter.startTiming();
 		PCMModelFactory factory;
 		try {
-			factory = new PCMModelFactory("CharacteristicsPropagation", true);
+			factory = new PCMModelFactory("../org.palladiosimulator.dataflow.confidentiality.analysis.testmodels/CharacteristicsPropagation", true,
+					Activator.class, AnalysisUtils.TEST_MODEL_PROJECT_NAME);
 		} catch (IOException e) {
 			logger.error("Unable to create model factory", e);
 			return;
@@ -80,7 +82,7 @@ public class CharacteristicsPropagationTest implements ScalibilityTest {
 		}
 		parameter.logAction("AnalysisExecution");
 		StandalonePCMDataFlowConfidentialtyAnalysis analysis =
-				new StandalonePCMDataFlowConfidentialtyAnalysis("org.palladiosimulator.dataflow.confidentiality.analysis.testmodels", 
+				new StandalonePCMDataFlowConfidentialtyAnalysis(AnalysisUtils.TEST_MODEL_PROJECT_NAME, 
 						Activator.class, new PCMResourceListLoader(factory.getResources()));
 		analysis.initalizeAnalysis();
 		parameter.logAction("InitializedAnalysis");

@@ -9,14 +9,19 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Factory;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.emf.mwe.utils.StandaloneSetup;
 import org.eclipse.xtext.resource.XtextResource;
 import org.modelversioning.emfprofile.EMFProfileFactory;
 import org.modelversioning.emfprofile.Profile;
+import org.modelversioning.emfprofile.registry.IProfileProvider;
 import org.modelversioning.emfprofile.registry.IProfileRegistry;
 import org.modelversioning.emfprofileapplication.ProfileImport;
 import org.modelversioning.emfprofileapplication.impl.ProfileImportImpl;
@@ -128,9 +133,13 @@ public class PCMModelFactory {
 				e.printStackTrace();
 				return;
 			}
-			ProfileAPI.applyProfile(usageResource, ProfileConstants.profileName);
-			ProfileAPI.applyProfile(resourceEnvironmentResource, ProfileConstants.profileName);
-			ProfileAPI.applyProfile(allocationResource, ProfileConstants.profileName);
+			ResourceSet resourceSet = new ResourceSetImpl();
+			URI profileURI = URI.createPlatformPluginURI(String.format("/%s/%s", PCMAnalysisUtils.EMF_PROFILE_PLUGIN, PCMAnalysisUtils.EMF_PROFILE_NAME), false);
+			Profile profile = (Profile) resourceSet.getResource(profileURI, true).getContents().get(0);
+			this.resources.add(profile.eResource());
+			ProfileAPI.applyProfile(usageResource, profile);
+			//ProfileAPI.applyProfile(resourceEnvironmentResource, profile);
+			//ProfileAPI.applyProfile(systemResource, profile);
 		} else {
 			this.nodeCharacteristicBuilder = new NodeCharacteristicBuilderImpl();
 		}

@@ -1,5 +1,7 @@
 package org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.node;
 
+import java.util.List;
+
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.profile.ProfileConstants;
 import org.palladiosimulator.mdsdprofiles.api.StereotypeAPI;
@@ -14,7 +16,7 @@ public class LegacyCharacteristicBuilder implements NodeCharacteristicBuilder {
 		if (!StereotypeAPI.isStereotypeApplied(container, ProfileConstants.characterisable.getStereotype())) {
 			StereotypeAPI.applyStereotype(container, ProfileConstants.characterisable.getStereotype());
 		}
-		StereotypeAPI.setTaggedValue(container, characteristic,
+		StereotypeAPI.setTaggedValue(container, List.of(characteristic),
 				ProfileConstants.characterisable.getStereotype(), ProfileConstants.characterisable.getValue());
 	}
 
@@ -23,7 +25,7 @@ public class LegacyCharacteristicBuilder implements NodeCharacteristicBuilder {
 		if (!StereotypeAPI.isStereotypeApplied(scenario, ProfileConstants.characterisable.getStereotype())) {
 			StereotypeAPI.applyStereotype(scenario, ProfileConstants.characterisable.getStereotype());
 		}
-		StereotypeAPI.setTaggedValue(scenario, characteristic,
+		StereotypeAPI.setTaggedValue(scenario, List.of(characteristic),
 				ProfileConstants.characterisable.getStereotype(), ProfileConstants.characterisable.getValue());
 	}
 
@@ -32,7 +34,7 @@ public class LegacyCharacteristicBuilder implements NodeCharacteristicBuilder {
 		if (!StereotypeAPI.isStereotypeApplied(assemblyContext, ProfileConstants.characterisable.getStereotype())) {
 			StereotypeAPI.applyStereotype(assemblyContext, ProfileConstants.characterisable.getStereotype());
 		}
-		StereotypeAPI.setTaggedValue(assemblyContext, characteristic,
+		StereotypeAPI.setTaggedValue(assemblyContext, List.of(characteristic),
 				ProfileConstants.characterisable.getStereotype(), ProfileConstants.characterisable.getValue());
 	}
 }

@@ -53,17 +53,17 @@ public class CharacteristicsPropagationTest implements ScalibilityTest {
 				.setName("CharacteristicsComponent")
 				.provideInterface(operationInterface, "CallProvider")
 				.build();
+		EnumCharacteristicType characteristic = CharacteristicBuilder.builder(factory.getDictionary())
+				.setName("CharacteristicsEnum")
+				.addCharacteristicValue("Set")
+				.addCharacteristicValue("NotSet")
+				.build();
 		AssemblyAllocationBuilder assemblyAllocation = 
 				factory.addAssemblyContext("CharacteristicsAssembly", component)
 				.addAllocation("CharacteristicsAllocation", resourceContainer);
 		OperationProvidedRole providedRole = 
 				assemblyAllocation.addSystemProvidedRole("CharacteristicsProvider", operationInterface);
 		SEFFBuilder.builder(component, operationSignature)
-				.build();
-		EnumCharacteristicType characteristic = CharacteristicBuilder.builder(factory.getDictionary())
-				.setName("CharacteristicsEnum")
-				.addCharacteristicValue("Set")
-				.addCharacteristicValue("NotSet")
 				.build();
 		UsageBuilder builder = UsageBuilder.builder(factory.getUsageModel(), factory.getNodeCharacteristicBuilder());
 		builder.addCharacteristic(characteristic, "Set");

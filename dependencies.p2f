@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <?p2f version='1.0.0'?>
 <p2f version='1.0.0'>
-  <ius size='70'>
+  <ius size='90'>
     <iu id='tools.mdsd.cdo.debug.feature.feature.group' name='CDO Debug Utils' version='0.1.0.202202282207'>
       <repositories size='1'>
         <repository location='https://updatesite.mdsd.tools/eclipseaddon-cdodebugutils/nightly/'/>
@@ -44,7 +44,12 @@
         <repository location='https://updatesite.palladio-simulator.com/palladio-addons-dataflowconfidentiality-metamodel/nightly/'/>
       </repositories>
     </iu>
-    <iu id='org.palladiosimulator.simulation.abstractsimengine.desmoj.feature.feature.group' name='DesmoJ Simulation Engine Feature' version='5.1.0.202212190146'>
+    <iu id='org.palladiosimulator.simulation.abstractsimengine.desmoj.feature.feature.group' name='DesmoJ Simulation Engine Feature' version='5.1.0.202212230147'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.simulation.abstractsimengine.desmoj.feature.source.feature.group' name='DesmoJ Simulation Engine Feature Developer Resources' version='5.1.0.202212230147'>
       <repositories size='1'>
         <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
       </repositories>
@@ -90,7 +95,12 @@
         <repository location='https://download.eclipse.org/releases/latest'/>
       </repositories>
     </iu>
-    <iu id='org.palladiosimulator.pcm.edp2.measuringpoint.feature.feature.group' name='EDP2 Measuring Points for the PCM' version='5.1.0.202212190152'>
+    <iu id='org.palladiosimulator.pcm.edp2.measuringpoint.feature.feature.group' name='EDP2 Measuring Points for the PCM' version='5.1.0.202212230152'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.pcm.edp2.measuringpoint.feature.source.feature.group' name='EDP2 Measuring Points for the PCM Developer Resources' version='5.1.0.202212230152'>
       <repositories size='1'>
         <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
       </repositories>
@@ -157,12 +167,22 @@
         <repository location='https://download.eclipse.org/releases/latest'/>
       </repositories>
     </iu>
-    <iu id='org.palladiosimulator.indirections.editor.sirius.feature.feature.group' name='Indirections Sirius Editor Feature' version='5.1.0.202212190319'>
+    <iu id='org.palladiosimulator.indirections.editor.sirius.feature.feature.group' name='Indirections Sirius Editor Feature' version='5.1.0.202212230331'>
       <repositories size='1'>
         <repository location='https://updatesite.palladio-simulator.com/palladio-addons-indirections/nightly'/>
       </repositories>
     </iu>
-    <iu id='org.palladiosimulator.indirections.editor.tree.feature.feature.group' name='Indirections Tree Editor Feature' version='5.1.0.202212190319'>
+    <iu id='org.palladiosimulator.indirections.editor.sirius.feature.source.feature.group' name='Indirections Sirius Editor Feature Developer Resources' version='5.1.0.202212230331'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-addons-indirections/nightly'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.indirections.editor.tree.feature.feature.group' name='Indirections Tree Editor Feature' version='5.1.0.202212230331'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-addons-indirections/nightly'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.indirections.editor.tree.feature.source.feature.group' name='Indirections Tree Editor Feature Developer Resources' version='5.1.0.202212230331'>
       <repositories size='1'>
         <repository location='https://updatesite.palladio-simulator.com/palladio-addons-indirections/nightly'/>
       </repositories>
@@ -249,53 +269,103 @@
         <repository location='https://updatesite.mdsd.tools/library-standaloneinitialization/nightly/'/>
       </repositories>
     </iu>
+    <iu id='tools.mdsd.library.standalone.initialization.ocl.feature.source.feature.group' name='OCL Standalone Initialization Feature Developer Resources' version='0.3.0.202208121609'>
+      <repositories size='1'>
+        <repository location='https://updatesite.mdsd.tools/library-standaloneinitialization/nightly/'/>
+      </repositories>
+    </iu>
     <iu id='org.eclipse.oomph.setup.feature.group' name='Oomph Setup' version='1.27.0.v20221125-1553'>
       <repositories size='2'>
         <repository location='https://download.eclipse.org/releases/2022-12/'/>
         <repository location='https://download.eclipse.org/releases/latest'/>
       </repositories>
     </iu>
-    <iu id='org.palladiosimulator.pcm.feature.feature.group' name='Palladio Component Model' version='5.1.0.202212190152'>
+    <iu id='org.palladiosimulator.pcm.feature.feature.group' name='Palladio Component Model' version='5.1.0.202212230152'>
       <repositories size='1'>
         <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
       </repositories>
     </iu>
-    <iu id='org.palladiosimulator.solver.feature.feature.group' name='Palladio Component Model - Analyzer: Analytical Solver' version='5.1.0.202212190203'>
+    <iu id='org.palladiosimulator.solver.feature.feature.group' name='Palladio Component Model - Analyzer: Analytical Solver' version='5.1.0.202212230203'>
       <repositories size='1'>
         <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
       </repositories>
     </iu>
-    <iu id='org.palladiosimulator.protocom.javaee.feature.feature.group' name='Palladio Component Model - Analyzer: ProtoCom for Java EE' version='5.1.0.202212190218'>
+    <iu id='org.palladiosimulator.solver.feature.source.feature.group' name='Palladio Component Model - Analyzer: Analytical Solver Developer Resources' version='5.1.0.202212230203'>
       <repositories size='1'>
         <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
       </repositories>
     </iu>
-    <iu id='org.palladiosimulator.protocom.feature.feature.group' name='Palladio Component Model - Analyzer: ProtoCom for Java SE' version='5.1.0.202212190218'>
+    <iu id='org.palladiosimulator.protocom.javaee.feature.feature.group' name='Palladio Component Model - Analyzer: ProtoCom for Java EE' version='5.1.0.202212230219'>
       <repositories size='1'>
         <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
       </repositories>
     </iu>
-    <iu id='org.palladiosimulator.reliability.feature.feature.group' name='Palladio Component Model - Analyzer: Reliability' version='5.1.0.202212190206'>
+    <iu id='org.palladiosimulator.protocom.javaee.feature.source.feature.group' name='Palladio Component Model - Analyzer: ProtoCom for Java EE Developer Resources' version='5.1.0.202212230219'>
       <repositories size='1'>
         <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
       </repositories>
     </iu>
-    <iu id='org.palladiosimulator.editors.commons.feature.feature.group' name='Palladio Component Model - Commons for Editor Development' version='5.1.0.202212190156'>
+    <iu id='org.palladiosimulator.protocom.feature.feature.group' name='Palladio Component Model - Analyzer: ProtoCom for Java SE' version='5.1.0.202212230219'>
       <repositories size='1'>
         <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
       </repositories>
     </iu>
-    <iu id='org.palladiosimulator.editors.sirius.feature.feature.group' name='Palladio Component Model - Sirius Editors' version='5.1.0.202212190314'>
+    <iu id='org.palladiosimulator.protocom.feature.source.feature.group' name='Palladio Component Model - Analyzer: ProtoCom for Java SE Developer Resources' version='5.1.0.202212230219'>
       <repositories size='1'>
         <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
       </repositories>
     </iu>
-    <iu id='org.palladiosimulator.editors.tree.feature.feature.group' name='Palladio Component Model - Tree Editors' version='5.1.0.202212190208'>
+    <iu id='org.palladiosimulator.reliability.feature.feature.group' name='Palladio Component Model - Analyzer: Reliability' version='5.1.0.202212230208'>
       <repositories size='1'>
         <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
       </repositories>
     </iu>
-    <iu id='de.uka.ipd.sdq.dsexplore.feature.feature.group' name='Palladio DSE (PerOpteryx)' version='5.1.0.202212190218'>
+    <iu id='org.palladiosimulator.reliability.feature.source.feature.group' name='Palladio Component Model - Analyzer: Reliability Developer Resources' version='5.1.0.202212230208'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.editors.commons.feature.feature.group' name='Palladio Component Model - Commons for Editor Development' version='5.1.0.202212230156'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.editors.commons.feature.source.feature.group' name='Palladio Component Model - Commons for Editor Development Developer Resources' version='5.1.0.202212230156'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.pcm.feature.source.feature.group' name='Palladio Component Model Developer Resources' version='5.1.0.202212230152'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.editors.sirius.feature.feature.group' name='Palladio Component Model - Sirius Editors' version='5.1.0.202212230326'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.editors.sirius.feature.source.feature.group' name='Palladio Component Model - Sirius Editors Developer Resources' version='5.1.0.202212230326'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.editors.tree.feature.feature.group' name='Palladio Component Model - Tree Editors' version='5.1.0.202212230206'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.editors.tree.feature.source.feature.group' name='Palladio Component Model - Tree Editors Developer Resources' version='5.1.0.202212230206'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='de.uka.ipd.sdq.dsexplore.feature.feature.group' name='Palladio DSE (PerOpteryx)' version='5.1.0.202212230218'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='de.uka.ipd.sdq.dsexplore.feature.source.feature.group' name='Palladio DSE (PerOpteryx) Developer Resources' version='5.1.0.202212230218'>
       <repositories size='1'>
         <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
       </repositories>
@@ -325,12 +395,22 @@
         <repository location='https://updatesite.palladio-simulator.com/palladio-addons-dataflowconfidentiality-metamodel/nightly/'/>
       </repositories>
     </iu>
-    <iu id='org.palladiosimulator.indirections.model.feature.feature.group' name='PCM Indirections Model' version='5.1.0.202212190319'>
+    <iu id='org.palladiosimulator.indirections.model.feature.feature.group' name='PCM Indirections Model' version='5.1.0.202212230331'>
       <repositories size='1'>
         <repository location='https://updatesite.palladio-simulator.com/palladio-addons-indirections/nightly'/>
       </repositories>
     </iu>
-    <iu id='org.palladiosimulator.simulation.abstractsimengine.ssj.feature.feature.group' name='SSJ Simulation Engine Feature' version='5.1.0.202212190146'>
+    <iu id='org.palladiosimulator.indirections.model.feature.source.feature.group' name='PCM Indirections Model Developer Resources' version='5.1.0.202212230331'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-addons-indirections/nightly'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.simulation.abstractsimengine.ssj.feature.feature.group' name='SSJ Simulation Engine Feature' version='5.1.0.202212230147'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.simulation.abstractsimengine.ssj.feature.source.feature.group' name='SSJ Simulation Engine Feature Developer Resources' version='5.1.0.202212230147'>
       <repositories size='1'>
         <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
       </repositories>
@@ -340,12 +420,27 @@
         <repository location='https://updatesite.mdsd.tools/library-standaloneinitialization/nightly/'/>
       </repositories>
     </iu>
+    <iu id='tools.mdsd.library.standalone.initialization.core.feature.source.feature.group' name='Standalone Initialization Core Feature Developer Resources' version='0.3.0.202208121609'>
+      <repositories size='1'>
+        <repository location='https://updatesite.mdsd.tools/library-standaloneinitialization/nightly/'/>
+      </repositories>
+    </iu>
     <iu id='tools.mdsd.library.standalone.initialization.emfprofiles.feature.feature.group' name='Standalone Initialization EMFProfiles' version='0.3.0.202208121609'>
       <repositories size='1'>
         <repository location='https://updatesite.mdsd.tools/library-standaloneinitialization/nightly/'/>
       </repositories>
     </iu>
+    <iu id='tools.mdsd.library.standalone.initialization.emfprofiles.feature.source.feature.group' name='Standalone Initialization EMFProfiles Developer Resources' version='0.3.0.202208121609'>
+      <repositories size='1'>
+        <repository location='https://updatesite.mdsd.tools/library-standaloneinitialization/nightly/'/>
+      </repositories>
+    </iu>
     <iu id='tools.mdsd.library.standalone.initialization.log4j.feature.feature.group' name='Standalone Initialization Log4j' version='0.3.0.202208121609'>
+      <repositories size='1'>
+        <repository location='https://updatesite.mdsd.tools/library-standaloneinitialization/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='tools.mdsd.library.standalone.initialization.log4j.feature.source.feature.group' name='Standalone Initialization Log4j Developer Resources' version='0.3.0.202208121609'>
       <repositories size='1'>
         <repository location='https://updatesite.mdsd.tools/library-standaloneinitialization/nightly/'/>
       </repositories>
@@ -392,6 +487,13 @@
         <repository location='https://download.eclipse.org/releases/2020-09'/>
         <repository location='http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/'/>
         <repository location='http://download.eclipse.org/modeling/m2t/xpand/updates/releases/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.xtext.sdk.feature.group' name='Xtext Complete SDK' version='2.29.0.v20221121-1054'>
+      <repositories size='3'>
+        <repository location='https://download.eclipse.org/releases/2022-12/'/>
+        <repository location='http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/'/>
+        <repository location='https://download.eclipse.org/releases/latest'/>
       </repositories>
     </iu>
   </ius>

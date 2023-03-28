@@ -2,48 +2,28 @@ package org.palladiosimulator.dataflow.confidentiality.scalability.factory;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.Resource.Factory;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
-import org.eclipse.emf.mwe.utils.StandaloneSetup;
 import org.eclipse.xtext.resource.XtextResource;
-import org.modelversioning.emfprofile.EMFProfileFactory;
-import org.modelversioning.emfprofile.Profile;
-import org.modelversioning.emfprofile.registry.IProfileProvider;
-import org.modelversioning.emfprofile.registry.IProfileRegistry;
-import org.modelversioning.emfprofileapplication.ProfileImport;
-import org.modelversioning.emfprofileapplication.impl.ProfileImportImpl;
-import org.palladiosimulator.dataflow.confidentiality.analysis.PCMAnalysisUtils;
-import org.palladiosimulator.dataflow.confidentiality.analysis.StandalonePCMDataFlowConfidentialtyAnalysis;
-import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceListLoader;
-import org.palladiosimulator.dataflow.confidentiality.analysis.testmodels.Activator;
 import org.palladiosimulator.dataflow.confidentiality.pcm.dddsl.DDDslStandaloneSetup;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.CharacteristicsFactory;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.DictionaryFactory;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.PCMDataDictionary;
-import org.palladiosimulator.dataflow.confidentiality.pcm.model.profile.ProfileConstants;
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.AssemblyAllocationBuilder;
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.node.LegacyCharacteristicBuilder;
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.node.NodeCharacteristicBuilder;
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.builder.node.NodeCharacteristicBuilderImpl;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristicType;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
-import org.palladiosimulator.mdsdprofiles.api.ProfileAPI;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationFactory;
+import org.palladiosimulator.pcm.allocation.util.AllocationResourceImpl;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.CompositionFactory;
 import org.palladiosimulator.pcm.repository.CompositeDataType;
@@ -51,20 +31,19 @@ import org.palladiosimulator.pcm.repository.DataType;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.RepositoryFactory;
+import org.palladiosimulator.pcm.repository.util.RepositoryResourceImpl;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentFactory;
+import org.palladiosimulator.pcm.resourceenvironment.util.ResourceenvironmentResourceImpl;
 import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.system.SystemFactory;
+import org.palladiosimulator.pcm.system.util.SystemResourceImpl;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
+import org.palladiosimulator.pcm.usagemodel.util.UsagemodelResourceImpl;
 
 import com.google.inject.Injector;
-
-import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
-import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder;
-import tools.mdsd.library.standalone.initialization.emfprofiles.EMFProfileInitializationTask;
-import tools.mdsd.library.standalone.initialization.log4j.Log4jInitilizationTask;
 
 public class PCMModelFactory {
 	private List<Resource> resources;
@@ -83,27 +62,27 @@ public class PCMModelFactory {
 		File path = new File(filePath);
 		
 		system = SystemFactory.eINSTANCE.createSystem();
-		Resource systemResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.system"));
+		Resource systemResource = new SystemResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.system"));
 		systemResource.getContents().add(system);
 		resources.add(systemResource);
 		
 		allocation = AllocationFactory.eINSTANCE.createAllocation();
-		Resource allocationResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.allocation"));
+		Resource allocationResource = new AllocationResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.allocation"));
 		allocationResource.getContents().add(allocation);
 		resources.add(allocationResource);
 		
 		repository = RepositoryFactory.eINSTANCE.createRepository();
-		Resource repositoryResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.repository"));
+		Resource repositoryResource = new RepositoryResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.repository"));
 		repositoryResource.getContents().add(repository);
 		resources.add(repositoryResource);
 		
 		resourceEnvironment = ResourceenvironmentFactory.eINSTANCE.createResourceEnvironment();
-		Resource resourceEnvironmentResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.resourceenvironment"));
+		Resource resourceEnvironmentResource = new ResourceenvironmentResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.resourceenvironment"));
 		resourceEnvironmentResource.getContents().add(resourceEnvironment);
 		resources.add(resourceEnvironmentResource);
 		
 		usageModel = UsagemodelFactory.eINSTANCE.createUsageModel();
-		Resource usageResource = new XMLResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.usagemodel"));
+		Resource usageResource = new UsagemodelResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.usagemodel"));
 		usageResource.getContents().add(usageModel);
 		resources.add(usageResource);
 		
@@ -117,32 +96,11 @@ public class PCMModelFactory {
 		resources.add(resource);
 		
 		if(legacy) {
-			this.nodeCharacteristicBuilder = new LegacyCharacteristicBuilder();
-			// TODO: Import Profile, Currently not loaded, leads to error
-			EcorePlugin.ExtensionProcessor.process(null);
-			try {
-				new Log4jInitilizationTask().initilizationWithoutPlatform();
-				StandaloneInitializerBuilder.builder()
-	                .registerProjectURI(activator, modelPath)
-	                .registerProjectURI(StandalonePCMDataFlowConfidentialtyAnalysis.class, PCMAnalysisUtils.PLUGIN_PATH)
-	                .build()
-	                .init();
-				new EMFProfileInitializationTask(PCMAnalysisUtils.EMF_PROFILE_PLUGIN, PCMAnalysisUtils.EMF_PROFILE_NAME)
-					.initilizationWithoutPlatform();
-			} catch (StandaloneInitializationException e) {
-				e.printStackTrace();
-				return;
-			}
-			ResourceSet resourceSet = new ResourceSetImpl();
-			URI profileURI = URI.createPlatformPluginURI(String.format("/%s/%s", PCMAnalysisUtils.EMF_PROFILE_PLUGIN, PCMAnalysisUtils.EMF_PROFILE_NAME), false);
-			Profile profile = (Profile) resourceSet.getResource(profileURI, true).getContents().get(0);
-			this.resources.add(profile.eResource());
-			ProfileAPI.applyProfile(usageResource, profile);
-			//ProfileAPI.applyProfile(resourceEnvironmentResource, profile);
-			//ProfileAPI.applyProfile(systemResource, profile);
+			this.nodeCharacteristicBuilder = new LegacyCharacteristicBuilder(activator, modelPath, usageResource, resourceEnvironmentResource, systemResource);
 		} else {
 			this.nodeCharacteristicBuilder = new NodeCharacteristicBuilderImpl();
 		}
+		this.nodeCharacteristicBuilder.setup();
 	}
 	
 	public AssemblyAllocationBuilder addAssemblyContext(String name, RepositoryComponent repositoryComponent) {
@@ -204,6 +162,7 @@ public class PCMModelFactory {
 	}
 	
 	public void saveModel() throws IOException {
+		this.nodeCharacteristicBuilder.save();
 		for (Resource resource : this.resources) {
 			resource.save(Map.of());
 		}

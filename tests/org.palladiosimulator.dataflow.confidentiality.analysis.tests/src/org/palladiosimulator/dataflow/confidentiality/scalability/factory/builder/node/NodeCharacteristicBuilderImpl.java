@@ -6,6 +6,16 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 public class NodeCharacteristicBuilderImpl implements NodeCharacteristicBuilder {
+	
+	@Override
+	public void setup() {
+		
+	}
+	
+	@Override
+	public void save() {
+		
+	}
 
 	@Override
 	public void addCharacteristic(ResourceContainer container, EnumCharacteristic characteristic) {

@@ -120,41 +120,9 @@ public class ConstraintResultTest extends ConstraintTest {
     @Test
     public void travelPlannerTestConstraintResults() {
     	travelPlannerAnalysis.setLoggerLevel(Level.TRACE);
-    	List<ActionSequence> actionSequences = travelPlannerAnalysis.findAllSequences();
-    	List<ActionSequence> evaluatedSequences = travelPlannerAnalysis.evaluateDataFlows(actionSequences);
     	Predicate<AbstractActionSequenceElement<?>> constraint = node -> travelPlannerCondition(node);
     	List<ConstraintData> constraintData = ConstraintViolations.travelPlannerViolations;
-    	
-    	List<AbstractActionSequenceElement<?>> results = evaluatedSequences.stream()
-    			.map(it -> travelPlannerAnalysis.queryDataFlow(it, constraint))
-    			.flatMap(it -> it.stream())
-    			.collect(Collectors.toList());
-    	
-    	assertEquals(constraintData.size(), results.size(), "Incorrect count of violations found");
-    	
-    	for(ConstraintData constraintNodeData : constraintData) {
-    		var violatingNode = results.stream()
-    				.filter(it -> constraintNodeData.matches(it))
-    				.findFirst();
-    		
-    		if (violatingNode.isEmpty()) {
-    			fail("Could not find node for expected constraint violation");
-    		}
-    		
-    		List<CharacteristicValue> nodeCharacteristics = violatingNode.get().getAllNodeCharacteristics();
-    		List<DataFlowVariable> dataFlowVariables = violatingNode.get().getAllDataFlowVariables();
-    		
-    		assertEquals(constraintNodeData.nodeCharacteristicsCount(), nodeCharacteristics.size());
-    		assertEquals(constraintNodeData.dataFlowVariablesCount(), dataFlowVariables.size());
-    		
-    		for(CharacteristicValue characteristicValue : nodeCharacteristics) {
-    			assertTrue(constraintNodeData.hasNodeCharacteristic(characteristicValue));
-    		}
-    		
-    		for(DataFlowVariable dataFlowVariable : dataFlowVariables) {
-    			assertTrue(constraintNodeData.hasDataFlowVariable(dataFlowVariable));
-    		}
-    	}
+    	testAnalysis(travelPlannerAnalysis, constraint, constraintData);
     }
     
     /**
@@ -165,41 +133,9 @@ public class ConstraintResultTest extends ConstraintTest {
     @Test
     public void internationalOnlineShopTestConstraintResults() {
     	internationalOnlineShopAnalysis.setLoggerLevel(Level.TRACE);
-    	List<ActionSequence> actionSequences = internationalOnlineShopAnalysis.findAllSequences();
-    	List<ActionSequence> evaluatedSequences = internationalOnlineShopAnalysis.evaluateDataFlows(actionSequences);
     	Predicate<AbstractActionSequenceElement<?>> constraint = node -> internationalOnlineShopCondition(node);
     	List<ConstraintData> constraintData = ConstraintViolations.internationalOnlineShopViolations;
-    	
-    	List<AbstractActionSequenceElement<?>> results = evaluatedSequences.stream()
-    			.map(it -> internationalOnlineShopAnalysis.queryDataFlow(it, constraint))
-    			.flatMap(it -> it.stream())
-    			.collect(Collectors.toList());
-    	
-    	assertEquals(constraintData.size(), results.size(), "Incorrect count of violations found");
-    	
-    	for(ConstraintData constraintNodeData : constraintData) {
-    		var violatingNode = results.stream()
-    				.filter(it -> constraintNodeData.matches(it))
-    				.findFirst();
-    		
-    		if (violatingNode.isEmpty()) {
-    			fail("Could not find node for expected constraint violation");
-    		}
-    		
-    		List<CharacteristicValue> nodeCharacteristics = violatingNode.get().getAllNodeCharacteristics();
-    		List<DataFlowVariable> dataFlowVariables = violatingNode.get().getAllDataFlowVariables();
-    		
-    		assertEquals(constraintNodeData.nodeCharacteristicsCount(), nodeCharacteristics.size());
-    		assertEquals(constraintNodeData.dataFlowVariablesCount(), dataFlowVariables.size());
-    		
-    		for(CharacteristicValue characteristicValue : nodeCharacteristics) {
-    			assertTrue(constraintNodeData.hasNodeCharacteristic(characteristicValue));
-    		}
-    		
-    		for(DataFlowVariable dataFlowVariable : dataFlowVariables) {
-    			assertTrue(constraintNodeData.hasDataFlowVariable(dataFlowVariable));
-    		}
-    	}
+    	testAnalysis(internationalOnlineShopAnalysis, constraint, constraintData);
     }
     
     /**
@@ -212,41 +148,9 @@ public class ConstraintResultTest extends ConstraintTest {
     	StandalonePCMDataFlowConfidentialtyAnalysis analysis = 
     			super.initializeAnalysis(Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.usagemodel"), Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.allocation"));
     	analysis.setLoggerLevel(Level.TRACE);
-    	List<ActionSequence> actionSequences = analysis.findAllSequences();
-    	List<ActionSequence> evaluatedSequences = analysis.evaluateDataFlows(actionSequences);
     	Predicate<AbstractActionSequenceElement<?>> constraint = node -> internationalOnlineShopCondition(node);
     	List<ConstraintData> constraintData = ConstraintViolations.multipleRessourcesViolations;
-    	
-    	List<AbstractActionSequenceElement<?>> results = evaluatedSequences.stream()
-    			.map(it -> analysis.queryDataFlow(it, constraint))
-    			.flatMap(it -> it.stream())
-    			.collect(Collectors.toList());
-    	
-    	assertEquals(constraintData.size(), results.size(), "Incorrect count of violations found");
-    	
-    	for(ConstraintData constraintNodeData : constraintData) {
-    		var violatingNode = results.stream()
-    				.filter(it -> constraintNodeData.matches(it))
-    				.findFirst();
-    		
-    		if (violatingNode.isEmpty()) {
-    			fail("Could not find node for expected constraint violation");
-    		}
-    		
-    		List<CharacteristicValue> nodeCharacteristics = violatingNode.get().getAllNodeCharacteristics();
-    		List<DataFlowVariable> dataFlowVariables = violatingNode.get().getAllDataFlowVariables();
-    		
-    		assertEquals(constraintNodeData.nodeCharacteristicsCount(), nodeCharacteristics.size());
-    		assertEquals(constraintNodeData.dataFlowVariablesCount(), dataFlowVariables.size());
-    		
-    		for(CharacteristicValue characteristicValue : nodeCharacteristics) {
-    			assertTrue(constraintNodeData.hasNodeCharacteristic(characteristicValue));
-    		}
-    		
-    		for(DataFlowVariable dataFlowVariable : dataFlowVariables) {
-    			assertTrue(constraintNodeData.hasDataFlowVariable(dataFlowVariable));
-    		}
-    	}
+    	testAnalysis(analysis, constraint, constraintData);
     }
     
     /**
@@ -260,40 +164,8 @@ public class ConstraintResultTest extends ConstraintTest {
     			super.initializeAnalysis(Paths.get("models", "DatastoreTest", "default.usagemodel"), Paths.get("models", "DatastoreTest", "default.allocation"));
     	Predicate<AbstractActionSequenceElement<?>> constraint = node -> dataStoreCondition(node);
     	dataStoreAnalysis.setLoggerLevel(Level.TRACE);
-    	List<ActionSequence> actionSequences = dataStoreAnalysis.findAllSequences();
-    	List<ActionSequence> evaluatedSequences = dataStoreAnalysis.evaluateDataFlows(actionSequences);
     	List<ConstraintData> constraintData = ConstraintViolations.dataStoreViolations;
-    	
-    	List<AbstractActionSequenceElement<?>> results = evaluatedSequences.stream()
-    			.map(it -> dataStoreAnalysis.queryDataFlow(it, constraint))
-    			.flatMap(it -> it.stream())
-    			.collect(Collectors.toList());
-    	
-    	assertEquals(constraintData.size(), results.size(), "Incorrect count of violations found");
-    	
-    	for(ConstraintData constraintNodeData : constraintData) {
-    		var violatingNode = results.stream()
-    				.filter(it -> constraintNodeData.matches(it))
-    				.findFirst();
-    		
-    		if (violatingNode.isEmpty()) {
-    			fail("Could not find node for expected constraint violation");
-    		}
-    		
-    		List<CharacteristicValue> nodeCharacteristics = violatingNode.get().getAllNodeCharacteristics();
-    		List<DataFlowVariable> dataFlowVariables = violatingNode.get().getAllDataFlowVariables();
-    		
-    		assertEquals(constraintNodeData.nodeCharacteristicsCount(), nodeCharacteristics.size());
-    		assertEquals(constraintNodeData.dataFlowVariablesCount(), dataFlowVariables.size());
-    		
-    		for(CharacteristicValue characteristicValue : nodeCharacteristics) {
-    			assertTrue(constraintNodeData.hasNodeCharacteristic(characteristicValue));
-    		}
-    		
-    		for(DataFlowVariable dataFlowVariable : dataFlowVariables) {
-    			assertTrue(constraintNodeData.hasDataFlowVariable(dataFlowVariable));
-    		}
-    	}
+    	testAnalysis(dataStoreAnalysis, constraint, constraintData);
     }
     
     /**
@@ -307,12 +179,15 @@ public class ConstraintResultTest extends ConstraintTest {
     			super.initializeAnalysis(Paths.get("models", "ReturnTestModel", "default.usagemodel"), Paths.get("models", "ReturnTestModel", "default.allocation"));
     	Predicate<AbstractActionSequenceElement<?>> constraint = node -> returnCondition(node);
     	returnAnalysis.setLoggerLevel(Level.TRACE);
-    	List<ActionSequence> actionSequences = returnAnalysis.findAllSequences();
-    	List<ActionSequence> evaluatedSequences = returnAnalysis.evaluateDataFlows(actionSequences);
     	List<ConstraintData> constraintData = ConstraintViolations.returnViolations;
-    	
+    	testAnalysis(returnAnalysis, constraint, constraintData);
+    }
+    
+    public void testAnalysis(StandalonePCMDataFlowConfidentialtyAnalysis analysis, Predicate<AbstractActionSequenceElement<?>> constraint, List<ConstraintData> constraintData) {
+    	List<ActionSequence> actionSequences = analysis.findAllSequences();
+    	List<ActionSequence> evaluatedSequences = analysis.evaluateDataFlows(actionSequences);
     	List<AbstractActionSequenceElement<?>> results = evaluatedSequences.stream()
-    			.map(it -> returnAnalysis.queryDataFlow(it, constraint))
+    			.map(it -> analysis.queryDataFlow(it, constraint))
     			.flatMap(it -> it.stream())
     			.collect(Collectors.toList());
     	

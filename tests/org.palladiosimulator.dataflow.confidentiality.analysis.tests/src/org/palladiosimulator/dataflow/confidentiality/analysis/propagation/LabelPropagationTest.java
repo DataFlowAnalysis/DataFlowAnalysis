@@ -4,16 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisUtils.assertCharacteristicAbsent;
 import static org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisUtils.assertCharacteristicPresent;
 
-import java.util.List;
-import java.util.stream.Stream;
-
 import org.apache.log4j.Level;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.api.Test;
 import org.palladiosimulator.dataflow.confidentiality.analysis.BaseTest;
-import org.palladiosimulator.dataflow.confidentiality.analysis.StandalonePCMDataFlowConfidentialtyAnalysis;
 
 public class LabelPropagationTest extends BaseTest {
 
@@ -22,73 +15,112 @@ public class LabelPropagationTest extends BaseTest {
      * <p>
      * Fails if the analysis does not propagate the correct characteristics to each ActionSequence
      */
-    @ParameterizedTest
-    @DisplayName("Sequence elements should have correct characteristics present")
-    @MethodSource("characteristicsPresentProvider")
-    public void characteristicsPresentTest(StandalonePCMDataFlowConfidentialtyAnalysis analysis, List<CharacteristicsData> characteristicsData) {
-    	analysis.setLoggerLevel(Level.TRACE);
-        var sequences = analysis.findAllSequences();
-        var propagationResult = analysis.evaluateDataFlows(sequences);
+	@Test
+	public void travelPlannerCharacteristicsPresentTest() {
+		travelPlannerAnalysis.setLoggerLevel(Level.TRACE);
+        var sequences = travelPlannerAnalysis.findAllSequences();
+        var propagationResult = travelPlannerAnalysis.evaluateDataFlows(sequences);
 
-        for (CharacteristicsData characteristicData : characteristicsData) {
+        for (CharacteristicsData characteristicData : LabelPropagationCharacteristics.travelPlannerCharacteristics) {
             assertTrue(propagationResult.size() >= characteristicData.getSequenceIndex());
 
             assertCharacteristicPresent(propagationResult.get(characteristicData.getSequenceIndex()),
                     characteristicData.getElementIndex(), characteristicData.getVariable(),
                     characteristicData.getCharacteristicType(), characteristicData.getCharacteristicValue());
         }
-    }
-
-    /**
-     * Provides test data to the {@code characteristicsPresentTest} Test class.
+	}
+	
+	/**
+     * Tests the present characteristics of the found action sequences
      * <p>
-     * Each invocation contains the index into the list of sequences and a map which maps a index
-     * into the action sequence to the expected characteristic
-     * 
-     * @return Returns a stream of test data used for each invocation
+     * Fails if the analysis does not propagate the correct characteristics to each ActionSequence
      */
-    private Stream<Arguments> characteristicsPresentProvider() {
-        return Stream.of(
-                Arguments.of(travelPlannerAnalysis, LabelPropagationCharacteristics.travelPlannerCharacteristics),
-                Arguments.of(onlineShopAnalysis, LabelPropagationCharacteristics.onlineShopCharacteristics),
-                Arguments.of(internationalOnlineShopAnalysis,
-                        LabelPropagationCharacteristics.internationalOnlineShopCharacteristics));
-    }
+	@Test
+	public void internationalOnlineShopCharacteristicsPresentTest() {
+		internationalOnlineShopAnalysis.setLoggerLevel(Level.TRACE);
+        var sequences = internationalOnlineShopAnalysis.findAllSequences();
+        var propagationResult = internationalOnlineShopAnalysis.evaluateDataFlows(sequences);
 
-    /**
+        for (CharacteristicsData characteristicData : LabelPropagationCharacteristics.internationalOnlineShopCharacteristics) {
+            assertTrue(propagationResult.size() >= characteristicData.getSequenceIndex());
+
+            assertCharacteristicPresent(propagationResult.get(characteristicData.getSequenceIndex()),
+                    characteristicData.getElementIndex(), characteristicData.getVariable(),
+                    characteristicData.getCharacteristicType(), characteristicData.getCharacteristicValue());
+        }
+	}
+	
+	/**
+     * Tests the present characteristics of the found action sequences
+     * <p>
+     * Fails if the analysis does not propagate the correct characteristics to each ActionSequence
+     */
+	@Test
+	public void onlineShopCharacteristicsPresentTest() {
+		onlineShopAnalysis.setLoggerLevel(Level.TRACE);
+        var sequences = onlineShopAnalysis.findAllSequences();
+        var propagationResult = onlineShopAnalysis.evaluateDataFlows(sequences);
+
+        for (CharacteristicsData characteristicData : LabelPropagationCharacteristics.onlineShopCharacteristics) {
+            assertTrue(propagationResult.size() >= characteristicData.getSequenceIndex());
+
+            assertCharacteristicPresent(propagationResult.get(characteristicData.getSequenceIndex()),
+                    characteristicData.getElementIndex(), characteristicData.getVariable(),
+                    characteristicData.getCharacteristicType(), characteristicData.getCharacteristicValue());
+        }
+	}
+	
+	 /**
      * Tests the present or absent characteristics of the found action sequences
      * <p>
      * Fails if the analysis does not propagate the correct characteristics to each ActionSequence
      */
-    @ParameterizedTest(name = "{index}. {3}.{4}.{5} absent at index {2} in action sequence")
-    @DisplayName("Sequence elements should have correct characteristics absent")
-    @MethodSource("characteristicsAbsentProvider")
-    public void characteristicsAbsentTest(StandalonePCMDataFlowConfidentialtyAnalysis analysis, int sequenceIndex,
-            int elementIndex, String variable, String characteristicType, String characteristicValue) {
-        var sequences = analysis.findAllSequences();
-        var propagationResult = analysis.evaluateDataFlows(sequences);
+	@Test
+	public void travelPlannerCharacteristicsAbsentTest() {
+		var sequences = travelPlannerAnalysis.findAllSequences();
+        var propagationResult = travelPlannerAnalysis.evaluateDataFlows(sequences);
 
-        assertTrue(propagationResult.size() >= sequenceIndex);
+        assertTrue(propagationResult.size() >= 2);
 
-        assertCharacteristicAbsent(propagationResult.get(sequenceIndex), elementIndex, variable, characteristicType,
-                characteristicValue);
-    }
-
-    /**
-     * Provides test data to the {@code characteristicsPresentTest} Test class.
+        assertCharacteristicAbsent(propagationResult.get(1), 2, "ccd", "AssignedRoles",
+                "User");
+        assertCharacteristicAbsent(propagationResult.get(1), 6, "RETURN", "GrantedRoles",
+                "User");
+        assertCharacteristicAbsent(propagationResult.get(1), 6, "RETURN", "GrantedRoles",
+                "Airline");
+	}
+	
+	/**
+     * Tests the present or absent characteristics of the found action sequences
      * <p>
-     * Each invocation contains the index into the list of sequences and a map which maps a index
-     * into the action sequence to the expected characteristic
-     * 
-     * @return Returns a stream of test data used for each invocation
+     * Fails if the analysis does not propagate the correct characteristics to each ActionSequence
      */
-    private Stream<Arguments> characteristicsAbsentProvider() {
-        return Stream.of(
-        		Arguments.of(travelPlannerAnalysis, 1, 2, "ccd", "AssignedRoles", "User"),
-        		Arguments.of(travelPlannerAnalysis, 1, 6, "RETURN", "GrantedRoles", "User"),
-                Arguments.of(travelPlannerAnalysis, 1, 6, "RETURN", "GrantedRoles", "Airline"),
-                Arguments.of(onlineShopAnalysis, 0, 0, "RETURN", "DataSensitivity", "Public"),
-                Arguments.of(internationalOnlineShopAnalysis, 0, 0, "inventory", "DataSensivity", "Public"),
-                Arguments.of(internationalOnlineShopAnalysis, 0, 1, "RETURN", "DataSensivity", "Public"));
-    }
+	@Test
+	public void internationalOnlineShopCharacteristicsAbsentTest() {
+		var sequences = internationalOnlineShopAnalysis.findAllSequences();
+        var propagationResult = internationalOnlineShopAnalysis.evaluateDataFlows(sequences);
+
+        assertTrue(propagationResult.size() >= 1);
+
+        assertCharacteristicAbsent(propagationResult.get(0), 0, "inventory", "DataSensitivity",
+                "Public");
+        assertCharacteristicAbsent(propagationResult.get(0), 1, "RETURN", "DataSensitivity",
+                "Public");
+	}
+	
+	/**
+     * Tests the present or absent characteristics of the found action sequences
+     * <p>
+     * Fails if the analysis does not propagate the correct characteristics to each ActionSequence
+     */
+	@Test
+	public void onlineShopCharacteristicsAbsentTest() {
+		var sequences = onlineShopAnalysis.findAllSequences();
+        var propagationResult = onlineShopAnalysis.evaluateDataFlows(sequences);
+
+        assertTrue(propagationResult.size() >= 1);
+
+        assertCharacteristicAbsent(propagationResult.get(1), 0, "RETURN", "DataSensitivity",
+                "Public");
+	}
 }

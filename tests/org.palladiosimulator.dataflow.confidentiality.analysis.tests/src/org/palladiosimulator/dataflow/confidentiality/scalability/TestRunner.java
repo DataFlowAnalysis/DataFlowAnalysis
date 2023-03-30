@@ -24,11 +24,15 @@ public class TestRunner {
 	}
 	
 	public void runTests() {
-		tests.forEach(this::runTest);
+		tests.forEach(it -> this.runTest(it, 0));
 	}
 	
-	private void runTest(ScalibilityTest test) {
-		for(int i = 0; true; i++) {
+	public void runTests(int start) {
+		tests.forEach(it -> this.runTest(it, start));
+	}
+	
+	private void runTest(ScalibilityTest test, int start) {
+		for(int i = start; true; i++) {
 			for (int j = 0; j < RUNS_PER_STAGE; j++) {
 				int modelSize = test.getModelSize(i);
 				logger.info("Running test with model size " + modelSize);

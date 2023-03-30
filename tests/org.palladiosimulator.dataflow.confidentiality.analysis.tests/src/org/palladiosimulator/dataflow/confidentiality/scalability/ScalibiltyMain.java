@@ -14,6 +14,11 @@ public class ScalibiltyMain {
 		if (args.length > 0 && args[0].equalsIgnoreCase("-export")) {
 			ResultExporter exporter = new ResultExporter();
 			exporter.exportResults();
+		} else if (args.length > 1 && args[0].equalsIgnoreCase("-start")) {
+			int start = Integer.parseInt(args[1]);
+			registerTests();
+			TestRunner runner = new TestRunner(tests);
+			runner.runTests(start);
 		} else {
 			registerTests();
 			TestRunner runner = new TestRunner(tests);

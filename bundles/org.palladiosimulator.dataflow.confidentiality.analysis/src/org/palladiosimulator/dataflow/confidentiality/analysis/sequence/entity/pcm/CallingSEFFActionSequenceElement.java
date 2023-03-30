@@ -5,6 +5,7 @@ import java.util.Deque;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CallReturnBehavior;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
@@ -48,10 +49,10 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
     }
     
     @Override
-    public AbstractActionSequenceElement<ExternalCallAction> evaluateDataFlow(List<DataFlowVariable> variables) {
+    public AbstractActionSequenceElement<ExternalCallAction> evaluateDataFlow(List<DataFlowVariable> variables, PCMResourceLoader resourceLoader) {
     	List<DataFlowVariable> newDataFlowVariables = new ArrayList<>(variables);
     	
-    	List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics();
+    	List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics(resourceLoader);
         List<VariableCharacterisation> variableCharacterisations = this.isCalling ? 
         		super.getElement().getInputVariableUsages__CallAction().stream()
         		.flatMap(it -> it.getVariableCharacterisation_VariableUsage()
@@ -72,7 +73,7 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
         	PCMDataCharacteristicsCalculator.checkParameter(this, parameter, variableCharacterisations);
         }
 
-        PCMDataCharacteristicsCalculator characteristicsCalculator = new PCMDataCharacteristicsCalculator(newDataFlowVariables, nodeVariables);
+        PCMDataCharacteristicsCalculator characteristicsCalculator = new PCMDataCharacteristicsCalculator(newDataFlowVariables, nodeVariables, resourceLoader);
         variableCharacterisations.stream()
             .forEach(it -> characteristicsCalculator.evaluate(it));
         AbstractActionSequenceElement<ExternalCallAction> evaluatedElement = new CallingSEFFActionSequenceElement(this,

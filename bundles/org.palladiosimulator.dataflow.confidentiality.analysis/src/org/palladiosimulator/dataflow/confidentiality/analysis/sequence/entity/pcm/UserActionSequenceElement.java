@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
@@ -35,8 +36,8 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
     }
     
     @Override
-    public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables) {
-    	List<CharacteristicValue> nodeCharacteristics = this.evaluateNodeCharacteristics();
+    public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables, PCMResourceLoader resourceLoader) {
+    	List<CharacteristicValue> nodeCharacteristics = this.evaluateNodeCharacteristics(resourceLoader);
         if (this.getElement() instanceof StartAction) {
     		return new UserActionSequenceElement<T>(this, new ArrayList<>(variables), nodeCharacteristics);
     	} 
@@ -48,8 +49,8 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
      * Calculates the node characteristics for an {@link UserActionSequenceElement} using the {@link PCMNodeCharacteristicsCalculator}
      * @return List of CharacteristicValues which are present at the current node
      */
-    protected List<CharacteristicValue> evaluateNodeCharacteristics() {
-    	PCMNodeCharacteristicsCalculator characteristicsCalculator = new PCMNodeCharacteristicsCalculator(this.getElement());
+    protected List<CharacteristicValue> evaluateNodeCharacteristics(PCMResourceLoader resourceLoader) {
+    	PCMNodeCharacteristicsCalculator characteristicsCalculator = new PCMNodeCharacteristicsCalculator(this.getElement(), resourceLoader);
     	return characteristicsCalculator.getNodeCharacteristics(Optional.empty());
     }
 

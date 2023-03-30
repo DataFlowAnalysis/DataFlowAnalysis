@@ -104,7 +104,9 @@ public class LegacyCharacteristicBuilder implements NodeCharacteristicBuilder {
 
 	@Override
 	public void addCharacteristic(ResourceContainer container, EnumCharacteristic characteristic) {
-		StereotypeAPI.applyStereotype(container, ProfileConstants.characterisable.getStereotype());
+		if (!StereotypeAPI.isStereotypeApplied(container, ProfileConstants.characterisable.getStereotype())) {
+			StereotypeAPI.applyStereotype(container, ProfileConstants.characterisable.getStereotype());
+		}
 		this.resourceEnvironmentCharacteristics.getCharacteristics().add(characteristic);
 		StereotypeAPI.setTaggedValue(container, this.resourceEnvironmentCharacteristics.getCharacteristics(), 
 				ProfileConstants.characterisable.getStereotype(), ProfileConstants.characterisable.getValue());
@@ -112,7 +114,9 @@ public class LegacyCharacteristicBuilder implements NodeCharacteristicBuilder {
 
 	@Override
 	public void addCharacteristic(UsageScenario scenario, EnumCharacteristic characteristic) {
-		StereotypeAPI.applyStereotype(scenario, ProfileConstants.characterisable.getStereotype());
+		if (!StereotypeAPI.isStereotypeApplied(scenario, ProfileConstants.characterisable.getStereotype())) {
+			StereotypeAPI.applyStereotype(scenario, ProfileConstants.characterisable.getStereotype());
+		}
 		this.usageCharacteristics.getCharacteristics().add(characteristic);
 		StereotypeAPI.setTaggedValue(scenario, this.usageCharacteristics.getCharacteristics(), 
 				ProfileConstants.characterisable.getStereotype(), ProfileConstants.characterisable.getValue());
@@ -120,7 +124,9 @@ public class LegacyCharacteristicBuilder implements NodeCharacteristicBuilder {
 
 	@Override
 	public void addCharacteristic(AssemblyContext assemblyContext, EnumCharacteristic characteristic) {
-		StereotypeAPI.applyStereotype(assemblyContext, ProfileConstants.characterisable.getStereotype());
+		if (!StereotypeAPI.isStereotypeApplied(assemblyContext, ProfileConstants.characterisable.getStereotype())) {
+			StereotypeAPI.applyStereotype(assemblyContext, ProfileConstants.characterisable.getStereotype());
+		}
 		this.systemCharacteristics.getCharacteristics().add(characteristic);
 		StereotypeAPI.setTaggedValue(assemblyContext, this.systemCharacteristics.getCharacteristics(), 
 				ProfileConstants.characterisable.getStereotype(), ProfileConstants.characterisable.getValue());

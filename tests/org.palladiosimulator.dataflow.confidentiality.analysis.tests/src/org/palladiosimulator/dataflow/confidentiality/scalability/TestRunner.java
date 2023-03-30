@@ -43,7 +43,7 @@ public class TestRunner {
 	private void saveResults() {
 		try {
 			FileOutputStream fileOutputStream
-		      = new FileOutputStream("results.txt");
+		      = new FileOutputStream("results.ser");
 		    ObjectOutputStream objectOutputStream 
 		      = new ObjectOutputStream(fileOutputStream);
 		    objectOutputStream.writeObject(this.results);

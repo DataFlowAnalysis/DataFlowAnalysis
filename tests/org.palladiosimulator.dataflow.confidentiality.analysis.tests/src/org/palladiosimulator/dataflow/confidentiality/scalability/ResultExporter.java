@@ -1,5 +1,6 @@
 package org.palladiosimulator.dataflow.confidentiality.scalability;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,7 +21,10 @@ public class ResultExporter {
 			ObjectInputStream inputObjects = new ObjectInputStream(input);
 			List<ScalibilityParameter> inputData = (ArrayList<ScalibilityParameter>) inputObjects.readObject();
 			FileOutputStream output = new FileOutputStream("results.txt");
-			inputData.forEach(it -> exportParameter(it, output));
+			for (ScalibilityParameter parameter : inputData) {
+				exportParameter(parameter, output);
+				output.write(System.lineSeparator().getBytes());
+			}
 			inputObjects.close();
 			input.close();
 		} catch (IOException | ClassNotFoundException e) {
@@ -35,8 +39,8 @@ public class ResultExporter {
 		string.add(Long.toString(parameter.getStartTime().toInstant().toEpochMilli()));
 		string.add(Long.toString(parameter.getStopTime().toInstant().toEpochMilli()));
 		
-		for(Entry<Date, String> entry : parameter.getLogEvents().entrySet()) {
-			string.add(entry.getKey().toInstant().toEpochMilli() + ":" + entry.getValue());
+		for(Entry<String, Date> entry : parameter.getLogEvents().entrySet()) {
+			string.add(entry.getKey() + ":" + entry.getValue().toInstant().toEpochMilli() );
 		}
 		
 		try {

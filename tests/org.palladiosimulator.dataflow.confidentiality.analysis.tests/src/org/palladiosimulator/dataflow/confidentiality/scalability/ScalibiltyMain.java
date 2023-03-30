@@ -11,7 +11,7 @@ public class ScalibiltyMain {
 	private static List<ScalibilityTest> tests = new ArrayList<>();
 	
 	public static void main(String[] args) {
-		if (args.length > 0 && args[1].equalsIgnoreCase("-export")) {
+		if (args.length > 0 && args[0].equalsIgnoreCase("-export")) {
 			ResultExporter exporter = new ResultExporter();
 			exporter.exportResults();
 		} else {

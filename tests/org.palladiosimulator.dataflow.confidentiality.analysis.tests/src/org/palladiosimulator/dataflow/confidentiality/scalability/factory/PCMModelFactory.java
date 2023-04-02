@@ -167,14 +167,4 @@ public class PCMModelFactory {
 			resource.save(Map.of());
 		}
 	}
-	
-	public UsageModel getUsageModel() {
-		return usageModel;
-	}
-	
-	public void saveModel() throws IOException {
-		for (Resource resource : this.resources) {
-			resource.save(Map.of());
-		}
-	}
 }

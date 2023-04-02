@@ -28,52 +28,50 @@ import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
-public class NodeCharacteristicsTest implements ScalibilityTest {
-	private final Logger logger = Logger.getLogger(NodeCharacteristicsTest.class);
+public class VariableActionsTest implements ScalibilityTest {
+	private final Logger logger = Logger.getLogger(VariableActionsTest.class);
 
 	@Override
 	public void run(ScalibilityParameter parameter) {
 		parameter.startTiming();
 		PCMModelFactory factory;
 		try {
-			factory = new PCMModelFactory("../org.palladiosimulator.dataflow.confidentiality.analysis.testmodels/NodeCharacteristics", true,
+			factory = new PCMModelFactory("../org.palladiosimulator.dataflow.confidentiality.analysis.testmodels/VariableActions", true,
 					Activator.class, AnalysisUtils.TEST_MODEL_PROJECT_NAME);
 		} catch (IOException e) {
 			logger.error("Unable to create model factory", e);
 			return;
 		}
-		ResourceContainer resourceContainer = factory.addResourceContainer("NodeServer");
-		DataType dataType = factory.addDataType("NodeDataType");
+		ResourceContainer resourceContainer = factory.addResourceContainer("VariableServer");
+		DataType dataType = factory.addDataType("VariableDataType");
 		InterfaceBuilder interfaceBuilder = InterfaceBuilder.builder(factory.getRepository())
-				.setName("NodeInterface");
+				.setName("VariableInterface");
 		OperationSignature operationSignature = interfaceBuilder
 				.addOperation("call", Map.of("param", dataType));
 		OperationInterface operationInterface = interfaceBuilder.build();
 		BasicComponent component = (BasicComponent) ComponentBuilder.basicComponent(factory.getRepository())
-				.setName("NodeComponent")
+				.setName("VariableComponent")
 				.provideInterface(operationInterface, "CallProvider")
 				.build();
 		CharacteristicBuilder characteristicBuilder = CharacteristicBuilder.builder(factory.getDictionary())
-				.setName("NodeEnum");
-		for(int i = 0; i < parameter.getModelSize(); i++) {
-			characteristicBuilder = characteristicBuilder.addCharacteristicValue("Set" + i);
-		}
+				.setName("VariableEnum");
+		characteristicBuilder = characteristicBuilder.addCharacteristicValue("Set");
 		characteristicBuilder = characteristicBuilder.addCharacteristicValue("NotSet");
 		EnumCharacteristicType characteristic = characteristicBuilder.build();
 		AssemblyAllocationBuilder assemblyAllocation = 
-				factory.addAssemblyContext("NodeAssembly", component)
-				.addAllocation("NodeAllocation", resourceContainer);
+				factory.addAssemblyContext("VariableAssembly", component)
+				.addAllocation("VariableAllocation", resourceContainer);
 		OperationProvidedRole providedRole = 
-				assemblyAllocation.addSystemProvidedRole("NodeProvider", operationInterface);
-		SEFFBuilder.builder(component, operationSignature)
-				.build();
-		UsageBuilder builder = UsageBuilder.builder(factory.getUsageModel(), factory.getNodeCharacteristicBuilder());
+				assemblyAllocation.addSystemProvidedRole("VariableProvider", operationInterface);
+		SEFFBuilder seffBuilder = SEFFBuilder.builder(component, operationSignature);
 		for(int i = 0; i < parameter.getModelSize(); i++) {
-			builder.addCharacteristic(characteristic, "Set" + i);
+			seffBuilder = seffBuilder.addVariableAction("SetVariableAction" + i);
 		}
+		seffBuilder.build();
+		UsageBuilder builder = UsageBuilder.builder(factory.getUsageModel(), factory.getNodeCharacteristicBuilder());
 		builder = builder.addCall("EntryLevelSystemCall")
 				.setCallee(providedRole, operationSignature)
-				.addInputCharacteristic("param" ,characteristic, Optional.of("Set0"))
+				.addInputCharacteristic("param" ,characteristic, Optional.of("Set"))
 				.addDefaultReturn("param")
 				.buildCall();
 		builder.build();
@@ -101,7 +99,7 @@ public class NodeCharacteristicsTest implements ScalibilityTest {
 
 	@Override
 	public String getTestName() {
-		return "NodeCharacteristicsTest";
+		return "VariableActionsTest";
 	}
 
 }

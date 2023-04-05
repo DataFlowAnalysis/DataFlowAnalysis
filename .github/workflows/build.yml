@@ -7,7 +7,7 @@ jobs:
     uses: PalladioSimulator/Palladio-Build-ActionsPipeline/.github/workflows/build.yml@v3.3
     with:
       use-display-output: true
-      runner-label: ubuntu-latest
+      runner-label: self-hosted
       no-caching: true
       java-version: 17
       deploy-updatesite: 'releng/org.palladiosimulator.dataflow.confidentiality.pcm.analysis.updatesite/target/repository'

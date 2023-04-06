@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.palladiosimulator.dataflow.confidentiality.scalability.result.ScalibilityTest;
+import org.palladiosimulator.dataflow.confidentiality.scalability.tests.BranchCountTest;
 import org.palladiosimulator.dataflow.confidentiality.scalability.tests.CharacteristicsPropagationTest;
 import org.palladiosimulator.dataflow.confidentiality.scalability.tests.NodeCharacteristicsTest;
 import org.palladiosimulator.dataflow.confidentiality.scalability.tests.VariableActionsTest;
@@ -28,6 +29,6 @@ public class ScalibiltyMain {
 	}
 	
 	private static void registerTests() {
-		tests.add(new VariableActionsTest());
+		tests.add(new BranchCountTest());
 	}
 }

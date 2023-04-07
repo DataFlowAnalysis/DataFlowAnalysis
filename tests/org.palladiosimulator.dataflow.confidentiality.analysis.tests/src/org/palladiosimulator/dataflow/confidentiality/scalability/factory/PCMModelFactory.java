@@ -98,7 +98,7 @@ public class PCMModelFactory {
 		if(legacy) {
 			this.nodeCharacteristicBuilder = new LegacyCharacteristicBuilder(activator, modelPath, usageResource, resourceEnvironmentResource, systemResource);
 		} else {
-			this.nodeCharacteristicBuilder = new NodeCharacteristicBuilderImpl();
+			this.nodeCharacteristicBuilder = new NodeCharacteristicBuilderImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.characteristics"));
 		}
 		this.nodeCharacteristicBuilder.setup();
 	}

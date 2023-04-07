@@ -90,8 +90,12 @@ public class PCMNodeCharacteristicsCalculatorImpl implements NodeCharacteristics
     	}
     	
     	var allocationContexts = allocation.get().getAllocationContexts_Allocation();
-    	allocationContexts.forEach(it -> resolvedAssignees.addAll(getAllocation(assignments, it.getAssemblyContext_AllocationContext())));
-    	allocationContexts.forEach(it -> resolvedAssignees.addAll(getResource(assignments, it.getResourceContainer_AllocationContext())));
+    	allocationContexts.stream()
+    		.filter(it -> context.contains(it.getAssemblyContext_AllocationContext()))
+    		.forEach(it -> {
+    			resolvedAssignees.addAll(getAllocation(assignments, it.getAssemblyContext_AllocationContext()));
+    			resolvedAssignees.addAll(getResource(assignments, it.getResourceContainer_AllocationContext()));
+    		});
     	return resolvedAssignees;
 	}
 	

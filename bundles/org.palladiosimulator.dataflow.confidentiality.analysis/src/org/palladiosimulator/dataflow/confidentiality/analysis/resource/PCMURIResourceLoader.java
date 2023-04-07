@@ -2,6 +2,7 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.resource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
@@ -18,18 +19,23 @@ public class PCMURIResourceLoader implements PCMResourceLoader {
 	
 	private URI usageModelURI;
 	private URI allocationModelURI;
+	private Optional<URI> nodeCharacteristicURI;
 	private UsageModel usageModel;
 	private Allocation allocation;
 	
-	public PCMURIResourceLoader(URI usageModelURI, URI allocationModelURI) {
+	public PCMURIResourceLoader(URI usageModelURI, URI allocationModelURI, Optional<URI> optional) {
 		this.usageModelURI = usageModelURI;
 		this.allocationModelURI = allocationModelURI;
+		this.nodeCharacteristicURI = optional;
 	}
 
 	@Override
 	public void loadRequiredResources() {
 		this.usageModel = (UsageModel) this.loadModelContent(usageModelURI);
 		this.allocation = (Allocation) this.loadModelContent(allocationModelURI);
+		if (this.nodeCharacteristicURI.isPresent()) {
+			this.loadModelContent(this.nodeCharacteristicURI.get());
+		}
 		List<Resource> loadedResources = null;
 		do {
 			loadedResources = new ArrayList<>(this.resources.getResources());

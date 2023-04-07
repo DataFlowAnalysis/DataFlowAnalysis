@@ -4,6 +4,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -58,7 +59,17 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
         this.modelProjectActivator = modelProjectActivator;
 
         this.resourceLoader = new PCMURIResourceLoader(createRelativePluginURI(relativeUsageModelPath), 
-        		createRelativePluginURI(relativeAllocationModelPath));     
+        		createRelativePluginURI(relativeAllocationModelPath), Optional.empty());     
+    }
+    
+    public StandalonePCMDataFlowConfidentialtyAnalysis(String modelProjectName,
+            Class<? extends Plugin> modelProjectActivator, String relativeUsageModelPath,
+            String relativeAllocationModelPath, String relativeNodeCharacteristicModelPath) {
+        this.modelProjectName = modelProjectName;
+        this.modelProjectActivator = modelProjectActivator;
+
+        this.resourceLoader = new PCMURIResourceLoader(createRelativePluginURI(relativeUsageModelPath), 
+        		createRelativePluginURI(relativeAllocationModelPath), Optional.of(createRelativePluginURI(relativeNodeCharacteristicModelPath)));     
     }
 
     @Override

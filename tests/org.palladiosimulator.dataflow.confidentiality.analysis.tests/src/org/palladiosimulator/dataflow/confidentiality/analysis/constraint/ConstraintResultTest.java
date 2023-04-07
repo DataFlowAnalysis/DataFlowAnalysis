@@ -133,7 +133,9 @@ public class ConstraintResultTest extends ConstraintTest {
     @Test
     public void travelPlannerNewTestConstraintResults() {
     	StandalonePCMDataFlowConfidentialtyAnalysis analysis = 
-    			super.initializeAnalysis(Paths.get("models", "TravelPlannerNew", "travelPlanner.usagemodel"), Paths.get("models", "TravelPlannerNew", "travelPlanner.allocation"));
+    			super.initializeAnalysis(Paths.get("models", "TravelPlannerNew", "travelPlanner.usagemodel"), 
+    					Paths.get("models", "TravelPlannerNew", "travelPlanner.allocation"),
+    					Paths.get("models", "TravelPlannerNew", "travelPlanner.nodecharacteristics"));
     	analysis.setLoggerLevel(Level.TRACE);
     	Predicate<AbstractActionSequenceElement<?>> constraint = node -> travelPlannerCondition(node);
     	List<ConstraintData> constraintData = ConstraintViolations.travelPlannerViolations;

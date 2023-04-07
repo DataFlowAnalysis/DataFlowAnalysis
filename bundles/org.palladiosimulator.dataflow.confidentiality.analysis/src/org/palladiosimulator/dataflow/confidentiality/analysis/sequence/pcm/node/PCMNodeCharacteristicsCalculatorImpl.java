@@ -24,6 +24,7 @@ import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationPackage;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
+import org.palladiosimulator.pcm.repository.CompositeComponent;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
@@ -62,6 +63,11 @@ public class PCMNodeCharacteristicsCalculatorImpl implements NodeCharacteristics
 				.collect(Collectors.toList());
 	}
 	
+	/**
+	 * Gets the assignees of a usage node
+	 * @param assignments Resolved assignment container
+	 * @return List of resolved assignees matching the node
+	 */
 	private List<AbstractAssignee> getUsage(Assignments assignments) {
 		UsageScenario usageScenario = PCMQueryUtils.findParentOfType(node, UsageScenario.class, false).get();
 		return assignments.getAssignee().stream()
@@ -71,6 +77,12 @@ public class PCMNodeCharacteristicsCalculatorImpl implements NodeCharacteristics
 			.collect(Collectors.toList());
 	}
 	
+	/**
+	 * Gets the assignees of a SEFF node
+	 * @param assignments Resolved assignment container
+	 * @param context Context of the SEFF node
+	 * @return List of resolved assignees matching the node
+	 */
 	private List<AbstractAssignee> getSEFF(Assignments assignments, Deque<AssemblyContext> context) {
 		List<AbstractAssignee> resolvedAssignees = new ArrayList<>();
 		var allocations = this.resourceLoader.lookupElementOfType(AllocationPackage.eINSTANCE.getAllocation()).stream()
@@ -95,10 +107,19 @@ public class PCMNodeCharacteristicsCalculatorImpl implements NodeCharacteristics
     		.forEach(it -> {
     			resolvedAssignees.addAll(getAllocation(assignments, it.getAssemblyContext_AllocationContext()));
     			resolvedAssignees.addAll(getResource(assignments, it.getResourceContainer_AllocationContext()));
+    			if (it.getAssemblyContext_AllocationContext().getEncapsulatedComponent__AssemblyContext() instanceof CompositeComponent) {
+    				resolvedAssignees.addAll(getComposite(assignments, context, (CompositeComponent) it.getAssemblyContext_AllocationContext().getEncapsulatedComponent__AssemblyContext()));
+    			}
     		});
     	return resolvedAssignees;
 	}
 	
+	/**
+	 * Gets the assembly assignees of a aSEFF node
+	 * @param assignments Resolved assignment container
+	 * @param assemblyContext Given assembly context
+	 * @return List of resolved assignees matching the node
+	 */
 	private List<AbstractAssignee> getAllocation(Assignments assignments, AssemblyContext assemblyContext) {
 		return assignments.getAssignee().stream()
 				.filter(AssemblyAssignee.class::isInstance)
@@ -107,6 +128,12 @@ public class PCMNodeCharacteristicsCalculatorImpl implements NodeCharacteristics
 				.collect(Collectors.toList());
 	}
 	
+	/**
+	 * Gets the resource assignees of a SEFF node
+	 * @param assignments Resolved assignment container
+	 * @param resourceContainer Given resource container
+	 * @return List of resolved assignees matching the node
+	 */
 	private List<AbstractAssignee> getResource(Assignments assignments, ResourceContainer resourceContainer) {
 		return assignments.getAssignee().stream()
 				.filter(RessourceAssignee.class::isInstance)
@@ -114,8 +141,30 @@ public class PCMNodeCharacteristicsCalculatorImpl implements NodeCharacteristics
 				.filter(it -> it.getResourcecontainer().equals(resourceContainer))
 				.collect(Collectors.toList());
 	}
+	
+	/**
+	 * Gets the contained assembly assignees of a SEFF node in a composite component
+	 * @param assignments Resolved assignment container
+	 * @param context Context of the node
+	 * @param compositeComponent Given composite component
+	 * @return
+	 */
+	private List<AbstractAssignee> getComposite(Assignments assignments, Deque<AssemblyContext> context, CompositeComponent compositeComponent) {
+		List<AbstractAssignee> evaluatedAssignees = new ArrayList<>();
+		List<AssemblyContext> assemblyContexts = compositeComponent.getAssemblyContexts__ComposedStructure();
+		for (AssemblyContext assemblyContext : assemblyContexts) {
+			if (context.contains(assemblyContext)) {
+				evaluatedAssignees.addAll(this.getAllocation(assignments, assemblyContext));
+			}
+		}
+		return evaluatedAssignees;
+	}
 
-	public Assignments resolveAssignments() {
+	/**
+	 * Resolves the assignment container in the list of loaded resources
+	 * @return Assignment container of the model, or a dummy container, if no assignments exist
+	 */
+	private Assignments resolveAssignments() {
 		return this.resourceLoader.lookupElementOfType(NodeCharacteristicsPackage.eINSTANCE.getAssignments())
 	            .stream()
 	            .filter(Assignments.class::isInstance)

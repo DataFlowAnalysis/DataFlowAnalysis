@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm;
+package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.node;
 
 import java.util.ArrayList;
 import java.util.Deque;
@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.profile.ProfileConstants;
@@ -27,8 +28,8 @@ import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
-public class PCMNodeCharacteristicsCalculator {
-	private final Logger logger = Logger.getLogger(PCMNodeCharacteristicsCalculator.class);
+public class LegacyPCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalculator {
+	private final Logger logger = Logger.getLogger(LegacyPCMNodeCharacteristicsCalculator.class);
     private final EObject node;
     private final PCMResourceLoader resourceLoader;
     
@@ -36,7 +37,7 @@ public class PCMNodeCharacteristicsCalculator {
      * Creates a new node characteristic calculator with the given node
      * @param node Node of which the characteristics should be calculated. Should either be a User or SEFF Action.
      */
-    public PCMNodeCharacteristicsCalculator(Entity node, PCMResourceLoader resourceLoader) {
+    public LegacyPCMNodeCharacteristicsCalculator(Entity node, PCMResourceLoader resourceLoader) {
     	this.node = node;
     	this.resourceLoader = resourceLoader;
     }

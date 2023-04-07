@@ -25,8 +25,10 @@ public class PCMNodeCharacteristicsCalculator {
     	this.node = node;
     	this.resourceLoader = resourceLoader;
     	if (this.resourceLoader.lookupElementOfType(NodeCharacteristicsPackage.eINSTANCE.getAssignments()).isEmpty()) {
+    		logger.warn("Using legacy node characteristic assignments");
     		this.nodeCharacteristicsCalculator = new LegacyPCMNodeCharacteristicsCalculator(node, resourceLoader);
     	} else {
+    		logger.info("Using new node characteristics assignment model");
     		this.nodeCharacteristicsCalculator = new PCMNodeCharacteristicsCalculatorImpl(node, resourceLoader);
     	}
     }

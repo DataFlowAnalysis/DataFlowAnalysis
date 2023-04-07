@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DataDictionaryCharacterized="http://palladiosimulator.org/dataflow/dictionary/characterized/1.0" xmlns:confidentiality="http://palladiosimulator.org/dataflow/confidentiality/pcm/0.1.0" xmlns:emfprofileapplication="http://www.modelversioning.org/emfprofile/application/1.1" xmlns:expression="http://palladiosimulator.org/dataflow/confidentiality/pcm/0.1.0/expression" xmlns:expressions="http://palladiosimulator.org/dataflow/dictionary/characterized/expressions/1.0" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" xmlns:usagemodel="http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.2">
+  <usagemodel:UsageModel>
+    <usageScenario_UsageModel id="_V_RAcPVhEeuMKba1Qn68bg" entityName="User">
+      <scenarioBehaviour_UsageScenario id="_Yc9x8PVhEeuMKba1Qn68bg" entityName="ScenarioBehaviour">
+        <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_Yc9x8fVhEeuMKba1Qn68bg" successor="_gdSegPVhEeuMKba1Qn68bg"/>
+        <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_Yc9x8vVhEeuMKba1Qn68bg" predecessor="_vVN8EPVhEeuMKba1Qn68bg"/>
+        <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_gdSegPVhEeuMKba1Qn68bg" entityName="store ccd" successor="_kJSPIPVhEeuMKba1Qn68bg" predecessor="_Yc9x8fVhEeuMKba1Qn68bg">
+          <providedRole_EntryLevelSystemCall href="travelPlanner.system#_eAKxQPVgEeuMKba1Qn68bg"/>
+          <operationSignature__EntryLevelSystemCall href="travelPlanner.repository#_rbLsQPVdEeuMKba1Qn68bg"/>
+          <inputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_xYz7UPXsEeut8bxiE9EShA">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="travelPlanner.pddc#_Nc31EPXDEeut8bxiE9EShA-characteristicTypes@0"/>
+                <literal href="travelPlanner.pddc#_Nc31EPXDEeut8bxiE9EShA-characteristicEnumerations@0.literals@0"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_xY0iYPXsEeut8bxiE9EShA"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="ccd"/>
+          </inputParameterUsages_EntryLevelSystemCall>
+        </actions_ScenarioBehaviour>
+        <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_kJSPIPVhEeuMKba1Qn68bg" entityName="look for flights" successor="_o46nAPVhEeuMKba1Qn68bg" predecessor="_gdSegPVhEeuMKba1Qn68bg">
+          <providedRole_EntryLevelSystemCall href="travelPlanner.system#_f_HKMPVgEeuMKba1Qn68bg"/>
+          <operationSignature__EntryLevelSystemCall href="travelPlanner.repository#_Z7woAPVdEeuMKba1Qn68bg"/>
+          <outputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_CDV-8PXtEeut8bxiE9EShA"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_CDV-8fXtEeut8bxiE9EShA">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="flights"/>
+          </outputParameterUsages_EntryLevelSystemCall>
+          <inputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_8a8MAPXsEeut8bxiE9EShA">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="travelPlanner.pddc#_Nc31EPXDEeut8bxiE9EShA-characteristicTypes@0"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_8a8MAfXsEeut8bxiE9EShA"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="query"/>
+          </inputParameterUsages_EntryLevelSystemCall>
+        </actions_ScenarioBehaviour>
+        <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_o46nAPVhEeuMKba1Qn68bg" entityName="load ccd" successor="_vVN8EPVhEeuMKba1Qn68bg" predecessor="_kJSPIPVhEeuMKba1Qn68bg">
+          <providedRole_EntryLevelSystemCall href="travelPlanner.system#_eAKxQPVgEeuMKba1Qn68bg"/>
+          <operationSignature__EntryLevelSystemCall href="travelPlanner.repository#_tmOAcPVdEeuMKba1Qn68bg"/>
+          <outputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_QXVB8PXtEeut8bxiE9EShA"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_QXVB8fXtEeut8bxiE9EShA">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="ccd"/>
+          </outputParameterUsages_EntryLevelSystemCall>
+        </actions_ScenarioBehaviour>
+        <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_vVN8EPVhEeuMKba1Qn68bg" entityName="book flight using ccd" successor="_Yc9x8vVhEeuMKba1Qn68bg" predecessor="_o46nAPVhEeuMKba1Qn68bg">
+          <providedRole_EntryLevelSystemCall href="travelPlanner.system#_fDhEoPVgEeuMKba1Qn68bg"/>
+          <operationSignature__EntryLevelSystemCall href="travelPlanner.repository#_i4_owPVdEeuMKba1Qn68bg"/>
+          <outputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_iw3IkPXuEeut8bxiE9EShA"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_iw3IkfXuEeut8bxiE9EShA">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="confirmation"/>
+          </outputParameterUsages_EntryLevelSystemCall>
+          <inputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_ava3IfXtEeut8bxiE9EShA"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_ava3IvXtEeut8bxiE9EShA">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="flights"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="flight"/>
+          </inputParameterUsages_EntryLevelSystemCall>
+          <inputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_ye86UPnZEeukRtG2X6LZJQ"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_ye86UfnZEeukRtG2X6LZJQ">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="ccd"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="ccd"/>
+          </inputParameterUsages_EntryLevelSystemCall>
+        </actions_ScenarioBehaviour>
+      </scenarioBehaviour_UsageScenario>
+    </usageScenario_UsageModel>
+    <usageScenario_UsageModel id="_EkqVUPViEeuMKba1Qn68bg" entityName="FlightPlanner">
+      <scenarioBehaviour_UsageScenario id="_GmS14PViEeuMKba1Qn68bg" entityName="ScenarioBehaviour">
+        <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_GmS14fViEeuMKba1Qn68bg" successor="_Ic2H0PViEeuMKba1Qn68bg"/>
+        <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_GmS14vViEeuMKba1Qn68bg" predecessor="_Ic2H0PViEeuMKba1Qn68bg"/>
+        <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_Ic2H0PViEeuMKba1Qn68bg" entityName="add scheduled flight" successor="_GmS14vViEeuMKba1Qn68bg" predecessor="_GmS14fViEeuMKba1Qn68bg">
+          <providedRole_EntryLevelSystemCall href="travelPlanner.system#_ff0mIPVgEeuMKba1Qn68bg"/>
+          <operationSignature__EntryLevelSystemCall href="travelPlanner.repository#_vZ_EIPVdEeuMKba1Qn68bg"/>
+          <inputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_BcE4sPXvEeut8bxiE9EShA">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="travelPlanner.pddc#_Nc31EPXDEeut8bxiE9EShA-characteristicTypes@0"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_BcE4sfXvEeut8bxiE9EShA"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="flight"/>
+          </inputParameterUsages_EntryLevelSystemCall>
+        </actions_ScenarioBehaviour>
+      </scenarioBehaviour_UsageScenario>
+    </usageScenario_UsageModel>
+  </usagemodel:UsageModel>
+  <emfprofileapplication:ProfileApplication>
+    <importedProfiles nsURI="org.palladiosimulator.dataflow.confidentiality.pcm.model.profile" location="platform:/plugin/org.palladiosimulator.dataflow.confidentiality.pcm.model.profile/profile.emfprofile_diagram"/>
+  </emfprofileapplication:ProfileApplication>
+</xmi:XMI>

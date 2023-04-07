@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:emfprofileapplication="http://www.modelversioning.org/emfprofile/application/1.1" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2">
+  <resourceenvironment:ResourceEnvironment entityName="TravelPlanner ResourceEnvironment">
+    <linkingResources__ResourceEnvironment id="_-4OzcPVgEeuMKba1Qn68bg" entityName="Internet" connectedResourceContainers_LinkingResource="_99dNQPVgEeuMKba1Qn68bg _9PmBsPVgEeuMKba1Qn68bg">
+      <communicationLinkResourceSpecifications_LinkingResource id="_-4QooPVgEeuMKba1Qn68bg">
+        <latency_CommunicationLinkResourceSpecification/>
+        <throughput_CommunicationLinkResourceSpecification/>
+      </communicationLinkResourceSpecifications_LinkingResource>
+    </linkingResources__ResourceEnvironment>
+    <resourceContainer_ResourceEnvironment id="_9PmBsPVgEeuMKba1Qn68bg" entityName="Mobile"/>
+    <resourceContainer_ResourceEnvironment id="_99dNQPVgEeuMKba1Qn68bg" entityName="AirlineServer"/>
+  </resourceenvironment:ResourceEnvironment>
+  <emfprofileapplication:ProfileApplication>
+    <importedProfiles nsURI="org.palladiosimulator.dataflow.confidentiality.pcm.model.profile" location="platform:/plugin/org.palladiosimulator.dataflow.confidentiality.pcm.model.profile/profile.emfprofile_diagram"/>
+  </emfprofileapplication:ProfileApplication>
+</xmi:XMI>

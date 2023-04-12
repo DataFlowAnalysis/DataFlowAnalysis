@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity;
+package org.palladiosimulator.dataflow.confidentiality.analysis.entity;
 
 import java.util.List;
 import java.util.Map;

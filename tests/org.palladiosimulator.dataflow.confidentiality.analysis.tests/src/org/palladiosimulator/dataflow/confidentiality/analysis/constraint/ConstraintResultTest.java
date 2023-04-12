@@ -15,10 +15,10 @@ import org.junit.jupiter.api.Test;
 import org.palladiosimulator.dataflow.confidentiality.analysis.DataFlowConfidentialityAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.constraint.data.ConstraintData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.constraint.data.ConstraintViolations;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.ActionSequence;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CharacteristicValue;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.DataFlowVariable;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
 
 public class ConstraintResultTest extends ConstraintTest {

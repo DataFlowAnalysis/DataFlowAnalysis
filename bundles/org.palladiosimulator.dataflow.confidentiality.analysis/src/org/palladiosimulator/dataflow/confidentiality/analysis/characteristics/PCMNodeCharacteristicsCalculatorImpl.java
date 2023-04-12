@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.node;
+package org.palladiosimulator.dataflow.confidentiality.analysis.characteristics;
 
 import java.util.ArrayList;
 import java.util.Deque;
@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceLoader;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMQueryUtils;
+import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;

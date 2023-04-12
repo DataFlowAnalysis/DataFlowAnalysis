@@ -1,16 +1,16 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm;
+package org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm;
 
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.PCMDataCharacteristicsCalculator;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CallReturnBehavior;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CharacteristicValue;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceLoader;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CallReturnBehavior;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMDataCharacteristicsCalculator;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.repository.Parameter;

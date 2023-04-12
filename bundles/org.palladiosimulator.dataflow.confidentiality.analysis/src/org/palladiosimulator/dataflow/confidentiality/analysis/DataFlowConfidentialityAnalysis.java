@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import org.apache.log4j.Level;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.ActionSequence;
 
 public interface DataFlowConfidentialityAnalysis {
 

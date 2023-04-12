@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm;
+package org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -7,15 +7,14 @@ import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.SEFFWithContext;
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.ComposedStructure;
-import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector;
 import org.palladiosimulator.pcm.core.composition.RequiredDelegationConnector;
 import org.palladiosimulator.pcm.core.entity.InterfaceProvidingEntity;
 import org.palladiosimulator.pcm.repository.BasicComponent;
-import org.palladiosimulator.pcm.repository.CompositeComponent;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.ProvidedRole;
@@ -30,13 +29,17 @@ import org.palladiosimulator.pcm.usagemodel.UsageModel;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 public class PCMQueryUtils {
-
     private static final Logger logger = Logger.getLogger(PCMQueryUtils.class);
 
     private PCMQueryUtils() {
-        // Utility class
+        throw new IllegalStateException("Utility classes should not be instanciated");
     }
 
+    /**
+     * Finds the start action of a given scenario behaviour
+     * @param scenarioBehavior Given scenario behaviour
+     * @return Returns, if it exists, the single start action of the scenario behaviour
+     */
     public static Optional<Start> getStartActionOfScenarioBehavior(ScenarioBehaviour scenarioBehavior) {
         List<Start> candidates = scenarioBehavior.getActions_ScenarioBehaviour()
             .stream()
@@ -53,6 +56,11 @@ public class PCMQueryUtils {
             .findFirst();
     }
 
+    /**
+     * Returns the first start action in the list of actions
+     * @param actionList Given list of actions
+     * @return Returns the first found start action
+     */
     public static Optional<StartAction> getFirstStartActionInActionList(List<AbstractAction> actionList) {
         return actionList.stream()
             .filter(StartAction.class::isInstance)
@@ -60,6 +68,11 @@ public class PCMQueryUtils {
             .findFirst();
     }
     
+    /**
+     * Returns the List of start actions for a usage model
+     * @param usageModel Given usage model
+     * @return List of start actions that are provided by the usage model
+     */
     public static List<Start> findStartActionsForUsageModel(UsageModel usageModel) {
         return usageModel.getUsageScenario_UsageModel()
             .stream()
@@ -69,6 +82,14 @@ public class PCMQueryUtils {
             .toList();
     }
 
+    /**
+     * Finds the parent of a given type starting at the given modeling object
+     * @param <T> Type of the parent
+     * @param object Modeling object the search should be started at
+     * @param clazz Type class of the parent
+     * @param includeSelf Should be true, if the search should include the container itself. Otherwise, this should be set to false
+     * @return Returns, if found, the parent of the given object with the given type
+     */
     @SuppressWarnings("unchecked")
     public static <T> Optional<T> findParentOfType(EObject object, Class<T> clazz, boolean includeSelf) {
         var currentObject = includeSelf ? object : object.eContainer();

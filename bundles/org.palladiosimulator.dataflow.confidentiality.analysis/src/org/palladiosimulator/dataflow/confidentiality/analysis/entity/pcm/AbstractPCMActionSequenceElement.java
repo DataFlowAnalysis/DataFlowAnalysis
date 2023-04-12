@@ -1,13 +1,13 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm;
+package org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm;
 
 import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
 
 import org.eclipse.emf.ecore.EObject;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CharacteristicValue;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.DataFlowVariable;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 public abstract class AbstractPCMActionSequenceElement<T extends EObject> extends AbstractActionSequenceElement<T> {

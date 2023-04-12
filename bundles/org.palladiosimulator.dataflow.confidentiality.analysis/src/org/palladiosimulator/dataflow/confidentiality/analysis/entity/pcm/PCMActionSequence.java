@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm;
+package org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -8,11 +8,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.log4j.Logger;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.ActionSequence;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CallReturnBehavior;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceLoader;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CallReturnBehavior;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
 import org.palladiosimulator.pcm.seff.StartAction;
 
 public class PCMActionSequence extends ActionSequence implements Comparable<PCMActionSequence> {

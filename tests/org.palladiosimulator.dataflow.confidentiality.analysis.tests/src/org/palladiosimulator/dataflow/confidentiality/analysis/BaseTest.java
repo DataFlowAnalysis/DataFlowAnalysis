@@ -12,9 +12,9 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.testmodels.Activa
 
 @TestInstance(Lifecycle.PER_CLASS)
 public class BaseTest {
-    protected StandalonePCMDataFlowConfidentialtyAnalysis onlineShopAnalysis;
-    protected StandalonePCMDataFlowConfidentialtyAnalysis internationalOnlineShopAnalysis;
-    protected StandalonePCMDataFlowConfidentialtyAnalysis travelPlannerAnalysis;
+    protected LegacyPCMDataFlowConfidentialityAnalysis onlineShopAnalysis;
+    protected LegacyPCMDataFlowConfidentialityAnalysis internationalOnlineShopAnalysis;
+    protected LegacyPCMDataFlowConfidentialityAnalysis travelPlannerAnalysis;
 
     @BeforeAll
     public void initializeOnlineShopAnalysis() {
@@ -23,7 +23,7 @@ public class BaseTest {
         final var allocationPath = Paths.get("models", "BranchingOnlineShop", "default.allocation")
             .toString();
 
-        onlineShopAnalysis = new StandalonePCMDataFlowConfidentialtyAnalysis(TEST_MODEL_PROJECT_NAME, Activator.class,
+        onlineShopAnalysis = new LegacyPCMDataFlowConfidentialityAnalysis(TEST_MODEL_PROJECT_NAME, Activator.class,
                 usageModelPath, allocationPath);
 
         onlineShopAnalysis.initalizeAnalysis();
@@ -36,7 +36,7 @@ public class BaseTest {
         final var allocationPath = Paths.get("models", "InternationalOnlineShop", "default.allocation")
             .toString();
 
-        internationalOnlineShopAnalysis = new StandalonePCMDataFlowConfidentialtyAnalysis(TEST_MODEL_PROJECT_NAME,
+        internationalOnlineShopAnalysis = new LegacyPCMDataFlowConfidentialityAnalysis(TEST_MODEL_PROJECT_NAME,
                 Activator.class, usageModelPath, allocationPath);
 
         internationalOnlineShopAnalysis.initalizeAnalysis();
@@ -49,20 +49,20 @@ public class BaseTest {
         final var allocationPath = Paths.get("models", "TravelPlanner", "travelPlanner.allocation")
             .toString();
 
-        travelPlannerAnalysis = new StandalonePCMDataFlowConfidentialtyAnalysis(TEST_MODEL_PROJECT_NAME,
+        travelPlannerAnalysis = new LegacyPCMDataFlowConfidentialityAnalysis(TEST_MODEL_PROJECT_NAME,
                 Activator.class, usageModelPath, allocationPath);
 
         travelPlannerAnalysis.initalizeAnalysis();
     }
     
-    protected StandalonePCMDataFlowConfidentialtyAnalysis initializeAnalysis(Path usagePath, Path allocationPath) {
-    	var analysis = new StandalonePCMDataFlowConfidentialtyAnalysis(TEST_MODEL_PROJECT_NAME, Activator.class, usagePath.toString(), allocationPath.toString());
+    protected LegacyPCMDataFlowConfidentialityAnalysis initializeAnalysis(Path usagePath, Path allocationPath) {
+    	var analysis = new LegacyPCMDataFlowConfidentialityAnalysis(TEST_MODEL_PROJECT_NAME, Activator.class, usagePath.toString(), allocationPath.toString());
     	analysis.initalizeAnalysis();
     	return analysis;
     }
     
-    protected StandalonePCMDataFlowConfidentialtyAnalysis initializeAnalysis(Path usagePath, Path allocationPath, Path nodePath) {
-    	var analysis = new StandalonePCMDataFlowConfidentialtyAnalysis(TEST_MODEL_PROJECT_NAME, Activator.class, usagePath.toString(), allocationPath.toString(), nodePath.toString());
+    protected PCMDataFlowAnalysisImpl initializeAnalysis(Path usagePath, Path allocationPath, Path nodePath) {
+    	var analysis = new PCMDataFlowAnalysisImpl(TEST_MODEL_PROJECT_NAME, Activator.class, usagePath.toString(), allocationPath.toString(), nodePath.toString());
     	analysis.initalizeAnalysis();
     	return analysis;
     }

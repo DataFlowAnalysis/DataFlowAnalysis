@@ -10,8 +10,8 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.palladiosimulator.dataflow.confidentiality.analysis.DataFlowConfidentialityAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.ListAppender;
-import org.palladiosimulator.dataflow.confidentiality.analysis.StandalonePCMDataFlowConfidentialtyAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.DatabaseActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.pcm.PCMActionSequence;
@@ -25,7 +25,7 @@ public class ConstraintFeatureTest extends ConstraintTest {
     public void testCycleDataStores() {
     	var usageModelPath = Paths.get("models", "CycleDatastoreTest", "default.usagemodel");
     	var allocationPath = Paths.get("models", "CycleDatastoreTest", "default.allocation");
-    	StandalonePCMDataFlowConfidentialtyAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
+    	DataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
     	
     	Logger logger = Logger.getLogger(PCMActionSequence.class);
     	logger.setLevel(Level.DEBUG);
@@ -42,7 +42,7 @@ public class ConstraintFeatureTest extends ConstraintTest {
     public void testReadOnlyDatastore() {
     	var usageModelPath = Paths.get("models", "ReadOnlyDatastore", "default.usagemodel");
     	var allocationPath = Paths.get("models", "ReadOnlyDatastore", "default.allocation");
-    	StandalonePCMDataFlowConfidentialtyAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
+    	DataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
     	
     	Logger logger = Logger.getLogger(DatabaseActionSequenceElement.class);
     	logger.setLevel(Level.DEBUG);
@@ -63,7 +63,7 @@ public class ConstraintFeatureTest extends ConstraintTest {
     public void testNodeCharacteristics() {
     	var usageModelPath = Paths.get("models", "NodeCharacteristicsTest", "default.usagemodel");
     	var allocationPath = Paths.get("models", "NodeCharacteristicsTest", "default.allocation");
-    	StandalonePCMDataFlowConfidentialtyAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
+    	DataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
     	
     	List<ActionSequence> sequences = analysis.findAllSequences();
     	List<ActionSequence> propagatedSequences = analysis.evaluateDataFlows(sequences);
@@ -89,7 +89,7 @@ public class ConstraintFeatureTest extends ConstraintTest {
     public void testCompositeCharacteristics() {
     	var usageModelPath = Paths.get("models", "CompositeCharacteristicsTest", "default.usagemodel");
     	var allocationPath = Paths.get("models", "CompositeCharacteristicsTest", "default.allocation");
-    	StandalonePCMDataFlowConfidentialtyAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
+    	DataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
     	
     	List<ActionSequence> sequences = analysis.findAllSequences();
     	List<ActionSequence> propagatedSequences = analysis.evaluateDataFlows(sequences);

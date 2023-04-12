@@ -13,6 +13,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.C
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
+import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
 import org.palladiosimulator.dataflow.nodecharacteristics.nodecharacteristics.AbstractAssignee;
 import org.palladiosimulator.dataflow.nodecharacteristics.nodecharacteristics.AssemblyAssignee;
 import org.palladiosimulator.dataflow.nodecharacteristics.nodecharacteristics.Assignments;
@@ -26,9 +27,15 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.CompositeComponent;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
+import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
+import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentPackage;
 import org.palladiosimulator.pcm.seff.AbstractAction;
+import org.palladiosimulator.pcm.system.SystemPackage;
+import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
+import org.palladiosimulator.pcm.usagemodel.UsageModel;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
+import org.palladiosimulator.pcm.usagemodel.UsagemodelPackage;
 
 public class PCMNodeCharacteristicsCalculatorImpl implements NodeCharacteristicsCalculator {
 	private final Logger logger = Logger.getLogger(PCMNodeCharacteristicsCalculatorImpl.class);
@@ -47,6 +54,7 @@ public class PCMNodeCharacteristicsCalculatorImpl implements NodeCharacteristics
 	@Override
 	public List<CharacteristicValue> getNodeCharacteristics(Optional<Deque<AssemblyContext>> context) {
 		Assignments assignments = this.resolveAssignments();
+		this.checkAssignments(assignments);
 		List<AbstractAssignee> assignees;
 		if (this.node instanceof AbstractUserAction) {
 			assignees = this.getUsage(assignments);
@@ -170,5 +178,103 @@ public class PCMNodeCharacteristicsCalculatorImpl implements NodeCharacteristics
 	            .filter(Assignments.class::isInstance)
 	            .map(Assignments.class::cast)
 	            .findFirst().orElse(NodeCharacteristicsFactory.eINSTANCE.createAssignments());
+	}
+	
+	public void checkAssignments(Assignments assignments) {
+		for (AbstractAssignee assignee : assignments.getAssignee()) {
+			if (assignee instanceof UsageAsignee) {
+				UsageAsignee usage = (UsageAsignee) assignee;
+				if (!this.presentInUsageModel(usage.getUsagescenario())) {
+					throw new IllegalStateException("Referenced Usage Scenario is not loaded!");
+				}
+				this.checkCharacteristics(usage.getCharacteristics());
+			} else if (assignee instanceof RessourceAssignee) {
+				RessourceAssignee usage = (RessourceAssignee) assignee;
+				if (!this.presentInResource(usage.getResourcecontainer())) {
+					throw new IllegalStateException("Referenced Resource container is not loaded!");
+				}
+				this.checkCharacteristics(usage.getCharacteristics());
+			} else if (assignee instanceof AssemblyAssignee) {
+				AssemblyAssignee usage = (AssemblyAssignee) assignee;
+				if (!this.presentInAssembly(usage.getAssemblycontext())) {
+					throw new IllegalStateException("Referenced Assembly context is not loaded!");
+				}
+				this.checkCharacteristics(usage.getCharacteristics());
+			} else {
+				throw new IllegalStateException("Assignments contain unknown assignment target");
+			}
+		}
+	}
+	
+	/**
+	 * Determines whether an given usageScenario is currently loaded in the resources of the analysis
+	 * @param object Given model object
+	 * @return Returns true, if the model object could be found in the resources of the analysis. Otherwise, the method returns false.
+	 */
+	public boolean presentInUsageModel(UsageScenario usageScenario) {
+		List<UsageModel> usageModel = this.resourceLoader.lookupElementOfType(UsagemodelPackage.eINSTANCE.getUsageModel()).parallelStream()
+				.filter(UsageModel.class::isInstance)
+				.map(UsageModel.class::cast)
+				.collect(Collectors.toList());
+		for (UsageModel usage : usageModel) {
+			if (usage.getUsageScenario_UsageModel().contains(usageScenario)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Determines whether an given usageScenario is currently loaded in the resources of the analysis
+	 * @param object Given model object
+	 * @return Returns true, if the model object could be found in the resources of the analysis. Otherwise, the method returns false.
+	 */
+	public boolean presentInResource(ResourceContainer resourceContainer) {
+		List<ResourceEnvironment> resourceEnvironments = 
+				this.resourceLoader.lookupElementOfType(ResourceenvironmentPackage.eINSTANCE.getResourceEnvironment()).parallelStream()
+				.filter(ResourceEnvironment.class::isInstance)
+				.map(ResourceEnvironment.class::cast)
+				.collect(Collectors.toList());
+		for (ResourceEnvironment resourceEnvironment : resourceEnvironments) {
+			if (resourceEnvironment.getResourceContainer_ResourceEnvironment().contains(resourceContainer)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Determines whether an given usageScenario is currently loaded in the resources of the analysis
+	 * @param object Given model object
+	 * @return Returns true, if the model object could be found in the resources of the analysis. Otherwise, the method returns false.
+	 */
+	public boolean presentInAssembly(AssemblyContext assemblyContext) {
+		List<System> systems = this.resourceLoader.lookupElementOfType(SystemPackage.eINSTANCE.getSystem()).parallelStream()
+				.filter(System.class::isInstance)
+				.map(System.class::cast)
+				.collect(Collectors.toList());
+		for (System system : systems) {
+			if (system.getAssemblyContexts__ComposedStructure().contains(assemblyContext)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Determines, whether the given list of enum characteristics is permissible
+	 * @param characteristics List of enum characteristics that should be checked
+	 */
+	public void checkCharacteristics(List<EnumCharacteristic> characteristics) {
+		for (EnumCharacteristic characteristic : characteristics) {
+			List<Literal> allowedLiterals = characteristic.getType().getType().getLiterals();
+			List<Literal> foundLiterals = characteristic.getValues();
+			List<Literal> unknownLiterals = foundLiterals.parallelStream()
+				.filter(it -> !allowedLiterals.contains(it))
+				.collect(Collectors.toList());
+			if (!unknownLiterals.isEmpty()) {
+				throw new IllegalStateException("Found unknown literal " + unknownLiterals.get(0).getName() + " in assigned characteristics!");
+			}
+		}
 	}
 }

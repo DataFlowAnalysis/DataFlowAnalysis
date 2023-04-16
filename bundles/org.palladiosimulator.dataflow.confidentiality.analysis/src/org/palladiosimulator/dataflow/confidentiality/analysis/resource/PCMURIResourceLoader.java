@@ -16,7 +16,7 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentFactory;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentPackage;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 
-public class PCMURIResourceLoader implements PCMResourceLoader {
+public class PCMURIResourceLoader implements ResourceLoader {
 	private ResourceSet resources = new ResourceSetImpl();
 	
 	private URI usageModelURI;

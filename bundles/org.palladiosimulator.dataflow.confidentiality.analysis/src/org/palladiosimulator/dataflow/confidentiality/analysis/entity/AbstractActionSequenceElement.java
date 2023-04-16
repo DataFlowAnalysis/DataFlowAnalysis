@@ -6,7 +6,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
-import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceLoader;
+import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
 
 public abstract class AbstractActionSequenceElement<T extends EObject> {
@@ -35,9 +36,10 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
     /**
      * Evaluates the Data Flow at a given sequence element given the list of {@link DataFlowVariable}s that are received from the precursor
      * @param variables List of {@link DataFlowVariable}s propagated from the precursor
+     * @param analysisData Saved data and calculators of the analysis
      * @return Returns a new Sequence element with the updated Node- and DataFlowVariables
      */
-    public abstract AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables, PCMResourceLoader resourceLoader);
+    public abstract AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData);
     
     /**
      * Returns a list of characteristic literals that are set for a given characteristic type in the list of all node characteristics

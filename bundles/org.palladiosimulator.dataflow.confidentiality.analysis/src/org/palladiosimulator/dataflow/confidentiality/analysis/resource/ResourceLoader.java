@@ -7,7 +7,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 
-public interface PCMResourceLoader {
+public interface ResourceLoader {
 	public void loadRequiredResources();
 	public UsageModel getUsageModel();
 	public Allocation getAllocation();

@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.characteristics;
+package org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.DataFlowVariable;
-import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceLoader;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.DictionaryPackage;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.PCMDataDictionary;
@@ -28,10 +28,10 @@ import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
 
-public class PCMDataCharacteristicsCalculator {
-	private static final Logger logger = Logger.getLogger(PCMDataCharacteristicsCalculator.class);
+public class PCMNodeVariableCharacteristicsCalculator implements NodeVariableCharacteristicsCalculator {
+	private static final Logger logger = Logger.getLogger(PCMNodeVariableCharacteristicsCalculator.class);
     private final List<DataFlowVariable> currentVariables;
-    private final PCMResourceLoader resourceLoader;
+    private final ResourceLoader resourceLoader;
 
     /**
      * Initialize Characteristic Calculator with initial variables.
@@ -40,9 +40,9 @@ public class PCMDataCharacteristicsCalculator {
      * @param initialVariables
      *            DataFlowVariables of the previous ActionSequence Element
      */
-    public PCMDataCharacteristicsCalculator(List<DataFlowVariable> initialVariables, 
+    public PCMNodeVariableCharacteristicsCalculator(List<DataFlowVariable> initialVariables, 
     		List<CharacteristicValue> nodeCharacteristics,
-    		PCMResourceLoader resourceLoader) {
+    		ResourceLoader resourceLoader) {
         this.currentVariables = new ArrayList<>(initialVariables);
         this.resourceLoader = resourceLoader;
         createNodeCharacteristicsContainer(nodeCharacteristics);
@@ -71,6 +71,7 @@ public class PCMDataCharacteristicsCalculator {
      * @param variableCharacterisation
      *            Variable Characterization at the Sequence Element
      */
+    @Override
     public void evaluate(VariableCharacterisation variableCharacterisation) {
         var confidentialityVariable = (ConfidentialityVariableCharacterisation) variableCharacterisation;
         var leftHandSide = (LhsEnumCharacteristicReference) confidentialityVariable.getLhs();
@@ -287,6 +288,7 @@ public class PCMDataCharacteristicsCalculator {
      * 
      * @return List of DataFlowVariables after evaluating
      */
+    @Override
     public List<DataFlowVariable> getCalculatedCharacteristics() {
         return this.currentVariables.stream()
         		.filter(df -> !df.variableName().equals("container"))

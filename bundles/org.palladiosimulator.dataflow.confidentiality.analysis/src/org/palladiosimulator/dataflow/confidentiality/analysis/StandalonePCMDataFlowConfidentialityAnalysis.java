@@ -14,10 +14,10 @@ import org.eclipse.xtext.linking.impl.AbstractCleaningLinker;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.parser.antlr.AbstractInternalAntlrParser;
 import org.eclipse.xtext.resource.containers.ResourceSetBasedAllContainersStateProvider;
+import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.PCMActionSequence;
-import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.ActionSequenceFinder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMActionSequenceFinder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.AnalysisConstants;
@@ -29,8 +29,8 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializationExce
 import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder;
 import tools.mdsd.library.standalone.initialization.log4j.Log4jInitilizationTask;
 
-public abstract class PCMDataFlowAnalysis implements DataFlowConfidentialityAnalysis {
-	private final PCMResourceLoader resourceLoader;
+public abstract class StandalonePCMDataFlowConfidentialityAnalysis implements DataFlowConfidentialityAnalysis {
+	private final AnalysisData analysisData;
 	private final Logger logger;
 	
 	private final String modelProjectName;
@@ -45,9 +45,9 @@ public abstract class PCMDataFlowAnalysis implements DataFlowConfidentialityAnal
 	 * @param modelProjectName Name of the modelling project
 	 * @param modelProjectActivator Plugin class of the analysis
 	 */
-	public PCMDataFlowAnalysis(PCMResourceLoader resourceLoader, Logger logger, String modelProjectName,
+	public StandalonePCMDataFlowConfidentialityAnalysis(AnalysisData analysisData, Logger logger, String modelProjectName,
 			Class<? extends Plugin> modelProjectActivator) {
-		this.resourceLoader = resourceLoader;
+		this.analysisData = analysisData;
 		this.logger = logger;
 		this.modelProjectName = modelProjectName;
 		this.modelProjectActivator = modelProjectActivator;
@@ -61,8 +61,8 @@ public abstract class PCMDataFlowAnalysis implements DataFlowConfidentialityAnal
 
 	@Override
 	public List<ActionSequence> findAllSequences() {
-		ActionSequenceFinder sequenceFinder = new PCMActionSequenceFinder(this.resourceLoader.getUsageModel(), 
-        		this.resourceLoader.getAllocation());
+		ActionSequenceFinder sequenceFinder = new PCMActionSequenceFinder(this.analysisData.getResourceLoader().getUsageModel(), 
+        		this.analysisData.getResourceLoader().getAllocation());
         return sequenceFinder.findAllSequences().stream()
         		.map(ActionSequence.class::cast)
         		.collect(Collectors.toList());
@@ -76,7 +76,7 @@ public abstract class PCMDataFlowAnalysis implements DataFlowConfidentialityAnal
     	List<PCMActionSequence> sortedSequences = new ArrayList<>(actionSequences);
     	Collections.sort(sortedSequences);
         return sortedSequences.stream()
-            .map(it -> it.evaluateDataFlow(this.resourceLoader))
+            .map(it -> it.evaluateDataFlow(this.analysisData))
             .toList();
 	}
 
@@ -168,7 +168,7 @@ public abstract class PCMDataFlowAnalysis implements DataFlowConfidentialityAnal
         try {
             StandaloneInitializerBuilder.builder()
                 .registerProjectURI(this.modelProjectActivator, this.modelProjectName)
-                .registerProjectURI(PCMDataFlowAnalysis.class, 
+                .registerProjectURI(StandalonePCMDataFlowConfidentialityAnalysis.class, 
                 		AnalysisConstants.PLUGIN_PATH)
                 .build()
                 .init();
@@ -190,9 +190,9 @@ public abstract class PCMDataFlowAnalysis implements DataFlowConfidentialityAnal
      */
     private boolean loadRequiredModels() {
         try {
-        	this.resourceLoader.loadRequiredResources();
+        	this.analysisData.getResourceLoader().loadRequiredResources();
 
-            this.dataDictionaries = this.resourceLoader
+            this.dataDictionaries = this.analysisData.getResourceLoader()
                 .lookupElementOfType(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
                 .stream()
                 .filter(PCMDataDictionary.class::isInstance)

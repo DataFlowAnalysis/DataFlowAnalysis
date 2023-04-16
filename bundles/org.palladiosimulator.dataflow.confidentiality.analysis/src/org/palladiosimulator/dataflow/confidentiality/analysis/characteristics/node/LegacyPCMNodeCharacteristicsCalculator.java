@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.characteristics;
+package org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.node;
 
 import java.util.ArrayList;
 import java.util.Deque;
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CharacteristicValue;
-import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceLoader;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
@@ -30,29 +30,24 @@ import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 public class LegacyPCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalculator {
 	private final Logger logger = Logger.getLogger(LegacyPCMNodeCharacteristicsCalculator.class);
-    private final EObject node;
-    private final PCMResourceLoader resourceLoader;
-    
-    /**
-     * Creates a new node characteristic calculator with the given node
-     * @param node Node of which the characteristics should be calculated. Should either be a User or SEFF Action.
-     */
-    public LegacyPCMNodeCharacteristicsCalculator(Entity node, PCMResourceLoader resourceLoader) {
-    	this.node = node;
-    	this.resourceLoader = resourceLoader;
-    }
+	private ResourceLoader resourceLoader;
+	
+	public LegacyPCMNodeCharacteristicsCalculator(ResourceLoader resourceLoader) {
+		this.resourceLoader = resourceLoader;
+	}
     
     /**
      * Returns the node characteristics that are present at the given node with the assembly context provided. For User Actions the assembly context should be empty
      * @param context SEFF assembly context provided to the method. Should be empty for User Sequence Elements
      * @return Returns a list of node characteristics that are present at the current node
      */
-    public List<CharacteristicValue> getNodeCharacteristics(Optional<Deque<AssemblyContext>> context) {
-    	if (this.node instanceof AbstractUserAction) {
-    		return getUserNodeCharacteristics((AbstractUserAction) this.node);
-    	} else if(this.node instanceof AbstractAction) {
+	@Override
+    public List<CharacteristicValue> getNodeCharacteristics(Entity node, Optional<Deque<AssemblyContext>> context) {
+    	if (node instanceof AbstractUserAction) {
+    		return getUserNodeCharacteristics((AbstractUserAction) node);
+    	} else if(node instanceof AbstractAction) {
     		return getSEFFNodeCharacteristics(context.get());
-    	} else if (this.node instanceof OperationalDataStoreComponent) {
+    	} else if (node instanceof OperationalDataStoreComponent) {
     		return getSEFFNodeCharacteristics(context.get());
     	}
     	logger.error("Trying to calculate node characteristics of unknown node type");

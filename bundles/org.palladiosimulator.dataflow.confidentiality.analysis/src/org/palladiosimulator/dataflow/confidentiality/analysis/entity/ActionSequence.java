@@ -2,7 +2,7 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.entity;
 
 import java.util.List;
 
-import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceLoader;
+import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
 
 public abstract class ActionSequence {
 	protected List<AbstractActionSequenceElement<?>> elements;
@@ -11,7 +11,7 @@ public abstract class ActionSequence {
         this.elements = List.copyOf(elements);
     }
     
-    public abstract ActionSequence evaluateDataFlow(PCMResourceLoader resourceLoader);
+    public abstract ActionSequence evaluateDataFlow(AnalysisData analysisData);
     
     public List<AbstractActionSequenceElement<?>> getElements() {
 		return elements;

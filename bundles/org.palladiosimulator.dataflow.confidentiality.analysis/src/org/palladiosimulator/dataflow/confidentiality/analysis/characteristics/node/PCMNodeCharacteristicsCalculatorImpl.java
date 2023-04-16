@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.characteristics;
+package org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.node;
 
 import java.util.ArrayList;
 import java.util.Deque;
@@ -7,9 +7,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
-import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CharacteristicValue;
-import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceLoader;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
@@ -39,29 +38,27 @@ import org.palladiosimulator.pcm.usagemodel.UsagemodelPackage;
 
 public class PCMNodeCharacteristicsCalculatorImpl implements NodeCharacteristicsCalculator {
 	private final Logger logger = Logger.getLogger(PCMNodeCharacteristicsCalculatorImpl.class);
-    private final EObject node;
-    private final PCMResourceLoader resourceLoader;
+    private final ResourceLoader resourceLoader;
     
     /**
      * Creates a new node characteristic calculator with the given node
      * @param node Node of which the characteristics should be calculated. Should either be a User or SEFF Action.
      */
-    public PCMNodeCharacteristicsCalculatorImpl(Entity node, PCMResourceLoader resourceLoader) {
-    	this.node = node;
+    public PCMNodeCharacteristicsCalculatorImpl(ResourceLoader resourceLoader) {
     	this.resourceLoader = resourceLoader;
     }
 
 	@Override
-	public List<CharacteristicValue> getNodeCharacteristics(Optional<Deque<AssemblyContext>> context) {
+	public List<CharacteristicValue> getNodeCharacteristics(Entity node, Optional<Deque<AssemblyContext>> context) {
 		Assignments assignments = this.resolveAssignments();
 		this.checkAssignments(assignments);
 		List<AbstractAssignee> assignees;
-		if (this.node instanceof AbstractUserAction) {
-			assignees = this.getUsage(assignments);
-		} else if (this.node instanceof AbstractAction || this.node instanceof OperationalDataStoreComponent) {
+		if (node instanceof AbstractUserAction) {
+			assignees = this.getUsage(node, assignments);
+		} else if (node instanceof AbstractAction || node instanceof OperationalDataStoreComponent) {
 			assignees = this.getSEFF(assignments, context.get());
 		} else {
-			throw new IllegalArgumentException("Unkown assignee:" + this.node.toString());
+			throw new IllegalArgumentException("Unkown assignee:" + node.toString());
 		}
 		List<EnumCharacteristic> enumCharacteristics = assignees.stream()
 			.flatMap(it -> it.getCharacteristics().stream())
@@ -76,7 +73,7 @@ public class PCMNodeCharacteristicsCalculatorImpl implements NodeCharacteristics
 	 * @param assignments Resolved assignment container
 	 * @return List of resolved assignees matching the node
 	 */
-	private List<AbstractAssignee> getUsage(Assignments assignments) {
+	private List<AbstractAssignee> getUsage(Entity node, Assignments assignments) {
 		UsageScenario usageScenario = PCMQueryUtils.findParentOfType(node, UsageScenario.class, false).get();
 		return assignments.getAssignee().stream()
 			.filter(UsageAsignee.class::isInstance)

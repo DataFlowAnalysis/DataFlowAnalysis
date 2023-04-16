@@ -1,15 +1,15 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.PCMDataCharacteristicsCalculator;
+import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.NodeVariableCharacteristicsCalculator;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.PCMNodeVariableCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CallReturnBehavior;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.DataFlowVariable;
-import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceLoader;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 
@@ -44,8 +44,8 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
     }
     
     @Override
-    public AbstractActionSequenceElement<EntryLevelSystemCall> evaluateDataFlow(List<DataFlowVariable> variables, PCMResourceLoader resourceLoader) {
-    	List<CharacteristicValue> nodeCharacteristics = this.evaluateNodeCharacteristics(resourceLoader);
+    public AbstractActionSequenceElement<EntryLevelSystemCall> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
+    	List<CharacteristicValue> nodeCharacteristics = this.evaluateNodeCharacteristics(analysisData);
     	List<VariableCharacterisation> variableCharacterisations = this.isCalling ?
     			super.getElement().getInputParameterUsages_EntryLevelSystemCall().stream()
     			.flatMap(it -> it.getVariableCharacterisation_VariableUsage()
@@ -62,12 +62,12 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
         			this.getElement().getOperationSignature__EntryLevelSystemCall().getParameters__OperationSignature().stream()
         			.map(it -> it.getParameterName())
         			.toList();
-        	PCMDataCharacteristicsCalculator.checkParameter(this, parameter, variableCharacterisations);
+        	PCMNodeVariableCharacteristicsCalculator.checkParameter(this, parameter, variableCharacterisations);
         }
     	
 
-        PCMDataCharacteristicsCalculator characteristicsCalculator = new PCMDataCharacteristicsCalculator(new ArrayList<>(variables), nodeCharacteristics, resourceLoader);
-        variableCharacterisations.stream()
+    	NodeVariableCharacteristicsCalculator characteristicsCalculator = analysisData.getVariableCharacteristicsCalculator().createNodeCalculator(variables, nodeCharacteristics);
+    	variableCharacterisations.stream()
             .forEach(it -> characteristicsCalculator.evaluate(it));
        return new CallingUserActionSequenceElement(this, characteristicsCalculator.getCalculatedCharacteristics(), nodeCharacteristics);
     }

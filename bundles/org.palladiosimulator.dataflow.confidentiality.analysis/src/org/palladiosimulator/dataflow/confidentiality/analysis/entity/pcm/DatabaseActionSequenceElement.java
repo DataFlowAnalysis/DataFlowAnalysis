@@ -7,11 +7,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
-import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.PCMNodeCharacteristicsCalculator;
+import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.DataFlowVariable;
-import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
@@ -49,8 +48,8 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 	}
 
 	@Override
-	public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables, PCMResourceLoader resouceLoader) {
-		List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics(resouceLoader);
+	public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
+		List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics(analysisData);
 		List<DataFlowVariable> newDataFlowVariables = new ArrayList<>(variables);
 		
 		if (this.isWriting()) {
@@ -77,9 +76,8 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 		return new DatabaseActionSequenceElement<>(this, newDataFlowVariables, nodeVariables);
 	}
 	
-    protected List<CharacteristicValue> evaluateNodeCharacteristics(PCMResourceLoader resourceLoader) {
-    	PCMNodeCharacteristicsCalculator characteristicsCalculator = new PCMNodeCharacteristicsCalculator(this.getElement(), resourceLoader);
-    	return characteristicsCalculator.getNodeCharacteristics(Optional.of(this.getContext()));
+    protected List<CharacteristicValue> evaluateNodeCharacteristics(AnalysisData analysisData) {
+    	return analysisData.getNodeCharacteristicsCalculator().getNodeCharacteristics(this.getElement(), Optional.of(this.getContext()));
     }
 	
 	public boolean isWriting() {

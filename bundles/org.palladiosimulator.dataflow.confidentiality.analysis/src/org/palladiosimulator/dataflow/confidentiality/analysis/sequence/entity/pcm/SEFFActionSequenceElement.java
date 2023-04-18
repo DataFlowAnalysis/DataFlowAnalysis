@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMDataCharacteristicsCalculator;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMNodeCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMQueryUtils;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.node.PCMNodeCharacteristicsCalculator;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.repository.Parameter;
@@ -50,8 +51,8 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
     }
 
     @Override
-    public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables) {
-    	List<CharacteristicValue> nodeCharacteristics = this.evaluateNodeCharacteristics();
+    public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables, PCMResourceLoader resourceLoader) {
+    	List<CharacteristicValue> nodeCharacteristics = this.evaluateNodeCharacteristics(resourceLoader);
         if (this.getElement() instanceof StartAction) {
         	return new SEFFActionSequenceElement<T>(this, new ArrayList<>(variables), nodeCharacteristics);
     	} else if (!(this.getElement() instanceof SetVariableAction)) {
@@ -66,7 +67,7 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
                     .stream())
                 .toList();
     	
-    	PCMDataCharacteristicsCalculator characteristicsCalculator = new PCMDataCharacteristicsCalculator(variables, nodeCharacteristics);
+    	PCMDataCharacteristicsCalculator characteristicsCalculator = new PCMDataCharacteristicsCalculator(variables, nodeCharacteristics, resourceLoader);
         variableCharacterisations.forEach(it -> characteristicsCalculator.evaluate(it));
         return new SEFFActionSequenceElement<T>(this, characteristicsCalculator.getCalculatedCharacteristics(), nodeCharacteristics);
     }
@@ -75,8 +76,8 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
      * Returns a list of Characteristic values that are present at the node using the {@link PCMNodeCharacteristicsCalculator}
      * @return List of Characteristic values present at node
      */
-    protected List<CharacteristicValue> evaluateNodeCharacteristics() {
-    	PCMNodeCharacteristicsCalculator characteristicsCalculator = new PCMNodeCharacteristicsCalculator(this.getElement());
+    protected List<CharacteristicValue> evaluateNodeCharacteristics(PCMResourceLoader resourceLoader) {
+    	PCMNodeCharacteristicsCalculator characteristicsCalculator = new PCMNodeCharacteristicsCalculator(this.getElement(), resourceLoader);
     	return characteristicsCalculator.getNodeCharacteristics(Optional.of(this.getContext()));
     }
     

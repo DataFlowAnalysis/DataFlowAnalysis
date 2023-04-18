@@ -4,6 +4,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,8 @@ import org.eclipse.xtext.linking.impl.AbstractCleaningLinker;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.parser.antlr.AbstractInternalAntlrParser;
 import org.eclipse.xtext.resource.containers.ResourceSetBasedAllContainersStateProvider;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceLoader;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMURIResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.ActionSequenceFinder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
@@ -33,13 +36,16 @@ import tools.mdsd.library.standalone.initialization.emfprofiles.EMFProfileInitia
 import tools.mdsd.library.standalone.initialization.log4j.Log4jInitilizationTask;
 
 public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConfidentialityAnalysis {
-    private final Logger logger = Logger.getLogger(StandalonePCMDataFlowConfidentialtyAnalysis.class);
+    private static final String EMF_PROFILE_NAME = "profile.emfprofile_diagram";
 
-    private final URI usageModelURI;
-    private UsageModel usageModel;
+	private static final String EMF_PROFILE_PLUGIN = "org.palladiosimulator.dataflow.confidentiality.pcm.model.profile";
 
-    private Allocation allocationModel;
-    private final URI allocationModelURI;
+	private static final String PLUGIN_PATH = "org.palladiosimulator.dataflow.confidentiality.analysis";
+	
+
+	private final Logger logger = Logger.getLogger(StandalonePCMDataFlowConfidentialtyAnalysis.class);
+
+    private PCMResourceLoader resourceLoader;
 
     private List<PCMDataDictionary> dataDictionaries;
 
@@ -52,13 +58,24 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
         this.modelProjectName = modelProjectName;
         this.modelProjectActivator = modelProjectActivator;
 
-        this.usageModelURI = createRelativePluginURI(relativeUsageModelPath);
-        this.allocationModelURI = createRelativePluginURI(relativeAllocationModelPath);
+        this.resourceLoader = new PCMURIResourceLoader(createRelativePluginURI(relativeUsageModelPath), 
+        		createRelativePluginURI(relativeAllocationModelPath), Optional.empty());     
+    }
+    
+    public StandalonePCMDataFlowConfidentialtyAnalysis(String modelProjectName,
+            Class<? extends Plugin> modelProjectActivator, String relativeUsageModelPath,
+            String relativeAllocationModelPath, String relativeNodeCharacteristicModelPath) {
+        this.modelProjectName = modelProjectName;
+        this.modelProjectActivator = modelProjectActivator;
+
+        this.resourceLoader = new PCMURIResourceLoader(createRelativePluginURI(relativeUsageModelPath), 
+        		createRelativePluginURI(relativeAllocationModelPath), Optional.of(createRelativePluginURI(relativeNodeCharacteristicModelPath)));     
     }
 
     @Override
     public List<ActionSequence> findAllSequences() {
-        ActionSequenceFinder sequenceFinder = new PCMActionSequenceFinder(usageModel, allocationModel);
+        ActionSequenceFinder sequenceFinder = new PCMActionSequenceFinder(this.resourceLoader.getUsageModel(), 
+        		this.resourceLoader.getAllocation());
         return sequenceFinder.findAllSequences().stream()
         		.map(ActionSequence.class::cast)
         		.collect(Collectors.toList());
@@ -72,7 +89,7 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
     	List<PCMActionSequence> sortedSequences = new ArrayList<>(actionSequences);
     	Collections.sort(sortedSequences);
         return sortedSequences.stream()
-            .map(it -> it.evaluateDataFlow())
+            .map(it -> it.evaluateDataFlow(this.resourceLoader))
             .toList();
     }
 
@@ -145,7 +162,8 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
         try {
             StandaloneInitializerBuilder.builder()
                 .registerProjectURI(this.modelProjectActivator, this.modelProjectName)
-                .registerProjectURI(StandalonePCMDataFlowConfidentialtyAnalysis.class, PCMAnalysisUtils.PLUGIN_PATH)
+                .registerProjectURI(StandalonePCMDataFlowConfidentialtyAnalysis.class, 
+                		StandalonePCMDataFlowConfidentialtyAnalysis.PLUGIN_PATH)
                 .build()
                 .init();
 
@@ -161,7 +179,8 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
 
     private boolean initEMFProfiles() {
         try {
-            new EMFProfileInitializationTask(PCMAnalysisUtils.EMF_PROFILE_PLUGIN, PCMAnalysisUtils.EMF_PROFILE_NAME)
+            new EMFProfileInitializationTask(StandalonePCMDataFlowConfidentialtyAnalysis.EMF_PROFILE_PLUGIN, 
+            		StandalonePCMDataFlowConfidentialtyAnalysis.EMF_PROFILE_NAME)
                 .initilizationWithoutPlatform();
 
             logger.info("Successfully initialized standalone EMF Profiles for the data flow analysis.");
@@ -176,14 +195,9 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
 
     private boolean loadRequiredModels() {
         try {
-            this.usageModel = (UsageModel) PCMAnalysisUtils.loadModelContent(usageModelURI);
-            this.allocationModel = (Allocation) PCMAnalysisUtils.loadModelContent(allocationModelURI);
+        	this.resourceLoader.loadRequiredResources();
 
-            logger.info("Successfully loaded usage model and allocation model.");
-
-            PCMAnalysisUtils.resolveAllProxies();
-
-            this.dataDictionaries = PCMAnalysisUtils
+            this.dataDictionaries = this.resourceLoader
                 .lookupElementOfType(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
                 .stream()
                 .filter(PCMDataDictionary.class::isInstance)
@@ -192,7 +206,6 @@ public class StandalonePCMDataFlowConfidentialtyAnalysis implements DataFlowConf
 
             logger.info(String.format("Successfully loaded %d data %s.", this.dataDictionaries.size(),
                     this.dataDictionaries.size() == 1 ? "dictionary" : "dictionaries"));
-
             return true;
 
         } catch (IllegalArgumentException e) {

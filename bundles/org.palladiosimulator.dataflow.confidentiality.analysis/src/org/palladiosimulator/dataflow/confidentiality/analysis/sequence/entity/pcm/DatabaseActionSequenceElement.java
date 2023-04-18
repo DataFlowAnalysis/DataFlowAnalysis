@@ -7,10 +7,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMNodeCharacteristicsCalculator;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.node.PCMNodeCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
@@ -48,8 +49,8 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 	}
 
 	@Override
-	public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables) {
-		List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics();
+	public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables, PCMResourceLoader resouceLoader) {
+		List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics(resouceLoader);
 		List<DataFlowVariable> newDataFlowVariables = new ArrayList<>(variables);
 		
 		if (this.isWriting()) {
@@ -76,8 +77,8 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 		return new DatabaseActionSequenceElement<>(this, newDataFlowVariables, nodeVariables);
 	}
 	
-    protected List<CharacteristicValue> evaluateNodeCharacteristics() {
-    	PCMNodeCharacteristicsCalculator characteristicsCalculator = new PCMNodeCharacteristicsCalculator(this.getElement());
+    protected List<CharacteristicValue> evaluateNodeCharacteristics(PCMResourceLoader resourceLoader) {
+    	PCMNodeCharacteristicsCalculator characteristicsCalculator = new PCMNodeCharacteristicsCalculator(this.getElement(), resourceLoader);
     	return characteristicsCalculator.getNodeCharacteristics(Optional.of(this.getContext()));
     }
 	

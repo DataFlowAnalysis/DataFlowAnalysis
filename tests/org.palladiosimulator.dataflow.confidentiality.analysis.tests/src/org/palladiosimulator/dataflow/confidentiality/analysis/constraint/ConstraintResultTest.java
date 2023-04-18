@@ -131,6 +131,23 @@ public class ConstraintResultTest extends ConstraintTest {
      * Fails if the analysis does not propagate the correct characteristics for each ActionSequence
      */
     @Test
+    public void travelPlannerNewTestConstraintResults() {
+    	StandalonePCMDataFlowConfidentialtyAnalysis analysis = 
+    			super.initializeAnalysis(Paths.get("models", "TravelPlannerNew", "travelPlanner.usagemodel"), 
+    					Paths.get("models", "TravelPlannerNew", "travelPlanner.allocation"),
+    					Paths.get("models", "TravelPlannerNew", "travelPlanner.nodecharacteristics"));
+    	analysis.setLoggerLevel(Level.TRACE);
+    	Predicate<AbstractActionSequenceElement<?>> constraint = node -> travelPlannerCondition(node);
+    	List<ConstraintData> constraintData = ConstraintViolations.travelPlannerViolations;
+    	testAnalysis(analysis, constraint, constraintData);
+    }
+    
+    /**
+     * Tests, whether the analysis correctly identifies violations for the example models
+     * <p>
+     * Fails if the analysis does not propagate the correct characteristics for each ActionSequence
+     */
+    @Test
     public void internationalOnlineShopTestConstraintResults() {
     	internationalOnlineShopAnalysis.setLoggerLevel(Level.TRACE);
     	Predicate<AbstractActionSequenceElement<?>> constraint = node -> internationalOnlineShopCondition(node);

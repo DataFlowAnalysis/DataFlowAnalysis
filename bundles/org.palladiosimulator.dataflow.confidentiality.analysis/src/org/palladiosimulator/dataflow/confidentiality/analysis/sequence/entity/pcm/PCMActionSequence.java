@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.log4j.Logger;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CallReturnBehavior;
@@ -40,7 +41,7 @@ public class PCMActionSequence extends ActionSequence implements Comparable<PCMA
     }
 
 	@Override
-    public ActionSequence evaluateDataFlow() {
+    public ActionSequence evaluateDataFlow(PCMResourceLoader resourceLoader) {
         var iterator = super.getElements()
             .iterator();
         Deque<List<DataFlowVariable>> variableContexts = new ArrayDeque<>();
@@ -53,7 +54,7 @@ public class PCMActionSequence extends ActionSequence implements Comparable<PCMA
             
             prepareCall(variableContexts, nextElement);
             
-            AbstractActionSequenceElement<?> evaluatedElement = nextElement.evaluateDataFlow(variableContexts.peek());
+            AbstractActionSequenceElement<?> evaluatedElement = nextElement.evaluateDataFlow(variableContexts.peek(), resourceLoader);
             evaluatedElements.add(evaluatedElement);
             
             cleanupCall(variableContexts, evaluatedElement);

@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm;
+package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.node;
 
 import java.util.ArrayList;
 import java.util.Deque;
@@ -10,8 +10,9 @@ import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
-import org.palladiosimulator.dataflow.confidentiality.analysis.PCMAnalysisUtils;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.profile.ProfileConstants;
@@ -27,16 +28,18 @@ import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
-public class PCMNodeCharacteristicsCalculator {
-	private final Logger logger = Logger.getLogger(PCMNodeCharacteristicsCalculator.class);
+public class LegacyPCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalculator {
+	private final Logger logger = Logger.getLogger(LegacyPCMNodeCharacteristicsCalculator.class);
     private final EObject node;
+    private final PCMResourceLoader resourceLoader;
     
     /**
      * Creates a new node characteristic calculator with the given node
      * @param node Node of which the characteristics should be calculated. Should either be a User or SEFF Action.
      */
-    public PCMNodeCharacteristicsCalculator(Entity node) {
+    public LegacyPCMNodeCharacteristicsCalculator(Entity node, PCMResourceLoader resourceLoader) {
     	this.node = node;
+    	this.resourceLoader = resourceLoader;
     }
     
     /**
@@ -74,7 +77,7 @@ public class PCMNodeCharacteristicsCalculator {
     private List<CharacteristicValue> getSEFFNodeCharacteristics(Deque<AssemblyContext> context) {
     	Set<CharacteristicValue> nodeVariables = new HashSet<>();
     	
-    	var allocations = PCMAnalysisUtils.lookupElementOfType(AllocationPackage.eINSTANCE.getAllocation()).stream()
+    	var allocations = this.resourceLoader.lookupElementOfType(AllocationPackage.eINSTANCE.getAllocation()).stream()
     			.filter(Allocation.class::isInstance)
     			.map(Allocation.class::cast)
     			.collect(Collectors.toList());

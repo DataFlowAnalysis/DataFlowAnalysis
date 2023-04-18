@@ -60,4 +60,10 @@ public class BaseTest {
     	analysis.initalizeAnalysis();
     	return analysis;
     }
+    
+    protected StandalonePCMDataFlowConfidentialtyAnalysis initializeAnalysis(Path usagePath, Path allocationPath, Path nodePath) {
+    	var analysis = new StandalonePCMDataFlowConfidentialtyAnalysis(TEST_MODEL_PROJECT_NAME, Activator.class, usagePath.toString(), allocationPath.toString(), nodePath.toString());
+    	analysis.initalizeAnalysis();
+    	return analysis;
+    }
 }

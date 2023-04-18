@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import java.util.Comparator;
 
 import org.apache.log4j.Logger;
-import org.palladiosimulator.dataflow.confidentiality.analysis.PCMAnalysisUtils;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
@@ -30,7 +30,8 @@ import de.uka.ipd.sdq.stoex.AbstractNamedReference;
 
 public class PCMDataCharacteristicsCalculator {
 	private static final Logger logger = Logger.getLogger(PCMDataCharacteristicsCalculator.class);
-    private List<DataFlowVariable> currentVariables;
+    private final List<DataFlowVariable> currentVariables;
+    private final PCMResourceLoader resourceLoader;
 
     /**
      * Initialize Characteristic Calculator with initial variables.
@@ -39,8 +40,11 @@ public class PCMDataCharacteristicsCalculator {
      * @param initialVariables
      *            DataFlowVariables of the previous ActionSequence Element
      */
-    public PCMDataCharacteristicsCalculator(List<DataFlowVariable> initialVariables, List<CharacteristicValue> nodeCharacteristics) {
+    public PCMDataCharacteristicsCalculator(List<DataFlowVariable> initialVariables, 
+    		List<CharacteristicValue> nodeCharacteristics,
+    		PCMResourceLoader resourceLoader) {
         this.currentVariables = new ArrayList<>(initialVariables);
+        this.resourceLoader = resourceLoader;
         createNodeCharacteristicsContainer(nodeCharacteristics);
     }
     
@@ -243,10 +247,10 @@ public class PCMDataCharacteristicsCalculator {
      * @return List of characteristics available for the given variable and satisfying the possible
      *         bound
      */
-    private static List<CharacteristicValue> discoverNewVariables(DataFlowVariable variable,
+    private List<CharacteristicValue> discoverNewVariables(DataFlowVariable variable,
             Optional<EnumCharacteristicType> characteristicType) {
         List<CharacteristicValue> updatedCharacteristicValues = new ArrayList<>();
-        var dataDictonaries = PCMAnalysisUtils.lookupElementOfType(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
+        var dataDictonaries = this.resourceLoader.lookupElementOfType(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
             .stream()
             .filter(PCMDataDictionary.class::isInstance)
             .map(PCMDataDictionary.class::cast)

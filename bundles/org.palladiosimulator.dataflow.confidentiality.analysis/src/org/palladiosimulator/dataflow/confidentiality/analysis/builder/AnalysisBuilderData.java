@@ -7,7 +7,7 @@ import org.eclipse.core.runtime.Plugin;
 import org.eclipse.emf.common.util.URI;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.node.LegacyPCMNodeCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.node.PCMNodeCharacteristicsCalculatorImpl;
-import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.PCMVariableCharacteristicsCalculator;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.PCMDataCharacteristicsCalculatorFactory;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMURIResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
 
@@ -141,13 +141,13 @@ public class AnalysisBuilderData {
 			ResourceLoader resourceLoader = new PCMURIResourceLoader(this.createRelativePluginURI(relativeUsageModelPath, modelProjectName), 
 					this.createRelativePluginURI(relativeAllocationModelPath, modelProjectName), Optional.empty());
 			return new AnalysisData(resourceLoader, 
-					new LegacyPCMNodeCharacteristicsCalculator(resourceLoader), new PCMVariableCharacteristicsCalculator(resourceLoader));
+					new LegacyPCMNodeCharacteristicsCalculator(resourceLoader), new PCMDataCharacteristicsCalculatorFactory(resourceLoader));
 		} else {
 			ResourceLoader resourceLoader = new PCMURIResourceLoader(this.createRelativePluginURI(relativeUsageModelPath, modelProjectName), 
 					this.createRelativePluginURI(relativeAllocationModelPath, modelProjectName), 
 					Optional.of(this.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName)));
 			return new AnalysisData(resourceLoader, 
-					new PCMNodeCharacteristicsCalculatorImpl(resourceLoader), new PCMVariableCharacteristicsCalculator(resourceLoader));
+					new PCMNodeCharacteristicsCalculatorImpl(resourceLoader), new PCMDataCharacteristicsCalculatorFactory(resourceLoader));
 		}
 	}
 	

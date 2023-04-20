@@ -6,14 +6,14 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.entity.Characteri
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
 
-public class PCMVariableCharacteristicsCalculator implements VariableCharacteristicsCalculator {
+public class PCMDataCharacteristicsCalculatorFactory implements DataCharacteristicsCalculatorFactory {
 	private ResourceLoader resourceLoader;
 	
 	/** 
-	 * Creates a new instance of the variable characteristics calculator
+	 * Creates a new instance of the data characteristics calculator factory
 	 * @param resourceLoader Resource loader the characteristics calculators should use
 	 */
-	public PCMVariableCharacteristicsCalculator(ResourceLoader resourceLoader) {
+	public PCMDataCharacteristicsCalculatorFactory(ResourceLoader resourceLoader) {
 		this.resourceLoader = resourceLoader;
 	}
 
@@ -24,9 +24,9 @@ public class PCMVariableCharacteristicsCalculator implements VariableCharacteris
      * @param nodeCharacteristics Node characteristics applied to the node
      */
 	@Override
-	public NodeVariableCharacteristicsCalculator createNodeCalculator(List<DataFlowVariable> initialVariables,
+	public DataCharacteristicsCalculator createNodeCalculator(List<DataFlowVariable> initialVariables,
 			List<CharacteristicValue> nodeCharacteristics) {
-		return new PCMNodeVariableCharacteristicsCalculator(initialVariables, nodeCharacteristics, this.resourceLoader);
+		return new PCMDataCharacteristicsCalculator(initialVariables, nodeCharacteristics, this.resourceLoader);
 	}
 
 }

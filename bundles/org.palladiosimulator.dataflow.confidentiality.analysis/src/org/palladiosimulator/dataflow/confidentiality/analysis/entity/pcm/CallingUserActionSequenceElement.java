@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
-import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.NodeVariableCharacteristicsCalculator;
-import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.PCMNodeVariableCharacteristicsCalculator;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.DataCharacteristicsCalculator;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.PCMDataCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CallReturnBehavior;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CharacteristicValue;
@@ -62,11 +62,11 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
         			this.getElement().getOperationSignature__EntryLevelSystemCall().getParameters__OperationSignature().stream()
         			.map(it -> it.getParameterName())
         			.toList();
-        	PCMNodeVariableCharacteristicsCalculator.checkParameter(this, parameter, variableCharacterisations);
+        	PCMDataCharacteristicsCalculator.checkParameter(this, parameter, variableCharacterisations);
         }
     	
 
-    	NodeVariableCharacteristicsCalculator characteristicsCalculator = analysisData.getVariableCharacteristicsCalculator().createNodeCalculator(variables, nodeCharacteristics);
+    	DataCharacteristicsCalculator characteristicsCalculator = analysisData.getVariableCharacteristicsCalculator().createNodeCalculator(variables, nodeCharacteristics);
     	variableCharacterisations.stream()
             .forEach(it -> characteristicsCalculator.evaluate(it));
        return new CallingUserActionSequenceElement(this, characteristicsCalculator.getCalculatedCharacteristics(), nodeCharacteristics);

@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
-import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.NodeVariableCharacteristicsCalculator;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.DataCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.DataFlowVariable;
@@ -66,7 +66,7 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
                     .stream())
                 .toList();
     	
-    	NodeVariableCharacteristicsCalculator characteristicsCalculator = analysisData.getVariableCharacteristicsCalculator().createNodeCalculator(variables, nodeCharacteristics);
+    	DataCharacteristicsCalculator characteristicsCalculator = analysisData.getVariableCharacteristicsCalculator().createNodeCalculator(variables, nodeCharacteristics);
         variableCharacterisations.forEach(it -> characteristicsCalculator.evaluate(it));
         return new SEFFActionSequenceElement<T>(this, characteristicsCalculator.getCalculatedCharacteristics(), nodeCharacteristics);
     }

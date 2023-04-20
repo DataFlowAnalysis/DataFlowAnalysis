@@ -5,7 +5,7 @@ import java.util.List;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.DataFlowVariable;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 
-public interface NodeVariableCharacteristicsCalculator {
+public interface DataCharacteristicsCalculator {
 	/**
      * Evaluate a Variable Characterization with the current Variables and update the internal state of the characteristics calculator.
      * This method should be called for each Variable Characterization (e.g. Stoex)

@@ -28,19 +28,19 @@ import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
 
-public class PCMNodeVariableCharacteristicsCalculator implements NodeVariableCharacteristicsCalculator {
-	private static final Logger logger = Logger.getLogger(PCMNodeVariableCharacteristicsCalculator.class);
+public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalculator {
+	private static final Logger logger = Logger.getLogger(PCMDataCharacteristicsCalculator.class);
     private final List<DataFlowVariable> currentVariables;
     private final ResourceLoader resourceLoader;
 
     /**
-     * Initialize Characteristic Calculator with initial variables.
+     * Initialize Data characteristics Calculator with initial variables.
      * In addition the read-only container for node characteristics is created. See {@link createNodeCharacteristicsContainer}
      * 
      * @param initialVariables
      *            DataFlowVariables of the previous ActionSequence Element
      */
-    public PCMNodeVariableCharacteristicsCalculator(List<DataFlowVariable> initialVariables, 
+    public PCMDataCharacteristicsCalculator(List<DataFlowVariable> initialVariables, 
     		List<CharacteristicValue> nodeCharacteristics,
     		ResourceLoader resourceLoader) {
         this.currentVariables = new ArrayList<>(initialVariables);

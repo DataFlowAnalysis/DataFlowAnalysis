@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm;
+package org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.user;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -7,9 +7,10 @@ import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.AbstractActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CharacteristicValue;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.AbstractPCMActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 import org.palladiosimulator.pcm.seff.StartAction;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 
@@ -36,20 +37,12 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
     
     @Override
     public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
-    	List<CharacteristicValue> nodeCharacteristics = this.evaluateNodeCharacteristics(analysisData);
+    	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(analysisData);
         if (this.getElement() instanceof StartAction) {
     		return new UserActionSequenceElement<T>(this, new ArrayList<>(variables), nodeCharacteristics);
     	} 
     	logger.error("Found unexpected sequence element of unknown PCM type " + this.getElement().getClass().getName());
     	throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");
-    }
-    
-    /**
-     * Calculates the node characteristics for an {@link UserActionSequenceElement} using the {@link PCMNodeCharacteristicsCalculator}
-     * @return List of CharacteristicValues which are present at the current node
-     */
-    protected List<CharacteristicValue> evaluateNodeCharacteristics(AnalysisData analysisData) {
-    	return analysisData.getNodeCharacteristicsCalculator().getNodeCharacteristics(this.getElement(), Optional.empty());
     }
 
     @Override

@@ -3,10 +3,10 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.fin
 import java.util.List;
 import java.util.Optional;
 
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataStore;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.AbstractPCMActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.DataStore;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.DatabaseActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.PCMActionSequence;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.DatabaseActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.SEFFWithContext;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;

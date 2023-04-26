@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.entity;
+package org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence;
 
 import java.util.List;
 import java.util.Map;
@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
 

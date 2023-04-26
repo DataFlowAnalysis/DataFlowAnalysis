@@ -3,10 +3,10 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.constraint.data;
 import java.util.List;
 import java.util.Map;
 
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.AbstractActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CharacteristicValue;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.AbstractPCMActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 
 import de.uka.ipd.sdq.identifier.Identifier;
 

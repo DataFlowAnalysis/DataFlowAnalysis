@@ -9,31 +9,53 @@ import java.util.stream.Stream;
 
 import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.AbstractActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.ActionSequence;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CallReturnBehavior;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.DatabaseActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.SEFFActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
 import org.palladiosimulator.pcm.seff.StartAction;
 
 public class PCMActionSequence extends ActionSequence implements Comparable<PCMActionSequence> {
 	private static final Logger logger = Logger.getLogger(PCMActionSequence.class);
+
+	/**
+	 * Creates a empty new action sequence
+	 */
+    public PCMActionSequence() {
+        super(List.of());
+    }
 	
+	/**
+	 * Creates a new action sequence with the given elements
+	 * @param elements List of elements contained in the sequence
+	 */
 	public PCMActionSequence(List<AbstractActionSequenceElement<?>> elements) {
         super(elements);
     }
 
-    public PCMActionSequence() {
-        super(List.of());
-    }
-
-    public PCMActionSequence(ActionSequence sequence) {
-        super(sequence.getElements());
-    }
-
+    /**
+     * Creates a new action sequence with the given list of elements
+     * @param elements Elements that are contained in the sequence
+     */
     public PCMActionSequence(AbstractActionSequenceElement<?>... elements) {
         super(List.of(elements));
     }
 
+    /**
+     * Creates a copy of the given action sequence
+     * @param sequence Action sequence that should be copied
+     */
+    public PCMActionSequence(ActionSequence sequence) {
+        super(sequence.getElements());
+    }
+    
+    /**
+     * Creates a copy of the given action sequence and appends the given
+     * @param sequence Action sequence that should be copied
+     * @param newElements Elements in the new sequence
+     */
     public PCMActionSequence(ActionSequence sequence, AbstractActionSequenceElement<?>... newElements) {
         super(Stream.concat(sequence.getElements()
             .stream(), Stream.of(newElements))

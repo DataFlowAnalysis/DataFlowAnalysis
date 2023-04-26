@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 import java.util.Comparator;
 
 import org.apache.log4j.Logger;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.AbstractActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CharacteristicValue;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.DictionaryPackage;
@@ -293,21 +293,5 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
         return this.currentVariables.stream()
         		.filter(df -> !df.variableName().equals("container"))
         		.collect(Collectors.toList());
-    }
-    
-    
-    public static void checkParameter(AbstractActionSequenceElement<?> element,
-    		List<String> parameter, List<VariableCharacterisation> variableCharacterisations) {
-    	List<String> referencedParameter =
-    			variableCharacterisations.stream()
-    			.map(it -> it.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage().getReferenceName())
-    			.toList();
-    	
-    	referencedParameter.stream()
-    	.filter(it -> !parameter.contains(it))
-    	.forEach(it -> {
-    		logger.warn("Unknown reference to variable " + it + " in variable characterisation in element " + element);
-    		logger.warn("Present variables:" + parameter + ", Referenced parameter: " + referencedParameter);
-    	});
     }
 }

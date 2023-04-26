@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataStore;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.AbstractPCMActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.CallingSEFFActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.CallingUserActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.DataStore;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.CallingSEFFActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.user.CallingUserActionSequenceElement;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.Parameter;
 

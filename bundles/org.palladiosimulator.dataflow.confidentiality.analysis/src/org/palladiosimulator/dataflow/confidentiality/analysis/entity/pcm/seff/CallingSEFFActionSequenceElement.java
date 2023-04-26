@@ -1,17 +1,14 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm;
+package org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff;
 
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
-import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.DataCharacteristicsCalculator;
-import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.PCMDataCharacteristicsCalculator;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CallReturnBehavior;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CharacteristicValue;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.repository.Parameter;
@@ -51,9 +48,8 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
     
     @Override
     public AbstractActionSequenceElement<ExternalCallAction> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
-    	List<DataFlowVariable> newDataFlowVariables = new ArrayList<>(variables);
+    	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(analysisData);
     	
-    	List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics(analysisData);
         List<VariableCharacterisation> variableCharacterisations = this.isCalling ? 
         		super.getElement().getInputVariableUsages__CallAction().stream()
         		.flatMap(it -> it.getVariableCharacterisation_VariableUsage()
@@ -64,22 +60,12 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
                 .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
                         .stream())
                 .collect(Collectors.toList());
-        
         if (this.isCalling()) {
-        	List<String> parameter = 
-        			this.getElement().getCalledService_ExternalService()
-        			.getParameters__OperationSignature().stream()
-        			.map(it -> it.getParameterName())
-        			.toList();
-        	PCMDataCharacteristicsCalculator.checkParameter(this, parameter, variableCharacterisations);
+        	super.checkCallParameter(super.getElement().getCalledService_ExternalService(), variableCharacterisations);
         }
 
-        DataCharacteristicsCalculator characteristicsCalculator = analysisData.getVariableCharacteristicsCalculator().createNodeCalculator(variables, nodeVariables);
-        variableCharacterisations.stream()
-            .forEach(it -> characteristicsCalculator.evaluate(it));
-        AbstractActionSequenceElement<ExternalCallAction> evaluatedElement = new CallingSEFFActionSequenceElement(this,
-                characteristicsCalculator.getCalculatedCharacteristics(), nodeVariables);
-        return evaluatedElement;
+        List<DataFlowVariable> dataFlowVariables = super.getDataFlowVariables(analysisData, nodeCharacteristics, variableCharacterisations, variables);
+        return new CallingSEFFActionSequenceElement(this, dataFlowVariables, nodeCharacteristics);
     }
     
     @Override

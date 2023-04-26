@@ -1,10 +1,8 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm;
+package org.palladiosimulator.dataflow.confidentiality.analysis.characteristics;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CharacteristicValue;
 
 public class DataStore {
 	private final String databaseComponentName;

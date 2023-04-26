@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm;
+package org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff;
 
 import java.util.ArrayList;
 import java.util.Deque;
@@ -7,10 +7,11 @@ import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.DataCharacteristicsCalculator;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.AbstractActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CharacteristicValue;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.AbstractPCMActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMQueryUtils;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
@@ -51,7 +52,8 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
 
     @Override
     public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
-    	List<CharacteristicValue> nodeCharacteristics = this.evaluateNodeCharacteristics(analysisData);
+    	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(analysisData);
+    	
         if (this.getElement() instanceof StartAction) {
         	return new SEFFActionSequenceElement<T>(this, new ArrayList<>(variables), nodeCharacteristics);
     	} else if (!(this.getElement() instanceof SetVariableAction)) {
@@ -62,21 +64,11 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
     	List<VariableCharacterisation> variableCharacterisations = ((SetVariableAction) this.getElement())
                 .getLocalVariableUsages_SetVariableAction()
                 .stream()
-                .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
-                    .stream())
+                .flatMap(it -> it.getVariableCharacterisation_VariableUsage().stream())
                 .toList();
     	
-    	DataCharacteristicsCalculator characteristicsCalculator = analysisData.getVariableCharacteristicsCalculator().createNodeCalculator(variables, nodeCharacteristics);
-        variableCharacterisations.forEach(it -> characteristicsCalculator.evaluate(it));
-        return new SEFFActionSequenceElement<T>(this, characteristicsCalculator.getCalculatedCharacteristics(), nodeCharacteristics);
-    }
-    
-    /**
-     * Returns a list of Characteristic values that are present at the node using the {@link PCMNodeCharacteristicsCalculator}
-     * @return List of Characteristic values present at node
-     */
-    protected List<CharacteristicValue> evaluateNodeCharacteristics(AnalysisData analysisData) {
-    	return analysisData.getNodeCharacteristicsCalculator().getNodeCharacteristics(this.getElement(), Optional.of(this.getContext()));
+    	List<DataFlowVariable> dataFlowVariables = super.getDataFlowVariables(analysisData, nodeCharacteristics, variableCharacterisations, variables);
+        return new SEFFActionSequenceElement<T>(this, dataFlowVariables, nodeCharacteristics);
     }
     
     /**

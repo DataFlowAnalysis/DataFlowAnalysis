@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CharacteristicValue;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
@@ -42,13 +42,13 @@ public class LegacyPCMNodeCharacteristicsCalculator implements NodeCharacteristi
      * @return Returns a list of node characteristics that are present at the current node
      */
 	@Override
-    public List<CharacteristicValue> getNodeCharacteristics(Entity node, Optional<Deque<AssemblyContext>> context) {
+    public List<CharacteristicValue> getNodeCharacteristics(Entity node, Deque<AssemblyContext> context) {
     	if (node instanceof AbstractUserAction) {
     		return getUserNodeCharacteristics((AbstractUserAction) node);
     	} else if(node instanceof AbstractAction) {
-    		return getSEFFNodeCharacteristics(context.get());
+    		return getSEFFNodeCharacteristics(context);
     	} else if (node instanceof OperationalDataStoreComponent) {
-    		return getSEFFNodeCharacteristics(context.get());
+    		return getSEFFNodeCharacteristics(context);
     	}
     	logger.error("Trying to calculate node characteristics of unknown node type");
     	throw new IllegalArgumentException("Cannot calculate node characteristics of unknown type");

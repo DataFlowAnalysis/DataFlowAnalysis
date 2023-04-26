@@ -7,9 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.ActionSequence;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.CallingSEFFActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.CallingUserActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.CallingSEFFActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.user.CallingUserActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
 
 public class AnalysisUtils {
 

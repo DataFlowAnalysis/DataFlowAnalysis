@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.entity;
+package org.palladiosimulator.dataflow.confidentiality.analysis.characteristics;
 
 import java.util.List;
 import java.util.stream.Stream;

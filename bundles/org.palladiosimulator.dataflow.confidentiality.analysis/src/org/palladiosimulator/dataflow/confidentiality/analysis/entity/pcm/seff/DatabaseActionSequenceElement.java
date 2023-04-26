@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm;
+package org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff;
 
 import java.util.ArrayList;
 import java.util.Deque;
@@ -8,9 +8,12 @@ import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.AbstractActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CharacteristicValue;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataStore;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.AbstractPCMActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.AnalysisConstants;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
@@ -36,7 +39,7 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 	/**
 	 * Constructs a new Database Action Sequence Element given an old Database Action Sequence Element and an updated List of dataflow variables and Node characteristics
 	 * @param oldElement Old Database Action Sequence element, which attributes are copied
-	 * @param dataFlowVariables Updated list of dataflow variables
+	 * @param dataFlowVariables Updated list of dataflow variable
 	 * @param nodeCharacteristics Updated list of node characteristics
 	 */
 	public DatabaseActionSequenceElement(DatabaseActionSequenceElement<T> oldElement, 
@@ -49,8 +52,12 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 
 	@Override
 	public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
-		List<CharacteristicValue> nodeVariables = this.evaluateNodeCharacteristics(analysisData);
+		List<CharacteristicValue> nodeVariables = super.getNodeCharacteristics(analysisData);
 		List<DataFlowVariable> newDataFlowVariables = new ArrayList<>(variables);
+	
+		if (!this.isWriting && (this.dataStore.getCharacteristicValues().isEmpty() || this.dataStore.getDatabaseVariableName().isEmpty())) {
+			logger.warn("Database " +  this.dataStore.getDatabaseComponentName() + " is read from without writing any values to it!");
+		}
 		
 		if (this.isWriting()) {
 			String dataSourceName = this.getDataStore().getDatabaseVariableName().get();
@@ -60,30 +67,30 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 			dataStore.addCharacteristicValues(dataSource.characteristics());
 			logger.trace(this.createPrintableDatabaseInformation(newDataFlowVariables));
 			return new DatabaseActionSequenceElement<>(this, newDataFlowVariables, nodeVariables);
+		} else {
+			DataFlowVariable modifiedVariable = new DataFlowVariable(AnalysisConstants.RETURN_MAGIC_VALUE);
+			List<CharacteristicValue> storedData = dataStore.getCharacteristicValues();
+			for(CharacteristicValue characteristicValue : storedData) {
+				modifiedVariable = modifiedVariable.addCharacteristic(characteristicValue);
+			}
+			newDataFlowVariables.add(modifiedVariable);
+			logger.trace(this.createPrintableDatabaseInformation(List.of(modifiedVariable)));
 		}
-		
-		if (this.dataStore.getCharacteristicValues().isEmpty() || this.dataStore.getDatabaseVariableName().isEmpty()) {
-			logger.warn("Database " +  this.dataStore.getDatabaseComponentName() + " is read from without writing any values to it!");
-		}
-		
-		DataFlowVariable modifiedVariable = new DataFlowVariable("RETURN");
-		List<CharacteristicValue> storedData = dataStore.getCharacteristicValues();
-		for(CharacteristicValue characteristicValue : storedData) {
-			modifiedVariable = modifiedVariable.addCharacteristic(characteristicValue);
-		}
-		newDataFlowVariables.add(modifiedVariable);
-		logger.trace(this.createPrintableDatabaseInformation(List.of(modifiedVariable)));
 		return new DatabaseActionSequenceElement<>(this, newDataFlowVariables, nodeVariables);
 	}
 	
-    protected List<CharacteristicValue> evaluateNodeCharacteristics(AnalysisData analysisData) {
-    	return analysisData.getNodeCharacteristicsCalculator().getNodeCharacteristics(this.getElement(), Optional.of(this.getContext()));
-    }
-	
+	/**
+	 * Returns whether the data store is written to
+	 * @return Returns true, if the data store is written to. Otherwise, the method returns false
+	 */
 	public boolean isWriting() {
 		return this.isWriting;
 	}
 	
+	/**
+	 * Returns the data store of the sequence element
+	 * @return Data store of the sequence element
+	 */
 	public DataStore getDataStore() {
 		return dataStore;
 	}
@@ -99,6 +106,11 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
                     .getId());
 	}
 	
+	/**
+	 * Creates printable information for the database component
+	 * @param variables
+	 * @return
+	 */
 	public String createPrintableDatabaseInformation(List<DataFlowVariable> variables) {
 		String writing = isWriting ? "Writing DataFlowVariables: %s to" : "Reading DataFlowVariables: %s from";
 		String dataCharacteristics = variables

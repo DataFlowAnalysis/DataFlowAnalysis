@@ -2,7 +2,7 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.
 
 import java.util.List;
 
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 
 public interface DataCharacteristicsCalculator {

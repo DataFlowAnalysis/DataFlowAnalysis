@@ -12,10 +12,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.dataflow.confidentiality.analysis.DataFlowConfidentialityAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.ListAppender;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.ActionSequence;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.DatabaseActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.PCMActionSequence;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.UserActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.DatabaseActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.user.UserActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
 
 public class ConstraintFeatureTest extends ConstraintTest {
 	private final Logger logger = Logger.getLogger(ConstraintFeatureTest.class);

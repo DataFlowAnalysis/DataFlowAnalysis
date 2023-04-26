@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.AbstractPCMActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.CallingSEFFActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.CallingUserActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.PCMActionSequence;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.SEFFActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.CallingSEFFActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.SEFFActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.user.CallingUserActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.SEFFWithContext;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;

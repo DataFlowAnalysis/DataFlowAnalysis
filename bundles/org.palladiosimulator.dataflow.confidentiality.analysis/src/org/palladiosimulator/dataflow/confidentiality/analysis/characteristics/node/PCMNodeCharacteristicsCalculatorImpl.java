@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CharacteristicValue;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
@@ -49,14 +49,14 @@ public class PCMNodeCharacteristicsCalculatorImpl implements NodeCharacteristics
     }
 
 	@Override
-	public List<CharacteristicValue> getNodeCharacteristics(Entity node, Optional<Deque<AssemblyContext>> context) {
+	public List<CharacteristicValue> getNodeCharacteristics(Entity node, Deque<AssemblyContext> context) {
 		Assignments assignments = this.resolveAssignments();
 		this.checkAssignments(assignments);
 		List<AbstractAssignee> assignees;
 		if (node instanceof AbstractUserAction) {
 			assignees = this.getUsage(node, assignments);
 		} else if (node instanceof AbstractAction || node instanceof OperationalDataStoreComponent) {
-			assignees = this.getSEFF(assignments, context.get());
+			assignees = this.getSEFF(assignments, context);
 		} else {
 			throw new IllegalArgumentException("Unkown assignee:" + node.toString());
 		}

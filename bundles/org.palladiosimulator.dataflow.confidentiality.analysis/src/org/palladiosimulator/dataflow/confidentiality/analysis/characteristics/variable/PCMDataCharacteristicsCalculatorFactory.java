@@ -2,8 +2,8 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.
 
 import java.util.List;
 
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CharacteristicValue;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
 
 public class PCMDataCharacteristicsCalculatorFactory implements DataCharacteristicsCalculatorFactory {

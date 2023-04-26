@@ -28,7 +28,7 @@ import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
-public class CharacteristicsPropagationTest implements ScalibilityTest {
+public class CharacteristicsPropagationTest extends ScalibilityTest {
 	private final Logger logger = Logger.getLogger(CharacteristicsPropagationTest.class);
 
 	@Override
@@ -80,15 +80,8 @@ public class CharacteristicsPropagationTest implements ScalibilityTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		parameter.logAction("AnalysisExecution");
-		StandalonePCMDataFlowConfidentialtyAnalysis analysis =
-				new StandalonePCMDataFlowConfidentialtyAnalysis(AnalysisUtils.TEST_MODEL_PROJECT_NAME, 
-						Activator.class, new PCMResourceListLoader(factory.getResources()));
-		analysis.initalizeAnalysis();
-		parameter.logAction("InitializedAnalysis");
-		List<ActionSequence> sequences = analysis.findAllSequences();
-		parameter.logAction("Sequences");
-		analysis.evaluateDataFlows(sequences);
+		super.runNewAnalysis(factory, parameter);
+		super.runOldAnalysis(factory, parameter);
 		parameter.stopTiming();
 	}
 

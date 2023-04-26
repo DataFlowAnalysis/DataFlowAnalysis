@@ -19,7 +19,7 @@ import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
-public class ExampleTest implements ScalibilityTest {
+public class ExampleTest extends ScalibilityTest {
 	private final Logger logger = Logger.getLogger(ExampleTest.class);
 
 	@Override

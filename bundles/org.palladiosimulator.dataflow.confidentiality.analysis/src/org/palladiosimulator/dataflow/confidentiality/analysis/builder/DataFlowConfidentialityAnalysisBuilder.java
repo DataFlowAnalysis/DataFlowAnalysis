@@ -3,8 +3,8 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.builder;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Plugin;
 import org.palladiosimulator.dataflow.confidentiality.analysis.DataFlowConfidentialityAnalysis;
-import org.palladiosimulator.dataflow.confidentiality.analysis.LegacyStandalonePCMDataFlowConfidentialityAnalysis;
-import org.palladiosimulator.dataflow.confidentiality.analysis.StandalonePCMDataFlowConfidentialityAnalysisImpl;
+import org.palladiosimulator.dataflow.confidentiality.analysis.dsl.LegacyStandalonePCMDataFlowConfidentialityAnalysis;
+import org.palladiosimulator.dataflow.confidentiality.analysis.dsl.StandalonePCMDataFlowConfidentialityAnalysisImpl;
 
 public class DataFlowConfidentialityAnalysisBuilder {
 	private final Logger logger = Logger.getLogger(DataFlowConfidentialityAnalysisBuilder.class);

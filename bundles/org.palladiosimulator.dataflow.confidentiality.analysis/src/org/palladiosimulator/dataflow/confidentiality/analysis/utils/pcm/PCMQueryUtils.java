@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
@@ -116,7 +117,7 @@ public class PCMQueryUtils {
      *            be resolved. The list starts with the most outer assembly context.
      * @return A tuple of the resolved SEFF and the assembly context stack.
      */
-    public static Optional<SEFFWithContext> findCalledSEFF(ProvidedRole providedRole, Signature calledSignature,
+    public static List<SEFFWithContext> findCalledSEFF(ProvidedRole providedRole, Signature calledSignature,
             Deque<AssemblyContext> context) {
 
         Deque<AssemblyContext> newContexts = new ArrayDeque<>(context);
@@ -144,18 +145,20 @@ public class PCMQueryUtils {
         if (providingComponent instanceof BasicComponent) {
             BasicComponent component = (BasicComponent) providingComponent;
 
-            Optional<ResourceDemandingSEFF> SEFF = component.getServiceEffectSpecifications__BasicComponent()
+            List<ResourceDemandingSEFF> SEFFs = component.getServiceEffectSpecifications__BasicComponent()
                 .stream()
                 .filter(ResourceDemandingSEFF.class::isInstance)
                 .map(ResourceDemandingSEFF.class::cast)
                 .filter(it -> it.getDescribedService__SEFF()
                     .equals(calledSignature))
-                .findFirst();
+                .collect(Collectors.toList());
 
-            if (SEFF.isEmpty()) {
+            if (SEFFs.isEmpty()) {
                 throw new IllegalStateException("Unable to find called seff.");
             } else {
-                return Optional.of(new SEFFWithContext(SEFF.get(), newContexts));
+            	return SEFFs.stream()
+            			.map(seff -> new SEFFWithContext(seff, newContexts))
+            			.collect(Collectors.toList());
             }
 
         } else {
@@ -178,7 +181,7 @@ public class PCMQueryUtils {
      *            be resolved. The list starts with the most outer assembly context.
      * @return A tuple of the resolved SEFF and the assembly context stack.
      */
-    public static Optional<SEFFWithContext> findCalledSEFF(RequiredRole requiredRole,
+    public static List<SEFFWithContext> findCalledSEFF(RequiredRole requiredRole,
             OperationSignature calledSignature, Deque<AssemblyContext> context) {
 
         ComposedStructure composedStructure = context.getLast()

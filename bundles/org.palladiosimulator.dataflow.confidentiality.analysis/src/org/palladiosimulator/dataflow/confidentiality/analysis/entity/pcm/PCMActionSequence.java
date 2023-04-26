@@ -103,6 +103,7 @@ public class PCMActionSequence extends ActionSequence implements Comparable<PCMA
 			variableContexts.pop();
 			variableContexts.push(presentDataFlowVariables);
 		}
+		
 		if (nextElement instanceof CallReturnBehavior && ((CallReturnBehavior) nextElement).isReturning()) {
         	// Returning from a method me need to look for the RETURN DataFlowVariable save it in the lower variable context, and discard the current one
         	List<DataFlowVariable> returningDataFlowVariables = variableContexts.peek().stream()

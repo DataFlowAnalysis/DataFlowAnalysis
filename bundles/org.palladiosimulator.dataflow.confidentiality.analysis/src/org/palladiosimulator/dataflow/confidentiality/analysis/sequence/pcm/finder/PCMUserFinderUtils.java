@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataStore;
@@ -88,32 +89,39 @@ public class PCMUserFinderUtils {
 
         OperationProvidedRole calledRole = currentAction.getProvidedRole_EntryLevelSystemCall();
         OperationSignature calledSignature = currentAction.getOperationSignature__EntryLevelSystemCall();
-        Optional<SEFFWithContext> calledSEFF = PCMQueryUtils.findCalledSEFF(calledRole, calledSignature,
+        List<SEFFWithContext> calledSEFFs = PCMQueryUtils.findCalledSEFF(calledRole, calledSignature,
                 new ArrayDeque<>());
 
-        if (calledSEFF.isEmpty()) {
+        if (calledSEFFs.isEmpty()) {
             return new ArrayList<PCMActionSequence>();
         } else {
-        	if (calledSEFF.get().seff().getBasicComponent_ServiceEffectSpecification() instanceof OperationalDataStoreComponent) {
-                Deque<AbstractPCMActionSequenceElement<?>> callers = new ArrayDeque<>();
-        		callers.add(callingEntity);
-        		SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get().context(), callers, calledSignature.getParameters__OperationSignature(), dataStores);
-        		
-        		return PCMDatabaseFinderUtils.findSequencesForDatabaseAction(calledSEFF.get(), finderContext, currentActionSequence);
-        	}
-            Optional<StartAction> SEFFStartAction = PCMQueryUtils.getFirstStartActionInActionList(calledSEFF.get()
-                .seff()
-                .getSteps_Behaviour());
+        	return calledSEFFs.stream()
+        			.flatMap(seff -> findSequencesForSEFFEntryLevelSystemCall(seff, callingEntity, dataStores, calledSignature, currentActionSequence).stream())
+        			.collect(Collectors.toList());
+        }
+    }
+    
+    private static List<PCMActionSequence> findSequencesForSEFFEntryLevelSystemCall(SEFFWithContext calledSEFF, CallingUserActionSequenceElement callingEntity, 
+    		List<DataStore> dataStores, OperationSignature calledSignature, PCMActionSequence currentActionSequence) {
+    	if (calledSEFF.seff().getBasicComponent_ServiceEffectSpecification() instanceof OperationalDataStoreComponent) {
+            Deque<AbstractPCMActionSequenceElement<?>> callers = new ArrayDeque<>();
+    		callers.add(callingEntity);
+    		SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.context(), callers, calledSignature.getParameters__OperationSignature(), dataStores);
+    		
+    		return PCMDatabaseFinderUtils.findSequencesForDatabaseAction(calledSEFF, finderContext, currentActionSequence);
+    	}
+        Optional<StartAction> SEFFStartAction = PCMQueryUtils.getFirstStartActionInActionList(calledSEFF
+            .seff()
+            .getSteps_Behaviour());
 
-            if (SEFFStartAction.isEmpty()) {
-                throw new IllegalStateException("Unable to find SEFF start action.");
-            } else {
-                Deque<AbstractPCMActionSequenceElement<?>> callers = new ArrayDeque<>();
-                callers.add(callingEntity);
+        if (SEFFStartAction.isEmpty()) {
+            throw new IllegalStateException("Unable to find SEFF start action.");
+        } else {
+            Deque<AbstractPCMActionSequenceElement<?>> callers = new ArrayDeque<>();
+            callers.add(callingEntity);
 
-                SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get().context(), callers, calledSignature.getParameters__OperationSignature(), dataStores);
-                return PCMSEFFFinderUtils.findSequencesForSEFFAction(SEFFStartAction.get(), finderContext ,currentActionSequence);
-            }
+            SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.context(), callers, calledSignature.getParameters__OperationSignature(), dataStores);
+            return PCMSEFFFinderUtils.findSequencesForSEFFAction(SEFFStartAction.get(), finderContext ,currentActionSequence);
         }
     }
 

@@ -17,11 +17,9 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
     private final Logger logger = Logger.getLogger(PCMActionSequenceFinder.class);
 
     private final UsageModel usageModel;
-    private final Allocation allocationModel;
 
-    public PCMActionSequenceFinder(UsageModel usageModel, Allocation allocationModel) {
+    public PCMActionSequenceFinder(UsageModel usageModel) {
         this.usageModel = usageModel;
-        this.allocationModel = allocationModel;
     }
 
     @Override

@@ -62,8 +62,7 @@ public abstract class StandalonePCMDataFlowConfidentialityAnalysis implements Da
 
 	@Override
 	public List<ActionSequence> findAllSequences() {
-		ActionSequenceFinder sequenceFinder = new PCMActionSequenceFinder(this.analysisData.getResourceLoader().getUsageModel(), 
-        		this.analysisData.getResourceLoader().getAllocation());
+		ActionSequenceFinder sequenceFinder = new PCMActionSequenceFinder(this.analysisData.getResourceLoader().getUsageModel());
         return sequenceFinder.findAllSequences().stream()
         		.map(ActionSequence.class::cast)
         		.collect(Collectors.toList());

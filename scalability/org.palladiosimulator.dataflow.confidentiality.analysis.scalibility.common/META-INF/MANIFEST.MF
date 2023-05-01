@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Confidentiality Analysis Scaliblity Common
+Bundle-SymbolicName: org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.common
+Bundle-Version: 1.0.0.qualifier
+Export-Package: org.palladiosimulator.dataflow.confidentiality.scalability,
+ org.palladiosimulator.dataflow.confidentiality.scalability.factory,
+ org.palladiosimulator.dataflow.confidentiality.scalability.result,
+ org.palladiosimulator.dataflow.confidentiality.scalability.tests
+Automatic-Module-Name: org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.common
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Require-Bundle: org.palladiosimulator.dataflow.confidentiality.analysis;bundle-version="1.0.0",
+ org.apache.commons.logging;bundle-version="1.2.0",
+ org.eclipse.xtext.xbase.lib;bundle-version="2.25.0",
+ org.palladiosimulator.commons;bundle-version="5.1.0",
+ org.palladiosimulator.dataflow.nodecharacteristics;bundle-version="0.1.0",
+ org.palladiosimulator.dataflow.confidentiality.pcm.model.profile;bundle-version="5.1.0",
+ org.palladiosimulator.dataflow.confidentiality.pcm.dddsl;bundle-version="5.1.0",
+ org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels;bundle-version="1.0.0"

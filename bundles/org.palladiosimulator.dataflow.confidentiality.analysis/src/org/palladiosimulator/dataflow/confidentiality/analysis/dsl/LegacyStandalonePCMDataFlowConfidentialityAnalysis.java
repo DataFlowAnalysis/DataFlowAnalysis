@@ -3,6 +3,7 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.dsl;
 import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisBuilderData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
+import org.palladiosimulator.dataflow.confidentiality.analysis.builder.pcm.PCMAnalysisBuilderData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.AnalysisConstants;
 
 import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
@@ -18,7 +19,7 @@ public class LegacyStandalonePCMDataFlowConfidentialityAnalysis extends Standalo
 	 * @param relativeUsageModelPath Relative path to the usage model
 	 * @param relativeAllocationModelPath Relative path to the allocation model
 	 */
-	public LegacyStandalonePCMDataFlowConfidentialityAnalysis(AnalysisBuilderData builderData, AnalysisData analysisData) {
+	public LegacyStandalonePCMDataFlowConfidentialityAnalysis(PCMAnalysisBuilderData builderData, AnalysisData analysisData) {
 		super(analysisData,
 				Logger.getLogger(LegacyStandalonePCMDataFlowConfidentialityAnalysis.class),
 				builderData.getModelProjectName(), builderData.getPluginActivator());   

@@ -24,8 +24,11 @@ public class BaseTest {
         final var allocationPath = Paths.get("models", "BranchingOnlineShop", "default.allocation")
             .toString();
 
-        onlineShopAnalysis = new DataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME, Activator.class)
-        		.standalone().legacy()
+        onlineShopAnalysis = new DataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME)
+        		.standalone()
+        		.pcm()
+        		.legacy()
+        		.registerPluginActivator(Activator.class)
         		.registerUsageModel(usageModelPath)
         		.registerAllocationModel(allocationPath)
         		.build();
@@ -39,8 +42,11 @@ public class BaseTest {
             .toString();
         final var allocationPath = Paths.get("models", "InternationalOnlineShop", "default.allocation")
             .toString();
-        internationalOnlineShopAnalysis = new DataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME, Activator.class)
-        		.standalone().legacy()
+        internationalOnlineShopAnalysis = new DataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME)
+        		.standalone()
+        		.pcm()
+        		.registerPluginActivator(Activator.class)
+        		.legacy()
         		.registerUsageModel(usageModelPath)
         		.registerAllocationModel(allocationPath)
         		.build();
@@ -55,8 +61,11 @@ public class BaseTest {
         final var allocationPath = Paths.get("models", "TravelPlanner", "travelPlanner.allocation")
             .toString();
 
-        travelPlannerAnalysis = new DataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME, Activator.class)
-        		.standalone().legacy()
+        travelPlannerAnalysis = new DataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME)
+        		.standalone()
+        		.pcm()
+        		.legacy()
+        		.registerPluginActivator(Activator.class)
         		.registerUsageModel(usageModelPath)
         		.registerAllocationModel(allocationPath)
         		.build();
@@ -64,8 +73,11 @@ public class BaseTest {
     }
     
     protected DataFlowConfidentialityAnalysis initializeAnalysis(Path usagePath, Path allocationPath) {
-    	var analysis = new DataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME, Activator.class)
-    			.standalone().legacy()
+    	DataFlowConfidentialityAnalysis analysis = new DataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME)
+    			.standalone()
+        		.pcm()
+        		.legacy()
+        		.registerPluginActivator(Activator.class)
     			.registerUsageModel(usagePath.toString())
     			.registerAllocationModel(allocationPath.toString())
     			.build();
@@ -74,8 +86,10 @@ public class BaseTest {
     }
     
     protected DataFlowConfidentialityAnalysis initializeAnalysis(Path usagePath, Path allocationPath, Path nodePath) {
-    	var analysis = new DataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME, Activator.class)
+    	DataFlowConfidentialityAnalysis analysis = new DataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME)
     			.standalone()
+    			.pcm()
+    			.registerPluginActivator(Activator.class)
     			.registerUsageModel(usagePath.toString())
     			.registerAllocationModel(allocationPath.toString())
     			.registerNodeCharacteristicsModel(nodePath.toString())

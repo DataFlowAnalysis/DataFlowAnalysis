@@ -3,7 +3,7 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.builder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.DataFlowConfidentialityAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.pcm.PCMDataFlowConfidentialityAnalysisBuilder;;
 
-public class DataFlowConfidentialityAnalysisBuilder extends AbsrtractDataFlowConfidentialityAnalysisBuilder<DataFlowConfidentialityAnalysis, AnalysisBuilderData> {
+public class DataFlowConfidentialityAnalysisBuilder extends AbstractDataFlowAnalysisBuilder<DataFlowConfidentialityAnalysis, AnalysisBuilderData> {
 	
 	/**
 	 * Creates a new analysis builder with the given project name and project activator
@@ -27,8 +27,6 @@ public class DataFlowConfidentialityAnalysisBuilder extends AbsrtractDataFlowCon
 	public PCMDataFlowConfidentialityAnalysisBuilder pcm() {
 		return new PCMDataFlowConfidentialityAnalysisBuilder(this);
 	}
-	
-	
 	
 	/**
 	 * Checks the provided data for issues or warnings

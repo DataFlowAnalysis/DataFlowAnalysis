@@ -4,6 +4,15 @@ public class AnalysisBuilderData {
 	protected boolean standalone;
 	protected String modelProjectName;
 	
+	public AnalysisBuilderData() {
+		
+	}
+	
+	public AnalysisBuilderData(AnalysisBuilderData other) {
+		this.modelProjectName = other.getModelProjectName();
+		this.standalone = other.isStandalone();
+	}
+	
 	
 	/**
 	 * Sets the model porject name

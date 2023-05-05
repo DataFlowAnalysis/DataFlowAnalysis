@@ -1,18 +1,18 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.builder.pcm;
 
 import org.eclipse.core.runtime.Plugin;
-import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AbsrtractDataFlowConfidentialityAnalysisBuilder;
+import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AbstractDataFlowAnalysisBuilder;
+import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisBuilderData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.DataFlowConfidentialityAnalysisBuilder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.dsl.LegacyStandalonePCMDataFlowConfidentialityAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.dsl.StandalonePCMDataFlowConfidentialityAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.dsl.StandalonePCMDataFlowConfidentialityAnalysisImpl;
 
-public class PCMDataFlowConfidentialityAnalysisBuilder extends AbsrtractDataFlowConfidentialityAnalysisBuilder<StandalonePCMDataFlowConfidentialityAnalysis, PCMAnalysisBuilderData> {
-	private AbsrtractDataFlowConfidentialityAnalysisBuilder<?,?> previousBuilder;
+public class PCMDataFlowConfidentialityAnalysisBuilder 
+extends AbstractDataFlowAnalysisBuilder<StandalonePCMDataFlowConfidentialityAnalysis, PCMAnalysisBuilderData> {
 
 	public PCMDataFlowConfidentialityAnalysisBuilder(DataFlowConfidentialityAnalysisBuilder builder) {
 		super(new PCMAnalysisBuilderData(builder.getBuilderData()));
-		this.previousBuilder = builder;
 	}
 	
 	/**
@@ -59,10 +59,14 @@ public class PCMDataFlowConfidentialityAnalysisBuilder extends AbsrtractDataFlow
 		return this;
 	}
 	
-
+	@Override
+	public void copyBuilderData(AnalysisBuilderData builderData) {
+		
+	}
+	
 	@Override
 	public void checkBuilderData() {
-		previousBuilder.checkBuilderData();
+		this.builder.forEach(it -> it.checkBuilderData());
 		if (this.builderData.getPluginActivator() == null) {
 			throw new IllegalStateException("A plugin activator is required");
 		}
@@ -89,5 +93,4 @@ public class PCMDataFlowConfidentialityAnalysisBuilder extends AbsrtractDataFlow
 			return new StandalonePCMDataFlowConfidentialityAnalysisImpl(builderData, builderData.createAnalysisData());
 		}
 	}
-
 }

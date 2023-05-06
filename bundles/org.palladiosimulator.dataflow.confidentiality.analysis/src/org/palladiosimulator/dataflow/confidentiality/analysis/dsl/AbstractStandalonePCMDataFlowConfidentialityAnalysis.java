@@ -70,7 +70,7 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
 
 	@Override
 	public List<ActionSequence> evaluateDataFlows(List<ActionSequence> sequences) {
-		List<PCMActionSequence> actionSequences = sequences.stream()
+		List<PCMActionSequence> actionSequences = sequences.parallelStream()
     			.map(PCMActionSequence.class::cast)
     			.collect(Collectors.toList());
     	List<PCMActionSequence> sortedSequences = new ArrayList<>(actionSequences);

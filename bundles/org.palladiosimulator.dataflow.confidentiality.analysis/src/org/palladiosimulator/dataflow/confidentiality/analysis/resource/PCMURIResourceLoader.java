@@ -12,8 +12,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.allocation.Allocation;
-import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentFactory;
-import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentPackage;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 
 public class PCMURIResourceLoader implements ResourceLoader {

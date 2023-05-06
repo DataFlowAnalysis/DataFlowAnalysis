@@ -3,7 +3,6 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;

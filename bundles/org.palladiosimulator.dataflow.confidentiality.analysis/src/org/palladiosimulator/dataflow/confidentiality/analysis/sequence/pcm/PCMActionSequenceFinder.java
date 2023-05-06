@@ -9,7 +9,6 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.PCMAct
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.ActionSequenceFinder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.finder.PCMUserFinderUtils;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMQueryUtils;
-import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.usagemodel.Start;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 

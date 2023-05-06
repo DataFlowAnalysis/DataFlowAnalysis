@@ -1,7 +1,6 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.dsl;
 
 import org.apache.log4j.Logger;
-import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisBuilderData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.pcm.PCMAnalysisBuilderData;
 

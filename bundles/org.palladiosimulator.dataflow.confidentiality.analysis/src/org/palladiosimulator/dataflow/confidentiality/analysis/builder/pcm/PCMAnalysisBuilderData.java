@@ -1,10 +1,8 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.builder.pcm;
 
-import java.nio.file.Paths;
 import java.util.Optional;
 
 import org.eclipse.core.runtime.Plugin;
-import org.eclipse.emf.common.util.URI;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisBuilderData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.node.LegacyPCMNodeCharacteristicsCalculator;
@@ -12,6 +10,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.n
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.PCMDataCharacteristicsCalculatorFactory;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMURIResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
+import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMResourceUtils;
 
 public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	private Class<? extends Plugin> pluginActivator;
@@ -27,30 +26,18 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	 */
 	public AnalysisData createAnalysisData() {
 		if (this.isLegacy()) {
-			ResourceLoader resourceLoader = new PCMURIResourceLoader(this.createRelativePluginURI(relativeUsageModelPath, modelProjectName), 
-					this.createRelativePluginURI(relativeAllocationModelPath, modelProjectName), Optional.empty());
+			ResourceLoader resourceLoader = new PCMURIResourceLoader(PCMResourceUtils.createRelativePluginURI(relativeUsageModelPath, modelProjectName), 
+					PCMResourceUtils.createRelativePluginURI(relativeAllocationModelPath, modelProjectName), Optional.empty());
 			return new AnalysisData(resourceLoader, 
 					new LegacyPCMNodeCharacteristicsCalculator(resourceLoader), new PCMDataCharacteristicsCalculatorFactory(resourceLoader));
 		} else {
-			ResourceLoader resourceLoader = new PCMURIResourceLoader(this.createRelativePluginURI(relativeUsageModelPath, modelProjectName), 
-					this.createRelativePluginURI(relativeAllocationModelPath, modelProjectName), 
-					Optional.of(this.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName)));
+			ResourceLoader resourceLoader = new PCMURIResourceLoader(PCMResourceUtils.createRelativePluginURI(relativeUsageModelPath, modelProjectName), 
+					PCMResourceUtils.createRelativePluginURI(relativeAllocationModelPath, modelProjectName), 
+					Optional.of(PCMResourceUtils.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName)));
 			return new AnalysisData(resourceLoader, 
 					new PCMNodeCharacteristicsCalculatorImpl(resourceLoader), new PCMDataCharacteristicsCalculatorFactory(resourceLoader));
 		}
 	}
-	
-    
-    /**
-     * Creates a relative plugin uri from the given relative path
-     * @param relativePath Given relative path
-     * @return Returns plugin path with the given project name and provided relative path
-     */
-    private URI createRelativePluginURI(String relativePath, String modelProjectName) {
-        String path = Paths.get(modelProjectName, relativePath)
-            .toString();
-        return URI.createPlatformPluginURI(path, false);
-    }
 	
 	/**
 	 * Sets the plugin activator of the project

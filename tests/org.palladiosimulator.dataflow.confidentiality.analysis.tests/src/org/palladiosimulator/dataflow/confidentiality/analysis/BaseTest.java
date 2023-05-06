@@ -8,7 +8,8 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
-import org.palladiosimulator.dataflow.confidentiality.analysis.builder.DataFlowConfidentialityAnalysisBuilder;
+import org.palladiosimulator.dataflow.confidentiality.analysis.builder.DataFlowAnalysisBuilder;
+import org.palladiosimulator.dataflow.confidentiality.analysis.builder.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.testmodels.Activator;
 
 @TestInstance(Lifecycle.PER_CLASS)
@@ -24,9 +25,9 @@ public class BaseTest {
         final var allocationPath = Paths.get("models", "BranchingOnlineShop", "default.allocation")
             .toString();
 
-        onlineShopAnalysis = new DataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME)
+        onlineShopAnalysis = new DataFlowAnalysisBuilder()
         		.standalone()
-        		.pcm()
+        		.registerBuilder(new PCMDataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME))
         		.legacy()
         		.registerPluginActivator(Activator.class)
         		.registerUsageModel(usageModelPath)
@@ -42,9 +43,9 @@ public class BaseTest {
             .toString();
         final var allocationPath = Paths.get("models", "InternationalOnlineShop", "default.allocation")
             .toString();
-        internationalOnlineShopAnalysis = new DataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME)
+        internationalOnlineShopAnalysis = new DataFlowAnalysisBuilder()
         		.standalone()
-        		.pcm()
+        		.registerBuilder(new PCMDataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME))
         		.registerPluginActivator(Activator.class)
         		.legacy()
         		.registerUsageModel(usageModelPath)
@@ -61,9 +62,9 @@ public class BaseTest {
         final var allocationPath = Paths.get("models", "TravelPlanner", "travelPlanner.allocation")
             .toString();
 
-        travelPlannerAnalysis = new DataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME)
+        travelPlannerAnalysis = new DataFlowAnalysisBuilder()
         		.standalone()
-        		.pcm()
+        		.registerBuilder(new PCMDataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME))
         		.legacy()
         		.registerPluginActivator(Activator.class)
         		.registerUsageModel(usageModelPath)
@@ -73,9 +74,9 @@ public class BaseTest {
     }
     
     protected DataFlowConfidentialityAnalysis initializeAnalysis(Path usagePath, Path allocationPath) {
-    	DataFlowConfidentialityAnalysis analysis = new DataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME)
-    			.standalone()
-        		.pcm()
+    	DataFlowConfidentialityAnalysis analysis = new DataFlowAnalysisBuilder()
+        		.standalone()
+        		.registerBuilder(new PCMDataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME))
         		.legacy()
         		.registerPluginActivator(Activator.class)
     			.registerUsageModel(usagePath.toString())
@@ -86,9 +87,9 @@ public class BaseTest {
     }
     
     protected DataFlowConfidentialityAnalysis initializeAnalysis(Path usagePath, Path allocationPath, Path nodePath) {
-    	DataFlowConfidentialityAnalysis analysis = new DataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME)
-    			.standalone()
-    			.pcm()
+    	DataFlowConfidentialityAnalysis analysis = new DataFlowAnalysisBuilder()
+        		.standalone()
+        		.registerBuilder(new PCMDataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME))
     			.registerPluginActivator(Activator.class)
     			.registerUsageModel(usagePath.toString())
     			.registerAllocationModel(allocationPath.toString())

@@ -10,8 +10,9 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.dsl.StandalonePCM
 public class PCMDataFlowConfidentialityAnalysisBuilder 
 extends AbstractDataFlowAnalysisBuilder<AbstractStandalonePCMDataFlowConfidentialityAnalysis, PCMAnalysisBuilderData, AnalysisBuilderData> {
 
-	public PCMDataFlowConfidentialityAnalysisBuilder() {
+	public PCMDataFlowConfidentialityAnalysisBuilder(String modelProjectName) {
 		super(new PCMAnalysisBuilderData());
+		this.builderData.setModelProjectName(modelProjectName);
 	}
 	
 	/**
@@ -23,6 +24,11 @@ extends AbstractDataFlowAnalysisBuilder<AbstractStandalonePCMDataFlowConfidentia
 		return this;
 	}
 	
+	/**
+	 * Registers a plugin activator class for the given project
+	 * @param pluginActivator Plugin activator class of the modeling project
+	 * @return Returns builder object of the analysis
+	 */
 	public PCMDataFlowConfidentialityAnalysisBuilder registerPluginActivator(Class<? extends Plugin> pluginActivator) {
 		this.builderData.setPluginActivator(pluginActivator);
 		return this;
@@ -64,6 +70,9 @@ extends AbstractDataFlowAnalysisBuilder<AbstractStandalonePCMDataFlowConfidentia
 		super.builderData.setStandalone(builderData.isStandalone());
 	}
 	
+	
+	// TODO> Extract checking into data class?
+	// TODO> Validate top down or bottom up?
 	@Override
 	public void checkBuilderData() {
 		this.builder.forEach(it -> it.checkBuilderData());

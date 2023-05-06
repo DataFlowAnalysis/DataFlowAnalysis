@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
-import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.DataCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.AbstractPCMActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMQueryUtils;

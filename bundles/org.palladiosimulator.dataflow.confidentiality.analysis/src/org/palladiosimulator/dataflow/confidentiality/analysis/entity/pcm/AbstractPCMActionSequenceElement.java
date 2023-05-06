@@ -9,7 +9,6 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisD
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.DataCharacteristicsCalculator;
-import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.PCMDataCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;

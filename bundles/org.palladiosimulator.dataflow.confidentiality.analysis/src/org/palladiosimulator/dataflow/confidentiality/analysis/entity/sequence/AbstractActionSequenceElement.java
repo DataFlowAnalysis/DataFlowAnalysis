@@ -9,7 +9,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
-import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
 
 public abstract class AbstractActionSequenceElement<T extends EObject> {

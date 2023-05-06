@@ -7,10 +7,8 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.Comparator;
 
-import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.DictionaryPackage;
@@ -29,7 +27,6 @@ import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
 
 public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalculator {
-	private static final Logger logger = Logger.getLogger(PCMDataCharacteristicsCalculator.class);
     private final List<DataFlowVariable> currentVariables;
     private final ResourceLoader resourceLoader;
 

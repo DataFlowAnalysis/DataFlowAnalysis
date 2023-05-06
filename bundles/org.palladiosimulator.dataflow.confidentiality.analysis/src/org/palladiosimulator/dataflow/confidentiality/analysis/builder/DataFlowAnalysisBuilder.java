@@ -27,4 +27,13 @@ public class DataFlowAnalysisBuilder extends AbstractDataFlowAnalysisBuilder<Dat
 		this.checkBuilderData();
 		throw new IllegalStateException("No current implementation supports pcm-less analysis");
 	}
+	
+	/**
+	 * Sets standalone mode of the analysis
+	 * @return Builder of the analysis
+	 */
+	public DataFlowAnalysisBuilder standalone() {
+		this.builderData.setStandalone(true);
+		return this;
+	}
 }

@@ -7,12 +7,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataStore;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.AbstractPCMActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.PCMActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.user.CallingUserActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.SEFFWithContext;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;

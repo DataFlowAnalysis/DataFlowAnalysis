@@ -36,4 +36,13 @@ public class DataFlowAnalysisBuilder extends AbstractDataFlowAnalysisBuilder<Dat
 		this.builderData.setStandalone(true);
 		return this;
 	}
+	
+	/**
+	 * Sets the modelling project name of the analysis
+	 * @return Builder of the analysis
+	 */
+	public DataFlowAnalysisBuilder modelProjectName(String modelProjectName) {
+		this.builderData.setModelProjectName(modelProjectName);
+		return this;
+	}
 }

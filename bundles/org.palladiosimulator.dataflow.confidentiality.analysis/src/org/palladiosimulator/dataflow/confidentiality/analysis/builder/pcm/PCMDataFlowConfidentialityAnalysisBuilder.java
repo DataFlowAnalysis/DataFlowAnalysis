@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.builder.pcm;
+	package org.palladiosimulator.dataflow.confidentiality.analysis.builder.pcm;
 
 import org.eclipse.core.runtime.Plugin;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AbstractDataFlowAnalysisBuilder;
@@ -10,9 +10,8 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.dsl.StandalonePCM
 public class PCMDataFlowConfidentialityAnalysisBuilder 
 extends AbstractDataFlowAnalysisBuilder<AbstractStandalonePCMDataFlowConfidentialityAnalysis, PCMAnalysisBuilderData, AnalysisBuilderData> {
 
-	public PCMDataFlowConfidentialityAnalysisBuilder(String modelProjectName) {
+	public PCMDataFlowConfidentialityAnalysisBuilder() {
 		super(new PCMAnalysisBuilderData());
-		this.builderData.setModelProjectName(modelProjectName);
 	}
 	
 	/**

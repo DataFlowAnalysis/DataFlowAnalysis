@@ -75,6 +75,7 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
     			.collect(Collectors.toList());
     	List<PCMActionSequence> sortedSequences = new ArrayList<>(actionSequences);
     	Collections.sort(sortedSequences);
+    	// TODO: Normal stream here due to DatastoreComponents (Different behavior/race condition with store/get)
         return sortedSequences.stream()
             .map(it -> it.evaluateDataFlow(this.analysisData))
             .toList();

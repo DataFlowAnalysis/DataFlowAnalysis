@@ -58,7 +58,7 @@ public class PCMActionSequence extends ActionSequence implements Comparable<PCMA
      */
     public PCMActionSequence(ActionSequence sequence, AbstractActionSequenceElement<?>... newElements) {
         super(Stream.concat(sequence.getElements()
-            .parallelStream(), Stream.of(newElements))
+            .stream(), Stream.of(newElements))
             .toList());
     }
 
@@ -93,11 +93,11 @@ public class PCMActionSequence extends ActionSequence implements Comparable<PCMA
 	private void prepareCall(Deque<List<DataFlowVariable>> variableContexts, AbstractActionSequenceElement<?> nextElement) {
 		if (nextElement instanceof SEFFActionSequenceElement<?> && ((SEFFActionSequenceElement<?>) nextElement).getElement() instanceof StartAction) {
 			SEFFActionSequenceElement<?> startElement = (SEFFActionSequenceElement<?>) nextElement;
-			List<String> parameter = startElement.getParameter().parallelStream()
+			List<String> parameter = startElement.getParameter().stream()
 					.map(it -> it.getParameterName())
 					.collect(Collectors.toList());
 			
-			List<DataFlowVariable> presentDataFlowVariables = variableContexts.peek().parallelStream()
+			List<DataFlowVariable> presentDataFlowVariables = variableContexts.peek().stream()
 					.filter(it -> parameter.contains(it.variableName()))
 					.collect(Collectors.toList());
 			variableContexts.pop();
@@ -105,7 +105,7 @@ public class PCMActionSequence extends ActionSequence implements Comparable<PCMA
 		}
 		if (nextElement instanceof CallReturnBehavior && ((CallReturnBehavior) nextElement).isReturning()) {
         	// Returning from a method me need to look for the RETURN DataFlowVariable save it in the lower variable context, and discard the current one
-        	List<DataFlowVariable> returningDataFlowVariables = variableContexts.peek().parallelStream()
+        	List<DataFlowVariable> returningDataFlowVariables = variableContexts.peek().stream()
         			.filter(it -> it.variableName().equals("RETURN"))
         			.collect(Collectors.toList());
         	variableContexts.pop();
@@ -126,7 +126,7 @@ public class PCMActionSequence extends ActionSequence implements Comparable<PCMA
         	List<DataFlowVariable> callingDataFlowVariables = new ArrayList<>(evaluatedElement.getAllDataFlowVariables());
         	variableContexts.push(callingDataFlowVariables);
         } else if (evaluatedElement instanceof CallReturnBehavior && ((CallReturnBehavior) evaluatedElement).isReturning()) {
-        	List<DataFlowVariable> returingDataFlowVariables = evaluatedElement.getAllDataFlowVariables().parallelStream()
+        	List<DataFlowVariable> returingDataFlowVariables = evaluatedElement.getAllDataFlowVariables().stream()
         			.filter(it -> !it.variableName().equals("RETURN"))
         			.collect(Collectors.toList());
         	variableContexts.pop();
@@ -139,22 +139,22 @@ public class PCMActionSequence extends ActionSequence implements Comparable<PCMA
 	
     
     public List<String> getProvidedDatabases() {
-    	List<DatabaseActionSequenceElement<?>> potentialProvided = this.getElements().parallelStream()
+    	List<DatabaseActionSequenceElement<?>> potentialProvided = this.getElements().stream()
 				.filter(DatabaseActionSequenceElement.class::isInstance)
 				.map(DatabaseActionSequenceElement.class::cast)
 				.filter(it -> it.isWriting())
 				.collect(Collectors.toList());
-    	List<DatabaseActionSequenceElement<?>> providedDatabases = potentialProvided.parallelStream()
+    	List<DatabaseActionSequenceElement<?>> providedDatabases = potentialProvided.stream()
     			.filter(it -> !getRequiredBefore(it).contains(it.getDataStore().getDatabaseComponentName()))
     			.collect(Collectors.toList());
-    	return providedDatabases.parallelStream()
+    	return providedDatabases.stream()
     			.map(it -> it.getDataStore().getDatabaseComponentName())
     			.collect(Collectors.toList());
     }
     
     private List<String> getRequiredBefore(DatabaseActionSequenceElement<?> element) {
     	int index = this.getElements().indexOf(element);
-    	return this.getElements().parallelStream()
+    	return this.getElements().stream()
 				.filter(DatabaseActionSequenceElement.class::isInstance)
 				.map(DatabaseActionSequenceElement.class::cast)
 				.filter(it -> !it.isWriting())
@@ -164,22 +164,22 @@ public class PCMActionSequence extends ActionSequence implements Comparable<PCMA
     }
     
     public List<String> getRequiredDatabases() {
-    	List<DatabaseActionSequenceElement<?>> potentialRequired = this.getElements().parallelStream()
+    	List<DatabaseActionSequenceElement<?>> potentialRequired = this.getElements().stream()
 				.filter(DatabaseActionSequenceElement.class::isInstance)
 				.map(DatabaseActionSequenceElement.class::cast)
 				.filter(it -> !it.isWriting())
 				.collect(Collectors.toList());
-    	List<DatabaseActionSequenceElement<?>> requiredDatabases = potentialRequired.parallelStream()
+    	List<DatabaseActionSequenceElement<?>> requiredDatabases = potentialRequired.stream()
     			.filter(it -> !getProvidedBefore(it).contains(it.getDataStore().getDatabaseComponentName()))
     			.collect(Collectors.toList());
-    	return requiredDatabases.parallelStream()
+    	return requiredDatabases.stream()
     			.map(it -> it.getDataStore().getDatabaseComponentName())
     			.collect(Collectors.toList());
     }
     
     private List<String> getProvidedBefore(DatabaseActionSequenceElement<?> element) {
     	int index = this.getElements().indexOf(element);
-    	return this.getElements().parallelStream()
+    	return this.getElements().stream()
 				.filter(DatabaseActionSequenceElement.class::isInstance)
 				.map(DatabaseActionSequenceElement.class::cast)
 				.filter(it -> it.isWriting())

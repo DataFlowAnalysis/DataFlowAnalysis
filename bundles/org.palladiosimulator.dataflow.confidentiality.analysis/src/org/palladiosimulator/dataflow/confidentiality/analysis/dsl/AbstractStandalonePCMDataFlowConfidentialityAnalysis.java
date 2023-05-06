@@ -63,19 +63,19 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
 	@Override
 	public List<ActionSequence> findAllSequences() {
 		ActionSequenceFinder sequenceFinder = new PCMActionSequenceFinder(this.analysisData.getResourceLoader().getUsageModel());
-        return sequenceFinder.findAllSequences().parallelStream()
+        return sequenceFinder.findAllSequences().stream()
         		.map(ActionSequence.class::cast)
         		.collect(Collectors.toList());
 	}
 
 	@Override
 	public List<ActionSequence> evaluateDataFlows(List<ActionSequence> sequences) {
-		List<PCMActionSequence> actionSequences = sequences.parallelStream()
+		List<PCMActionSequence> actionSequences = sequences.stream()
     			.map(PCMActionSequence.class::cast)
     			.collect(Collectors.toList());
     	List<PCMActionSequence> sortedSequences = new ArrayList<>(actionSequences);
     	Collections.sort(sortedSequences);
-        return sortedSequences.parallelStream()
+        return sortedSequences.stream()
             .map(it -> it.evaluateDataFlow(this.analysisData))
             .toList();
 	}
@@ -84,7 +84,7 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
 	public List<AbstractActionSequenceElement<?>> queryDataFlow(ActionSequence sequence,
 			Predicate<? super AbstractActionSequenceElement<?>> condition) {
 		return sequence.getElements()
-	            .parallelStream()
+	            .stream()
 	            .filter(condition)
 	            .toList();
 	}
@@ -194,7 +194,7 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
 
             this.dataDictionaries = this.analysisData.getResourceLoader()
                 .lookupElementOfType(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
-                .parallelStream()
+                .stream()
                 .filter(PCMDataDictionary.class::isInstance)
                 .map(PCMDataDictionary.class::cast)
                 .collect(Collectors.toList());

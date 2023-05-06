@@ -20,9 +20,6 @@ public class DataFlowAnalysisBuilder extends AbstractDataFlowAnalysisBuilder<Dat
 		if (!this.builderData.isStandalone()) {
 			throw new IllegalStateException("Execution of the analysis is only supported in standalone mode");
 		}
-		if(this.builderData.modelProjectName == null || this.builderData.modelProjectName.isBlank()) {
-			throw new IllegalStateException("A model project name is required!");
-		}
 	}
 
 	@Override
@@ -37,15 +34,6 @@ public class DataFlowAnalysisBuilder extends AbstractDataFlowAnalysisBuilder<Dat
 	 */
 	public DataFlowAnalysisBuilder standalone() {
 		this.builderData.setStandalone(true);
-		return this;
-	}
-	
-	/**
-	 * Sets the model project name of the analysis
-	 * @return Builder of the analysis
-	 */
-	public DataFlowAnalysisBuilder modelProjectName(String modelProjectName) {
-		this.builderData.setModelProjectName(modelProjectName);
 		return this;
 	}
 }

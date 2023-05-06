@@ -34,9 +34,9 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
         List<Start> startActions = PCMQueryUtils.findStartActionsForUsageModel(usageModel);
         List<DataStore> initialDataStores = new ArrayList<>();
 
-        return startActions.parallelStream()
+        return startActions.stream()
         .map(it -> PCMUserFinderUtils.findSequencesForUserAction(it, initialDataStores, initialList))
-        .flatMap(List::parallelStream)
+        .flatMap(List::stream)
         .toList();
     }
 

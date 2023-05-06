@@ -10,8 +10,9 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.dsl.StandalonePCM
 public class PCMDataFlowConfidentialityAnalysisBuilder 
 extends AbstractDataFlowAnalysisBuilder<AbstractStandalonePCMDataFlowConfidentialityAnalysis, PCMAnalysisBuilderData, AnalysisBuilderData> {
 
-	public PCMDataFlowConfidentialityAnalysisBuilder() {
+	public PCMDataFlowConfidentialityAnalysisBuilder(String modelProjectName) {
 		super(new PCMAnalysisBuilderData());
+		this.builderData.setModelProjectName(modelProjectName);
 	}
 	
 	/**

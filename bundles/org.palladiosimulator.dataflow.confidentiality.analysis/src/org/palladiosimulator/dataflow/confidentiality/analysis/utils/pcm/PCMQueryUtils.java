@@ -42,7 +42,7 @@ public class PCMQueryUtils {
      */
     public static Optional<Start> getStartActionOfScenarioBehavior(ScenarioBehaviour scenarioBehavior) {
         List<Start> candidates = scenarioBehavior.getActions_ScenarioBehaviour()
-            .parallelStream()
+            .stream()
             .filter(Start.class::isInstance)
             .map(Start.class::cast)
             .toList();
@@ -52,7 +52,7 @@ public class PCMQueryUtils {
                     scenarioBehavior.getEntityName()));
         }
 
-        return candidates.parallelStream()
+        return candidates.stream()
             .findFirst();
     }
 
@@ -62,7 +62,7 @@ public class PCMQueryUtils {
      * @return Returns the first found start action
      */
     public static Optional<StartAction> getFirstStartActionInActionList(List<AbstractAction> actionList) {
-        return actionList.parallelStream()
+        return actionList.stream()
             .filter(StartAction.class::isInstance)
             .map(StartAction.class::cast)
             .findFirst();
@@ -75,7 +75,7 @@ public class PCMQueryUtils {
      */
     public static List<Start> findStartActionsForUsageModel(UsageModel usageModel) {
         return usageModel.getUsageScenario_UsageModel()
-            .parallelStream()
+            .stream()
             .map(UsageScenario::getScenarioBehaviour_UsageScenario)
             .map(PCMQueryUtils::getStartActionOfScenarioBehavior)
             .flatMap(Optional::stream)
@@ -187,7 +187,7 @@ public class PCMQueryUtils {
 
         // test if there is an assembly connector satisfying the required role
         Optional<AssemblyConnector> assemblyConnector = composedStructure.getConnectors__ComposedStructure()
-            .parallelStream()
+            .stream()
             .filter(AssemblyConnector.class::isInstance)
             .map(AssemblyConnector.class::cast)
             .filter(it -> it.getRequiredRole_AssemblyConnector()
@@ -208,7 +208,7 @@ public class PCMQueryUtils {
 
             // go to the parent composed structure to satisfy the required role
             Optional<RequiredRole> outerRequiredRole = composedStructure.getConnectors__ComposedStructure()
-                .parallelStream()
+                .stream()
                 .filter(RequiredDelegationConnector.class::isInstance)
                 .map(RequiredDelegationConnector.class::cast)
                 .filter(it -> it.getInnerRequiredRole_RequiredDelegationConnector()
@@ -229,7 +229,7 @@ public class PCMQueryUtils {
     private static Optional<ProvidedDelegationConnector> findProvidedDelegationConnector(ComposedStructure component,
             ProvidedRole outerRole) {
         return component.getConnectors__ComposedStructure()
-            .parallelStream()
+            .stream()
             .filter(ProvidedDelegationConnector.class::isInstance)
             .map(ProvidedDelegationConnector.class::cast)
             .filter(it -> it.getOuterProvidedRole_ProvidedDelegationConnector()

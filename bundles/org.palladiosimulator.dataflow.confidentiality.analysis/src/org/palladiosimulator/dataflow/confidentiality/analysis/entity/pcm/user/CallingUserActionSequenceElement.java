@@ -46,14 +46,14 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
     	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(analysisData);
     	
     	List<VariableCharacterisation> variableCharacterisations = this.isCalling ?
-    			super.getElement().getInputParameterUsages_EntryLevelSystemCall().parallelStream()
+    			super.getElement().getInputParameterUsages_EntryLevelSystemCall().stream()
     			.flatMap(it -> it.getVariableCharacterisation_VariableUsage()
-    	                .parallelStream())
+    	                .stream())
     	            .collect(Collectors.toList())
                 :
-                super.getElement().getOutputParameterUsages_EntryLevelSystemCall().parallelStream()
+                super.getElement().getOutputParameterUsages_EntryLevelSystemCall().stream()
                 .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
-                        .parallelStream())
+                        .stream())
                     .collect(Collectors.toList());
     	
     	if (this.isCalling()) {

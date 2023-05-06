@@ -50,7 +50,7 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
      * @return Returns a list of all characteristic literals matching the characteristic type
      */
     public List<Literal> getNodeCharacteristicsWithName(String name) {
-    	return this.getAllNodeCharacteristics().parallelStream()
+    	return this.getAllNodeCharacteristics().stream()
 		.filter(cv -> cv.characteristicType().getName().equals(name))
 		.map(cv -> cv.characteristicLiteral())
 		.collect(Collectors.toList());
@@ -64,8 +64,8 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
      * @return Returns a list of all characteristic literals matching the characteristic type
      */
     public Map<DataFlowVariable, List<Literal>> getDataFlowCharacteristicsWithName(String name) {
-    	return this.getAllDataFlowVariables().parallelStream()
-    			.collect(Collectors.toMap(it -> it, it -> it.characteristics().parallelStream()
+    	return this.getAllDataFlowVariables().stream()
+    			.collect(Collectors.toMap(it -> it, it -> it.characteristics().stream()
     					.filter(df -> df.characteristicType().getName().equals(name))
     					.map(df -> df.characteristicLiteral())
     					.collect(Collectors.toList()))
@@ -112,7 +112,7 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
         String template = "Propagated %s%s\tNode characteristics: %s%s\tData flow Variables:  %s%s";
         String nodeCharacteristics = createPrintableCharacteristicsList(this.getAllNodeCharacteristics());
         String dataCharacteristics = this.getAllDataFlowVariables()
-            .parallelStream()
+            .stream()
             .map(e -> String.format("%s [%s]", e.variableName(),
                     createPrintableCharacteristicsList(e.getAllCharacteristics())))
             .collect(Collectors.joining(", "));
@@ -130,7 +130,7 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
      * @return a comma separated list of the format "type.literal, type.literal"
      */
     public String createPrintableCharacteristicsList(List<CharacteristicValue> characteristics) {
-        List<String> entries = characteristics.parallelStream()
+        List<String> entries = characteristics.stream()
             .map(it -> String.format("%s.%s", it.characteristicType()
                 .getName(),
                     it.characteristicLiteral()

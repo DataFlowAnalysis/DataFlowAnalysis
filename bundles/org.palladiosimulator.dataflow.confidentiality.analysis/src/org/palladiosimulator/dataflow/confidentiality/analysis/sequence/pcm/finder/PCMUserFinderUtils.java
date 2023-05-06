@@ -70,12 +70,12 @@ public class PCMUserFinderUtils {
     private static List<PCMActionSequence> findSequencesForUserBranchAction(Branch currentAction, List<DataStore> dataStores,
             PCMActionSequence previousSequence) {
         return currentAction.getBranchTransitions_Branch()
-            .parallelStream()
+            .stream()
             .map(BranchTransition::getBranchedBehaviour_BranchTransition)
             .map(PCMQueryUtils::getStartActionOfScenarioBehavior)
             .flatMap(Optional::stream)
             .map(it -> findSequencesForUserAction(it, dataStores, previousSequence))
-            .flatMap(List::parallelStream)
+            .flatMap(List::stream)
             .toList();
     }
 

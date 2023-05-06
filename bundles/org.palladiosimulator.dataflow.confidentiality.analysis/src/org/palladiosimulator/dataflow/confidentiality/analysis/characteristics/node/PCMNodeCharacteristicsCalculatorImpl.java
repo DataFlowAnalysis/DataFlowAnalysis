@@ -60,12 +60,11 @@ public class PCMNodeCharacteristicsCalculatorImpl implements NodeCharacteristics
 		} else {
 			throw new IllegalArgumentException("Unkown assignee:" + node.toString());
 		}
-		List<EnumCharacteristic> enumCharacteristics = assignees.parallelStream()
-			.flatMap(it -> it.getCharacteristics().parallelStream())
+		List<EnumCharacteristic> enumCharacteristics = assignees.stream()
+			.flatMap(it -> it.getCharacteristics().stream())
 			.collect(Collectors.toList());
-		return enumCharacteristics.parallelStream()
-				.flatMap(it -> it.getValues().parallelStream()
-				.map(val -> new CharacteristicValue(it.getType(), val)))
+		return enumCharacteristics.stream()
+				.flatMap(it -> it.getValues().stream().map(val -> new CharacteristicValue(it.getType(), val)))
 				.collect(Collectors.toList());
 	}
 	
@@ -76,7 +75,7 @@ public class PCMNodeCharacteristicsCalculatorImpl implements NodeCharacteristics
 	 */
 	private List<AbstractAssignee> getUsage(Entity node, Assignments assignments) {
 		UsageScenario usageScenario = PCMQueryUtils.findParentOfType(node, UsageScenario.class, false).get();
-		return assignments.getAssignee().parallelStream()
+		return assignments.getAssignee().stream()
 			.filter(UsageAsignee.class::isInstance)
 			.map(UsageAsignee.class::cast)
 			.filter(it -> it.getUsagescenario().equals(usageScenario))
@@ -91,13 +90,13 @@ public class PCMNodeCharacteristicsCalculatorImpl implements NodeCharacteristics
 	 */
 	private List<AbstractAssignee> getSEFF(Assignments assignments, Deque<AssemblyContext> context) {
 		List<AbstractAssignee> resolvedAssignees = new ArrayList<>();
-		var allocations = this.resourceLoader.lookupElementOfType(AllocationPackage.eINSTANCE.getAllocation()).parallelStream()
+		var allocations = this.resourceLoader.lookupElementOfType(AllocationPackage.eINSTANCE.getAllocation()).stream()
     			.filter(Allocation.class::isInstance)
     			.map(Allocation.class::cast)
     			.collect(Collectors.toList());
     	
-    	Optional<Allocation> allocation = allocations.parallelStream()
-    			.filter(it -> it.getAllocationContexts_Allocation().parallelStream()
+    	Optional<Allocation> allocation = allocations.stream()
+    			.filter(it -> it.getAllocationContexts_Allocation().stream()
     							.map(alloc -> alloc.getAssemblyContext_AllocationContext())
     							.anyMatch(context.getFirst()::equals))
     			.findFirst();
@@ -108,7 +107,7 @@ public class PCMNodeCharacteristicsCalculatorImpl implements NodeCharacteristics
     	}
     	
     	var allocationContexts = allocation.get().getAllocationContexts_Allocation();
-    	allocationContexts.parallelStream()
+    	allocationContexts.stream()
     		.filter(it -> context.contains(it.getAssemblyContext_AllocationContext()))
     		.forEach(it -> {
     			resolvedAssignees.addAll(getAllocation(assignments, it.getAssemblyContext_AllocationContext()));
@@ -127,7 +126,7 @@ public class PCMNodeCharacteristicsCalculatorImpl implements NodeCharacteristics
 	 * @return List of resolved assignees matching the node
 	 */
 	private List<AbstractAssignee> getAllocation(Assignments assignments, AssemblyContext assemblyContext) {
-		return assignments.getAssignee().parallelStream()
+		return assignments.getAssignee().stream()
 				.filter(AssemblyAssignee.class::isInstance)
 				.map(AssemblyAssignee.class::cast)
 				.filter(it -> it.getAssemblycontext().equals(assemblyContext))
@@ -141,7 +140,7 @@ public class PCMNodeCharacteristicsCalculatorImpl implements NodeCharacteristics
 	 * @return List of resolved assignees matching the node
 	 */
 	private List<AbstractAssignee> getResource(Assignments assignments, ResourceContainer resourceContainer) {
-		return assignments.getAssignee().parallelStream()
+		return assignments.getAssignee().stream()
 				.filter(RessourceAssignee.class::isInstance)
 				.map(RessourceAssignee.class::cast)
 				.filter(it -> it.getResourcecontainer().equals(resourceContainer))
@@ -172,7 +171,7 @@ public class PCMNodeCharacteristicsCalculatorImpl implements NodeCharacteristics
 	 */
 	private Assignments resolveAssignments() {
 		return this.resourceLoader.lookupElementOfType(NodeCharacteristicsPackage.eINSTANCE.getAssignments())
-	            .parallelStream()
+	            .stream()
 	            .filter(Assignments.class::isInstance)
 	            .map(Assignments.class::cast)
 	            .findFirst().orElse(NodeCharacteristicsFactory.eINSTANCE.createAssignments());

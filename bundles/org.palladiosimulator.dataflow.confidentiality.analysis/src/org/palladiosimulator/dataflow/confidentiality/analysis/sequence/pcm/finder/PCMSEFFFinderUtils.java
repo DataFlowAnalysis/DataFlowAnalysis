@@ -123,13 +123,13 @@ public class PCMSEFFFinderUtils {
             PCMActionSequence previousSequence) {
 
         return currentAction.getBranches_Branch()
-            .parallelStream()
+            .stream()
             .map(AbstractBranchTransition::getBranchBehaviour_BranchTransition)
             .map(ResourceDemandingBehaviour::getSteps_Behaviour)
             .map(PCMQueryUtils::getFirstStartActionInActionList)
             .flatMap(Optional::stream)
             .map(it -> findSequencesForSEFFAction(it, new SEFFFinderContext(context), previousSequence))
-            .flatMap(List::parallelStream)
+            .flatMap(List::stream)
             .toList();
     }
 

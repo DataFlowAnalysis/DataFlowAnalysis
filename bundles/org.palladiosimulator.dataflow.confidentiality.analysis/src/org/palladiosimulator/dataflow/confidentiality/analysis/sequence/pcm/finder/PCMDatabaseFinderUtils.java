@@ -28,7 +28,7 @@ public class PCMDatabaseFinderUtils {
 		}
 		OperationalDataStoreComponent currentAction = (OperationalDataStoreComponent) seff.seff().getBasicComponent_ServiceEffectSpecification(); 
 		OperationSignature callSigniture = (OperationSignature) seff.seff().getDescribedService__SEFF();
-		Optional<DataStore> dataStore = context.getDataStores().parallelStream()
+		Optional<DataStore> dataStore = context.getDataStores().stream()
 				.filter(it -> it.getDatabaseComponentName().equals(currentAction.getEntityName()))
 				.findAny();
 		

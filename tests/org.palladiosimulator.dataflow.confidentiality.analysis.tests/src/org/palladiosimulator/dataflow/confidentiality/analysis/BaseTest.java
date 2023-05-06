@@ -27,8 +27,7 @@ public class BaseTest {
 
         onlineShopAnalysis = new DataFlowAnalysisBuilder()
         		.standalone()
-        		.modelProjectName(TEST_MODEL_PROJECT_NAME)
-        		.registerBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
+        		.registerBuilder(new PCMDataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME))
         		.legacy()
         		.registerPluginActivator(Activator.class)
         		.registerUsageModel(usageModelPath)
@@ -46,8 +45,7 @@ public class BaseTest {
             .toString();
         internationalOnlineShopAnalysis = new DataFlowAnalysisBuilder()
         		.standalone()
-        		.modelProjectName(TEST_MODEL_PROJECT_NAME)
-        		.registerBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
+        		.registerBuilder(new PCMDataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME))
         		.registerPluginActivator(Activator.class)
         		.legacy()
         		.registerUsageModel(usageModelPath)
@@ -66,8 +64,7 @@ public class BaseTest {
 
         travelPlannerAnalysis = new DataFlowAnalysisBuilder()
         		.standalone()
-        		.modelProjectName(TEST_MODEL_PROJECT_NAME)
-        		.registerBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
+        		.registerBuilder(new PCMDataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME))
         		.legacy()
         		.registerPluginActivator(Activator.class)
         		.registerUsageModel(usageModelPath)
@@ -79,8 +76,7 @@ public class BaseTest {
     protected DataFlowConfidentialityAnalysis initializeAnalysis(Path usagePath, Path allocationPath) {
     	DataFlowConfidentialityAnalysis analysis = new DataFlowAnalysisBuilder()
         		.standalone()
-        		.modelProjectName(TEST_MODEL_PROJECT_NAME)
-        		.registerBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
+        		.registerBuilder(new PCMDataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME))
         		.legacy()
         		.registerPluginActivator(Activator.class)
     			.registerUsageModel(usagePath.toString())
@@ -93,8 +89,7 @@ public class BaseTest {
     protected DataFlowConfidentialityAnalysis initializeAnalysis(Path usagePath, Path allocationPath, Path nodePath) {
     	DataFlowConfidentialityAnalysis analysis = new DataFlowAnalysisBuilder()
         		.standalone()
-        		.modelProjectName(TEST_MODEL_PROJECT_NAME)
-        		.registerBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
+        		.registerBuilder(new PCMDataFlowConfidentialityAnalysisBuilder(TEST_MODEL_PROJECT_NAME))
     			.registerPluginActivator(Activator.class)
     			.registerUsageModel(usagePath.toString())
     			.registerAllocationModel(allocationPath.toString())

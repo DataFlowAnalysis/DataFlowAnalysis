@@ -60,7 +60,7 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 		
 		if (this.isWriting()) {
 			String dataSourceName = this.getDataStore().getDatabaseVariableName().get();
-			DataFlowVariable dataSource = newDataFlowVariables.stream()
+			DataFlowVariable dataSource = newDataFlowVariables.parallelStream()
 					.filter(it -> it.variableName().equals(dataSourceName))
 					.findAny().orElse(new DataFlowVariable(dataSourceName));
 			dataStore.addCharacteristicValues(dataSource.characteristics());
@@ -113,7 +113,7 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 	public String createPrintableDatabaseInformation(List<DataFlowVariable> variables) {
 		String writing = isWriting ? "Writing DataFlowVariables: %s to" : "Reading DataFlowVariables: %s from";
 		String dataCharacteristics = variables
-	            .stream()
+	            .parallelStream()
 	            .map(e -> String.format("%s [%s]", e.variableName(),
 	                    createPrintableCharacteristicsList(e.getAllCharacteristics())))
 	            .collect(Collectors.joining(", "));

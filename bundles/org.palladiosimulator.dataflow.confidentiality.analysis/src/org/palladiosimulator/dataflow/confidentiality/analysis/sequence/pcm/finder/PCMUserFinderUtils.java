@@ -71,12 +71,12 @@ public class PCMUserFinderUtils {
     private static List<PCMActionSequence> findSequencesForUserBranchAction(Branch currentAction, List<DataStore> dataStores,
             PCMActionSequence previousSequence) {
         return currentAction.getBranchTransitions_Branch()
-            .stream()
+            .parallelStream()
             .map(BranchTransition::getBranchedBehaviour_BranchTransition)
             .map(PCMQueryUtils::getStartActionOfScenarioBehavior)
             .flatMap(Optional::stream)
             .map(it -> findSequencesForUserAction(it, dataStores, previousSequence))
-            .flatMap(List::stream)
+            .flatMap(List::parallelStream)
             .toList();
     }
 
@@ -93,8 +93,8 @@ public class PCMUserFinderUtils {
         if (calledSEFFs.isEmpty()) {
             return new ArrayList<PCMActionSequence>();
         } else {
-        	return calledSEFFs.stream()
-        			.flatMap(seff -> findSequencesForSEFFEntryLevelSystemCall(seff, callingEntity, dataStores, calledSignature, currentActionSequence).stream())
+        	return calledSEFFs.parallelStream()
+        			.flatMap(seff -> findSequencesForSEFFEntryLevelSystemCall(seff, callingEntity, dataStores, calledSignature, currentActionSequence).parallelStream())
         			.collect(Collectors.toList());
         }
     }

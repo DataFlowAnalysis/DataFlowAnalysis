@@ -43,7 +43,7 @@ public class PCMQueryUtils {
      */
     public static Optional<Start> getStartActionOfScenarioBehavior(ScenarioBehaviour scenarioBehavior) {
         List<Start> candidates = scenarioBehavior.getActions_ScenarioBehaviour()
-            .stream()
+            .parallelStream()
             .filter(Start.class::isInstance)
             .map(Start.class::cast)
             .toList();
@@ -53,7 +53,7 @@ public class PCMQueryUtils {
                     scenarioBehavior.getEntityName()));
         }
 
-        return candidates.stream()
+        return candidates.parallelStream()
             .findFirst();
     }
 
@@ -63,7 +63,7 @@ public class PCMQueryUtils {
      * @return Returns the first found start action
      */
     public static Optional<StartAction> getFirstStartActionInActionList(List<AbstractAction> actionList) {
-        return actionList.stream()
+        return actionList.parallelStream()
             .filter(StartAction.class::isInstance)
             .map(StartAction.class::cast)
             .findFirst();
@@ -76,7 +76,7 @@ public class PCMQueryUtils {
      */
     public static List<Start> findStartActionsForUsageModel(UsageModel usageModel) {
         return usageModel.getUsageScenario_UsageModel()
-            .stream()
+            .parallelStream()
             .map(UsageScenario::getScenarioBehaviour_UsageScenario)
             .map(PCMQueryUtils::getStartActionOfScenarioBehavior)
             .flatMap(Optional::stream)
@@ -146,7 +146,7 @@ public class PCMQueryUtils {
             BasicComponent component = (BasicComponent) providingComponent;
 
             List<ResourceDemandingSEFF> SEFFs = component.getServiceEffectSpecifications__BasicComponent()
-                .stream()
+                .parallelStream()
                 .filter(ResourceDemandingSEFF.class::isInstance)
                 .map(ResourceDemandingSEFF.class::cast)
                 .filter(it -> it.getDescribedService__SEFF()
@@ -156,7 +156,7 @@ public class PCMQueryUtils {
             if (SEFFs.isEmpty()) {
                 throw new IllegalStateException("Unable to find called seff.");
             } else {
-            	return SEFFs.stream()
+            	return SEFFs.parallelStream()
             			.map(seff -> new SEFFWithContext(seff, newContexts))
             			.collect(Collectors.toList());
             }
@@ -190,7 +190,7 @@ public class PCMQueryUtils {
 
         // test if there is an assembly connector satisfying the required role
         Optional<AssemblyConnector> assemblyConnector = composedStructure.getConnectors__ComposedStructure()
-            .stream()
+            .parallelStream()
             .filter(AssemblyConnector.class::isInstance)
             .map(AssemblyConnector.class::cast)
             .filter(it -> it.getRequiredRole_AssemblyConnector()
@@ -211,7 +211,7 @@ public class PCMQueryUtils {
 
             // go to the parent composed structure to satisfy the required role
             Optional<RequiredRole> outerRequiredRole = composedStructure.getConnectors__ComposedStructure()
-                .stream()
+                .parallelStream()
                 .filter(RequiredDelegationConnector.class::isInstance)
                 .map(RequiredDelegationConnector.class::cast)
                 .filter(it -> it.getInnerRequiredRole_RequiredDelegationConnector()
@@ -232,7 +232,7 @@ public class PCMQueryUtils {
     private static Optional<ProvidedDelegationConnector> findProvidedDelegationConnector(ComposedStructure component,
             ProvidedRole outerRole) {
         return component.getConnectors__ComposedStructure()
-            .stream()
+            .parallelStream()
             .filter(ProvidedDelegationConnector.class::isInstance)
             .map(ProvidedDelegationConnector.class::cast)
             .filter(it -> it.getOuterProvidedRole_ProvidedDelegationConnector()

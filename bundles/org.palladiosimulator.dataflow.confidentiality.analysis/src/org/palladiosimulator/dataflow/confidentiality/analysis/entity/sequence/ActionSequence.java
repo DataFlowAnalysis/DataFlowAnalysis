@@ -33,7 +33,7 @@ public abstract class ActionSequence {
     @Override
     public String toString() {
         return this.getElements()
-            .stream()
+            .parallelStream()
             .map(it -> it.toString())
             .reduce("", (t, u) -> String.format("%s%s%s", t, System.lineSeparator(), u));
     }

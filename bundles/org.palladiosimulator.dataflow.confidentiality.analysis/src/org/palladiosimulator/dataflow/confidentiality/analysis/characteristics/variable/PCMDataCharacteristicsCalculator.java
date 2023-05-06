@@ -96,7 +96,7 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
      */
     private Optional<DataFlowVariable> getDataFlowVariableByReference(AbstractNamedReference reference) {
     	String variableName = reference.getReferenceName();
-    	return this.currentVariables.stream()
+    	return this.currentVariables.parallelStream()
                 .filter(it -> it.variableName()
                         .equals(variableName))
                     .findAny();
@@ -113,7 +113,7 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
     private DataFlowVariable createModifiedDataFlowVariable(DataFlowVariable existingVariable, List<CharacteristicValue> modifiedCharacteristics, Term rightHandSide) {
     	DataFlowVariable computedVariable = new DataFlowVariable(existingVariable.variableName());
         var unmodifiedCharacteristics = existingVariable.getAllCharacteristics()
-            .stream()
+            .parallelStream()
             .filter(it -> !modifiedCharacteristics.contains(it))
             .collect(Collectors.toList());
 
@@ -123,11 +123,11 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
 
         for (CharacteristicValue modifedCharacteristic : modifiedCharacteristics) {
             if (evaluateTerm(rightHandSide, modifedCharacteristic)) {
-            	List<CharacteristicValue> modifiedCharacteristicValues = computedVariable.getAllCharacteristics().stream()
+            	List<CharacteristicValue> modifiedCharacteristicValues = computedVariable.getAllCharacteristics().parallelStream()
             			.filter(it -> it.characteristicType().getName().equals(modifedCharacteristic.characteristicType().getName()))
             			.collect(Collectors.toList());
             	
-            	if (modifiedCharacteristicValues.stream()
+            	if (modifiedCharacteristicValues.parallelStream()
             			.noneMatch(it -> it.characteristicLiteral().getName().equals(modifedCharacteristic.characteristicLiteral().getName()))) {
             		computedVariable = computedVariable.addCharacteristic(modifedCharacteristic);
             	}
@@ -156,7 +156,7 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
             return discoverNewVariables(existingVariable, Optional.empty());
         } else {
             return List.of(existingVariable.getAllCharacteristics()
-                .stream()
+                .parallelStream()
                 .filter(it -> it.characteristicLiteral()
                     .getName()
                     .equals(characteristicValue.getName()))
@@ -223,7 +223,7 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
                 : characteristicValue.characteristicLiteral();
 
         var characteristic = dataflowVariable.getAllCharacteristics()
-            .stream()
+            .parallelStream()
             .filter(it -> it.characteristicType()
                 .getName()
                 .equals(characteristicReferenceType.getName()))
@@ -249,14 +249,14 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
             Optional<EnumCharacteristicType> characteristicType) {
         List<CharacteristicValue> updatedCharacteristicValues = new ArrayList<>();
         var dataDictonaries = this.resourceLoader.lookupElementOfType(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
-            .stream()
+            .parallelStream()
             .filter(PCMDataDictionary.class::isInstance)
             .map(PCMDataDictionary.class::cast)
             .collect(Collectors.toList());
 
-        List<EnumCharacteristicType> characteristicTypes = dataDictonaries.stream()
+        List<EnumCharacteristicType> characteristicTypes = dataDictonaries.parallelStream()
             .flatMap(it -> it.getCharacteristicTypes()
-                .stream())
+                .parallelStream())
             .filter(it -> characteristicType.isEmpty() || it.getName()
                 .equals(characteristicType.get()
                     .getName()))
@@ -266,11 +266,11 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
             	new TreeSet<EnumCharacteristicType>(Comparator.comparing(EnumCharacteristicType::getName))), 
             ArrayList<EnumCharacteristicType>::new));
 
-        characteristicTypes.stream()
+        characteristicTypes.parallelStream()
             .forEach(enumCharacteristicType -> {
                 enumCharacteristicType.getType()
                     .getLiterals()
-                    .stream()
+                    .parallelStream()
                     .forEach(characteristicValue -> {
                         updatedCharacteristicValues
                             .add(new CharacteristicValue(enumCharacteristicType, characteristicValue));
@@ -287,7 +287,7 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
      */
     @Override
     public List<DataFlowVariable> getCalculatedCharacteristics() {
-        return this.currentVariables.stream()
+        return this.currentVariables.parallelStream()
         		.filter(df -> !df.variableName().equals("container"))
         		.collect(Collectors.toList());
     }

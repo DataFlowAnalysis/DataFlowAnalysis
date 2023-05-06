@@ -62,8 +62,8 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
         
     	List<VariableCharacterisation> variableCharacterisations = ((SetVariableAction) this.getElement())
                 .getLocalVariableUsages_SetVariableAction()
-                .stream()
-                .flatMap(it -> it.getVariableCharacterisation_VariableUsage().stream())
+                .parallelStream()
+                .flatMap(it -> it.getVariableCharacterisation_VariableUsage().parallelStream())
                 .toList();
     	
     	List<DataFlowVariable> dataFlowVariables = super.getDataFlowVariables(analysisData, nodeCharacteristics, variableCharacterisations, variables);

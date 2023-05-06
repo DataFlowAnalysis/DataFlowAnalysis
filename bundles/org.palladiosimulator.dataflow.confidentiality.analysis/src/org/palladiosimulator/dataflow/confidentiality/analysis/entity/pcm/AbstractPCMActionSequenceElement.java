@@ -71,16 +71,16 @@ public abstract class AbstractPCMActionSequenceElement<T extends Entity> extends
      * @param variableCharacterisations Variable characterizations that are applied to the sequence element
      */
     protected void checkCallParameter(OperationSignature callSigniture, List<VariableCharacterisation> variableCharacterisations) {
-    	List<String> parameter = callSigniture.getParameters__OperationSignature().stream()
+    	List<String> parameter = callSigniture.getParameters__OperationSignature().parallelStream()
     			.map(it -> it.getParameterName())
     			.toList();
     	
     	List<String> referencedParameter =
-    			variableCharacterisations.stream()
+    			variableCharacterisations.parallelStream()
     			.map(it -> it.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage().getReferenceName())
     			.toList();
     	
-    	referencedParameter.stream()
+    	referencedParameter.parallelStream()
     		.filter(it -> !parameter.contains(it))
     		.forEach(it -> {
     			logger.warn("Unknown reference to variable " + it + " in variable characterisation in element " + element);

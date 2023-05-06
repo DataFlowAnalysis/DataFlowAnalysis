@@ -11,7 +11,7 @@ public record DataFlowVariable(String variableName, List<CharacteristicValue> ch
 
     public DataFlowVariable addCharacteristic(CharacteristicValue characteristic) {
         List<CharacteristicValue> newCharacteristics = Stream
-            .concat(characteristics.stream(), Stream.of(characteristic))
+            .concat(characteristics.parallelStream(), Stream.of(characteristic))
             .toList();
         return new DataFlowVariable(variableName, newCharacteristics);
     }

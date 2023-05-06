@@ -84,8 +84,8 @@ public class PCMSEFFFinderUtils {
         if (calledSEFFs.isEmpty()) {
             return List.of(previousSequence);
         } else {
-        	return calledSEFFs.stream()
-        			.flatMap(seff -> findSequencesForSEFFExternalCallActionCandiate(seff, callingEntity, context, currentActionSequence, calledSignature).stream())
+        	return calledSEFFs.parallelStream()
+        			.flatMap(seff -> findSequencesForSEFFExternalCallActionCandiate(seff, callingEntity, context, currentActionSequence, calledSignature).parallelStream())
         			.collect(Collectors.toList());
         }
 
@@ -131,13 +131,13 @@ public class PCMSEFFFinderUtils {
             PCMActionSequence previousSequence) {
 
         return currentAction.getBranches_Branch()
-            .stream()
+            .parallelStream()
             .map(AbstractBranchTransition::getBranchBehaviour_BranchTransition)
             .map(ResourceDemandingBehaviour::getSteps_Behaviour)
             .map(PCMQueryUtils::getFirstStartActionInActionList)
             .flatMap(Optional::stream)
             .map(it -> findSequencesForSEFFAction(it, new SEFFFinderContext(context), previousSequence))
-            .flatMap(List::stream)
+            .flatMap(List::parallelStream)
             .toList();
     }
 

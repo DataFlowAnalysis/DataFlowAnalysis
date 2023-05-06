@@ -51,14 +51,14 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
     	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(analysisData);
     	
         List<VariableCharacterisation> variableCharacterisations = this.isCalling ? 
-        		super.getElement().getInputVariableUsages__CallAction().stream()
+        		super.getElement().getInputVariableUsages__CallAction().parallelStream()
         		.flatMap(it -> it.getVariableCharacterisation_VariableUsage()
-                        .stream())
+                        .parallelStream())
                     .collect(Collectors.toList())
                 : 
-                super.getElement().getReturnVariableUsage__CallReturnAction().stream()
+                super.getElement().getReturnVariableUsage__CallReturnAction().parallelStream()
                 .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
-                        .stream())
+                        .parallelStream())
                 .collect(Collectors.toList());
         if (this.isCalling()) {
         	super.checkCallParameter(super.getElement().getCalledService_ExternalService(), variableCharacterisations);

@@ -72,13 +72,13 @@ public class LegacyPCMNodeCharacteristicsCalculator implements NodeCharacteristi
     private List<CharacteristicValue> getSEFFNodeCharacteristics(Deque<AssemblyContext> context) {
     	Set<CharacteristicValue> nodeVariables = new HashSet<>();
     	
-    	var allocations = this.resourceLoader.lookupElementOfType(AllocationPackage.eINSTANCE.getAllocation()).stream()
+    	var allocations = this.resourceLoader.lookupElementOfType(AllocationPackage.eINSTANCE.getAllocation()).parallelStream()
     			.filter(Allocation.class::isInstance)
     			.map(Allocation.class::cast)
     			.collect(Collectors.toList());
     	
-    	Optional<Allocation> allocation = allocations.stream()
-    			.filter(it -> it.getAllocationContexts_Allocation().stream()
+    	Optional<Allocation> allocation = allocations.parallelStream()
+    			.filter(it -> it.getAllocationContexts_Allocation().parallelStream()
     							.map(alloc -> alloc.getAssemblyContext_AllocationContext())
     							.anyMatch(context.getFirst()::equals))
     			.findFirst();

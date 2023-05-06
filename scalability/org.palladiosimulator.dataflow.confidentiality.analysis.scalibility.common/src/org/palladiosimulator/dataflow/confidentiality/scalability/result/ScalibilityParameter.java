@@ -11,7 +11,7 @@ public class ScalibilityParameter implements Serializable {
 	
 	private Date startTime;
 	private Date stopTime;
-	private Map<String, Date> logEvents;
+	private Map<ScalibilityEvent, Date> logEvents;
 	private final int modelSize;
 	private final String testName;
 	private final boolean legacy;
@@ -31,7 +31,7 @@ public class ScalibilityParameter implements Serializable {
 		this.startTime = Date.from(Instant.now());
 	}
 	
-	public void logAction(String action) {
+	public void logAction(ScalibilityEvent action) {
 		logEvents.put(action, Date.from(Instant.now()));
 	}
 	
@@ -55,7 +55,7 @@ public class ScalibilityParameter implements Serializable {
 		return this.stopTime.getTime() - this.startTime.getTime();
 	}
 	
-	public Map<String, Date> getLogEvents() {
+	public Map<ScalibilityEvent, Date> getLogEvents() {
 		return new HashMap<>(this.logEvents);
 	}
 	

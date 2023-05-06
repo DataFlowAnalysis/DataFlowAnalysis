@@ -9,6 +9,12 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.scalability.result.ScalibilityParameter;
 import org.palladiosimulator.dataflow.confidentiality.scalability.result.ScalibilityTest;
+import org.palladiosimulator.dataflow.confidentiality.scalability.tests.BranchCountTest;
+import org.palladiosimulator.dataflow.confidentiality.scalability.tests.CharacteristicsPropagationTest;
+import org.palladiosimulator.dataflow.confidentiality.scalability.tests.NodeCharacteristicsTest;
+import org.palladiosimulator.dataflow.confidentiality.scalability.tests.SEFFParameterTest;
+import org.palladiosimulator.dataflow.confidentiality.scalability.tests.VariableActionsTest;
+import org.palladiosimulator.dataflow.confidentiality.scalability.tests.VariableCountTest;
 
 public class TestRunner {
 	private static final int RUNS_PER_STAGE = 10;
@@ -54,7 +60,7 @@ public class TestRunner {
 	private void saveResults(String testName) {
 		try {
 			FileOutputStream fileOutputStream
-		      = new FileOutputStream(testName + ".ser");
+		      = new FileOutputStream("results/" + testName + ".ser");
 		    ObjectOutputStream objectOutputStream 
 		      = new ObjectOutputStream(fileOutputStream);
 		    objectOutputStream.writeObject(this.results);
@@ -63,5 +69,16 @@ public class TestRunner {
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static List<ScalibilityTest> getTests() {
+		return List.of(
+				new CharacteristicsPropagationTest(),
+				// new BranchCountTest(),
+				new NodeCharacteristicsTest(),
+				new SEFFParameterTest(),
+				new VariableCountTest(),
+				new VariableActionsTest()
+		);
 	}
 }

@@ -9,20 +9,21 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.testmodels.Activa
 import org.palladiosimulator.dataflow.confidentiality.scalability.AnalysisExecutor;
 import org.palladiosimulator.dataflow.confidentiality.scalability.AnalysisUtils;
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.PCMModelFactory;
+import org.palladiosimulator.dataflow.confidentiality.scalability.result.ScalibilityEvent;
 import org.palladiosimulator.dataflow.confidentiality.scalability.result.ScalibilityParameter;
 
 public class NewAnalysisExecutor implements AnalysisExecutor {
 
 	@Override
 	public void executeAnalysis(ScalibilityParameter scalibilityParameter, PCMModelFactory modelFactory) {
-		scalibilityParameter.logAction("AnalysisExecution");
+		scalibilityParameter.logAction(ScalibilityEvent.ANALYSIS_INITIALZATION);
 		StandalonePCMDataFlowConfidentialtyAnalysis analysis =
 				new StandalonePCMDataFlowConfidentialtyAnalysis(AnalysisUtils.TEST_MODEL_PROJECT_NAME, 
 						Activator.class, new PCMResourceListLoader(modelFactory.getResources()));
 		analysis.initalizeAnalysis();
-		scalibilityParameter.logAction("AnalysisInitializedAnalysis");
+		scalibilityParameter.logAction(ScalibilityEvent.SEQUENCE_FINDING);
 		List<ActionSequence> sequences = analysis.findAllSequences();
-		scalibilityParameter.logAction("AnalysisSequences");
+		scalibilityParameter.logAction(ScalibilityEvent.PROPAGATION);
 		analysis.evaluateDataFlows(sequences);
 	}
 

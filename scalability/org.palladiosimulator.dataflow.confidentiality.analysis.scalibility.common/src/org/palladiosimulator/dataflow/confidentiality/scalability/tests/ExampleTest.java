@@ -56,7 +56,6 @@ public class ExampleTest extends ScalibilityTest {
 			.setCallee(providedRole, signiture)
 			.buildCall()
 			.build();
-		parameter.logAction("Model generation finished");
 		try {
 			model.saveModel();
 		} catch (IOException e) {

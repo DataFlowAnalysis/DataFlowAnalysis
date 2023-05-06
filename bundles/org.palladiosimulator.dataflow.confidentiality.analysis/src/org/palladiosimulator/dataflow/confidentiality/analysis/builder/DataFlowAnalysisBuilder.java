@@ -20,6 +20,9 @@ public class DataFlowAnalysisBuilder extends AbstractDataFlowAnalysisBuilder<Dat
 		if (!this.builderData.isStandalone()) {
 			throw new IllegalStateException("Execution of the analysis is only supported in standalone mode");
 		}
+		if(this.builderData.getModelProjectName() == null || this.builderData.getModelProjectName().isBlank()) {
+			throw new IllegalStateException("A name for the modelling project is required!");
+		}
 	}
 
 	@Override

@@ -63,7 +63,7 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
 	@Override
 	public List<ActionSequence> findAllSequences() {
 		ActionSequenceFinder sequenceFinder = new PCMActionSequenceFinder(this.analysisData.getResourceLoader().getUsageModel());
-        return sequenceFinder.findAllSequences().stream()
+        return sequenceFinder.findAllSequences().parallelStream()
         		.map(ActionSequence.class::cast)
         		.collect(Collectors.toList());
 	}
@@ -84,7 +84,7 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
 	public List<AbstractActionSequenceElement<?>> queryDataFlow(ActionSequence sequence,
 			Predicate<? super AbstractActionSequenceElement<?>> condition) {
 		return sequence.getElements()
-	            .stream()
+	            .parallelStream()
 	            .filter(condition)
 	            .toList();
 	}

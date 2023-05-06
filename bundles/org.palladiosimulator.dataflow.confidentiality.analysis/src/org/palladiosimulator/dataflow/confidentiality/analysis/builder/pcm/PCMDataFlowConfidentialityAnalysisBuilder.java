@@ -3,16 +3,15 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.builder.pcm;
 import org.eclipse.core.runtime.Plugin;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AbstractDataFlowAnalysisBuilder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisBuilderData;
-import org.palladiosimulator.dataflow.confidentiality.analysis.builder.DataFlowConfidentialityAnalysisBuilder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.dsl.LegacyStandalonePCMDataFlowConfidentialityAnalysis;
+import org.palladiosimulator.dataflow.confidentiality.analysis.dsl.AbstractStandalonePCMDataFlowConfidentialityAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.dsl.StandalonePCMDataFlowConfidentialityAnalysis;
-import org.palladiosimulator.dataflow.confidentiality.analysis.dsl.StandalonePCMDataFlowConfidentialityAnalysisImpl;
 
 public class PCMDataFlowConfidentialityAnalysisBuilder 
-extends AbstractDataFlowAnalysisBuilder<StandalonePCMDataFlowConfidentialityAnalysis, PCMAnalysisBuilderData> {
+extends AbstractDataFlowAnalysisBuilder<AbstractStandalonePCMDataFlowConfidentialityAnalysis, PCMAnalysisBuilderData, AnalysisBuilderData> {
 
-	public PCMDataFlowConfidentialityAnalysisBuilder(DataFlowConfidentialityAnalysisBuilder builder) {
-		super(new PCMAnalysisBuilderData(builder.getBuilderData()));
+	public PCMDataFlowConfidentialityAnalysisBuilder() {
+		super(new PCMAnalysisBuilderData());
 	}
 	
 	/**
@@ -61,7 +60,8 @@ extends AbstractDataFlowAnalysisBuilder<StandalonePCMDataFlowConfidentialityAnal
 	
 	@Override
 	public void copyBuilderData(AnalysisBuilderData builderData) {
-		
+		super.builderData.setModelProjectName(builderData.getModelProjectName());
+		super.builderData.setStandalone(builderData.isStandalone());
 	}
 	
 	@Override
@@ -85,12 +85,12 @@ extends AbstractDataFlowAnalysisBuilder<StandalonePCMDataFlowConfidentialityAnal
 	}
 
 	@Override
-	public StandalonePCMDataFlowConfidentialityAnalysis build() {
+	public AbstractStandalonePCMDataFlowConfidentialityAnalysis build() {
 		this.checkBuilderData();
 		if (this.builderData.isLegacy()) {
 			return new LegacyStandalonePCMDataFlowConfidentialityAnalysis(builderData, builderData.createAnalysisData());
 		} else {
-			return new StandalonePCMDataFlowConfidentialityAnalysisImpl(builderData, builderData.createAnalysisData());
+			return new StandalonePCMDataFlowConfidentialityAnalysis(builderData, builderData.createAnalysisData());
 		}
 	}
 }

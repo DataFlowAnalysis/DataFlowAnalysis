@@ -20,15 +20,6 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	private String relativeNodeCharacteristicsPath;
 	private boolean legacy;
 	
-	/**
-	 * Creates a new instance of {@code PCMAnalysisBuilderData} with the given data
-	 * @param builderData Builder data from previous builder
-	 */
-	public PCMAnalysisBuilderData(AnalysisBuilderData builderData) {
-		super.modelProjectName = builderData.getModelProjectName();
-		super.standalone = builderData.isStandalone();
-	}
-	
 
 	/**
 	 * Creates a new analysis data object from the configured data. It does not check, whether all parameters are set correctly. Use {@code DataFlowConfidentialityAnalysisBuilder} instead

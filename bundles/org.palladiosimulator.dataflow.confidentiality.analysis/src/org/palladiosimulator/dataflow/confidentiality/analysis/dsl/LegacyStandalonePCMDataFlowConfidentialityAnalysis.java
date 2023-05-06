@@ -9,7 +9,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.Analysi
 import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
 import tools.mdsd.library.standalone.initialization.emfprofiles.EMFProfileInitializationTask;
 
-public class LegacyStandalonePCMDataFlowConfidentialityAnalysis extends StandalonePCMDataFlowConfidentialityAnalysis {
+public class LegacyStandalonePCMDataFlowConfidentialityAnalysis extends AbstractStandalonePCMDataFlowConfidentialityAnalysis {
 	private final Logger logger = Logger.getLogger(LegacyStandalonePCMDataFlowConfidentialityAnalysis.class);
 	
 	/**

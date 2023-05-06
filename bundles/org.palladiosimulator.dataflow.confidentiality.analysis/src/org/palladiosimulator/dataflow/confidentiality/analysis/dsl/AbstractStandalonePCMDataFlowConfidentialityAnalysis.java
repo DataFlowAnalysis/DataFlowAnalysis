@@ -17,6 +17,7 @@ import org.eclipse.xtext.resource.containers.ResourceSetBasedAllContainersStateP
 import org.palladiosimulator.dataflow.confidentiality.analysis.DataFlowConfidentialityAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.PCMActionSequence;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.DatabaseActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.ActionSequenceFinder;
@@ -75,10 +76,15 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
     			.collect(Collectors.toList());
     	List<PCMActionSequence> sortedSequences = new ArrayList<>(actionSequences);
     	Collections.sort(sortedSequences);
-    	// TODO: Normal stream here due to DatastoreComponents (Different behavior/race condition with store/get)
-        return sortedSequences.stream()
-            .map(it -> it.evaluateDataFlow(this.analysisData))
-            .toList();
+    	if(this.usesDataStores(sequences)) {
+    		return sortedSequences.stream()
+    	            .map(it -> it.evaluateDataFlow(this.analysisData))
+    	            .toList();
+    	} else {
+    		return sortedSequences.parallelStream()
+    	            .map(it -> it.evaluateDataFlow(this.analysisData))
+    	            .toList();
+    	}
 	}
 
 	@Override
@@ -208,5 +214,16 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
             e.printStackTrace();
             return false;
         }
+    }
+    
+    /**
+     * This method determines, whether the action sequences use data stores
+     * @param actionSequences Found action sequences that should be analyzed
+     * @return Returns true, if data stores are used. Otherwise, the method returns false
+     */
+    private boolean usesDataStores(List<ActionSequence> actionSequences) {
+    	return actionSequences.parallelStream()
+    		.flatMap(it -> it.getElements().parallelStream())
+    		.anyMatch(DatabaseActionSequenceElement.class::isInstance);
     }
 }

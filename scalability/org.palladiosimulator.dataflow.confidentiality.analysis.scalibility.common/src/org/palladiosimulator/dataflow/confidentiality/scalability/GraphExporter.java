@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
+import java.util.TreeMap;
 
 import org.palladiosimulator.dataflow.confidentiality.scalability.result.ScalibilityParameter;
 import org.palladiosimulator.dataflow.confidentiality.scalability.result.ScalibilityTest;
@@ -41,7 +42,8 @@ public class GraphExporter {
 					indexedData.put(key, data);
 				}
 			}
-			for(List<ScalibilityParameter> parameters : indexedData.values()) {
+			TreeMap<String, List<ScalibilityParameter>> sortedData = new TreeMap<>(indexedData);
+			for(List<ScalibilityParameter> parameters : sortedData.values()) {
 				if(parameters.size() != 10) {
 					continue;
 				}

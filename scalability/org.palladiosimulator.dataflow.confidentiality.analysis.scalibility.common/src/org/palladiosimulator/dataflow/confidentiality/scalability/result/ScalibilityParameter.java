@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ScalibilityParameter implements Serializable {
+public class ScalibilityParameter implements Serializable, Comparable<ScalibilityParameter> {
 	private static final long serialVersionUID = 1L;
 	
 	private Date startTime;
@@ -61,5 +61,10 @@ public class ScalibilityParameter implements Serializable {
 	
 	public String getTestName() {
 		return testName;
+	}
+
+	@Override
+	public int compareTo(ScalibilityParameter other) {
+		return Integer.compare(modelSize, other.getModelSize());
 	}
 }

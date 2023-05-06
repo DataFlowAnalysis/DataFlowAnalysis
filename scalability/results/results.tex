@@ -90,55 +90,40 @@
 \end{axis}
 \end{tikzpicture}
 
+
 \begin{tikzpicture}
 \begin{axis}[xmode=log, log ticks with fixed point]
-\boxplot [
-    forget plot,
-    box plot whisker bottom index=5,
-    box plot whisker top index=4,
-    box plot box bottom index=3,
-    box plot box top index=2,
-    box plot median index=1
-]{NewNodeCharacteristicsTest.csv}
+\addplot table [x=index, y=median, col sep=comma] {NewCharacteristicsPropagationTest.csv};
+\addplot table [x=index, y=median, col sep=comma] {OldCharacteristicsPropagationTest.csv};
 \end{axis}
 \end{tikzpicture}
 
 \begin{tikzpicture}
 \begin{axis}[xmode=log, log ticks with fixed point]
-\boxplot [
-    forget plot,
-    box plot whisker bottom index=5,
-    box plot whisker top index=4,
-    box plot box bottom index=3,
-    box plot box top index=2,
-    box plot median index=1
-]{NewSEFFParameterTest.csv}
+\addplot table [x=index, y=median, col sep=comma] {NewNodeCharacteristicsTest.csv};
+\addplot table [x=index, y=median, col sep=comma] {OldNodeCharacteristicsTest.csv};
 \end{axis}
 \end{tikzpicture}
 
 \begin{tikzpicture}
 \begin{axis}[xmode=log, log ticks with fixed point]
-\boxplot [
-    forget plot,
-    box plot whisker bottom index=5,
-    box plot whisker top index=4,
-    box plot box bottom index=3,
-    box plot box top index=2,
-    box plot median index=1
-]{NewVariableActionsTest.csv}
+\addplot table [x=index, y=median, col sep=comma] {NewSEFFParameterTest.csv};
+\addplot table [x=index, y=median, col sep=comma] {OldSEFFParameterTest.csv};
+\end{axis}
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\begin{axis}
+\addplot table [x=index, y=median, col sep=comma] {NewVariableActionsTest.csv};
+\addplot table [x=index, y=median, col sep=comma] {OldVariableActionsTest.csv};
 \end{axis}
 \end{tikzpicture}
 
 \begin{tikzpicture}
 \begin{axis}[xmode=log, log ticks with fixed point]
-\boxplot [
-    forget plot,
-    box plot whisker bottom index=5,
-    box plot whisker top index=4,
-    box plot box bottom index=3,
-    box plot box top index=2,
-    box plot median index=1
-]{NewVariableCountTest.csv}
+\addplot table [x=index, y=median, col sep=comma] {NewVariableCountTest.csv};
+\addplot table [x=index, y=median, col sep=comma] {OldVariableCountTest.csv};
 \end{axis}
 \end{tikzpicture}
+
 \end{document}

@@ -2,7 +2,6 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.fin
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.AbstractPCMActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.PCMActionSequence;
@@ -79,40 +78,33 @@ public class PCMSEFFFinderUtils {
 
         OperationRequiredRole calledRole = currentAction.getRole_ExternalService();
         OperationSignature calledSignature = currentAction.getCalledService_ExternalService();
-        List<SEFFWithContext> calledSEFFs = PCMQueryUtils.findCalledSEFF(calledRole, calledSignature, context.getContext());
+        Optional<SEFFWithContext> calledSEFF = PCMQueryUtils.findCalledSEFF(calledRole, calledSignature, context.getContext());
 
-        if (calledSEFFs.isEmpty()) {
+        if (calledSEFF.isEmpty()) {
             return List.of(previousSequence);
         } else {
-        	return calledSEFFs.parallelStream()
-        			.flatMap(seff -> findSequencesForSEFFExternalCallActionCandiate(seff, callingEntity, context, currentActionSequence, calledSignature).parallelStream())
-        			.collect(Collectors.toList());
+        	if (calledSEFF.get().seff().getBasicComponent_ServiceEffectSpecification() instanceof OperationalDataStoreComponent) {
+        		context.addCaller(callingEntity);
+        		context.updateParametersForCall(calledSignature.getParameters__OperationSignature());
+        		context.updateSEFFContext(calledSEFF.get().context());
+        		return PCMDatabaseFinderUtils.findSequencesForDatabaseAction(calledSEFF.get(), 
+        				context, currentActionSequence);
+        	}
+            Optional<StartAction> SEFFStartAction = PCMQueryUtils.getFirstStartActionInActionList(calledSEFF.get()
+                .seff()
+                .getSteps_Behaviour());
+
+            if (SEFFStartAction.isEmpty()) {
+                throw new IllegalStateException("Unable to find SEFF start action.");
+            } else {
+            	context.addCaller(callingEntity);
+            	context.updateSEFFContext(calledSEFF.get().context());
+            	context.updateParametersForCall(calledSignature.getParameters__OperationSignature());
+            	
+                return findSequencesForSEFFAction(SEFFStartAction.get(), context, currentActionSequence);
+            }
         }
 
-    }
-    
-    private static List<PCMActionSequence> findSequencesForSEFFExternalCallActionCandiate(SEFFWithContext calledSEFF, 
-    		CallingSEFFActionSequenceElement callingEntity, SEFFFinderContext context, PCMActionSequence currentActionSequence, OperationSignature calledSignature) {
-    	if (calledSEFF.seff().getBasicComponent_ServiceEffectSpecification() instanceof OperationalDataStoreComponent) {
-    		context.addCaller(callingEntity);
-    		context.updateParametersForCall(calledSignature.getParameters__OperationSignature());
-    		context.updateSEFFContext(calledSEFF.context());
-    		return PCMDatabaseFinderUtils.findSequencesForDatabaseAction(calledSEFF, 
-    				context, currentActionSequence);
-    	}
-        Optional<StartAction> SEFFStartAction = PCMQueryUtils.getFirstStartActionInActionList(calledSEFF
-            .seff()
-            .getSteps_Behaviour());
-
-        if (SEFFStartAction.isEmpty()) {
-            throw new IllegalStateException("Unable to find SEFF start action.");
-        } else {
-        	context.addCaller(callingEntity);
-        	context.updateSEFFContext(calledSEFF.context());
-        	context.updateParametersForCall(calledSignature.getParameters__OperationSignature());
-        	
-            return findSequencesForSEFFAction(SEFFStartAction.get(), context, currentActionSequence);
-        }
     }
 
     private static List<PCMActionSequence> findSequencesForSEFFSetVariableAction(SetVariableAction currentAction,

@@ -7,7 +7,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.A
 public interface ActionSequenceFinder {
 
 	/**
-	 * Finds all sequences provided by the (otherwise) provided Resources
+	 * Finds all seqences provided by the (otherwise) provided Resources
 	 * @return Returns List of action sequences that were found by the finder
 	 */
     public List<? extends ActionSequence> findAllSequences();

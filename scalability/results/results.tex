@@ -93,41 +93,55 @@
 \caption{New Analysis - CharacteristicsPropagation}
 \end{figure}
 
-\newpage
-
+\begin{figure}
 \begin{tikzpicture}
 \begin{axis}[xmode=log, log ticks with fixed point]
 \addplot table [x=index, y=median, col sep=comma] {NewCharacteristicsPropagationTest.csv};
 \addplot table [x=index, y=median, col sep=comma] {OldCharacteristicsPropagationTest.csv};
 \end{axis}
 \end{tikzpicture}
+  \caption{CharacteristicsPropagation}
+\end{figure}  
 
+\begin{figure}
 \begin{tikzpicture}
 \begin{axis}[xmode=log, log ticks with fixed point]
 \addplot table [x=index, y=median, col sep=comma] {NewNodeCharacteristicsTest.csv};
 \addplot table [x=index, y=median, col sep=comma] {OldNodeCharacteristicsTest.csv};
 \end{axis}
 \end{tikzpicture}
+  \caption{NodeCharacteristics}
+\end{figure}
 
+\begin{figure}
 \begin{tikzpicture}
 \begin{axis}[xmode=log, log ticks with fixed point]
 \addplot table [x=index, y=median, col sep=comma] {NewSEFFParameterTest.csv};
 \addplot table [x=index, y=median, col sep=comma] {OldSEFFParameterTest.csv};
 \end{axis}
 \end{tikzpicture}
+  \caption{SEFFParameter} 
+\end{figure}
 
+\begin{figure}
 \begin{tikzpicture}
-\begin{axis}
+  \begin{axis}[xmode=log, log ticks with fixed point]
 \addplot table [x=index, y=median, col sep=comma] {NewVariableActionsTest.csv};
 \addplot table [x=index, y=median, col sep=comma] {OldVariableActionsTest.csv};
 \end{axis}
 \end{tikzpicture}
+  \caption{VariableActions}
+\end{figure}
 
-\begin{tikzpicture}
+
+\begin{figure}
+  \begin{tikzpicture}
 \begin{axis}[xmode=log, log ticks with fixed point]
 \addplot table [x=index, y=median, col sep=comma] {NewVariableCountTest.csv};
 \addplot table [x=index, y=median, col sep=comma] {OldVariableCountTest.csv};
 \end{axis}
 \end{tikzpicture}
+  \caption{VariableCount}
+\end{figure}
 
 \end{document}

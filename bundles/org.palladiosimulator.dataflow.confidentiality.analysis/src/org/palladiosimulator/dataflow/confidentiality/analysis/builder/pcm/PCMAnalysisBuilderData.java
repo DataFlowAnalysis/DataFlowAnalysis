@@ -57,6 +57,8 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	public AnalysisData createAnalysisData() {
 		ResourceLoader resourceLoader = null;
 		if (!this.resources.isEmpty()) {
+			logger.info("Using provided list of resources. If bugs or errors occur, it may be due to missing models in the provided resources");
+			logger.info("Checking of resources will be added in a future version");
 			resourceLoader = new PCMResourceListLoader(this.resources);
 		}
 		if (this.isLegacy()) {

@@ -28,7 +28,7 @@ extends AbstractDataFlowAnalysisBuilder<AbstractStandalonePCMDataFlowConfidentia
 	 * @param pluginActivator Plugin activator class of the modeling project
 	 * @return Returns builder object of the analysis
 	 */
-	public PCMDataFlowConfidentialityAnalysisBuilder registerPluginActivator(Class<? extends Plugin> pluginActivator) {
+	public PCMDataFlowConfidentialityAnalysisBuilder usePluginActivator(Class<? extends Plugin> pluginActivator) {
 		this.builderData.setPluginActivator(pluginActivator);
 		return this;
 	}
@@ -38,7 +38,7 @@ extends AbstractDataFlowAnalysisBuilder<AbstractStandalonePCMDataFlowConfidentia
 	 * @param relativeUsageModelPath Relative path to the usage model
 	 * @return Returns builder object of the analysis
 	 */
-	public PCMDataFlowConfidentialityAnalysisBuilder registerUsageModel(String relativeUsageModelPath) {
+	public PCMDataFlowConfidentialityAnalysisBuilder useUsageModel(String relativeUsageModelPath) {
 		this.builderData.setRelativeUsageModelPath(relativeUsageModelPath);
 		return this;
 	}
@@ -48,7 +48,7 @@ extends AbstractDataFlowAnalysisBuilder<AbstractStandalonePCMDataFlowConfidentia
 	 * @param relativeAllocationModelPath Relative path to the allocation model
 	 * @return Returns builder object of the analysis
 	 */
-	public PCMDataFlowConfidentialityAnalysisBuilder registerAllocationModel(String relativeAllocationModelPath) {
+	public PCMDataFlowConfidentialityAnalysisBuilder useAllocationModel(String relativeAllocationModelPath) {
 		this.builderData.setRelativeAllocationModelPath(relativeAllocationModelPath);
 		return this;
 	}
@@ -58,7 +58,7 @@ extends AbstractDataFlowAnalysisBuilder<AbstractStandalonePCMDataFlowConfidentia
 	 * @param relativeNodeCharacteristicsModelPath Relative path to the node characteristics model
 	 * @return Returns builder object of the analysis
 	 */
-	public PCMDataFlowConfidentialityAnalysisBuilder registerNodeCharacteristicsModel(String relativeNodeCharacteristicsModelPath) {
+	public PCMDataFlowConfidentialityAnalysisBuilder useNodeCharacteristicsModel(String relativeNodeCharacteristicsModelPath) {
 		this.builderData.setRelativeNodeCharacteristicsPath(relativeNodeCharacteristicsModelPath);
 		return this;
 	}

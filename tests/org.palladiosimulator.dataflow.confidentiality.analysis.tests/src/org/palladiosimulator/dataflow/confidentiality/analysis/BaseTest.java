@@ -30,9 +30,9 @@ public class BaseTest {
         		.modelProjectName(TEST_MODEL_PROJECT_NAME)
         		.useBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
         		.legacy()
-        		.registerPluginActivator(Activator.class)
-        		.registerUsageModel(usageModelPath)
-        		.registerAllocationModel(allocationPath)
+        		.usePluginActivator(Activator.class)
+        		.useUsageModel(usageModelPath)
+        		.useAllocationModel(allocationPath)
         		.build();
 
         onlineShopAnalysis.initalizeAnalysis();
@@ -48,10 +48,10 @@ public class BaseTest {
         		.standalone()
         		.modelProjectName(TEST_MODEL_PROJECT_NAME)
         		.useBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
-        		.registerPluginActivator(Activator.class)
+        		.usePluginActivator(Activator.class)
         		.legacy()
-        		.registerUsageModel(usageModelPath)
-        		.registerAllocationModel(allocationPath)
+        		.useUsageModel(usageModelPath)
+        		.useAllocationModel(allocationPath)
         		.build();
 
         internationalOnlineShopAnalysis.initalizeAnalysis();
@@ -69,9 +69,9 @@ public class BaseTest {
         		.modelProjectName(TEST_MODEL_PROJECT_NAME)
         		.useBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
         		.legacy()
-        		.registerPluginActivator(Activator.class)
-        		.registerUsageModel(usageModelPath)
-        		.registerAllocationModel(allocationPath)
+        		.usePluginActivator(Activator.class)
+        		.useUsageModel(usageModelPath)
+        		.useAllocationModel(allocationPath)
         		.build();
         travelPlannerAnalysis.initalizeAnalysis();
     }
@@ -82,9 +82,9 @@ public class BaseTest {
         		.modelProjectName(TEST_MODEL_PROJECT_NAME)
         		.useBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
         		.legacy()
-        		.registerPluginActivator(Activator.class)
-    			.registerUsageModel(usagePath.toString())
-    			.registerAllocationModel(allocationPath.toString())
+        		.usePluginActivator(Activator.class)
+    			.useUsageModel(usagePath.toString())
+    			.useAllocationModel(allocationPath.toString())
     			.build();
     	analysis.initalizeAnalysis();
     	return analysis;
@@ -95,10 +95,10 @@ public class BaseTest {
         		.standalone()
         		.modelProjectName(TEST_MODEL_PROJECT_NAME)
         		.useBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
-    			.registerPluginActivator(Activator.class)
-    			.registerUsageModel(usagePath.toString())
-    			.registerAllocationModel(allocationPath.toString())
-    			.registerNodeCharacteristicsModel(nodePath.toString())
+    			.usePluginActivator(Activator.class)
+    			.useUsageModel(usagePath.toString())
+    			.useAllocationModel(allocationPath.toString())
+    			.useNodeCharacteristicsModel(nodePath.toString())
     			.build();
     	analysis.initalizeAnalysis();
     	return analysis;

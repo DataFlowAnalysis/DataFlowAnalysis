@@ -35,7 +35,11 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
      * In addition the read-only container for node characteristics is created. See {@link createNodeCharacteristicsContainer}
      * 
      * @param initialVariables
-     *            DataFlowVariables of the previous ActionSequence Element
+     * DataFlowVariables of the previous ActionSequence Element
+     * @param nodeCharacteristics 
+     * Node Characteristics that might be referenced in the calculator
+     * @param resourceLoader
+     * Resource loader to resolve unknown characteristics in the dictionary
      */
     public PCMDataCharacteristicsCalculator(List<DataFlowVariable> initialVariables, 
     		List<CharacteristicValue> nodeCharacteristics,

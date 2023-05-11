@@ -6,7 +6,21 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.DataFlowConfidentialityAnalysis;
 
-public abstract class AbstractDataFlowAnalysisBuilder<T extends DataFlowConfidentialityAnalysis, D extends AnalysisBuilderData, E extends AnalysisBuilderData> {
+/**
+ * An abstract builder for a data flow analysis.
+ * Implementation of the builder are responsible for the following
+ * - Creation of the Analysis
+ * - Validating the builder data
+ * - Allowing creation of the builder with expected builder data
+ *
+ * @param <T> Type of the Analysis that is returned by the builder
+ * @param <D> Type of the Data that is saved in the builder
+ * @param <E> Expected Data from which the builder can be created
+ */
+public abstract class AbstractDataFlowAnalysisBuilder
+<T extends DataFlowConfidentialityAnalysis, 
+D extends AnalysisBuilderData, 
+E extends AnalysisBuilderData> {
 	protected final Logger logger = Logger.getLogger(DataFlowAnalysisBuilder.class);
 	protected final D builderData;
 	protected final List<AbstractDataFlowAnalysisBuilder<?, ?, ?>> builder;

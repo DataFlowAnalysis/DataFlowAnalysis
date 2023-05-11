@@ -54,7 +54,7 @@ E extends AnalysisBuilderData> {
 	 */
 	public abstract T build();
 	
-	public <B extends AbstractDataFlowAnalysisBuilder<?, ?, D>> B registerBuilder(B builder) {
+	public <B extends AbstractDataFlowAnalysisBuilder<?, ?, D>> B useBuilder(B builder) {
 		this.builder.add(builder);
 		builder.copyBuilderData(builderData);
 		return builder;

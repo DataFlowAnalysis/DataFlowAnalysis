@@ -4,10 +4,9 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.n
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.DataCharacteristicsCalculatorFactory;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
 
-public class AnalysisData {
-	private final ResourceLoader resourceLoader;
-	private final NodeCharacteristicsCalculator nodeCharacteristicsCalculator;
-	private final DataCharacteristicsCalculatorFactory variableCharacteristicsCalculator;
+public record AnalysisData(ResourceLoader resourceLoader, 
+		NodeCharacteristicsCalculator nodeCharacteristicsCalculator,
+		DataCharacteristicsCalculatorFactory variableCharacteristicsCalculator) {
 	
 	public AnalysisData(ResourceLoader resourceLoader, NodeCharacteristicsCalculator nodeCharacteristicsCalculator, 
 			DataCharacteristicsCalculatorFactory variableCharacteristicsCalculator) {

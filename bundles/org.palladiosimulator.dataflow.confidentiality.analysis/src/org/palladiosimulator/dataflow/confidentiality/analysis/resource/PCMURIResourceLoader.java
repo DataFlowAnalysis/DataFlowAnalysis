@@ -23,10 +23,16 @@ public class PCMURIResourceLoader implements ResourceLoader {
 	private UsageModel usageModel;
 	private Allocation allocation;
 	
-	public PCMURIResourceLoader(URI usageModelURI, URI allocationModelURI, Optional<URI> optional) {
+	/**
+	 * Creates a new resource loader with the given model URIs
+	 * @param usageModelURI URI to the usage model
+	 * @param allocationModelURI URI to the allocation model
+	 * @param nodeCharacteristicsURI URI to the node characteristics model
+	 */
+	public PCMURIResourceLoader(URI usageModelURI, URI allocationModelURI, Optional<URI> nodeCharacteristicsURI) {
 		this.usageModelURI = usageModelURI;
 		this.allocationModelURI = allocationModelURI;
-		this.nodeCharacteristicURI = optional;
+		this.nodeCharacteristicURI = nodeCharacteristicsURI;
 	}
 
 	@Override
@@ -64,6 +70,11 @@ public class PCMURIResourceLoader implements ResourceLoader {
         return result;
 	}
 
+	/**
+	 * Loads the model content with the given URI
+	 * @param modelURI URI of the model that should be loaded
+	 * @return ECore object that is saved in the resource with the given URI
+	 */
 	private EObject loadModelContent(URI modelURI) {
 		Resource resource = resources.getResource(modelURI, true);
 		if (resource == null) {
@@ -74,6 +85,13 @@ public class PCMURIResourceLoader implements ResourceLoader {
 		return resource.getContents().get(0);
 	}
 
+	/**
+	 * Determines whether a ECore type is present in the resource
+	 * @param targetType ECore type that should be searched
+	 * @param resource Resource that should be searched
+	 * @return Returns true, if one element with the target type could be found in the resource.
+	 * Otherwise, the method returns false
+	 */
 	private boolean isTargetInResource(EClass targetType, Resource resource) {
         if (resource != null) {
             for (EObject c : resource.getContents()) {
@@ -84,5 +102,4 @@ public class PCMURIResourceLoader implements ResourceLoader {
         }
         return false;
     }
-	
 }

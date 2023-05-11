@@ -7,7 +7,7 @@ import org.eclipse.core.runtime.Plugin;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisBuilderData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.node.LegacyPCMNodeCharacteristicsCalculator;
-import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.node.PCMNodeCharacteristicsCalculatorImpl;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.node.PCMNodeCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.PCMDataCharacteristicsCalculatorFactory;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMURIResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
@@ -60,7 +60,7 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 					PCMResourceUtils.createRelativePluginURI(relativeAllocationModelPath, modelProjectName), 
 					Optional.of(PCMResourceUtils.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName)));
 			return new AnalysisData(resourceLoader, 
-					new PCMNodeCharacteristicsCalculatorImpl(resourceLoader), new PCMDataCharacteristicsCalculatorFactory(resourceLoader));
+					new PCMNodeCharacteristicsCalculator(resourceLoader), new PCMDataCharacteristicsCalculatorFactory(resourceLoader));
 		}
 	}
 	

@@ -36,15 +36,15 @@ import org.palladiosimulator.pcm.usagemodel.UsageModel;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelPackage;
 
-public class PCMNodeCharacteristicsCalculatorImpl implements NodeCharacteristicsCalculator {
-	private final Logger logger = Logger.getLogger(PCMNodeCharacteristicsCalculatorImpl.class);
+public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalculator {
+	private final Logger logger = Logger.getLogger(PCMNodeCharacteristicsCalculator.class);
     private final ResourceLoader resourceLoader;
     
     /**
      * Creates a new node characteristic calculator with the given node
      * @param node Node of which the characteristics should be calculated. Should either be a User or SEFF Action.
      */
-    public PCMNodeCharacteristicsCalculatorImpl(ResourceLoader resourceLoader) {
+    public PCMNodeCharacteristicsCalculator(ResourceLoader resourceLoader) {
     	this.resourceLoader = resourceLoader;
     }
 

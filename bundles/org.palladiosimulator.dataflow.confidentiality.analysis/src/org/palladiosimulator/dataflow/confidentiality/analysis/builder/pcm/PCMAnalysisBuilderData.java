@@ -1,5 +1,6 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.builder.pcm;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +24,7 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	private String relativeUsageModelPath;
 	private String relativeAllocationModelPath;
 	private String relativeNodeCharacteristicsPath;
-	private List<Resource> resources;
+	private List<Resource> resources = new ArrayList<>();
 	private boolean legacy;
 	
 	/**

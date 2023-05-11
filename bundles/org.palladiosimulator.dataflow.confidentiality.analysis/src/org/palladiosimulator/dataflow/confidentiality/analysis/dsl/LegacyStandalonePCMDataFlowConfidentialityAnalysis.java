@@ -1,9 +1,8 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.dsl;
 
 import org.apache.log4j.Logger;
-
+import org.eclipse.core.runtime.Plugin;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
-import org.palladiosimulator.dataflow.confidentiality.analysis.builder.pcm.PCMAnalysisBuilderData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.AnalysisConstants;
 
 import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
@@ -13,16 +12,15 @@ public class LegacyStandalonePCMDataFlowConfidentialityAnalysis extends Abstract
 	private final Logger logger = Logger.getLogger(LegacyStandalonePCMDataFlowConfidentialityAnalysis.class);
 	
 	/**
-	 * Creates a new DataFlowConfidentialityAnlysis with the given modelling project name, modelling project plugin instance and required model paths
+	 * Creates a new DataFlowConfidentialityAnlysis with the given modelling project name, modelling project plugin instance and global analysis data
 	 * @param modelProjectName Name of the modelling project
-	 * @param modelProjectActivator Class of the project plugin
-	 * @param relativeUsageModelPath Relative path to the usage model
-	 * @param relativeAllocationModelPath Relative path to the allocation model
+	 * @param pluginActivator Plugin activator class of the modelling project
+	 * @param analysisData Global analysis data that should be used
 	 */
-	public LegacyStandalonePCMDataFlowConfidentialityAnalysis(PCMAnalysisBuilderData builderData, AnalysisData analysisData) {
+	public LegacyStandalonePCMDataFlowConfidentialityAnalysis(String modelProjectName, Class<? extends Plugin> pluginActivator, AnalysisData analysisData) {
 		super(analysisData,
 				Logger.getLogger(LegacyStandalonePCMDataFlowConfidentialityAnalysis.class),
-				builderData.getModelProjectName(), builderData.getPluginActivator());   
+				modelProjectName, pluginActivator);   
     }
 
 

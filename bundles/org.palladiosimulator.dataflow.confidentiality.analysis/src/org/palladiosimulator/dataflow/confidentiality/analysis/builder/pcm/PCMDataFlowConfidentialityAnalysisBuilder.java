@@ -79,9 +79,11 @@ extends AbstractDataFlowAnalysisBuilder<AbstractStandalonePCMDataFlowConfidentia
 	public AbstractStandalonePCMDataFlowConfidentialityAnalysis build() {
 		this.validateBuilderData();
 		if (this.builderData.isLegacy()) {
-			return new LegacyStandalonePCMDataFlowConfidentialityAnalysis(builderData, builderData.createAnalysisData());
+			return new LegacyStandalonePCMDataFlowConfidentialityAnalysis(builderData.getModelProjectName(),
+					builderData.getPluginActivator(), builderData.createAnalysisData());
 		} else {
-			return new StandalonePCMDataFlowConfidentialityAnalysis(builderData, builderData.createAnalysisData());
+			return new StandalonePCMDataFlowConfidentialityAnalysis(builderData.getModelProjectName(),
+					builderData.getPluginActivator(), builderData.createAnalysisData());
 		}
 	}
 }

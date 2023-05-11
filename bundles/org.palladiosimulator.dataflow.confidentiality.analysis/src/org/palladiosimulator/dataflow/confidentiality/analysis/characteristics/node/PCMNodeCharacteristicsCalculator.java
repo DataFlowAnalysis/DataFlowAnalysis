@@ -177,7 +177,11 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 	            .findFirst().orElse(NodeCharacteristicsFactory.eINSTANCE.createAssignments());
 	}
 	
-	public void checkAssignments(Assignments assignments) {
+	/**
+	 * Checks the given list of assignments for errors or inconsistencies
+	 * @param assignments List of assignments that should be checked
+	 */
+	private void checkAssignments(Assignments assignments) {
 		for (AbstractAssignee assignee : assignments.getAssignee()) {
 			if (assignee instanceof UsageAsignee) {
 				UsageAsignee usage = (UsageAsignee) assignee;
@@ -208,7 +212,7 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 	 * @param object Given model object
 	 * @return Returns true, if the model object could be found in the resources of the analysis. Otherwise, the method returns false.
 	 */
-	public boolean presentInUsageModel(UsageScenario usageScenario) {
+	private boolean presentInUsageModel(UsageScenario usageScenario) {
 		List<UsageModel> usageModel = this.resourceLoader.lookupElementOfType(UsagemodelPackage.eINSTANCE.getUsageModel()).parallelStream()
 				.filter(UsageModel.class::isInstance)
 				.map(UsageModel.class::cast)
@@ -226,7 +230,7 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 	 * @param object Given model object
 	 * @return Returns true, if the model object could be found in the resources of the analysis. Otherwise, the method returns false.
 	 */
-	public boolean presentInResource(ResourceContainer resourceContainer) {
+	private boolean presentInResource(ResourceContainer resourceContainer) {
 		List<ResourceEnvironment> resourceEnvironments = 
 				this.resourceLoader.lookupElementOfType(ResourceenvironmentPackage.eINSTANCE.getResourceEnvironment()).parallelStream()
 				.filter(ResourceEnvironment.class::isInstance)
@@ -245,7 +249,7 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 	 * @param object Given model object
 	 * @return Returns true, if the model object could be found in the resources of the analysis. Otherwise, the method returns false.
 	 */
-	public boolean presentInAssembly(AssemblyContext assemblyContext) {
+	private boolean presentInAssembly(AssemblyContext assemblyContext) {
 		List<System> systems = this.resourceLoader.lookupElementOfType(SystemPackage.eINSTANCE.getSystem()).parallelStream()
 				.filter(System.class::isInstance)
 				.map(System.class::cast)

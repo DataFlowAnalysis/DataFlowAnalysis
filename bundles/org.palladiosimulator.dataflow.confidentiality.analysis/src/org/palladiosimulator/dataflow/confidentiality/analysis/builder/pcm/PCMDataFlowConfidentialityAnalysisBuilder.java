@@ -3,9 +3,9 @@
 import org.eclipse.core.runtime.Plugin;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AbstractDataFlowAnalysisBuilder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisBuilderData;
-import org.palladiosimulator.dataflow.confidentiality.analysis.dsl.LegacyStandalonePCMDataFlowConfidentialityAnalysis;
-import org.palladiosimulator.dataflow.confidentiality.analysis.dsl.AbstractStandalonePCMDataFlowConfidentialityAnalysis;
-import org.palladiosimulator.dataflow.confidentiality.analysis.dsl.StandalonePCMDataFlowConfidentialityAnalysis;
+import org.palladiosimulator.dataflow.confidentiality.analysis.core.AbstractStandalonePCMDataFlowConfidentialityAnalysis;
+import org.palladiosimulator.dataflow.confidentiality.analysis.core.LegacyStandalonePCMDataFlowConfidentialityAnalysis;
+import org.palladiosimulator.dataflow.confidentiality.analysis.core.StandalonePCMDataFlowConfidentialityAnalysis;
 
 public class PCMDataFlowConfidentialityAnalysisBuilder 
 extends AbstractDataFlowAnalysisBuilder<AbstractStandalonePCMDataFlowConfidentialityAnalysis, PCMAnalysisBuilderData, AnalysisBuilderData> {

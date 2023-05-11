@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.dsl;
+package org.palladiosimulator.dataflow.confidentiality.analysis.core;
 
 import java.util.ArrayList;
 import java.util.Collections;

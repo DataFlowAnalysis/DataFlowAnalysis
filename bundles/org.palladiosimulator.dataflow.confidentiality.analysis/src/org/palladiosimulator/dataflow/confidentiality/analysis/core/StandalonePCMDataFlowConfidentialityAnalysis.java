@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiality.analysis.dsl;
+package org.palladiosimulator.dataflow.confidentiality.analysis.core;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Plugin;

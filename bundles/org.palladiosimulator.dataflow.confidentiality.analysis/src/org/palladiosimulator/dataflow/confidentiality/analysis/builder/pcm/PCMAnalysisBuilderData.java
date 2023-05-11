@@ -37,7 +37,7 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 			throw new IllegalStateException("A path to an allocation model is required");
 		}
 		if (this.isLegacy()) {
-			logger.warn("Using legacy EMF Profiles for Node Characteristic application");
+			logger.info("Using legacy EMF Profiles for Node Characteristic application");
 		}
 		if (!this.isLegacy() && this.getRelativeNodeCharacteristicsPath().isEmpty()) {
 			logger.warn("Using new node characteristic model without specifying path to the assignment model. No node characteristics will be applied!");

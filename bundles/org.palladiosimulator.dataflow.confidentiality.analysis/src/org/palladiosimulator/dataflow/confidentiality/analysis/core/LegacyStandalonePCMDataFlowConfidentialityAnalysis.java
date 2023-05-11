@@ -3,12 +3,14 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.core;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Plugin;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
-import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.AnalysisConstants;
 
 import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
 import tools.mdsd.library.standalone.initialization.emfprofiles.EMFProfileInitializationTask;
 
 public class LegacyStandalonePCMDataFlowConfidentialityAnalysis extends AbstractStandalonePCMDataFlowConfidentialityAnalysis {
+	private static final String EMF_PROFILE_NAME = "profile.emfprofile_diagram";
+	private static final String EMF_PROFILE_PLUGIN = "org.palladiosimulator.dataflow.confidentiality.pcm.model.profile";
+	
 	private final Logger logger = Logger.getLogger(LegacyStandalonePCMDataFlowConfidentialityAnalysis.class);
 	
 	/**
@@ -35,7 +37,8 @@ public class LegacyStandalonePCMDataFlowConfidentialityAnalysis extends Abstract
      */
     private boolean initEMFProfiles() {
         try {
-            new EMFProfileInitializationTask(AnalysisConstants.EMF_PROFILE_PLUGIN, AnalysisConstants.EMF_PROFILE_NAME)
+            new EMFProfileInitializationTask(LegacyStandalonePCMDataFlowConfidentialityAnalysis.EMF_PROFILE_PLUGIN, 
+            		LegacyStandalonePCMDataFlowConfidentialityAnalysis.EMF_PROFILE_NAME)
                 .initilizationWithoutPlatform();
             logger.info("Successfully initialized standalone EMF Profiles for the data flow analysis.");
             return true;

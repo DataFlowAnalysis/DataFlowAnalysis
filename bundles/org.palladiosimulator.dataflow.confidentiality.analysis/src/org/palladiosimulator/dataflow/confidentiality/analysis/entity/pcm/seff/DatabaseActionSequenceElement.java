@@ -12,11 +12,12 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.D
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataStore;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.AbstractPCMActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.AnalysisConstants;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 public class DatabaseActionSequenceElement<T extends OperationalDataStoreComponent> extends AbstractPCMActionSequenceElement<T> {
+	private static final String RETURN_MAGIC_VALUE = "RETURN";
+	
 	private final Logger logger = Logger.getLogger(DatabaseActionSequenceElement.class);
 	
 	private final DataStore dataStore;
@@ -67,7 +68,7 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 			logger.trace(this.createPrintableDatabaseInformation(newDataFlowVariables));
 			return new DatabaseActionSequenceElement<>(this, newDataFlowVariables, nodeVariables);
 		} else {
-			DataFlowVariable modifiedVariable = new DataFlowVariable(AnalysisConstants.RETURN_MAGIC_VALUE);
+			DataFlowVariable modifiedVariable = new DataFlowVariable(DatabaseActionSequenceElement.RETURN_MAGIC_VALUE);
 			List<CharacteristicValue> storedData = dataStore.getCharacteristicValues();
 			for(CharacteristicValue characteristicValue : storedData) {
 				modifiedVariable = modifiedVariable.addCharacteristic(characteristicValue);

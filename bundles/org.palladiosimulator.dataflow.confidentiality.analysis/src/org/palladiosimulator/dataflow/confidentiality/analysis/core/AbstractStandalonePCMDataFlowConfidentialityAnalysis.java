@@ -22,7 +22,6 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.A
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.ActionSequenceFinder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMActionSequenceFinder;
-import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.AnalysisConstants;
 import org.palladiosimulator.dataflow.confidentiality.pcm.dddsl.DDDslStandaloneSetup;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.DictionaryPackage;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.PCMDataDictionary;
@@ -32,6 +31,8 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder
 import tools.mdsd.library.standalone.initialization.log4j.Log4jInitilizationTask;
 
 public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis implements DataFlowConfidentialityAnalysis {
+	private static final String PLUGIN_PATH = "org.palladiosimulator.dataflow.confidentiality.analysis";
+	
 	private final AnalysisData analysisData;
 	private final Logger logger;
 	
@@ -176,7 +177,7 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
             StandaloneInitializerBuilder.builder()
                 .registerProjectURI(this.modelProjectActivator, this.modelProjectName)
                 .registerProjectURI(AbstractStandalonePCMDataFlowConfidentialityAnalysis.class, 
-                		AnalysisConstants.PLUGIN_PATH)
+                		AbstractStandalonePCMDataFlowConfidentialityAnalysis.PLUGIN_PATH)
                 .build()
                 .init();
 

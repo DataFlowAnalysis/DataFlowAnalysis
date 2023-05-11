@@ -16,18 +16,13 @@ public class DataFlowAnalysisBuilder extends AbstractDataFlowAnalysisBuilder<Dat
 	}	
 
 	@Override
-	public void checkBuilderData() {
-		if (!this.builderData.isStandalone()) {
-			throw new IllegalStateException("Execution of the analysis is currently only supported in standalone mode");
-		}
-		if(this.builderData.getModelProjectName() == null || this.builderData.getModelProjectName().isBlank()) {
-			throw new IllegalStateException("A name for the modelling project is required!");
-		}
+	public void validateBuilderData() {
+		this.builderData.validateData();
 	}
 
 	@Override
 	public DataFlowConfidentialityAnalysis build() {
-		this.checkBuilderData();
+		this.validateBuilderData();
 		throw new IllegalStateException("No current implementation supports pcm-less analysis");
 	}
 	

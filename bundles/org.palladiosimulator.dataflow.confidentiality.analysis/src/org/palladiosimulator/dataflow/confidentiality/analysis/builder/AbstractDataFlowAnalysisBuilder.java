@@ -46,7 +46,7 @@ E extends AnalysisBuilderData> {
 	 * Checking the builder data is left to the implementation.
 	 * It may call {@code checkBuilderData()} of previous builders
 	 */
-	public abstract void checkBuilderData();
+	public abstract void validateBuilderData();
 	
 	/**
 	 * Builds the analysis with the given builder data

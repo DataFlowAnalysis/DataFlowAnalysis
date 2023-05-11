@@ -2,6 +2,7 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.builder.pcm;
 
 import java.util.Optional;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Plugin;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisBuilderData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
@@ -13,11 +14,35 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.resource.Resource
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMResourceUtils;
 
 public class PCMAnalysisBuilderData extends AnalysisBuilderData {
+	private final Logger logger = Logger.getLogger(PCMAnalysisBuilderData.class);
+	
 	private Class<? extends Plugin> pluginActivator;
 	private String relativeUsageModelPath;
 	private String relativeAllocationModelPath;
 	private String relativeNodeCharacteristicsPath;
 	private boolean legacy;
+	
+	/**
+	 * Validates the saved data
+	 * @throws IllegalStateException Saved data is invalid
+	 */
+	public void validateData() {
+		if (this.getPluginActivator() == null) {
+			throw new IllegalStateException("A plugin activator is required");
+		}
+		if (this.getRelativeUsageModelPath().isEmpty()) {
+			throw new IllegalStateException("A path to a usage model is required");
+		}
+		if (this.getRelativeAllocationModelPath().isEmpty()) {
+			throw new IllegalStateException("A path to an allocation model is required");
+		}
+		if (this.isLegacy()) {
+			logger.warn("Using legacy EMF Profiles for Node Characteristic application");
+		}
+		if (!this.isLegacy() && this.getRelativeNodeCharacteristicsPath().isEmpty()) {
+			logger.warn("Using new node characteristic model without specifying path to the assignment model. No node characteristics will be applied!");
+		}
+	}
 	
 
 	/**

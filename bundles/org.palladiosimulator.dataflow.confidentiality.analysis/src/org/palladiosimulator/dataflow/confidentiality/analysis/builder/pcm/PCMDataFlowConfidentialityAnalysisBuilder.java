@@ -69,32 +69,15 @@ extends AbstractDataFlowAnalysisBuilder<AbstractStandalonePCMDataFlowConfidentia
 		super.builderData.setStandalone(builderData.isStandalone());
 	}
 	
-	
-	// TODO> Extract checking into data class?
-	// TODO> Validate top down or bottom up?
 	@Override
-	public void checkBuilderData() {
-		this.builder.forEach(it -> it.checkBuilderData());
-		if (this.builderData.getPluginActivator() == null) {
-			throw new IllegalStateException("A plugin activator is required");
-		}
-		if (this.builderData.getRelativeUsageModelPath().isEmpty()) {
-			throw new IllegalStateException("A path to a usage model is required");
-		}
-		if (this.builderData.getRelativeAllocationModelPath().isEmpty()) {
-			throw new IllegalStateException("A path to an allocation model is required");
-		}
-		if (this.builderData.isLegacy()) {
-			logger.warn("Using legacy EMF Profiles for Node Characteristic application");
-		}
-		if (!this.builderData.isLegacy() && this.builderData.getRelativeNodeCharacteristicsPath().isEmpty()) {
-			logger.warn("Using new node characteristic model without specifying path to the assignment model. No node characteristics will be applied!");
-		}
+	public void validateBuilderData() {
+		this.builder.forEach(it -> it.validateBuilderData());
+		this.builderData.validateData();
 	}
 
 	@Override
 	public AbstractStandalonePCMDataFlowConfidentialityAnalysis build() {
-		this.checkBuilderData();
+		this.validateBuilderData();
 		if (this.builderData.isLegacy()) {
 			return new LegacyStandalonePCMDataFlowConfidentialityAnalysis(builderData, builderData.createAnalysisData());
 		} else {

@@ -189,9 +189,9 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
             return evaluateTerm(andTerm.getLeft(), characteristicValue)
                     && evaluateTerm(andTerm.getRight(), characteristicValue);
         } else if (term instanceof Or) {
-            var andTerm = (And) term;
-            return evaluateTerm(andTerm.getLeft(), characteristicValue)
-                    || evaluateTerm(andTerm.getRight(), characteristicValue);
+            var orTerm = (Or) term;
+            return evaluateTerm(orTerm.getLeft(), characteristicValue)
+                    || evaluateTerm(orTerm.getRight(), characteristicValue);
         } else {
             throw new IllegalArgumentException("Unknown type: " + term.getClass()
                 .getName());

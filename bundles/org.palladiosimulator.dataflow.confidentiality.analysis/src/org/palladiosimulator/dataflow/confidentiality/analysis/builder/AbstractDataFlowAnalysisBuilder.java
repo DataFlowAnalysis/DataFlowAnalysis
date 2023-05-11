@@ -54,6 +54,12 @@ E extends AnalysisBuilderData> {
 	 */
 	public abstract T build();
 	
+	/**
+	 * Uses the given builder to build a subtype of the data flow analysis
+	 * @param <B> Builder class that is used
+	 * @param builder Instance of the builder object that should be used
+	 * @return Returns the builder object of the given builder
+	 */
 	public <B extends AbstractDataFlowAnalysisBuilder<?, ?, D>> B useBuilder(B builder) {
 		this.builder.add(builder);
 		builder.copyBuilderData(builderData);

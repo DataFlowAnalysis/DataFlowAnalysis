@@ -12,13 +12,13 @@ import java.util.stream.Collectors;
 
 import org.apache.log4j.Level;
 import org.junit.jupiter.api.Test;
-import org.palladiosimulator.dataflow.confidentiality.analysis.StandalonePCMDataFlowConfidentialtyAnalysis;
+import org.palladiosimulator.dataflow.confidentiality.analysis.DataFlowConfidentialityAnalysis;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.constraint.data.ConstraintData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.constraint.data.ConstraintViolations;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.AbstractActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.ActionSequence;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.CharacteristicValue;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.entity.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
 
 public class ConstraintResultTest extends ConstraintTest {
@@ -132,7 +132,7 @@ public class ConstraintResultTest extends ConstraintTest {
      */
     @Test
     public void travelPlannerNewTestConstraintResults() {
-    	StandalonePCMDataFlowConfidentialtyAnalysis analysis = 
+    	DataFlowConfidentialityAnalysis analysis = 
     			super.initializeAnalysis(Paths.get("models", "TravelPlannerNew", "travelPlanner.usagemodel"), 
     					Paths.get("models", "TravelPlannerNew", "travelPlanner.allocation"),
     					Paths.get("models", "TravelPlannerNew", "travelPlanner.nodecharacteristics"));
@@ -162,7 +162,7 @@ public class ConstraintResultTest extends ConstraintTest {
      */
     @Test
     public void oneAssemblyMultipleResourceTestConstraintResults() {
-    	StandalonePCMDataFlowConfidentialtyAnalysis analysis = 
+    	DataFlowConfidentialityAnalysis analysis = 
     			super.initializeAnalysis(Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.usagemodel"), Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.allocation"));
     	analysis.setLoggerLevel(Level.TRACE);
     	Predicate<AbstractActionSequenceElement<?>> constraint = node -> internationalOnlineShopCondition(node);
@@ -177,7 +177,7 @@ public class ConstraintResultTest extends ConstraintTest {
      */
     @Test
     public void dataStoreTestConstraintResults() {
-    	StandalonePCMDataFlowConfidentialtyAnalysis dataStoreAnalysis = 
+    	DataFlowConfidentialityAnalysis dataStoreAnalysis = 
     			super.initializeAnalysis(Paths.get("models", "DatastoreTest", "default.usagemodel"), Paths.get("models", "DatastoreTest", "default.allocation"));
     	Predicate<AbstractActionSequenceElement<?>> constraint = node -> dataStoreCondition(node);
     	dataStoreAnalysis.setLoggerLevel(Level.TRACE);
@@ -192,7 +192,7 @@ public class ConstraintResultTest extends ConstraintTest {
      */
     @Test
     public void returnTestConstraintResults() {
-    	StandalonePCMDataFlowConfidentialtyAnalysis returnAnalysis = 
+    	DataFlowConfidentialityAnalysis returnAnalysis = 
     			super.initializeAnalysis(Paths.get("models", "ReturnTestModel", "default.usagemodel"), Paths.get("models", "ReturnTestModel", "default.allocation"));
     	Predicate<AbstractActionSequenceElement<?>> constraint = node -> returnCondition(node);
     	returnAnalysis.setLoggerLevel(Level.TRACE);
@@ -200,7 +200,7 @@ public class ConstraintResultTest extends ConstraintTest {
     	testAnalysis(returnAnalysis, constraint, constraintData);
     }
     
-    public void testAnalysis(StandalonePCMDataFlowConfidentialtyAnalysis analysis, Predicate<AbstractActionSequenceElement<?>> constraint, List<ConstraintData> constraintData) {
+    public void testAnalysis(DataFlowConfidentialityAnalysis analysis, Predicate<AbstractActionSequenceElement<?>> constraint, List<ConstraintData> constraintData) {
     	List<ActionSequence> actionSequences = analysis.findAllSequences();
     	List<ActionSequence> evaluatedSequences = analysis.evaluateDataFlows(actionSequences);
     	List<AbstractActionSequenceElement<?>> results = evaluatedSequences.stream()

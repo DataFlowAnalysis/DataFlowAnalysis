@@ -8,13 +8,15 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.palladiosimulator.dataflow.confidentiality.analysis.builder.DataFlowAnalysisBuilder;
+import org.palladiosimulator.dataflow.confidentiality.analysis.builder.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.testmodels.Activator;
 
 @TestInstance(Lifecycle.PER_CLASS)
 public class BaseTest {
-    protected StandalonePCMDataFlowConfidentialtyAnalysis onlineShopAnalysis;
-    protected StandalonePCMDataFlowConfidentialtyAnalysis internationalOnlineShopAnalysis;
-    protected StandalonePCMDataFlowConfidentialtyAnalysis travelPlannerAnalysis;
+    protected DataFlowConfidentialityAnalysis onlineShopAnalysis;
+    protected DataFlowConfidentialityAnalysis internationalOnlineShopAnalysis;
+    protected DataFlowConfidentialityAnalysis travelPlannerAnalysis;
 
     @BeforeAll
     public void initializeOnlineShopAnalysis() {
@@ -23,8 +25,15 @@ public class BaseTest {
         final var allocationPath = Paths.get("models", "BranchingOnlineShop", "default.allocation")
             .toString();
 
-        onlineShopAnalysis = new StandalonePCMDataFlowConfidentialtyAnalysis(TEST_MODEL_PROJECT_NAME, Activator.class,
-                usageModelPath, allocationPath);
+        onlineShopAnalysis = new DataFlowAnalysisBuilder()
+        		.standalone()
+        		.modelProjectName(TEST_MODEL_PROJECT_NAME)
+        		.useBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
+        		.legacy()
+        		.usePluginActivator(Activator.class)
+        		.useUsageModel(usageModelPath)
+        		.useAllocationModel(allocationPath)
+        		.build();
 
         onlineShopAnalysis.initalizeAnalysis();
     }
@@ -35,9 +44,15 @@ public class BaseTest {
             .toString();
         final var allocationPath = Paths.get("models", "InternationalOnlineShop", "default.allocation")
             .toString();
-
-        internationalOnlineShopAnalysis = new StandalonePCMDataFlowConfidentialtyAnalysis(TEST_MODEL_PROJECT_NAME,
-                Activator.class, usageModelPath, allocationPath);
+        internationalOnlineShopAnalysis = new DataFlowAnalysisBuilder()
+        		.standalone()
+        		.modelProjectName(TEST_MODEL_PROJECT_NAME)
+        		.useBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
+        		.usePluginActivator(Activator.class)
+        		.legacy()
+        		.useUsageModel(usageModelPath)
+        		.useAllocationModel(allocationPath)
+        		.build();
 
         internationalOnlineShopAnalysis.initalizeAnalysis();
     }
@@ -49,20 +64,42 @@ public class BaseTest {
         final var allocationPath = Paths.get("models", "TravelPlanner", "travelPlanner.allocation")
             .toString();
 
-        travelPlannerAnalysis = new StandalonePCMDataFlowConfidentialtyAnalysis(TEST_MODEL_PROJECT_NAME,
-                Activator.class, usageModelPath, allocationPath);
-
+        travelPlannerAnalysis = new DataFlowAnalysisBuilder()
+        		.standalone()
+        		.modelProjectName(TEST_MODEL_PROJECT_NAME)
+        		.useBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
+        		.legacy()
+        		.usePluginActivator(Activator.class)
+        		.useUsageModel(usageModelPath)
+        		.useAllocationModel(allocationPath)
+        		.build();
         travelPlannerAnalysis.initalizeAnalysis();
     }
     
-    protected StandalonePCMDataFlowConfidentialtyAnalysis initializeAnalysis(Path usagePath, Path allocationPath) {
-    	var analysis = new StandalonePCMDataFlowConfidentialtyAnalysis(TEST_MODEL_PROJECT_NAME, Activator.class, usagePath.toString(), allocationPath.toString());
+    protected DataFlowConfidentialityAnalysis initializeAnalysis(Path usagePath, Path allocationPath) {
+    	DataFlowConfidentialityAnalysis analysis = new DataFlowAnalysisBuilder()
+        		.standalone()
+        		.modelProjectName(TEST_MODEL_PROJECT_NAME)
+        		.useBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
+        		.legacy()
+        		.usePluginActivator(Activator.class)
+    			.useUsageModel(usagePath.toString())
+    			.useAllocationModel(allocationPath.toString())
+    			.build();
     	analysis.initalizeAnalysis();
     	return analysis;
     }
     
-    protected StandalonePCMDataFlowConfidentialtyAnalysis initializeAnalysis(Path usagePath, Path allocationPath, Path nodePath) {
-    	var analysis = new StandalonePCMDataFlowConfidentialtyAnalysis(TEST_MODEL_PROJECT_NAME, Activator.class, usagePath.toString(), allocationPath.toString(), nodePath.toString());
+    protected DataFlowConfidentialityAnalysis initializeAnalysis(Path usagePath, Path allocationPath, Path nodePath) {
+    	DataFlowConfidentialityAnalysis analysis = new DataFlowAnalysisBuilder()
+        		.standalone()
+        		.modelProjectName(TEST_MODEL_PROJECT_NAME)
+        		.useBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
+    			.usePluginActivator(Activator.class)
+    			.useUsageModel(usagePath.toString())
+    			.useAllocationModel(allocationPath.toString())
+    			.useNodeCharacteristicsModel(nodePath.toString())
+    			.build();
     	analysis.initalizeAnalysis();
     	return analysis;
     }

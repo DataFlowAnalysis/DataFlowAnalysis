@@ -16,7 +16,7 @@ public class ScalibiliyMainNew {
 			int start = Integer.parseInt(args[1]);
 			TestRunner runner = new TestRunner(TestRunner.getTests(), analysisExecutor, false);
 			runner.runTests(start);
-		} if (args.length > 0 && args[0].equalsIgnoreCase("-graph")) {
+		} else if (args.length > 0 && args[0].equalsIgnoreCase("-graph")) {
 			GraphExporter exporter = new GraphExporter();
 			exporter.exportResults(TestRunner.getTests(), analysisExecutor);
 		} else {

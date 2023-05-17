@@ -49,7 +49,7 @@ public class TestRunner {
 	private void runTest(ScalibilityTest test, int index) {
 		for (int j = 0; j < RUNS_PER_STAGE; j++) {
 			int modelSize = test.getModelSize(index);
-			logger.info("Running test with model size " + modelSize);
+			logger.info("Running test with model size " + modelSize + ", Iteration: " + j);
 			ScalibilityParameter parameter = new ScalibilityParameter(modelSize, test.getTestName(), legacy);
 			test.run(parameter, analysisExecutor);
 			this.results.add(parameter);
@@ -73,12 +73,12 @@ public class TestRunner {
 	
 	public static List<ScalibilityTest> getTests() {
 		return List.of(
-				new CharacteristicsPropagationTest(),
+				new CharacteristicsPropagationTest()//,
 				// new BranchCountTest(),
-				new NodeCharacteristicsTest(),
-				new SEFFParameterTest(),
-				new VariableCountTest(),
-				new VariableActionsTest()
+				// new NodeCharacteristicsTest(),
+				// new SEFFParameterTest(),
+				// new VariableCountTest(),
+				//new VariableActionsTest()
 		);
 	}
 }

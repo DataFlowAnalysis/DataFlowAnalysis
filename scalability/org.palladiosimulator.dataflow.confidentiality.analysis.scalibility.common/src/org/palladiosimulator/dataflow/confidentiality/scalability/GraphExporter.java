@@ -74,9 +74,6 @@ public class GraphExporter {
 	}
 	
 	private void exportParameter(List<ScalibilityParameter> parameters, FileOutputStream file) {
-		if(parameters.size() != 10) {
-			return;
-		}
 		long whisherTop = 0;
 		long whiskerBottom = Long.MAX_VALUE;
 		List<Long> totals = new ArrayList<>();
@@ -87,9 +84,9 @@ public class GraphExporter {
 			whiskerBottom = Math.min(whiskerBottom, total);
 		}
 		Collections.sort(totals);
-		long median = totals.get(5);
-		long boxTop = totals.get(2);
-		long boxBottom = totals.get(7);
+		long median = totals.get(totals.size() / 2);
+		long boxTop = totals.get((int) (totals.size() - (0.25f * totals.size())));
+		long boxBottom = totals.get((int) (totals.size() - (0.75f * totals.size())));
 		StringJoiner string = new StringJoiner(",");
 		string.add(Long.toString(parameters.get(0).getModelSize()));
 		string.add(Long.toString(median));

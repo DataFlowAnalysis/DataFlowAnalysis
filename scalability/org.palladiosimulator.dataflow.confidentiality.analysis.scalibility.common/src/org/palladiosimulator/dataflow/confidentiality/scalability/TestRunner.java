@@ -47,6 +47,11 @@ public class TestRunner {
 	}
 	
 	private void runTest(ScalibilityTest test, int index) {
+		for (int i = 0; i < 5; i++) {
+			logger.info("Running warmup " + i + "/5");
+			ScalibilityParameter parameter = new ScalibilityParameter(10, test.getTestName(), legacy);
+			test.run(parameter, analysisExecutor);
+		}
 		for (int j = 0; j < RUNS_PER_STAGE; j++) {
 			int modelSize = test.getModelSize(index);
 			logger.info("Running test with model size " + modelSize + ", Iteration: " + j);

@@ -1,0 +1,26 @@
+module mdpa.dfd.behaviourmodel.mwe2
+
+import org.eclipse.emf.mwe.utils.StandaloneSetup
+import org.eclipse.emf.mwe.utils.DirectoryCleaner
+import org.eclipse.emf.mwe2.ecore.EcoreGenerator
+import tools.mdsd.ecoreworkflow.mwe2lib.bean.EclipseRCPSupportingStandaloneSetup
+import tools.mdsd.ecoreworkflow.mwe2lib.component.*
+
+var workspaceRoot = "../../" 
+
+Workflow {
+	bean = EclipseRCPSupportingStandaloneSetup {
+		scanClassPath = true
+		platformUri = workspaceRoot
+	}
+
+	component = EcoreGenerator {
+		generateCustomClasses = false
+		generateEdit = true
+		generateEditor = true
+		genModel = "platform:/resource/mdpa.dfd.behaviourmodel/model/LegalNormRules.genmodel"
+		srcPath = "platform:/resource/mdpa.dfd.behaviourmodel/src-gen"
+		srcPath = "platform:/resource/mdpa.dfd.behaviourmodel.edit/src-gen"
+		srcPath = "platform:/resource/mdpa.dfd.behaviourmodel.edior/src-gen"
+	}
+}

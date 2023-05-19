@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: mdpa.dfd.dataflowdiagrammodel; singleton:=true
+Automatic-Module-Name: mdpa.dfd.dataflowdiagrammodel
+Bundle-Version: 0.1.0.qualifier
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Export-Package: mdpa.dfd.dataflowdiagrammodel.DataFlowDiagramModel,
+ mdpa.dfd.dataflowdiagrammodel.DataFlowDiagramModel.impl,
+ mdpa.dfd.dataflowdiagrammodel.DataFlowDiagramModel.util
+Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
+ org.eclipse.core.runtime,
+ BehaviourModel;bundle-version="0.1.0"
+Bundle-ActivationPolicy: lazy

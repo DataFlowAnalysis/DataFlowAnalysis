@@ -1,0 +1,22 @@
+module mdpa.dfd.dataflowdiagrammodel.mwe2
+
+import tools.mdsd.ecoreworkflow.mwe2lib.bean.EclipseRCPSupportingStandaloneSetup
+import tools.mdsd.ecoreworkflow.mwe2lib.component.URISupportingDirectoryCleaner
+
+var workspaceRoot = "../../"
+
+Workflow {
+	bean = EclipseRCPSupportingStandaloneSetup {
+		scanClassPath = true
+		platformUri = workspaceRoot		
+	}
+
+	component = URISupportingDirectoryCleaner {
+		directory = "platform:/resource/mdpa.dfd.dataflowdiagrammodel/src-gen"
+		directory = "platform:/resource/mdpa.dfd.dataflowdiagrammodel.edit/src-gen"
+		directory = "platform:/resource/mdpa.dfd.dataflowdiagrammodel.editor/src-gen"
+		directory = "platform:/resource/mdpa.dfd.dataflowdiagrammodel.contextproperties/src-gen"
+		directory = "platform:/resource/mdpa.dfd.dataflowdiagrammodel.contextproperties.edit/src-gen"
+		directory = "platform:/resource/mdpa.dfd.dataflowdiagrammodel.contextproperties.editor/src-gen"
+	}
+}

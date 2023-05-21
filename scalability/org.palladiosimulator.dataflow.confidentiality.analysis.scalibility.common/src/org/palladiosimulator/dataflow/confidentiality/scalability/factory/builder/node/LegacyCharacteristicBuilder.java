@@ -19,8 +19,8 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.modelversioning.emfprofile.Profile;
+import org.palladiosimulator.dataflow.confidentiality.analysis.DataFlowConfidentialityAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.PCMAnalysisUtils;
-import org.palladiosimulator.dataflow.confidentiality.analysis.StandalonePCMDataFlowConfidentialtyAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.Characteristic;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.Characteristics;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.CharacteristicsFactory;
@@ -75,7 +75,7 @@ public class LegacyCharacteristicBuilder implements NodeCharacteristicBuilder {
 			new Log4jInitilizationTask().initilizationWithoutPlatform();
 			StandaloneInitializerBuilder.builder()
                 .registerProjectURI(activator, modelPath)
-                .registerProjectURI(StandalonePCMDataFlowConfidentialtyAnalysis.class, PCMAnalysisUtils.PLUGIN_PATH)
+                .registerProjectURI(DataFlowConfidentialityAnalysis.class, PCMAnalysisUtils.PLUGIN_PATH)
                 .build()
                 .init();
 			new EMFProfileInitializationTask(PCMAnalysisUtils.EMF_PROFILE_PLUGIN, PCMAnalysisUtils.EMF_PROFILE_NAME)

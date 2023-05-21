@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationPackage;
@@ -19,6 +20,7 @@ public class PCMResourceListLoader implements ResourceLoader {
 	
 	public PCMResourceListLoader(List<Resource> resources) {
 		this.resources = resources;
+		this.resourceSet = new ResourceSetImpl();
 	}
 
 	@Override

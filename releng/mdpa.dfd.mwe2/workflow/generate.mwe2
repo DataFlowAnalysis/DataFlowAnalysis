@@ -18,9 +18,19 @@ Workflow {
 		generateCustomClasses = false
 		generateEdit = true
 		generateEditor = true
-		genModel = "platform:/resource/mdpa.dfd.behaviourmodel/model/LegalNormRules.genmodel"
+		genModel = "platform:/resource/mdpa.dfd.behaviourmodel/model/behaviourModel.genmodel"
 		srcPath = "platform:/resource/mdpa.dfd.behaviourmodel/src-gen"
 		srcPath = "platform:/resource/mdpa.dfd.behaviourmodel.edit/src-gen"
 		srcPath = "platform:/resource/mdpa.dfd.behaviourmodel.edior/src-gen"
+	}
+	
+	component = EcoreGenerator {
+		generateCustomClasses = false
+		generateEdit = true
+		generateEditor = true
+		genModel = "platform:/resource/mdpa.dfd.dataflowdiagrammodel/model/DataFlowDiagramModel.genmodel"
+		srcPath = "platform:/resource/mdpa.dfd.dataflowdiagrammodel/src-gen"
+		srcPath = "platform:/resource/mdpa.dfd.dataflowdiagrammodel.edit/src-gen"
+		srcPath = "platform:/resource/mdpa.dfd.dataflowdiagrammodel.edior/src-gen"
 	}
 }

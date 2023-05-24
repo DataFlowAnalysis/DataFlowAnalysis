@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/mdpa.dfd.diagram/src-gen" creationIcons="false"
+    editDirectory="/mdpa.dfd.diagram.edit/src-gen" editorDirectory="/mdpa.dfd.diagram.editor/src-gen"
+    modelPluginID="mdpa.dfd.diagram" modelName="DataFlowDiagramModel" editPluginClass="mdpa.dfd.diagram.provider.DataFlowDiagramModelEditPlugin"
+    editorPluginClass="mdpa.dfd.diagram.presentation.DataFlowDiagramModelEditorPlugin"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" suppressEMFTypes="true"
+    reflectiveDelegation="true" codeFormatting="true" testSuiteClass="mdpa.dfd.diagram.tests.DataFlowDiagramModelAllTests"
+    importerID="org.eclipse.emf.importer.ecore" featureDelegation="Reflective" complianceLevel="5.0"
+    copyrightFields="false" editPluginID="mdpa.dfd.diagram.edit" editorPluginID="mdpa.dfd.diagram.editor"
+    usedGenPackages="../../mdpa.dfd.behaviour/model/behaviourmodel.genmodel#//behaviourmodel ../../tools.mdsd.modelingfoundations.identifier/model/identifier.genmodel#//identifier"
+    operationReflection="true" importOrganizing="true" pluginKey="dataflowdiagrammodel">
+  <foreignModel>DataFlowDiagramModel.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="DataFlowDiagramModel" basePackage="mdpa.dfd.diagram" disposableProviderFactory="true"
+      extensibleProviderFactory="true" childCreationExtenders="true" ecorePackage="DataFlowDiagramModel.ecore#/">
+    <genClasses ecoreClass="DataFlowDiagramModel.ecore#//DataFlowDiagram">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DataFlowDiagramModel.ecore#//DataFlowDiagram/flows"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DataFlowDiagramModel.ecore#//DataFlowDiagram/nodes"/>
+    </genClasses>
+    <genClasses ecoreClass="DataFlowDiagramModel.ecore#//Flow">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DataFlowDiagramModel.ecore#//Flow/sourceNode"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DataFlowDiagramModel.ecore#//Flow/destinationNode"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DataFlowDiagramModel.ecore#//Flow/destinationPin"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DataFlowDiagramModel.ecore#//Flow/sourcePin"/>
+    </genClasses>
+    <genClasses ecoreClass="DataFlowDiagramModel.ecore#//Node">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DataFlowDiagramModel.ecore#//Node/behaviour"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DataFlowDiagramModel.ecore#//Node/property"/>
+    </genClasses>
+    <genClasses ecoreClass="DataFlowDiagramModel.ecore#//External"/>
+    <genClasses ecoreClass="DataFlowDiagramModel.ecore#//Store"/>
+    <genClasses ecoreClass="DataFlowDiagramModel.ecore#//Process"/>
+  </genPackages>
+</genmodel:GenModel>

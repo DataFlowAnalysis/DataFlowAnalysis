@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated dataflowdiagrammodel -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="mdpa.dfd.diagram.dataflowdiagrammodel.presentation.DataFlowDiagramModelModelWizardID"
+            name="%_UI_DataFlowDiagramModelModelWizard_label"
+            class="mdpa.dfd.diagram.dataflowdiagrammodel.presentation.DataFlowDiagramModelModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/DataFlowDiagramModelModelFile.gif">
+         <description>%_UI_DataFlowDiagramModelModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated dataflowdiagrammodel -->
+      <editor
+            id="mdpa.dfd.diagram.dataflowdiagrammodel.presentation.DataFlowDiagramModelEditorID"
+            name="%_UI_DataFlowDiagramModelEditor_label"
+            icon="icons/full/obj16/DataFlowDiagramModelModelFile.gif"
+            extensions="dataflowdiagrammodel"
+            class="mdpa.dfd.diagram.dataflowdiagrammodel.presentation.DataFlowDiagramModelEditor"
+            contributorClass="mdpa.dfd.diagram.dataflowdiagrammodel.presentation.DataFlowDiagramModelActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

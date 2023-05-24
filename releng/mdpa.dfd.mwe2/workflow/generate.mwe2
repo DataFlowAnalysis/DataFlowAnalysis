@@ -9,28 +9,37 @@ import tools.mdsd.ecoreworkflow.mwe2lib.component.*
 var workspaceRoot = "../../" 
 
 Workflow {
-	bean = EclipseRCPSupportingStandaloneSetup {
+		bean = EclipseRCPSupportingStandaloneSetup {
 		scanClassPath = true
 		platformUri = workspaceRoot
+		
+		uriMap = {
+			from = "platform:/plugin/tools.mdsd.modelingfoundations.identifier/model/identifier.genmodel"
+			to = "platform:/resource/tools.mdsd.modelingfoundations.identifier/model/identifier.genmodel"
+		}
+		uriMap = {
+			from = "platform:/plugin/tools.mdsd.modelingfoundations.identifier/model/identifier.ecore"
+			to = "platform:/resource/tools.mdsd.modelingfoundations.identifier/model/identifier.ecore"
+		}
 	}
 
 	component = EcoreGenerator {
 		generateCustomClasses = false
 		generateEdit = true
 		generateEditor = true
-		genModel = "platform:/resource/mdpa.dfd.behaviourmodel/model/behaviourModel.genmodel"
-		srcPath = "platform:/resource/mdpa.dfd.behaviourmodel/src-gen"
-		srcPath = "platform:/resource/mdpa.dfd.behaviourmodel.edit/src-gen"
-		srcPath = "platform:/resource/mdpa.dfd.behaviourmodel.edior/src-gen"
+		genModel = "platform:/resource/mdpa.dfd.behaviour/model/behaviourmodel.genmodel"
+		srcPath = "platform:/resource/mdpa.dfd.behaviour/src-gen"
+		srcPath = "platform:/resource/mdpa.dfd.behaviour.edit/src-gen"
+		srcPath = "platform:/resource/mdpa.dfd.behaviour.edior/src-gen"
 	}
 	
 	component = EcoreGenerator {
 		generateCustomClasses = false
 		generateEdit = true
 		generateEditor = true
-		genModel = "platform:/resource/mdpa.dfd.dataflowdiagrammodel/model/DataFlowDiagramModel.genmodel"
-		srcPath = "platform:/resource/mdpa.dfd.dataflowdiagrammodel/src-gen"
-		srcPath = "platform:/resource/mdpa.dfd.dataflowdiagrammodel.edit/src-gen"
-		srcPath = "platform:/resource/mdpa.dfd.dataflowdiagrammodel.edior/src-gen"
+		genModel = "platform:/resource/mdpa.dfd.diagram/model/DataFlowDiagramModel.genmodel"
+		srcPath = "platform:/resource/mdpa.dfd.diagram/src-gen"
+		srcPath = "platform:/resource/mdpa.dfd.diagram.edit/src-gen"
+		srcPath = "platform:/resource/mdpa.dfd.diagram.edior/src-gen"
 	}
 }

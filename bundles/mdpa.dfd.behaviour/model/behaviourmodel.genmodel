@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/mdpa.dfd.behaviour/src-gen" creationIcons="false"
+    editDirectory="/mdpa.dfd.behaviour.edit/src-gen" editorDirectory="/mdpa.dfd.behaviour.editor/src-gen"
+    modelPluginID="mdpa.dfd.behaviour" modelName="BehaviourModel" editPluginClass="mdpa.dfd.behaviour.provider.BehaviourModelEditPlugin"
+    editorPluginClass="mdpa.dfd.behaviour.presentation.BehaviourModelEditorPlugin"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" suppressEMFTypes="true"
+    reflectiveDelegation="true" codeFormatting="true" testSuiteClass="mdpa.dfd.behaviour.tests.BehaviourModelAllTests"
+    importerID="org.eclipse.emf.importer.ecore" featureDelegation="Reflective" complianceLevel="5.0"
+    copyrightFields="false" editPluginID="mdpa.dfd.behaviour.edit" editorPluginID="mdpa.dfd.behaviour.editor"
+    usedGenPackages="../../tools.mdsd.modelingfoundations.identifier/model/identifier.genmodel#//identifier"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>behaviourmodel.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="BehaviourModel" basePackage="mdpa.dfd.behaviour" disposableProviderFactory="true"
+      extensibleProviderFactory="true" childCreationExtenders="true" ecorePackage="behaviourmodel.ecore#/">
+    <genClasses ecoreClass="behaviourmodel.ecore#//Behaviour">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference behaviourmodel.ecore#//Behaviour/in"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference behaviourmodel.ecore#//Behaviour/out"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference behaviourmodel.ecore#//Behaviour/assignment"/>
+    </genClasses>
+    <genClasses ecoreClass="behaviourmodel.ecore#//Pin"/>
+    <genClasses ecoreClass="behaviourmodel.ecore#//Assignment">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference behaviourmodel.ecore#//Assignment/lhsLabel"/>
+    </genClasses>
+    <genClasses ecoreClass="behaviourmodel.ecore#//Label"/>
+  </genPackages>
+</genmodel:GenModel>

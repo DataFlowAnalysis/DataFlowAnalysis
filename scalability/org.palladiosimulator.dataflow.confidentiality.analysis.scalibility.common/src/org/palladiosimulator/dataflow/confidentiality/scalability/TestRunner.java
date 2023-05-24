@@ -80,8 +80,8 @@ public class TestRunner {
 		return List.of(
 				// new CharacteristicsPropagationTest()//,
 				// new BranchCountTest(),
-				new NodeCharacteristicsTest()//,
-				// new SEFFParameterTest(),
+				//new NodeCharacteristicsTest()//,
+				new SEFFParameterTest()//,
 				// new VariableCountTest(),
 				//new VariableActionsTest()
 		);

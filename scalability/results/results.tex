@@ -95,9 +95,11 @@
 
 \begin{figure}
 	\begin{tikzpicture}
-		\begin{axis}[xmode=log, ymode=log, log ticks with fixed point]
+		\begin{axis}[xmode=log, ymode=log, log ticks with fixed point, xlabel=Index, ylabel=Time, legend pos= north west]
 			\addplot table [x=index, y=median, col sep=comma] {NewCharacteristicsPropagationTest.csv};
+			\addlegendentry{New Analysis}
 			\addplot table [x=index, y=median, col sep=comma] {OldCharacteristicsPropagationTest.csv};
+			\addlegendentry{Old Analysis}
 		\end{axis}
 	\end{tikzpicture}
 	\caption{CharacteristicsPropagation}
@@ -105,9 +107,11 @@
 
 \begin{figure}
 	\begin{tikzpicture}
-		\begin{axis}[xmode=log, ymode=log, log ticks with fixed point]
+		\begin{axis}[xmode=log, ymode=log, log ticks with fixed point, xlabel=Index, ylabel=Time, legend pos= north west]
 			\addplot table [x=index, y=median, col sep=comma] {NewNodeCharacteristicsTest.csv};
+			\addlegendentry{New Analysis}
 			\addplot table [x=index, y=median, col sep=comma] {OldNodeCharacteristicsTest.csv};
+			\addlegendentry{Old Analysis}
 		\end{axis}
 	\end{tikzpicture}
 	\caption{NodeCharacteristics}
@@ -115,9 +119,11 @@
 
 \begin{figure}
 	\begin{tikzpicture}
-		\begin{axis}[xmode=log, ymode=log, log ticks with fixed point]
+		\begin{axis}[xmode=log, ymode=log, log ticks with fixed point, xlabel=Index, ylabel=Time, legend pos= north west]
 			\addplot table [x=index, y=median, col sep=comma] {NewSEFFParameterTest.csv};
+			\addlegendentry{New Analysis}
 			\addplot table [x=index, y=median, col sep=comma] {OldSEFFParameterTest.csv};
+			\addlegendentry{Old Analysis}
 		\end{axis}
 	\end{tikzpicture}
 	\caption{SEFFParameter}
@@ -125,9 +131,11 @@
 
 \begin{figure}
 	\begin{tikzpicture}
-		\begin{axis}[xmode=log, ymode=log, log ticks with fixed point]
+		\begin{axis}[xmode=log, ymode=log, log ticks with fixed point, xlabel=Index, ylabel=Time, legend pos= north west]
 			\addplot table [x=index, y=median, col sep=comma] {NewVariableActionsTest.csv};
+			\addlegendentry{New Analysis}
 			\addplot table [x=index, y=median, col sep=comma] {OldVariableActionsTest.csv};
+			\addlegendentry{Old Analysis}
 		\end{axis}
 	\end{tikzpicture}
 	\caption{VariableActions}
@@ -136,15 +144,23 @@
 
 \begin{figure}
 	\begin{tikzpicture}
-		\begin{axis}[xmode=log, ymode=log, log ticks with fixed point]
+		\begin{axis}[xmode=log, ymode=log, log ticks with fixed point, xlabel=Index, ylabel=Time, legend pos= north west]
 			\addplot table [x=index, y=median, col sep=comma] {NewVariableCountTest.csv};
+			\addlegendentry{New Analysis}
 			\addplot table [x=index, y=median, col sep=comma] {OldVariableCountTest.csv};
+			\addlegendentry{Old Analysis}
 		\end{axis}
 	\end{tikzpicture}
 	\caption{VariableCount}
 \end{figure}
 
 \end{document}
+
+
+
+
+
+
 
 
 

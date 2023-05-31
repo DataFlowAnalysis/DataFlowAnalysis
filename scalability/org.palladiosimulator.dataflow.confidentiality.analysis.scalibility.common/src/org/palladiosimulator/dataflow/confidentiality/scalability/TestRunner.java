@@ -78,7 +78,7 @@ public class TestRunner {
 	
 	public static List<ScalibilityTest> getTests() {
 		return List.of(
-				// new CharacteristicsPropagationTest()//,
+				//new CharacteristicsPropagationTest()//,
 				// new BranchCountTest(),
 				//new NodeCharacteristicsTest()//,
 				new SEFFParameterTest()//,

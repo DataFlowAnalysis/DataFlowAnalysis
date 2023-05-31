@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.StringJoiner;
 import java.util.TreeMap;
 
+import org.palladiosimulator.dataflow.confidentiality.scalability.result.ScalibilityEvent;
 import org.palladiosimulator.dataflow.confidentiality.scalability.result.ScalibilityParameter;
 import org.palladiosimulator.dataflow.confidentiality.scalability.result.ScalibilityTest;
 
@@ -23,6 +24,7 @@ public class GraphExporter {
 	
 	public void exportResult(ScalibilityTest test, AnalysisExecutor analysisExecutor) {
 		try {
+			System.out.println("Exporting graph:" + test.getTestName());
 			FileInputStream input = new FileInputStream("results/" + analysisExecutor.getPrefix() + test.getTestName() + ".ser");
 			ObjectInputStream inputObjects = new ObjectInputStream(input);
 			List<ScalibilityParameter> inputData = (ArrayList<ScalibilityParameter>) inputObjects.readObject();
@@ -78,7 +80,7 @@ public class GraphExporter {
 		long whiskerBottom = Long.MAX_VALUE;
 		List<Long> totals = new ArrayList<>();
 		for(ScalibilityParameter parameter : parameters) {
-			long total = parameter.getStopTime().toInstant().toEpochMilli() - parameter.getStartTime().toInstant().toEpochMilli();
+			long total = parameter.getStopTime().toInstant().toEpochMilli() - parameter.getLogEvents().get(ScalibilityEvent.ANALYSIS_INITIALZATION).toInstant().toEpochMilli();
 			totals.add(total);
 			whisherTop = Math.max(whisherTop, total);
 			whiskerBottom = Math.min(whiskerBottom, total);

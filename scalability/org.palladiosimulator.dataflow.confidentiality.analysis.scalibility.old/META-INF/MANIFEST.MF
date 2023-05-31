@@ -1,16 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Scalibility Test with Old Analysis
-Bundle-SymbolicName: org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old
+Bundle-SymbolicName: org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.common;bundle-version="1.0.0",
- org.palladiosimulator.dataflow.confidentiality.transformation.workflow;bundle-version="5.1.0",
- org.palladiosimulator.dataflow.confidentiality.pcm.workflow;bundle-version="5.1.0",
- org.palladiosimulator.pcm;bundle-version="5.0.0",
- org.apache.commons.lang3;bundle-version="3.1.0",
- org.palladiosimulator.supporting.prolog;bundle-version="5.1.0",
  org.palladiosimulator.dataflow.confidentiality.pcm.querydsl.workflow;bundle-version="5.1.0",
- org.prolog4j.api;bundle-version="1.2.0",
- org.palladiosimulator.dataflow.confidentiality.pcm.transformation;bundle-version="5.1.0"
+ org.palladiosimulator.pcm
 Automatic-Module-Name: org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-11

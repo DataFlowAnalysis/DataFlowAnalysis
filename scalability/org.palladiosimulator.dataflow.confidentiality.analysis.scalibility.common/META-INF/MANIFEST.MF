@@ -9,11 +9,16 @@ Export-Package: org.palladiosimulator.dataflow.confidentiality.scalability,
  org.palladiosimulator.dataflow.confidentiality.scalability.tests
 Automatic-Module-Name: org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.common
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Require-Bundle: org.palladiosimulator.dataflow.confidentiality.analysis;bundle-version="1.0.0",
- org.apache.commons.logging;bundle-version="1.2.0",
- org.eclipse.xtext.xbase.lib;bundle-version="2.25.0",
+Require-Bundle: org.palladiosimulator.dataflow.confidentiality.analysis,
+ org.apache.commons.logging,
+ org.eclipse.xtext.xbase.lib,
  org.palladiosimulator.commons;bundle-version="5.1.0",
  org.palladiosimulator.dataflow.nodecharacteristics;bundle-version="0.1.0",
  org.palladiosimulator.dataflow.confidentiality.pcm.model.profile;bundle-version="5.1.0",
  org.palladiosimulator.dataflow.confidentiality.pcm.dddsl;bundle-version="5.1.0",
- org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels;bundle-version="1.0.0"
+ org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels;bundle-version="1.0.0",
+ org.apache.log4j;bundle-version="1.2.19",
+ tools.mdsd.library.standalone.initialization;bundle-version="0.3.0",
+ tools.mdsd.library.standalone.initialization.emfprofiles;bundle-version="0.3.0",
+ tools.mdsd.library.standalone.initialization.log4j;bundle-version="0.3.0",
+ org.palladiosimulator.mdsdprofiles;bundle-version="5.1.0"

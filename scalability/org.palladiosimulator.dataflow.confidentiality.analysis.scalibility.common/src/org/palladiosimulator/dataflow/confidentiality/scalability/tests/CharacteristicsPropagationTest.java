@@ -30,7 +30,6 @@ public class CharacteristicsPropagationTest extends ScalibilityTest {
 
 	@Override
 	public void run(ScalibilityParameter parameter, AnalysisExecutor analysisExecutor) {
-		parameter.startTiming();
 		PCMModelFactory factory;
 		try {
 			factory = new PCMModelFactory("../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/CharacteristicsPropagation", parameter.isLegacy(),
@@ -77,6 +76,7 @@ public class CharacteristicsPropagationTest extends ScalibilityTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		parameter.startTiming();
 		super.runAnalysis(factory, parameter, analysisExecutor);
 		parameter.stopTiming();
 	}

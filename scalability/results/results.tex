@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{pgfplots}
+\pgfplotsset{compat=newest}
 
 \pgfplotsset{
     box plot/.style={
@@ -100,6 +101,7 @@
 			\addlegendentry{New Analysis}
 			\addplot table [x=index, y=median, col sep=comma] {OldCharacteristicsPropagationTest.csv};
 			\addlegendentry{Old Analysis}
+			\addplot[mark=none, black, dotted, thick, samples=2, domain=1:1000000]{x};
 		\end{axis}
 	\end{tikzpicture}
 	\caption{CharacteristicsPropagation}
@@ -112,6 +114,7 @@
 			\addlegendentry{New Analysis}
 			\addplot table [x=index, y=median, col sep=comma] {OldNodeCharacteristicsTest.csv};
 			\addlegendentry{Old Analysis}
+			\addplot[mark=none, black, dotted, thick, samples=2, domain=1:1000000]{x};
 		\end{axis}
 	\end{tikzpicture}
 	\caption{NodeCharacteristics}
@@ -124,6 +127,7 @@
 			\addlegendentry{New Analysis}
 			\addplot table [x=index, y=median, col sep=comma] {OldSEFFParameterTest.csv};
 			\addlegendentry{Old Analysis}
+			\addplot[mark=none, black, dotted, thick, samples=2, domain=1:1000000]{x};
 		\end{axis}
 	\end{tikzpicture}
 	\caption{SEFFParameter}
@@ -136,6 +140,7 @@
 			\addlegendentry{New Analysis}
 			\addplot table [x=index, y=median, col sep=comma] {OldVariableActionsTest.csv};
 			\addlegendentry{Old Analysis}
+			\addplot[mark=none, black, dotted, thick, samples=2, domain=1:1000000]{x};
 		\end{axis}
 	\end{tikzpicture}
 	\caption{VariableActions}
@@ -149,12 +154,46 @@
 			\addlegendentry{New Analysis}
 			\addplot table [x=index, y=median, col sep=comma] {OldVariableCountTest.csv};
 			\addlegendentry{Old Analysis}
+			\addplot[mark=none, black, dotted, thick, samples=2, domain=1:1000000]{x};
 		\end{axis}
 	\end{tikzpicture}
 	\caption{VariableCount}
 \end{figure}
 
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

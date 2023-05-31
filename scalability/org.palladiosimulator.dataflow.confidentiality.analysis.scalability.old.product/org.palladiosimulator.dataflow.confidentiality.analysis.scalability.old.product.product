@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="Old Scalibility Product" uid="org.palladiosimulator.dataflow.confidentiality.analysis.scalability.old.product" application="org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old.app" useFeatures="false" includeLaunchers="true">
+
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+   </launcherArgs>
+
+   <windowImages/>
+
+
+   <launcher>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+
+   <vm>
+      <linux include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11</linux>
+   </vm>
+
+
+   <plugins>
+      <plugin id="aopalliance"/>
+      <plugin id="com.google.guava"/>
+      <plugin id="com.google.inject"/>
+      <plugin id="com.ibm.icu"/>
+      <plugin id="com.sun.jna"/>
+      <plugin id="com.sun.jna.platform"/>
+      <plugin id="de.sebinside.dcp.dsl"/>
+      <plugin id="de.uka.ipd.sdq.dialogs"/>
+      <plugin id="de.uka.ipd.sdq.errorhandling"/>
+      <plugin id="de.uka.ipd.sdq.identifier"/>
+      <plugin id="de.uka.ipd.sdq.probfunction"/>
+      <plugin id="de.uka.ipd.sdq.probfunction.math"/>
+      <plugin id="de.uka.ipd.sdq.stoex"/>
+      <plugin id="de.uka.ipd.sdq.stoex.analyser"/>
+      <plugin id="de.uka.ipd.sdq.units"/>
+      <plugin id="de.uka.ipd.sdq.workflow"/>
+      <plugin id="de.uka.ipd.sdq.workflow.launchconfig"/>
+      <plugin id="de.uka.ipd.sdq.workflow.logging.console"/>
+      <plugin id="de.uka.ipd.sdq.workflow.mdsd"/>
+      <plugin id="de.uka.ipd.sdq.workflow.ui"/>
+      <plugin id="de.uka.ipd.sdq.workflow.workbench"/>
+      <plugin id="io.github.classgraph"/>
+      <plugin id="javax.annotation"/>
+      <plugin id="javax.inject"/>
+      <plugin id="lpg.runtime.java"/>
+      <plugin id="org.antlr.runtime" version="3.2.0.v201101311130"/>
+      <plugin id="org.apache.batik.constants"/>
+      <plugin id="org.apache.batik.css"/>
+      <plugin id="org.apache.batik.i18n"/>
+      <plugin id="org.apache.batik.util"/>
+      <plugin id="org.apache.commons.cli"/>
+      <plugin id="org.apache.commons.io"/>
+      <plugin id="org.apache.commons.jxpath"/>
+      <plugin id="org.apache.commons.lang"/>
+      <plugin id="org.apache.commons.lang3"/>
+      <plugin id="org.apache.commons.logging"/>
+      <plugin id="org.apache.commons.math"/>
+      <plugin id="org.apache.log4j"/>
+      <plugin id="org.apache.xmlgraphics"/>
+      <plugin id="org.bouncycastle.bcpg"/>
+      <plugin id="org.bouncycastle.bcprov"/>
+      <plugin id="org.eclipse.compare.core"/>
+      <plugin id="org.eclipse.core.commands"/>
+      <plugin id="org.eclipse.core.contenttype"/>
+      <plugin id="org.eclipse.core.databinding"/>
+      <plugin id="org.eclipse.core.databinding.observable"/>
+      <plugin id="org.eclipse.core.databinding.property"/>
+      <plugin id="org.eclipse.core.expressions"/>
+      <plugin id="org.eclipse.core.filebuffers"/>
+      <plugin id="org.eclipse.core.filesystem"/>
+      <plugin id="org.eclipse.core.filesystem.linux.x86_64" fragment="true"/>
+      <plugin id="org.eclipse.core.jobs"/>
+      <plugin id="org.eclipse.core.resources"/>
+      <plugin id="org.eclipse.core.runtime"/>
+      <plugin id="org.eclipse.core.variables"/>
+      <plugin id="org.eclipse.debug.core"/>
+      <plugin id="org.eclipse.debug.ui"/>
+      <plugin id="org.eclipse.e4.core.commands"/>
+      <plugin id="org.eclipse.e4.core.contexts"/>
+      <plugin id="org.eclipse.e4.core.di"/>
+      <plugin id="org.eclipse.e4.core.di.annotations"/>
+      <plugin id="org.eclipse.e4.core.di.extensions"/>
+      <plugin id="org.eclipse.e4.core.di.extensions.supplier"/>
+      <plugin id="org.eclipse.e4.core.services"/>
+      <plugin id="org.eclipse.e4.emf.xpath"/>
+      <plugin id="org.eclipse.e4.ui.bindings"/>
+      <plugin id="org.eclipse.e4.ui.css.core"/>
+      <plugin id="org.eclipse.e4.ui.css.swt"/>
+      <plugin id="org.eclipse.e4.ui.css.swt.theme"/>
+      <plugin id="org.eclipse.e4.ui.di"/>
+      <plugin id="org.eclipse.e4.ui.dialogs"/>
+      <plugin id="org.eclipse.e4.ui.ide"/>
+      <plugin id="org.eclipse.e4.ui.model.workbench"/>
+      <plugin id="org.eclipse.e4.ui.services"/>
+      <plugin id="org.eclipse.e4.ui.swt.gtk" fragment="true"/>
+      <plugin id="org.eclipse.e4.ui.widgets"/>
+      <plugin id="org.eclipse.e4.ui.workbench"/>
+      <plugin id="org.eclipse.e4.ui.workbench.addons.swt"/>
+      <plugin id="org.eclipse.e4.ui.workbench.renderers.swt"/>
+      <plugin id="org.eclipse.e4.ui.workbench.swt"/>
+      <plugin id="org.eclipse.e4.ui.workbench3"/>
+      <plugin id="org.eclipse.emf"/>
+      <plugin id="org.eclipse.emf.cdo"/>
+      <plugin id="org.eclipse.emf.cdo.common"/>
+      <plugin id="org.eclipse.emf.codegen"/>
+      <plugin id="org.eclipse.emf.codegen.ecore"/>
+      <plugin id="org.eclipse.emf.common"/>
+      <plugin id="org.eclipse.emf.common.ui"/>
+      <plugin id="org.eclipse.emf.ecore"/>
+      <plugin id="org.eclipse.emf.ecore.change"/>
+      <plugin id="org.eclipse.emf.ecore.xmi"/>
+      <plugin id="org.eclipse.emf.edit"/>
+      <plugin id="org.eclipse.emf.edit.ui"/>
+      <plugin id="org.eclipse.emf.mwe.core"/>
+      <plugin id="org.eclipse.emf.mwe.utils"/>
+      <plugin id="org.eclipse.emf.mwe2.runtime"/>
+      <plugin id="org.eclipse.emf.transaction"/>
+      <plugin id="org.eclipse.emf.validation"/>
+      <plugin id="org.eclipse.equinox.app"/>
+      <plugin id="org.eclipse.equinox.bidi"/>
+      <plugin id="org.eclipse.equinox.common"/>
+      <plugin id="org.eclipse.equinox.p2.artifact.repository"/>
+      <plugin id="org.eclipse.equinox.p2.core"/>
+      <plugin id="org.eclipse.equinox.p2.engine"/>
+      <plugin id="org.eclipse.equinox.p2.jarprocessor"/>
+      <plugin id="org.eclipse.equinox.p2.metadata"/>
+      <plugin id="org.eclipse.equinox.p2.metadata.repository"/>
+      <plugin id="org.eclipse.equinox.p2.repository"/>
+      <plugin id="org.eclipse.equinox.preferences"/>
+      <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.equinox.security"/>
+      <plugin id="org.eclipse.equinox.security.linux" fragment="true"/>
+      <plugin id="org.eclipse.equinox.security.linux.x86_64" fragment="true"/>
+      <plugin id="org.eclipse.help"/>
+      <plugin id="org.eclipse.jdt.compiler.apt" fragment="true"/>
+      <plugin id="org.eclipse.jdt.compiler.tool" fragment="true"/>
+      <plugin id="org.eclipse.jdt.core"/>
+      <plugin id="org.eclipse.jdt.debug"/>
+      <plugin id="org.eclipse.jdt.launching"/>
+      <plugin id="org.eclipse.jface"/>
+      <plugin id="org.eclipse.jface.databinding"/>
+      <plugin id="org.eclipse.jface.notifications"/>
+      <plugin id="org.eclipse.jface.text"/>
+      <plugin id="org.eclipse.m2m.qvt.oml"/>
+      <plugin id="org.eclipse.m2m.qvt.oml.common"/>
+      <plugin id="org.eclipse.m2m.qvt.oml.cst.parser"/>
+      <plugin id="org.eclipse.m2m.qvt.oml.ecore.imperativeocl"/>
+      <plugin id="org.eclipse.m2m.qvt.oml.emf.util"/>
+      <plugin id="org.eclipse.m2m.qvt.oml.ocl"/>
+      <plugin id="org.eclipse.m2m.qvt.oml.project"/>
+      <plugin id="org.eclipse.m2m.qvt.oml.runtime"/>
+      <plugin id="org.eclipse.net4j.util"/>
+      <plugin id="org.eclipse.ocl"/>
+      <plugin id="org.eclipse.ocl.common"/>
+      <plugin id="org.eclipse.ocl.ecore"/>
+      <plugin id="org.eclipse.osgi"/>
+      <plugin id="org.eclipse.osgi.compatibility.state" fragment="true"/>
+      <plugin id="org.eclipse.osgi.services"/>
+      <plugin id="org.eclipse.osgi.util"/>
+      <plugin id="org.eclipse.swt"/>
+      <plugin id="org.eclipse.swt.gtk.linux.x86_64" fragment="true"/>
+      <plugin id="org.eclipse.text"/>
+      <plugin id="org.eclipse.ui"/>
+      <plugin id="org.eclipse.ui.console"/>
+      <plugin id="org.eclipse.ui.editors"/>
+      <plugin id="org.eclipse.ui.forms"/>
+      <plugin id="org.eclipse.ui.ide"/>
+      <plugin id="org.eclipse.ui.navigator"/>
+      <plugin id="org.eclipse.ui.views"/>
+      <plugin id="org.eclipse.ui.workbench"/>
+      <plugin id="org.eclipse.ui.workbench.texteditor"/>
+      <plugin id="org.eclipse.uml2"/>
+      <plugin id="org.eclipse.uml2.codegen.ecore"/>
+      <plugin id="org.eclipse.uml2.common"/>
+      <plugin id="org.eclipse.uml2.types"/>
+      <plugin id="org.eclipse.urischeme"/>
+      <plugin id="org.eclipse.xpand"/>
+      <plugin id="org.eclipse.xtend"/>
+      <plugin id="org.eclipse.xtend.core"/>
+      <plugin id="org.eclipse.xtend.lib"/>
+      <plugin id="org.eclipse.xtend.lib.macro"/>
+      <plugin id="org.eclipse.xtend.standalone"/>
+      <plugin id="org.eclipse.xtend.typesystem.emf"/>
+      <plugin id="org.eclipse.xtext"/>
+      <plugin id="org.eclipse.xtext.builder"/>
+      <plugin id="org.eclipse.xtext.builder.standalone"/>
+      <plugin id="org.eclipse.xtext.common.types"/>
+      <plugin id="org.eclipse.xtext.ecore"/>
+      <plugin id="org.eclipse.xtext.generator"/>
+      <plugin id="org.eclipse.xtext.ide"/>
+      <plugin id="org.eclipse.xtext.junit4"/>
+      <plugin id="org.eclipse.xtext.smap"/>
+      <plugin id="org.eclipse.xtext.testing"/>
+      <plugin id="org.eclipse.xtext.ui"/>
+      <plugin id="org.eclipse.xtext.ui.testing"/>
+      <plugin id="org.eclipse.xtext.util"/>
+      <plugin id="org.eclipse.xtext.xbase"/>
+      <plugin id="org.eclipse.xtext.xbase.junit"/>
+      <plugin id="org.eclipse.xtext.xbase.lib"/>
+      <plugin id="org.eclipse.xtext.xtext.generator"/>
+      <plugin id="org.hamcrest.core"/>
+      <plugin id="org.junit"/>
+      <plugin id="org.modelversioning.emfprofile"/>
+      <plugin id="org.modelversioning.emfprofile.project"/>
+      <plugin id="org.modelversioning.emfprofile.registry"/>
+      <plugin id="org.objectweb.asm"/>
+      <plugin id="org.palladiosimulator.commons"/>
+      <plugin id="org.palladiosimulator.commons.stoex"/>
+      <plugin id="org.palladiosimulator.dataflow.confidentiality.analysis"/>
+      <plugin id="org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.common"/>
+      <plugin id="org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old"/>
+      <plugin id="org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels"/>
+      <plugin id="org.palladiosimulator.dataflow.confidentiality.pcm.dddsl"/>
+      <plugin id="org.palladiosimulator.dataflow.confidentiality.pcm.model"/>
+      <plugin id="org.palladiosimulator.dataflow.confidentiality.pcm.model.profile"/>
+      <plugin id="org.palladiosimulator.dataflow.confidentiality.pcm.querydsl"/>
+      <plugin id="org.palladiosimulator.dataflow.confidentiality.pcm.querydsl.resultmapping"/>
+      <plugin id="org.palladiosimulator.dataflow.confidentiality.pcm.querydsl.workflow"/>
+      <plugin id="org.palladiosimulator.dataflow.confidentiality.pcm.queryutils"/>
+      <plugin id="org.palladiosimulator.dataflow.confidentiality.pcm.transformation"/>
+      <plugin id="org.palladiosimulator.dataflow.confidentiality.pcm.workflow"/>
+      <plugin id="org.palladiosimulator.dataflow.confidentiality.resources"/>
+      <plugin id="org.palladiosimulator.dataflow.confidentiality.transformation.dcp.resultmapping"/>
+      <plugin id="org.palladiosimulator.dataflow.confidentiality.transformation.dcp.workflow"/>
+      <plugin id="org.palladiosimulator.dataflow.confidentiality.transformation.prolog"/>
+      <plugin id="org.palladiosimulator.dataflow.confidentiality.transformation.workflow"/>
+      <plugin id="org.palladiosimulator.dataflow.diagram"/>
+      <plugin id="org.palladiosimulator.dataflow.diagram.characterized"/>
+      <plugin id="org.palladiosimulator.dataflow.dictionary"/>
+      <plugin id="org.palladiosimulator.dataflow.dictionary.characterized"/>
+      <plugin id="org.palladiosimulator.dataflow.dictionary.characterized.dsl"/>
+      <plugin id="org.palladiosimulator.indirections"/>
+      <plugin id="org.palladiosimulator.mdsdprofiles.api"/>
+      <plugin id="org.palladiosimulator.pcm"/>
+      <plugin id="org.palladiosimulator.supporting.prolog"/>
+      <plugin id="org.palladiosimulator.supporting.prolog.model"/>
+      <plugin id="org.prolog4j.api"/>
+      <plugin id="org.prolog4j.manager"/>
+      <plugin id="org.tukaani.xz"/>
+      <plugin id="org.w3c.css.sac"/>
+      <plugin id="org.w3c.dom.events"/>
+      <plugin id="org.w3c.dom.smil"/>
+      <plugin id="org.w3c.dom.svg"/>
+      <plugin id="tools.mdsd.library.standalone.initialization"/>
+      <plugin id="tools.mdsd.library.standalone.initialization.emfprofiles"/>
+      <plugin id="tools.mdsd.library.standalone.initialization.log4j"/>
+   </plugins>
+
+   <features>
+      <feature id="org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old" installMode="root"/>
+   </features>
+
+
+   <preferencesInfo>
+      <targetfile overwrite="false"/>
+   </preferencesInfo>
+
+   <cssInfo>
+   </cssInfo>
+
+</product>

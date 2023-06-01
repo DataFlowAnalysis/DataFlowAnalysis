@@ -35,7 +35,7 @@ public class BaseTest {
         		.useAllocationModel(allocationPath)
         		.build();
 
-        onlineShopAnalysis.initalizeAnalysis();
+        onlineShopAnalysis.initializeAnalysis();
     }
 
     @BeforeAll
@@ -54,7 +54,7 @@ public class BaseTest {
         		.useAllocationModel(allocationPath)
         		.build();
 
-        internationalOnlineShopAnalysis.initalizeAnalysis();
+        internationalOnlineShopAnalysis.initializeAnalysis();
     }
 
     @BeforeAll
@@ -73,7 +73,7 @@ public class BaseTest {
         		.useUsageModel(usageModelPath)
         		.useAllocationModel(allocationPath)
         		.build();
-        travelPlannerAnalysis.initalizeAnalysis();
+        travelPlannerAnalysis.initializeAnalysis();
     }
     
     protected DataFlowConfidentialityAnalysis initializeAnalysis(Path usagePath, Path allocationPath) {
@@ -86,7 +86,7 @@ public class BaseTest {
     			.useUsageModel(usagePath.toString())
     			.useAllocationModel(allocationPath.toString())
     			.build();
-    	analysis.initalizeAnalysis();
+    	analysis.initializeAnalysis();
     	return analysis;
     }
     
@@ -100,7 +100,7 @@ public class BaseTest {
     			.useAllocationModel(allocationPath.toString())
     			.useNodeCharacteristicsModel(nodePath.toString())
     			.build();
-    	analysis.initalizeAnalysis();
+    	analysis.initializeAnalysis();
     	return analysis;
     }
 }

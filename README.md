@@ -36,12 +36,13 @@ public class Main {
     DataFlowConfidentialityAnalysis analysis = new DataFlowAnalysisBuilder()
         .standalone()
         .modelProjectName("<PROJECT_NAME>")
-        .registerBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
-        .registerPluginActivator(Activator.class)
-        .registerUsageModel("<USAGE_MODEL_PATH>")
-        .registerAllocationModel("<ALLOCATION_MODEL_PATH>")
-    	.registerNodeCharacteristicsModel("<NODE_MODEL_PATH>")
+        .useBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
+        .usePluginActivator(Activator.class)
+        .useUsageModel("<USAGE_MODEL_PATH>")
+        .useAllocationModel("<ALLOCATION_MODEL_PATH>")
+        .useNodeCharacteristicsModel("<NODE_MODEL_PATH>")
         .build();
+
     analysis.setLoggerLevel(Logger.TRACE); // Set desired logger level. Level.TRACE provides additional propagation Information
     analysis.initializeAnalysis();
 

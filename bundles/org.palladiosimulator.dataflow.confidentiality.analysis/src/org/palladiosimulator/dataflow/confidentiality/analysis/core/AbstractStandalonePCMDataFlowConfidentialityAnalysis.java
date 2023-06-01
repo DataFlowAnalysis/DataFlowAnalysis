@@ -98,7 +98,7 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
 	}
 	
 	@Override
-    public boolean initalizeAnalysis() {
+    public boolean initializeAnalysis() {
         if (initStandaloneAnalysis()) {
             logger.info("Successfully initialized standalone data flow analysis.");
         } else {

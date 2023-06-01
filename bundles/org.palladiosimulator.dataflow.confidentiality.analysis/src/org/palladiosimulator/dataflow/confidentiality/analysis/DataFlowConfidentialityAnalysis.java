@@ -9,7 +9,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.A
 
 public interface DataFlowConfidentialityAnalysis {
 
-    public boolean initalizeAnalysis();
+    public boolean initializeAnalysis();
 
     public List<ActionSequence> findAllSequences();
 

@@ -1,11 +1,7 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.scalibility;
 
-import java.util.Optional;
-
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
-import org.eclipse.osgi.internal.framework.BundleContextImpl;
-import org.osgi.framework.BundleContext;
 import org.palladiosimulator.dataflow.confidentiality.scalability.AnalysisExecutor;
 import org.palladiosimulator.dataflow.confidentiality.scalability.GraphExporter;
 import org.palladiosimulator.dataflow.confidentiality.scalability.ResultExporter;

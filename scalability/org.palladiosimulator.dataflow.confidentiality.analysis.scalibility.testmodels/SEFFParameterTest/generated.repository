@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ASCII"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_2rrpsACPEe6GqrRlF5wT0g">
+  <components__Repository xsi:type="repository:BasicComponent" id="1bb864c4-d4d5-4119-b8ea-e1b30ac571bb" entityName="SEFFComponent">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="4b857ce2-c2bc-4cdd-9a8a-f3bea52aad35" entityName="CallProvider" providedInterface__OperationProvidedRole="0d1a4100-f596-4372-b37d-b99cf04cd76e"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_21tvcgCPEe6GqrRlF5wT0g" providedInterface__OperationProvidedRole="0d1a4100-f596-4372-b37d-b99cf04cd76e"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="a8f9def6-51a0-4a15-bcb3-8fe24d1700f5" describedService__SEFF="9603ec77-cf0a-4902-abc1-0e822f721d6e">
+      <steps_Behaviour xsi:type="seff:StartAction" id="925efbe8-0386-49c8-8719-cfeeda6b6d1d" successor_AbstractAction="3692b60c-ed26-4b30-b7f5-3b264f92337e"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="3692b60c-ed26-4b30-b7f5-3b264f92337e" predecessor_AbstractAction="925efbe8-0386-49c8-8719-cfeeda6b6d1d"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="0d1a4100-f596-4372-b37d-b99cf04cd76e" entityName="SEFFInterface">
+    <signatures__OperationInterface id="9603ec77-cf0a-4902-abc1-0e822f721d6e" entityName="call">
+      <parameters__OperationSignature dataType__Parameter="_20tp4ACPEe6GqrRlF5wT0g" parameterName="param7"/>
+      <parameters__OperationSignature dataType__Parameter="_20tp4ACPEe6GqrRlF5wT0g" parameterName="param8"/>
+      <parameters__OperationSignature dataType__Parameter="_20tp4ACPEe6GqrRlF5wT0g" parameterName="param5"/>
+      <parameters__OperationSignature dataType__Parameter="_20tp4ACPEe6GqrRlF5wT0g" parameterName="param6"/>
+      <parameters__OperationSignature dataType__Parameter="_20tp4ACPEe6GqrRlF5wT0g" parameterName="param9"/>
+      <parameters__OperationSignature dataType__Parameter="_20tp4ACPEe6GqrRlF5wT0g" parameterName="param0"/>
+      <parameters__OperationSignature dataType__Parameter="_20tp4ACPEe6GqrRlF5wT0g" parameterName="param3"/>
+      <parameters__OperationSignature dataType__Parameter="_20tp4ACPEe6GqrRlF5wT0g" parameterName="param4"/>
+      <parameters__OperationSignature dataType__Parameter="_20tp4ACPEe6GqrRlF5wT0g" parameterName="param1"/>
+      <parameters__OperationSignature dataType__Parameter="_20tp4ACPEe6GqrRlF5wT0g" parameterName="param2"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_20tp4ACPEe6GqrRlF5wT0g" entityName="SEFFDataType"/>
+</repository:Repository>

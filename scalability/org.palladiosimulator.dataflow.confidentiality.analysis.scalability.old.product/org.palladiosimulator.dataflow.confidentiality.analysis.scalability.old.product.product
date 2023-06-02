@@ -3,8 +3,11 @@
 
 <product name="Old Scalibility Product" uid="org.palladiosimulator.dataflow.confidentiality.analysis.scalability.old.product" application="org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old.app" useFeatures="false" includeLaunchers="true">
 
-
    <configIni use="default">
+      <linux>/org.palladiosimulator.dataflow.confidentiality.analysis.scalability.old.product/config.ini</linux>
+      <macosx>/org.palladiosimulator.dataflow.confidentiality.analysis.scalability.old.product/config.ini</macosx>
+      <solaris>/org.palladiosimulator.dataflow.confidentiality.analysis.scalability.old.product/config.ini</solaris>
+      <win32>/org.palladiosimulator.dataflow.confidentiality.analysis.scalability.old.product/config.ini</win32>
    </configIni>
 
    <launcherArgs>
@@ -12,18 +15,15 @@
 
    <windowImages/>
 
-
    <launcher>
       <win useIco="false">
          <bmp/>
       </win>
    </launcher>
 
-
    <vm>
       <linux include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11</linux>
    </vm>
-
 
    <plugins>
       <plugin id="aopalliance"/>
@@ -51,7 +51,7 @@
       <plugin id="javax.annotation"/>
       <plugin id="javax.inject"/>
       <plugin id="lpg.runtime.java"/>
-      <plugin id="org.antlr.runtime" version="3.2.0.v201101311130"/>
+      <plugin id="org.antlr.runtime"/>
       <plugin id="org.apache.batik.constants"/>
       <plugin id="org.apache.batik.css"/>
       <plugin id="org.apache.batik.i18n"/>

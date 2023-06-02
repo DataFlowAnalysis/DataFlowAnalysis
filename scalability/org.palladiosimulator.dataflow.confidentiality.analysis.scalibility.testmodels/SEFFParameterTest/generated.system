@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:emfprofileapplication="http://www.modelversioning.org/emfprofile/application/1.1" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2">
+  <system:System id="_2rjt4ACPEe6GqrRlF5wT0g">
+    <assemblyContexts__ComposedStructure id="906efd2e-ca90-4b25-9b9d-3c1e664006b8" entityName="SEFFAssembly">
+      <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.repository#1bb864c4-d4d5-4119-b8ea-e1b30ac571bb"/>
+    </assemblyContexts__ComposedStructure>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_21vkoACPEe6GqrRlF5wT0g" outerProvidedRole_ProvidedDelegationConnector="7aed402b-59b6-4b28-89b9-569e0d8f76b7" assemblyContext_ProvidedDelegationConnector="906efd2e-ca90-4b25-9b9d-3c1e664006b8">
+      <innerProvidedRole_ProvidedDelegationConnector href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.repository#_21tvcgCPEe6GqrRlF5wT0g"/>
+    </connectors__ComposedStructure>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="7aed402b-59b6-4b28-89b9-569e0d8f76b7" entityName="SEFFProvider">
+      <providedInterface__OperationProvidedRole href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.repository#0d1a4100-f596-4372-b37d-b99cf04cd76e"/>
+    </providedRoles_InterfaceProvidingEntity>
+  </system:System>
+  <emfprofileapplication:ProfileApplication>
+    <importedProfiles nsURI="org.palladiosimulator.dataflow.confidentiality.pcm.model.profile" location="platform:/plugin/org.palladiosimulator.dataflow.confidentiality.pcm.model.profile/profile.emfprofile_diagram"/>
+  </emfprofileapplication:ProfileApplication>
+</xmi:XMI>

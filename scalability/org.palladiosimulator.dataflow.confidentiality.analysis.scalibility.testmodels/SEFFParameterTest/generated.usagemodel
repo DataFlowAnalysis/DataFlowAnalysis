@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DataDictionaryCharacterized="http://palladiosimulator.org/dataflow/dictionary/characterized/1.0" xmlns:characteristics="http://palladiosimulator.org/dataflow/confidentiality/pcm/0.1.0/characteristics" xmlns:confidentiality="http://palladiosimulator.org/dataflow/confidentiality/pcm/0.1.0" xmlns:emfprofileapplication="http://www.modelversioning.org/emfprofile/application/1.1" xmlns:expression="http://palladiosimulator.org/dataflow/confidentiality/pcm/0.1.0/expression" xmlns:expressions="http://palladiosimulator.org/dataflow/dictionary/characterized/expressions/1.0" xmlns:org.palladiosimulator.dataflow.confidentiality.pcm.model.profile="org.palladiosimulator.dataflow.confidentiality.pcm.model.profile" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" xmlns:usagemodel="http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.2">
+  <usagemodel:UsageModel>
+    <usageScenario_UsageModel id="39912bbd-c62e-4cc6-ba59-a744f0b23704">
+      <scenarioBehaviour_UsageScenario id="81ddfb8c-a18d-4264-beac-43d7b0b7e27b">
+        <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="95d66caa-97de-405b-bb06-b6f36123d320" successor="24da5974-84fe-463c-8c88-2dc40f221dbf"/>
+        <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="24da5974-84fe-463c-8c88-2dc40f221dbf" entityName="EntryLevelSystemCall" successor="488a4ef2-a559-4989-8bd4-844dfc065b67" predecessor="95d66caa-97de-405b-bb06-b6f36123d320">
+          <providedRole_EntryLevelSystemCall href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.system#7aed402b-59b6-4b28-89b9-569e0d8f76b7"/>
+          <operationSignature__EntryLevelSystemCall href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.repository#9603ec77-cf0a-4902-abc1-0e822f721d6e"/>
+          <outputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_23ClJwCPEe6GqrRlF5wT0g"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="96bd3bf5-9b33-4cb5-b0ca-94fe3a69d511">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="param"/>
+          </outputParameterUsages_EntryLevelSystemCall>
+          <inputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_23BXAACPEe6GqrRlF5wT0g">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.pddc#7321d6ad-7a25-467a-ab72-7abd8ea9bf15"/>
+                <literal href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.pddc#a7b2e707-013d-40e7-aa68-1fdac363dc44"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_23BXAQCPEe6GqrRlF5wT0g"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="param0"/>
+          </inputParameterUsages_EntryLevelSystemCall>
+          <inputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_23B-EACPEe6GqrRlF5wT0g">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.pddc#7321d6ad-7a25-467a-ab72-7abd8ea9bf15"/>
+                <literal href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.pddc#a7b2e707-013d-40e7-aa68-1fdac363dc44"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_23B-EQCPEe6GqrRlF5wT0g"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="param1"/>
+          </inputParameterUsages_EntryLevelSystemCall>
+          <inputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_23B-EgCPEe6GqrRlF5wT0g">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.pddc#7321d6ad-7a25-467a-ab72-7abd8ea9bf15"/>
+                <literal href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.pddc#a7b2e707-013d-40e7-aa68-1fdac363dc44"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_23B-EwCPEe6GqrRlF5wT0g"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="param2"/>
+          </inputParameterUsages_EntryLevelSystemCall>
+          <inputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_23B-FACPEe6GqrRlF5wT0g">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.pddc#7321d6ad-7a25-467a-ab72-7abd8ea9bf15"/>
+                <literal href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.pddc#a7b2e707-013d-40e7-aa68-1fdac363dc44"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_23B-FQCPEe6GqrRlF5wT0g"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="param3"/>
+          </inputParameterUsages_EntryLevelSystemCall>
+          <inputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_23B-FgCPEe6GqrRlF5wT0g">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.pddc#7321d6ad-7a25-467a-ab72-7abd8ea9bf15"/>
+                <literal href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.pddc#a7b2e707-013d-40e7-aa68-1fdac363dc44"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_23B-FwCPEe6GqrRlF5wT0g"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="param4"/>
+          </inputParameterUsages_EntryLevelSystemCall>
+          <inputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_23B-GACPEe6GqrRlF5wT0g">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.pddc#7321d6ad-7a25-467a-ab72-7abd8ea9bf15"/>
+                <literal href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.pddc#a7b2e707-013d-40e7-aa68-1fdac363dc44"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_23B-GQCPEe6GqrRlF5wT0g"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="param5"/>
+          </inputParameterUsages_EntryLevelSystemCall>
+          <inputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_23B-GgCPEe6GqrRlF5wT0g">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.pddc#7321d6ad-7a25-467a-ab72-7abd8ea9bf15"/>
+                <literal href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.pddc#a7b2e707-013d-40e7-aa68-1fdac363dc44"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_23ClIACPEe6GqrRlF5wT0g"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="param6"/>
+          </inputParameterUsages_EntryLevelSystemCall>
+          <inputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_23ClIQCPEe6GqrRlF5wT0g">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.pddc#7321d6ad-7a25-467a-ab72-7abd8ea9bf15"/>
+                <literal href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.pddc#a7b2e707-013d-40e7-aa68-1fdac363dc44"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_23ClIgCPEe6GqrRlF5wT0g"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="param7"/>
+          </inputParameterUsages_EntryLevelSystemCall>
+          <inputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_23ClIwCPEe6GqrRlF5wT0g">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.pddc#7321d6ad-7a25-467a-ab72-7abd8ea9bf15"/>
+                <literal href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.pddc#a7b2e707-013d-40e7-aa68-1fdac363dc44"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_23ClJACPEe6GqrRlF5wT0g"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="param8"/>
+          </inputParameterUsages_EntryLevelSystemCall>
+          <inputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_23ClJQCPEe6GqrRlF5wT0g">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.pddc#7321d6ad-7a25-467a-ab72-7abd8ea9bf15"/>
+                <literal href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.pddc#a7b2e707-013d-40e7-aa68-1fdac363dc44"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_23ClJgCPEe6GqrRlF5wT0g"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="param9"/>
+          </inputParameterUsages_EntryLevelSystemCall>
+        </actions_ScenarioBehaviour>
+        <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="488a4ef2-a559-4989-8bd4-844dfc065b67" predecessor="24da5974-84fe-463c-8c88-2dc40f221dbf"/>
+      </scenarioBehaviour_UsageScenario>
+    </usageScenario_UsageModel>
+  </usagemodel:UsageModel>
+  <emfprofileapplication:ProfileApplication>
+    <stereotypeApplications xsi:type="org.palladiosimulator.dataflow.confidentiality.pcm.model.profile:Characterisable" appliedTo="39912bbd-c62e-4cc6-ba59-a744f0b23704">
+      <extension href="platform:/plugin/org.palladiosimulator.dataflow.confidentiality.pcm.model.profile/profile.emfprofile_diagram#_yqyHQBBzEeucCo3FRAS_1w"/>
+      <characteristics xsi:type="characteristics:EnumCharacteristic" href="file:/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.old/../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.usagemodel.characteristics#_211EMACPEe6GqrRlF5wT0g"/>
+    </stereotypeApplications>
+    <importedProfiles nsURI="org.palladiosimulator.dataflow.confidentiality.pcm.model.profile" location="platform:/plugin/org.palladiosimulator.dataflow.confidentiality.pcm.model.profile/profile.emfprofile_diagram"/>
+  </emfprofileapplication:ProfileApplication>
+</xmi:XMI>

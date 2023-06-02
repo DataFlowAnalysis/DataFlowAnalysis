@@ -24,7 +24,7 @@ public class OldAnalysisExecutor implements AnalysisExecutor {
 		var job = TransformPCMDFDWithConstraintsToPrologJobBuilder.create()
 			.addAllocationModel(modelFactory.getAllocation())
 			.addUsageModels(modelFactory.getUsageModel())
-			.addDCPDSL(createRelativePluginURI("./query.dcpdsl"))
+			.addDCPDSL(createRelativePluginURI("/SEFFParameterTest/query.dcpdsl"))
 			.setSerializeResultHandler(it -> System.out.println(it))
 			.build();
 		scalibilityParameter.logAction(ScalibilityEvent.SEQUENCE_FINDING);

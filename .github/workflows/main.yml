@@ -4,10 +4,9 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   Palladio-Addons-DataFlowConfidentiality-Analysis:
-    uses: PalladioSimulator/Palladio-Build-ActionsPipeline/.github/workflows/build.yml@v3.3
+    uses: PalladioSimulator/Palladio-Build-ActionsPipeline/.github/workflows/build.yml@v3.4
     with:
       use-display-output: true
-      runner-label: ubuntu-latest
       no-caching: true
       java-version: 17
       deploy-updatesite: 'releng/org.palladiosimulator.dataflow.confidentiality.pcm.analysis.updatesite/target/repository'

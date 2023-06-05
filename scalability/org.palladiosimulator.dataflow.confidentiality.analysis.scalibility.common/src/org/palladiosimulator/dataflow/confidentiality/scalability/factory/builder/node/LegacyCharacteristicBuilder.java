@@ -75,7 +75,7 @@ public class LegacyCharacteristicBuilder implements NodeCharacteristicBuilder {
 			new Log4jInitilizationTask().initilizationWithoutPlatform();
 			StandaloneInitializerBuilder.builder()
                 .registerProjectURI(activator, modelPath)
-                .registerProjectURI(DataFlowConfidentialityAnalysis.class, PCMAnalysisUtils.PLUGIN_PATH)
+                //.registerProjectURI(DataFlowConfidentialityAnalysis.class, PCMAnalysisUtils.PLUGIN_PATH)
                 .build()
                 .init();
 			new EMFProfileInitializationTask(PCMAnalysisUtils.EMF_PROFILE_PLUGIN, PCMAnalysisUtils.EMF_PROFILE_NAME)

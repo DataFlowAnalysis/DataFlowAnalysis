@@ -22,10 +22,10 @@ public class ResultExporter {
 	
 	public void exportResult(ScalibilityTest test, AnalysisExecutor analysisExecutor) {
 		try {
-			FileInputStream input = new FileInputStream("results/" + analysisExecutor.getPrefix() + test.getTestName() + ".ser");
+			FileInputStream input = new FileInputStream("./results/" + analysisExecutor.getPrefix() + test.getTestName() + ".ser");
 			ObjectInputStream inputObjects = new ObjectInputStream(input);
 			List<ScalibilityParameter> inputData = (ArrayList<ScalibilityParameter>) inputObjects.readObject();
-			FileOutputStream output = new FileOutputStream("results/" + analysisExecutor.getPrefix() + test.getTestName() + ".csv");
+			FileOutputStream output = new FileOutputStream("./results/" + analysisExecutor.getPrefix() + test.getTestName() + ".csv");
 			this.writeHeader(output);
 			for (ScalibilityParameter parameter : inputData) {
 				if(!parameter.getTestName().equals(test.getTestName())) {

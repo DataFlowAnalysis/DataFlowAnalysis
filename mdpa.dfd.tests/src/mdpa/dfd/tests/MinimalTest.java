@@ -8,13 +8,14 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import org.junit.jupiter.api.Test;
 
-class MinimalTest {
-	
 
-	private static final String RELATIVE_PATH_TO_MINIMAL_EXAMPLE= "?";
+class MinimalTest {
+
+	private static final String RELATIVE_PATH_TO_MINIMAL_EXAMPLE = "?";
+	private DataFlowDiagram dfd; //imports nach generierung noch hinzufügen
 
 	@Test
-	void test() {
+	void loadInstance() {
 		ResourceSet resourceSet = new ResourceSetImpl();
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
 				.put(Resource.Factory.Registry.DEFAULT_EXTENSION, new dataflowdaigrammodelResourceFactoryImpl());
@@ -26,6 +27,19 @@ class MinimalTest {
 				: URI.createURI(RELATIVE_PATH_TO_MINIMAL_EXAMPLE);
 
 		Resource resource = resourceSet.getResource(uri, true);
-		return (DataFlowDiagram ) resource.getContents().get(0);
+		dfd = (DataFlowDiagram) resource.getContents().get(0);
+
+	}
+	
+	@Test
+	void changeInstance() {
+		
+	}
+	
+	@Test
+	void saveChangedInstance() {
+		
+	}
+	
 
 }

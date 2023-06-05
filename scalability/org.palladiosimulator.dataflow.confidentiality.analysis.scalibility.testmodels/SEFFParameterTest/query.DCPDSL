@@ -1,9 +1,9 @@
-import "./generated.pddc"
+import "platform:/resource/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest/generated.pddc"
 
 type SEFFEnum : SEFFEnum
 
 constraint Scalibility {
-	data.property.SEFFEnum.NotSet
+	data.property.SEFFEnum.Set
 	NEVER FLOWS
-	element.property.SEFFEnum.Set
+	element.property.SEFFEnum.NotSet
 }

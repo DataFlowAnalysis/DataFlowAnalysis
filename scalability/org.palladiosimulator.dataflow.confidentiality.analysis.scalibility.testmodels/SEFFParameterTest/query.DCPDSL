@@ -1,0 +1,9 @@
+import "./generated.pddc"
+
+type SEFFEnum : SEFFEnum
+
+constraint Scalibility {
+	data.property.SEFFEnum.NotSet
+	NEVER FLOWS
+	element.property.SEFFEnum.Set
+}

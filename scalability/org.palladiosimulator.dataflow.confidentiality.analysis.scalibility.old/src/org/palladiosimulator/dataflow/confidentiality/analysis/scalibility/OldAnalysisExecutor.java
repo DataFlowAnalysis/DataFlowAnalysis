@@ -14,17 +14,19 @@ import org.palladiosimulator.dataflow.confidentiality.scalability.AnalysisExecut
 import org.palladiosimulator.dataflow.confidentiality.scalability.factory.PCMModelFactory;
 import org.palladiosimulator.dataflow.confidentiality.scalability.result.ScalibilityEvent;
 import org.palladiosimulator.dataflow.confidentiality.scalability.result.ScalibilityParameter;
+import org.palladiosimulator.dataflow.confidentiality.transformation.dcp.workflow.internal.Activator;
+import org.prolog4j.manager.IProverManager;
 
 public class OldAnalysisExecutor implements AnalysisExecutor {
 
 	@Override
 	public void executeAnalysis(ScalibilityParameter scalibilityParameter, PCMModelFactory modelFactory) {
 		scalibilityParameter.logAction(ScalibilityEvent.ANALYSIS_INITIALZATION);
-		
+				
 		var job = TransformPCMDFDWithConstraintsToPrologJobBuilder.create()
 			.addAllocationModel(modelFactory.getAllocation())
 			.addUsageModels(modelFactory.getUsageModel())
-			.addDCPDSL(createRelativePluginURI("/SEFFParameterTest/query.dcpdsl"))
+			.addDCPDSL(createRelativePluginURI("./SEFFParameterTest/query.DCPDSL"))
 			.setSerializeResultHandler(it -> System.out.println(it))
 			.build();
 		scalibilityParameter.logAction(ScalibilityEvent.SEQUENCE_FINDING);

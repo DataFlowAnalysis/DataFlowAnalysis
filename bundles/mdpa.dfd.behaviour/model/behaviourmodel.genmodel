@@ -15,6 +15,10 @@
   <testsDirectory xsi:nil="true"/>
   <genPackages prefix="BehaviourModel" basePackage="mdpa.dfd.behaviour" disposableProviderFactory="true"
       extensibleProviderFactory="true" childCreationExtenders="true" ecorePackage="behaviourmodel.ecore#/">
+    <genClasses ecoreClass="behaviourmodel.ecore#//BehavoiurDiagram">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference behaviourmodel.ecore#//BehavoiurDiagram/label"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference behaviourmodel.ecore#//BehavoiurDiagram/behaviour"/>
+    </genClasses>
     <genClasses ecoreClass="behaviourmodel.ecore#//Behaviour">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference behaviourmodel.ecore#//Behaviour/in"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference behaviourmodel.ecore#//Behaviour/out"/>

@@ -2,6 +2,12 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="behaviourmodel" nsURI="http://www.example.org/behaviourmodel"
     nsPrefix="behaviourmodel">
+  <eClassifiers xsi:type="ecore:EClass" name="BehavoiurDiagram">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="label" upperBound="-1"
+        eType="#//Label" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="behaviour" upperBound="-1"
+        eType="#//Behaviour" containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Behaviour" eSuperTypes="platform:/plugin/tools.mdsd.modelingfoundations.identifier/model/identifier.ecore#//Entity">
     <eStructuralFeatures xsi:type="ecore:EReference" name="in" upperBound="-1" eType="#//Pin"
         containment="true"/>

@@ -18,6 +18,7 @@ import org.palladiosimulator.dataflow.confidentiality.scalability.tests.Variable
 
 public class TestRunner {
 	private static final int RUNS_PER_STAGE = 10;
+	public static final String BASE_PATH = "/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability";
 	
 	private final Logger logger = Logger.getLogger(TestRunner.class);
 	
@@ -38,7 +39,7 @@ public class TestRunner {
 	}
 	
 	public void runTests(int start) {
-		for(int i = start; true; i++) {
+		for(int i = start; i < 3; i++) {
 			for(ScalibilityTest test : this.tests) {
 				logger.info("Running test with name " + test.getTestName());
 				this.runTest(test, i);
@@ -54,7 +55,8 @@ public class TestRunner {
 		}
 		for (int j = 0; j < RUNS_PER_STAGE; j++) {
 			int modelSize = test.getModelSize(index);
-			logger.info("Running test with model size " + modelSize + ", Iteration: " + j);
+			String modelName = test.getTestName();
+			logger.info("Running test with model " + modelName + " and size " + modelSize + ", Iteration: " + j);
 			ScalibilityParameter parameter = new ScalibilityParameter(modelSize, test.getTestName(), legacy);
 			test.run(parameter, analysisExecutor);
 			this.results.add(parameter);
@@ -65,7 +67,7 @@ public class TestRunner {
 	private void saveResults(String testName) {
 		try {
 			FileOutputStream fileOutputStream
-		      = new FileOutputStream("results/" + testName + ".ser");
+		      = new FileOutputStream(TestRunner.BASE_PATH + "/results/" + testName + ".ser");
 		    ObjectOutputStream objectOutputStream 
 		      = new ObjectOutputStream(fileOutputStream);
 		    objectOutputStream.writeObject(this.results);
@@ -78,12 +80,12 @@ public class TestRunner {
 	
 	public static List<ScalibilityTest> getTests() {
 		return List.of(
-				//new CharacteristicsPropagationTest()//,
-				// new BranchCountTest(),
-				//new NodeCharacteristicsTest()//,
-				new SEFFParameterTest()//,
+				new CharacteristicsPropagationTest(),
+				//new BranchCountTest(),
+				new NodeCharacteristicsTest(),
+				new SEFFParameterTest(),
 				// new VariableCountTest(),
-				//new VariableActionsTest()
+				new VariableActionsTest()
 		);
 	}
 }

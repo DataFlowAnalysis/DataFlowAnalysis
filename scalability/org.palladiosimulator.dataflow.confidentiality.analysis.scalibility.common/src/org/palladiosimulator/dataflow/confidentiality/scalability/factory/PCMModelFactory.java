@@ -2,11 +2,14 @@ package org.palladiosimulator.dataflow.confidentiality.scalability.factory;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.resource.XtextResource;
@@ -59,7 +62,8 @@ public class PCMModelFactory {
 	
 	public PCMModelFactory(String filePath, boolean legacy, Class<?> activator, String modelPath) throws IOException {
 		resources = new ArrayList<>();
-		File path = new File(filePath);
+		var basePath = Paths.get("/home/felix/Fluidtrust/Repositories/Palladio-Addons-DataFlowConfidentiality-Analysis/scalability/org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels", filePath);
+		File path = new File(basePath.toString());
 		
 		system = SystemFactory.eINSTANCE.createSystem();
 		Resource systemResource = new SystemResourceImpl(URI.createFileURI(path.getAbsolutePath() + "/generated.system"));
@@ -166,9 +170,9 @@ public class PCMModelFactory {
 	}
 	
 	public void saveModel() throws IOException {
-		this.nodeCharacteristicBuilder.save();
 		for (Resource resource : this.resources) {
 			resource.save(Map.of());
 		}
+		this.nodeCharacteristicBuilder.save();
 	}
 }

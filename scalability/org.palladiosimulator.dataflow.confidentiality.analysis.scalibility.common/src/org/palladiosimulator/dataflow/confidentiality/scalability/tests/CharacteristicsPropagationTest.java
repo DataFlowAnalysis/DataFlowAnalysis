@@ -32,7 +32,7 @@ public class CharacteristicsPropagationTest extends ScalibilityTest {
 	public void run(ScalibilityParameter parameter, AnalysisExecutor analysisExecutor) {
 		PCMModelFactory factory;
 		try {
-			factory = new PCMModelFactory("../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/CharacteristicsPropagation", parameter.isLegacy(),
+			factory = new PCMModelFactory("./CharacteristicsPropagationTest", parameter.isLegacy(),
 					Activator.class, AnalysisUtils.TEST_MODEL_PROJECT_NAME);
 		} catch (IOException e) {
 			logger.error("Unable to create model factory", e);

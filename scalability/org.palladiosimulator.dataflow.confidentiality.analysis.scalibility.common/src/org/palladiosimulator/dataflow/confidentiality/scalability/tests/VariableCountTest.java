@@ -35,7 +35,7 @@ public class VariableCountTest extends ScalibilityTest {
 		parameter.startTiming();
 		PCMModelFactory factory;
 		try {
-			factory = new PCMModelFactory("../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/VariableCountTest", parameter.isLegacy(),
+			factory = new PCMModelFactory("./VariableCountTest", parameter.isLegacy(),
 					Activator.class, AnalysisUtils.TEST_MODEL_PROJECT_NAME);
 		} catch (IOException e) {
 			logger.error("Unable to create model factory", e);

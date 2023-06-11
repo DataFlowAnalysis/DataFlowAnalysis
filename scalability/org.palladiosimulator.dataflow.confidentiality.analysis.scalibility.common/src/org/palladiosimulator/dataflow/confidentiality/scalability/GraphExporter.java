@@ -25,10 +25,10 @@ public class GraphExporter {
 	public void exportResult(ScalibilityTest test, AnalysisExecutor analysisExecutor) {
 		try {
 			System.out.println("Exporting graph:" + test.getTestName());
-			FileInputStream input = new FileInputStream("results/" + analysisExecutor.getPrefix() + test.getTestName() + ".ser");
+			FileInputStream input = new FileInputStream(TestRunner.BASE_PATH + "/results/" + analysisExecutor.getPrefix() + test.getTestName() + ".ser");
 			ObjectInputStream inputObjects = new ObjectInputStream(input);
 			List<ScalibilityParameter> inputData = (ArrayList<ScalibilityParameter>) inputObjects.readObject();
-			FileOutputStream output = new FileOutputStream("graphs/" + analysisExecutor.getPrefix() + test.getTestName() + ".csv");
+			FileOutputStream output = new FileOutputStream(TestRunner.BASE_PATH + "/graphs/" + analysisExecutor.getPrefix() + test.getTestName() + ".csv");
 			this.writeHeader(output);
 			Map<String, List<ScalibilityParameter>> indexedData = new HashMap<>();
 			for (ScalibilityParameter parameter : inputData) {

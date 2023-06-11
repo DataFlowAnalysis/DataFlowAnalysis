@@ -35,7 +35,7 @@ public class SEFFParameterTest extends ScalibilityTest {
 		parameter.startTiming();
 		PCMModelFactory factory;
 		try {
-			factory = new PCMModelFactory("../org.palladiosimulator.dataflow.confidentiality.analysis.scalibility.testmodels/SEFFParameterTest", parameter.isLegacy(),
+			factory = new PCMModelFactory("./SEFFParameterTest", parameter.isLegacy(),
 					Activator.class, AnalysisUtils.TEST_MODEL_PROJECT_NAME);
 		} catch (IOException e) {
 			logger.error("Unable to create model factory", e);
@@ -57,19 +57,25 @@ public class SEFFParameterTest extends ScalibilityTest {
 				.provideInterface(operationInterface, "CallProvider")
 				.build();
 		CharacteristicBuilder characteristicBuilder = CharacteristicBuilder.builder(factory.getDictionary())
-				.setName("SEFFEnum");
+				.setName("SEFFData");
 		characteristicBuilder = characteristicBuilder.addCharacteristicValue("Set");
 		characteristicBuilder = characteristicBuilder.addCharacteristicValue("NotSet");
 		EnumCharacteristicType characteristic = characteristicBuilder.build();
+		CharacteristicBuilder characteristicBuilderNode = CharacteristicBuilder.builder(factory.getDictionary())
+				.setName("SEFFNode");
+		characteristicBuilderNode.addCharacteristicValue("Set");
+		characteristicBuilderNode.addCharacteristicValue("NotSet");
+		EnumCharacteristicType characteristicNode = characteristicBuilderNode.build();
 		AssemblyAllocationBuilder assemblyAllocation = 
 				factory.addAssemblyContext("SEFFAssembly", component)
-				.addAllocation("SEFFAllocation", resourceContainer);
+				.addAllocation("SEFFAllocation", resourceContainer)
+				.addCharacteristic(characteristicNode, "NotSet");
 		OperationProvidedRole providedRole = 
 				assemblyAllocation.addSystemProvidedRole("SEFFProvider", operationInterface);
 		SEFFBuilder.builder(component, operationSignature)
 				.build();
 		UsageBuilder builder = UsageBuilder.builder(factory.getUsageModel(), factory.getNodeCharacteristicBuilder());
-		builder.addCharacteristic(characteristic, "Set");
+		builder.addCharacteristic(characteristicNode, "NotSet");
 		UsageCallBuilder callBuilder = builder.addCall("EntryLevelSystemCall")
 				.setCallee(providedRole, operationSignature);
 		for(int i = 0; i < parameter.getModelSize(); i++) {

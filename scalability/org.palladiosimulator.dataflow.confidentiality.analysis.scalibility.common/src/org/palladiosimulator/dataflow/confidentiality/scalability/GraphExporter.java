@@ -1,9 +1,11 @@
 package org.palladiosimulator.dataflow.confidentiality.scalability;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -17,18 +19,21 @@ import org.palladiosimulator.dataflow.confidentiality.scalability.result.Scalibi
 import org.palladiosimulator.dataflow.confidentiality.scalability.result.ScalibilityTest;
 
 public class GraphExporter {
+	private final List<String> prefixes = List.of("New", "Old");
 
 	public void exportResults(List<ScalibilityTest> tests, AnalysisExecutor analysisExecutor) {
-		tests.forEach(it -> this.exportResult(it, analysisExecutor));
+		for(String prefix : prefixes) {
+			tests.forEach(it -> this.exportResult(it, analysisExecutor, prefix));
+		}	
 	}
 	
-	public void exportResult(ScalibilityTest test, AnalysisExecutor analysisExecutor) {
+	public void exportResult(ScalibilityTest test, AnalysisExecutor analysisExecutor, String prefix) {
 		try {
-			System.out.println("Exporting graph:" + test.getTestName());
-			FileInputStream input = new FileInputStream(TestRunner.BASE_PATH + "/results/" + analysisExecutor.getPrefix() + test.getTestName() + ".ser");
+			FileInputStream input = new FileInputStream(TestRunner.BASE_PATH + "/results/" + prefix + test.getTestName() + ".ser");
 			ObjectInputStream inputObjects = new ObjectInputStream(input);
 			List<ScalibilityParameter> inputData = (ArrayList<ScalibilityParameter>) inputObjects.readObject();
-			FileOutputStream output = new FileOutputStream(TestRunner.BASE_PATH + "/graphs/" + analysisExecutor.getPrefix() + test.getTestName() + ".csv");
+			Instant timestamp = Instant.now();
+			FileOutputStream output = new FileOutputStream(TestRunner.BASE_PATH + "/results/graphs/" + prefix + test.getTestName() + timestamp.toString() + ".csv");
 			this.writeHeader(output);
 			Map<String, List<ScalibilityParameter>> indexedData = new HashMap<>();
 			for (ScalibilityParameter parameter : inputData) {
@@ -54,6 +59,9 @@ public class GraphExporter {
 			}
 			inputObjects.close();
 			input.close();
+			System.out.println("Created Graph data: " + prefix + test.getTestName());
+		} catch (FileNotFoundException e) {
+			System.out.println("Skipping test: " + prefix + test.getTestName());
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}

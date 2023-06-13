@@ -80,11 +80,20 @@ public class TestRunner {
 	
 	public static List<ScalibilityTest> getTests() {
 		return List.of(
-				new CharacteristicsPropagationTest(),
+				//new CharacteristicsPropagationTest()//,
 				//new BranchCountTest(),
+				//new NodeCharacteristicsTest(),
+				new SEFFParameterTest()
+				//new VariableActionsTest()
+		);
+	}
+	
+	public static List<ScalibilityTest> getAllTests() {
+		return List.of(
+				new CharacteristicsPropagationTest(),
+				new BranchCountTest(),
 				new NodeCharacteristicsTest(),
 				new SEFFParameterTest(),
-				// new VariableCountTest(),
 				new VariableActionsTest()
 		);
 	}

@@ -11,14 +11,14 @@ public class ScalibiliyMainNew {
 	public static void main(String[] args) {
 		if (args.length > 0 && args[0].equalsIgnoreCase("-export")) {
 			ResultExporter exporter = new ResultExporter();
-			exporter.exportResults(TestRunner.getTests(), analysisExecutor);
+			exporter.exportResults(TestRunner.getAllTests(), analysisExecutor);
 		} else if (args.length > 1 && args[0].equalsIgnoreCase("-start")) {
 			int start = Integer.parseInt(args[1]);
 			TestRunner runner = new TestRunner(TestRunner.getTests(), analysisExecutor, false);
 			runner.runTests(start);
 		} else if (args.length > 0 && args[0].equalsIgnoreCase("-graph")) {
 			GraphExporter exporter = new GraphExporter();
-			exporter.exportResults(TestRunner.getTests(), analysisExecutor);
+			exporter.exportResults(TestRunner.getAllTests(), analysisExecutor);
 		} else {
 			TestRunner runner = new TestRunner(TestRunner.getTests(), analysisExecutor, false);
 			runner.runTests();

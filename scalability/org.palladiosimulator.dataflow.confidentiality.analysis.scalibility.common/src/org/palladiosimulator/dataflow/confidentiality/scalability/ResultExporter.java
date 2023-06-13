@@ -1,9 +1,11 @@
 package org.palladiosimulator.dataflow.confidentiality.scalability;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,17 +17,21 @@ import org.palladiosimulator.dataflow.confidentiality.scalability.result.Scalibi
 import org.palladiosimulator.dataflow.confidentiality.scalability.result.ScalibilityTest;
 
 public class ResultExporter {
+	private final List<String> prefixes = List.of("New", "Old");
 	
 	public void exportResults(List<ScalibilityTest> tests, AnalysisExecutor analysisExecutor) {
-		tests.forEach(it -> this.exportResult(it, analysisExecutor));
+		for(String prefix : prefixes) {
+			tests.forEach(it -> this.exportResult(it, analysisExecutor, prefix));
+		}
 	}
 	
-	public void exportResult(ScalibilityTest test, AnalysisExecutor analysisExecutor) {
+	public void exportResult(ScalibilityTest test, AnalysisExecutor analysisExecutor, String prefix) {
 		try {
-			FileInputStream input = new FileInputStream(TestRunner.BASE_PATH +  "/results/" + analysisExecutor.getPrefix() + test.getTestName() + ".ser");
+			FileInputStream input = new FileInputStream(TestRunner.BASE_PATH +  "/results/" + prefix + test.getTestName() + ".ser");
 			ObjectInputStream inputObjects = new ObjectInputStream(input);
 			List<ScalibilityParameter> inputData = (ArrayList<ScalibilityParameter>) inputObjects.readObject();
-			FileOutputStream output = new FileOutputStream(TestRunner.BASE_PATH + "/results/" + analysisExecutor.getPrefix() + test.getTestName() + ".csv");
+			Instant timestamp = Instant.now();
+			FileOutputStream output = new FileOutputStream(TestRunner.BASE_PATH + "/results/" + prefix + test.getTestName() + timestamp.toString() + ".csv");
 			this.writeHeader(output);
 			for (ScalibilityParameter parameter : inputData) {
 				if(!parameter.getTestName().equals(test.getTestName())) {
@@ -36,6 +42,10 @@ public class ResultExporter {
 			}
 			inputObjects.close();
 			input.close();
+			System.out.println("Exported test " + prefix + test.getTestName());
+		} catch (FileNotFoundException e) {
+			System.out.println("Skipping test " + prefix + test.getTestName());
+			return;
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}

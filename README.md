@@ -46,13 +46,15 @@ public class Main {
     analysis.setLoggerLevel(Logger.TRACE); // Set desired logger level. Level.TRACE provides additional propagation Information
     analysis.initializeAnalysis();
 
-    List<DataFlowVariable> actionSequences = analysis.findAllSequences();
+    List<ActionSequence> actionSequences = analysis.findAllSequences();
 
-    List<DataFlowVariable> propagationResult = analysis.evaluateDataFlows(actionSequences);
-
-    List<DataFlowVariables> violation = analyis.queryDataFlow(actionSequences,
-      it -> false // Constraint goes here, return true, if constraint is violated
-    );
+    List<ActionSequence> propagationResult = analysis.evaluateDataFlows(actionSequences);
+    
+    for(ActionSequence actionSequence : propagationResult) {
+      List<DataFlowVariable> violations = analyis.queryDataFlow(actionSequence,
+        it -> false // Constraint goes here, return true, if constraint is violated
+      );
+    }
   }
 }
 ```

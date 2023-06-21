@@ -33,29 +33,29 @@ A basic analysis can be executed with the following example:
 ```java
 public class Main {
   public static void main(String[] args) {
-    DataFlowConfidentialityAnalysis analysis = new DataFlowAnalysisBuilder()
-        .standalone()
-        .modelProjectName("<PROJECT_NAME>")
-        .useBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
-        .usePluginActivator(Activator.class)
-        .useUsageModel("<USAGE_MODEL_PATH>")
-        .useAllocationModel("<ALLOCATION_MODEL_PATH>")
-        .useNodeCharacteristicsModel("<NODE_MODEL_PATH>")
-        .build();
+      DataFlowConfidentialityAnalysis analysis = new DataFlowAnalysisBuilder()
+          .standalone()
+          .modelProjectName("<PROJECT_NAME>")
+          .useBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
+          .usePluginActivator(Activator.class)
+          .useUsageModel("<USAGE_MODEL_PATH>")
+          .useAllocationModel("<ALLOCATION_MODEL_PATH>")
+          .useNodeCharacteristicsModel("<NODE_MODEL_PATH>")
+          .build();
 
-    analysis.setLoggerLevel(Logger.TRACE); // Set desired logger level. Level.TRACE provides additional propagation Information
-    analysis.initializeAnalysis();
+      analysis.setLoggerLevel(Level.TRACE); // Set desired logger level. Level.TRACE provides additional propagation Information
+      analysis.initializeAnalysis();
 
-    List<ActionSequence> actionSequences = analysis.findAllSequences();
+      List<ActionSequence> actionSequences = analysis.findAllSequences();
 
-    List<ActionSequence> propagationResult = analysis.evaluateDataFlows(actionSequences);
-    
-    for(ActionSequence actionSequence : propagationResult) {
-      List<DataFlowVariable> violations = analyis.queryDataFlow(actionSequence,
-        it -> false // Constraint goes here, return true, if constraint is violated
-      );
+      List<ActionSequence> propagationResult = analysis.evaluateDataFlows(actionSequences);
+      
+      for(ActionSequence actionSequence : propagationResult) {
+        List<AbstractActionSequenceElement<?>> violations = analysis.queryDataFlow(actionSequence,
+          it -> false // Constraint goes here, return true, if constraint is violated
+        );
+      }
     }
-  }
 }
 ```
 

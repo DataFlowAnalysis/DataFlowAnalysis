@@ -13,7 +13,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.junit.jupiter.api.Test;
 
 class MinimalTest {
@@ -23,7 +23,7 @@ class MinimalTest {
 
 	@Test
 	void loadAndSave() {
-		dfd = loadInstance(); //TODO: soll überprüft werden, dass es auch genau das richtige Modell ist?
+		dfd = loadInstance();
 		dfd = changeInstance(dfd);
 		saveChangedInstance(dfd);
 	}
@@ -31,7 +31,7 @@ class MinimalTest {
 	private DataFlowDiagram loadInstance() {
 		ResourceSet resourceSet = new ResourceSetImpl();
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
-				.put(Resource.Factory.Registry.DEFAULT_EXTENSION, new DataFlowDiagramModelFactoryImpl());
+				.put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
 		resourceSet.getPackageRegistry().put(DataFlowDiagramModelPackage.eNS_URI,
 				DataFlowDiagramModelPackage.eINSTANCE);
 
@@ -45,13 +45,18 @@ class MinimalTest {
 	}
 
 	private DataFlowDiagram changeInstance(DataFlowDiagram dfd) {
-		dfd.getNodes().get(0).setEntityName("NewName");
+		dfd.getFlows().get(0).setEntityName("ExcitingFlow");
 		return dfd;
 	}
 
 	private void saveChangedInstance(DataFlowDiagram dfd) {
 		ResourceSet resourceSet = new ResourceSetImpl();
-		Resource resource = resourceSet.createResource(URI.createFileURI("path/to/your/model.fileextension"));
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
+		.put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
+		resourceSet.getPackageRegistry().put(DataFlowDiagramModelPackage.eNS_URI,
+		DataFlowDiagramModelPackage.eINSTANCE);
+
+		Resource resource = resourceSet.createResource(URI.createFileURI("output/changedModel.dataflowdiagrammodel"));
 
 		resource.getContents().add(dfd);
 		assertDoesNotThrow(() -> resource.save(Collections.EMPTY_MAP));

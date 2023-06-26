@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="_84D0kCHcEd6lJo4DCALHMw" entityName="OnlineShopSystem">
+  <assemblyContexts__ComposedStructure id="_4YTEYITjEeywmO_IpTxeAg" entityName="Assembly_OnlineShop">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="default.repository#_S65rQITiEeywmO_IpTxeAg"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_5qOmUITjEeywmO_IpTxeAg" entityName="Assembly_DatabaseService">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="default.repository#_I9a5AITjEeywmO_IpTxeAg"/>
+  </assemblyContexts__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_BYWIkITkEeywmO_IpTxeAg" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_4YTEYITjEeywmO_IpTxeAg" providingAssemblyContext_AssemblyConnector="_5qOmUITjEeywmO_IpTxeAg">
+    <providedRole_AssemblyConnector href="default.repository#_oGOkEITjEeywmO_IpTxeAg"/>
+    <requiredRole_AssemblyConnector href="default.repository#_ozX98ITjEeywmO_IpTxeAg"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_E9MIUITkEeywmO_IpTxeAg" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_CWo80ITkEeywmO_IpTxeAg" assemblyContext_ProvidedDelegationConnector="_4YTEYITjEeywmO_IpTxeAg">
+    <innerProvidedRole_ProvidedDelegationConnector href="default.repository#_nGZewITjEeywmO_IpTxeAg"/>
+  </connectors__ComposedStructure>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_CWo80ITkEeywmO_IpTxeAg" entityName="SystemUserInterface">
+    <providedInterface__OperationProvidedRole href="default.repository#_UhSk0ITjEeywmO_IpTxeAg"/>
+  </providedRoles_InterfaceProvidingEntity>
+</system:System>

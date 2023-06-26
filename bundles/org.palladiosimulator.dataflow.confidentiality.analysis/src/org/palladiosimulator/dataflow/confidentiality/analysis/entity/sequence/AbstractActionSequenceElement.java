@@ -56,6 +56,12 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
 		.collect(Collectors.toList());
     }
     
+    public boolean hasNodeCharacteristic(String characteristicTypeName, String characteristicLiteralName) {
+    	return this.getNodeCharacteristicsWithName(characteristicTypeName).stream()
+    			.anyMatch(it -> it.getName()
+    					.equals(characteristicLiteralName));
+    }
+    
     /**
      * Returns a Map of characteristic literals and dataflow variables that are set for a given characteristic type in the list of all data flow variables
      * <p>

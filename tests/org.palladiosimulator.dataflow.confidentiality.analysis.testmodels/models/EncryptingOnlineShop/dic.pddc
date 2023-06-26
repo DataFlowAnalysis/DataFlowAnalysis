@@ -1,0 +1,19 @@
+dictionary id "_AQnL0IThEeywmO_IpTxeAg"
+
+enum Sensitivity {
+	Personal
+	Public
+}
+
+enum Location {
+	EU
+	nonEU
+}
+
+enum Encryption {
+	Encrypted
+}
+
+enumCharacteristicType DataSensitivity using Sensitivity
+enumCharacteristicType ServerLocation using Location
+enumCharacteristicType Encryption using Encryption

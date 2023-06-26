@@ -6,7 +6,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_nGpWYITjEeywmO_IpTxeAg" describedService__SEFF="_W8bxkITjEeywmO_IpTxeAg">
       <steps_Behaviour xsi:type="seff:StartAction" id="_nGp9cITjEeywmO_IpTxeAg" successor_AbstractAction="_yVL18ITkEeywmO_IpTxeAg"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_nGp9cYTjEeywmO_IpTxeAg" predecessor_AbstractAction="_11NAEITkEeywmO_IpTxeAg"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_yVL18ITkEeywmO_IpTxeAg" entityName="DatabaseStoreInventory" predecessor_AbstractAction="_nGp9cITjEeywmO_IpTxeAg" successor_AbstractAction="_SOcFABQhEe6EXLYJAFiqFA" calledService_ExternalService="_ENtBkITjEeywmO_IpTxeAg" role_ExternalService="_ozX98ITjEeywmO_IpTxeAg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_yVL18ITkEeywmO_IpTxeAg" entityName="DatabaseStoreInventory" predecessor_AbstractAction="_nGp9cITjEeywmO_IpTxeAg" successor_AbstractAction="_11NAEITkEeywmO_IpTxeAg" calledService_ExternalService="_ENtBkITjEeywmO_IpTxeAg" role_ExternalService="_ozX98ITjEeywmO_IpTxeAg">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -18,7 +18,7 @@
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="inventory"/>
         </inputVariableUsages__CallAction>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_11NAEITkEeywmO_IpTxeAg" entityName="DatabaseStoreUserData" predecessor_AbstractAction="_SOcFABQhEe6EXLYJAFiqFA" successor_AbstractAction="_nGp9cYTjEeywmO_IpTxeAg" calledService_ExternalService="_lb5hQITiEeywmO_IpTxeAg" role_ExternalService="_ozX98ITjEeywmO_IpTxeAg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_11NAEITkEeywmO_IpTxeAg" entityName="DatabaseStoreUserData" predecessor_AbstractAction="_yVL18ITkEeywmO_IpTxeAg" successor_AbstractAction="_nGp9cYTjEeywmO_IpTxeAg" calledService_ExternalService="_lb5hQITiEeywmO_IpTxeAg" role_ExternalService="_ozX98ITjEeywmO_IpTxeAg">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -30,7 +30,7 @@
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="userData"/>
         </inputVariableUsages__CallAction>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_SOcFABQhEe6EXLYJAFiqFA" entityName="EncryptUserData" predecessor_AbstractAction="_yVL18ITkEeywmO_IpTxeAg" successor_AbstractAction="_11NAEITkEeywmO_IpTxeAg">
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_SOcFABQhEe6EXLYJAFiqFA" entityName="EncryptUserData">
         <localVariableUsages_SetVariableAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>

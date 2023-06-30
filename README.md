@@ -9,7 +9,7 @@ For more information visit the [official page](https://fluidtrust.ipd.kit.edu/ho
 - Install the version `2022-12` of the Eclipse Modelling Tools from the
   [official site](https://www.eclipse.org/downloads/packages/release/2022-12/r/eclipse-modeling-tools)
 - Clone this repository
-- Import the dependencies.p2f file into Eclipse to install the dependencies of the project.
+- Import the [dependencies.p2f](https://raw.githubusercontent.com/PalladioSimulator/Palladio-Addons-DataFlowConfidentiality-Analysis/main/dependencies.p2f) file into Eclipse to install the dependencies of the project.
   This is achieved by going to File->Import->General->Install from File
 - Import the projects in the bundles folder into Eclipse
 

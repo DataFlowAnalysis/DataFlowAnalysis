@@ -1,4 +1,4 @@
-module mdpa.dfd.behaviourmodel.mwe2
+module mdpa.dfd.mwe2
 
 import org.eclipse.emf.mwe.utils.StandaloneSetup
 import org.eclipse.emf.mwe.utils.DirectoryCleaner
@@ -27,19 +27,19 @@ Workflow {
 		generateCustomClasses = false
 		generateEdit = true
 		generateEditor = true
-		genModel = "platform:/resource/mdpa.dfd.behaviour/model/behaviourmodel.genmodel"
-		srcPath = "platform:/resource/mdpa.dfd.behaviour/src-gen"
-		srcPath = "platform:/resource/mdpa.dfd.behaviour.edit/src-gen"
-		srcPath = "platform:/resource/mdpa.dfd.behaviour.edior/src-gen"
+		genModel = "platform:/resource/mdpa.dfd.datadictionary/model/datadictionary.genmodel"
+		srcPath = "platform:/resource/mdpa.dfd.datadictionary/src-gen"
+		srcPath = "platform:/resource/mdpa.dfd.datadictionary.edit/src-gen"
+		srcPath = "platform:/resource/mdpa.dfd.datadictionary.edior/src-gen"
 	}
 	
 	component = EcoreGenerator {
 		generateCustomClasses = false
 		generateEdit = true
 		generateEditor = true
-		genModel = "platform:/resource/mdpa.dfd.diagram/model/DataFlowDiagramModel.genmodel"
-		srcPath = "platform:/resource/mdpa.dfd.diagram/src-gen"
-		srcPath = "platform:/resource/mdpa.dfd.diagram.edit/src-gen"
-		srcPath = "platform:/resource/mdpa.dfd.diagram.edior/src-gen"
+		genModel = "platform:/resource/mdpa.dfd.dataflowdiagram/model/dataflowdiagram.genmodel"
+		srcPath = "platform:/resource/mdpa.dfd.dataflowdiagram/src-gen"
+		srcPath = "platform:/resource/mdpa.dfd.dataflowdiagram.edit/src-gen"
+		srcPath = "platform:/resource/mdpa.dfd.dataflowdiagram.edior/src-gen"
 	}
 }

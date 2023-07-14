@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated datadictionary -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="mdpa.dfd.datadictionary.presentation.datadictionaryModelWizardID"
+            name="%_UI_datadictionaryModelWizard_label"
+            class="mdpa.dfd.datadictionary.presentation.datadictionaryModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/datadictionaryModelFile.gif">
+         <description>%_UI_datadictionaryModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated datadictionary -->
+      <editor
+            id="mdpa.dfd.datadictionary.presentation.datadictionaryEditorID"
+            name="%_UI_datadictionaryEditor_label"
+            icon="icons/full/obj16/datadictionaryModelFile.gif"
+            extensions="datadictionary"
+            class="mdpa.dfd.datadictionary.presentation.datadictionaryEditor"
+            contributorClass="mdpa.dfd.datadictionary.presentation.datadictionaryActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

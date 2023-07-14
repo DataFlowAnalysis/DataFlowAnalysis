@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/mdpa.dfd.datadictionary/src-gen" creationIcons="false"
+    editDirectory="/mdpa.dfd.datadictionary.edit/src-gen" editorDirectory="/mdpa.dfd.datadictionary.editor/src-gen"
+    modelPluginID="mdpa.dfd.datadictionary" modelName="DataDictionary" editPluginClass="mdpa.dfd.datadictionary.provider.DataDictionaryEditPlugin"
+    editorPluginClass="mdpa.dfd.datadictionary.presentation.DataDictionaryEditorPlugin"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" suppressEMFTypes="true"
+    reflectiveDelegation="true" codeFormatting="true" testSuiteClass="mdpa.dfd.datadictionary.tests.DataDictionaryAllTests"
+    importerID="org.eclipse.emf.importer.ecore" featureDelegation="Reflective" complianceLevel="5.0"
+    copyrightFields="false" editPluginID="mdpa.dfd.datadictionary.edit" editorPluginID="mdpa.dfd.datadictionary.editor"
+    usedGenPackages="../../tools.mdsd.modelingfoundations.identifier/model/identifier.genmodel#//identifier"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>datadictionary.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="datadictionary" basePackage="mdpa.dfd" disposableProviderFactory="true"
+      extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions="datadictionary"
+      ecorePackage="datadictionary.ecore#/">
+    <genClasses ecoreClass="datadictionary.ecore#//DataDictionary">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datadictionary.ecore#//DataDictionary/labelTypes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datadictionary.ecore#//DataDictionary/behaviour"/>
+    </genClasses>
+    <genClasses ecoreClass="datadictionary.ecore#//Behaviour">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datadictionary.ecore#//Behaviour/in"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datadictionary.ecore#//Behaviour/out"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datadictionary.ecore#//Behaviour/assignment"/>
+    </genClasses>
+    <genClasses ecoreClass="datadictionary.ecore#//Pin"/>
+    <genClasses ecoreClass="datadictionary.ecore#//Assignment">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference datadictionary.ecore#//Assignment/outputLabels"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference datadictionary.ecore#//Assignment/inputPins"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference datadictionary.ecore#//Assignment/outputPin"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datadictionary.ecore#//Assignment/term"/>
+    </genClasses>
+    <genClasses ecoreClass="datadictionary.ecore#//Label"/>
+    <genClasses ecoreClass="datadictionary.ecore#//LabelType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datadictionary.ecore#//LabelType/label"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="datadictionary.ecore#//Term"/>
+    <genClasses ecoreClass="datadictionary.ecore#//TRUE"/>
+    <genClasses ecoreClass="datadictionary.ecore#//BinaryOperator">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference datadictionary.ecore#//BinaryOperator/terms"/>
+    </genClasses>
+    <genClasses ecoreClass="datadictionary.ecore#//AND"/>
+    <genClasses ecoreClass="datadictionary.ecore#//OR"/>
+    <genClasses ecoreClass="datadictionary.ecore#//NOT">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference datadictionary.ecore#//NOT/negatedTerm"/>
+    </genClasses>
+    <genClasses ecoreClass="datadictionary.ecore#//LabelReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference datadictionary.ecore#//LabelReference/label"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

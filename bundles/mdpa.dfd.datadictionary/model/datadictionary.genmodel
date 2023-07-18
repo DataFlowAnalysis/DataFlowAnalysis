@@ -39,12 +39,12 @@
     <genClasses image="false" ecoreClass="datadictionary.ecore#//Term"/>
     <genClasses ecoreClass="datadictionary.ecore#//TRUE"/>
     <genClasses ecoreClass="datadictionary.ecore#//BinaryOperator">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference datadictionary.ecore#//BinaryOperator/terms"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datadictionary.ecore#//BinaryOperator/terms"/>
     </genClasses>
     <genClasses ecoreClass="datadictionary.ecore#//AND"/>
     <genClasses ecoreClass="datadictionary.ecore#//OR"/>
     <genClasses ecoreClass="datadictionary.ecore#//NOT">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference datadictionary.ecore#//NOT/negatedTerm"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datadictionary.ecore#//NOT/negatedTerm"/>
     </genClasses>
     <genClasses ecoreClass="datadictionary.ecore#//LabelReference">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference datadictionary.ecore#//LabelReference/label"/>

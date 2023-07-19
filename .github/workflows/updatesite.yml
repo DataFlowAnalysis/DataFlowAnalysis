@@ -8,7 +8,7 @@ on:
   pull_request:
   workflow_dispatch:
   schedule:
-    - cron: '0 3 * * *' # run nightly at 3:00 am
+    - cron: '0 1 * * *' # run nightly at 1:00 am
 
 jobs:
   build:

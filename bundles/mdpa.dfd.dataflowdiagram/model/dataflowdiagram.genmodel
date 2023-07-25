@@ -15,20 +15,20 @@
   <testsDirectory xsi:nil="true"/>
   <genPackages prefix="dataflowdiagram" basePackage="mdpa.dfd" disposableProviderFactory="true"
       extensibleProviderFactory="true" childCreationExtenders="true" ecorePackage="dataflowdiagram.ecore#/">
-    <genClasses ecoreClass="dataflowdiagram.ecore#//DataFlowDiagram">
+    <genClasses ecoreClass="dataflowdiagram.ecore#//DataFlowDiagram" labelFeature="../../tools.mdsd.modelingfoundations.identifier/model/identifier.genmodel#//identifier/NamedElement/entityName">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataflowdiagram.ecore#//DataFlowDiagram/flows"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dataflowdiagram.ecore#//DataFlowDiagram/nodes"/>
     </genClasses>
-    <genClasses ecoreClass="dataflowdiagram.ecore#//Flow">
+    <genClasses ecoreClass="dataflowdiagram.ecore#//Flow" labelFeature="../../tools.mdsd.modelingfoundations.identifier/model/identifier.genmodel#//identifier/NamedElement/entityName">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dataflowdiagram.ecore#//Flow/sourceNode"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dataflowdiagram.ecore#//Flow/destinationNode"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dataflowdiagram.ecore#//Flow/destinationPin"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dataflowdiagram.ecore#//Flow/sourcePin"/>
     </genClasses>
-    <genClasses ecoreClass="dataflowdiagram.ecore#//External"/>
-    <genClasses ecoreClass="dataflowdiagram.ecore#//Store"/>
-    <genClasses ecoreClass="dataflowdiagram.ecore#//Process"/>
-    <genClasses image="false" ecoreClass="dataflowdiagram.ecore#//Node">
+    <genClasses ecoreClass="dataflowdiagram.ecore#//External" labelFeature="../../tools.mdsd.modelingfoundations.identifier/model/identifier.genmodel#//identifier/NamedElement/entityName"/>
+    <genClasses ecoreClass="dataflowdiagram.ecore#//Store" labelFeature="../../tools.mdsd.modelingfoundations.identifier/model/identifier.genmodel#//identifier/NamedElement/entityName"/>
+    <genClasses ecoreClass="dataflowdiagram.ecore#//Process" labelFeature="../../tools.mdsd.modelingfoundations.identifier/model/identifier.genmodel#//identifier/NamedElement/entityName"/>
+    <genClasses image="false" ecoreClass="dataflowdiagram.ecore#//Node" labelFeature="../../tools.mdsd.modelingfoundations.identifier/model/identifier.genmodel#//identifier/NamedElement/entityName">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dataflowdiagram.ecore#//Node/behaviour"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dataflowdiagram.ecore#//Node/property"/>
     </genClasses>

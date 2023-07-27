@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datadictionary:DataDictionary xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://www.example.org/datadictionary">
+  <labelTypes id="_3--1ICIvEe6PiqL6n35dVA">
+    <label id="_B5G78CIwEe6PiqL6n35dVA"/>
+  </labelTypes>
+  <behaviour id="_IkNiASIwEe6PiqL6n35dVA">
+    <in id="_I0gn0CIwEe6PiqL6n35dVA" entityName="in"/>
+    <out id="_K1uRoSIwEe6PiqL6n35dVA" entityName="out"/>
+    <assignment id="_NI-GoiIwEe6PiqL6n35dVA" outputLabels="_B5G78CIwEe6PiqL6n35dVA" inputPins="_I0gn0CIwEe6PiqL6n35dVA" outputPin="_K1uRoSIwEe6PiqL6n35dVA">
+      <term xsi:type="datadictionary:AND" id="_No15gCIwEe6PiqL6n35dVA">
+        <terms xsi:type="datadictionary:TRUE" id="_mhivECJJEe6P-M7CfFBAtg"/>
+        <terms xsi:type="datadictionary:OR" id="_nfPtciJJEe6P-M7CfFBAtg">
+          <terms xsi:type="datadictionary:NOT" id="_pJtrMyJJEe6P-M7CfFBAtg">
+            <negatedTerm xsi:type="datadictionary:TRUE" id="_fT61UCJKEe6WZv922ZB9nw"/>
+          </terms>
+          <terms xsi:type="datadictionary:LabelReference" id="_pu3mtCJJEe6P-M7CfFBAtg" label="_B5G78CIwEe6PiqL6n35dVA"/>
+        </terms>
+      </term>
+    </assignment>
+  </behaviour>
+</datadictionary:DataDictionary>

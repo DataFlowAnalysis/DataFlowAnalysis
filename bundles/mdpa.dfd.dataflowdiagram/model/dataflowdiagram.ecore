@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="dataflowdiagram" nsURI="http://www.example.org/dataflowdiagram"
+    nsPrefix="dataflowdiagram">
+  <eClassifiers xsi:type="ecore:EClass" name="DataFlowDiagram" eSuperTypes="../../tools.mdsd.modelingfoundations.identifier/model/identifier.ecore#//Entity">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="flows" upperBound="-1"
+        eType="#//Flow" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1"
+        eType="#//Node" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Flow" eSuperTypes="../../tools.mdsd.modelingfoundations.identifier/model/identifier.ecore#//Entity">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceNode" lowerBound="1"
+        eType="#//Node"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destinationNode" lowerBound="1"
+        eType="#//Node"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destinationPin" eType="ecore:EClass ../../mdpa.dfd.datadictionary/model/datadictionary.ecore#//Pin"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourcePin" eType="ecore:EClass ../../mdpa.dfd.datadictionary/model/datadictionary.ecore#//Pin"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="External" eSuperTypes="#//Node"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Store" eSuperTypes="#//Node"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Process" eSuperTypes="#//Node"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Node" abstract="true" eSuperTypes="../../tools.mdsd.modelingfoundations.identifier/model/identifier.ecore#//Entity">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="behaviour" eType="ecore:EClass ../../mdpa.dfd.datadictionary/model/datadictionary.ecore#//Behaviour"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="property" eType="ecore:EClass ../../mdpa.dfd.datadictionary/model/datadictionary.ecore#//Label"/>
+  </eClassifiers>
+</ecore:EPackage>

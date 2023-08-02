@@ -13,7 +13,7 @@ import mdpa.dfd.diagram.dataflowdiagrammodel.Node;
 public abstract class AbstractDFDActionSequenceElement extends AbstractActionSequenceElement {
 
 	public AbstractDFDActionSequenceElement(List<DataFlowVariable> dataFlowVariables,
-			List<CharacteristicValue> nodeCharacteristics) {
+			List<CharacteristicValue> nodeCharacteristics, String name) {
 		super(dataFlowVariables, nodeCharacteristics);
 	}
 }

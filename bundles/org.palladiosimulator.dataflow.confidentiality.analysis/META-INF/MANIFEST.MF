@@ -18,7 +18,8 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.24.0",
  org.apache.log4j;bundle-version="1.2.15";visibility:=reexport,
  org.palladiosimulator.dataflow.confidentiality.pcm.model.profile;bundle-version="5.1.0";visibility:=reexport,
  org.palladiosimulator.mdsdprofiles.api;bundle-version="4.3.0";visibility:=reexport,
- org.palladiosimulator.dataflow.nodecharacteristics;bundle-version="0.1.0"
+ org.palladiosimulator.dataflow.nodecharacteristics;bundle-version="0.1.0",
+ mdpa.dfd.dataflowdiagram
 Export-Package: org.palladiosimulator.dataflow.confidentiality.analysis,
  org.palladiosimulator.dataflow.confidentiality.analysis.builder,
  org.palladiosimulator.dataflow.confidentiality.analysis.builder.pcm,
@@ -32,5 +33,4 @@ Export-Package: org.palladiosimulator.dataflow.confidentiality.analysis,
  org.palladiosimulator.dataflow.confidentiality.analysis.resource,
  org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm,
  org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm
-Import-Package: mdpa.dfd.behaviour.behaviourmodel,
- mdpa.dfd.diagram.dataflowdiagrammodel
+Import-Package: org.eclipse.emf.ecore.xmi.impl

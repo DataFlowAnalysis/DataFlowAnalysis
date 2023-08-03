@@ -21,6 +21,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Process" eSuperTypes="#//Node"/>
   <eClassifiers xsi:type="ecore:EClass" name="Node" abstract="true" eSuperTypes="../../tools.mdsd.modelingfoundations.identifier/model/identifier.ecore#//Entity">
     <eStructuralFeatures xsi:type="ecore:EReference" name="behaviour" eType="ecore:EClass ../../mdpa.dfd.datadictionary/model/datadictionary.ecore#//Behaviour"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="property" eType="ecore:EClass ../../mdpa.dfd.datadictionary/model/datadictionary.ecore#//Label"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
+        eType="ecore:EClass ../../mdpa.dfd.datadictionary/model/datadictionary.ecore#//Label"/>
   </eClassifiers>
 </ecore:EPackage>

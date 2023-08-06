@@ -10,7 +10,7 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentPackage;
 import org.palladiosimulator.pcm.system.SystemPackage;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 
-public interface ResourceLoader {
+public interface ResourceProvider {
 	/**
 	 * Loads the required resources
 	 */

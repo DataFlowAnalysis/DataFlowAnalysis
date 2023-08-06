@@ -2,20 +2,20 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.builder;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.node.NodeCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.DataCharacteristicsCalculatorFactory;
-import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceProvider;
 
-public record AnalysisData(ResourceLoader resourceLoader, 
+public record AnalysisData(ResourceProvider resourceLoader, 
 		NodeCharacteristicsCalculator nodeCharacteristicsCalculator,
 		DataCharacteristicsCalculatorFactory variableCharacteristicsCalculator) {
 	
-	public AnalysisData(ResourceLoader resourceLoader, NodeCharacteristicsCalculator nodeCharacteristicsCalculator, 
+	public AnalysisData(ResourceProvider resourceLoader, NodeCharacteristicsCalculator nodeCharacteristicsCalculator, 
 			DataCharacteristicsCalculatorFactory variableCharacteristicsCalculator) {
 		this.resourceLoader = resourceLoader;
 		this.nodeCharacteristicsCalculator = nodeCharacteristicsCalculator;
 		this.variableCharacteristicsCalculator = variableCharacteristicsCalculator;
 	}
 	
-	public ResourceLoader getResourceLoader() {
+	public ResourceProvider getResourceLoader() {
 		return resourceLoader;
 	}
 	

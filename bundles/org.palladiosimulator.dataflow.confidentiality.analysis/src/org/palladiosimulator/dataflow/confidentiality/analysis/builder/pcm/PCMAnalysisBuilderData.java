@@ -13,9 +13,9 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisD
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.node.LegacyPCMNodeCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.node.PCMNodeCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.PCMDataCharacteristicsCalculatorFactory;
-import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceListLoader;
-import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMURIResourceLoader;
-import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceListProvider;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMURIResourceProvider;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceProvider;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMResourceUtils;
 
 public class PCMAnalysisBuilderData extends AnalysisBuilderData {
@@ -64,13 +64,14 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	 * @return Returns a new data object for the analysis
 	 */
 	public AnalysisData createAnalysisData() {
-		ResourceLoader resourceLoader = null;
+		ResourceProvider resourceLoader = null;
 		if (!this.resources.isEmpty()) {
 			resourceLoader = new PCMResourceListLoader(this.resources);
 		}
 		if (this.isLegacy()) {
 			if (this.resources.isEmpty()) {
-				resourceLoader = this.getURIResourceLoader(Optional.empty());
+				resourceLoader = new PCMURIResourceProvider(PCMResourceUtils.createRelativePluginURI(relativeUsageModelPath, modelProjectName), 
+						PCMResourceUtils.createRelativePluginURI(relativeAllocationModelPath, modelProjectName), Optional.empty());
 			}
 			return new AnalysisData(resourceLoader, 
 					new LegacyPCMNodeCharacteristicsCalculator(resourceLoader), new PCMDataCharacteristicsCalculatorFactory(resourceLoader));
@@ -78,6 +79,9 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 			if (this.resources.isEmpty()) {
 				resourceLoader = 
 						this.getURIResourceLoader(Optional.of(PCMResourceUtils.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName)));
+				resourceLoader = new PCMURIResourceProvider(PCMResourceUtils.createRelativePluginURI(relativeUsageModelPath, modelProjectName), 
+						PCMResourceUtils.createRelativePluginURI(relativeAllocationModelPath, modelProjectName), 
+						Optional.of(PCMResourceUtils.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName)));
 			}
 			return new AnalysisData(resourceLoader, 
 					new PCMNodeCharacteristicsCalculator(resourceLoader), new PCMDataCharacteristicsCalculatorFactory(resourceLoader));

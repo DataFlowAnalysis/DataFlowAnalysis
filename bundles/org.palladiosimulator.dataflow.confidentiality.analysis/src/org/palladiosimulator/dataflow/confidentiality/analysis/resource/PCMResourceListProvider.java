@@ -13,11 +13,11 @@ import org.palladiosimulator.pcm.allocation.AllocationPackage;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelPackage;
 
-public class PCMResourceListLoader implements ResourceLoader {
+public class PCMResourceListProvider implements ResourceProvider {
 	private List<Resource> resources;
 	private ResourceSet resourceSet;
 	
-	public PCMResourceListLoader(List<Resource> resources) {
+	public PCMResourceListProvider(List<Resource> resources) {
 		this.resources = resources;
 	}
 

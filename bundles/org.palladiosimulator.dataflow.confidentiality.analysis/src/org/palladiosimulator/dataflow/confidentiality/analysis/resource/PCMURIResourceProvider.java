@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 
-public class PCMURIResourceLoader implements ResourceLoader {
+public class PCMURIResourceProvider implements ResourceProvider {
 	private ResourceSet resources = new ResourceSetImpl();
 	
 	private URI usageModelURI;
@@ -29,7 +29,7 @@ public class PCMURIResourceLoader implements ResourceLoader {
 	 * @param allocationModelURI URI to the allocation model
 	 * @param nodeCharacteristicsURI URI to the node characteristics model
 	 */
-	public PCMURIResourceLoader(URI usageModelURI, URI allocationModelURI, Optional<URI> nodeCharacteristicsURI) {
+	public PCMURIResourceProvider(URI usageModelURI, URI allocationModelURI, Optional<URI> nodeCharacteristicsURI) {
 		this.usageModelURI = usageModelURI;
 		this.allocationModelURI = allocationModelURI;
 		this.nodeCharacteristicURI = nodeCharacteristicsURI;

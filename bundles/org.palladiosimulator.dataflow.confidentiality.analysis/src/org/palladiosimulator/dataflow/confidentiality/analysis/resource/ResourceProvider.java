@@ -56,4 +56,10 @@ public interface ResourceProvider {
 		}
 		return true;
 	}
+	/**
+	 * Looks up an ECore element with the given class type
+	 * @param id  Id of the objects that the lookup should return
+	 * @return Returns the object with the given id
+	 */
+	public EObject lookupElementWithId(String id);
 }

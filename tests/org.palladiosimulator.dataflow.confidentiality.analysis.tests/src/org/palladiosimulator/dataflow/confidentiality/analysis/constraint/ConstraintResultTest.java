@@ -17,6 +17,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.C
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.constraint.data.ConstraintData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.constraint.data.ConstraintViolations;
+import org.palladiosimulator.dataflow.confidentiality.analysis.core.AbstractStandalonePCMDataFlowConfidentialityAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
 import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
@@ -140,6 +141,9 @@ public class ConstraintResultTest extends ConstraintTest {
     	Predicate<AbstractActionSequenceElement<?>> constraint = node -> travelPlannerCondition(node);
     	List<ConstraintData> constraintData = ConstraintViolations.travelPlannerViolations;
     	testAnalysis(analysis, constraint, constraintData);
+    	var test = (AbstractStandalonePCMDataFlowConfidentialityAnalysis) analysis;
+    	var res = test.getResourceProvider().lookupElementWithId("_gdSegPVhEeuMKba1Qn68bg");
+    	System.out.println(res);
     }
     
     /**

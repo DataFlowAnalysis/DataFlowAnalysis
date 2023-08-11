@@ -9,7 +9,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
 
 public abstract class AbstractActionSequenceElement<T extends EObject> {
 
@@ -49,12 +48,30 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
      * @param name Name of the characteristic type
      * @return Returns a list of all characteristic literals matching the characteristic type
      */
-    public List<Literal> getNodeCharacteristicsWithName(String name) {
+    public List<String> getNodeCharacteristicNamesWithType(String name) {
     	return this.getAllNodeCharacteristics().stream()
-		.filter(cv -> cv.characteristicType().getName().equals(name))
-		.map(cv -> cv.characteristicLiteral())
+		.filter(cv -> cv.getTypeName().equals(name))
+		.map(cv -> cv.getValueName())
 		.collect(Collectors.toList());
     }
+    
+    /**
+     * Returns a list of characteristic literals that are set for a given characteristic type in the list of all node characteristics
+     * <p>
+     * See {@link getDataFlowCharacteristicsWithName} for a similar method for dataflow variables 
+     * @param name Name of the characteristic type
+     * @return Returns a list of all characteristic literals matching the characteristic type
+     */
+    public List<String> getNodeCharacteristicIdsWithType(String name) {
+    	return this.getAllNodeCharacteristics().stream()
+		.filter(cv -> cv.getTypeName().equals(name))
+		.map(cv -> cv.getValueId())
+		.collect(Collectors.toList());
+    }
+    
+    
+    
+    // Only used for comparing Literals (refer to literal Ids for comparison?
     
     /**
      * Returns a Map of characteristic literals and dataflow variables that are set for a given characteristic type in the list of all data flow variables
@@ -63,11 +80,11 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
      * @param name Name of the characteristic type
      * @return Returns a list of all characteristic literals matching the characteristic type
      */
-    public Map<DataFlowVariable, List<Literal>> getDataFlowCharacteristicsWithName(String name) {
+    public Map<DataFlowVariable, List<String>> getDataFlowCharacteristicsWithName(String name) {
     	return this.getAllDataFlowVariables().stream()
     			.collect(Collectors.toMap(it -> it, it -> it.characteristics().stream()
-    					.filter(df -> df.characteristicType().getName().equals(name))
-    					.map(df -> df.characteristicLiteral())
+    					.filter(df -> df.getTypeName().equals(name))
+    					.map(df -> df.getValueId())
     					.collect(Collectors.toList()))
 				);
     }
@@ -131,10 +148,8 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
      */
     public String createPrintableCharacteristicsList(List<CharacteristicValue> characteristics) {
         List<String> entries = characteristics.stream()
-            .map(it -> String.format("%s.%s", it.characteristicType()
-                .getName(),
-                    it.characteristicLiteral()
-                        .getName()))
+            .map(it -> String.format("%s.%s", it.getTypeName(),
+                    it.getValueName()))
             .toList();
         return String.join(", ", entries);
     }

@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.PCMCharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
@@ -63,8 +64,9 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 		List<EnumCharacteristic> enumCharacteristics = assignees.stream()
 			.flatMap(it -> it.getCharacteristics().stream())
 			.collect(Collectors.toList());
+
 		return enumCharacteristics.stream()
-				.flatMap(it -> it.getValues().stream().map(val -> new CharacteristicValue(it.getType(), val)))
+				.flatMap(it -> it.getValues().stream().map(val -> new PCMCharacteristicValue(it.getType(), val)))
 				.collect(Collectors.toList());
 	}
 	

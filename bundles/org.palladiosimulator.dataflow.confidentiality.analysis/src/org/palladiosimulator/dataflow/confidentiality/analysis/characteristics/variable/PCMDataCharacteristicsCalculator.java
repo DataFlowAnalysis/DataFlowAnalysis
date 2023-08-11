@@ -9,6 +9,7 @@ import java.util.Comparator;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.PCMCharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.DictionaryPackage;
@@ -85,7 +86,7 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
         AbstractNamedReference reference = variableCharacterisation.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage();
         DataFlowVariable existingVariable = this.getDataFlowVariableByReference(reference).orElse(new DataFlowVariable(reference.getReferenceName()));
 
-        List<CharacteristicValue> modifiedCharacteristics = calculateModifiedCharacteristics(existingVariable, characteristicType, characteristicValue);
+        List<PCMCharacteristicValue> modifiedCharacteristics = calculateModifiedCharacteristics(existingVariable, characteristicType, characteristicValue);
 
         DataFlowVariable modifedVariable = createModifiedDataFlowVariable(existingVariable, modifiedCharacteristics, rightHandSide);
         currentVariables.remove(existingVariable);
@@ -114,7 +115,7 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
      * @param rightHandSide Right hand side of the variable characterization, to indicate whether a characteristic is added or not
      * @return Returns a new DataFlowVariable with the updated characteristics
      */
-    private DataFlowVariable createModifiedDataFlowVariable(DataFlowVariable existingVariable, List<CharacteristicValue> modifiedCharacteristics, Term rightHandSide) {
+    private DataFlowVariable createModifiedDataFlowVariable(DataFlowVariable existingVariable, List<PCMCharacteristicValue> modifiedCharacteristics, Term rightHandSide) {
     	DataFlowVariable computedVariable = new DataFlowVariable(existingVariable.variableName());
         var unmodifiedCharacteristics = existingVariable.getAllCharacteristics()
             .stream()
@@ -128,11 +129,11 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
         for (CharacteristicValue modifedCharacteristic : modifiedCharacteristics) {
             if (evaluateTerm(rightHandSide, modifedCharacteristic)) {
             	List<CharacteristicValue> modifiedCharacteristicValues = computedVariable.getAllCharacteristics().stream()
-            			.filter(it -> it.characteristicType().getName().equals(modifedCharacteristic.characteristicType().getName()))
+            			.filter(it -> it.getTypeName().equals(modifedCharacteristic.getTypeName()))
             			.collect(Collectors.toList());
             	
             	if (modifiedCharacteristicValues.stream()
-            			.noneMatch(it -> it.characteristicLiteral().getName().equals(modifedCharacteristic.characteristicLiteral().getName()))) {
+            			.noneMatch(it -> it.getValueName().equals(modifedCharacteristic.getValueName()))) {
             		computedVariable = computedVariable.addCharacteristic(modifedCharacteristic);
             	}
             }
@@ -152,23 +153,25 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
      *            Bound for the characteristic value. May be null to allow a wildcard
      * @return Returns the list of all characteristics that are modified with the given bounds
      */
-    private List<CharacteristicValue> calculateModifiedCharacteristics(DataFlowVariable existingVariable,
+    private List<PCMCharacteristicValue> calculateModifiedCharacteristics(DataFlowVariable existingVariable,
             EnumCharacteristicType characteristicType, Literal characteristicValue) {
         if (characteristicValue == null && characteristicType != null) {
             return discoverNewVariables(existingVariable, Optional.of(characteristicType));
         } else if (characteristicValue == null && characteristicType == null) {
             return discoverNewVariables(existingVariable, Optional.empty());
         } else {
-            return List.of(existingVariable.getAllCharacteristics()
-                .stream()
-                .filter(it -> it.characteristicLiteral()
-                    .getName()
-                    .equals(characteristicValue.getName()))
-                .filter(it -> it.characteristicType()
-                    .getName()
-                    .equals(characteristicType.getName()))
-                .findAny()
-                .orElse(new CharacteristicValue(characteristicType, characteristicValue)));
+        	List<PCMCharacteristicValue> values = new ArrayList<>();
+        	for (CharacteristicValue value : existingVariable.getAllCharacteristics()) {
+        		if(value.getValueName().equals(characteristicValue.getName()) 
+        				&& value.getTypeName().equals(characteristicType.getName())) {
+        			values.add((PCMCharacteristicValue) value);
+        		}
+        	}
+        	if(values.isEmpty()) {
+        		values.add(new PCMCharacteristicValue(characteristicType, characteristicValue));
+        	}
+        	
+            return values;
         }
     }
 
@@ -219,21 +222,19 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
             return false;
         }
         var dataflowVariable = optionalDataflowVariable.get();
-        var characteristicReferenceType = characteristicReference.getCharacteristicType() != null
-                ? characteristicReference.getCharacteristicType()
-                : characteristicValue.characteristicType();
-        var characteristicReferenceValue = characteristicReference.getLiteral() != null
-                ? characteristicReference.getLiteral()
-                : characteristicValue.characteristicLiteral();
+        var characteristicReferenceTypeName = characteristicReference.getCharacteristicType() != null
+                ? characteristicReference.getCharacteristicType().getName()
+                : characteristicValue.getTypeName();
+        var characteristicReferenceValueName = characteristicReference.getLiteral() != null
+                ? characteristicReference.getLiteral().getName()
+                : characteristicValue.getValueName();
 
         var characteristic = dataflowVariable.getAllCharacteristics()
             .stream()
-            .filter(it -> it.characteristicType()
-                .getName()
-                .equals(characteristicReferenceType.getName()))
-            .filter(it -> it.characteristicLiteral()
-                .getName()
-                .equals(characteristicReferenceValue.getName()))
+            .filter(it -> it.getTypeName()
+                .equals(characteristicReferenceTypeName))
+            .filter(it -> it.getValueName()
+                .equals(characteristicReferenceValueName))
             .findAny();
         return !characteristic.isEmpty() && dataflowVariable.hasCharacteristic(characteristic.get());
     }
@@ -249,9 +250,9 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
      * @return List of characteristics available for the given variable and satisfying the possible
      *         bound
      */
-    private List<CharacteristicValue> discoverNewVariables(DataFlowVariable variable,
+    private List<PCMCharacteristicValue> discoverNewVariables(DataFlowVariable variable,
             Optional<EnumCharacteristicType> characteristicType) {
-        List<CharacteristicValue> updatedCharacteristicValues = new ArrayList<>();
+        List<PCMCharacteristicValue> updatedCharacteristicValues = new ArrayList<>();
         var dataDictonaries = this.resourceLoader.lookupElementOfType(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
             .stream()
             .filter(PCMDataDictionary.class::isInstance)
@@ -277,7 +278,7 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
                     .stream()
                     .forEach(characteristicValue -> {
                         updatedCharacteristicValues
-                            .add(new CharacteristicValue(enumCharacteristicType, characteristicValue));
+                            .add(new PCMCharacteristicValue(enumCharacteristicType, characteristicValue));
                     });
             });
         return updatedCharacteristicValues;

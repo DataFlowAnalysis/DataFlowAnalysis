@@ -7,6 +7,8 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.C
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
+// TODO: This Interface is created or named poorly, as it has hard dependencies to Palladio
+// Should be renamed or fully deleted when builder pattern gets a HARD rework
 public interface NodeCharacteristicsCalculator {
 	public List<CharacteristicValue> getNodeCharacteristics(Entity node, Deque<AssemblyContext> context);
 }

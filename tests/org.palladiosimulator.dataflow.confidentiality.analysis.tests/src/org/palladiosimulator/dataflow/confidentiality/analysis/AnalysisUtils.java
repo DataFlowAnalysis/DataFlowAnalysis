@@ -173,11 +173,9 @@ public class AnalysisUtils {
             .orElseThrow();
         assertTrue(dataflowVariable.characteristics()
             .stream()
-            .filter(it -> it.characteristicType()
-                .getName()
+            .filter(it -> it.getTypeName()
                 .equals(characteristicType))
-            .filter(it -> it.characteristicLiteral()
-                .getName()
+            .filter(it -> it.getValueName()
                 .equals(characteristicValue))
             .findAny()
             .isPresent());
@@ -216,11 +214,9 @@ public class AnalysisUtils {
         assertTrue(dataflowVariable.get()
             .characteristics()
             .stream()
-            .filter(it -> it.characteristicType()
-                .getName()
+            .filter(it -> it.getTypeName()
                 .equals(characteristicType))
-            .filter(it -> it.characteristicLiteral()
-                .getName()
+            .filter(it -> it.getValueName()
                 .equals(characteristicValue))
             .findAny()
             .isEmpty());

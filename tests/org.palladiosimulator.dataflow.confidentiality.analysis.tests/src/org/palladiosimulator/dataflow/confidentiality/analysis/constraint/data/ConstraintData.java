@@ -42,8 +42,8 @@ public class ConstraintData {
 	
 	private boolean hasCharacteristicValue(List<CharacteristicValueData> data, CharacteristicValue actualCharacteristicValue) {
 		return data.stream()
-		.filter(it -> actualCharacteristicValue.characteristicType().getName().equals(it.characteristicType()))
-		.anyMatch(it -> actualCharacteristicValue.characteristicLiteral().getName().equals(it.characteristicLiteral()));
+		.filter(it -> actualCharacteristicValue.getTypeName().equals(it.characteristicType()))
+		.anyMatch(it -> actualCharacteristicValue.getValueName().equals(it.characteristicLiteral()));
 	}
 	
 	public int nodeCharacteristicsCount() {

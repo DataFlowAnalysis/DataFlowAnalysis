@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -31,17 +30,28 @@ public class ConstraintResultTest extends ConstraintTest {
      */
     private boolean travelPlannerCondition(AbstractActionSequenceElement<?> node) {
     	List<String> assignedRoles = node.getNodeCharacteristicIdsWithType("AssignedRoles");
-    	Map<DataFlowVariable, List<String>> grantedRoles = node.getDataFlowCharacteristicsWithName("GrantedRoles");
+    	List<List<String>> grantedRoles = node.getDataFlowCharacteristicIdsWithType("GrantedRoles");
     	
         printNodeInformation(node);
         
-        return grantedRoles.entrySet().stream().map(dfv -> { // Sorry, but stuff like this is shit
-        	return !dfv.getValue().isEmpty() && dfv.getValue().stream()
+        for(List<String> dataFlowCharacteristicIds : grantedRoles) {
+        	if(!dataFlowCharacteristicIds.isEmpty() &&
+        			dataFlowCharacteristicIds.stream()
         			.distinct()
         			.filter(it -> assignedRoles.contains(it))
         			.collect(Collectors.toList())
-        			.isEmpty();
-        }).anyMatch(Boolean::valueOf);
+        			.isEmpty()) {
+        		return true;
+        	}
+        }
+        return false;
+//        return grantedRoles.stream().map(dfv -> { // Sorry, but stuff like this is shit
+//        	return !dfv.isEmpty() && dfv.stream()
+//        			.distinct()
+//        			.filter(it -> assignedRoles.contains(it))
+//        			.collect(Collectors.toList())
+//        			.isEmpty();
+//        }).anyMatch(Boolean::valueOf);
     }
 
     /**
@@ -54,7 +64,7 @@ public class ConstraintResultTest extends ConstraintTest {
      */
     private boolean internationalOnlineShopCondition(AbstractActionSequenceElement<?> node) {
         List<String> serverLocation = node.getNodeCharacteristicNamesWithType("ServerLocation");
-        List<String> dataSensitivity = node.getDataFlowCharacteristicsWithName("DataSensitivity").values().stream()
+        List<String> dataSensitivity = node.getDataFlowCharacteristicNamesWithType("DataSensitivity").stream()
         		.flatMap(it -> it.stream()).collect(Collectors.toList());
         printNodeInformation(node);
 
@@ -73,7 +83,7 @@ public class ConstraintResultTest extends ConstraintTest {
      */
     private boolean dataStoreCondition(AbstractActionSequenceElement<?> node) {
     	List<String> assignedRoles = node.getNodeCharacteristicIdsWithType("AssignedRole");
-    	Map<DataFlowVariable, List<String>> grantedRoles = node.getDataFlowCharacteristicsWithName("GrantedRole");
+    	List<List<String>> grantedRoles = node.getDataFlowCharacteristicIdsWithType("GrantedRole");
     	
         printNodeInformation(node);
         
@@ -81,8 +91,8 @@ public class ConstraintResultTest extends ConstraintTest {
         	return false;
         }
         
-        return !grantedRoles.entrySet().stream()
-        		.allMatch(df -> df.getValue().stream().allMatch(it -> assignedRoles.contains(it)));
+        return !grantedRoles.stream()
+        		.allMatch(df -> df.stream().allMatch(it -> assignedRoles.contains(it)));
     }
     
     /**
@@ -95,7 +105,7 @@ public class ConstraintResultTest extends ConstraintTest {
      */
     private boolean returnCondition(AbstractActionSequenceElement<?> node) {
     	List<String> assignedNode = node.getNodeCharacteristicIdsWithType("AssignedRole");
-    	List<String> assignedVariables = node.getDataFlowCharacteristicsWithName("AssignedRole").values().stream()
+    	List<String> assignedVariables = node.getDataFlowCharacteristicIdsWithType("AssignedRole").stream()
     			.flatMap(it -> it.stream())
     			.collect(Collectors.toList());
     	

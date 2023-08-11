@@ -1,5 +1,6 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -68,11 +69,7 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
 		.map(cv -> cv.getValueId())
 		.collect(Collectors.toList());
     }
-    
-    
-    
-    // Only used for comparing Literals (refer to literal Ids for comparison?
-    
+        
     /**
      * Returns a Map of characteristic literals and dataflow variables that are set for a given characteristic type in the list of all data flow variables
      * <p>
@@ -80,13 +77,46 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
      * @param name Name of the characteristic type
      * @return Returns a list of all characteristic literals matching the characteristic type
      */
-    public Map<DataFlowVariable, List<String>> getDataFlowCharacteristicsWithName(String name) {
-    	return this.getAllDataFlowVariables().stream()
-    			.collect(Collectors.toMap(it -> it, it -> it.characteristics().stream()
-    					.filter(df -> df.getTypeName().equals(name))
-    					.map(df -> df.getValueId())
-    					.collect(Collectors.toList()))
-				);
+    //TODO: This is just bad... I hope there was a reason to returning a map in the past, 
+    // other than these nested lambdas not properly working for List<List<...>> collection...
+    // Right now there is no need for also returning the DataFlowVariable
+//    public Map<DataFlowVariable, List<String>> getDataFlowCharacteristicsWithName(String name) {
+//    	return this.getAllDataFlowVariables().stream()
+//    			.collect(Collectors.toMap(it -> it, it -> it.characteristics().stream()
+//    					.filter(df -> df.getTypeName().equals(name))
+//    					.map(df -> df.getValueId())
+//    					.collect(Collectors.toList()))
+//				);
+//    }
+    
+    public List<List<String>> getDataFlowCharacteristicIdsWithType(String type) {
+    	List<List<String>> dfCharIds = new ArrayList<>();
+    	for(DataFlowVariable df : this.getAllDataFlowVariables()) {
+    		List<String> charValueIds = new ArrayList<>();
+    		for(CharacteristicValue charValue : df.getAllCharacteristics()) {
+    			if(charValue.getTypeName().equals(type)) {
+    				charValueIds.add(charValue.getValueId());
+    			}
+    		}
+    		dfCharIds.add(charValueIds);
+    	}
+    	
+    	return dfCharIds;
+    }
+    
+    public List<List<String>> getDataFlowCharacteristicNamesWithType(String type) {
+    	List<List<String>> dfCharIds = new ArrayList<>();
+    	for(DataFlowVariable df : this.getAllDataFlowVariables()) {
+    		List<String> charValueIds = new ArrayList<>();
+    		for(CharacteristicValue charValue : df.getAllCharacteristics()) {
+    			if(charValue.getTypeName().equals(type)) {
+    				charValueIds.add(charValue.getValueName());
+    			}
+    		}
+    		dfCharIds.add(charValueIds);
+    	}
+    	
+    	return dfCharIds;
     }
     
     /**

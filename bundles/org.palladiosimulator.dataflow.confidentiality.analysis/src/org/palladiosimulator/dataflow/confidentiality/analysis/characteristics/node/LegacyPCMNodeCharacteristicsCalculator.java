@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.PCMCharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
@@ -125,7 +126,7 @@ public class LegacyPCMNodeCharacteristicsCalculator implements NodeCharacteristi
     		var nodeEnumCharacteristics = enumCharacteristics.get();
     		for (EnumCharacteristic nodeEnumCharacteristic : nodeEnumCharacteristics) {
         		for (Literal nodeLiteral : nodeEnumCharacteristic.getValues()) {
-        			nodeCharacteristics.add(new CharacteristicValue(nodeEnumCharacteristic.getType(), nodeLiteral));
+        			nodeCharacteristics.add(new PCMCharacteristicValue(nodeEnumCharacteristic.getType(), nodeLiteral));
         		}
     		}
     	}

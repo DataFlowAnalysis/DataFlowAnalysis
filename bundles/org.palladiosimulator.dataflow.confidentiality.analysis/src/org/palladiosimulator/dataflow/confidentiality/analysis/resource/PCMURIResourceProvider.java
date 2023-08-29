@@ -6,6 +6,7 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.URI;
@@ -108,7 +109,7 @@ public class PCMURIResourceProvider implements ResourceProvider {
         return false;
     }
 	
-	private Entity findInResource(String targetId, Resource resource) {
+	private Entity findInResource(Predicate<Entity> condition, Resource resource) {
 		if (resource == null) {
 			return null;
 		}
@@ -130,7 +131,7 @@ public class PCMURIResourceProvider implements ResourceProvider {
     			continue;
     		}
     		Entity entity = (Entity) top;
-    		if (entity.getId().equals(targetId)) {
+    		if (condition.test(entity)) {
     			return entity;
     		}
         	visitedNodes.put(top, true);
@@ -141,7 +142,20 @@ public class PCMURIResourceProvider implements ResourceProvider {
 	@Override
 	public Entity lookupElementWithId(String id) {
 		for (Resource resource : this.resources.getResources()) {
-			Entity result = this.findInResource(id, resource);	
+			Entity result = this.findInResource(it -> it.getId().equals(id), resource);	
+            if (result != null) {
+            	return result;
+            }
+        }
+		return null;
+	}
+	
+
+
+	@Override
+	public Entity findElement(Predicate<Entity> condition) {
+		for (Resource resource : this.resources.getResources()) {
+			Entity result = this.findInResource(condition, resource);	
             if (result != null) {
             	return result;
             }

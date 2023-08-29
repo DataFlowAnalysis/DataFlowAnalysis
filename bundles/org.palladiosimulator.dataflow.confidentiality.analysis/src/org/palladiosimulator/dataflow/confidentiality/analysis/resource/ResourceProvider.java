@@ -1,6 +1,7 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.resource;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -8,6 +9,7 @@ import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.repository.RepositoryPackage;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentPackage;
 import org.palladiosimulator.pcm.system.SystemPackage;
+import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 
 public interface ResourceProvider {
@@ -62,4 +64,9 @@ public interface ResourceProvider {
 	 * @return Returns the object with the given id
 	 */
 	public EObject lookupElementWithId(String id);
+	
+	/**
+	 * 
+	 */
+	public Entity findElement(Predicate<Entity> condition);
 }

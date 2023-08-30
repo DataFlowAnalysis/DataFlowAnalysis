@@ -131,4 +131,9 @@ public class LegacyPCMNodeCharacteristicsCalculator implements NodeCharacteristi
     	}
     	return nodeCharacteristics;
     }
+
+	@Override
+	public void checkAssignments() {
+		// Not implemented, as legacy node assignments will not be checked beforehand
+	}
 }

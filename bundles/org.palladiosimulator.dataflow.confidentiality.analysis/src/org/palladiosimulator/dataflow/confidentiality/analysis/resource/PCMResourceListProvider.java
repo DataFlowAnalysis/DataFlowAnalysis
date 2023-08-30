@@ -113,6 +113,11 @@ public class PCMResourceListProvider implements ResourceProvider {
         return null;
     }
 
+	/**
+	 * Looks up an ECore element with the given id
+	 * @param id ID of the object that the lookup should return
+	 * @return Returns the object with the given id
+	 */
 	@Override
 	public Entity lookupElementWithId(String id) {
 		for (Resource resource : this.resources) {
@@ -125,7 +130,11 @@ public class PCMResourceListProvider implements ResourceProvider {
 	}
 	
 
-
+	/**
+	 * Finds an element that satisfies the given condition
+	 * @param condition Condition the element should satisfy
+	 * @return Returns the first element found that satisfies the given condition
+	 */
 	@Override
 	public Entity findElement(Predicate<Entity> condition) {
 		for (Resource resource : this.resources) {

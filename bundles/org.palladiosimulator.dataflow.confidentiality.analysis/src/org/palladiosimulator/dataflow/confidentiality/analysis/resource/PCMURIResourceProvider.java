@@ -109,6 +109,12 @@ public class PCMURIResourceProvider implements ResourceProvider {
         return false;
     }
 	
+	/**
+	 * Finds an element that fulfills the given condition in a given resource
+	 * @param condition Condition the element should fulfill
+	 * @param resource Resource that should be searched
+	 * @return Returns the first entity, that fulfills the condition. If none are found, the method returns null
+	 */
 	private Entity findInResource(Predicate<Entity> condition, Resource resource) {
 		if (resource == null) {
 			return null;
@@ -139,6 +145,11 @@ public class PCMURIResourceProvider implements ResourceProvider {
         return null;
     }
 
+	/**
+	 * Looks up an ECore element with the given id
+	 * @param id ID of the object that the lookup should return
+	 * @return Returns the object with the given id
+	 */
 	@Override
 	public Entity lookupElementWithId(String id) {
 		for (Resource resource : this.resources.getResources()) {
@@ -152,6 +163,11 @@ public class PCMURIResourceProvider implements ResourceProvider {
 	
 
 
+	/**
+	 * Finds an element that satisfies the given condition
+	 * @param condition Condition the element should satisfy
+	 * @return Returns the first element found that satisfies the given condition
+	 */
 	@Override
 	public Entity findElement(Predicate<Entity> condition) {
 		for (Resource resource : this.resources.getResources()) {

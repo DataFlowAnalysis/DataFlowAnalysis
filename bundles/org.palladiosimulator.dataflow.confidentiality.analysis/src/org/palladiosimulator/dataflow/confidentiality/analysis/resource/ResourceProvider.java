@@ -66,7 +66,9 @@ public interface ResourceProvider {
 	public EObject lookupElementWithId(String id);
 	
 	/**
-	 * 
+	 * Finds an element that satisfies the given condition
+	 * @param condition Condition the element should satisfy
+	 * @return Returns the first element found that satisfies the given condition
 	 */
 	public Entity findElement(Predicate<Entity> condition);
 }

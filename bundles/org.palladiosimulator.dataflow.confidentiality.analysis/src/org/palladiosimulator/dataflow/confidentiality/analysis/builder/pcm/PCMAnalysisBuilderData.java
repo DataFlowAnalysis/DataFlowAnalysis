@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisBuilderData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
@@ -47,6 +48,14 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 		if (!this.isLegacy() && this.resources.isEmpty() && this.getRelativeNodeCharacteristicsPath().isEmpty()) {
 			logger.warn("Using new node characteristic model without specifying path to the assignment model. No node characteristics will be applied!");
 		}
+
+		if(!this.resources.isEmpty()) {
+			ResourceLoader testLoader = new PCMResourceListLoader(this.resources);
+			testLoader.loadRequiredResources();
+			if (!testLoader.sufficientResourcesLoaded()) {
+				throw new IllegalStateException("Not enough resources were provided to the analysis");
+			}
+		}
 	}
 	
 
@@ -57,26 +66,32 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	public AnalysisData createAnalysisData() {
 		ResourceLoader resourceLoader = null;
 		if (!this.resources.isEmpty()) {
-			logger.info("Using provided list of resources. If bugs or errors occur, it may be due to missing models in the provided resources");
-			logger.info("Checking of resources will be added in a future version");
 			resourceLoader = new PCMResourceListLoader(this.resources);
 		}
 		if (this.isLegacy()) {
 			if (this.resources.isEmpty()) {
-				resourceLoader = new PCMURIResourceLoader(PCMResourceUtils.createRelativePluginURI(relativeUsageModelPath, modelProjectName), 
-						PCMResourceUtils.createRelativePluginURI(relativeAllocationModelPath, modelProjectName), Optional.empty());
+				resourceLoader = this.getURIResourceLoader(Optional.empty());
 			}
 			return new AnalysisData(resourceLoader, 
 					new LegacyPCMNodeCharacteristicsCalculator(resourceLoader), new PCMDataCharacteristicsCalculatorFactory(resourceLoader));
 		} else {
 			if (this.resources.isEmpty()) {
-				resourceLoader = new PCMURIResourceLoader(PCMResourceUtils.createRelativePluginURI(relativeUsageModelPath, modelProjectName), 
-						PCMResourceUtils.createRelativePluginURI(relativeAllocationModelPath, modelProjectName), 
-						Optional.of(PCMResourceUtils.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName)));
+				resourceLoader = 
+						this.getURIResourceLoader(Optional.of(PCMResourceUtils.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName)));
 			}
 			return new AnalysisData(resourceLoader, 
 					new PCMNodeCharacteristicsCalculator(resourceLoader), new PCMDataCharacteristicsCalculatorFactory(resourceLoader));
 		}
+	}
+	
+	/**
+	 * Creates a new URI resource loader with the given (optional) node characteristic URI
+	 * @param nodeCharacteristicsURI Optional URI to the node characteristics model
+	 * @return New instance of an URI resource loader with the internally saved values
+	 */
+	private ResourceLoader getURIResourceLoader(Optional<URI> nodeCharacteristicsURI) {
+		return new PCMURIResourceLoader(PCMResourceUtils.createRelativePluginURI(relativeUsageModelPath, modelProjectName), 
+				PCMResourceUtils.createRelativePluginURI(relativeAllocationModelPath, modelProjectName), nodeCharacteristicsURI);
 	}
 	
 	/**

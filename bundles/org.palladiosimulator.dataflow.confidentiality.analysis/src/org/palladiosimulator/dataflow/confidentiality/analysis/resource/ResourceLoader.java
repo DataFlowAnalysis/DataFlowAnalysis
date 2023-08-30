@@ -5,6 +5,9 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.pcm.allocation.Allocation;
+import org.palladiosimulator.pcm.repository.RepositoryPackage;
+import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentPackage;
+import org.palladiosimulator.pcm.system.SystemPackage;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 
 public interface ResourceLoader {
@@ -32,4 +35,25 @@ public interface ResourceLoader {
 	 * @return Returns a list of objects that are of the target type
 	 */
 	public <T extends EObject> List<T> lookupElementOfType(final EClass targetType);
+	
+	
+	/**
+	 * Determines, whether the resource loader has sufficient resources to run the analysis
+	 * @return This method returns true, if the analysis can be executed with the resource loader. Otherwise, the method returns false
+	 */
+	public default boolean sufficientResourcesLoaded() {
+		if (this.getUsageModel() == null || this.getAllocation() == null) {
+			return false;
+		}
+		if (this.lookupElementOfType(RepositoryPackage.eINSTANCE.getRepository()).isEmpty()) {
+			return false;
+		}
+		if (this.lookupElementOfType(SystemPackage.eINSTANCE.getSystem()).isEmpty()) {
+			return false;
+		}
+		if (this.lookupElementOfType(ResourceenvironmentPackage.eINSTANCE.getResourceEnvironment()).isEmpty()) {
+			return false;
+		}
+		return true;
+	}
 }

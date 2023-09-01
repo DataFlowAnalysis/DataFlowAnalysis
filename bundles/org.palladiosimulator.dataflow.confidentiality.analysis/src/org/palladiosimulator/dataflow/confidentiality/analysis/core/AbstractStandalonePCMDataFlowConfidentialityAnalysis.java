@@ -110,6 +110,8 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
         } else {
             throw new IllegalStateException("Failed loading the required models for the data flow analysis.");
         }
+        
+        this.analysisData.getNodeCharacteristicsCalculator().checkAssignments();
 
         return true;
     }

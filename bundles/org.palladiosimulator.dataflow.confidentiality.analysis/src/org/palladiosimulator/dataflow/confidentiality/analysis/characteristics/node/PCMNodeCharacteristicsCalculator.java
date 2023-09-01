@@ -51,7 +51,6 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 	@Override
 	public List<CharacteristicValue> getNodeCharacteristics(Entity node, Deque<AssemblyContext> context) {
 		Assignments assignments = this.resolveAssignments();
-		this.checkAssignments(assignments);
 		List<AbstractAssignee> assignees;
 		if (node instanceof AbstractUserAction) {
 			assignees = this.getUsage(node, assignments);
@@ -177,11 +176,9 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 	            .findFirst().orElse(NodeCharacteristicsFactory.eINSTANCE.createAssignments());
 	}
 	
-	/**
-	 * Checks the given list of assignments for errors or inconsistencies
-	 * @param assignments List of assignments that should be checked
-	 */
-	private void checkAssignments(Assignments assignments) {
+	@Override
+	public void checkAssignments() {
+		Assignments assignments = this.resolveAssignments();
 		for (AbstractAssignee assignee : assignments.getAssignee()) {
 			if (assignee instanceof UsageAsignee) {
 				UsageAsignee usage = (UsageAsignee) assignee;

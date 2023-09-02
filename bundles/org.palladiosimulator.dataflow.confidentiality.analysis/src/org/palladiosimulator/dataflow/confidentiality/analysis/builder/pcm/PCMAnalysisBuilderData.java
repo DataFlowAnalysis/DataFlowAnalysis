@@ -50,7 +50,7 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 		}
 
 		if(!this.resources.isEmpty()) {
-			ResourceLoader testLoader = new PCMResourceListLoader(this.resources);
+			ResourceProvider testLoader = new PCMResourceListProvider(this.resources);
 			testLoader.loadRequiredResources();
 			if (!testLoader.sufficientResourcesLoaded()) {
 				throw new IllegalStateException("Not enough resources were provided to the analysis");
@@ -66,7 +66,7 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	public AnalysisData createAnalysisData() {
 		ResourceProvider resourceLoader = null;
 		if (!this.resources.isEmpty()) {
-			resourceLoader = new PCMResourceListLoader(this.resources);
+			resourceLoader = new PCMResourceListProvider(this.resources);
 		}
 		if (this.isLegacy()) {
 			if (this.resources.isEmpty()) {
@@ -78,7 +78,7 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 		} else {
 			if (this.resources.isEmpty()) {
 				resourceLoader = 
-						this.getURIResourceLoader(Optional.of(PCMResourceUtils.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName)));
+						this.getURIResourceProvider(Optional.of(PCMResourceUtils.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName)));
 				resourceLoader = new PCMURIResourceProvider(PCMResourceUtils.createRelativePluginURI(relativeUsageModelPath, modelProjectName), 
 						PCMResourceUtils.createRelativePluginURI(relativeAllocationModelPath, modelProjectName), 
 						Optional.of(PCMResourceUtils.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName)));
@@ -93,8 +93,8 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	 * @param nodeCharacteristicsURI Optional URI to the node characteristics model
 	 * @return New instance of an URI resource loader with the internally saved values
 	 */
-	private ResourceLoader getURIResourceLoader(Optional<URI> nodeCharacteristicsURI) {
-		return new PCMURIResourceLoader(PCMResourceUtils.createRelativePluginURI(relativeUsageModelPath, modelProjectName), 
+	private ResourceProvider getURIResourceProvider(Optional<URI> nodeCharacteristicsURI) {
+		return new PCMURIResourceProvider(PCMResourceUtils.createRelativePluginURI(relativeUsageModelPath, modelProjectName), 
 				PCMResourceUtils.createRelativePluginURI(relativeAllocationModelPath, modelProjectName), nodeCharacteristicsURI);
 	}
 	

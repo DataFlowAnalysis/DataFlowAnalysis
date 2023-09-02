@@ -38,7 +38,6 @@ public interface ResourceProvider {
 	 */
 	public <T extends EObject> List<T> lookupElementOfType(final EClass targetType);
 	
-	
 	/**
 	 * Determines, whether the resource loader has sufficient resources to run the analysis
 	 * @return This method returns true, if the analysis can be executed with the resource loader. Otherwise, the method returns false
@@ -58,6 +57,7 @@ public interface ResourceProvider {
 		}
 		return true;
 	}
+	
 	/**
 	 * Looks up an ECore element with the given class type
 	 * @param id  Id of the objects that the lookup should return

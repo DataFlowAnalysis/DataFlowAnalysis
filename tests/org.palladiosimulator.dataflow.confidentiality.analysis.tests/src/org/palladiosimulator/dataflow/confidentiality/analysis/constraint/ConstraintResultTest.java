@@ -141,9 +141,6 @@ public class ConstraintResultTest extends ConstraintTest {
     	Predicate<AbstractActionSequenceElement<?>> constraint = node -> travelPlannerCondition(node);
     	List<ConstraintData> constraintData = ConstraintViolations.travelPlannerViolations;
     	testAnalysis(analysis, constraint, constraintData);
-    	var test = (AbstractStandalonePCMDataFlowConfidentialityAnalysis) analysis;
-    	var res = test.getResourceProvider().lookupElementWithId("_gdSegPVhEeuMKba1Qn68bg");
-    	System.out.println(res);
     }
     
     /**

@@ -77,7 +77,7 @@ public interface ResourceProvider {
 	 * @param resource Resource that should be searched
 	 * @return Returns the first entity, that fulfills the condition. If none are found, the method returns null
 	 */
-	private Optional<Entity> findInResource(Predicate<Entity> condition, Resource resource) {
+	private Optional<EObject> findInResource(Predicate<EObject> condition, Resource resource) {
 		if (resource == null) {
 			return Optional.empty();
 		}
@@ -112,9 +112,14 @@ public interface ResourceProvider {
 	 * @param id  Id of the objects that the lookup should return
 	 * @return Returns the object with the given id
 	 */
-	public default Optional<Entity> lookupElementWithId(String id) {
+	public default Optional<EObject> lookupElementWithId(String id) {
 		for (Resource resource : this.getResources()) {
-			Optional<Entity> result = this.findInResource(it -> it.getId().equals(id), resource);	
+			Optional<EObject> result = this.findInResource(it -> {
+				if (it instanceof Entity) {
+					return ((Entity) it).getId().equals(id);
+				}
+				return false;
+			}, resource);
             if (result.isPresent()) {
             	return result;
             }
@@ -130,9 +135,9 @@ public interface ResourceProvider {
 	 * @param condition Condition the element should satisfy
 	 * @return Returns the first element found that satisfies the given condition
 	 */
-	public default Optional<Entity> findElement(Predicate<Entity> condition) {
+	public default Optional<EObject> findElement(Predicate<EObject> condition) {
 		for (Resource resource : this.getResources()) {
-			Optional<Entity> result = this.findInResource(condition, resource);	
+			Optional<EObject> result = this.findInResource(condition, resource);	
             if (result.isPresent()) {
             	return result;
             }

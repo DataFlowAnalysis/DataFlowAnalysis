@@ -1,10 +1,17 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.resource;
 
+import java.util.ArrayDeque;
+import java.util.Collection;
+import java.util.Deque;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.repository.RepositoryPackage;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentPackage;
@@ -39,6 +46,12 @@ public interface ResourceProvider {
 	public <T extends EObject> List<T> lookupElementOfType(final EClass targetType);
 	
 	/**
+	 * Collects all loaded resources loaded by the resource provider
+	 * @return Returns a list of all loaded resources
+	 */
+	public Collection<Resource> getResources();
+	
+	/**
 	 * Determines, whether the resource loader has sufficient resources to run the analysis
 	 * @return This method returns true, if the analysis can be executed with the resource loader. Otherwise, the method returns false
 	 */
@@ -59,16 +72,71 @@ public interface ResourceProvider {
 	}
 	
 	/**
+	 * Finds an element that fulfills the given condition in a given resource
+	 * @param condition Condition the element should fulfill
+	 * @param resource Resource that should be searched
+	 * @return Returns the first entity, that fulfills the condition. If none are found, the method returns null
+	 */
+	private Optional<Entity> findInResource(Predicate<Entity> condition, Resource resource) {
+		if (resource == null) {
+			return Optional.empty();
+		}
+		
+		HashMap<EObject, Boolean> visitedNodes = new HashMap<>();
+		Deque<EObject> stack = new ArrayDeque<>();
+		stack.addAll(resource.getContents());
+		
+        while(!stack.isEmpty()) {
+        	EObject top = stack.pop();
+        	stack.addAll(top.eContents().stream()
+        			.filter(it -> !(visitedNodes.containsKey(it) && visitedNodes.get(it)))
+        			.collect(Collectors.toList()));
+
+    		if (visitedNodes.containsKey(top) && visitedNodes.get(top)) {
+    			continue;
+    		}
+    		if (!(top instanceof Entity)) {
+    			continue;
+    		}
+    		Entity entity = (Entity) top;
+    		if (condition.test(entity)) {
+    			return Optional.of(entity);
+    		}
+        	visitedNodes.put(top, true);
+        }
+        return Optional.empty();
+    }
+
+	/**
 	 * Looks up an ECore element with the given class type
 	 * @param id  Id of the objects that the lookup should return
 	 * @return Returns the object with the given id
 	 */
-	public EObject lookupElementWithId(String id);
+	public default Optional<Entity> lookupElementWithId(String id) {
+		for (Resource resource : this.getResources()) {
+			Optional<Entity> result = this.findInResource(it -> it.getId().equals(id), resource);	
+            if (result.isPresent()) {
+            	return result;
+            }
+        }
+		return Optional.empty();
+	}
 	
+
+
+	/**
 	/**
 	 * Finds an element that satisfies the given condition
 	 * @param condition Condition the element should satisfy
 	 * @return Returns the first element found that satisfies the given condition
 	 */
-	public Entity findElement(Predicate<Entity> condition);
+	public default Optional<Entity> findElement(Predicate<Entity> condition) {
+		for (Resource resource : this.getResources()) {
+			Optional<Entity> result = this.findInResource(condition, resource);	
+            if (result.isPresent()) {
+            	return result;
+            }
+        }
+		return Optional.empty();
+	}
 }

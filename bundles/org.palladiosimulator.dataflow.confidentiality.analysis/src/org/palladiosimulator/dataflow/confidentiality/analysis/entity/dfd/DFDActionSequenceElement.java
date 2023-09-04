@@ -2,16 +2,15 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd;
 
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
-import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.node.DFDCharacteristicsCalculator;
-import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.DataCharacteristicsCalculatorFactory;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 
 import mdpa.dfd.dataflowdiagram.Node;
 
-public class DFDActionSequenceElement extends AbstractActionSequenceElement{
+public class DFDActionSequenceElement extends AbstractActionSequenceElement<EObject>{
 	
 	String name;
 	Node node;
@@ -27,7 +26,7 @@ public class DFDActionSequenceElement extends AbstractActionSequenceElement{
 	}
 
 	@Override
-	public AbstractActionSequenceElement evaluateDataFlow(List variables, AnalysisData analysisData) {
+	public AbstractActionSequenceElement<EObject> evaluateDataFlow(List variables, AnalysisData analysisData) {
 		// TODO funktional leer lassen & Exception fürs Debugging
 		return null;
 	}
@@ -38,10 +37,6 @@ public class DFDActionSequenceElement extends AbstractActionSequenceElement{
 		return null;
 	}
 	
-	
-	public AbstractActionSequenceElement evaluateDataFlow(List variables, DFDCharacteristicsCalculator variableCharacteristicsCalculator) {
-		return null;
-	} //TODO: wieder weg?
 	
 	public Node getNode() {
         return node;

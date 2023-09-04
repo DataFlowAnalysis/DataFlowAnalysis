@@ -1,26 +1,80 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.dfd;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiatlity.analysis.dfd.DFDConfidentialityAnalysis;
 
 public class BaseTest {
-	private String pathToDFDModel = "F:\\EMF - Workspace\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\minimal.dataflowdiagram"; //TODO
-	private String pathToDataDictionaryModel = "F:\\EMF - Workspace\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\minimal.datadictionary"; //TODO
-	
-	// TODO: Nur zum Testen des gesamten Builds, kann wieder Kommentierung kann wieder entfernt werden.
-//	@Test
-//	public void initializeAnalysis_throwsNothing() {
-//		var analysis = new DFDConfidentialityAnalysis(pathToDFDModel, pathToDataDictionaryModel);
-//		analysis.initializeAnalysis();
-//	}
-//	
-//	@Test
-//	public void findAllSequences_throwsNothing() {
-//		var analysis = new DFDConfidentialityAnalysis(pathToDFDModel, pathToDataDictionaryModel);
-//		analysis.initializeAnalysis();
-//		analysis.findAllSequences();
-//	}
-	
-	
+	private static String pathToDFDModel = "F:\\EMF - Workspace\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\minimal.dataflowdiagram"; //TODO
+	private static String pathToDataDictionaryModel = "F:\\EMF - Workspace\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\minimal.datadictionary"; //TODO
+	private static List<ActionSequence> evaluatedSequences;
+	private static DFDConfidentialityAnalysis analysis;
 
+	@BeforeAll
+	public static void setUpAnalysis() {
+		analysis = new DFDConfidentialityAnalysis(pathToDFDModel, pathToDataDictionaryModel);
+		analysis.initializeAnalysis();
+		var sequences = analysis.findAllSequences();
+		evaluatedSequences = analysis.evaluateDataFlows(sequences);
+	}
+	
+	
+	@Test
+	public void initializeAnalysis_throwsNothing() {
+		var analysis = new DFDConfidentialityAnalysis(pathToDFDModel, pathToDataDictionaryModel);
+		analysis.initializeAnalysis();
+	}
+	
+	@Test
+	public void findAllSequences_throwsNothing() {
+		var analysis = new DFDConfidentialityAnalysis(pathToDFDModel, pathToDataDictionaryModel);
+		analysis.initializeAnalysis();
+		analysis.findAllSequences();
+	}
+	
+	
+	@Test
+	public void evaluateDataFlows_throwsNothing() {
+		var analysis = new DFDConfidentialityAnalysis(pathToDFDModel, pathToDataDictionaryModel);
+		analysis.initializeAnalysis();
+		var sequences = analysis.findAllSequences();
+		analysis.evaluateDataFlows(sequences);
+	}
+	
+	@Test
+	public void numberOfSequences_equalsTwo() {
+		assertEquals(evaluatedSequences.size(), 2);
+	}
+	
+	@Test
+	public void noNodeCharacteristics_returnsNoViolation() {
+		var results = analysis.queryDataFlow(evaluatedSequences.get(0), node -> {
+    			return node.getAllNodeCharacteristics().size() == 0;
+        });
+		assertTrue(results.isEmpty());
+	}
+	
+	@Test
+	public void noNodeCharacteristics_returnsViolations() {
+		var results = analysis.queryDataFlow(evaluatedSequences.get(0), node -> {
+    			return node.getAllNodeCharacteristics().size() != 0;
+        });
+		System.out.println(results.get(0).createPrintableNodeInformation());
+		assertTrue(!results.isEmpty());
+	}
+	
+	@Test
+	public void numberOfNodes_returnsNoViolation() {
+		var results = analysis.queryDataFlow(evaluatedSequences.get(0), node -> {
+    			return node.getAllNodeCharacteristics().size() == 0;
+        });
+		assertTrue(results.isEmpty());
+	}
+	
 }

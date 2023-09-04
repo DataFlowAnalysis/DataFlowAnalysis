@@ -2,6 +2,11 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentHashMap.KeySetView;
+import java.util.function.Predicate;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DFDCharacteristicValue;
@@ -9,9 +14,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.D
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDActionSequenceElement;
 
 import mdpa.dfd.datadictionary.AND;
-import mdpa.dfd.datadictionary.Behaviour;
 import mdpa.dfd.datadictionary.BinaryOperator;
-import mdpa.dfd.datadictionary.Label;
 import mdpa.dfd.datadictionary.LabelReference;
 import mdpa.dfd.datadictionary.LabelType;
 import mdpa.dfd.datadictionary.NOT;
@@ -25,7 +28,7 @@ public class DFDCharacteristicsCalculator {
 	
 	
 	public static DFDActionSequenceElement fillDataFlowVariables (DFDActionSequenceElement dfdActionSequenceElement) {
-		var dataFlowVariables = dfdActionSequenceElement.getAllDataFlowVariables();
+		List<DataFlowVariable> dataFlowVariables = new ArrayList<DataFlowVariable>(dfdActionSequenceElement.getAllDataFlowVariables());
 		for(var inputPin:  dfdActionSequenceElement.getNode().getBehaviour().getIn()) {
 			dataFlowVariables.add(new DataFlowVariable(inputPin.getEntityName(), evaluateAssignments(dfdActionSequenceElement.getPreviousNode(), inputPin)));
 		}
@@ -46,8 +49,13 @@ public class DFDCharacteristicsCalculator {
 			}
 			
 		}
-		
+		characteristics = characteristics.stream().filter(distinctByKey(CharacteristicValue::getValueId)).collect(Collectors.toList());
 		return characteristics;
+	}
+	
+	public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+	    KeySetView<Object, Boolean> seen = ConcurrentHashMap.newKeySet();
+	    return t -> seen.add(keyExtractor.apply(t));
 	}
 	
 	private static boolean evaluateTerm(Term term) {

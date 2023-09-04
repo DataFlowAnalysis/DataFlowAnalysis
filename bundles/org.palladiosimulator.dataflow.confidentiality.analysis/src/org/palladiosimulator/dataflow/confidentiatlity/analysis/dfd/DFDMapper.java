@@ -25,7 +25,7 @@ public class DFDMapper {
 	public static List<ActionSequence> findAllSequencesInDFD(DataFlowDiagram dfd, DataDictionary dataDictionary) { //TODO: hier noch auf die Pins überprüfen
 		Map<Node, List<Node>> graph = new HashMap<>();
 		for (var dataFlow: dfd.getFlows()) {
-			Node inputNode = dataFlow.getDestinationNode();
+			Node inputNode = dataFlow.getSourceNode();
             Node outputNode = dataFlow.getDestinationNode();
             graph.putIfAbsent(inputNode, new ArrayList<>());
             graph.get(inputNode).add(outputNode);

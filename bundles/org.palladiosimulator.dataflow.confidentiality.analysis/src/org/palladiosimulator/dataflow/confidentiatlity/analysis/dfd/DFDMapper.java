@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DFDCharacteristicValue;
@@ -18,29 +19,24 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.A
 import mdpa.dfd.datadictionary.DataDictionary;
 import mdpa.dfd.datadictionary.LabelType;
 import mdpa.dfd.dataflowdiagram.DataFlowDiagram;
+import mdpa.dfd.dataflowdiagram.Flow;
 import mdpa.dfd.dataflowdiagram.Node;
 
 public class DFDMapper {
 	
 	public static List<ActionSequence> findAllSequencesInDFD(DataFlowDiagram dfd, DataDictionary dataDictionary) { //TODO: hier noch auf die Pins überprüfen
-		Map<Node, List<Node>> graph = new HashMap<>();
-		for (var dataFlow: dfd.getFlows()) {
+        Set<Node> visited = new HashSet<>();
+        List<ActionSequence> strands = new ArrayList<>();
+        
+        var flows = dfd.getFlows();
+		for (var dataFlow: flows) {
 			Node inputNode = dataFlow.getSourceNode();
-            Node outputNode = dataFlow.getDestinationNode();
-            graph.putIfAbsent(inputNode, new ArrayList<>());
-            graph.get(inputNode).add(outputNode);
-		}
-		
-		List<ActionSequence> strands = new ArrayList<ActionSequence>();
-		Set<Node> visited = new HashSet<>();
-		
-		for (Node node : dfd.getNodes()) {
-            if (!visited.contains(node)) {
-                List<Node> currentStrand = new ArrayList<Node>();
-                depthFirstSearch(node, visited, currentStrand, graph);
+
+            if (!visited.contains(inputNode)) {
+                List<Node> currentStrand = depthFirstSearch(flows, inputNode, visited);
                 strands.add(convertNodeStrandToDFDActionSequence(currentStrand));
-            }
-        }
+            };
+		}
 		
 		return strands;
 	}
@@ -55,17 +51,35 @@ public class DFDMapper {
 		return new DFDActionSequence(actionSequence);
 	}
 	
-	private static void depthFirstSearch(Node node, Set<Node> visited, List<Node> currentStrand, Map<Node, List<Node>> graph) {
-        visited.add(node);
-        currentStrand.add(node);
-
-        List<Node> neighbors = graph.getOrDefault(node, new ArrayList<>());
-        for (Node neighbor : neighbors) {
-            if (!visited.contains(neighbor)) {
-                depthFirstSearch(neighbor, visited, currentStrand, graph);
-            }
-        }
-    }
+	   private static List<Node> depthFirstSearch(List<Flow> flows, Node start, Set<Node> visited) {
+	        Stack<Node> stack = new Stack<>();
+	        List<Node> visitedNodesInStrand = new ArrayList<Node>();
+	        List<Node> currentStrand = new ArrayList<Node>();
+	        
+	        stack.push(start);
+	        visited.add(start);
+	        visitedNodesInStrand.add(start);
+	        currentStrand.add(start);
+	        
+	        while (!stack.isEmpty()) {
+	            Node currentNode = stack.pop();
+	            
+	            for (Flow flow : flows) {
+	                if (flow.getSourceNode() == currentNode) {
+	                    Node neighbour = flow.getDestinationNode();
+	                    
+	                    if (!visited.contains(neighbour)) {
+	                        stack.push(neighbour);
+	                        visited.add(neighbour);
+	                        visitedNodesInStrand.add(neighbour);
+	                        currentStrand.add(neighbour);
+	                    }
+	                }
+	            }
+	        }
+	        
+	        return currentStrand;
+	    }
 	
 	private static DFDActionSequenceElement convertNodeToDFDActionSequenceElement(Node node, Node previousNode) {
 		List<DataFlowVariable> dataFlowVariables = new ArrayList<DataFlowVariable>();

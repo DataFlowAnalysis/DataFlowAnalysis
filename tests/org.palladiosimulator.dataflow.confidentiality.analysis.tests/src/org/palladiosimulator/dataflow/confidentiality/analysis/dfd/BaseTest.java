@@ -12,9 +12,12 @@ import org.palladiosimulator.dataflow.confidentiatlity.analysis.dfd.DFDConfident
 
 public class BaseTest {
 	private static String pathToDFDModel = "F:\\EMF - Workspace\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\minimal.dataflowdiagram"; //TODO
-	private static String pathToDataDictionaryModel = "F:\\EMF - Workspace\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\minimal.datadictionary"; //TODO
+	private static String pathToDataDictionaryModel = "F:\\EMF - Workspace\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\MinimalDataDictonairy.datadictionary"; //TODO
+	private static String pathToStrandsDFDModel = "F:\\EMF - Workspace\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\DifferentStrands.dataflowdiagram";
 	private static List<ActionSequence> evaluatedSequences;
 	private static DFDConfidentialityAnalysis analysis;
+	private static DFDConfidentialityAnalysis strandAnalysis;
+	private static List<ActionSequence> evaluatedStrandSequences;
 
 	@BeforeAll
 	public static void setUpAnalysis() {
@@ -22,6 +25,11 @@ public class BaseTest {
 		analysis.initializeAnalysis();
 		var sequences = analysis.findAllSequences();
 		evaluatedSequences = analysis.evaluateDataFlows(sequences);
+		
+		strandAnalysis = new DFDConfidentialityAnalysis(pathToStrandsDFDModel, pathToDataDictionaryModel);
+		strandAnalysis.initializeAnalysis();
+		var strandSequences = strandAnalysis.findAllSequences();
+		evaluatedStrandSequences = strandAnalysis.evaluateDataFlows(strandSequences);
 	}
 	
 	
@@ -50,6 +58,11 @@ public class BaseTest {
 	@Test
 	public void numberOfSequences_equalsTwo() {
 		assertEquals(evaluatedSequences.size(), 2);
+	}
+	
+	@Test
+	public void numberOfStrandSequences_equalsThree() {
+		assertEquals(evaluatedStrandSequences.size(), 3);
 	}
 	
 	@Test

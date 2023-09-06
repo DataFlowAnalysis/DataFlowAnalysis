@@ -70,62 +70,13 @@ public interface ResourceProvider {
 		}
 		return true;
 	}
-	
-	/**
-	 * Finds an element that fulfills the given condition in a given resource
-	 * @param condition Condition the element should fulfill
-	 * @param resource Resource that should be searched
-	 * @return Returns the first entity, that fulfills the condition. If none are found, the method returns null
-	 */
-	private Optional<EObject> findInResource(Predicate<EObject> condition, Resource resource) {
-		if (resource == null) {
-			return Optional.empty();
-		}
-		
-		HashMap<EObject, Boolean> visitedNodes = new HashMap<>();
-		Deque<EObject> stack = new ArrayDeque<>();
-		stack.addAll(resource.getContents());
-		
-        while(!stack.isEmpty()) {
-        	EObject top = stack.pop();
-        	stack.addAll(top.eContents().stream()
-        			.filter(it -> !(visitedNodes.containsKey(it) && visitedNodes.get(it)))
-        			.collect(Collectors.toList()));
-
-    		if (visitedNodes.containsKey(top) && visitedNodes.get(top)) {
-    			continue;
-    		}
-    		if (!(top instanceof Entity)) {
-    			continue;
-    		}
-    		Entity entity = (Entity) top;
-    		if (condition.test(entity)) {
-    			return Optional.of(entity);
-    		}
-        	visitedNodes.put(top, true);
-        }
-        return Optional.empty();
-    }
 
 	/**
 	 * Looks up an ECore element with the given class type
 	 * @param id  Id of the objects that the lookup should return
 	 * @return Returns the object with the given id
 	 */
-	public default Optional<EObject> lookupElementWithId(String id) {
-		for (Resource resource : this.getResources()) {
-			Optional<EObject> result = this.findInResource(it -> {
-				if (it instanceof Entity) {
-					return ((Entity) it).getId().equals(id);
-				}
-				return false;
-			}, resource);
-            if (result.isPresent()) {
-            	return result;
-            }
-        }
-		return Optional.empty();
-	}
+	public Optional<EObject> lookupElementWithId(String id);
 	
 
 
@@ -135,13 +86,5 @@ public interface ResourceProvider {
 	 * @param condition Condition the element should satisfy
 	 * @return Returns the first element found that satisfies the given condition
 	 */
-	public default Optional<EObject> findElement(Predicate<EObject> condition) {
-		for (Resource resource : this.getResources()) {
-			Optional<EObject> result = this.findInResource(condition, resource);	
-            if (result.isPresent()) {
-            	return result;
-            }
-        }
-		return Optional.empty();
-	}
+	public Optional<EObject> findElement(Predicate<EObject> condition);
 }

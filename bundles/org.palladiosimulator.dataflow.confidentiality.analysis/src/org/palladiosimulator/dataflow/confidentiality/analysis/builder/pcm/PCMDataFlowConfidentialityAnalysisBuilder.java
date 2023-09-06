@@ -1,9 +1,6 @@
-	package org.palladiosimulator.dataflow.confidentiality.analysis.builder.pcm;
-
-import java.util.List;
+package org.palladiosimulator.dataflow.confidentiality.analysis.builder.pcm;
 
 import org.eclipse.core.runtime.Plugin;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AbstractDataFlowAnalysisBuilder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisBuilderData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.core.AbstractStandalonePCMDataFlowConfidentialityAnalysis;
@@ -63,26 +60,6 @@ extends AbstractDataFlowAnalysisBuilder<AbstractStandalonePCMDataFlowConfidentia
 	 */
 	public PCMDataFlowConfidentialityAnalysisBuilder useNodeCharacteristicsModel(String relativeNodeCharacteristicsModelPath) {
 		this.builderData.setRelativeNodeCharacteristicsPath(relativeNodeCharacteristicsModelPath);
-		return this;
-	}
-	
-	/**
-	 * Uses the given resource to load the model contents
-	 * @param resource Resource containing model contents
-	 * @return Returns builder object of the analysis
-	 */
-	public PCMDataFlowConfidentialityAnalysisBuilder useResource(Resource resource) {
-		this.builderData.addResource(resource);
-		return this;
-	}
-	
-	/**
-	 * Uses the given resources to load the model contents
-	 * @param resources Resources containing model contents
-	 * @return Returns builder object of the analysis
-	 */
-	public PCMDataFlowConfidentialityAnalysisBuilder useResources(List<Resource> resources) {
-		resources.forEach(it ->	this.builderData.addResource(it));
 		return this;
 	}
 	

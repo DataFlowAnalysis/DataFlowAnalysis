@@ -1,19 +1,15 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.builder.pcm;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisBuilderData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.node.LegacyPCMNodeCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.node.PCMNodeCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.PCMDataCharacteristicsCalculatorFactory;
-import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMResourceListProvider;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.PCMURIResourceProvider;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceProvider;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMResourceUtils;
@@ -25,7 +21,6 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	private String relativeUsageModelPath;
 	private String relativeAllocationModelPath;
 	private String relativeNodeCharacteristicsPath;
-	private List<Resource> resources = new ArrayList<>();
 	private boolean legacy;
 	
 	/**
@@ -36,25 +31,17 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 		if (this.getPluginActivator() == null) {
 			throw new IllegalStateException("A plugin activator is required");
 		}
-		if (this.resources.isEmpty() && this.getRelativeUsageModelPath().isEmpty()) {
+		if (this.getRelativeUsageModelPath().isEmpty()) {
 			throw new IllegalStateException("A path to a usage model is required");
 		}
-		if (this.resources.isEmpty() && this.getRelativeAllocationModelPath().isEmpty()) {
+		if (this.getRelativeAllocationModelPath().isEmpty()) {
 			throw new IllegalStateException("A path to an allocation model is required");
 		}
 		if (this.isLegacy()) {
 			logger.info("Using legacy EMF Profiles for Node Characteristic application");
 		}
-		if (!this.isLegacy() && this.resources.isEmpty() && this.getRelativeNodeCharacteristicsPath().isEmpty()) {
+		if (!this.isLegacy() && this.getRelativeNodeCharacteristicsPath().isEmpty()) {
 			logger.warn("Using new node characteristic model without specifying path to the assignment model. No node characteristics will be applied!");
-		}
-
-		if(!this.resources.isEmpty()) {
-			ResourceProvider testLoader = new PCMResourceListProvider(this.resources);
-			testLoader.loadRequiredResources();
-			if (!testLoader.sufficientResourcesLoaded()) {
-				throw new IllegalStateException("Not enough resources were provided to the analysis");
-			}
 		}
 	}
 	
@@ -64,27 +51,13 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	 * @return Returns a new data object for the analysis
 	 */
 	public AnalysisData createAnalysisData() {
-		ResourceProvider resourceLoader = null;
-		if (!this.resources.isEmpty()) {
-			resourceLoader = new PCMResourceListProvider(this.resources);
-		}
+		ResourceProvider resourceProvider;
 		if (this.isLegacy()) {
-			if (this.resources.isEmpty()) {
-				resourceLoader = new PCMURIResourceProvider(PCMResourceUtils.createRelativePluginURI(relativeUsageModelPath, modelProjectName), 
-						PCMResourceUtils.createRelativePluginURI(relativeAllocationModelPath, modelProjectName), Optional.empty());
-			}
-			return new AnalysisData(resourceLoader, 
-					new LegacyPCMNodeCharacteristicsCalculator(resourceLoader), new PCMDataCharacteristicsCalculatorFactory(resourceLoader));
+			resourceProvider = this.getURIResourceProvider(Optional.empty());
+			return new AnalysisData(resourceProvider, new LegacyPCMNodeCharacteristicsCalculator(resourceProvider), new PCMDataCharacteristicsCalculatorFactory(resourceProvider));
 		} else {
-			if (this.resources.isEmpty()) {
-				resourceLoader = 
-						this.getURIResourceProvider(Optional.of(PCMResourceUtils.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName)));
-				resourceLoader = new PCMURIResourceProvider(PCMResourceUtils.createRelativePluginURI(relativeUsageModelPath, modelProjectName), 
-						PCMResourceUtils.createRelativePluginURI(relativeAllocationModelPath, modelProjectName), 
-						Optional.of(PCMResourceUtils.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName)));
-			}
-			return new AnalysisData(resourceLoader, 
-					new PCMNodeCharacteristicsCalculator(resourceLoader), new PCMDataCharacteristicsCalculatorFactory(resourceLoader));
+			resourceProvider = this.getURIResourceProvider(Optional.of(PCMResourceUtils.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName)));
+			return new AnalysisData(resourceProvider, new PCMNodeCharacteristicsCalculator(resourceProvider), new PCMDataCharacteristicsCalculatorFactory(resourceProvider));
 		}
 	}
 	
@@ -176,21 +149,5 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	 */
 	public String getRelativeNodeCharacteristicsPath() {
 		return relativeNodeCharacteristicsPath;
-	}
-	
-	/**
-	 * Adds the given resource to the list of saved resources that are used in the analysis
-	 * @param resource Resource that should be added to the loaded resources
-	 */
-	public void addResource(Resource resource) {
-		this.resources.add(resource);
-	}
-	
-	/**
-	 * Returns the list of saved resources that are used in the analysis
-	 * @return Returns a list of resources that were registered
-	 */
-	public List<Resource> getResources() {
-		return resources;
 	}
 }

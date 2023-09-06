@@ -1,13 +1,9 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.resource;
 
-import java.util.ArrayDeque;
 import java.util.Collection;
-import java.util.Deque;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -16,7 +12,6 @@ import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.repository.RepositoryPackage;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentPackage;
 import org.palladiosimulator.pcm.system.SystemPackage;
-import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 
 public interface ResourceProvider {

@@ -6,6 +6,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisB
 import org.palladiosimulator.dataflow.confidentiality.analysis.core.AbstractStandalonePCMDataFlowConfidentialityAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.core.LegacyStandalonePCMDataFlowConfidentialityAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.core.StandalonePCMDataFlowConfidentialityAnalysis;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceProvider;
 
 public class PCMDataFlowConfidentialityAnalysisBuilder 
 extends AbstractDataFlowAnalysisBuilder<AbstractStandalonePCMDataFlowConfidentialityAnalysis, PCMAnalysisBuilderData, AnalysisBuilderData> {
@@ -60,6 +61,16 @@ extends AbstractDataFlowAnalysisBuilder<AbstractStandalonePCMDataFlowConfidentia
 	 */
 	public PCMDataFlowConfidentialityAnalysisBuilder useNodeCharacteristicsModel(String relativeNodeCharacteristicsModelPath) {
 		this.builderData.setRelativeNodeCharacteristicsPath(relativeNodeCharacteristicsModelPath);
+		return this;
+	}
+	
+	/**
+	 * Uses a new path for node characteristics
+	 * @param relativeNodeCharacteristicsModelPath Relative path to the node characteristics model
+	 * @return Returns builder object of the analysis
+	 */
+	public PCMDataFlowConfidentialityAnalysisBuilder useCustomResourceProvider(ResourceProvider resourceProvider) {
+		this.builderData.setCustomResourceProvider(resourceProvider);
 		return this;
 	}
 	

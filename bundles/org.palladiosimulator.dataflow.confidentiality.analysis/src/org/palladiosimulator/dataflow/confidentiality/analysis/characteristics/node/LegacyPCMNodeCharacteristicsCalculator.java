@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
-import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceProvider;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
@@ -30,9 +30,9 @@ import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 public class LegacyPCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalculator {
 	private final Logger logger = Logger.getLogger(LegacyPCMNodeCharacteristicsCalculator.class);
-	private ResourceLoader resourceLoader;
+	private ResourceProvider resourceLoader;
 	
-	public LegacyPCMNodeCharacteristicsCalculator(ResourceLoader resourceLoader) {
+	public LegacyPCMNodeCharacteristicsCalculator(ResourceProvider resourceLoader) {
 		this.resourceLoader = resourceLoader;
 	}
     

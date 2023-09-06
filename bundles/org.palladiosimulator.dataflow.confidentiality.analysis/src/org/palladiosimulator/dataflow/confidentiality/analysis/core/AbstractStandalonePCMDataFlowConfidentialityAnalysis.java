@@ -20,6 +20,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.PCMAct
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.DatabaseActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceProvider;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.ActionSequenceFinder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMActionSequenceFinder;
 import org.palladiosimulator.dataflow.confidentiality.pcm.dddsl.DDDslStandaloneSetup;
@@ -64,7 +65,7 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
 
 	@Override
 	public List<ActionSequence> findAllSequences() {
-		ActionSequenceFinder sequenceFinder = new PCMActionSequenceFinder(this.analysisData.getResourceLoader().getUsageModel());
+		ActionSequenceFinder sequenceFinder = new PCMActionSequenceFinder(this.analysisData.getResourceProvider().getUsageModel());
         return sequenceFinder.findAllSequences().parallelStream()
         		.map(ActionSequence.class::cast)
         		.collect(Collectors.toList());
@@ -127,6 +128,15 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
         	.setLevel(level);
 		Logger.getLogger(AbstractCleaningLinker.class)
         	.setLevel(level);
+	}
+	
+	/**
+	 * Returns the resource provider of the analysis.
+	 * The resource provider may be used to access the loaded PCM model of the analysis.
+	 * @return Resource provider of the analysis
+	 */
+	public ResourceProvider getResourceProvider() {
+		return this.analysisData.getResourceProvider();
 	}
 	
 	/**
@@ -200,9 +210,9 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
      */
     private boolean loadRequiredModels() {
         try {
-        	this.analysisData.getResourceLoader().loadRequiredResources();
+        	this.analysisData.getResourceProvider().loadRequiredResources();
 
-            this.dataDictionaries = this.analysisData.getResourceLoader()
+            this.dataDictionaries = this.analysisData.getResourceProvider()
                 .lookupElementOfType(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
                 .stream()
                 .filter(PCMDataDictionary.class::isInstance)

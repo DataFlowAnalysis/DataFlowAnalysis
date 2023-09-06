@@ -3,6 +3,7 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.core;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Plugin;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceProvider;
 
 public class StandalonePCMDataFlowConfidentialityAnalysis extends AbstractStandalonePCMDataFlowConfidentialityAnalysis {
 
@@ -25,5 +26,4 @@ public class StandalonePCMDataFlowConfidentialityAnalysis extends AbstractStanda
 	public boolean setupAnalysis() {
 		return true;
 	}
-
 }

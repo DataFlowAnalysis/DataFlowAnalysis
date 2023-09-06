@@ -9,7 +9,7 @@ import java.util.Comparator;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
-import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceProvider;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.DictionaryPackage;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.PCMDataDictionary;
@@ -28,7 +28,7 @@ import de.uka.ipd.sdq.stoex.AbstractNamedReference;
 
 public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalculator {
     private final List<DataFlowVariable> currentVariables;
-    private final ResourceLoader resourceLoader;
+    private final ResourceProvider resourceLoader;
 
     /**
      * Initialize Data characteristics Calculator with initial variables.
@@ -43,7 +43,7 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
      */
     public PCMDataCharacteristicsCalculator(List<DataFlowVariable> initialVariables, 
     		List<CharacteristicValue> nodeCharacteristics,
-    		ResourceLoader resourceLoader) {
+    		ResourceProvider resourceLoader) {
         this.currentVariables = new ArrayList<>(initialVariables);
         this.resourceLoader = resourceLoader;
         createNodeCharacteristicsContainer(nodeCharacteristics);

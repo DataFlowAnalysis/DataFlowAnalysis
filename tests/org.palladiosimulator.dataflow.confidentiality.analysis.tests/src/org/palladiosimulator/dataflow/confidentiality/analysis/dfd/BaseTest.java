@@ -23,6 +23,7 @@ public class BaseTest {
 	public static void setUpAnalysis() {
 		analysis = new DFDConfidentialityAnalysis(pathToDFDModel, pathToDataDictionaryModel);
 		analysis.initializeAnalysis();
+
 		var sequences = analysis.findAllSequences();
 		evaluatedSequences = analysis.evaluateDataFlows(sequences);
 		

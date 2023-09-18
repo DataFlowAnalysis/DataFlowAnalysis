@@ -15,13 +15,13 @@ public class DFDActionSequence extends ActionSequence implements Comparable<DFDA
 
 	@Override
 	public int compareTo(DFDActionSequence o) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub -> is this needed?
 		return 0;
 	}
 
 	@Override
 	public ActionSequence evaluateDataFlow(AnalysisData analysisData) {
-		// TODO Auto-generated method stub
+		// analysisData has dependencies too Palladio
 		return null;
 	}
 

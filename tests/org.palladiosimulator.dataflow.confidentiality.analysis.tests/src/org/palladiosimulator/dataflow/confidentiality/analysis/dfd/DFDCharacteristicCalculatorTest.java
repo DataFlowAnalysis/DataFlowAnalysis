@@ -16,8 +16,8 @@ import mdpa.dfd.datadictionary.impl.datadictionaryFactoryImpl;
 
 public class DFDCharacteristicCalculatorTest {
 
-	private static String pathToDataDictionaryModel = "F:\\EMF - Workspace\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\MinimalDataDictonairy.datadictionary"; //TODO
-	private static String pathToStrandsDFDModel = "F:\\EMF - Workspace\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\DifferentStrands.dataflowdiagram";
+	private static String pathToDataDictionaryModel = "Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\MinimalDataDictonairy.datadictionary";
+	private static String pathToStrandsDFDModel = "Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\DifferentStrands.dataflowdiagram";
 	private static DFDConfidentialityAnalysis analysis;
 	private static List<ActionSequence> sequences;
 	private static DataFlowVariable dataFlowVariable;

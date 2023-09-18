@@ -18,7 +18,7 @@ public class DFDActionSequenceElement extends AbstractActionSequenceElement<EObj
 
 	public DFDActionSequenceElement(List<DataFlowVariable> dataFlowVariables,
 			List<CharacteristicValue> nodeCharacteristics, String name, Node node, Node previousNode) {
-		super(dataFlowVariables, nodeCharacteristics); //ausgewertet wird erst unten DataFlowVariable kann hier leer sein
+		super(dataFlowVariables, nodeCharacteristics);
 		// TODO Auto-generated constructor stub
 		this.name = name;
 		this.node = node;
@@ -27,7 +27,7 @@ public class DFDActionSequenceElement extends AbstractActionSequenceElement<EObj
 
 	@Override
 	public AbstractActionSequenceElement<EObject> evaluateDataFlow(List variables, AnalysisData analysisData) {
-		// TODO funktional leer lassen & Exception fürs Debugging
+		// empty because hard dependencies to palladio
 		return null;
 	}
 

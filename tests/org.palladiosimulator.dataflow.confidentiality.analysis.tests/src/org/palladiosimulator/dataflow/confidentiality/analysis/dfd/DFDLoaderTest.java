@@ -1,8 +1,5 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.dfd;
 
-import mdpa.dfd.datadictionary.DataDictionary;
-import mdpa.dfd.dataflowdiagram.DataFlowDiagram;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;

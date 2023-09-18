@@ -43,7 +43,7 @@ public class DFDCharacteristicsCalculator {
 			if(assignment.getOutputPin().getId().equals(inputPin.getId())) {
 				if(evaluateTerm(assignment.getTerm())) {
 					for (var label : assignment.getOutputLabels()) {
-						characteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label)); //TODO:soll nicht doppelt reinkommen
+						characteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label));
 					}
 				}
 			}

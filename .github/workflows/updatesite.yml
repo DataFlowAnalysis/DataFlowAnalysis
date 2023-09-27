@@ -30,20 +30,20 @@ jobs:
       - name: Build and Verify
         run: mvn clean verify
       - name: Publish Nightly Update Site
-        if: github.event_name != 'release' && github.ref == 'refs/heads/main' && github.repository_owner == 'Model-Based-Data-Protection-Assessments'
+        if: github.event_name != 'release' && github.ref == 'refs/heads/main' && github.repository_owner == 'DataFlowAnalysis'
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.UPDATE_SITE_DEPLOY_KEY }}
-          external_repository: Model-Based-Data-Protection-Assessments/updatesite
+          external_repository: DataFlowAnalysis/updatesite
           destination_dir: nightly/dfd-metamodel/
           publish_dir: releng/mdpa.dfd.updatesite/target/repository
           publish_branch: main
       - name: Publish Release Update Site
-        if: github.event_name == 'release' && github.repository_owner == 'Model-Based-Data-Protection-Assessments'
+        if: github.event_name == 'release' && github.repository_owner == 'DataFlowAnalysis'
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.UPDATE_SITE_DEPLOY_KEY }}
-          external_repository: Model-Based-Data-Protection-Assessments/updatesite
+          external_repository: DataFlowAnalysis/updatesite
           destination_dir: release/dfd-metamodel/${{ github.event.release.tag_name }}
           publish_dir: releng/mdpa.dfd.updatesite/target/repository
           publish_branch: main

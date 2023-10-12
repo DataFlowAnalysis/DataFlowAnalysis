@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.palladiosimulator.dataflow.confidentiality.analysis.product.feature"
+      label="DataFlowAnalysis Feature"
+      version="1.0.0.qualifier"
+      plugin="org.palladiosimulator.branding"
+      license-feature="org.palladiosimulator.license.epl2"
+      license-feature-version="1.0.0">
+
+   <description url="http://dataflowanalysis.org">
+      This is the DataFlowAnalysis Bench
+   </description>
+
+   <copyright url="%copyrightURL">
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <requires>
+      <import feature="org.palladiosimulator.editors.commons.feature" version="5.1.0" match="equivalent"/>
+      <import feature="org.palladiosimulator.editors.sirius.feature" version="5.1.0" match="equivalent"/>
+      <import feature="org.palladiosimulator.editors.tree.feature" version="5.1.0" match="equivalent"/>
+      <import feature="org.palladiosimulator.edp2.feature" version="5.1.0" match="equivalent"/>
+      <import feature="org.palladiosimulator.edp2.ui.feature" version="5.1.0" match="equivalent"/>
+      <import feature="org.palladiosimulator.pcm.feature" version="5.1.0" match="equivalent"/>
+      <import feature="org.palladiosimulator.branding.feature"/>
+      <import feature="org.eclipse.jdt" version="3.18.0" match="compatible"/>
+      <import feature="org.eclipse.platform" version="4.20.0" match="compatible"/>
+      <import feature="org.palladiosimulator.dataflow.confidentiality.analysis" version="0.1.0.qualifier"/>
+      <import feature="org.palladiosimulator.dataflow.confidentiality.pcm.analysis.feature" version="0.1.0.qualifier"/>
+      <import feature="org.eclipse.equinox.p2.core.feature" version="1.6.1700.v20230120-0604" match="compatible"/>
+      <import feature="org.eclipse.equinox.p2.user.ui" version="2.4.1900.v20230120-0604" match="compatible"/>
+      <import feature="org.eclipse.sdk" version="4.27.0.v20230302-0300" match="compatible"/>
+      <import feature="org.eclipse.ocl.all" version="5.18.0.v20221201-0557" match="compatible"/>
+   </requires>
+
+</feature>

@@ -18,6 +18,8 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDAct
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
 
+import mdpa.dfd.datadictionary.*;
+import mdpa.dfd.datadictionary.Behaviour;
 import mdpa.dfd.datadictionary.DataDictionary;
 import mdpa.dfd.datadictionary.LabelType;
 import mdpa.dfd.dataflowdiagram.DataFlowDiagram;
@@ -26,30 +28,31 @@ import mdpa.dfd.dataflowdiagram.Node;
 
 public class DFDMapper {
 
+	
 	public static List<ActionSequence> findAllSequencesInDFD(DataFlowDiagram dfd, DataDictionary dataDictionary) { // TODO:
-																													// hier
-																													// noch
-																													// auf
-																													// die
-																													// Pins
-																													// überprüfen
-		List<List<Node>> strands = new ArrayList<>();
-		List<ActionSequence> sequences = new ArrayList<>();
-		var flows = dfd.getFlows();
-		Map<Node, ArrayList<Node>> mapOfOutgoingEdges = getMapOfOutgoingEdges(flows);
-		var startNodesOfNonConnectedGraphs = getStartNodes(flows);
-
-		for (var startNode : startNodesOfNonConnectedGraphs) {
-			List<Node> currentStrand = new ArrayList<Node>();
-			strands.addAll(findStrand(currentStrand, startNode, mapOfOutgoingEdges));
+		 List<ActionSequence> sequences = new ArrayList<>();
+		for (AbstractAssignment assigment : getAllAssignments(dataDictionary)) {
+			List<Flow> inputFlows = new ArrayList<>();
+			for (Flow flow: dfd.getFlows()) {
+				if (assigment.getInputPins().stream().map(p -> p.getId()).toList().contains(flow.getDestinationPin().getId())) {
+					inputFlows.add(flow);
+				}
+			}
+			List<Node> previousNodes = new ArrayList<>();
+			for (Flow flow : inputFlows) {
+				previousNodes.add(flow.getSourceNode());
+			}
+			List<CharacteristicValue> nodeCharacteristics = new ArrayList<>();			
+			Node node = findNodeFromAssignment(assigment, inputFlows, dfd);
+			nodeCharacteristics.addAll(node.getProperties().stream().map(label -> new DFDCharacteristicValue((LabelType) label.eContainer(), label)).toList());
+			DFDActionSequenceElement element = new DFDActionSequenceElement(new ArrayList<DataFlowVariable>(), nodeCharacteristics, node.getEntityName(), node, previousNodes, assigment, inputFlows);
+			List<AbstractActionSequenceElement<?>> actionSequence = new ArrayList<AbstractActionSequenceElement<?>>();
+			actionSequence.add(element);
+			sequences.add(new DFDActionSequence(actionSequence));
 		}
 		
-		for (var strand : strands) {
-			sequences.add(convertNodeStrandToDFDActionSequence(strand));
-		}
-
 		return sequences;
-	}
+		}
 	
 	private static Map<Node, ArrayList<Node>> getMapOfOutgoingEdges(List<Flow> flows) {
 		 Map<Node, ArrayList<Node>> outgoingEdges = new HashMap();
@@ -67,6 +70,24 @@ public class DFDMapper {
 	        }
 		 
 		 return outgoingEdges;
+	}
+	
+	private static Node findNodeFromAssignment(AbstractAssignment assignemnt, List<Flow> flows, DataFlowDiagram dfd) {
+		if (flows.size() > 0) {
+			return flows.get(0).getDestinationNode();
+		}
+		for (Node node : dfd.getNodes()) {
+			if (node.getBehaviour().getAssignment().stream().map(n -> n.getId()).toList().contains(assignemnt.getId())) return node;
+		}
+		return null;
+	}
+	
+	private static List<AbstractAssignment> getAllAssignments(DataDictionary dataDictionary) {
+		List<AbstractAssignment> assignments = new ArrayList<>();
+		for (Behaviour behaviour : dataDictionary.getBehaviour()) {
+			assignments.addAll(behaviour.getAssignment());
+		}		
+		return assignments;
 	}
 	
 	private static List<Node> getStartNodes(List<Flow> flows) {
@@ -128,7 +149,7 @@ public class DFDMapper {
 		}
 
 		return new DFDActionSequenceElement(dataFlowVariables, nodeCharacteristics, node.getEntityName(), node,
-				previousNode);
+				null, null, null);
 
 	}
 

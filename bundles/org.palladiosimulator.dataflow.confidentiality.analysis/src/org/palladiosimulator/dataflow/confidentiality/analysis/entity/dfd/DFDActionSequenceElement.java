@@ -8,21 +8,26 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.C
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 
-import mdpa.dfd.dataflowdiagram.Node;
+import mdpa.dfd.dataflowdiagram.*;
+import mdpa.dfd.datadictionary.*;
 
 public class DFDActionSequenceElement extends AbstractActionSequenceElement<EObject>{
 	
 	String name;
 	Node node;
-	Node previousNode;
+	List<Node> previousNodes;
+	AbstractAssignment assignment;
+	List<Flow> flows;
 
 	public DFDActionSequenceElement(List<DataFlowVariable> dataFlowVariables,
-			List<CharacteristicValue> nodeCharacteristics, String name, Node node, Node previousNode) {
+			List<CharacteristicValue> nodeCharacteristics, String name, Node node, List<Node> previousNodes, AbstractAssignment assigment, List<Flow> flows) {
 		super(dataFlowVariables, nodeCharacteristics); //ausgewertet wird erst unten DataFlowVariable kann hier leer sein
 		// TODO Auto-generated constructor stub
 		this.name = name;
 		this.node = node;
-		this.previousNode = previousNode;
+		this.previousNodes = previousNodes;
+		this.assignment = assigment;
+		this.flows = flows;
 	}
 
 	@Override
@@ -46,13 +51,21 @@ public class DFDActionSequenceElement extends AbstractActionSequenceElement<EObj
         this.node = node;
     }
 
-    public Node getPreviousNode() {
-        return previousNode;
+    public List<Node> getPreviousNodes() {
+        return previousNodes;
     }
 
-    public void setPreviousNode(Node previousNode) {
-        this.previousNode = previousNode;
+    public void setPreviousNode(List<Node> previousNodes) {
+        this.previousNodes = previousNodes;
     }
+
+	public AbstractAssignment getAssignment() {
+		return assignment;
+	}
+
+	public List<Flow> getFlows() {
+		return flows;
+	}
 	
-
+    
 }

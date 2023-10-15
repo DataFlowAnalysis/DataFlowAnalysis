@@ -4,16 +4,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DFDCharacteristicValue;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiatlity.analysis.dfd.DFDConfidentialityAnalysis;
 
 public class BaseTest {
-	private static String pathToDFDModel = "F:\\EMF - Workspace\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\minimal.dataflowdiagram"; //TODO
-	private static String pathToDataDictionaryModel = "F:\\EMF - Workspace\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\MinimalDataDictonairy.datadictionary"; //TODO
-	private static String pathToStrandsDFDModel = "F:\\EMF - Workspace\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\DifferentStrands.dataflowdiagram";
+	private static String pathToDFDModel = "C:\\Users\\Huell\\runtime-EclipseApplication\\Test\\ABAC.dataflowdiagram"; //TODO
+	private static String pathToDataDictionaryModel = "C:\\Users\\Huell\\runtime-EclipseApplication\\Test\\ABAC.datadictionary"; //TODO
+	private static String pathToStrandsDFDModel = "C:\\Users\\Huell\\Documents\\Studium\\HIWI\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\DifferentStrands.dataflowdiagram";
 	private static List<ActionSequence> evaluatedSequences;
 	private static DFDConfidentialityAnalysis analysis;
 	private static DFDConfidentialityAnalysis strandAnalysis;
@@ -29,8 +33,8 @@ public class BaseTest {
 		
 		strandAnalysis = new DFDConfidentialityAnalysis(pathToStrandsDFDModel, pathToDataDictionaryModel);
 		strandAnalysis.initializeAnalysis();
-		var strandSequences = strandAnalysis.findAllSequences();
-		evaluatedStrandSequences = strandAnalysis.evaluateDataFlows(strandSequences);
+		//var strandSequences = strandAnalysis.findAllSequences();
+		//evaluatedStrandSequences = strandAnalysis.evaluateDataFlows(strandSequences);
 	}
 	
 	
@@ -68,9 +72,22 @@ public class BaseTest {
 	
 	@Test
 	public void noNodeCharacteristics_returnsNoViolation() {
-		var results = analysis.queryDataFlow(evaluatedSequences.get(0), node -> {
-    			return node.getAllNodeCharacteristics().size() == 0;
-        });
+		List<AbstractActionSequenceElement<?>> results = new ArrayList<>();
+		evaluatedSequences.stream().forEach(s-> results.addAll(analysis.queryDataFlow(s, node -> {
+    			var cha = node.getAllNodeCharacteristics();
+    			var variab = node.getAllDataFlowVariables().stream().map(v -> v.getAllCharacteristics()).flatMap(x -> x.stream()).collect(Collectors.toList());
+    			
+    			for (var val : cha) {
+    				
+    				if (val.getValueName().equals("Clerk")) {
+    					for (var t : variab) {
+    						System.out.println(variab);
+    						if (t.getValueName().equals("Regular")) return true;
+    					}
+    				}
+    			}
+    			return false;
+        })));
 		assertTrue(results.isEmpty());
 	}
 	
@@ -79,7 +96,6 @@ public class BaseTest {
 		var results = analysis.queryDataFlow(evaluatedSequences.get(0), node -> {
     			return node.getAllNodeCharacteristics().size() != 0;
         });
-		System.out.println(results.get(0).createPrintableNodeInformation());
 		assertTrue(!results.isEmpty());
 	}
 	

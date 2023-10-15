@@ -113,16 +113,14 @@ public class DFDMapper {
 	private static DFDActionSequence convertNodeStrandToDFDActionSequence(List<Node> nodes, List<Flow> flows) {
 		List<AbstractActionSequenceElement<?>> actionSequence = new ArrayList<AbstractActionSequenceElement<?>>();
 		var previousNode = nodes.get(0);
-		for (var currentNode : nodes) {
-			actionSequence.add(convertNodeToDFDActionSequenceElement(currentNode, previousNode, flows));
-			previousNode = currentNode;
+		for (int i = 1; i < nodes.size(); i++) {
+			actionSequence.add(convertNodeToDFDActionSequenceElement(nodes.get(i), nodes.get(i-1), flows));
 		}
 		return new DFDActionSequence(actionSequence);
 	}
 
 	private static DFDActionSequenceElement convertNodeToDFDActionSequenceElement(Node node, Node previousNode, List<Flow> flows) {
 		List<DataFlowVariable> dataFlowVariables = new ArrayList<DataFlowVariable>();
-
 		List<CharacteristicValue> nodeCharacteristics = new ArrayList<CharacteristicValue>();
 		for (var label : node.getProperties()) {
 			nodeCharacteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label));

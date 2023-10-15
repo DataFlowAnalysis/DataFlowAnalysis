@@ -13,6 +13,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.D
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 
 import mdpa.dfd.datadictionary.AND;
 import mdpa.dfd.datadictionary.Assignment;
@@ -27,6 +28,7 @@ import mdpa.dfd.datadictionary.Pin;
 import mdpa.dfd.datadictionary.TRUE;
 import mdpa.dfd.datadictionary.Term;
 import mdpa.dfd.dataflowdiagram.Node;
+import mdpa.dfd.dataflowdiagram.Flow;
 
 public class DFDCharacteristicsCalculator {
 	
@@ -41,36 +43,48 @@ public class DFDCharacteristicsCalculator {
 	}*/
 	
 	public static DFDActionSequence fillDataFlowVariables (DFDActionSequence dfdActionSequence) {
-		DFDActionSequenceElement prev = null; 
-		for (var dfdActionSequenceElement : dfdActionSequence.getElements()) {
-			List<DataFlowVariable> dataFlowVariables = new ArrayList<DataFlowVariable>(dfdActionSequenceElement.getAllDataFlowVariables());
-			dataFlowVariables.add(new DataFlowVariable(((DFDActionSequenceElement)dfdActionSequenceElement).getNode().getEntityName(), evaluateAssignments((DFDActionSequenceElement)dfdActionSequenceElement, prev)));
+		List<AbstractActionSequenceElement<?>> actionSequence = new ArrayList<AbstractActionSequenceElement<?>>();
+		if (dfdActionSequence.getElements().size() < 2) return dfdActionSequence;
+		List<DataFlowVariable> previousVariables = new ArrayList<>();
+		for (var abstractElement : dfdActionSequence.getElements()) {
+			DFDActionSequenceElement element = (DFDActionSequenceElement) abstractElement;
+			List<DataFlowVariable> dataFlowVariables = new ArrayList<DataFlowVariable>(element.getAllDataFlowVariables());
+			
+			dataFlowVariables.add(new DataFlowVariable(element.getNode().getEntityName(), evaluateAssignments(element, previousVariables)));
+			DFDActionSequenceElement newElement = new DFDActionSequenceElement(dataFlowVariables, element.getAllNodeCharacteristics(), element.getName(), element.getNode(), element.getPreviousNode(), element.getFlow());
+			actionSequence.add(newElement);
+			previousVariables = dataFlowVariables;
 		}
 		
-		return dfdActionSequence;
+		return new DFDActionSequence(actionSequence);
 	}
 	
-	private static List<CharacteristicValue> evaluateAssignments(DFDActionSequenceElement element, DFDActionSequenceElement previousElement) {
+	private static List<CharacteristicValue> evaluateAssignments(DFDActionSequenceElement element, List<DataFlowVariable> previousVariables) {
 		List<Label> allPrevNodeLabels = new ArrayList<>();
-		previousElement.getAllDataFlowVariables().stream().forEach(dfv -> {
-			dfv.characteristics().stream().forEach(c -> {
-				DFDCharacteristicValue cv = (DFDCharacteristicValue) c;
-				allPrevNodeLabels.add(cv.label());
+		
+		
+		previousVariables.stream().forEach(dfv -> {
+				dfv.characteristics().stream().forEach(c -> {
+					DFDCharacteristicValue cv = (DFDCharacteristicValue) c;
+					allPrevNodeLabels.add(cv.label());
+				});
 			});
-		});;
+		
 		
 		List<CharacteristicValue> characteristics = new ArrayList<>();
 		
 		
 		for (var assignment : element.getPreviousNode().getBehaviour().getAssignment()) {
-			if(assignment.getOutputPin().equals(element.getFlow().getSourcePin()) && element.getFlow().getDestinationNode().equals(element.getNode())) {
+			Flow flow = element.getFlow();
+			Pin pin = flow.getSourcePin();
+			if(assignment.getOutputPin().equals(pin) && flow.getDestinationNode().equals(element.getNode())) {
 				if (assignment instanceof ForwardingAssignment) {
 					for (var label : allPrevNodeLabels) {
 						characteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label));
 					}
 				}
 				
-				if(evaluateTerm(((Assignment)assignment).getTerm(), allPrevNodeLabels)) {
+				else if(evaluateTerm(((Assignment)assignment).getTerm(), allPrevNodeLabels)) {
 					for (var label : ((Assignment)assignment).getOutputLabels()) {
 						characteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label)); //TODO:soll nicht doppelt reinkommen
 					}

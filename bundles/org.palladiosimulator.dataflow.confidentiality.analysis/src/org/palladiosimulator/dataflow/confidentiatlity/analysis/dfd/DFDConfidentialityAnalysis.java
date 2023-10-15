@@ -1,6 +1,7 @@
 package org.palladiosimulator.dataflow.confidentiatlity.analysis.dfd;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import org.apache.log4j.Level;
@@ -42,10 +43,11 @@ public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalys
 
 	@Override
 	public List<ActionSequence> evaluateDataFlows(List<ActionSequence> sequences) {
+		List<ActionSequence> outSequences = new ArrayList<>();
 		for (var dfdActionSequence : sequences) {
-				DFDCharacteristicsCalculator.fillDataFlowVariables((DFDActionSequence)dfdActionSequence);
+			outSequences.add(DFDCharacteristicsCalculator.fillDataFlowVariables((DFDActionSequence)dfdActionSequence));
 		}
-		return sequences;
+		return outSequences;
 	}
 
 	@Override

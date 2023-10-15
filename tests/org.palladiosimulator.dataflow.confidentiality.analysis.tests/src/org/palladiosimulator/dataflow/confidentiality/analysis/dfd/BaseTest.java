@@ -11,9 +11,9 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.A
 import org.palladiosimulator.dataflow.confidentiatlity.analysis.dfd.DFDConfidentialityAnalysis;
 
 public class BaseTest {
-	private static String pathToDFDModel = "F:\\EMF - Workspace\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\minimal.dataflowdiagram"; //TODO
-	private static String pathToDataDictionaryModel = "F:\\EMF - Workspace\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\MinimalDataDictonairy.datadictionary"; //TODO
-	private static String pathToStrandsDFDModel = "F:\\EMF - Workspace\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\DifferentStrands.dataflowdiagram";
+	private static String pathToDFDModel = "C:\\Users\\Huell\\Documents\\Studium\\HIWI\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\minimal.dataflowdiagram"; //TODO
+	private static String pathToDataDictionaryModel = "C:\\Users\\Huell\\Documents\\Studium\\HIWI\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\minimal.datadictionary"; //TODO
+	private static String pathToStrandsDFDModel = "C:\\Users\\Huell\\Documents\\Studium\\HIWI\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\minimal.dataflowdiagram";
 	private static List<ActionSequence> evaluatedSequences;
 	private static DFDConfidentialityAnalysis analysis;
 	private static DFDConfidentialityAnalysis strandAnalysis;

@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import org.apache.log4j.Level;
 import org.palladiosimulator.dataflow.confidentiality.analysis.DataFlowConfidentialityAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.node.DFDCharacteristicsCalculator;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
@@ -42,8 +43,7 @@ public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalys
 	@Override
 	public List<ActionSequence> evaluateDataFlows(List<ActionSequence> sequences) {
 		for (var dfdActionSequence : sequences) {
-			for (var dfdActionSequenceElement : dfdActionSequence.getElements())
-				dfdActionSequenceElement = DFDCharacteristicsCalculator.fillDataFlowVariables((DFDActionSequenceElement) dfdActionSequenceElement);
+				DFDCharacteristicsCalculator.fillDataFlowVariables((DFDActionSequence)dfdActionSequence);
 		}
 		return sequences;
 	}

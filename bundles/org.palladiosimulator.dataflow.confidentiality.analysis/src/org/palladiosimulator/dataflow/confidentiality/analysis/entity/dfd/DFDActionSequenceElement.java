@@ -9,20 +9,23 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.D
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 
 import mdpa.dfd.dataflowdiagram.Node;
+import mdpa.dfd.dataflowdiagram.Flow;
 
 public class DFDActionSequenceElement extends AbstractActionSequenceElement<EObject>{
 	
 	String name;
 	Node node;
 	Node previousNode;
+	Flow flow;
 
 	public DFDActionSequenceElement(List<DataFlowVariable> dataFlowVariables,
-			List<CharacteristicValue> nodeCharacteristics, String name, Node node, Node previousNode) {
+			List<CharacteristicValue> nodeCharacteristics, String name, Node node, Node previousNode, Flow flow) {
 		super(dataFlowVariables, nodeCharacteristics); //ausgewertet wird erst unten DataFlowVariable kann hier leer sein
 		// TODO Auto-generated constructor stub
 		this.name = name;
 		this.node = node;
 		this.previousNode = previousNode;
+		this.flow = flow;
 	}
 
 	@Override
@@ -53,6 +56,10 @@ public class DFDActionSequenceElement extends AbstractActionSequenceElement<EObj
     public void setPreviousNode(Node previousNode) {
         this.previousNode = previousNode;
     }
-	
 
+	public Flow getFlow() {
+		return flow;
+	}
+	
+    
 }

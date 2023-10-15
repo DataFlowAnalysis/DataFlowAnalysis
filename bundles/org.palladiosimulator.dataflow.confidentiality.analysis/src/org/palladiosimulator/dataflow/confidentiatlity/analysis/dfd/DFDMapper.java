@@ -22,6 +22,7 @@ import mdpa.dfd.datadictionary.DataDictionary;
 import mdpa.dfd.datadictionary.LabelType;
 import mdpa.dfd.dataflowdiagram.DataFlowDiagram;
 import mdpa.dfd.dataflowdiagram.Flow;
+import mdpa.dfd.dataflowdiagram.External;
 import mdpa.dfd.dataflowdiagram.Node;
 
 public class DFDMapper {
@@ -45,7 +46,7 @@ public class DFDMapper {
 		}
 		
 		for (var strand : strands) {
-			sequences.add(convertNodeStrandToDFDActionSequence(strand));
+			sequences.add(convertNodeStrandToDFDActionSequence(strand, flows));
 		}
 
 		return sequences;
@@ -81,7 +82,7 @@ public class DFDMapper {
 		
 		for (var flow:flows) {
 			var destinationNode = flow.getDestinationNode();
-			if(startNodes.contains(destinationNode)) {
+			if(startNodes.contains(destinationNode) && !(destinationNode instanceof External)) {
 				startNodes.remove(destinationNode);
 			}
 		}
@@ -109,26 +110,34 @@ public class DFDMapper {
 		
 	}
 
-	private static DFDActionSequence convertNodeStrandToDFDActionSequence(List<Node> nodes) {
+	private static DFDActionSequence convertNodeStrandToDFDActionSequence(List<Node> nodes, List<Flow> flows) {
 		List<AbstractActionSequenceElement<?>> actionSequence = new ArrayList<AbstractActionSequenceElement<?>>();
 		var previousNode = nodes.get(0);
 		for (var currentNode : nodes) {
-			actionSequence.add(convertNodeToDFDActionSequenceElement(currentNode, previousNode));
+			actionSequence.add(convertNodeToDFDActionSequenceElement(currentNode, previousNode, flows));
 			previousNode = currentNode;
 		}
 		return new DFDActionSequence(actionSequence);
 	}
 
-	private static DFDActionSequenceElement convertNodeToDFDActionSequenceElement(Node node, Node previousNode) {
+	private static DFDActionSequenceElement convertNodeToDFDActionSequenceElement(Node node, Node previousNode, List<Flow> flows) {
 		List<DataFlowVariable> dataFlowVariables = new ArrayList<DataFlowVariable>();
 
 		List<CharacteristicValue> nodeCharacteristics = new ArrayList<CharacteristicValue>();
 		for (var label : node.getProperties()) {
 			nodeCharacteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label));
 		}
+		
+		Flow flow = null;
+		for (Flow f : flows) {
+			if (f.getSourceNode().equals(previousNode) && f.getDestinationNode().equals(node)) {
+				flow = f;
+				break;
+			}
+		}
 
 		return new DFDActionSequenceElement(dataFlowVariables, nodeCharacteristics, node.getEntityName(), node,
-				previousNode);
+				previousNode, flow);
 
 	}
 

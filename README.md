@@ -5,7 +5,9 @@ analyze their data characteristics and formulate constraints to check if definie
 For more information visit the [official page](https://fluidtrust.ipd.kit.edu/home/) of the project.
 
 ## Installation
-Install the product from out [updatesite](https://updatesite.palladio-simulator.com/DataFlowAnalysis/product/nightly/)
+- Install the product from out [updatesite](https://updatesite.palladio-simulator.com/DataFlowAnalysis/product/nightly/)
+- Clone this repository
+- Import the projects contained in this repository
 
 ## Usage
 

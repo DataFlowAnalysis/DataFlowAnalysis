@@ -5,13 +5,9 @@ analyze their data characteristics and formulate constraints to check if definie
 For more information visit the [official page](https://fluidtrust.ipd.kit.edu/home/) of the project.
 
 ## Installation
-
-- Install the version `2022-12` of the Eclipse Modelling Tools from the
-  [official site](https://www.eclipse.org/downloads/packages/release/2022-12/r/eclipse-modeling-tools)
+- Install the product from out [updatesite](https://updatesite.palladio-simulator.com/DataFlowAnalysis/product/nightly/)
 - Clone this repository
-- Import the [dependencies.p2f](https://raw.githubusercontent.com/PalladioSimulator/Palladio-Addons-DataFlowConfidentiality-Analysis/main/dependencies.p2f) file into Eclipse to install the dependencies of the project.
-  This is achieved by going to File->Import->General->Install from File
-- Import the projects in the bundles folder into Eclipse
+- Import the projects contained in this repository
 
 ## Usage
 

@@ -21,12 +21,13 @@ public class Demonstration {
 	public void setupAnalysis() {
 		var usageModelPath = Paths.get("models", "EncryptingOnlineShop", "default.usagemodel").toString();
 		var allocationPath = Paths.get("models", "EncryptingOnlineShop", "default.allocation").toString();
+		var characteristicsPath = Paths.get("models", "EncryptingOnlineShop", "default.nodecharacteristics").toString();
 
 		analysis = new DataFlowAnalysisBuilder()
 				.standalone()
 				.modelProjectName(TEST_MODEL_PROJECT_NAME)
 				.useBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
-				.legacy()
+				.useNodeCharacteristicsModel(characteristicsPath)
 				.usePluginActivator(Activator.class)
 				.useUsageModel(usageModelPath)
 				.useAllocationModel(allocationPath)

@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
-import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceProvider;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
@@ -38,20 +38,19 @@ import org.palladiosimulator.pcm.usagemodel.UsagemodelPackage;
 
 public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalculator {
 	private final Logger logger = Logger.getLogger(PCMNodeCharacteristicsCalculator.class);
-    private final ResourceLoader resourceLoader;
+    private final ResourceProvider resourceLoader;
     
     /**
      * Creates a new node characteristic calculator with the given node
      * @param node Node of which the characteristics should be calculated. Should either be a User or SEFF Action.
      */
-    public PCMNodeCharacteristicsCalculator(ResourceLoader resourceLoader) {
+    public PCMNodeCharacteristicsCalculator(ResourceProvider resourceLoader) {
     	this.resourceLoader = resourceLoader;
     }
 
 	@Override
 	public List<CharacteristicValue> getNodeCharacteristics(Entity node, Deque<AssemblyContext> context) {
 		Assignments assignments = this.resolveAssignments();
-		this.checkAssignments(assignments);
 		List<AbstractAssignee> assignees;
 		if (node instanceof AbstractUserAction) {
 			assignees = this.getUsage(node, assignments);
@@ -177,11 +176,9 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 	            .findFirst().orElse(NodeCharacteristicsFactory.eINSTANCE.createAssignments());
 	}
 	
-	/**
-	 * Checks the given list of assignments for errors or inconsistencies
-	 * @param assignments List of assignments that should be checked
-	 */
-	private void checkAssignments(Assignments assignments) {
+	@Override
+	public void checkAssignments() {
+		Assignments assignments = this.resolveAssignments();
 		for (AbstractAssignee assignee : assignments.getAssignee()) {
 			if (assignee instanceof UsageAsignee) {
 				UsageAsignee usage = (UsageAsignee) assignee;

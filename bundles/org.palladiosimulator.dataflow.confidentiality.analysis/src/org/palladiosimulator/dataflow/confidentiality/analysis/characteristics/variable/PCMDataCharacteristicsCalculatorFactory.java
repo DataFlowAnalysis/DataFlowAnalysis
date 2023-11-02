@@ -4,16 +4,16 @@ import java.util.List;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
-import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceProvider;
 
 public class PCMDataCharacteristicsCalculatorFactory implements DataCharacteristicsCalculatorFactory {
-	private ResourceLoader resourceLoader;
+	private ResourceProvider resourceLoader;
 	
 	/** 
 	 * Creates a new instance of the data characteristics calculator factory
 	 * @param resourceLoader Resource loader the characteristics calculators should use
 	 */
-	public PCMDataCharacteristicsCalculatorFactory(ResourceLoader resourceLoader) {
+	public PCMDataCharacteristicsCalculatorFactory(ResourceProvider resourceLoader) {
 		this.resourceLoader = resourceLoader;
 	}
 

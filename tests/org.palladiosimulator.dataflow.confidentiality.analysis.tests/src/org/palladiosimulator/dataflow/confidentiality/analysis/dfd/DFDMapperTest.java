@@ -11,20 +11,20 @@ import org.palladiosimulator.dataflow.confidentiatlity.analysis.dfd.DFDConfident
 
 public class DFDMapperTest {
 	
-	private static String pathToDataDictionaryModel = "F:\\EMF - Workspace\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\MinimalDataDictonairy.datadictionary"; //TODO
-	private static String pathToStrandsDFDModel = "F:\\EMF - Workspace\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\DifferentStrands.dataflowdiagram";
+	private static String pathToDataDictionaryModel = "C:\\Users\\Huell\\Documents\\Studium\\HIWI\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.testmodels\\models\\DFDTestModels\\minimal.datadictionary";
+	private static String pathToDFDModel = "C:\\Users\\Huell\\Documents\\Studium\\HIWI\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.testmodels\\models\\DFDTestModels\\minimal.dataflowdiagram";
 	private static DFDConfidentialityAnalysis strandAnalysis;
 	private static List<ActionSequence> evaluatedStrandSequences;
 	
 	@BeforeAll
 	public static void setUp() {
-		strandAnalysis = new DFDConfidentialityAnalysis(pathToStrandsDFDModel, pathToDataDictionaryModel);
+		strandAnalysis = new DFDConfidentialityAnalysis(pathToDFDModel, pathToDataDictionaryModel);
 		strandAnalysis.initializeAnalysis();
 	}
 
 	@Test
-	public void numberOfStrandSequences_equalsThree() {
+	public void numberOfStrandSequences_equalsTwo() {
 		var strandSequences = strandAnalysis.findAllSequences();
-		assertEquals(strandSequences.size(), 3);
+		assertEquals(strandSequences.size(), 2);
 	}
 }

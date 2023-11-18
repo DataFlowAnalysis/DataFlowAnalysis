@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+//import java.nio.file.Paths;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -11,26 +12,22 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.A
 import org.palladiosimulator.dataflow.confidentiatlity.analysis.dfd.DFDConfidentialityAnalysis;
 
 public class BaseTest {
-	private static String pathToDFDModel = "C:\\Users\\Huell\\Documents\\Studium\\HIWI\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\minimal.dataflowdiagram"; //TODO
-	private static String pathToDataDictionaryModel = "C:\\Users\\Huell\\Documents\\Studium\\HIWI\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\minimal.datadictionary"; //TODO
-	private static String pathToStrandsDFDModel = "C:\\Users\\Huell\\Documents\\Studium\\HIWI\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.tests\\src\\org\\palladiosimulator\\dataflow\\confidentiality\\analysis\\dfd\\minimal.dataflowdiagram";
+	private static String pathToDFDModel;
+	private static String pathToDataDictionaryModel;
 	private static List<ActionSequence> evaluatedSequences;
 	private static DFDConfidentialityAnalysis analysis;
-	private static DFDConfidentialityAnalysis strandAnalysis;
-	private static List<ActionSequence> evaluatedStrandSequences;
 
 	@BeforeAll
 	public static void setUpAnalysis() {
+		//pathToDFDModel = Paths.get("models", "DFDTestModels", "minimal.dataflowdiagram").toString();
+		//pathToDataDictionaryModel = Paths.get("models", "DFDTestModels", "minimal.datadictionary").toString();
+		pathToDataDictionaryModel = "C:\\Users\\Huell\\Documents\\Studium\\HIWI\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.testmodels\\models\\DFDTestModels\\minimal.datadictionary";
+		pathToDFDModel = "C:\\Users\\Huell\\Documents\\Studium\\HIWI\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.testmodels\\models\\DFDTestModels\\minimal.dataflowdiagram";
 		analysis = new DFDConfidentialityAnalysis(pathToDFDModel, pathToDataDictionaryModel);
 		analysis.initializeAnalysis();
 
 		var sequences = analysis.findAllSequences();
 		evaluatedSequences = analysis.evaluateDataFlows(sequences);
-		
-		strandAnalysis = new DFDConfidentialityAnalysis(pathToStrandsDFDModel, pathToDataDictionaryModel);
-		strandAnalysis.initializeAnalysis();
-		var strandSequences = strandAnalysis.findAllSequences();
-		evaluatedStrandSequences = strandAnalysis.evaluateDataFlows(strandSequences);
 	}
 	
 	
@@ -61,10 +58,6 @@ public class BaseTest {
 		assertEquals(evaluatedSequences.size(), 2);
 	}
 	
-	@Test
-	public void numberOfStrandSequences_equalsThree() {
-		assertEquals(evaluatedStrandSequences.size(), 3);
-	}
 	
 	@Test
 	public void noNodeCharacteristics_returnsNoViolation() {

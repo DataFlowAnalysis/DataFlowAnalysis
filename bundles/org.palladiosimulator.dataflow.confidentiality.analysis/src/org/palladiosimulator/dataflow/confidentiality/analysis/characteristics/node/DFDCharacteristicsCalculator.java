@@ -32,16 +32,11 @@ import mdpa.dfd.dataflowdiagram.Flow;
 
 public class DFDCharacteristicsCalculator {
 	
-	
-	/*public static DFDActionSequenceElement fillDataFlowVariables (DFDActionSequenceElement dfdActionSequenceElement) {
-		List<DataFlowVariable> dataFlowVariables = new ArrayList<DataFlowVariable>(dfdActionSequenceElement.getAllDataFlowVariables());
-		for(var inputPin:  dfdActionSequenceElement.getNode().getBehaviour().getIn()) {
-			dataFlowVariables.add(new DataFlowVariable(inputPin.getEntityName(), evaluateAssignments(dfdActionSequenceElement.getPreviousNode(), inputPin)));
-		}
-		
-		return dfdActionSequenceElement;
-	}*/
-	
+	/**
+	 * Create DataFlowVariables for a DFDActionSequence element
+	 * @param dfdActionSequence element
+	 * @return DFDActionSequence element annotated with DataFlowVariables
+	 */
 	public static DFDActionSequence fillDataFlowVariables (DFDActionSequence dfdActionSequence) {
 		List<AbstractActionSequenceElement<?>> actionSequence = new ArrayList<AbstractActionSequenceElement<?>>();
 		if (dfdActionSequence.getElements().size() < 2) return dfdActionSequence;
@@ -59,6 +54,12 @@ public class DFDCharacteristicsCalculator {
 		return new DFDActionSequence(actionSequence);
 	}
 	
+	/**
+	 * Evaluate all Assignments on Node DFDActionSequenceElement
+	 * @param element DFDActionSequenceElement to be evaluated
+	 * @param previousVariables All incoming Data Flow Variables
+	 * @return All DataFlowVariables on Node
+	 */
 	private static List<CharacteristicValue> evaluateAssignments(DFDActionSequenceElement element, List<DataFlowVariable> previousVariables) {
 		List<Label> allPrevNodeLabels = new ArrayList<>();
 		
@@ -101,6 +102,12 @@ public class DFDCharacteristicsCalculator {
 	    return t -> seen.add(keyExtractor.apply(t));
 	}
 	
+	/**
+	 * Evaluate Assignment Term with List of Incoming Labels
+	 * @param term Term to be evaluated
+	 * @param inputLabel Incoming Label
+	 * @return Evaluation
+	 */
 	private static boolean evaluateTerm(Term term, List<Label> inputLabel) {
 		if (term instanceof TRUE) {
 			return true;

@@ -6,7 +6,7 @@ import mdpa.dfd.dataflowdiagram.DataFlowDiagram;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import org.palladiosimulator.dataflow.confidentiatlity.analysis.dfd.DFDLoader;
+import org.palladiosimulator.dataflow.confidentiality.analysis.dfd.DFDLoader;
 
 public class DFDLoaderTest {
 	private static String pathToDataDictionaryModel = "C:\\Users\\Huell\\Documents\\Studium\\HIWI\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.testmodels\\models\\DFDTestModels\\minimal.datadictionary";

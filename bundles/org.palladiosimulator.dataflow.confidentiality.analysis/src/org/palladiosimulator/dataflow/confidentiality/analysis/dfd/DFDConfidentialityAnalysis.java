@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiatlity.analysis.dfd;
+package org.palladiosimulator.dataflow.confidentiality.analysis.dfd;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDAct
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.dfd.DFDActionSequenceFinder;
 
 import mdpa.dfd.dataflowdiagram.DataFlowDiagram;
 import mdpa.dfd.datadictionary.DataDictionary;
@@ -37,7 +38,7 @@ public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalys
 
 	@Override
 	public List<ActionSequence> findAllSequences() {
-		return DFDMapper.findAllSequencesInDFD(dfd, dataDictionary);
+		return DFDActionSequenceFinder.findAllSequencesInDFD(dfd, dataDictionary);
 	}
 	
 

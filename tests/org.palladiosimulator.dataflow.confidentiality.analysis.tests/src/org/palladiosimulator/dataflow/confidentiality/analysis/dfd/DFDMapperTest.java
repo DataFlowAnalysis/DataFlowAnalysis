@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.palladiosimulator.dataflow.confidentiality.analysis.dfd.DFDConfidentialityAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
-import org.palladiosimulator.dataflow.confidentiatlity.analysis.dfd.DFDConfidentialityAnalysis;
 
 public class DFDMapperTest {
 	

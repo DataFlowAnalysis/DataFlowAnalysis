@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiatlity.analysis.dfd;
+package org.palladiosimulator.dataflow.confidentiality.analysis.dfd;
 
 import java.io.File;
 

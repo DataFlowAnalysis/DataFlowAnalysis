@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiatlity.analysis.dfd;
+package org.palladiosimulator.dataflow.confidentiality.analysis.sequence.dfd;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +25,7 @@ import mdpa.dfd.dataflowdiagram.Flow;
 import mdpa.dfd.dataflowdiagram.External;
 import mdpa.dfd.dataflowdiagram.Node;
 
-public class DFDMapper {
+public class DFDActionSequenceFinder {
 
 	/**
 	 * Finds all Action Sequences in a dataflowdiagram instance

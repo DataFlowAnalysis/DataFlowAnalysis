@@ -72,28 +72,35 @@ public class DFDCharacteristicsCalculator {
 			});
 		
 		
-		List<CharacteristicValue> characteristics = new ArrayList<>();
 		
+		List<Label> outputLabel = new ArrayList<>();
+		List<Label> removeFromOutputLabel = new ArrayList<>();
 		
 		for (var assignment : element.getPreviousNode().getBehaviour().getAssignment()) {
 			Flow flow = element.getFlow();
 			Pin pin = flow.getSourcePin();
 			if(assignment.getOutputPin().equals(pin) && flow.getDestinationNode().equals(element.getNode())) {
 				if (assignment instanceof ForwardingAssignment) {
-					for (var label : allPrevNodeLabels) {
-						characteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label));
-					}
-				}
-				
-				else if(evaluateTerm(((Assignment)assignment).getTerm(), allPrevNodeLabels)) {
-					for (var label : ((Assignment)assignment).getOutputLabels()) {
-						characteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label)); //TODO:soll nicht doppelt reinkommen
-					}
+					outputLabel.addAll(allPrevNodeLabels);
+				} else if(evaluateTerm(((Assignment)assignment).getTerm(), allPrevNodeLabels)) {
+					outputLabel.addAll(((Assignment)assignment).getOutputLabels());						
+				} else if(!evaluateTerm(((Assignment)assignment).getTerm(), allPrevNodeLabels)) {
+					removeFromOutputLabel.addAll(((Assignment)assignment).getOutputLabels());						
 				}
 			}
 			
 		}
+		
+		outputLabel.removeAll(removeFromOutputLabel);
+		
+		List<CharacteristicValue> characteristics = new ArrayList<>();
+		
+		for (Label label : outputLabel) {
+			characteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label));
+		}
+		
 		characteristics = characteristics.stream().filter(distinctByKey(CharacteristicValue::getValueId)).collect(Collectors.toList());
+		System.out.println(element.getNode().getEntityName() + "size:" + characteristics.size());
 		return characteristics;
 	}
 	

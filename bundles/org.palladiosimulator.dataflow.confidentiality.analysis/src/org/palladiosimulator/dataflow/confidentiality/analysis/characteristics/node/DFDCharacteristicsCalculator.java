@@ -100,7 +100,6 @@ public class DFDCharacteristicsCalculator {
 		}
 		
 		characteristics = characteristics.stream().filter(distinctByKey(CharacteristicValue::getValueId)).collect(Collectors.toList());
-		System.out.println(element.getNode().getEntityName() + "size:" + characteristics.size());
 		return characteristics;
 	}
 	

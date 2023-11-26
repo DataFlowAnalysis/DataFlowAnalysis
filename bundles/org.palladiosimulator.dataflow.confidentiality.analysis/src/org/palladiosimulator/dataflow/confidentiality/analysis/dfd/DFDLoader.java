@@ -34,11 +34,10 @@ public final class DFDLoader {
 				dataflowdiagramPackage.eINSTANCE);
 
 		File file = new File(pathToModel);
-		/*URI uri = file.isFile() ? URI.createFileURI(file.getAbsolutePath())
-				: URI.createURI(pathToModel);*/
+		URI uri = file.isFile() ? URI.createFileURI(file.getAbsolutePath())
+				: URI.createURI(pathToModel);
 		
-		System.out.println(URI.createFileURI(pathToModel));
-		return resourceSet.getResource(URI.createPlatformPluginURI(pathToModel, false), true);
+		return resourceSet.getResource(uri, true);
 	}
 
 }

@@ -4,11 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
-//import java.nio.file.Paths;
+import java.nio.file.Paths;
 
+import org.eclipse.emf.common.util.URI;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.palladiosimulator.dataflow.confidentiality.analysis.dfd.DFDConfidentialityAnalysis;
+import static org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
 
 public class BaseTest {
@@ -19,10 +20,11 @@ public class BaseTest {
 
 	@BeforeAll
 	public static void setUpAnalysis() {
-		//pathToDFDModel = Paths.get("models", "DFDTestModels", "minimal.dataflowdiagram").toString();
-		//pathToDataDictionaryModel = Paths.get("models", "DFDTestModels", "minimal.datadictionary").toString();
-		pathToDataDictionaryModel = "C:\\Users\\Huell\\Documents\\Studium\\HIWI\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.testmodels\\models\\DFDTestModels\\minimal.datadictionary";
-		pathToDFDModel = "C:\\Users\\Huell\\Documents\\Studium\\HIWI\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.testmodels\\models\\DFDTestModels\\minimal.dataflowdiagram";
+		pathToDFDModel = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "DFDTestModels", "minimal.dataflowdiagram").toString();
+		System.out.println(pathToDFDModel);
+		pathToDataDictionaryModel = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "DFDTestModels", "minimal.datadictionary").toString();
+		//pathToDataDictionaryModel = "C:\\Users\\Huell\\Documents\\Studium\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.testmodels\\models\\DFDTestModels\\minimal.datadictionary";
+		//pathToDFDModel = "C:\\Users\\Huell\\Documents\\Studium\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.testmodels\\models\\DFDTestModels\\minimal.dataflowdiagram";
 		analysis = new DFDConfidentialityAnalysis(pathToDFDModel, pathToDataDictionaryModel);
 		analysis.initializeAnalysis();
 

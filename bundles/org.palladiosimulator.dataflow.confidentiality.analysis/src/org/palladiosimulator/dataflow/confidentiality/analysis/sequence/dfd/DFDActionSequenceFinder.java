@@ -151,10 +151,7 @@ public class DFDActionSequenceFinder {
 	private static DFDActionSequenceElement convertNodeToDFDActionSequenceElement(Node node, Node previousNode, List<Flow> flows) {
 		List<DataFlowVariable> dataFlowVariables = new ArrayList<DataFlowVariable>();
 		List<CharacteristicValue> nodeCharacteristics = new ArrayList<CharacteristicValue>();
-		for (var label : node.getProperties()) {
-			nodeCharacteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label));
-		}
-		
+				
 		Flow flow = null;
 		for (Flow f : flows) {
 			if (f.getSourceNode().equals(previousNode) && f.getDestinationNode().equals(node)) {

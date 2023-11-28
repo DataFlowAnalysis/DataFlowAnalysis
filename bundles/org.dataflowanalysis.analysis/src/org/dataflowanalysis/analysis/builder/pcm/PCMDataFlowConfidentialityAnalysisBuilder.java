@@ -2,14 +2,12 @@ package org.dataflowanalysis.analysis.builder.pcm;
 
 import org.dataflowanalysis.analysis.builder.AbstractDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.builder.AnalysisBuilderData;
-import org.dataflowanalysis.analysis.core.AbstractStandalonePCMDataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.core.LegacyStandalonePCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.StandalonePCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.eclipse.core.runtime.Plugin;
 
 public class PCMDataFlowConfidentialityAnalysisBuilder 
-extends AbstractDataFlowAnalysisBuilder<AbstractStandalonePCMDataFlowConfidentialityAnalysis, PCMAnalysisBuilderData, AnalysisBuilderData> {
+extends AbstractDataFlowAnalysisBuilder<StandalonePCMDataFlowConfidentialityAnalysis, PCMAnalysisBuilderData, AnalysisBuilderData> {
 
 	public PCMDataFlowConfidentialityAnalysisBuilder() {
 		super(new PCMAnalysisBuilderData());
@@ -87,14 +85,9 @@ extends AbstractDataFlowAnalysisBuilder<AbstractStandalonePCMDataFlowConfidentia
 	}
 
 	@Override
-	public AbstractStandalonePCMDataFlowConfidentialityAnalysis build() {
+	public StandalonePCMDataFlowConfidentialityAnalysis build() {
 		this.validateBuilderData();
-		if (this.builderData.isLegacy()) {
-			return new LegacyStandalonePCMDataFlowConfidentialityAnalysis(builderData.getModelProjectName(),
-					builderData.getPluginActivator(), builderData.createAnalysisData());
-		} else {
-			return new StandalonePCMDataFlowConfidentialityAnalysis(builderData.getModelProjectName(),
-					builderData.getPluginActivator(), builderData.createAnalysisData());
-		}
+		return new StandalonePCMDataFlowConfidentialityAnalysis(builderData.createAnalysisData(), builderData.getModelProjectName(),
+				builderData.getPluginActivator());
 	}
 }

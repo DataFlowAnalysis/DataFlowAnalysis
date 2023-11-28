@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.builder.AnalysisBuilderData;
 import org.dataflowanalysis.analysis.builder.AnalysisData;
-import org.dataflowanalysis.analysis.characteristics.node.LegacyPCMNodeCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.characteristics.node.PCMNodeCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.characteristics.variable.PCMDataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.resource.PCMURIResourceProvider;
@@ -56,11 +55,7 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	 */
 	public AnalysisData createAnalysisData() {
 		ResourceProvider resourceProvider = this.getEffectiveResourceProvider();
-		if (this.isLegacy()) {
-			return new AnalysisData(resourceProvider, new LegacyPCMNodeCharacteristicsCalculator(resourceProvider), new PCMDataCharacteristicsCalculatorFactory(resourceProvider));
-		} else {
-			return new AnalysisData(resourceProvider, new PCMNodeCharacteristicsCalculator(resourceProvider), new PCMDataCharacteristicsCalculatorFactory(resourceProvider));
-		}
+		return new AnalysisData(resourceProvider, new PCMNodeCharacteristicsCalculator(resourceProvider), new PCMDataCharacteristicsCalculatorFactory(resourceProvider));
 	}
 	
 	/**

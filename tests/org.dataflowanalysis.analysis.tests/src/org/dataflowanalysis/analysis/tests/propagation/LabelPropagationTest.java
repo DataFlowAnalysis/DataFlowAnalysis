@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.tests.BaseTest;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class LabelPropagationTest extends BaseTest {

@@ -13,6 +13,7 @@ import org.dataflowanalysis.analysis.entity.pcm.PCMActionSequence;
 import org.dataflowanalysis.analysis.entity.pcm.user.UserActionSequenceElement;
 import org.dataflowanalysis.analysis.entity.sequence.ActionSequence;
 import org.dataflowanalysis.analysis.tests.ListAppender;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

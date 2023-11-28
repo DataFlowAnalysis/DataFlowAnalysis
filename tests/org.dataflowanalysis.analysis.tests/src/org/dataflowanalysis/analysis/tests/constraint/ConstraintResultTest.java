@@ -18,6 +18,7 @@ import org.dataflowanalysis.analysis.entity.sequence.AbstractActionSequenceEleme
 import org.dataflowanalysis.analysis.entity.sequence.ActionSequence;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintData;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintViolations;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Literal;
 

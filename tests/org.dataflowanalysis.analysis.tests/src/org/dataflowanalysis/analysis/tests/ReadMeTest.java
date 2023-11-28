@@ -9,6 +9,7 @@ import org.dataflowanalysis.analysis.builder.pcm.PCMDataFlowConfidentialityAnaly
 import org.dataflowanalysis.analysis.entity.sequence.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.entity.sequence.ActionSequence;
 import org.dataflowanalysis.analysis.testmodels.Activator;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("unused")

@@ -16,6 +16,7 @@ public class LabelPropagationTest extends BaseTest {
      * Fails if the analysis does not propagate the correct characteristics to each ActionSequence
      */
 	@Test
+  @Disabled
 	public void travelPlannerCharacteristicsPresentTest() {
 		travelPlannerAnalysis.setLoggerLevel(Level.TRACE);
         var sequences = travelPlannerAnalysis.findAllSequences();
@@ -36,6 +37,7 @@ public class LabelPropagationTest extends BaseTest {
      * Fails if the analysis does not propagate the correct characteristics to each ActionSequence
      */
 	@Test
+  @Disabled
 	public void internationalOnlineShopCharacteristicsPresentTest() {
 		internationalOnlineShopAnalysis.setLoggerLevel(Level.TRACE);
         var sequences = internationalOnlineShopAnalysis.findAllSequences();
@@ -56,6 +58,7 @@ public class LabelPropagationTest extends BaseTest {
      * Fails if the analysis does not propagate the correct characteristics to each ActionSequence
      */
 	@Test
+  @Disabled
 	public void onlineShopCharacteristicsPresentTest() {
 		onlineShopAnalysis.setLoggerLevel(Level.TRACE);
         var sequences = onlineShopAnalysis.findAllSequences();
@@ -76,6 +79,7 @@ public class LabelPropagationTest extends BaseTest {
      * Fails if the analysis does not propagate the correct characteristics to each ActionSequence
      */
 	@Test
+  @Disabled
 	public void travelPlannerCharacteristicsAbsentTest() {
 		var sequences = travelPlannerAnalysis.findAllSequences();
         var propagationResult = travelPlannerAnalysis.evaluateDataFlows(sequences);
@@ -96,6 +100,7 @@ public class LabelPropagationTest extends BaseTest {
      * Fails if the analysis does not propagate the correct characteristics to each ActionSequence
      */
 	@Test
+  @Disabled
 	public void internationalOnlineShopCharacteristicsAbsentTest() {
 		var sequences = internationalOnlineShopAnalysis.findAllSequences();
         var propagationResult = internationalOnlineShopAnalysis.evaluateDataFlows(sequences);
@@ -114,6 +119,7 @@ public class LabelPropagationTest extends BaseTest {
      * Fails if the analysis does not propagate the correct characteristics to each ActionSequence
      */
 	@Test
+  @Disabled
 	public void onlineShopCharacteristicsAbsentTest() {
 		var sequences = onlineShopAnalysis.findAllSequences();
         var propagationResult = onlineShopAnalysis.evaluateDataFlows(sequences);

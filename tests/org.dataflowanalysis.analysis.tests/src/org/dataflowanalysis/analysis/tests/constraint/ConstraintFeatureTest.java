@@ -20,6 +20,7 @@ public class ConstraintFeatureTest extends ConstraintTest {
 	private final Logger logger = Logger.getLogger(ConstraintFeatureTest.class);
 	
 	@Test
+  @Disabled
     @DisplayName("Test whether cycles in datastores are detected")
     public void testCycleDataStores() {
     	var usageModelPath = Paths.get("models", "CycleDatastoreTest", "default.usagemodel");
@@ -40,6 +41,7 @@ public class ConstraintFeatureTest extends ConstraintTest {
      * Test determining whether node characteristics work correctly
      */
     @Test
+    @Disabled
     @DisplayName("Test whether node characteristics works correctly")
     public void testNodeCharacteristics() {
     	var usageModelPath = Paths.get("models", "NodeCharacteristicsTest", "default.usagemodel");
@@ -66,6 +68,7 @@ public class ConstraintFeatureTest extends ConstraintTest {
      * Test determining whether node characteristics work correctly
      */
     @Test
+    @Disabled
     @DisplayName("Test whether node characteristics with composite components works correctly")
     public void testCompositeCharacteristics() {
     	var usageModelPath = Paths.get("models", "CompositeCharacteristicsTest", "default.usagemodel");

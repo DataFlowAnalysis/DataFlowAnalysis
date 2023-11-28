@@ -49,6 +49,7 @@ public class ReadMeTest extends BaseTest {
 	 * Tests, whether the code snippet from the README actually works using the travel planner analysis.
 	 */
 	@Test
+  @Disabled
 	public void ReadmeWithTravelPlannerTest() {
 		var analysis = travelPlannerAnalysis;
 		

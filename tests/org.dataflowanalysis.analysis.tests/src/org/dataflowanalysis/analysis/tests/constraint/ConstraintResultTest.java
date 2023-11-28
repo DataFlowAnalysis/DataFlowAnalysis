@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Literal;
 
+@Disabled("Until model update")
 public class ConstraintResultTest extends ConstraintTest {
 	/**
      * Indicates whether an element in an action sequence violates the constraint of the travel

@@ -12,6 +12,7 @@ import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+@Disabled("Until model update")
 @SuppressWarnings("unused")
 public class ReadMeTest extends BaseTest {
 	

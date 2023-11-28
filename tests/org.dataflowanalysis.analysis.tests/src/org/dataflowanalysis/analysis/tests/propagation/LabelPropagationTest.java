@@ -9,6 +9,7 @@ import org.dataflowanalysis.analysis.tests.BaseTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+@Disabled("Until model update")
 public class LabelPropagationTest extends BaseTest {
 
     /**
@@ -17,7 +18,7 @@ public class LabelPropagationTest extends BaseTest {
      * Fails if the analysis does not propagate the correct characteristics to each ActionSequence
      */
 	@Test
-  @Disabled
+    @Disabled
 	public void travelPlannerCharacteristicsPresentTest() {
 		travelPlannerAnalysis.setLoggerLevel(Level.TRACE);
         var sequences = travelPlannerAnalysis.findAllSequences();

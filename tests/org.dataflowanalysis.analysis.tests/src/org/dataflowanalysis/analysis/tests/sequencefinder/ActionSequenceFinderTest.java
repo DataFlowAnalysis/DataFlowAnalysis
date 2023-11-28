@@ -12,6 +12,7 @@ import org.dataflowanalysis.analysis.tests.BaseTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+@Disabled("Until model update")
 public class ActionSequenceFinderTest extends BaseTest {
 	private final Logger logger = Logger.getLogger(ActionSequenceFinderTest.class);
 

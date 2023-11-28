@@ -7,7 +7,9 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.characteristics.CharacteristicValue;
 import org.dataflowanalysis.analysis.entity.sequence.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.tests.BaseTest;
+import org.junit.jupiter.api.Disabled;
 
+@Disabled("Until model update")
 public class ConstraintTest extends BaseTest {
 
     private final Logger logger = Logger.getLogger(ConstraintTest.class);

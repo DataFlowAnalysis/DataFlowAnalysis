@@ -9,7 +9,7 @@ import org.dataflowanalysis.analysis.builder.AnalysisData;
 import org.dataflowanalysis.analysis.characteristics.CharacteristicValue;
 import org.dataflowanalysis.analysis.characteristics.DataFlowVariable;
 import org.eclipse.emf.ecore.EObject;
-import org.palladiosimulator.dataflow.dictionary.characterized.DataDictionaryCharacterized.Literal;
+import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Literal;
 
 public abstract class AbstractActionSequenceElement<T extends EObject> {
 

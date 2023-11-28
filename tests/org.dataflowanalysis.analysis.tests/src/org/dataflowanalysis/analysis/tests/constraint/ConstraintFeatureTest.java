@@ -10,7 +10,6 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.entity.pcm.PCMActionSequence;
-import org.dataflowanalysis.analysis.entity.pcm.seff.DatabaseActionSequenceElement;
 import org.dataflowanalysis.analysis.entity.pcm.user.UserActionSequenceElement;
 import org.dataflowanalysis.analysis.entity.sequence.ActionSequence;
 import org.dataflowanalysis.analysis.tests.ListAppender;
@@ -35,24 +34,6 @@ public class ConstraintFeatureTest extends ConstraintTest {
     	List<ActionSequence> sequences = analysis.findAllSequences();
     	assertThrows(IllegalStateException.class, () -> analysis.evaluateDataFlows(sequences));
     	assertTrue(appender.loggedLevel(Level.ERROR));
-    }
-    
-    @Test
-    @DisplayName("Test whether read only datastores are detected")
-    public void testReadOnlyDatastore() {
-    	var usageModelPath = Paths.get("models", "ReadOnlyDatastore", "default.usagemodel");
-    	var allocationPath = Paths.get("models", "ReadOnlyDatastore", "default.allocation");
-    	DataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
-    	
-    	Logger logger = Logger.getLogger(DatabaseActionSequenceElement.class);
-    	logger.setLevel(Level.DEBUG);
-    	ListAppender appender = new ListAppender();
-    	logger.addAppender(appender);
-    	
-    	List<ActionSequence> sequences = analysis.findAllSequences();
-    	analysis.evaluateDataFlows(sequences);
-    	
-    	assertTrue(appender.loggedLevel(Level.WARN));
     }
     
     /**

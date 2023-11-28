@@ -3,7 +3,6 @@ package org.dataflowanalysis.analysis.tests.sequencefinder;
 import java.util.List;
 
 import org.dataflowanalysis.analysis.entity.pcm.seff.CallingSEFFActionSequenceElement;
-import org.dataflowanalysis.analysis.entity.pcm.seff.DatabaseActionSequenceElement;
 import org.dataflowanalysis.analysis.entity.pcm.seff.SEFFActionSequenceElement;
 import org.dataflowanalysis.analysis.entity.pcm.user.CallingUserActionSequenceElement;
 
@@ -67,7 +66,7 @@ public final class ActionSequenceFinderPaths {
 	public static final List<List<Class<?>>> travelPlannerPaths = 
 			List.of(List.of(
 					CallingUserActionSequenceElement.class, 
-					DatabaseActionSequenceElement.class,
+					//DatabaseActionSequenceElement.class,
 					CallingUserActionSequenceElement.class,
 					
                     CallingUserActionSequenceElement.class, 
@@ -75,7 +74,7 @@ public final class ActionSequenceFinderPaths {
                     CallingSEFFActionSequenceElement.class,
                     SEFFActionSequenceElement.class,
                     CallingSEFFActionSequenceElement.class,
-                    DatabaseActionSequenceElement.class,
+                    //DatabaseActionSequenceElement.class,
                     CallingSEFFActionSequenceElement.class,
                     SEFFActionSequenceElement.class, 
                     CallingSEFFActionSequenceElement.class,
@@ -83,7 +82,7 @@ public final class ActionSequenceFinderPaths {
                     CallingUserActionSequenceElement.class,
                     
                     CallingUserActionSequenceElement.class,
-                    DatabaseActionSequenceElement.class,
+                    //DatabaseActionSequenceElement.class,
                     CallingUserActionSequenceElement.class,
                     
                     CallingUserActionSequenceElement.class, 
@@ -95,7 +94,7 @@ public final class ActionSequenceFinderPaths {
                     SEFFActionSequenceElement.class, 
                     CallingUserActionSequenceElement.class),
             List.of(CallingUserActionSequenceElement.class, 
-            		DatabaseActionSequenceElement.class,
+            		//DatabaseActionSequenceElement.class,
             		CallingUserActionSequenceElement.class));
 	
 	

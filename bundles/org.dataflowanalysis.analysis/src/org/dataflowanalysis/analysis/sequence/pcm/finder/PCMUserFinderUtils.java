@@ -12,7 +12,6 @@ import org.dataflowanalysis.analysis.entity.pcm.PCMActionSequence;
 import org.dataflowanalysis.analysis.entity.pcm.user.CallingUserActionSequenceElement;
 import org.dataflowanalysis.analysis.sequence.pcm.SEFFWithContext;
 import org.dataflowanalysis.analysis.utils.pcm.PCMQueryUtils;
-import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.seff.StartAction;
@@ -92,13 +91,6 @@ public class PCMUserFinderUtils {
         if (calledSEFF.isEmpty()) {
             return new ArrayList<PCMActionSequence>();
         } else {
-        	if (calledSEFF.get().seff().getBasicComponent_ServiceEffectSpecification() instanceof OperationalDataStoreComponent) {
-                Deque<AbstractPCMActionSequenceElement<?>> callers = new ArrayDeque<>();
-        		callers.add(callingEntity);
-        		SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get().context(), callers, calledSignature.getParameters__OperationSignature(), dataStores);
-        		
-        		return PCMDatabaseFinderUtils.findSequencesForDatabaseAction(calledSEFF.get(), finderContext, currentActionSequence);
-        	}
             Optional<StartAction> SEFFStartAction = PCMQueryUtils.getFirstStartActionInActionList(calledSEFF.get()
                 .seff()
                 .getSteps_Behaviour());

@@ -11,13 +11,12 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.builder.AnalysisData;
 import org.dataflowanalysis.analysis.characteristics.DataFlowVariable;
 import org.dataflowanalysis.analysis.entity.CallReturnBehavior;
-import org.dataflowanalysis.analysis.entity.pcm.seff.DatabaseActionSequenceElement;
 import org.dataflowanalysis.analysis.entity.pcm.seff.SEFFActionSequenceElement;
 import org.dataflowanalysis.analysis.entity.sequence.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.entity.sequence.ActionSequence;
 import org.palladiosimulator.pcm.seff.StartAction;
 
-public class PCMActionSequence extends ActionSequence implements Comparable<PCMActionSequence> {
+public class PCMActionSequence extends ActionSequence {
 	private static final Logger logger = Logger.getLogger(PCMActionSequence.class);
 
 	/**
@@ -135,76 +134,5 @@ public class PCMActionSequence extends ActionSequence implements Comparable<PCMA
         	variableContexts.pop();
         	variableContexts.push(evaluatedElement.getAllDataFlowVariables());
         }
-	}
-	
-    
-    public List<String> getProvidedDatabases() {
-    	List<DatabaseActionSequenceElement<?>> potentialProvided = this.getElements().stream()
-				.filter(DatabaseActionSequenceElement.class::isInstance)
-				.map(DatabaseActionSequenceElement.class::cast)
-				.filter(it -> it.isWriting())
-				.collect(Collectors.toList());
-    	List<DatabaseActionSequenceElement<?>> providedDatabases = potentialProvided.stream()
-    			.filter(it -> !getRequiredBefore(it).contains(it.getDataStore().getDatabaseComponentName()))
-    			.collect(Collectors.toList());
-    	return providedDatabases.stream()
-    			.map(it -> it.getDataStore().getDatabaseComponentName())
-    			.collect(Collectors.toList());
-    }
-    
-    private List<String> getRequiredBefore(DatabaseActionSequenceElement<?> element) {
-    	int index = this.getElements().indexOf(element);
-    	return this.getElements().stream()
-				.filter(DatabaseActionSequenceElement.class::isInstance)
-				.map(DatabaseActionSequenceElement.class::cast)
-				.filter(it -> !it.isWriting())
-				.limit(index)
-				.map(it -> it.getDataStore().getDatabaseComponentName())
-				.collect(Collectors.toList());
-    }
-    
-    public List<String> getRequiredDatabases() {
-    	List<DatabaseActionSequenceElement<?>> potentialRequired = this.getElements().stream()
-				.filter(DatabaseActionSequenceElement.class::isInstance)
-				.map(DatabaseActionSequenceElement.class::cast)
-				.filter(it -> !it.isWriting())
-				.collect(Collectors.toList());
-    	List<DatabaseActionSequenceElement<?>> requiredDatabases = potentialRequired.stream()
-    			.filter(it -> !getProvidedBefore(it).contains(it.getDataStore().getDatabaseComponentName()))
-    			.collect(Collectors.toList());
-    	return requiredDatabases.stream()
-    			.map(it -> it.getDataStore().getDatabaseComponentName())
-    			.collect(Collectors.toList());
-    }
-    
-    private List<String> getProvidedBefore(DatabaseActionSequenceElement<?> element) {
-    	int index = this.getElements().indexOf(element);
-    	return this.getElements().stream()
-				.filter(DatabaseActionSequenceElement.class::isInstance)
-				.map(DatabaseActionSequenceElement.class::cast)
-				.filter(it -> it.isWriting())
-				.limit(index)
-				.map(it -> it.getDataStore().getDatabaseComponentName())
-				.collect(Collectors.toList());
-    }
-
-    /**
-     * Return -1, when this sequence needs to be executed before the other
-     * Return 0, if the sequences can run simultaneously
-     * Return 1, if the other sequence needs to run first
-     */
-	@Override
-	public int compareTo(PCMActionSequence otherSequence) {
-		if (this.getRequiredDatabases().isEmpty() && otherSequence.getRequiredDatabases().isEmpty()) {
-			return 0;
-		} else if (this.getRequiredDatabases().isEmpty() && !otherSequence.getRequiredDatabases().isEmpty()) {
-			return -1;
-		} else if (!this.getRequiredDatabases().isEmpty() && otherSequence.getRequiredDatabases().isEmpty()) {
-			return 1;
-		} else {
-			logger.error("Found incompatible set of Databases, Action Sequences depend on each other");
-			logger.error("Problematic sequences: " + this + ", " + otherSequence);
-			throw new IllegalStateException("Cylic loop of databases found in action sequences");
-		}
 	}
 }

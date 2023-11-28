@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.builder.AnalysisData;
 import org.dataflowanalysis.analysis.entity.pcm.PCMActionSequence;
-import org.dataflowanalysis.analysis.entity.pcm.seff.DatabaseActionSequenceElement;
 import org.dataflowanalysis.analysis.entity.sequence.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.entity.sequence.ActionSequence;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
@@ -70,17 +69,9 @@ public class StandalonePCMDataFlowConfidentialityAnalysis implements DataFlowCon
 		List<PCMActionSequence> actionSequences = sequences.parallelStream()
     			.map(PCMActionSequence.class::cast)
     			.collect(Collectors.toList());
-    	List<PCMActionSequence> sortedSequences = new ArrayList<>(actionSequences);
-    	Collections.sort(sortedSequences);
-    	if(this.usesDataStores(sequences)) {
-    		return sortedSequences.stream()
-    	            .map(it -> it.evaluateDataFlow(this.analysisData))
-    	            .toList();
-    	} else {
-    		return sortedSequences.parallelStream()
-    	            .map(it -> it.evaluateDataFlow(this.analysisData))
-    	            .toList();
-    	}
+    	return actionSequences.parallelStream()
+    	          .map(it -> it.evaluateDataFlow(this.analysisData))
+    	          .toList();
 	}
 
 	@Override
@@ -221,16 +212,5 @@ public class StandalonePCMDataFlowConfidentialityAnalysis implements DataFlowCon
             e.printStackTrace();
             return false;
         }
-    }
-    
-    /**
-     * This method determines, whether the action sequences use data stores
-     * @param actionSequences Found action sequences that should be analyzed
-     * @return Returns true, if data stores are used. Otherwise, the method returns false
-     */
-    private boolean usesDataStores(List<ActionSequence> actionSequences) {
-    	return actionSequences.parallelStream()
-    		.flatMap(it -> it.getElements().parallelStream())
-    		.anyMatch(DatabaseActionSequenceElement.class::isInstance);
     }
 }

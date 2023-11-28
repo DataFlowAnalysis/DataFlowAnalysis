@@ -19,7 +19,7 @@ import org.dataflowanalysis.analysis.entity.sequence.ActionSequence;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintData;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintViolations;
 import org.junit.jupiter.api.Test;
-import org.dataflowanalysis.analysis.dictionary.characterized.DataDictionaryCharacterized.Literal;
+import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Literal;
 
 public class ConstraintResultTest extends ConstraintTest {
 	/**

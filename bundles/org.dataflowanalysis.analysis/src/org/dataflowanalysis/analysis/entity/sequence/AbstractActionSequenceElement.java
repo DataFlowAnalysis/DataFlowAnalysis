@@ -14,6 +14,7 @@ import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionar
 public abstract class AbstractActionSequenceElement<T extends EObject> {
 
     private final Optional<List<DataFlowVariable>> dataFlowVariables;
+    private final Optional<List<DataFlowVariable>> outgoingDataFlowVariables;
     private final Optional<List<CharacteristicValue>> nodeCharacteristics;
 
     /**
@@ -21,6 +22,7 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
      */
     public AbstractActionSequenceElement() {
         this.dataFlowVariables = Optional.empty();
+        this.outgoingDataFlowVariables = Optional.empty();
         this.nodeCharacteristics = Optional.empty();
     }
 
@@ -29,8 +31,9 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
      * @param dataFlowVariables List of updated dataflow variables
      * @param nodeCharacteristics List of updated node characteristics
      */
-    public AbstractActionSequenceElement(List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+    public AbstractActionSequenceElement(List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
         this.dataFlowVariables = Optional.of(List.copyOf(dataFlowVariables));
+        this.outgoingDataFlowVariables = Optional.of(List.copyOf(outgoingDataFlowVariables));
         this.nodeCharacteristics = Optional.of(List.copyOf(nodeCharacteristics));
     }
 
@@ -78,6 +81,14 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
      */
     public List<DataFlowVariable> getAllDataFlowVariables() {
         return this.dataFlowVariables.orElseThrow(IllegalStateException::new);
+    }
+    
+    /**
+     * Returns a list of all outgoing dataflow variables that are present for the action sequence element
+     * @return List of present outgoing dataflow variables (e.g. the variables at the output pin of the DFD representation)
+     */
+    public List<DataFlowVariable> getAllOutgoingDataFlowVariables() {
+        return this.outgoingDataFlowVariables.orElseThrow(IllegalStateException::new);
     }
     
     /**

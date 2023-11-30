@@ -36,8 +36,8 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
      * @param dataFlowVariables List of updated data flow variables
      * @param nodeCharacteristics List of updated node characteristics
      */
-    public CallingSEFFActionSequenceElement(CallingSEFFActionSequenceElement oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
-        super(oldElement, dataFlowVariables, nodeCharacteristics);
+    public CallingSEFFActionSequenceElement(CallingSEFFActionSequenceElement oldElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+        super(oldElement, dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
         this.isCalling = oldElement.isCalling();
     }
 
@@ -47,7 +47,7 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
     }
     
     @Override
-    public AbstractActionSequenceElement<ExternalCallAction> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
+    public AbstractActionSequenceElement<ExternalCallAction> evaluateDataFlow(List<DataFlowVariable> incomingDataFlowVariables, AnalysisData analysisData) {
     	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(analysisData);
     	
         List<VariableCharacterisation> variableCharacterisations = this.isCalling ? 
@@ -64,8 +64,8 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
         	super.checkCallParameter(super.getElement().getCalledService_ExternalService(), variableCharacterisations);
         }
 
-        List<DataFlowVariable> dataFlowVariables = super.getDataFlowVariables(analysisData, nodeCharacteristics, variableCharacterisations, variables);
-        return new CallingSEFFActionSequenceElement(this, dataFlowVariables, nodeCharacteristics);
+        List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(analysisData, nodeCharacteristics, variableCharacterisations, incomingDataFlowVariables);
+        return new CallingSEFFActionSequenceElement(this, incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
     
     @Override

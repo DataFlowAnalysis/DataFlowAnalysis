@@ -38,8 +38,8 @@ public abstract class AbstractPCMActionSequenceElement<T extends Entity> extends
      * @param dataFlowVariables DataFlow variables, which should be present for the action sequence element
      * @param nodeCharacteristics Node characteristics, which should be present for the action sequence element
      */
-    public AbstractPCMActionSequenceElement(AbstractPCMActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
-    	super(dataFlowVariables, nodeCharacteristics);
+    public AbstractPCMActionSequenceElement(AbstractPCMActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+    	super(dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     	this.element = oldElement.getElement();
     	this.context = oldElement.getContext();
     }

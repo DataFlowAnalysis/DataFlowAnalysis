@@ -31,8 +31,8 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
      * @param dataFlowVariables List of updated data flow variables
      * @param nodeCharacteristics List of updated node characteristics
      */
-    public CallingUserActionSequenceElement(CallingUserActionSequenceElement oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
-        super(oldElement, dataFlowVariables, nodeCharacteristics);
+    public CallingUserActionSequenceElement(CallingUserActionSequenceElement oldElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+        super(oldElement, dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
         this.isCalling = oldElement.isCalling();
     }
 
@@ -42,7 +42,7 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
     }
     
     @Override
-    public AbstractActionSequenceElement<EntryLevelSystemCall> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
+    public AbstractActionSequenceElement<EntryLevelSystemCall> evaluateDataFlow(List<DataFlowVariable> incomingDataFlowVariables, AnalysisData analysisData) {
     	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(analysisData);
     	
     	List<VariableCharacterisation> variableCharacterisations = this.isCalling ?
@@ -60,8 +60,8 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
         	super.checkCallParameter(super.getElement().getOperationSignature__EntryLevelSystemCall(), variableCharacterisations);
         }
     	
-    	List<DataFlowVariable> dataFlowVariables = super.getDataFlowVariables(analysisData, nodeCharacteristics, variableCharacterisations, variables);
-    	return new CallingUserActionSequenceElement(this, dataFlowVariables, nodeCharacteristics);
+    	List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(analysisData, nodeCharacteristics, variableCharacterisations, incomingDataFlowVariables);
+    	return new CallingUserActionSequenceElement(this, incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
 
     @Override

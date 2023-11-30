@@ -45,17 +45,17 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
      * @param dataFlowVariables Updated dataflow variables
      * @param nodeCharacteristics Updated node characteristics
      */
-    public SEFFActionSequenceElement(SEFFActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
-        super(oldElement, dataFlowVariables, nodeCharacteristics);
+    public SEFFActionSequenceElement(SEFFActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables ,List<CharacteristicValue> nodeCharacteristics) {
+        super(oldElement, dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
         this.parameter = oldElement.getParameter();
     }
 
     @Override
-    public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
+    public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> incomingDataFlowVariables, AnalysisData analysisData) {
     	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(analysisData);
     	
         if (this.getElement() instanceof StartAction || this.getElement() instanceof StopAction) {
-        	return new SEFFActionSequenceElement<T>(this, new ArrayList<>(variables), nodeCharacteristics);
+        	return new SEFFActionSequenceElement<T>(this, new ArrayList<>(incomingDataFlowVariables), new ArrayList<>(incomingDataFlowVariables), nodeCharacteristics);
     	} else if (!(this.getElement() instanceof SetVariableAction)) {
     		logger.error("Found unexpected sequence element of unknown PCM type " + this.getElement().getClass().getName());
     		throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");
@@ -67,8 +67,8 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
                 .flatMap(it -> it.getVariableCharacterisation_VariableUsage().stream())
                 .toList();
     	
-    	List<DataFlowVariable> dataFlowVariables = super.getDataFlowVariables(analysisData, nodeCharacteristics, variableCharacterisations, variables);
-        return new SEFFActionSequenceElement<T>(this, dataFlowVariables, nodeCharacteristics);
+    	List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(analysisData, nodeCharacteristics, variableCharacterisations, incomingDataFlowVariables);
+        return new SEFFActionSequenceElement<T>(this, incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
     
     /**

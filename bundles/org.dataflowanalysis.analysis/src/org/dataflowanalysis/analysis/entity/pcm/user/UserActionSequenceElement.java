@@ -31,15 +31,15 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
      * @param dataFlowVariables List of updated dataflow variables
      * @param nodeCharacteristics List of updated node characteristics
      */
-    public UserActionSequenceElement(UserActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
-        super(oldElement, dataFlowVariables, nodeCharacteristics);
+    public UserActionSequenceElement(UserActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+        super(oldElement, dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
     
     @Override
-    public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
+    public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> incomingDataFlowVariables, AnalysisData analysisData) {
     	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(analysisData);
         if (this.getElement() instanceof Start || this.getElement() instanceof Stop) {
-    		return new UserActionSequenceElement<T>(this, new ArrayList<>(variables), nodeCharacteristics);
+    		return new UserActionSequenceElement<T>(this, new ArrayList<>(incomingDataFlowVariables), new ArrayList<>(incomingDataFlowVariables), nodeCharacteristics);
     	} 
     	logger.error("Found unexpected sequence element of unknown PCM type " + this.getElement().getClass().getName());
     	throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");

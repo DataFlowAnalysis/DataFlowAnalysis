@@ -21,6 +21,7 @@ import org.palladiosimulator.pcm.seff.BranchAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
 import org.palladiosimulator.pcm.seff.StartAction;
+import org.palladiosimulator.pcm.seff.StopAction;
 
 public class SEFFActionSequenceElement<T extends AbstractAction> extends AbstractPCMActionSequenceElement<T> {
 	private final Logger logger = Logger.getLogger(SEFFActionSequenceElement.class);
@@ -53,7 +54,7 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
     public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
     	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(analysisData);
     	
-        if (this.getElement() instanceof StartAction) {
+        if (this.getElement() instanceof StartAction || this.getElement() instanceof StopAction) {
         	return new SEFFActionSequenceElement<T>(this, new ArrayList<>(variables), nodeCharacteristics);
     	} else if (!(this.getElement() instanceof SetVariableAction)) {
     		logger.error("Found unexpected sequence element of unknown PCM type " + this.getElement().getClass().getName());
@@ -99,6 +100,12 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
     			Optional<BranchAction> branchAction = PCMQueryUtils.findParentOfType(this.getElement(), BranchAction.class, false);
     			Optional<AbstractBranchTransition> branchTransition = PCMQueryUtils.findParentOfType(this.getElement(), AbstractBranchTransition.class, false);
     			elementName = "Branching " + seff.get().getDescribedService__SEFF().getEntityName() + "." + branchAction.get().getEntityName() + "." +  branchTransition.get().getEntityName();
+    		}
+    	}
+    	if (this.getElement() instanceof StopAction) {
+    		Optional<ResourceDemandingSEFF> seff = PCMQueryUtils.findParentOfType(this.getElement(), ResourceDemandingSEFF.class, false);
+    		if (seff.isPresent()) {
+    			elementName = "Ending " + seff.get().getDescribedService__SEFF().getEntityName();
     		}
     	}
         return String.format("%s (%s, %s))", this.getClass()

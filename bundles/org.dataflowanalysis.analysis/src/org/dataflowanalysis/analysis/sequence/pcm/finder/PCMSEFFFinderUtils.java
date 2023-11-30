@@ -54,18 +54,18 @@ public class PCMSEFFFinderUtils {
     }
 
     private static List<PCMActionSequence> findSequencesForSEFFStopAction(StopAction currentAction, SEFFFinderContext context, PCMActionSequence previousSequence) {
-
-        Optional<AbstractAction> parentAction = PCMQueryUtils.findParentOfType(currentAction, AbstractAction.class,
-                false);
-
+    	var stopElement = new SEFFActionSequenceElement<StopAction>(currentAction, context.getContext(), context.getParameter());
+        var currentSequence = new PCMActionSequence(previousSequence, stopElement);
+    	
+        Optional<AbstractAction> parentAction = PCMQueryUtils.findParentOfType(currentAction, AbstractAction.class, false);
         if (parentAction.isPresent()) {
             AbstractAction successor = parentAction.get()
                 .getSuccessor_AbstractAction();
-            return findSequencesForSEFFAction(successor, context, previousSequence);
+            return findSequencesForSEFFAction(successor, context, currentSequence);
         } else {
             AbstractPCMActionSequenceElement<?> caller = context.getLastCaller();
             context.updateParameterForCallerReturning(caller);
-            return returnToCaller(caller, context, previousSequence);
+            return returnToCaller(caller, context, currentSequence);
         }
     }
 

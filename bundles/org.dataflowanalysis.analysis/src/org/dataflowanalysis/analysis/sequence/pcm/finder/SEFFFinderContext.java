@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
-import org.dataflowanalysis.analysis.characteristics.DataStore;
 import org.dataflowanalysis.analysis.entity.pcm.AbstractPCMActionSequenceElement;
 import org.dataflowanalysis.analysis.entity.pcm.seff.CallingSEFFActionSequenceElement;
 import org.dataflowanalysis.analysis.entity.pcm.user.CallingUserActionSequenceElement;
@@ -16,7 +15,6 @@ public class SEFFFinderContext {
     private Deque<AssemblyContext> context;
     private Deque<AbstractPCMActionSequenceElement<?>> callers;
     private List<Parameter> parameter;
-    private List<DataStore> dataStores;
     
     /**
      * Initializes a new SEFF Finder context with the given assembly context, Collection of callers, List of available parameter, and all discovered data stores
@@ -25,11 +23,10 @@ public class SEFFFinderContext {
      * @param parameter List of parameters present at the SEFF element
      * @param dataStores List of data stores that were discovered while finding sequences
      */
-    public SEFFFinderContext(Deque<AssemblyContext> context, Deque<AbstractPCMActionSequenceElement<?>> callers, List<Parameter> parameter, List<DataStore> dataStores) {
+    public SEFFFinderContext(Deque<AssemblyContext> context, Deque<AbstractPCMActionSequenceElement<?>> callers, List<Parameter> parameter) {
     	this.context = context;
     	this.callers = callers;
     	this.parameter = parameter;
-    	this.dataStores = dataStores;
 	}
     
     /**
@@ -40,7 +37,6 @@ public class SEFFFinderContext {
     	this.context = new ArrayDeque<>(context.getContext());
     	this.callers = new ArrayDeque<>(context.getCallers());
     	this.parameter = new ArrayList<>(context.getParameter());
-    	this.dataStores = new ArrayList<>(context.getDataStores());
     }
     
     /**
@@ -89,16 +85,6 @@ public class SEFFFinderContext {
     }
     
     /**
-     * Add a new known data store to the context
-     * @param dataStore New known data store
-     */
-    public void addDataStore(DataStore dataStore) {
-    	if (!this.dataStores.contains(dataStore)) {
-    		this.dataStores.add(dataStore);
-    	}
-    }
-    
-    /**
      * Returns the currently saved assembly contexts, that the current SEFF element is executed in
      * @return Returns the collection of saved assembly contexts
      */
@@ -120,13 +106,5 @@ public class SEFFFinderContext {
      */
     public List<Parameter> getParameter() {
 		return parameter;
-	}
-    
-    /**
-     * Returns the list of data stores, that are currently known
-     * @return List of available data stores
-     */
-    public List<DataStore> getDataStores() {
-		return dataStores;
 	}
 }

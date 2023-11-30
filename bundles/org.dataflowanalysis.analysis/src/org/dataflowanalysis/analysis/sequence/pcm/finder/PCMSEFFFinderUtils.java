@@ -155,7 +155,7 @@ public class PCMSEFFFinderUtils {
         if (!context.getCallers().isEmpty()) {
             throw new IllegalStateException("Illegal state in action sequence finder.");
         } else {
-            return PCMUserFinderUtils.findSequencesForUserActionReturning(caller.getElement(), context.getDataStores(), previousSequence);
+            return PCMUserFinderUtils.findSequencesForUserActionReturning(caller.getElement(), previousSequence);
         }
     }
 

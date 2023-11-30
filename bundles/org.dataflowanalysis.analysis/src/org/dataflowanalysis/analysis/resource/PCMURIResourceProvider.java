@@ -26,7 +26,7 @@ public class PCMURIResourceProvider implements ResourceProvider {
 	
 	private URI usageModelURI;
 	private URI allocationModelURI;
-	private Optional<URI> nodeCharacteristicURI;
+	private URI nodeCharacteristicURI;
 	private UsageModel usageModel;
 	private Allocation allocation;
 	
@@ -36,7 +36,7 @@ public class PCMURIResourceProvider implements ResourceProvider {
 	 * @param allocationModelURI URI to the allocation model
 	 * @param nodeCharacteristicsURI URI to the node characteristics model
 	 */
-	public PCMURIResourceProvider(URI usageModelURI, URI allocationModelURI, Optional<URI> nodeCharacteristicsURI) {
+	public PCMURIResourceProvider(URI usageModelURI, URI allocationModelURI, URI nodeCharacteristicsURI) {
 		this.usageModelURI = usageModelURI;
 		this.allocationModelURI = allocationModelURI;
 		this.nodeCharacteristicURI = nodeCharacteristicsURI;
@@ -46,9 +46,7 @@ public class PCMURIResourceProvider implements ResourceProvider {
 	public void loadRequiredResources() {
 		this.usageModel = (UsageModel) this.loadModelContent(usageModelURI);
 		this.allocation = (Allocation) this.loadModelContent(allocationModelURI);
-		if (this.nodeCharacteristicURI.isPresent()) {
-			this.loadModelContent(this.nodeCharacteristicURI.get());
-		}
+		this.loadModelContent(this.nodeCharacteristicURI);
 		List<Resource> loadedResources = null;
 		do {
 			loadedResources = new ArrayList<>(this.resources.getResources());

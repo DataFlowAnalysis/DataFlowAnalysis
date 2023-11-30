@@ -21,7 +21,6 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	private String relativeAllocationModelPath;
 	private String relativeNodeCharacteristicsPath;
 	private Optional<ResourceProvider> customResourceProvider = Optional.empty();
-	private boolean legacy;
 	
 	/**
 	 * Validates the saved data
@@ -40,11 +39,8 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 		if (this.customResourceProvider.isPresent() && !this.customResourceProvider.get().sufficientResourcesLoaded()) {
 			throw new IllegalStateException("Custom resource provider did not load all required resources");
 		}
-		if (this.isLegacy()) {
-			logger.info("Using legacy EMF Profiles for Node Characteristic application");
-		}
-		if (!this.isLegacy() && this.getRelativeNodeCharacteristicsPath().isEmpty()) {
-			logger.warn("Using new node characteristic model without specifying path to the assignment model. No node characteristics will be applied!");
+		if (this.getRelativeNodeCharacteristicsPath() == null || this.getRelativeNodeCharacteristicsPath().isEmpty()) {
+			logger.warn("Using node characteristic model without specifying path to the assignment model. No node characteristics will be applied!");
 		}
 	}
 	
@@ -64,13 +60,7 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	 * @return Returns the effective resource provider for the analysis
 	 */
 	private ResourceProvider getEffectiveResourceProvider() {
-		if (this.customResourceProvider.isPresent()) {
-			return this.customResourceProvider.get();
-		}
-		if (this.isLegacy()) {
-			return this.getURIResourceProvider(Optional.empty());
-		}
-		return this.getURIResourceProvider(Optional.of(PCMResourceUtils.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName)));
+		return this.customResourceProvider.orElseGet(this::getURIResourceProvider);
 	}
 	
 	/**
@@ -78,9 +68,10 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	 * @param nodeCharacteristicsURI Optional URI to the node characteristics model
 	 * @return New instance of an URI resource loader with the internally saved values
 	 */
-	private ResourceProvider getURIResourceProvider(Optional<URI> nodeCharacteristicsURI) {
+	private ResourceProvider getURIResourceProvider() {
 		return new PCMURIResourceProvider(PCMResourceUtils.createRelativePluginURI(relativeUsageModelPath, modelProjectName), 
-				PCMResourceUtils.createRelativePluginURI(relativeAllocationModelPath, modelProjectName), nodeCharacteristicsURI);
+				PCMResourceUtils.createRelativePluginURI(relativeAllocationModelPath, modelProjectName), 
+				PCMResourceUtils.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName));
 	}
 	
 	/**
@@ -97,22 +88,6 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	 */
 	public Class<? extends Plugin> getPluginActivator() {
 		return pluginActivator;
-	}
-	
-	/**
-	 * Sets the legacy mode of the analysis to allow the loading of EMF Profiles
-	 * @param legacy New value of the legacy mode
-	 */
-	public void setLegacy(boolean legacy) {
-		this.legacy = legacy;
-	}
-	
-	/**
-	 * Returns, whether or not the analysis is in legacy mode
-	 * @return Returns true, if the analysis is in legacy mode and EMF Profiles are loaded. Otherwise, the method returns false
-	 */
-	public boolean isLegacy() {
-		return legacy;
 	}
 	
 	/**

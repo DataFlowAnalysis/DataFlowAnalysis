@@ -14,15 +14,6 @@ extends AbstractDataFlowAnalysisBuilder<StandalonePCMDataFlowConfidentialityAnal
 	}
 	
 	/**
-	 * Set the legacy mode of the analysis
-	 * @return Returns builder object of the analysis
-	 */
-	public PCMDataFlowConfidentialityAnalysisBuilder legacy() {
-		this.builderData.setLegacy(true);
-		return this;
-	}
-	
-	/**
 	 * Uses a plugin activator class for the given project
 	 * @param pluginActivator Plugin activator class of the modeling project
 	 * @return Returns builder object of the analysis
@@ -80,7 +71,7 @@ extends AbstractDataFlowAnalysisBuilder<StandalonePCMDataFlowConfidentialityAnal
 	
 	@Override
 	public void validateBuilderData() {
-		this.builder.forEach(it -> it.validateBuilderData());
+		this.builder.forEach(AbstractDataFlowAnalysisBuilder::validateBuilderData);
 		this.builderData.validateData();
 	}
 

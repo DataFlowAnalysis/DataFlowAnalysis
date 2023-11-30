@@ -1,10 +1,8 @@
 package org.dataflowanalysis.analysis.sequence.pcm;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.characteristics.DataStore;
 import org.dataflowanalysis.analysis.entity.pcm.PCMActionSequence;
 import org.dataflowanalysis.analysis.sequence.ActionSequenceFinder;
 import org.dataflowanalysis.analysis.sequence.pcm.finder.PCMUserFinderUtils;
@@ -32,12 +30,11 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
     private List<PCMActionSequence> findSequencesForUsageModel(UsageModel usageModel) {
         PCMActionSequence initialList = new PCMActionSequence();
         List<Start> startActions = PCMQueryUtils.findStartActionsForUsageModel(usageModel);
-        List<DataStore> initialDataStores = new ArrayList<>();
 
         return startActions.stream()
-        .map(it -> PCMUserFinderUtils.findSequencesForUserAction(it, initialDataStores, initialList))
-        .flatMap(List::stream)
-        .toList();
+	        .map(it -> PCMUserFinderUtils.findSequencesForUserAction(it, initialList))
+	        .flatMap(List::stream)
+	        .toList();
     }
 
 }

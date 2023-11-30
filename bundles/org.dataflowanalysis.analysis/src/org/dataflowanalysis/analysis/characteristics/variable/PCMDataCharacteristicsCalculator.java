@@ -32,7 +32,7 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
 
     /**
      * Initialize Data characteristics Calculator with initial variables.
-     * In addition the read-only container for node characteristics is created. See {@link createNodeCharacteristicsContainer}
+     * In addition, the read-only container for node characteristics is created. See {@link createNodeCharacteristicsContainer}
      * 
      * @param initialVariables
      * DataFlowVariables of the previous ActionSequence Element
@@ -54,11 +54,11 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
      * Each node characteristic is saved within the container DataFlowVariable with it's characteristic type and value.
      * <p>
      * Furthermore, node characteristics cannot be modified by variable characterisations, so this variable is read-only.
-     * @param nodeCharacteristics
+     * @param nodeCharacteristics Given list of node characteristics present at the current node
      */
     private void createNodeCharacteristicsContainer(List<CharacteristicValue> nodeCharacteristics) {
     	DataFlowVariable nodeCharacteristicContainer = new DataFlowVariable("container");
-        nodeCharacteristics.forEach(it -> nodeCharacteristicContainer.addCharacteristic(it));
+        nodeCharacteristics.forEach(nodeCharacteristicContainer::addCharacteristic);
         this.currentVariables.add(nodeCharacteristicContainer);
     }
 
@@ -87,9 +87,9 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
 
         List<CharacteristicValue> modifiedCharacteristics = calculateModifiedCharacteristics(existingVariable, characteristicType, characteristicValue);
 
-        DataFlowVariable modifedVariable = createModifiedDataFlowVariable(existingVariable, modifiedCharacteristics, rightHandSide);
+        DataFlowVariable modifiedVariable = createModifiedDataFlowVariable(existingVariable, modifiedCharacteristics, rightHandSide);
         currentVariables.remove(existingVariable);
-        currentVariables.add(modifedVariable);
+        currentVariables.add(modifiedVariable);
     }
     
     /**
@@ -125,15 +125,15 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
             computedVariable = computedVariable.addCharacteristic(umodifedCharacteristic);
         }
 
-        for (CharacteristicValue modifedCharacteristic : modifiedCharacteristics) {
-            if (evaluateTerm(rightHandSide, modifedCharacteristic)) {
+        for (CharacteristicValue modifiedCharacteristic : modifiedCharacteristics) {
+            if (evaluateTerm(rightHandSide, modifiedCharacteristic)) {
             	List<CharacteristicValue> modifiedCharacteristicValues = computedVariable.getAllCharacteristics().stream()
-            			.filter(it -> it.characteristicType().getName().equals(modifedCharacteristic.characteristicType().getName()))
+            			.filter(it -> it.characteristicType().getName().equals(modifiedCharacteristic.characteristicType().getName()))
             			.collect(Collectors.toList());
             	
             	if (modifiedCharacteristicValues.stream()
-            			.noneMatch(it -> it.characteristicLiteral().getName().equals(modifedCharacteristic.characteristicLiteral().getName()))) {
-            		computedVariable = computedVariable.addCharacteristic(modifedCharacteristic);
+            			.noneMatch(it -> it.characteristicLiteral().getName().equals(modifiedCharacteristic.characteristicLiteral().getName()))) {
+            		computedVariable = computedVariable.addCharacteristic(modifiedCharacteristic);
             	}
             }
         }
@@ -156,7 +156,7 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
             EnumCharacteristicType characteristicType, Literal characteristicValue) {
         if (characteristicValue == null && characteristicType != null) {
             return discoverNewVariables(existingVariable, Optional.of(characteristicType));
-        } else if (characteristicValue == null && characteristicType == null) {
+        } else if (characteristicValue == null) {
             return discoverNewVariables(existingVariable, Optional.empty());
         } else {
             return List.of(existingVariable.getAllCharacteristics()
@@ -188,12 +188,10 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
             return false;
         } else if (term instanceof NamedEnumCharacteristicReference) {
             return evaluateNamedReference((NamedEnumCharacteristicReference) term, characteristicValue);
-        } else if (term instanceof And) {
-            var andTerm = (And) term;
+        } else if (term instanceof And andTerm) {
             return evaluateTerm(andTerm.getLeft(), characteristicValue)
                     && evaluateTerm(andTerm.getRight(), characteristicValue);
-        } else if (term instanceof Or) {
-            var orTerm = (Or) term;
+        } else if (term instanceof Or orTerm) {
             return evaluateTerm(orTerm.getLeft(), characteristicValue)
                     || evaluateTerm(orTerm.getRight(), characteristicValue);
         } else {
@@ -235,7 +233,7 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
                 .getName()
                 .equals(characteristicReferenceValue.getName()))
             .findAny();
-        return !characteristic.isEmpty() && dataflowVariable.hasCharacteristic(characteristic.get());
+        return characteristic.isPresent() && dataflowVariable.hasCharacteristic(characteristic.get());
     }
 
     /**
@@ -252,13 +250,13 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
     private List<CharacteristicValue> discoverNewVariables(DataFlowVariable variable,
             Optional<EnumCharacteristicType> characteristicType) {
         List<CharacteristicValue> updatedCharacteristicValues = new ArrayList<>();
-        var dataDictonaries = this.resourceLoader.lookupElementOfType(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
+        var dataDictionaries = this.resourceLoader.lookupElementOfType(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
             .stream()
             .filter(PCMDataDictionary.class::isInstance)
             .map(PCMDataDictionary.class::cast)
             .collect(Collectors.toList());
 
-        List<EnumCharacteristicType> characteristicTypes = dataDictonaries.stream()
+        List<EnumCharacteristicType> characteristicTypes = dataDictionaries.stream()
             .flatMap(it -> it.getCharacteristicTypes()
                 .stream())
             .filter(it -> characteristicType.isEmpty() || it.getName()
@@ -271,15 +269,10 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
             ArrayList<EnumCharacteristicType>::new));
 
         characteristicTypes.stream()
-            .forEach(enumCharacteristicType -> {
-                enumCharacteristicType.getType()
+            .forEach(enumCharacteristicType -> enumCharacteristicType.getType()
                     .getLiterals()
-                    .stream()
-                    .forEach(characteristicValue -> {
-                        updatedCharacteristicValues
-                            .add(new CharacteristicValue(enumCharacteristicType, characteristicValue));
-                    });
-            });
+                    .forEach(characteristicValue -> updatedCharacteristicValues
+                            .add(new CharacteristicValue(enumCharacteristicType, characteristicValue))));
         return updatedCharacteristicValues;
     }
 

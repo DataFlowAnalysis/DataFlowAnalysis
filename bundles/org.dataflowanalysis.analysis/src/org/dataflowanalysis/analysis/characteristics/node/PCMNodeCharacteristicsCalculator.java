@@ -54,10 +54,10 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 		List<AbstractAssignee> assignees;
 		if (node instanceof AbstractUserAction) {
 			assignees = this.getUsage(node, assignments);
-		} else if (node instanceof AbstractAction || node instanceof OperationalDataStoreComponent) {
+		} else if (node instanceof AbstractAction) {
 			assignees = this.getSEFF(assignments, context);
 		} else {
-			throw new IllegalArgumentException("Unkown assignee:" + node.toString());
+			throw new IllegalArgumentException("Unknown assignee:" + node.toString());
 		}
 		List<EnumCharacteristic> enumCharacteristics = assignees.stream()
 			.flatMap(it -> it.getCharacteristics().stream())
@@ -151,7 +151,7 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 	 * @param assignments Resolved assignment container
 	 * @param context Context of the node
 	 * @param compositeComponent Given composite component
-	 * @return
+	 * @return Returns the list of all contained assignees of a SEFF node inside a given composite component
 	 */
 	private List<AbstractAssignee> getComposite(Assignments assignments, Deque<AssemblyContext> context, CompositeComponent compositeComponent) {
 		List<AbstractAssignee> evaluatedAssignees = new ArrayList<>();
@@ -205,26 +205,22 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 	}
 	
 	/**
-	 * Determines whether an given usageScenario is currently loaded in the resources of the analysis
-	 * @param object Given model object
-	 * @return Returns true, if the model object could be found in the resources of the analysis. Otherwise, the method returns false.
+	 * Determines whether a given usageScenario is currently loaded in the resources of the analysis
+	 * @param usageScenario Given usage scenario that is searched for
+	 * @return Returns true, if the usage scenario could be found in the resources of the analysis. Otherwise, the method returns false.
 	 */
 	private boolean presentInUsageModel(UsageScenario usageScenario) {
 		List<UsageModel> usageModel = this.resourceLoader.lookupElementOfType(UsagemodelPackage.eINSTANCE.getUsageModel()).parallelStream()
 				.filter(UsageModel.class::isInstance)
 				.map(UsageModel.class::cast)
 				.collect(Collectors.toList());
-		for (UsageModel usage : usageModel) {
-			if (usage.getUsageScenario_UsageModel().contains(usageScenario)) {
-				return true;
-			}
-		}
-		return false;
+		return usageModel.stream()
+				.anyMatch(it -> it.getUsageScenario_UsageModel().contains(usageScenario));
 	}
 	
 	/**
-	 * Determines whether an given usageScenario is currently loaded in the resources of the analysis
-	 * @param object Given model object
+	 * Determines whether a given resource container is currently loaded in the resources of the analysis
+	 * @param resourceContainer Given resource container that is searched for
 	 * @return Returns true, if the model object could be found in the resources of the analysis. Otherwise, the method returns false.
 	 */
 	private boolean presentInResource(ResourceContainer resourceContainer) {
@@ -233,17 +229,13 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 				.filter(ResourceEnvironment.class::isInstance)
 				.map(ResourceEnvironment.class::cast)
 				.collect(Collectors.toList());
-		for (ResourceEnvironment resourceEnvironment : resourceEnvironments) {
-			if (resourceEnvironment.getResourceContainer_ResourceEnvironment().contains(resourceContainer)) {
-				return true;
-			}
-		}
-		return false;
+		return resourceEnvironments.stream()
+				.anyMatch(it -> it.getResourceContainer_ResourceEnvironment().contains(resourceContainer));
 	}
 	
 	/**
-	 * Determines whether an given usageScenario is currently loaded in the resources of the analysis
-	 * @param object Given model object
+	 * Determines whether a given assembly context is currently loaded in the resources of the analysis
+	 * @param assemblyContext Given assembly context that is searched
 	 * @return Returns true, if the model object could be found in the resources of the analysis. Otherwise, the method returns false.
 	 */
 	private boolean presentInAssembly(AssemblyContext assemblyContext) {
@@ -251,12 +243,8 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 				.filter(System.class::isInstance)
 				.map(System.class::cast)
 				.collect(Collectors.toList());
-		for (System system : systems) {
-			if (system.getAssemblyContexts__ComposedStructure().contains(assemblyContext)) {
-				return true;
-			}
-		}
-		return false;
+		return systems.stream()
+				.anyMatch(it ->it.getAssemblyContexts__ComposedStructure().contains(assemblyContext));
 	}
 	
 	/**

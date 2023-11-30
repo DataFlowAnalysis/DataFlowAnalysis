@@ -10,8 +10,9 @@ import org.dataflowanalysis.analysis.characteristics.CharacteristicValue;
 import org.dataflowanalysis.analysis.characteristics.DataFlowVariable;
 import org.dataflowanalysis.analysis.entity.pcm.AbstractPCMActionSequenceElement;
 import org.dataflowanalysis.analysis.entity.sequence.AbstractActionSequenceElement;
-import org.palladiosimulator.pcm.seff.StartAction;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
+import org.palladiosimulator.pcm.usagemodel.Start;
+import org.palladiosimulator.pcm.usagemodel.Stop;
 
 public class UserActionSequenceElement<T extends AbstractUserAction> extends AbstractPCMActionSequenceElement<T> {
 	private final Logger logger = Logger.getLogger(UserActionSequenceElement.class);
@@ -37,7 +38,7 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
     @Override
     public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
     	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(analysisData);
-        if (this.getElement() instanceof StartAction) {
+        if (this.getElement() instanceof Start || this.getElement() instanceof Stop) {
     		return new UserActionSequenceElement<T>(this, new ArrayList<>(variables), nodeCharacteristics);
     	} 
     	logger.error("Found unexpected sequence element of unknown PCM type " + this.getElement().getClass().getName());
@@ -46,6 +47,18 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
 
     @Override
     public String toString() {
+    	if (this.getElement() instanceof Start) {
+    		return String.format("%s (Starting %s, %s)", 
+    				this.getClass().getSimpleName(), 
+    				this.getElement().getScenarioBehaviour_AbstractUserAction().getUsageScenario_SenarioBehaviour().getEntityName(),
+    				this.getElement().getId());
+    	}
+    	if (this.getElement() instanceof Stop) {
+    		return String.format("%s (Stopping %s, %s)", 
+    				this.getClass().getSimpleName(),
+    				this.getElement().getScenarioBehaviour_AbstractUserAction().getUsageScenario_SenarioBehaviour().getEntityName(),
+    				this.getElement().getId());
+    	}
         return String.format("%s (%s, %s))", this.getClass()
             .getSimpleName(),
                 this.getElement()

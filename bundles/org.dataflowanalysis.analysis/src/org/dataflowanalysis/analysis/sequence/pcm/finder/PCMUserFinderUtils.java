@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.dataflowanalysis.analysis.entity.pcm.AbstractPCMActionSequenceElement;
 import org.dataflowanalysis.analysis.entity.pcm.PCMActionSequence;
 import org.dataflowanalysis.analysis.entity.pcm.user.CallingUserActionSequenceElement;
+import org.dataflowanalysis.analysis.entity.pcm.user.UserActionSequenceElement;
 import org.dataflowanalysis.analysis.sequence.pcm.SEFFWithContext;
 import org.dataflowanalysis.analysis.utils.pcm.PCMQueryUtils;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
@@ -46,19 +47,25 @@ public class PCMUserFinderUtils {
         }
     }
 
-    private static List<PCMActionSequence> findSequencesForUserStartAction(Start currentAction, PCMActionSequence previousSequence) {
-        return findSequencesForUserAction(currentAction.getSuccessor(), previousSequence);
+    private static List<PCMActionSequence> findSequencesForUserStartAction(Start currentAction, List<DataStore> dataStores,
+            PCMActionSequence previousSequence) {
+    	var startElement = new UserActionSequenceElement<Start>(currentAction);
+        var currentSequence = new PCMActionSequence(previousSequence, startElement);
+        return findSequencesForUserAction(currentAction.getSuccessor(), dataStores, currentSequence);
     }
 
-    private static List<PCMActionSequence> findSequencesForUserStopAction(Stop currentAction, PCMActionSequence previousSequence) {
+    private static List<PCMActionSequence> findSequencesForUserStopAction(Stop currentAction, List<DataStore> dataStores,
+            PCMActionSequence previousSequence) {
+    	var stopElement = new UserActionSequenceElement<Stop>(currentAction);
+        var currentSequence = new PCMActionSequence(previousSequence, stopElement);
+    	
         Optional<AbstractUserAction> parentAction = PCMQueryUtils.findParentOfType(currentAction,
                 AbstractUserAction.class, false);
-
         if (parentAction.isEmpty()) {
-            return List.of(previousSequence);
+            return List.of(currentSequence);
         } else {
             return findSequencesForUserAction(parentAction.get()
-                .getSuccessor(), previousSequence);
+                .getSuccessor(), dataStores, currentSequence);
         }
     }
 

@@ -16,7 +16,7 @@ import org.eclipse.emf.common.util.URI;
 public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	private final Logger logger = Logger.getLogger(PCMAnalysisBuilderData.class);
 	
-	private Class<? extends Plugin> pluginActivator;
+	private Optional<Class<? extends Plugin>> pluginActivator;
 	private String relativeUsageModelPath;
 	private String relativeAllocationModelPath;
 	private String relativeNodeCharacteristicsPath;
@@ -28,9 +28,6 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	 * @throws IllegalStateException Saved data is invalid
 	 */
 	public void validateData() {
-		if (this.getPluginActivator() == null) {
-			throw new IllegalStateException("A plugin activator is required");
-		}
 		if (this.getRelativeUsageModelPath().isEmpty() && this.customResourceProvider.isEmpty()) {
 			throw new IllegalStateException("A path to a usage model is required");
 		}
@@ -87,7 +84,7 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	 * Sets the plugin activator of the project
 	 * @param pluginActivator Eclipse plugin activator class
 	 */
-	public void setPluginActivator(Class<? extends Plugin> pluginActivator) {
+	public void setPluginActivator(Optional<Class<? extends Plugin>> pluginActivator) {
 		this.pluginActivator = pluginActivator;
 	}
 	
@@ -95,7 +92,7 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	 * Returns the plugin activator of the project
 	 * @return Eclipse plugin activator class of the project
 	 */
-	public Class<? extends Plugin> getPluginActivator() {
+	public Optional<Class<? extends Plugin>> getPluginActivator() {
 		return pluginActivator;
 	}
 	

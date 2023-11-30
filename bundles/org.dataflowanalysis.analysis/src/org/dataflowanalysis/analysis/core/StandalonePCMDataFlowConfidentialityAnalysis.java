@@ -1,8 +1,7 @@
 package org.dataflowanalysis.analysis.core;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -37,7 +36,7 @@ public class StandalonePCMDataFlowConfidentialityAnalysis implements DataFlowCon
 	private final Logger logger;
 	
 	private final String modelProjectName;
-	private final Class<? extends Plugin> modelProjectActivator;
+	private final Optional<Class<? extends Plugin>> modelProjectActivator;
 	
 	private List<PCMDataDictionary> dataDictionaries;
 	
@@ -49,7 +48,7 @@ public class StandalonePCMDataFlowConfidentialityAnalysis implements DataFlowCon
 	 * @param modelProjectActivator Plugin class of the analysis
 	 */
 	public StandalonePCMDataFlowConfidentialityAnalysis(AnalysisData analysisData, String modelProjectName,
-			Class<? extends Plugin> modelProjectActivator) {
+			Optional<Class<? extends Plugin>> modelProjectActivator) {
 		this.analysisData = analysisData;
 		this.logger = Logger.getLogger(StandalonePCMDataFlowConfidentialityAnalysis.class);
 		this.modelProjectName = modelProjectName;
@@ -171,11 +170,15 @@ public class StandalonePCMDataFlowConfidentialityAnalysis implements DataFlowCon
      */
     private boolean initStandalone() {
         try {
-            StandaloneInitializerBuilder.builder()
-                .registerProjectURI(this.modelProjectActivator, this.modelProjectName)
+             var initializationBuilder = StandaloneInitializerBuilder.builder()
                 .registerProjectURI(StandalonePCMDataFlowConfidentialityAnalysis.class, 
-                		StandalonePCMDataFlowConfidentialityAnalysis.PLUGIN_PATH)
-                .build()
+                		StandalonePCMDataFlowConfidentialityAnalysis.PLUGIN_PATH);
+             
+             if (this.modelProjectActivator.isPresent()) {
+            	 initializationBuilder.registerProjectURI(this.modelProjectActivator.get(), this.modelProjectName);
+             }
+             
+             initializationBuilder.build()
                 .init();
 
             logger.info("Successfully initialized standalone environment for the data flow analysis.");

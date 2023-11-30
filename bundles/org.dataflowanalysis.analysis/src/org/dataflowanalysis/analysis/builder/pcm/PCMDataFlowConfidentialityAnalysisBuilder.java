@@ -1,5 +1,7 @@
 package org.dataflowanalysis.analysis.builder.pcm;
 
+import java.util.Optional;
+
 import org.dataflowanalysis.analysis.builder.AbstractDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.builder.AnalysisBuilderData;
 import org.dataflowanalysis.analysis.core.StandalonePCMDataFlowConfidentialityAnalysis;
@@ -28,7 +30,7 @@ extends AbstractDataFlowAnalysisBuilder<StandalonePCMDataFlowConfidentialityAnal
 	 * @return Returns builder object of the analysis
 	 */
 	public PCMDataFlowConfidentialityAnalysisBuilder usePluginActivator(Class<? extends Plugin> pluginActivator) {
-		this.builderData.setPluginActivator(pluginActivator);
+		this.builderData.setPluginActivator(Optional.of(pluginActivator));
 		return this;
 	}
 	

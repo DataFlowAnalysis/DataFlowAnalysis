@@ -1,0 +1,45 @@
+module org.dataflowanalysis.dfd.mwe2
+
+import org.eclipse.emf.mwe.utils.StandaloneSetup
+import org.eclipse.emf.mwe.utils.DirectoryCleaner
+import org.eclipse.emf.mwe2.ecore.EcoreGenerator
+import tools.mdsd.ecoreworkflow.mwe2lib.bean.EclipseRCPSupportingStandaloneSetup
+import tools.mdsd.ecoreworkflow.mwe2lib.component.*
+
+var workspaceRoot = "../../" 
+
+Workflow {
+		bean = EclipseRCPSupportingStandaloneSetup {
+		scanClassPath = true
+		platformUri = workspaceRoot
+		
+		uriMap = {
+			from = "platform:/plugin/tools.mdsd.modelingfoundations.identifier/model/identifier.genmodel"
+			to = "platform:/resource/tools.mdsd.modelingfoundations.identifier/model/identifier.genmodel"
+		}
+		uriMap = {
+			from = "platform:/plugin/tools.mdsd.modelingfoundations.identifier/model/identifier.ecore"
+			to = "platform:/resource/tools.mdsd.modelingfoundations.identifier/model/identifier.ecore"
+		}
+	}
+
+	component = EcoreGenerator {
+		generateCustomClasses = false
+		generateEdit = true
+		generateEditor = true
+		genModel = "platform:/resource/org.dataflowanalysis.dfd.datadictionary/model/datadictionary.genmodel"
+		srcPath = "platform:/resource/org.dataflowanalysis.dfd.datadictionary/src-gen"
+		srcPath = "platform:/resource/org.dataflowanalysis.dfd.datadictionary.edit/src-gen"
+		srcPath = "platform:/resource/org.dataflowanalysis.dfd.datadictionary.edior/src-gen"
+	}
+	
+	component = EcoreGenerator {
+		generateCustomClasses = false
+		generateEdit = true
+		generateEditor = true
+		genModel = "platform:/resource/org.dataflowanalysis.dfd.dataflowdiagram/model/dataflowdiagram.genmodel"
+		srcPath = "platform:/resource/org.dataflowanalysis.dfd.dataflowdiagram/src-gen"
+		srcPath = "platform:/resource/org.dataflowanalysis.dfd.dataflowdiagram.edit/src-gen"
+		srcPath = "platform:/resource/org.dataflowanalysis.dfd.dataflowdiagram.edior/src-gen"
+	}
+}

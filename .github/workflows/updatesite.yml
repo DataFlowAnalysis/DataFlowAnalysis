@@ -1,0 +1,51 @@
+name: Build Updatesite
+
+on:
+  push:
+    branches: [main]
+  release:
+    types: [created]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 1 * * *' # run nightly at 1:00 am
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml', '**/MANIFEST.MF') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 17
+      - name: Build and Verify
+        run: mvn clean verify
+      - name: Publish Nightly Update Site
+        if: github.event_name != 'release' && github.ref == 'refs/heads/main' && github.repository_owner == 'DataFlowAnalysis'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.UPDATE_SITE_DEPLOY_KEY }}
+          external_repository: DataFlowAnalysis/updatesite
+          destination_dir: nightly/dfd-metamodel/
+          publish_dir: releng/mdpa.dfd.updatesite/target/repository
+          publish_branch: main
+      - name: Publish Release Update Site
+        if: github.event_name == 'release' && github.repository_owner == 'DataFlowAnalysis'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.UPDATE_SITE_DEPLOY_KEY }}
+          external_repository: DataFlowAnalysis/updatesite
+          destination_dir: release/dfd-metamodel/${{ github.event.release.tag_name }}
+          publish_dir: releng/org.dataflowanalysis.dfd.updatesite/target/repository
+          publish_branch: main
+          
+

@@ -25,6 +25,8 @@ import org.palladiosimulator.pcm.allocation.AllocationPackage;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.CompositeComponent;
+import org.palladiosimulator.pcm.repository.Repository;
+import org.palladiosimulator.pcm.repository.RepositoryPackage;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentPackage;
@@ -187,17 +189,17 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 				}
 				this.checkCharacteristics(usage.getCharacteristics());
 			} else if (assignee instanceof RessourceAssignee) {
-				RessourceAssignee usage = (RessourceAssignee) assignee;
-				if (!this.presentInResource(usage.getResourcecontainer())) {
+				RessourceAssignee resource = (RessourceAssignee) assignee;
+				if (!this.presentInResource(resource.getResourcecontainer())) {
 					throw new IllegalStateException("Referenced Resource container is not loaded!");
 				}
-				this.checkCharacteristics(usage.getCharacteristics());
+				this.checkCharacteristics(resource.getCharacteristics());
 			} else if (assignee instanceof AssemblyAssignee) {
-				AssemblyAssignee usage = (AssemblyAssignee) assignee;
-				if (!this.presentInAssembly(usage.getAssemblycontext())) {
+				AssemblyAssignee assembly = (AssemblyAssignee) assignee;
+				if (!this.presentInAssembly(assembly.getAssemblycontext()) && !this.presentInComposite(assembly.getAssemblycontext())) {
 					throw new IllegalStateException("Referenced Assembly context is not loaded!");
 				}
-				this.checkCharacteristics(usage.getCharacteristics());
+				this.checkCharacteristics(assembly.getCharacteristics());
 			} else {
 				throw new IllegalStateException("Assignments contain unknown assignment target");
 			}
@@ -244,6 +246,25 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 				.map(System.class::cast)
 				.collect(Collectors.toList());
 		return systems.stream()
+				.anyMatch(it ->it.getAssemblyContexts__ComposedStructure().contains(assemblyContext));
+	}
+	
+	/**
+	 * Determines whether a given assembly context is currently loaded in the resources of the analysis
+	 * @param assemblyContext Given assembly context that is searched
+	 * @return Returns true, if the model object could be found in the resources of the analysis. Otherwise, the method returns false.
+	 */
+	private boolean presentInComposite(AssemblyContext assemblyContext) {
+		List<Repository> repositories = this.resourceLoader.lookupElementOfType(RepositoryPackage.eINSTANCE.getRepository()).parallelStream()
+				.filter(Repository.class::isInstance)
+				.map(Repository.class::cast)
+				.collect(Collectors.toList());
+		List<CompositeComponent> compositeCompontents = repositories.parallelStream()
+				.flatMap(it -> it.getComponents__Repository().stream())
+				.filter(CompositeComponent.class::isInstance)
+				.map(CompositeComponent.class::cast)
+				.collect(Collectors.toList());
+		return compositeCompontents.stream()
 				.anyMatch(it ->it.getAssemblyContexts__ComposedStructure().contains(assemblyContext));
 	}
 	

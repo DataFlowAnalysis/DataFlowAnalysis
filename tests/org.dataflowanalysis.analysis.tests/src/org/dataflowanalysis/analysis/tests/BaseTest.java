@@ -23,74 +23,32 @@ public class BaseTest {
 
     @BeforeAll
     public void initializeOnlineShopAnalysis() {
-        final var usageModelPath = Paths.get("models", "BranchingOnlineShop", "default.usagemodel")
-            .toString();
-        final var allocationPath = Paths.get("models", "BranchingOnlineShop", "default.allocation")
-            .toString();
+        final var usageModelPath = Paths.get("models", "BranchingOnlineShop", "default.usagemodel");
+        final var allocationPath = Paths.get("models", "BranchingOnlineShop", "default.allocation");
+        final var nodeCharacteristicsPath = Paths.get("models", "BranchingOnlineShop", "default.nodecharacteristics");
 
-        onlineShopAnalysis = new DataFlowAnalysisBuilder()
-        		.standalone()
-        		.modelProjectName(TEST_MODEL_PROJECT_NAME)
-        		.useBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
-        		.legacy()
-        		.usePluginActivator(Activator.class)
-        		.useUsageModel(usageModelPath)
-        		.useAllocationModel(allocationPath)
-        		.build();
-
+        onlineShopAnalysis = this.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
         onlineShopAnalysis.initializeAnalysis();
     }
 
     @BeforeAll
     public void initializeInternationalOnlineShopAnalysis() {
-        final var usageModelPath = Paths.get("models", "InternationalOnlineShop", "default.usagemodel")
-            .toString();
-        final var allocationPath = Paths.get("models", "InternationalOnlineShop", "default.allocation")
-            .toString();
-        internationalOnlineShopAnalysis = new DataFlowAnalysisBuilder()
-        		.standalone()
-        		.modelProjectName(TEST_MODEL_PROJECT_NAME)
-        		.useBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
-        		.usePluginActivator(Activator.class)
-        		.legacy()
-        		.useUsageModel(usageModelPath)
-        		.useAllocationModel(allocationPath)
-        		.build();
-
+        final var usageModelPath = Paths.get("models", "InternationalOnlineShop", "default.usagemodel");
+        final var allocationPath = Paths.get("models", "InternationalOnlineShop", "default.allocation");
+        final var nodeCharacteristicsPath = Paths.get("models", "InternationalOnlineShop", "default.nodecharacteristics");
+        
+        internationalOnlineShopAnalysis = this.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
         internationalOnlineShopAnalysis.initializeAnalysis();
     }
 
     @BeforeAll
     public void initializeTravelPlannerAnalysis() {
-        final var usageModelPath = Paths.get("models", "TravelPlanner", "travelPlanner.usagemodel")
-            .toString();
-        final var allocationPath = Paths.get("models", "TravelPlanner", "travelPlanner.allocation")
-            .toString();
+        final var usageModelPath = Paths.get("models", "TravelPlanner", "travelPlanner.usagemodel");
+        final var allocationPath = Paths.get("models", "TravelPlanner", "travelPlanner.allocation");
+        final var nodeCharacteristicsPath = Paths.get("models", "TravelPlanner", "travelPlanner.nodecharacteristics");
 
-        travelPlannerAnalysis = new DataFlowAnalysisBuilder()
-        		.standalone()
-        		.modelProjectName(TEST_MODEL_PROJECT_NAME)
-        		.useBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
-        		.legacy()
-        		.usePluginActivator(Activator.class)
-        		.useUsageModel(usageModelPath)
-        		.useAllocationModel(allocationPath)
-        		.build();
+        travelPlannerAnalysis = this.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
         travelPlannerAnalysis.initializeAnalysis();
-    }
-    
-    protected DataFlowConfidentialityAnalysis initializeAnalysis(Path usagePath, Path allocationPath) {
-    	DataFlowConfidentialityAnalysis analysis = new DataFlowAnalysisBuilder()
-        		.standalone()
-        		.modelProjectName(TEST_MODEL_PROJECT_NAME)
-        		.useBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
-        		.legacy()
-        		.usePluginActivator(Activator.class)
-    			.useUsageModel(usagePath.toString())
-    			.useAllocationModel(allocationPath.toString())
-    			.build();
-    	analysis.initializeAnalysis();
-    	return analysis;
     }
     
     protected DataFlowConfidentialityAnalysis initializeAnalysis(Path usagePath, Path allocationPath, Path nodePath) {

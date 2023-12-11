@@ -9,10 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.tests.BaseTest;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-@Disabled("Until model update")
 public class ActionSequenceFinderTest extends BaseTest {
 	private final Logger logger = Logger.getLogger(ActionSequenceFinderTest.class);
 
@@ -20,7 +18,6 @@ public class ActionSequenceFinderTest extends BaseTest {
      * Tests whether the analysis finds the correct amount of sequences
      */   
     @Test
-    @Disabled
     public void testTravelPlannerCount() {
     	var allSequences = travelPlannerAnalysis.findAllSequences();
         travelPlannerAnalysis.setLoggerLevel(Level.TRACE);
@@ -33,7 +30,6 @@ public class ActionSequenceFinderTest extends BaseTest {
      * Tests whether the analysis finds the correct amount of sequences
      */   
     @Test
-    @Disabled
     public void testInternationalOnlineShopCount() {
     	var allSequences = internationalOnlineShopAnalysis.findAllSequences();
         internationalOnlineShopAnalysis.setLoggerLevel(Level.TRACE);
@@ -46,7 +42,6 @@ public class ActionSequenceFinderTest extends BaseTest {
      * Tests whether the analysis finds the correct amount of sequences
      */   
     @Test
-    @Disabled
     public void testOnlineShopCount() {
     	var allSequences = onlineShopAnalysis.findAllSequences();
         onlineShopAnalysis.setLoggerLevel(Level.TRACE);
@@ -56,7 +51,6 @@ public class ActionSequenceFinderTest extends BaseTest {
     }
     
     @Test
-    @Disabled
     public void testTravelPlannerPath() {
     	var sequences = travelPlannerAnalysis.findAllSequences();
 
@@ -68,7 +62,6 @@ public class ActionSequenceFinderTest extends BaseTest {
     }
     
     @Test
-    @Disabled
     public void testInternationalOnlineShopPath() {
     	var sequences = internationalOnlineShopAnalysis.findAllSequences();
 
@@ -80,7 +73,6 @@ public class ActionSequenceFinderTest extends BaseTest {
     }
     
     @Test
-    @Disabled
     public void testOnlineShopPath() {
     	var sequences = onlineShopAnalysis.findAllSequences();
 
@@ -98,10 +90,9 @@ public class ActionSequenceFinderTest extends BaseTest {
      * ActionSequence
      */
     @Test
-    @Disabled
     public void testTravelPlannerSEFFContent() {
     	var sequences = travelPlannerAnalysis.findAllSequences();
-        assertSEFFSequenceElementContent(sequences.get(0), 19, "ask airline to book flight");
+        assertSEFFSequenceElementContent(sequences.get(0), 21, "ask airline to book flight");
     }
     
     /**
@@ -111,7 +102,6 @@ public class ActionSequenceFinderTest extends BaseTest {
      * ActionSequence
      */
     @Test
-    @Disabled
     public void testInternationalOnlineShopSEFFContent() {
     	var sequences = internationalOnlineShopAnalysis.findAllSequences();
         assertSEFFSequenceElementContent(sequences.get(0), 13, "DatabaseStoreUserData");
@@ -124,7 +114,6 @@ public class ActionSequenceFinderTest extends BaseTest {
      * ActionSequence
      */
     @Test
-    @Disabled
     public void testOnlineShopSEFFContent() {
     	var sequences = onlineShopAnalysis.findAllSequences();
         assertSEFFSequenceElementContent(sequences.get(0), 2, "DatabaseLoadInventory");
@@ -137,7 +126,6 @@ public class ActionSequenceFinderTest extends BaseTest {
      * ActionSequence
      */
     @Test
-    @Disabled
     public void testTravelPlannerUserContent() {
     	var sequences = travelPlannerAnalysis.findAllSequences();
         assertUserSequenceElementContent(sequences.get(0), 3, "look for flights");
@@ -150,7 +138,6 @@ public class ActionSequenceFinderTest extends BaseTest {
      * ActionSequence
      */
     @Test
-    @Disabled
     public void testInternationalOnlineShopUserContent() {
     	var sequences = internationalOnlineShopAnalysis.findAllSequences();
         assertUserSequenceElementContent(sequences.get(0), 8, "BuyEntryLevelSystemCall");
@@ -163,7 +150,6 @@ public class ActionSequenceFinderTest extends BaseTest {
      * ActionSequence
      */
     @Test
-    @Disabled
     public void testOnlineShopUserContent() {
     	var sequences = onlineShopAnalysis.findAllSequences();
         assertUserSequenceElementContent(sequences.get(0), 0, "ViewEntryLevelSystemCall");

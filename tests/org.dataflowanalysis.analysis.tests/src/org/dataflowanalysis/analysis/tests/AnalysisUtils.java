@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
@@ -60,8 +61,7 @@ public class AnalysisUtils {
         var elements = sequence.getElements();
 
         assertNotNull(elements);
-        assertEquals(sequence.getElements()
-            .size(), expectedElementTypes.size());
+        assertEquals(expectedElementTypes.size(), sequence.getElements().size());
 
         for (int i = 0; i < expectedElementTypes.size(); i++) {
         	assertSequenceElement(sequence, i, expectedElementTypes.get(i));
@@ -169,9 +169,11 @@ public class AnalysisUtils {
             .stream()
             .filter(it -> it.variableName()
                 .equals(variableName))
-            .findAny()
-            .orElseThrow();
-        assertTrue(dataflowVariable.characteristics()
+            .findAny();
+        if (dataflowVariable.isEmpty()) {
+        	fail("Did not find dataflow variable");
+        }
+        assertTrue(dataflowVariable.get().characteristics()
             .stream()
             .filter(it -> it.characteristicType()
                 .getName()
@@ -203,6 +205,9 @@ public class AnalysisUtils {
      */
     public static void assertCharacteristicAbsent(ActionSequence sequence, int index, String variableName,
             String characteristicType, String characteristicValue) {
+    	if (sequence.getElements().size() < index) {
+    		fail("Action sequence with length " + sequence.getElements().size() + " is not long enough for index " + index);
+    	}
         var sequenceElement = sequence.getElements()
             .get(index);
         var dataflowVariable = sequenceElement.getAllDataFlowVariables()

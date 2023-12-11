@@ -18,11 +18,9 @@ import org.dataflowanalysis.analysis.entity.sequence.AbstractActionSequenceEleme
 import org.dataflowanalysis.analysis.entity.sequence.ActionSequence;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintData;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintViolations;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Literal;
 
-@Disabled("Until model update")
 public class ConstraintResultTest extends ConstraintTest {
 	/**
      * Indicates whether an element in an action sequence violates the constraint of the travel
@@ -72,28 +70,6 @@ public class ConstraintResultTest extends ConstraintTest {
     
     /**
      * Indicates whether an element in an action sequence violates the constraint of the
-     * datastore test model
-     * 
-     * @param node
-     *            Element of the action sequence
-     * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
-     */
-    private boolean dataStoreCondition(AbstractActionSequenceElement<?> node) {
-    	List<Literal> assignedRoles = node.getNodeCharacteristicsWithName("AssignedRole");
-    	Map<DataFlowVariable, List<Literal>> grantedRoles = node.getDataFlowCharacteristicsWithName("GrantedRole");
-    	
-        printNodeInformation(node);
-        
-        if (assignedRoles.isEmpty()) {
-        	return false;
-        }
-        
-        return !grantedRoles.entrySet().stream()
-        		.allMatch(df -> df.getValue().stream().allMatch(it -> assignedRoles.contains(it)));
-    }
-    
-    /**
-     * Indicates whether an element in an action sequence violates the constraint of the
      * return test model
      * 
      * @param node
@@ -120,7 +96,6 @@ public class ConstraintResultTest extends ConstraintTest {
      * Fails if the analysis does not propagate the correct characteristics for each ActionSequence
      */
     @Test
-    @Disabled
     public void travelPlannerTestConstraintResults() {
     	travelPlannerAnalysis.setLoggerLevel(Level.TRACE);
     	Predicate<AbstractActionSequenceElement<?>> constraint = node -> travelPlannerCondition(node);
@@ -134,25 +109,6 @@ public class ConstraintResultTest extends ConstraintTest {
      * Fails if the analysis does not propagate the correct characteristics for each ActionSequence
      */
     @Test
-    @Disabled
-    public void travelPlannerNewTestConstraintResults() {
-    	DataFlowConfidentialityAnalysis analysis = 
-    			super.initializeAnalysis(Paths.get("models", "TravelPlannerNew", "travelPlanner.usagemodel"), 
-    					Paths.get("models", "TravelPlannerNew", "travelPlanner.allocation"),
-    					Paths.get("models", "TravelPlannerNew", "travelPlanner.nodecharacteristics"));
-    	analysis.setLoggerLevel(Level.TRACE);
-    	Predicate<AbstractActionSequenceElement<?>> constraint = node -> travelPlannerCondition(node);
-    	List<ConstraintData> constraintData = ConstraintViolations.travelPlannerViolations;
-    	testAnalysis(analysis, constraint, constraintData);
-    }
-    
-    /**
-     * Tests, whether the analysis correctly identifies violations for the example models
-     * <p>
-     * Fails if the analysis does not propagate the correct characteristics for each ActionSequence
-     */
-    @Test
-    @Disabled
     public void internationalOnlineShopTestConstraintResults() {
     	internationalOnlineShopAnalysis.setLoggerLevel(Level.TRACE);
     	Predicate<AbstractActionSequenceElement<?>> constraint = node -> internationalOnlineShopCondition(node);
@@ -166,10 +122,11 @@ public class ConstraintResultTest extends ConstraintTest {
      * Fails if the analysis does not propagate the correct characteristics for each ActionSequence
      */
     @Test
-    @Disabled
     public void oneAssemblyMultipleResourceTestConstraintResults() {
     	DataFlowConfidentialityAnalysis analysis = 
-    			super.initializeAnalysis(Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.usagemodel"), Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.allocation"));
+    			super.initializeAnalysis(Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.usagemodel"), 
+    					Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.allocation"),
+    					Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.nodecharacteristics"));
     	analysis.setLoggerLevel(Level.TRACE);
     	Predicate<AbstractActionSequenceElement<?>> constraint = node -> internationalOnlineShopCondition(node);
     	List<ConstraintData> constraintData = ConstraintViolations.multipleRessourcesViolations;
@@ -182,26 +139,10 @@ public class ConstraintResultTest extends ConstraintTest {
      * Fails if the analysis does not propagate the correct characteristics for each ActionSequence
      */
     @Test
-    @Disabled
-    public void dataStoreTestConstraintResults() {
-    	DataFlowConfidentialityAnalysis dataStoreAnalysis = 
-    			super.initializeAnalysis(Paths.get("models", "DatastoreTest", "default.usagemodel"), Paths.get("models", "DatastoreTest", "default.allocation"));
-    	Predicate<AbstractActionSequenceElement<?>> constraint = node -> dataStoreCondition(node);
-    	dataStoreAnalysis.setLoggerLevel(Level.TRACE);
-    	List<ConstraintData> constraintData = ConstraintViolations.dataStoreViolations;
-    	testAnalysis(dataStoreAnalysis, constraint, constraintData);
-    }
-    
-    /**
-     * Tests, whether the analysis correctly identifies violations for the example models
-     * <p>
-     * Fails if the analysis does not propagate the correct characteristics for each ActionSequence
-     */
-    @Test
-    @Disabled
     public void returnTestConstraintResults() {
     	DataFlowConfidentialityAnalysis returnAnalysis = 
-    			super.initializeAnalysis(Paths.get("models", "ReturnTestModel", "default.usagemodel"), Paths.get("models", "ReturnTestModel", "default.allocation"));
+    			super.initializeAnalysis(Paths.get("models", "ReturnTestModel", "default.usagemodel"), Paths.get("models", "ReturnTestModel", "default.allocation"),
+    					Paths.get("models", "ReturnTestModel", "default.nodecharacteristics"));
     	Predicate<AbstractActionSequenceElement<?>> constraint = node -> returnCondition(node);
     	returnAnalysis.setLoggerLevel(Level.TRACE);
     	List<ConstraintData> constraintData = ConstraintViolations.returnViolations;

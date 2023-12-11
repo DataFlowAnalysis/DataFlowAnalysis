@@ -66,7 +66,7 @@ public final class ActionSequenceFinderPaths {
 	public static final List<List<Class<?>>> travelPlannerPaths = 
 			List.of(List.of(
 					CallingUserActionSequenceElement.class, 
-					//DatabaseActionSequenceElement.class,
+					SEFFActionSequenceElement.class,
 					CallingUserActionSequenceElement.class,
 					
                     CallingUserActionSequenceElement.class, 
@@ -74,7 +74,8 @@ public final class ActionSequenceFinderPaths {
                     CallingSEFFActionSequenceElement.class,
                     SEFFActionSequenceElement.class,
                     CallingSEFFActionSequenceElement.class,
-                    //DatabaseActionSequenceElement.class,
+                    SEFFActionSequenceElement.class,
+                    SEFFActionSequenceElement.class,
                     CallingSEFFActionSequenceElement.class,
                     SEFFActionSequenceElement.class, 
                     CallingSEFFActionSequenceElement.class,
@@ -82,7 +83,8 @@ public final class ActionSequenceFinderPaths {
                     CallingUserActionSequenceElement.class,
                     
                     CallingUserActionSequenceElement.class,
-                    //DatabaseActionSequenceElement.class,
+                    SEFFActionSequenceElement.class,
+                    SEFFActionSequenceElement.class,
                     CallingUserActionSequenceElement.class,
                     
                     CallingUserActionSequenceElement.class, 
@@ -94,7 +96,7 @@ public final class ActionSequenceFinderPaths {
                     SEFFActionSequenceElement.class, 
                     CallingUserActionSequenceElement.class),
             List.of(CallingUserActionSequenceElement.class, 
-            		//DatabaseActionSequenceElement.class,
+                    SEFFActionSequenceElement.class,
             		CallingUserActionSequenceElement.class));
 	
 	

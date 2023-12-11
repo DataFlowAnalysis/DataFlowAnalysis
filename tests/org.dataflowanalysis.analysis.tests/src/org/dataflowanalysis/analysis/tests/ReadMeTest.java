@@ -9,10 +9,8 @@ import org.dataflowanalysis.analysis.builder.pcm.PCMDataFlowConfidentialityAnaly
 import org.dataflowanalysis.analysis.entity.sequence.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.entity.sequence.ActionSequence;
 import org.dataflowanalysis.analysis.testmodels.Activator;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-@Disabled("Until model update")
 @SuppressWarnings("unused")
 public class ReadMeTest extends BaseTest {
 	
@@ -51,7 +49,6 @@ public class ReadMeTest extends BaseTest {
 	 * Tests, whether the code snippet from the README actually works using the travel planner analysis.
 	 */
 	@Test
-  @Disabled
 	public void ReadmeWithTravelPlannerTest() {
 		var analysis = travelPlannerAnalysis;
 		

@@ -10,11 +10,9 @@ import org.dataflowanalysis.analysis.builder.DataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.builder.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
-@Disabled("Until model update")
 @TestInstance(Lifecycle.PER_CLASS)
 public class BaseTest {
     protected DataFlowConfidentialityAnalysis onlineShopAnalysis;

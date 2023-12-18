@@ -8,8 +8,8 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.C
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 
-import mdpa.dfd.dataflowdiagram.Node;
-import mdpa.dfd.dataflowdiagram.Flow;
+import org.dataflowanalysis.dfd.dataflowdiagram.Node;
+import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 
 public class DFDActionSequenceElement extends AbstractActionSequenceElement<EObject>{
 	

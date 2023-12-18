@@ -22,8 +22,8 @@ public class BaseTest {
 	public static void setUpAnalysis() {
 		//pathToDFDModel = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "DFDTestModels", "minimal.dataflowdiagram").toString();
 		//pathToDataDictionaryModel = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "DFDTestModels", "minimal.datadictionary").toString();
-		pathToDataDictionaryModel = "C:\\Users\\Huell\\Documents\\Studium\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.testmodels\\models\\DFDTestModels\\minimal.datadictionary";
-		pathToDFDModel = "C:\\Users\\Huell\\Documents\\Studium\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.testmodels\\models\\DFDTestModels\\minimal.dataflowdiagram";
+		pathToDataDictionaryModel = "C:\\Users\\Huell\\Documents\\Studium\\HIWI\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.testmodels\\models\\DFDTestModels\\minimal.datadictionary";
+		pathToDFDModel = "C:\\Users\\Huell\\Documents\\Studium\\HIWI\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.testmodels\\models\\DFDTestModels\\minimal.dataflowdiagram";
 		analysis = new DFDConfidentialityAnalysis(pathToDFDModel, pathToDataDictionaryModel);
 		analysis.initializeAnalysis();
 

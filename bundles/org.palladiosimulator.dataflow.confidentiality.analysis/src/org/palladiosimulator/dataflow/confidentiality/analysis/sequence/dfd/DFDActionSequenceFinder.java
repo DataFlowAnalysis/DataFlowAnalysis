@@ -18,12 +18,12 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDAct
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
 
-import mdpa.dfd.datadictionary.DataDictionary;
-import mdpa.dfd.datadictionary.LabelType;
-import mdpa.dfd.dataflowdiagram.DataFlowDiagram;
-import mdpa.dfd.dataflowdiagram.Flow;
-import mdpa.dfd.dataflowdiagram.External;
-import mdpa.dfd.dataflowdiagram.Node;
+import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
+import org.dataflowanalysis.dfd.datadictionary.LabelType;
+import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
+import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
+import org.dataflowanalysis.dfd.dataflowdiagram.External;
+import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 
 public class DFDActionSequenceFinder {
 

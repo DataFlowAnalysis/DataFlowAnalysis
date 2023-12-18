@@ -8,9 +8,9 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
-import mdpa.dfd.datadictionary.DataDictionary;
-import mdpa.dfd.dataflowdiagram.DataFlowDiagram;
-import mdpa.dfd.dataflowdiagram.dataflowdiagramPackage;
+import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
+import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
+import org.dataflowanalysis.dfd.dataflowdiagram.dataflowdiagramPackage;
 
 ;
 

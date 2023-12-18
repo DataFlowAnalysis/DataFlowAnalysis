@@ -15,20 +15,20 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDAct
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 
-import mdpa.dfd.datadictionary.AND;
-import mdpa.dfd.datadictionary.Assignment;
-import mdpa.dfd.datadictionary.Label;
-import mdpa.dfd.datadictionary.BinaryOperator;
-import mdpa.dfd.datadictionary.ForwardingAssignment;
-import mdpa.dfd.datadictionary.LabelReference;
-import mdpa.dfd.datadictionary.LabelType;
-import mdpa.dfd.datadictionary.NOT;
-import mdpa.dfd.datadictionary.OR;
-import mdpa.dfd.datadictionary.Pin;
-import mdpa.dfd.datadictionary.TRUE;
-import mdpa.dfd.datadictionary.Term;
-import mdpa.dfd.dataflowdiagram.Node;
-import mdpa.dfd.dataflowdiagram.Flow;
+import org.dataflowanalysis.dfd.datadictionary.AND;
+import org.dataflowanalysis.dfd.datadictionary.Assignment;
+import org.dataflowanalysis.dfd.datadictionary.Label;
+import org.dataflowanalysis.dfd.datadictionary.BinaryOperator;
+import org.dataflowanalysis.dfd.datadictionary.ForwardingAssignment;
+import org.dataflowanalysis.dfd.datadictionary.LabelReference;
+import org.dataflowanalysis.dfd.datadictionary.LabelType;
+import org.dataflowanalysis.dfd.datadictionary.NOT;
+import org.dataflowanalysis.dfd.datadictionary.OR;
+import org.dataflowanalysis.dfd.datadictionary.Pin;
+import org.dataflowanalysis.dfd.datadictionary.TRUE;
+import org.dataflowanalysis.dfd.datadictionary.Term;
+import org.dataflowanalysis.dfd.dataflowdiagram.Node;
+import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 
 public class DFDCharacteristicsCalculator {
 	

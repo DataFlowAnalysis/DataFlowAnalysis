@@ -13,8 +13,8 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.A
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.dfd.DFDActionSequenceFinder;
 
-import mdpa.dfd.dataflowdiagram.DataFlowDiagram;
-import mdpa.dfd.datadictionary.DataDictionary;
+import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
+import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 
 
 public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalysis {

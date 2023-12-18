@@ -66,6 +66,10 @@ public class DFDActionSequenceElement extends AbstractActionSequenceElement<EObj
 	public List<Flow> getFlows() {
 		return flows;
 	}
+
+	public String getName() {
+		return name;
+	}
 	
     
 }

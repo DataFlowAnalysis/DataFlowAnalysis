@@ -34,6 +34,7 @@ public class DFDCharacteristicsCalculator {
 	
 	public static List<DFDActionSequenceElement> fillDataFlowVariables (List<DFDActionSequenceElement> dfdActionSequenceElements) {
 		List<DFDActionSequenceElement> start = new ArrayList<>();
+		List<DFDActionSequenceElement> out = new ArrayList<>();
 		for (DFDActionSequenceElement elem : dfdActionSequenceElements) {
 			if (elem.getAssignment().getInputPins().size() == 0) start.add(elem);
 		}
@@ -52,7 +53,10 @@ public class DFDCharacteristicsCalculator {
 				 for (Future<List<DFDActionSequenceElement>> future : futures) {
 					 if (future.isDone()) {
 						 try {
-							 test.addAll(future.get());
+							 List<DFDActionSequenceElement> next = future.get();
+							 out.add(next.get(next.size()-1));
+							 next.remove(next.size()-1);
+							 test.addAll(next);
 							 futures.remove(future);
 						 } catch (Exception e) {
 							 e.printStackTrace();
@@ -61,7 +65,7 @@ public class DFDCharacteristicsCalculator {
 				 }
 			 }
 		 }
-		 return dfdActionSequenceElements;
+		 return out;
 	}
 	
 	
@@ -125,7 +129,7 @@ public class DFDCharacteristicsCalculator {
 	
 		
 	private static class MyCallable implements Callable<List<DFDActionSequenceElement>> {		
-		private void eval(DFDActionSequenceElement element) throws InterruptedException{
+		private DFDActionSequenceElement eval(DFDActionSequenceElement element) throws InterruptedException{
 			
 				 List<Label> inLabel = new ArrayList<>();
 				 
@@ -158,11 +162,23 @@ public class DFDCharacteristicsCalculator {
 					 }
 				 }
 				 List<CharacteristicValue> characteristics = new ArrayList<>();
-				 characteristics.addAll(inLabel.stream().map(label -> new DFDCharacteristicValue((LabelType) label.eContainer(), label)).toList());
-				 try {
+				 for (Label label : inLabel) {
+						characteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label));
+					}
+				 List<DataFlowVariable> dataFlowVariables  = new ArrayList<>(element.getAllDataFlowVariables());
+				 dataFlowVariables.add(new DataFlowVariable(element.getNode().getEntityName(), characteristics));
+				 
+				 List<CharacteristicValue> nodeCharacteristics = new ArrayList<CharacteristicValue>();
+					for (var label : element.getNode().getProperties()) {
+						nodeCharacteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label));
+					}
+				 
 				 //element.getAllDataFlowVariables().add(new DataFlowVariable(element.getAssignment().getEntityName(), characteristics));
 				 
-				System.out.println("Finished:"  + element.getAssignment().getId());
+				 DFDActionSequenceElement newElement = new DFDActionSequenceElement(dataFlowVariables, nodeCharacteristics, element.getName(), element.getNode(), element.getPreviousNodes(), element.getAssignment(), element.getFlows());
+				 
+				 return newElement;
+				 
 			}
 		 
 		
@@ -175,8 +191,9 @@ public class DFDCharacteristicsCalculator {
 		private  List<DFDActionSequenceElement> dfdActionSequenceElements;
 
 		@Override
-		public List<DFDActionSequenceElement> call() throws Exception {
-			eval(elem);
+		public List<DFDActionSequenceElement> call() throws Exception {			
+			List<DFDActionSequenceElement> next = findNextInLine(elem, dfdActionSequenceElements);
+			next.add(eval(elem));
 			return findNextInLine(elem, dfdActionSequenceElements);
 		}	
 	}

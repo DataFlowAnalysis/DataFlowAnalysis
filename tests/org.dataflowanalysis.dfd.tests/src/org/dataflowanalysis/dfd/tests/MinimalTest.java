@@ -62,10 +62,10 @@ class MinimalTest {
 		
 		dd.getBehaviour().forEach(b -> {
 			assertTrue(b instanceof Entity);
-			b.getIn().forEach(p -> {
+			b.getInPin().forEach(p -> {
 				assertTrue(p instanceof Entity);
 			});
-			b.getOut().forEach(p -> {
+			b.getOutPin().forEach(p -> {
 				assertTrue(p instanceof Entity);
 			});
 		});

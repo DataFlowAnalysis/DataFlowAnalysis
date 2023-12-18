@@ -1,14 +1,12 @@
-	package org.palladiosimulator.dataflow.confidentiality.analysis.builder.pcm;
-
-import java.util.List;
+package org.palladiosimulator.dataflow.confidentiality.analysis.builder.pcm;
 
 import org.eclipse.core.runtime.Plugin;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AbstractDataFlowAnalysisBuilder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisBuilderData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.core.AbstractStandalonePCMDataFlowConfidentialityAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.core.LegacyStandalonePCMDataFlowConfidentialityAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.core.StandalonePCMDataFlowConfidentialityAnalysis;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceProvider;
 
 public class PCMDataFlowConfidentialityAnalysisBuilder 
 extends AbstractDataFlowAnalysisBuilder<AbstractStandalonePCMDataFlowConfidentialityAnalysis, PCMAnalysisBuilderData, AnalysisBuilderData> {
@@ -67,22 +65,12 @@ extends AbstractDataFlowAnalysisBuilder<AbstractStandalonePCMDataFlowConfidentia
 	}
 	
 	/**
-	 * Uses the given resource to load the model contents
-	 * @param resource Resource containing model contents
+	 * Uses a new path for node characteristics
+	 * @param relativeNodeCharacteristicsModelPath Relative path to the node characteristics model
 	 * @return Returns builder object of the analysis
 	 */
-	public PCMDataFlowConfidentialityAnalysisBuilder useResource(Resource resource) {
-		this.builderData.addResource(resource);
-		return this;
-	}
-	
-	/**
-	 * Uses the given resources to load the model contents
-	 * @param resources Resources containing model contents
-	 * @return Returns builder object of the analysis
-	 */
-	public PCMDataFlowConfidentialityAnalysisBuilder useResources(List<Resource> resources) {
-		resources.forEach(it ->	this.builderData.addResource(it));
+	public PCMDataFlowConfidentialityAnalysisBuilder useCustomResourceProvider(ResourceProvider resourceProvider) {
+		this.builderData.setCustomResourceProvider(resourceProvider);
 		return this;
 	}
 	

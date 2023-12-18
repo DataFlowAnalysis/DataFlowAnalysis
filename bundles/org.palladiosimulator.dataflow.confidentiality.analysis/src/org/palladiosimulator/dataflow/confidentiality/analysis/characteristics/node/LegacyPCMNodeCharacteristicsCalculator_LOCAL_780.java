@@ -11,7 +11,8 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
-import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceProvider;
+import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.PCMCharacteristicValue;
+import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceLoader;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.characteristics.EnumCharacteristic;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
@@ -30,9 +31,9 @@ import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 public class LegacyPCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalculator {
 	private final Logger logger = Logger.getLogger(LegacyPCMNodeCharacteristicsCalculator.class);
-	private ResourceProvider resourceLoader;
+	private ResourceLoader resourceLoader;
 	
-	public LegacyPCMNodeCharacteristicsCalculator(ResourceProvider resourceLoader) {
+	public LegacyPCMNodeCharacteristicsCalculator(ResourceLoader resourceLoader) {
 		this.resourceLoader = resourceLoader;
 	}
     
@@ -125,15 +126,10 @@ public class LegacyPCMNodeCharacteristicsCalculator implements NodeCharacteristi
     		var nodeEnumCharacteristics = enumCharacteristics.get();
     		for (EnumCharacteristic nodeEnumCharacteristic : nodeEnumCharacteristics) {
         		for (Literal nodeLiteral : nodeEnumCharacteristic.getValues()) {
-        			nodeCharacteristics.add(new CharacteristicValue(nodeEnumCharacteristic.getType(), nodeLiteral));
+        			nodeCharacteristics.add(new PCMCharacteristicValue(nodeEnumCharacteristic.getType(), nodeLiteral));
         		}
     		}
     	}
     	return nodeCharacteristics;
     }
-
-	@Override
-	public void checkAssignments() {
-		// Not implemented, as legacy node assignments will not be checked beforehand
-	}
 }

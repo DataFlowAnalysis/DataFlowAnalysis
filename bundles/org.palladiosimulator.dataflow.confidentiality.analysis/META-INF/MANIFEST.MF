@@ -19,12 +19,13 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.24.0",
  org.palladiosimulator.dataflow.confidentiality.pcm.model.profile;bundle-version="5.1.0";visibility:=reexport,
  org.palladiosimulator.mdsdprofiles.api;bundle-version="4.3.0";visibility:=reexport,
  org.palladiosimulator.dataflow.nodecharacteristics;bundle-version="0.1.0",
- mdpa.dfd.dataflowdiagram
+ org.dataflowanalysis.dfd.dataflowdiagram
 Export-Package: org.palladiosimulator.dataflow.confidentiality.analysis,
  org.palladiosimulator.dataflow.confidentiality.analysis.builder,
  org.palladiosimulator.dataflow.confidentiality.analysis.builder.pcm,
  org.palladiosimulator.dataflow.confidentiality.analysis.characteristics,
  org.palladiosimulator.dataflow.confidentiality.analysis.core,
+ org.palladiosimulator.dataflow.confidentiality.analysis.dfd,
  org.palladiosimulator.dataflow.confidentiality.analysis.entity,
  org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm,
  org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff,
@@ -32,6 +33,5 @@ Export-Package: org.palladiosimulator.dataflow.confidentiality.analysis,
  org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence,
  org.palladiosimulator.dataflow.confidentiality.analysis.resource,
  org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm,
- org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm,
- org.palladiosimulator.dataflow.confidentiatlity.analysis.dfd
+ org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm
 Import-Package: org.eclipse.emf.ecore.xmi.impl

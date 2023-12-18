@@ -8,26 +8,24 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.C
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 
-import mdpa.dfd.dataflowdiagram.*;
-import mdpa.dfd.datadictionary.*;
+import org.dataflowanalysis.dfd.dataflowdiagram.Node;
+import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 
 public class DFDActionSequenceElement extends AbstractActionSequenceElement<EObject>{
 	
 	String name;
 	Node node;
-	List<Node> previousNodes;
-	AbstractAssignment assignment;
-	List<Flow> flows;
+	Node previousNode;
+	Flow flow;
 
 	public DFDActionSequenceElement(List<DataFlowVariable> dataFlowVariables,
-			List<CharacteristicValue> nodeCharacteristics, String name, Node node, List<Node> previousNodes, AbstractAssignment assigment, List<Flow> flows) {
+			List<CharacteristicValue> nodeCharacteristics, String name, Node node, Node previousNode, Flow flow) {
 		super(dataFlowVariables, nodeCharacteristics); //ausgewertet wird erst unten DataFlowVariable kann hier leer sein
 		// TODO Auto-generated constructor stub
 		this.name = name;
 		this.node = node;
-		this.previousNodes = previousNodes;
-		this.assignment = assigment;
-		this.flows = flows;
+		this.previousNode = previousNode;
+		this.flow = flow;
 	}
 
 	@Override
@@ -51,20 +49,16 @@ public class DFDActionSequenceElement extends AbstractActionSequenceElement<EObj
         this.node = node;
     }
 
-    public List<Node> getPreviousNodes() {
-        return previousNodes;
+    public Node getPreviousNode() {
+        return previousNode;
     }
 
-    public void setPreviousNode(List<Node> previousNodes) {
-        this.previousNodes = previousNodes;
+    public void setPreviousNode(Node previousNode) {
+        this.previousNode = previousNode;
     }
 
-	public AbstractAssignment getAssignment() {
-		return assignment;
-	}
-
-	public List<Flow> getFlows() {
-		return flows;
+	public Flow getFlow() {
+		return flow;
 	}
 
 	public String getName() {

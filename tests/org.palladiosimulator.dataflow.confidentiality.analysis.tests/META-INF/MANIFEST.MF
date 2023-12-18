@@ -3,8 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Confidentiality Analysis Tests
 Bundle-SymbolicName: org.palladiosimulator.dataflow.confidentiality.analysis.tests
 Bundle-Version: 1.0.0.qualifier
-Import-Package: mdpa.dfd.datadictionary,
- mdpa.dfd.dataflowdiagram,
+Import-Package: org.dataflowanalysis.dfd.datadictionary,
+ org.dataflowanalysis.dfd.dataflowdiagram,
  org.junit.jupiter.api;version="5.8.1",
  org.junit.jupiter.api.function;version="5.8.1",
  org.junit.jupiter.params;version="5.8.1",
@@ -12,4 +12,5 @@ Import-Package: mdpa.dfd.datadictionary,
 Automatic-Module-Name: org.palladiosimulator.dataflow.confidentiality.analysis.tests
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: org.palladiosimulator.dataflow.confidentiality.analysis;bundle-version="1.0.0",
- org.palladiosimulator.dataflow.confidentiality.analysis.testmodels;bundle-version="1.0.0"
+ org.palladiosimulator.dataflow.confidentiality.analysis.testmodels;bundle-version="1.0.0",
+ org.palladiosimulator.dataflow.nodecharacteristics;bundle-version="0.1.0"

@@ -1,4 +1,4 @@
-package org.palladiosimulator.dataflow.confidentiatlity.analysis.dfd;
+package org.palladiosimulator.dataflow.confidentiality.analysis.dfd;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -7,12 +7,14 @@ import java.util.function.Predicate;
 import org.apache.log4j.Level;
 import org.palladiosimulator.dataflow.confidentiality.analysis.DataFlowConfidentialityAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.node.DFDCharacteristicsCalculator;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.dfd.DFDActionSequenceFinder;
 
-import mdpa.dfd.dataflowdiagram.DataFlowDiagram;
-import mdpa.dfd.datadictionary.DataDictionary;
+import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
+import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 
 
 public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalysis {
@@ -36,20 +38,17 @@ public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalys
 
 	@Override
 	public List<ActionSequence> findAllSequences() {
-		return DFDMapper.findAllSequencesInDFD(dfd, dataDictionary);
+		return DFDActionSequenceFinder.findAllSequencesInDFD(dfd, dataDictionary);
 	}
 	
 
 	@Override
 	public List<ActionSequence> evaluateDataFlows(List<ActionSequence> sequences) {
-		List<DFDActionSequenceElement> elements = new ArrayList<>();
+		List<ActionSequence> outSequences = new ArrayList<>();
 		for (var dfdActionSequence : sequences) {
-			for (var element : dfdActionSequence.getElements()) {
-				elements.add((DFDActionSequenceElement) element);
-			}
+			outSequences.add(DFDCharacteristicsCalculator.fillDataFlowVariables((DFDActionSequence)dfdActionSequence));
 		}
-		DFDCharacteristicsCalculator.fillDataFlowVariables(elements);
-		return sequences;
+		return outSequences;
 	}
 
 	@Override

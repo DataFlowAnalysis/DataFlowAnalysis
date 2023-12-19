@@ -122,17 +122,17 @@ public class PCMActionSequence extends ActionSequence {
 	private void cleanupCall(Deque<List<DataFlowVariable>> variableContexts, 
 			AbstractActionSequenceElement<?> evaluatedElement) {
 		if (evaluatedElement instanceof CallReturnBehavior && ((CallReturnBehavior) evaluatedElement).isCalling()) {
-        	List<DataFlowVariable> callingDataFlowVariables = new ArrayList<>(evaluatedElement.getAllDataFlowVariables());
+        	List<DataFlowVariable> callingDataFlowVariables = new ArrayList<>(evaluatedElement.getAllOutgoingDataFlowVariables());
         	variableContexts.push(callingDataFlowVariables);
         } else if (evaluatedElement instanceof CallReturnBehavior && ((CallReturnBehavior) evaluatedElement).isReturning()) {
-        	List<DataFlowVariable> returingDataFlowVariables = evaluatedElement.getAllDataFlowVariables().stream()
+        	List<DataFlowVariable> returingDataFlowVariables = evaluatedElement.getAllOutgoingDataFlowVariables().stream()
         			.filter(it -> !it.variableName().equals("RETURN"))
         			.collect(Collectors.toList());
         	variableContexts.pop();
         	variableContexts.push(returingDataFlowVariables);
         } else  {
         	variableContexts.pop();
-        	variableContexts.push(evaluatedElement.getAllDataFlowVariables());
+        	variableContexts.push(evaluatedElement.getAllOutgoingDataFlowVariables());
         }
 	}
 }

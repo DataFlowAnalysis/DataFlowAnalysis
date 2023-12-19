@@ -47,14 +47,14 @@ public class PCMUserFinderUtils {
         }
     }
 
-    private static List<PCMActionSequence> findSequencesForUserStartAction(Start currentAction, List<DataStore> dataStores,
+    private static List<PCMActionSequence> findSequencesForUserStartAction(Start currentAction,
             PCMActionSequence previousSequence) {
     	var startElement = new UserActionSequenceElement<Start>(currentAction);
         var currentSequence = new PCMActionSequence(previousSequence, startElement);
-        return findSequencesForUserAction(currentAction.getSuccessor(), dataStores, currentSequence);
+        return findSequencesForUserAction(currentAction.getSuccessor(), currentSequence);
     }
 
-    private static List<PCMActionSequence> findSequencesForUserStopAction(Stop currentAction, List<DataStore> dataStores,
+    private static List<PCMActionSequence> findSequencesForUserStopAction(Stop currentAction,
             PCMActionSequence previousSequence) {
     	var stopElement = new UserActionSequenceElement<Stop>(currentAction);
         var currentSequence = new PCMActionSequence(previousSequence, stopElement);
@@ -65,7 +65,7 @@ public class PCMUserFinderUtils {
             return List.of(currentSequence);
         } else {
             return findSequencesForUserAction(parentAction.get()
-                .getSuccessor(), dataStores, currentSequence);
+                .getSuccessor(), currentSequence);
         }
     }
 

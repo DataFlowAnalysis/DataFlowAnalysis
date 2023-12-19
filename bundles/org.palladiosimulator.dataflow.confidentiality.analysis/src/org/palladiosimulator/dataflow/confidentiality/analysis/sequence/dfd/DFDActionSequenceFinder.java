@@ -23,7 +23,6 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 
 public class DFDActionSequenceFinder {
 	public static List<ActionSequence> findAllSequencesInDFD(DataFlowDiagram dfd, DataDictionary dataDictionary) { 
-		System.out.println("Lets go");
 		List<ActionSequence> sequences = new ArrayList<>();
 		
 		List<Flow> flows = dfd.getFlows();
@@ -40,16 +39,7 @@ public class DFDActionSequenceFinder {
 		for (Map<Node, Pin> nodeSequence : nodeSequences) {
 			sequences.add(convertNodeStrandToDFDActionSequence(nodeSequence, flows));
 		}
-		
-		System.out.println(nodeSequences.size());
-		
-		for (List<Node> t : nodeSequences) {
-			String k = "Strand: ";
-			for (Node n : t) {
-				k = k + " " + n.getEntityName() + ",";
-			}
-			System.out.println(k);
-		} 
+			
 		
 		return sequences;
 	}
@@ -142,8 +132,10 @@ public class DFDActionSequenceFinder {
 	
 	private static DFDActionSequence convertNodeStrandToDFDActionSequence(Map<Node, Pin> nodesAndEntryPins, List<Flow> flows) {
 		List<AbstractActionSequenceElement<?>> actionSequence = new ArrayList<AbstractActionSequenceElement<?>>();		
-		for (int i = 1; i < nodesAndEntryPins.size(); i++) {
-			actionSequence.add(convertNodeToDFDActionSequenceElement(nodes.get(i), nodes.get(i-1), flows));
+		Node prevNode = null;
+		for (Node node : nodesAndEntryPins.keySet()) {
+			actionSequence.add(convertNodeToDFDActionSequenceElement(node, prevNode, nodesAndEntryPins.get(node), flows));
+			prevNode = node;
 		}
 		return new DFDActionSequence(actionSequence);
 	}
@@ -156,13 +148,18 @@ public class DFDActionSequenceFinder {
 	 * @return Converted node
 	 */
 	
-	private static DFDActionSequenceElement convertNodeToDFDActionSequenceElement(Node node, Node previousNode, List<Flow> flows) {
+	private static DFDActionSequenceElement convertNodeToDFDActionSequenceElement(Node node, Node previousNode, Pin entry, List<Flow> flows) {
 		List<DataFlowVariable> dataFlowVariables = new ArrayList<DataFlowVariable>();
 		List<CharacteristicValue> nodeCharacteristics = new ArrayList<CharacteristicValue>();
+		
+		if (entry == null) {
+			return new DFDActionSequenceElement(dataFlowVariables, nodeCharacteristics, node.getEntityName(), node,
+					null, null);
+		}
 				
 		Flow flow = null;
 		for (Flow f : flows) {
-			if (f.getSourceNode().equals(previousNode) && f.getDestinationNode().equals(node)) {
+			if (f.getDestinationPin().equals(entry) && f.getDestinationNode().equals(node)) {
 				flow = f;
 				break;
 			}

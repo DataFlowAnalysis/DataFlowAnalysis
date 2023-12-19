@@ -44,6 +44,7 @@ public class DFDCharacteristicsCalculator {
 		for (var abstractElement : dfdActionSequence.getElements()) {
 			DFDActionSequenceElement element = (DFDActionSequenceElement) abstractElement;
 			
+			
 			Node node = element.getNode();
 			List<CharacteristicValue> nodeCharacteristics = new ArrayList<CharacteristicValue>();
 			for (var label : node.getProperties()) {
@@ -54,7 +55,7 @@ public class DFDCharacteristicsCalculator {
 			dataFlowVariables.add(new DataFlowVariable(element.getNode().getEntityName(), evaluateAssignments(element, previousVariables)));
 			DFDActionSequenceElement newElement = new DFDActionSequenceElement(dataFlowVariables, nodeCharacteristics, element.getName(), element.getNode(), element.getPreviousNode(), element.getFlow());
 			actionSequence.add(newElement);
-			previousVariables = dataFlowVariables;			
+			previousVariables = dataFlowVariables;
 		}
 		
 		return new DFDActionSequence(actionSequence);
@@ -68,6 +69,9 @@ public class DFDCharacteristicsCalculator {
 	 */
 	private static List<CharacteristicValue> evaluateAssignments(DFDActionSequenceElement element, List<DataFlowVariable> previousVariables) {
 		List<Label> allPrevNodeLabels = new ArrayList<>();
+		List<CharacteristicValue> characteristics = new ArrayList<>();
+		
+		if (element.getPreviousNode() == null) return characteristics;
 		
 		
 		previousVariables.stream().forEach(dfv -> {
@@ -96,7 +100,7 @@ public class DFDCharacteristicsCalculator {
 			
 		}
 				
-		List<CharacteristicValue> characteristics = new ArrayList<>();
+		
 		
 		for (Label label : outputLabel) {
 			characteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label));

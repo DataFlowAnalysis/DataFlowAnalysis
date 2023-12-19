@@ -9,6 +9,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.D
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
 
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
+import org.dataflowanalysis.dfd.datadictionary.Pin;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 
 public class DFDActionSequenceElement extends AbstractActionSequenceElement<EObject>{
@@ -64,6 +65,7 @@ public class DFDActionSequenceElement extends AbstractActionSequenceElement<EObj
 	public String getName() {
 		return name;
 	}
+
 	
     
 }

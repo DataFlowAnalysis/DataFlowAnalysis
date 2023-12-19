@@ -65,7 +65,7 @@ public class BaseTest {
 		var results = analysis.queryDataFlow(evaluatedSequences.get(0), node -> {
     			return node.getAllNodeCharacteristics().size() == 0;
         });
-		assertTrue(results.isEmpty());
+		assertTrue(results.size() == 1);
 	}
 	
 	@Test
@@ -82,7 +82,7 @@ public class BaseTest {
 		var results = analysis.queryDataFlow(evaluatedSequences.get(0), node -> {
     			return node.getAllNodeCharacteristics().size() == 0;
         });
-		assertTrue(results.isEmpty());
+		assertTrue(results.size() == 1);
 	}
 	
 }

@@ -36,7 +36,7 @@ jobs:
           deploy_key: ${{ secrets.UPDATE_SITE_DEPLOY_KEY }}
           external_repository: DataFlowAnalysis/updatesite
           destination_dir: nightly/dfd-metamodel/
-          publish_dir: releng/mdpa.dfd.updatesite/target/repository
+          publish_dir: releng/org.dataflowanalysis.dfd.updatesite/target/repository
           publish_branch: main
       - name: Publish Release Update Site
         if: github.event_name == 'release' && github.repository_owner == 'DataFlowAnalysis'

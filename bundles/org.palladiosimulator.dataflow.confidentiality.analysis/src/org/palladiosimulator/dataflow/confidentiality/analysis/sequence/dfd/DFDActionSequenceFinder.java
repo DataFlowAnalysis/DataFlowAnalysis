@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.LinkedHashMap;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDActionSequence;
@@ -30,13 +31,13 @@ public class DFDActionSequenceFinder {
 		Set<Node> startNodes = getStartNodes(nodes);		
 		Map<Node, List<Flow>> mapOfOutgoingEdges = getMapOfOutgoingEdges(flows);
 		
-		List<List<Node>> nodeSequences = new ArrayList<>();
+		List<Map<Node, Pin>> nodeSequences = new ArrayList<>();
 		
 		for(Node node : startNodes) {
 			nodeSequences.addAll(buildSequencesRec(node, null, mapOfOutgoingEdges));
 		}
 		
-		for (List<Node> nodeSequence : nodeSequences) {
+		for (Map<Node, Pin> nodeSequence : nodeSequences) {
 			sequences.add(convertNodeStrandToDFDActionSequence(nodeSequence, flows));
 		}
 		
@@ -85,8 +86,8 @@ public class DFDActionSequenceFinder {
 		 return outgoingFlows;
 	}
 	
-	private static List<List<Node>> buildSequencesRec(Node start, Pin entry, Map<Node, List<Flow>> mapOfOutgoingEdges) {
-		List<List<Node>> sequences = new ArrayList<>();
+	private static List<Map<Node, Pin>> buildSequencesRec(Node start, Pin entry, Map<Node, List<Flow>> mapOfOutgoingEdges) {
+		List<Map<Node, Pin>> sequences = new ArrayList<>();
 		List<Pin> checkedOutPins = new ArrayList<>(); //necessary since there can be multiple assignments per output pin
 		for (AbstractAssignment assignment : start.getBehaviour().getAssignment()) {
 			if (checkedOutPins.contains(assignment.getOutputPin())) continue;
@@ -95,8 +96,11 @@ public class DFDActionSequenceFinder {
 			if (assignment.getInputPins().size() == 0 || assignment.getInputPins().get(0).equals(entry)) {
 				for (Flow flow : mapOfOutgoingEdges.get(start)) {
 					if (flow.getSourcePin().equals(assignment.getOutputPin())) {
-						for (List<Node> nextSequence : buildSequencesRec(flow.getDestinationNode(), flow.getDestinationPin(), mapOfOutgoingEdges)) {
-							nextSequence.add(0, start);
+						for (Map<Node, Pin> nextSequence : buildSequencesRec(flow.getDestinationNode(), flow.getDestinationPin(), mapOfOutgoingEdges)) {
+							LinkedHashMap<Node, Pin> newMap = (LinkedHashMap<Node, Pin>) ((LinkedHashMap<Node, Pin>) nextSequence).clone();
+							nextSequence.clear();
+							nextSequence.put(start, entry);
+							nextSequence.putAll(newMap);
 							sequences.add(nextSequence);
 						}						
 					}
@@ -105,8 +109,8 @@ public class DFDActionSequenceFinder {
 			checkedOutPins.add(assignment.getOutputPin());
 		}
 		if (sequences.isEmpty()) {
-			List<Node> sequence = new ArrayList<>();
-			sequence.add(start);
+			Map<Node, Pin> sequence = new LinkedHashMap<>();
+			sequence.put(start, entry);
 			sequences.add(sequence);
 		}
 		return sequences;
@@ -136,9 +140,9 @@ public class DFDActionSequenceFinder {
 	 * @return Converted Node strand
 	 */
 	
-	private static DFDActionSequence convertNodeStrandToDFDActionSequence(List<Node> nodes, List<Flow> flows) {
+	private static DFDActionSequence convertNodeStrandToDFDActionSequence(Map<Node, Pin> nodesAndEntryPins, List<Flow> flows) {
 		List<AbstractActionSequenceElement<?>> actionSequence = new ArrayList<AbstractActionSequenceElement<?>>();		
-		for (int i = 1; i < nodes.size(); i++) {
+		for (int i = 1; i < nodesAndEntryPins.size(); i++) {
 			actionSequence.add(convertNodeToDFDActionSequenceElement(nodes.get(i), nodes.get(i-1), flows));
 		}
 		return new DFDActionSequence(actionSequence);

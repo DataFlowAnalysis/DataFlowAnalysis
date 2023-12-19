@@ -33,4 +33,12 @@
   <behaviour id="_b97ukWtUEe6z7vxuhUjpHQ" entityName="st2">
     <inPin id="_nR254GtUEe6z7vxuhUjpHQ" entityName="st2 in"/>
   </behaviour>
+  <behaviour id="_zXhNkZ28Ee6qBefXwNG2mA" entityName="comb">
+    <inPin id="_0OSdgJ28Ee6qBefXwNG2mA" entityName="pro1In"/>
+    <inPin id="_0rFuQJ28Ee6qBefXwNG2mA" entityName="Pro2In"/>
+    <outPin id="_07StcZ28Ee6qBefXwNG2mA" entityName="st1"/>
+    <outPin id="_1MNeUZ28Ee6qBefXwNG2mA" entityName="st2"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_28phM528Ee6qBefXwNG2mA" inputPins="_0OSdgJ28Ee6qBefXwNG2mA" outputPin="_07StcZ28Ee6qBefXwNG2mA"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_3VqeI528Ee6qBefXwNG2mA" inputPins="_0rFuQJ28Ee6qBefXwNG2mA" outputPin="_1MNeUZ28Ee6qBefXwNG2mA"/>
+  </behaviour>
 </datadictionary:DataDictionary>

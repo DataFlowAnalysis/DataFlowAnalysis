@@ -8,13 +8,21 @@
     <destinationPin href="minimal.datadictionary#_huHkgGtUEe6z7vxuhUjpHQ"/>
     <sourcePin href="minimal.datadictionary#_yizpsWtUEe6z7vxuhUjpHQ"/>
   </flows>
-  <flows id="_dsRDMGtVEe6z7vxuhUjpHQ" sourceNode="_bU_Cw2tVEe6z7vxuhUjpHQ" destinationNode="_cSl6gmtVEe6z7vxuhUjpHQ">
-    <destinationPin href="minimal.datadictionary#_l-UOYGtUEe6z7vxuhUjpHQ"/>
+  <flows id="_dsRDMGtVEe6z7vxuhUjpHQ" sourceNode="_bU_Cw2tVEe6z7vxuhUjpHQ" destinationNode="_qXD5s528Ee6qBefXwNG2mA">
+    <destinationPin href="minimal.datadictionary#_0OSdgJ28Ee6qBefXwNG2mA"/>
     <sourcePin href="minimal.datadictionary#_gkjUYWtUEe6z7vxuhUjpHQ"/>
   </flows>
-  <flows id="_d6vkEGtVEe6z7vxuhUjpHQ" sourceNode="_b69do2tVEe6z7vxuhUjpHQ" destinationNode="_cy7ncmtVEe6z7vxuhUjpHQ">
-    <destinationPin href="minimal.datadictionary#_nR254GtUEe6z7vxuhUjpHQ"/>
+  <flows id="_d6vkEGtVEe6z7vxuhUjpHQ" sourceNode="_b69do2tVEe6z7vxuhUjpHQ" destinationNode="_qXD5s528Ee6qBefXwNG2mA">
+    <destinationPin href="minimal.datadictionary#_0rFuQJ28Ee6qBefXwNG2mA"/>
     <sourcePin href="minimal.datadictionary#_jgUh8WtUEe6z7vxuhUjpHQ"/>
+  </flows>
+  <flows id="_u1ksYJ28Ee6qBefXwNG2mA" sourceNode="_qXD5s528Ee6qBefXwNG2mA" destinationNode="_cSl6gmtVEe6z7vxuhUjpHQ">
+    <destinationPin href="minimal.datadictionary#_nR254GtUEe6z7vxuhUjpHQ"/>
+    <sourcePin href="minimal.datadictionary#_07StcZ28Ee6qBefXwNG2mA"/>
+  </flows>
+  <flows id="_vHFTIJ28Ee6qBefXwNG2mA" sourceNode="_qXD5s528Ee6qBefXwNG2mA" destinationNode="_cy7ncmtVEe6z7vxuhUjpHQ">
+    <destinationPin href="minimal.datadictionary#_nR254GtUEe6z7vxuhUjpHQ"/>
+    <sourcePin href="minimal.datadictionary#_1MNeUZ28Ee6qBefXwNG2mA"/>
   </flows>
   <nodes xsi:type="dataflowdiagram:External" id="_W9DZMWtVEe6z7vxuhUjpHQ" entityName="in">
     <behaviour href="minimal.datadictionary#_W3sC8WtTEe6z7vxuhUjpHQ"/>
@@ -35,5 +43,8 @@
   <nodes xsi:type="dataflowdiagram:Store" id="_cy7ncmtVEe6z7vxuhUjpHQ" entityName="st2">
     <behaviour href="minimal.datadictionary#_b97ukWtUEe6z7vxuhUjpHQ"/>
     <properties href="minimal.datadictionary#_ZMdQAGtVEe6z7vxuhUjpHQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_qXD5s528Ee6qBefXwNG2mA" entityName="comb">
+    <behaviour href="minimal.datadictionary#_zXhNkZ28Ee6qBefXwNG2mA"/>
   </nodes>
 </dataflowdiagram:DataFlowDiagram>

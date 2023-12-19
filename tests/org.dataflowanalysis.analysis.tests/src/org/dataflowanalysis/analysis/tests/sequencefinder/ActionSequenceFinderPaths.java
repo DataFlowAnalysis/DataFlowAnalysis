@@ -5,32 +5,20 @@ import java.util.List;
 import org.dataflowanalysis.analysis.entity.pcm.seff.CallingSEFFActionSequenceElement;
 import org.dataflowanalysis.analysis.entity.pcm.seff.SEFFActionSequenceElement;
 import org.dataflowanalysis.analysis.entity.pcm.user.CallingUserActionSequenceElement;
+import org.dataflowanalysis.analysis.entity.pcm.user.UserActionSequenceElement;
 
 public final class ActionSequenceFinderPaths {
 	public static final List<List<Class<?>>> onlineShopPaths = 
-			List.of(List.of(CallingUserActionSequenceElement.class, 
-							SEFFActionSequenceElement.class,
-							CallingSEFFActionSequenceElement.class,
-							SEFFActionSequenceElement.class,
-							SEFFActionSequenceElement.class,
-							CallingSEFFActionSequenceElement.class,
-							SEFFActionSequenceElement.class, 
-							CallingUserActionSequenceElement.class,
-							
+			List.of(List.of(UserActionSequenceElement.class,
 							CallingUserActionSequenceElement.class, 
 							SEFFActionSequenceElement.class,
-							SEFFActionSequenceElement.class,
-							CallingSEFFActionSequenceElement.class, 
-							SEFFActionSequenceElement.class,
 							CallingSEFFActionSequenceElement.class,
-							CallingUserActionSequenceElement.class),
-					List.of(CallingUserActionSequenceElement.class, 
 							SEFFActionSequenceElement.class,
-							CallingSEFFActionSequenceElement.class,
 							SEFFActionSequenceElement.class,
 							SEFFActionSequenceElement.class,
 							CallingSEFFActionSequenceElement.class,
 							SEFFActionSequenceElement.class, 
+							SEFFActionSequenceElement.class,
 							CallingUserActionSequenceElement.class,
 							
 							CallingUserActionSequenceElement.class, 
@@ -40,32 +28,67 @@ public final class ActionSequenceFinderPaths {
 							SEFFActionSequenceElement.class,
 							SEFFActionSequenceElement.class,
 							CallingSEFFActionSequenceElement.class,
-							CallingUserActionSequenceElement.class));
+							SEFFActionSequenceElement.class,
+							SEFFActionSequenceElement.class,
+							CallingUserActionSequenceElement.class,
+							UserActionSequenceElement.class),
+					List.of(UserActionSequenceElement.class,
+							CallingUserActionSequenceElement.class, 
+							SEFFActionSequenceElement.class,
+							CallingSEFFActionSequenceElement.class,
+							SEFFActionSequenceElement.class,
+							SEFFActionSequenceElement.class,
+							SEFFActionSequenceElement.class,
+							CallingSEFFActionSequenceElement.class,
+							SEFFActionSequenceElement.class, 
+							SEFFActionSequenceElement.class,
+							CallingUserActionSequenceElement.class,
+							
+							CallingUserActionSequenceElement.class, 
+							SEFFActionSequenceElement.class,
+							SEFFActionSequenceElement.class,
+							CallingSEFFActionSequenceElement.class, 
+							SEFFActionSequenceElement.class,
+							SEFFActionSequenceElement.class,
+							SEFFActionSequenceElement.class,
+							CallingSEFFActionSequenceElement.class,
+							SEFFActionSequenceElement.class,
+							SEFFActionSequenceElement.class,
+							CallingUserActionSequenceElement.class,
+							UserActionSequenceElement.class));
 	
 	public static final List<List<Class<?>>> internationalOnlineShopPaths = 
-			List.of(List.of(
+			List.of(List.of(UserActionSequenceElement.class,
 					CallingUserActionSequenceElement.class, 
 					SEFFActionSequenceElement.class,
 					CallingSEFFActionSequenceElement.class,
 					SEFFActionSequenceElement.class, 
 					SEFFActionSequenceElement.class,
+					SEFFActionSequenceElement.class,
 					CallingSEFFActionSequenceElement.class,
 					SEFFActionSequenceElement.class, 
+					SEFFActionSequenceElement.class,
 					CallingUserActionSequenceElement.class,
 					
 					CallingUserActionSequenceElement.class, 
 					SEFFActionSequenceElement.class,
 					CallingSEFFActionSequenceElement.class,
+					SEFFActionSequenceElement.class,
 					SEFFActionSequenceElement.class,
 					CallingSEFFActionSequenceElement.class, 
 					CallingSEFFActionSequenceElement.class,
 					SEFFActionSequenceElement.class,
+					SEFFActionSequenceElement.class,
 		            CallingSEFFActionSequenceElement.class, 
-		            CallingUserActionSequenceElement.class));
+					SEFFActionSequenceElement.class,
+		            CallingUserActionSequenceElement.class,
+		            UserActionSequenceElement.class));
 	
 	public static final List<List<Class<?>>> travelPlannerPaths = 
 			List.of(List.of(
+					UserActionSequenceElement.class,
 					CallingUserActionSequenceElement.class, 
+					SEFFActionSequenceElement.class,
 					SEFFActionSequenceElement.class,
 					CallingUserActionSequenceElement.class,
 					
@@ -76,13 +99,17 @@ public final class ActionSequenceFinderPaths {
                     CallingSEFFActionSequenceElement.class,
                     SEFFActionSequenceElement.class,
                     SEFFActionSequenceElement.class,
+                    SEFFActionSequenceElement.class,
                     CallingSEFFActionSequenceElement.class,
                     SEFFActionSequenceElement.class, 
+                    SEFFActionSequenceElement.class,
                     CallingSEFFActionSequenceElement.class,
                     SEFFActionSequenceElement.class, 
+                    SEFFActionSequenceElement.class,
                     CallingUserActionSequenceElement.class,
                     
                     CallingUserActionSequenceElement.class,
+                    SEFFActionSequenceElement.class,
                     SEFFActionSequenceElement.class,
                     SEFFActionSequenceElement.class,
                     CallingUserActionSequenceElement.class,
@@ -92,12 +119,18 @@ public final class ActionSequenceFinderPaths {
                     CallingSEFFActionSequenceElement.class,
                     SEFFActionSequenceElement.class, 
                     SEFFActionSequenceElement.class, 
-                    CallingSEFFActionSequenceElement.class,
-                    SEFFActionSequenceElement.class, 
-                    CallingUserActionSequenceElement.class),
-            List.of(CallingUserActionSequenceElement.class, 
                     SEFFActionSequenceElement.class,
-            		CallingUserActionSequenceElement.class));
+                    CallingSEFFActionSequenceElement.class,
+                    SEFFActionSequenceElement.class,
+                    SEFFActionSequenceElement.class, 
+                    CallingUserActionSequenceElement.class,
+                    UserActionSequenceElement.class),
+            List.of(UserActionSequenceElement.class,
+            		CallingUserActionSequenceElement.class, 
+                    SEFFActionSequenceElement.class,
+                    SEFFActionSequenceElement.class,
+            		CallingUserActionSequenceElement.class,
+            		UserActionSequenceElement.class));
 	
 	
 	private ActionSequenceFinderPaths() {

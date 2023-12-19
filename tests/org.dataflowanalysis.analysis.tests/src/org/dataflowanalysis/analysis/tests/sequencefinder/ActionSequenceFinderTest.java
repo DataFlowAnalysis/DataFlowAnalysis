@@ -92,7 +92,7 @@ public class ActionSequenceFinderTest extends BaseTest {
     @Test
     public void testTravelPlannerSEFFContent() {
     	var sequences = travelPlannerAnalysis.findAllSequences();
-        assertSEFFSequenceElementContent(sequences.get(0), 21, "ask airline to book flight");
+        assertSEFFSequenceElementContent(sequences.get(0), 27, "ask airline to book flight");
     }
     
     /**
@@ -104,7 +104,7 @@ public class ActionSequenceFinderTest extends BaseTest {
     @Test
     public void testInternationalOnlineShopSEFFContent() {
     	var sequences = internationalOnlineShopAnalysis.findAllSequences();
-        assertSEFFSequenceElementContent(sequences.get(0), 13, "DatabaseStoreUserData");
+        assertSEFFSequenceElementContent(sequences.get(0), 17, "DatabaseStoreUserData");
     }
     
     /**
@@ -116,7 +116,7 @@ public class ActionSequenceFinderTest extends BaseTest {
     @Test
     public void testOnlineShopSEFFContent() {
     	var sequences = onlineShopAnalysis.findAllSequences();
-        assertSEFFSequenceElementContent(sequences.get(0), 2, "DatabaseLoadInventory");
+        assertSEFFSequenceElementContent(sequences.get(0), 3, "DatabaseLoadInventory");
     }
     
     /**
@@ -128,7 +128,7 @@ public class ActionSequenceFinderTest extends BaseTest {
     @Test
     public void testTravelPlannerUserContent() {
     	var sequences = travelPlannerAnalysis.findAllSequences();
-        assertUserSequenceElementContent(sequences.get(0), 3, "look for flights");
+        assertUserSequenceElementContent(sequences.get(0), 5, "look for flights");
     }
     
     /**
@@ -140,7 +140,7 @@ public class ActionSequenceFinderTest extends BaseTest {
     @Test
     public void testInternationalOnlineShopUserContent() {
     	var sequences = internationalOnlineShopAnalysis.findAllSequences();
-        assertUserSequenceElementContent(sequences.get(0), 8, "BuyEntryLevelSystemCall");
+        assertUserSequenceElementContent(sequences.get(0), 11, "BuyEntryLevelSystemCall");
     }
     
     /**
@@ -152,6 +152,6 @@ public class ActionSequenceFinderTest extends BaseTest {
     @Test
     public void testOnlineShopUserContent() {
     	var sequences = onlineShopAnalysis.findAllSequences();
-        assertUserSequenceElementContent(sequences.get(0), 0, "ViewEntryLevelSystemCall");
+        assertUserSequenceElementContent(sequences.get(0), 1, "ViewEntryLevelSystemCall");
     }
 }

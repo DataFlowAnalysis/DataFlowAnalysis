@@ -3,9 +3,14 @@ package org.dataflowanalysis.analysis.utils.pcm;
 import java.nio.file.Paths;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
-public class PCMResourceUtils {
-    private PCMResourceUtils() {
+import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
+import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder;
+
+public class ResourceUtils {
+    private ResourceUtils() {
         throw new IllegalStateException("Utility classes should not be instanciated");
     }
     
@@ -19,4 +24,7 @@ public class PCMResourceUtils {
             .toString();
         return URI.createPlatformPluginURI(path, false);
     }
+    
+
+    
 }

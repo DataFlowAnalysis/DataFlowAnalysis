@@ -9,7 +9,7 @@ import org.dataflowanalysis.analysis.core.pcm.PCMDataCharacteristicsCalculatorFa
 import org.dataflowanalysis.analysis.core.pcm.PCMNodeCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.resource.PCMURIResourceProvider;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
-import org.dataflowanalysis.analysis.utils.pcm.PCMResourceUtils;
+import org.dataflowanalysis.analysis.utils.pcm.ResourceUtils;
 import org.eclipse.core.runtime.Plugin;
 
 public class PCMAnalysisBuilderData extends AnalysisBuilderData {
@@ -65,9 +65,9 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	 * @return New instance of an URI resource loader with the internally saved values
 	 */
 	private ResourceProvider getURIResourceProvider() {
-		return new PCMURIResourceProvider(PCMResourceUtils.createRelativePluginURI(relativeUsageModelPath, modelProjectName), 
-				PCMResourceUtils.createRelativePluginURI(relativeAllocationModelPath, modelProjectName), 
-				PCMResourceUtils.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName));
+		return new PCMURIResourceProvider(ResourceUtils.createRelativePluginURI(relativeUsageModelPath, modelProjectName), 
+				ResourceUtils.createRelativePluginURI(relativeAllocationModelPath, modelProjectName), 
+				ResourceUtils.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName));
 	}
 	
 	/**

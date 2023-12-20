@@ -35,7 +35,7 @@ public class DFDCharacteristicsCalculator {
 	 */
 	public static DFDActionSequence fillDataFlowVariables (DFDActionSequence dfdActionSequence) {
 		List<AbstractActionSequenceElement<?>> actionSequence = new ArrayList<AbstractActionSequenceElement<?>>();
-		if (dfdActionSequence.getElements().size() < 2) return dfdActionSequence;
+		if (dfdActionSequence.getElements().size() <= 1) return dfdActionSequence;
 		List<DataFlowVariable> previousVariables = new ArrayList<>();
 		for (var abstractElement : dfdActionSequence.getElements()) {
 			DFDActionSequenceElement element = (DFDActionSequenceElement) abstractElement;
@@ -77,20 +77,26 @@ public class DFDCharacteristicsCalculator {
 		
 		List<Label> outputLabel = new ArrayList<>();
 		
-		for (var assignment : element.getPreviousNode().getBehaviour().getAssignment()) {
-			Flow flow = element.getFlow();
-			Pin pin = flow.getSourcePin();
-			if(assignment.getOutputPin().equals(pin) && flow.getDestinationNode().equals(element.getNode())) {
-				if (assignment instanceof ForwardingAssignment) {
-					outputLabel.addAll(allPrevNodeLabels);
-				} else if(evaluateTerm(((Assignment)assignment).getTerm(), allPrevNodeLabels)) {
-					outputLabel.addAll(((Assignment)assignment).getOutputLabels());						
-				} else if(!evaluateTerm(((Assignment)assignment).getTerm(), allPrevNodeLabels)) {
-					outputLabel.removeAll(((Assignment)assignment).getOutputLabels());						
+		if(element.getPreviousNode() != null) {
+			for (var assignment : element.getPreviousNode().getBehaviour().getAssignment()) {
+				Flow flow = element.getFlow();
+				Pin pin = flow.getSourcePin();
+				if(assignment.getOutputPin().equals(pin) && flow.getDestinationNode().equals(element.getNode())) {
+					if (assignment instanceof ForwardingAssignment) {
+						outputLabel.addAll(allPrevNodeLabels);
+					} else {
+						Assignment evalAssignment = (Assignment)assignment;
+						boolean evalResult = evaluateTerm(((Assignment)assignment).getTerm(), allPrevNodeLabels);
+						if(evalResult) {
+							outputLabel.addAll(evalAssignment.getOutputLabels());						
+						} else {
+							outputLabel.removeAll(evalAssignment.getOutputLabels());						
+						}
+					}
 				}
 			}
-			
 		}
+
 				
 		List<CharacteristicValue> characteristics = new ArrayList<>();
 		

@@ -16,27 +16,23 @@ import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 
 
 public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalysis {
-	private String pathToDFDModel;
-	private String pathToDataDictionaryModel;
 	DataFlowDiagram dfd;
-	DataDictionary dataDictionary;
+	DataDictionary dd;
 	
-	public DFDConfidentialityAnalysis(String pathToDFDModel, String pathToDataDictionaryModel) {
-		this.pathToDFDModel = pathToDFDModel;
-		this.pathToDataDictionaryModel = pathToDataDictionaryModel;
+	public DFDConfidentialityAnalysis(DataFlowDiagram dfd, DataDictionary dd) {
+		this.dfd = dfd;
+		this.dd = dd;
 	}
 
 	@Override
 	public boolean initializeAnalysis() {
-		this.dfd = DFDLoader.loadDFDModel(this.pathToDFDModel);
-		this.dataDictionary = DFDLoader.loadDataDictionaryModel(this.pathToDataDictionaryModel);
 		return true;
 	}
 	
 
 	@Override
 	public List<ActionSequence> findAllSequences() {
-		return DFDActionSequenceFinder.findAllSequencesInDFD(dfd, dataDictionary);
+		return DFDActionSequenceFinder.findAllSequencesInDFD(dfd, dd);
 	}
 	
 
@@ -63,22 +59,4 @@ public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalys
 		// TODO Auto-generated method stub
 		
 	}
-	
-	public String getPathToDFDModel() {
-		return this.pathToDFDModel;
-	}
-	
-	public void setPathToDFDModel(String pathToModel) {
-		this.pathToDFDModel = pathToModel;
-	}
-	
-	public String getpathToDataDictionaryModel() {
-		return this.pathToDataDictionaryModel;
-	}
-	
-	public void setpathToDataDictionaryModel(String pathToModel) {
-		this.pathToDataDictionaryModel = pathToModel;
-	}
-
-
 }

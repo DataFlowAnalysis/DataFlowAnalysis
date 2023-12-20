@@ -3,6 +3,7 @@ package org.dataflowanalysis.analysis.core.dfd;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.eclipse.emf.ecore.EObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.dataflowanalysis.analysis.builder.AnalysisData;
@@ -20,8 +21,7 @@ public class DFDActionSequenceElement extends AbstractActionSequenceElement<EObj
 
 	public DFDActionSequenceElement(List<DataFlowVariable> dataFlowVariables,
 			List<CharacteristicValue> nodeCharacteristics, String name, Node node, Node previousNode, Flow flow) {
-		//TODO: Nicolas: Hier vlt nicht null setzen
-		super(dataFlowVariables, null, nodeCharacteristics); //ausgewertet wird erst unten DataFlowVariable kann hier leer sein
+		super(dataFlowVariables, new ArrayList<>(), nodeCharacteristics); //ausgewertet wird erst unten DataFlowVariable kann hier leer sein
 		this.name = name;
 		this.node = node;
 		this.previousNode = previousNode;

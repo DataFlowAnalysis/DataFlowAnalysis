@@ -6,20 +6,18 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.characteristics.CharacteristicValue;
-import org.dataflowanalysis.analysis.characteristics.DataFlowVariable;
-import org.dataflowanalysis.analysis.entity.sequence.AbstractActionSequenceElement;
-import org.dataflowanalysis.analysis.entity.sequence.ActionSequence;
+import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
+import org.dataflowanalysis.analysis.core.ActionSequence;
+import org.dataflowanalysis.analysis.core.CharacteristicValue;
+import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintData;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintViolations;
 import org.junit.jupiter.api.Test;
-import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Literal;
 
 public class ConstraintResultTest extends ConstraintTest {
 	/**

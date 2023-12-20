@@ -6,8 +6,8 @@ import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.builder.DataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.builder.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
-import org.dataflowanalysis.analysis.entity.sequence.AbstractActionSequenceElement;
-import org.dataflowanalysis.analysis.entity.sequence.ActionSequence;
+import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
+import org.dataflowanalysis.analysis.core.ActionSequence;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.junit.jupiter.api.Test;
 

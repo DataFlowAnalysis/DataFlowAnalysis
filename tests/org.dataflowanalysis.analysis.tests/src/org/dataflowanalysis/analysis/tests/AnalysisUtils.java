@@ -8,9 +8,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
-import org.dataflowanalysis.analysis.entity.pcm.seff.CallingSEFFActionSequenceElement;
-import org.dataflowanalysis.analysis.entity.pcm.user.CallingUserActionSequenceElement;
-import org.dataflowanalysis.analysis.entity.sequence.ActionSequence;
+import org.dataflowanalysis.analysis.core.ActionSequence;
+import org.dataflowanalysis.analysis.core.pcm.seff.CallingSEFFActionSequenceElement;
+import org.dataflowanalysis.analysis.core.pcm.user.CallingUserActionSequenceElement;
 
 public class AnalysisUtils {
 

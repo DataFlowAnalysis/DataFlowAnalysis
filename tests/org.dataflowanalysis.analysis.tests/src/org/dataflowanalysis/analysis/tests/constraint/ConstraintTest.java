@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.characteristics.CharacteristicValue;
-import org.dataflowanalysis.analysis.entity.sequence.AbstractActionSequenceElement;
+import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
+import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.tests.BaseTest;
 
 public class ConstraintTest extends BaseTest {

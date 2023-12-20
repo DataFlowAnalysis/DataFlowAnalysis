@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import org.apache.log4j.Level;
-import org.dataflowanalysis.analysis.entity.sequence.AbstractActionSequenceElement;
-import org.dataflowanalysis.analysis.entity.sequence.ActionSequence;
+import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
+import org.dataflowanalysis.analysis.core.ActionSequence;
 
 public interface DataFlowConfidentialityAnalysis {
 

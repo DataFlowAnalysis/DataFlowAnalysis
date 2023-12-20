@@ -1,7 +1,7 @@
 package org.dataflowanalysis.analysis.builder;
 
-import org.dataflowanalysis.analysis.characteristics.node.NodeCharacteristicsCalculator;
-import org.dataflowanalysis.analysis.characteristics.variable.DataCharacteristicsCalculatorFactory;
+import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
+import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 
 public record AnalysisData(ResourceProvider resourceProvider, 

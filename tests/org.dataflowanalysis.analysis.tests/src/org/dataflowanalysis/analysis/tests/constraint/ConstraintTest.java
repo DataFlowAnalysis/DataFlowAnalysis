@@ -69,10 +69,8 @@ public class ConstraintTest extends BaseTest {
     */
    protected String createPrintableCharacteristicsList(List<CharacteristicValue> characteristics) {
        List<String> entries = characteristics.stream()
-           .map(it -> String.format("%s.%s", it.characteristicType()
-               .getName(),
-                   it.characteristicLiteral()
-                       .getName()))
+           .map(it -> String.format("%s.%s", it.getTypeName(),
+                   it.getValueName()))
            .toList();
        return String.join(", ", entries);
    }

@@ -31,20 +31,22 @@ public class ConstraintResultTest extends ConstraintTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean travelPlannerCondition(AbstractActionSequenceElement<?> node) {
-    	List<String> assignedRoles = node.getNodeCharacteristicsWithName("AssignedRoles").stream()
-    			.map(it -> it.getName())
-    			.collect(Collectors.toList());
-    	Map<DataFlowVariable, List<Literal>> grantedRoles = node.getDataFlowCharacteristicsWithName("GrantedRoles");
+    	List<String> assignedRoles = node.getNodeCharacteristicIdsWithType("AssignedRoles");
+    	List<List<String>> grantedRoles = node.getDataFlowCharacteristicIdsWithType("GrantedRoles");
     	
         printNodeInformation(node);
         
-        return grantedRoles.entrySet().stream().map(dfd -> {
-        	return !dfd.getValue().isEmpty() && dfd.getValue().stream()
+        for(List<String> dataFlowCharacteristicIds : grantedRoles) {
+        	if(!dataFlowCharacteristicIds.isEmpty() &&
+        			dataFlowCharacteristicIds.stream()
         			.distinct()
-        			.filter(it -> assignedRoles.contains(it.getName()))
+        			.filter(it -> assignedRoles.contains(it))
         			.collect(Collectors.toList())
-        			.isEmpty();
-        }).anyMatch(Boolean::valueOf);
+        			.isEmpty()) {
+        		return true;
+        	}
+        }
+        return false;
     }
 
     /**
@@ -56,16 +58,14 @@ public class ConstraintResultTest extends ConstraintTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean internationalOnlineShopCondition(AbstractActionSequenceElement<?> node) {
-        List<Literal> serverLocation = node.getNodeCharacteristicsWithName("ServerLocation");
-        List<Literal> dataSensitivity = node.getDataFlowCharacteristicsWithName("DataSensitivity").values().stream()
+        List<String> serverLocation = node.getNodeCharacteristicNamesWithType("ServerLocation");
+        List<String> dataSensitivity = node.getDataFlowCharacteristicNamesWithType("DataSensitivity").stream()
         		.flatMap(it -> it.stream()).collect(Collectors.toList());
         printNodeInformation(node);
 
         return dataSensitivity.stream()
-            .anyMatch(l -> l.getName()
-                .equals("Personal")) && serverLocation.stream()
-                    .anyMatch(l -> l.getName()
-                        .equals("nonEU"));
+                .anyMatch(l -> l.equals("Personal")) && serverLocation.stream()
+                        .anyMatch(l -> l.equals("nonEU"));
     }
     
     /**
@@ -77,10 +77,9 @@ public class ConstraintResultTest extends ConstraintTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean returnCondition(AbstractActionSequenceElement<?> node) {
-    	List<Literal> assignedNode = node.getNodeCharacteristicsWithName("AssignedRole");
-    	List<Literal> assignedVariables = node.getDataFlowCharacteristicsWithName("AssignedRole").values().stream()
-    			.flatMap(it -> it.stream())
-    			.collect(Collectors.toList());
+    	List<String> assignedNode = node.getNodeCharacteristicNamesWithType("AssignedRole");
+    	List<String> assignedVariables = node.getDataFlowCharacteristicNamesWithType("AssignedRole").stream()
+    			.flatMap(it -> it.stream()).collect(Collectors.toList());
     	
         printNodeInformation(node);
         if (assignedNode.isEmpty() || assignedVariables.isEmpty()) {

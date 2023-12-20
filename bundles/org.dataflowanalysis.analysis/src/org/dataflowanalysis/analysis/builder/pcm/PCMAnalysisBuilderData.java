@@ -11,7 +11,6 @@ import org.dataflowanalysis.analysis.resource.PCMURIResourceProvider;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.analysis.utils.pcm.PCMResourceUtils;
 import org.eclipse.core.runtime.Plugin;
-import org.eclipse.emf.common.util.URI;
 
 public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	private final Logger logger = Logger.getLogger(PCMAnalysisBuilderData.class);

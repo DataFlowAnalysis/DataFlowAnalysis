@@ -1,7 +1,7 @@
 package org.dataflowanalysis.analysis.entity.sequence;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -9,7 +9,6 @@ import org.dataflowanalysis.analysis.builder.AnalysisData;
 import org.dataflowanalysis.analysis.characteristics.CharacteristicValue;
 import org.dataflowanalysis.analysis.characteristics.DataFlowVariable;
 import org.eclipse.emf.ecore.EObject;
-import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Literal;
 
 public abstract class AbstractActionSequenceElement<T extends EObject> {
 
@@ -52,27 +51,69 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
      * @param name Name of the characteristic type
      * @return Returns a list of all characteristic literals matching the characteristic type
      */
-    public List<Literal> getNodeCharacteristicsWithName(String name) {
+    public List<String> getNodeCharacteristicNamesWithType(String name) {
     	return this.getAllNodeCharacteristics().stream()
-		.filter(cv -> cv.characteristicType().getName().equals(name))
-		.map(cv -> cv.characteristicLiteral())
+		.filter(cv -> cv.getTypeName().equals(name))
+		.map(cv -> cv.getValueName())
 		.collect(Collectors.toList());
     }
     
     /**
-     * Returns a Map of characteristic literals and dataflow variables that are set for a given characteristic type in the list of all data flow variables
+     * Returns a list of characteristic literals that are set for a given characteristic type in the list of all node characteristics
      * <p>
-     * See {@link getNodeCharacteristicsWithName} for a similar method for node characteristics
+     * See {@link getDataFlowCharacteristicsWithName} for a similar method for dataflow variables 
      * @param name Name of the characteristic type
      * @return Returns a list of all characteristic literals matching the characteristic type
      */
-    public Map<DataFlowVariable, List<Literal>> getDataFlowCharacteristicsWithName(String name) {
-    	return this.getAllDataFlowVariables().stream()
-    			.collect(Collectors.toMap(it -> it, it -> it.characteristics().stream()
-    					.filter(df -> df.characteristicType().getName().equals(name))
-    					.map(df -> df.characteristicLiteral())
-    					.collect(Collectors.toList()))
-				);
+    public List<String> getNodeCharacteristicIdsWithType(String name) {
+    	return this.getAllNodeCharacteristics().stream()
+		.filter(cv -> cv.getTypeName().equals(name))
+		.map(cv -> cv.getValueId())
+		.collect(Collectors.toList());
+    }
+    
+    /**
+     * Returns a List of ids of characteristics and dataflow variables that are set for a given characteristic type in the list of all data flow variables
+     * <p>
+     * See {@link getNodeCharacteristicIdsWithType} for a similar method for node characteristics
+     * @param name Name of the characteristic type
+     * @return Returns a list of all characteristic literals matching the characteristic type
+     */
+    public List<List<String>> getDataFlowCharacteristicIdsWithType(String type) {
+    	List<List<String>> dfCharIds = new ArrayList<>();
+    	for(DataFlowVariable df : this.getAllDataFlowVariables()) {
+    		List<String> charValueIds = new ArrayList<>();
+    		for(CharacteristicValue charValue : df.getAllCharacteristics()) {
+    			if(charValue.getTypeName().equals(type)) {
+    				charValueIds.add(charValue.getValueId());
+    			}
+    		}
+    		dfCharIds.add(charValueIds);
+    	}
+    	
+    	return dfCharIds;
+    }
+    
+    /**
+     * Returns a List of names of characteristics and dataflow variables that are set for a given characteristic type in the list of all data flow variables
+     * <p>
+     * See {@link getNodeCharacteristicNamesWithType} for a similar method for node characteristics
+     * @param name Name of the characteristic type
+     * @return Returns a list of all characteristic literals matching the characteristic type
+     */
+    public List<List<String>> getDataFlowCharacteristicNamesWithType(String type) {
+    	List<List<String>> dfCharIds = new ArrayList<>();
+    	for(DataFlowVariable df : this.getAllDataFlowVariables()) {
+    		List<String> charValueIds = new ArrayList<>();
+    		for(CharacteristicValue charValue : df.getAllCharacteristics()) {
+    			if(charValue.getTypeName().equals(type)) {
+    				charValueIds.add(charValue.getValueName());
+    			}
+    		}
+    		dfCharIds.add(charValueIds);
+    	}
+    	
+    	return dfCharIds;
     }
     
     /**
@@ -142,12 +183,10 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
      */
     public String createPrintableCharacteristicsList(List<CharacteristicValue> characteristics) {
         List<String> entries = characteristics.stream()
-            .map(it -> String.format("%s.%s", it.characteristicType()
-                .getName(),
-                    it.characteristicLiteral()
-                        .getName()))
-            .toList();
-        return String.join(", ", entries);
+                .map(it -> String.format("%s.%s", it.getTypeName(),
+                        it.getValueName()))
+                .toList();
+            return String.join(", ", entries);
     }
 
 }

@@ -8,10 +8,10 @@ import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.characteristics.CharacteristicValue;
+import org.dataflowanalysis.analysis.characteristics.PCMCharacteristicValue;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.analysis.utils.pcm.PCMQueryUtils;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.characteristics.EnumCharacteristic;
-import org.dataflowanalysis.pcm.extension.model.confidentiality.repository.OperationalDataStoreComponent;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Literal;
 import org.dataflowanalysis.pcm.extension.nodecharacteristics.nodecharacteristics.AbstractAssignee;
 import org.dataflowanalysis.pcm.extension.nodecharacteristics.nodecharacteristics.AssemblyAssignee;
@@ -63,9 +63,10 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 		}
 		List<EnumCharacteristic> enumCharacteristics = assignees.stream()
 			.flatMap(it -> it.getCharacteristics().stream())
-			.collect(Collectors.toList());
+			.collect(Collectors.toList());		
+		
 		return enumCharacteristics.stream()
-				.flatMap(it -> it.getValues().stream().map(val -> new CharacteristicValue(it.getType(), val)))
+				.flatMap(it -> it.getValues().stream().map(val -> new PCMCharacteristicValue(it.getType(), val)))
 				.collect(Collectors.toList());
 	}
 	

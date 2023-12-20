@@ -9,6 +9,7 @@ import java.util.Comparator;
 
 import org.dataflowanalysis.analysis.characteristics.CharacteristicValue;
 import org.dataflowanalysis.analysis.characteristics.DataFlowVariable;
+import org.dataflowanalysis.analysis.characteristics.PCMCharacteristicValue;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.dictionary.DictionaryPackage;
@@ -128,11 +129,11 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
         for (CharacteristicValue modifiedCharacteristic : modifiedCharacteristics) {
             if (evaluateTerm(rightHandSide, modifiedCharacteristic)) {
             	List<CharacteristicValue> modifiedCharacteristicValues = computedVariable.getAllCharacteristics().stream()
-            			.filter(it -> it.characteristicType().getName().equals(modifiedCharacteristic.characteristicType().getName()))
+            			.filter(it -> it.getTypeName().equals(modifiedCharacteristic.getTypeName()))
             			.collect(Collectors.toList());
             	
             	if (modifiedCharacteristicValues.stream()
-            			.noneMatch(it -> it.characteristicLiteral().getName().equals(modifiedCharacteristic.characteristicLiteral().getName()))) {
+            			.noneMatch(it -> it.getValueName().equals(modifiedCharacteristic.getValueName()))) {
             		computedVariable = computedVariable.addCharacteristic(modifiedCharacteristic);
             	}
             }
@@ -161,14 +162,12 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
         } else {
             return List.of(existingVariable.getAllCharacteristics()
                 .stream()
-                .filter(it -> it.characteristicLiteral()
-                    .getName()
+                .filter(it -> it.getValueName()
                     .equals(characteristicValue.getName()))
-                .filter(it -> it.characteristicType()
-                    .getName()
+                .filter(it -> it.getTypeName()
                     .equals(characteristicType.getName()))
                 .findAny()
-                .orElse(new CharacteristicValue(characteristicType, characteristicValue)));
+                .orElse(new PCMCharacteristicValue(characteristicType, characteristicValue)));
         }
     }
 
@@ -217,21 +216,19 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
             return false;
         }
         var dataflowVariable = optionalDataflowVariable.get();
-        var characteristicReferenceType = characteristicReference.getCharacteristicType() != null
-                ? characteristicReference.getCharacteristicType()
-                : characteristicValue.characteristicType();
-        var characteristicReferenceValue = characteristicReference.getLiteral() != null
-                ? characteristicReference.getLiteral()
-                : characteristicValue.characteristicLiteral();
+        var characteristicReferenceTypeName = characteristicReference.getCharacteristicType() != null
+                ? characteristicReference.getCharacteristicType().getName()
+                : characteristicValue.getTypeName();
+        var characteristicReferenceValueName = characteristicReference.getLiteral() != null
+                ? characteristicReference.getLiteral().getName()
+                : characteristicValue.getValueName();
 
         var characteristic = dataflowVariable.getAllCharacteristics()
             .stream()
-            .filter(it -> it.characteristicType()
-                .getName()
-                .equals(characteristicReferenceType.getName()))
-            .filter(it -> it.characteristicLiteral()
-                .getName()
-                .equals(characteristicReferenceValue.getName()))
+            .filter(it -> it.getTypeName()
+                .equals(characteristicReferenceTypeName))
+            .filter(it -> it.getValueName()
+                .equals(characteristicReferenceValueName))
             .findAny();
         return characteristic.isPresent() && dataflowVariable.hasCharacteristic(characteristic.get());
     }
@@ -272,7 +269,7 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
             .forEach(enumCharacteristicType -> enumCharacteristicType.getType()
                     .getLiterals()
                     .forEach(characteristicValue -> updatedCharacteristicValues
-                            .add(new CharacteristicValue(enumCharacteristicType, characteristicValue))));
+                            .add(new PCMCharacteristicValue(enumCharacteristicType, characteristicValue))));
         return updatedCharacteristicValues;
     }
 

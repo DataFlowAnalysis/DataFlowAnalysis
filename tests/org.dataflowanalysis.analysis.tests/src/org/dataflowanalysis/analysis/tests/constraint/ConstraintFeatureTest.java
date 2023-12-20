@@ -1,6 +1,5 @@
 package org.dataflowanalysis.analysis.tests.constraint;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Paths;
@@ -9,10 +8,8 @@ import java.util.List;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.entity.pcm.PCMActionSequence;
-import org.dataflowanalysis.analysis.entity.pcm.user.UserActionSequenceElement;
-import org.dataflowanalysis.analysis.entity.sequence.ActionSequence;
-import org.dataflowanalysis.analysis.tests.ListAppender;
+import org.dataflowanalysis.analysis.core.ActionSequence;
+import org.dataflowanalysis.analysis.core.pcm.user.UserActionSequenceElement;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

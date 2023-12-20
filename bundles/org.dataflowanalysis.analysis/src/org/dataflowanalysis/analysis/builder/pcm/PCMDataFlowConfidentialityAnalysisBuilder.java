@@ -2,9 +2,9 @@ package org.dataflowanalysis.analysis.builder.pcm;
 
 import java.util.Optional;
 
+import org.dataflowanalysis.analysis.StandalonePCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.builder.AbstractDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.builder.AnalysisBuilderData;
-import org.dataflowanalysis.analysis.core.StandalonePCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.eclipse.core.runtime.Plugin;
 

@@ -3,10 +3,10 @@ package org.dataflowanalysis.analysis.tests.constraint.data;
 import java.util.List;
 import java.util.Map;
 
-import org.dataflowanalysis.analysis.characteristics.CharacteristicValue;
-import org.dataflowanalysis.analysis.characteristics.DataFlowVariable;
-import org.dataflowanalysis.analysis.entity.pcm.AbstractPCMActionSequenceElement;
-import org.dataflowanalysis.analysis.entity.sequence.AbstractActionSequenceElement;
+import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
+import org.dataflowanalysis.analysis.core.CharacteristicValue;
+import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.pcm.AbstractPCMActionSequenceElement;
 
 import de.uka.ipd.sdq.identifier.Identifier;
 

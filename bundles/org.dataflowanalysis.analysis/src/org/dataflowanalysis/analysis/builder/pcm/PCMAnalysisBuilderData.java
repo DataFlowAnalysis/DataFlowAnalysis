@@ -7,19 +7,17 @@ import org.dataflowanalysis.analysis.AnalysisData;
 import org.dataflowanalysis.analysis.builder.AnalysisBuilderData;
 import org.dataflowanalysis.analysis.core.pcm.PCMDataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.pcm.PCMNodeCharacteristicsCalculator;
-import org.dataflowanalysis.analysis.resource.PCMURIResourceProvider;
-import org.dataflowanalysis.analysis.resource.ResourceProvider;
+import org.dataflowanalysis.analysis.resource.pcm.PCMResourceProvider;
+import org.dataflowanalysis.analysis.resource.pcm.PCMURIResourceProvider;
 import org.dataflowanalysis.analysis.utils.pcm.ResourceUtils;
-import org.eclipse.core.runtime.Plugin;
 
 public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	private final Logger logger = Logger.getLogger(PCMAnalysisBuilderData.class);
 	
-	private Optional<Class<? extends Plugin>> pluginActivator;
 	private String relativeUsageModelPath;
 	private String relativeAllocationModelPath;
 	private String relativeNodeCharacteristicsPath;
-	private Optional<ResourceProvider> customResourceProvider = Optional.empty();
+	private Optional<PCMResourceProvider> customResourceProvider = Optional.empty();
 	
 	/**
 	 * Validates the saved data
@@ -46,7 +44,7 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	 * @return Returns a new data object for the analysis
 	 */
 	public AnalysisData createAnalysisData() {
-		ResourceProvider resourceProvider = this.getEffectiveResourceProvider();
+		PCMResourceProvider resourceProvider = this.getEffectiveResourceProvider();
 		return new AnalysisData(resourceProvider, new PCMNodeCharacteristicsCalculator(resourceProvider), new PCMDataCharacteristicsCalculatorFactory(resourceProvider));
 	}
 	
@@ -55,7 +53,7 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	 * If a custom resource provider was provided, it will always be used
 	 * @return Returns the effective resource provider for the analysis
 	 */
-	private ResourceProvider getEffectiveResourceProvider() {
+	private PCMResourceProvider getEffectiveResourceProvider() {
 		return this.customResourceProvider.orElseGet(this::getURIResourceProvider);
 	}
 	
@@ -64,26 +62,10 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	 * @param nodeCharacteristicsURI Optional URI to the node characteristics model
 	 * @return New instance of an URI resource loader with the internally saved values
 	 */
-	private ResourceProvider getURIResourceProvider() {
+	private PCMResourceProvider getURIResourceProvider() {
 		return new PCMURIResourceProvider(ResourceUtils.createRelativePluginURI(relativeUsageModelPath, modelProjectName), 
 				ResourceUtils.createRelativePluginURI(relativeAllocationModelPath, modelProjectName), 
 				ResourceUtils.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName));
-	}
-	
-	/**
-	 * Sets the plugin activator of the project
-	 * @param pluginActivator Eclipse plugin activator class
-	 */
-	public void setPluginActivator(Optional<Class<? extends Plugin>> pluginActivator) {
-		this.pluginActivator = pluginActivator;
-	}
-	
-	/**
-	 * Returns the plugin activator of the project
-	 * @return Eclipse plugin activator class of the project
-	 */
-	public Optional<Class<? extends Plugin>> getPluginActivator() {
-		return pluginActivator;
 	}
 	
 	/**
@@ -138,7 +120,7 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	 * Registers a custom resource provider for the analysis
 	 * @param resourceProvider Custom resource provider of the analysis
 	 */
-	public void setCustomResourceProvider(ResourceProvider resourceProvider) {
+	public void setCustomResourceProvider(PCMResourceProvider resourceProvider) {
 		this.customResourceProvider = Optional.of(resourceProvider);
 	}
 	
@@ -146,7 +128,7 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	 * Returns the saved custom resource provider, if it exists
 	 * @return Returns an Optional containing the resource provider, if one was specified
 	 */
-	public Optional<ResourceProvider> getCustomResourceProvider() {
+	public Optional<PCMResourceProvider> getCustomResourceProvider() {
 		return this.customResourceProvider;
 	}
 }

@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.resource;
+package org.dataflowanalysis.analysis.resource.pcm;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 
-public class PCMURIResourceProvider implements ResourceProvider {
+public class PCMURIResourceProvider implements PCMResourceProvider {
 	private ResourceSet resources = new ResourceSetImpl();
 	
 	private URI usageModelURI;

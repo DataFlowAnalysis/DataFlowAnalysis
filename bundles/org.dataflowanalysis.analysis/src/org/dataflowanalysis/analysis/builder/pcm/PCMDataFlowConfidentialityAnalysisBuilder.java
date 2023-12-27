@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.dataflowanalysis.analysis.StandalonePCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.builder.DataFlowAnalysisBuilder;
-import org.dataflowanalysis.analysis.resource.ResourceProvider;
+import org.dataflowanalysis.analysis.resource.pcm.PCMResourceProvider;
 import org.eclipse.core.runtime.Plugin;
 
 public class PCMDataFlowConfidentialityAnalysisBuilder 
@@ -60,7 +60,7 @@ extends DataFlowAnalysisBuilder {
 	 * @param relativeNodeCharacteristicsModelPath Relative path to the node characteristics model
 	 * @return Returns builder object of the analysis
 	 */
-	public PCMDataFlowConfidentialityAnalysisBuilder useCustomResourceProvider(ResourceProvider resourceProvider) {
+	public PCMDataFlowConfidentialityAnalysisBuilder useCustomResourceProvider(PCMResourceProvider resourceProvider) {
 		this.builderData.setCustomResourceProvider(resourceProvider);
 		return this;
 	}

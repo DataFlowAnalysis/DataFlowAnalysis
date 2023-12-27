@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.resource;
+package org.dataflowanalysis.analysis.resource.dfd;
 
 import java.io.File;
 

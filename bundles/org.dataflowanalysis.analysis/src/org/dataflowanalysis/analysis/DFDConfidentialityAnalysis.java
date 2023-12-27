@@ -2,37 +2,78 @@ package org.dataflowanalysis.analysis;
 
 
 import java.util.List;
+import java.util.Optional;
+
 import java.util.ArrayList;
 import java.util.function.Predicate;
 import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.core.ActionSequence;
 import org.dataflowanalysis.analysis.core.dfd.DFDActionSequence;
 import org.dataflowanalysis.analysis.core.dfd.DFDActionSequenceFinder;
 import org.dataflowanalysis.analysis.core.dfd.DFDCharacteristicsCalculator;
-import org.dataflowanalysis.analysis.resource.DFDLoader;
-import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
-import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
+import org.dataflowanalysis.analysis.resource.dfd.DFDResourceProvider;
+import org.eclipse.core.runtime.Plugin;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+
+import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
+import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder;
 
 
 public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalysis {
-	DataFlowDiagram dfd;
-	DataDictionary dd;
+	private final Logger logger = Logger.getLogger(DFDConfidentialityAnalysis.class);
 	
-	public DFDConfidentialityAnalysis(DataFlowDiagram dfd, DataDictionary dd) {
-		this.dfd = dfd;
-		this.dd = dd;
+	private AnalysisData analysisData;
+	private Optional<Class<? extends Plugin>> modelProjectActivator;
+	private String modelProjectName;
+	
+	public DFDConfidentialityAnalysis(AnalysisData analysisData, Optional<Class<? extends Plugin>> modelProjectActivator, String modelProjectName) {
+		this.analysisData = analysisData;
+		this.modelProjectActivator = modelProjectActivator;
+		this.modelProjectName = modelProjectName;
 	}
 
 	@Override
 	public boolean initializeAnalysis() {
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("dataflowdiagram", new XMIResourceFactoryImpl());
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("datadictionary", new XMIResourceFactoryImpl());
+
+        EcorePlugin.ExtensionProcessor.process(null);
+		
+        try {
+        	var initializationBuilder = StandaloneInitializerBuilder.builder()
+                    .registerProjectURI(DFDConfidentialityAnalysis.class, 
+                    		DFDConfidentialityAnalysis.PLUGIN_PATH);
+                 
+                 if (this.modelProjectActivator.isPresent()) {
+                	 initializationBuilder.registerProjectURI(this.modelProjectActivator.get(), this.modelProjectName);
+                 }
+                 
+                 initializationBuilder.build()
+                    .init();
+
+                logger.info("Successfully initialized standalone environment for the data flow analysis.");
+
+        } catch (StandaloneInitializationException e) {
+        	logger.error("Could not initialize analysis", e);
+        	throw new IllegalStateException("Could not initialize analysis");
+        }
+        this.analysisData.getResourceProvider().loadRequiredResources();
+        if(!this.analysisData.getResourceProvider().sufficientResourcesLoaded()) {
+        	logger.error("Insufficient amount of resources loaded");
+        	throw new IllegalStateException("Could not initialize analysis");
+        }
 		return true;
 	}
 	
 
 	@Override
 	public List<ActionSequence> findAllSequences() {
-		return DFDActionSequenceFinder.findAllSequencesInDFD(dfd, dd);
+		DFDResourceProvider resourceProvider = (DFDResourceProvider) this.analysisData.getResourceProvider();
+		return DFDActionSequenceFinder.findAllSequencesInDFD(resourceProvider.getDataFlowDiagram(), resourceProvider.getDataDictionary());
 	}
 	
 
@@ -56,7 +97,6 @@ public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalys
 
 	@Override
 	public void setLoggerLevel(Level level) {
-		// TODO Auto-generated method stub
-		
+		logger.setLevel(level);
 	}
 }

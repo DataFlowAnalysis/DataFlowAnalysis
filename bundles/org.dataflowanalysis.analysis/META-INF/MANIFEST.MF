@@ -16,7 +16,9 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.24.0",
  org.dataflowanalysis.pcm.extension.nodecharacteristics;bundle-version="0.1.0",
  org.dataflowanalysis.dfd.dataflowdiagram;bundle-version="0.1.0"
 Export-Package: 
+ org.dataflowanalysis.analysis,
  org.dataflowanalysis.analysis.builder,
+ org.dataflowanalysis.analysis.builder.dfd,
  org.dataflowanalysis.analysis.builder.pcm,
  org.dataflowanalysis.analysis.core,
  org.dataflowanalysis.analysis.core.dfd,
@@ -25,5 +27,4 @@ Export-Package:
  org.dataflowanalysis.analysis.core.pcm.seff,
  org.dataflowanalysis.analysis.core.pcm.user,
  org.dataflowanalysis.analysis.resource,
- org.dataflowanalysis.analysis.utils.pcm,
- org.dataflowanalysis.analysis
+ org.dataflowanalysis.analysis.utils.pcm

@@ -1,8 +1,13 @@
 package org.dataflowanalysis.analysis.builder;
 
+import java.util.Optional;
+
+import org.eclipse.core.runtime.Plugin;
+
 public class AnalysisBuilderData {
 	protected boolean standalone;
 	protected String modelProjectName;
+	private Optional<Class<? extends Plugin>> pluginActivator = Optional.empty();
 	
 	public AnalysisBuilderData() {}
 	
@@ -50,5 +55,21 @@ public class AnalysisBuilderData {
 	 */
 	public boolean isStandalone() {
 		return standalone;
+	}
+	
+	/**
+	 * Sets the plugin activator of the project
+	 * @param pluginActivator Eclipse plugin activator class
+	 */
+	public void setPluginActivator(Optional<Class<? extends Plugin>> pluginActivator) {
+		this.pluginActivator = pluginActivator;
+	}
+	
+	/**
+	 * Returns the plugin activator of the project
+	 * @return Eclipse plugin activator class of the project
+	 */
+	public Optional<Class<? extends Plugin>> getPluginActivator() {
+		return pluginActivator;
 	}
 }

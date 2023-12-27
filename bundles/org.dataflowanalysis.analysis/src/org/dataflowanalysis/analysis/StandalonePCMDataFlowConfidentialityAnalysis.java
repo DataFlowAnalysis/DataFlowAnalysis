@@ -13,6 +13,7 @@ import org.dataflowanalysis.analysis.core.ActionSequenceFinder;
 import org.dataflowanalysis.analysis.core.pcm.PCMActionSequence;
 import org.dataflowanalysis.analysis.core.pcm.PCMActionSequenceFinder;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
+import org.dataflowanalysis.analysis.resource.pcm.PCMResourceProvider;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.xtext.linking.impl.AbstractCleaningLinker;
@@ -28,8 +29,6 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder
 import tools.mdsd.library.standalone.initialization.log4j.Log4jInitilizationTask;
 
 public class StandalonePCMDataFlowConfidentialityAnalysis implements DataFlowConfidentialityAnalysis {
-	private static final String PLUGIN_PATH = "org.dataflowanalysis.analysis";
-	
 	private final AnalysisData analysisData;
 	private final Logger logger;
 	
@@ -55,7 +54,8 @@ public class StandalonePCMDataFlowConfidentialityAnalysis implements DataFlowCon
 
 	@Override
 	public List<ActionSequence> findAllSequences() {
-		ActionSequenceFinder sequenceFinder = new PCMActionSequenceFinder(this.analysisData.getResourceProvider().getUsageModel());
+		PCMResourceProvider resourceProvider = (PCMResourceProvider) this.analysisData.getResourceProvider();
+		ActionSequenceFinder sequenceFinder = new PCMActionSequenceFinder(resourceProvider.getUsageModel());
         return sequenceFinder.findAllSequences().parallelStream()
         		.map(ActionSequence.class::cast)
         		.collect(Collectors.toList());

@@ -3,16 +3,16 @@ package org.dataflowanalysis.analysis.builder.pcm;
 import java.util.Optional;
 
 import org.dataflowanalysis.analysis.StandalonePCMDataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.builder.AbstractDataFlowAnalysisBuilder;
-import org.dataflowanalysis.analysis.builder.AnalysisBuilderData;
+import org.dataflowanalysis.analysis.builder.DataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.eclipse.core.runtime.Plugin;
 
 public class PCMDataFlowConfidentialityAnalysisBuilder 
-extends AbstractDataFlowAnalysisBuilder<StandalonePCMDataFlowConfidentialityAnalysis, PCMAnalysisBuilderData, AnalysisBuilderData> {
+extends DataFlowAnalysisBuilder {
+	private PCMAnalysisBuilderData builderData;
 
 	public PCMDataFlowConfidentialityAnalysisBuilder() {
-		super(new PCMAnalysisBuilderData());
+		this.builderData = new PCMAnalysisBuilderData();
 	}
 	
 	/**
@@ -65,21 +65,27 @@ extends AbstractDataFlowAnalysisBuilder<StandalonePCMDataFlowConfidentialityAnal
 		return this;
 	}
 	
-	@Override
-	public void copyBuilderData(AnalysisBuilderData builderData) {
-		super.builderData.setModelProjectName(builderData.getModelProjectName());
-		super.builderData.setStandalone(builderData.isStandalone());
+	/**
+	 * Sets standalone mode of the analysis
+	 * @return Builder of the analysis
+	 */
+	public PCMDataFlowConfidentialityAnalysisBuilder standalone() {
+		this.builderData.setStandalone(true);
+		return this;
 	}
 	
-	@Override
-	public void validateBuilderData() {
-		this.builder.forEach(AbstractDataFlowAnalysisBuilder::validateBuilderData);
-		this.builderData.validateData();
+	/**
+	 * Sets the modelling project name of the analysis
+	 * @return Builder of the analysis
+	 */
+	public PCMDataFlowConfidentialityAnalysisBuilder modelProjectName(String modelProjectName) {
+		this.builderData.setModelProjectName(modelProjectName);
+		return this;
 	}
 
 	@Override
 	public StandalonePCMDataFlowConfidentialityAnalysis build() {
-		this.validateBuilderData();
+		this.builderData.validateData();
 		return new StandalonePCMDataFlowConfidentialityAnalysis(builderData.createAnalysisData(), builderData.getModelProjectName(),
 				builderData.getPluginActivator());
 	}

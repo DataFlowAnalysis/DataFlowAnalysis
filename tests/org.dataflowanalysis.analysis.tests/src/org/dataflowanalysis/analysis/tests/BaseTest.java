@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.builder.DataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.builder.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.junit.jupiter.api.BeforeAll;
@@ -50,10 +49,9 @@ public class BaseTest {
     }
     
     protected DataFlowConfidentialityAnalysis initializeAnalysis(Path usagePath, Path allocationPath, Path nodePath) {
-    	DataFlowConfidentialityAnalysis analysis = new DataFlowAnalysisBuilder()
+    	DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder()
         		.standalone()
         		.modelProjectName(TEST_MODEL_PROJECT_NAME)
-        		.useBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
     			.usePluginActivator(Activator.class)
     			.useUsageModel(usagePath.toString())
     			.useAllocationModel(allocationPath.toString())

@@ -3,8 +3,8 @@ package org.dataflowanalysis.analysis.builder.pcm;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.AnalysisData;
 import org.dataflowanalysis.analysis.builder.AnalysisBuilderData;
-import org.dataflowanalysis.analysis.builder.AnalysisData;
 import org.dataflowanalysis.analysis.core.pcm.PCMDataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.pcm.PCMNodeCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.resource.PCMURIResourceProvider;

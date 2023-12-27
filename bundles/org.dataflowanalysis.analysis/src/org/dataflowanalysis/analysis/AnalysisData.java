@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.builder;
+package org.dataflowanalysis.analysis;
 
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;

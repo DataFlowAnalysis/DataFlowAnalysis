@@ -2,7 +2,7 @@ package org.dataflowanalysis.analysis.core.dfd;
 
 import java.util.List;
 
-import org.dataflowanalysis.analysis.builder.AnalysisData;
+import org.dataflowanalysis.analysis.AnalysisData;
 import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.core.ActionSequence;
 

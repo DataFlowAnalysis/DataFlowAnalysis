@@ -2,29 +2,12 @@ package org.dataflowanalysis.analysis.builder;
 
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 
-public class DataFlowAnalysisBuilder extends AbstractDataFlowAnalysisBuilder<DataFlowConfidentialityAnalysis, AnalysisBuilderData, AnalysisBuilderData>{
+public class DataFlowAnalysisBuilder {
+	private AnalysisBuilderData builderData;
 
 	public DataFlowAnalysisBuilder() {
-		super(new AnalysisBuilderData());
-		super.builder.add(this);
-	}
-	
-	@Override
-	public void copyBuilderData(AnalysisBuilderData builderData) {
-		super.builderData.setModelProjectName(builderData.getModelProjectName());
-		super.builderData.setStandalone(builderData.isStandalone());
+		this.builderData = new AnalysisBuilderData();
 	}	
-
-	@Override
-	public void validateBuilderData() {
-		this.builderData.validateData();
-	}
-
-	@Override
-	public DataFlowConfidentialityAnalysis build() {
-		this.validateBuilderData();
-		throw new IllegalStateException("No current implementation supports pcm-less analysis");
-	}
 	
 	/**
 	 * Sets standalone mode of the analysis
@@ -42,5 +25,10 @@ public class DataFlowAnalysisBuilder extends AbstractDataFlowAnalysisBuilder<Dat
 	public DataFlowAnalysisBuilder modelProjectName(String modelProjectName) {
 		this.builderData.setModelProjectName(modelProjectName);
 		return this;
+	}
+
+	public DataFlowConfidentialityAnalysis build() {
+		builderData.validateData();
+		throw new IllegalStateException("No current implementation supports pcm-less analysis");
 	}
 }

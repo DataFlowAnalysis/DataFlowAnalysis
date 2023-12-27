@@ -20,10 +20,9 @@ public class ReadMeTest extends BaseTest {
 	
 	// --------------------------------------------------
 	public static void main(String[] args) {
-	    DataFlowConfidentialityAnalysis analysis = new DataFlowAnalysisBuilder()
+	    DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder()
 	        .standalone()
 	        .modelProjectName("<PROJECT_NAME>")
-	        .useBuilder(new PCMDataFlowConfidentialityAnalysisBuilder())
 	        .usePluginActivator(Activator.class)
 	        .useUsageModel("<USAGE_MODEL_PATH>")
 	        .useAllocationModel("<ALLOCATION_MODEL_PATH>")

@@ -4,18 +4,7 @@ public class AnalysisBuilderData {
 	protected boolean standalone;
 	protected String modelProjectName;
 	
-	public AnalysisBuilderData() {
-		
-	}
-	
-	/**
-	 * Creates the analysis builder data object with the given data
-	 * @param other Data which will be copied
-	 */
-	public AnalysisBuilderData(AnalysisBuilderData other) {
-		this.modelProjectName = other.getModelProjectName();
-		this.standalone = other.isStandalone();
-	}
+	public AnalysisBuilderData() {}
 	
 	/**
 	 * Validates the saved Data

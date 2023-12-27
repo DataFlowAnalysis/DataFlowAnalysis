@@ -32,7 +32,7 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	 * @throws IllegalStateException Saved data is invalid
 	 */
 	public List<ValidationError> validate() {
-		List<ValidationError> validationErrors = new ArrayList<>();
+		List<ValidationError> validationErrors = new ArrayList<>(super.validate());
 		if (this.getRelativeUsageModelPath().isEmpty() && this.customResourceProvider.isEmpty()) {
 			validationErrors.add(new ValidationError("A path to a usage model is required", ValidationErrorSeverity.ERROR));
 		}

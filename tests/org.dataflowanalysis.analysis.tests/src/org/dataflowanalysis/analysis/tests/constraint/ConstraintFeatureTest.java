@@ -9,8 +9,8 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.ActionSequence;
-import org.dataflowanalysis.analysis.core.pcm.user.CallingUserActionSequenceElement;
-import org.dataflowanalysis.analysis.core.pcm.user.UserActionSequenceElement;
+import org.dataflowanalysis.analysis.pcm.core.user.CallingUserActionSequenceElement;
+import org.dataflowanalysis.analysis.pcm.core.user.UserActionSequenceElement;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

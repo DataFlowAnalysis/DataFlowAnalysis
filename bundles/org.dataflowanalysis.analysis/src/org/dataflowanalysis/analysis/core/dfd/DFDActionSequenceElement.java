@@ -29,7 +29,7 @@ public class DFDActionSequenceElement extends AbstractActionSequenceElement<EObj
 	}
 
 	@Override
-	public AbstractActionSequenceElement<EObject> evaluateDataFlow(List variables, AnalysisData analysisData) {
+	public AbstractActionSequenceElement<EObject> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
 		// TODO funktional leer lassen & Exception fürs Debugging
 		return null;
 	}

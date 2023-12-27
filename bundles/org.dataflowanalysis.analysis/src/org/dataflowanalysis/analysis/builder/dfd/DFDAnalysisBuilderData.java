@@ -4,7 +4,7 @@ import org.dataflowanalysis.analysis.AnalysisData;
 import org.dataflowanalysis.analysis.builder.AnalysisBuilderData;
 import org.dataflowanalysis.analysis.resource.dfd.DFDResourceProvider;
 import org.dataflowanalysis.analysis.resource.dfd.DFDURIResourceProvider;
-import org.dataflowanalysis.analysis.utils.pcm.ResourceUtils;
+import org.dataflowanalysis.analysis.utils.ResourceUtils;
 
 public class DFDAnalysisBuilderData extends AnalysisBuilderData {
 	private String dataFlowDiagramPath;

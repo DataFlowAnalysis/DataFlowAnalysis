@@ -6,7 +6,7 @@ import java.util.Map;
 import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
-import org.dataflowanalysis.analysis.core.pcm.AbstractPCMActionSequenceElement;
+import org.dataflowanalysis.analysis.pcm.core.AbstractPCMActionSequenceElement;
 
 import de.uka.ipd.sdq.identifier.Identifier;
 

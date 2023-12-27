@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.core.dfd;
+package org.dataflowanalysis.analysis.dfd.core;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -28,7 +28,7 @@ public class DataFlowAnalysisBuilder {
 	}
 
 	public DataFlowConfidentialityAnalysis build() {
-		builderData.validateData();
+		builderData.validate();
 		throw new IllegalStateException("No current implementation supports pcm-less analysis");
 	}
 }

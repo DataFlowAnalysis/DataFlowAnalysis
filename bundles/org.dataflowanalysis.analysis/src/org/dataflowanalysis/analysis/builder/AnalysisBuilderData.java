@@ -1,5 +1,6 @@
 package org.dataflowanalysis.analysis.builder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,20 +15,6 @@ public class AnalysisBuilderData implements ValidationObject {
 	private Optional<Class<? extends Plugin>> pluginActivator = Optional.empty();
 	
 	public AnalysisBuilderData() {}
-	
-	/**
-	 * Validates the saved Data
-	 * @throws IllegalStateException Validation has failed
-	 */
-	public void validateData() {
-		if (!this.isStandalone()) {
-			throw new IllegalStateException("Execution of the analysis is currently only supported in standalone mode");
-		}
-		if(this.getModelProjectName() == null || this.getModelProjectName().isBlank()) {
-			throw new IllegalStateException("A name for the modelling project is required!");
-		}
-	}
-	
 	
 	/**
 	 * Sets the model project name
@@ -79,6 +66,13 @@ public class AnalysisBuilderData implements ValidationObject {
 
 	@Override
 	public List<ValidationError> validate() {
-		return List.of(new ValidationError("Validation of base analysis builder data is not supported", ValidationErrorSeverity.ERROR));
+		List<ValidationError> validationErrors = new ArrayList<>();
+		if (!this.isStandalone()) {
+			validationErrors.add(new ValidationError("Execution of the analysis is currently only supported in standalone mode", ValidationErrorSeverity.ERROR));
+		}
+		if(this.getModelProjectName() == null || this.getModelProjectName().isBlank()) {
+			validationErrors.add(new ValidationError("A name for the modelling project is required!", ValidationErrorSeverity.ERROR));
+		}
+		return validationErrors;
 	}
 }

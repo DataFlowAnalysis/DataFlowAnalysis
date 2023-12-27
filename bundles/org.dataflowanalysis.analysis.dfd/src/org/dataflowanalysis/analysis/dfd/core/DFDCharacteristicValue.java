@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.core.dfd;
+package org.dataflowanalysis.analysis.dfd.core;
 
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.dfd.datadictionary.Label;

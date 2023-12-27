@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.resource.dfd;
+package org.dataflowanalysis.analysis.dfd.resource;
 
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;

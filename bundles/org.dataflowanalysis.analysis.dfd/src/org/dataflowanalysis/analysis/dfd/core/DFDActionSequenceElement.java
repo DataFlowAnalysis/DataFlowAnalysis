@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.core.dfd;
+package org.dataflowanalysis.analysis.dfd.core;
 
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.eclipse.emf.ecore.EObject;

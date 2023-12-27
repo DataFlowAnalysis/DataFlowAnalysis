@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.resource.dfd;
+package org.dataflowanalysis.analysis.dfd.resource;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis;
+package org.dataflowanalysis.analysis.dfd;
 
 
 import java.util.List;
@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.AnalysisData;
+import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.core.ActionSequence;
-import org.dataflowanalysis.analysis.core.dfd.DFDActionSequence;
-import org.dataflowanalysis.analysis.core.dfd.DFDActionSequenceFinder;
-import org.dataflowanalysis.analysis.core.dfd.DFDCharacteristicsCalculator;
-import org.dataflowanalysis.analysis.resource.dfd.DFDResourceProvider;
+import org.dataflowanalysis.analysis.dfd.core.DFDActionSequence;
+import org.dataflowanalysis.analysis.dfd.core.DFDActionSequenceFinder;
+import org.dataflowanalysis.analysis.dfd.core.DFDCharacteristicsCalculator;
+import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;

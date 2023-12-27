@@ -1,18 +1,26 @@
 package org.dataflowanalysis.analysis.pcm.builder;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
-import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.AnalysisData;
 import org.dataflowanalysis.analysis.builder.AnalysisBuilderData;
+import org.dataflowanalysis.analysis.builder.validation.ValidationError;
+import org.dataflowanalysis.analysis.builder.validation.ValidationErrorSeverity;
+import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.core.PCMDataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.pcm.core.PCMNodeCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.pcm.resource.PCMURIResourceProvider;
 import org.dataflowanalysis.analysis.utils.ResourceUtils;
 
+/**
+ * This class is responsible for storing the data required to create an instance of the {@link PCMDataFlowConfidentialityAnalysis}.
+ * This dataclass is used by {@code PCMDataFlowConfidentialityAnalysisBuilder} to store data provided by the user
+ * 
+ */
 public class PCMAnalysisBuilderData extends AnalysisBuilderData {
-	private final Logger logger = Logger.getLogger(PCMAnalysisBuilderData.class);
 	
 	private String relativeUsageModelPath;
 	private String relativeAllocationModelPath;
@@ -23,19 +31,24 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	 * Validates the saved data
 	 * @throws IllegalStateException Saved data is invalid
 	 */
-	public void validateData() {
+	public List<ValidationError> validate() {
+		List<ValidationError> validationErrors = new ArrayList<>();
 		if (this.getRelativeUsageModelPath().isEmpty() && this.customResourceProvider.isEmpty()) {
-			throw new IllegalStateException("A path to a usage model is required");
+			validationErrors.add(new ValidationError("A path to a usage model is required", ValidationErrorSeverity.ERROR));
 		}
 		if (this.getRelativeAllocationModelPath().isEmpty() && this.customResourceProvider.isEmpty()) {
-			throw new IllegalStateException("A path to an allocation model is required");
+			validationErrors.add(new ValidationError("A path to an allocation model is required", ValidationErrorSeverity.ERROR));
 		}
-		if (this.customResourceProvider.isPresent() && !this.customResourceProvider.get().sufficientResourcesLoaded()) {
-			throw new IllegalStateException("Custom resource provider did not load all required resources");
+		if (this.customResourceProvider.isPresent()) {
+			this.customResourceProvider.get().loadRequiredResources();
+			if (!this.customResourceProvider.get().sufficientResourcesLoaded()) {
+				validationErrors.add(new ValidationError("Custom resource provider did not load all required resources", ValidationErrorSeverity.ERROR));
+			}
 		}
 		if (this.getRelativeNodeCharacteristicsPath() == null || this.getRelativeNodeCharacteristicsPath().isEmpty()) {
-			logger.warn("Using node characteristic model without specifying path to the assignment model. No node characteristics will be applied!");
+			validationErrors.add(new ValidationError("Using node characteristic model without specifying path to the assignment model. No node characteristics will be applied!", ValidationErrorSeverity.WARNING));
 		}
+		return validationErrors;
 	}
 	
 

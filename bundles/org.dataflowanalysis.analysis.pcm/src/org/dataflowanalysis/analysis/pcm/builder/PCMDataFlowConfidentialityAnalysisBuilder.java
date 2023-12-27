@@ -1,14 +1,19 @@
 package org.dataflowanalysis.analysis.pcm.builder;
 
+import java.util.List;
 import java.util.Optional;
 
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.builder.DataFlowAnalysisBuilder;
-import org.dataflowanalysis.analysis.pcm.StandalonePCMDataFlowConfidentialityAnalysis;
+import org.dataflowanalysis.analysis.builder.validation.ValidationError;
+import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.eclipse.core.runtime.Plugin;
 
 public class PCMDataFlowConfidentialityAnalysisBuilder 
 extends DataFlowAnalysisBuilder {
+	private final Logger logger = Logger.getLogger(PCMDataFlowConfidentialityAnalysisBuilder.class);
+	
 	private PCMAnalysisBuilderData builderData;
 
 	public PCMDataFlowConfidentialityAnalysisBuilder() {
@@ -75,7 +80,7 @@ extends DataFlowAnalysisBuilder {
 	}
 	
 	/**
-	 * Sets the modelling project name of the analysis
+	 * Sets the modeling project name of the analysis
 	 * @return Builder of the analysis
 	 */
 	public PCMDataFlowConfidentialityAnalysisBuilder modelProjectName(String modelProjectName) {
@@ -84,9 +89,14 @@ extends DataFlowAnalysisBuilder {
 	}
 
 	@Override
-	public StandalonePCMDataFlowConfidentialityAnalysis build() {
-		this.builderData.validateData();
-		return new StandalonePCMDataFlowConfidentialityAnalysis(builderData.createAnalysisData(), builderData.getModelProjectName(),
+	public PCMDataFlowConfidentialityAnalysis build() {
+		List<ValidationError> validationErrors = this.builderData.validate();
+		validationErrors.forEach(it -> it.log(logger));
+		if (validationErrors.stream().anyMatch(ValidationError::isFatal)) {
+			logger.fatal("Could not create analysis due to fatal validation errors");
+			throw new IllegalStateException();
+		}
+		return new PCMDataFlowConfidentialityAnalysis(builderData.createAnalysisData(), builderData.getModelProjectName(),
 				builderData.getPluginActivator());
 	}
 }

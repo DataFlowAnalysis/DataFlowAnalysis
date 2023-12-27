@@ -30,7 +30,7 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializationExce
 import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder;
 import tools.mdsd.library.standalone.initialization.log4j.Log4jInitilizationTask;
 
-public class StandalonePCMDataFlowConfidentialityAnalysis implements DataFlowConfidentialityAnalysis {
+public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentialityAnalysis {
 	private static final String PLUGIN_PATH = "org.dataflowanalysis.analysis.pcm";
 	
 	private final AnalysisData analysisData;
@@ -48,10 +48,10 @@ public class StandalonePCMDataFlowConfidentialityAnalysis implements DataFlowCon
 	 * @param modelProjectName Name of the modelling project
 	 * @param modelProjectActivator Plugin class of the analysis
 	 */
-	public StandalonePCMDataFlowConfidentialityAnalysis(AnalysisData analysisData, String modelProjectName,
+	public PCMDataFlowConfidentialityAnalysis(AnalysisData analysisData, String modelProjectName,
 			Optional<Class<? extends Plugin>> modelProjectActivator) {
 		this.analysisData = analysisData;
-		this.logger = Logger.getLogger(StandalonePCMDataFlowConfidentialityAnalysis.class);
+		this.logger = Logger.getLogger(PCMDataFlowConfidentialityAnalysis.class);
 		this.modelProjectName = modelProjectName;
 		this.modelProjectActivator = modelProjectActivator;
 	}
@@ -175,8 +175,8 @@ public class StandalonePCMDataFlowConfidentialityAnalysis implements DataFlowCon
              var initializationBuilder = StandaloneInitializerBuilder.builder()
                 .registerProjectURI(DataFlowConfidentialityAnalysis.class, 
                 		DataFlowConfidentialityAnalysis.PLUGIN_PATH)
-                .registerProjectURI(StandalonePCMDataFlowConfidentialityAnalysis.class, 
-                		StandalonePCMDataFlowConfidentialityAnalysis.PLUGIN_PATH);
+                .registerProjectURI(PCMDataFlowConfidentialityAnalysis.class, 
+                		PCMDataFlowConfidentialityAnalysis.PLUGIN_PATH);
              
              if (this.modelProjectActivator.isPresent()) {
             	 initializationBuilder.registerProjectURI(this.modelProjectActivator.get(), this.modelProjectName);

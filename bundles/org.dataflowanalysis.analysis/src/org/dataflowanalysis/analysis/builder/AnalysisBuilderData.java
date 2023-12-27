@@ -1,10 +1,14 @@
 package org.dataflowanalysis.analysis.builder;
 
+import java.util.List;
 import java.util.Optional;
 
+import org.dataflowanalysis.analysis.builder.validation.ValidationError;
+import org.dataflowanalysis.analysis.builder.validation.ValidationErrorSeverity;
+import org.dataflowanalysis.analysis.builder.validation.ValidationObject;
 import org.eclipse.core.runtime.Plugin;
 
-public class AnalysisBuilderData {
+public class AnalysisBuilderData implements ValidationObject {
 	protected boolean standalone;
 	protected String modelProjectName;
 	private Optional<Class<? extends Plugin>> pluginActivator = Optional.empty();
@@ -71,5 +75,10 @@ public class AnalysisBuilderData {
 	 */
 	public Optional<Class<? extends Plugin>> getPluginActivator() {
 		return pluginActivator;
+	}
+
+	@Override
+	public List<ValidationError> validate() {
+		return List.of(new ValidationError("Validation of base analysis builder data is not supported", ValidationErrorSeverity.ERROR));
 	}
 }

@@ -50,13 +50,13 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
     	if (this.getElement() instanceof Start) {
     		return String.format("%s (Starting %s, %s)", 
     				this.getClass().getSimpleName(), 
-    				this.getElement().getScenarioBehaviour_AbstractUserAction().getUsageScenario_SenarioBehaviour().getEntityName(),
+    				this.getEntityNameOfScenarioBehaviour(),
     				this.getElement().getId());
     	}
     	if (this.getElement() instanceof Stop) {
     		return String.format("%s (Stopping %s, %s)", 
     				this.getClass().getSimpleName(),
-    				this.getElement().getScenarioBehaviour_AbstractUserAction().getUsageScenario_SenarioBehaviour().getEntityName(),
+    				this.getEntityNameOfScenarioBehaviour(),
     				this.getElement().getId());
     	}
         return String.format("%s (%s, %s))", this.getClass()
@@ -65,6 +65,14 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
                     .getEntityName(),
                 this.getElement()
                     .getId());
+    }
+    
+    private String getEntityNameOfScenarioBehaviour() {
+    	if(this.getElement().getScenarioBehaviour_AbstractUserAction().getUsageScenario_SenarioBehaviour() != null) {
+    		return "usage: %s".formatted(this.getElement().getScenarioBehaviour_AbstractUserAction().getUsageScenario_SenarioBehaviour().getEntityName());
+    	} else {
+    		return "branch: %s".formatted(this.getElement().getScenarioBehaviour_AbstractUserAction().getBranchTransition_ScenarioBehaviour().getBranch_BranchTransition().getEntityName());
+    	}
     }
 
 }

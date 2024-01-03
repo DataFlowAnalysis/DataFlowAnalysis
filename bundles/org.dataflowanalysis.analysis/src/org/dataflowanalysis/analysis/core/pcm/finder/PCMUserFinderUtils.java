@@ -41,9 +41,8 @@ public class PCMUserFinderUtils {
             return findSequencesForEntryLevelSystemCall((EntryLevelSystemCall) currentAction, previousSequence);
 
         } else {
-            throw new IllegalArgumentException(
-                    String.format("The type %s is not supported in usage scenarios.", currentAction.getClass()
-                        .getName()));
+        	// default case: skip action and continue with successor
+        	return findSequencesForUserAction(currentAction.getSuccessor(), previousSequence);
         }
     }
 

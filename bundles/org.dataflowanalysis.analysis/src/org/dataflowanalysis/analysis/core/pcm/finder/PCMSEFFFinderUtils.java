@@ -41,9 +41,8 @@ public class PCMSEFFFinderUtils {
             return findSequencesForSEFFBranchAction((BranchAction) currentAction, context, previousSequence);
 
         } else {
-            throw new IllegalArgumentException(
-                    String.format("The type %s is not supported in SEFFs", currentAction.getClass()
-                        .getName()));
+        	// default case: skip action and continue with successor
+        	return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context, previousSequence);
         }
     }
 

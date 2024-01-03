@@ -3,6 +3,7 @@ package org.dataflowanalysis.analysis.pcm.core.finder;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMActionSequenceElement;
 import org.dataflowanalysis.analysis.pcm.core.PCMActionSequence;
 import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFActionSequenceElement;
@@ -22,6 +23,8 @@ import org.palladiosimulator.pcm.seff.StartAction;
 import org.palladiosimulator.pcm.seff.StopAction;
 
 public class PCMSEFFFinderUtils {
+	private static final Logger logger = Logger.getLogger(PCMSEFFFinderUtils.class);
+	
 	public static List<PCMActionSequence> findSequencesForSEFFAction(AbstractAction currentAction, SEFFFinderContext context,
             PCMActionSequence previousSequence) {
 
@@ -42,7 +45,7 @@ public class PCMSEFFFinderUtils {
 
         } else {
         	// default case: skip action and continue with successor
-        	Logger.getLogger(PCMSEFFFinderUtils.class).info(String.format("Action %s has unsupported type of %s and is skipped.", 
+        	logger.info(String.format("Action %s has unsupported type of %s and is skipped.", 
         			currentAction.getId(), currentAction.getClass().getName()));
         	return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context, previousSequence);
         }

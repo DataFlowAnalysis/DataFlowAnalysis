@@ -6,6 +6,7 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMActionSequenceElement;
 import org.dataflowanalysis.analysis.pcm.core.PCMActionSequence;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserActionSequenceElement;
@@ -23,6 +24,8 @@ import org.palladiosimulator.pcm.usagemodel.Start;
 import org.palladiosimulator.pcm.usagemodel.Stop;
 
 public class PCMUserFinderUtils {
+	private static final Logger logger = Logger.getLogger(PCMUserFinderUtils.class);
+
 	private PCMUserFinderUtils() {
 		// Utility class
 	}
@@ -42,7 +45,7 @@ public class PCMUserFinderUtils {
 
         } else {
         	// default case: skip action and continue with successor
-        	Logger.getLogger(PCMUserFinderUtils.class).info(String.format("Action %s has unsupported type of %s and is skipped.", 
+        	logger.info(String.format("Action %s has unsupported type of %s and is skipped.", 
         			currentAction.getId(), currentAction.getClass().getName()));
         	return findSequencesForUserAction(currentAction.getSuccessor(), previousSequence);
         }

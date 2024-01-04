@@ -2,7 +2,7 @@ package org.dataflowanalysis.analysis.core;
 
 import java.util.List;
 
-import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
+import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 
 public interface DataCharacteristicsCalculator {
 	/**
@@ -15,7 +15,7 @@ public interface DataCharacteristicsCalculator {
      * @param variableCharacterisation
      *            Variable Characterization at the Sequence Element
      */
-	public void evaluate(VariableCharacterisation variableCharacterisation);
+	public void evaluate(ConfidentialityVariableCharacterisation variableCharacterisation);
 
 	/**
 	 * Returns the list of DataFlowVariables that were calculated according to the

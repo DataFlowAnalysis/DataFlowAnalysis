@@ -8,7 +8,7 @@ import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.core.pcm.CallReturnBehavior;
-import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
+import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 
 public class CallingUserActionSequenceElement extends UserActionSequenceElement<EntryLevelSystemCall>
@@ -45,15 +45,19 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
     public AbstractActionSequenceElement<EntryLevelSystemCall> evaluateDataFlow(List<DataFlowVariable> incomingDataFlowVariables, AnalysisData analysisData) {
     	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(analysisData);
     	
-    	List<VariableCharacterisation> variableCharacterisations = this.isCalling ?
+    	List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.isCalling ?
     			super.getElement().getInputParameterUsages_EntryLevelSystemCall().stream()
     			.flatMap(it -> it.getVariableCharacterisation_VariableUsage()
-    	                .stream())
+    	        .stream())
+    			.filter(ConfidentialityVariableCharacterisation.class::isInstance)
+    			.map(ConfidentialityVariableCharacterisation.class::cast)
     	            .collect(Collectors.toList())
                 :
                 super.getElement().getOutputParameterUsages_EntryLevelSystemCall().stream()
                 .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
-                        .stream())
+                .stream())
+                .filter(ConfidentialityVariableCharacterisation.class::isInstance)
+                .map(ConfidentialityVariableCharacterisation.class::cast)
                     .collect(Collectors.toList());
     	
     	if (this.isCalling()) {

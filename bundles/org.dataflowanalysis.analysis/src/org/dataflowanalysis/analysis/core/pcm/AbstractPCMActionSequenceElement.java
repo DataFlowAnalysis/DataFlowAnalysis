@@ -10,9 +10,9 @@ import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
-import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 
 public abstract class AbstractPCMActionSequenceElement<T extends Entity> extends AbstractActionSequenceElement<T> {
@@ -59,7 +59,7 @@ public abstract class AbstractPCMActionSequenceElement<T extends Entity> extends
      * @return Returns a list of data characteristics that are applied to the sequence element
      */
     protected List<DataFlowVariable> getDataFlowVariables(AnalysisData analysisData, 
-    		List<CharacteristicValue> nodeCharacteristics, List<VariableCharacterisation> variableCharacterisations, List<DataFlowVariable> oldDataFlowVariables) {
+    		List<CharacteristicValue> nodeCharacteristics, List<ConfidentialityVariableCharacterisation> variableCharacterisations, List<DataFlowVariable> oldDataFlowVariables) {
     	DataCharacteristicsCalculator dataCharacteristicsCalculator = analysisData.getVariableCharacteristicsCalculator().createNodeCalculator(oldDataFlowVariables, nodeCharacteristics);
     	variableCharacterisations.forEach(dataCharacteristicsCalculator::evaluate);
     	return dataCharacteristicsCalculator.getCalculatedCharacteristics();
@@ -70,7 +70,7 @@ public abstract class AbstractPCMActionSequenceElement<T extends Entity> extends
      * @param callSigniture Call Signature of the call
      * @param variableCharacterisations Variable characterizations that are applied to the sequence element
      */
-    protected void checkCallParameter(OperationSignature callSigniture, List<VariableCharacterisation> variableCharacterisations) {
+    protected void checkCallParameter(OperationSignature callSigniture, List<ConfidentialityVariableCharacterisation> variableCharacterisations) {
     	List<String> parameter = callSigniture.getParameters__OperationSignature().stream()
     			.map(it -> it.getParameterName())
     			.toList();

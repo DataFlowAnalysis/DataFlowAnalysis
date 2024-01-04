@@ -23,7 +23,6 @@ import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionar
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.expressions.Or;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.expressions.Term;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.expressions.True;
-import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
 
@@ -74,14 +73,12 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
      *            Variable Characterization at the Sequence Element
      */
     @Override
-    public void evaluate(VariableCharacterisation variableCharacterisation) {
-        var confidentialityVariable = (ConfidentialityVariableCharacterisation) variableCharacterisation;
-        var leftHandSide = (LhsEnumCharacteristicReference) confidentialityVariable.getLhs();
-        
+    public void evaluate(ConfidentialityVariableCharacterisation variableCharacterisation) {
+        var leftHandSide = (LhsEnumCharacteristicReference) variableCharacterisation.getLhs();
         
         EnumCharacteristicType characteristicType = (EnumCharacteristicType) leftHandSide.getCharacteristicType();
         Literal characteristicValue = leftHandSide.getLiteral();
-        Term rightHandSide = confidentialityVariable.getRhs();
+        Term rightHandSide = variableCharacterisation.getRhs();
 
         AbstractNamedReference reference = variableCharacterisation.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage();
         DataFlowVariable existingVariable = this.getDataFlowVariableByReference(reference).orElse(new DataFlowVariable(reference.getReferenceName()));

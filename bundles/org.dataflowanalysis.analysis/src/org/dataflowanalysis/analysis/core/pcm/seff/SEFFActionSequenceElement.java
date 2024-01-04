@@ -12,8 +12,8 @@ import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.core.pcm.AbstractPCMActionSequenceElement;
 import org.dataflowanalysis.analysis.utils.pcm.PCMQueryUtils;
+import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.seff.AbstractBranchTransition;
@@ -61,10 +61,12 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
     		throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");
     	}
         
-    	List<VariableCharacterisation> variableCharacterisations = ((SetVariableAction) this.getElement())
+    	List<ConfidentialityVariableCharacterisation> variableCharacterisations = ((SetVariableAction) this.getElement())
                 .getLocalVariableUsages_SetVariableAction()
                 .stream()
                 .flatMap(it -> it.getVariableCharacterisation_VariableUsage().stream())
+                .filter(ConfidentialityVariableCharacterisation.class::isInstance)
+                .map(ConfidentialityVariableCharacterisation.class::cast)
                 .toList();
     	
     	List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(analysisData, nodeCharacteristics, variableCharacterisations, incomingDataFlowVariables);

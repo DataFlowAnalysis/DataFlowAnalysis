@@ -9,8 +9,8 @@ import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.core.pcm.CallReturnBehavior;
+import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
 
@@ -50,15 +50,19 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
     public AbstractActionSequenceElement<ExternalCallAction> evaluateDataFlow(List<DataFlowVariable> incomingDataFlowVariables, AnalysisData analysisData) {
     	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(analysisData);
     	
-        List<VariableCharacterisation> variableCharacterisations = this.isCalling ? 
+        List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.isCalling ? 
         		super.getElement().getInputVariableUsages__CallAction().stream()
         		.flatMap(it -> it.getVariableCharacterisation_VariableUsage()
                         .stream())
+        		.filter(ConfidentialityVariableCharacterisation.class::isInstance)
+                .map(ConfidentialityVariableCharacterisation.class::cast)
                     .collect(Collectors.toList())
                 : 
                 super.getElement().getReturnVariableUsage__CallReturnAction().stream()
                 .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
                         .stream())
+                .filter(ConfidentialityVariableCharacterisation.class::isInstance)
+                .map(ConfidentialityVariableCharacterisation.class::cast)
                 .collect(Collectors.toList());
         if (this.isCalling()) {
         	super.checkCallParameter(super.getElement().getCalledService_ExternalService(), variableCharacterisations);

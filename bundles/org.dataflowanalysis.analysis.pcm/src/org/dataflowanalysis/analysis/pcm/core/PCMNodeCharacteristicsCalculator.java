@@ -19,7 +19,7 @@ import org.dataflowanalysis.pcm.extension.nodecharacteristics.nodecharacteristic
 import org.dataflowanalysis.pcm.extension.nodecharacteristics.nodecharacteristics.NodeCharacteristicsFactory;
 import org.dataflowanalysis.pcm.extension.nodecharacteristics.nodecharacteristics.NodeCharacteristicsPackage;
 import org.dataflowanalysis.pcm.extension.nodecharacteristics.nodecharacteristics.RessourceAssignee;
-import org.dataflowanalysis.pcm.extension.nodecharacteristics.nodecharacteristics.UsageAsignee;
+import org.dataflowanalysis.pcm.extension.nodecharacteristics.nodecharacteristics.UsageAssignee;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationPackage;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -78,8 +78,8 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 	private List<AbstractAssignee> getUsage(Entity node, Assignments assignments) {
 		UsageScenario usageScenario = PCMQueryUtils.findParentOfType(node, UsageScenario.class, false).get();
 		return assignments.getAssignee().stream()
-			.filter(UsageAsignee.class::isInstance)
-			.map(UsageAsignee.class::cast)
+			.filter(UsageAssignee.class::isInstance)
+			.map(UsageAssignee.class::cast)
 			.filter(it -> it.getUsagescenario().equals(usageScenario))
 			.collect(Collectors.toList());
 	}
@@ -183,8 +183,8 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 	public void checkAssignments() {
 		Assignments assignments = this.resolveAssignments();
 		for (AbstractAssignee assignee : assignments.getAssignee()) {
-			if (assignee instanceof UsageAsignee) {
-				UsageAsignee usage = (UsageAsignee) assignee;
+			if (assignee instanceof UsageAssignee) {
+				UsageAssignee usage = (UsageAssignee) assignee;
 				if (!this.presentInUsageModel(usage.getUsagescenario())) {
 					throw new IllegalStateException("Referenced Usage Scenario is not loaded!");
 				}

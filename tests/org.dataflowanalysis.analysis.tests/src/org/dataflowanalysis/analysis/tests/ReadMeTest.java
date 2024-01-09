@@ -3,11 +3,11 @@ package org.dataflowanalysis.analysis.tests;
 import java.util.List;
 
 import org.apache.log4j.Level;
+import org.dataflowanalysis.analysis.DataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.builder.DataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.core.ActionSequence;
-import org.dataflowanalysis.analysis.pcm.builder.PCMDataFlowConfidentialityAnalysisBuilder;
+import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.junit.jupiter.api.Test;
 

@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import java.nio.file.Paths;
 
-import org.dataflowanalysis.analysis.dfd.builder.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.core.ActionSequence;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
+import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -7,34 +7,35 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentPackage;
 import org.palladiosimulator.pcm.system.SystemPackage;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 
-public interface PCMResourceProvider extends ResourceProvider {
+public abstract class PCMResourceProvider extends ResourceProvider {
 	/**
 	 * Returns the usage model that the resource loader has loaded
 	 * @return Usage model saved in the resources
 	 */
-	public UsageModel getUsageModel();
+	public abstract UsageModel getUsageModel();
 	
 	/**
 	 * Returns the allocation model that the resource loader has loaded
 	 * @return Allocation model saved in the resources
 	 */
-	public Allocation getAllocation();
+	public abstract Allocation getAllocation();
 	
 	/**
 	 * Determines, whether the resource loader has sufficient resources to run the analysis
 	 * @return This method returns true, if the analysis can be executed with the resource loader. Otherwise, the method returns false
 	 */
-	public default boolean sufficientResourcesLoaded() {
+	@Override
+	public boolean sufficientResourcesLoaded() {
 		if (this.getUsageModel() == null || this.getAllocation() == null) {
 			return false;
 		}
-		if (this.lookupElementOfType(RepositoryPackage.eINSTANCE.getRepository()).isEmpty()) {
+		if (this.lookupToplevelElement(RepositoryPackage.eINSTANCE.getRepository()).isEmpty()) {
 			return false;
 		}
-		if (this.lookupElementOfType(SystemPackage.eINSTANCE.getSystem()).isEmpty()) {
+		if (this.lookupToplevelElement(SystemPackage.eINSTANCE.getSystem()).isEmpty()) {
 			return false;
 		}
-		if (this.lookupElementOfType(ResourceenvironmentPackage.eINSTANCE.getResourceEnvironment()).isEmpty()) {
+		if (this.lookupToplevelElement(ResourceenvironmentPackage.eINSTANCE.getResourceEnvironment()).isEmpty()) {
 			return false;
 		}
 		return true;

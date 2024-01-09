@@ -205,7 +205,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
         	this.analysisData.getResourceProvider().loadRequiredResources();
 
             this.dataDictionaries = this.analysisData.getResourceProvider()
-                .lookupElementOfType(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
+                .lookupToplevelElement(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
                 .stream()
                 .filter(PCMDataDictionary.class::isInstance)
                 .map(PCMDataDictionary.class::cast)

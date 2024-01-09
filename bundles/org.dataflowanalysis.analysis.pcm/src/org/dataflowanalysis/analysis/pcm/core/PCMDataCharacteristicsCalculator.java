@@ -244,7 +244,7 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
     private List<CharacteristicValue> discoverNewVariables(DataFlowVariable variable,
             Optional<EnumCharacteristicType> characteristicType) {
         List<CharacteristicValue> updatedCharacteristicValues = new ArrayList<>();
-        var dataDictionaries = this.resourceLoader.lookupElementOfType(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
+        var dataDictionaries = this.resourceLoader.lookupToplevelElement(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
             .stream()
             .filter(PCMDataDictionary.class::isInstance)
             .map(PCMDataDictionary.class::cast)

@@ -92,7 +92,7 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 	 */
 	private List<AbstractAssignee> getSEFF(Assignments assignments, Deque<AssemblyContext> context) {
 		List<AbstractAssignee> resolvedAssignees = new ArrayList<>();
-		var allocations = this.resourceLoader.lookupElementOfType(AllocationPackage.eINSTANCE.getAllocation()).stream()
+		var allocations = this.resourceLoader.lookupToplevelElement(AllocationPackage.eINSTANCE.getAllocation()).stream()
     			.filter(Allocation.class::isInstance)
     			.map(Allocation.class::cast)
     			.collect(Collectors.toList());
@@ -172,7 +172,7 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 	 * @return Assignment container of the model, or a dummy container, if no assignments exist
 	 */
 	private Assignments resolveAssignments() {
-		return this.resourceLoader.lookupElementOfType(NodeCharacteristicsPackage.eINSTANCE.getAssignments())
+		return this.resourceLoader.lookupToplevelElement(NodeCharacteristicsPackage.eINSTANCE.getAssignments())
 	            .stream()
 	            .filter(Assignments.class::isInstance)
 	            .map(Assignments.class::cast)
@@ -213,7 +213,7 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 	 * @return Returns true, if the usage scenario could be found in the resources of the analysis. Otherwise, the method returns false.
 	 */
 	private boolean presentInUsageModel(UsageScenario usageScenario) {
-		List<UsageModel> usageModel = this.resourceLoader.lookupElementOfType(UsagemodelPackage.eINSTANCE.getUsageModel()).parallelStream()
+		List<UsageModel> usageModel = this.resourceLoader.lookupToplevelElement(UsagemodelPackage.eINSTANCE.getUsageModel()).parallelStream()
 				.filter(UsageModel.class::isInstance)
 				.map(UsageModel.class::cast)
 				.collect(Collectors.toList());
@@ -228,7 +228,7 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 	 */
 	private boolean presentInResource(ResourceContainer resourceContainer) {
 		List<ResourceEnvironment> resourceEnvironments = 
-				this.resourceLoader.lookupElementOfType(ResourceenvironmentPackage.eINSTANCE.getResourceEnvironment()).parallelStream()
+				this.resourceLoader.lookupToplevelElement(ResourceenvironmentPackage.eINSTANCE.getResourceEnvironment()).parallelStream()
 				.filter(ResourceEnvironment.class::isInstance)
 				.map(ResourceEnvironment.class::cast)
 				.collect(Collectors.toList());
@@ -242,7 +242,7 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 	 * @return Returns true, if the model object could be found in the resources of the analysis. Otherwise, the method returns false.
 	 */
 	private boolean presentInAssembly(AssemblyContext assemblyContext) {
-		List<System> systems = this.resourceLoader.lookupElementOfType(SystemPackage.eINSTANCE.getSystem()).parallelStream()
+		List<System> systems = this.resourceLoader.lookupToplevelElement(SystemPackage.eINSTANCE.getSystem()).parallelStream()
 				.filter(System.class::isInstance)
 				.map(System.class::cast)
 				.collect(Collectors.toList());
@@ -256,7 +256,7 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 	 * @return Returns true, if the model object could be found in the resources of the analysis. Otherwise, the method returns false.
 	 */
 	private boolean presentInComposite(AssemblyContext assemblyContext) {
-		List<Repository> repositories = this.resourceLoader.lookupElementOfType(RepositoryPackage.eINSTANCE.getRepository()).parallelStream()
+		List<Repository> repositories = this.resourceLoader.lookupToplevelElement(RepositoryPackage.eINSTANCE.getRepository()).parallelStream()
 				.filter(Repository.class::isInstance)
 				.map(Repository.class::cast)
 				.collect(Collectors.toList());

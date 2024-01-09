@@ -18,6 +18,7 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
 	private Optional<DFDResourceProvider> customResourceProvider;
 
 	public DFDDataFlowAnalysisBuilder() {
+		this.customResourceProvider = Optional.empty();
 	}	
 	
 	/**

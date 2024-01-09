@@ -6,8 +6,6 @@ import java.util.Optional;
 
 import org.dataflowanalysis.analysis.AnalysisData;
 import org.dataflowanalysis.analysis.builder.AnalysisBuilderData;
-import org.dataflowanalysis.analysis.builder.validation.ValidationError;
-import org.dataflowanalysis.analysis.builder.validation.ValidationErrorSeverity;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.core.PCMDataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.pcm.core.PCMNodeCharacteristicsCalculator;
@@ -26,30 +24,6 @@ public class PCMAnalysisBuilderData extends AnalysisBuilderData {
 	private String relativeAllocationModelPath;
 	private String relativeNodeCharacteristicsPath;
 	private Optional<PCMResourceProvider> customResourceProvider = Optional.empty();
-	
-	/**
-	 * Validates the saved data
-	 * @throws IllegalStateException Saved data is invalid
-	 */
-	public List<ValidationError> validate() {
-		List<ValidationError> validationErrors = new ArrayList<>(super.validate());
-		if (this.getRelativeUsageModelPath().isEmpty() && this.customResourceProvider.isEmpty()) {
-			validationErrors.add(new ValidationError("A path to a usage model is required", ValidationErrorSeverity.ERROR));
-		}
-		if (this.getRelativeAllocationModelPath().isEmpty() && this.customResourceProvider.isEmpty()) {
-			validationErrors.add(new ValidationError("A path to an allocation model is required", ValidationErrorSeverity.ERROR));
-		}
-		if (this.customResourceProvider.isPresent()) {
-			this.customResourceProvider.get().loadRequiredResources();
-			if (!this.customResourceProvider.get().sufficientResourcesLoaded()) {
-				validationErrors.add(new ValidationError("Custom resource provider did not load all required resources", ValidationErrorSeverity.ERROR));
-			}
-		}
-		if (this.getRelativeNodeCharacteristicsPath() == null || this.getRelativeNodeCharacteristicsPath().isEmpty()) {
-			validationErrors.add(new ValidationError("Using node characteristic model without specifying path to the assignment model. No node characteristics will be applied!", ValidationErrorSeverity.WARNING));
-		}
-		return validationErrors;
-	}
 	
 
 	/**

@@ -1,15 +1,10 @@
 package org.dataflowanalysis.analysis.builder;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
-import org.dataflowanalysis.analysis.builder.validation.ValidationError;
-import org.dataflowanalysis.analysis.builder.validation.ValidationErrorSeverity;
-import org.dataflowanalysis.analysis.builder.validation.ValidationObject;
 import org.eclipse.core.runtime.Plugin;
 
-public class AnalysisBuilderData implements ValidationObject {
+public class AnalysisBuilderData {
 	protected boolean standalone;
 	protected String modelProjectName;
 	private Optional<Class<? extends Plugin>> pluginActivator = Optional.empty();
@@ -62,17 +57,5 @@ public class AnalysisBuilderData implements ValidationObject {
 	 */
 	public Optional<Class<? extends Plugin>> getPluginActivator() {
 		return pluginActivator;
-	}
-
-	@Override
-	public List<ValidationError> validate() {
-		List<ValidationError> validationErrors = new ArrayList<>();
-		if (!this.isStandalone()) {
-			validationErrors.add(new ValidationError("Execution of the analysis is currently only supported in standalone mode", ValidationErrorSeverity.ERROR));
-		}
-		if(this.getModelProjectName() == null || this.getModelProjectName().isBlank()) {
-			validationErrors.add(new ValidationError("A name for the modelling project is required!", ValidationErrorSeverity.ERROR));
-		}
-		return validationErrors;
 	}
 }

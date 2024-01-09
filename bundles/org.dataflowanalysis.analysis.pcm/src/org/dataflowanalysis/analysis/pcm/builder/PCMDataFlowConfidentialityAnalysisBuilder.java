@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.builder.DataFlowAnalysisBuilder;
-import org.dataflowanalysis.analysis.builder.validation.ValidationError;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.eclipse.core.runtime.Plugin;
@@ -90,12 +89,6 @@ extends DataFlowAnalysisBuilder {
 
 	@Override
 	public PCMDataFlowConfidentialityAnalysis build() {
-		List<ValidationError> validationErrors = this.builderData.validate();
-		validationErrors.forEach(it -> it.log(logger));
-		if (validationErrors.stream().anyMatch(ValidationError::isFatal)) {
-			logger.fatal("Could not create analysis due to fatal validation errors");
-			throw new IllegalStateException();
-		}
 		return new PCMDataFlowConfidentialityAnalysis(builderData.createAnalysisData(), builderData.getModelProjectName(),
 				builderData.getPluginActivator());
 	}

@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.builder.DataFlowAnalysisBuilder;
-import org.dataflowanalysis.analysis.builder.validation.ValidationError;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.eclipse.core.runtime.Plugin;
 
@@ -68,12 +67,6 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
 	 * Builds a new analysis from the given data
 	 */
 	public DFDConfidentialityAnalysis build() {
-		List<ValidationError> validationErrors = this.builderData.validate();
-		validationErrors.forEach(it -> it.log(logger));
-		if (validationErrors.stream().anyMatch(ValidationError::isFatal)) {
-			logger.fatal("Could not create analysis due to fatal validation errors");
-			throw new IllegalStateException();
-		}
 		return new DFDConfidentialityAnalysis(this.builderData.createAnalysisData(), this.builderData.getPluginActivator(), this.builderData.getModelProjectName());
 	}
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.dataflowanalysis.analysis.builder.AnalysisData;
+import org.dataflowanalysis.analysis.AnalysisData;
 import org.eclipse.emf.ecore.EObject;
 
 public abstract class AbstractActionSequenceElement<T extends EObject> {

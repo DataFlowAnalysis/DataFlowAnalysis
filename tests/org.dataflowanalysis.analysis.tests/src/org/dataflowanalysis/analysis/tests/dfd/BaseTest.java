@@ -6,47 +6,30 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import java.nio.file.Paths;
 
-import org.dataflowanalysis.analysis.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.ActionSequence;
-import org.dataflowanalysis.analysis.utils.pcm.ResourceUtils;
-import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
-import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.junit.jupiter.api.BeforeAll;
+import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
+import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
+import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
-import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder;
-import org.dataflowanalysis.analysis.testmodels.Activator;
 import static org.dataflowanalysis.analysis.tests.AnalysisUtils.TEST_MODEL_PROJECT_NAME; 
 
 public class BaseTest {
 	private DFDConfidentialityAnalysis analysis;
 	
-	private static final String PLUGIN_PATH = "org.dataflowanalysis.analysis.tests";
-	private ResourceSet resources = new ResourceSetImpl();
-
-
-	@BeforeAll
-	public static void setUpAnalysis() {
-		initStandalone();
-	}
-	
 	@BeforeEach
 	public void initAnalysis() {
 		final var minimalDataFlowDiagramPath = Paths.get("models", "DFDTestModels", "minimal.dataflowdiagram");
 		final var minimalDataDictionaryPath = Paths.get("models", "DFDTestModels", "minimal.datadictionary");
-        
-		DataFlowDiagram dfd = (DataFlowDiagram) loadResource(ResourceUtils.createRelativePluginURI(minimalDataFlowDiagramPath.toString(),TEST_MODEL_PROJECT_NAME));
-		DataDictionary dd = (DataDictionary) loadResource(ResourceUtils.createRelativePluginURI(minimalDataDictionaryPath.toString(),TEST_MODEL_PROJECT_NAME));
 		
-		this.analysis = new DFDConfidentialityAnalysis(dfd, dd);
+		this.analysis = new DFDDataFlowAnalysisBuilder()
+				.standalone()
+				.modelProjectName(TEST_MODEL_PROJECT_NAME)
+				.usePluginActivator(Activator.class)
+				.useDataFlowDiagram(minimalDataFlowDiagramPath.toString())
+				.useDataDictionary(minimalDataDictionaryPath.toString())
+				.build();
 	}
 	
 	
@@ -93,31 +76,5 @@ public class BaseTest {
     			return node.getAllNodeCharacteristics().size() == 0;
         });
 		assertTrue(results.isEmpty());
-	}
-	
-    private static void initStandalone() {
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("dataflowdiagram", new XMIResourceFactoryImpl());
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("datadictionary", new XMIResourceFactoryImpl());
-		
-        try {
-            StandaloneInitializerBuilder.builder()
-                .registerProjectURI(BaseTest.class, PLUGIN_PATH)
-                .registerProjectURI(Activator.class, TEST_MODEL_PROJECT_NAME)
-                .build()
-                .init();
-
-        } catch (StandaloneInitializationException e) {
-            e.printStackTrace();
-        }
-    }
-    
-	private EObject loadResource(URI modelURI) {
-		Resource resource = this.resources.getResource(modelURI, true);
-		if (resource == null) {
-			throw new IllegalArgumentException(String.format("Model with URI %s could not be loaded", modelURI));
-		} else if (resource.getContents().isEmpty()) {
-			throw new IllegalArgumentException(String.format("Model with URI %s is empty", modelURI));
-		}
-		return resource.getContents().get(0);
 	}
 }

@@ -8,6 +8,7 @@ import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.core.ActionSequence;
 
 public interface DataFlowConfidentialityAnalysis {
+	public static final String PLUGIN_PATH = "org.dataflowanalysis.analysis";
 
     public boolean initializeAnalysis();
 

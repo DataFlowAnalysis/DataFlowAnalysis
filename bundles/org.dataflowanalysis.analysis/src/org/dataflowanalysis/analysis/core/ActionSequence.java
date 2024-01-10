@@ -2,7 +2,7 @@ package org.dataflowanalysis.analysis.core;
 
 import java.util.List;
 
-import org.dataflowanalysis.analysis.builder.AnalysisData;
+import org.dataflowanalysis.analysis.AnalysisData;
 
 public abstract class ActionSequence {
 	protected List<AbstractActionSequenceElement<?>> elements;

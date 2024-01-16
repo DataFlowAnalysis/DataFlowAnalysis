@@ -41,7 +41,7 @@ public class ConstraintViolations {
 					))
 			);
 	
-	public static final List<ConstraintData> multipleRessourcesViolations = List.of(
+	public static final List<ConstraintData> multipleResourcesViolations = List.of(
 			new ConstraintData("_dQ568HQSEe2fd909RlIZZw", 
 					List.of(new CharacteristicValueData("ServerLocation", "nonEU"), new CharacteristicValueData("ServerLocation", "EU")),
 					Map.of(

@@ -126,7 +126,7 @@ public class ConstraintResultTest extends ConstraintTest {
     					Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.nodecharacteristics"));
     	analysis.setLoggerLevel(Level.TRACE);
     	Predicate<AbstractActionSequenceElement<?>> constraint = node -> internationalOnlineShopCondition(node);
-    	List<ConstraintData> constraintData = ConstraintViolations.multipleRessourcesViolations;
+    	List<ConstraintData> constraintData = ConstraintViolations.multipleResourcesViolations;
     	testAnalysis(analysis, constraint, constraintData);
     }
     

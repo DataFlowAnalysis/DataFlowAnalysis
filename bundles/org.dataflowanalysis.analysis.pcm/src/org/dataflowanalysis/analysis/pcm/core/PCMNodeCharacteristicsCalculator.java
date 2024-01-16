@@ -18,7 +18,7 @@ import org.dataflowanalysis.pcm.extension.nodecharacteristics.nodecharacteristic
 import org.dataflowanalysis.pcm.extension.nodecharacteristics.nodecharacteristics.Assignments;
 import org.dataflowanalysis.pcm.extension.nodecharacteristics.nodecharacteristics.NodeCharacteristicsFactory;
 import org.dataflowanalysis.pcm.extension.nodecharacteristics.nodecharacteristics.NodeCharacteristicsPackage;
-import org.dataflowanalysis.pcm.extension.nodecharacteristics.nodecharacteristics.RessourceAssignee;
+import org.dataflowanalysis.pcm.extension.nodecharacteristics.nodecharacteristics.ResourceAssignee;
 import org.dataflowanalysis.pcm.extension.nodecharacteristics.nodecharacteristics.UsageAssignee;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationPackage;
@@ -143,8 +143,8 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 	 */
 	private List<AbstractAssignee> getResource(Assignments assignments, ResourceContainer resourceContainer) {
 		return assignments.getAssignee().stream()
-				.filter(RessourceAssignee.class::isInstance)
-				.map(RessourceAssignee.class::cast)
+				.filter(ResourceAssignee.class::isInstance)
+				.map(ResourceAssignee.class::cast)
 				.filter(it -> it.getResourcecontainer().equals(resourceContainer))
 				.collect(Collectors.toList());
 	}
@@ -189,8 +189,8 @@ public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalc
 					throw new IllegalStateException("Referenced Usage Scenario is not loaded!");
 				}
 				this.checkCharacteristics(usage.getCharacteristics());
-			} else if (assignee instanceof RessourceAssignee) {
-				RessourceAssignee resource = (RessourceAssignee) assignee;
+			} else if (assignee instanceof ResourceAssignee) {
+				ResourceAssignee resource = (ResourceAssignee) assignee;
 				if (!this.presentInResource(resource.getResourcecontainer())) {
 					throw new IllegalStateException("Referenced Resource container is not loaded!");
 				}

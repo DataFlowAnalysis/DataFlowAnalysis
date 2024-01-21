@@ -6,10 +6,11 @@ import org.eclipse.emf.ecore.EObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dataflowanalysis.analysis.AnalysisData;
 import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
+import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 
 public class DFDActionSequenceElement extends AbstractActionSequenceElement<EObject>{
@@ -29,7 +30,7 @@ public class DFDActionSequenceElement extends AbstractActionSequenceElement<EObj
 	}
 
 	@Override
-	public AbstractActionSequenceElement<EObject> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
+	public AbstractActionSequenceElement<EObject> evaluateDataFlow(List<DataFlowVariable> variables, NodeCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
 		// TODO funktional leer lassen & Exception fürs Debugging
 		return null;
 	}

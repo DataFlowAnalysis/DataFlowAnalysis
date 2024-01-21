@@ -2,9 +2,10 @@ package org.dataflowanalysis.analysis.dfd.core;
 
 import java.util.List;
 
-import org.dataflowanalysis.analysis.AnalysisData;
 import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.core.ActionSequence;
+import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
+import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;
 
 public class DFDActionSequence extends ActionSequence implements Comparable<DFDActionSequence> {
 
@@ -20,7 +21,7 @@ public class DFDActionSequence extends ActionSequence implements Comparable<DFDA
 	}
 
 	@Override
-	public ActionSequence evaluateDataFlow(AnalysisData analysisData) {
+	public ActionSequence evaluateDataFlow(NodeCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -3,7 +3,6 @@ package org.dataflowanalysis.analysis.pcm;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.AnalysisData;
 import org.dataflowanalysis.analysis.DataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.PCMDataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.pcm.core.PCMNodeCharacteristicsCalculator;
@@ -90,14 +89,6 @@ extends DataFlowAnalysisBuilder {
 		super.modelProjectName(modelProjectName);
 		return this;
 	}
-	/**
-	 * Creates a new analysis data object from the configured data. It does not check, whether all parameters are set correctly. Use {@code DataFlowConfidentialityAnalysisBuilder} instead
-	 * @return Returns a new data object for the analysis
-	 */
-	public AnalysisData createAnalysisData() {
-		PCMResourceProvider resourceProvider = this.getEffectiveResourceProvider();
-		return new AnalysisData(resourceProvider, new PCMNodeCharacteristicsCalculator(resourceProvider), new PCMDataCharacteristicsCalculatorFactory(resourceProvider));
-	}
 	
 	/**
 	 * Determines the effective resource provider for the analysis.
@@ -143,7 +134,9 @@ extends DataFlowAnalysisBuilder {
 
 	@Override
 	public PCMDataFlowConfidentialityAnalysis build() {
-		return new PCMDataFlowConfidentialityAnalysis(this.createAnalysisData(), this.modelProjectName,
-				this.pluginActivator);
+		PCMResourceProvider resourceProvider = this.getEffectiveResourceProvider();
+		return new PCMDataFlowConfidentialityAnalysis(new PCMNodeCharacteristicsCalculator(resourceProvider), 
+				new PCMDataCharacteristicsCalculatorFactory(resourceProvider), resourceProvider, 
+				this.modelProjectName, this.pluginActivator);
 	}
 }

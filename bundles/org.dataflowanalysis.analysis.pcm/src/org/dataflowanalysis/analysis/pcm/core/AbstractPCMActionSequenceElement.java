@@ -5,11 +5,12 @@ import java.util.List;
 import java.util.Objects;
 
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.AnalysisData;
 import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculator;
+import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
@@ -49,8 +50,8 @@ public abstract class AbstractPCMActionSequenceElement<T extends Entity> extends
      * @param analysisData Analysis data containing the node characteristics calculator
      * @return Returns a list of node characteristics that are applied to the sequence element
      */
-    protected List<CharacteristicValue> getNodeCharacteristics(AnalysisData analysisData) {
-    	return analysisData.getNodeCharacteristicsCalculator().getNodeCharacteristics(this.element, this.context);
+    protected List<CharacteristicValue> getNodeCharacteristics(NodeCharacteristicsCalculator nodeCharacteristicsCalculator) {
+    	return nodeCharacteristicsCalculator.getNodeCharacteristics(this.element, this.context);
     }
     
     /**
@@ -58,9 +59,9 @@ public abstract class AbstractPCMActionSequenceElement<T extends Entity> extends
      * @param analysisData Analysis data containing the node characteristics calculator
      * @return Returns a list of data characteristics that are applied to the sequence element
      */
-    protected List<DataFlowVariable> getDataFlowVariables(AnalysisData analysisData, 
+    protected List<DataFlowVariable> getDataFlowVariables(DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory, 
     		List<CharacteristicValue> nodeCharacteristics, List<ConfidentialityVariableCharacterisation> variableCharacterisations, List<DataFlowVariable> oldDataFlowVariables) {
-    	DataCharacteristicsCalculator dataCharacteristicsCalculator = analysisData.getVariableCharacteristicsCalculator().createNodeCalculator(oldDataFlowVariables, nodeCharacteristics);
+    	DataCharacteristicsCalculator dataCharacteristicsCalculator = dataCharacteristicsCalculatorFactory.createNodeCalculator(oldDataFlowVariables, nodeCharacteristics);
     	variableCharacterisations.forEach(dataCharacteristicsCalculator::evaluate);
     	return dataCharacteristicsCalculator.getCalculatedCharacteristics();
     }

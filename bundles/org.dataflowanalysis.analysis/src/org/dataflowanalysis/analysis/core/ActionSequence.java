@@ -2,8 +2,6 @@ package org.dataflowanalysis.analysis.core;
 
 import java.util.List;
 
-import org.dataflowanalysis.analysis.AnalysisData;
-
 public abstract class ActionSequence {
 	protected List<AbstractActionSequenceElement<?>> elements;
 	
@@ -17,10 +15,12 @@ public abstract class ActionSequence {
     
 	/**
 	 * Evaluate the data flow of the action sequence with the given analysis data
-	 * @param analysisData Analysis data needed for evaluation
+	 * @param nodeCharacteristicsCalculator Calculator used to calculate the node characteristics of the element
+	 * @param dataCharacteristicsCalculatorFactory Calculators used to calculate the data characteristics of elements
 	 * @return
 	 */
-    public abstract ActionSequence evaluateDataFlow(AnalysisData analysisData);
+    public abstract ActionSequence evaluateDataFlow(NodeCharacteristicsCalculator nodeCharacteristicsCalculator, 
+    		DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory);
     
     /**
      * Returns the saved elements in the sequence

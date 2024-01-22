@@ -5,17 +5,17 @@ import java.util.function.Predicate;
 
 import org.apache.log4j.Level;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.FlowGraph;
 
 public interface DataFlowConfidentialityAnalysis {
 
     public boolean initializeAnalysis();
 
-    public List<ActionSequence> findAllSequences();
+    public List<FlowGraph> findAllSequences();
 
-    public List<ActionSequence> evaluateDataFlows(List<ActionSequence> sequences);
+    public List<FlowGraph> evaluateDataFlows(List<FlowGraph> sequences);
 
-    public List<AbstractActionSequenceElement<?>> queryDataFlow(ActionSequence sequence,
+    public List<AbstractActionSequenceElement<?>> queryDataFlow(FlowGraph sequence,
             Predicate<? super AbstractActionSequenceElement<?>> condition);
     
     public void setLoggerLevel(Level level);

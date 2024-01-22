@@ -7,14 +7,14 @@ import java.util.function.Predicate;
 import org.apache.log4j.Level;
 import org.palladiosimulator.dataflow.confidentiality.analysis.DataFlowConfidentialityAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.node.DFDCharacteristicsCalculator;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDActionSequence;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDFlowGraph;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDVertex;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.dfd.DFDActionSequenceFinder;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.FlowGraph;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.dfd.DFDFlowGraphFinder;
 
-import mdpa.dfd.dataflowdiagram.DataFlowDiagram;
-import mdpa.dfd.datadictionary.DataDictionary;
+import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
+import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 
 
 public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalysis {
@@ -37,22 +37,22 @@ public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalys
 	
 
 	@Override
-	public List<ActionSequence> findAllSequences() {
-		return DFDActionSequenceFinder.findAllSequencesInDFD(dfd, dataDictionary);
+	public List<FlowGraph> findAllSequences() {
+		return DFDFlowGraphFinder.findAllFlowGraphsInDFD(dfd, dataDictionary);
 	}
 	
 
 	@Override
-	public List<ActionSequence> evaluateDataFlows(List<ActionSequence> sequences) {
-		List<ActionSequence> outSequences = new ArrayList<>();
+	public List<FlowGraph> evaluateDataFlows(List<FlowGraph> sequences) {
+		List<FlowGraph> outSequences = new ArrayList<>();
 		for (var dfdActionSequence : sequences) {
-			outSequences.add(DFDCharacteristicsCalculator.fillDataFlowVariables((DFDActionSequence)dfdActionSequence));
+			outSequences.add(DFDCharacteristicsCalculator.fillDataFlowVariables((DFDFlowGraph)dfdActionSequence));
 		}
 		return outSequences;
 	}
 
 	@Override
-	public List<AbstractActionSequenceElement<?>> queryDataFlow(ActionSequence sequence,
+	public List<AbstractActionSequenceElement<?>> queryDataFlow(FlowGraph sequence,
 			Predicate<? super AbstractActionSequenceElement<?>> condition) {
 		return sequence.getElements()
 	            .parallelStream()

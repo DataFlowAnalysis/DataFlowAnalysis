@@ -4,14 +4,14 @@ import java.util.List;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
 
-public abstract class ActionSequence {
+public abstract class FlowGraph {
 	protected List<AbstractActionSequenceElement<?>> elements;
 	
 	/**
 	 * Create a new action sequence with the given elements
 	 * @param elements List of elements in the sequence
 	 */
-	public ActionSequence(List<AbstractActionSequenceElement<?>> elements) {
+	public FlowGraph(List<AbstractActionSequenceElement<?>> elements) {
         this.elements = List.copyOf(elements);
     }
     
@@ -20,7 +20,7 @@ public abstract class ActionSequence {
 	 * @param analysisData Analysis data needed for evaluation
 	 * @return
 	 */
-    public abstract ActionSequence evaluateDataFlow(AnalysisData analysisData);
+    public abstract FlowGraph evaluateDataFlow(AnalysisData analysisData);
     
     /**
      * Returns the saved elements in the sequence

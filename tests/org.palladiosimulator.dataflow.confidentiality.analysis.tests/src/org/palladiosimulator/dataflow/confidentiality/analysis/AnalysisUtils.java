@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.CallingSEFFActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.user.CallingUserActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.FlowGraph;
 
 public class AnalysisUtils {
 
@@ -32,7 +32,7 @@ public class AnalysisUtils {
      * @param expectedType
      *            Expected type of the given ActionSequence at the given index
      */
-    public static void assertSequenceElement(ActionSequence sequence, int index, Class<?> expectedType) {
+    public static void assertSequenceElement(FlowGraph sequence, int index, Class<?> expectedType) {
         assertNotNull(sequence.getElements());
         assertTrue(sequence.getElements()
             .size() >= index + 1);
@@ -56,7 +56,7 @@ public class AnalysisUtils {
      * @param expectedType
      *            Expected types of the given ActionSequence at all indexes
      */
-    public static void assertSequenceElements(ActionSequence sequence, List<Class<?>> expectedElementTypes) {
+    public static void assertSequenceElements(FlowGraph sequence, List<Class<?>> expectedElementTypes) {
         var elements = sequence.getElements();
 
         assertNotNull(elements);
@@ -99,7 +99,7 @@ public class AnalysisUtils {
      * @param expectedName
      *            Expected name at the given {@code index} into the given {@code sequence}
      */
-    public static void assertSEFFSequenceElementContent(ActionSequence sequence, int index, String expectedName) {
+    public static void assertSEFFSequenceElementContent(FlowGraph sequence, int index, String expectedName) {
         assertNotNull(sequence.getElements());
         assertTrue(sequence.getElements()
             .size() >= index + 1);
@@ -128,7 +128,7 @@ public class AnalysisUtils {
      * @param expectedName
      *            Expected name at the given {@code index} into the given {@code sequence}
      */
-    public static void assertUserSequenceElementContent(ActionSequence sequence, int index, String expectedName) {
+    public static void assertUserSequenceElementContent(FlowGraph sequence, int index, String expectedName) {
         assertNotNull(sequence.getElements());
         assertTrue(sequence.getElements()
             .size() >= index + 1);
@@ -161,7 +161,7 @@ public class AnalysisUtils {
      * @param characteristicValue
      *            Expected characteristic value at the given {@code index}
      */
-    public static void assertCharacteristicPresent(ActionSequence sequence, int index, String variableName,
+    public static void assertCharacteristicPresent(FlowGraph sequence, int index, String variableName,
             String characteristicType, String characteristicValue) {
         var sequenceElement = sequence.getElements()
             .get(index);
@@ -199,7 +199,7 @@ public class AnalysisUtils {
      * @param characteristicValue
      *            Expected characteristic value at the given {@code index}
      */
-    public static void assertCharacteristicAbsent(ActionSequence sequence, int index, String variableName,
+    public static void assertCharacteristicAbsent(FlowGraph sequence, int index, String variableName,
             String characteristicType, String characteristicValue) {
         var sequenceElement = sequence.getElements()
             .get(index);

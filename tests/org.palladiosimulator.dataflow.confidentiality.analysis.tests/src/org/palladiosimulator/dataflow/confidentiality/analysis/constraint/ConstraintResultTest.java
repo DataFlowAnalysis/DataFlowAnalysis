@@ -17,7 +17,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.D
 import org.palladiosimulator.dataflow.confidentiality.analysis.constraint.data.ConstraintData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.constraint.data.ConstraintViolations;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.FlowGraph;
 
 public class ConstraintResultTest extends ConstraintTest {
 	/**
@@ -206,8 +206,8 @@ public class ConstraintResultTest extends ConstraintTest {
     }
     
     public void testAnalysis(DataFlowConfidentialityAnalysis analysis, Predicate<AbstractActionSequenceElement<?>> constraint, List<ConstraintData> constraintData) {
-    	List<ActionSequence> actionSequences = analysis.findAllSequences();
-    	List<ActionSequence> evaluatedSequences = analysis.evaluateDataFlows(actionSequences);
+    	List<FlowGraph> actionSequences = analysis.findAllSequences();
+    	List<FlowGraph> evaluatedSequences = analysis.evaluateDataFlows(actionSequences);
     	List<AbstractActionSequenceElement<?>> results = evaluatedSequences.stream()
     			.map(it -> analysis.queryDataFlow(it, constraint))
     			.flatMap(it -> it.stream())

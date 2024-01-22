@@ -15,7 +15,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.ListAppender;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.PCMActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.DatabaseActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.user.UserActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.FlowGraph;
 
 public class ConstraintFeatureTest extends ConstraintTest {
 	private final Logger logger = Logger.getLogger(ConstraintFeatureTest.class);
@@ -32,7 +32,7 @@ public class ConstraintFeatureTest extends ConstraintTest {
     	ListAppender appender = new ListAppender();
     	logger.addAppender(appender);
     	
-    	List<ActionSequence> sequences = analysis.findAllSequences();
+    	List<FlowGraph> sequences = analysis.findAllSequences();
     	assertThrows(IllegalStateException.class, () -> analysis.evaluateDataFlows(sequences));
     	assertTrue(appender.loggedLevel(Level.ERROR));
     }
@@ -49,7 +49,7 @@ public class ConstraintFeatureTest extends ConstraintTest {
     	ListAppender appender = new ListAppender();
     	logger.addAppender(appender);
     	
-    	List<ActionSequence> sequences = analysis.findAllSequences();
+    	List<FlowGraph> sequences = analysis.findAllSequences();
     	analysis.evaluateDataFlows(sequences);
     	
     	assertTrue(appender.loggedLevel(Level.WARN));
@@ -65,8 +65,8 @@ public class ConstraintFeatureTest extends ConstraintTest {
     	var allocationPath = Paths.get("models", "NodeCharacteristicsTest", "default.allocation");
     	DataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
     	
-    	List<ActionSequence> sequences = analysis.findAllSequences();
-    	List<ActionSequence> propagatedSequences = analysis.evaluateDataFlows(sequences);
+    	List<FlowGraph> sequences = analysis.findAllSequences();
+    	List<FlowGraph> propagatedSequences = analysis.evaluateDataFlows(sequences);
     	
     	logger.setLevel(Level.TRACE);
     	var results = analysis.queryDataFlow(propagatedSequences.get(0), node -> {
@@ -91,8 +91,8 @@ public class ConstraintFeatureTest extends ConstraintTest {
     	var allocationPath = Paths.get("models", "CompositeCharacteristicsTest", "default.allocation");
     	DataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
     	
-    	List<ActionSequence> sequences = analysis.findAllSequences();
-    	List<ActionSequence> propagatedSequences = analysis.evaluateDataFlows(sequences);
+    	List<FlowGraph> sequences = analysis.findAllSequences();
+    	List<FlowGraph> propagatedSequences = analysis.evaluateDataFlows(sequences);
     	
     	logger.setLevel(Level.TRACE);
     	var results = analysis.queryDataFlow(propagatedSequences.get(0), node -> {

@@ -14,10 +14,10 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CallReturn
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.DatabaseActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.SEFFActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.FlowGraph;
 import org.palladiosimulator.pcm.seff.StartAction;
 
-public class PCMActionSequence extends ActionSequence implements Comparable<PCMActionSequence> {
+public class PCMActionSequence extends FlowGraph implements Comparable<PCMActionSequence> {
 	private static final Logger logger = Logger.getLogger(PCMActionSequence.class);
 
 	/**
@@ -47,7 +47,7 @@ public class PCMActionSequence extends ActionSequence implements Comparable<PCMA
      * Creates a copy of the given action sequence
      * @param sequence Action sequence that should be copied
      */
-    public PCMActionSequence(ActionSequence sequence) {
+    public PCMActionSequence(FlowGraph sequence) {
         super(sequence.getElements());
     }
     
@@ -56,14 +56,14 @@ public class PCMActionSequence extends ActionSequence implements Comparable<PCMA
      * @param sequence Action sequence that should be copied
      * @param newElements Elements in the new sequence
      */
-    public PCMActionSequence(ActionSequence sequence, AbstractActionSequenceElement<?>... newElements) {
+    public PCMActionSequence(FlowGraph sequence, AbstractActionSequenceElement<?>... newElements) {
         super(Stream.concat(sequence.getElements()
             .stream(), Stream.of(newElements))
             .toList());
     }
 
 	@Override
-    public ActionSequence evaluateDataFlow(AnalysisData analysisData) {
+    public FlowGraph evaluateDataFlow(AnalysisData analysisData) {
         var iterator = super.getElements()
             .iterator();
         Deque<List<DataFlowVariable>> variableContexts = new ArrayDeque<>();

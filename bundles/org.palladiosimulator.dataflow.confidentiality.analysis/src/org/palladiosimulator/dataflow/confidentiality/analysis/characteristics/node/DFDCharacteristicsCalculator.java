@@ -2,6 +2,7 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentHashMap.KeySetView;
 import java.util.function.Predicate;
@@ -11,24 +12,22 @@ import java.util.stream.Collectors;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DFDCharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDActionSequence;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDFlowGraph;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDVertex;
 
-import mdpa.dfd.datadictionary.AND;
-import mdpa.dfd.datadictionary.Assignment;
-import mdpa.dfd.datadictionary.Label;
-import mdpa.dfd.datadictionary.BinaryOperator;
-import mdpa.dfd.datadictionary.ForwardingAssignment;
-import mdpa.dfd.datadictionary.LabelReference;
-import mdpa.dfd.datadictionary.LabelType;
-import mdpa.dfd.datadictionary.NOT;
-import mdpa.dfd.datadictionary.OR;
-import mdpa.dfd.datadictionary.Pin;
-import mdpa.dfd.datadictionary.TRUE;
-import mdpa.dfd.datadictionary.Term;
-import mdpa.dfd.dataflowdiagram.Node;
-import mdpa.dfd.dataflowdiagram.Flow;
+import org.dataflowanalysis.dfd.datadictionary.AND;
+import org.dataflowanalysis.dfd.datadictionary.Assignment;
+import org.dataflowanalysis.dfd.datadictionary.Label;
+import org.dataflowanalysis.dfd.datadictionary.BinaryOperator;
+import org.dataflowanalysis.dfd.datadictionary.ForwardingAssignment;
+import org.dataflowanalysis.dfd.datadictionary.LabelReference;
+import org.dataflowanalysis.dfd.datadictionary.LabelType;
+import org.dataflowanalysis.dfd.datadictionary.NOT;
+import org.dataflowanalysis.dfd.datadictionary.OR;
+import org.dataflowanalysis.dfd.datadictionary.Pin;
+import org.dataflowanalysis.dfd.datadictionary.TRUE;
+import org.dataflowanalysis.dfd.datadictionary.Term;
+import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 
 public class DFDCharacteristicsCalculator {
 	
@@ -37,73 +36,76 @@ public class DFDCharacteristicsCalculator {
 	 * @param dfdActionSequence element
 	 * @return DFDActionSequence element annotated with DataFlowVariables
 	 */
-	public static DFDActionSequence fillDataFlowVariables (DFDActionSequence dfdActionSequence) {
-		List<AbstractActionSequenceElement<?>> actionSequence = new ArrayList<AbstractActionSequenceElement<?>>();
-		if (dfdActionSequence.getElements().size() < 2) return dfdActionSequence;
-		List<DataFlowVariable> previousVariables = new ArrayList<>();
-		for (var abstractElement : dfdActionSequence.getElements()) {
-			DFDActionSequenceElement element = (DFDActionSequenceElement) abstractElement;
-			
-			Node node = element.getNode();
-			List<CharacteristicValue> nodeCharacteristics = new ArrayList<CharacteristicValue>();
-			for (var label : node.getProperties()) {
-				nodeCharacteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label));
-			}
-			
-			List<DataFlowVariable> dataFlowVariables = new ArrayList<DataFlowVariable>(element.getAllDataFlowVariables());			
-			dataFlowVariables.add(new DataFlowVariable(element.getNode().getEntityName(), evaluateAssignments(element, previousVariables)));
-			DFDActionSequenceElement newElement = new DFDActionSequenceElement(dataFlowVariables, nodeCharacteristics, element.getName(), element.getNode(), element.getPreviousNode(), element.getFlow());
-			actionSequence.add(newElement);
-			previousVariables = dataFlowVariables;			
-		}
-		
-		return new DFDActionSequence(actionSequence);
+	public static DFDFlowGraph fillDataFlowVariables (DFDFlowGraph dfdActionSequence) {
+		DFDFlowGraph test = DFDFlowGraph.createFromEndElement(evaluateElement(dfdActionSequence.getLastElement()));
+		return test;
 	}
 	
 	/**
-	 * Evaluate all Assignments on Node DFDActionSequenceElement
-	 * @param element DFDActionSequenceElement to be evaluated
-	 * @param previousVariables All incoming Data Flow Variables
-	 * @return All DataFlowVariables on Node
+	 * Evaluates an element and all previous elements
+	 * @param element
+	 * @return The evaluated element
 	 */
-	private static List<CharacteristicValue> evaluateAssignments(DFDActionSequenceElement element, List<DataFlowVariable> previousVariables) {
-		List<Label> allPrevNodeLabels = new ArrayList<>();
+	private static DFDVertex evaluateElement(DFDVertex element) {
+		Node node = element.getNode();
+		
+		Map<Pin, DFDVertex> previousElements = element.getMapPinToPreviousElement();
+		List<DataFlowVariable> dataFlowVariables = new ArrayList<DataFlowVariable>(element.getAllDataFlowVariables());
+		List<CharacteristicValue> nodeCharacteristics = new ArrayList<CharacteristicValue>();
+		
+		for (var label : node.getProperties()) {
+			nodeCharacteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label));
+		}
 		
 		
-		previousVariables.stream().forEach(dfv -> {
-				dfv.characteristics().stream().forEach(c -> {
-					DFDCharacteristicValue cv = (DFDCharacteristicValue) c;
-					allPrevNodeLabels.add(cv.label());
-				});
-			});
+		if (previousElements.size() == 0) {
+			return new DFDVertex(dataFlowVariables, nodeCharacteristics, element.getName(), element.getNode(), element.getMapPinToPreviousElement(), element.getMapPinToInputFlow());
+					
+		}
+		
+		for (var key : previousElements.keySet()) {
+			previousElements.replace(key, evaluateElement(previousElements.get(key)));
+		}
+		
+		List<Pin> listOfAllOutputPinsWithIncomingFlowsIntoElement = new ArrayList<>();
+		for (var flow : element.getMapPinToInputFlow().values()) {
+			listOfAllOutputPinsWithIncomingFlowsIntoElement.add(flow.getSourcePin());
+		}
 		
 		
 		
-		List<Label> outputLabel = new ArrayList<>();
-		
-		for (var assignment : element.getPreviousNode().getBehaviour().getAssignment()) {
-			Flow flow = element.getFlow();
-			Pin pin = flow.getSourcePin();
-			if(assignment.getOutputPin().equals(pin) && flow.getDestinationNode().equals(element.getNode())) {
-				if (assignment instanceof ForwardingAssignment) {
-					outputLabel.addAll(allPrevNodeLabels);
-				} else if(evaluateTerm(((Assignment)assignment).getTerm(), allPrevNodeLabels)) {
-					outputLabel.addAll(((Assignment)assignment).getOutputLabels());						
-				} else if(!evaluateTerm(((Assignment)assignment).getTerm(), allPrevNodeLabels)) {
-					outputLabel.removeAll(((Assignment)assignment).getOutputLabels());						
+		for (var prevElement : previousElements.values()) {
+			List<Label> outputLabel = new ArrayList<>();
+			List<Label> prevElementLabels = new ArrayList<>();
+			for (DataFlowVariable dfv : prevElement.getAllDataFlowVariables()) {
+				for (CharacteristicValue cv : dfv.getAllCharacteristics()) {
+					prevElementLabels.add(((DFDCharacteristicValue)cv).getLabel());
 				}
 			}
-			
-		}
+			for (var assignment : prevElement.getNode().getBehaviour().getAssignment()) {
+				if(listOfAllOutputPinsWithIncomingFlowsIntoElement.contains(assignment.getOutputPin())) {
+					if (assignment instanceof ForwardingAssignment) {
+						outputLabel.addAll(prevElementLabels);
+					} else if(evaluateTerm(((Assignment)assignment).getTerm(), prevElementLabels)) {
+						outputLabel.addAll(((Assignment)assignment).getOutputLabels());						
+					} else if(!evaluateTerm(((Assignment)assignment).getTerm(), prevElementLabels)) {
+						outputLabel.removeAll(((Assignment)assignment).getOutputLabels());						
+					}
+				}
 				
-		List<CharacteristicValue> characteristics = new ArrayList<>();
-		
-		for (Label label : outputLabel) {
-			characteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label));
+			}
+			
+			List<CharacteristicValue> characteristics = new ArrayList<>();
+			
+			for (Label label : outputLabel) {
+				characteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label));
+			}
+			
+			characteristics = characteristics.stream().filter(distinctByKey(CharacteristicValue::getValueId)).collect(Collectors.toList());
+			dataFlowVariables.add(new DataFlowVariable(prevElement.getName(), characteristics));
 		}
 		
-		characteristics = characteristics.stream().filter(distinctByKey(CharacteristicValue::getValueId)).collect(Collectors.toList());
-		return characteristics;
+		return new DFDVertex(dataFlowVariables, nodeCharacteristics, element.getName(), element.getNode(), element.getMapPinToPreviousElement(), element.getMapPinToInputFlow());
 	}
 	
 	public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {

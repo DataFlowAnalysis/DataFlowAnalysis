@@ -19,7 +19,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisD
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.PCMActionSequence;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.DatabaseActionSequenceElement;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.FlowGraph;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceProvider;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.ActionSequenceFinder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMActionSequenceFinder;
@@ -64,15 +64,15 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
 	public abstract boolean setupAnalysis();
 
 	@Override
-	public List<ActionSequence> findAllSequences() {
+	public List<FlowGraph> findAllSequences() {
 		ActionSequenceFinder sequenceFinder = new PCMActionSequenceFinder(this.analysisData.getResourceProvider().getUsageModel());
         return sequenceFinder.findAllSequences().parallelStream()
-        		.map(ActionSequence.class::cast)
+        		.map(FlowGraph.class::cast)
         		.collect(Collectors.toList());
 	}
 
 	@Override
-	public List<ActionSequence> evaluateDataFlows(List<ActionSequence> sequences) {
+	public List<FlowGraph> evaluateDataFlows(List<FlowGraph> sequences) {
 		List<PCMActionSequence> actionSequences = sequences.parallelStream()
     			.map(PCMActionSequence.class::cast)
     			.collect(Collectors.toList());
@@ -90,7 +90,7 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
 	}
 
 	@Override
-	public List<AbstractActionSequenceElement<?>> queryDataFlow(ActionSequence sequence,
+	public List<AbstractActionSequenceElement<?>> queryDataFlow(FlowGraph sequence,
 			Predicate<? super AbstractActionSequenceElement<?>> condition) {
 		return sequence.getElements()
 	            .parallelStream()
@@ -234,7 +234,7 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
      * @param actionSequences Found action sequences that should be analyzed
      * @return Returns true, if data stores are used. Otherwise, the method returns false
      */
-    private boolean usesDataStores(List<ActionSequence> actionSequences) {
+    private boolean usesDataStores(List<FlowGraph> actionSequences) {
     	return actionSequences.parallelStream()
     		.flatMap(it -> it.getElements().parallelStream())
     		.anyMatch(DatabaseActionSequenceElement.class::isInstance);

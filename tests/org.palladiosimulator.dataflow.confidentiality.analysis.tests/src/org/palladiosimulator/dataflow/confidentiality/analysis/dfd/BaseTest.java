@@ -10,25 +10,26 @@ import org.eclipse.emf.common.util.URI;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.palladiosimulator.dataflow.confidentiality.analysis.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.ActionSequence;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.FlowGraph;
 
 public class BaseTest {
 	private static String pathToDFDModel;
 	private static String pathToDataDictionaryModel;
-	private static List<ActionSequence> evaluatedSequences;
+	private static List<FlowGraph> evaluatedSequences;
 	private static DFDConfidentialityAnalysis analysis;
 
 	@BeforeAll
 	public static void setUpAnalysis() {
 		//pathToDFDModel = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "DFDTestModels", "minimal.dataflowdiagram").toString();
 		//pathToDataDictionaryModel = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "DFDTestModels", "minimal.datadictionary").toString();
-		pathToDataDictionaryModel = "C:\\Users\\Huell\\Documents\\Studium\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.testmodels\\models\\DFDTestModels\\minimal.datadictionary";
-		pathToDFDModel = "C:\\Users\\Huell\\Documents\\Studium\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.testmodels\\models\\DFDTestModels\\minimal.dataflowdiagram";
+		pathToDataDictionaryModel = "C:\\Users\\Huell\\Documents\\Studium\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.testmodels\\models\\DFDTestModels\\BranchingTest.datadictionary";
+		pathToDFDModel = "C:\\Users\\Huell\\Documents\\Studium\\Palladio-Addons-DataFlowConfidentiality-Analysis\\tests\\org.palladiosimulator.dataflow.confidentiality.analysis.testmodels\\models\\DFDTestModels\\BranchingTest.dataflowdiagram";
 		analysis = new DFDConfidentialityAnalysis(pathToDFDModel, pathToDataDictionaryModel);
 		analysis.initializeAnalysis();
 
 		var sequences = analysis.findAllSequences();
-		evaluatedSequences = analysis.evaluateDataFlows(sequences);
+		var evaluatedSequences = analysis.evaluateDataFlows(sequences);
+		System.out.print(evaluatedSequences.size());
 	}
 	
 	

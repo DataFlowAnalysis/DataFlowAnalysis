@@ -1,7 +1,7 @@
 package org.palladiosimulator.dataflow.confidentiality.analysis.characteristics;
 
-import mdpa.dfd.datadictionary.Label;
-import mdpa.dfd.datadictionary.LabelType;
+import org.dataflowanalysis.dfd.datadictionary.Label;
+import org.dataflowanalysis.dfd.datadictionary.LabelType;
 
 public record DFDCharacteristicValue(LabelType labelType, Label label) implements CharacteristicValue {
 
@@ -18,6 +18,10 @@ public record DFDCharacteristicValue(LabelType labelType, Label label) implement
 	@Override
 	public String getValueId() {
 		return this.label().getId();
+	}
+	
+	public Label getLabel() {
+		return this.label;
 	}
 
 }

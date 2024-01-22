@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.FlowGraph;
 
-public interface ActionSequenceFinder {
+public interface FlowGraphFinder {
 
 	/**
 	 * Finds all seqences provided by the (otherwise) provided Resources

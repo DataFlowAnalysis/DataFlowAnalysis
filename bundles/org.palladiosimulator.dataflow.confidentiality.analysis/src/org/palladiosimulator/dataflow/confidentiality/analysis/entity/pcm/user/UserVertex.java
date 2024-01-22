@@ -8,19 +8,19 @@ import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.AbstractPCMActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.AbstractPCMVertex;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractVertex;
 import org.palladiosimulator.pcm.seff.StartAction;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 
-public class UserActionSequenceElement<T extends AbstractUserAction> extends AbstractPCMActionSequenceElement<T> {
-	private final Logger logger = Logger.getLogger(UserActionSequenceElement.class);
+public class UserVertex<T extends AbstractUserAction> extends AbstractPCMVertex<T> {
+	private final Logger logger = Logger.getLogger(UserVertex.class);
 
 	/**
 	 * Creates a new User Sequence Element with the given Palladio User Action Element
 	 * @param element
 	 */
-    public UserActionSequenceElement(T element) {
+    public UserVertex(T element) {
         super(element, new ArrayDeque<>());
     }
 
@@ -30,15 +30,15 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
      * @param dataFlowVariables List of updated dataflow variables
      * @param nodeCharacteristics List of updated node characteristics
      */
-    public UserActionSequenceElement(UserActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+    public UserVertex(UserVertex<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
         super(oldElement, dataFlowVariables, nodeCharacteristics);
     }
     
     @Override
-    public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
+    public AbstractVertex<T> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
     	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(analysisData);
         if (this.getElement() instanceof StartAction) {
-    		return new UserActionSequenceElement<T>(this, new ArrayList<>(variables), nodeCharacteristics);
+    		return new UserVertex<T>(this, new ArrayList<>(variables), nodeCharacteristics);
     	} 
     	logger.error("Found unexpected sequence element of unknown PCM type " + this.getElement().getClass().getName());
     	throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");

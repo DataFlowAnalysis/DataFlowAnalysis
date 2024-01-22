@@ -32,25 +32,25 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 public class DFDCharacteristicsCalculator {
 	
 	/**
-	 * Create DataFlowVariables for a DFDActionSequence element
-	 * @param dfdActionSequence element
-	 * @return DFDActionSequence element annotated with DataFlowVariables
+	 * Create DataFlowVariables for a DFDFlowGraph element
+	 * @param dfdFlowGraph element
+	 * @return DFDFlowGraph element annotated with DataFlowVariables
 	 */
-	public static DFDFlowGraph fillDataFlowVariables (DFDFlowGraph dfdActionSequence) {
-		DFDFlowGraph test = DFDFlowGraph.createFromEndElement(evaluateElement(dfdActionSequence.getLastElement()));
+	public static DFDFlowGraph fillDataFlowVariables (DFDFlowGraph dfdFlowGraph) {
+		DFDFlowGraph test = DFDFlowGraph.createFromEndVertex(evaluateVertex(dfdFlowGraph.getLastVertex()));
 		return test;
 	}
 	
 	/**
-	 * Evaluates an element and all previous elements
-	 * @param element
-	 * @return The evaluated element
+	 * Evaluates an DFDVertex and all previous DFDVertices
+	 * @param vertex
+	 * @return The evaluated DFDVertex
 	 */
-	private static DFDVertex evaluateElement(DFDVertex element) {
-		Node node = element.getNode();
+	private static DFDVertex evaluateVertex(DFDVertex vertex) {
+		Node node = vertex.getNode();
 		
-		Map<Pin, DFDVertex> previousElements = element.getMapPinToPreviousElement();
-		List<DataFlowVariable> dataFlowVariables = new ArrayList<DataFlowVariable>(element.getAllDataFlowVariables());
+		Map<Pin, DFDVertex> previousVertices = vertex.getMapPinToPreviousVertex();
+		List<DataFlowVariable> dataFlowVariables = new ArrayList<DataFlowVariable>(vertex.getAllDataFlowVariables());
 		List<CharacteristicValue> nodeCharacteristics = new ArrayList<CharacteristicValue>();
 		
 		for (var label : node.getProperties()) {
@@ -58,37 +58,37 @@ public class DFDCharacteristicsCalculator {
 		}
 		
 		
-		if (previousElements.size() == 0) {
-			return new DFDVertex(dataFlowVariables, nodeCharacteristics, element.getName(), element.getNode(), element.getMapPinToPreviousElement(), element.getMapPinToInputFlow());
+		if (previousVertices.size() == 0) {
+			return new DFDVertex(dataFlowVariables, nodeCharacteristics, vertex.getName(), vertex.getNode(), vertex.getMapPinToPreviousVertex(), vertex.getMapPinToInputFlow());
 					
 		}
 		
-		for (var key : previousElements.keySet()) {
-			previousElements.replace(key, evaluateElement(previousElements.get(key)));
+		for (var key : previousVertices.keySet()) {
+			previousVertices.replace(key, evaluateVertex(previousVertices.get(key)));
 		}
 		
-		List<Pin> listOfAllOutputPinsWithIncomingFlowsIntoElement = new ArrayList<>();
-		for (var flow : element.getMapPinToInputFlow().values()) {
-			listOfAllOutputPinsWithIncomingFlowsIntoElement.add(flow.getSourcePin());
+		List<Pin> listOfAllOutputPinsWithIncomingFlowsIntoVertex = new ArrayList<>();
+		for (var flow : vertex.getMapPinToInputFlow().values()) {
+			listOfAllOutputPinsWithIncomingFlowsIntoVertex.add(flow.getSourcePin());
 		}
 		
 		
 		
-		for (var prevElement : previousElements.values()) {
+		for (var prevVertex : previousVertices.values()) {
 			List<Label> outputLabel = new ArrayList<>();
-			List<Label> prevElementLabels = new ArrayList<>();
-			for (DataFlowVariable dfv : prevElement.getAllDataFlowVariables()) {
+			List<Label> prevVertexLabels = new ArrayList<>();
+			for (DataFlowVariable dfv : prevVertex.getAllDataFlowVariables()) {
 				for (CharacteristicValue cv : dfv.getAllCharacteristics()) {
-					prevElementLabels.add(((DFDCharacteristicValue)cv).getLabel());
+					prevVertexLabels.add(((DFDCharacteristicValue)cv).getLabel());
 				}
 			}
-			for (var assignment : prevElement.getNode().getBehaviour().getAssignment()) {
-				if(listOfAllOutputPinsWithIncomingFlowsIntoElement.contains(assignment.getOutputPin())) {
+			for (var assignment : prevVertex.getNode().getBehaviour().getAssignment()) {
+				if(listOfAllOutputPinsWithIncomingFlowsIntoVertex.contains(assignment.getOutputPin())) {
 					if (assignment instanceof ForwardingAssignment) {
-						outputLabel.addAll(prevElementLabels);
-					} else if(evaluateTerm(((Assignment)assignment).getTerm(), prevElementLabels)) {
+						outputLabel.addAll(prevVertexLabels);
+					} else if(evaluateTerm(((Assignment)assignment).getTerm(), prevVertexLabels)) {
 						outputLabel.addAll(((Assignment)assignment).getOutputLabels());						
-					} else if(!evaluateTerm(((Assignment)assignment).getTerm(), prevElementLabels)) {
+					} else if(!evaluateTerm(((Assignment)assignment).getTerm(), prevVertexLabels)) {
 						outputLabel.removeAll(((Assignment)assignment).getOutputLabels());						
 					}
 				}
@@ -102,10 +102,10 @@ public class DFDCharacteristicsCalculator {
 			}
 			
 			characteristics = characteristics.stream().filter(distinctByKey(CharacteristicValue::getValueId)).collect(Collectors.toList());
-			dataFlowVariables.add(new DataFlowVariable(prevElement.getName(), characteristics));
+			dataFlowVariables.add(new DataFlowVariable(prevVertex.getName(), characteristics));
 		}
 		
-		return new DFDVertex(dataFlowVariables, nodeCharacteristics, element.getName(), element.getNode(), element.getMapPinToPreviousElement(), element.getMapPinToInputFlow());
+		return new DFDVertex(dataFlowVariables, nodeCharacteristics, vertex.getName(), vertex.getNode(), vertex.getMapPinToPreviousVertex(), vertex.getMapPinToInputFlow());
 	}
 	
 	public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {

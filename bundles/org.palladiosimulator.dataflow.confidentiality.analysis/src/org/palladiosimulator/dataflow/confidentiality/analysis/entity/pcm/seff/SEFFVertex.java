@@ -9,8 +9,8 @@ import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.AbstractPCMActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.AbstractPCMVertex;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractVertex;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMQueryUtils;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
@@ -22,8 +22,8 @@ import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
 import org.palladiosimulator.pcm.seff.StartAction;
 
-public class SEFFActionSequenceElement<T extends AbstractAction> extends AbstractPCMActionSequenceElement<T> {
-	private final Logger logger = Logger.getLogger(SEFFActionSequenceElement.class);
+public class SEFFVertex<T extends AbstractAction> extends AbstractPCMVertex<T> {
+	private final Logger logger = Logger.getLogger(SEFFVertex.class);
 	
 	private final List<Parameter> parameter;
 	
@@ -33,7 +33,7 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
 	 * @param context Assembly context of the SEFF Element
 	 * @param parameter List of parameters, that were passed to the SEFF Element
 	 */
-    public SEFFActionSequenceElement(T element, Deque<AssemblyContext> context, List<Parameter> parameter) {
+    public SEFFVertex(T element, Deque<AssemblyContext> context, List<Parameter> parameter) {
         super(element, context);
         this.parameter = parameter;
     }
@@ -44,17 +44,17 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
      * @param dataFlowVariables Updated dataflow variables
      * @param nodeCharacteristics Updated node characteristics
      */
-    public SEFFActionSequenceElement(SEFFActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+    public SEFFVertex(SEFFVertex<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
         super(oldElement, dataFlowVariables, nodeCharacteristics);
         this.parameter = oldElement.getParameter();
     }
 
     @Override
-    public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
+    public AbstractVertex<T> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
     	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(analysisData);
     	
         if (this.getElement() instanceof StartAction) {
-        	return new SEFFActionSequenceElement<T>(this, new ArrayList<>(variables), nodeCharacteristics);
+        	return new SEFFVertex<T>(this, new ArrayList<>(variables), nodeCharacteristics);
     	} else if (!(this.getElement() instanceof SetVariableAction)) {
     		logger.error("Found unexpected sequence element of unknown PCM type " + this.getElement().getClass().getName());
     		throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");
@@ -67,7 +67,7 @@ public class SEFFActionSequenceElement<T extends AbstractAction> extends Abstrac
                 .toList();
     	
     	List<DataFlowVariable> dataFlowVariables = super.getDataFlowVariables(analysisData, nodeCharacteristics, variableCharacterisations, variables);
-        return new SEFFActionSequenceElement<T>(this, dataFlowVariables, nodeCharacteristics);
+        return new SEFFVertex<T>(this, dataFlowVariables, nodeCharacteristics);
     }
     
     /**

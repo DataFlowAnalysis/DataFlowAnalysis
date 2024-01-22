@@ -9,14 +9,14 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisD
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.variable.DataCharacteristicsCalculator;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractVertex;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 
-public abstract class AbstractPCMActionSequenceElement<T extends Entity> extends AbstractActionSequenceElement<T> {
-	private final Logger logger = Logger.getLogger(AbstractPCMActionSequenceElement.class);
+public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex<T> {
+	private final Logger logger = Logger.getLogger(AbstractPCMVertex.class);
 	
     private final Deque<AssemblyContext> context;
     private final T element;	
@@ -27,7 +27,7 @@ public abstract class AbstractPCMActionSequenceElement<T extends Entity> extends
      * @param element Underlying Palladio Element of the Sequence Element
      * @param context Assembly context of the Palladio Element
      */
-    public AbstractPCMActionSequenceElement(T element, Deque<AssemblyContext> context) {
+    public AbstractPCMVertex(T element, Deque<AssemblyContext> context) {
         this.element = element;
         this.context = context;
     }
@@ -38,7 +38,7 @@ public abstract class AbstractPCMActionSequenceElement<T extends Entity> extends
      * @param dataFlowVariables DataFlow variables, which should be present for the action sequence element
      * @param nodeCharacteristics Node characteristics, which should be present for the action sequence element
      */
-    public AbstractPCMActionSequenceElement(AbstractPCMActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+    public AbstractPCMVertex(AbstractPCMVertex<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
     	super(dataFlowVariables, nodeCharacteristics);
     	this.element = oldElement.getElement();
     	this.context = oldElement.getContext();
@@ -118,7 +118,7 @@ public abstract class AbstractPCMActionSequenceElement<T extends Entity> extends
         if (getClass() != obj.getClass())
             return false;
         @SuppressWarnings("rawtypes")
-        AbstractPCMActionSequenceElement other = (AbstractPCMActionSequenceElement) obj;
+        AbstractPCMVertex other = (AbstractPCMVertex) obj;
         return Objects.equals(context, other.context) && Objects.equals(element, other.element);
     }
 

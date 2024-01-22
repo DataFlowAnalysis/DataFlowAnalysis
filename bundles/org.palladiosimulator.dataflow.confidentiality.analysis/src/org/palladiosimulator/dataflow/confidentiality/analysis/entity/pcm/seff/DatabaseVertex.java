@@ -10,15 +10,15 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisD
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataStore;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.AbstractPCMActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.AbstractPCMVertex;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractVertex;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
-public class DatabaseActionSequenceElement<T extends OperationalDataStoreComponent> extends AbstractPCMActionSequenceElement<T> {
+public class DatabaseVertex<T extends OperationalDataStoreComponent> extends AbstractPCMVertex<T> {
 	private static final String RETURN_MAGIC_VALUE = "RETURN";
 	
-	private final Logger logger = Logger.getLogger(DatabaseActionSequenceElement.class);
+	private final Logger logger = Logger.getLogger(DatabaseVertex.class);
 	
 	private final DataStore dataStore;
 	private final boolean isWriting;
@@ -30,7 +30,7 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 	 * @param isWriting Is true, if the data store is written to. Otherwise, the data store is read from
 	 * @param dataStore Reference to the data store that is attached to this Database Action Sequence Element
 	 */
-	public DatabaseActionSequenceElement(T element, Deque<AssemblyContext> context, boolean isWriting, DataStore dataStore) {
+	public DatabaseVertex(T element, Deque<AssemblyContext> context, boolean isWriting, DataStore dataStore) {
         super(element, context);
         this.isWriting = isWriting;
         this.dataStore = dataStore;
@@ -42,7 +42,7 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 	 * @param dataFlowVariables Updated list of dataflow variable
 	 * @param nodeCharacteristics Updated list of node characteristics
 	 */
-	public DatabaseActionSequenceElement(DatabaseActionSequenceElement<T> oldElement, 
+	public DatabaseVertex(DatabaseVertex<T> oldElement, 
 			List<DataFlowVariable> dataFlowVariables, 
 			List<CharacteristicValue> nodeCharacteristics) {
 		super(oldElement, dataFlowVariables, nodeCharacteristics);
@@ -51,7 +51,7 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 	}
 
 	@Override
-	public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
+	public AbstractVertex<T> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
 		List<CharacteristicValue> nodeVariables = super.getNodeCharacteristics(analysisData);
 		List<DataFlowVariable> newDataFlowVariables = new ArrayList<>(variables);
 	
@@ -66,9 +66,9 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 					.findAny().orElse(new DataFlowVariable(dataSourceName));
 			dataStore.addCharacteristicValues(dataSource.characteristics());
 			logger.trace(this.createPrintableDatabaseInformation(newDataFlowVariables));
-			return new DatabaseActionSequenceElement<>(this, newDataFlowVariables, nodeVariables);
+			return new DatabaseVertex<>(this, newDataFlowVariables, nodeVariables);
 		} else {
-			DataFlowVariable modifiedVariable = new DataFlowVariable(DatabaseActionSequenceElement.RETURN_MAGIC_VALUE);
+			DataFlowVariable modifiedVariable = new DataFlowVariable(DatabaseVertex.RETURN_MAGIC_VALUE);
 			List<CharacteristicValue> storedData = dataStore.getCharacteristicValues();
 			for(CharacteristicValue characteristicValue : storedData) {
 				modifiedVariable = modifiedVariable.addCharacteristic(characteristicValue);
@@ -76,7 +76,7 @@ public class DatabaseActionSequenceElement<T extends OperationalDataStoreCompone
 			newDataFlowVariables.add(modifiedVariable);
 			logger.trace(this.createPrintableDatabaseInformation(List.of(modifiedVariable)));
 		}
-		return new DatabaseActionSequenceElement<>(this, newDataFlowVariables, nodeVariables);
+		return new DatabaseVertex<>(this, newDataFlowVariables, nodeVariables);
 	}
 	
 	/**

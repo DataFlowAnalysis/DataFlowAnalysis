@@ -2,101 +2,101 @@ package org.palladiosimulator.dataflow.confidentiality.analysis.sequencefinder;
 
 import java.util.List;
 
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.CallingSEFFActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.DatabaseActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.SEFFActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.user.CallingUserActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.CallingSEFFVertex;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.DatabaseVertex;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.SEFFVertex;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.user.CallingUserVertex;
 
 public final class ActionSequenceFinderPaths {
 	public static final List<List<Class<?>>> onlineShopPaths = 
-			List.of(List.of(CallingUserActionSequenceElement.class, 
-							SEFFActionSequenceElement.class,
-							CallingSEFFActionSequenceElement.class,
-							SEFFActionSequenceElement.class,
-							SEFFActionSequenceElement.class,
-							CallingSEFFActionSequenceElement.class,
-							SEFFActionSequenceElement.class, 
-							CallingUserActionSequenceElement.class,
+			List.of(List.of(CallingUserVertex.class, 
+							SEFFVertex.class,
+							CallingSEFFVertex.class,
+							SEFFVertex.class,
+							SEFFVertex.class,
+							CallingSEFFVertex.class,
+							SEFFVertex.class, 
+							CallingUserVertex.class,
 							
-							CallingUserActionSequenceElement.class, 
-							SEFFActionSequenceElement.class,
-							SEFFActionSequenceElement.class,
-							CallingSEFFActionSequenceElement.class, 
-							SEFFActionSequenceElement.class,
-							CallingSEFFActionSequenceElement.class,
-							CallingUserActionSequenceElement.class),
-					List.of(CallingUserActionSequenceElement.class, 
-							SEFFActionSequenceElement.class,
-							CallingSEFFActionSequenceElement.class,
-							SEFFActionSequenceElement.class,
-							SEFFActionSequenceElement.class,
-							CallingSEFFActionSequenceElement.class,
-							SEFFActionSequenceElement.class, 
-							CallingUserActionSequenceElement.class,
+							CallingUserVertex.class, 
+							SEFFVertex.class,
+							SEFFVertex.class,
+							CallingSEFFVertex.class, 
+							SEFFVertex.class,
+							CallingSEFFVertex.class,
+							CallingUserVertex.class),
+					List.of(CallingUserVertex.class, 
+							SEFFVertex.class,
+							CallingSEFFVertex.class,
+							SEFFVertex.class,
+							SEFFVertex.class,
+							CallingSEFFVertex.class,
+							SEFFVertex.class, 
+							CallingUserVertex.class,
 							
-							CallingUserActionSequenceElement.class, 
-							SEFFActionSequenceElement.class,
-							SEFFActionSequenceElement.class,
-							CallingSEFFActionSequenceElement.class, 
-							SEFFActionSequenceElement.class,
-							SEFFActionSequenceElement.class,
-							CallingSEFFActionSequenceElement.class,
-							CallingUserActionSequenceElement.class));
+							CallingUserVertex.class, 
+							SEFFVertex.class,
+							SEFFVertex.class,
+							CallingSEFFVertex.class, 
+							SEFFVertex.class,
+							SEFFVertex.class,
+							CallingSEFFVertex.class,
+							CallingUserVertex.class));
 	
 	public static final List<List<Class<?>>> internationalOnlineShopPaths = 
 			List.of(List.of(
-					CallingUserActionSequenceElement.class, 
-					SEFFActionSequenceElement.class,
-					CallingSEFFActionSequenceElement.class,
-					SEFFActionSequenceElement.class, 
-					SEFFActionSequenceElement.class,
-					CallingSEFFActionSequenceElement.class,
-					SEFFActionSequenceElement.class, 
-					CallingUserActionSequenceElement.class,
+					CallingUserVertex.class, 
+					SEFFVertex.class,
+					CallingSEFFVertex.class,
+					SEFFVertex.class, 
+					SEFFVertex.class,
+					CallingSEFFVertex.class,
+					SEFFVertex.class, 
+					CallingUserVertex.class,
 					
-					CallingUserActionSequenceElement.class, 
-					SEFFActionSequenceElement.class,
-					CallingSEFFActionSequenceElement.class,
-					SEFFActionSequenceElement.class,
-					CallingSEFFActionSequenceElement.class, 
-					CallingSEFFActionSequenceElement.class,
-					SEFFActionSequenceElement.class,
-		            CallingSEFFActionSequenceElement.class, 
-		            CallingUserActionSequenceElement.class));
+					CallingUserVertex.class, 
+					SEFFVertex.class,
+					CallingSEFFVertex.class,
+					SEFFVertex.class,
+					CallingSEFFVertex.class, 
+					CallingSEFFVertex.class,
+					SEFFVertex.class,
+		            CallingSEFFVertex.class, 
+		            CallingUserVertex.class));
 	
 	public static final List<List<Class<?>>> travelPlannerPaths = 
 			List.of(List.of(
-					CallingUserActionSequenceElement.class, 
-					DatabaseActionSequenceElement.class,
-					CallingUserActionSequenceElement.class,
+					CallingUserVertex.class, 
+					DatabaseVertex.class,
+					CallingUserVertex.class,
 					
-                    CallingUserActionSequenceElement.class, 
-                    SEFFActionSequenceElement.class,
-                    CallingSEFFActionSequenceElement.class,
-                    SEFFActionSequenceElement.class,
-                    CallingSEFFActionSequenceElement.class,
-                    DatabaseActionSequenceElement.class,
-                    CallingSEFFActionSequenceElement.class,
-                    SEFFActionSequenceElement.class, 
-                    CallingSEFFActionSequenceElement.class,
-                    SEFFActionSequenceElement.class, 
-                    CallingUserActionSequenceElement.class,
+                    CallingUserVertex.class, 
+                    SEFFVertex.class,
+                    CallingSEFFVertex.class,
+                    SEFFVertex.class,
+                    CallingSEFFVertex.class,
+                    DatabaseVertex.class,
+                    CallingSEFFVertex.class,
+                    SEFFVertex.class, 
+                    CallingSEFFVertex.class,
+                    SEFFVertex.class, 
+                    CallingUserVertex.class,
                     
-                    CallingUserActionSequenceElement.class,
-                    DatabaseActionSequenceElement.class,
-                    CallingUserActionSequenceElement.class,
+                    CallingUserVertex.class,
+                    DatabaseVertex.class,
+                    CallingUserVertex.class,
                     
-                    CallingUserActionSequenceElement.class, 
-                    SEFFActionSequenceElement.class,
-                    CallingSEFFActionSequenceElement.class,
-                    SEFFActionSequenceElement.class, 
-                    SEFFActionSequenceElement.class, 
-                    CallingSEFFActionSequenceElement.class,
-                    SEFFActionSequenceElement.class, 
-                    CallingUserActionSequenceElement.class),
-            List.of(CallingUserActionSequenceElement.class, 
-            		DatabaseActionSequenceElement.class,
-            		CallingUserActionSequenceElement.class));
+                    CallingUserVertex.class, 
+                    SEFFVertex.class,
+                    CallingSEFFVertex.class,
+                    SEFFVertex.class, 
+                    SEFFVertex.class, 
+                    CallingSEFFVertex.class,
+                    SEFFVertex.class, 
+                    CallingUserVertex.class),
+            List.of(CallingUserVertex.class, 
+            		DatabaseVertex.class,
+            		CallingUserVertex.class));
 	
 	
 	private ActionSequenceFinderPaths() {

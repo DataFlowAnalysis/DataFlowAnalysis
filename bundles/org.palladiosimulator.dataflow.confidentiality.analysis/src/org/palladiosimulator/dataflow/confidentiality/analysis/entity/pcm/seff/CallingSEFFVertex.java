@@ -8,13 +8,13 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisD
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CallReturnBehavior;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractVertex;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
 
-public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<ExternalCallAction>
+public class CallingSEFFVertex extends SEFFVertex<ExternalCallAction>
         implements CallReturnBehavior {
     private final boolean isCalling;
 
@@ -25,7 +25,7 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
      * @param parameter List of Parameters that are available for the calling SEFF
      * @param isCalling Is true, when another method is called. Otherwise, a called method is returned from
      */
-    public CallingSEFFActionSequenceElement(ExternalCallAction element, Deque<AssemblyContext> context, List<Parameter> parameter, boolean isCalling) {
+    public CallingSEFFVertex(ExternalCallAction element, Deque<AssemblyContext> context, List<Parameter> parameter, boolean isCalling) {
         super(element, context, parameter);
         this.isCalling = isCalling;
     }
@@ -36,7 +36,7 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
      * @param dataFlowVariables List of updated data flow variables
      * @param nodeCharacteristics List of updated node characteristics
      */
-    public CallingSEFFActionSequenceElement(CallingSEFFActionSequenceElement oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+    public CallingSEFFVertex(CallingSEFFVertex oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
         super(oldElement, dataFlowVariables, nodeCharacteristics);
         this.isCalling = oldElement.isCalling();
     }
@@ -47,7 +47,7 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
     }
     
     @Override
-    public AbstractActionSequenceElement<ExternalCallAction> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
+    public AbstractVertex<ExternalCallAction> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
     	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(analysisData);
     	
         List<VariableCharacterisation> variableCharacterisations = this.isCalling ? 
@@ -65,7 +65,7 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
         }
 
         List<DataFlowVariable> dataFlowVariables = super.getDataFlowVariables(analysisData, nodeCharacteristics, variableCharacterisations, variables);
-        return new CallingSEFFActionSequenceElement(this, dataFlowVariables, nodeCharacteristics);
+        return new CallingSEFFVertex(this, dataFlowVariables, nodeCharacteristics);
     }
     
     @Override

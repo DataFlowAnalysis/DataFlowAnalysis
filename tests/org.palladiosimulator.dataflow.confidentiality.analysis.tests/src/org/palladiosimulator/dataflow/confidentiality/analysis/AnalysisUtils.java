@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.CallingSEFFActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.user.CallingUserActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.CallingSEFFVertex;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.user.CallingUserVertex;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.FlowGraph;
 
 public class AnalysisUtils {
@@ -107,9 +107,9 @@ public class AnalysisUtils {
         var element = sequence.getElements()
             .get(index);
 
-        assertInstanceOf(CallingSEFFActionSequenceElement.class, element);
+        assertInstanceOf(CallingSEFFVertex.class, element);
 
-        var sequenceElement = (CallingSEFFActionSequenceElement) element;
+        var sequenceElement = (CallingSEFFVertex) element;
         assertEquals(expectedName, sequenceElement.getElement()
             .getEntityName());
     }
@@ -136,9 +136,9 @@ public class AnalysisUtils {
         var element = sequence.getElements()
             .get(index);
 
-        assertInstanceOf(CallingUserActionSequenceElement.class, element);
+        assertInstanceOf(CallingUserVertex.class, element);
 
-        var sequenceElement = (CallingUserActionSequenceElement) element;
+        var sequenceElement = (CallingUserVertex) element;
         assertEquals(expectedName, sequenceElement.getElement()
             .getEntityName());
     }

@@ -9,7 +9,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.DataFlowConfident
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.node.DFDCharacteristicsCalculator;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDFlowGraph;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.dfd.DFDVertex;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractVertex;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.FlowGraph;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.dfd.DFDFlowGraphFinder;
 
@@ -37,7 +37,7 @@ public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalys
 	
 
 	@Override
-	public List<FlowGraph> findAllSequences() {
+	public List<FlowGraph> findAllFlowGraphs() {
 		return DFDFlowGraphFinder.findAllFlowGraphsInDFD(dfd, dataDictionary);
 	}
 	
@@ -52,8 +52,8 @@ public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalys
 	}
 
 	@Override
-	public List<AbstractActionSequenceElement<?>> queryDataFlow(FlowGraph sequence,
-			Predicate<? super AbstractActionSequenceElement<?>> condition) {
+	public List<AbstractVertex<?>> queryDataFlow(FlowGraph sequence,
+			Predicate<? super AbstractVertex<?>> condition) {
 		return sequence.getElements()
 	            .parallelStream()
 	            .filter(condition)

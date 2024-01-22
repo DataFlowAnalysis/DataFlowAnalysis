@@ -9,41 +9,41 @@ import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractVertex;
 
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
 
-public class DFDVertex extends AbstractActionSequenceElement<EObject>{
+public class DFDVertex extends AbstractVertex<EObject>{
 	
 	String name;
 	Node node;
-	Map<Pin, DFDVertex> mapPinToPreviousElement;
+	Map<Pin, DFDVertex> mapPinToPreviousVertex;
 	Map<Pin, Flow> mapPinToInputFlow; //Not created rn
 
 	public DFDVertex(List<DataFlowVariable> dataFlowVariables,
-			List<CharacteristicValue> nodeCharacteristics, String name, Node node, Map<Pin, DFDVertex> mapPinToPreviousElement, Map<Pin, Flow> mapPinToInputFlow) {
+			List<CharacteristicValue> nodeCharacteristics, String name, Node node, Map<Pin, DFDVertex> mapPinToPreviousVertex, Map<Pin, Flow> mapPinToInputFlow) {
 		super(dataFlowVariables, nodeCharacteristics); //ausgewertet wird erst unten DataFlowVariable kann hier leer sein
 		// TODO Auto-generated constructor stub
 		this.name = name;
 		this.node = node;
-		this.mapPinToPreviousElement = mapPinToPreviousElement;
+		this.mapPinToPreviousVertex = mapPinToPreviousVertex;
 		this.mapPinToInputFlow = mapPinToInputFlow;
 	}
 	
-	public DFDVertex(String name, Node node, Map<Pin, DFDVertex> mapPinToPreviousElement, Map<Pin, Flow> mapPinToInputFlow) {
+	public DFDVertex(String name, Node node, Map<Pin, DFDVertex> mapPinToPreviousVertex, Map<Pin, Flow> mapPinToInputFlow) {
 		super(new ArrayList<>(), new ArrayList<>()); //ausgewertet wird erst unten DataFlowVariable kann hier leer sein
 		// TODO Auto-generated constructor stub
 		this.name = name;
 		this.node = node;
-		this.mapPinToPreviousElement = mapPinToPreviousElement;
+		this.mapPinToPreviousVertex = mapPinToPreviousVertex;
 		this.mapPinToInputFlow = mapPinToInputFlow;
 	}
 	
 
 	@Override
-	public AbstractActionSequenceElement<EObject> evaluateDataFlow(List variables, AnalysisData analysisData) {
+	public AbstractVertex<EObject> evaluateDataFlow(List variables, AnalysisData analysisData) {
 		// TODO funktional leer lassen & Exception fürs Debugging
 		return null;
 	}
@@ -64,12 +64,12 @@ public class DFDVertex extends AbstractActionSequenceElement<EObject>{
     }
     
     public DFDVertex clone() {
-    	return new DFDVertex(new ArrayList<>(super.getAllDataFlowVariables()),new ArrayList<>(super.getAllNodeCharacteristics()), this.name, this.node, new HashMap<>(this.mapPinToPreviousElement), new HashMap<>(this.mapPinToInputFlow));
+    	return new DFDVertex(new ArrayList<>(super.getAllDataFlowVariables()),new ArrayList<>(super.getAllNodeCharacteristics()), this.name, this.node, new HashMap<>(this.mapPinToPreviousVertex), new HashMap<>(this.mapPinToInputFlow));
     }
 
 
-	public Map<Pin, DFDVertex> getMapPinToPreviousElement() {
-		return mapPinToPreviousElement;
+	public Map<Pin, DFDVertex> getMapPinToPreviousVertex() {
+		return mapPinToPreviousVertex;
 	}
 
 	public Map<Pin, Flow> getMapPinToInputFlow() {

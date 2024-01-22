@@ -16,13 +16,13 @@ import org.eclipse.xtext.parser.antlr.AbstractInternalAntlrParser;
 import org.eclipse.xtext.resource.containers.ResourceSetBasedAllContainersStateProvider;
 import org.palladiosimulator.dataflow.confidentiality.analysis.DataFlowConfidentialityAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.PCMActionSequence;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.DatabaseActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.PCMFlowGraph;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.DatabaseVertex;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractVertex;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.FlowGraph;
 import org.palladiosimulator.dataflow.confidentiality.analysis.resource.ResourceProvider;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.ActionSequenceFinder;
-import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMActionSequenceFinder;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.FlowGraphFinder;
+import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.PCMFlowGraphFinder;
 import org.palladiosimulator.dataflow.confidentiality.pcm.dddsl.DDDslStandaloneSetup;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.DictionaryPackage;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.dictionary.PCMDataDictionary;
@@ -64,8 +64,8 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
 	public abstract boolean setupAnalysis();
 
 	@Override
-	public List<FlowGraph> findAllSequences() {
-		ActionSequenceFinder sequenceFinder = new PCMActionSequenceFinder(this.analysisData.getResourceProvider().getUsageModel());
+	public List<FlowGraph> findAllFlowGraphs() {
+		FlowGraphFinder sequenceFinder = new PCMFlowGraphFinder(this.analysisData.getResourceProvider().getUsageModel());
         return sequenceFinder.findAllSequences().parallelStream()
         		.map(FlowGraph.class::cast)
         		.collect(Collectors.toList());
@@ -73,10 +73,10 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
 
 	@Override
 	public List<FlowGraph> evaluateDataFlows(List<FlowGraph> sequences) {
-		List<PCMActionSequence> actionSequences = sequences.parallelStream()
-    			.map(PCMActionSequence.class::cast)
+		List<PCMFlowGraph> actionSequences = sequences.parallelStream()
+    			.map(PCMFlowGraph.class::cast)
     			.collect(Collectors.toList());
-    	List<PCMActionSequence> sortedSequences = new ArrayList<>(actionSequences);
+    	List<PCMFlowGraph> sortedSequences = new ArrayList<>(actionSequences);
     	Collections.sort(sortedSequences);
     	if(this.usesDataStores(sequences)) {
     		return sortedSequences.stream()
@@ -90,8 +90,8 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
 	}
 
 	@Override
-	public List<AbstractActionSequenceElement<?>> queryDataFlow(FlowGraph sequence,
-			Predicate<? super AbstractActionSequenceElement<?>> condition) {
+	public List<AbstractVertex<?>> queryDataFlow(FlowGraph sequence,
+			Predicate<? super AbstractVertex<?>> condition) {
 		return sequence.getElements()
 	            .parallelStream()
 	            .filter(condition)
@@ -237,6 +237,6 @@ public abstract class AbstractStandalonePCMDataFlowConfidentialityAnalysis imple
     private boolean usesDataStores(List<FlowGraph> actionSequences) {
     	return actionSequences.parallelStream()
     		.flatMap(it -> it.getElements().parallelStream())
-    		.anyMatch(DatabaseActionSequenceElement.class::isInstance);
+    		.anyMatch(DatabaseVertex.class::isInstance);
     }
 }

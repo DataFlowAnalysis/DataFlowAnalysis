@@ -12,9 +12,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.dataflow.confidentiality.analysis.DataFlowConfidentialityAnalysis;
 import org.palladiosimulator.dataflow.confidentiality.analysis.ListAppender;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.PCMActionSequence;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.DatabaseActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.user.UserActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.PCMFlowGraph;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.DatabaseVertex;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.user.UserVertex;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.FlowGraph;
 
 public class ConstraintFeatureTest extends ConstraintTest {
@@ -27,12 +27,12 @@ public class ConstraintFeatureTest extends ConstraintTest {
     	var allocationPath = Paths.get("models", "CycleDatastoreTest", "default.allocation");
     	DataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
     	
-    	Logger logger = Logger.getLogger(PCMActionSequence.class);
+    	Logger logger = Logger.getLogger(PCMFlowGraph.class);
     	logger.setLevel(Level.DEBUG);
     	ListAppender appender = new ListAppender();
     	logger.addAppender(appender);
     	
-    	List<FlowGraph> sequences = analysis.findAllSequences();
+    	List<FlowGraph> sequences = analysis.findAllFlowGraphs();
     	assertThrows(IllegalStateException.class, () -> analysis.evaluateDataFlows(sequences));
     	assertTrue(appender.loggedLevel(Level.ERROR));
     }
@@ -44,12 +44,12 @@ public class ConstraintFeatureTest extends ConstraintTest {
     	var allocationPath = Paths.get("models", "ReadOnlyDatastore", "default.allocation");
     	DataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
     	
-    	Logger logger = Logger.getLogger(DatabaseActionSequenceElement.class);
+    	Logger logger = Logger.getLogger(DatabaseVertex.class);
     	logger.setLevel(Level.DEBUG);
     	ListAppender appender = new ListAppender();
     	logger.addAppender(appender);
     	
-    	List<FlowGraph> sequences = analysis.findAllSequences();
+    	List<FlowGraph> sequences = analysis.findAllFlowGraphs();
     	analysis.evaluateDataFlows(sequences);
     	
     	assertTrue(appender.loggedLevel(Level.WARN));
@@ -65,13 +65,13 @@ public class ConstraintFeatureTest extends ConstraintTest {
     	var allocationPath = Paths.get("models", "NodeCharacteristicsTest", "default.allocation");
     	DataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
     	
-    	List<FlowGraph> sequences = analysis.findAllSequences();
+    	List<FlowGraph> sequences = analysis.findAllFlowGraphs();
     	List<FlowGraph> propagatedSequences = analysis.evaluateDataFlows(sequences);
     	
     	logger.setLevel(Level.TRACE);
     	var results = analysis.queryDataFlow(propagatedSequences.get(0), node -> {
     		printNodeInformation(node);
-    		if (node instanceof UserActionSequenceElement<?>) {
+    		if (node instanceof UserVertex<?>) {
     			return node.getAllNodeCharacteristics().size() != 1;
     		} else {
             	return node.getAllNodeCharacteristics().size() != 2;
@@ -91,13 +91,13 @@ public class ConstraintFeatureTest extends ConstraintTest {
     	var allocationPath = Paths.get("models", "CompositeCharacteristicsTest", "default.allocation");
     	DataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath);
     	
-    	List<FlowGraph> sequences = analysis.findAllSequences();
+    	List<FlowGraph> sequences = analysis.findAllFlowGraphs();
     	List<FlowGraph> propagatedSequences = analysis.evaluateDataFlows(sequences);
     	
     	logger.setLevel(Level.TRACE);
     	var results = analysis.queryDataFlow(propagatedSequences.get(0), node -> {
     		printNodeInformation(node);
-    		if (node instanceof UserActionSequenceElement<?>) {
+    		if (node instanceof UserVertex<?>) {
     			return node.getAllNodeCharacteristics().size() != 1;
     		} else {
             	return node.getAllNodeCharacteristics().size() != 3;

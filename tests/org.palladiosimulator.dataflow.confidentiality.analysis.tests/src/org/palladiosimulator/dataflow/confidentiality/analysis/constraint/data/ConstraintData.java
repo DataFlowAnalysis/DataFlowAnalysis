@@ -5,8 +5,8 @@ import java.util.Map;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.AbstractPCMActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.AbstractPCMVertex;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractVertex;
 
 import de.uka.ipd.sdq.identifier.Identifier;
 
@@ -21,11 +21,11 @@ public class ConstraintData {
 		this.dataFlowVariables = dataFlowVariable;
 	}
 	
-	public boolean matches(AbstractActionSequenceElement<?> element) {
-		if (!(element instanceof AbstractPCMActionSequenceElement<?>)) {
+	public boolean matches(AbstractVertex<?> element) {
+		if (!(element instanceof AbstractPCMVertex<?>)) {
 			return false;
 		}
-		AbstractPCMActionSequenceElement<?> sequenceElement = (AbstractPCMActionSequenceElement<?>) element;
+		AbstractPCMVertex<?> sequenceElement = (AbstractPCMVertex<?>) element;
 		Identifier pcmElement = (Identifier) sequenceElement.getElement();
 		return this.nodeID.equals(pcmElement.getId());
 	}

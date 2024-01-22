@@ -7,11 +7,11 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisD
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CallReturnBehavior;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractVertex;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 
-public class CallingUserActionSequenceElement extends UserActionSequenceElement<EntryLevelSystemCall>
+public class CallingUserVertex extends UserVertex<EntryLevelSystemCall>
         implements CallReturnBehavior {
     private final boolean isCalling;
 
@@ -20,7 +20,7 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
      * @param element Underlying Palladio Element
      * @param isCalling Is true, when another method is called. Otherwise, a called method is returned from
      */
-    public CallingUserActionSequenceElement(EntryLevelSystemCall element, boolean isCalling) {
+    public CallingUserVertex(EntryLevelSystemCall element, boolean isCalling) {
         super(element);
         this.isCalling = isCalling;
     }
@@ -31,7 +31,7 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
      * @param dataFlowVariables List of updated data flow variables
      * @param nodeCharacteristics List of updated node characteristics
      */
-    public CallingUserActionSequenceElement(CallingUserActionSequenceElement oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+    public CallingUserVertex(CallingUserVertex oldElement, List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
         super(oldElement, dataFlowVariables, nodeCharacteristics);
         this.isCalling = oldElement.isCalling();
     }
@@ -42,7 +42,7 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
     }
     
     @Override
-    public AbstractActionSequenceElement<EntryLevelSystemCall> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
+    public AbstractVertex<EntryLevelSystemCall> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData) {
     	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(analysisData);
     	
     	List<VariableCharacterisation> variableCharacterisations = this.isCalling ?
@@ -61,7 +61,7 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
         }
     	
     	List<DataFlowVariable> dataFlowVariables = super.getDataFlowVariables(analysisData, nodeCharacteristics, variableCharacterisations, variables);
-    	return new CallingUserActionSequenceElement(this, dataFlowVariables, nodeCharacteristics);
+    	return new CallingUserVertex(this, dataFlowVariables, nodeCharacteristics);
     }
 
     @Override

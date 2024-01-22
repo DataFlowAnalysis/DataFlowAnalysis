@@ -20,7 +20,7 @@ public class ActionSequenceFinderTest extends BaseTest {
      */   
     @Test
     public void testTravelPlannerCount() {
-    	var allSequences = travelPlannerAnalysis.findAllSequences();
+    	var allSequences = travelPlannerAnalysis.findAllFlowGraphs();
         travelPlannerAnalysis.setLoggerLevel(Level.TRACE);
         assertEquals(ActionSequenceFinderPaths.travelPlannerPaths.size(), allSequences.size(),
                 String.format("Expected two dataflow sequences, but found %s sequences", allSequences.size()));
@@ -32,7 +32,7 @@ public class ActionSequenceFinderTest extends BaseTest {
      */   
     @Test
     public void testInternationalOnlineShopCount() {
-    	var allSequences = internationalOnlineShopAnalysis.findAllSequences();
+    	var allSequences = internationalOnlineShopAnalysis.findAllFlowGraphs();
         internationalOnlineShopAnalysis.setLoggerLevel(Level.TRACE);
         assertEquals(ActionSequenceFinderPaths.internationalOnlineShopPaths.size(), allSequences.size(),
                 String.format("Expected two dataflow sequences, but found %s sequences", allSequences.size()));
@@ -44,7 +44,7 @@ public class ActionSequenceFinderTest extends BaseTest {
      */   
     @Test
     public void testOnlineShopCount() {
-    	var allSequences = onlineShopAnalysis.findAllSequences();
+    	var allSequences = onlineShopAnalysis.findAllFlowGraphs();
         onlineShopAnalysis.setLoggerLevel(Level.TRACE);
         assertEquals(ActionSequenceFinderPaths.onlineShopPaths.size(), allSequences.size(),
                 String.format("Expected two dataflow sequences, but found %s sequences", allSequences.size()));
@@ -53,7 +53,7 @@ public class ActionSequenceFinderTest extends BaseTest {
     
     @Test
     public void testTravelPlannerPath() {
-    	var sequences = travelPlannerAnalysis.findAllSequences();
+    	var sequences = travelPlannerAnalysis.findAllFlowGraphs();
 
         assertTrue(sequences.size() >= ActionSequenceFinderPaths.travelPlannerPaths.size());
 
@@ -64,7 +64,7 @@ public class ActionSequenceFinderTest extends BaseTest {
     
     @Test
     public void testInternationalOnlineShopPath() {
-    	var sequences = internationalOnlineShopAnalysis.findAllSequences();
+    	var sequences = internationalOnlineShopAnalysis.findAllFlowGraphs();
 
         assertTrue(sequences.size() >= ActionSequenceFinderPaths.internationalOnlineShopPaths.size());
 
@@ -75,7 +75,7 @@ public class ActionSequenceFinderTest extends BaseTest {
     
     @Test
     public void testOnlineShopPath() {
-    	var sequences = onlineShopAnalysis.findAllSequences();
+    	var sequences = onlineShopAnalysis.findAllFlowGraphs();
 
         assertTrue(sequences.size() >= ActionSequenceFinderPaths.onlineShopPaths.size());
 
@@ -92,7 +92,7 @@ public class ActionSequenceFinderTest extends BaseTest {
      */
     @Test
     public void testTravelPlannerSEFFContent() {
-    	var sequences = travelPlannerAnalysis.findAllSequences();
+    	var sequences = travelPlannerAnalysis.findAllFlowGraphs();
         assertSEFFSequenceElementContent(sequences.get(0), 19, "ask airline to book flight");
     }
     
@@ -104,7 +104,7 @@ public class ActionSequenceFinderTest extends BaseTest {
      */
     @Test
     public void testInternationalOnlineShopSEFFContent() {
-    	var sequences = internationalOnlineShopAnalysis.findAllSequences();
+    	var sequences = internationalOnlineShopAnalysis.findAllFlowGraphs();
         assertSEFFSequenceElementContent(sequences.get(0), 13, "DatabaseStoreUserData");
     }
     
@@ -116,7 +116,7 @@ public class ActionSequenceFinderTest extends BaseTest {
      */
     @Test
     public void testOnlineShopSEFFContent() {
-    	var sequences = onlineShopAnalysis.findAllSequences();
+    	var sequences = onlineShopAnalysis.findAllFlowGraphs();
         assertSEFFSequenceElementContent(sequences.get(0), 2, "DatabaseLoadInventory");
     }
     
@@ -128,7 +128,7 @@ public class ActionSequenceFinderTest extends BaseTest {
      */
     @Test
     public void testTravelPlannerUserContent() {
-    	var sequences = travelPlannerAnalysis.findAllSequences();
+    	var sequences = travelPlannerAnalysis.findAllFlowGraphs();
         assertUserSequenceElementContent(sequences.get(0), 3, "look for flights");
     }
     
@@ -140,7 +140,7 @@ public class ActionSequenceFinderTest extends BaseTest {
      */
     @Test
     public void testInternationalOnlineShopUserContent() {
-    	var sequences = internationalOnlineShopAnalysis.findAllSequences();
+    	var sequences = internationalOnlineShopAnalysis.findAllFlowGraphs();
         assertUserSequenceElementContent(sequences.get(0), 8, "BuyEntryLevelSystemCall");
     }
     
@@ -152,7 +152,7 @@ public class ActionSequenceFinderTest extends BaseTest {
      */
     @Test
     public void testOnlineShopUserContent() {
-    	var sequences = onlineShopAnalysis.findAllSequences();
+    	var sequences = onlineShopAnalysis.findAllFlowGraphs();
         assertUserSequenceElementContent(sequences.get(0), 0, "ViewEntryLevelSystemCall");
     }
 }

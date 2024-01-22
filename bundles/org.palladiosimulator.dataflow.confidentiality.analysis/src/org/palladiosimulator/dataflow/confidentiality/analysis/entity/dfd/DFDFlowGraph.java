@@ -4,31 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractVertex;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.FlowGraph;
 
 public class DFDFlowGraph extends FlowGraph implements Comparable<DFDFlowGraph> {
 	
-	private DFDVertex lastElement;
+	private DFDVertex lastVertex;
 	
-	public DFDFlowGraph(List<AbstractActionSequenceElement<?>> elements) {
+	public DFDFlowGraph(List<AbstractVertex<?>> elements) {
 		super(elements);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static DFDFlowGraph createFromEndElement(DFDVertex endElement) {
-		DFDFlowGraph sequence = new DFDFlowGraph(buildFlowGraphRecFromEnd(endElement));
-		sequence.setLastElement(endElement);
+	public static DFDFlowGraph createFromEndVertex(DFDVertex endVertex) {
+		DFDFlowGraph sequence = new DFDFlowGraph(buildFlowGraphRecFromEnd(endVertex));
+		sequence.setLastVertex(endVertex);
 		return sequence;
 		// TODO Auto-generated constructor stub
 	}
 	
-	private static List<AbstractActionSequenceElement<?>> buildFlowGraphRecFromEnd(DFDVertex endElement) {
-		List<AbstractActionSequenceElement<?>> sequenceAsList = new ArrayList<>();
-		for (var prevElement : endElement.getMapPinToPreviousElement().values()) {
+	private static List<AbstractVertex<?>> buildFlowGraphRecFromEnd(DFDVertex endVortex) {
+		List<AbstractVertex<?>> sequenceAsList = new ArrayList<>();
+		for (var prevElement : endVortex.getMapPinToPreviousVertex().values()) {
 			sequenceAsList.addAll(buildFlowGraphRecFromEnd(prevElement));
 		}
-		sequenceAsList.add(endElement);
+		sequenceAsList.add(endVortex);
 		return sequenceAsList;
 	}
 
@@ -44,12 +44,12 @@ public class DFDFlowGraph extends FlowGraph implements Comparable<DFDFlowGraph> 
 		return null;
 	}
 
-	public DFDVertex getLastElement() {
-		return lastElement;
+	public DFDVertex getLastVertex() {
+		return lastVertex;
 	}
 
-	public void setLastElement(DFDVertex lastElement) {
-		this.lastElement = lastElement;
+	public void setLastVertex(DFDVertex lastElement) {
+		this.lastVertex = lastElement;
 	}
 	
 	

@@ -24,7 +24,7 @@ public class DFDMapperTest {
 
 	@Test
 	public void numberOfStrandSequences_equalsTwo() {
-		var strandSequences = strandAnalysis.findAllSequences();
+		var strandSequences = strandAnalysis.findAllFlowGraphs();
 		assertEquals(strandSequences.size(), 2);
 	}
 }

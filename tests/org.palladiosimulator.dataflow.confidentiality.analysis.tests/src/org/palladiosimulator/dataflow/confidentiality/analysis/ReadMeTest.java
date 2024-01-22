@@ -6,7 +6,7 @@ import org.apache.log4j.Level;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.DataFlowAnalysisBuilder;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractVertex;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.FlowGraph;
 import org.palladiosimulator.dataflow.confidentiality.analysis.testmodels.Activator;
 
@@ -32,12 +32,12 @@ public class ReadMeTest extends BaseTest {
 	    analysis.setLoggerLevel(Level.TRACE); // Set desired logger level. Level.TRACE provides additional propagation Information
 	    analysis.initializeAnalysis();
 
-	    List<FlowGraph> actionSequences = analysis.findAllSequences();
+	    List<FlowGraph> actionSequences = analysis.findAllFlowGraphs();
 
 	    List<FlowGraph> propagationResult = analysis.evaluateDataFlows(actionSequences);
 	    
 	    for(FlowGraph actionSequence : propagationResult) {
-	    	List<AbstractActionSequenceElement<?>> violations = analysis.queryDataFlow(actionSequence,
+	    	List<AbstractVertex<?>> violations = analysis.queryDataFlow(actionSequence,
 	        it -> false // Constraint goes here, return true, if constraint is violated
 	      );
 	    }
@@ -52,12 +52,12 @@ public class ReadMeTest extends BaseTest {
 		var analysis = travelPlannerAnalysis;
 		
 		// Code snippet from README starts here
-		List<FlowGraph> actionSequences = analysis.findAllSequences();
+		List<FlowGraph> actionSequences = analysis.findAllFlowGraphs();
 
 	    List<FlowGraph> propagationResult = analysis.evaluateDataFlows(actionSequences);
 	    
 	    for(FlowGraph actionSequence : propagationResult) {
-	    	List<AbstractActionSequenceElement<?>> violations = analysis.queryDataFlow(actionSequence,
+	    	List<AbstractVertex<?>> violations = analysis.queryDataFlow(actionSequence,
 	        it -> false // Constraint goes here, return true, if constraint is violated
 	      );
 	    }

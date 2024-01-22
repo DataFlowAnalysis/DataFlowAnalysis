@@ -11,19 +11,19 @@ import org.apache.log4j.Logger;
 import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisData;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.CallReturnBehavior;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.DatabaseActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.SEFFActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.DatabaseVertex;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.SEFFVertex;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.AbstractVertex;
 import org.palladiosimulator.dataflow.confidentiality.analysis.entity.sequence.FlowGraph;
 import org.palladiosimulator.pcm.seff.StartAction;
 
-public class PCMActionSequence extends FlowGraph implements Comparable<PCMActionSequence> {
-	private static final Logger logger = Logger.getLogger(PCMActionSequence.class);
+public class PCMFlowGraph extends FlowGraph implements Comparable<PCMFlowGraph> {
+	private static final Logger logger = Logger.getLogger(PCMFlowGraph.class);
 
 	/**
 	 * Creates a empty new action sequence
 	 */
-    public PCMActionSequence() {
+    public PCMFlowGraph() {
         super(List.of());
     }
 	
@@ -31,7 +31,7 @@ public class PCMActionSequence extends FlowGraph implements Comparable<PCMAction
 	 * Creates a new action sequence with the given elements
 	 * @param elements List of elements contained in the sequence
 	 */
-	public PCMActionSequence(List<AbstractActionSequenceElement<?>> elements) {
+	public PCMFlowGraph(List<AbstractVertex<?>> elements) {
         super(elements);
     }
 
@@ -39,7 +39,7 @@ public class PCMActionSequence extends FlowGraph implements Comparable<PCMAction
      * Creates a new action sequence with the given list of elements
      * @param elements Elements that are contained in the sequence
      */
-    public PCMActionSequence(AbstractActionSequenceElement<?>... elements) {
+    public PCMFlowGraph(AbstractVertex<?>... elements) {
         super(List.of(elements));
     }
 
@@ -47,7 +47,7 @@ public class PCMActionSequence extends FlowGraph implements Comparable<PCMAction
      * Creates a copy of the given action sequence
      * @param sequence Action sequence that should be copied
      */
-    public PCMActionSequence(FlowGraph sequence) {
+    public PCMFlowGraph(FlowGraph sequence) {
         super(sequence.getElements());
     }
     
@@ -56,7 +56,7 @@ public class PCMActionSequence extends FlowGraph implements Comparable<PCMAction
      * @param sequence Action sequence that should be copied
      * @param newElements Elements in the new sequence
      */
-    public PCMActionSequence(FlowGraph sequence, AbstractActionSequenceElement<?>... newElements) {
+    public PCMFlowGraph(FlowGraph sequence, AbstractVertex<?>... newElements) {
         super(Stream.concat(sequence.getElements()
             .stream(), Stream.of(newElements))
             .toList());
@@ -69,20 +69,20 @@ public class PCMActionSequence extends FlowGraph implements Comparable<PCMAction
         Deque<List<DataFlowVariable>> variableContexts = new ArrayDeque<>();
         variableContexts.push(new ArrayList<>());
         
-        List<AbstractActionSequenceElement<?>> evaluatedElements = new ArrayList<>();
+        List<AbstractVertex<?>> evaluatedElements = new ArrayList<>();
 
         while (iterator.hasNext()) {
-            AbstractActionSequenceElement<?> nextElement = iterator.next();
+            AbstractVertex<?> nextElement = iterator.next();
             
             prepareCall(variableContexts, nextElement);
             
-            AbstractActionSequenceElement<?> evaluatedElement = nextElement.evaluateDataFlow(variableContexts.peek(), analysisData);
+            AbstractVertex<?> evaluatedElement = nextElement.evaluateDataFlow(variableContexts.peek(), analysisData);
             evaluatedElements.add(evaluatedElement);
             
             cleanupCall(variableContexts, evaluatedElement);
         }
 
-        return new PCMActionSequence(evaluatedElements);
+        return new PCMFlowGraph(evaluatedElements);
     }
 	
 	/**
@@ -90,9 +90,9 @@ public class PCMActionSequence extends FlowGraph implements Comparable<PCMAction
 	 * @param variableContexts Stack of variable contexts
 	 * @param nextElement Next element that will be evaluated
 	 */
-	private void prepareCall(Deque<List<DataFlowVariable>> variableContexts, AbstractActionSequenceElement<?> nextElement) {
-		if (nextElement instanceof SEFFActionSequenceElement<?> && ((SEFFActionSequenceElement<?>) nextElement).getElement() instanceof StartAction) {
-			SEFFActionSequenceElement<?> startElement = (SEFFActionSequenceElement<?>) nextElement;
+	private void prepareCall(Deque<List<DataFlowVariable>> variableContexts, AbstractVertex<?> nextElement) {
+		if (nextElement instanceof SEFFVertex<?> && ((SEFFVertex<?>) nextElement).getElement() instanceof StartAction) {
+			SEFFVertex<?> startElement = (SEFFVertex<?>) nextElement;
 			List<String> parameter = startElement.getParameter().stream()
 					.map(it -> it.getParameterName())
 					.collect(Collectors.toList());
@@ -121,7 +121,7 @@ public class PCMActionSequence extends FlowGraph implements Comparable<PCMAction
 	 * @param evaluatedElement Element that has been evaluated
 	 */
 	private void cleanupCall(Deque<List<DataFlowVariable>> variableContexts, 
-			AbstractActionSequenceElement<?> evaluatedElement) {
+			AbstractVertex<?> evaluatedElement) {
 		if (evaluatedElement instanceof CallReturnBehavior && ((CallReturnBehavior) evaluatedElement).isCalling()) {
         	List<DataFlowVariable> callingDataFlowVariables = new ArrayList<>(evaluatedElement.getAllDataFlowVariables());
         	variableContexts.push(callingDataFlowVariables);
@@ -139,12 +139,12 @@ public class PCMActionSequence extends FlowGraph implements Comparable<PCMAction
 	
     
     public List<String> getProvidedDatabases() {
-    	List<DatabaseActionSequenceElement<?>> potentialProvided = this.getElements().stream()
-				.filter(DatabaseActionSequenceElement.class::isInstance)
-				.map(DatabaseActionSequenceElement.class::cast)
+    	List<DatabaseVertex<?>> potentialProvided = this.getElements().stream()
+				.filter(DatabaseVertex.class::isInstance)
+				.map(DatabaseVertex.class::cast)
 				.filter(it -> it.isWriting())
 				.collect(Collectors.toList());
-    	List<DatabaseActionSequenceElement<?>> providedDatabases = potentialProvided.stream()
+    	List<DatabaseVertex<?>> providedDatabases = potentialProvided.stream()
     			.filter(it -> !getRequiredBefore(it).contains(it.getDataStore().getDatabaseComponentName()))
     			.collect(Collectors.toList());
     	return providedDatabases.stream()
@@ -152,11 +152,11 @@ public class PCMActionSequence extends FlowGraph implements Comparable<PCMAction
     			.collect(Collectors.toList());
     }
     
-    private List<String> getRequiredBefore(DatabaseActionSequenceElement<?> element) {
+    private List<String> getRequiredBefore(DatabaseVertex<?> element) {
     	int index = this.getElements().indexOf(element);
     	return this.getElements().stream()
-				.filter(DatabaseActionSequenceElement.class::isInstance)
-				.map(DatabaseActionSequenceElement.class::cast)
+				.filter(DatabaseVertex.class::isInstance)
+				.map(DatabaseVertex.class::cast)
 				.filter(it -> !it.isWriting())
 				.limit(index)
 				.map(it -> it.getDataStore().getDatabaseComponentName())
@@ -164,12 +164,12 @@ public class PCMActionSequence extends FlowGraph implements Comparable<PCMAction
     }
     
     public List<String> getRequiredDatabases() {
-    	List<DatabaseActionSequenceElement<?>> potentialRequired = this.getElements().stream()
-				.filter(DatabaseActionSequenceElement.class::isInstance)
-				.map(DatabaseActionSequenceElement.class::cast)
+    	List<DatabaseVertex<?>> potentialRequired = this.getElements().stream()
+				.filter(DatabaseVertex.class::isInstance)
+				.map(DatabaseVertex.class::cast)
 				.filter(it -> !it.isWriting())
 				.collect(Collectors.toList());
-    	List<DatabaseActionSequenceElement<?>> requiredDatabases = potentialRequired.stream()
+    	List<DatabaseVertex<?>> requiredDatabases = potentialRequired.stream()
     			.filter(it -> !getProvidedBefore(it).contains(it.getDataStore().getDatabaseComponentName()))
     			.collect(Collectors.toList());
     	return requiredDatabases.stream()
@@ -177,11 +177,11 @@ public class PCMActionSequence extends FlowGraph implements Comparable<PCMAction
     			.collect(Collectors.toList());
     }
     
-    private List<String> getProvidedBefore(DatabaseActionSequenceElement<?> element) {
+    private List<String> getProvidedBefore(DatabaseVertex<?> element) {
     	int index = this.getElements().indexOf(element);
     	return this.getElements().stream()
-				.filter(DatabaseActionSequenceElement.class::isInstance)
-				.map(DatabaseActionSequenceElement.class::cast)
+				.filter(DatabaseVertex.class::isInstance)
+				.map(DatabaseVertex.class::cast)
 				.filter(it -> it.isWriting())
 				.limit(index)
 				.map(it -> it.getDataStore().getDatabaseComponentName())
@@ -194,7 +194,7 @@ public class PCMActionSequence extends FlowGraph implements Comparable<PCMAction
      * Return 1, if the other sequence needs to run first
      */
 	@Override
-	public int compareTo(PCMActionSequence otherSequence) {
+	public int compareTo(PCMFlowGraph otherSequence) {
 		if (this.getRequiredDatabases().isEmpty() && otherSequence.getRequiredDatabases().isEmpty()) {
 			return 0;
 		} else if (this.getRequiredDatabases().isEmpty() && !otherSequence.getRequiredDatabases().isEmpty()) {

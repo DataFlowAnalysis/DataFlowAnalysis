@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataStore;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.AbstractPCMActionSequenceElement;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.PCMActionSequence;
-import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.DatabaseActionSequenceElement;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.AbstractPCMVertex;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.PCMFlowGraph;
+import org.palladiosimulator.dataflow.confidentiality.analysis.entity.pcm.seff.DatabaseVertex;
 import org.palladiosimulator.dataflow.confidentiality.analysis.sequence.pcm.SEFFWithContext;
 import org.palladiosimulator.dataflow.confidentiality.analysis.utils.pcm.PCMQueryUtils;
 import org.palladiosimulator.dataflow.confidentiality.pcm.model.confidentiality.repository.OperationalDataStoreComponent;
@@ -19,9 +19,9 @@ public class PCMDatabaseFinderUtils {
 		// Utility class
 	}
 	
-	public static List<PCMActionSequence> findSequencesForDatabaseAction(SEFFWithContext seff,
+	public static List<PCMFlowGraph> findSequencesForDatabaseAction(SEFFWithContext seff,
             SEFFFinderContext context,
-            PCMActionSequence previousSequence) {
+            PCMFlowGraph previousSequence) {
 		boolean isWriting = true;
 		if (seff.seff().getDescribedService__SEFF().getEntityName().equals("get")) {
 			isWriting = false;
@@ -44,15 +44,15 @@ public class PCMDatabaseFinderUtils {
 		}
 		
 		context.addDataStore(dataStore.get());
-		var newEntity = new DatabaseActionSequenceElement<>(currentAction, context.getContext(), isWriting, dataStore.get());
-		PCMActionSequence currentSequence = new PCMActionSequence(previousSequence, newEntity);
+		var newEntity = new DatabaseVertex<>(currentAction, context.getContext(), isWriting, dataStore.get());
+		PCMFlowGraph currentSequence = new PCMFlowGraph(previousSequence, newEntity);
 		
 		return returnToCaller(currentAction, context, currentSequence);
     }
 	
-	private static List<PCMActionSequence> returnToCaller(OperationalDataStoreComponent currentAction,
+	private static List<PCMFlowGraph> returnToCaller(OperationalDataStoreComponent currentAction,
             SEFFFinderContext context,
-            PCMActionSequence previousSequence) {
+            PCMFlowGraph previousSequence) {
 		Optional<AbstractAction> parentAction = PCMQueryUtils.findParentOfType(currentAction, AbstractAction.class,
                 false);
 
@@ -61,7 +61,7 @@ public class PCMDatabaseFinderUtils {
                 .getSuccessor_AbstractAction();
             return PCMSEFFFinderUtils.findSequencesForSEFFAction(successor, context, previousSequence);
         } else {
-            AbstractPCMActionSequenceElement<?> caller = context.getLastCaller();
+            AbstractPCMVertex<?> caller = context.getLastCaller();
             context.updateParameterForCallerReturning(caller);
             return PCMSEFFFinderUtils.returnToCaller(caller, context, previousSequence);
         }

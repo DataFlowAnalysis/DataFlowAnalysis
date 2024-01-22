@@ -24,16 +24,16 @@ public class DFDFlowGraphFinder {
 	 */	
 	public static List<FlowGraph> findAllFlowGraphsInDFD(DataFlowDiagram dfd, DataDictionary dataDictionary) { 
 		Map<Node, Map<Pin, List<Flow>>> mapOfIngoingEdges = getMapOfIngoingEdges(dfd.getFlows());
-		Map<Node, List<DFDVertex>> mapNodeToElements = new HashMap<>();
+		Map<Node, List<DFDVertex>> mapNodeToVertices = new HashMap<>();
 		Map<Node, List<Node>> mapOfOutgoingEdges = getMapOfOutgoingEdges(dfd.getFlows());
 		for (Node startNode : getStartNodes(dfd.getFlows())) {
-			fillMapNodeToElements(startNode, mapNodeToElements, mapOfIngoingEdges, mapOfOutgoingEdges);
+			fillMapNodeToVertices(startNode, mapNodeToVertices, mapOfIngoingEdges, mapOfOutgoingEdges);
 		}
 		List<FlowGraph> sequences = new ArrayList<>();
 		
 		for (var endNode : getEndNodes(dfd.getFlows())) {
-			for (var endElement : mapNodeToElements.get(endNode)) {
-				sequences.add(DFDFlowGraph.createFromEndElement(endElement));
+			for (var endElement : mapNodeToVertices.get(endNode)) {
+				sequences.add(DFDFlowGraph.createFromEndVertex(endElement));
 			}
 		}
 		return sequences;
@@ -41,23 +41,23 @@ public class DFDFlowGraphFinder {
 	
 	
 	/**
-	 * Fills the MapNodeToElements by recursively calling for all future elements
+	 * Fills the MapNodeToVertices by recursively calling for all future Vertices
 	 * @param node
-	 * @param mapNodeToElements
+	 * @param mapNodeToVertices
 	 * @param mapOfIngoingEdges
 	 * @param mapOfOutgoingEdges
 	 */
-	private static void fillMapNodeToElements(Node node, Map<Node, List<DFDVertex>> mapNodeToElements, Map<Node, Map<Pin, List<Flow>>> mapOfIngoingEdges, Map<Node, List<Node>> mapOfOutgoingEdges) {
+	private static void fillMapNodeToVertices(Node node, Map<Node, List<DFDVertex>> mapNodeToVertices, Map<Node, Map<Pin, List<Flow>>> mapOfIngoingEdges, Map<Node, List<Node>> mapOfOutgoingEdges) {
 		mapOfIngoingEdges.putIfAbsent(node, new HashMap<>());
 		mapOfOutgoingEdges.putIfAbsent(node, new ArrayList<>());
 		for (Pin pin : mapOfIngoingEdges.get(node).keySet()) {
 			for (Flow inFlow : mapOfIngoingEdges.get(node).get(pin)) {
-				if (!mapNodeToElements.containsKey(inFlow.getSourceNode())) return; //Interrupt if not all previous elements have been created. Will be called again by the previous element
+				if (!mapNodeToVertices.containsKey(inFlow.getSourceNode())) return; //Interrupt if not all previous elements have been created. Will be called again by the previous element
 			}
 		}
-		mapNodeToElements.put(node, convertNodeToASE(node, mapOfIngoingEdges.get(node), mapNodeToElements));
+		mapNodeToVertices.put(node, convertNodeToVertex(node, mapOfIngoingEdges.get(node), mapNodeToVertices));
 		for (Node nextNode : mapOfOutgoingEdges.get(node)) {
-			fillMapNodeToElements(nextNode, mapNodeToElements, mapOfIngoingEdges, mapOfOutgoingEdges);
+			fillMapNodeToVertices(nextNode, mapNodeToVertices, mapOfIngoingEdges, mapOfOutgoingEdges);
 		}
 	}
 	
@@ -152,32 +152,32 @@ public class DFDFlowGraphFinder {
 	}
 	
 	/**
-	 * Converts DFD Node into a List of DFD ASE
+	 * Converts DFD Node into a List of DFD Vertices
 	 * @param node Node to be converted	
 	 * @param mapOfIngoingEdges Map of ingoing Flows per Pin
-	 * @param mapNodeToElements Map of nodes and all ASE that were created from said node
-	 * @return all ASE created from the node
+	 * @param mapNodeToVertices Map of nodes and all Vertices that were created from said node
+	 * @return all Vertices created from the node
 	 */
-	private static List<DFDVertex> convertNodeToASE (Node node, Map<Pin, List<Flow>> mapOfIngoingEdges, Map<Node, List<DFDVertex>> mapNodeToElements) {		
-		List<DFDVertex> elements = new ArrayList<>();	
-		elements.add(new DFDVertex(node.getEntityName(), node, new HashMap<>(), new HashMap<>()));
+	private static List<DFDVertex> convertNodeToVertex (Node node, Map<Pin, List<Flow>> mapOfIngoingEdges, Map<Node, List<DFDVertex>> mapNodeToElements) {		
+		List<DFDVertex> vertices = new ArrayList<>();	
+		vertices.add(new DFDVertex(node.getEntityName(), node, new HashMap<>(), new HashMap<>()));
 		for (Pin key : mapOfIngoingEdges.keySet()) {				
-			List<DFDVertex> newElements = new ArrayList<>();
+			List<DFDVertex> newVertices = new ArrayList<>();
 			for (Flow inFlow : mapOfIngoingEdges.get(key)) {				
-				for (DFDVertex element : elements) {
-					for (DFDVertex prevElement : mapNodeToElements.get(inFlow.getSourceNode())) {
-						DFDVertex newElement = element.clone();
-						newElement.getMapPinToPreviousElement().put(key, prevElement);
-						newElement.getMapPinToInputFlow().put(key, inFlow);
-						newElements.add(newElement);
+				for (DFDVertex vertex : vertices) {
+					for (DFDVertex prevVertex : mapNodeToElements.get(inFlow.getSourceNode())) {
+						DFDVertex newVertex = vertex.clone();
+						newVertex.getMapPinToPreviousVertex().put(key, prevVertex);
+						newVertex.getMapPinToInputFlow().put(key, inFlow);
+						newVertices.add(newVertex);
 					}					
 				}
 				
 			}
-			elements = newElements;
+			vertices = newVertices;
 		}
 		
-		return elements;
+		return vertices;
 	}
 
 }

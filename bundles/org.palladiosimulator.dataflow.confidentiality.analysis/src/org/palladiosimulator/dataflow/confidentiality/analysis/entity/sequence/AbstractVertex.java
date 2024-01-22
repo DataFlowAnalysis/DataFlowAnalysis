@@ -11,7 +11,7 @@ import org.palladiosimulator.dataflow.confidentiality.analysis.builder.AnalysisD
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.CharacteristicValue;
 import org.palladiosimulator.dataflow.confidentiality.analysis.characteristics.DataFlowVariable;
 
-public abstract class AbstractActionSequenceElement<T extends EObject> {
+public abstract class AbstractVertex<T extends EObject> {
 
     private final Optional<List<DataFlowVariable>> dataFlowVariables;
     private final Optional<List<CharacteristicValue>> nodeCharacteristics;
@@ -19,7 +19,7 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
     /**
      * Constructs a new action sequence element with empty dataflow variables and node characteristics
      */
-    public AbstractActionSequenceElement() {
+    public AbstractVertex() {
         this.dataFlowVariables = Optional.empty();
         this.nodeCharacteristics = Optional.empty();
     }
@@ -29,7 +29,7 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
      * @param dataFlowVariables List of updated dataflow variables
      * @param nodeCharacteristics List of updated node characteristics
      */
-    public AbstractActionSequenceElement(List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+    public AbstractVertex(List<DataFlowVariable> dataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
         this.dataFlowVariables = Optional.of(List.copyOf(dataFlowVariables));
         this.nodeCharacteristics = Optional.of(List.copyOf(nodeCharacteristics));
     }
@@ -40,7 +40,7 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
      * @param analysisData Saved data and calculators of the analysis
      * @return Returns a new Sequence element with the updated Node- and DataFlowVariables
      */
-    public abstract AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData);
+    public abstract AbstractVertex<T> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData);
     
     /**
      * Returns a list of characteristic literals that are set for a given characteristic type in the list of all node characteristics

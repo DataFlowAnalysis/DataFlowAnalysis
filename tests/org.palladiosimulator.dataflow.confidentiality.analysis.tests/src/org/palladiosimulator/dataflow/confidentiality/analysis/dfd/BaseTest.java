@@ -27,7 +27,7 @@ public class BaseTest {
 		analysis = new DFDConfidentialityAnalysis(pathToDFDModel, pathToDataDictionaryModel);
 		analysis.initializeAnalysis();
 
-		var sequences = analysis.findAllSequences();
+		var sequences = analysis.findAllFlowGraphs();
 		var evaluatedSequences = analysis.evaluateDataFlows(sequences);
 		System.out.print(evaluatedSequences.size());
 	}
@@ -43,7 +43,7 @@ public class BaseTest {
 	public void findAllSequences_throwsNothing() {
 		var analysis = new DFDConfidentialityAnalysis(pathToDFDModel, pathToDataDictionaryModel);
 		analysis.initializeAnalysis();
-		analysis.findAllSequences();
+		analysis.findAllFlowGraphs();
 	}
 	
 	
@@ -51,7 +51,7 @@ public class BaseTest {
 	public void evaluateDataFlows_throwsNothing() {
 		var analysis = new DFDConfidentialityAnalysis(pathToDFDModel, pathToDataDictionaryModel);
 		analysis.initializeAnalysis();
-		var sequences = analysis.findAllSequences();
+		var sequences = analysis.findAllFlowGraphs();
 		analysis.evaluateDataFlows(sequences);
 	}
 	

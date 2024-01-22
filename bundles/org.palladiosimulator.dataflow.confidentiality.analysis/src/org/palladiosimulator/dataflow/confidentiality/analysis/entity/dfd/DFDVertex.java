@@ -20,7 +20,7 @@ public class DFDVertex extends AbstractVertex<EObject>{
 	String name;
 	Node node;
 	Map<Pin, DFDVertex> mapPinToPreviousVertex;
-	Map<Pin, Flow> mapPinToInputFlow; //Not created rn
+	Map<Pin, Flow> mapPinToInputFlow; 
 
 	public DFDVertex(List<DataFlowVariable> dataFlowVariables,
 			List<CharacteristicValue> nodeCharacteristics, String name, Node node, Map<Pin, DFDVertex> mapPinToPreviousVertex, Map<Pin, Flow> mapPinToInputFlow) {

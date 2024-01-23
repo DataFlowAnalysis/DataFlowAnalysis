@@ -1,6 +1,5 @@
 package org.dataflowanalysis.analysis.dfd;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -8,7 +7,6 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.AnalysisData;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.core.ActionSequence;
@@ -24,16 +22,15 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
 import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder;
 
-
 public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalysis {
 	private final Logger logger = Logger.getLogger(DFDConfidentialityAnalysis.class);
 	
-	private AnalysisData analysisData;
+	private DFDResourceProvider resourceProvider;
 	private Optional<Class<? extends Plugin>> modelProjectActivator;
 	private String modelProjectName;
 	
-	public DFDConfidentialityAnalysis(AnalysisData analysisData, Optional<Class<? extends Plugin>> modelProjectActivator, String modelProjectName) {
-		this.analysisData = analysisData;
+	public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider, Optional<Class<? extends Plugin>> modelProjectActivator, String modelProjectName) {
+		this.resourceProvider = resourceProvider;
 		this.modelProjectActivator = modelProjectActivator;
 		this.modelProjectName = modelProjectName;
 	}
@@ -63,8 +60,8 @@ public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalys
         	logger.error("Could not initialize analysis", e);
         	throw new IllegalStateException("Could not initialize analysis");
         }
-        this.analysisData.getResourceProvider().loadRequiredResources();
-        if(!this.analysisData.getResourceProvider().sufficientResourcesLoaded()) {
+        this.resourceProvider.loadRequiredResources();
+        if(!this.resourceProvider.sufficientResourcesLoaded()) {
         	logger.error("Insufficient amount of resources loaded");
         	throw new IllegalStateException("Could not initialize analysis");
         }
@@ -74,8 +71,7 @@ public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalys
 
 	@Override
 	public List<ActionSequence> findAllSequences() {
-		DFDResourceProvider resourceProvider = (DFDResourceProvider) this.analysisData.getResourceProvider();
-		return DFDActionSequenceFinder.findAllSequencesInDFD(resourceProvider.getDataFlowDiagram(), resourceProvider.getDataDictionary());
+		return DFDActionSequenceFinder.findAllSequencesInDFD(this.resourceProvider.getDataFlowDiagram(), this.resourceProvider.getDataDictionary());
 	}
 	
 

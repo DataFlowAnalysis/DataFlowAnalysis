@@ -7,10 +7,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.dataflowanalysis.analysis.AnalysisData;
 import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.core.ActionSequence;
+import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.pcm.core.seff.SEFFActionSequenceElement;
 import org.palladiosimulator.pcm.seff.StartAction;
 
@@ -59,7 +60,8 @@ public class PCMActionSequence extends ActionSequence {
     }
 
 	@Override
-    public ActionSequence evaluateDataFlow(AnalysisData analysisData) {
+    public ActionSequence evaluateDataFlow(NodeCharacteristicsCalculator nodeCharacteristicsCalculator, 
+    		DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
         var iterator = super.getElements()
             .iterator();
         Deque<List<DataFlowVariable>> variableContexts = new ArrayDeque<>();
@@ -72,7 +74,7 @@ public class PCMActionSequence extends ActionSequence {
             
             prepareCall(variableContexts, nextElement);
             
-            AbstractActionSequenceElement<?> evaluatedElement = nextElement.evaluateDataFlow(variableContexts.peek(), analysisData);
+            AbstractActionSequenceElement<?> evaluatedElement = nextElement.evaluateDataFlow(variableContexts.peek(), nodeCharacteristicsCalculator, dataCharacteristicsCalculatorFactory);
             evaluatedElements.add(evaluatedElement);
             
             cleanupCall(variableContexts, evaluatedElement);

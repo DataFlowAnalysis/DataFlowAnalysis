@@ -3,7 +3,6 @@ package org.dataflowanalysis.analysis.dfd;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.AnalysisData;
 import org.dataflowanalysis.analysis.DataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.dataflowanalysis.analysis.dfd.resource.DFDURIResourceProvider;
@@ -74,15 +73,6 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
 	public void useCustomResourceProvider(DFDResourceProvider resourceProvider) {
 		this.customResourceProvider = Optional.of(resourceProvider);
 	}
-	
-	/**
-	 * Create analysis // TODO Remove
-	 * @return
-	 */
-	private AnalysisData createAnalysisData() {
-		DFDResourceProvider resourceProvider = this.getEffectiveResourceProvider();
-		return new AnalysisData(resourceProvider, null, null);
-	}
 
 	/**
 	 * Determines the effective resource provider that should be used by the analysis
@@ -110,6 +100,6 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
 	 */
 	public DFDConfidentialityAnalysis build() {
 		this.validate();
-		return new DFDConfidentialityAnalysis(this.createAnalysisData(), this.pluginActivator, this.modelProjectName);
+		return new DFDConfidentialityAnalysis(this.getEffectiveResourceProvider(), this.pluginActivator, this.modelProjectName);
 	}
 }

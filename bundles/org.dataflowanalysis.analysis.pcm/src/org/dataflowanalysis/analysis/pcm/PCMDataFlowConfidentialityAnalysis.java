@@ -7,11 +7,12 @@ import java.util.stream.Collectors;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.AnalysisData;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.core.ActionSequence;
 import org.dataflowanalysis.analysis.core.ActionSequenceFinder;
+import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
+import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.pcm.core.PCMActionSequence;
 import org.dataflowanalysis.analysis.pcm.core.PCMActionSequenceFinder;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
@@ -33,7 +34,9 @@ import tools.mdsd.library.standalone.initialization.log4j.Log4jInitilizationTask
 public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentialityAnalysis {
 	private static final String PLUGIN_PATH = "org.dataflowanalysis.analysis.pcm";
 	
-	private final AnalysisData analysisData;
+	private final NodeCharacteristicsCalculator nodeCharacteristicsCalculator;
+	private final DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory;
+	private final PCMResourceProvider resourceProvider;
 	private final Logger logger;
 	
 	private final String modelProjectName;
@@ -48,9 +51,12 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
 	 * @param modelProjectName Name of the modelling project
 	 * @param modelProjectActivator Plugin class of the analysis
 	 */
-	public PCMDataFlowConfidentialityAnalysis(AnalysisData analysisData, String modelProjectName,
-			Optional<Class<? extends Plugin>> modelProjectActivator) {
-		this.analysisData = analysisData;
+	public PCMDataFlowConfidentialityAnalysis(NodeCharacteristicsCalculator nodeCharacteristicsCalculator, 
+			DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory, PCMResourceProvider resourceProvider, 
+			String modelProjectName, Optional<Class<? extends Plugin>> modelProjectActivator) {
+		this.nodeCharacteristicsCalculator = nodeCharacteristicsCalculator;
+		this.dataCharacteristicsCalculatorFactory = dataCharacteristicsCalculatorFactory;
+		this.resourceProvider = resourceProvider;
 		this.logger = Logger.getLogger(PCMDataFlowConfidentialityAnalysis.class);
 		this.modelProjectName = modelProjectName;
 		this.modelProjectActivator = modelProjectActivator;
@@ -58,7 +64,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
 
 	@Override
 	public List<ActionSequence> findAllSequences() {
-		PCMResourceProvider resourceProvider = (PCMResourceProvider) this.analysisData.getResourceProvider();
+		PCMResourceProvider resourceProvider = (PCMResourceProvider) this.resourceProvider;
 		ActionSequenceFinder sequenceFinder = new PCMActionSequenceFinder(resourceProvider.getUsageModel());
         return sequenceFinder.findAllSequences().parallelStream()
         		.map(ActionSequence.class::cast)
@@ -71,7 +77,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
     			.map(PCMActionSequence.class::cast)
     			.collect(Collectors.toList());
     	return actionSequences.parallelStream()
-    	          .map(it -> it.evaluateDataFlow(this.analysisData))
+    	          .map(it -> it.evaluateDataFlow(this.nodeCharacteristicsCalculator, this.dataCharacteristicsCalculatorFactory))
     	          .toList();
 	}
 
@@ -98,7 +104,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
             throw new IllegalStateException("Failed loading the required models for the data flow analysis.");
         }
         
-        this.analysisData.getNodeCharacteristicsCalculator().checkAssignments();
+        this.nodeCharacteristicsCalculator.checkAssignments();
 
         return true;
     }
@@ -122,7 +128,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
 	 * @return Resource provider of the analysis
 	 */
 	public ResourceProvider getResourceProvider() {
-		return this.analysisData.getResourceProvider();
+		return this.resourceProvider;
 	}
 	
 	/**
@@ -202,9 +208,9 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
      */
     private boolean loadRequiredModels() {
         try {
-        	this.analysisData.getResourceProvider().loadRequiredResources();
+        	this.resourceProvider.loadRequiredResources();
 
-            this.dataDictionaries = this.analysisData.getResourceProvider()
+            this.dataDictionaries = this.resourceProvider
                 .lookupToplevelElement(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
                 .stream()
                 .filter(PCMDataDictionary.class::isInstance)

@@ -3,10 +3,11 @@ package org.dataflowanalysis.analysis.pcm.core.user;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.dataflowanalysis.analysis.AnalysisData;
 import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
+import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.pcm.core.CallReturnBehavior;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
@@ -42,8 +43,9 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
     }
     
     @Override
-    public AbstractActionSequenceElement<EntryLevelSystemCall> evaluateDataFlow(List<DataFlowVariable> incomingDataFlowVariables, AnalysisData analysisData) {
-    	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(analysisData);
+    public AbstractActionSequenceElement<EntryLevelSystemCall> evaluateDataFlow(List<DataFlowVariable> incomingDataFlowVariables, 
+    		NodeCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
+    	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(nodeCharacteristicsCalculator);
     	
     	List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.isCalling ?
     			super.getElement().getInputParameterUsages_EntryLevelSystemCall().stream()
@@ -64,7 +66,7 @@ public class CallingUserActionSequenceElement extends UserActionSequenceElement<
         	super.checkCallParameter(super.getElement().getOperationSignature__EntryLevelSystemCall(), variableCharacterisations);
         }
     	
-    	List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(analysisData, nodeCharacteristics, variableCharacterisations, incomingDataFlowVariables);
+    	List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(dataCharacteristicsCalculatorFactory, nodeCharacteristics, variableCharacterisations, incomingDataFlowVariables);
     	return new CallingUserActionSequenceElement(this, incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
 

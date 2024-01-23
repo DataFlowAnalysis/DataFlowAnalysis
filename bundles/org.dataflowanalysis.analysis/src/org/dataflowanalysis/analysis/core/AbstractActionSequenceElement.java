@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.dataflowanalysis.analysis.AnalysisData;
 import org.eclipse.emf.ecore.EObject;
 
 public abstract class AbstractActionSequenceElement<T extends EObject> {
@@ -40,7 +39,8 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
      * @param analysisData Saved data and calculators of the analysis
      * @return Returns a new Sequence element with the updated Node- and DataFlowVariables
      */
-    public abstract AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables, AnalysisData analysisData);
+    public abstract AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables, 
+    		NodeCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory);
     
     /**
      * Returns a list of characteristic literals that are set for a given characteristic type in the list of all node characteristics

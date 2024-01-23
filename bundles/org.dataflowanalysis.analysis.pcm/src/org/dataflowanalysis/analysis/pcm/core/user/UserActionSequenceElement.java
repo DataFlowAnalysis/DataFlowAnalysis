@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.AnalysisData;
 import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
+import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMActionSequenceElement;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.Start;
@@ -36,8 +37,9 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
     }
     
     @Override
-    public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> incomingDataFlowVariables, AnalysisData analysisData) {
-    	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(analysisData);
+    public AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> incomingDataFlowVariables, 
+    		NodeCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
+    	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(nodeCharacteristicsCalculator);
         if (this.getElement() instanceof Start || this.getElement() instanceof Stop) {
     		return new UserActionSequenceElement<T>(this, new ArrayList<>(incomingDataFlowVariables), new ArrayList<>(incomingDataFlowVariables), nodeCharacteristics);
     	} 

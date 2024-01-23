@@ -4,10 +4,11 @@ import java.util.Deque;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.dataflowanalysis.analysis.AnalysisData;
 import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
+import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.pcm.core.CallReturnBehavior;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -47,8 +48,9 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
     }
     
     @Override
-    public AbstractActionSequenceElement<ExternalCallAction> evaluateDataFlow(List<DataFlowVariable> incomingDataFlowVariables, AnalysisData analysisData) {
-    	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(analysisData);
+    public AbstractActionSequenceElement<ExternalCallAction> evaluateDataFlow(List<DataFlowVariable> incomingDataFlowVariables, 
+    		NodeCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
+    	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(nodeCharacteristicsCalculator);
     	
         List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.isCalling ? 
         		super.getElement().getInputVariableUsages__CallAction().stream()
@@ -68,7 +70,7 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
         	super.checkCallParameter(super.getElement().getCalledService_ExternalService(), variableCharacterisations);
         }
 
-        List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(analysisData, nodeCharacteristics, variableCharacterisations, incomingDataFlowVariables);
+        List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(dataCharacteristicsCalculatorFactory, nodeCharacteristics, variableCharacterisations, incomingDataFlowVariables);
         return new CallingSEFFActionSequenceElement(this, incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
     

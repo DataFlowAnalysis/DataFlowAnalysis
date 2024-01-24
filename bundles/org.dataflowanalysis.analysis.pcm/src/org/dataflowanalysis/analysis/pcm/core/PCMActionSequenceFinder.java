@@ -3,13 +3,13 @@ package org.dataflowanalysis.analysis.pcm.core;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.core.ActionSequenceFinder;
+import org.dataflowanalysis.analysis.core.PartialFlowGraphFinder;
 import org.dataflowanalysis.analysis.pcm.core.finder.PCMUserFinderUtils;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.palladiosimulator.pcm.usagemodel.Start;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 
-public class PCMActionSequenceFinder implements ActionSequenceFinder {
+public class PCMActionSequenceFinder implements PartialFlowGraphFinder {
     private final Logger logger = Logger.getLogger(PCMActionSequenceFinder.class);
 
     private final UsageModel usageModel;
@@ -19,7 +19,7 @@ public class PCMActionSequenceFinder implements ActionSequenceFinder {
     }
 
     @Override
-    public List<PCMActionSequence> findAllSequences() {
+    public List<PCMActionSequence> findPartialFlowGraphs() {
     	List<PCMActionSequence> sequences = findSequencesForUsageModel(usageModel);
         logger.info(String.format("Found %d action %s.", sequences.size(),
                 sequences.size() == 1 ? "sequence" : "sequences"));

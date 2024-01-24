@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
@@ -16,8 +16,8 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 
-public abstract class AbstractPCMActionSequenceElement<T extends Entity> extends AbstractActionSequenceElement<T> {
-	private final Logger logger = Logger.getLogger(AbstractPCMActionSequenceElement.class);
+public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex<T> {
+	private final Logger logger = Logger.getLogger(AbstractPCMVertex.class);
 	
     private final Deque<AssemblyContext> context;
     private final T element;	
@@ -25,24 +25,24 @@ public abstract class AbstractPCMActionSequenceElement<T extends Entity> extends
 
     /**
      * Constructs a new Action Sequence Element with the underlying Palladio Element and Assembly Context
-     * @param element Underlying Palladio Element of the Sequence Element
+     * @param vertex Underlying Palladio Element of the Sequence Element
      * @param context Assembly context of the Palladio Element
      */
-    public AbstractPCMActionSequenceElement(T element, Deque<AssemblyContext> context) {
-        this.element = element;
+    public AbstractPCMVertex(T vertex, Deque<AssemblyContext> context) {
+        this.element = vertex;
         this.context = context;
     }
     
     /**
      * Builds a new Sequence element with an existing element and a list of Node and DataFlow variables
-     * @param oldElement Old element, which element and context should be copied
+     * @param oldVertex Old element, which element and context should be copied
      * @param dataFlowVariables DataFlow variables, which should be present for the action sequence element
      * @param nodeCharacteristics Node characteristics, which should be present for the action sequence element
      */
-    public AbstractPCMActionSequenceElement(AbstractPCMActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+    public AbstractPCMVertex(AbstractPCMVertex<T> oldVertex, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
     	super(dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
-    	this.element = oldElement.getElement();
-    	this.context = oldElement.getContext();
+    	this.element = oldVertex.getElement();
+    	this.context = oldVertex.getContext();
     }
     
     /**
@@ -119,7 +119,7 @@ public abstract class AbstractPCMActionSequenceElement<T extends Entity> extends
         if (getClass() != obj.getClass())
             return false;
         @SuppressWarnings("rawtypes")
-        AbstractPCMActionSequenceElement other = (AbstractPCMActionSequenceElement) obj;
+        AbstractPCMVertex other = (AbstractPCMVertex) obj;
         return Objects.equals(context, other.context) && Objects.equals(element, other.element);
     }
 

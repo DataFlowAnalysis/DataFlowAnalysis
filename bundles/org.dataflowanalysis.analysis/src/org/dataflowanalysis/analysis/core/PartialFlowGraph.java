@@ -2,15 +2,15 @@ package org.dataflowanalysis.analysis.core;
 
 import java.util.List;
 
-public abstract class ActionSequence {
-	protected List<AbstractActionSequenceElement<?>> elements;
+public abstract class PartialFlowGraph {
+	protected List<AbstractVertex<?>> vertices;
 	
 	/**
 	 * Create a new action sequence with the given elements
 	 * @param elements List of elements in the sequence
 	 */
-	public ActionSequence(List<AbstractActionSequenceElement<?>> elements) {
-        this.elements = List.copyOf(elements);
+	public PartialFlowGraph(List<AbstractVertex<?>> vertices) {
+        this.vertices = List.copyOf(vertices);
     }
     
 	/**
@@ -19,20 +19,20 @@ public abstract class ActionSequence {
 	 * @param dataCharacteristicsCalculatorFactory Calculators used to calculate the data characteristics of elements
 	 * @return
 	 */
-    public abstract ActionSequence evaluateDataFlow(NodeCharacteristicsCalculator nodeCharacteristicsCalculator, 
+    public abstract PartialFlowGraph evaluateDataFlow(NodeCharacteristicsCalculator nodeCharacteristicsCalculator, 
     		DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory);
     
     /**
      * Returns the saved elements in the sequence
      * @return Returns List of sequence elements, saved in the sequence
      */
-    public List<AbstractActionSequenceElement<?>> getElements() {
-		return elements;
+    public List<AbstractVertex<?>> getVertices() {
+		return vertices;
 	}
     
     @Override
     public String toString() {
-        return this.getElements()
+        return this.getVertices()
             .stream()
             .map(it -> it.toString())
             .reduce("", (t, u) -> String.format("%s%s%s", t, System.lineSeparator(), u));

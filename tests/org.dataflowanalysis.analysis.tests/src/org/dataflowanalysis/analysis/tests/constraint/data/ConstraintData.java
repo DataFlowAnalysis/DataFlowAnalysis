@@ -3,10 +3,10 @@ package org.dataflowanalysis.analysis.tests.constraint.data;
 import java.util.List;
 import java.util.Map;
 
-import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
-import org.dataflowanalysis.analysis.pcm.core.AbstractPCMActionSequenceElement;
+import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 
 import de.uka.ipd.sdq.identifier.Identifier;
 
@@ -21,11 +21,11 @@ public class ConstraintData {
 		this.dataFlowVariables = dataFlowVariable;
 	}
 	
-	public boolean matches(AbstractActionSequenceElement<?> element) {
-		if (!(element instanceof AbstractPCMActionSequenceElement<?>)) {
+	public boolean matches(AbstractVertex<?> element) {
+		if (!(element instanceof AbstractPCMVertex<?>)) {
 			return false;
 		}
-		AbstractPCMActionSequenceElement<?> sequenceElement = (AbstractPCMActionSequenceElement<?>) element;
+		AbstractPCMVertex<?> sequenceElement = (AbstractPCMVertex<?>) element;
 		Identifier pcmElement = (Identifier) sequenceElement.getElement();
 		return this.nodeID.equals(pcmElement.getId());
 	}

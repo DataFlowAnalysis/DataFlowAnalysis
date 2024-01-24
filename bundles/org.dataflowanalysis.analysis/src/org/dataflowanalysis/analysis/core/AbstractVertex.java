@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
 
-public abstract class AbstractActionSequenceElement<T extends EObject> {
+public abstract class AbstractVertex<T extends EObject> {
 
     private final Optional<List<DataFlowVariable>> dataFlowVariables;
     private final Optional<List<DataFlowVariable>> outgoingDataFlowVariables;
@@ -16,7 +16,7 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
     /**
      * Constructs a new action sequence element with empty dataflow variables and node characteristics
      */
-    public AbstractActionSequenceElement() {
+    public AbstractVertex() {
         this.dataFlowVariables = Optional.empty();
         this.outgoingDataFlowVariables = Optional.empty();
         this.nodeCharacteristics = Optional.empty();
@@ -27,7 +27,7 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
      * @param dataFlowVariables List of updated dataflow variables
      * @param nodeCharacteristics List of updated node characteristics
      */
-    public AbstractActionSequenceElement(List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+    public AbstractVertex(List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
         this.dataFlowVariables = Optional.of(List.copyOf(dataFlowVariables));
         this.outgoingDataFlowVariables = Optional.of(List.copyOf(outgoingDataFlowVariables));
         this.nodeCharacteristics = Optional.of(List.copyOf(nodeCharacteristics));
@@ -39,7 +39,7 @@ public abstract class AbstractActionSequenceElement<T extends EObject> {
      * @param analysisData Saved data and calculators of the analysis
      * @return Returns a new Sequence element with the updated Node- and DataFlowVariables
      */
-    public abstract AbstractActionSequenceElement<T> evaluateDataFlow(List<DataFlowVariable> variables, 
+    public abstract AbstractVertex<T> evaluateDataFlow(List<DataFlowVariable> variables, 
     		NodeCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory);
     
     /**

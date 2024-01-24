@@ -21,4 +21,7 @@ public record DFDCharacteristicValue(LabelType labelType, Label label) implement
 		return this.label().getId();
 	}
 
+	public Label getLabel() {
+		return this.label;
+	}
 }

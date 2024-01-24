@@ -8,10 +8,10 @@ import java.util.function.Predicate;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
-import org.dataflowanalysis.analysis.core.ActionSequence;
-import org.dataflowanalysis.analysis.dfd.core.DFDActionSequence;
-import org.dataflowanalysis.analysis.dfd.core.DFDActionSequenceFinder;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.core.PartialFlowGraph;
+import org.dataflowanalysis.analysis.dfd.core.DFDPartialFlowGraph;
+import org.dataflowanalysis.analysis.dfd.core.DFDPartialFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.core.DFDCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.eclipse.core.runtime.Plugin;
@@ -70,24 +70,24 @@ public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalys
 	
 
 	@Override
-	public List<ActionSequence> findAllSequences() {
-		return DFDActionSequenceFinder.findAllSequencesInDFD(this.resourceProvider.getDataFlowDiagram(), this.resourceProvider.getDataDictionary());
+	public List<PartialFlowGraph> findAllPartialFlowGraphs() {
+		return DFDPartialFlowGraphFinder.findAllPartialFlowGraphsInDFD(this.resourceProvider.getDataFlowDiagram(), this.resourceProvider.getDataDictionary());
 	}
 	
 
 	@Override
-	public List<ActionSequence> evaluateDataFlows(List<ActionSequence> sequences) {
-		List<ActionSequence> outSequences = new ArrayList<>();
+	public List<PartialFlowGraph> evaluateDataFlows(List<PartialFlowGraph> sequences) {
+		List<PartialFlowGraph> outSequences = new ArrayList<>();
 		for (var dfdActionSequence : sequences) {
-			outSequences.add(DFDCharacteristicsCalculator.fillDataFlowVariables((DFDActionSequence)dfdActionSequence));
+			outSequences.add(DFDCharacteristicsCalculator.fillDataFlowVariables((DFDPartialFlowGraph)dfdActionSequence));
 		}
 		return outSequences;
 	}
 
 	@Override
-	public List<AbstractActionSequenceElement<?>> queryDataFlow(ActionSequence sequence,
-			Predicate<? super AbstractActionSequenceElement<?>> condition) {
-		return sequence.getElements()
+	public List<AbstractVertex<?>> queryDataFlow(PartialFlowGraph sequence,
+			Predicate<? super AbstractVertex<?>> condition) {
+		return sequence.getVertices()
 	            .parallelStream()
 	            .filter(condition)
 	            .toList();

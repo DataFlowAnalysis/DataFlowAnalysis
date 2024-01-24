@@ -18,7 +18,7 @@ public class LabelPropagationTest extends BaseTest {
 	@Test
 	public void travelPlannerCharacteristicsPresentTest() {
 		travelPlannerAnalysis.setLoggerLevel(Level.TRACE);
-        var sequences = travelPlannerAnalysis.findAllSequences();
+        var sequences = travelPlannerAnalysis.findAllPartialFlowGraphs();
         var propagationResult = travelPlannerAnalysis.evaluateDataFlows(sequences);
 
         for (CharacteristicsData characteristicData : LabelPropagationCharacteristics.travelPlannerCharacteristics) {
@@ -38,7 +38,7 @@ public class LabelPropagationTest extends BaseTest {
 	@Test
 	public void internationalOnlineShopCharacteristicsPresentTest() {
 		internationalOnlineShopAnalysis.setLoggerLevel(Level.TRACE);
-        var sequences = internationalOnlineShopAnalysis.findAllSequences();
+        var sequences = internationalOnlineShopAnalysis.findAllPartialFlowGraphs();
         var propagationResult = internationalOnlineShopAnalysis.evaluateDataFlows(sequences);
 
         for (CharacteristicsData characteristicData : LabelPropagationCharacteristics.internationalOnlineShopCharacteristics) {
@@ -58,7 +58,7 @@ public class LabelPropagationTest extends BaseTest {
 	@Test
 	public void onlineShopCharacteristicsPresentTest() {
 		onlineShopAnalysis.setLoggerLevel(Level.TRACE);
-        var sequences = onlineShopAnalysis.findAllSequences();
+        var sequences = onlineShopAnalysis.findAllPartialFlowGraphs();
         var propagationResult = onlineShopAnalysis.evaluateDataFlows(sequences);
 
         for (CharacteristicsData characteristicData : LabelPropagationCharacteristics.onlineShopCharacteristics) {
@@ -77,7 +77,7 @@ public class LabelPropagationTest extends BaseTest {
      */
 	@Test
 	public void travelPlannerCharacteristicsAbsentTest() {
-		var sequences = travelPlannerAnalysis.findAllSequences();
+		var sequences = travelPlannerAnalysis.findAllPartialFlowGraphs();
         var propagationResult = travelPlannerAnalysis.evaluateDataFlows(sequences);
 
         assertTrue(propagationResult.size() >= 2);
@@ -97,7 +97,7 @@ public class LabelPropagationTest extends BaseTest {
      */
 	@Test
 	public void internationalOnlineShopCharacteristicsAbsentTest() {
-		var sequences = internationalOnlineShopAnalysis.findAllSequences();
+		var sequences = internationalOnlineShopAnalysis.findAllPartialFlowGraphs();
         var propagationResult = internationalOnlineShopAnalysis.evaluateDataFlows(sequences);
 
         assertTrue(propagationResult.size() >= 1);
@@ -115,7 +115,7 @@ public class LabelPropagationTest extends BaseTest {
      */
 	@Test
 	public void onlineShopCharacteristicsAbsentTest() {
-		var sequences = onlineShopAnalysis.findAllSequences();
+		var sequences = onlineShopAnalysis.findAllPartialFlowGraphs();
         var propagationResult = onlineShopAnalysis.evaluateDataFlows(sequences);
 
         assertTrue(propagationResult.size() >= 1);

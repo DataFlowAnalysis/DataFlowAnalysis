@@ -7,15 +7,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
-import org.dataflowanalysis.analysis.core.ActionSequence;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.core.PartialFlowGraph;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.pcm.core.seff.SEFFActionSequenceElement;
 import org.palladiosimulator.pcm.seff.StartAction;
 
-public class PCMActionSequence extends ActionSequence {
+public class PCMActionSequence extends PartialFlowGraph {
 
 	/**
 	 * Creates a empty new action sequence
@@ -28,7 +28,7 @@ public class PCMActionSequence extends ActionSequence {
 	 * Creates a new action sequence with the given elements
 	 * @param elements List of elements contained in the sequence
 	 */
-	public PCMActionSequence(List<AbstractActionSequenceElement<?>> elements) {
+	public PCMActionSequence(List<AbstractVertex<?>> elements) {
         super(elements);
     }
 
@@ -36,7 +36,7 @@ public class PCMActionSequence extends ActionSequence {
      * Creates a new action sequence with the given list of elements
      * @param elements Elements that are contained in the sequence
      */
-    public PCMActionSequence(AbstractActionSequenceElement<?>... elements) {
+    public PCMActionSequence(AbstractVertex<?>... elements) {
         super(List.of(elements));
     }
 
@@ -44,8 +44,8 @@ public class PCMActionSequence extends ActionSequence {
      * Creates a copy of the given action sequence
      * @param sequence Action sequence that should be copied
      */
-    public PCMActionSequence(ActionSequence sequence) {
-        super(sequence.getElements());
+    public PCMActionSequence(PartialFlowGraph sequence) {
+        super(sequence.getVertices());
     }
     
     /**
@@ -53,28 +53,28 @@ public class PCMActionSequence extends ActionSequence {
      * @param sequence Action sequence that should be copied
      * @param newElements Elements in the new sequence
      */
-    public PCMActionSequence(ActionSequence sequence, AbstractActionSequenceElement<?>... newElements) {
-        super(Stream.concat(sequence.getElements()
+    public PCMActionSequence(PartialFlowGraph sequence, AbstractVertex<?>... newElements) {
+        super(Stream.concat(sequence.getVertices()
             .stream(), Stream.of(newElements))
             .toList());
     }
 
 	@Override
-    public ActionSequence evaluateDataFlow(NodeCharacteristicsCalculator nodeCharacteristicsCalculator, 
+    public PartialFlowGraph evaluateDataFlow(NodeCharacteristicsCalculator nodeCharacteristicsCalculator, 
     		DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
-        var iterator = super.getElements()
+        var iterator = super.getVertices()
             .iterator();
         Deque<List<DataFlowVariable>> variableContexts = new ArrayDeque<>();
         variableContexts.push(new ArrayList<>());
         
-        List<AbstractActionSequenceElement<?>> evaluatedElements = new ArrayList<>();
+        List<AbstractVertex<?>> evaluatedElements = new ArrayList<>();
 
         while (iterator.hasNext()) {
-            AbstractActionSequenceElement<?> nextElement = iterator.next();
+            AbstractVertex<?> nextElement = iterator.next();
             
             prepareCall(variableContexts, nextElement);
             
-            AbstractActionSequenceElement<?> evaluatedElement = nextElement.evaluateDataFlow(variableContexts.peek(), nodeCharacteristicsCalculator, dataCharacteristicsCalculatorFactory);
+            AbstractVertex<?> evaluatedElement = nextElement.evaluateDataFlow(variableContexts.peek(), nodeCharacteristicsCalculator, dataCharacteristicsCalculatorFactory);
             evaluatedElements.add(evaluatedElement);
             
             cleanupCall(variableContexts, evaluatedElement);
@@ -88,7 +88,7 @@ public class PCMActionSequence extends ActionSequence {
 	 * @param variableContexts Stack of variable contexts
 	 * @param nextElement Next element that will be evaluated
 	 */
-	private void prepareCall(Deque<List<DataFlowVariable>> variableContexts, AbstractActionSequenceElement<?> nextElement) {
+	private void prepareCall(Deque<List<DataFlowVariable>> variableContexts, AbstractVertex<?> nextElement) {
 		if (nextElement instanceof SEFFActionSequenceElement<?> && ((SEFFActionSequenceElement<?>) nextElement).getElement() instanceof StartAction) {
 			SEFFActionSequenceElement<?> startElement = (SEFFActionSequenceElement<?>) nextElement;
 			List<String> parameter = startElement.getParameter().stream()
@@ -119,7 +119,7 @@ public class PCMActionSequence extends ActionSequence {
 	 * @param evaluatedElement Element that has been evaluated
 	 */
 	private void cleanupCall(Deque<List<DataFlowVariable>> variableContexts, 
-			AbstractActionSequenceElement<?> evaluatedElement) {
+			AbstractVertex<?> evaluatedElement) {
 		if (evaluatedElement instanceof CallReturnBehavior && ((CallReturnBehavior) evaluatedElement).isCalling()) {
         	List<DataFlowVariable> callingDataFlowVariables = new ArrayList<>(evaluatedElement.getAllOutgoingDataFlowVariables());
         	variableContexts.push(callingDataFlowVariables);

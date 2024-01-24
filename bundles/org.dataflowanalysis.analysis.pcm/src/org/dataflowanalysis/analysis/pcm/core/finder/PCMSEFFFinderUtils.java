@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.pcm.core.AbstractPCMActionSequenceElement;
+import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.PCMActionSequence;
 import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFActionSequenceElement;
 import org.dataflowanalysis.analysis.pcm.core.seff.SEFFActionSequenceElement;
@@ -67,7 +67,7 @@ public class PCMSEFFFinderUtils {
                 .getSuccessor_AbstractAction();
             return findSequencesForSEFFAction(successor, context, currentSequence);
         } else {
-            AbstractPCMActionSequenceElement<?> caller = context.getLastCaller();
+            AbstractPCMVertex<?> caller = context.getLastCaller();
             context.updateParameterForCallerReturning(caller);
             return returnToCaller(caller, context, currentSequence);
         }
@@ -138,7 +138,7 @@ public class PCMSEFFFinderUtils {
                 currentActionSequence);
     }
 
-    public static List<PCMActionSequence> returnToCaller(AbstractPCMActionSequenceElement<?> caller,
+    public static List<PCMActionSequence> returnToCaller(AbstractPCMVertex<?> caller,
             SEFFFinderContext context, PCMActionSequence previousSequence) {
 
         if (caller instanceof CallingUserActionSequenceElement) {

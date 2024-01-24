@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 
 import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
-import org.dataflowanalysis.analysis.core.ActionSequence;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.core.PartialFlowGraph;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintData;
@@ -28,7 +28,7 @@ public class ConstraintResultTest extends ConstraintTest {
      *            Element of the action sequence
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
-    private boolean travelPlannerCondition(AbstractActionSequenceElement<?> node) {
+    private boolean travelPlannerCondition(AbstractVertex<?> node) {
     	List<String> assignedRoles = node.getNodeCharacteristicIdsWithType("AssignedRoles");
     	List<List<String>> grantedRoles = node.getDataFlowCharacteristicIdsWithType("GrantedRoles");
     	
@@ -55,7 +55,7 @@ public class ConstraintResultTest extends ConstraintTest {
      *            Element of the action sequence
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
-    private boolean internationalOnlineShopCondition(AbstractActionSequenceElement<?> node) {
+    private boolean internationalOnlineShopCondition(AbstractVertex<?> node) {
         List<String> serverLocation = node.getNodeCharacteristicNamesWithType("ServerLocation");
         List<String> dataSensitivity = node.getDataFlowCharacteristicNamesWithType("DataSensitivity").stream()
         		.flatMap(it -> it.stream()).collect(Collectors.toList());
@@ -74,7 +74,7 @@ public class ConstraintResultTest extends ConstraintTest {
      *            Element of the action sequence
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
-    private boolean returnCondition(AbstractActionSequenceElement<?> node) {
+    private boolean returnCondition(AbstractVertex<?> node) {
     	List<String> assignedNode = node.getNodeCharacteristicNamesWithType("AssignedRole");
     	List<String> assignedVariables = node.getDataFlowCharacteristicNamesWithType("AssignedRole").stream()
     			.flatMap(it -> it.stream()).collect(Collectors.toList());
@@ -95,7 +95,7 @@ public class ConstraintResultTest extends ConstraintTest {
     @Test
     public void travelPlannerTestConstraintResults() {
     	travelPlannerAnalysis.setLoggerLevel(Level.TRACE);
-    	Predicate<AbstractActionSequenceElement<?>> constraint = node -> travelPlannerCondition(node);
+    	Predicate<AbstractVertex<?>> constraint = node -> travelPlannerCondition(node);
     	List<ConstraintData> constraintData = ConstraintViolations.travelPlannerViolations;
     	testAnalysis(travelPlannerAnalysis, constraint, constraintData);
     }
@@ -108,7 +108,7 @@ public class ConstraintResultTest extends ConstraintTest {
     @Test
     public void internationalOnlineShopTestConstraintResults() {
     	internationalOnlineShopAnalysis.setLoggerLevel(Level.TRACE);
-    	Predicate<AbstractActionSequenceElement<?>> constraint = node -> internationalOnlineShopCondition(node);
+    	Predicate<AbstractVertex<?>> constraint = node -> internationalOnlineShopCondition(node);
     	List<ConstraintData> constraintData = ConstraintViolations.internationalOnlineShopViolations;
     	testAnalysis(internationalOnlineShopAnalysis, constraint, constraintData);
     }
@@ -125,7 +125,7 @@ public class ConstraintResultTest extends ConstraintTest {
     					Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.allocation"),
     					Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.nodecharacteristics"));
     	analysis.setLoggerLevel(Level.TRACE);
-    	Predicate<AbstractActionSequenceElement<?>> constraint = node -> internationalOnlineShopCondition(node);
+    	Predicate<AbstractVertex<?>> constraint = node -> internationalOnlineShopCondition(node);
     	List<ConstraintData> constraintData = ConstraintViolations.multipleResourcesViolations;
     	testAnalysis(analysis, constraint, constraintData);
     }
@@ -140,16 +140,16 @@ public class ConstraintResultTest extends ConstraintTest {
     	DataFlowConfidentialityAnalysis returnAnalysis = 
     			super.initializeAnalysis(Paths.get("models", "ReturnTestModel", "default.usagemodel"), Paths.get("models", "ReturnTestModel", "default.allocation"),
     					Paths.get("models", "ReturnTestModel", "default.nodecharacteristics"));
-    	Predicate<AbstractActionSequenceElement<?>> constraint = node -> returnCondition(node);
+    	Predicate<AbstractVertex<?>> constraint = node -> returnCondition(node);
     	returnAnalysis.setLoggerLevel(Level.TRACE);
     	List<ConstraintData> constraintData = ConstraintViolations.returnViolations;
     	testAnalysis(returnAnalysis, constraint, constraintData);
     }
     
-    public void testAnalysis(DataFlowConfidentialityAnalysis analysis, Predicate<AbstractActionSequenceElement<?>> constraint, List<ConstraintData> constraintData) {
-    	List<ActionSequence> actionSequences = analysis.findAllSequences();
-    	List<ActionSequence> evaluatedSequences = analysis.evaluateDataFlows(actionSequences);
-    	List<AbstractActionSequenceElement<?>> results = evaluatedSequences.stream()
+    public void testAnalysis(DataFlowConfidentialityAnalysis analysis, Predicate<AbstractVertex<?>> constraint, List<ConstraintData> constraintData) {
+    	List<PartialFlowGraph> actionSequences = analysis.findAllPartialFlowGraphs();
+    	List<PartialFlowGraph> evaluatedSequences = analysis.evaluateDataFlows(actionSequences);
+    	List<AbstractVertex<?>> results = evaluatedSequences.stream()
     			.map(it -> analysis.queryDataFlow(it, constraint))
     			.flatMap(it -> it.stream())
     			.collect(Collectors.toList());

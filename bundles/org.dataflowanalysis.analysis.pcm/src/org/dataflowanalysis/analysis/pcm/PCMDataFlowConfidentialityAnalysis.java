@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
-import org.dataflowanalysis.analysis.core.ActionSequence;
-import org.dataflowanalysis.analysis.core.ActionSequenceFinder;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.core.PartialFlowGraph;
+import org.dataflowanalysis.analysis.core.PartialFlowGraphFinder;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.pcm.core.PCMActionSequence;
@@ -63,16 +63,16 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
 	}
 
 	@Override
-	public List<ActionSequence> findAllSequences() {
+	public List<PartialFlowGraph> findAllPartialFlowGraphs() {
 		PCMResourceProvider resourceProvider = (PCMResourceProvider) this.resourceProvider;
-		ActionSequenceFinder sequenceFinder = new PCMActionSequenceFinder(resourceProvider.getUsageModel());
-        return sequenceFinder.findAllSequences().parallelStream()
-        		.map(ActionSequence.class::cast)
+		PartialFlowGraphFinder sequenceFinder = new PCMActionSequenceFinder(resourceProvider.getUsageModel());
+        return sequenceFinder.findPartialFlowGraphs().parallelStream()
+        		.map(PartialFlowGraph.class::cast)
         		.collect(Collectors.toList());
 	}
 
 	@Override
-	public List<ActionSequence> evaluateDataFlows(List<ActionSequence> sequences) {
+	public List<PartialFlowGraph> evaluateDataFlows(List<PartialFlowGraph> sequences) {
 		List<PCMActionSequence> actionSequences = sequences.parallelStream()
     			.map(PCMActionSequence.class::cast)
     			.collect(Collectors.toList());
@@ -82,9 +82,9 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
 	}
 
 	@Override
-	public List<AbstractActionSequenceElement<?>> queryDataFlow(ActionSequence sequence,
-			Predicate<? super AbstractActionSequenceElement<?>> condition) {
-		return sequence.getElements()
+	public List<AbstractVertex<?>> queryDataFlow(PartialFlowGraph sequence,
+			Predicate<? super AbstractVertex<?>> condition) {
+		return sequence.getVertices()
 	            .parallelStream()
 	            .filter(condition)
 	            .toList();

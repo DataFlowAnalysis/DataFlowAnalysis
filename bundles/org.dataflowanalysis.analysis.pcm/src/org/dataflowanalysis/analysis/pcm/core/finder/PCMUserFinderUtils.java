@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.pcm.core.AbstractPCMActionSequenceElement;
+import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.PCMActionSequence;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserActionSequenceElement;
 import org.dataflowanalysis.analysis.pcm.core.user.UserActionSequenceElement;
@@ -103,7 +103,7 @@ public class PCMUserFinderUtils {
             if (SEFFStartAction.isEmpty()) {
                 throw new IllegalStateException("Unable to find SEFF start action.");
             } else {
-                Deque<AbstractPCMActionSequenceElement<?>> callers = new ArrayDeque<>();
+                Deque<AbstractPCMVertex<?>> callers = new ArrayDeque<>();
                 callers.add(callingEntity);
 
                 SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get().context(), callers, calledSignature.getParameters__OperationSignature());

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.tests.BaseTest;
 
@@ -21,7 +21,7 @@ public class ConstraintTest extends BaseTest {
     *            the result of a data flow query call, a (potentially empty) list of sequence
     *            elements
     */
-   protected void printViolation(List<AbstractActionSequenceElement<?>> dataFlowQueryResult) {
+   protected void printViolation(List<AbstractVertex<?>> dataFlowQueryResult) {
        dataFlowQueryResult.forEach(it -> logger
            .debug(String.format("Constraint violation found: %s", createPrintableNodeInformation(it))));
    }
@@ -33,7 +33,7 @@ public class ConstraintTest extends BaseTest {
     * @param node
     *            The sequence element whose information shall be printed
     */
-   protected void printNodeInformation(AbstractActionSequenceElement<?> node) {
+   protected void printNodeInformation(AbstractVertex<?> node) {
        logger.trace(String.format("Analyzing: %s", createPrintableNodeInformation(node)));
    }
 
@@ -46,7 +46,7 @@ public class ConstraintTest extends BaseTest {
     * @return a string with the node's string representation and a list of all related
     *         characteristics types and literals
     */
-   protected String createPrintableNodeInformation(AbstractActionSequenceElement<?> node) {
+   protected String createPrintableNodeInformation(AbstractVertex<?> node) {
        String template = "%s%s\tNode characteristics: %s%s\tData flow Variables:  %s%s";
        String nodeCharacteristics = createPrintableCharacteristicsList(node.getAllNodeCharacteristics());
        String dataCharacteristics = node.getAllDataFlowVariables()

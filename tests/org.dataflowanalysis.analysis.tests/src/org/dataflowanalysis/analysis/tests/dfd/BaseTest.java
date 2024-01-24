@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import java.nio.file.Paths;
 
-import org.dataflowanalysis.analysis.core.ActionSequence;
+import org.dataflowanalysis.analysis.core.PartialFlowGraph;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.testmodels.Activator;
@@ -20,8 +20,8 @@ public class BaseTest {
 	
 	@BeforeEach
 	public void initAnalysis() {
-		final var minimalDataFlowDiagramPath = Paths.get("models", "DFDTestModels", "minimal.dataflowdiagram");
-		final var minimalDataDictionaryPath = Paths.get("models", "DFDTestModels", "minimal.datadictionary");
+		final var minimalDataFlowDiagramPath = Paths.get("models", "DFDTestModels", "BranchingTest.dataflowdiagram");
+		final var minimalDataDictionaryPath = Paths.get("models", "DFDTestModels", "BranchingTest.datadictionary");
 		
 		this.analysis = new DFDDataFlowAnalysisBuilder()
 				.standalone()
@@ -36,16 +36,16 @@ public class BaseTest {
 	@Test
 	public void numberOfSequences_equalsTwo() {
 		this.analysis.initializeAnalysis();
-		var sequences = analysis.findAllSequences();		
-		assertEquals(sequences.size(), 2);
+		var sequences = analysis.findAllPartialFlowGraphs();		
+		assertEquals(sequences.size(), 4);
 	}
 	
 	
 	@Test
 	public void noNodeCharacteristics_returnsNoViolation() {
 		this.analysis.initializeAnalysis();
-		var sequences = analysis.findAllSequences();
-		List<ActionSequence> evaluatedSequences = this.analysis.evaluateDataFlows(sequences);
+		var sequences = analysis.findAllPartialFlowGraphs();
+		List<PartialFlowGraph> evaluatedSequences = this.analysis.evaluateDataFlows(sequences);
 		
 		var results = analysis.queryDataFlow(evaluatedSequences.get(0), node -> {
     			return node.getAllNodeCharacteristics().size() == 0;
@@ -56,8 +56,8 @@ public class BaseTest {
 	@Test
 	public void noNodeCharacteristics_returnsViolations() {
 		this.analysis.initializeAnalysis();
-		var sequences = analysis.findAllSequences();
-		List<ActionSequence> evaluatedSequences = this.analysis.evaluateDataFlows(sequences);
+		var sequences = analysis.findAllPartialFlowGraphs();
+		List<PartialFlowGraph> evaluatedSequences = this.analysis.evaluateDataFlows(sequences);
 		
 		var results = analysis.queryDataFlow(evaluatedSequences.get(0), node -> {
     			return node.getAllNodeCharacteristics().size() != 0;
@@ -69,8 +69,8 @@ public class BaseTest {
 	@Test
 	public void numberOfNodes_returnsNoViolation() {
 		this.analysis.initializeAnalysis();
-		var sequences = analysis.findAllSequences();
-		List<ActionSequence> evaluatedSequences = this.analysis.evaluateDataFlows(sequences);
+		var sequences = analysis.findAllPartialFlowGraphs();
+		List<PartialFlowGraph> evaluatedSequences = this.analysis.evaluateDataFlows(sequences);
 		
 		var results = analysis.queryDataFlow(evaluatedSequences.get(0), node -> {
     			return node.getAllNodeCharacteristics().size() == 0;

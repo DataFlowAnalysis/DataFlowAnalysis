@@ -15,10 +15,10 @@ public class PCMDataFlowConfidentialityAnalysisBuilder
 extends DataFlowAnalysisBuilder {
 	private final Logger logger = Logger.getLogger(PCMDataFlowConfidentialityAnalysisBuilder.class);
 
-	private String relativeUsageModelPath;
-	private String relativeAllocationModelPath;
-	private String relativeNodeCharacteristicsPath;
-	private Optional<PCMResourceProvider> customResourceProvider = Optional.empty();
+	protected String relativeUsageModelPath;
+	protected String relativeAllocationModelPath;
+	protected String relativeNodeCharacteristicsPath;
+	protected Optional<PCMResourceProvider> customResourceProvider = Optional.empty();
 
 	public PCMDataFlowConfidentialityAnalysisBuilder() {}
 	

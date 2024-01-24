@@ -25,9 +25,9 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder
 public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalysis {
 	private final Logger logger = Logger.getLogger(DFDConfidentialityAnalysis.class);
 	
-	private DFDResourceProvider resourceProvider;
-	private Optional<Class<? extends Plugin>> modelProjectActivator;
-	private String modelProjectName;
+	protected DFDResourceProvider resourceProvider;
+	protected Optional<Class<? extends Plugin>> modelProjectActivator;
+	protected String modelProjectName;
 	
 	public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider, Optional<Class<? extends Plugin>> modelProjectActivator, String modelProjectName) {
 		this.resourceProvider = resourceProvider;

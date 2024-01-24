@@ -33,16 +33,16 @@ import tools.mdsd.library.standalone.initialization.log4j.Log4jInitilizationTask
 
 public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentialityAnalysis {
 	private static final String PLUGIN_PATH = "org.dataflowanalysis.analysis.pcm";
-	
-	private final NodeCharacteristicsCalculator nodeCharacteristicsCalculator;
-	private final DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory;
-	private final PCMResourceProvider resourceProvider;
 	private final Logger logger;
 	
-	private final String modelProjectName;
-	private final Optional<Class<? extends Plugin>> modelProjectActivator;
+	protected final NodeCharacteristicsCalculator nodeCharacteristicsCalculator;
+	protected final DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory;
+	protected final PCMResourceProvider resourceProvider;
+
+	protected final String modelProjectName;
+	protected final Optional<Class<? extends Plugin>> modelProjectActivator;
 	
-	private List<PCMDataDictionary> dataDictionaries;
+	protected List<PCMDataDictionary> dataDictionaries;
 	
 	/**
 	 * Creates a new instance of an data flow analysis with the given parameters

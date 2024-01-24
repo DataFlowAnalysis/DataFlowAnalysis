@@ -12,9 +12,9 @@ import org.eclipse.core.runtime.Plugin;
 public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
 	private final Logger logger = Logger.getLogger(DFDDataFlowAnalysisBuilder.class);
 
-	private String dataFlowDiagramPath;
-	private String dataDictionaryPath;
-	private Optional<DFDResourceProvider> customResourceProvider;
+	protected String dataFlowDiagramPath;
+	protected String dataDictionaryPath;
+	protected Optional<DFDResourceProvider> customResourceProvider;
 
 	public DFDDataFlowAnalysisBuilder() {
 		this.customResourceProvider = Optional.empty();

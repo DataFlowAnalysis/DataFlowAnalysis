@@ -10,6 +10,7 @@ import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.datadictionaryFactory;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.dataflowdiagramFactory;
+import org.dataflowanalysis.json2dfd.Flow;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -47,12 +48,13 @@ public class Producer {
 	     saveOptions.put(XMLResource.OPTION_USE_CACHED_LOOKUP_TABLE, new ArrayList());
 	     try {
 	        resource.save(saveOptions);
-	     } catch (IOException e) {
+	     } 
+	     catch (IOException e) {
 	        throw new RuntimeException(e);
 	     }
 	}
 	
-	public void produce(String name, List<String> externalEntities, List<String> services) {
+	public void produce(String name, List<String> externalEntities, List<String> services, List<Flow> flows) {
 		Resource dfdResource = createAndAddResource("target/"+name+".dataflowdiagram", new String[] {"dataflowdiagram"} ,rs);
 		Resource ddResource = createAndAddResource("target/"+name+".datadictionary", new String[] {"datadictionary"} ,rs);
 

@@ -26,6 +26,7 @@ public class Main {
                 for (File file : files) {
                 	List<String> externalEntities = new ArrayList<>();
                     List<String> services = new ArrayList<>();
+                    List<Flow> flows = new ArrayList<>();
                     try {
                         // Parse each file into the SystemConfiguration class
                         SystemConfiguration systemConfiguration = objectMapper.readValue(file, SystemConfiguration.class);
@@ -34,25 +35,29 @@ public class Main {
                         System.out.println("Parsed JSON from file: " + file.getName());
                         // Perform additional processing if required
                         
-                        List<InformationFlow> flows = systemConfiguration.informationFlows();
-                        for(InformationFlow flow : flows) {
-                        	System.out.println(flow.sender() + " -> " + flow.receiver());
+                        List<InformationFlow> iflows = systemConfiguration.informationFlows();
+                        for(InformationFlow flow : iflows) {
+                        	flows.add(new Flow(flow.sender(),flow.receiver()));
                         }
+
                         for(ExternalEntity ee : systemConfiguration.externalEntities()) {
                         	externalEntities.add(ee.name());
                         }
                         for (Service service:systemConfiguration.services()) {
                         	services.add(service.name());
                         }
-                        new Producer().produce(file.getName().replaceAll("\\.json.*", ""),externalEntities, services);
+                        
+                        new Producer().produce(file.getName().replaceAll("\\.json.*", ""),externalEntities,services,flows);
 
-                    } catch (IOException e) {
+                    } 
+                    catch (IOException e) {
                         System.err.println("Error parsing file: " + file.getName());
                         e.printStackTrace();
                     }
                 }
             }
-        } else {
+        } 
+        else {
             System.err.println("The provided path is not a directory.");
         }
         

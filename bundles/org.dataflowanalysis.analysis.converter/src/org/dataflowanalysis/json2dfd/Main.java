@@ -2,11 +2,11 @@ package org.dataflowanalysis.json2dfd;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.dataflowanalysis.json2dfd.dfdwriter.Producer;
-import org.dataflowanalysis.json2dfd.microsecend.InformationFlow;
-import org.dataflowanalysis.json2dfd.microsecend.SystemConfiguration;
+import org.dataflowanalysis.json2dfd.microsecend.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -15,6 +15,9 @@ public class Main {
 	public static void main(String[] args) {
 		ObjectMapper objectMapper = new ObjectMapper();        
         File folder = new File("models");
+        
+        List<String> externalEntities = new ArrayList<>();
+        List<String> services = new ArrayList<>();
 
         // Check if the provided path is a directory
         if (folder.isDirectory()) {
@@ -24,6 +27,8 @@ public class Main {
             // Iterate through each file
             if (files != null) {
                 for (File file : files) {
+                	externalEntities.clear();
+                	services.clear();
                     try {
                         // Parse each file into the SystemConfiguration class
                         SystemConfiguration systemConfiguration = objectMapper.readValue(file, SystemConfiguration.class);
@@ -36,6 +41,12 @@ public class Main {
                         for(InformationFlow flow : flows) {
                         	System.out.println(flow.sender() + " -> " + flow.receiver());
                         }
+                        for(ExternalEntity ee : systemConfiguration.externalEntities()) {
+                        	externalEntities.add(ee.name());
+                        }
+                        for (Service service:systemConfiguration.services()) {
+                        	services.add(service.name());
+                        }
 
                     } catch (IOException e) {
                         System.err.println("Error parsing file: " + file.getName());
@@ -46,7 +57,8 @@ public class Main {
         } else {
             System.err.println("The provided path is not a directory.");
         }
-        new Producer().produce();
+        
+        new Producer().produce(externalEntities, services);
 	}
 	
 }

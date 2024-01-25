@@ -52,9 +52,9 @@ public class Producer {
 	     }
 	}
 	
-	public void produce(List<String> externalEntities, List<String> services) {
-		Resource dfdResource = createAndAddResource("target/"+"test"+".dataflowdiagram", new String[] {"dataflowdiagram"} ,rs);
-		Resource ddResource = createAndAddResource("target/"+"test"+".datadictionary", new String[] {"datadictionary"} ,rs);
+	public void produce(String name, List<String> externalEntities, List<String> services) {
+		Resource dfdResource = createAndAddResource("target/"+name+".dataflowdiagram", new String[] {"dataflowdiagram"} ,rs);
+		Resource ddResource = createAndAddResource("target/"+name+".datadictionary", new String[] {"datadictionary"} ,rs);
 
 		DataFlowDiagram dfd = dfdFactory.createDataFlowDiagram();
 		DataDictionary dd = ddFactory.createDataDictionary();

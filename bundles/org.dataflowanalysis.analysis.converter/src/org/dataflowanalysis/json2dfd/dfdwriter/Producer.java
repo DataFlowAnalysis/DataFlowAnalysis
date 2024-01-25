@@ -3,6 +3,7 @@ package org.dataflowanalysis.json2dfd.dfdwriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
@@ -51,7 +52,7 @@ public class Producer {
 	     }
 	}
 	
-	public void produce() {
+	public void produce(List<String> externalEntities, List<String> services) {
 		Resource dfdResource = createAndAddResource("target/"+"test"+".dataflowdiagram", new String[] {"dataflowdiagram"} ,rs);
 		Resource ddResource = createAndAddResource("target/"+"test"+".datadictionary", new String[] {"datadictionary"} ,rs);
 
@@ -61,6 +62,17 @@ public class Producer {
 		dfdResource.getContents().add(dfd);
 		ddResource.getContents().add(dd);
 		
+		for(String ee : externalEntities) {
+			var external = dfdFactory.createExternal();
+			external.setEntityName(ee);
+			dfd.getNodes().add(external);
+		}
+		
+		for(String service : services) {
+			var process = dfdFactory.createProcess();
+			process.setEntityName(service);
+			dfd.getNodes().add(process);
+		}
 		var x = dfdFactory.createProcess();
 		dfd.getNodes().add(x);
 		

@@ -9,6 +9,7 @@ import java.util.Map;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.datadictionaryFactory;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
+import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.dataflowanalysis.dfd.dataflowdiagram.dataflowdiagramFactory;
 import org.dataflowanalysis.json2dfd.Flow;
 import org.eclipse.emf.common.util.URI;
@@ -22,12 +23,16 @@ import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 public class Producer {
 	private dataflowdiagramFactory dfdFactory;
 	private datadictionaryFactory ddFactory;
-	private ResourceSet rs;		
+	private ResourceSet rs;	
+	
+	private Map<String, Node> nodesMap;
 		
 	public Producer() {
 		dfdFactory = dataflowdiagramFactory.eINSTANCE;
 		ddFactory = datadictionaryFactory.eINSTANCE;
-		rs = new ResourceSetImpl();		
+		rs = new ResourceSetImpl();	
+		
+		nodesMap = new HashMap<String, Node>();
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -64,19 +69,44 @@ public class Producer {
 		dfdResource.getContents().add(dfd);
 		ddResource.getContents().add(dd);
 		
-		for(String ee : externalEntities) {
+		for(String entityName : externalEntities) {
 			var external = dfdFactory.createExternal();
-			external.setEntityName(ee);
+			external.setEntityName(entityName);
+			
+			var behaviour = ddFactory.createBehaviour();
+			external.setBehaviour(behaviour);
+			dd.getBehaviour().add(behaviour);
+			
 			dfd.getNodes().add(external);
+			nodesMap.put(entityName, external);
 		}
 		
-		for(String service : services) {
+		for(String serviceName : services) {
 			var process = dfdFactory.createProcess();
-			process.setEntityName(service);
+			process.setEntityName(serviceName);
+			
+			var behaviour = ddFactory.createBehaviour();
+			process.setBehaviour(behaviour);
+			dd.getBehaviour().add(behaviour);
+			
 			dfd.getNodes().add(process);
+			nodesMap.put(serviceName, process);
 		}
-		var x = dfdFactory.createProcess();
-		dfd.getNodes().add(x);
+
+		for(Flow flowName: flows) {
+			var source = nodesMap.get(flowName.from());
+			var dest = nodesMap.get(flowName.to());
+			
+			var flow = dfdFactory.createFlow();
+			flow.setSourceNode(source);
+			flow.setDestinationNode(dest);
+			dfd.getFlows().add(flow);
+			
+			var inPin = ddFactory.createPin();
+			var outPin = ddFactory.createPin();
+			source.getBehaviour().getOutPin().add(outPin);
+			dest.getBehaviour().getInPin().add(inPin);
+		}
 		
 		saveResource(dfdResource);
 		saveResource(ddResource);

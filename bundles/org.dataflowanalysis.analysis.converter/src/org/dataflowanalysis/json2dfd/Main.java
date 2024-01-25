@@ -1,22 +1,14 @@
 package org.dataflowanalysis.json2dfd;
 
-import org.dataflowanalysis.dfd.datadictionary.*;
-import org.dataflowanalysis.dfd.dataflowdiagram.*;
-import org.dataflowanalysis.json2dfd.microsecend.*;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
+import org.dataflowanalysis.json2dfd.dfdwriter.Producer;
+import org.dataflowanalysis.json2dfd.microsecend.InformationFlow;
+import org.dataflowanalysis.json2dfd.microsecend.SystemConfiguration;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Main {
 
@@ -40,8 +32,10 @@ public class Main {
                         System.out.println("Parsed JSON from file: " + file.getName());
                         // Perform additional processing if required
                         
-                        List<Service> services = systemConfiguration.services();
-                        System.out.println(systemConfiguration.informationFlows());
+                        List<InformationFlow> flows = systemConfiguration.informationFlows();
+                        for(InformationFlow flow : flows) {
+                        	System.out.println(flow.sender() + " -> " + flow.receiver());
+                        }
 
                     } catch (IOException e) {
                         System.err.println("Error parsing file: " + file.getName());
@@ -52,6 +46,7 @@ public class Main {
         } else {
             System.err.println("The provided path is not a directory.");
         }
+        new Producer().produce();
 	}
 	
 }

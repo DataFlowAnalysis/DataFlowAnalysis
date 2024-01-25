@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Converter
+Bundle-SymbolicName: org.dataflowanalysis.analysis.converter
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.dataflowanalysis.dfd.datadictionary;bundle-version="0.1.0",
+ org.dataflowanalysis.dfd.dataflowdiagram;bundle-version="0.1.0",
+ com.fasterxml.jackson.core.jackson-annotations;bundle-version="2.13.2",
+ com.fasterxml.jackson.core.jackson-core;bundle-version="2.13.2",
+ com.fasterxml.jackson.core.jackson-databind;bundle-version="2.13.2"
+Automatic-Module-Name: org.dataflowanalysis.analysis.converter
+Bundle-RequiredExecutionEnvironment: JavaSE-17

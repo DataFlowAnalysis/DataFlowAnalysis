@@ -16,9 +16,6 @@ public class Main {
 		ObjectMapper objectMapper = new ObjectMapper();        
         File folder = new File("models");
         
-        List<String> externalEntities = new ArrayList<>();
-        List<String> services = new ArrayList<>();
-
         // Check if the provided path is a directory
         if (folder.isDirectory()) {
             // List all files in the directory
@@ -27,8 +24,8 @@ public class Main {
             // Iterate through each file
             if (files != null) {
                 for (File file : files) {
-                	externalEntities.clear();
-                	services.clear();
+                	List<String> externalEntities = new ArrayList<>();
+                    List<String> services = new ArrayList<>();
                     try {
                         // Parse each file into the SystemConfiguration class
                         SystemConfiguration systemConfiguration = objectMapper.readValue(file, SystemConfiguration.class);
@@ -47,6 +44,7 @@ public class Main {
                         for (Service service:systemConfiguration.services()) {
                         	services.add(service.name());
                         }
+                        new Producer().produce(file.getName().replaceAll("\\.json.*", ""),externalEntities, services);
 
                     } catch (IOException e) {
                         System.err.println("Error parsing file: " + file.getName());
@@ -58,7 +56,6 @@ public class Main {
             System.err.println("The provided path is not a directory.");
         }
         
-        new Producer().produce(externalEntities, services);
 	}
 	
 }

@@ -41,7 +41,7 @@ public class Main {
                         // Perform additional processing if required
                         
                         List<Service> services = systemConfiguration.services();
-                        System.out.println(services);
+                        System.out.println(systemConfiguration.informationFlows());
 
                     } catch (IOException e) {
                         System.err.println("Error parsing file: " + file.getName());

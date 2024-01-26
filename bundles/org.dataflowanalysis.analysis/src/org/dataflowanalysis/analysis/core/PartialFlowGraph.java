@@ -6,25 +6,25 @@ public abstract class PartialFlowGraph {
 	protected List<AbstractVertex<?>> vertices;
 	
 	/**
-	 * Create a new action sequence with the given elements
-	 * @param elements List of elements in the sequence
+	 * Create a new partial flow graph with the given vertices
+	 * @param elements List of vertices in the partial flow graph
 	 */
 	public PartialFlowGraph(List<AbstractVertex<?>> vertices) {
         this.vertices = List.copyOf(vertices);
     }
     
 	/**
-	 * Evaluate the data flow of the action sequence with the given analysis data
-	 * @param nodeCharacteristicsCalculator Calculator used to calculate the node characteristics of the element
-	 * @param dataCharacteristicsCalculatorFactory Calculators used to calculate the data characteristics of elements
+	 * Evaluate the data flow of the partial flow graph with the given analysis data
+	 * @param nodeCharacteristicsCalculator Calculator used to calculate the node characteristics of the vertices
+	 * @param dataCharacteristicsCalculatorFactory Calculators used to calculate the data characteristics of vertices
 	 * @return
 	 */
     public abstract PartialFlowGraph evaluateDataFlow(NodeCharacteristicsCalculator nodeCharacteristicsCalculator, 
     		DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory);
     
     /**
-     * Returns the saved elements in the sequence
-     * @return Returns List of sequence elements, saved in the sequence
+     * Returns the saved vertices in the partial flow graph
+     * @return Returns List of vertices, saved in the partial flow graph
      */
     public List<AbstractVertex<?>> getVertices() {
 		return vertices;

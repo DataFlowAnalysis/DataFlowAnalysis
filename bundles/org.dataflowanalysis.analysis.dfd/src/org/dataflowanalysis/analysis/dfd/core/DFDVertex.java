@@ -26,7 +26,7 @@ public class DFDVertex extends AbstractVertex<EObject>{
 	public DFDVertex(List<DataFlowVariable> dataFlowVariables,
 			List<CharacteristicValue> nodeCharacteristics, String name, Node node, Map<Pin, DFDVertex> mapPinToPreviousVertex, Map<Pin, Flow> mapPinToInputFlow) {
 		super(dataFlowVariables, new ArrayList<>(), nodeCharacteristics); //ausgewertet wird erst unten DataFlowVariable kann hier leer sein
-		// TODO Auto-generated constructor stub
+		
 		this.name = name;
 		this.node = node;
 		this.mapPinToPreviousVertex = mapPinToPreviousVertex;
@@ -35,7 +35,7 @@ public class DFDVertex extends AbstractVertex<EObject>{
 	
 	public DFDVertex(String name, Node node, Map<Pin, DFDVertex> mapPinToPreviousVertex, Map<Pin, Flow> mapPinToInputFlow) {
 		super(new ArrayList<>(), new ArrayList<>(), new ArrayList<>()); //ausgewertet wird erst unten DataFlowVariable kann hier leer sein
-		// TODO Auto-generated constructor stub
+		
 		this.name = name;
 		this.node = node;
 		this.mapPinToPreviousVertex = mapPinToPreviousVertex;

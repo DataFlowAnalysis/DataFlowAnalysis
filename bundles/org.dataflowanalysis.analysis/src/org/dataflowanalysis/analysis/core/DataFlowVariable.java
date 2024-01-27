@@ -24,4 +24,8 @@ public record DataFlowVariable(String variableName, List<CharacteristicValue> ch
         return this.characteristics;
     }
 
+	public String getVariableName() {
+		return variableName;
+	}
+    
 }

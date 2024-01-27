@@ -22,7 +22,7 @@ public class BaseTest {
 	public void initAnalysis() {
 		final var minimalDataFlowDiagramPath = Paths.get("models", "DFDTestModels", "BranchingTest.dataflowdiagram");
 		final var minimalDataDictionaryPath = Paths.get("models", "DFDTestModels", "BranchingTest.datadictionary");
-		
+				
 		this.analysis = new DFDDataFlowAnalysisBuilder()
 				.standalone()
 				.modelProjectName(TEST_MODEL_PROJECT_NAME)

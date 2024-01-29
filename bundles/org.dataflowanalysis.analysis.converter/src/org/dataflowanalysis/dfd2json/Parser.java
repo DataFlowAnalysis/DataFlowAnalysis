@@ -42,11 +42,7 @@ public class Parser {
 		
 		DataFlowDiagram dfd = (DataFlowDiagram) dfdResource.getContents().get(0);
 		DataDictionary dd = (DataDictionary) ddResource.getContents().get(0);
-		
-		System.out.println(dfd.getNodes());
-		System.out.println(dd.getBehaviour());
-		// Resolve references from model1 to model2
-		
+				
 		List<Child> children = new ArrayList<>();
 		
 		for (Node node : dfd.getNodes()) {
@@ -78,11 +74,9 @@ public class Parser {
 		for(Flow flow: dfd.getFlows()) {
 			String id = flow.getId();
 			String type = "edge:arrow";
-			//Mapping to node is also possible
 			String sourceId= flow.getSourcePin().getId();
 			String targetId = flow.getDestinationPin().getId();
 			String text=flow.getEntityName();
-			System.out.println(text);
 			children.add(new Child(text,null,null,id,type,sourceId,targetId,new ArrayList<>()));
 			
 		}

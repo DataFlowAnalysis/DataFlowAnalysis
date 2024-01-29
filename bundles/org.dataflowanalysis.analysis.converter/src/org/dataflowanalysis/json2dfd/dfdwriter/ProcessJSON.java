@@ -22,7 +22,7 @@ import org.dataflowanalysis.json2dfd.SimpleFlow;
 import org.dataflowanalysis.json2dfd.microsecend.ExternalEntity;
 import org.dataflowanalysis.json2dfd.microsecend.InformationFlow;
 import org.dataflowanalysis.json2dfd.microsecend.Service;
-import org.dataflowanalysis.json2dfd.microsecend.SystemConfiguration;
+import org.dataflowanalysis.json2dfd.microsecend.MicroSecEnd;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -31,12 +31,12 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 
-public class Producer {
+public class ProcessJSON {
 	private dataflowdiagramFactory dfdFactory;
 	private datadictionaryFactory ddFactory;
 	private ResourceSet rs;	
 			
-	public Producer() {
+	public ProcessJSON() {
 		dfdFactory = dataflowdiagramFactory.eINSTANCE;
 		ddFactory = datadictionaryFactory.eINSTANCE;
 		rs = new ResourceSetImpl();	
@@ -67,20 +67,20 @@ public class Producer {
 	     }
 	}
 	
-	public void produceFromMicro(String name, SystemConfiguration systemConfiguration) {
+	public void processMicro(String name, MicroSecEnd micro) {
 		List<String> externalEntities = new ArrayList<>();
         List<String> services = new ArrayList<>();
         List<SimpleFlow> flows = new ArrayList<>();
         
-		List<InformationFlow> iflows = systemConfiguration.informationFlows();
+		List<InformationFlow> iflows = micro.informationFlows();
         for(InformationFlow flow : iflows) {
         	flows.add(new SimpleFlow(flow.sender(),flow.receiver()));
         }
 
-        for(ExternalEntity ee : systemConfiguration.externalEntities()) {
+        for(ExternalEntity ee : micro.externalEntities()) {
         	externalEntities.add(ee.name());
         }
-        for (Service service:systemConfiguration.services()) {
+        for (Service service:micro.services()) {
         	services.add(service.name());
         }
 		
@@ -143,7 +143,7 @@ public class Producer {
 		saveResource(ddResource);
 	}
 	
-	public void produceFromWeb(String file, DFD webdfd) {
+	public void processWeb(String file, DFD webdfd) {
 		Map<String, Node> nodesMap = new HashMap<String, Node>();
 		Map<String, Node> pinToNodeMap = new HashMap<String, Node>();
 		Map<String, Pin> pinMap = new HashMap<String, Pin>();

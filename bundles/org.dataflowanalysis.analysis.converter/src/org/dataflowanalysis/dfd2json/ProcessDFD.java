@@ -25,7 +25,7 @@ import org.dataflowanalysis.dfd.dataflowdiagram.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.Process;
 import org.dataflowanalysis.dfd2json.dfd.*;
 
-public class Parser {
+public class ProcessDFD {
 	
 	Map<Pin, String> mapInputPinToFlowName = new HashMap<>();
 	

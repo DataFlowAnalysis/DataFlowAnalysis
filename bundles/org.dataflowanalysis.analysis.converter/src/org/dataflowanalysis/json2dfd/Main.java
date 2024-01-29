@@ -3,9 +3,9 @@ package org.dataflowanalysis.json2dfd;
 import java.io.File;
 import java.io.IOException;
 
-import org.dataflowanalysis.json2dfd.dfdwriter.Producer;
+import org.dataflowanalysis.json2dfd.dfdwriter.ProcessJSON;
 import org.dataflowanalysis.json2dfd.microsecend.*;
-import org.dataflowanalysis.dfd2json.Parser;
+import org.dataflowanalysis.dfd2json.ProcessDFD;
 import org.dataflowanalysis.dfd2json.dfd.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,11 +15,11 @@ public class Main {
 		ObjectMapper objectMapper = new ObjectMapper();        
 		File file = new File(path);
         try {
-            SystemConfiguration systemConfiguration = objectMapper.readValue(file, SystemConfiguration.class);
+            MicroSecEnd micro = objectMapper.readValue(file, MicroSecEnd.class);
 
             System.out.println("Parsed JSON from file: " + file.getName());
             
-            new Producer().produceFromMicro(file.getName().replaceAll("\\.json.*", ""),systemConfiguration);
+            new ProcessJSON().processMicro(file.getName().replaceAll("\\.json.*", ""),micro);
         } 
         catch (IOException e) {
             System.err.println("Error parsing file: " + file.getName());
@@ -35,7 +35,7 @@ public class Main {
 
             System.out.println("Parsed JSON from file: " + file.getName());
           
-            new Producer().produceFromWeb(file.getName().replaceAll("\\.json.*", ""),dfd);
+            new ProcessJSON().processWeb(file.getName().replaceAll("\\.json.*", ""),dfd);
         } 
         catch (IOException e) {
             System.err.println("Error parsing file: " + file.getName());
@@ -44,7 +44,7 @@ public class Main {
 	}
 	
 	public static void readDFD(String name, String outfile){
-		new Parser().parse(name+".dataflowdiagram", name+".datadictionary", outfile);
+		new ProcessDFD().parse(name+".dataflowdiagram", name+".datadictionary", outfile);
 	}
 
 	public static void main(String[] args) {

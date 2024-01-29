@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
  */
 public abstract class AbstractVertex<T extends Object> {
 	protected final T referencedElement;
+	// TODO: Add previous vertices (this can be in the abstract super class, as both pcm and dfd uses them)
 	
     private final Optional<List<DataFlowVariable>> incomingDataFlowVariables;
     private final Optional<List<DataFlowVariable>> outgoingDataFlowVariables;

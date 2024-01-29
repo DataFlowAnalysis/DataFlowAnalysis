@@ -15,14 +15,14 @@ import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.Start;
 import org.palladiosimulator.pcm.usagemodel.Stop;
 
-public class UserActionSequenceElement<T extends AbstractUserAction> extends AbstractPCMVertex<T> {
-	private final Logger logger = Logger.getLogger(UserActionSequenceElement.class);
+public class UserPCMVertex<T extends AbstractUserAction> extends AbstractPCMVertex<T> {
+	private final Logger logger = Logger.getLogger(UserPCMVertex.class);
 
 	/**
 	 * Creates a new User Sequence Element with the given Palladio User Action Element
 	 * @param element
 	 */
-    public UserActionSequenceElement(T element) {
+    public UserPCMVertex(T element) {
         super(element, new ArrayDeque<>());
     }
 
@@ -32,7 +32,7 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
      * @param dataFlowVariables List of updated dataflow variables
      * @param nodeCharacteristics List of updated node characteristics
      */
-    public UserActionSequenceElement(UserActionSequenceElement<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+    public UserPCMVertex(UserPCMVertex<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
         super(oldElement, dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
     
@@ -40,40 +40,40 @@ public class UserActionSequenceElement<T extends AbstractUserAction> extends Abs
     public AbstractVertex<T> evaluateDataFlow(List<DataFlowVariable> incomingDataFlowVariables, 
     		NodeCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
     	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(nodeCharacteristicsCalculator);
-        if (this.getElement() instanceof Start || this.getElement() instanceof Stop) {
-    		return new UserActionSequenceElement<T>(this, new ArrayList<>(incomingDataFlowVariables), new ArrayList<>(incomingDataFlowVariables), nodeCharacteristics);
+        if (this.getReferencedElement() instanceof Start || this.getReferencedElement() instanceof Stop) {
+    		return new UserPCMVertex<T>(this, new ArrayList<>(incomingDataFlowVariables), new ArrayList<>(incomingDataFlowVariables), nodeCharacteristics);
     	} 
-    	logger.error("Found unexpected sequence element of unknown PCM type " + this.getElement().getClass().getName());
+    	logger.error("Found unexpected sequence element of unknown PCM type " + this.getReferencedElement().getClass().getName());
     	throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");
     }
 
     @Override
     public String toString() {
-    	if (this.getElement() instanceof Start) {
+    	if (this.getReferencedElement() instanceof Start) {
     		return String.format("%s (Starting %s, %s)", 
     				this.getClass().getSimpleName(), 
     				this.getEntityNameOfScenarioBehaviour(),
-    				this.getElement().getId());
+    				this.getReferencedElement().getId());
     	}
-    	if (this.getElement() instanceof Stop) {
+    	if (this.getReferencedElement() instanceof Stop) {
     		return String.format("%s (Stopping %s, %s)", 
     				this.getClass().getSimpleName(),
     				this.getEntityNameOfScenarioBehaviour(),
-    				this.getElement().getId());
+    				this.getReferencedElement().getId());
     	}
         return String.format("%s (%s, %s))", this.getClass()
             .getSimpleName(),
-                this.getElement()
+                this.getReferencedElement()
                     .getEntityName(),
-                this.getElement()
+                this.getReferencedElement()
                     .getId());
     }
     
     private String getEntityNameOfScenarioBehaviour() {
-    	if(this.getElement().getScenarioBehaviour_AbstractUserAction().getUsageScenario_SenarioBehaviour() != null) {
-    		return "usage: %s".formatted(this.getElement().getScenarioBehaviour_AbstractUserAction().getUsageScenario_SenarioBehaviour().getEntityName());
+    	if(this.getReferencedElement().getScenarioBehaviour_AbstractUserAction().getUsageScenario_SenarioBehaviour() != null) {
+    		return "usage: %s".formatted(this.getReferencedElement().getScenarioBehaviour_AbstractUserAction().getUsageScenario_SenarioBehaviour().getEntityName());
     	} else {
-    		return "branch: %s".formatted(this.getElement().getScenarioBehaviour_AbstractUserAction().getBranchTransition_ScenarioBehaviour().getBranch_BranchTransition().getEntityName());
+    		return "branch: %s".formatted(this.getReferencedElement().getScenarioBehaviour_AbstractUserAction().getBranchTransition_ScenarioBehaviour().getBranch_BranchTransition().getEntityName());
     	}
     }
 

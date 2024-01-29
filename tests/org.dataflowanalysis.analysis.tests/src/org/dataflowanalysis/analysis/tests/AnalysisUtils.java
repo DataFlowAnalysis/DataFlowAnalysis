@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.util.List;
 
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
-import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFActionSequenceElement;
-import org.dataflowanalysis.analysis.pcm.core.user.CallingUserActionSequenceElement;
+import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFPCMVertex;
+import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
 
 public class AnalysisUtils {
 
@@ -107,10 +107,10 @@ public class AnalysisUtils {
         var element = sequence.getVertices()
             .get(index);
 
-        assertInstanceOf(CallingSEFFActionSequenceElement.class, element);
+        assertInstanceOf(CallingSEFFPCMVertex.class, element);
 
-        var sequenceElement = (CallingSEFFActionSequenceElement) element;
-        assertEquals(expectedName, sequenceElement.getElement()
+        var sequenceElement = (CallingSEFFPCMVertex) element;
+        assertEquals(expectedName, sequenceElement.getReferencedElement()
             .getEntityName());
     }
 
@@ -136,10 +136,10 @@ public class AnalysisUtils {
         var element = sequence.getVertices()
             .get(index);
 
-        assertInstanceOf(CallingUserActionSequenceElement.class, element);
+        assertInstanceOf(CallingUserPCMVertex.class, element);
 
-        var sequenceElement = (CallingUserActionSequenceElement) element;
-        assertEquals(expectedName, sequenceElement.getElement()
+        var sequenceElement = (CallingUserPCMVertex) element;
+        assertEquals(expectedName, sequenceElement.getReferencedElement()
             .getEntityName());
     }
 

@@ -19,15 +19,15 @@ public class PCMActionSequenceFinder implements PartialFlowGraphFinder {
     }
 
     @Override
-    public List<PCMActionSequence> findPartialFlowGraphs() {
-    	List<PCMActionSequence> sequences = findSequencesForUsageModel(usageModel);
+    public List<PCMPartialFlowGraph> findPartialFlowGraphs() {
+    	List<PCMPartialFlowGraph> sequences = findSequencesForUsageModel(usageModel);
         logger.info(String.format("Found %d action %s.", sequences.size(),
                 sequences.size() == 1 ? "sequence" : "sequences"));
         return sequences;
     }
 
-    private List<PCMActionSequence> findSequencesForUsageModel(UsageModel usageModel) {
-        PCMActionSequence initialList = new PCMActionSequence();
+    private List<PCMPartialFlowGraph> findSequencesForUsageModel(UsageModel usageModel) {
+        PCMPartialFlowGraph initialList = new PCMPartialFlowGraph();
         List<Start> startActions = PCMQueryUtils.findStartActionsForUsageModel(usageModel);
 
         return startActions.stream()

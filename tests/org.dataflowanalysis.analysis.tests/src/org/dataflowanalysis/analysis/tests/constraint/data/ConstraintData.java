@@ -26,7 +26,7 @@ public class ConstraintData {
 			return false;
 		}
 		AbstractPCMVertex<?> sequenceElement = (AbstractPCMVertex<?>) element;
-		Identifier pcmElement = (Identifier) sequenceElement.getElement();
+		Identifier pcmElement = (Identifier) sequenceElement.getReferencedElement();
 		return this.nodeID.equals(pcmElement.getId());
 	}
 	

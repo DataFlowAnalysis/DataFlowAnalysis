@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
-import org.dataflowanalysis.analysis.pcm.core.user.CallingUserActionSequenceElement;
+import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
-import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFActionSequenceElement;
+import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFPCMVertex;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.Parameter;
 
@@ -44,11 +44,11 @@ public class SEFFFinderContext {
      * @param caller Calling PCM element, for which parameter shall be updated
      */
     public void updateParameterForCallerReturning(AbstractPCMVertex<?> caller) {
-    	if (caller instanceof CallingUserActionSequenceElement) {
-    		CallingUserActionSequenceElement callingUserElement = (CallingUserActionSequenceElement) caller;
-    		this.parameter = callingUserElement.getElement().getOperationSignature__EntryLevelSystemCall().getParameters__OperationSignature();
+    	if (caller instanceof CallingUserPCMVertex) {
+    		CallingUserPCMVertex callingUserElement = (CallingUserPCMVertex) caller;
+    		this.parameter = callingUserElement.getReferencedElement().getOperationSignature__EntryLevelSystemCall().getParameters__OperationSignature();
     	} else {
-    		this.parameter = ((CallingSEFFActionSequenceElement) caller).getParameter();
+    		this.parameter = ((CallingSEFFPCMVertex) caller).getParameter();
     	}
     }
     

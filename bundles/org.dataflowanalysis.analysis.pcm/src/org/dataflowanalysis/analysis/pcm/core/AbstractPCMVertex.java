@@ -20,16 +20,14 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
 	private final Logger logger = Logger.getLogger(AbstractPCMVertex.class);
 	
     private final Deque<AssemblyContext> context;
-    private final T element;	
-
 
     /**
      * Constructs a new Action Sequence Element with the underlying Palladio Element and Assembly Context
      * @param vertex Underlying Palladio Element of the Sequence Element
      * @param context Assembly context of the Palladio Element
      */
-    public AbstractPCMVertex(T vertex, Deque<AssemblyContext> context) {
-        this.element = vertex;
+    public AbstractPCMVertex(T referencedElement, Deque<AssemblyContext> context) {
+        this.referencedElement = referencedElement;
         this.context = context;
     }
     
@@ -41,7 +39,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      */
     public AbstractPCMVertex(AbstractPCMVertex<T> oldVertex, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
     	super(dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
-    	this.element = oldVertex.getElement();
+    	this.referencedElement = oldVertex.getReferencedElement();
     	this.context = oldVertex.getContext();
     }
     
@@ -51,7 +49,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      * @return Returns a list of node characteristics that are applied to the sequence element
      */
     protected List<CharacteristicValue> getNodeCharacteristics(NodeCharacteristicsCalculator nodeCharacteristicsCalculator) {
-    	return nodeCharacteristicsCalculator.getNodeCharacteristics(this.element, this.context);
+    	return nodeCharacteristicsCalculator.getNodeCharacteristics(this.referencedElement, this.context);
     }
     
     /**
@@ -84,7 +82,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     	referencedParameter.stream()
     		.filter(it -> !parameter.contains(it))
     		.forEach(it -> {
-    			logger.warn("Unknown reference to variable " + it + " in variable characterisation in element " + element);
+    			logger.warn("Unknown reference to variable " + it + " in variable characterisation in element " + referencedElement);
     			logger.warn("Present variables:" + parameter + ", Referenced parameter: " + referencedParameter);
     	});
     }
@@ -93,8 +91,8 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      * Return the saved element of the sequence element
      * @return
      */
-    public T getElement() {
-        return element;
+    public T getReferencedElement() {
+        return referencedElement;
     }
 
     /**
@@ -107,7 +105,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     
     @Override
     public int hashCode() {
-        return Objects.hash(context, element);
+        return Objects.hash(context, referencedElement);
     }
 
     @Override
@@ -120,7 +118,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
             return false;
         @SuppressWarnings("rawtypes")
         AbstractPCMVertex other = (AbstractPCMVertex) obj;
-        return Objects.equals(context, other.context) && Objects.equals(element, other.element);
+        return Objects.equals(context, other.context) && Objects.equals(referencedElement, other.referencedElement);
     }
 
 }

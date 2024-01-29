@@ -41,9 +41,9 @@ public class PCMFlowGraph implements FlowGraph {
 
 	@Override
 	public PCMFlowGraph evaluate() {
-		List<PCMActionSequence> actionSequences = this.getPartialFlowGraphs()
+		List<PCMPartialFlowGraph> actionSequences = this.getPartialFlowGraphs()
 				.parallelStream()
-    			.map(PCMActionSequence.class::cast)
+    			.map(PCMPartialFlowGraph.class::cast)
     			.collect(Collectors.toList());
     	List<AbstractPartialFlowGraph> evaluatedPartialFlowGraphs = 
     			actionSequences.parallelStream()

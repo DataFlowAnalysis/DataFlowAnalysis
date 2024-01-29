@@ -15,7 +15,7 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
 
-public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<ExternalCallAction>
+public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction>
         implements CallReturnBehavior {
     private final boolean isCalling;
 
@@ -26,7 +26,7 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
      * @param parameter List of Parameters that are available for the calling SEFF
      * @param isCalling Is true, when another method is called. Otherwise, a called method is returned from
      */
-    public CallingSEFFActionSequenceElement(ExternalCallAction element, Deque<AssemblyContext> context, List<Parameter> parameter, boolean isCalling) {
+    public CallingSEFFPCMVertex(ExternalCallAction element, Deque<AssemblyContext> context, List<Parameter> parameter, boolean isCalling) {
         super(element, context, parameter);
         this.isCalling = isCalling;
     }
@@ -37,7 +37,7 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
      * @param dataFlowVariables List of updated data flow variables
      * @param nodeCharacteristics List of updated node characteristics
      */
-    public CallingSEFFActionSequenceElement(CallingSEFFActionSequenceElement oldElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+    public CallingSEFFPCMVertex(CallingSEFFPCMVertex oldElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
         super(oldElement, dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
         this.isCalling = oldElement.isCalling();
     }
@@ -53,25 +53,25 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
     	List<CharacteristicValue> nodeCharacteristics = super.getNodeCharacteristics(nodeCharacteristicsCalculator);
     	
         List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.isCalling ? 
-        		super.getElement().getInputVariableUsages__CallAction().stream()
+        		super.getReferencedElement().getInputVariableUsages__CallAction().stream()
         		.flatMap(it -> it.getVariableCharacterisation_VariableUsage()
                         .stream())
         		.filter(ConfidentialityVariableCharacterisation.class::isInstance)
                 .map(ConfidentialityVariableCharacterisation.class::cast)
                     .collect(Collectors.toList())
                 : 
-                super.getElement().getReturnVariableUsage__CallReturnAction().stream()
+                super.getReferencedElement().getReturnVariableUsage__CallReturnAction().stream()
                 .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
                         .stream())
                 .filter(ConfidentialityVariableCharacterisation.class::isInstance)
                 .map(ConfidentialityVariableCharacterisation.class::cast)
                 .collect(Collectors.toList());
         if (this.isCalling()) {
-        	super.checkCallParameter(super.getElement().getCalledService_ExternalService(), variableCharacterisations);
+        	super.checkCallParameter(super.getReferencedElement().getCalledService_ExternalService(), variableCharacterisations);
         }
 
         List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(dataCharacteristicsCalculatorFactory, nodeCharacteristics, variableCharacterisations, incomingDataFlowVariables);
-        return new CallingSEFFActionSequenceElement(this, incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+        return new CallingSEFFPCMVertex(this, incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
     
     @Override
@@ -79,9 +79,9 @@ public class CallingSEFFActionSequenceElement extends SEFFActionSequenceElement<
         String calling = isCalling ? "calling" : "returning";
         return String.format("%s / %s (%s, %s))", this.getClass()
             .getSimpleName(), calling,
-                this.getElement()
+                this.getReferencedElement()
                     .getEntityName(),
-                this.getElement()
+                this.getReferencedElement()
                     .getId());
     }
 

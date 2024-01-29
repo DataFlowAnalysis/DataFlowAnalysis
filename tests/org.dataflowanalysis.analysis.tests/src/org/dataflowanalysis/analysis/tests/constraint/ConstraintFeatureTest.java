@@ -8,8 +8,8 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
-import org.dataflowanalysis.analysis.pcm.core.user.CallingUserActionSequenceElement;
-import org.dataflowanalysis.analysis.pcm.core.user.UserActionSequenceElement;
+import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
+import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +33,7 @@ public class ConstraintFeatureTest extends ConstraintTest {
     	logger.setLevel(Level.TRACE);
     	var results = analysis.queryDataFlow(propagatedFlowGraph.getPartialFlowGraphs().get(0), node -> {
     		printNodeInformation(node);
-    		if (node instanceof UserActionSequenceElement<?>) {
+    		if (node instanceof UserPCMVertex<?>) {
     			return node.getAllNodeCharacteristics().size() != 1;
     		} else {
             	return node.getAllNodeCharacteristics().size() != 2;
@@ -60,7 +60,7 @@ public class ConstraintFeatureTest extends ConstraintTest {
     	logger.setLevel(Level.TRACE);
     	var results = analysis.queryDataFlow(propagatedFlowGraph.getPartialFlowGraphs().get(0), node -> {
     		printNodeInformation(node);
-    		if (node instanceof UserActionSequenceElement<?>) {
+    		if (node instanceof UserPCMVertex<?>) {
     			return node.getAllNodeCharacteristics().size() != 1;
     		} else {
             	return node.getAllNodeCharacteristics().size() != 3;
@@ -87,7 +87,7 @@ public class ConstraintFeatureTest extends ConstraintTest {
     	logger.setLevel(Level.TRACE);
     	var results = analysis.queryDataFlow(propagatedFlowGraph.getPartialFlowGraphs().get(0), node -> {
     		printNodeInformation(node);
-    		if (node instanceof CallingUserActionSequenceElement && ((CallingUserActionSequenceElement) node).isReturning()) {
+    		if (node instanceof CallingUserPCMVertex && ((CallingUserPCMVertex) node).isReturning()) {
     			return node.getAllDataFlowVariables().size() != 0;
     		}
     		return false;

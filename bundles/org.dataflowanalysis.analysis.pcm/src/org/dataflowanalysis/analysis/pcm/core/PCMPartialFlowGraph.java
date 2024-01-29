@@ -12,15 +12,15 @@ import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;
-import org.dataflowanalysis.analysis.pcm.core.seff.SEFFActionSequenceElement;
+import org.dataflowanalysis.analysis.pcm.core.seff.SEFFPCMVertex;
 import org.palladiosimulator.pcm.seff.StartAction;
 
-public class PCMActionSequence extends AbstractPartialFlowGraph {
+public class PCMPartialFlowGraph extends AbstractPartialFlowGraph {
 
 	/**
 	 * Creates a empty new action sequence
 	 */
-    public PCMActionSequence() {
+    public PCMPartialFlowGraph() {
         super(List.of());
     }
 	
@@ -28,7 +28,7 @@ public class PCMActionSequence extends AbstractPartialFlowGraph {
 	 * Creates a new action sequence with the given elements
 	 * @param elements List of elements contained in the sequence
 	 */
-	public PCMActionSequence(List<AbstractVertex<?>> elements) {
+	public PCMPartialFlowGraph(List<AbstractVertex<?>> elements) {
         super(elements);
     }
 
@@ -36,7 +36,7 @@ public class PCMActionSequence extends AbstractPartialFlowGraph {
      * Creates a new action sequence with the given list of elements
      * @param elements Elements that are contained in the sequence
      */
-    public PCMActionSequence(AbstractVertex<?>... elements) {
+    public PCMPartialFlowGraph(AbstractVertex<?>... elements) {
         super(List.of(elements));
     }
 
@@ -44,7 +44,7 @@ public class PCMActionSequence extends AbstractPartialFlowGraph {
      * Creates a copy of the given action sequence
      * @param sequence Action sequence that should be copied
      */
-    public PCMActionSequence(AbstractPartialFlowGraph sequence) {
+    public PCMPartialFlowGraph(AbstractPartialFlowGraph sequence) {
         super(sequence.getVertices());
     }
     
@@ -53,7 +53,7 @@ public class PCMActionSequence extends AbstractPartialFlowGraph {
      * @param sequence Action sequence that should be copied
      * @param newElements Elements in the new sequence
      */
-    public PCMActionSequence(AbstractPartialFlowGraph sequence, AbstractVertex<?>... newElements) {
+    public PCMPartialFlowGraph(AbstractPartialFlowGraph sequence, AbstractVertex<?>... newElements) {
         super(Stream.concat(sequence.getVertices()
             .stream(), Stream.of(newElements))
             .toList());
@@ -80,7 +80,7 @@ public class PCMActionSequence extends AbstractPartialFlowGraph {
             cleanupCall(variableContexts, evaluatedElement);
         }
 
-        return new PCMActionSequence(evaluatedElements);
+        return new PCMPartialFlowGraph(evaluatedElements);
     }
 	
 	/**
@@ -89,8 +89,8 @@ public class PCMActionSequence extends AbstractPartialFlowGraph {
 	 * @param nextElement Next element that will be evaluated
 	 */
 	private void prepareCall(Deque<List<DataFlowVariable>> variableContexts, AbstractVertex<?> nextElement) {
-		if (nextElement instanceof SEFFActionSequenceElement<?> && ((SEFFActionSequenceElement<?>) nextElement).getElement() instanceof StartAction) {
-			SEFFActionSequenceElement<?> startElement = (SEFFActionSequenceElement<?>) nextElement;
+		if (nextElement instanceof SEFFPCMVertex<?> && ((SEFFPCMVertex<?>) nextElement).getReferencedElement() instanceof StartAction) {
+			SEFFPCMVertex<?> startElement = (SEFFPCMVertex<?>) nextElement;
 			List<String> parameter = startElement.getParameter().stream()
 					.map(it -> it.getParameterName())
 					.collect(Collectors.toList());

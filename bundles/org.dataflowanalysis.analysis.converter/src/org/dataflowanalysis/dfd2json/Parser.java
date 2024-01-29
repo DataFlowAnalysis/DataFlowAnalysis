@@ -69,7 +69,8 @@ public class Parser {
 			}
 			//behavior is stored in outpin
 			for (Pin pin : node.getBehaviour().getOutPin()) {
-				ports.add(new Port(null,pin.getId(),"port:dfd-output",new ArrayList<>()));
+				String behaviour="Replace";
+				ports.add(new Port(behaviour,pin.getId(),"port:dfd-output",new ArrayList<>()));
 			}
 			children.add(new Child(text, new ArrayList<>(), ports,id,type,null,null,new ArrayList<>()));
 		}
@@ -80,7 +81,9 @@ public class Parser {
 			//Mapping to node is also possible
 			String sourceId= flow.getSourcePin().getId();
 			String targetId = flow.getDestinationPin().getId();
-			children.add(new Child(null,null,null,id,type,sourceId,targetId,new ArrayList<>()));
+			String text=flow.getEntityName();
+			System.out.println(text);
+			children.add(new Child(text,null,null,id,type,sourceId,targetId,new ArrayList<>()));
 			
 		}
 		
@@ -91,7 +94,7 @@ public class Parser {
 
         try {
             // Serialize object to JSON and write to a file
-            objectMapper.writeValue(new File("test.json"), output);
+            objectMapper.writeValue(new File(outFile), output);
         } catch (IOException e) {
             e.printStackTrace();
         }

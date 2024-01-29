@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -13,10 +14,16 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
+import org.dataflowanalysis.dfd.dataflowdiagram.Process;
+import org.dataflowanalysis.dfd2json.dfd.*;
 
 public class Parser {
 	
@@ -40,6 +47,55 @@ public class Parser {
 		System.out.println(dd.getBehaviour());
 		// Resolve references from model1 to model2
 		
+		List<Child> children = new ArrayList<>();
+		
+		for (Node node : dfd.getNodes()) {
+			String text = node.getEntityName();
+			String id = node.getId();
+			String type;
+			if (node instanceof Process) {
+				type="node:function";
+			} else if (node instanceof Store) {
+				type="node:storage";
+			} else if (node instanceof External) {
+				type="node:input-output";
+			}
+			else {
+				type="error";
+			}
+			List<Port> ports = new ArrayList<>();
+			for (Pin pin : node.getBehaviour().getInPin()) {
+				ports.add(new Port(null,pin.getId(),"port:dfd-input",new ArrayList<>()));
+			}
+			//behavior is stored in outpin
+			for (Pin pin : node.getBehaviour().getOutPin()) {
+				ports.add(new Port(null,pin.getId(),"port:dfd-output",new ArrayList<>()));
+			}
+			children.add(new Child(text, new ArrayList<>(), ports,id,type,null,null,new ArrayList<>()));
+		}
+		
+		for(Flow flow: dfd.getFlows()) {
+			String id = flow.getId();
+			String type = "edge:arrow";
+			//Mapping to node is also possible
+			String sourceId= flow.getSourcePin().getId();
+			String targetId = flow.getDestinationPin().getId();
+			children.add(new Child(null,null,null,id,type,sourceId,targetId,new ArrayList<>()));
+			
+		}
+		
+		DFD output = new DFD (new Model("graph","root",children),new ArrayList<>());
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
+        try {
+            // Serialize object to JSON and write to a file
+            objectMapper.writeValue(new File("test.json"), output);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	
 		
 		/*
 		//Init Flow map

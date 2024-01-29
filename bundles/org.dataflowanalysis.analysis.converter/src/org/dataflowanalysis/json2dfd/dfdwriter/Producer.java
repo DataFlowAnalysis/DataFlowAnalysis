@@ -60,8 +60,8 @@ public class Producer {
 	}
 	
 	public void produce(String name, List<String> externalEntities, List<String> services, List<Flow> flows) {
-		Resource dfdResource = createAndAddResource("target/"+name+".dataflowdiagram", new String[] {"dataflowdiagram"} ,rs);
-		Resource ddResource = createAndAddResource("target/"+name+".datadictionary", new String[] {"datadictionary"} ,rs);
+		Resource dfdResource = createAndAddResource(name+".dataflowdiagram", new String[] {"dataflowdiagram"} ,rs);
+		Resource ddResource = createAndAddResource(name+".datadictionary", new String[] {"datadictionary"} ,rs);
 
 		DataFlowDiagram dfd = dfdFactory.createDataFlowDiagram();
 		DataDictionary dd = ddFactory.createDataDictionary();
@@ -100,12 +100,16 @@ public class Producer {
 			var flow = dfdFactory.createFlow();
 			flow.setSourceNode(source);
 			flow.setDestinationNode(dest);
-			dfd.getFlows().add(flow);
+			
 			
 			var inPin = ddFactory.createPin();
 			var outPin = ddFactory.createPin();
 			source.getBehaviour().getOutPin().add(outPin);
 			dest.getBehaviour().getInPin().add(inPin);
+			
+			flow.setDestinationPin(inPin);
+			flow.setSourcePin(outPin);
+			dfd.getFlows().add(flow);
 		}
 		
 		saveResource(dfdResource);

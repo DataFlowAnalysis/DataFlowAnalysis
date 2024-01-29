@@ -18,7 +18,11 @@ import org.dataflowanalysis.dfd.dataflowdiagram.dataflowdiagramFactory;
 import org.dataflowanalysis.dfd2json.dfd.Child;
 import org.dataflowanalysis.dfd2json.dfd.DFD;
 import org.dataflowanalysis.dfd2json.dfd.Port;
-import org.dataflowanalysis.json2dfd.Flow;
+import org.dataflowanalysis.json2dfd.SimpleFlow;
+import org.dataflowanalysis.json2dfd.microsecend.ExternalEntity;
+import org.dataflowanalysis.json2dfd.microsecend.InformationFlow;
+import org.dataflowanalysis.json2dfd.microsecend.Service;
+import org.dataflowanalysis.json2dfd.microsecend.SystemConfiguration;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -63,7 +67,23 @@ public class Producer {
 	     }
 	}
 	
-	public void produceFromMicro(String name, List<String> externalEntities, List<String> services, List<Flow> flows) {
+	public void produceFromMicro(String name, SystemConfiguration systemConfiguration) {
+		List<String> externalEntities = new ArrayList<>();
+        List<String> services = new ArrayList<>();
+        List<SimpleFlow> flows = new ArrayList<>();
+        
+		List<InformationFlow> iflows = systemConfiguration.informationFlows();
+        for(InformationFlow flow : iflows) {
+        	flows.add(new SimpleFlow(flow.sender(),flow.receiver()));
+        }
+
+        for(ExternalEntity ee : systemConfiguration.externalEntities()) {
+        	externalEntities.add(ee.name());
+        }
+        for (Service service:systemConfiguration.services()) {
+        	services.add(service.name());
+        }
+		
 		Map<String, Node> nodesMap = new HashMap<String, Node>();
 		
 		Resource dfdResource = createAndAddResource(name+".dataflowdiagram", new String[] {"dataflowdiagram"} ,rs);
@@ -99,7 +119,7 @@ public class Producer {
 			nodesMap.put(serviceName, process);
 		}
 
-		for(Flow flowName: flows) {
+		for(SimpleFlow flowName: flows) {
 			var source = nodesMap.get(flowName.from());
 			var dest = nodesMap.get(flowName.to());
 			

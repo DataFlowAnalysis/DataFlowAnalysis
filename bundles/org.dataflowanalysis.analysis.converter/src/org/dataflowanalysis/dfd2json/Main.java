@@ -15,7 +15,10 @@ public class Main {
 
 	public static void main(String[] args) {
         
-        new Parser().parse("anilallewar_microservices-basics-spring-boot.dataflowdiagram", "anilallewar_microservices-basics-spring-boot.datadictionary", null);
+        new Parser().parse("anilallewar_microservices-basics-spring-boot.dataflowdiagram", "anilallewar_microservices-basics-spring-boot.datadictionary", "test.json");
+        
+        new Parser().parse("minimal.dataflowdiagram", "minimal.datadictionary", "test2.json");
+
         
         ObjectMapper objectMapper = new ObjectMapper();
         try {

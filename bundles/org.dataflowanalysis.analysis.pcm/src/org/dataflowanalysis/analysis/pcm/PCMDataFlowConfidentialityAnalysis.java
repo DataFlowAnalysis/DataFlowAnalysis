@@ -12,7 +12,7 @@ import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.FlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
-import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;
+import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
@@ -34,7 +34,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
 	private static final String PLUGIN_PATH = "org.dataflowanalysis.analysis.pcm";
 	private final Logger logger;
 	
-	protected final NodeCharacteristicsCalculator nodeCharacteristicsCalculator;
+	protected final VertexCharacteristicsCalculator nodeCharacteristicsCalculator;
 	protected final DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory;
 	protected final PCMResourceProvider resourceProvider;
 
@@ -50,7 +50,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
 	 * @param modelProjectName Name of the modelling project
 	 * @param modelProjectActivator Plugin class of the analysis
 	 */
-	public PCMDataFlowConfidentialityAnalysis(NodeCharacteristicsCalculator nodeCharacteristicsCalculator, 
+	public PCMDataFlowConfidentialityAnalysis(VertexCharacteristicsCalculator nodeCharacteristicsCalculator, 
 			DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory, PCMResourceProvider resourceProvider, 
 			String modelProjectName, Optional<Class<? extends Plugin>> modelProjectActivator) {
 		this.nodeCharacteristicsCalculator = nodeCharacteristicsCalculator;

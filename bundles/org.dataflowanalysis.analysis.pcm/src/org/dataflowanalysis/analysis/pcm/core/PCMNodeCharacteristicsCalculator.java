@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;
+import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.characteristics.EnumCharacteristic;
@@ -38,7 +38,7 @@ import org.palladiosimulator.pcm.usagemodel.UsageModel;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelPackage;
 
-public class PCMNodeCharacteristicsCalculator implements NodeCharacteristicsCalculator {
+public class PCMNodeCharacteristicsCalculator implements VertexCharacteristicsCalculator {
 	private final Logger logger = Logger.getLogger(PCMNodeCharacteristicsCalculator.class);
     private final ResourceProvider resourceLoader;
     

@@ -19,7 +19,7 @@ public abstract class AbstractPartialFlowGraph {
 	 * @param dataCharacteristicsCalculatorFactory Calculators used to calculate the data characteristics of elements
 	 * @return
 	 */
-    public abstract AbstractPartialFlowGraph evaluateDataFlow(NodeCharacteristicsCalculator nodeCharacteristicsCalculator, 
+    public abstract AbstractPartialFlowGraph evaluateDataFlow(VertexCharacteristicsCalculator nodeCharacteristicsCalculator, 
     		DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory);
     
     /**

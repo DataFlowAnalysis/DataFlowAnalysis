@@ -6,17 +6,17 @@ import java.util.stream.Collectors;
 import org.dataflowanalysis.analysis.core.FlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
-import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;
+import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.core.PartialFlowGraphFinder;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 
 public class PCMFlowGraph implements FlowGraph {
 	private final List<AbstractPartialFlowGraph> partialFlowGraphs;
 	private final PCMResourceProvider resourceProvider;
-	private final NodeCharacteristicsCalculator nodeCharacteristicsCalculator;
+	private final VertexCharacteristicsCalculator nodeCharacteristicsCalculator;
 	private final DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory;
 	
-	public PCMFlowGraph(PCMResourceProvider resourceProvider, NodeCharacteristicsCalculator nodeCharacteristicsCalculator, 
+	public PCMFlowGraph(PCMResourceProvider resourceProvider, VertexCharacteristicsCalculator nodeCharacteristicsCalculator, 
 			DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
 		this.resourceProvider = resourceProvider;
 		this.nodeCharacteristicsCalculator = nodeCharacteristicsCalculator;

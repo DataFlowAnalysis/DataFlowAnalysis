@@ -47,7 +47,7 @@ public abstract class AbstractVertex<T extends Object> {
      * @return Returns a new Sequence element with the updated Node- and DataFlowVariables
      */
     public abstract AbstractVertex<T> evaluateDataFlow(List<DataFlowVariable> variables, 
-    		NodeCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory);
+    		VertexCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory);
     
     /**
      * Returns a list of characteristic literals that are set for a given characteristic type in the list of all node characteristics

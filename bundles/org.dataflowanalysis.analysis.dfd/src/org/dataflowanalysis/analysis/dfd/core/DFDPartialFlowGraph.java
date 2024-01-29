@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
-import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;
+import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
 
 public class DFDPartialFlowGraph extends AbstractPartialFlowGraph implements Comparable<DFDPartialFlowGraph> {
 
@@ -40,7 +40,7 @@ private DFDVertex lastVertex;
 	}
 
 	@Override
-	public AbstractPartialFlowGraph evaluateDataFlow(NodeCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
+	public AbstractPartialFlowGraph evaluateDataFlow(VertexCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
 		// TODO Auto-generated method stub
 		return null;
 	}

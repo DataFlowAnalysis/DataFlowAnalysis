@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.core.FlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 
 public interface DataFlowConfidentialityAnalysis {
@@ -12,9 +13,9 @@ public interface DataFlowConfidentialityAnalysis {
 
     public boolean initializeAnalysis();
 
-    public List<AbstractPartialFlowGraph> findAllPartialFlowGraphs();
+    public FlowGraph findFlowGraph();
 
-    public List<AbstractPartialFlowGraph> evaluateDataFlows(List<AbstractPartialFlowGraph> sequences);
+    public FlowGraph evaluateFlowGraph(FlowGraph sequences);
 
     public List<AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph sequence,
             Predicate<? super AbstractVertex<?>> condition);

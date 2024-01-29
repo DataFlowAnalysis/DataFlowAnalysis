@@ -9,12 +9,11 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.core.FlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
-import org.dataflowanalysis.analysis.core.PartialFlowGraphFinder;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;
-import org.dataflowanalysis.analysis.pcm.core.PCMActionSequence;
-import org.dataflowanalysis.analysis.pcm.core.PCMActionSequenceFinder;
+import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.eclipse.core.runtime.Plugin;
@@ -63,22 +62,18 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
 	}
 
 	@Override
-	public List<AbstractPartialFlowGraph> findAllPartialFlowGraphs() {
-		PCMResourceProvider resourceProvider = (PCMResourceProvider) this.resourceProvider;
-		PartialFlowGraphFinder sequenceFinder = new PCMActionSequenceFinder(resourceProvider.getUsageModel());
-        return sequenceFinder.findPartialFlowGraphs().parallelStream()
-        		.map(AbstractPartialFlowGraph.class::cast)
-        		.collect(Collectors.toList());
+	public PCMFlowGraph findFlowGraph() {
+		PCMResourceProvider pcmResourceProvider = (PCMResourceProvider) this.resourceProvider;
+        return new PCMFlowGraph(pcmResourceProvider, this.nodeCharacteristicsCalculator, this.dataCharacteristicsCalculatorFactory);
 	}
 
 	@Override
-	public List<AbstractPartialFlowGraph> evaluateDataFlows(List<AbstractPartialFlowGraph> sequences) {
-		List<PCMActionSequence> actionSequences = sequences.parallelStream()
-    			.map(PCMActionSequence.class::cast)
-    			.collect(Collectors.toList());
-    	return actionSequences.parallelStream()
-    	          .map(it -> it.evaluateDataFlow(this.nodeCharacteristicsCalculator, this.dataCharacteristicsCalculatorFactory))
-    	          .toList();
+	public PCMFlowGraph evaluateFlowGraph(FlowGraph flowGraph) {
+		if (!(flowGraph instanceof PCMFlowGraph)) {
+			logger.error("Cannot evaluate non-pcm flow graph!", new IllegalArgumentException());
+		}
+		PCMFlowGraph pcmFlowGraph = (PCMFlowGraph) flowGraph;
+		return pcmFlowGraph.evaluate();
 	}
 
 	@Override

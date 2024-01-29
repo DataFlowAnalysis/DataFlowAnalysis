@@ -3,12 +3,11 @@ package org.dataflowanalysis.analysis.tests.constraint;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Paths;
-import java.util.List;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
+import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserActionSequenceElement;
 import org.dataflowanalysis.analysis.pcm.core.user.UserActionSequenceElement;
 import org.junit.jupiter.api.DisplayName;
@@ -26,13 +25,13 @@ public class ConstraintFeatureTest extends ConstraintTest {
     	var usageModelPath = Paths.get("models", "NodeCharacteristicsTest", "default.usagemodel");
     	var allocationPath = Paths.get("models", "NodeCharacteristicsTest", "default.allocation");
     	var nodeCharacteristicsPath = Paths.get("models", "NodeCharacteristicsTest", "default.nodecharacteristics");
-    	DataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
+    	PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
     	
-    	List<AbstractPartialFlowGraph> sequences = analysis.findAllPartialFlowGraphs();
-    	List<AbstractPartialFlowGraph> propagatedSequences = analysis.evaluateDataFlows(sequences);
+    	PCMFlowGraph flowGraph = analysis.findFlowGraph();
+    	PCMFlowGraph propagatedFlowGraph = analysis.evaluateFlowGraph(flowGraph);
     	
     	logger.setLevel(Level.TRACE);
-    	var results = analysis.queryDataFlow(propagatedSequences.get(0), node -> {
+    	var results = analysis.queryDataFlow(propagatedFlowGraph.getPartialFlowGraphs().get(0), node -> {
     		printNodeInformation(node);
     		if (node instanceof UserActionSequenceElement<?>) {
     			return node.getAllNodeCharacteristics().size() != 1;
@@ -53,13 +52,13 @@ public class ConstraintFeatureTest extends ConstraintTest {
     	var usageModelPath = Paths.get("models", "CompositeCharacteristicsTest", "default.usagemodel");
     	var allocationPath = Paths.get("models", "CompositeCharacteristicsTest", "default.allocation");
     	var nodeCharacteristicsPath = Paths.get("models", "CompositeCharacteristicsTest", "default.nodecharacteristics");
-    	DataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
+    	PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
     	
-    	List<AbstractPartialFlowGraph> sequences = analysis.findAllPartialFlowGraphs();
-    	List<AbstractPartialFlowGraph> propagatedSequences = analysis.evaluateDataFlows(sequences);
+    	PCMFlowGraph flowGraph = analysis.findFlowGraph();
+    	PCMFlowGraph propagatedFlowGraph = analysis.evaluateFlowGraph(flowGraph);
     	
     	logger.setLevel(Level.TRACE);
-    	var results = analysis.queryDataFlow(propagatedSequences.get(0), node -> {
+    	var results = analysis.queryDataFlow(propagatedFlowGraph.getPartialFlowGraphs().get(0), node -> {
     		printNodeInformation(node);
     		if (node instanceof UserActionSequenceElement<?>) {
     			return node.getAllNodeCharacteristics().size() != 1;
@@ -80,13 +79,13 @@ public class ConstraintFeatureTest extends ConstraintTest {
     	var usageModelPath = Paths.get("models", "IgnoredNodeTest", "default.usagemodel");
     	var allocationPath = Paths.get("models", "IgnoredNodeTest", "default.allocation");
     	var nodeCharacteristicsPath = Paths.get("models", "IgnoredNodeTest", "default.nodecharacteristics");
-    	DataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
+    	PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
     	
-    	List<AbstractPartialFlowGraph> sequences = analysis.findAllPartialFlowGraphs();
-    	List<AbstractPartialFlowGraph> propagatedSequences = analysis.evaluateDataFlows(sequences);
+    	PCMFlowGraph flowGraph = analysis.findFlowGraph();
+    	PCMFlowGraph propagatedFlowGraph = analysis.evaluateFlowGraph(flowGraph);
     	
     	logger.setLevel(Level.TRACE);
-    	var results = analysis.queryDataFlow(propagatedSequences.get(0), node -> {
+    	var results = analysis.queryDataFlow(propagatedFlowGraph.getPartialFlowGraphs().get(0), node -> {
     		printNodeInformation(node);
     		if (node instanceof CallingUserActionSequenceElement && ((CallingUserActionSequenceElement) node).isReturning()) {
     			return node.getAllDataFlowVariables().size() != 0;

@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
 import org.dataflowanalysis.analysis.tests.BaseTest;
 import org.junit.jupiter.api.Test;
 
@@ -19,11 +20,11 @@ public class ActionSequenceFinderTest extends BaseTest {
      */   
     @Test
     public void testTravelPlannerCount() {
-    	var allSequences = travelPlannerAnalysis.findAllPartialFlowGraphs();
+    	PCMFlowGraph flowGraph = travelPlannerAnalysis.findFlowGraph();
         travelPlannerAnalysis.setLoggerLevel(Level.TRACE);
-        assertEquals(ActionSequenceFinderPaths.travelPlannerPaths.size(), allSequences.size(),
-                String.format("Expected two dataflow sequences, but found %s sequences", allSequences.size()));
-        allSequences.stream().forEach(logger::trace);
+        assertEquals(ActionSequenceFinderPaths.travelPlannerPaths.size(), flowGraph.getPartialFlowGraphs().size(),
+                String.format("Expected two dataflow sequences, but found %s sequences", flowGraph.getPartialFlowGraphs().size()));
+        flowGraph.getPartialFlowGraphs().stream().forEach(logger::trace);
     }
     
     /**
@@ -31,11 +32,11 @@ public class ActionSequenceFinderTest extends BaseTest {
      */   
     @Test
     public void testInternationalOnlineShopCount() {
-    	var allSequences = internationalOnlineShopAnalysis.findAllPartialFlowGraphs();
+    	PCMFlowGraph flowGraph = internationalOnlineShopAnalysis.findFlowGraph();
         internationalOnlineShopAnalysis.setLoggerLevel(Level.TRACE);
-        assertEquals(ActionSequenceFinderPaths.internationalOnlineShopPaths.size(), allSequences.size(),
-                String.format("Expected two dataflow sequences, but found %s sequences", allSequences.size()));
-        allSequences.stream().forEach(logger::trace);
+        assertEquals(ActionSequenceFinderPaths.internationalOnlineShopPaths.size(), flowGraph.getPartialFlowGraphs().size(),
+                String.format("Expected two dataflow sequences, but found %s sequences", flowGraph.getPartialFlowGraphs().size()));
+        flowGraph.getPartialFlowGraphs().stream().forEach(logger::trace);
     }
     
     /**
@@ -43,43 +44,43 @@ public class ActionSequenceFinderTest extends BaseTest {
      */   
     @Test
     public void testOnlineShopCount() {
-    	var allSequences = onlineShopAnalysis.findAllPartialFlowGraphs();
+    	PCMFlowGraph flowGraph = onlineShopAnalysis.findFlowGraph();
         onlineShopAnalysis.setLoggerLevel(Level.TRACE);
-        assertEquals(ActionSequenceFinderPaths.onlineShopPaths.size(), allSequences.size(),
-                String.format("Expected two dataflow sequences, but found %s sequences", allSequences.size()));
-        allSequences.stream().forEach(logger::trace);
+        assertEquals(ActionSequenceFinderPaths.onlineShopPaths.size(), flowGraph.getPartialFlowGraphs().size(),
+                String.format("Expected two dataflow sequences, but found %s sequences", flowGraph.getPartialFlowGraphs().size()));
+        flowGraph.getPartialFlowGraphs().stream().forEach(logger::trace);
     }
     
     @Test
     public void testTravelPlannerPath() {
-    	var sequences = travelPlannerAnalysis.findAllPartialFlowGraphs();
+    	PCMFlowGraph flowGraph = travelPlannerAnalysis.findFlowGraph();
 
-        assertTrue(sequences.size() >= ActionSequenceFinderPaths.travelPlannerPaths.size());
+        assertTrue(flowGraph.getPartialFlowGraphs().size() >= ActionSequenceFinderPaths.travelPlannerPaths.size());
 
         for (int i = 0; i < ActionSequenceFinderPaths.travelPlannerPaths.size(); i++) {
-            assertSequenceElements(sequences.get(i), ActionSequenceFinderPaths.travelPlannerPaths.get(i));
+            assertSequenceElements(flowGraph.getPartialFlowGraphs().get(i), ActionSequenceFinderPaths.travelPlannerPaths.get(i));
         }
     }
     
     @Test
     public void testInternationalOnlineShopPath() {
-    	var sequences = internationalOnlineShopAnalysis.findAllPartialFlowGraphs();
+    	PCMFlowGraph flowGraph = internationalOnlineShopAnalysis.findFlowGraph();
 
-        assertTrue(sequences.size() >= ActionSequenceFinderPaths.internationalOnlineShopPaths.size());
+        assertTrue(flowGraph.getPartialFlowGraphs().size() >= ActionSequenceFinderPaths.internationalOnlineShopPaths.size());
 
         for (int i = 0; i < ActionSequenceFinderPaths.internationalOnlineShopPaths.size(); i++) {
-            assertSequenceElements(sequences.get(i), ActionSequenceFinderPaths.internationalOnlineShopPaths.get(i));
+            assertSequenceElements(flowGraph.getPartialFlowGraphs().get(i), ActionSequenceFinderPaths.internationalOnlineShopPaths.get(i));
         }
     }
     
     @Test
     public void testOnlineShopPath() {
-    	var sequences = onlineShopAnalysis.findAllPartialFlowGraphs();
+    	PCMFlowGraph flowGraph = onlineShopAnalysis.findFlowGraph();
 
-        assertTrue(sequences.size() >= ActionSequenceFinderPaths.onlineShopPaths.size());
+        assertTrue(flowGraph.getPartialFlowGraphs().size() >= ActionSequenceFinderPaths.onlineShopPaths.size());
 
         for (int i = 0; i < ActionSequenceFinderPaths.onlineShopPaths.size(); i++) {
-            assertSequenceElements(sequences.get(i), ActionSequenceFinderPaths.onlineShopPaths.get(i));
+            assertSequenceElements(flowGraph.getPartialFlowGraphs().get(i), ActionSequenceFinderPaths.onlineShopPaths.get(i));
         }
     }
     
@@ -91,8 +92,8 @@ public class ActionSequenceFinderTest extends BaseTest {
      */
     @Test
     public void testTravelPlannerSEFFContent() {
-    	var sequences = travelPlannerAnalysis.findAllPartialFlowGraphs();
-        assertSEFFSequenceElementContent(sequences.get(0), 27, "ask airline to book flight");
+    	PCMFlowGraph flowGraph = travelPlannerAnalysis.findFlowGraph();
+        assertSEFFSequenceElementContent(flowGraph.getPartialFlowGraphs().get(0), 27, "ask airline to book flight");
     }
     
     /**
@@ -103,8 +104,8 @@ public class ActionSequenceFinderTest extends BaseTest {
      */
     @Test
     public void testInternationalOnlineShopSEFFContent() {
-    	var sequences = internationalOnlineShopAnalysis.findAllPartialFlowGraphs();
-        assertSEFFSequenceElementContent(sequences.get(0), 17, "DatabaseStoreUserData");
+    	PCMFlowGraph flowGraph = internationalOnlineShopAnalysis.findFlowGraph();
+        assertSEFFSequenceElementContent(flowGraph.getPartialFlowGraphs().get(0), 17, "DatabaseStoreUserData");
     }
     
     /**
@@ -115,8 +116,8 @@ public class ActionSequenceFinderTest extends BaseTest {
      */
     @Test
     public void testOnlineShopSEFFContent() {
-    	var sequences = onlineShopAnalysis.findAllPartialFlowGraphs();
-        assertSEFFSequenceElementContent(sequences.get(0), 3, "DatabaseLoadInventory");
+    	PCMFlowGraph flowGraph = onlineShopAnalysis.findFlowGraph();
+        assertSEFFSequenceElementContent(flowGraph.getPartialFlowGraphs().get(0), 3, "DatabaseLoadInventory");
     }
     
     /**
@@ -127,8 +128,8 @@ public class ActionSequenceFinderTest extends BaseTest {
      */
     @Test
     public void testTravelPlannerUserContent() {
-    	var sequences = travelPlannerAnalysis.findAllPartialFlowGraphs();
-        assertUserSequenceElementContent(sequences.get(0), 5, "look for flights");
+    	PCMFlowGraph flowGraph = travelPlannerAnalysis.findFlowGraph();
+        assertUserSequenceElementContent(flowGraph.getPartialFlowGraphs().get(0), 5, "look for flights");
     }
     
     /**
@@ -139,8 +140,8 @@ public class ActionSequenceFinderTest extends BaseTest {
      */
     @Test
     public void testInternationalOnlineShopUserContent() {
-    	var sequences = internationalOnlineShopAnalysis.findAllPartialFlowGraphs();
-        assertUserSequenceElementContent(sequences.get(0), 11, "BuyEntryLevelSystemCall");
+    	PCMFlowGraph flowGraph = internationalOnlineShopAnalysis.findFlowGraph();
+        assertUserSequenceElementContent(flowGraph.getPartialFlowGraphs().get(0), 11, "BuyEntryLevelSystemCall");
     }
     
     /**
@@ -151,7 +152,7 @@ public class ActionSequenceFinderTest extends BaseTest {
      */
     @Test
     public void testOnlineShopUserContent() {
-    	var sequences = onlineShopAnalysis.findAllPartialFlowGraphs();
-        assertUserSequenceElementContent(sequences.get(0), 1, "ViewEntryLevelSystemCall");
+    	PCMFlowGraph flowGraph = onlineShopAnalysis.findFlowGraph();
+        assertUserSequenceElementContent(flowGraph.getPartialFlowGraphs().get(0), 1, "ViewEntryLevelSystemCall");
     }
 }

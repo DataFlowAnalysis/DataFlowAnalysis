@@ -1,12 +1,10 @@
-package org.dataflowanalysis.json2dfd;
+package org.dataflowanalysis.converter;
 
 import java.io.File;
 import java.io.IOException;
 
-import org.dataflowanalysis.json2dfd.dfdwriter.ProcessJSON;
-import org.dataflowanalysis.json2dfd.microsecend.*;
-import org.dataflowanalysis.dfd2json.ProcessDFD;
-import org.dataflowanalysis.dfd2json.dfd.*;
+import org.dataflowanalysis.converter.microsecend.*;
+import org.dataflowanalysis.converter.webdfd.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

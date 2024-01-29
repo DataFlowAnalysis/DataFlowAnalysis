@@ -1,4 +1,4 @@
-package org.dataflowanalysis.json2dfd;
+package org.dataflowanalysis.converter;
 
 public record SimpleFlow(String from,String to) {
 

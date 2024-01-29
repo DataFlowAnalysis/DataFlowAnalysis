@@ -47,7 +47,7 @@ public class PCMFlowGraph implements FlowGraph {
     			.collect(Collectors.toList());
     	List<AbstractPartialFlowGraph> evaluatedPartialFlowGraphs = 
     			actionSequences.parallelStream()
-    	          .map(it -> it.evaluateDataFlow(this.nodeCharacteristicsCalculator, this.dataCharacteristicsCalculatorFactory))
+    	          .map(it -> it.evaluate(this.nodeCharacteristicsCalculator, this.dataCharacteristicsCalculatorFactory))
     	          .toList();
 		return new PCMFlowGraph(this, evaluatedPartialFlowGraphs);
 	}

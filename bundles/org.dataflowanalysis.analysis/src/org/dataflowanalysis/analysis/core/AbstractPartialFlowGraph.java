@@ -1,7 +1,14 @@
 package org.dataflowanalysis.analysis.core;
 
 import java.util.List;
+import java.util.stream.Stream;
 
+/**
+ * This abstract class represents a partial flow graph induced by a sink {@link AbstractPartialFlowGraph#getSink()}.
+ * Ambiguous flows, like multiple flows to one input pin, are resolved in the partial flow graph and represent one possible assignment
+ * TODO: Actually implement correct representation
+ *
+ */
 public abstract class AbstractPartialFlowGraph {
 	protected List<AbstractVertex<?>> vertices;
 	
@@ -19,7 +26,7 @@ public abstract class AbstractPartialFlowGraph {
 	 * @param dataCharacteristicsCalculatorFactory Calculators used to calculate the data characteristics of elements
 	 * @return
 	 */
-    public abstract AbstractPartialFlowGraph evaluateDataFlow(VertexCharacteristicsCalculator nodeCharacteristicsCalculator, 
+    public abstract AbstractPartialFlowGraph evaluate(VertexCharacteristicsCalculator nodeCharacteristicsCalculator, 
     		DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory);
     
     /**
@@ -29,6 +36,16 @@ public abstract class AbstractPartialFlowGraph {
     public List<AbstractVertex<?>> getVertices() {
 		return vertices;
 	}
+    
+    /**
+     * Returns a stream over all elements present in the partial flow graph.
+     * The order of elements is completely arbitrary, but deterministic.
+     * @return Returns a stream over all elements in the partial flow graph
+     * TODO: Implement the stream behavior for the new representation
+     */
+    public Stream<AbstractVertex<?>> stream() {
+    	return this.getVertices().parallelStream();
+    }
     
     @Override
     public String toString() {

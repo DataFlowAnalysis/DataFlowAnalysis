@@ -60,7 +60,7 @@ public class PCMPartialFlowGraph extends AbstractPartialFlowGraph {
     }
 
 	@Override
-    public AbstractPartialFlowGraph evaluateDataFlow(VertexCharacteristicsCalculator nodeCharacteristicsCalculator, 
+    public AbstractPartialFlowGraph evaluate(VertexCharacteristicsCalculator nodeCharacteristicsCalculator, 
     		DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
         var iterator = super.getVertices()
             .iterator();

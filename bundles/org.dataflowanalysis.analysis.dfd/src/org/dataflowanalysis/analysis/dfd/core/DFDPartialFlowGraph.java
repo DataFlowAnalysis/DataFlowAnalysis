@@ -40,7 +40,7 @@ private DFDVertex lastVertex;
 	}
 
 	@Override
-	public AbstractPartialFlowGraph evaluateDataFlow(VertexCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
+	public AbstractPartialFlowGraph evaluate(VertexCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
 		// TODO Auto-generated method stub
 		return null;
 	}

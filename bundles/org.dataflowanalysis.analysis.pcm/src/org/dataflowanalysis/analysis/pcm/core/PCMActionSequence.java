@@ -8,14 +8,14 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.core.PartialFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.pcm.core.seff.SEFFActionSequenceElement;
 import org.palladiosimulator.pcm.seff.StartAction;
 
-public class PCMActionSequence extends PartialFlowGraph {
+public class PCMActionSequence extends AbstractPartialFlowGraph {
 
 	/**
 	 * Creates a empty new action sequence
@@ -44,7 +44,7 @@ public class PCMActionSequence extends PartialFlowGraph {
      * Creates a copy of the given action sequence
      * @param sequence Action sequence that should be copied
      */
-    public PCMActionSequence(PartialFlowGraph sequence) {
+    public PCMActionSequence(AbstractPartialFlowGraph sequence) {
         super(sequence.getVertices());
     }
     
@@ -53,14 +53,14 @@ public class PCMActionSequence extends PartialFlowGraph {
      * @param sequence Action sequence that should be copied
      * @param newElements Elements in the new sequence
      */
-    public PCMActionSequence(PartialFlowGraph sequence, AbstractVertex<?>... newElements) {
+    public PCMActionSequence(AbstractPartialFlowGraph sequence, AbstractVertex<?>... newElements) {
         super(Stream.concat(sequence.getVertices()
             .stream(), Stream.of(newElements))
             .toList());
     }
 
 	@Override
-    public PartialFlowGraph evaluateDataFlow(NodeCharacteristicsCalculator nodeCharacteristicsCalculator, 
+    public AbstractPartialFlowGraph evaluateDataFlow(NodeCharacteristicsCalculator nodeCharacteristicsCalculator, 
     		DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
         var iterator = super.getVertices()
             .iterator();

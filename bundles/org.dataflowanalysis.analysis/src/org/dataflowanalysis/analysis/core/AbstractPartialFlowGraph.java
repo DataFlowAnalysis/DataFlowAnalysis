@@ -2,14 +2,14 @@ package org.dataflowanalysis.analysis.core;
 
 import java.util.List;
 
-public abstract class PartialFlowGraph {
+public abstract class AbstractPartialFlowGraph {
 	protected List<AbstractVertex<?>> vertices;
 	
 	/**
 	 * Create a new action sequence with the given elements
 	 * @param elements List of elements in the sequence
 	 */
-	public PartialFlowGraph(List<AbstractVertex<?>> vertices) {
+	public AbstractPartialFlowGraph(List<AbstractVertex<?>> vertices) {
         this.vertices = List.copyOf(vertices);
     }
     
@@ -19,7 +19,7 @@ public abstract class PartialFlowGraph {
 	 * @param dataCharacteristicsCalculatorFactory Calculators used to calculate the data characteristics of elements
 	 * @return
 	 */
-    public abstract PartialFlowGraph evaluateDataFlow(NodeCharacteristicsCalculator nodeCharacteristicsCalculator, 
+    public abstract AbstractPartialFlowGraph evaluateDataFlow(NodeCharacteristicsCalculator nodeCharacteristicsCalculator, 
     		DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory);
     
     /**

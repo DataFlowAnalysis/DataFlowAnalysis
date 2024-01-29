@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.dataflowanalysis.analysis.core.PartialFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
@@ -20,14 +20,14 @@ public class DFDPartialFlowGraphFinder {
 	 * @param dataDictionary Data Dictionary model instance
 	 * @return All Action Sequences
 	 */	
-	public static List<PartialFlowGraph> findAllPartialFlowGraphsInDFD(DataFlowDiagram dfd, DataDictionary dataDictionary) { 
+	public static List<AbstractPartialFlowGraph> findAllPartialFlowGraphsInDFD(DataFlowDiagram dfd, DataDictionary dataDictionary) { 
 		Map<Node, Map<Pin, List<Flow>>> mapOfIngoingEdges = getMapOfIngoingEdges(dfd.getFlows());
 		Map<Node, List<DFDVertex>> mapNodeToVertices = new HashMap<>();
 		Map<Node, List<Node>> mapOfOutgoingEdges = getMapOfOutgoingEdges(dfd.getFlows());
 		for (Node startNode : getStartNodes(dfd.getFlows())) {
 			fillMapNodeToVertices(startNode, mapNodeToVertices, mapOfIngoingEdges, mapOfOutgoingEdges);
 		}
-		List<PartialFlowGraph> sequences = new ArrayList<>();
+		List<AbstractPartialFlowGraph> sequences = new ArrayList<>();
 		
 		for (var endNode : getEndNodes(dfd.getFlows())) {
 			for (var endElement : mapNodeToVertices.get(endNode)) {

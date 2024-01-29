@@ -8,7 +8,7 @@ import java.util.List;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.core.PartialFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserActionSequenceElement;
 import org.dataflowanalysis.analysis.pcm.core.user.UserActionSequenceElement;
 import org.junit.jupiter.api.DisplayName;
@@ -28,8 +28,8 @@ public class ConstraintFeatureTest extends ConstraintTest {
     	var nodeCharacteristicsPath = Paths.get("models", "NodeCharacteristicsTest", "default.nodecharacteristics");
     	DataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
     	
-    	List<PartialFlowGraph> sequences = analysis.findAllPartialFlowGraphs();
-    	List<PartialFlowGraph> propagatedSequences = analysis.evaluateDataFlows(sequences);
+    	List<AbstractPartialFlowGraph> sequences = analysis.findAllPartialFlowGraphs();
+    	List<AbstractPartialFlowGraph> propagatedSequences = analysis.evaluateDataFlows(sequences);
     	
     	logger.setLevel(Level.TRACE);
     	var results = analysis.queryDataFlow(propagatedSequences.get(0), node -> {
@@ -55,8 +55,8 @@ public class ConstraintFeatureTest extends ConstraintTest {
     	var nodeCharacteristicsPath = Paths.get("models", "CompositeCharacteristicsTest", "default.nodecharacteristics");
     	DataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
     	
-    	List<PartialFlowGraph> sequences = analysis.findAllPartialFlowGraphs();
-    	List<PartialFlowGraph> propagatedSequences = analysis.evaluateDataFlows(sequences);
+    	List<AbstractPartialFlowGraph> sequences = analysis.findAllPartialFlowGraphs();
+    	List<AbstractPartialFlowGraph> propagatedSequences = analysis.evaluateDataFlows(sequences);
     	
     	logger.setLevel(Level.TRACE);
     	var results = analysis.queryDataFlow(propagatedSequences.get(0), node -> {
@@ -82,8 +82,8 @@ public class ConstraintFeatureTest extends ConstraintTest {
     	var nodeCharacteristicsPath = Paths.get("models", "IgnoredNodeTest", "default.nodecharacteristics");
     	DataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
     	
-    	List<PartialFlowGraph> sequences = analysis.findAllPartialFlowGraphs();
-    	List<PartialFlowGraph> propagatedSequences = analysis.evaluateDataFlows(sequences);
+    	List<AbstractPartialFlowGraph> sequences = analysis.findAllPartialFlowGraphs();
+    	List<AbstractPartialFlowGraph> propagatedSequences = analysis.evaluateDataFlows(sequences);
     	
     	logger.setLevel(Level.TRACE);
     	var results = analysis.queryDataFlow(propagatedSequences.get(0), node -> {

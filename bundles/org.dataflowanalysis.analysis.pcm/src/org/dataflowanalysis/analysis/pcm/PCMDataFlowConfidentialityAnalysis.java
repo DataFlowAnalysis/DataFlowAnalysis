@@ -9,7 +9,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.core.PartialFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.PartialFlowGraphFinder;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;
@@ -63,16 +63,16 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
 	}
 
 	@Override
-	public List<PartialFlowGraph> findAllPartialFlowGraphs() {
+	public List<AbstractPartialFlowGraph> findAllPartialFlowGraphs() {
 		PCMResourceProvider resourceProvider = (PCMResourceProvider) this.resourceProvider;
 		PartialFlowGraphFinder sequenceFinder = new PCMActionSequenceFinder(resourceProvider.getUsageModel());
         return sequenceFinder.findPartialFlowGraphs().parallelStream()
-        		.map(PartialFlowGraph.class::cast)
+        		.map(AbstractPartialFlowGraph.class::cast)
         		.collect(Collectors.toList());
 	}
 
 	@Override
-	public List<PartialFlowGraph> evaluateDataFlows(List<PartialFlowGraph> sequences) {
+	public List<AbstractPartialFlowGraph> evaluateDataFlows(List<AbstractPartialFlowGraph> sequences) {
 		List<PCMActionSequence> actionSequences = sequences.parallelStream()
     			.map(PCMActionSequence.class::cast)
     			.collect(Collectors.toList());
@@ -82,7 +82,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
 	}
 
 	@Override
-	public List<AbstractVertex<?>> queryDataFlow(PartialFlowGraph sequence,
+	public List<AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph sequence,
 			Predicate<? super AbstractVertex<?>> condition) {
 		return sequence.getVertices()
 	            .parallelStream()

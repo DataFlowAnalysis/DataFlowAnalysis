@@ -5,21 +5,28 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.eclipse.emf.ecore.EObject;
-
-public abstract class AbstractVertex<T extends EObject> {
-
-    private final Optional<List<DataFlowVariable>> dataFlowVariables;
+/**
+ * This class represents an abstract vertex in a {@link AbstractPartialFlowGraph}.
+ * An abstract vertex represents an element in a partial flow graph and links to an element.
+ * An element referenced in this way may be referenced multiple times by different abstract vertices.
+ * Furthermore, the abstract vertex saved incoming and outgoing data flow variables and the characteristics present at the vertex.
+ * 
+ * @param T Type parameter representing the type of the stored object
+ */
+public abstract class AbstractVertex<T extends Object> {
+	protected T referencedElement;
+	
+    private final Optional<List<DataFlowVariable>> incomingDataFlowVariables;
     private final Optional<List<DataFlowVariable>> outgoingDataFlowVariables;
-    private final Optional<List<CharacteristicValue>> nodeCharacteristics;
+    private final Optional<List<CharacteristicValue>> vertexCharacteristics;
 
     /**
      * Constructs a new action sequence element with empty dataflow variables and node characteristics
      */
     public AbstractVertex() {
-        this.dataFlowVariables = Optional.empty();
+        this.incomingDataFlowVariables = Optional.empty();
         this.outgoingDataFlowVariables = Optional.empty();
-        this.nodeCharacteristics = Optional.empty();
+        this.vertexCharacteristics = Optional.empty();
     }
 
     /**
@@ -27,10 +34,10 @@ public abstract class AbstractVertex<T extends EObject> {
      * @param dataFlowVariables List of updated dataflow variables
      * @param nodeCharacteristics List of updated node characteristics
      */
-    public AbstractVertex(List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
-        this.dataFlowVariables = Optional.of(List.copyOf(dataFlowVariables));
+    public AbstractVertex(List<DataFlowVariable> incomingDataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> vertexCharacteristics) {
+        this.incomingDataFlowVariables = Optional.of(List.copyOf(incomingDataFlowVariables));
         this.outgoingDataFlowVariables = Optional.of(List.copyOf(outgoingDataFlowVariables));
-        this.nodeCharacteristics = Optional.of(List.copyOf(nodeCharacteristics));
+        this.vertexCharacteristics = Optional.of(List.copyOf(vertexCharacteristics));
     }
 
     /**
@@ -119,7 +126,7 @@ public abstract class AbstractVertex<T extends EObject> {
      * @return List of present dataflow variables
      */
     public List<DataFlowVariable> getAllDataFlowVariables() {
-        return this.dataFlowVariables.orElseThrow(IllegalStateException::new);
+        return this.incomingDataFlowVariables.orElseThrow(IllegalStateException::new);
     }
     
     /**
@@ -135,7 +142,7 @@ public abstract class AbstractVertex<T extends EObject> {
      * @return List of present node characteristics
      */
     public List<CharacteristicValue> getAllNodeCharacteristics() {
-    	return this.nodeCharacteristics.orElseThrow(IllegalStateException::new);
+    	return this.vertexCharacteristics.orElseThrow(IllegalStateException::new);
     }
 
     /**
@@ -143,7 +150,7 @@ public abstract class AbstractVertex<T extends EObject> {
      * @return Returns true, if the node is evaluated. Otherwise, the method returns false
      */
     public boolean isEvaluated() {
-        return this.dataFlowVariables.isPresent();
+        return this.incomingDataFlowVariables.isPresent();
     }
 
     @Override

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.core.PartialFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintData;
@@ -147,8 +147,8 @@ public class ConstraintResultTest extends ConstraintTest {
     }
     
     public void testAnalysis(DataFlowConfidentialityAnalysis analysis, Predicate<AbstractVertex<?>> constraint, List<ConstraintData> constraintData) {
-    	List<PartialFlowGraph> actionSequences = analysis.findAllPartialFlowGraphs();
-    	List<PartialFlowGraph> evaluatedSequences = analysis.evaluateDataFlows(actionSequences);
+    	List<AbstractPartialFlowGraph> actionSequences = analysis.findAllPartialFlowGraphs();
+    	List<AbstractPartialFlowGraph> evaluatedSequences = analysis.evaluateDataFlows(actionSequences);
     	List<AbstractVertex<?>> results = evaluatedSequences.stream()
     			.map(it -> analysis.queryDataFlow(it, constraint))
     			.flatMap(it -> it.stream())

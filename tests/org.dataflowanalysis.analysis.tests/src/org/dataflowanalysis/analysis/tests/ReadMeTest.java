@@ -6,7 +6,7 @@ import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.DataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.core.PartialFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.junit.jupiter.api.Test;
@@ -32,11 +32,11 @@ public class ReadMeTest extends BaseTest {
 	    analysis.setLoggerLevel(Level.TRACE); // Set desired logger level. Level.TRACE provides additional propagation Information
 	    analysis.initializeAnalysis();
 
-	    List<PartialFlowGraph> actionSequences = analysis.findAllPartialFlowGraphs();
+	    List<AbstractPartialFlowGraph> actionSequences = analysis.findAllPartialFlowGraphs();
 
-	    List<PartialFlowGraph> propagationResult = analysis.evaluateDataFlows(actionSequences);
+	    List<AbstractPartialFlowGraph> propagationResult = analysis.evaluateDataFlows(actionSequences);
 	    
-	    for(PartialFlowGraph actionSequence : propagationResult) {
+	    for(AbstractPartialFlowGraph actionSequence : propagationResult) {
 	    	List<AbstractVertex<?>> violations = analysis.queryDataFlow(actionSequence,
 	        it -> false // Constraint goes here, return true, if constraint is violated
 	      );
@@ -52,11 +52,11 @@ public class ReadMeTest extends BaseTest {
 		var analysis = travelPlannerAnalysis;
 		
 		// Code snippet from README starts here
-		List<PartialFlowGraph> actionSequences = analysis.findAllPartialFlowGraphs();
+		List<AbstractPartialFlowGraph> actionSequences = analysis.findAllPartialFlowGraphs();
 
-	    List<PartialFlowGraph> propagationResult = analysis.evaluateDataFlows(actionSequences);
+	    List<AbstractPartialFlowGraph> propagationResult = analysis.evaluateDataFlows(actionSequences);
 	    
-	    for(PartialFlowGraph actionSequence : propagationResult) {
+	    for(AbstractPartialFlowGraph actionSequence : propagationResult) {
 	    	List<AbstractVertex<?>> violations = analysis.queryDataFlow(actionSequence,
 	        it -> false // Constraint goes here, return true, if constraint is violated
 	      );

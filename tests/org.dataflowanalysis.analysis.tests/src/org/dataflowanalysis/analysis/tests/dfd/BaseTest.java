@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import java.nio.file.Paths;
 
-import org.dataflowanalysis.analysis.core.PartialFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.testmodels.Activator;
@@ -45,7 +45,7 @@ public class BaseTest {
 	public void noNodeCharacteristics_returnsNoViolation() {
 		this.analysis.initializeAnalysis();
 		var sequences = analysis.findAllPartialFlowGraphs();
-		List<PartialFlowGraph> evaluatedSequences = this.analysis.evaluateDataFlows(sequences);
+		List<AbstractPartialFlowGraph> evaluatedSequences = this.analysis.evaluateDataFlows(sequences);
 		
 		var results = analysis.queryDataFlow(evaluatedSequences.get(0), node -> {
     			return node.getAllNodeCharacteristics().size() == 0;
@@ -57,7 +57,7 @@ public class BaseTest {
 	public void noNodeCharacteristics_returnsViolations() {
 		this.analysis.initializeAnalysis();
 		var sequences = analysis.findAllPartialFlowGraphs();
-		List<PartialFlowGraph> evaluatedSequences = this.analysis.evaluateDataFlows(sequences);
+		List<AbstractPartialFlowGraph> evaluatedSequences = this.analysis.evaluateDataFlows(sequences);
 		
 		var results = analysis.queryDataFlow(evaluatedSequences.get(0), node -> {
     			return node.getAllNodeCharacteristics().size() != 0;
@@ -70,7 +70,7 @@ public class BaseTest {
 	public void numberOfNodes_returnsNoViolation() {
 		this.analysis.initializeAnalysis();
 		var sequences = analysis.findAllPartialFlowGraphs();
-		List<PartialFlowGraph> evaluatedSequences = this.analysis.evaluateDataFlows(sequences);
+		List<AbstractPartialFlowGraph> evaluatedSequences = this.analysis.evaluateDataFlows(sequences);
 		
 		var results = analysis.queryDataFlow(evaluatedSequences.get(0), node -> {
     			return node.getAllNodeCharacteristics().size() == 0;

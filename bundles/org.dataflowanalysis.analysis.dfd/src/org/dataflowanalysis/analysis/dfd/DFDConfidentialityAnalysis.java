@@ -9,7 +9,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.core.PartialFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.dfd.core.DFDPartialFlowGraph;
 import org.dataflowanalysis.analysis.dfd.core.DFDPartialFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.core.DFDCharacteristicsCalculator;
@@ -70,14 +70,14 @@ public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalys
 	
 
 	@Override
-	public List<PartialFlowGraph> findAllPartialFlowGraphs() {
+	public List<AbstractPartialFlowGraph> findAllPartialFlowGraphs() {
 		return DFDPartialFlowGraphFinder.findAllPartialFlowGraphsInDFD(this.resourceProvider.getDataFlowDiagram(), this.resourceProvider.getDataDictionary());
 	}
 	
 
 	@Override
-	public List<PartialFlowGraph> evaluateDataFlows(List<PartialFlowGraph> sequences) {
-		List<PartialFlowGraph> outSequences = new ArrayList<>();
+	public List<AbstractPartialFlowGraph> evaluateDataFlows(List<AbstractPartialFlowGraph> sequences) {
+		List<AbstractPartialFlowGraph> outSequences = new ArrayList<>();
 		for (var dfdActionSequence : sequences) {
 			outSequences.add(DFDCharacteristicsCalculator.fillDataFlowVariables((DFDPartialFlowGraph)dfdActionSequence));
 		}
@@ -85,7 +85,7 @@ public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalys
 	}
 
 	@Override
-	public List<AbstractVertex<?>> queryDataFlow(PartialFlowGraph sequence,
+	public List<AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph sequence,
 			Predicate<? super AbstractVertex<?>> condition) {
 		return sequence.getVertices()
 	            .parallelStream()

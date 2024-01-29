@@ -12,13 +12,13 @@
     <destinationPin href="onlineshop.datadictionary#_lRF7ML6GEe6fAKdvyu1GEg"/>
     <sourcePin href="onlineshop.datadictionary#_5krJIb6GEe6fAKdvyu1GEg"/>
   </flows>
-  <flows id="_tpP1wL6CEe6fAKdvyu1GEg" entityName="items" sourceNode="_TFmX876CEe6fAKdvyu1GEg" destinationNode="_LX33QL6CEe6fAKdvyu1GEg">
-    <destinationPin href="onlineshop.datadictionary#_vgOTkL6EEe6fAKdvyu1GEg"/>
+  <flows id="_tpP1wL6CEe6fAKdvyu1GEg" entityName="items" sourceNode="_TFmX876CEe6fAKdvyu1GEg" destinationNode="_YRN4gb6TEe6fAKdvyu1GEg">
+    <destinationPin href="onlineshop.datadictionary#_t-tfsL6TEe6fAKdvyu1GEg"/>
     <sourcePin href="onlineshop.datadictionary#_mkJegb6GEe6fAKdvyu1GEg"/>
   </flows>
-  <flows id="_0m3IIL6CEe6fAKdvyu1GEg" entityName="data" sourceNode="_LX33QL6CEe6fAKdvyu1GEg" destinationNode="_Y50ZU76CEe6fAKdvyu1GEg">
+  <flows id="_0m3IIL6CEe6fAKdvyu1GEg" entityName="data" sourceNode="_bmXPYb6TEe6fAKdvyu1GEg" destinationNode="_Y50ZU76CEe6fAKdvyu1GEg">
     <destinationPin href="onlineshop.datadictionary#_xM37QL6HEe6fAKdvyu1GEg"/>
-    <sourcePin href="onlineshop.datadictionary#_5mEiMb6EEe6fAKdvyu1GEg"/>
+    <sourcePin href="onlineshop.datadictionary#_xYNLF76TEe6fAKdvyu1GEg"/>
   </flows>
   <flows id="_29kg0L6CEe6fAKdvyu1GEg" entityName="data" sourceNode="_Y50ZU76CEe6fAKdvyu1GEg" destinationNode="_aPLpw76CEe6fAKdvyu1GEg">
     <destinationPin href="onlineshop.datadictionary#_1xf9AL6HEe6fAKdvyu1GEg"/>
@@ -32,10 +32,6 @@
     <destinationPin href="onlineshop.datadictionary#_2J1Z8L6GEe6fAKdvyu1GEg"/>
     <sourcePin href="onlineshop.datadictionary#_Mc7MEb6IEe6fAKdvyu1GEg"/>
   </flows>
-  <nodes xsi:type="dataflowdiagram:External" id="_LX33QL6CEe6fAKdvyu1GEg" entityName="User">
-    <behaviour href="onlineshop.datadictionary#_jsBswb6EEe6fAKdvyu1GEg"/>
-    <properties href="onlineshop.datadictionary#_YruBAL6EEe6fAKdvyu1GEg"/>
-  </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="_Q0i7U76CEe6fAKdvyu1GEg" entityName="view">
     <behaviour href="onlineshop.datadictionary#_vB4VQb6FEe6fAKdvyu1GEg"/>
   </nodes>
@@ -54,5 +50,17 @@
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="_basao76CEe6fAKdvyu1GEg" entityName="encrypt">
     <behaviour href="onlineshop.datadictionary#_Iow98b6IEe6fAKdvyu1GEg"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="_LX33QL6CEe6fAKdvyu1GEg" entityName="UserRequesting">
+    <behaviour href="onlineshop.datadictionary#_jsBswb6EEe6fAKdvyu1GEg"/>
+    <properties href="onlineshop.datadictionary#_YruBAL6EEe6fAKdvyu1GEg"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="_YRN4gb6TEe6fAKdvyu1GEg" entityName="UserReceiving">
+    <behaviour href="onlineshop.datadictionary#_sqEoBb6TEe6fAKdvyu1GEg"/>
+    <properties href="onlineshop.datadictionary#_YruBAL6EEe6fAKdvyu1GEg"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="_bmXPYb6TEe6fAKdvyu1GEg" entityName="UserBuying">
+    <behaviour href="onlineshop.datadictionary#_vdGJRb6TEe6fAKdvyu1GEg"/>
+    <properties href="onlineshop.datadictionary#_YruBAL6EEe6fAKdvyu1GEg"/>
   </nodes>
 </dataflowdiagram:DataFlowDiagram>

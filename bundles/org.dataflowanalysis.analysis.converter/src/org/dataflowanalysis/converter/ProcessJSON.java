@@ -6,22 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.dataflowanalysis.converter.microsecend.ExternalEntity;
-import org.dataflowanalysis.converter.microsecend.InformationFlow;
-import org.dataflowanalysis.converter.microsecend.MicroSecEnd;
-import org.dataflowanalysis.converter.microsecend.Service;
-import org.dataflowanalysis.converter.webdfd.Child;
-import org.dataflowanalysis.converter.webdfd.DFD;
-import org.dataflowanalysis.converter.webdfd.Port;
-import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
-import org.dataflowanalysis.dfd.datadictionary.Pin;
-import org.dataflowanalysis.dfd.datadictionary.datadictionaryFactory;
-import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
-import org.dataflowanalysis.dfd.dataflowdiagram.External;
-import org.dataflowanalysis.dfd.dataflowdiagram.Node;
-import org.dataflowanalysis.dfd.dataflowdiagram.Process;
-import org.dataflowanalysis.dfd.dataflowdiagram.Store;
-import org.dataflowanalysis.dfd.dataflowdiagram.dataflowdiagramFactory;
+import org.dataflowanalysis.converter.microsecend.*;
+import org.dataflowanalysis.converter.webdfd.*;
+import org.dataflowanalysis.dfd.datadictionary.*;
+import org.dataflowanalysis.dfd.dataflowdiagram.*;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -66,23 +54,7 @@ public class ProcessJSON {
 	     }
 	}
 	
-	public void processMicro(String name, MicroSecEnd micro) {
-		List<String> externalEntities = new ArrayList<>();
-        List<String> services = new ArrayList<>();
-        List<SimpleFlow> flows = new ArrayList<>();
-        
-		List<InformationFlow> iflows = micro.informationFlows();
-        for(InformationFlow flow : iflows) {
-        	flows.add(new SimpleFlow(flow.sender(),flow.receiver()));
-        }
-
-        for(ExternalEntity ee : micro.externalEntities()) {
-        	externalEntities.add(ee.name());
-        }
-        for (Service service:micro.services()) {
-        	services.add(service.name());
-        }
-		
+	public void processMicro(String name, MicroSecEnd micro) {		
 		Map<String, Node> nodesMap = new HashMap<String, Node>();
 		
 		Resource dfdResource = createAndAddResource(name+".dataflowdiagram", new String[] {"dataflowdiagram"} ,rs);
@@ -94,38 +66,38 @@ public class ProcessJSON {
 		dfdResource.getContents().add(dfd);
 		ddResource.getContents().add(dd);
 		
-		for(String entityName : externalEntities) {
+		for(ExternalEntity ee : micro.externalEntities()) {
 			var external = dfdFactory.createExternal();
-			external.setEntityName(entityName);
+			external.setEntityName(ee.name());
 			
 			var behaviour = ddFactory.createBehaviour();
 			external.setBehaviour(behaviour);
 			dd.getBehaviour().add(behaviour);
 			
 			dfd.getNodes().add(external);
-			nodesMap.put(entityName, external);
+			nodesMap.put(ee.name(), external);
 		}
 		
-		for(String serviceName : services) {
+		for(Service service:micro.services()) {
 			var process = dfdFactory.createProcess();
-			process.setEntityName(serviceName);
+			process.setEntityName(service.name());
 			
 			var behaviour = ddFactory.createBehaviour();
 			process.setBehaviour(behaviour);
 			dd.getBehaviour().add(behaviour);
 			
 			dfd.getNodes().add(process);
-			nodesMap.put(serviceName, process);
+			nodesMap.put(service.name(), process);
 		}
 
-		for(SimpleFlow flowName: flows) {
-			var source = nodesMap.get(flowName.from());
-			var dest = nodesMap.get(flowName.to());
+		for(InformationFlow iflow: micro.informationFlows()) {
+			var source = nodesMap.get(iflow.sender());
+			var dest = nodesMap.get(iflow.receiver());
 			
 			var flow = dfdFactory.createFlow();
 			flow.setSourceNode(source);
 			flow.setDestinationNode(dest);
-			flow.setEntityName(flowName.from()+"->"+flowName.to());
+			flow.setEntityName(iflow.sender()+"->"+iflow.receiver());
 			
 			
 			var inPin = ddFactory.createPin();
@@ -160,7 +132,6 @@ public class ProcessJSON {
 		for(Child child : webdfd.model().children()) {
 			String[] type = child.type().split(":");
 			String name=child.text();
-			String id=child.id();
 
 			if (type[0].equals("node")){
 				Node node;
@@ -177,7 +148,7 @@ public class ProcessJSON {
 					node=null;
 				}
 				node.setEntityName(name);
-				node.setId(id);
+				node.setId(child.id());
 				
 				var behaviour = ddFactory.createBehaviour();
 				node.setBehaviour(behaviour);
@@ -198,13 +169,9 @@ public class ProcessJSON {
 				}
 				
 				dfd.getNodes().add(node);
-				nodesMap.put(id, node);
-				System.out.println(nodesMap);
-				System.out.println(pinToNodeMap);
+				nodesMap.put(child.id(), node);
 			}
 			else if(type[0].equals("edge")){
-				System.out.println(child.sourceId());
-				System.out.println(child.targetId());
 				var source = nodesMap.get(child.sourceId());
 				var dest = nodesMap.get(child.targetId());
 				

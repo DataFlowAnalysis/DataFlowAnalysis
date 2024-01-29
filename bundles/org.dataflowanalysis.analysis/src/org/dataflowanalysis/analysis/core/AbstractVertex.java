@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * @param T Type parameter representing the type of the stored object
  */
 public abstract class AbstractVertex<T extends Object> {
-	protected T referencedElement;
+	protected final T referencedElement;
 	
     private final Optional<List<DataFlowVariable>> incomingDataFlowVariables;
     private final Optional<List<DataFlowVariable>> outgoingDataFlowVariables;
@@ -23,7 +23,8 @@ public abstract class AbstractVertex<T extends Object> {
     /**
      * Constructs a new action sequence element with empty dataflow variables and node characteristics
      */
-    public AbstractVertex() {
+    public AbstractVertex(T referencedElement) {
+    	this.referencedElement = referencedElement;
         this.incomingDataFlowVariables = Optional.empty();
         this.outgoingDataFlowVariables = Optional.empty();
         this.vertexCharacteristics = Optional.empty();
@@ -34,8 +35,9 @@ public abstract class AbstractVertex<T extends Object> {
      * @param dataFlowVariables List of updated dataflow variables
      * @param nodeCharacteristics List of updated node characteristics
      */
-    public AbstractVertex(List<DataFlowVariable> incomingDataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> vertexCharacteristics) {
-        this.incomingDataFlowVariables = Optional.of(List.copyOf(incomingDataFlowVariables));
+    public AbstractVertex(T referencedElement, List<DataFlowVariable> incomingDataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> vertexCharacteristics) {
+        this.referencedElement = referencedElement;
+    	this.incomingDataFlowVariables = Optional.of(List.copyOf(incomingDataFlowVariables));
         this.outgoingDataFlowVariables = Optional.of(List.copyOf(outgoingDataFlowVariables));
         this.vertexCharacteristics = Optional.of(List.copyOf(vertexCharacteristics));
     }

@@ -1,4 +1,4 @@
-package org.dataflowanalysis.dfd2json;
+package org.dataflowanalysis.converter;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -19,11 +19,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-
+import org.dataflowanalysis.converter.webdfd.*;
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.Process;
-import org.dataflowanalysis.dfd2json.dfd.*;
 
 public class ProcessDFD {
 	

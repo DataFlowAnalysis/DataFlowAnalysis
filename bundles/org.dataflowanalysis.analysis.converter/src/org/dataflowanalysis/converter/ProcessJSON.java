@@ -1,4 +1,4 @@
-package org.dataflowanalysis.json2dfd.dfdwriter;
+package org.dataflowanalysis.converter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,6 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.dataflowanalysis.converter.microsecend.ExternalEntity;
+import org.dataflowanalysis.converter.microsecend.InformationFlow;
+import org.dataflowanalysis.converter.microsecend.MicroSecEnd;
+import org.dataflowanalysis.converter.microsecend.Service;
+import org.dataflowanalysis.converter.webdfd.Child;
+import org.dataflowanalysis.converter.webdfd.DFD;
+import org.dataflowanalysis.converter.webdfd.Port;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
 import org.dataflowanalysis.dfd.datadictionary.datadictionaryFactory;
@@ -15,14 +22,6 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.dataflowanalysis.dfd.dataflowdiagram.Process;
 import org.dataflowanalysis.dfd.dataflowdiagram.Store;
 import org.dataflowanalysis.dfd.dataflowdiagram.dataflowdiagramFactory;
-import org.dataflowanalysis.dfd2json.dfd.Child;
-import org.dataflowanalysis.dfd2json.dfd.DFD;
-import org.dataflowanalysis.dfd2json.dfd.Port;
-import org.dataflowanalysis.json2dfd.SimpleFlow;
-import org.dataflowanalysis.json2dfd.microsecend.ExternalEntity;
-import org.dataflowanalysis.json2dfd.microsecend.InformationFlow;
-import org.dataflowanalysis.json2dfd.microsecend.Service;
-import org.dataflowanalysis.json2dfd.microsecend.MicroSecEnd;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;

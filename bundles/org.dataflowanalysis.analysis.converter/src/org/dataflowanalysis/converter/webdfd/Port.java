@@ -1,4 +1,4 @@
-package org.dataflowanalysis.dfd2json.dfd;
+package org.dataflowanalysis.converter.webdfd;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package org.dataflowanalysis.json2dfd.microsecend;
+package org.dataflowanalysis.converter.microsecend;
 
 import java.io.IOException;
 import java.util.HashMap;

@@ -29,12 +29,9 @@ public abstract class AbstractPartialFlowGraph {
     
 	/**
 	 * Evaluate the data flow of the partial flow graph with the given node and data characteristics calculator
-	 * @param nodeCharacteristicsCalculator Calculator used to calculate the node characteristics of the element
-	 * @param dataCharacteristicsCalculatorFactory Calculators used to calculate the data characteristics of elements
 	 * @return Returns the evaluated partial flow graph in which vertex and data characteristics were calculated
 	 */
-    public abstract AbstractPartialFlowGraph evaluate(VertexCharacteristicsCalculator nodeCharacteristicsCalculator, 
-    		DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory);
+    public abstract AbstractPartialFlowGraph evaluate();
     
     public AbstractVertex<?> getSink() {
 		return sink;

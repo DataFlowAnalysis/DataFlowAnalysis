@@ -2,6 +2,7 @@ package org.dataflowanalysis.analysis.flowgraph;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -49,16 +50,8 @@ public abstract class AbstractVertex<T extends Object> {
         this.outgoingDataFlowVariables = Optional.of(List.copyOf(outgoingDataFlowVariables));
         this.vertexCharacteristics = Optional.of(List.copyOf(vertexCharacteristics));
     }
-
-    /**
-     * Evaluates the Data Flow at a given sequence element given the list of {@link DataFlowVariable}s that are received from the precursor
-     * @param previousElement Reference to the previously evaluated element
-     * @param variables List of {@link DataFlowVariable}s propagated from the precursor
-     * @param analysisData Saved data and calculators of the analysis
-     * @return Returns a new Sequence element with the updated Node- and DataFlowVariables
-     */
-    public abstract AbstractVertex<T> evaluateDataFlow(AbstractVertex<?> previousElement, List<DataFlowVariable> variables, 
-    		VertexCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory);
+    
+    public abstract AbstractVertex<T> evaluateDataFlow();
     
     /**
      * Returns a list of characteristic literals that are set for a given characteristic type in the list of all node characteristics
@@ -167,6 +160,10 @@ public abstract class AbstractVertex<T extends Object> {
     public List<AbstractVertex<?>> getPreviousElements() {
 		return this.previousElements;
 	}
+    
+    public boolean isSource() {
+    	return this.previousElements.isEmpty();
+    }
 
     @Override
     public abstract String toString();

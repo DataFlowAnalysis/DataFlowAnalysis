@@ -107,23 +107,4 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     public Deque<AssemblyContext> getContext() {
         return context;
     }
-    
-    @Override
-    public int hashCode() {
-        return Objects.hash(context, referencedElement);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        @SuppressWarnings("rawtypes")
-        AbstractPCMVertex other = (AbstractPCMVertex) obj;
-        return Objects.equals(context, other.context) && Objects.equals(referencedElement, other.referencedElement);
-    }
-
 }

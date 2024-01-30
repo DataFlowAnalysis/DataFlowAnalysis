@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.core;
+package org.dataflowanalysis.analysis.flowgraph;
 
 import java.util.List;
 

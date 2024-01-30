@@ -1,9 +1,14 @@
-package org.dataflowanalysis.analysis.core;
+package org.dataflowanalysis.analysis.flowgraph;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.dataflowanalysis.analysis.core.CharacteristicValue;
+import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
+import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
 
 /**
  * This class represents an abstract vertex in a {@link AbstractPartialFlowGraph}.

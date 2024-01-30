@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
-import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
+import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 
@@ -43,7 +43,7 @@ public class DFDVertex extends AbstractVertex<EObject>{
 	}
 
 	@Override
-	public AbstractVertex<EObject> evaluateDataFlow(List<DataFlowVariable> variables, VertexCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
+	public AbstractVertex<EObject> evaluateDataFlow(AbstractVertex<?> previousVertex, List<DataFlowVariable> variables, VertexCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
 		// TODO funktional leer lassen & Exception fürs Debugging
 		return null;
 	}

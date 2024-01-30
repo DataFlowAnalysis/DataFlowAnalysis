@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;

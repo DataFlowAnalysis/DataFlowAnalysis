@@ -3,10 +3,10 @@ package org.dataflowanalysis.analysis.dfd.core;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
+import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
 
 public class DFDPartialFlowGraph extends AbstractPartialFlowGraph implements Comparable<DFDPartialFlowGraph> {
 

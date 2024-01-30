@@ -6,11 +6,11 @@ import java.util.Deque;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
+import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
 import org.dataflowanalysis.analysis.pcm.core.seff.SEFFPCMVertex;
 import org.palladiosimulator.pcm.seff.StartAction;
 

@@ -3,10 +3,10 @@ package org.dataflowanalysis.analysis.pcm.core;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.dataflowanalysis.analysis.core.FlowGraph;
-import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
+import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.flowgraph.FlowGraph;
 import org.dataflowanalysis.analysis.core.PartialFlowGraphFinder;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 

@@ -2,6 +2,8 @@ package org.dataflowanalysis.analysis.core;
 
 import java.util.List;
 
+import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
+
 public interface PartialFlowGraphFinder {
 
 	/**

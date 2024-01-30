@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
-import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
 

@@ -40,7 +40,7 @@ public abstract class AbstractPartialFlowGraph {
     /**
      * Returns the saved elements in the sequence
      * @return Returns List of sequence elements, saved in the sequence
-     * TODO: Remove this method from the new implementation, as it might be misleading and works differently between dfd and pcm?
+     * TODO: Return a set of vertices, no order
      */
     public List<AbstractVertex<?>> getVertices() {
     	List<AbstractVertex<?>> vertices = new ArrayList<>();

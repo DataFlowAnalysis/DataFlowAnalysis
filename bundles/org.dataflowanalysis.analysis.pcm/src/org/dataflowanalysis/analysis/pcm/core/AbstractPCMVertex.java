@@ -26,8 +26,8 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      * @param vertex Underlying palladio element of the abstract pcm vertex
      * @param context Assembly context of the abstract pcm vertex
      */
-    public AbstractPCMVertex(T referencedElement, Deque<AssemblyContext> context) {
-    	super(referencedElement);
+    public AbstractPCMVertex(T referencedElement, AbstractPCMVertex<?> previousElement, Deque<AssemblyContext> context) {
+    	super(referencedElement, previousElement);
         this.context = context;
     }
     
@@ -38,9 +38,9 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      * @param outgoingDataFlowVariables Data flow variables, which are flowing out of the vertex to following vertices
      * @param vertexCharacteristics Characteristics, which are present at the current vertex
      */
-    public AbstractPCMVertex(AbstractPCMVertex<T> oldVertex, List<DataFlowVariable> incomingDataFlowVariables, 
+    public AbstractPCMVertex(AbstractPCMVertex<T> oldVertex, AbstractVertex<?> previousElement, List<DataFlowVariable> incomingDataFlowVariables, 
     		List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> vertexCharacteristics) {
-    	super(oldVertex.referencedElement, incomingDataFlowVariables, outgoingDataFlowVariables, vertexCharacteristics);
+    	super(oldVertex.referencedElement, previousElement, incomingDataFlowVariables, outgoingDataFlowVariables, vertexCharacteristics);
     	this.context = oldVertex.getContext();
     }
     

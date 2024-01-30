@@ -22,8 +22,8 @@ public class UserPCMVertex<T extends AbstractUserAction> extends AbstractPCMVert
 	 * Creates a new User Sequence Element with the given Palladio User Action Element
 	 * @param element
 	 */
-    public UserPCMVertex(T element) {
-        super(element, new ArrayDeque<>());
+    public UserPCMVertex(T element, AbstractPCMVertex<?> previousElement) {
+        super(element, previousElement, new ArrayDeque<>());
     }
 
     /**
@@ -32,16 +32,16 @@ public class UserPCMVertex<T extends AbstractUserAction> extends AbstractPCMVert
      * @param dataFlowVariables List of updated dataflow variables
      * @param nodeCharacteristics List of updated node characteristics
      */
-    public UserPCMVertex(UserPCMVertex<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
-        super(oldElement, dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+    public UserPCMVertex(UserPCMVertex<T> oldElement, AbstractVertex<?> previousElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+        super(oldElement, previousElement, dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
     
     @Override
-    public AbstractVertex<T> evaluateDataFlow(List<DataFlowVariable> incomingDataFlowVariables, 
+    public AbstractVertex<T> evaluateDataFlow(AbstractVertex<?> previousElement, List<DataFlowVariable> incomingDataFlowVariables, 
     		VertexCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
     	List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics(nodeCharacteristicsCalculator);
         if (this.getReferencedElement() instanceof Start || this.getReferencedElement() instanceof Stop) {
-    		return new UserPCMVertex<T>(this, new ArrayList<>(incomingDataFlowVariables), new ArrayList<>(incomingDataFlowVariables), nodeCharacteristics);
+    		return new UserPCMVertex<T>(this, previousElement, new ArrayList<>(incomingDataFlowVariables), new ArrayList<>(incomingDataFlowVariables), nodeCharacteristics);
     	} 
     	logger.error("Found unexpected sequence element of unknown PCM type " + this.getReferencedElement().getClass().getName());
     	throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");

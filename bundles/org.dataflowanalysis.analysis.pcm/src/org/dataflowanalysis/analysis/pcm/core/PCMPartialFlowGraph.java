@@ -2,10 +2,10 @@ package org.dataflowanalysis.analysis.pcm.core;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
@@ -21,67 +21,55 @@ public class PCMPartialFlowGraph extends AbstractPartialFlowGraph {
 	 * Creates a empty new action sequence
 	 */
     public PCMPartialFlowGraph() {
-        super(List.of());
+        super(null);
     }
 	
 	/**
-	 * Creates a new action sequence with the given elements
+	 * Creates a pcm partial flow graph with the given (temporary) sink
 	 * @param elements List of elements contained in the sequence
 	 */
-	public PCMPartialFlowGraph(List<AbstractVertex<?>> elements) {
-        super(elements);
-    }
-
-    /**
-     * Creates a new action sequence with the given list of elements
-     * @param elements Elements that are contained in the sequence
-     */
-    public PCMPartialFlowGraph(AbstractVertex<?>... elements) {
-        super(List.of(elements));
-    }
-
-    /**
-     * Creates a copy of the given action sequence
-     * @param sequence Action sequence that should be copied
-     */
-    public PCMPartialFlowGraph(AbstractPartialFlowGraph sequence) {
-        super(sequence.getVertices());
+	public PCMPartialFlowGraph(AbstractVertex<?> sink) {
+        super(sink);
     }
     
     /**
-     * Creates a copy of the given action sequence and appends the given
-     * @param sequence Action sequence that should be copied
-     * @param newElements Elements in the new sequence
+     * Creates a copy of the partial flow graph
+     * @param partialFlowGraph Partial flow graph that is already copied
+     * @param newSink New sink of the partial flow graph
+     * TODO: Vertices need not to be copied entirely for sequence finding!
      */
-    public PCMPartialFlowGraph(AbstractPartialFlowGraph sequence, AbstractVertex<?>... newElements) {
-        super(Stream.concat(sequence.getVertices()
-            .stream(), Stream.of(newElements))
-            .toList());
+    public PCMPartialFlowGraph(AbstractPCMVertex<?> newSink) {
+        super(newSink);
     }
-
+    
 	@Override
     public AbstractPartialFlowGraph evaluate(VertexCharacteristicsCalculator nodeCharacteristicsCalculator, 
     		DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
-        var iterator = super.getVertices()
-            .iterator();
+		// TODO: This is incredible sketchy
+        var iterator = this.getVertices().iterator();
         Deque<List<DataFlowVariable>> variableContexts = new ArrayDeque<>();
         variableContexts.push(new ArrayList<>());
         
-        List<AbstractVertex<?>> evaluatedElements = new ArrayList<>();
+        AbstractVertex<?> sink = null;
 
         while (iterator.hasNext()) {
             AbstractVertex<?> nextElement = iterator.next();
             
             prepareCall(variableContexts, nextElement);
             
-            AbstractVertex<?> evaluatedElement = nextElement.evaluateDataFlow(variableContexts.peek(), nodeCharacteristicsCalculator, dataCharacteristicsCalculatorFactory);
-            evaluatedElements.add(evaluatedElement);
+            AbstractVertex<?> evaluatedElement = nextElement.evaluateDataFlow(sink, variableContexts.peek(), nodeCharacteristicsCalculator, dataCharacteristicsCalculatorFactory);
+            sink = evaluatedElement;
             
             cleanupCall(variableContexts, evaluatedElement);
         }
 
-        return new PCMPartialFlowGraph(evaluatedElements);
+        return new PCMPartialFlowGraph(sink);
     }
+	
+	@Override
+	public AbstractPCMVertex<?> getSink() {
+		return (AbstractPCMVertex<?>) this.sink;
+	}
 	
 	/**
 	 * Prepares the stack of variable contexts to contain the correct entry at the top, by updating elements, if the next element is returning

@@ -53,15 +53,15 @@ public class PCMUserFinderUtils {
 
     private static List<PCMPartialFlowGraph> findSequencesForUserStartAction(Start currentAction,
             PCMPartialFlowGraph previousSequence) {
-    	var startElement = new UserPCMVertex<Start>(currentAction);
-        var currentSequence = new PCMPartialFlowGraph(previousSequence, startElement);
+    	var startElement = new UserPCMVertex<Start>(currentAction, previousSequence.getSink());
+        var currentSequence = new PCMPartialFlowGraph(startElement);
         return findSequencesForUserAction(currentAction.getSuccessor(), currentSequence);
     }
 
     private static List<PCMPartialFlowGraph> findSequencesForUserStopAction(Stop currentAction,
             PCMPartialFlowGraph previousSequence) {
-    	var stopElement = new UserPCMVertex<Stop>(currentAction);
-        var currentSequence = new PCMPartialFlowGraph(previousSequence, stopElement);
+    	var stopElement = new UserPCMVertex<Stop>(currentAction, previousSequence.getSink());
+        var currentSequence = new PCMPartialFlowGraph(stopElement);
     	
         Optional<AbstractUserAction> parentAction = PCMQueryUtils.findParentOfType(currentAction,
                 AbstractUserAction.class, false);
@@ -85,8 +85,8 @@ public class PCMUserFinderUtils {
     }
 
     private static List<PCMPartialFlowGraph> findSequencesForEntryLevelSystemCall(EntryLevelSystemCall currentAction, PCMPartialFlowGraph previousSequence) {
-        var callingEntity = new CallingUserPCMVertex(currentAction, true);
-        PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(previousSequence, callingEntity);
+        var callingEntity = new CallingUserPCMVertex(currentAction, previousSequence.getSink(), true);
+        PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(callingEntity);
 
         OperationProvidedRole calledRole = currentAction.getProvidedRole_EntryLevelSystemCall();
         OperationSignature calledSignature = currentAction.getOperationSignature__EntryLevelSystemCall();
@@ -113,8 +113,7 @@ public class PCMUserFinderUtils {
     }
 
     public static List<PCMPartialFlowGraph> findSequencesForUserActionReturning(EntryLevelSystemCall currentAction, PCMPartialFlowGraph previousSequence) {
-        PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(previousSequence,
-                new CallingUserPCMVertex(currentAction, false));
+        PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(new CallingUserPCMVertex(currentAction, previousSequence.getSink(), false));
         return findSequencesForUserAction(currentAction.getSuccessor(), currentActionSequence);
     }
 }

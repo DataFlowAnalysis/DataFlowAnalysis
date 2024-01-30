@@ -52,14 +52,14 @@ public class PCMSEFFFinderUtils {
     }
 
     private static List<PCMPartialFlowGraph> findSequencesForSEFFStartAction(StartAction currentAction, SEFFFinderContext context, PCMPartialFlowGraph previousSequence) {
-    	var startElement = new SEFFPCMVertex<StartAction>(currentAction, context.getContext(), context.getParameter());
-        var currentSequence = new PCMPartialFlowGraph(previousSequence, startElement);
+    	var startElement = new SEFFPCMVertex<StartAction>(currentAction, previousSequence.getSink(), context.getContext(), context.getParameter());
+        var currentSequence = new PCMPartialFlowGraph(startElement);
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context, currentSequence);
     }
 
     private static List<PCMPartialFlowGraph> findSequencesForSEFFStopAction(StopAction currentAction, SEFFFinderContext context, PCMPartialFlowGraph previousSequence) {
-    	var stopElement = new SEFFPCMVertex<StopAction>(currentAction, context.getContext(), context.getParameter());
-        var currentSequence = new PCMPartialFlowGraph(previousSequence, stopElement);
+    	var stopElement = new SEFFPCMVertex<StopAction>(currentAction, previousSequence.getSink(), context.getContext(), context.getParameter());
+        var currentSequence = new PCMPartialFlowGraph(stopElement);
     	
         Optional<AbstractAction> parentAction = PCMQueryUtils.findParentOfType(currentAction, AbstractAction.class, false);
         if (parentAction.isPresent()) {
@@ -76,8 +76,8 @@ public class PCMSEFFFinderUtils {
     private static List<PCMPartialFlowGraph> findSequencesForSEFFExternalCallAction(ExternalCallAction currentAction, SEFFFinderContext context,
             PCMPartialFlowGraph previousSequence) {
 
-        var callingEntity = new CallingSEFFPCMVertex(currentAction, context.getContext(), context.getParameter(), true);
-        PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(previousSequence, callingEntity);
+        var callingEntity = new CallingSEFFPCMVertex(currentAction, previousSequence.getSink(), context.getContext(), context.getParameter(), true);
+        PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(callingEntity);
 
         OperationRequiredRole calledRole = currentAction.getRole_ExternalService();
         OperationSignature calledSignature = currentAction.getCalledService_ExternalService();
@@ -107,8 +107,8 @@ public class PCMSEFFFinderUtils {
             SEFFFinderContext context,
             PCMPartialFlowGraph previousSequence) {
 
-        var newEntity = new SEFFPCMVertex<>(currentAction, context.getContext(), context.getParameter());
-        PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(previousSequence, newEntity);
+        var newEntity = new SEFFPCMVertex<>(currentAction, previousSequence.getSink(), context.getContext(), context.getParameter());
+        PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(newEntity);
 
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context,
                 currentActionSequence);
@@ -132,8 +132,7 @@ public class PCMSEFFFinderUtils {
     private static List<PCMPartialFlowGraph> findSequencesForSEFFActionReturning(ExternalCallAction currentAction,
             SEFFFinderContext context,
             PCMPartialFlowGraph previousSequence) {
-        PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(previousSequence,
-                new CallingSEFFPCMVertex(currentAction, context.getContext(), context.getParameter(), false));
+        PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(new CallingSEFFPCMVertex(currentAction, previousSequence.getSink(), context.getContext(), context.getParameter(), false));
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context,
                 currentActionSequence);
     }

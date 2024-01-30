@@ -9,6 +9,7 @@ import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
+import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.CallReturnBehavior;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -26,8 +27,8 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction>
      * @param parameter List of Parameters that are available for the calling SEFF
      * @param isCalling Is true, when another method is called. Otherwise, a called method is returned from
      */
-    public CallingSEFFPCMVertex(ExternalCallAction element, Deque<AssemblyContext> context, List<Parameter> parameter, boolean isCalling) {
-        super(element, context, parameter);
+    public CallingSEFFPCMVertex(ExternalCallAction element, AbstractPCMVertex<?> previousElement, Deque<AssemblyContext> context, List<Parameter> parameter, boolean isCalling) {
+        super(element, previousElement, context, parameter);
         this.isCalling = isCalling;
     }
 
@@ -37,8 +38,8 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction>
      * @param dataFlowVariables List of updated data flow variables
      * @param nodeCharacteristics List of updated node characteristics
      */
-    public CallingSEFFPCMVertex(CallingSEFFPCMVertex oldElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
-        super(oldElement, dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+    public CallingSEFFPCMVertex(CallingSEFFPCMVertex oldElement, AbstractVertex<?> previousElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+        super(oldElement, previousElement, dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
         this.isCalling = oldElement.isCalling();
     }
 
@@ -48,7 +49,7 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction>
     }
     
     @Override
-    public AbstractVertex<ExternalCallAction> evaluateDataFlow(List<DataFlowVariable> incomingDataFlowVariables, 
+    public AbstractVertex<ExternalCallAction> evaluateDataFlow(AbstractVertex<?> previousVertex, List<DataFlowVariable> incomingDataFlowVariables, 
     		VertexCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
     	List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics(nodeCharacteristicsCalculator);
     	
@@ -71,7 +72,7 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction>
         }
 
         List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(dataCharacteristicsCalculatorFactory, nodeCharacteristics, variableCharacterisations, incomingDataFlowVariables);
-        return new CallingSEFFPCMVertex(this, incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+        return new CallingSEFFPCMVertex(this, previousVertex, incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
     
     @Override

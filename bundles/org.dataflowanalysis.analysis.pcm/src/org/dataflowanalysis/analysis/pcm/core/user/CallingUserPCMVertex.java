@@ -8,6 +8,7 @@ import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
+import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.CallReturnBehavior;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
@@ -21,8 +22,8 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall>
      * @param element Underlying Palladio Element
      * @param isCalling Is true, when another method is called. Otherwise, a called method is returned from
      */
-    public CallingUserPCMVertex(EntryLevelSystemCall element, boolean isCalling) {
-        super(element);
+    public CallingUserPCMVertex(EntryLevelSystemCall element, AbstractPCMVertex<?> previousElement, boolean isCalling) {
+        super(element, previousElement);
         this.isCalling = isCalling;
     }
 
@@ -32,8 +33,8 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall>
      * @param dataFlowVariables List of updated data flow variables
      * @param nodeCharacteristics List of updated node characteristics
      */
-    public CallingUserPCMVertex(CallingUserPCMVertex oldElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
-        super(oldElement, dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+    public CallingUserPCMVertex(CallingUserPCMVertex oldElement,  AbstractVertex<?> previousElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+        super(oldElement, previousElement, dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
         this.isCalling = oldElement.isCalling();
     }
 
@@ -43,7 +44,7 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall>
     }
     
     @Override
-    public AbstractVertex<EntryLevelSystemCall> evaluateDataFlow(List<DataFlowVariable> incomingDataFlowVariables, 
+    public AbstractVertex<EntryLevelSystemCall> evaluateDataFlow(AbstractVertex<?> previousElement, List<DataFlowVariable> incomingDataFlowVariables, 
     		VertexCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
     	List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics(nodeCharacteristicsCalculator);
     	
@@ -67,7 +68,7 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall>
         }
     	
     	List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(dataCharacteristicsCalculatorFactory, nodeCharacteristics, variableCharacterisations, incomingDataFlowVariables);
-    	return new CallingUserPCMVertex(this, incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+    	return new CallingUserPCMVertex(this, previousElement, incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
 
     @Override

@@ -2,7 +2,6 @@ package org.dataflowanalysis.analysis.pcm.core;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +14,10 @@ import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.pcm.core.seff.SEFFPCMVertex;
 import org.palladiosimulator.pcm.seff.StartAction;
 
+/**
+ * This class represents a partial flow graph that contains pcm vertices and is induced by one sink.
+ *
+ */
 public class PCMPartialFlowGraph extends AbstractPartialFlowGraph {
 
 	/**
@@ -31,17 +34,7 @@ public class PCMPartialFlowGraph extends AbstractPartialFlowGraph {
 	public PCMPartialFlowGraph(AbstractVertex<?> sink) {
         super(sink);
     }
-    
-    /**
-     * Creates a copy of the partial flow graph
-     * @param partialFlowGraph Partial flow graph that is already copied
-     * @param newSink New sink of the partial flow graph
-     * TODO: Vertices need not to be copied entirely for sequence finding!
-     */
-    public PCMPartialFlowGraph(AbstractPCMVertex<?> newSink) {
-        super(newSink);
-    }
-    
+	
 	@Override
     public AbstractPartialFlowGraph evaluate(VertexCharacteristicsCalculator nodeCharacteristicsCalculator, 
     		DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {

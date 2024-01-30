@@ -14,7 +14,6 @@ import org.dataflowanalysis.analysis.dfd.core.DFDActionSequenceElement;
 import org.dataflowanalysis.analysis.dfd.core.DFDCharacteristicValue;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class OnlineShopDFDTest {
@@ -60,8 +59,7 @@ public class OnlineShopDFDTest {
 		assertIterableEquals(expectedLabels, userVertexLabels);
 	}
 
-	// TODO: Re-enable after clarification of label propagation
-	@Test @Disabled
+	@Test
 	public void testDataLabelPropagation() {
 		var sequences = analysis.evaluateDataFlows(analysis.findAllSequences());
 		var databaseVertex = (DFDActionSequenceElement) sequences.get(1).getElements().get(4);

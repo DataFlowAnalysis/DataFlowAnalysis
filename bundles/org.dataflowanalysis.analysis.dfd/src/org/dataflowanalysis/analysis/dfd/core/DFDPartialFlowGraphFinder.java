@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
+import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
@@ -24,12 +25,12 @@ public class DFDPartialFlowGraphFinder {
 		Map<Node, Map<Pin, List<Flow>>> mapOfIngoingEdges = getMapOfIngoingEdges(dfd.getFlows());
 		Map<Node, List<DFDVertex>> mapNodeToVertices = new HashMap<>();
 		Map<Node, List<Node>> mapOfOutgoingEdges = getMapOfOutgoingEdges(dfd.getFlows());
-		for (Node startNode : getStartNodes(dfd.getFlows())) {
+		for (Node startNode : getStartNodes(dfd.getNodes())) {
 			fillMapNodeToVertices(startNode, mapNodeToVertices, mapOfIngoingEdges, mapOfOutgoingEdges);
 		}
 		List<AbstractPartialFlowGraph> sequences = new ArrayList<>();
 		
-		for (var endNode : getEndNodes(dfd.getFlows())) {
+		for (var endNode : getEndNodes(dfd.getNodes())) {
 			for (var endElement : mapNodeToVertices.get(endNode)) {
 				sequences.add(DFDPartialFlowGraph.createFromEndVertex(endElement));
 			}
@@ -106,20 +107,17 @@ public class DFDPartialFlowGraphFinder {
 	 * @param flows All flows
 	 * @return List of  Nodes with no incoming flows
 	 */
-	private static List<Node> getStartNodes(List<Flow> flows) {
+	private static List<Node> getStartNodes(List<Node> nodes) {
 		List<Node> startNodes = new ArrayList<Node>();
-		for (var flow: flows) {
-			var sourceNode = flow.getSourceNode();
-			if(!startNodes.contains(sourceNode)) {
-				startNodes.add(sourceNode);
-			}
-		}
-		
-		
-		for (var flow:flows) {
-			var destinationNode = flow.getDestinationNode();
-			if(startNodes.contains(destinationNode)) {
-				startNodes.remove(destinationNode);
+		for (Node node : nodes) {
+			for (Pin outputPin : node.getBehaviour().getOutPin()) {
+				for (AbstractAssignment assignment : node.getBehaviour().getAssignment()) {
+					if (assignment.getInputPins().isEmpty() && assignment.getOutputPin().equals(outputPin)) {
+						startNodes.add(node);
+						break;
+					}
+				}
+				if (startNodes.contains(node)) break;
 			}
 		}
 		return startNodes;
@@ -130,20 +128,16 @@ public class DFDPartialFlowGraphFinder {
 	 * @param flows All flows
 	 * @return List of  Nodes with no outgoing flows
 	 */
-	private static List<Node> getEndNodes(List<Flow> flows) {
-		List<Node> endNodes = new ArrayList<Node>();
-		for (var flow: flows) {
-			var destinationNode = flow.getDestinationNode();
-			if(!endNodes.contains(destinationNode)) {
-				endNodes.add(destinationNode);
-			}
-		}
-		
-		
-		for (var flow:flows) {
-			var sourceNode = flow.getSourceNode();
-			if(endNodes.contains(sourceNode)) {
-				endNodes.remove(sourceNode);
+	private static List<Node> getEndNodes(List<Node> nodes) {
+		List<Node> endNodes = new ArrayList<>(nodes);
+		for (Node node : nodes) {
+			for (Pin inputPin : node.getBehaviour().getInPin()) {
+				for (AbstractAssignment assignment : node.getBehaviour().getAssignment()) {
+					if (assignment.getInputPins().contains(inputPin)) {
+						endNodes.remove(node);
+						break;
+					}
+				}
 			}
 		}
 		return endNodes;

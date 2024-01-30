@@ -3,7 +3,6 @@ package org.dataflowanalysis.converter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.dataflowanalysis.converter.microsecend.*;
@@ -78,7 +77,7 @@ public class ProcessJSON {
 			nodesMap.put(ee.name(), external);
 		}
 		
-		for(Service service:micro.services()) {
+		for(Service service : micro.services()) {
 			var process = dfdFactory.createProcess();
 			process.setEntityName(service.name());
 			
@@ -90,7 +89,7 @@ public class ProcessJSON {
 			nodesMap.put(service.name(), process);
 		}
 
-		for(InformationFlow iflow: micro.informationFlows()) {
+		for(InformationFlow iflow : micro.informationFlows()) {
 			var source = nodesMap.get(iflow.sender());
 			var dest = nodesMap.get(iflow.receiver());
 			

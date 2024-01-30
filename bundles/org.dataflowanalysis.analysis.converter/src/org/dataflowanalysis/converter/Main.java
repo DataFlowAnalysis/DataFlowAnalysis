@@ -14,10 +14,8 @@ public class Main {
 		File file = new File(path);
         try {
             MicroSecEnd micro = objectMapper.readValue(file, MicroSecEnd.class);
-
-            System.out.println("Parsed JSON from file: " + file.getName());
-            
             new ProcessJSON().processMicro(file.getName().replaceAll("\\.json.*", ""),micro);
+            System.out.println("Micro->DFD: " + file.getName());
         } 
         catch (IOException e) {
             System.err.println("Error parsing file: " + file.getName());
@@ -27,13 +25,11 @@ public class Main {
 	
 	public static void readWeb(String path) {
 		ObjectMapper objectMapper = new ObjectMapper();        
-		File file = new File("minimal.json");
+		File file = new File(path);
         try {
             DFD dfd = objectMapper.readValue(file, DFD.class);
-
-            System.out.println("Parsed JSON from file: " + file.getName());
-          
             new ProcessJSON().processWeb(file.getName().replaceAll("\\.json.*", ""),dfd);
+            System.out.println("Web->DFD: " + file.getName());
         } 
         catch (IOException e) {
             System.err.println("Error parsing file: " + file.getName());
@@ -43,6 +39,7 @@ public class Main {
 	
 	public static void readDFD(String name, String outfile){
 		new ProcessDFD().parse(name+".dataflowdiagram", name+".datadictionary", outfile);
+		System.out.println("DFD->Web: " + name);
 	}
 
 	public static void main(String[] args) {
@@ -50,5 +47,7 @@ public class Main {
         readWeb("minimal.json");
         readDFD("anilallewar_microservices-basics-spring-boot", "test.json"); 
         readDFD("minimal", "test2.json");
+        readWeb("fullweb.json");
+        readDFD("fullweb","test3.json");
 	} 
 }

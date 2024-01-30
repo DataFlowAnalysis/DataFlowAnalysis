@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://www.example.org/dataflowdiagram" id="_sUliIL9BEe6batYFVfchtQ">
+  <flows id="_sUmwUr9BEe6batYFVfchtQ" entityName="request">
+    <destinationPin href="fullweb.datadictionary#_sUmwS79BEe6batYFVfchtQ"/>
+    <sourcePin href="fullweb.datadictionary#_sUmwQ79BEe6batYFVfchtQ"/>
+  </flows>
+  <flows id="_sUmwU79BEe6batYFVfchtQ" entityName="request">
+    <destinationPin href="fullweb.datadictionary#_sUmwT79BEe6batYFVfchtQ"/>
+    <sourcePin href="fullweb.datadictionary#_sUmwTL9BEe6batYFVfchtQ"/>
+  </flows>
+  <flows id="_sUmwVL9BEe6batYFVfchtQ" entityName="items">
+    <destinationPin href="fullweb.datadictionary#_sUmwQr9BEe6batYFVfchtQ"/>
+    <sourcePin href="fullweb.datadictionary#_sUmwSL9BEe6batYFVfchtQ"/>
+  </flows>
+  <flows id="_sUmwVb9BEe6batYFVfchtQ" entityName="items">
+    <destinationPin href="fullweb.datadictionary#_sUmwR79BEe6batYFVfchtQ"/>
+    <sourcePin href="fullweb.datadictionary#_sUmwUL9BEe6batYFVfchtQ"/>
+  </flows>
+  <flows id="_sUmwYr9BEe6batYFVfchtQ" entityName="data">
+    <destinationPin href="fullweb.datadictionary#_sUmwYL9BEe6batYFVfchtQ"/>
+    <sourcePin href="fullweb.datadictionary#_sUmwRL9BEe6batYFVfchtQ"/>
+  </flows>
+  <flows id="_sUmwY79BEe6batYFVfchtQ" entityName="data">
+    <destinationPin href="fullweb.datadictionary#_sUmwWL9BEe6batYFVfchtQ"/>
+    <sourcePin href="fullweb.datadictionary#_sUmwYb9BEe6batYFVfchtQ"/>
+  </flows>
+  <flows id="_sUmwZL9BEe6batYFVfchtQ" entityName="data">
+    <destinationPin href="fullweb.datadictionary#_sUmwXL9BEe6batYFVfchtQ"/>
+    <sourcePin href="fullweb.datadictionary#_sUmwWb9BEe6batYFVfchtQ"/>
+  </flows>
+  <flows id="_sUmwZb9BEe6batYFVfchtQ" entityName="data">
+    <destinationPin href="fullweb.datadictionary#_sUmwUb9BEe6batYFVfchtQ"/>
+    <sourcePin href="fullweb.datadictionary#_sUmwXb9BEe6batYFVfchtQ"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:External" id="7oii5l" entityName="User">
+    <behaviour href="fullweb.datadictionary#_sUmwQb9BEe6batYFVfchtQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="4myuyr" entityName="display">
+    <behaviour href="fullweb.datadictionary#_sUmwRr9BEe6batYFVfchtQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="0bh7yh" entityName="view">
+    <behaviour href="fullweb.datadictionary#_sUmwSr9BEe6batYFVfchtQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Store" id="8j2r1g" entityName="Database">
+    <behaviour href="fullweb.datadictionary#_sUmwTr9BEe6batYFVfchtQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="js61f" entityName="process">
+    <behaviour href="fullweb.datadictionary#_sUmwV79BEe6batYFVfchtQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="3n988k" entityName="encrypt">
+    <behaviour href="fullweb.datadictionary#_sUmwW79BEe6batYFVfchtQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="z9v1jp" entityName="buy">
+    <behaviour href="fullweb.datadictionary#_sUmwX79BEe6batYFVfchtQ"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

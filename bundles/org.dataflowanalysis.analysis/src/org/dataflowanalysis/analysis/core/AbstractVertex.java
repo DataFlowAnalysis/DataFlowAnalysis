@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 public abstract class AbstractVertex<T extends Object> {
 	protected final T referencedElement;
-	// TODO: Add previous vertices (this can be in the abstract super class, as both pcm and dfd uses them)
+	protected final AbstractVertex<?> previousElement;
 	
     private final Optional<List<DataFlowVariable>> incomingDataFlowVariables;
     private final Optional<List<DataFlowVariable>> outgoingDataFlowVariables;
@@ -24,8 +24,9 @@ public abstract class AbstractVertex<T extends Object> {
     /**
      * Constructs a new action sequence element with empty dataflow variables and node characteristics
      */
-    public AbstractVertex(T referencedElement) {
+    public AbstractVertex(T referencedElement, AbstractVertex<?> previousElement) {
     	this.referencedElement = referencedElement;
+    	this.previousElement = previousElement;
         this.incomingDataFlowVariables = Optional.empty();
         this.outgoingDataFlowVariables = Optional.empty();
         this.vertexCharacteristics = Optional.empty();
@@ -36,8 +37,9 @@ public abstract class AbstractVertex<T extends Object> {
      * @param dataFlowVariables List of updated dataflow variables
      * @param nodeCharacteristics List of updated node characteristics
      */
-    public AbstractVertex(T referencedElement, List<DataFlowVariable> incomingDataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> vertexCharacteristics) {
+    public AbstractVertex(T referencedElement, AbstractVertex<?> previousElement, List<DataFlowVariable> incomingDataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> vertexCharacteristics) {
         this.referencedElement = referencedElement;
+        this.previousElement = previousElement;
     	this.incomingDataFlowVariables = Optional.of(List.copyOf(incomingDataFlowVariables));
         this.outgoingDataFlowVariables = Optional.of(List.copyOf(outgoingDataFlowVariables));
         this.vertexCharacteristics = Optional.of(List.copyOf(vertexCharacteristics));
@@ -45,11 +47,12 @@ public abstract class AbstractVertex<T extends Object> {
 
     /**
      * Evaluates the Data Flow at a given sequence element given the list of {@link DataFlowVariable}s that are received from the precursor
+     * @param previousElement Reference to the previously evaluated element
      * @param variables List of {@link DataFlowVariable}s propagated from the precursor
      * @param analysisData Saved data and calculators of the analysis
      * @return Returns a new Sequence element with the updated Node- and DataFlowVariables
      */
-    public abstract AbstractVertex<T> evaluateDataFlow(List<DataFlowVariable> variables, 
+    public abstract AbstractVertex<T> evaluateDataFlow(AbstractVertex<?> previousElement, List<DataFlowVariable> variables, 
     		VertexCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory);
     
     /**
@@ -155,6 +158,10 @@ public abstract class AbstractVertex<T extends Object> {
     public boolean isEvaluated() {
         return this.incomingDataFlowVariables.isPresent();
     }
+    
+    public AbstractVertex<?> getPreviousElement() {
+		return previousElement;
+	}
 
     @Override
     public abstract String toString();

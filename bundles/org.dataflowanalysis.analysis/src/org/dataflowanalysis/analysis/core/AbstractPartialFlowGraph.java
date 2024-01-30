@@ -1,5 +1,7 @@
 package org.dataflowanalysis.analysis.core;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -10,16 +12,14 @@ import java.util.stream.Stream;
  *
  */
 public abstract class AbstractPartialFlowGraph {
-	// TODO: Implement correct attributes for partial flow graph. We should try making partial flow graphs immutable (e.g. most attributes should be final)
-	protected List<AbstractVertex<?>> vertices;
+	protected final AbstractVertex<?> sink;
 	
 	/**
 	 * Create a new action sequence with the given elements
 	 * @param elements List of elements in the sequence
-	 * TODO: Adapt constructor to new implementation
 	 */
-	public AbstractPartialFlowGraph(List<AbstractVertex<?>> vertices) {
-        this.vertices = List.copyOf(vertices);
+	public AbstractPartialFlowGraph(AbstractVertex<?> sink) {
+        this.sink = sink;
     }
     
 	/**
@@ -31,12 +31,23 @@ public abstract class AbstractPartialFlowGraph {
     public abstract AbstractPartialFlowGraph evaluate(VertexCharacteristicsCalculator nodeCharacteristicsCalculator, 
     		DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory);
     
+    public AbstractVertex<?> getSink() {
+		return sink;
+	}
+    
     /**
      * Returns the saved elements in the sequence
      * @return Returns List of sequence elements, saved in the sequence
      * TODO: Remove this method from the new implementation, as it might be misleading?
      */
     public List<AbstractVertex<?>> getVertices() {
+    	List<AbstractVertex<?>> vertices = new ArrayList<>();
+    	AbstractVertex<?> current = sink;
+    	while (current  != null) {
+    		vertices.add(current);
+    		current = current.getPreviousElement();
+    	}
+    	Collections.reverse(vertices);
 		return vertices;
 	}
     

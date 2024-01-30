@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 public abstract class AbstractVertex<T extends Object> {
 	protected final T referencedElement;
-	protected final AbstractVertex<?> previousElement;
+	protected final List<AbstractVertex<?>> previousElements;
 	
     private final Optional<List<DataFlowVariable>> incomingDataFlowVariables;
     private final Optional<List<DataFlowVariable>> outgoingDataFlowVariables;
@@ -24,9 +24,9 @@ public abstract class AbstractVertex<T extends Object> {
     /**
      * Constructs a new action sequence element with empty dataflow variables and node characteristics
      */
-    public AbstractVertex(T referencedElement, AbstractVertex<?> previousElement) {
+    public AbstractVertex(T referencedElement, List<AbstractVertex<?>> previousElements) {
     	this.referencedElement = referencedElement;
-    	this.previousElement = previousElement;
+    	this.previousElements = previousElements;
         this.incomingDataFlowVariables = Optional.empty();
         this.outgoingDataFlowVariables = Optional.empty();
         this.vertexCharacteristics = Optional.empty();
@@ -37,9 +37,9 @@ public abstract class AbstractVertex<T extends Object> {
      * @param dataFlowVariables List of updated dataflow variables
      * @param nodeCharacteristics List of updated node characteristics
      */
-    public AbstractVertex(T referencedElement, AbstractVertex<?> previousElement, List<DataFlowVariable> incomingDataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> vertexCharacteristics) {
+    public AbstractVertex(T referencedElement, List<AbstractVertex<?>> previousElements, List<DataFlowVariable> incomingDataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> vertexCharacteristics) {
         this.referencedElement = referencedElement;
-        this.previousElement = previousElement;
+        this.previousElements = previousElements;
     	this.incomingDataFlowVariables = Optional.of(List.copyOf(incomingDataFlowVariables));
         this.outgoingDataFlowVariables = Optional.of(List.copyOf(outgoingDataFlowVariables));
         this.vertexCharacteristics = Optional.of(List.copyOf(vertexCharacteristics));
@@ -159,8 +159,8 @@ public abstract class AbstractVertex<T extends Object> {
         return this.incomingDataFlowVariables.isPresent();
     }
     
-    public AbstractVertex<?> getPreviousElement() {
-		return previousElement;
+    public List<AbstractVertex<?>> getPreviousElements() {
+		return this.previousElements;
 	}
 
     @Override

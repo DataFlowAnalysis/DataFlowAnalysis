@@ -1,8 +1,11 @@
 package org.dataflowanalysis.analysis.core;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
@@ -42,10 +45,14 @@ public abstract class AbstractPartialFlowGraph {
      */
     public List<AbstractVertex<?>> getVertices() {
     	List<AbstractVertex<?>> vertices = new ArrayList<>();
-    	AbstractVertex<?> current = sink;
-    	while (current  != null) {
-    		vertices.add(current);
-    		current = current.getPreviousElement();
+    	Deque<AbstractVertex<?>> currentElements = new ArrayDeque<>();
+    	currentElements.push(sink);
+    	while (!currentElements.isEmpty()) {
+    		AbstractVertex<?> currentElement = currentElements.pop();
+    		vertices.add(currentElement);
+    		currentElement.getPreviousElements().stream()
+    			.filter(Objects::nonNull)
+    			.forEach(currentElements::push);
     	}
     	Collections.reverse(vertices);
 		return vertices;

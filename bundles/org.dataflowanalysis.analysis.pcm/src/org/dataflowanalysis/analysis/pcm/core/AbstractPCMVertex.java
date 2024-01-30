@@ -1,5 +1,6 @@
 package org.dataflowanalysis.analysis.pcm.core;
 
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
@@ -27,7 +28,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      * @param context Assembly context of the abstract pcm vertex
      */
     public AbstractPCMVertex(T referencedElement, AbstractPCMVertex<?> previousElement, Deque<AssemblyContext> context) {
-    	super(referencedElement, previousElement);
+    	super(referencedElement, Arrays.asList(previousElement));
         this.context = context;
     }
     
@@ -40,7 +41,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      */
     public AbstractPCMVertex(AbstractPCMVertex<T> oldVertex, AbstractVertex<?> previousElement, List<DataFlowVariable> incomingDataFlowVariables, 
     		List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> vertexCharacteristics) {
-    	super(oldVertex.referencedElement, previousElement, incomingDataFlowVariables, outgoingDataFlowVariables, vertexCharacteristics);
+    	super(oldVertex.referencedElement, Arrays.asList(previousElement), incomingDataFlowVariables, outgoingDataFlowVariables, vertexCharacteristics);
     	this.context = oldVertex.getContext();
     }
     

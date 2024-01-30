@@ -25,7 +25,6 @@ public class ProcessDFD {
 	
 	Map<Pin, String> mapInputPinToFlowName = new HashMap<>();
 	
-	@SuppressWarnings("unchecked")
 	public void parse(String dfdFile, String ddFile, String outFile) {	
 		//Init and get resources for dfd, dd model instances
 		ResourceSet rs = new ResourceSetImpl();

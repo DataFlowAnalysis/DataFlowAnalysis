@@ -2,7 +2,6 @@ package org.dataflowanalysis.converter;
 
 import java.util.Map;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.File;
@@ -75,30 +74,23 @@ public class ProcessDFD {
 				type="error";
 			}
 			
-			List<WebLabel> labels = new ArrayList<>();			
-			for (AbstractAssignment absassign: node.getBehaviour().getAssignment()) {
-				if (!(absassign instanceof ForwardingAssignment)) {
-					Assignment assign = (Assignment) absassign;
-					for(Label label : assign.getOutputLabels()) {
-						String labelTypeId = ((LabelType)label.eContainer()).getId();
-						String labelId = label.getId();
-						WebLabel charac = new WebLabel(labelTypeId,labelId);
-						if(!labels.contains(charac)) {
-							labels.add(charac);
-						}
-						
-					}
-				}
+			List<WebLabel> labels = new ArrayList<>();
+			for(Label label : node.getProperties()) {
+				String labelTypeId = ((LabelType)label.eContainer()).getId();
+				String labelId = label.getId();
+				WebLabel charac = new WebLabel(labelTypeId,labelId);
+				labels.add(charac);			
 			}
 			
 			List<Port> ports = new ArrayList<>();
+			
 			for (Pin pin : node.getBehaviour().getInPin()) {
 				ports.add(new Port(null,pin.getId(),"port:dfd-input",new ArrayList<>()));
 			}
-			//behavior is stored in outpin
+
 			Map<Pin, List<AbstractAssignment>> mapPinToAssignments = mapPinToAssignments(node);
 			for (Pin pin : node.getBehaviour().getOutPin()) {
-				String behaviour=createBehaviourString(mapPinToAssignments.get(pin));
+				String behaviour=createBehaviourString(mapPinToAssignments.get(pin)).trim();
 				ports.add(new Port(behaviour,pin.getId(),"port:dfd-output",new ArrayList<>()));
 			}
 			

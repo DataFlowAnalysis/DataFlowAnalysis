@@ -30,7 +30,7 @@ A basic analysis can be executed with the following example:
 ```java
 public class Main {
   public static void main(String[] args) {
-      DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder()
+      PCMDataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder()
 	        .standalone()
 	        .modelProjectName("<PROJECT_NAME>")
 	        .usePluginActivator(Activator.class)
@@ -42,15 +42,15 @@ public class Main {
       analysis.setLoggerLevel(Level.TRACE); // Set desired logger level. Level.TRACE provides additional propagation Information
       analysis.initializeAnalysis();
 
-      List<ActionSequence> actionSequences = analysis.findAllSequences();
+      PCMFlowGraph flowGraph = analysis.findFlowGraph();
 
-      List<ActionSequence> propagationResult = analysis.evaluateDataFlows(actionSequences);
-      
-      for(ActionSequence actionSequence : propagationResult) {
-        List<AbstractActionSequenceElement<?>> violations = analysis.queryDataFlow(actionSequence,
-          it -> false // Constraint goes here, return true, if constraint is violated
-        );
-      }
+      PCMFlowGraph propagatedFlowGraph = analysis.evaluateFlowGraph(flowGraph);
+	    
+      for(AbstractPartialFlowGraph actionSequence : propagatedFlowGraph.getPartialFlowGraphs()) {
+	       List<AbstractVertex<?>> violations = analysis.queryDataFlow(actionSequence,
+	       it -> false // Constraint goes here, return true, if constraint is violated
+	     );
+	   }
     }
 }
 ```

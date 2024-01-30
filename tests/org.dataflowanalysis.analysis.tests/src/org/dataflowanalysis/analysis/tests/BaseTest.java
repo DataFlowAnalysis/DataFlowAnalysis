@@ -5,7 +5,7 @@ import static org.dataflowanalysis.analysis.tests.AnalysisUtils.TEST_MODEL_PROJE
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
+import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,9 +14,9 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 @TestInstance(Lifecycle.PER_CLASS)
 public class BaseTest {
-    protected DataFlowConfidentialityAnalysis onlineShopAnalysis;
-    protected DataFlowConfidentialityAnalysis internationalOnlineShopAnalysis;
-    protected DataFlowConfidentialityAnalysis travelPlannerAnalysis;
+    protected PCMDataFlowConfidentialityAnalysis onlineShopAnalysis;
+    protected PCMDataFlowConfidentialityAnalysis internationalOnlineShopAnalysis;
+    protected PCMDataFlowConfidentialityAnalysis travelPlannerAnalysis;
 
     @BeforeAll
     public void initializeOnlineShopAnalysis() {
@@ -48,8 +48,8 @@ public class BaseTest {
         travelPlannerAnalysis.initializeAnalysis();
     }
     
-    protected DataFlowConfidentialityAnalysis initializeAnalysis(Path usagePath, Path allocationPath, Path nodePath) {
-    	DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder()
+    protected PCMDataFlowConfidentialityAnalysis initializeAnalysis(Path usagePath, Path allocationPath, Path nodePath) {
+    	PCMDataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder()
         		.standalone()
         		.modelProjectName(TEST_MODEL_PROJECT_NAME)
     			.usePluginActivator(Activator.class)

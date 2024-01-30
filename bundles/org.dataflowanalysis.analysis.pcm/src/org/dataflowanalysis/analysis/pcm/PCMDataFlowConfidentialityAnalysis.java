@@ -8,13 +8,12 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.core.PartialFlowGraph;
-import org.dataflowanalysis.analysis.core.PartialFlowGraphFinder;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
-import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;
-import org.dataflowanalysis.analysis.pcm.core.PCMActionSequence;
-import org.dataflowanalysis.analysis.pcm.core.PCMActionSequenceFinder;
+import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
+import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
+import org.dataflowanalysis.analysis.flowgraph.FlowGraph;
+import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.eclipse.core.runtime.Plugin;
@@ -33,16 +32,16 @@ import tools.mdsd.library.standalone.initialization.log4j.Log4jInitilizationTask
 
 public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentialityAnalysis {
 	private static final String PLUGIN_PATH = "org.dataflowanalysis.analysis.pcm";
-	
-	private final NodeCharacteristicsCalculator nodeCharacteristicsCalculator;
-	private final DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory;
-	private final PCMResourceProvider resourceProvider;
 	private final Logger logger;
 	
-	private final String modelProjectName;
-	private final Optional<Class<? extends Plugin>> modelProjectActivator;
+	protected final VertexCharacteristicsCalculator nodeCharacteristicsCalculator;
+	protected final DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory;
+	protected final PCMResourceProvider resourceProvider;
+
+	protected final String modelProjectName;
+	protected final Optional<Class<? extends Plugin>> modelProjectActivator;
 	
-	private List<PCMDataDictionary> dataDictionaries;
+	protected List<PCMDataDictionary> dataDictionaries;
 	
 	/**
 	 * Creates a new instance of an data flow analysis with the given parameters
@@ -51,7 +50,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
 	 * @param modelProjectName Name of the modelling project
 	 * @param modelProjectActivator Plugin class of the analysis
 	 */
-	public PCMDataFlowConfidentialityAnalysis(NodeCharacteristicsCalculator nodeCharacteristicsCalculator, 
+	public PCMDataFlowConfidentialityAnalysis(VertexCharacteristicsCalculator nodeCharacteristicsCalculator, 
 			DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory, PCMResourceProvider resourceProvider, 
 			String modelProjectName, Optional<Class<? extends Plugin>> modelProjectActivator) {
 		this.nodeCharacteristicsCalculator = nodeCharacteristicsCalculator;
@@ -63,26 +62,22 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
 	}
 
 	@Override
-	public List<PartialFlowGraph> findAllPartialFlowGraphs() {
-		PCMResourceProvider resourceProvider = (PCMResourceProvider) this.resourceProvider;
-		PartialFlowGraphFinder sequenceFinder = new PCMActionSequenceFinder(resourceProvider.getUsageModel());
-        return sequenceFinder.findPartialFlowGraphs().parallelStream()
-        		.map(PartialFlowGraph.class::cast)
-        		.collect(Collectors.toList());
+	public PCMFlowGraph findFlowGraph() {
+		PCMResourceProvider pcmResourceProvider = (PCMResourceProvider) this.resourceProvider;
+        return new PCMFlowGraph(pcmResourceProvider, this.nodeCharacteristicsCalculator, this.dataCharacteristicsCalculatorFactory);
 	}
 
 	@Override
-	public List<PartialFlowGraph> evaluateDataFlows(List<PartialFlowGraph> sequences) {
-		List<PCMActionSequence> actionSequences = sequences.parallelStream()
-    			.map(PCMActionSequence.class::cast)
-    			.collect(Collectors.toList());
-    	return actionSequences.parallelStream()
-    	          .map(it -> it.evaluateDataFlow(this.nodeCharacteristicsCalculator, this.dataCharacteristicsCalculatorFactory))
-    	          .toList();
+	public PCMFlowGraph evaluateFlowGraph(FlowGraph flowGraph) {
+		if (!(flowGraph instanceof PCMFlowGraph)) {
+			logger.error("Cannot evaluate non-pcm flow graph!", new IllegalArgumentException());
+		}
+		PCMFlowGraph pcmFlowGraph = (PCMFlowGraph) flowGraph;
+		return pcmFlowGraph.evaluate();
 	}
 
 	@Override
-	public List<AbstractVertex<?>> queryDataFlow(PartialFlowGraph sequence,
+	public List<AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph sequence,
 			Predicate<? super AbstractVertex<?>> condition) {
 		return sequence.getVertices()
 	            .parallelStream()

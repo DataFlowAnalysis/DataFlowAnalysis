@@ -1,16 +1,17 @@
 package org.dataflowanalysis.analysis.pcm.core;
 
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
 
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
-import org.dataflowanalysis.analysis.core.NodeCharacteristicsCalculator;
+import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
+import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
@@ -20,48 +21,50 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
 	private final Logger logger = Logger.getLogger(AbstractPCMVertex.class);
 	
     private final Deque<AssemblyContext> context;
-    private final T element;	
-
 
     /**
-     * Constructs a new Action Sequence Element with the underlying Palladio Element and Assembly Context
-     * @param vertex Underlying Palladio Element of the Sequence Element
-     * @param context Assembly context of the Palladio Element
+     * Constructs a new abstract pcm vertex with the underlying palladio element and assembly context
+     * @param vertex Underlying palladio element of the abstract pcm vertex
+     * @param context Assembly context of the abstract pcm vertex
      */
-    public AbstractPCMVertex(T vertex, Deque<AssemblyContext> context) {
-        this.element = vertex;
+    public AbstractPCMVertex(T referencedElement, AbstractPCMVertex<?> previousElement, Deque<AssemblyContext> context) {
+    	super(referencedElement, Arrays.asList(previousElement));
         this.context = context;
     }
     
     /**
-     * Builds a new Sequence element with an existing element and a list of Node and DataFlow variables
-     * @param oldVertex Old element, which element and context should be copied
-     * @param dataFlowVariables DataFlow variables, which should be present for the action sequence element
-     * @param nodeCharacteristics Node characteristics, which should be present for the action sequence element
+     * Builds a new abstract pcm vertex with an existing pcm vertex and a list of vertex characteristics, incoming and outgoing data flow variables
+     * @param oldVertex Old pcm vertex, which referenced element and context should be copied
+     * @param incomingDataFlowVariables Data flow variables, which are flowing into the vertex from previous vertices
+     * @param outgoingDataFlowVariables Data flow variables, which are flowing out of the vertex to following vertices
+     * @param vertexCharacteristics Characteristics, which are present at the current vertex
      */
-    public AbstractPCMVertex(AbstractPCMVertex<T> oldVertex, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
-    	super(dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
-    	this.element = oldVertex.getElement();
+    public AbstractPCMVertex(AbstractPCMVertex<T> oldVertex, AbstractVertex<?> previousElement, List<DataFlowVariable> incomingDataFlowVariables, 
+    		List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> vertexCharacteristics) {
+    	super(oldVertex.referencedElement, Arrays.asList(previousElement), incomingDataFlowVariables, outgoingDataFlowVariables, vertexCharacteristics);
     	this.context = oldVertex.getContext();
     }
     
     /**
-     * Calculate the node characteristics for the sequence element with the given analysis data
-     * @param analysisData Analysis data containing the node characteristics calculator
-     * @return Returns a list of node characteristics that are applied to the sequence element
+     * Calculate the vertex characteristics for the sequence element with the given node characteristics calculator
+     * @param vertexCharacteristicsCalculator Node characteristics calculator that is used to calculate the characteristics for the vertex
+     * @return Returns a list of vertex characteristics that are applied to the pcm vertex
      */
-    protected List<CharacteristicValue> getNodeCharacteristics(NodeCharacteristicsCalculator nodeCharacteristicsCalculator) {
-    	return nodeCharacteristicsCalculator.getNodeCharacteristics(this.element, this.context);
+    protected List<CharacteristicValue> getVertexCharacteristics(VertexCharacteristicsCalculator vertexCharacteristicsCalculator) {
+    	return vertexCharacteristicsCalculator.getNodeCharacteristics(this.referencedElement, this.context);
     }
     
     /**
-     * Calculate the data characteristics for the sequence element with the given analysis data
-     * @param analysisData Analysis data containing the node characteristics calculator
+     * Calculate the data characteristics for the vertex with the given data characteristics calculator, vertex characteristics, variable characterizations and old data flow variables
+     * @param dataCharacteristicsCalculatorFactory Data characteristics factory that is used to calculate the data characteristics at the present vertex
+     * @param vertexCharacteristics Vertex characteristics present at the vertex
+     * @param variableCharacterisations Variable characterizations present in the model
+     * @param oldDataFlowVariables Old data flow variables present at the node
      * @return Returns a list of data characteristics that are applied to the sequence element
      */
-    protected List<DataFlowVariable> getDataFlowVariables(DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory, 
-    		List<CharacteristicValue> nodeCharacteristics, List<ConfidentialityVariableCharacterisation> variableCharacterisations, List<DataFlowVariable> oldDataFlowVariables) {
-    	DataCharacteristicsCalculator dataCharacteristicsCalculator = dataCharacteristicsCalculatorFactory.createNodeCalculator(oldDataFlowVariables, nodeCharacteristics);
+    protected List<DataFlowVariable> getDataFlowVariables(DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory, List<CharacteristicValue> vertexCharacteristics, 
+    		List<ConfidentialityVariableCharacterisation> variableCharacterisations, List<DataFlowVariable> oldDataFlowVariables) {
+    	DataCharacteristicsCalculator dataCharacteristicsCalculator = dataCharacteristicsCalculatorFactory.createNodeCalculator(oldDataFlowVariables, vertexCharacteristics);
     	variableCharacterisations.forEach(dataCharacteristicsCalculator::evaluate);
     	return dataCharacteristicsCalculator.getCalculatedCharacteristics();
     }
@@ -84,7 +87,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     	referencedParameter.stream()
     		.filter(it -> !parameter.contains(it))
     		.forEach(it -> {
-    			logger.warn("Unknown reference to variable " + it + " in variable characterisation in element " + element);
+    			logger.warn("Unknown reference to variable " + it + " in variable characterisation in vertex " + this.referencedElement);
     			logger.warn("Present variables:" + parameter + ", Referenced parameter: " + referencedParameter);
     	});
     }
@@ -93,8 +96,8 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      * Return the saved element of the sequence element
      * @return
      */
-    public T getElement() {
-        return element;
+    public T getReferencedElement() {
+        return referencedElement;
     }
 
     /**
@@ -107,7 +110,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     
     @Override
     public int hashCode() {
-        return Objects.hash(context, element);
+        return Objects.hash(context, referencedElement);
     }
 
     @Override
@@ -120,7 +123,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
             return false;
         @SuppressWarnings("rawtypes")
         AbstractPCMVertex other = (AbstractPCMVertex) obj;
-        return Objects.equals(context, other.context) && Objects.equals(element, other.element);
+        return Objects.equals(context, other.context) && Objects.equals(referencedElement, other.referencedElement);
     }
 
 }

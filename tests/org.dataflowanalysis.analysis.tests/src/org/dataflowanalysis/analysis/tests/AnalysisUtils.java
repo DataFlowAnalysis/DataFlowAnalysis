@@ -8,9 +8,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
-import org.dataflowanalysis.analysis.core.PartialFlowGraph;
-import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFActionSequenceElement;
-import org.dataflowanalysis.analysis.pcm.core.user.CallingUserActionSequenceElement;
+import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFPCMVertex;
+import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
 
 public class AnalysisUtils {
 
@@ -33,7 +33,7 @@ public class AnalysisUtils {
      * @param expectedType
      *            Expected type of the given ActionSequence at the given index
      */
-    public static void assertSequenceElement(PartialFlowGraph sequence, int index, Class<?> expectedType) {
+    public static void assertSequenceElement(AbstractPartialFlowGraph sequence, int index, Class<?> expectedType) {
         assertNotNull(sequence.getVertices());
         assertTrue(sequence.getVertices()
             .size() >= index + 1);
@@ -57,7 +57,7 @@ public class AnalysisUtils {
      * @param expectedType
      *            Expected types of the given ActionSequence at all indexes
      */
-    public static void assertSequenceElements(PartialFlowGraph sequence, List<Class<?>> expectedElementTypes) {
+    public static void assertSequenceElements(AbstractPartialFlowGraph sequence, List<Class<?>> expectedElementTypes) {
         var elements = sequence.getVertices();
 
         assertNotNull(elements);
@@ -99,7 +99,7 @@ public class AnalysisUtils {
      * @param expectedName
      *            Expected name at the given {@code index} into the given {@code sequence}
      */
-    public static void assertSEFFSequenceElementContent(PartialFlowGraph sequence, int index, String expectedName) {
+    public static void assertSEFFSequenceElementContent(AbstractPartialFlowGraph sequence, int index, String expectedName) {
         assertNotNull(sequence.getVertices());
         assertTrue(sequence.getVertices()
             .size() >= index + 1);
@@ -107,10 +107,10 @@ public class AnalysisUtils {
         var element = sequence.getVertices()
             .get(index);
 
-        assertInstanceOf(CallingSEFFActionSequenceElement.class, element);
+        assertInstanceOf(CallingSEFFPCMVertex.class, element);
 
-        var sequenceElement = (CallingSEFFActionSequenceElement) element;
-        assertEquals(expectedName, sequenceElement.getElement()
+        var sequenceElement = (CallingSEFFPCMVertex) element;
+        assertEquals(expectedName, sequenceElement.getReferencedElement()
             .getEntityName());
     }
 
@@ -128,7 +128,7 @@ public class AnalysisUtils {
      * @param expectedName
      *            Expected name at the given {@code index} into the given {@code sequence}
      */
-    public static void assertUserSequenceElementContent(PartialFlowGraph sequence, int index, String expectedName) {
+    public static void assertUserSequenceElementContent(AbstractPartialFlowGraph sequence, int index, String expectedName) {
         assertNotNull(sequence.getVertices());
         assertTrue(sequence.getVertices()
             .size() >= index + 1);
@@ -136,10 +136,10 @@ public class AnalysisUtils {
         var element = sequence.getVertices()
             .get(index);
 
-        assertInstanceOf(CallingUserActionSequenceElement.class, element);
+        assertInstanceOf(CallingUserPCMVertex.class, element);
 
-        var sequenceElement = (CallingUserActionSequenceElement) element;
-        assertEquals(expectedName, sequenceElement.getElement()
+        var sequenceElement = (CallingUserPCMVertex) element;
+        assertEquals(expectedName, sequenceElement.getReferencedElement()
             .getEntityName());
     }
 
@@ -161,7 +161,7 @@ public class AnalysisUtils {
      * @param characteristicValue
      *            Expected characteristic value at the given {@code index}
      */
-    public static void assertCharacteristicPresent(PartialFlowGraph sequence, int index, String variableName,
+    public static void assertCharacteristicPresent(AbstractPartialFlowGraph sequence, int index, String variableName,
             String characteristicType, String characteristicValue) {
         var sequenceElement = sequence.getVertices()
             .get(index);
@@ -206,7 +206,7 @@ public class AnalysisUtils {
      * @param characteristicValue
      *            Expected characteristic value at the given {@code index}
      */
-    public static void assertCharacteristicAbsent(PartialFlowGraph sequence, int index, String variableName,
+    public static void assertCharacteristicAbsent(AbstractPartialFlowGraph sequence, int index, String variableName,
             String characteristicType, String characteristicValue) {
     	if (sequence.getVertices().size() < index) {
     		fail("Action sequence with length " + sequence.getVertices().size() + " is not long enough for index " + index);

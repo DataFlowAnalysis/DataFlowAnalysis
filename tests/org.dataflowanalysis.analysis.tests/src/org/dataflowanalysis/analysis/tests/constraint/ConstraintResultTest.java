@@ -10,11 +10,11 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Level;
-import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.core.PartialFlowGraph;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
+import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
+import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintData;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintViolations;
 import org.junit.jupiter.api.Test;
@@ -120,7 +120,7 @@ public class ConstraintResultTest extends ConstraintTest {
      */
     @Test
     public void oneAssemblyMultipleResourceTestConstraintResults() {
-    	DataFlowConfidentialityAnalysis analysis = 
+    	PCMDataFlowConfidentialityAnalysis analysis = 
     			super.initializeAnalysis(Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.usagemodel"), 
     					Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.allocation"),
     					Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.nodecharacteristics"));
@@ -137,7 +137,7 @@ public class ConstraintResultTest extends ConstraintTest {
      */
     @Test
     public void returnTestConstraintResults() {
-    	DataFlowConfidentialityAnalysis returnAnalysis = 
+    	PCMDataFlowConfidentialityAnalysis returnAnalysis = 
     			super.initializeAnalysis(Paths.get("models", "ReturnTestModel", "default.usagemodel"), Paths.get("models", "ReturnTestModel", "default.allocation"),
     					Paths.get("models", "ReturnTestModel", "default.nodecharacteristics"));
     	Predicate<AbstractVertex<?>> constraint = node -> returnCondition(node);
@@ -146,10 +146,10 @@ public class ConstraintResultTest extends ConstraintTest {
     	testAnalysis(returnAnalysis, constraint, constraintData);
     }
     
-    public void testAnalysis(DataFlowConfidentialityAnalysis analysis, Predicate<AbstractVertex<?>> constraint, List<ConstraintData> constraintData) {
-    	List<PartialFlowGraph> actionSequences = analysis.findAllPartialFlowGraphs();
-    	List<PartialFlowGraph> evaluatedSequences = analysis.evaluateDataFlows(actionSequences);
-    	List<AbstractVertex<?>> results = evaluatedSequences.stream()
+    public void testAnalysis(PCMDataFlowConfidentialityAnalysis analysis, Predicate<AbstractVertex<?>> constraint, List<ConstraintData> constraintData) {
+    	PCMFlowGraph flowGraph = analysis.findFlowGraph();
+    	PCMFlowGraph propagatedFlowGraph = analysis.evaluateFlowGraph(flowGraph);
+    	List<AbstractVertex<?>> results = propagatedFlowGraph.getPartialFlowGraphs().stream()
     			.map(it -> analysis.queryDataFlow(it, constraint))
     			.flatMap(it -> it.stream())
     			.collect(Collectors.toList());

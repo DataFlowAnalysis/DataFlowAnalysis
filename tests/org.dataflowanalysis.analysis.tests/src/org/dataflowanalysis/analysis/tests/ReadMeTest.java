@@ -5,9 +5,12 @@ import java.util.List;
 import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.DataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.core.PartialFlowGraph;
+import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
+import org.dataflowanalysis.analysis.flowgraph.FlowGraph;
+import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
+import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +23,7 @@ public class ReadMeTest extends BaseTest {
 	
 	// --------------------------------------------------
 	public static void main(String[] args) {
-	    DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder()
+	    PCMDataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder()
 	        .standalone()
 	        .modelProjectName("<PROJECT_NAME>")
 	        .usePluginActivator(Activator.class)
@@ -32,11 +35,11 @@ public class ReadMeTest extends BaseTest {
 	    analysis.setLoggerLevel(Level.TRACE); // Set desired logger level. Level.TRACE provides additional propagation Information
 	    analysis.initializeAnalysis();
 
-	    List<PartialFlowGraph> actionSequences = analysis.findAllPartialFlowGraphs();
+	    PCMFlowGraph flowGraph = analysis.findFlowGraph();
 
-	    List<PartialFlowGraph> propagationResult = analysis.evaluateDataFlows(actionSequences);
+	    PCMFlowGraph propagatedFlowGraph = analysis.evaluateFlowGraph(flowGraph);
 	    
-	    for(PartialFlowGraph actionSequence : propagationResult) {
+	    for(AbstractPartialFlowGraph actionSequence : propagatedFlowGraph.getPartialFlowGraphs()) {
 	    	List<AbstractVertex<?>> violations = analysis.queryDataFlow(actionSequence,
 	        it -> false // Constraint goes here, return true, if constraint is violated
 	      );
@@ -49,14 +52,14 @@ public class ReadMeTest extends BaseTest {
 	 */
 	@Test
 	public void ReadmeWithTravelPlannerTest() {
-		var analysis = travelPlannerAnalysis;
+		PCMDataFlowConfidentialityAnalysis analysis = travelPlannerAnalysis;
 		
 		// Code snippet from README starts here
-		List<PartialFlowGraph> actionSequences = analysis.findAllPartialFlowGraphs();
+		PCMFlowGraph flowGraph = analysis.findFlowGraph();
 
-	    List<PartialFlowGraph> propagationResult = analysis.evaluateDataFlows(actionSequences);
+	    PCMFlowGraph propagatedFlowGraph = analysis.evaluateFlowGraph(flowGraph);
 	    
-	    for(PartialFlowGraph actionSequence : propagationResult) {
+	    for(AbstractPartialFlowGraph actionSequence : propagatedFlowGraph.getPartialFlowGraphs()) {
 	    	List<AbstractVertex<?>> violations = analysis.queryDataFlow(actionSequence,
 	        it -> false // Constraint goes here, return true, if constraint is violated
 	      );

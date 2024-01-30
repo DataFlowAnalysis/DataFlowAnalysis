@@ -3,17 +3,15 @@ package org.dataflowanalysis.analysis.dfd;
 import java.util.List;
 import java.util.Optional;
 
-import java.util.ArrayList;
 import java.util.function.Predicate;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.core.PartialFlowGraph;
-import org.dataflowanalysis.analysis.dfd.core.DFDPartialFlowGraph;
-import org.dataflowanalysis.analysis.dfd.core.DFDPartialFlowGraphFinder;
-import org.dataflowanalysis.analysis.dfd.core.DFDCharacteristicsCalculator;
+import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraph;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
+import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
+import org.dataflowanalysis.analysis.flowgraph.FlowGraph;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -25,9 +23,9 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder
 public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalysis {
 	private final Logger logger = Logger.getLogger(DFDConfidentialityAnalysis.class);
 	
-	private DFDResourceProvider resourceProvider;
-	private Optional<Class<? extends Plugin>> modelProjectActivator;
-	private String modelProjectName;
+	protected DFDResourceProvider resourceProvider;
+	protected Optional<Class<? extends Plugin>> modelProjectActivator;
+	protected String modelProjectName;
 	
 	public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider, Optional<Class<? extends Plugin>> modelProjectActivator, String modelProjectName) {
 		this.resourceProvider = resourceProvider;
@@ -70,22 +68,22 @@ public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalys
 	
 
 	@Override
-	public List<PartialFlowGraph> findAllPartialFlowGraphs() {
-		return DFDPartialFlowGraphFinder.findAllPartialFlowGraphsInDFD(this.resourceProvider.getDataFlowDiagram(), this.resourceProvider.getDataDictionary());
+	public DFDFlowGraph findFlowGraph() {
+		return new DFDFlowGraph(this.resourceProvider);
 	}
 	
 
 	@Override
-	public List<PartialFlowGraph> evaluateDataFlows(List<PartialFlowGraph> sequences) {
-		List<PartialFlowGraph> outSequences = new ArrayList<>();
-		for (var dfdActionSequence : sequences) {
-			outSequences.add(DFDCharacteristicsCalculator.fillDataFlowVariables((DFDPartialFlowGraph)dfdActionSequence));
+	public DFDFlowGraph evaluateFlowGraph(FlowGraph flowGraph) {
+		if (!(flowGraph instanceof DFDFlowGraph)) {
+			logger.error("Cannot evaluate a non-dfd flow graph!", new IllegalArgumentException());
 		}
-		return outSequences;
+		DFDFlowGraph dfdFlowGraph = (DFDFlowGraph) flowGraph;
+		return dfdFlowGraph.evaluate();
 	}
 
 	@Override
-	public List<AbstractVertex<?>> queryDataFlow(PartialFlowGraph sequence,
+	public List<AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph sequence,
 			Predicate<? super AbstractVertex<?>> condition) {
 		return sequence.getVertices()
 	            .parallelStream()

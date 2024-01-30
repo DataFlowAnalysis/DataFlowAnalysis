@@ -1,25 +1,40 @@
-package org.dataflowanalysis.analysis.core;
+package org.dataflowanalysis.analysis.flowgraph;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.eclipse.emf.ecore.EObject;
+import org.dataflowanalysis.analysis.core.CharacteristicValue;
+import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
+import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
 
-public abstract class AbstractVertex<T extends EObject> {
-
-    private final Optional<List<DataFlowVariable>> dataFlowVariables;
+/**
+ * This class represents an abstract vertex in a {@link AbstractPartialFlowGraph}.
+ * An abstract vertex represents an element in a partial flow graph and links to an element.
+ * An element referenced in this way may be referenced multiple times by different abstract vertices.
+ * Furthermore, the abstract vertex saved incoming and outgoing data flow variables and the characteristics present at the vertex.
+ * 
+ * @param T Type parameter representing the type of the stored object
+ */
+public abstract class AbstractVertex<T extends Object> {
+	protected final T referencedElement;
+	protected final List<AbstractVertex<?>> previousElements;
+	
+    private final Optional<List<DataFlowVariable>> incomingDataFlowVariables;
     private final Optional<List<DataFlowVariable>> outgoingDataFlowVariables;
-    private final Optional<List<CharacteristicValue>> nodeCharacteristics;
+    private final Optional<List<CharacteristicValue>> vertexCharacteristics;
 
     /**
      * Constructs a new action sequence element with empty dataflow variables and node characteristics
      */
-    public AbstractVertex() {
-        this.dataFlowVariables = Optional.empty();
+    public AbstractVertex(T referencedElement, List<AbstractVertex<?>> previousElements) {
+    	this.referencedElement = referencedElement;
+    	this.previousElements = previousElements;
+        this.incomingDataFlowVariables = Optional.empty();
         this.outgoingDataFlowVariables = Optional.empty();
-        this.nodeCharacteristics = Optional.empty();
+        this.vertexCharacteristics = Optional.empty();
     }
 
     /**
@@ -27,20 +42,23 @@ public abstract class AbstractVertex<T extends EObject> {
      * @param dataFlowVariables List of updated dataflow variables
      * @param nodeCharacteristics List of updated node characteristics
      */
-    public AbstractVertex(List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
-        this.dataFlowVariables = Optional.of(List.copyOf(dataFlowVariables));
+    public AbstractVertex(T referencedElement, List<AbstractVertex<?>> previousElements, List<DataFlowVariable> incomingDataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> vertexCharacteristics) {
+        this.referencedElement = referencedElement;
+        this.previousElements = previousElements;
+    	this.incomingDataFlowVariables = Optional.of(List.copyOf(incomingDataFlowVariables));
         this.outgoingDataFlowVariables = Optional.of(List.copyOf(outgoingDataFlowVariables));
-        this.nodeCharacteristics = Optional.of(List.copyOf(nodeCharacteristics));
+        this.vertexCharacteristics = Optional.of(List.copyOf(vertexCharacteristics));
     }
 
     /**
      * Evaluates the Data Flow at a given sequence element given the list of {@link DataFlowVariable}s that are received from the precursor
+     * @param previousElement Reference to the previously evaluated element
      * @param variables List of {@link DataFlowVariable}s propagated from the precursor
      * @param analysisData Saved data and calculators of the analysis
      * @return Returns a new Sequence element with the updated Node- and DataFlowVariables
      */
-    public abstract AbstractVertex<T> evaluateDataFlow(List<DataFlowVariable> variables, 
-    		NodeCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory);
+    public abstract AbstractVertex<T> evaluateDataFlow(AbstractVertex<?> previousElement, List<DataFlowVariable> variables, 
+    		VertexCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory);
     
     /**
      * Returns a list of characteristic literals that are set for a given characteristic type in the list of all node characteristics
@@ -119,7 +137,7 @@ public abstract class AbstractVertex<T extends EObject> {
      * @return List of present dataflow variables
      */
     public List<DataFlowVariable> getAllDataFlowVariables() {
-        return this.dataFlowVariables.orElseThrow(IllegalStateException::new);
+        return this.incomingDataFlowVariables.orElseThrow(IllegalStateException::new);
     }
     
     /**
@@ -135,7 +153,7 @@ public abstract class AbstractVertex<T extends EObject> {
      * @return List of present node characteristics
      */
     public List<CharacteristicValue> getAllNodeCharacteristics() {
-    	return this.nodeCharacteristics.orElseThrow(IllegalStateException::new);
+    	return this.vertexCharacteristics.orElseThrow(IllegalStateException::new);
     }
 
     /**
@@ -143,8 +161,12 @@ public abstract class AbstractVertex<T extends EObject> {
      * @return Returns true, if the node is evaluated. Otherwise, the method returns false
      */
     public boolean isEvaluated() {
-        return this.dataFlowVariables.isPresent();
+        return this.incomingDataFlowVariables.isPresent();
     }
+    
+    public List<AbstractVertex<?>> getPreviousElements() {
+		return this.previousElements;
+	}
 
     @Override
     public abstract String toString();

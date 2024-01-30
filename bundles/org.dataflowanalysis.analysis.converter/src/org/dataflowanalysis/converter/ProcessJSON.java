@@ -97,9 +97,9 @@ public class ProcessJSON {
 		}
 		
 		LabelType annotation = ddFactory.createLabelType();
-			annotation.setEntityName("stereotype");
-			labelTypeMap.put("stereotype", annotation);
-			dd.getLabelTypes().add(annotation);
+		annotation.setEntityName("annotation");
+		labelTypeMap.put("annotation", annotation);
+		dd.getLabelTypes().add(annotation);
 		
 		for (Node node : nodesMap.values()) {
 			var behaviour = ddFactory.createBehaviour();
@@ -154,53 +154,22 @@ public class ProcessJSON {
 								
 				behaviour.getAssignment().remove(template);
 			}
-			
-			
-			//ForwardAssignment
+		}
+		
+		//ForwardAssignment
+		for(Node node:nodesMap.values()) {
+			var behaviour = node.getBehaviour();
 			for (Pin pin : behaviour.getOutPin()) {
-				for (Label label : labelMap.values()) {
-					Assignment assignment = ddFactory.createAssignment();
+					var assignment = ddFactory.createForwardingAssignment();
 					assignment.setOutputPin(pin);
 					assignment.getInputPins().addAll(behaviour.getInPin());
-					assignment.getOutputLabels().add(label);
-					
-					LabelReference labelReference = ddFactory.createLabelReference();
-					labelReference.setLabel(label);
-					
-					assignment.setTerm(labelReference);
 					behaviour.getAssignment().add(assignment);
-				}
 			}
 		}
 		
 		saveResource(dfdResource);
 		saveResource(ddResource);
 	}
-	
-	/*public List<Label> createLabels(List<String> labelNames, DataDictionary dd) {
-		List<Label> labels = new ArrayList<>();
-		for (String labelName : labelNames) {
-			LabelType labelType;
-			if (labelTypeMap.containsKey(labelName)) labelType = labelTypeMap.get(labelName);
-			else {
-				labelType = ddFactory.createLabelType();
-				labelType.setEntityName(labelName);
-				labelTypeMap.put(labelName, labelType);
-				dd.getLabelTypes().add(labelType);
-			}
-			if (labelMap.containsKey(labelName)) {
-				labels.add(labelMap.get(labelName));
-			}
-			else {
-				Label label = ddFactory.createLabel();
-				label.setEntityName(labelName);
-				labelType.getLabel().add(label);
-				labels.add(label);
-				labelMap.put(labelName, label);
-			}		
-		}	
-		return labels;
-	}*/
 	
 	public List<Label> createLabels(List<String> labelNames, DataDictionary dd, LabelType annotation) {
 		List<Label> labels = new ArrayList<>();
@@ -218,24 +187,7 @@ public class ProcessJSON {
 		}	
 		return labels;
 	}
-	
-	/*private void annotateForwardingAssignments(Behaviour behaviour) {
-		for (Pin pin : behaviour.getOutPin()) {
-			for (Label label : labelMap.values()) {
-				Assignment assignment = ddFactory.createAssignment();
-				assignment.setOutputPin(pin);
-				assignment.getInputPins().addAll(behaviour.getIn());
-				assignment.getOutputLabels().add(label);
-				
-				LabelReference labelReference = ddFactory.createLabelReference();
-				labelReference.setLabel(label);
-				
-				assignment.setTerm(labelReference);
-				behaviour.getAssignment().add(assignment);
-			}
-		}
-	}*/
-		
+			
 	public void processWeb(String file, DFD webdfd) {
 		nodesMap = new HashMap<String, Node>();
 		Map<String, Node> pinToNodeMap = new HashMap<String, Node>();

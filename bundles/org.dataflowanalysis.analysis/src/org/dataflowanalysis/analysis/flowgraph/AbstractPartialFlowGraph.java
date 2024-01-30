@@ -42,7 +42,7 @@ public abstract class AbstractPartialFlowGraph {
      * @return Returns List of sequence elements, saved in the sequence
      * TODO: Return a set of vertices, no order
      */
-    public List<AbstractVertex<?>> getVertices() {
+    public List<? extends AbstractVertex<?>> getVertices() {
     	List<AbstractVertex<?>> vertices = new ArrayList<>();
     	Deque<AbstractVertex<?>> currentElements = new ArrayDeque<>();
     	currentElements.push(sink);
@@ -62,7 +62,7 @@ public abstract class AbstractPartialFlowGraph {
      * The order of elements is completely arbitrary, but deterministic.
      * @return Returns a stream over all elements in the partial flow graph
      */
-    public Stream<AbstractVertex<?>> stream() {
+    public Stream<? extends AbstractVertex<?>> stream() {
     	return this.getVertices().parallelStream();
     }
     

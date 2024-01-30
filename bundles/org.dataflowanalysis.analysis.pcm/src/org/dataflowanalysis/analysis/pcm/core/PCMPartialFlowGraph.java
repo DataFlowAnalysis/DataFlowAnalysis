@@ -38,7 +38,6 @@ public class PCMPartialFlowGraph extends AbstractPartialFlowGraph {
 	@Override
     public AbstractPartialFlowGraph evaluate(VertexCharacteristicsCalculator nodeCharacteristicsCalculator, 
     		DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
-		// TODO: This is incredibly sketchy
         var iterator = this.getVertices().iterator();
         Deque<List<DataFlowVariable>> variableContexts = new ArrayDeque<>();
         variableContexts.push(new ArrayList<>());

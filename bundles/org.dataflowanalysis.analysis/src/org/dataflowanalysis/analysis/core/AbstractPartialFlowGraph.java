@@ -11,7 +11,6 @@ import java.util.stream.Stream;
 /**
  * This abstract class represents a partial flow graph induced by a sink {@link AbstractPartialFlowGraph#getSink()}.
  * Ambiguous flows, like multiple flows to one input pin, are resolved in the partial flow graph and represent one possible assignment
- * TODO: Actually implement correct representation
  *
  */
 public abstract class AbstractPartialFlowGraph {
@@ -41,7 +40,7 @@ public abstract class AbstractPartialFlowGraph {
     /**
      * Returns the saved elements in the sequence
      * @return Returns List of sequence elements, saved in the sequence
-     * TODO: Remove this method from the new implementation, as it might be misleading?
+     * TODO: Remove this method from the new implementation, as it might be misleading and works differently between dfd and pcm?
      */
     public List<AbstractVertex<?>> getVertices() {
     	List<AbstractVertex<?>> vertices = new ArrayList<>();
@@ -62,7 +61,6 @@ public abstract class AbstractPartialFlowGraph {
      * Returns a stream over all elements present in the partial flow graph.
      * The order of elements is completely arbitrary, but deterministic.
      * @return Returns a stream over all elements in the partial flow graph
-     * TODO: Implement the stream behavior for the new representation
      */
     public Stream<AbstractVertex<?>> stream() {
     	return this.getVertices().parallelStream();

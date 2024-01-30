@@ -39,6 +39,15 @@ public class ProcessDFD {
 		DataDictionary dd = (DataDictionary) ddResource.getContents().get(0);
 				
 		List<Child> children = new ArrayList<>();
+		List<WebLabelType> labelTypes = new ArrayList<>();
+		
+		for(LabelType labelType : dd.getLabelTypes()) {
+			List<Value> values = new ArrayList<>();
+			for(Label label : labelType.getLabel()) {
+				values.add(new Value(label.getId(),label.getEntityName()));
+			}
+			labelTypes.add(new WebLabelType(labelType.getId(),labelType.getEntityName(),values));
+		}
 		
 		for (Node node : dfd.getNodes()) {
 			String text = node.getEntityName();
@@ -54,6 +63,26 @@ public class ProcessDFD {
 			else {
 				type="error";
 			}
+			
+			List<WebLabel> labels = new ArrayList<>();
+			/*for (Label label : node.getProperties()) {
+				String labelTypeId = ((LabelType)label.eContainer()).getId();
+				String labelId = label.getId();
+				System.out.println(labelTypeId);
+				System.out.println(labelId);
+				labels.add(new WebLabel(labelTypeId,labelId));
+			}*/
+			for (AbstractAssignment absassign: node.getBehaviour().getAssignment()) {
+				Assignment assign = (Assignment) absassign;
+				for(Label label : assign.getOutputLabels()) {
+					String labelTypeId = ((LabelType)label.eContainer()).getId();
+					String labelId = label.getId();
+					System.out.println(labelTypeId);
+					System.out.println(labelId);
+					labels.add(new WebLabel(labelTypeId,labelId));
+				}
+			}
+			
 			List<Port> ports = new ArrayList<>();
 			for (Pin pin : node.getBehaviour().getInPin()) {
 				ports.add(new Port(null,pin.getId(),"port:dfd-input",new ArrayList<>()));
@@ -63,7 +92,8 @@ public class ProcessDFD {
 				String behaviour="Replace";
 				ports.add(new Port(behaviour,pin.getId(),"port:dfd-output",new ArrayList<>()));
 			}
-			children.add(new Child(text, new ArrayList<>(), ports,id,type,null,null,new ArrayList<>()));
+			
+			children.add(new Child(text, labels, ports,id,type,null,null,new ArrayList<>()));
 		}
 		
 		for(Flow flow: dfd.getFlows()) {
@@ -75,8 +105,10 @@ public class ProcessDFD {
 			children.add(new Child(text,null,null,id,type,sourceId,targetId,new ArrayList<>()));
 			
 		}
+
 		
-		DFD output = new DFD (new Model("graph","root",children),new ArrayList<>());
+		
+		DFD output = new DFD (new Model("graph","root",children),labelTypes);
 		
 		ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);

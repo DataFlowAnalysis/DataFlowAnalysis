@@ -44,8 +44,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		readMicro("anilallewar_microservices-basics-spring-boot.json");
-        readWeb("minimal.json");
         readDFD("anilallewar_microservices-basics-spring-boot", "test.json"); 
+        readWeb("minimal.json");
         readDFD("minimal", "test2.json");
         readWeb("fullweb.json");
         readDFD("fullweb","test3.json");

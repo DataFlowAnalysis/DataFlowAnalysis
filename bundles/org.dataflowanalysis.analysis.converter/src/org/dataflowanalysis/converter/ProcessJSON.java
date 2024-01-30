@@ -111,6 +111,8 @@ public class ProcessJSON {
 
 			behaviour.getAssignment().add(assignment);
 			
+			node.getProperties().addAll(assignment.getOutputLabels());
+			
 			dd.getBehaviour().add(behaviour);
 		}
 
@@ -134,9 +136,9 @@ public class ProcessJSON {
 			dfd.getFlows().add(flow);
 		}
 		
+		//NodeAssigment
 		for(Node node : nodesMap.values()) {
 			var behaviour = node.getBehaviour();
-			//NodeAssigment
 			Assignment template = (Assignment) behaviour.getAssignment().get(0);
 			if (behaviour.getOutPin().size() == 0) {}
 			else {

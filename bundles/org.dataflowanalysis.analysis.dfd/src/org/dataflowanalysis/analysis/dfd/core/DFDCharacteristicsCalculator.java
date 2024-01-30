@@ -71,7 +71,7 @@ public class DFDCharacteristicsCalculator {
 		for (var pin : vertex.getMapPinToInputFlow().keySet()) {
 			for (var prevVertex : vertex.getMapPinToPreviousVertex().values()) {
 				for (var dfv : prevVertex.getAllOutgoingDataFlowVariables()) {
-					if (dfv.getVariableName().equals(vertex.getMapPinToInputFlow().get(pin).getId())) {
+					if (dfv.getVariableName().equals(vertex.getMapPinToInputFlow().get(pin).getSourcePin().getId())) {
 						mapInputPinsToIncomingLabels.putIfAbsent(pin, new ArrayList<>());
 						for (var cv : dfv.getAllCharacteristics()) {
 							mapInputPinsToIncomingLabels.get(pin).add(((DFDCharacteristicValue)cv).getLabel());

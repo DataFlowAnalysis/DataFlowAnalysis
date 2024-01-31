@@ -123,7 +123,7 @@ public class ProcessJSON {
 			var flow = dfdFactory.createFlow();
 			flow.setSourceNode(source);
 			flow.setDestinationNode(dest);
-			flow.setEntityName(iflow.sender()+"->"+iflow.receiver());
+			flow.setEntityName(iflow.sender());
 			
 			
 			var inPin = ddFactory.createPin();
@@ -140,8 +140,7 @@ public class ProcessJSON {
 		for(Node node : nodesMap.values()) {
 			var behaviour = node.getBehaviour();
 			Assignment template = (Assignment) behaviour.getAssignment().get(0);
-			if (behaviour.getOutPin().size() == 0) {}
-			else {
+			if (behaviour.getOutPin().size() != 0) {
 				for (Pin outPin : behaviour.getOutPin()) {
 					Assignment assignment = ddFactory.createAssignment();
 					

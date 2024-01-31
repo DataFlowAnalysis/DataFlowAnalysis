@@ -78,8 +78,7 @@ public class ProcessDFD {
 			for(Label label : node.getProperties()) {
 				String labelTypeId = ((LabelType)label.eContainer()).getId();
 				String labelId = label.getId();
-				WebLabel charac = new WebLabel(labelTypeId,labelId);
-				labels.add(charac);			
+				labels.add(new WebLabel(labelTypeId,labelId));			
 			}
 			
 			List<Port> ports = new ArrayList<>();
@@ -88,7 +87,8 @@ public class ProcessDFD {
 				ports.add(new Port(null,pin.getId(),"port:dfd-input",new ArrayList<>()));
 			}
 
-			Map<Pin, List<AbstractAssignment>> mapPinToAssignments = mapPinToAssignments(node);
+			Map<Pin, List<AbstractAssignment>> mapPinToAssignments = mapping(node);
+			
 			for (Pin pin : node.getBehaviour().getOutPin()) {
 				String behaviour=createBehaviourString(mapPinToAssignments.get(pin)).trim();
 				ports.add(new Port(behaviour,pin.getId(),"port:dfd-output",new ArrayList<>()));
@@ -109,23 +109,23 @@ public class ProcessDFD {
             e.printStackTrace();
         }
 	}
-	private Map<Pin, List<AbstractAssignment>> mapPinToAssignments(Node node) {
+	public Map<Pin, List<AbstractAssignment>> mapping(Node node) {
 		Map<Pin, List<AbstractAssignment>> mapPinToAssignments = new HashMap<>();
 		
 		for (AbstractAssignment assignment : node.getBehaviour().getAssignment()) {
 			if (mapPinToAssignments.containsKey(assignment.getOutputPin())) {
 				mapPinToAssignments.get(assignment.getOutputPin()).add(assignment);
-			} else {
+			} 
+			else {
 				List<AbstractAssignment> list = new ArrayList<>();
 				list.add(assignment);
 				mapPinToAssignments.put(assignment.getOutputPin(), list);
 			}
-
 		}
 		return mapPinToAssignments;
 	}
 	
-	private String createBehaviourString (List<AbstractAssignment> abstractAssignments) {
+	public String createBehaviourString (List<AbstractAssignment> abstractAssignments) {
 		StringBuilder builder = new StringBuilder();
 		if(abstractAssignments != null) {
 			for (AbstractAssignment abstractAssignment : abstractAssignments) {
@@ -154,7 +154,7 @@ public class ProcessDFD {
 	}
 	
 	//Currently only supports True or False
-	private boolean getTermValue(Term term) throws IllegalArgumentException{
+	public boolean getTermValue(Term term) throws IllegalArgumentException{
 		if (term instanceof TRUE) return true;
 		if (term instanceof NOT) {
 			return !getTermValue(((NOT)term).getNegatedTerm());

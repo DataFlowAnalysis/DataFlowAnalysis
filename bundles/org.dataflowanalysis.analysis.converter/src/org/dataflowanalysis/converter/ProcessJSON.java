@@ -9,8 +9,6 @@ import java.util.Map;
 import org.dataflowanalysis.converter.microsecend.*;
 import org.dataflowanalysis.converter.webdfd.*;
 import org.dataflowanalysis.dfd.datadictionary.*;
-import org.dataflowanalysis.dfd.datadictionary.Label;
-import org.dataflowanalysis.dfd.datadictionary.LabelType;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -311,7 +309,7 @@ public class ProcessJSON {
 		for(Node node : nodesMap.values()) {
 			if (nodeOutpinBehavior.containsKey(node)) {
 				for(Pin outpin:nodeOutpinBehavior.get(node).keySet()) {
-					parseBehavior(node,outpin,nodeOutpinBehavior.get(node).get(outpin),dfd);
+					parseBehavior(node,outpin,nodeOutpinBehavior.get(node).get(outpin),dfd,dd);
 				}
 			}
 		}
@@ -320,7 +318,7 @@ public class ProcessJSON {
 		saveResource(ddResource);
 	}
 	
-	public void parseBehavior(Node node, Pin outpin, String lines, DataFlowDiagram dfd) {
+	public void parseBehavior(Node node, Pin outpin, String lines, DataFlowDiagram dfd, DataDictionary dd) {
 		String[] behaviorStrings = lines.split("\n");
 		var behavior = node.getBehaviour();
 		for (String behaviorString : behaviorStrings) {
@@ -340,9 +338,41 @@ public class ProcessJSON {
 				assignment.getInputPins().add(inpin);
 				behavior.getAssignment().add(assignment);
 			}
-			/*else if(behavior.contains("set ")) {
-
-			}*/
+			else if(behaviorString.contains("set ")) {
+				String[] parts = behaviorString.split(" ");
+				if(parts[2].equals("=")) {
+					boolean bool = parts[3].equals("TRUE") ? true : false;
+					String typeName= parts[1].split("\\.")[0];
+					String valueName=parts[1].split("\\.")[1];
+					Label value = null;
+					for(LabelType labelType : dd.getLabelTypes()) {
+						if(labelType.getEntityName().equals(typeName)) {
+							for(Label label : labelType.getLabel()) {
+								if(label.getEntityName().equals(valueName)) {
+									value=label;
+								}
+							}
+						}
+					}
+					Assignment assignment = ddFactory.createAssignment();
+					
+					assignment.getInputPins().addAll(behavior.getInPin());
+					assignment.setOutputPin(outpin);
+					
+					assignment.getOutputLabels().add(value);
+					if(bool) {
+						assignment.setTerm(ddFactory.createTRUE());
+					}
+					else {
+						TRUE t = ddFactory.createTRUE();
+						NOT n = ddFactory.createNOT();
+						n.setNegatedTerm(t);
+						assignment.setTerm(n);
+					}
+					
+					behavior.getAssignment().add(assignment);		
+				}
+			}
 		}	
 	}
 	

@@ -193,6 +193,9 @@ public class ProcessJSON {
 		nodesMap = new HashMap<String, Node>();
 		Map<String, Node> pinToNodeMap = new HashMap<String, Node>();
 		Map<String, Pin> pinMap = new HashMap<String, Pin>();
+		Map<String,Label> idToLabelMap = new HashMap<>();
+		Map<Node,Map<Pin,String>> nodeOutpinBehavior = new HashMap<>();
+		
 		
 		
 		Resource dfdResource = createAndAddResource(file+".dataflowdiagram", new String[] {"dataflowdiagram"} ,rs);
@@ -204,6 +207,21 @@ public class ProcessJSON {
 		dfdResource.getContents().add(dfd);
 		ddResource.getContents().add(dd);
 		
+		for(WebLabelType webLabelType : webdfd.labelTypes()) {
+			LabelType labelType = ddFactory.createLabelType();
+			labelType.setEntityName(webLabelType.name());
+			labelType.setId(webLabelType.id());
+			for(Value value :webLabelType.values()) {
+				Label label = ddFactory.createLabel();
+				label.setEntityName(value.text());
+				label.setId(value.id());
+				labelType.getLabel().add(label);
+				idToLabelMap.put(label.getId(), label);
+			}
+			dd.getLabelTypes().add(labelType);
+			
+		}
+			
 		for(Child child : webdfd.model().children()) {
 			String[] type = child.type().split(":");
 			String name=child.text();
@@ -221,6 +239,7 @@ public class ProcessJSON {
 				}
 				else {
 					node=null;
+					System.out.println("Error");
 				}
 				node.setEntityName(name);
 				node.setId(child.id());
@@ -232,23 +251,51 @@ public class ProcessJSON {
 				for(Port port :child.ports()) {
 					if (port.type().equals("port:dfd-input")) {
 						var inPin = ddFactory.createPin();
+						inPin.setId(port.id());
 						node.getBehaviour().getInPin().add(inPin);
 						pinMap.put(port.id(), inPin);
 					}
-					else if (port.type().equals("port:dfd-output")) {
+					else if (port.type().equals("port:dfd-output")) {		
 						var outPin = ddFactory.createPin();
+						outPin.setId(port.id());
 						node.getBehaviour().getOutPin().add(outPin);
 						pinMap.put(port.id(), outPin);
+						if (port.behavior() != null) {
+							putValue(nodeOutpinBehavior,node,outPin,port.behavior());
+						}
 					}
 					pinToNodeMap.put(port.id(),node);
+				}
+				
+				List<Label> labelsAtNode = new ArrayList<>();
+				for(WebLabel webLabel : child.labels()) {
+					labelsAtNode.add(idToLabelMap.get(webLabel.labelTypeValueId()));
+				}
+				node.getProperties().addAll(labelsAtNode);
+				
+				for (Pin outPin : behaviour.getOutPin()) {
+					Assignment assignment = ddFactory.createAssignment();
+					
+					assignment.getInputPins().addAll(behaviour.getInPin());
+					assignment.setOutputPin(outPin);
+					
+					assignment.getOutputLabels().addAll(labelsAtNode);
+					assignment.setTerm(ddFactory.createTRUE());
+					
+					behaviour.getAssignment().add(assignment);			
 				}
 				
 				dfd.getNodes().add(node);
 				nodesMap.put(child.id(), node);
 			}
-			else if(type[0].equals("edge")){
-				var source = nodesMap.get(child.sourceId());
-				var dest = nodesMap.get(child.targetId());
+		}
+		
+		for(Child child : webdfd.model().children()) {
+			String[] type = child.type().split(":");
+
+			if(type[0].equals("edge")){
+				var source = pinToNodeMap.get(child.sourceId());
+				var dest = pinToNodeMap.get(child.targetId());
 				
 				var flow = dfdFactory.createFlow();
 				flow.setSourceNode(source);
@@ -260,8 +307,46 @@ public class ProcessJSON {
 				dfd.getFlows().add(flow);
 			}
 		}
-				
+			
+		for(Node node : nodesMap.values()) {
+			if (nodeOutpinBehavior.containsKey(node)) {
+				for(Pin outpin:nodeOutpinBehavior.get(node).keySet()) {
+					parseBehavior(node,outpin,nodeOutpinBehavior.get(node).get(outpin),dfd);
+				}
+			}
+		}
+		
 		saveResource(dfdResource);
 		saveResource(ddResource);
 	}
+	
+	public void parseBehavior(Node node, Pin outpin, String lines, DataFlowDiagram dfd) {
+		String[] behaviorStrings = lines.split("\n");
+		var behavior = node.getBehaviour();
+		for (String behaviorString : behaviorStrings) {
+			if(behaviorString.contains("forward ")) {
+				String packet = behaviorString.split(" ")[1];
+				Pin inpin = null;
+				for(Flow flow : dfd.getFlows()) {
+					if (flow.getDestinationNode() == node) {
+						if(flow.getEntityName().equals(packet)) {
+							inpin=flow.getDestinationPin();
+						}
+					}
+				}
+				
+				var assignment = ddFactory.createForwardingAssignment();
+				assignment.setOutputPin(outpin);
+				assignment.getInputPins().add(inpin);
+				behavior.getAssignment().add(assignment);
+			}
+			/*else if(behavior.contains("set ")) {
+
+			}*/
+		}	
+	}
+	
+	public void putValue(Map<Node, Map<Pin, String>> nestedHashMap, Node key1, Pin key2, String value) {
+        nestedHashMap.computeIfAbsent(key1, k -> new HashMap<>()).put(key2, value);
+    }
 }

@@ -53,6 +53,8 @@ public class ReadMeTest extends BaseTest {
 		
 		// Code snippet from README starts here
 		List<ActionSequence> actionSequences = analysis.findAllSequences();
+		//System.out.println(actionSequences);
+		System.out.println(actionSequences.get(0).getElements().get(0).getAllDataFlowVariables().get(0).getAllCharacteristics());
 
 	    List<ActionSequence> propagationResult = analysis.evaluateDataFlows(actionSequences);
 	    

@@ -270,19 +270,7 @@ public class ProcessJSON {
 					labelsAtNode.add(idToLabelMap.get(webLabel.labelTypeValueId()));
 				}
 				node.getProperties().addAll(labelsAtNode);
-				
-				/*for (Pin outPin : behaviour.getOutPin()) {
-					Assignment assignment = ddFactory.createAssignment();
-					
-					assignment.getInputPins().addAll(behaviour.getInPin());
-					assignment.setOutputPin(outPin);
-					
-					assignment.getOutputLabels().addAll(labelsAtNode);
-					assignment.setTerm(ddFactory.createTRUE());
-					
-					behaviour.getAssignment().add(assignment);			
-				}*/
-				
+								
 				dfd.getNodes().add(node);
 				nodesMap.put(child.id(), node);
 			}

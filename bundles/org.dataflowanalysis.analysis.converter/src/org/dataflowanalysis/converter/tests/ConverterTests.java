@@ -46,7 +46,6 @@ public class ConverterTests {
                 
         webBefore.labelTypes().sort(Comparator.comparing(WebLabelType::id));
         webAfter.labelTypes().sort(Comparator.comparing(WebLabelType::id));
-        assertEquals(webBefore.labelTypes(),webAfter.labelTypes());
         
         List<Child> childrenBefore = webBefore.model().children();
         List<Child> childrenAfter = webAfter.model().children();
@@ -65,36 +64,7 @@ public class ConverterTests {
 
         	}
         }
-                
-        assertEquals(childrenBefore.size(),childrenAfter.size());
         
-        for(int i=0;i<childrenBefore.size();i++) {
-        	Child childBefore = childrenBefore.get(i);
-        	Child childAfter = childrenAfter.get(i);
-
-        	assertEquals(childBefore.type(),childAfter.type());
-        	assertEquals(childBefore.id(),childAfter.id());
-        	assertEquals(childBefore.text(),childAfter.text());
-        	assertEquals(childBefore.children(),childAfter.children());
-        	if(childBefore.type().split(":")[0].equals("node")) {
-        		assertEquals(childBefore.labels(),childAfter.labels());
-        		assertEquals(childBefore.ports().size(),childAfter.ports().size());
-        		for(int j=0;j<childBefore.ports().size();j++) {
-        			Port portBefore = childBefore.ports().get(j);
-        			Port portAfter = childAfter.ports().get(j);
-        			assertEquals(portBefore.type(),portAfter.type());
-                	assertEquals(portBefore.id(),portAfter.id());
-                	assertEquals(portBefore.children(),portAfter.children());
-                	if(portBefore.type().equals("port:dfd-output")) {
-                		assertEquals(portBefore.behavior(),portAfter.behavior());
-                	}
-        		}
-        	}
-        	else if(childBefore.type().split(":")[0].equals("edge")) {
-        		assertEquals(childBefore.sourceId(),childAfter.sourceId());
-        		assertEquals(childBefore.targetId(),childAfter.targetId());
-        		
-        	}
-        }
+        assertEquals(webBefore,webAfter);
 	}
 }

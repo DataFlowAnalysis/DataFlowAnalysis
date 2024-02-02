@@ -1,6 +1,6 @@
 package org.dataflowanalysis.converter.tests;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -20,7 +20,8 @@ import org.dataflowanalysis.converter.webdfd.*;
 public class ConverterTests {
 	
 	@Test
-	public void test() {
+	@DisplayName("Assure WebDFD=convert(convert(WebDFD))")
+	public void webToDfdToWeb() {
 		Main.readWeb("minimal.json");
 		Main.readDFD("minimal","test5.json");
 		assertTrue(true);

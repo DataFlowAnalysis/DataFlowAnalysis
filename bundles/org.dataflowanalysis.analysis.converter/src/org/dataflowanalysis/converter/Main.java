@@ -61,6 +61,9 @@ public class Main {
             	readMicro(name+".json",false);
             	System.out.println("Plant->DFD: " + path);
             }
+            else {
+            	System.out.println("Check if python3 is set in PATH");
+            }
         } catch (IOException | InterruptedException e) {
         	System.out.println("Error converting Plant to JSON");
             e.printStackTrace();

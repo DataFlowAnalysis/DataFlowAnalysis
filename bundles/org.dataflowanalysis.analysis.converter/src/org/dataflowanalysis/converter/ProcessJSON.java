@@ -271,7 +271,7 @@ public class ProcessJSON {
 				}
 				node.getProperties().addAll(labelsAtNode);
 				
-				for (Pin outPin : behaviour.getOutPin()) {
+				/*for (Pin outPin : behaviour.getOutPin()) {
 					Assignment assignment = ddFactory.createAssignment();
 					
 					assignment.getInputPins().addAll(behaviour.getInPin());
@@ -281,7 +281,7 @@ public class ProcessJSON {
 					assignment.setTerm(ddFactory.createTRUE());
 					
 					behaviour.getAssignment().add(assignment);			
-				}
+				}*/
 				
 				dfd.getNodes().add(node);
 				nodesMap.put(child.id(), node);
@@ -302,6 +302,7 @@ public class ProcessJSON {
 				
 				flow.setDestinationPin(pinMap.get(child.targetId()));
 				flow.setSourcePin(pinMap.get(child.sourceId()));
+				flow.setId(child.id());
 				dfd.getFlows().add(flow);
 			}
 		}

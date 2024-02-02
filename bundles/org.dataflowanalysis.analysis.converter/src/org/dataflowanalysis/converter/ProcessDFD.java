@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import org.dataflowanalysis.converter.webdfd.*;
 import org.dataflowanalysis.dfd.datadictionary.*;
@@ -90,7 +91,7 @@ public class ProcessDFD {
 			Map<Pin, List<AbstractAssignment>> mapPinToAssignments = mapping(node);
 			
 			for (Pin pin : node.getBehaviour().getOutPin()) {
-				String behaviour=createBehaviourString(mapPinToAssignments.get(pin)).trim();
+				String behaviour=createBehaviourString(mapPinToAssignments.get(pin));
 				ports.add(new Port(behaviour,pin.getId(),"port:dfd-output",new ArrayList<>()));
 			}
 			
@@ -101,6 +102,7 @@ public class ProcessDFD {
 		
 		ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         try {
             // Serialize object to JSON and write to a file
@@ -147,9 +149,9 @@ public class ProcessDFD {
 					}
 				}
 			}
-			return builder.toString();
+			return builder.toString().trim();
 		}
-		return "";
+		return null;
 		
 	}
 	

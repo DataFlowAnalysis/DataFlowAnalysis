@@ -6,9 +6,7 @@ import java.util.Deque;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
-import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
 import org.dataflowanalysis.analysis.pcm.core.seff.SEFFPCMVertex;
@@ -36,26 +34,26 @@ public class PCMPartialFlowGraph extends AbstractPartialFlowGraph {
     }
 	
 	@Override
-    public AbstractPartialFlowGraph evaluate(VertexCharacteristicsCalculator nodeCharacteristicsCalculator, 
-    		DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
-        var iterator = this.getVertices().iterator();
-        Deque<List<DataFlowVariable>> variableContexts = new ArrayDeque<>();
-        variableContexts.push(new ArrayList<>());
-        
-        AbstractVertex<?> sink = null;
-
-        while (iterator.hasNext()) {
-            AbstractVertex<?> nextElement = iterator.next();
-            
-            prepareCall(variableContexts, nextElement);
-            
-            AbstractVertex<?> evaluatedElement = nextElement.evaluateDataFlow(sink, variableContexts.peek(), nodeCharacteristicsCalculator, dataCharacteristicsCalculatorFactory);
-            sink = evaluatedElement;
-            
-            cleanupCall(variableContexts, evaluatedElement);
-        }
-
-        return new PCMPartialFlowGraph(sink);
+    public AbstractPartialFlowGraph evaluate() {
+		return new PCMPartialFlowGraph(this.getSink().evaluateDataFlow());
+		/*
+		 * var iterator = this.getVertices().iterator(); Deque<List<DataFlowVariable>>
+		 * variableContexts = new ArrayDeque<>(); variableContexts.push(new
+		 * ArrayList<>());
+		 * 
+		 * AbstractVertex<?> sink = null;
+		 * 
+		 * while (iterator.hasNext()) { AbstractVertex<?> nextElement = iterator.next();
+		 * 
+		 * prepareCall(variableContexts, nextElement);
+		 * 
+		 * AbstractVertex<?> evaluatedElement = nextElement.evaluateDataFlow(); sink =
+		 * evaluatedElement;
+		 * 
+		 * cleanupCall(variableContexts, evaluatedElement); }
+		 * 
+		 * return new PCMPartialFlowGraph(sink);
+		 */
     }
 	
 	@Override

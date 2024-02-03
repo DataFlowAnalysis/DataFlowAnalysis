@@ -8,9 +8,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
-import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
-
 /**
  * This abstract class represents a partial flow graph induced by a sink {@link AbstractPartialFlowGraph#getSink()}.
  * Ambiguous flows, like multiple flows to one input pin, are resolved in the partial flow graph and represent one possible assignment

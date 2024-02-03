@@ -3,36 +3,29 @@ package org.dataflowanalysis.analysis.pcm.core;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
-import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.flowgraph.FlowGraph;
 import org.dataflowanalysis.analysis.core.PartialFlowGraphFinder;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 
-public class PCMFlowGraph implements FlowGraph {
-	private final List<AbstractPartialFlowGraph> partialFlowGraphs;
-	private final PCMResourceProvider resourceProvider;
-	private final VertexCharacteristicsCalculator nodeCharacteristicsCalculator;
-	private final DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory;
+public class PCMFlowGraph extends FlowGraph {
+	private static final Logger logger = Logger.getLogger(PCMFlowGraph.class);
 	
-	public PCMFlowGraph(PCMResourceProvider resourceProvider, VertexCharacteristicsCalculator nodeCharacteristicsCalculator, 
-			DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
-		this.resourceProvider = resourceProvider;
-		this.nodeCharacteristicsCalculator = nodeCharacteristicsCalculator;
-		this.dataCharacteristicsCalculatorFactory = dataCharacteristicsCalculatorFactory;
-		this.partialFlowGraphs = this.findPartialFlowGraphs();
+	public PCMFlowGraph(PCMResourceProvider resourceProvider) {
+		super(resourceProvider);
 	}
 	
-	public PCMFlowGraph(PCMFlowGraph oldFlowGraph, List<AbstractPartialFlowGraph> partialFlowGraphs) {
-		this.partialFlowGraphs = partialFlowGraphs;
-		this.resourceProvider = oldFlowGraph.resourceProvider;
-		this.nodeCharacteristicsCalculator = oldFlowGraph.nodeCharacteristicsCalculator;
-		this.dataCharacteristicsCalculatorFactory = oldFlowGraph.dataCharacteristicsCalculatorFactory;
+	public PCMFlowGraph(List<AbstractPartialFlowGraph> partialFlowGraphs) {
+		super(partialFlowGraphs);
 	}
 
 	public List<AbstractPartialFlowGraph> findPartialFlowGraphs() {
-		PartialFlowGraphFinder sequenceFinder = new PCMActionSequenceFinder(resourceProvider.getUsageModel());
+		if (!(super.resourceProvider instanceof PCMResourceProvider)) {
+			 logger.error("Cannot find partial flow graphs from non-pcm resource provider", new IllegalArgumentException("Cannot find partial flow graphs with non-pcm resource provider"));
+		}
+		PCMResourceProvider pcmResourceProvider = (PCMResourceProvider) resourceProvider;
+		PartialFlowGraphFinder sequenceFinder = new PCMActionSequenceFinder(pcmResourceProvider);
 		
 		return sequenceFinder.findPartialFlowGraphs().parallelStream()
 			.map(AbstractPartialFlowGraph.class::cast)
@@ -47,14 +40,8 @@ public class PCMFlowGraph implements FlowGraph {
     			.collect(Collectors.toList());
     	List<AbstractPartialFlowGraph> evaluatedPartialFlowGraphs = 
     			actionSequences.parallelStream()
-    	          .map(it -> it.evaluate(this.nodeCharacteristicsCalculator, this.dataCharacteristicsCalculatorFactory))
+    	          .map(it -> it.evaluate())
     	          .toList();
-		return new PCMFlowGraph(this, evaluatedPartialFlowGraphs);
+		return new PCMFlowGraph(evaluatedPartialFlowGraphs);
 	}
-
-	@Override
-	public List<AbstractPartialFlowGraph> getPartialFlowGraphs() {
-		return this.partialFlowGraphs;
-	}
-
 }

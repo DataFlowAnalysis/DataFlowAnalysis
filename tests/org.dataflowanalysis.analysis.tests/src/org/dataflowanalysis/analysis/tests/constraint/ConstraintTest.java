@@ -21,7 +21,7 @@ public class ConstraintTest extends BaseTest {
     *            the result of a data flow query call, a (potentially empty) list of sequence
     *            elements
     */
-   protected void printViolation(List<AbstractVertex<?>> dataFlowQueryResult) {
+   protected void printViolation(List<? extends AbstractVertex<?>> dataFlowQueryResult) {
        dataFlowQueryResult.forEach(it -> logger
            .debug(String.format("Constraint violation found: %s", createPrintableNodeInformation(it))));
    }

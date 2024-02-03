@@ -40,7 +40,7 @@ public class ReadMeTest extends BaseTest {
 	    PCMFlowGraph propagatedFlowGraph = analysis.evaluateFlowGraph(flowGraph);
 	    
 	    for(AbstractPartialFlowGraph actionSequence : propagatedFlowGraph.getPartialFlowGraphs()) {
-	    	List<AbstractVertex<?>> violations = analysis.queryDataFlow(actionSequence,
+	    	List<? extends AbstractVertex<?>> violations = analysis.queryDataFlow(actionSequence,
 	        it -> false // Constraint goes here, return true, if constraint is violated
 	      );
 	    }
@@ -60,7 +60,7 @@ public class ReadMeTest extends BaseTest {
 	    PCMFlowGraph propagatedFlowGraph = analysis.evaluateFlowGraph(flowGraph);
 	    
 	    for(AbstractPartialFlowGraph actionSequence : propagatedFlowGraph.getPartialFlowGraphs()) {
-	    	List<AbstractVertex<?>> violations = analysis.queryDataFlow(actionSequence,
+	    	List<? extends AbstractVertex<?>> violations = analysis.queryDataFlow(actionSequence,
 	        it -> false // Constraint goes here, return true, if constraint is violated
 	      );
 	    }

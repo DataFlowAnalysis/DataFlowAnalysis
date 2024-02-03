@@ -4,8 +4,6 @@ import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowAnalysisBuilder;
-import org.dataflowanalysis.analysis.pcm.core.PCMDataCharacteristicsCalculatorFactory;
-import org.dataflowanalysis.analysis.pcm.core.PCMNodeCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.pcm.resource.PCMURIResourceProvider;
 import org.dataflowanalysis.analysis.utils.ResourceUtils;
@@ -135,8 +133,7 @@ extends DataFlowAnalysisBuilder {
 	@Override
 	public PCMDataFlowConfidentialityAnalysis build() {
 		PCMResourceProvider resourceProvider = this.getEffectiveResourceProvider();
-		return new PCMDataFlowConfidentialityAnalysis(new PCMNodeCharacteristicsCalculator(resourceProvider), 
-				new PCMDataCharacteristicsCalculatorFactory(resourceProvider), resourceProvider, 
+		return new PCMDataFlowConfidentialityAnalysis(resourceProvider, 
 				this.modelProjectName, this.pluginActivator);
 	}
 }

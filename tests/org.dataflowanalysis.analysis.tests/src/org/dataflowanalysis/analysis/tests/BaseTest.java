@@ -5,6 +5,7 @@ import static org.dataflowanalysis.analysis.tests.AnalysisUtils.TEST_MODEL_PROJE
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.testmodels.Activator;
@@ -46,6 +47,7 @@ public class BaseTest {
 
         travelPlannerAnalysis = this.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
         travelPlannerAnalysis.initializeAnalysis();
+        travelPlannerAnalysis.setLoggerLevel(Level.TRACE);
     }
     
     protected PCMDataFlowConfidentialityAnalysis initializeAnalysis(Path usagePath, Path allocationPath, Path nodePath) {

@@ -46,8 +46,8 @@ public class PCMNodeCharacteristicsCalculator implements VertexCharacteristicsCa
      * Creates a new node characteristic calculator with the given node
      * @param node Node of which the characteristics should be calculated. Should either be a User or SEFF Action.
      */
-    public PCMNodeCharacteristicsCalculator(ResourceProvider resourceLoader) {
-    	this.resourceLoader = resourceLoader;
+    public PCMNodeCharacteristicsCalculator(ResourceProvider resourceProvider) {
+    	this.resourceLoader = resourceProvider;
     }
 
 	@Override

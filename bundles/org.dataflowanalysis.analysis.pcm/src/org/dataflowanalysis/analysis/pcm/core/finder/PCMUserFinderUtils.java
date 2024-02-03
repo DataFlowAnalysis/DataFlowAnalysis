@@ -13,6 +13,7 @@ import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.dataflowanalysis.analysis.pcm.utils.SEFFWithContext;
+import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.seff.StartAction;
@@ -30,37 +31,42 @@ public class PCMUserFinderUtils {
 		// Utility class
 	}
 	
-	public static List<PCMPartialFlowGraph> findSequencesForUserAction(AbstractUserAction currentAction, PCMPartialFlowGraph previousSequence) {
+	public static List<PCMPartialFlowGraph> findSequencesForUserAction(AbstractUserAction currentAction, PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
         if (currentAction instanceof Start) {
-            return findSequencesForUserStartAction((Start) currentAction, previousSequence);
+            return findSequencesForUserStartAction((Start) currentAction, previousSequence, resourceProvider);
 
         } else if (currentAction instanceof Stop) {
-            return findSequencesForUserStopAction((Stop) currentAction, previousSequence);
+            return findSequencesForUserStopAction((Stop) currentAction, previousSequence, resourceProvider);
 
         } else if (currentAction instanceof Branch) {
-            return findSequencesForUserBranchAction((Branch) currentAction, previousSequence);
+            return findSequencesForUserBranchAction((Branch) currentAction, previousSequence, resourceProvider);
 
         } else if (currentAction instanceof EntryLevelSystemCall) {
-            return findSequencesForEntryLevelSystemCall((EntryLevelSystemCall) currentAction, previousSequence);
+            return findSequencesForEntryLevelSystemCall((EntryLevelSystemCall) currentAction, previousSequence, resourceProvider);
 
         } else {
         	// default case: skip action and continue with successor
         	logger.info(String.format("Action %s has unsupported type of %s and is skipped.", 
         			currentAction.getId(), currentAction.getClass().getName()));
-        	return findSequencesForUserAction(currentAction.getSuccessor(), previousSequence);
+        	return findSequencesForUserAction(currentAction.getSuccessor(), previousSequence, resourceProvider);
         }
     }
 
     private static List<PCMPartialFlowGraph> findSequencesForUserStartAction(Start currentAction,
-            PCMPartialFlowGraph previousSequence) {
-    	var startElement = new UserPCMVertex<Start>(currentAction, previousSequence.getSink());
+            PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
+    	UserPCMVertex<? extends AbstractUserAction> startElement;
+    	if (previousSequence.getSink() == null) {
+        	startElement = new UserPCMVertex<Start>(currentAction, resourceProvider);
+    	} else {
+    		startElement = new UserPCMVertex<Start>(currentAction, previousSequence.getSink(), resourceProvider);
+    	}
         var currentSequence = new PCMPartialFlowGraph(startElement);
-        return findSequencesForUserAction(currentAction.getSuccessor(), currentSequence);
+        return findSequencesForUserAction(currentAction.getSuccessor(), currentSequence, resourceProvider);
     }
 
     private static List<PCMPartialFlowGraph> findSequencesForUserStopAction(Stop currentAction,
-            PCMPartialFlowGraph previousSequence) {
-    	var stopElement = new UserPCMVertex<Stop>(currentAction, previousSequence.getSink());
+            PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
+    	var stopElement = new UserPCMVertex<Stop>(currentAction, previousSequence.getSink(), resourceProvider);
         var currentSequence = new PCMPartialFlowGraph(stopElement);
     	
         Optional<AbstractUserAction> parentAction = PCMQueryUtils.findParentOfType(currentAction,
@@ -69,23 +75,23 @@ public class PCMUserFinderUtils {
             return List.of(currentSequence);
         } else {
             return findSequencesForUserAction(parentAction.get()
-                .getSuccessor(), currentSequence);
+                .getSuccessor(), currentSequence, resourceProvider);
         }
     }
 
-    private static List<PCMPartialFlowGraph> findSequencesForUserBranchAction(Branch currentAction, PCMPartialFlowGraph previousSequence) {
+    private static List<PCMPartialFlowGraph> findSequencesForUserBranchAction(Branch currentAction, PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
         return currentAction.getBranchTransitions_Branch()
             .stream()
             .map(BranchTransition::getBranchedBehaviour_BranchTransition)
             .map(PCMQueryUtils::getStartActionOfScenarioBehavior)
             .flatMap(Optional::stream)
-            .map(it -> findSequencesForUserAction(it, previousSequence))
+            .map(it -> findSequencesForUserAction(it, previousSequence, resourceProvider))
             .flatMap(List::stream)
             .toList();
     }
 
-    private static List<PCMPartialFlowGraph> findSequencesForEntryLevelSystemCall(EntryLevelSystemCall currentAction, PCMPartialFlowGraph previousSequence) {
-        var callingEntity = new CallingUserPCMVertex(currentAction, previousSequence.getSink(), true);
+    private static List<PCMPartialFlowGraph> findSequencesForEntryLevelSystemCall(EntryLevelSystemCall currentAction, PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
+        var callingEntity = new CallingUserPCMVertex(currentAction, previousSequence.getSink(), true, resourceProvider);
         PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(callingEntity);
 
         OperationProvidedRole calledRole = currentAction.getProvidedRole_EntryLevelSystemCall();
@@ -107,13 +113,13 @@ public class PCMUserFinderUtils {
                 callers.add(callingEntity);
 
                 SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get().context(), callers, calledSignature.getParameters__OperationSignature());
-                return PCMSEFFFinderUtils.findSequencesForSEFFAction(SEFFStartAction.get(), finderContext ,currentActionSequence);
+                return PCMSEFFFinderUtils.findSequencesForSEFFAction(SEFFStartAction.get(), finderContext ,currentActionSequence, resourceProvider);
             }
         }
     }
 
-    public static List<PCMPartialFlowGraph> findSequencesForUserActionReturning(EntryLevelSystemCall currentAction, PCMPartialFlowGraph previousSequence) {
-        PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(new CallingUserPCMVertex(currentAction, previousSequence.getSink(), false));
-        return findSequencesForUserAction(currentAction.getSuccessor(), currentActionSequence);
+    public static List<PCMPartialFlowGraph> findSequencesForUserActionReturning(EntryLevelSystemCall currentAction, PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
+        PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(new CallingUserPCMVertex(currentAction, previousSequence.getSink(), false, resourceProvider));
+        return findSequencesForUserAction(currentAction.getSuccessor(), currentActionSequence, resourceProvider);
     }
 }

@@ -11,6 +11,7 @@ import org.dataflowanalysis.analysis.pcm.core.seff.SEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.dataflowanalysis.analysis.pcm.utils.SEFFWithContext;
+import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.seff.AbstractAction;
@@ -26,57 +27,57 @@ public class PCMSEFFFinderUtils {
 	private static final Logger logger = Logger.getLogger(PCMSEFFFinderUtils.class);
 	
 	public static List<PCMPartialFlowGraph> findSequencesForSEFFAction(AbstractAction currentAction, SEFFFinderContext context,
-            PCMPartialFlowGraph previousSequence) {
+            PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
 
         if (currentAction instanceof StartAction) {
-            return findSequencesForSEFFStartAction((StartAction) currentAction, context, previousSequence);
+            return findSequencesForSEFFStartAction((StartAction) currentAction, context, previousSequence, resourceProvider);
 
         } else if (currentAction instanceof StopAction) {
-            return findSequencesForSEFFStopAction((StopAction) currentAction, context, previousSequence);
+            return findSequencesForSEFFStopAction((StopAction) currentAction, context, previousSequence, resourceProvider);
 
         } else if (currentAction instanceof ExternalCallAction) {
-            return findSequencesForSEFFExternalCallAction((ExternalCallAction) currentAction, context, previousSequence);
+            return findSequencesForSEFFExternalCallAction((ExternalCallAction) currentAction, context, previousSequence, resourceProvider);
 
         } else if (currentAction instanceof SetVariableAction) {
-            return findSequencesForSEFFSetVariableAction((SetVariableAction) currentAction, context, previousSequence);
+            return findSequencesForSEFFSetVariableAction((SetVariableAction) currentAction, context, previousSequence, resourceProvider);
 
         } else if (currentAction instanceof BranchAction) {
-            return findSequencesForSEFFBranchAction((BranchAction) currentAction, context, previousSequence);
+            return findSequencesForSEFFBranchAction((BranchAction) currentAction, context, previousSequence, resourceProvider);
 
         } else {
         	// default case: skip action and continue with successor
         	logger.info(String.format("Action %s has unsupported type of %s and is skipped.", 
         			currentAction.getId(), currentAction.getClass().getName()));
-        	return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context, previousSequence);
+        	return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context, previousSequence, resourceProvider);
         }
     }
 
-    private static List<PCMPartialFlowGraph> findSequencesForSEFFStartAction(StartAction currentAction, SEFFFinderContext context, PCMPartialFlowGraph previousSequence) {
-    	var startElement = new SEFFPCMVertex<StartAction>(currentAction, previousSequence.getSink(), context.getContext(), context.getParameter());
+    private static List<PCMPartialFlowGraph> findSequencesForSEFFStartAction(StartAction currentAction, SEFFFinderContext context, PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
+    	var startElement = new SEFFPCMVertex<StartAction>(currentAction, previousSequence.getSink(), context.getContext(), context.getParameter(), resourceProvider);
         var currentSequence = new PCMPartialFlowGraph(startElement);
-        return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context, currentSequence);
+        return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context, currentSequence, resourceProvider);
     }
 
-    private static List<PCMPartialFlowGraph> findSequencesForSEFFStopAction(StopAction currentAction, SEFFFinderContext context, PCMPartialFlowGraph previousSequence) {
-    	var stopElement = new SEFFPCMVertex<StopAction>(currentAction, previousSequence.getSink(), context.getContext(), context.getParameter());
+    private static List<PCMPartialFlowGraph> findSequencesForSEFFStopAction(StopAction currentAction, SEFFFinderContext context, PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
+    	var stopElement = new SEFFPCMVertex<StopAction>(currentAction, previousSequence.getSink(), context.getContext(), context.getParameter(), resourceProvider);
         var currentSequence = new PCMPartialFlowGraph(stopElement);
     	
         Optional<AbstractAction> parentAction = PCMQueryUtils.findParentOfType(currentAction, AbstractAction.class, false);
         if (parentAction.isPresent()) {
             AbstractAction successor = parentAction.get()
                 .getSuccessor_AbstractAction();
-            return findSequencesForSEFFAction(successor, context, currentSequence);
+            return findSequencesForSEFFAction(successor, context, currentSequence, resourceProvider);
         } else {
             AbstractPCMVertex<?> caller = context.getLastCaller();
             context.updateParameterForCallerReturning(caller);
-            return returnToCaller(caller, context, currentSequence);
+            return returnToCaller(caller, context, currentSequence, resourceProvider);
         }
     }
 
     private static List<PCMPartialFlowGraph> findSequencesForSEFFExternalCallAction(ExternalCallAction currentAction, SEFFFinderContext context,
-            PCMPartialFlowGraph previousSequence) {
+            PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
 
-        var callingEntity = new CallingSEFFPCMVertex(currentAction, previousSequence.getSink(), context.getContext(), context.getParameter(), true);
+        var callingEntity = new CallingSEFFPCMVertex(currentAction, previousSequence.getSink(), context.getContext(), context.getParameter(), true, resourceProvider);
         PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(callingEntity);
 
         OperationRequiredRole calledRole = currentAction.getRole_ExternalService();
@@ -97,7 +98,7 @@ public class PCMSEFFFinderUtils {
             	context.updateSEFFContext(calledSEFF.get().context());
             	context.updateParametersForCall(calledSignature.getParameters__OperationSignature());
             	
-                return findSequencesForSEFFAction(SEFFStartAction.get(), context, currentActionSequence);
+                return findSequencesForSEFFAction(SEFFStartAction.get(), context, currentActionSequence, resourceProvider);
             }
         }
 
@@ -105,18 +106,18 @@ public class PCMSEFFFinderUtils {
 
     private static List<PCMPartialFlowGraph> findSequencesForSEFFSetVariableAction(SetVariableAction currentAction,
             SEFFFinderContext context,
-            PCMPartialFlowGraph previousSequence) {
+            PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
 
-        var newEntity = new SEFFPCMVertex<>(currentAction, previousSequence.getSink(), context.getContext(), context.getParameter());
+        var newEntity = new SEFFPCMVertex<>(currentAction, previousSequence.getSink(), context.getContext(), context.getParameter(), resourceProvider);
         PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(newEntity);
 
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context,
-                currentActionSequence);
+                currentActionSequence, resourceProvider);
     }
 
     private static List<PCMPartialFlowGraph> findSequencesForSEFFBranchAction(BranchAction currentAction,
             SEFFFinderContext context,
-            PCMPartialFlowGraph previousSequence) {
+            PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
 
         return currentAction.getBranches_Branch()
             .stream()
@@ -124,27 +125,27 @@ public class PCMSEFFFinderUtils {
             .map(ResourceDemandingBehaviour::getSteps_Behaviour)
             .map(PCMQueryUtils::getFirstStartActionInActionList)
             .flatMap(Optional::stream)
-            .map(it -> findSequencesForSEFFAction(it, new SEFFFinderContext(context), previousSequence))
+            .map(it -> findSequencesForSEFFAction(it, new SEFFFinderContext(context), previousSequence, resourceProvider))
             .flatMap(List::stream)
             .toList();
     }
 
     private static List<PCMPartialFlowGraph> findSequencesForSEFFActionReturning(ExternalCallAction currentAction,
             SEFFFinderContext context,
-            PCMPartialFlowGraph previousSequence) {
-        PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(new CallingSEFFPCMVertex(currentAction, previousSequence.getSink(), context.getContext(), context.getParameter(), false));
+            PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
+        PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(new CallingSEFFPCMVertex(currentAction, previousSequence.getSink(), context.getContext(), context.getParameter(), false, resourceProvider));
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context,
-                currentActionSequence);
+                currentActionSequence, resourceProvider);
     }
 
     public static List<PCMPartialFlowGraph> returnToCaller(AbstractPCMVertex<?> caller,
-            SEFFFinderContext context, PCMPartialFlowGraph previousSequence) {
+            SEFFFinderContext context, PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
 
         if (caller instanceof CallingUserPCMVertex) {
-            return returnToUserCaller((CallingUserPCMVertex) caller, context, previousSequence);
+            return returnToUserCaller((CallingUserPCMVertex) caller, context, previousSequence, resourceProvider);
 
         } else if (caller instanceof CallingSEFFPCMVertex) {
-            return returnToSEFFCaller((CallingSEFFPCMVertex) caller, context, previousSequence);
+            return returnToSEFFCaller((CallingSEFFPCMVertex) caller, context, previousSequence, resourceProvider);
 
         } else {
             throw new IllegalArgumentException(
@@ -154,17 +155,17 @@ public class PCMSEFFFinderUtils {
     }
 
     private static List<PCMPartialFlowGraph> returnToUserCaller(CallingUserPCMVertex caller,
-            SEFFFinderContext context, PCMPartialFlowGraph previousSequence) {
+            SEFFFinderContext context, PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
         if (!context.getCallers().isEmpty()) {
             throw new IllegalStateException("Illegal state in action sequence finder.");
         } else {
-            return PCMUserFinderUtils.findSequencesForUserActionReturning(caller.getReferencedElement(), previousSequence);
+            return PCMUserFinderUtils.findSequencesForUserActionReturning(caller.getReferencedElement(), previousSequence, resourceProvider);
         }
     }
 
     private static List<PCMPartialFlowGraph> returnToSEFFCaller(CallingSEFFPCMVertex caller,
-            SEFFFinderContext context, PCMPartialFlowGraph previousSequence) {
+            SEFFFinderContext context, PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
     	context.updateSEFFContext(caller.getContext());
-        return findSequencesForSEFFActionReturning(caller.getReferencedElement(), context, previousSequence);
+        return findSequencesForSEFFActionReturning(caller.getReferencedElement(), context, previousSequence, resourceProvider);
     }
 }

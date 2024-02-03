@@ -4,12 +4,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
-import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.CallReturnBehavior;
+import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 
@@ -22,8 +21,8 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall>
      * @param element Underlying Palladio Element
      * @param isCalling Is true, when another method is called. Otherwise, a called method is returned from
      */
-    public CallingUserPCMVertex(EntryLevelSystemCall element, AbstractPCMVertex<?> previousElement, boolean isCalling) {
-        super(element, previousElement);
+    public CallingUserPCMVertex(EntryLevelSystemCall element, AbstractPCMVertex<?> previousElement, boolean isCalling, ResourceProvider resourceProvider) {
+        super(element, previousElement, resourceProvider);
         this.isCalling = isCalling;
     }
 
@@ -44,9 +43,15 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall>
     }
     
     @Override
-    public AbstractVertex<EntryLevelSystemCall> evaluateDataFlow(AbstractVertex<?> previousElement, List<DataFlowVariable> incomingDataFlowVariables, 
-    		VertexCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
-    	List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics(nodeCharacteristicsCalculator);
+    public AbstractVertex<EntryLevelSystemCall> evaluateDataFlow() {
+    	AbstractVertex<?> previousVertex = null;
+		List<DataFlowVariable> incomingDataFlowVariables = List.of();
+		if(!super.isSource()) {
+	    	previousVertex = super.getPreviousVertex().evaluateDataFlow();
+	    	incomingDataFlowVariables = previousVertex.getAllOutgoingDataFlowVariables();
+		}
+    	
+    	List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
     	
     	List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.isCalling ?
     			super.getReferencedElement().getInputParameterUsages_EntryLevelSystemCall().stream()
@@ -67,8 +72,8 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall>
         	super.checkCallParameter(super.getReferencedElement().getOperationSignature__EntryLevelSystemCall(), variableCharacterisations);
         }
     	
-    	List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(dataCharacteristicsCalculatorFactory, nodeCharacteristics, variableCharacterisations, incomingDataFlowVariables);
-    	return new CallingUserPCMVertex(this, previousElement, incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+    	List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(nodeCharacteristics, variableCharacterisations, incomingDataFlowVariables);
+    	return new CallingUserPCMVertex(this, previousVertex, incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
 
     @Override

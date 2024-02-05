@@ -64,7 +64,9 @@ public class ConverterTests {
         }
         
         assertEquals(webBefore,webAfter);
-        file.delete();
+        cleanup("minimal.datadictionary");
+        cleanup("minimal.dataflowdiagram");
+        cleanup("test5.json");
 	}
 	
 	@Test
@@ -125,5 +127,12 @@ public class ConverterTests {
         }
         
 		assertEquals(microBefore,microAfter);
+		cleanup("toPlant.txt");
+		cleanup("FromPlant.json");
+	}
+	
+	public static void cleanup(String path) {
+		File file = new File(path);
+		file.delete();
 	}
 }

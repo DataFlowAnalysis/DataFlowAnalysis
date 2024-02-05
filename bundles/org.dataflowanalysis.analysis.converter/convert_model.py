@@ -565,7 +565,7 @@ def parse_node_plantuml(line: str):
         if "--" in annotation:
             stereotypes.append(annotation.replace("-", "").strip())
         elif ":" in annotation:
-            tagged_values.append(annotation.strip())
+            tagged_values.append(annotation.replace("\\", "").strip())
 
     return name, stereotypes, tagged_values
 
@@ -579,12 +579,12 @@ def parse_flow_plantuml(line: str):
     sender = line.split("->")[0].strip()
     receiver = line.split("->")[1].split("[")[0].strip()
 
-    annotations = line.split("label = ")[1].split("]")
+    annotations = line.split("label = ")[1].split("]")[0].split("\\n")
     for annotation in annotations:
         if "--" in annotation:
             stereotypes.append(annotation.replace("-", "").replace("\"", "").replace("\\n", "").strip())
         elif ":" in annotation:
-            tagged_values.append(annotation.strip())
+            tagged_values.append(annotation.replace("\\", "").strip())
 
     return sender, receiver, stereotypes, tagged_values
 

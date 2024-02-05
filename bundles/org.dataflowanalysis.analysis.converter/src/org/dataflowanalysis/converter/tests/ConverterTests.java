@@ -17,6 +17,18 @@ import java.util.stream.Collectors;
 import org.dataflowanalysis.converter.*;
 import org.dataflowanalysis.converter.microsecend.*;
 import org.dataflowanalysis.converter.webdfd.*;
+import org.dataflowanalysis.dfd.datadictionary.Assignment;
+import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
+import org.dataflowanalysis.dfd.datadictionary.Pin;
+import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
+import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
+import org.dataflowanalysis.dfd.dataflowdiagram.Node;
+import org.dataflowanalysis.dfd.dataflowdiagram.dataflowdiagramPackage;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 public class ConverterTests {
 	
@@ -72,7 +84,72 @@ public class ConverterTests {
 	@Test
 	@DisplayName("Test Micro -> DFD")
 	public void microToDfd() {
-		assertTrue(true);
+		MicroSecEnd micro = null;
+		ObjectMapper objectMapper = new ObjectMapper();
+		File file = new File("anilallewar_microservices-basics-spring-boot.json");
+        try {
+            micro = objectMapper.readValue(file, MicroSecEnd.class);
+            new ProcessJSON().processMicro(file.getName().replaceAll("\\.json.*", ""),micro);
+        } 
+        catch (IOException e) {
+            System.err.println("Error parsing file: " + file.getName());
+            e.printStackTrace();
+        }
+		
+		ResourceSet rs = new ResourceSetImpl();
+		rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
+		rs.getPackageRegistry().put(dataflowdiagramPackage.eNS_URI, dataflowdiagramPackage.eINSTANCE);
+		
+		
+		Resource dfdResource = rs.getResource(URI.createFileURI("anilallewar_microservices-basics-spring-boot.dataflowdiagram"), true);
+		Resource ddResource = rs.getResource(URI.createFileURI("anilallewar_microservices-basics-spring-boot.datadictionary"), true);		
+		
+		DataFlowDiagram dfd = (DataFlowDiagram) dfdResource.getContents().get(0);
+		DataDictionary dd = (DataDictionary) ddResource.getContents().get(0);
+		
+		assertEquals(micro.externalEntities().size()+micro.services().size(),dfd.getNodes().size());
+		
+		assertEquals(micro.informationFlows().size(),dfd.getFlows().size());
+		
+		for(Service service : micro.services()) {
+			for(Node node : dfd.getNodes()) {
+				if(service.name().equals(node.getEntityName())) {
+					assertEquals(service.stereotypes().size(),node.getProperties().size());
+					for(int i=0;i<service.stereotypes().size();i++) {
+						assertEquals(service.stereotypes().get(i),node.getProperties().get(i).getEntityName());
+					}
+				}
+			}
+		}
+		
+		for(ExternalEntity ee : micro.externalEntities()) {
+			for(Node node : dfd.getNodes()) {
+				if(ee.name().equals(node.getEntityName())) {
+					assertEquals(ee.stereotypes().size(),node.getProperties().size());
+					for(int i=0;i<ee.stereotypes().size();i++) {
+						assertEquals(ee.stereotypes().get(i),node.getProperties().get(i).getEntityName());
+					}
+				}
+			}
+		}
+		
+		int match = 0;
+		for(InformationFlow iflow : micro.informationFlows()) {
+			for(Flow flow:dfd.getFlows()) {
+				if(iflow.sender().equals(flow.getSourceNode().getEntityName())&&iflow.receiver().equals(flow.getDestinationNode().getEntityName())) {
+					Pin outpin=flow.getSourcePin();
+					List<Pin> outpins = flow.getSourceNode().getBehaviour().getOutPin();
+					assertTrue(outpins.contains(outpin));
+					Assignment assignment = (Assignment) flow.getSourceNode().getBehaviour().getAssignment().get(outpins.indexOf(outpin));
+					assertEquals(assignment.getOutputLabels().size(),flow.getSourceNode().getProperties().size());
+					match++;
+				}
+			}
+		}
+		assertEquals(match,micro.informationFlows().size());
+		
+		cleanup("anilallewar_microservices-basics-spring-boot.dataflowdiagram");
+		cleanup("anilallewar_microservices-basics-spring-boot.datadictionary");
 	}
 	
 	@Test
@@ -127,6 +204,7 @@ public class ConverterTests {
         }
         
 		assertEquals(microBefore,microAfter);
+		
 		cleanup("toPlant.txt");
 		cleanup("FromPlant.json");
 	}

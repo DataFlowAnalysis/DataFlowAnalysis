@@ -76,6 +76,19 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction>
         	super.checkCallParameter(super.getReferencedElement().getCalledService_ExternalService(), variableCharacterisations);
         }
         List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(nodeCharacteristics, variableCharacterisations, incomingDataFlowVariables);
+        if (this.isCalling()) {
+        	List<String> variableNames = this.getReferencedElement().getCalledService_ExternalService().getParameters__OperationSignature().stream()
+        			.map(it -> it.getParameterName())
+        			.collect(Collectors.toList());
+    		outgoingDataFlowVariables = outgoingDataFlowVariables.stream()
+    				.filter(it -> variableNames.contains(it.getVariableName()))
+    				.collect(Collectors.toList());
+        }
+        if (this.isReturning()) {
+    		outgoingDataFlowVariables = outgoingDataFlowVariables.stream()
+    				.filter(it -> !it.getVariableName().equals("RETURN"))
+    				.collect(Collectors.toList());
+    	}
         return new CallingSEFFPCMVertex(this, previousVertex, incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
     

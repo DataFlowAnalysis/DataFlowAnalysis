@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 
@@ -17,38 +18,51 @@ import org.dataflowanalysis.analysis.core.DataFlowVariable;
  * @param T Type parameter representing the type of the stored object
  */
 public abstract class AbstractVertex<T extends Object> {
-	protected final T referencedElement;
-	protected final List<AbstractVertex<?>> previousElements;
+	private final Logger logger = Logger.getLogger(AbstractVertex.class);
 	
-    private final Optional<List<DataFlowVariable>> incomingDataFlowVariables;
-    private final Optional<List<DataFlowVariable>> outgoingDataFlowVariables;
-    private final Optional<List<CharacteristicValue>> vertexCharacteristics;
+	protected final T referencedElement;
+	protected final List<? extends AbstractVertex<?>> previousElements;
+	
+    private Optional<List<DataFlowVariable>> incomingDataFlowVariables;
+    private Optional<List<DataFlowVariable>> outgoingDataFlowVariables;
+    private Optional<List<CharacteristicValue>> vertexCharacteristics;
 
     /**
-     * Constructs a new action sequence element with empty dataflow variables and node characteristics
+     * Constructs a new action sequence element with empty data flow variables and node characteristics
      */
-    public AbstractVertex(T referencedElement, List<AbstractVertex<?>> previousElements) {
+    public AbstractVertex(T referencedElement, List<? extends AbstractVertex<?>> previousElements) {
     	this.referencedElement = referencedElement;
     	this.previousElements = previousElements;
         this.incomingDataFlowVariables = Optional.empty();
         this.outgoingDataFlowVariables = Optional.empty();
         this.vertexCharacteristics = Optional.empty();
     }
-
-    /**
-     * Creates a new action sequence element with updated dataflow variables and node characteristics
-     * @param dataFlowVariables List of updated dataflow variables
-     * @param nodeCharacteristics List of updated node characteristics
-     */
-    public AbstractVertex(T referencedElement, List<AbstractVertex<?>> previousElements, List<DataFlowVariable> incomingDataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> vertexCharacteristics) {
-        this.referencedElement = referencedElement;
-        this.previousElements = previousElements;
-    	this.incomingDataFlowVariables = Optional.of(List.copyOf(incomingDataFlowVariables));
-        this.outgoingDataFlowVariables = Optional.of(List.copyOf(outgoingDataFlowVariables));
-        this.vertexCharacteristics = Optional.of(List.copyOf(vertexCharacteristics));
-    }
     
     public abstract AbstractVertex<T> evaluateDataFlow();
+    
+    /**
+     * Sets the propagation result of the Vertex to the given result. 
+     * This method should only be called once on elements that are not evaluated.
+     * @param incomingDataFlowVariables Incoming data flow variables that flow into the vertex
+     * @param outgoingDataFlowVariables Outgoing data flow variables that flow out of the vertex
+     * @param vertexCharacteristics Vertex characteristics present at the node
+     */
+    protected void setPropagationResult(List<DataFlowVariable> incomingDataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> vertexCharacteristics) {
+    	if (this.isEvaluated()) {
+    		logger.error("Cannot set propagation result of already evaluated vertex", new IllegalStateException());
+    	}
+    	this.incomingDataFlowVariables = Optional.of(new ArrayList<>(incomingDataFlowVariables));
+    	this.outgoingDataFlowVariables = Optional.of(new ArrayList<>(outgoingDataFlowVariables));
+    	this.vertexCharacteristics = Optional.of(new ArrayList<>(vertexCharacteristics));
+    }
+    
+    /**
+     * Returns whether the action sequence element has been evaluated
+     * @return Returns true, if the node is evaluated. Otherwise, the method returns false
+     */
+    public boolean isEvaluated() {
+    	return this.incomingDataFlowVariables.isPresent() && this.outgoingDataFlowVariables.isPresent() && this.vertexCharacteristics.isPresent();
+    }
     
     /**
      * Returns a list of characteristic literals that are set for a given characteristic type in the list of all node characteristics
@@ -145,16 +159,8 @@ public abstract class AbstractVertex<T extends Object> {
     public List<CharacteristicValue> getAllNodeCharacteristics() {
     	return this.vertexCharacteristics.orElseThrow(IllegalStateException::new);
     }
-
-    /**
-     * Returns whether the action sequence element has been evaluated
-     * @return Returns true, if the node is evaluated. Otherwise, the method returns false
-     */
-    public boolean isEvaluated() {
-        return this.incomingDataFlowVariables.isPresent();
-    }
     
-    public List<AbstractVertex<?>> getPreviousElements() {
+    public List<? extends AbstractVertex<?>> getPreviousElements() {
 		return this.previousElements;
 	}
     

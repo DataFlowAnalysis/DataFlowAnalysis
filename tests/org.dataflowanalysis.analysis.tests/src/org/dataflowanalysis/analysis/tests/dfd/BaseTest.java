@@ -19,8 +19,8 @@ public class BaseTest {
 	
 	@BeforeEach
 	public void initAnalysis() {
-		final var minimalDataFlowDiagramPath = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram");
-		final var minimalDataDictionaryPath = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary");
+		final var minimalDataFlowDiagramPath = Paths.get("models", "DFDTestModels", "branchingTest.dataflowdiagram");
+		final var minimalDataDictionaryPath = Paths.get("models", "DFDTestModels", "branchingTest.datadictionary");
 				
 		this.analysis = new DFDDataFlowAnalysisBuilder()
 				.standalone()

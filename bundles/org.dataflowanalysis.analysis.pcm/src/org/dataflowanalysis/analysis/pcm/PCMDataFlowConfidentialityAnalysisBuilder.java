@@ -132,6 +132,7 @@ extends DataFlowAnalysisBuilder {
 
 	@Override
 	public PCMDataFlowConfidentialityAnalysis build() {
+		this.validate();
 		PCMResourceProvider resourceProvider = this.getEffectiveResourceProvider();
 		return new PCMDataFlowConfidentialityAnalysis(resourceProvider, 
 				this.modelProjectName, this.pluginActivator);

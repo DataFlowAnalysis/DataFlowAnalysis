@@ -6,7 +6,7 @@ import java.util.Map;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
-import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
+import org.dataflowanalysis.analysis.pcm.flowgraph.AbstractPCMVertex;
 
 import de.uka.ipd.sdq.identifier.Identifier;
 

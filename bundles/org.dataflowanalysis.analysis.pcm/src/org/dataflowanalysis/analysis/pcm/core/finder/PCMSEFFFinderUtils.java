@@ -8,11 +8,11 @@ import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
-import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
-import org.dataflowanalysis.analysis.pcm.core.PCMPartialFlowGraph;
-import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFPCMVertex;
-import org.dataflowanalysis.analysis.pcm.core.seff.SEFFPCMVertex;
-import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
+import org.dataflowanalysis.analysis.pcm.flowgraph.AbstractPCMVertex;
+import org.dataflowanalysis.analysis.pcm.flowgraph.PCMPartialFlowGraph;
+import org.dataflowanalysis.analysis.pcm.flowgraph.seff.CallingSEFFPCMVertex;
+import org.dataflowanalysis.analysis.pcm.flowgraph.seff.SEFFPCMVertex;
+import org.dataflowanalysis.analysis.pcm.flowgraph.user.CallingUserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.dataflowanalysis.analysis.pcm.utils.SEFFWithContext;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;

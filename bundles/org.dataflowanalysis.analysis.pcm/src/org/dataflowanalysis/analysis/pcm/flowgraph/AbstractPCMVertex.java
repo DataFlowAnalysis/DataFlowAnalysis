@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.pcm.core;
+package org.dataflowanalysis.analysis.pcm.flowgraph;
 
 import java.util.Deque;
 import java.util.List;
@@ -10,6 +10,8 @@ import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
+import org.dataflowanalysis.analysis.pcm.core.PCMDataCharacteristicsCalculator;
+import org.dataflowanalysis.analysis.pcm.core.PCMNodeCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;

@@ -1,8 +1,5 @@
-package org.dataflowanalysis.analysis.pcm.core.seff;
+package org.dataflowanalysis.analysis.pcm.flowgraph.user;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -10,27 +7,23 @@ import java.util.stream.Collectors;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
-import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.CallReturnBehavior;
+import org.dataflowanalysis.analysis.pcm.flowgraph.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.pcm.repository.Parameter;
-import org.palladiosimulator.pcm.seff.ExternalCallAction;
+import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 
-public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction>
-        implements CallReturnBehavior, Cloneable {
+public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall>
+        implements CallReturnBehavior {
     private final boolean isCalling;
 
     /**
-     * Creates a new SEFF Action Sequence Element with an underlying Palladio Element, Assembly Context, List of present parameter and indication whether the SEFF Action is calling
+     * Creates a new User Action Sequence Element with an underlying Palladio Element and indication whether the SEFF Action is calling
      * @param element Underlying Palladio Element
-     * @param context Assembly Context of the SEFF
-     * @param parameter List of Parameters that are available for the calling SEFF
      * @param isCalling Is true, when another method is called. Otherwise, a called method is returned from
      */
-    public CallingSEFFPCMVertex(ExternalCallAction element, List<? extends AbstractVertex<?>> previousElements, Deque<AssemblyContext> context, List<Parameter> parameter, boolean isCalling, ResourceProvider resourceProvider) {
-        super(element, previousElements, context, parameter, resourceProvider);
+    public CallingUserPCMVertex(EntryLevelSystemCall element, List<? extends AbstractVertex<?>> previousElements, boolean isCalling, ResourceProvider resourceProvider) {
+        super(element, previousElements, resourceProvider);
         this.isCalling = isCalling;
     }
 
@@ -50,35 +43,37 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction>
         			.flatMap(it -> it.getAllOutgoingDataFlowVariables().stream())
         			.collect(Collectors.toList());
     	}
-        
+    	
     	List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
     	
-        List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.isCalling ? 
-        		super.getReferencedElement().getInputVariableUsages__CallAction().stream()
-        		.flatMap(it -> it.getVariableCharacterisation_VariableUsage()
-                        .stream())
-        		.filter(ConfidentialityVariableCharacterisation.class::isInstance)
-                .map(ConfidentialityVariableCharacterisation.class::cast)
-                    .collect(Collectors.toList())
-                : 
-                super.getReferencedElement().getReturnVariableUsage__CallReturnAction().stream()
+    	List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.isCalling ?
+    			super.getReferencedElement().getInputParameterUsages_EntryLevelSystemCall().stream()
+    			.flatMap(it -> it.getVariableCharacterisation_VariableUsage()
+    	        .stream())
+    			.filter(ConfidentialityVariableCharacterisation.class::isInstance)
+    			.map(ConfidentialityVariableCharacterisation.class::cast)
+    	            .collect(Collectors.toList())
+                :
+                super.getReferencedElement().getOutputParameterUsages_EntryLevelSystemCall().stream()
                 .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
-                        .stream())
+                .stream())
                 .filter(ConfidentialityVariableCharacterisation.class::isInstance)
                 .map(ConfidentialityVariableCharacterisation.class::cast)
-                .collect(Collectors.toList());
-        if (this.isCalling()) {
-        	super.checkCallParameter(super.getReferencedElement().getCalledService_ExternalService(), variableCharacterisations);
+                    .collect(Collectors.toList());
+    	
+    	if (this.isCalling()) {
+        	super.checkCallParameter(super.getReferencedElement().getOperationSignature__EntryLevelSystemCall(), variableCharacterisations);
         }
-        List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(nodeCharacteristics, variableCharacterisations, incomingDataFlowVariables);
-        if (this.isReturning()) {
+    	
+    	List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(nodeCharacteristics, variableCharacterisations, incomingDataFlowVariables);
+    	if (this.isReturning()) {
     		outgoingDataFlowVariables = outgoingDataFlowVariables.stream()
     				.filter(it -> !it.getVariableName().equals("RETURN"))
     				.collect(Collectors.toList());
     	}
-        this.setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+    	this.setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
-    
+
     @Override
     public String toString() {
         String calling = isCalling ? "calling" : "returning";
@@ -95,7 +90,7 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction>
     	if (isomorphism.get(this) != null) {
     		return  isomorphism.get(this);
     	}
-    	CallingSEFFPCMVertex copy = new CallingSEFFPCMVertex(referencedElement, List.of(), new ArrayDeque<>(context), new ArrayList<>(this.getParameter()), isCalling, resourceProvider);
+    	CallingUserPCMVertex copy = new CallingUserPCMVertex(referencedElement, List.of(), isCalling, resourceProvider);
     	if (this.isEvaluated()) {
     		copy.setPropagationResult(this.getAllIncomingDataFlowVariables(), this.getAllOutgoingDataFlowVariables(), this.getVertexCharacteristics());
     	}

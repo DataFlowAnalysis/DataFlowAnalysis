@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.pcm.core.user;
+package org.dataflowanalysis.analysis.pcm.flowgraph.user;
 
 import java.util.ArrayDeque;
 import java.util.List;
@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
-import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
+import org.dataflowanalysis.analysis.pcm.flowgraph.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.Start;

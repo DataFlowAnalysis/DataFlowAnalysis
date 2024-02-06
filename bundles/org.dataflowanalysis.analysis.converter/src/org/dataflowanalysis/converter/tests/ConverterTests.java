@@ -10,10 +10,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
+import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
+import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.dataflowanalysis.converter.*;
 import org.dataflowanalysis.converter.microsecend.*;
 import org.dataflowanalysis.converter.webdfd.*;
@@ -25,6 +30,7 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.dataflowanalysis.dfd.dataflowdiagram.dataflowdiagramPackage;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -207,6 +213,39 @@ public class ConverterTests {
 		
 		cleanup("toPlant.txt");
 		cleanup("FromPlant.json");
+	}
+	
+	@Test
+	@DisplayName("Test Ass to DFD")
+	public void assToDfd() {
+		String name="TravelPlanner";
+		String modelFileName="travelPlanner";
+		String TEST_MODEL_PROJECT_NAME = "org.dataflowanalysis.analysis.testmodels";
+		
+		final var usageModelPath = Paths.get("models", name, modelFileName + ".usagemodel").toString();
+		final var allocationPath = Paths.get("models", name, modelFileName + ".allocation").toString();
+		final var nodeCharPath = Paths.get("models", name, modelFileName + ".nodecharacteristics").toString();
+				
+		DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder()
+		        .standalone()
+		        .modelProjectName(TEST_MODEL_PROJECT_NAME)
+		        .usePluginActivator(Activator.class)
+		        .useUsageModel(usageModelPath)
+		        .useAllocationModel(allocationPath)
+		        .useNodeCharacteristicsModel(nodeCharPath)
+		        .build();
+		
+		analysis.initializeAnalysis();
+		analysis.findAllSequences();
+		var sequences = analysis.findAllSequences();
+		var propagationResult = analysis.evaluateDataFlows(sequences);
+		
+		ProcessASS ass2dfd = new ProcessASS();
+		
+		ass2dfd.transform(propagationResult);
+		
+		ass2dfd.saveModel(name + ".datadictionary", "datadictionary", ass2dfd.getDictionary());
+		ass2dfd.saveModel(name + ".dataflowdiagram", "dataflowdiagram", ass2dfd.getDataFlowDiagram());
 	}
 	
 	public static void cleanup(String path) {

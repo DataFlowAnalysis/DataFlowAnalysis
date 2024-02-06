@@ -83,9 +83,9 @@ public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalys
 	}
 
 	@Override
-	public List<AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph sequence,
+	public List<? extends AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph sequence,
 			Predicate<? super AbstractVertex<?>> condition) {
-		return (List<AbstractVertex<?>>) sequence.getVertices()
+		return sequence.getVertices()
 	            .parallelStream()
 	            .filter(condition)
 	            .toList();

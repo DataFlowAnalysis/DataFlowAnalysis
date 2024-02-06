@@ -122,7 +122,6 @@ public class PCMSEFFFinderUtils {
     private static List<PCMPartialFlowGraph> findSequencesForSEFFBranchAction(BranchAction currentAction,
             SEFFFinderContext context,
             PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
-    	//throw new UnsupportedOperationException("SEFF Branch Actions are currently not supported and break!");
         var flowGraph = currentAction.getBranches_Branch()
             .stream()
             .map(AbstractBranchTransition::getBranchBehaviour_BranchTransition)

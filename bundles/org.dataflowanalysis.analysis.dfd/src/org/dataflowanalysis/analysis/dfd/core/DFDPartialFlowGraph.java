@@ -12,15 +12,8 @@ public class DFDPartialFlowGraph extends AbstractPartialFlowGraph implements Com
 
 private DFDVertex lastVertex;
 	
-	public DFDPartialFlowGraph(List<AbstractVertex<?>> vertices) {
-		super(vertices);
-		// TODO Auto-generated constructor stub
-	}
-	
-	public static DFDPartialFlowGraph createFromEndVertex(DFDVertex endVertex) {
-		DFDPartialFlowGraph sequence = new DFDPartialFlowGraph(buildFlowGraphRecFromEnd(endVertex));
-		sequence.setLastVertex(endVertex);
-		return sequence;
+	public DFDPartialFlowGraph(AbstractVertex<?> sink) {
+		super(sink);
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -40,7 +33,7 @@ private DFDVertex lastVertex;
 	}
 
 	@Override
-	public AbstractPartialFlowGraph evaluate(VertexCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
+	public AbstractPartialFlowGraph evaluate() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -30,8 +30,8 @@ public class DFDFlowGraph extends FlowGraph {
 	@Override
 	public DFDFlowGraph evaluate() {
 		List<AbstractPartialFlowGraph> evaluatedPartialFlowGraphs = new ArrayList<>();
-		for (var dfdActionSequence : this.getPartialFlowGraphs()) {
-			evaluatedPartialFlowGraphs.add(DFDCharacteristicsCalculator.fillDataFlowVariables((DFDPartialFlowGraph) dfdActionSequence));
+		for (var dfdPartialFlowGraph : this.getPartialFlowGraphs()) {
+			evaluatedPartialFlowGraphs.add(new DFDPartialFlowGraph(dfdPartialFlowGraph.getSink().evaluateDataFlow()));
 		}
 		return new DFDFlowGraph(evaluatedPartialFlowGraphs);
 	}

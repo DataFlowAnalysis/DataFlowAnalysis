@@ -2,7 +2,11 @@ package org.dataflowanalysis.converter;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 
+import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
+import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
+import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.dataflowanalysis.converter.microsecend.*;
 import org.dataflowanalysis.converter.webdfd.*;
 
@@ -69,6 +73,35 @@ public class Main {
             e.printStackTrace();
         }
 	}
+	
+	public static void readAss(String name, String modelFileName) {
+		String TEST_MODEL_PROJECT_NAME = "org.dataflowanalysis.analysis.testmodels";
+		
+		final var usageModelPath = Paths.get("models", name, modelFileName + ".usagemodel").toString();
+		final var allocationPath = Paths.get("models", name, modelFileName + ".allocation").toString();
+		final var nodeCharPath = Paths.get("models", name, modelFileName + ".nodecharacteristics").toString();
+				
+		DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder()
+		        .standalone()
+		        .modelProjectName(TEST_MODEL_PROJECT_NAME)
+		        .usePluginActivator(Activator.class)
+		        .useUsageModel(usageModelPath)
+		        .useAllocationModel(allocationPath)
+		        .useNodeCharacteristicsModel(nodeCharPath)
+		        .build();
+		
+		analysis.initializeAnalysis();
+		analysis.findAllSequences();
+		var sequences = analysis.findAllSequences();
+		var propagationResult = analysis.evaluateDataFlows(sequences);
+		
+		ProcessASS ass2dfd = new ProcessASS();
+		
+		ass2dfd.transform(propagationResult);
+		
+		ass2dfd.saveModel(name + ".datadictionary", "datadictionary", ass2dfd.getDictionary());
+		ass2dfd.saveModel(name + ".dataflowdiagram", "dataflowdiagram", ass2dfd.getDataFlowDiagram());
+	}
 
 	public static void main(String[] args) {
 		readMicro("anilallewar_microservices-basics-spring-boot.json");
@@ -79,5 +112,7 @@ public class Main {
         readDFD("fullweb","test3.json");
         readPlant("9.txt");
         readDFD("9","test4.json");
+        readAss("TravelPlanner","travelPlanner");
+        readDFD("TravelPlanner","test6.json");
 	} 
 }

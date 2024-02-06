@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
@@ -30,7 +29,6 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.dataflowanalysis.dfd.dataflowdiagram.dataflowdiagramPackage;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -111,6 +109,7 @@ public class ConverterTests {
 		Resource ddResource = rs.getResource(URI.createFileURI("anilallewar_microservices-basics-spring-boot.datadictionary"), true);		
 		
 		DataFlowDiagram dfd = (DataFlowDiagram) dfdResource.getContents().get(0);
+		@SuppressWarnings("unused")
 		DataDictionary dd = (DataDictionary) ddResource.getContents().get(0);
 		
 		assertEquals(micro.externalEntities().size()+micro.services().size(),dfd.getNodes().size());

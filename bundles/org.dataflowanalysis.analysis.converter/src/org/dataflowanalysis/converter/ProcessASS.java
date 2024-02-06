@@ -3,19 +3,15 @@ package org.dataflowanalysis.converter;
 import java.util.HashMap;
 import java.util.List;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
 import org.dataflowanalysis.analysis.core.*;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMActionSequenceElement;
-import org.dataflowanalysis.analysis.pcm.core.seff.*;
 
 import org.dataflowanalysis.analysis.pcm.core.user.*;
 import org.palladiosimulator.pcm.core.entity.Entity;
-import org.palladiosimulator.pcm.repository.Parameter;
-import org.palladiosimulator.pcm.repository.impl.ParameterImpl;
 
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
@@ -26,6 +22,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
+@SuppressWarnings({"unchecked","rawtypes"})
 public class ProcessASS {
 	
 	private Map<Entity, Node> dfdNodeMap = new HashMap<>();
@@ -59,6 +56,7 @@ public class ProcessASS {
 		
 		return dfdNode;
 	}
+	
 	
 	private void createFlows(Node source, Node dest, AbstractPCMActionSequenceElement pcmASE) {
 		if(source == null || dest == null) {
@@ -120,21 +118,7 @@ public class ProcessASS {
 		dest.getBehaviour().getInPin().add(pin);
 		return pin;
 	}
-	
-	private static List<String> getParameters(AbstractActionSequenceElement<?> element) {
-		List<String> paras = new ArrayList<String>();
-		if (element instanceof SEFFActionSequenceElement<?> sase) {
-
-			List<Parameter> parameters = sase.getParameter();
-			for (var entry : parameters) {
-				ParameterImpl parameter = (ParameterImpl) entry;
-				paras.add(parameter.getParameterName());
-			}
-		}
-
-		return paras;
-	}
-	
+		
 	private Node getOrCreateDFDNode(AbstractPCMActionSequenceElement pcmASE) {
 		Node dfdNode = dfdNodeMap.get(pcmASE.getElement());
 		// check if a corresponding node has already been created

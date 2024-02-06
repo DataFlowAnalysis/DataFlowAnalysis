@@ -47,7 +47,7 @@ public interface DataFlowConfidentialityAnalysis {
      * 					Otherwise, the vertex is not included in the result of this method.
      * @return Returns a list of all nodes that matched the given condition
      */
-    public List<AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph partialFlowGraph,
+    public List<? extends AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph partialFlowGraph,
             Predicate<? super AbstractVertex<?>> condition);
     
     /**

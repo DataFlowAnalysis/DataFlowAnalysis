@@ -25,14 +25,24 @@ public class DFDPartialFlowGraphFinder {
 		Map<Node, Map<Pin, List<Flow>>> mapOfIngoingEdges = getMapOfIngoingEdges(dfd.getFlows());
 		Map<Node, List<DFDVertex>> mapNodeToVertices = new HashMap<>();
 		Map<Node, List<Node>> mapOfOutgoingEdges = getMapOfOutgoingEdges(dfd.getFlows());
-		for (Node startNode : getStartNodes(dfd.getNodes())) {
-			fillMapNodeToVertices(startNode, mapNodeToVertices, mapOfIngoingEdges, mapOfOutgoingEdges);
+		
+		List<Node> startNodes = getStartNodes(dfd.getNodes());
+		List<Node> endNodes = getEndNodes(dfd.getNodes());
+		
+		for (Node startNode : startNodes) {
+			fillMapNodeToVertices(startNode, mapNodeToVertices, mapOfIngoingEdges, mapOfOutgoingEdges, true, endNodes);
+		}
+		
+		for (Node startNode : startNodes) {
+			if (endNodes.contains(startNodes)) {
+				
+			}
 		}
 		List<AbstractPartialFlowGraph> sequences = new ArrayList<>();
 		
-		for (var endNode : getEndNodes(dfd.getNodes())) {
+		for (var endNode : endNodes) {
 			for (var endElement : mapNodeToVertices.get(endNode)) {
-				sequences.add(DFDPartialFlowGraph.createFromEndVertex(endElement));
+				sequences.add(new DFDPartialFlowGraph(endElement));
 			}
 		}
 		return sequences;
@@ -46,17 +56,22 @@ public class DFDPartialFlowGraphFinder {
 	 * @param mapOfIngoingEdges
 	 * @param mapOfOutgoingEdges
 	 */
-	private static void fillMapNodeToVertices(Node node, Map<Node, List<DFDVertex>> mapNodeToVertices, Map<Node, Map<Pin, List<Flow>>> mapOfIngoingEdges, Map<Node, List<Node>> mapOfOutgoingEdges) {
+	private static void fillMapNodeToVertices(Node node, Map<Node, List<DFDVertex>> mapNodeToVertices, Map<Node, Map<Pin, List<Flow>>> mapOfIngoingEdges, Map<Node, List<Node>> mapOfOutgoingEdges, boolean isStartNode, List<Node> endNodes) {
 		mapOfIngoingEdges.putIfAbsent(node, new HashMap<>());
 		mapOfOutgoingEdges.putIfAbsent(node, new ArrayList<>());
-		for (Pin pin : mapOfIngoingEdges.get(node).keySet()) {
-			for (Flow inFlow : mapOfIngoingEdges.get(node).get(pin)) {
-				if (!mapNodeToVertices.containsKey(inFlow.getSourceNode())) return; //Interrupt if not all previous elements have been created. Will be called again by the previous element
+		if (!isStartNode) {
+			for (Pin pin : mapOfIngoingEdges.get(node).keySet()) {
+				for (Flow inFlow : mapOfIngoingEdges.get(node).get(pin)) {
+					if (!mapNodeToVertices.containsKey(inFlow.getSourceNode())) return; //Interrupt if not all previous elements have been created. Will be called again by the previous element
+				}
 			}
 		}
-		mapNodeToVertices.put(node, convertNodeToVertex(node, mapOfIngoingEdges.get(node), mapNodeToVertices));
-		for (Node nextNode : mapOfOutgoingEdges.get(node)) {
-			fillMapNodeToVertices(nextNode, mapNodeToVertices, mapOfIngoingEdges, mapOfOutgoingEdges);
+		if (isStartNode) mapNodeToVertices.put(node, convertNodeToVertex(node, new HashMap<>(), mapNodeToVertices));
+		else mapNodeToVertices.put(node, convertNodeToVertex(node, mapOfIngoingEdges.get(node), mapNodeToVertices));
+		if (isStartNode || !endNodes.contains(node)) {
+			for (Node nextNode : mapOfOutgoingEdges.get(node)) {				
+				fillMapNodeToVertices(nextNode, mapNodeToVertices, mapOfIngoingEdges, mapOfOutgoingEdges, false, endNodes);
+			}
 		}
 	}
 	
@@ -131,6 +146,7 @@ public class DFDPartialFlowGraphFinder {
 	private static List<Node> getEndNodes(List<Node> nodes) {
 		List<Node> endNodes = new ArrayList<>(nodes);
 		for (Node node : nodes) {
+			if (node.getBehaviour().getInPin().isEmpty()) endNodes.remove(node);
 			for (Pin inputPin : node.getBehaviour().getInPin()) {
 				for (AbstractAssignment assignment : node.getBehaviour().getAssignment()) {
 					if (assignment.getInputPins().contains(inputPin)) {
@@ -153,6 +169,7 @@ public class DFDPartialFlowGraphFinder {
 	private static List<DFDVertex> convertNodeToVertex (Node node, Map<Pin, List<Flow>> mapOfIngoingEdges, Map<Node, List<DFDVertex>> mapNodeToElements) {		
 		List<DFDVertex> vertices = new ArrayList<>();	
 		vertices.add(new DFDVertex(node.getEntityName(), node, new HashMap<>(), new HashMap<>()));
+		if (mapOfIngoingEdges.isEmpty()) return vertices;
 		for (Pin key : mapOfIngoingEdges.keySet()) {				
 			List<DFDVertex> newVertices = new ArrayList<>();
 			for (Flow inFlow : mapOfIngoingEdges.get(key)) {				

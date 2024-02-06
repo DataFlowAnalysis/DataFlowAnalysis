@@ -42,10 +42,9 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
      * Resource loader to resolve unknown characteristics in the dictionary
      */
     public PCMDataCharacteristicsCalculator(List<DataFlowVariable> initialVariables, 
-    		List<CharacteristicValue> nodeCharacteristics,
-    		ResourceProvider resourceLoader) {
+    		List<CharacteristicValue> nodeCharacteristics, ResourceProvider resourceProvider) {
         this.currentVariables = new ArrayList<>(initialVariables);
-        this.resourceLoader = resourceLoader;
+        this.resourceLoader = resourceProvider;
         createNodeCharacteristicsContainer(nodeCharacteristics);
     }
     

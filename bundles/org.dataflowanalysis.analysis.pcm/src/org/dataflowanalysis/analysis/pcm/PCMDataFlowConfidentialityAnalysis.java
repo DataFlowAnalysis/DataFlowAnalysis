@@ -8,12 +8,11 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
-import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
 import org.dataflowanalysis.analysis.flowgraph.FlowGraph;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
+import org.dataflowanalysis.analysis.pcm.core.PCMNodeCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.eclipse.core.runtime.Plugin;
@@ -34,9 +33,8 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
 	private static final String PLUGIN_PATH = "org.dataflowanalysis.analysis.pcm";
 	private final Logger logger;
 	
-	protected final VertexCharacteristicsCalculator nodeCharacteristicsCalculator;
-	protected final DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory;
-	protected final PCMResourceProvider resourceProvider;
+	//TODO: Temporary fix
+	protected PCMResourceProvider resourceProvider;
 
 	protected final String modelProjectName;
 	protected final Optional<Class<? extends Plugin>> modelProjectActivator;
@@ -50,11 +48,8 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
 	 * @param modelProjectName Name of the modelling project
 	 * @param modelProjectActivator Plugin class of the analysis
 	 */
-	public PCMDataFlowConfidentialityAnalysis(VertexCharacteristicsCalculator nodeCharacteristicsCalculator, 
-			DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory, PCMResourceProvider resourceProvider, 
+	public PCMDataFlowConfidentialityAnalysis(PCMResourceProvider resourceProvider, 
 			String modelProjectName, Optional<Class<? extends Plugin>> modelProjectActivator) {
-		this.nodeCharacteristicsCalculator = nodeCharacteristicsCalculator;
-		this.dataCharacteristicsCalculatorFactory = dataCharacteristicsCalculatorFactory;
 		this.resourceProvider = resourceProvider;
 		this.logger = Logger.getLogger(PCMDataFlowConfidentialityAnalysis.class);
 		this.modelProjectName = modelProjectName;
@@ -64,7 +59,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
 	@Override
 	public PCMFlowGraph findFlowGraph() {
 		PCMResourceProvider pcmResourceProvider = (PCMResourceProvider) this.resourceProvider;
-        return new PCMFlowGraph(pcmResourceProvider, this.nodeCharacteristicsCalculator, this.dataCharacteristicsCalculatorFactory);
+        return new PCMFlowGraph(pcmResourceProvider);
 	}
 
 	@Override
@@ -77,7 +72,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
 	}
 
 	@Override
-	public List<AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph sequence,
+	public List<? extends AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph sequence,
 			Predicate<? super AbstractVertex<?>> condition) {
 		return sequence.getVertices()
 	            .parallelStream()
@@ -99,7 +94,9 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
             throw new IllegalStateException("Failed loading the required models for the data flow analysis.");
         }
         
-        this.nodeCharacteristicsCalculator.checkAssignments();
+        // TODO Temporary fix
+        PCMNodeCharacteristicsCalculator nodeCharacteristicsCalculator = new PCMNodeCharacteristicsCalculator(resourceProvider);
+        nodeCharacteristicsCalculator.checkAssignments();
 
         return true;
     }

@@ -8,9 +8,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
-import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
-
 /**
  * This abstract class represents a partial flow graph induced by a sink {@link AbstractPartialFlowGraph#getSink()}.
  * Ambiguous flows, like multiple flows to one input pin, are resolved in the partial flow graph and represent one possible assignment
@@ -29,12 +26,9 @@ public abstract class AbstractPartialFlowGraph {
     
 	/**
 	 * Evaluate the data flow of the partial flow graph with the given node and data characteristics calculator
-	 * @param nodeCharacteristicsCalculator Calculator used to calculate the node characteristics of the element
-	 * @param dataCharacteristicsCalculatorFactory Calculators used to calculate the data characteristics of elements
 	 * @return Returns the evaluated partial flow graph in which vertex and data characteristics were calculated
 	 */
-    public abstract AbstractPartialFlowGraph evaluate(VertexCharacteristicsCalculator nodeCharacteristicsCalculator, 
-    		DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory);
+    public abstract AbstractPartialFlowGraph evaluate();
     
     public AbstractVertex<?> getSink() {
 		return sink;
@@ -43,9 +37,9 @@ public abstract class AbstractPartialFlowGraph {
     /**
      * Returns the saved elements in the sequence
      * @return Returns List of sequence elements, saved in the sequence
-     * TODO: Remove this method from the new implementation, as it might be misleading and works differently between dfd and pcm?
+     * TODO: Return a set of vertices, no order
      */
-    public List<AbstractVertex<?>> getVertices() {
+    public List<? extends AbstractVertex<?>> getVertices() {
     	List<AbstractVertex<?>> vertices = new ArrayList<>();
     	Deque<AbstractVertex<?>> currentElements = new ArrayDeque<>();
     	currentElements.push(sink);
@@ -65,7 +59,7 @@ public abstract class AbstractPartialFlowGraph {
      * The order of elements is completely arbitrary, but deterministic.
      * @return Returns a stream over all elements in the partial flow graph
      */
-    public Stream<AbstractVertex<?>> stream() {
+    public Stream<? extends AbstractVertex<?>> stream() {
     	return this.getVertices().parallelStream();
     }
     

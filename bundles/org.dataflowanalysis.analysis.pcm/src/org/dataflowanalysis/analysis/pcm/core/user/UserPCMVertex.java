@@ -6,24 +6,41 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
-import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
+import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.Start;
 import org.palladiosimulator.pcm.usagemodel.Stop;
 
 public class UserPCMVertex<T extends AbstractUserAction> extends AbstractPCMVertex<T> {
 	private final Logger logger = Logger.getLogger(UserPCMVertex.class);
+	
+	/**
+	 * Creates a new User Sequence Element with the given Palladio User Action Element
+	 * @param element
+	 */
+    public UserPCMVertex(T element, ResourceProvider resourceProvider) {
+        super(element, new ArrayDeque<>(), resourceProvider);
+    }
 
 	/**
 	 * Creates a new User Sequence Element with the given Palladio User Action Element
 	 * @param element
 	 */
-    public UserPCMVertex(T element, AbstractPCMVertex<?> previousElement) {
-        super(element, previousElement, new ArrayDeque<>());
+    public UserPCMVertex(T element, AbstractPCMVertex<?> previousElement, ResourceProvider resourceProvider) {
+        super(element, previousElement, new ArrayDeque<>(), resourceProvider);
+    }
+    
+    /**
+     * Creates a new User Sequence Element using an old User Sequence Element and a list of updated dataflow variables and node characteristics
+     * @param oldElement Old User Sequence element, which attributes shall be copied
+     * @param dataFlowVariables List of updated dataflow variables
+     * @param nodeCharacteristics List of updated node characteristics
+     */
+    public UserPCMVertex(UserPCMVertex<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+        super(oldElement, dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
 
     /**
@@ -37,11 +54,20 @@ public class UserPCMVertex<T extends AbstractUserAction> extends AbstractPCMVert
     }
     
     @Override
-    public AbstractVertex<T> evaluateDataFlow(AbstractVertex<?> previousElement, List<DataFlowVariable> incomingDataFlowVariables, 
-    		VertexCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
-    	List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics(nodeCharacteristicsCalculator);
+    public AbstractVertex<T> evaluateDataFlow() {
+    	AbstractVertex<?> previousVertex = null;
+    	List<DataFlowVariable> incomingDataFlowVariables = List.of();
+    	if(!super.isSource()) {
+        	previousVertex = super.getPreviousVertex().evaluateDataFlow();
+        	incomingDataFlowVariables = previousVertex.getAllOutgoingDataFlowVariables();
+    	}
+    	
+    	List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
         if (this.getReferencedElement() instanceof Start || this.getReferencedElement() instanceof Stop) {
-    		return new UserPCMVertex<T>(this, previousElement, new ArrayList<>(incomingDataFlowVariables), new ArrayList<>(incomingDataFlowVariables), nodeCharacteristics);
+        	if (previousVertex == null) {
+        		return new UserPCMVertex<T>(this, new ArrayList<>(incomingDataFlowVariables), new ArrayList<>(incomingDataFlowVariables), nodeCharacteristics);
+        	}
+    		return new UserPCMVertex<T>(this, previousVertex, new ArrayList<>(incomingDataFlowVariables), new ArrayList<>(incomingDataFlowVariables), nodeCharacteristics);
     	} 
     	logger.error("Found unexpected sequence element of unknown PCM type " + this.getReferencedElement().getClass().getName());
     	throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");

@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculatorFactory;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
-import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
+import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.Parameter;
@@ -35,8 +35,8 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
 	 * @param context Assembly context of the SEFF Element
 	 * @param parameter List of parameters, that were passed to the SEFF Element
 	 */
-    public SEFFPCMVertex(T element, AbstractPCMVertex<?> previousElement, Deque<AssemblyContext> context, List<Parameter> parameter) {
-        super(element, previousElement, context);
+    public SEFFPCMVertex(T element, AbstractVertex<?> previousElement, Deque<AssemblyContext> context, List<Parameter> parameter, ResourceProvider resourceProvider) {
+        super(element, previousElement, context, resourceProvider);
         this.parameter = parameter;
     }
 
@@ -46,19 +46,30 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
      * @param dataFlowVariables Updated dataflow variables
      * @param nodeCharacteristics Updated node characteristics
      */
-    public SEFFPCMVertex(SEFFPCMVertex<T> oldElement,  AbstractVertex<?> previousElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables ,List<CharacteristicValue> nodeCharacteristics) {
-        super(oldElement, previousElement, dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+    public SEFFPCMVertex(SEFFPCMVertex<T> oldElement,  AbstractVertex<?> previousElement, List<DataFlowVariable> incomingDataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
+        super(oldElement, previousElement, incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
         this.parameter = oldElement.getParameter();
     }
 
     @Override
-    public AbstractVertex<T> evaluateDataFlow(AbstractVertex<?> previousElement, List<DataFlowVariable> incomingDataFlowVariables, 
-    		VertexCharacteristicsCalculator nodeCharacteristicsCalculator, DataCharacteristicsCalculatorFactory dataCharacteristicsCalculatorFactory) {
-    	List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics(nodeCharacteristicsCalculator);
+    public AbstractVertex<T> evaluateDataFlow() {
+    	AbstractVertex<?> previousVertex = null;
+		List<DataFlowVariable> incomingDataFlowVariables = List.of();
+		if(!super.isSource()) {
+	    	previousVertex = super.getPreviousVertex().evaluateDataFlow();
+	    	incomingDataFlowVariables = previousVertex.getAllOutgoingDataFlowVariables();
+		}
     	
-        if (this.getReferencedElement() instanceof StartAction || this.getReferencedElement() instanceof StopAction) {
-        	return new SEFFPCMVertex<T>(this, previousElement, new ArrayList<>(incomingDataFlowVariables), new ArrayList<>(incomingDataFlowVariables), nodeCharacteristics);
-    	} else if (!(this.getReferencedElement() instanceof SetVariableAction)) {
+    	List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
+    	
+        if (this.getReferencedElement() instanceof StartAction) {
+        	return new SEFFPCMVertex<T>(this, previousVertex, new ArrayList<>(incomingDataFlowVariables), new ArrayList<>(incomingDataFlowVariables), nodeCharacteristics);
+    	} else if(this.getReferencedElement() instanceof StopAction) {
+    		List<DataFlowVariable> outgoingDataFlowVariables = incomingDataFlowVariables.parallelStream()
+    				.filter(it -> it.getVariableName().equals("RETURN"))
+    				.collect(Collectors.toList());
+    		return new SEFFPCMVertex<>(this, previousVertex, incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+    	}else if (!(this.getReferencedElement() instanceof SetVariableAction)) {
     		logger.error("Found unexpected sequence element of unknown PCM type " + this.getReferencedElement().getClass().getName());
     		throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");
     	}
@@ -71,8 +82,8 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
                 .map(ConfidentialityVariableCharacterisation.class::cast)
                 .toList();
     	
-    	List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(dataCharacteristicsCalculatorFactory, nodeCharacteristics, variableCharacterisations, incomingDataFlowVariables);
-        return new SEFFPCMVertex<T>(this, previousElement, incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+    	List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(nodeCharacteristics, variableCharacterisations, incomingDataFlowVariables);
+        return new SEFFPCMVertex<T>(this, previousVertex, incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
     
     /**

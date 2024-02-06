@@ -40,6 +40,7 @@ public class PCMQueryUtils {
      * @return Returns, if it exists, the single start action of the scenario behaviour
      */
     public static Optional<Start> getStartActionOfScenarioBehavior(ScenarioBehaviour scenarioBehavior) {
+    	logger.info("Finding start action of " + scenarioBehavior.getEntityName());
         List<Start> candidates = scenarioBehavior.getActions_ScenarioBehaviour()
             .stream()
             .filter(Start.class::isInstance)

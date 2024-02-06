@@ -10,20 +10,11 @@ import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
 
 public class DFDPartialFlowGraph extends AbstractPartialFlowGraph implements Comparable<DFDPartialFlowGraph> {
 
-private DFDVertex lastVertex;
+
 	
 	public DFDPartialFlowGraph(AbstractVertex<?> sink) {
 		super(sink);
 		// TODO Auto-generated constructor stub
-	}
-	
-	private static List<AbstractVertex<?>> buildFlowGraphRecFromEnd(DFDVertex endVertex) {
-		List<AbstractVertex<?>> sequenceAsList = new ArrayList<>();
-		for (var prevElement : endVertex.getMapPinToPreviousVertex().values()) {
-			sequenceAsList.addAll(buildFlowGraphRecFromEnd(prevElement));
-		}
-		sequenceAsList.add(endVertex);
-		return sequenceAsList;
 	}
 
 	@Override
@@ -34,16 +25,9 @@ private DFDVertex lastVertex;
 
 	@Override
 	public AbstractPartialFlowGraph evaluate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public DFDVertex getLastVertex() {
-		return lastVertex;
-	}
-
-	public void setLastVertex(DFDVertex lastElement) {
-		this.lastVertex = lastElement;
+		DFDVertex newSink = ((DFDVertex)sink).clone();
+		newSink.evaluateDataFlow();
+		return new DFDPartialFlowGraph(newSink);
 	}
 
 	

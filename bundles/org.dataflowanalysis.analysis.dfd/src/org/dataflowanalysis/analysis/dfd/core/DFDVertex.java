@@ -38,18 +38,10 @@ public class DFDVertex extends AbstractVertex<EObject>{
 	Map<Pin, DFDVertex> mapPinToPreviousVertex;
 	Map<Pin, Flow> mapPinToInputFlow; 
 
-	public DFDVertex(List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable>  outgoingDataFlowVariables,
-			List<CharacteristicValue> nodeCharacteristics, String name, Node node, Map<Pin, DFDVertex> mapPinToPreviousVertex, Map<Pin, Flow> mapPinToInputFlow) {
-		super(node, new ArrayList<>(mapPinToPreviousVertex.values()), dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics); //ausgewertet wird erst unten DataFlowVariable kann hier leer sein
-		// TODO Auto-generated constructor stub
-		this.name = name;
-		this.node = node;
-		this.mapPinToPreviousVertex = mapPinToPreviousVertex;
-		this.mapPinToInputFlow = mapPinToInputFlow;
-	}
+	
 	
 	public DFDVertex(String name, Node node, Map<Pin, DFDVertex> mapPinToPreviousVertex, Map<Pin, Flow> mapPinToInputFlow) {
-		super(node, new ArrayList<>(mapPinToPreviousVertex.values()), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()); //ausgewertet wird erst unten DataFlowVariable kann hier leer sein
+		super(node, new ArrayList<>(mapPinToPreviousVertex.values())); //ausgewertet wird erst unten DataFlowVariable kann hier leer sein
 		// TODO Auto-generated constructor stub
 		this.name = name;
 		this.node = node;
@@ -58,13 +50,13 @@ public class DFDVertex extends AbstractVertex<EObject>{
 	}
 
 	@Override
-	public AbstractVertex<EObject> evaluateDataFlow() {
+	public void evaluateDataFlow() {
 		Node node = this.getNode();
 		
 		Map<Pin, DFDVertex> previousVertices = this.getMapPinToPreviousVertex();		
 		
-		List<DataFlowVariable> dataFlowVariables = new ArrayList<DataFlowVariable>(this.getAllDataFlowVariables());
-		List<DataFlowVariable> outgoingDataFlowVariables = new ArrayList<DataFlowVariable>(this.getAllOutgoingDataFlowVariables());
+		List<DataFlowVariable> dataFlowVariables = new ArrayList<DataFlowVariable>();
+		List<DataFlowVariable> outgoingDataFlowVariables = new ArrayList<DataFlowVariable>();
 		List<CharacteristicValue> nodeCharacteristics = new ArrayList<CharacteristicValue>();
 		
 		Map<Pin, List<Label>> mapOutputPinToOutgoingLabels = new HashMap<>();		
@@ -77,7 +69,7 @@ public class DFDVertex extends AbstractVertex<EObject>{
 		
 		//Evaluate Previous Elements
 		for (var key : previousVertices.keySet()) {
-			previousVertices.replace(key, (DFDVertex) previousVertices.get(key).evaluateDataFlow());
+			previousVertices.get(key).evaluateDataFlow();
 		}
 		
 		//Create Map with all incoming Labels per pin
@@ -127,7 +119,8 @@ public class DFDVertex extends AbstractVertex<EObject>{
 			outgoingDataFlowVariables.add(new DataFlowVariable(pin.getId(), characteristics));
 		}
 		
-		return new DFDVertex(dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics, this.getName(), this.getNode(), this.getMapPinToPreviousVertex(), this.getMapPinToInputFlow());
+		this.setPropagationResult(dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+		
 	}
 	
 	private static List<Label> combineLabelsOnAllInputPins(AbstractAssignment assignment, Map<Pin, List<Label>> mapInputPinsToIncomingLabels) {
@@ -196,7 +189,13 @@ public class DFDVertex extends AbstractVertex<EObject>{
 	}
 
 	public DFDVertex clone() {
-    	return new DFDVertex(new ArrayList<>(super.getAllDataFlowVariables()), new ArrayList<>(super.getAllOutgoingDataFlowVariables()), new ArrayList<>(super.getAllNodeCharacteristics()), this.name, this.node, new HashMap<>(this.mapPinToPreviousVertex), new HashMap<>(this.mapPinToInputFlow));
+		Map<Pin, DFDVertex> newMapPinToPreviousVertex= new HashMap<>();
+		for (var key : this.mapPinToPreviousVertex.keySet()) {
+			DFDVertex previousClone = this.mapPinToPreviousVertex.get(key).clone();
+			newMapPinToPreviousVertex.put(key, previousClone);
+		}
+		DFDVertex clone = new DFDVertex(this.name, this.node, newMapPinToPreviousVertex, new HashMap<>(this.mapPinToInputFlow));
+    	return clone;
     }
 
 

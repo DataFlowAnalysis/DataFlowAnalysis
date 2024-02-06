@@ -3,7 +3,8 @@ package org.dataflowanalysis.analysis.dfd.core;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 
 import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
@@ -28,6 +29,7 @@ public class DFDPartialFlowGraphFinder {
 		
 		for (var endNode : endNodes) {
 			for (var sink : buildRec(new DFDVertex(endNode.getEntityName(), endNode, new HashMap<>(), new HashMap<>()), dfd.getFlows(), endNode.getBehaviour().getInPin())) {
+				sink.unify(new HashSet<>());
 				sequences.add(new DFDPartialFlowGraph(sink));
 			}	
 		}
@@ -62,7 +64,8 @@ public class DFDPartialFlowGraphFinder {
 			vertices = newVertices;
 		}
 		return vertices;
-	}
+	}	
+	
 	
 	/**
 	 * Get List of all Nodes without outgoing flows

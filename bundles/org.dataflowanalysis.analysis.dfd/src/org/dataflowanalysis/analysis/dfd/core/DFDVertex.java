@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.EObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentHashMap.KeySetView;
 import java.util.function.Function;
@@ -51,6 +52,8 @@ public class DFDVertex extends AbstractVertex<EObject>{
 
 	@Override
 	public void evaluateDataFlow() {
+		if(super.isEvaluated()) return;
+		
 		Node node = this.getNode();
 		
 		Map<Pin, DFDVertex> previousVertices = this.getMapPinToPreviousVertex();		
@@ -166,6 +169,20 @@ public class DFDVertex extends AbstractVertex<EObject>{
 		
 		return false;
 	}
+	
+	public void unify(Set<DFDVertex> vertices) {
+		for (var key : this.getMapPinToPreviousVertex().keySet()) {
+			for (var vertex : vertices) {
+				if (vertex.isEqual(this.getMapPinToPreviousVertex().get(key))) {
+					this.getMapPinToPreviousVertex().put(key, vertex);
+				}				
+			}
+			vertices.add(this.getMapPinToPreviousVertex().get(key));
+		}
+		for (var vertex : this.getMapPinToPreviousVertex().values()) {
+			vertex.unify(vertices);
+		}
+	}
 
 	@Override
 	public String toString() {
@@ -182,7 +199,14 @@ public class DFDVertex extends AbstractVertex<EObject>{
         this.node = node;
     }
     
-    
+    public boolean isEqual(DFDVertex vertex) {
+    	if (!this.node.equals(vertex.getNode())) return false;
+    	if (!this.name.equals(vertex.getName())) return false;
+    	for (var key : this.getMapPinToPreviousVertex().keySet()) {
+    		if (!this.getMapPinToPreviousVertex().get(key).isEqual(vertex.getMapPinToPreviousVertex().get(key))) return false;
+    	}
+    	return true;
+    }    
     
     public Node getNode() {
 		return node;

@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -129,5 +130,27 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
                 elementName,
                 this.getReferencedElement()
                     .getId());
+    }
+    
+    @Override
+    public AbstractPCMVertex<?> deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> isomorphism) {
+    	if (isomorphism.get(this) != null) {
+    		return  isomorphism.get(this);
+    	}
+    	SEFFPCMVertex<?> copy = new SEFFPCMVertex<>(referencedElement, List.of(), new ArrayDeque<>(context), new ArrayList<>(this.getParameter()), resourceProvider);
+    	if (this.isEvaluated()) {
+    		copy.setPropagationResult(this.getAllIncomingDataFlowVariables(), this.getAllOutgoingDataFlowVariables(), this.getVertexCharacteristics());
+    	}
+    	isomorphism.put(this, copy);
+    	
+    	List<AbstractPCMVertex<?>> clonedPreviousElements = this.previousElements.stream()
+    			.filter(it -> (it instanceof AbstractPCMVertex<?>))
+    			.map(it -> (AbstractPCMVertex<?>) it)
+    			.map(it -> it.deepCopy(isomorphism))
+    			.collect(Collectors.toList());
+    	
+    	copy.setPreviousElements(clonedPreviousElements);
+    	
+    	return copy;
     }
 }

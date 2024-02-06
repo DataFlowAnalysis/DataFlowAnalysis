@@ -2,6 +2,7 @@ package org.dataflowanalysis.analysis.pcm.core;
 
 import java.util.Deque;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
@@ -32,6 +33,8 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
         this.resourceProvider = resourceProvider;
     }
     
+    public abstract AbstractPCMVertex<?> deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> isomorphism);
+    
     /**
      * Sets the propagation result of the Vertex to the given result. 
      * This method should only be called once on elements that are not evaluated.
@@ -41,9 +44,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      */
     @Override
     protected void setPropagationResult(List<DataFlowVariable> incomingDataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> vertexCharacteristics) {
-    	logger.info("Setting for id: " + this.toString());
     	super.setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, vertexCharacteristics);
-    	logger.info("--------------");
     }
     
     /**

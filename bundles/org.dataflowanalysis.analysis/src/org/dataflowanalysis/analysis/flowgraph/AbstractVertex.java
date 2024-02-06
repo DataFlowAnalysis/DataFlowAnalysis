@@ -21,7 +21,7 @@ public abstract class AbstractVertex<T extends Object> {
 	private final Logger logger = Logger.getLogger(AbstractVertex.class);
 	
 	protected final T referencedElement;
-	protected final List<? extends AbstractVertex<?>> previousElements;
+	protected List<? extends AbstractVertex<?>> previousElements;
 	
     private Optional<List<DataFlowVariable>> incomingDataFlowVariables;
     private Optional<List<DataFlowVariable>> outgoingDataFlowVariables;
@@ -149,6 +149,10 @@ public abstract class AbstractVertex<T extends Object> {
         return this.incomingDataFlowVariables.orElseThrow(IllegalStateException::new);
     }
     
+    public List<DataFlowVariable> getAllIncomingDataFlowVariables() {
+		return this.incomingDataFlowVariables.orElseThrow(IllegalStateException::new);
+	}
+    
     /**
      * Returns a list of all outgoing dataflow variables that are present for the action sequence element
      * @return List of present outgoing dataflow variables (e.g. the variables at the output pin of the DFD representation)
@@ -214,10 +218,7 @@ public abstract class AbstractVertex<T extends Object> {
             return String.join(", ", entries);
     }
     
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-    	// TODO Auto-generated method stub
-    	return super.clone();
-    }
-
+    public void setPreviousElements(List<? extends AbstractVertex<?>> previousElements) {
+		this.previousElements = previousElements;
+	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
@@ -18,7 +19,7 @@ import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
 
 public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction>
-        implements CallReturnBehavior {
+        implements CallReturnBehavior, Cloneable {
     private final boolean isCalling;
 
     /**
@@ -87,5 +88,27 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction>
                     .getEntityName(),
                 this.getReferencedElement()
                     .getId());
+    }
+    
+    @Override
+    public AbstractPCMVertex<?> deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> isomorphism) {
+    	if (isomorphism.get(this) != null) {
+    		return  isomorphism.get(this);
+    	}
+    	CallingSEFFPCMVertex copy = new CallingSEFFPCMVertex(referencedElement, List.of(), new ArrayDeque<>(context), new ArrayList<>(this.getParameter()), isCalling, resourceProvider);
+    	if (this.isEvaluated()) {
+    		copy.setPropagationResult(this.getAllIncomingDataFlowVariables(), this.getAllOutgoingDataFlowVariables(), this.getVertexCharacteristics());
+    	}
+    	isomorphism.put(this, copy);
+    	
+    	List<AbstractPCMVertex<?>> clonedPreviousElements = this.previousElements.stream()
+    			.filter(it -> (it instanceof AbstractPCMVertex<?>))
+    			.map(it -> (AbstractPCMVertex<?>) it)
+    			.map(it -> it.deepCopy(isomorphism))
+    			.collect(Collectors.toList());
+    	
+    	copy.setPreviousElements(clonedPreviousElements);
+    	
+    	return copy;
     }
 }

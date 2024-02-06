@@ -1,8 +1,7 @@
 package org.dataflowanalysis.analysis.pcm.core.user;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
@@ -10,7 +9,6 @@ import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.CallReturnBehavior;
-import org.dataflowanalysis.analysis.pcm.core.seff.SEFFPCMVertex;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
@@ -85,5 +83,27 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall>
                     .getEntityName(),
                 this.getReferencedElement()
                     .getId());
+    }
+    
+    @Override
+    public AbstractPCMVertex<?> deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> isomorphism) {
+    	if (isomorphism.get(this) != null) {
+    		return  isomorphism.get(this);
+    	}
+    	CallingUserPCMVertex copy = new CallingUserPCMVertex(referencedElement, List.of(), isCalling, resourceProvider);
+    	if (this.isEvaluated()) {
+    		copy.setPropagationResult(this.getAllIncomingDataFlowVariables(), this.getAllOutgoingDataFlowVariables(), this.getVertexCharacteristics());
+    	}
+    	isomorphism.put(this, copy);
+    	
+    	List<AbstractPCMVertex<?>> clonedPreviousElements = this.previousElements.stream()
+    			.filter(it -> (it instanceof AbstractPCMVertex<?>))
+    			.map(it -> (AbstractPCMVertex<?>) it)
+    			.map(it -> it.deepCopy(isomorphism))
+    			.collect(Collectors.toList());
+    	
+    	copy.setPreviousElements(clonedPreviousElements);
+    	
+    	return copy;
     }
 }

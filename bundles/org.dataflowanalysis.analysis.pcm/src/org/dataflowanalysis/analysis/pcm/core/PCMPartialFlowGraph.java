@@ -1,5 +1,7 @@
 package org.dataflowanalysis.analysis.pcm.core;
 
+import java.util.Map;
+
 import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
 
@@ -32,5 +34,13 @@ public class PCMPartialFlowGraph extends AbstractPartialFlowGraph {
 	@Override
 	public AbstractVertex<?> getSink() {
 		return this.sink;
+	}
+	
+	public PCMPartialFlowGraph deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> isomorphism) {
+		AbstractPCMVertex<?> pcmSink = (AbstractPCMVertex<?>) this.sink;
+		
+		AbstractPCMVertex<?> clonedSink = pcmSink.deepCopy(isomorphism);
+		
+		return new PCMPartialFlowGraph(clonedSink);
 	}
 }

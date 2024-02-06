@@ -4,6 +4,8 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
 import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
@@ -51,6 +53,16 @@ public class SEFFFinderContext {
     	} else {
     		this.parameter = ((CallingSEFFPCMVertex) caller).getParameter();
     	}
+    }
+    
+    public void replaceCallers(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> isomorphism) {
+    	Deque<AbstractPCMVertex<?>> newCallers = new ArrayDeque<>();
+    	while (!this.callers.isEmpty()) {
+    		AbstractPCMVertex<?> element = this.callers.pop();
+    		AbstractPCMVertex<?> mappedElement = isomorphism.getOrDefault(element, element);
+    		newCallers.addLast(mappedElement);
+    	}
+    	this.callers = newCallers;
     }
     
     /**

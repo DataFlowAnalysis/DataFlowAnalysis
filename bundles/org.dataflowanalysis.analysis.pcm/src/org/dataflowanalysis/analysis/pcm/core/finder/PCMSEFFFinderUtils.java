@@ -1,11 +1,14 @@
 package org.dataflowanalysis.analysis.pcm.core.finder;
 
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
+import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.PCMPartialFlowGraph;
 import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.seff.SEFFPCMVertex;
@@ -16,8 +19,10 @@ import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.seff.AbstractAction;
+import org.palladiosimulator.pcm.seff.AbstractBranchTransition;
 import org.palladiosimulator.pcm.seff.BranchAction;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
+import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
 import org.palladiosimulator.pcm.seff.StartAction;
 import org.palladiosimulator.pcm.seff.StopAction;
@@ -117,18 +122,23 @@ public class PCMSEFFFinderUtils {
     private static List<PCMPartialFlowGraph> findSequencesForSEFFBranchAction(BranchAction currentAction,
             SEFFFinderContext context,
             PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
-    	throw new UnsupportedOperationException("SEFF Branch Actions are currently not supported and break!");
-    	/*
-        return currentAction.getBranches_Branch()
+    	//throw new UnsupportedOperationException("SEFF Branch Actions are currently not supported and break!");
+        var flowGraph = currentAction.getBranches_Branch()
             .stream()
             .map(AbstractBranchTransition::getBranchBehaviour_BranchTransition)
             .map(ResourceDemandingBehaviour::getSteps_Behaviour)
             .map(PCMQueryUtils::getFirstStartActionInActionList)
             .flatMap(Optional::stream)
-            .map(it -> findSequencesForSEFFAction(it, new SEFFFinderContext(context), THIS NEEDS TO BE DEEP COPIED, ELSE WE HAVE A PROBLEM! previousSequence, resourceProvider))
+            .map(it -> {
+            	Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> isomorphism = new IdentityHashMap<>();
+            	PCMPartialFlowGraph clonedSequence = previousSequence.deepCopy(isomorphism);
+            	SEFFFinderContext clonedContext = new SEFFFinderContext(context);
+            	clonedContext.replaceCallers(isomorphism);
+            	return findSequencesForSEFFAction(it, clonedContext, clonedSequence, resourceProvider);
+            })
             .flatMap(List::stream)
             .toList();
-          */
+        return flowGraph;
     }
 
     private static List<PCMPartialFlowGraph> findSequencesForSEFFActionReturning(ExternalCallAction currentAction,

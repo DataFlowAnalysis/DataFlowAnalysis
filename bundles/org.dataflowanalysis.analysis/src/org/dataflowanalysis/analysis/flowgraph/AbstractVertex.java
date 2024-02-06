@@ -38,7 +38,14 @@ public abstract class AbstractVertex<T extends Object> {
         this.vertexCharacteristics = Optional.empty();
     }
     
+    /**
+     * Evaluates the data flow at a vertex by looking and evaluating previous elements, then setting the incoming and outgoing data flow variables
+     * as well as vertex characteristics.
+     */
     public abstract void evaluateDataFlow();
+
+    @Override
+    public abstract String toString();
     
     /**
      * Sets the propagation result of the Vertex to the given result. 
@@ -58,6 +65,14 @@ public abstract class AbstractVertex<T extends Object> {
     }
     
     /**
+     * Sets the List of previous Elements for the vertex
+     * @param previousElements List of elements that precede the vertex
+     */
+    public void setPreviousElements(List<? extends AbstractVertex<?>> previousElements) {
+		this.previousElements = previousElements;
+	}
+    
+    /**
      * Returns whether the action sequence element has been evaluated
      * @return Returns true, if the node is evaluated. Otherwise, the method returns false
      */
@@ -65,14 +80,67 @@ public abstract class AbstractVertex<T extends Object> {
     	return this.incomingDataFlowVariables.isPresent() && this.outgoingDataFlowVariables.isPresent() && this.vertexCharacteristics.isPresent();
     }
     
+    /**
+     * Returns the referenced model element by the abstract vertex.
+     * Multiple vertices may reference the same model element, but one vertex always references exactly one model element.
+     * @return Returns the reference element by the vertex
+     */
     public T getReferencedElement() {
 		return referencedElement;
 	}
     
     /**
+     * Returns a list of all data flow variables that are present for the action sequence element
+     * @return List of present data flow variables
+     */
+    public List<DataFlowVariable> getAllDataFlowVariables() {
+        return this.incomingDataFlowVariables.orElseThrow(IllegalStateException::new);
+    }
+    
+    /**
+     * Returns a list of all incoming data flow variables that are present for the action sequence element
+     * @return List of present incoming data flow variables (e.g. the variables at the input pin of the DFD representation)
+     */
+    public List<DataFlowVariable> getAllIncomingDataFlowVariables() {
+		return this.incomingDataFlowVariables.orElseThrow(IllegalStateException::new);
+	}
+    
+    /**
+     * Returns a list of all outgoing data flow variables that are present for the action sequence element
+     * @return List of present outgoing data flow variables (e.g. the variables at the output pin of the DFD representation)
+     */
+    public List<DataFlowVariable> getAllOutgoingDataFlowVariables() {
+        return this.outgoingDataFlowVariables.orElseThrow(IllegalStateException::new);
+    }
+    
+    /**
+     * Returns a list of all present node characteristics for the action sequence element
+     * @return List of present node characteristics
+     */
+    public List<CharacteristicValue> getAllNodeCharacteristics() {
+    	return this.vertexCharacteristics.orElseThrow(IllegalStateException::new);
+    }
+    
+    /**
+     * Returns the list of previous elements that precede the vertex
+     * @return Returns a list of all preceding vertices of the vertex.
+     */
+    public List<? extends AbstractVertex<?>> getPreviousElements() {
+		return this.previousElements;
+	}
+    
+    /**
+     * Returns whether the vertex is a source (e.g. does not have a source)
+     * @return Returns true, if the vertex is a source. Otherwise, the method returns false
+     */
+    public boolean isSource() {
+    	return this.previousElements.isEmpty();
+    }
+    
+    /**
      * Returns a list of characteristic literals that are set for a given characteristic type in the list of all node characteristics
      * <p>
-     * See {@link getDataFlowCharacteristicsWithName} for a similar method for dataflow variables 
+     * See {@link getDataFlowCharacteristicsWithName} for a similar method for data flow variables 
      * @param name Name of the characteristic type
      * @return Returns a list of all characteristic literals matching the characteristic type
      */
@@ -86,7 +154,7 @@ public abstract class AbstractVertex<T extends Object> {
     /**
      * Returns a list of characteristic literals that are set for a given characteristic type in the list of all node characteristics
      * <p>
-     * See {@link getDataFlowCharacteristicsWithName} for a similar method for dataflow variables 
+     * See {@link getDataFlowCharacteristicsWithName} for a similar method for data flow variables 
      * @param name Name of the characteristic type
      * @return Returns a list of all characteristic literals matching the characteristic type
      */
@@ -98,7 +166,7 @@ public abstract class AbstractVertex<T extends Object> {
     }
     
     /**
-     * Returns a List of ids of characteristics and dataflow variables that are set for a given characteristic type in the list of all data flow variables
+     * Returns a List of IDs of characteristics and data flow variables that are set for a given characteristic type in the list of all data flow variables
      * <p>
      * See {@link getNodeCharacteristicIdsWithType} for a similar method for node characteristics
      * @param name Name of the characteristic type
@@ -142,45 +210,6 @@ public abstract class AbstractVertex<T extends Object> {
     }
     
     /**
-     * Returns a list of all dataflow variables that are present for the action sequence element
-     * @return List of present dataflow variables
-     */
-    public List<DataFlowVariable> getAllDataFlowVariables() {
-        return this.incomingDataFlowVariables.orElseThrow(IllegalStateException::new);
-    }
-    
-    public List<DataFlowVariable> getAllIncomingDataFlowVariables() {
-		return this.incomingDataFlowVariables.orElseThrow(IllegalStateException::new);
-	}
-    
-    /**
-     * Returns a list of all outgoing dataflow variables that are present for the action sequence element
-     * @return List of present outgoing dataflow variables (e.g. the variables at the output pin of the DFD representation)
-     */
-    public List<DataFlowVariable> getAllOutgoingDataFlowVariables() {
-        return this.outgoingDataFlowVariables.orElseThrow(IllegalStateException::new);
-    }
-    
-    /**
-     * Returns a list of all present node characteristics for the action sequence element
-     * @return List of present node characteristics
-     */
-    public List<CharacteristicValue> getAllNodeCharacteristics() {
-    	return this.vertexCharacteristics.orElseThrow(IllegalStateException::new);
-    }
-    
-    public List<? extends AbstractVertex<?>> getPreviousElements() {
-		return this.previousElements;
-	}
-    
-    public boolean isSource() {
-    	return this.previousElements.isEmpty();
-    }
-
-    @Override
-    public abstract String toString();
-    
-    /**
      * Returns a string with detailed information about a node's characteristics, data flow
      * variables and the variables' characteristics.
      * 
@@ -217,8 +246,4 @@ public abstract class AbstractVertex<T extends Object> {
                 .toList();
             return String.join(", ", entries);
     }
-    
-    public void setPreviousElements(List<? extends AbstractVertex<?>> previousElements) {
-		this.previousElements = previousElements;
-	}
 }

@@ -16,10 +16,8 @@ import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.seff.AbstractAction;
-import org.palladiosimulator.pcm.seff.AbstractBranchTransition;
 import org.palladiosimulator.pcm.seff.BranchAction;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
-import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.SetVariableAction;
 import org.palladiosimulator.pcm.seff.StartAction;
 import org.palladiosimulator.pcm.seff.StopAction;
@@ -119,24 +117,26 @@ public class PCMSEFFFinderUtils {
     private static List<PCMPartialFlowGraph> findSequencesForSEFFBranchAction(BranchAction currentAction,
             SEFFFinderContext context,
             PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
-
+    	throw new UnsupportedOperationException("SEFF Branch Actions are currently not supported and break!");
+    	/*
         return currentAction.getBranches_Branch()
             .stream()
             .map(AbstractBranchTransition::getBranchBehaviour_BranchTransition)
             .map(ResourceDemandingBehaviour::getSteps_Behaviour)
             .map(PCMQueryUtils::getFirstStartActionInActionList)
             .flatMap(Optional::stream)
-            .map(it -> findSequencesForSEFFAction(it, new SEFFFinderContext(context), previousSequence, resourceProvider))
+            .map(it -> findSequencesForSEFFAction(it, new SEFFFinderContext(context), THIS NEEDS TO BE DEEP COPIED, ELSE WE HAVE A PROBLEM! previousSequence, resourceProvider))
             .flatMap(List::stream)
             .toList();
+          */
     }
 
     private static List<PCMPartialFlowGraph> findSequencesForSEFFActionReturning(ExternalCallAction currentAction,
             SEFFFinderContext context,
             PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider, AbstractVertex<?> caller) {
     	List<AbstractVertex<?>> previousVertices = new ArrayList<>();
-    	previousVertices.add(previousSequence.getSink());
     	previousVertices.add(caller);
+    	previousVertices.add(previousSequence.getSink());
         PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(new CallingSEFFPCMVertex(currentAction, previousVertices, context.getContext(), context.getParameter(), false, resourceProvider));
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context,
                 currentActionSequence, resourceProvider);

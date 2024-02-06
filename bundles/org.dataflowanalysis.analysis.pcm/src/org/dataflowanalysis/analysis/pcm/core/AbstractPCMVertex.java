@@ -18,8 +18,8 @@ import org.palladiosimulator.pcm.repository.OperationSignature;
 public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex<T> {
 	private final Logger logger = Logger.getLogger(AbstractPCMVertex.class);
 	
-    private final Deque<AssemblyContext> context;
-    private final ResourceProvider resourceProvider;
+    protected final Deque<AssemblyContext> context;
+    protected final ResourceProvider resourceProvider;
 
     /**
      * Constructs a new abstract pcm vertex with the underlying palladio element and assembly context
@@ -30,6 +30,20 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     	super(referencedElement, List.of());
         this.context = context;
         this.resourceProvider = resourceProvider;
+    }
+    
+    /**
+     * Sets the propagation result of the Vertex to the given result. 
+     * This method should only be called once on elements that are not evaluated.
+     * @param incomingDataFlowVariables Incoming data flow variables that flow into the vertex
+     * @param outgoingDataFlowVariables Outgoing data flow variables that flow out of the vertex
+     * @param vertexCharacteristics Vertex characteristics present at the node
+     */
+    @Override
+    protected void setPropagationResult(List<DataFlowVariable> incomingDataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> vertexCharacteristics) {
+    	logger.info("Setting for id: " + this.toString());
+    	super.setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, vertexCharacteristics);
+    	logger.info("--------------");
     }
     
     /**

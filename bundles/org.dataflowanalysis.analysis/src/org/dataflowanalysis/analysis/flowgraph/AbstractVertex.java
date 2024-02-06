@@ -49,7 +49,8 @@ public abstract class AbstractVertex<T extends Object> {
      */
     protected void setPropagationResult(List<DataFlowVariable> incomingDataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> vertexCharacteristics) {
     	if (this.isEvaluated()) {
-    		logger.error("Cannot set propagation result of already evaluated vertex", new IllegalStateException());
+    		logger.error("Cannot set propagation result of already evaluated vertex");
+    		throw new IllegalArgumentException();
     	}
     	this.incomingDataFlowVariables = Optional.of(new ArrayList<>(incomingDataFlowVariables));
     	this.outgoingDataFlowVariables = Optional.of(new ArrayList<>(outgoingDataFlowVariables));
@@ -63,6 +64,10 @@ public abstract class AbstractVertex<T extends Object> {
     public boolean isEvaluated() {
     	return this.incomingDataFlowVariables.isPresent() && this.outgoingDataFlowVariables.isPresent() && this.vertexCharacteristics.isPresent();
     }
+    
+    public T getReferencedElement() {
+		return referencedElement;
+	}
     
     /**
      * Returns a list of characteristic literals that are set for a given characteristic type in the list of all node characteristics
@@ -207,6 +212,12 @@ public abstract class AbstractVertex<T extends Object> {
                         it.getValueName()))
                 .toList();
             return String.join(", ", entries);
+    }
+    
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+    	// TODO Auto-generated method stub
+    	return super.clone();
     }
 
 }

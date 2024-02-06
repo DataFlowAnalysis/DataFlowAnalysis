@@ -1,5 +1,7 @@
 package org.dataflowanalysis.analysis.pcm.core.seff;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.Optional;
@@ -128,5 +130,4 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
                 this.getReferencedElement()
                     .getId());
     }
-
 }

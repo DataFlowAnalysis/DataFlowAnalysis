@@ -121,8 +121,8 @@ public class PCMUserFinderUtils {
 
     public static List<PCMPartialFlowGraph> findSequencesForUserActionReturning(EntryLevelSystemCall currentAction, PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider, AbstractVertex<?> caller) {
     	List<AbstractVertex<?>> previousVertices = new ArrayList<>();
-    	previousVertices.add(previousSequence.getSink());
     	previousVertices.add(caller);
+    	previousVertices.add(previousSequence.getSink());
         PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(new CallingUserPCMVertex(currentAction, previousVertices, false, resourceProvider));
         return findSequencesForUserAction(currentAction.getSuccessor(), currentActionSequence, resourceProvider);
     }

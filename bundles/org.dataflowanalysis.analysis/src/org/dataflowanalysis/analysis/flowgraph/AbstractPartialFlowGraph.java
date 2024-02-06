@@ -4,8 +4,10 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -45,6 +47,9 @@ public abstract class AbstractPartialFlowGraph {
     	currentElements.push(sink);
     	while (!currentElements.isEmpty()) {
     		AbstractVertex<?> currentElement = currentElements.pop();
+    		if (vertices.contains(currentElement)) {
+    			continue;
+    		}
     		vertices.add(currentElement);
     		currentElement.getPreviousElements().stream()
     			.filter(Objects::nonNull)
@@ -61,7 +66,7 @@ public abstract class AbstractPartialFlowGraph {
      * @return Returns a stream over all elements in the partial flow graph
      */
     public Stream<? extends AbstractVertex<?>> stream() {
-    	return this.getVertices().parallelStream();
+    	return this.getVertices().stream();
     }
     
     @Override

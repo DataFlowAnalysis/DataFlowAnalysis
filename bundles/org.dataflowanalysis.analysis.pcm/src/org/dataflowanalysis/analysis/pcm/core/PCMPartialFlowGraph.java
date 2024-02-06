@@ -8,7 +8,6 @@ import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
  *
  */
 public class PCMPartialFlowGraph extends AbstractPartialFlowGraph {
-
 	/**
 	 * Creates a empty new action sequence
 	 */

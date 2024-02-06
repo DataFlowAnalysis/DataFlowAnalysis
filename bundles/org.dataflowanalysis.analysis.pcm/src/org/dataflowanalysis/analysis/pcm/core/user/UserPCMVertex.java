@@ -1,8 +1,8 @@
 package org.dataflowanalysis.analysis.pcm.core.user;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
@@ -29,45 +29,26 @@ public class UserPCMVertex<T extends AbstractUserAction> extends AbstractPCMVert
 	 * Creates a new User Sequence Element with the given Palladio User Action Element
 	 * @param element
 	 */
-    public UserPCMVertex(T element, AbstractPCMVertex<?> previousElement, ResourceProvider resourceProvider) {
-        super(element, previousElement, new ArrayDeque<>(), resourceProvider);
-    }
-    
-    /**
-     * Creates a new User Sequence Element using an old User Sequence Element and a list of updated dataflow variables and node characteristics
-     * @param oldElement Old User Sequence element, which attributes shall be copied
-     * @param dataFlowVariables List of updated dataflow variables
-     * @param nodeCharacteristics List of updated node characteristics
-     */
-    public UserPCMVertex(UserPCMVertex<T> oldElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
-        super(oldElement, dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
-    }
-
-    /**
-     * Creates a new User Sequence Element using an old User Sequence Element and a list of updated dataflow variables and node characteristics
-     * @param oldElement Old User Sequence element, which attributes shall be copied
-     * @param dataFlowVariables List of updated dataflow variables
-     * @param nodeCharacteristics List of updated node characteristics
-     */
-    public UserPCMVertex(UserPCMVertex<T> oldElement, AbstractVertex<?> previousElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
-        super(oldElement, previousElement, dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+    public UserPCMVertex(T element, List<? extends AbstractVertex<?>> previousElements, ResourceProvider resourceProvider) {
+        super(element, previousElements, new ArrayDeque<>(), resourceProvider);
     }
     
     @Override
-    public AbstractVertex<T> evaluateDataFlow() {
-    	AbstractVertex<?> previousVertex = null;
+    public void evaluateDataFlow() {
     	List<DataFlowVariable> incomingDataFlowVariables = List.of();
     	if(!super.isSource()) {
-        	previousVertex = super.getPreviousVertex().evaluateDataFlow();
-        	incomingDataFlowVariables = previousVertex.getAllOutgoingDataFlowVariables();
+    		super.getPreviousElements().stream()
+    			.filter(it -> !it.isEvaluated())
+    			.forEach(AbstractVertex::evaluateDataFlow);
+        	incomingDataFlowVariables = super.getPreviousElements().stream()
+        			.flatMap(it -> it.getAllOutgoingDataFlowVariables().stream())
+        			.collect(Collectors.toList());
     	}
     	
     	List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
         if (this.getReferencedElement() instanceof Start || this.getReferencedElement() instanceof Stop) {
-        	if (previousVertex == null) {
-        		return new UserPCMVertex<T>(this, new ArrayList<>(incomingDataFlowVariables), new ArrayList<>(incomingDataFlowVariables), nodeCharacteristics);
-        	}
-    		return new UserPCMVertex<T>(this, previousVertex, new ArrayList<>(incomingDataFlowVariables), new ArrayList<>(incomingDataFlowVariables), nodeCharacteristics);
+        	this.setPropagationResult(incomingDataFlowVariables, incomingDataFlowVariables, nodeCharacteristics);
+        	return;
     	} 
     	logger.error("Found unexpected sequence element of unknown PCM type " + this.getReferencedElement().getClass().getName());
     	throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");

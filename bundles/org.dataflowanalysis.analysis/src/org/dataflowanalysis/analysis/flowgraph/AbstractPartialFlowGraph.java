@@ -48,6 +48,7 @@ public abstract class AbstractPartialFlowGraph {
     		vertices.add(currentElement);
     		currentElement.getPreviousElements().stream()
     			.filter(Objects::nonNull)
+    			.filter(it -> !vertices.contains(it))
     			.forEach(currentElements::push);
     	}
     	Collections.reverse(vertices);

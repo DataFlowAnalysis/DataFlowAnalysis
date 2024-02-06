@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
-import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.CallReturnBehavior;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
@@ -21,20 +20,9 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall>
      * @param element Underlying Palladio Element
      * @param isCalling Is true, when another method is called. Otherwise, a called method is returned from
      */
-    public CallingUserPCMVertex(EntryLevelSystemCall element, AbstractPCMVertex<?> previousElement, boolean isCalling, ResourceProvider resourceProvider) {
-        super(element, previousElement, resourceProvider);
+    public CallingUserPCMVertex(EntryLevelSystemCall element, List<? extends AbstractVertex<?>> previousElements, boolean isCalling, ResourceProvider resourceProvider) {
+        super(element, previousElements, resourceProvider);
         this.isCalling = isCalling;
-    }
-
-    /**
-     * Constructs a new User Action Sequence element given an old element and a list of updated dataflow variables and node characteristics
-     * @param oldElement Old element, which attributes are copied
-     * @param dataFlowVariables List of updated data flow variables
-     * @param nodeCharacteristics List of updated node characteristics
-     */
-    public CallingUserPCMVertex(CallingUserPCMVertex oldElement,  AbstractVertex<?> previousElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
-        super(oldElement, previousElement, dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
-        this.isCalling = oldElement.isCalling();
     }
 
     @Override
@@ -43,13 +31,16 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall>
     }
     
     @Override
-    public AbstractVertex<EntryLevelSystemCall> evaluateDataFlow() {
-    	AbstractVertex<?> previousVertex = null;
+    public void evaluateDataFlow() {
 		List<DataFlowVariable> incomingDataFlowVariables = List.of();
-		if(!super.isSource()) {
-	    	previousVertex = super.getPreviousVertex().evaluateDataFlow();
-	    	incomingDataFlowVariables = previousVertex.getAllOutgoingDataFlowVariables();
-		}
+    	if(!super.isSource()) {
+    		super.getPreviousElements().stream()
+    			.filter(it -> !it.isEvaluated())
+    			.forEach(AbstractVertex::evaluateDataFlow);
+        	incomingDataFlowVariables = super.getPreviousElements().stream()
+        			.flatMap(it -> it.getAllOutgoingDataFlowVariables().stream())
+        			.collect(Collectors.toList());
+    	}
     	
     	List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
     	
@@ -73,20 +64,12 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall>
         }
     	
     	List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(nodeCharacteristics, variableCharacterisations, incomingDataFlowVariables);
-    	if (this.isCalling()) {
-        	List<String> variableNames = this.getReferencedElement().getOperationSignature__EntryLevelSystemCall().getParameters__OperationSignature().stream()
-        			.map(it -> it.getParameterName())
-        			.collect(Collectors.toList());
-    		outgoingDataFlowVariables = outgoingDataFlowVariables.stream()
-    				.filter(it -> variableNames.contains(it.getVariableName()))
-    				.collect(Collectors.toList());
-        }
     	if (this.isReturning()) {
     		outgoingDataFlowVariables = outgoingDataFlowVariables.stream()
     				.filter(it -> !it.getVariableName().equals("RETURN"))
     				.collect(Collectors.toList());
     	}
-    	return new CallingUserPCMVertex(this, previousVertex, incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+    	this.setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
 
     @Override

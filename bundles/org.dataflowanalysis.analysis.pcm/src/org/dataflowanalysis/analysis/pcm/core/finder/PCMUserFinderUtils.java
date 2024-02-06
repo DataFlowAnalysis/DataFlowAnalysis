@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.PCMPartialFlowGraph;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
@@ -58,7 +59,7 @@ public class PCMUserFinderUtils {
     	if (previousSequence.getSink() == null) {
         	startElement = new UserPCMVertex<Start>(currentAction, resourceProvider);
     	} else {
-    		startElement = new UserPCMVertex<Start>(currentAction, previousSequence.getSink(), resourceProvider);
+    		startElement = new UserPCMVertex<Start>(currentAction, List.of(previousSequence.getSink()), resourceProvider);
     	}
         var currentSequence = new PCMPartialFlowGraph(startElement);
         return findSequencesForUserAction(currentAction.getSuccessor(), currentSequence, resourceProvider);
@@ -66,7 +67,7 @@ public class PCMUserFinderUtils {
 
     private static List<PCMPartialFlowGraph> findSequencesForUserStopAction(Stop currentAction,
             PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
-    	var stopElement = new UserPCMVertex<Stop>(currentAction, previousSequence.getSink(), resourceProvider);
+    	var stopElement = new UserPCMVertex<Stop>(currentAction, List.of(previousSequence.getSink()), resourceProvider);
         var currentSequence = new PCMPartialFlowGraph(stopElement);
     	
         Optional<AbstractUserAction> parentAction = PCMQueryUtils.findParentOfType(currentAction,
@@ -91,7 +92,7 @@ public class PCMUserFinderUtils {
     }
 
     private static List<PCMPartialFlowGraph> findSequencesForEntryLevelSystemCall(EntryLevelSystemCall currentAction, PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
-        var callingEntity = new CallingUserPCMVertex(currentAction, previousSequence.getSink(), true, resourceProvider);
+        var callingEntity = new CallingUserPCMVertex(currentAction, List.of(previousSequence.getSink()), true, resourceProvider);
         PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(callingEntity);
 
         OperationProvidedRole calledRole = currentAction.getProvidedRole_EntryLevelSystemCall();
@@ -118,8 +119,11 @@ public class PCMUserFinderUtils {
         }
     }
 
-    public static List<PCMPartialFlowGraph> findSequencesForUserActionReturning(EntryLevelSystemCall currentAction, PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
-        PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(new CallingUserPCMVertex(currentAction, previousSequence.getSink(), false, resourceProvider));
+    public static List<PCMPartialFlowGraph> findSequencesForUserActionReturning(EntryLevelSystemCall currentAction, PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider, AbstractVertex<?> caller) {
+    	List<AbstractVertex<?>> previousVertices = new ArrayList<>();
+    	previousVertices.add(previousSequence.getSink());
+    	previousVertices.add(caller);
+        PCMPartialFlowGraph currentActionSequence = new PCMPartialFlowGraph(new CallingUserPCMVertex(currentAction, previousVertices, false, resourceProvider));
         return findSequencesForUserAction(currentAction.getSuccessor(), currentActionSequence, resourceProvider);
     }
 }

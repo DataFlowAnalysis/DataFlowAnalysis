@@ -6,6 +6,7 @@ import java.util.Deque;
 import java.util.List;
 
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
+import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFPCMVertex;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -43,7 +44,7 @@ public class SEFFFinderContext {
      * Update parameter that are passed to the called function for a given calling PCM element
      * @param caller Calling PCM element, for which parameter shall be updated
      */
-    public void updateParameterForCallerReturning(AbstractPCMVertex<?> caller) {
+    public void updateParameterForCallerReturning(AbstractVertex<?> caller) {
     	if (caller instanceof CallingUserPCMVertex) {
     		CallingUserPCMVertex callingUserElement = (CallingUserPCMVertex) caller;
     		this.parameter = callingUserElement.getReferencedElement().getOperationSignature__EntryLevelSystemCall().getParameters__OperationSignature();

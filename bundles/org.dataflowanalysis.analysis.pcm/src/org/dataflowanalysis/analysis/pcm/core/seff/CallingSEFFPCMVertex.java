@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
-import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.CallReturnBehavior;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
@@ -26,20 +25,9 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction>
      * @param parameter List of Parameters that are available for the calling SEFF
      * @param isCalling Is true, when another method is called. Otherwise, a called method is returned from
      */
-    public CallingSEFFPCMVertex(ExternalCallAction element, AbstractPCMVertex<?> previousElement, Deque<AssemblyContext> context, List<Parameter> parameter, boolean isCalling, ResourceProvider resourceProvider) {
-        super(element, previousElement, context, parameter, resourceProvider);
+    public CallingSEFFPCMVertex(ExternalCallAction element, List<? extends AbstractVertex<?>> previousElements, Deque<AssemblyContext> context, List<Parameter> parameter, boolean isCalling, ResourceProvider resourceProvider) {
+        super(element, previousElements, context, parameter, resourceProvider);
         this.isCalling = isCalling;
-    }
-
-    /**
-     * Constructs a new SEFF Action Sequence element given an old element and a list of updated dataflow variables and node characteristics
-     * @param oldElement Old element, which attributes are copied
-     * @param dataFlowVariables List of updated data flow variables
-     * @param nodeCharacteristics List of updated node characteristics
-     */
-    public CallingSEFFPCMVertex(CallingSEFFPCMVertex oldElement, AbstractVertex<?> previousElement, List<DataFlowVariable> dataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> nodeCharacteristics) {
-        super(oldElement, previousElement, dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
-        this.isCalling = oldElement.isCalling();
     }
 
     @Override
@@ -48,13 +36,16 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction>
     }
     
     @Override
-    public AbstractVertex<ExternalCallAction> evaluateDataFlow() {
-    	AbstractVertex<?> previousVertex = null;
+    public void evaluateDataFlow() {
 		List<DataFlowVariable> incomingDataFlowVariables = List.of();
-		if(!super.isSource()) {
-	    	previousVertex = super.getPreviousVertex().evaluateDataFlow();
-	    	incomingDataFlowVariables = previousVertex.getAllOutgoingDataFlowVariables();
-		}
+    	if(!super.isSource()) {
+    		super.getPreviousElements().stream()
+    			.filter(it -> !it.isEvaluated())
+    			.forEach(AbstractVertex::evaluateDataFlow);
+        	incomingDataFlowVariables = super.getPreviousElements().stream()
+        			.flatMap(it -> it.getAllOutgoingDataFlowVariables().stream())
+        			.collect(Collectors.toList());
+    	}
         
     	List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
     	
@@ -76,20 +67,12 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction>
         	super.checkCallParameter(super.getReferencedElement().getCalledService_ExternalService(), variableCharacterisations);
         }
         List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(nodeCharacteristics, variableCharacterisations, incomingDataFlowVariables);
-        if (this.isCalling()) {
-        	List<String> variableNames = this.getReferencedElement().getCalledService_ExternalService().getParameters__OperationSignature().stream()
-        			.map(it -> it.getParameterName())
-        			.collect(Collectors.toList());
-    		outgoingDataFlowVariables = outgoingDataFlowVariables.stream()
-    				.filter(it -> variableNames.contains(it.getVariableName()))
-    				.collect(Collectors.toList());
-        }
         if (this.isReturning()) {
     		outgoingDataFlowVariables = outgoingDataFlowVariables.stream()
     				.filter(it -> !it.getVariableName().equals("RETURN"))
     				.collect(Collectors.toList());
     	}
-        return new CallingSEFFPCMVertex(this, previousVertex, incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+        this.setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
     
     @Override

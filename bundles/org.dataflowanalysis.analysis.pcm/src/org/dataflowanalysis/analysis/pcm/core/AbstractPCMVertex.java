@@ -37,38 +37,10 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      * @param vertex Underlying palladio element of the abstract pcm vertex
      * @param context Assembly context of the abstract pcm vertex
      */
-    public AbstractPCMVertex(T referencedElement, AbstractVertex<?> previousElement, Deque<AssemblyContext> context, ResourceProvider resourceProvider) {
-    	super(referencedElement, List.of(previousElement));
+    public AbstractPCMVertex(T referencedElement, List<? extends AbstractVertex<?>> previousElements, Deque<AssemblyContext> context, ResourceProvider resourceProvider) {
+    	super(referencedElement, previousElements);
         this.context = context;
         this.resourceProvider = resourceProvider;
-    }
-    
-    /**
-     * Builds a new abstract pcm vertex with an existing pcm vertex and a list of vertex characteristics, incoming and outgoing data flow variables
-     * @param oldVertex Old pcm vertex, which referenced element and context should be copied
-     * @param incomingDataFlowVariables Data flow variables, which are flowing into the vertex from previous vertices
-     * @param outgoingDataFlowVariables Data flow variables, which are flowing out of the vertex to following vertices
-     * @param vertexCharacteristics Characteristics, which are present at the current vertex
-     */
-    public AbstractPCMVertex(AbstractPCMVertex<T> oldVertex, List<DataFlowVariable> incomingDataFlowVariables, 
-    		List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> vertexCharacteristics) {
-    	super(oldVertex.referencedElement, List.of(), incomingDataFlowVariables, outgoingDataFlowVariables, vertexCharacteristics);
-    	this.context = oldVertex.getContext();
-        this.resourceProvider = oldVertex.resourceProvider;
-    }
-    
-    /**
-     * Builds a new abstract pcm vertex with an existing pcm vertex and a list of vertex characteristics, incoming and outgoing data flow variables
-     * @param oldVertex Old pcm vertex, which referenced element and context should be copied
-     * @param incomingDataFlowVariables Data flow variables, which are flowing into the vertex from previous vertices
-     * @param outgoingDataFlowVariables Data flow variables, which are flowing out of the vertex to following vertices
-     * @param vertexCharacteristics Characteristics, which are present at the current vertex
-     */
-    public AbstractPCMVertex(AbstractPCMVertex<T> oldVertex, AbstractVertex<?> previousElement, List<DataFlowVariable> incomingDataFlowVariables, 
-    		List<DataFlowVariable> outgoingDataFlowVariables, List<CharacteristicValue> vertexCharacteristics) {
-    	super(oldVertex.referencedElement, List.of(previousElement), incomingDataFlowVariables, outgoingDataFlowVariables, vertexCharacteristics);
-    	this.context = oldVertex.getContext();
-        this.resourceProvider = oldVertex.resourceProvider;
     }
     
     /**
@@ -77,7 +49,6 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      * @return Returns a list of vertex characteristics that are applied to the pcm vertex
      */
     protected List<CharacteristicValue> getVertexCharacteristics() {
-    	// TODO: Missing Resource Loader
     	VertexCharacteristicsCalculator vertexCharacteristicsCalculator = new PCMNodeCharacteristicsCalculator(this.resourceProvider);
     	return vertexCharacteristicsCalculator.getNodeCharacteristics(this.referencedElement, this.context);
     }
@@ -135,13 +106,5 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      */
     public Deque<AssemblyContext> getContext() {
         return context;
-    }
-    
-    public AbstractVertex<?> getPreviousVertex() {
-    	if (this.previousElements.isEmpty()) {
-    		// TODO
-    		throw new IllegalStateException();
-    	}
-    	return this.previousElements.get(0);
     }
 }

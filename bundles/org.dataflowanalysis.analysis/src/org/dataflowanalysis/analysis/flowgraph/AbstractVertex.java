@@ -38,7 +38,7 @@ public abstract class AbstractVertex<T extends Object> {
         this.vertexCharacteristics = Optional.empty();
     }
     
-    public abstract AbstractVertex<T> evaluateDataFlow();
+    public abstract void evaluateDataFlow();
     
     /**
      * Sets the propagation result of the Vertex to the given result. 

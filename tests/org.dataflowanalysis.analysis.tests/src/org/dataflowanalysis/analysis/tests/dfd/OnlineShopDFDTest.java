@@ -7,12 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import java.nio.file.Paths;
 import java.util.List;
 
-import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
+import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
-import org.dataflowanalysis.analysis.dfd.core.DFDActionSequenceElement;
+import org.dataflowanalysis.analysis.dfd.core.DFDVertex;
 import org.dataflowanalysis.analysis.dfd.core.DFDCharacteristicValue;
+import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraph;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,8 +24,8 @@ public class OnlineShopDFDTest {
 
 	@BeforeEach
 	public void initAnalysis() {
-		final var dataFlowDiagramPath = Paths.get("models", "OnlineShopDFDsimple", "onlineshop.dataflowdiagram");
-		final var dataDictionaryPath = Paths.get("models", "OnlineShopDFDsimple", "onlineshop.datadictionary");
+		final var dataFlowDiagramPath = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram");
+		final var dataDictionaryPath = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary");
 
 		this.analysis = new DFDDataFlowAnalysisBuilder().standalone().modelProjectName(TEST_MODEL_PROJECT_NAME)
 				.usePluginActivator(Activator.class).useDataFlowDiagram(dataFlowDiagramPath.toString())
@@ -35,51 +36,61 @@ public class OnlineShopDFDTest {
 
 	@Test
 	public void numberOfSequences_equalsTwo() {
-		var sequences = analysis.findAllSequences();
-		assertEquals(sequences.size(), 3);
+		DFDFlowGraph flowGraph = analysis.findFlowGraph();		
+		assertEquals(flowGraph.getPartialFlowGraphs().size(), 3);
 	}
 
 	@Test
-	public void checkFirstSequenceEntries() {
-		var sequences = analysis.findAllSequences();
-		var entityNames = sequences.get(0).getElements().stream().map(DFDActionSequenceElement.class::cast)
-				.map(DFDActionSequenceElement::getName).toList();
+	public void checkLastSequenceEntries() {
+		var flowGraph = analysis.findFlowGraph();
+		var entityNames = flowGraph.getPartialFlowGraphs().stream().map(pfg -> ((DFDVertex) pfg.getSink()).getName()).toList();
 
-		var expectedNames = List.of("UserRequesting", "view", "DatabaseReceiving");
+		var expectedNames = List.of("User","Database", "Database");
 		assertIterableEquals(expectedNames, entityNames);
 	}
 
 	@Test
 	public void testNodeLabels() {
-		var sequences = analysis.evaluateDataFlows(analysis.findAllSequences());
-		var userVertex = (DFDActionSequenceElement) sequences.get(0).getElements().get(0);
-		var userVertexLabels = retrieveNodeLabels(userVertex);
-
-		var expectedLabels = List.of("EU");
-		assertIterableEquals(expectedLabels, userVertexLabels);
+		var flowGraph = analysis.findFlowGraph();
+		var propagatedFlowGraph = this.analysis.evaluateFlowGraph(flowGraph);
+		
+		for (var partialFlowGraph : propagatedFlowGraph.getPartialFlowGraphs()) {
+			for (var vertex : partialFlowGraph.getVertices()) {
+				if (((DFDVertex)vertex).getName().equals("User")) {
+					var userVertexLabels = retrieveNodeLabels(vertex);
+					var expectedLabels = List.of("EU");
+					assertIterableEquals(expectedLabels, userVertexLabels);
+					return;
+				}
+			}
+		}		
 	}
 
 	@Test
 	public void testDataLabelPropagation() {
-		var sequences = analysis.evaluateDataFlows(analysis.findAllSequences());
-		var databaseVertex = (DFDActionSequenceElement) sequences.get(2).getElements().get(4);
-		assertEquals("DatabaseReceiving", databaseVertex.getName());
-
-		var propagatedLabels = retrieveDataLabels(databaseVertex);
-
-		var expectedPropagatedLables = List.of("Personal", "Encrypted");
-		assertIterableEquals(expectedPropagatedLables, propagatedLabels);
+		var flowGraph = analysis.findFlowGraph();
+		var propagatedFlowGraph = this.analysis.evaluateFlowGraph(flowGraph);
+		for (var partialFlowGraph : propagatedFlowGraph.getPartialFlowGraphs()) {
+			var sink = partialFlowGraph.getSink();
+			if (((DFDVertex)sink).getName().equals("User")) {
+				var propagatedLabels = retrieveDataLabels(sink);
+				var expectedPropagatedLables = List.of("Public");
+				assertIterableEquals(expectedPropagatedLables, propagatedLabels);
+				return;
+			}			
+		}			
 	}
 
 	@Test
 	public void testRealisticConstraints() {
-		var sequences = analysis.evaluateDataFlows(analysis.findAllSequences());
+		var flowGraph = analysis.findFlowGraph();
+		var propagatedFlowGraph = this.analysis.evaluateFlowGraph(flowGraph);
 
 		// Constraint 1: Personal data flowing to a node that is deployed outside the EU
 		// Should find 1 violation
 		int violationsFound = 0;
-		for (var actionSequence : sequences) {
-			var violations = analysis.queryDataFlow(actionSequence, it -> {
+		for (var partialFlowGraph : propagatedFlowGraph.getPartialFlowGraphs()) {
+			var violations = analysis.queryDataFlow(partialFlowGraph, it -> {
 				var nodeLabels = retrieveNodeLabels(it);
 				var dataLabels = retrieveDataLabels(it);
 
@@ -92,8 +103,8 @@ public class OnlineShopDFDTest {
 
 		// Constraint 2: Personal data in a node deployed outside the EU w/o encryption
 		// Should find 0 violations
-		for (var actionSequence : sequences) {
-			var violations = analysis.queryDataFlow(actionSequence, it -> {
+		for (var partialFlowGraph : propagatedFlowGraph.getPartialFlowGraphs()) {
+			var violations = analysis.queryDataFlow(partialFlowGraph, it -> {
 				var nodeLabels = retrieveNodeLabels(it);
 				var dataLabels = retrieveDataLabels(it);
 
@@ -105,12 +116,12 @@ public class OnlineShopDFDTest {
 		}
 	}
 
-	private List<String> retrieveNodeLabels(AbstractActionSequenceElement<?> vertex) {
+	private List<String> retrieveNodeLabels(AbstractVertex<?> vertex) {
 		return vertex.getAllNodeCharacteristics().stream().map(DFDCharacteristicValue.class::cast)
 				.map(DFDCharacteristicValue::getValueName).toList();
 	}
 
-	private List<String> retrieveDataLabels(AbstractActionSequenceElement<?> vertex) {
+	private List<String> retrieveDataLabels(AbstractVertex<?> vertex) {
 		return vertex.getAllDataFlowVariables().stream().map(DataFlowVariable::getAllCharacteristics)
 				.flatMap(List::stream).map(DFDCharacteristicValue.class::cast).map(DFDCharacteristicValue::getValueName)
 				.toList();

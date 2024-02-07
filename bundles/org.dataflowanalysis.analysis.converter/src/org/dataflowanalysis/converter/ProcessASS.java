@@ -137,9 +137,7 @@ public class ProcessASS {
 	private Node createCorrespondingDFDNode(AbstractPCMActionSequenceElement pcmASE) {
 		Node node;
 		
-		/*if (pcmASE instanceof DatabaseActionSequenceElement) {
-			node = dataflowdiagramFactory.eINSTANCE.createStore();
-		} else */if (pcmASE instanceof UserActionSequenceElement) {
+		if (pcmASE instanceof UserActionSequenceElement) {
 			node = dataflowdiagramFactory.eINSTANCE.createExternal();
 		} else { //if (pcmASE instanceof SEFFActionSequenceElement)
 			node = dataflowdiagramFactory.eINSTANCE.createProcess();
@@ -147,6 +145,7 @@ public class ProcessASS {
 		
 		Behaviour behaviour = datadictionaryFactory.eINSTANCE.createBehaviour();
 		node.setEntityName(pcmASE.getElement().getEntityName());
+		node.setId(pcmASE.getElement().getId());
 		node.setBehaviour(behaviour);
 		dd.getBehaviour().add(behaviour);
 		dfd.getNodes().add(node);

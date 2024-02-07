@@ -14,9 +14,14 @@ import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.HashMap;
 
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
+import org.dataflowanalysis.analysis.core.*;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
+import org.dataflowanalysis.analysis.pcm.core.seff.*;
+import org.dataflowanalysis.analysis.pcm.core.user.*;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.dataflowanalysis.converter.*;
 import org.dataflowanalysis.converter.microsecend.*;
@@ -214,6 +219,7 @@ public class ConverterTests {
 		cleanup("FromPlant.json");
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@Test
 	@DisplayName("Test Ass to DFD")
 	public void assToDfd() {
@@ -239,12 +245,46 @@ public class ConverterTests {
 		var sequences = analysis.findAllSequences();
 		var propagationResult = analysis.evaluateDataFlows(sequences);
 		
+		Map<String,String> assIdToName = new HashMap<>();
+		for(ActionSequence as : propagationResult) {
+			for(AbstractActionSequenceElement ase: as.getElements()) {
+				if(ase instanceof SEFFActionSequenceElement) {
+					var cast=(SEFFActionSequenceElement) ase;
+					assIdToName.putIfAbsent(cast.getElement().getId(), cast.getElement().getEntityName());
+				}
+				else if(ase instanceof CallingSEFFActionSequenceElement) {
+					var cast=(CallingSEFFActionSequenceElement) ase;
+					assIdToName.putIfAbsent(cast.getElement().getId(), cast.getElement().getEntityName());
+				}
+				else if(ase instanceof CallingUserActionSequenceElement) {
+					var cast=(CallingUserActionSequenceElement) ase;
+					assIdToName.putIfAbsent(cast.getElement().getId(), cast.getElement().getEntityName());
+				}
+				else {
+					var cast=(UserActionSequenceElement) ase;
+					assIdToName.putIfAbsent(cast.getElement().getId(), cast.getElement().getEntityName());
+				}
+			}
+		}
+		System.out.println(assIdToName);
+		
 		ProcessASS ass2dfd = new ProcessASS();
 		
 		ass2dfd.transform(propagationResult);
 		
-		ass2dfd.saveModel(name + ".datadictionary", "datadictionary", ass2dfd.getDictionary());
-		ass2dfd.saveModel(name + ".dataflowdiagram", "dataflowdiagram", ass2dfd.getDataFlowDiagram());
+		DataDictionary dd = ass2dfd.getDictionary();
+		DataFlowDiagram dfd = ass2dfd.getDataFlowDiagram();
+		
+		assertEquals(dfd.getNodes().size(),assIdToName.keySet().size());
+		
+		List<String> nodeIds = new ArrayList<>();
+		for(Node node :dfd.getNodes()) {
+			nodeIds.add(node.getId());
+		}
+		Collections.sort(nodeIds);
+		List<String> assIds=new ArrayList<>(assIdToName.keySet());
+		Collections.sort(assIds);
+		assertEquals(assIds,nodeIds);
 	}
 	
 	public static void cleanup(String path) {

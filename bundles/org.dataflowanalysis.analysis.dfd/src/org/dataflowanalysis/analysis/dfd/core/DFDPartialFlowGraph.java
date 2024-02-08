@@ -9,7 +9,6 @@ public class DFDPartialFlowGraph extends AbstractPartialFlowGraph
 
   public DFDPartialFlowGraph(AbstractVertex<?> sink) {
     super(sink);
-    // TODO Auto-generated constructor stub
   }
 
   @Override

@@ -46,8 +46,7 @@ public class DFDVertex extends AbstractVertex<EObject> {
         node,
         new ArrayList<>(
             mapPinToPreviousVertex
-                .values())); // ausgewertet wird erst unten DataFlowVariable kann hier leer sein
-    // TODO Auto-generated constructor stub
+                .values()));
     this.name = name;
     this.node = node;
     this.mapPinToPreviousVertex = mapPinToPreviousVertex;

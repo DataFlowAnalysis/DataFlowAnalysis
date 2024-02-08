@@ -15,10 +15,10 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 public class DFDPartialFlowGraphFinder {
 
   /**
-   * Finds all Action Sequences in a dataflowdiagram instance
+   * Finds all Partial Flow Graphs in a dataflowdiagram instance
    * @param dfd Data Flow Diagram model instance
    * @param dataDictionary Data Dictionary model instance
-   * @return All Action Sequences
+   * @return All Partial Flow Graphs
    */
   public static List<AbstractPartialFlowGraph> findAllPartialFlowGraphsInDFD(
       DataFlowDiagram dfd, DataDictionary dataDictionary) {
@@ -78,9 +78,9 @@ public class DFDPartialFlowGraphFinder {
   }
 
   /**
-   * Get List of all Nodes without outgoing flows
+   * Get List of sink nodes
    * @param flows All flows
-   * @return List of  Nodes with no outgoing flows
+   * @return List of sink nodes
    */
   private static List<Node> getEndNodes(List<Node> nodes) {
     List<Node> endNodes = new ArrayList<>(nodes);

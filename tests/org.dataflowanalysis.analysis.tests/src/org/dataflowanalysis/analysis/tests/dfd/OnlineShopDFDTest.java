@@ -41,13 +41,13 @@ public class OnlineShopDFDTest {
   }
 
   @Test
-  public void numberOfSequences_equalsTwo() {
+  public void numberOfPartialFlowGraphs_equalsThree() {
     DFDFlowGraph flowGraph = analysis.findFlowGraph();
     assertEquals(flowGraph.getPartialFlowGraphs().size(), 3);
   }
 
   @Test
-  public void checkLastSequenceEntries() {
+  public void checkSinks() {
     var flowGraph = analysis.findFlowGraph();
     var entityNames =
         flowGraph.getPartialFlowGraphs().stream()

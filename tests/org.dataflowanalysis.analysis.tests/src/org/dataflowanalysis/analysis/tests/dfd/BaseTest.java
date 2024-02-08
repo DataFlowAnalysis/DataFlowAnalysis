@@ -34,14 +34,14 @@ public class BaseTest {
   }
 
   @Test
-  public void numberOfSequences_equalsTwo() {
+  public void numberOfPartialFlowGraphs_equalsFour() {
     this.analysis.initializeAnalysis();
     DFDFlowGraph flowGraph = analysis.findFlowGraph();
     assertEquals(flowGraph.getPartialFlowGraphs().size(), 4);
   }
 
   @Test
-  public void noNodeCharacteristics_returnsNoViolation() {
+  public void noVertexCharacteristics_returnsNoViolation() {
     this.analysis.initializeAnalysis();
     DFDFlowGraph flowGraph = analysis.findFlowGraph();
     DFDFlowGraph propagatedFlowGraph = this.analysis.evaluateFlowGraph(flowGraph);
@@ -56,7 +56,7 @@ public class BaseTest {
   }
 
   @Test
-  public void noNodeCharacteristics_returnsViolations() {
+  public void noVertexCharacteristics_returnsViolations() {
     this.analysis.initializeAnalysis();
     DFDFlowGraph flowGraph = analysis.findFlowGraph();
     DFDFlowGraph propagatedFlowGraph = this.analysis.evaluateFlowGraph(flowGraph);
@@ -67,7 +67,6 @@ public class BaseTest {
             node -> {
               return node.getAllNodeCharacteristics().size() != 0;
             });
-    // results.forEach(res -> System.out.println(res.createPrintableNodeInformation()));
     assertTrue(!results.isEmpty());
   }
 

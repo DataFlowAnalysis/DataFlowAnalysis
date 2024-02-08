@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraph;
+import org.dataflowanalysis.analysis.dfd.core.DFDVertex;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -84,4 +85,29 @@ public class BaseTest {
             });
     assertTrue(results.isEmpty());
   }
+  
+  @Test
+  public void test_unification() {
+	  this.analysis.initializeAnalysis();
+	    DFDFlowGraph flowGraph = analysis.findFlowGraph();
+	    DFDFlowGraph propagatedFlowGraph = this.analysis.evaluateFlowGraph(flowGraph);
+
+	    for (var pfg : propagatedFlowGraph.getPartialFlowGraphs()) {
+	    	assertTrue(pfg.getVertices().stream().filter(v -> ((DFDVertex)v).getName().equals("In")).count() <  2);
+	    }
+  }
+  
+  @Test
+  public void test_labelPropagation() {
+	  this.analysis.initializeAnalysis();
+	    DFDFlowGraph flowGraph = analysis.findFlowGraph();
+	    DFDFlowGraph propagatedFlowGraph = this.analysis.evaluateFlowGraph(flowGraph);
+
+	    for (var pfg : propagatedFlowGraph.getPartialFlowGraphs()) {
+	    	for (var vertex : pfg.getVertices()) {
+	    		assertTrue((!vertex.getAllIncomingDataFlowVariables().isEmpty()) || (!vertex.getAllOutgoingDataFlowVariables().isEmpty())); 
+	    	}
+	    }
+  }
+
 }

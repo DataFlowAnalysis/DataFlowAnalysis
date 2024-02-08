@@ -1,7 +1,6 @@
 package org.dataflowanalysis.analysis.flowgraph;
 
 import java.util.List;
-
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 
 /**
@@ -11,23 +10,23 @@ import org.dataflowanalysis.analysis.resource.ResourceProvider;
  * TODO: Finding the partial flow graphs needs to happen at the _END_ of the constructors, as {@link FlowGraph#findPartialFlowGraphs()} needs to use attributes from the subclass
  */
 public abstract class FlowGraph {
-	protected ResourceProvider resourceProvider;
-	private List<? extends AbstractPartialFlowGraph> partialFlowGraphs;
-	
-	public FlowGraph(ResourceProvider resourceProvider) {
-		this.resourceProvider = resourceProvider;
-		this.partialFlowGraphs = this.findPartialFlowGraphs();
-	}
-	
-	public FlowGraph(List<? extends AbstractPartialFlowGraph> partialFlowGraphs) {
-		this.partialFlowGraphs = partialFlowGraphs;
-	}
-	
-	public abstract List<AbstractPartialFlowGraph> findPartialFlowGraphs();
-	
-	public abstract FlowGraph evaluate();
-	
-	public List<? extends AbstractPartialFlowGraph> getPartialFlowGraphs() {
-		return this.partialFlowGraphs;
-	}
+  protected ResourceProvider resourceProvider;
+  private List<? extends AbstractPartialFlowGraph> partialFlowGraphs;
+
+  public FlowGraph(ResourceProvider resourceProvider) {
+    this.resourceProvider = resourceProvider;
+    this.partialFlowGraphs = this.findPartialFlowGraphs();
+  }
+
+  public FlowGraph(List<? extends AbstractPartialFlowGraph> partialFlowGraphs) {
+    this.partialFlowGraphs = partialFlowGraphs;
+  }
+
+  public abstract List<AbstractPartialFlowGraph> findPartialFlowGraphs();
+
+  public abstract FlowGraph evaluate();
+
+  public List<? extends AbstractPartialFlowGraph> getPartialFlowGraphs() {
+    return this.partialFlowGraphs;
+  }
 }

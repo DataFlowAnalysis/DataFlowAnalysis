@@ -219,7 +219,7 @@ public class ConverterTests {
 		cleanup("FromPlant.json");
 	}
 	
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Test
 	@DisplayName("Test Ass to DFD")
 	public void assToDfd() {
@@ -266,7 +266,6 @@ public class ConverterTests {
 				}
 			}
 		}
-		System.out.println(assIdToName);
 		
 		ProcessASS ass2dfd = new ProcessASS();
 		
@@ -284,7 +283,25 @@ public class ConverterTests {
 		Collections.sort(nodeIds);
 		List<String> assIds=new ArrayList<>(assIdToName.keySet());
 		Collections.sort(assIds);
+		
 		assertEquals(assIds,nodeIds);
+		
+		for(Node node : dfd.getNodes()) {
+			assertEquals(node.getEntityName(),assIdToName.get(node.getId()));
+		}
+
+		List<String> flowNames=new ArrayList<>();
+		for(ActionSequence as : propagationResult) {
+			for(AbstractActionSequenceElement ase: as.getElements()) {
+				List<DataFlowVariable> variables=ase.getAllDataFlowVariables();
+				for(DataFlowVariable variable:variables) {
+					flowNames.add(variable.variableName());
+				}
+			}
+		}
+
+		assertEquals(flowNames.size(),dfd.getFlows().size());
+		
 	}
 	
 	public static void cleanup(String path) {

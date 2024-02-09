@@ -40,15 +40,16 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 public class ConverterTests {
+	private static final String packagePath="src/org/dataflowanalysis/converter/tests/";
 	
 	@Test
 	@DisplayName("Test Web -> DFD -> Web")
 	public void webToDfdToWeb() {
-		Main.readWeb("minimal.json");
-		Main.readDFD("minimal","test5.json");
+		Main.readWeb(packagePath+"minimal.json");
+		Main.readDFD(packagePath+"minimal",packagePath+"test.json");
 		
 		ObjectMapper objectMapper = new ObjectMapper();        
-		File file = new File("minimal.json");
+		File file = new File(packagePath+"minimal.json");
 		DFD webBefore = null;
         try {
             webBefore = objectMapper.readValue(file, DFD.class);
@@ -56,7 +57,7 @@ public class ConverterTests {
         catch (IOException e) {}
         
         objectMapper = new ObjectMapper();        
-		file = new File("test5.json");
+		file = new File(packagePath+"test.json");
 		DFD webAfter = null;
         try {
             webAfter = objectMapper.readValue(file, DFD.class);
@@ -85,9 +86,10 @@ public class ConverterTests {
         }
         
         assertEquals(webBefore,webAfter);
-        cleanup("minimal.datadictionary");
-        cleanup("minimal.dataflowdiagram");
-        cleanup("test5.json");
+        
+        cleanup(packagePath+"minimal.datadictionary");
+        cleanup(packagePath+"minimal.dataflowdiagram");
+        cleanup(packagePath+"test.json");
 	}
 	
 	@Test
@@ -95,10 +97,10 @@ public class ConverterTests {
 	public void microToDfd() {
 		MicroSecEnd micro = null;
 		ObjectMapper objectMapper = new ObjectMapper();
-		File file = new File("anilallewar_microservices-basics-spring-boot.json");
+		File file = new File(packagePath+"anilallewar.json");
         try {
             micro = objectMapper.readValue(file, MicroSecEnd.class);
-            new ProcessJSON().processMicro(file.getName().replaceAll("\\.json.*", ""),micro);
+            new ProcessJSON().processMicro(packagePath+file.getName().replaceAll("\\.json.*", ""),micro);
         } 
         catch (IOException e) {
             System.err.println("Error parsing file: " + file.getName());
@@ -110,8 +112,8 @@ public class ConverterTests {
 		rs.getPackageRegistry().put(dataflowdiagramPackage.eNS_URI, dataflowdiagramPackage.eINSTANCE);
 		
 		
-		Resource dfdResource = rs.getResource(URI.createFileURI("anilallewar_microservices-basics-spring-boot.dataflowdiagram"), true);
-		Resource ddResource = rs.getResource(URI.createFileURI("anilallewar_microservices-basics-spring-boot.datadictionary"), true);		
+		Resource dfdResource = rs.getResource(URI.createFileURI(packagePath+"anilallewar.dataflowdiagram"), true);
+		Resource ddResource = rs.getResource(URI.createFileURI(packagePath+"anilallewar.datadictionary"), true);		
 		
 		DataFlowDiagram dfd = (DataFlowDiagram) dfdResource.getContents().get(0);
 		@SuppressWarnings("unused")
@@ -157,9 +159,9 @@ public class ConverterTests {
 			}
 		}
 		assertEquals(match,micro.informationFlows().size());
-		
-		cleanup("anilallewar_microservices-basics-spring-boot.dataflowdiagram");
-		cleanup("anilallewar_microservices-basics-spring-boot.datadictionary");
+				
+		cleanup(packagePath+"anilallewar.dataflowdiagram");
+		cleanup(packagePath+"anilallewar.datadictionary");
 	}
 	
 	@Test
@@ -169,12 +171,12 @@ public class ConverterTests {
 		MicroSecEnd microAfter = null;
 
 		try {
-            String[] command = {"python3", "convert_model.py", "anilallewar_microservices-basics-spring-boot.json" , "txt", "-op", "toPlant.txt"};
+            String[] command = {"python3", "convert_model.py", packagePath+"anilallewar.json" , "txt", "-op", packagePath+"toPlant.txt"};
             ProcessBuilder processBuilder = new ProcessBuilder(command);
             Process process = processBuilder.start();
             process.waitFor();
             ObjectMapper objectMapper = new ObjectMapper();        
-    		File file = new File("anilallewar_microservices-basics-spring-boot.json");
+    		File file = new File(packagePath+"anilallewar.json");
     		microBefore = objectMapper.readValue(file, MicroSecEnd.class);
         } 
 		catch (IOException | InterruptedException e) {
@@ -182,12 +184,12 @@ public class ConverterTests {
         }
 		
 		try {
-			String[] command = {"python3", "convert_model.py", "toPlant.txt" , "json", "-op", "fromPlant.json"};
+			String[] command = {"python3", "convert_model.py", packagePath+"toPlant.txt" , "json", "-op", packagePath+"fromPlant.json"};
             ProcessBuilder processBuilder = new ProcessBuilder(command);
             Process process = processBuilder.start();
             process.waitFor();
             ObjectMapper objectMapper = new ObjectMapper();        
-    		File file = new File("fromPlant.json");
+    		File file = new File(packagePath+"fromPlant.json");
     		microAfter = objectMapper.readValue(file, MicroSecEnd.class);
 		}catch (IOException | InterruptedException e) {
             e.printStackTrace();
@@ -214,12 +216,12 @@ public class ConverterTests {
         }
         
 		assertEquals(microBefore,microAfter);
-		
-		cleanup("toPlant.txt");
-		cleanup("FromPlant.json");
+				
+		cleanup(packagePath+"toPlant.txt");
+		cleanup(packagePath+"FromPlant.json");
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "rawtypes", "unchecked", "unused" })
 	@Test
 	@DisplayName("Test Ass to DFD")
 	public void assToDfd() {

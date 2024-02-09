@@ -1,0 +1,278 @@
+{
+    "model": {
+        "type": "graph",
+        "id": "root",
+        "children": [
+            {
+                "text": "User",
+                "labels": [
+                    {
+                        "labelTypeId": "gvia09",
+                        "labelTypeValueId": "g10hr"
+                    }
+                ],
+                "ports": [
+                    {
+                        "id": "nhcrad",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "id": "wksxi8",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "id": "4wbyft",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "id": "7oii5l",
+                "type": "node:input-output",
+                "children": []
+            },
+            {
+                "text": "display",
+                "labels": [],
+                "ports": [
+                    {
+                        "id": "0hfzu",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "behavior": "forward items",
+                        
+                        "id": "y1p7qq",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                
+                "id": "4myuyr",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "text": "view",
+                "labels": [],
+                "ports": [
+                    {
+                        "id": "ti4ri7",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "behavior": "forward request",
+                        "id": "bsqjm",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                
+                "id": "0bh7yh",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "text": "Database",
+                "labels": [
+                    {
+                        "labelTypeId": "gvia09",
+                        "labelTypeValueId": "5hnugm"
+                    }
+                ],
+                "ports": [
+                    {                       
+                        "id": "scljwi",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "behavior": "set Sensitivity.Public = TRUE",                  
+                        "id": "1j7bn5",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {                        
+                        "id": "gxeifb",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                
+                "id": "8j2r1g",
+                "type": "node:storage",
+                "children": []
+            },
+            {   
+                "id": "uflsc",
+                "type": "edge:arrow",
+                "sourceId": "wksxi8",
+                "targetId": "ti4ri7",
+                "text": "request",
+                "children": []
+            },
+            {   
+                "id": "c9n88l",
+                "type": "edge:arrow",
+                "sourceId": "bsqjm",
+                "targetId": "scljwi",
+                "text": "request",
+                "children": []
+            },
+            {   
+                "id": "hi397b",
+                "type": "edge:arrow",
+                "sourceId": "y1p7qq",
+                "targetId": "nhcrad",
+                "text": "items",
+                "children": []
+            },
+            {   
+                "id": "n81f3b",
+                "type": "edge:arrow",
+                "sourceId": "1j7bn5",
+                "targetId": "0hfzu",
+                "text": "items",
+                "children": []
+            },
+            {
+                "text": "process",
+                "labels": [],
+                "ports": [
+                    {
+                        "id": "xyepdb",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {                        
+                        "id": "eedb56",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                
+                "id": "js61f",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "text": "encrypt",
+                "labels": [],
+                "ports": [
+                    {
+                        "id": "kqjy4g",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "behavior": "forward data\nset Encryption.Encrypted = TRUE",
+                        
+                        "id": "3wntc",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                
+                "id": "3n988k",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "text": "buy",
+                "labels": [],
+                "ports": [
+                    {
+                        "id": "2331e8",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "behavior": "forward data",  
+                        "id": "vnkg73",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                
+                "id": "z9v1jp",
+                "type": "node:function",
+                "children": []
+            },
+            {   
+                "id": "vq8g3l",
+                "type": "edge:arrow",
+                "sourceId": "4wbyft",
+                "targetId": "2331e8",
+                "text": "data",
+                "children": []
+            },
+            {   
+                "id": "xrzc19",
+                "type": "edge:arrow",
+                "sourceId": "vnkg73",
+                "targetId": "xyepdb",
+                "text": "data",
+                "children": []
+            },
+            {   
+                "id": "ufflto",
+                "type": "edge:arrow",
+                "sourceId": "eedb56",
+                "targetId": "kqjy4g",
+                "text": "data",
+                "children": []
+            },
+            {   
+                "id": "84g91",
+                "type": "edge:arrow",
+                "sourceId": "3wntc",
+                "targetId": "gxeifb",
+                "text": "data",
+                "children": []
+            }
+        ]
+    },
+    "labelTypes": [
+        {
+            "id": "4h3wzk",
+            "name": "Sensitivity",
+            "values": [
+                {
+                    "id": "zzvphn",
+                    "text": "Personal"
+                },
+                {
+                    "id": "veaan9",
+                    "text": "Public"
+                }
+            ]
+        },
+        {
+            "id": "gvia09",
+            "name": "Location",
+            "values": [
+                {
+                    "id": "g10hr",
+                    "text": "EU"
+                },
+                {
+                    "id": "5hnugm",
+                    "text": "nonEU"
+                }
+            ]
+        },
+        {
+            "id": "84rllz",
+            "name": "Encryption",
+            "values": [
+                {
+                    "id": "2r6xe6",
+                    "text": "Encrypted"
+                }
+            ]
+        }
+    ]
+}

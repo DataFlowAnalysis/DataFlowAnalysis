@@ -104,15 +104,14 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		readMicro("anilallewar_microservices-basics-spring-boot.json");
-        readDFD("anilallewar_microservices-basics-spring-boot", "test.json"); 
+		//Example Usage
+		/*readMicro("anilallewar_microservices-basics-spring-boot.json");
+        readDFD("anilallewar_microservices-basics-spring-boot", "test1.json"); 
         readWeb("minimal.json");
         readDFD("minimal", "test2.json");
-        readWeb("fullweb.json");
-        readDFD("fullweb","test3.json");
         readPlant("9.txt");
-        readDFD("9","test4.json");
+        readDFD("9","test3.json");
         readAss("TravelPlanner","travelPlanner");
-        readDFD("TravelPlanner","test6.json");
+        readDFD("TravelPlanner","test4.json");*/
 	} 
 }

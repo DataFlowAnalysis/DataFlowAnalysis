@@ -1,4 +1,4 @@
-package org.dataflowanalysis.converter;
+package org.dataflowanalysis.analysis.converter;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,8 +7,8 @@ import java.nio.file.Paths;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.testmodels.Activator;
-import org.dataflowanalysis.converter.microsecend.*;
-import org.dataflowanalysis.converter.webdfd.*;
+import org.dataflowanalysis.analysis.converter.microsecend.*;
+import org.dataflowanalysis.analysis.converter.webdfd.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -54,24 +54,15 @@ public class Main {
 	
 	public static void readPlant(String path) {
 		String name = path.split("\\.")[0];
-		try {
-            String[] command = {"python3", "convert_model.py", path , "json", "-op", name+".json"};
-
-            ProcessBuilder processBuilder = new ProcessBuilder(command);
-            Process process = processBuilder.start();
-
-            int exitCode = process.waitFor();
-            if(exitCode == 0) {
-            	readMicro(name+".json",false);
-            	System.out.println("Plant->DFD: " + path);
-            }
-            else {
-            	System.out.println("Check if python3 is set in PATH");
-            }
-        } catch (IOException | InterruptedException e) {
-        	System.out.println("Error converting Plant to JSON");
-            e.printStackTrace();
+        int exitCode = runPython(path,"json",name+".json");
+        if(exitCode == 0) {
+        	readMicro(name+".json",false);
+        	System.out.println("Plant->DFD: " + path);
         }
+        else {
+        	System.out.println("Check if python3 is set in PATH");
+        }
+        
 	}
 	
 	public static void readAss(String name, String modelFileName) {
@@ -102,6 +93,22 @@ public class Main {
 		ass2dfd.saveModel(name + ".datadictionary", "datadictionary", ass2dfd.getDictionary());
 		ass2dfd.saveModel(name + ".dataflowdiagram", "dataflowdiagram", ass2dfd.getDataFlowDiagram());
 	}
+	
+	public static int runPython(String in, String format, String out){
+		String[] command = {"python3", "convert_model.py", in , format, "-op", out};
+
+        ProcessBuilder processBuilder = new ProcessBuilder(command);
+        Process process;
+		try {
+			process = processBuilder.start();
+			return process.waitFor();
+		} catch (IOException | InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
 
 	public static void main(String[] args) {
 		//Example Usage

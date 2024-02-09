@@ -1,4 +1,4 @@
-package org.dataflowanalysis.converter.tests;
+package org.dataflowanalysis.analysis.converter.tests;
 
 import org.junit.jupiter.api.*;
 
@@ -18,14 +18,14 @@ import java.util.Map;
 import java.util.HashMap;
 
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
+import org.dataflowanalysis.analysis.converter.*;
+import org.dataflowanalysis.analysis.converter.microsecend.*;
+import org.dataflowanalysis.analysis.converter.webdfd.*;
 import org.dataflowanalysis.analysis.core.*;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.seff.*;
 import org.dataflowanalysis.analysis.pcm.core.user.*;
 import org.dataflowanalysis.analysis.testmodels.Activator;
-import org.dataflowanalysis.converter.*;
-import org.dataflowanalysis.converter.microsecend.*;
-import org.dataflowanalysis.converter.webdfd.*;
 import org.dataflowanalysis.dfd.datadictionary.Assignment;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
@@ -40,7 +40,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 public class ConverterTests {
-	private static final String packagePath="src/org/dataflowanalysis/converter/tests/";
+	private static final String packagePath="src/org/dataflowanalysis/analysis/converter/tests/";
 	
 	@Test
 	@DisplayName("Test Web -> DFD -> Web")
@@ -171,27 +171,17 @@ public class ConverterTests {
 		MicroSecEnd microAfter = null;
 
 		try {
-            String[] command = {"python3", "convert_model.py", packagePath+"anilallewar.json" , "txt", "-op", packagePath+"toPlant.txt"};
-            ProcessBuilder processBuilder = new ProcessBuilder(command);
-            Process process = processBuilder.start();
-            process.waitFor();
+            Main.runPython(packagePath+"anilallewar.json", "txt", packagePath+"toPlant.txt");
             ObjectMapper objectMapper = new ObjectMapper();        
     		File file = new File(packagePath+"anilallewar.json");
     		microBefore = objectMapper.readValue(file, MicroSecEnd.class);
-        } 
-		catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-		
-		try {
-			String[] command = {"python3", "convert_model.py", packagePath+"toPlant.txt" , "json", "-op", packagePath+"fromPlant.json"};
-            ProcessBuilder processBuilder = new ProcessBuilder(command);
-            Process process = processBuilder.start();
-            process.waitFor();
-            ObjectMapper objectMapper = new ObjectMapper();        
-    		File file = new File(packagePath+"fromPlant.json");
+        
+            Main.runPython(packagePath+"toPlant.txt", "json", packagePath+"fromPlant.json");
+            objectMapper = new ObjectMapper();        
+    		file = new File(packagePath+"fromPlant.json");
     		microAfter = objectMapper.readValue(file, MicroSecEnd.class);
-		}catch (IOException | InterruptedException e) {
+		}
+		catch (IOException e) {
             e.printStackTrace();
         }
 		

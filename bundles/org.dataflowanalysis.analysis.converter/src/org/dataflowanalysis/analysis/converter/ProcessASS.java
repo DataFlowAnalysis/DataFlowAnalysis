@@ -1,4 +1,4 @@
-package org.dataflowanalysis.converter;
+package org.dataflowanalysis.analysis.converter;
 
 import java.util.HashMap;
 import java.util.List;

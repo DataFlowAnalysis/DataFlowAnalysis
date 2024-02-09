@@ -124,14 +124,11 @@ public class DFDActionSequenceFinder {
 	 */
 	private static DFDActionSequence convertNodeStrandToDFDActionSequence(List<Node> nodes, List<Flow> flows) {
 		List<AbstractActionSequenceElement<?>> actionSequence = new ArrayList<AbstractActionSequenceElement<?>>();
-//		var previousNode = nodes.get(0);
-//		for (int i = 1; i < nodes.size(); i++) {
-//			actionSequence.add(convertNodeToDFDActionSequenceElement(nodes.get(i), nodes.get(i-1), flows));
-//		}
 		
 		Node previousNode = null;
 		for (Node node : nodes) {
 			actionSequence.add(convertNodeToDFDActionSequenceElement(node, previousNode, flows));
+			previousNode = node;
 		}
 		
 		return new DFDActionSequence(actionSequence);

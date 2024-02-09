@@ -64,9 +64,6 @@ public class ProcessJSON {
 	}
 	
 	public void processMicro(String name, MicroSecEnd micro) {		
-		
-		
-		
 		Resource dfdResource = createAndAddResource(name+".dataflowdiagram", new String[] {"dataflowdiagram"} ,rs);
 		Resource ddResource = createAndAddResource(name+".datadictionary", new String[] {"datadictionary"} ,rs);
 
@@ -193,8 +190,6 @@ public class ProcessJSON {
 		Map<String, Pin> pinMap = new HashMap<String, Pin>();
 		Map<String,Label> idToLabelMap = new HashMap<>();
 		Map<Node,Map<Pin,String>> nodeOutpinBehavior = new HashMap<>();
-		
-		
 		
 		Resource dfdResource = createAndAddResource(file+".dataflowdiagram", new String[] {"dataflowdiagram"} ,rs);
 		Resource ddResource = createAndAddResource(file+".datadictionary", new String[] {"datadictionary"} ,rs);

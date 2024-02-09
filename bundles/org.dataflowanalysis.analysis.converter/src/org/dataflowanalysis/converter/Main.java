@@ -22,7 +22,7 @@ public class Main {
 		File file = new File(path);
         try {
             MicroSecEnd micro = objectMapper.readValue(file, MicroSecEnd.class);
-            new ProcessJSON().processMicro(file.getName().replaceAll("\\.json.*", ""),micro);
+            new ProcessJSON().processMicro(path.replaceAll("\\.json.*", ""),micro);
             if(direct) {
             	System.out.println("Micro->DFD: " + file.getName());
             } 
@@ -38,7 +38,7 @@ public class Main {
 		File file = new File(path);
         try {
             DFD dfd = objectMapper.readValue(file, DFD.class);
-            new ProcessJSON().processWeb(file.getName().replaceAll("\\.json.*", ""),dfd);
+            new ProcessJSON().processWeb(path.replaceAll("\\.json.*", ""),dfd);
             System.out.println("Web->DFD: " + file.getName());
         } 
         catch (IOException e) {

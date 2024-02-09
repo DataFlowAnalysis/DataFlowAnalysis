@@ -1,4 +1,4 @@
-package org.dataflowanalysis.converter;
+package org.dataflowanalysis.analysis.converter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.dataflowanalysis.converter.microsecend.*;
-import org.dataflowanalysis.converter.webdfd.*;
+import org.dataflowanalysis.analysis.converter.microsecend.*;
+import org.dataflowanalysis.analysis.converter.webdfd.*;
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
 import org.eclipse.emf.common.util.URI;

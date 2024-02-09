@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ConverterTests
+Bundle-SymbolicName: org.dataflowanalysis.analysis.converter.tests
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.dataflowanalysis.analysis.converter;bundle-version="1.0.0",
+ org.dataflowanalysis.analysis;bundle-version="1.0.0",
+ org.dataflowanalysis.dfd.datadictionary;bundle-version="0.1.0",
+ org.dataflowanalysis.dfd.dataflowdiagram;bundle-version="0.1.0",
+ org.dataflowanalysis.analysis.pcm;bundle-version="1.0.0",
+ org.dataflowanalysis.analysis.testmodels;bundle-version="1.0.0",
+ junit-jupiter-api;bundle-version="5.9.2",
+ com.fasterxml.jackson.core.jackson-annotations;bundle-version="2.13.2",
+ com.fasterxml.jackson.core.jackson-core;bundle-version="2.13.2",
+ com.fasterxml.jackson.core.jackson-databind;bundle-version="2.13.2"
+Automatic-Module-Name: org.dataflowanalysis.analysis.converter.tests
+Bundle-RequiredExecutionEnvironment: JavaSE-17

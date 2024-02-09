@@ -1,4 +1,4 @@
-package org.dataflowanalysis.converter;
+package org.dataflowanalysis.analysis.converter;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import org.dataflowanalysis.converter.webdfd.*;
+import org.dataflowanalysis.analysis.converter.webdfd.*;
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.Process;

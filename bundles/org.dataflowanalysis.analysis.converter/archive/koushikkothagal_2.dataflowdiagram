@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://www.example.org/dataflowdiagram" id="_oJkOsMpvEe6jy67_g7t5GQ">
+  <flows id="_oJkOx8pvEe6jy67_g7t5GQ" entityName="ratings_data_service" sourceNode="_oJkOtMpvEe6jy67_g7t5GQ" destinationNode="_oJkOs8pvEe6jy67_g7t5GQ">
+    <destinationPin href="koushikkothagal_2.datadictionary#_oJkOyMpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="koushikkothagal_2.datadictionary#_oJkOycpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_oJkOyspvEe6jy67_g7t5GQ" entityName="movie_info_service" sourceNode="_oJkOtcpvEe6jy67_g7t5GQ" destinationNode="_oJkOs8pvEe6jy67_g7t5GQ">
+    <destinationPin href="koushikkothagal_2.datadictionary#_oJkOy8pvEe6jy67_g7t5GQ"/>
+    <sourcePin href="koushikkothagal_2.datadictionary#_oJkOzMpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_oJkOzcpvEe6jy67_g7t5GQ" entityName="external_website" sourceNode="_oJkOsspvEe6jy67_g7t5GQ" destinationNode="_oJkOtcpvEe6jy67_g7t5GQ">
+    <destinationPin href="koushikkothagal_2.datadictionary#_oJkOzspvEe6jy67_g7t5GQ"/>
+    <sourcePin href="koushikkothagal_2.datadictionary#_oJkOz8pvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_oJkO0MpvEe6jy67_g7t5GQ" entityName="movie_catalog_service" sourceNode="_oJkOtspvEe6jy67_g7t5GQ" destinationNode="_oJkOs8pvEe6jy67_g7t5GQ">
+    <destinationPin href="koushikkothagal_2.datadictionary#_oJkO0cpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="koushikkothagal_2.datadictionary#_oJkO0spvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_oJkO08pvEe6jy67_g7t5GQ" entityName="movie_catalog_service" sourceNode="_oJkOtspvEe6jy67_g7t5GQ" destinationNode="_oJkOtMpvEe6jy67_g7t5GQ">
+    <destinationPin href="koushikkothagal_2.datadictionary#_oJkO1MpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="koushikkothagal_2.datadictionary#_oJkO1cpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_oJkO1spvEe6jy67_g7t5GQ" entityName="movie_catalog_service" sourceNode="_oJkOtspvEe6jy67_g7t5GQ" destinationNode="_oJkOtcpvEe6jy67_g7t5GQ">
+    <destinationPin href="koushikkothagal_2.datadictionary#_oJkO18pvEe6jy67_g7t5GQ"/>
+    <sourcePin href="koushikkothagal_2.datadictionary#_oJkO2MpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:External" id="_oJkOsspvEe6jy67_g7t5GQ" entityName="external_website">
+    <behaviour href="koushikkothagal_2.datadictionary#_oJkOvspvEe6jy67_g7t5GQ"/>
+    <properties href="koushikkothagal_2.datadictionary#_oJkOwMpvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_oJkOs8pvEe6jy67_g7t5GQ" entityName="discovery_server">
+    <behaviour href="koushikkothagal_2.datadictionary#_oJkOwcpvEe6jy67_g7t5GQ"/>
+    <properties href="koushikkothagal_2.datadictionary#_oJkOw8pvEe6jy67_g7t5GQ"/>
+    <properties href="koushikkothagal_2.datadictionary#_oJkOxMpvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_oJkOtMpvEe6jy67_g7t5GQ" entityName="ratings_data_service">
+    <behaviour href="koushikkothagal_2.datadictionary#_oJkOxcpvEe6jy67_g7t5GQ"/>
+    <properties href="koushikkothagal_2.datadictionary#_oJkOuspvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_oJkOtcpvEe6jy67_g7t5GQ" entityName="movie_info_service">
+    <behaviour href="koushikkothagal_2.datadictionary#_oJkOuMpvEe6jy67_g7t5GQ"/>
+    <properties href="koushikkothagal_2.datadictionary#_oJkOuspvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_oJkOtspvEe6jy67_g7t5GQ" entityName="movie_catalog_service">
+    <behaviour href="koushikkothagal_2.datadictionary#_oJkOu8pvEe6jy67_g7t5GQ"/>
+    <properties href="koushikkothagal_2.datadictionary#_oJkOuspvEe6jy67_g7t5GQ"/>
+    <properties href="koushikkothagal_2.datadictionary#_oJkOvcpvEe6jy67_g7t5GQ"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

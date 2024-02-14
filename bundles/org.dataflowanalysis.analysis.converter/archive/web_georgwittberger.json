@@ -1,0 +1,163 @@
+{
+  "model" : {
+    "type" : "graph",
+    "id" : "root",
+    "children" : [ {
+      "text" : "user",
+      "id" : "_q_DOH8pvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_q_DOIcpvEe6jy67_g7t5GQ",
+      "targetId" : "_q_DOIMpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "cart_service",
+      "id" : "_q_DOIspvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_q_DOJMpvEe6jy67_g7t5GQ",
+      "targetId" : "_q_DOI8pvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "apache_server",
+      "id" : "_q_DOJcpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_q_DOJ8pvEe6jy67_g7t5GQ",
+      "targetId" : "_q_DOJspvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "apache_server",
+      "id" : "_q_DOKMpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_q_DOKspvEe6jy67_g7t5GQ",
+      "targetId" : "_q_DOKcpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "apache_server",
+      "id" : "_q_DOK8pvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_q_DOLcpvEe6jy67_g7t5GQ",
+      "targetId" : "_q_DOLMpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "user",
+      "labels" : [ {
+        "labelTypeId" : "_q_CnB8pvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_q_DOHMpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "behavior" : "set annotation.user_stereotype = TRUE",
+        "id" : "_q_DOIcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_q_CnAspvEe6jy67_g7t5GQ",
+      "type" : "node:input-output",
+      "children" : [ ]
+    }, {
+      "text" : "apache_server",
+      "labels" : [ {
+        "labelTypeId" : "_q_CnB8pvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_q_DOF8pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_q_CnB8pvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_q_DOGMpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_q_CnB8pvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_q_DOGcpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_q_DOIMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.web_server = TRUE\nset annotation.infrastructural = TRUE\nset annotation.entrypoint = TRUE\nforward user",
+        "id" : "_q_DOJ8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.web_server = TRUE\nset annotation.infrastructural = TRUE\nset annotation.entrypoint = TRUE\nforward user",
+        "id" : "_q_DOKspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.web_server = TRUE\nset annotation.infrastructural = TRUE\nset annotation.entrypoint = TRUE\nforward user",
+        "id" : "_q_DOLcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_q_CnA8pvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "content_service",
+      "labels" : [ {
+        "labelTypeId" : "_q_CnB8pvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_q_DOEspvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_q_DOLMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      } ],
+      "id" : "_q_CnBMpvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "product_service",
+      "labels" : [ {
+        "labelTypeId" : "_q_CnB8pvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_q_DOEspvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_q_DOI8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_q_DOKcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      } ],
+      "id" : "_q_CnBcpvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "cart_service",
+      "labels" : [ {
+        "labelTypeId" : "_q_CnB8pvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_q_DOEspvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_q_DOJspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nforward apache_server",
+        "id" : "_q_DOJMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_q_CnBspvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    } ]
+  },
+  "labelTypes" : [ {
+    "id" : "_q_CnB8pvEe6jy67_g7t5GQ",
+    "name" : "annotation",
+    "values" : [ {
+      "id" : "_q_DOEspvEe6jy67_g7t5GQ",
+      "text" : "internal"
+    }, {
+      "id" : "_q_DOF8pvEe6jy67_g7t5GQ",
+      "text" : "web_server"
+    }, {
+      "id" : "_q_DOGMpvEe6jy67_g7t5GQ",
+      "text" : "infrastructural"
+    }, {
+      "id" : "_q_DOGcpvEe6jy67_g7t5GQ",
+      "text" : "entrypoint"
+    }, {
+      "id" : "_q_DOHMpvEe6jy67_g7t5GQ",
+      "text" : "user_stereotype"
+    } ]
+  } ]
+}

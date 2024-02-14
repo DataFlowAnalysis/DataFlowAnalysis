@@ -1,0 +1,306 @@
+{
+  "model" : {
+    "type" : "graph",
+    "id" : "root",
+    "children" : [ {
+      "text" : "ratings_data_service",
+      "id" : "_oLmPIMpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_oLmPIspvEe6jy67_g7t5GQ",
+      "targetId" : "_oLmPIcpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "movie_info_service",
+      "id" : "_oLmPI8pvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_oLmPJcpvEe6jy67_g7t5GQ",
+      "targetId" : "_oLmPJMpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "external_website",
+      "id" : "_oLmPJspvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_oLmPKMpvEe6jy67_g7t5GQ",
+      "targetId" : "_oLmPJ8pvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "movie_catalog_service",
+      "id" : "_oLmPKcpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_oLmPK8pvEe6jy67_g7t5GQ",
+      "targetId" : "_oLmPKspvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "movie_catalog_service",
+      "id" : "_oLmPLMpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_oLmPLspvEe6jy67_g7t5GQ",
+      "targetId" : "_oLmPLcpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "movie_catalog_service",
+      "id" : "_oLmPL8pvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_oLmPMcpvEe6jy67_g7t5GQ",
+      "targetId" : "_oLmPMMpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "logging_server",
+      "id" : "_oLmPMspvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_oLmPNMpvEe6jy67_g7t5GQ",
+      "targetId" : "_oLmPM8pvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "discovery_server",
+      "id" : "_oLmPNcpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_oLmPN8pvEe6jy67_g7t5GQ",
+      "targetId" : "_oLmPNspvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "ratings_data_service",
+      "id" : "_oLmPOMpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_oLmPOspvEe6jy67_g7t5GQ",
+      "targetId" : "_oLmPOcpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "movie_info_service",
+      "id" : "_oLmPO8pvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_oLmPPcpvEe6jy67_g7t5GQ",
+      "targetId" : "_oLmPPMpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "movie_catalog_service",
+      "id" : "_oLmPPspvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_oLmPQMpvEe6jy67_g7t5GQ",
+      "targetId" : "_oLmPP8pvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "external_website",
+      "labels" : [ {
+        "labelTypeId" : "_oLmPCcpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_oLmPF8pvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "behavior" : "set annotation.external_website = TRUE",
+        "id" : "_oLmPKMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_oLmPAspvEe6jy67_g7t5GQ",
+      "type" : "node:input-output",
+      "children" : [ ]
+    }, {
+      "text" : "discovery_server",
+      "labels" : [ {
+        "labelTypeId" : "_oLmPCcpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_oLmPE8pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_oLmPCcpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_oLmPGspvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_oLmPCcpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_oLmPDcpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_oLmPIcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_oLmPJMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_oLmPKspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.infrastructural = TRUE\nset annotation.service_discovery = TRUE\nset annotation.local_logging = TRUE\nforward ratings_data_service\nforward movie_info_service\nforward movie_catalog_service",
+        "id" : "_oLmPN8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_oLmPA8pvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "ratings_data_service",
+      "labels" : [ {
+        "labelTypeId" : "_oLmPCcpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_oLmPDMpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_oLmPCcpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_oLmPDcpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_oLmPLcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nset annotation.local_logging = TRUE\nforward movie_catalog_service",
+        "id" : "_oLmPIspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nset annotation.local_logging = TRUE\nforward movie_catalog_service",
+        "id" : "_oLmPOspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_oLmPBMpvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "movie_info_service",
+      "labels" : [ {
+        "labelTypeId" : "_oLmPCcpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_oLmPDMpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_oLmPCcpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_oLmPDcpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_oLmPJ8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_oLmPMMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nset annotation.local_logging = TRUE\nforward external_website\nforward movie_catalog_service",
+        "id" : "_oLmPJcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nset annotation.local_logging = TRUE\nforward external_website\nforward movie_catalog_service",
+        "id" : "_oLmPPcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_oLmPBcpvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "movie_catalog_service",
+      "labels" : [ {
+        "labelTypeId" : "_oLmPCcpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_oLmPDMpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_oLmPCcpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_oLmPEMpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_oLmPCcpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_oLmPDcpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "behavior" : "set annotation.internal = TRUE\nset annotation.load_balancer = TRUE\nset annotation.local_logging = TRUE",
+        "id" : "_oLmPK8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nset annotation.load_balancer = TRUE\nset annotation.local_logging = TRUE",
+        "id" : "_oLmPLspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nset annotation.load_balancer = TRUE\nset annotation.local_logging = TRUE",
+        "id" : "_oLmPMcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nset annotation.load_balancer = TRUE\nset annotation.local_logging = TRUE",
+        "id" : "_oLmPQMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_oLmPBspvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "monitoring_dashboard",
+      "labels" : [ {
+        "labelTypeId" : "_oLmPCcpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_oLmPE8pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_oLmPCcpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_oLmPHcpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_oLmPM8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      } ],
+      "id" : "_oLmPB8pvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "logging_server",
+      "labels" : [ {
+        "labelTypeId" : "_oLmPCcpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_oLmPE8pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_oLmPCcpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_oLmPFMpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_oLmPNspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_oLmPOcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_oLmPPMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_oLmPP8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.infrastructural = TRUE\nset annotation.logging_server}\" shape = Mrecord = TRUE\nforward discovery_server\nforward ratings_data_service\nforward movie_info_service\nforward movie_catalog_service",
+        "id" : "_oLmPNMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_oLmPCMpvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    } ]
+  },
+  "labelTypes" : [ {
+    "id" : "_oLmPCcpvEe6jy67_g7t5GQ",
+    "name" : "annotation",
+    "values" : [ {
+      "id" : "_oLmPDMpvEe6jy67_g7t5GQ",
+      "text" : "internal"
+    }, {
+      "id" : "_oLmPDcpvEe6jy67_g7t5GQ",
+      "text" : "local_logging"
+    }, {
+      "id" : "_oLmPEMpvEe6jy67_g7t5GQ",
+      "text" : "load_balancer"
+    }, {
+      "id" : "_oLmPE8pvEe6jy67_g7t5GQ",
+      "text" : "infrastructural"
+    }, {
+      "id" : "_oLmPFMpvEe6jy67_g7t5GQ",
+      "text" : "logging_server}\" shape = Mrecord"
+    }, {
+      "id" : "_oLmPF8pvEe6jy67_g7t5GQ",
+      "text" : "external_website"
+    }, {
+      "id" : "_oLmPGspvEe6jy67_g7t5GQ",
+      "text" : "service_discovery"
+    }, {
+      "id" : "_oLmPHcpvEe6jy67_g7t5GQ",
+      "text" : "monitoring_dashboard}\" shape = Mrecord"
+    } ]
+  } ]
+}

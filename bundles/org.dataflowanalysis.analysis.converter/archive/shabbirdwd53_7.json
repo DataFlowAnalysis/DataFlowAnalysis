@@ -1,0 +1,273 @@
+{
+    "services": [
+        {
+            "name": "service_registry",
+            "stereotypes": [
+                "infrastructural",
+                "service_discovery"
+            ],
+            "tagged_values": {
+                "Port": 8761,
+                "Service Discovery": "Eureka"
+            }
+        },
+        {
+            "name": "config_server",
+            "stereotypes": [
+                "infrastructural",
+                "configuration_server"
+            ],
+            "tagged_values": {
+                "Port": 9296,
+                "Configuration Server": "Spring Cloud Config"
+            }
+        },
+        {
+            "name": "zipkin_server",
+            "stereotypes": [
+                "infrastructural",
+                "tracing_server"
+            ],
+            "tagged_values": {
+                "Port": 9411,
+                "Tracing Server": "Zipkin"
+            }
+        },
+        {
+            "name": "department_service",
+            "stereotypes": [
+                "internal",
+                "local_logging"
+            ],
+            "tagged_values": {
+                "Port": 9001,
+                "Endpoints": [
+                    "/departments",
+                    "/departments/{id}"
+                ],
+                "Logging Technology": "Lombok"
+            }
+        },
+        {
+            "name": "user_service",
+            "stereotypes": [
+                "internal",
+                "local_logging",
+                "load_balancer"
+            ],
+            "tagged_values": {
+                "Port": 9002,
+                "Endpoints": [
+                    "/users",
+                    "/users/{id}"
+                ],
+                "Load Balancer": "Spring Cloud",
+                "Logging Technology": "Lombok"
+            }
+        },
+        {
+            "name": "hystrix_dashboard",
+            "stereotypes": [
+                "infrastructural",
+                "monitoring_dashboard",
+                "local_logging"
+            ],
+            "tagged_values": {
+                "Port": 9295,
+                "Monitoring Dashboard": "Hystrix"
+            }
+        },
+        {
+            "name": "api_gateway",
+            "stereotypes": [
+                "infrastructural",
+                "gateway",
+                "circuit_breaker"
+            ],
+            "tagged_values": {
+                "Port": 9191,
+                "Gateway": "Spring Cloud Gateway",
+                "Circuit Breaker": "Hystrix",
+                "Endpoints": [
+                    "/userServiceFallBack",
+                    "/departmentServiceFallBack"
+                ]
+            }
+        }
+    ],
+    "external_entities": [
+        {
+            "name": "github_repository",
+            "stereotypes": [
+                "github_repository",
+                "entrypoint"
+            ],
+            "tagged_values": {
+                "URL": "https://github.com/shabbirdwd53/config-server"
+            }
+        },
+        {
+            "name": "user",
+            "stereotypes": [
+                "user_stereotype",
+                "entrypoint",
+                "exitpoint"
+            ],
+            "tagged_values": {}
+        }
+    ],
+    "information_flows": [
+        {
+            "sender": "github_repository",
+            "receiver": "config_server",
+            "stereotypes": [
+                "restful_http",
+                "encrypted_connection"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "service_registry",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "department_service",
+            "receiver": "zipkin_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "department_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "department_service",
+            "receiver": "service_registry",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user_service",
+            "receiver": "zipkin_server",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "user_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user_service",
+            "receiver": "service_registry",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user_service",
+            "receiver": "department_service",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "hystrix_dashboard",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "hystrix_dashboard",
+            "receiver": "service_registry",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "user",
+            "stereotypes": [
+                "restful_http",
+                "encrypted_connection"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user",
+            "receiver": "api_gateway",
+            "stereotypes": [
+                "restful_http",
+                "encrypted_connection"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "service_registry",
+            "receiver": "api_gateway",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "api_gateway",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "user_service",
+            "stereotypes": [
+                "restful_http",
+                "circuit_breaker_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "department_service",
+            "stereotypes": [
+                "restful_http",
+                "circuit_breaker_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "zipkin_server",
+            "receiver": "hystrix_dashboard",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        }
+    ]
+}

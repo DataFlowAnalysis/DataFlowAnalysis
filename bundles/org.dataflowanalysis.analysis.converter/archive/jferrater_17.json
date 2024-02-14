@@ -1,0 +1,266 @@
+{
+    "services": [
+        {
+            "name": "discovery_service",
+            "stereotypes": [
+                "service_discovery",
+                "infrastructural",
+                "validate_registration"
+            ],
+            "tagged_values": {
+                "Service Discovery": "Eureka",
+                "Port": 8888
+            }
+        },
+        {
+            "name": "config_service",
+            "stereotypes": [
+                "configuration_server",
+                "infrastructural"
+            ],
+            "tagged_values": {
+                "Configuration Server": "Spring Cloud Config",
+                "Port": 8888
+            }
+        },
+        {
+            "name": "account_service",
+            "stereotypes": [
+                "internal"
+            ],
+            "tagged_values": {
+                "Port": 8000,
+                "Endpoints": [
+                    "/accounts"
+                ]
+            }
+        },
+        {
+            "name": "customer_service",
+            "stereotypes": [
+                "internal"
+            ],
+            "tagged_values": {
+                "Port": 8002,
+                "Endpoints": [
+                    "/customers"
+                ]
+            }
+        },
+        {
+            "name": "store_service",
+            "stereotypes": [
+                "internal"
+            ],
+            "tagged_values": {
+                "Port": 8003,
+                "Endpoints": [
+                    "/stores"
+                ]
+            }
+        },
+        {
+            "name": "item_service",
+            "stereotypes": [
+                "internal"
+            ],
+            "tagged_values": {
+                "Port": 8004,
+                "Endpoints": [
+                    "/items"
+                ]
+            }
+        },
+        {
+            "name": "price_service",
+            "stereotypes": [
+                "internal"
+            ],
+            "tagged_values": {
+                "Port": 8001,
+                "Endpoints": [
+                    "/prices"
+                ]
+            }
+        },
+        {
+            "name": "foodtray_service",
+            "stereotypes": [
+                "infrastructural",
+                "monitoring_dashboard",
+                "circuit_breaker"
+            ],
+            "tagged_values": {
+                "Monitoring Dashboard": "Hystrix",
+                "Circuit Breaker": "Hystrix",
+                "Port": 8005,
+                "Endpoints": [
+                    "/foodtrays",
+                    "/foodtrays/{itemCode}",
+                    "/foodtrays/price/{itemCode}",
+                    "/foodtrays/item/{itemCode}"
+                ]
+            }
+        }
+    ],
+    "external_entities": [
+        {
+            "name": "github_repository",
+            "stereotypes": [
+                "github_repository",
+                "entrypoint"
+            ],
+            "tagged_values": {
+                "URL": "https://github.com/jferrater/ConfigData"
+            }
+        }
+    ],
+    "information_flows": [
+        {
+            "sender": "github_repository",
+            "receiver": "config_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_service",
+            "receiver": "discovery_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_service",
+            "receiver": "account_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "account_service",
+            "receiver": "discovery_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_service",
+            "receiver": "customer_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "customer_service",
+            "receiver": "discovery_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_service",
+            "receiver": "store_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "store_service",
+            "receiver": "discovery_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_service",
+            "receiver": "item_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "item_service",
+            "receiver": "discovery_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_service",
+            "receiver": "price_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "price_service",
+            "receiver": "discovery_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_service",
+            "receiver": "foodtray_service",
+            "stereotypes": [
+                "restful_http",
+                "circuit_breaker_link"
+            ],
+            "tagged_values": {
+                "'Circuit Breaker'": "Hystrix"
+            }
+        },
+        {
+            "sender": "foodtray_service",
+            "receiver": "discovery_service",
+            "stereotypes": [
+                "restful_http",
+                "circuit_breaker_link"
+            ],
+            "tagged_values": {
+                "'Circuit Breaker'": "Hystrix"
+            }
+        },
+        {
+            "sender": "foodtray_service",
+            "receiver": "item_service",
+            "stereotypes": [
+                "restful_http",
+                "feign_connection",
+                "load_balanced_link",
+                "circuit_breaker_link"
+            ],
+            "tagged_values": {
+                "'Load Balancer'": "Ribbon",
+                "'Circuit Breaker'": "Hystrix"
+            }
+        },
+        {
+            "sender": "foodtray_service",
+            "receiver": "price_service",
+            "stereotypes": [
+                "restful_http",
+                "feign_connection",
+                "load_balanced_link",
+                "circuit_breaker_link"
+            ],
+            "tagged_values": {
+                "'Load Balancer'": "Ribbon",
+                "'Circuit Breaker'": "Hystrix"
+            }
+        }
+    ]
+}

@@ -1,0 +1,277 @@
+{
+  "model" : {
+    "type" : "graph",
+    "id" : "root",
+    "children" : [ {
+      "text" : "user",
+      "id" : "_mbuz_spvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mbu0AMpvEe6jy67_g7t5GQ",
+      "targetId" : "_mbuz_8pvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "apache_server",
+      "id" : "_mbu0AcpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mbu0A8pvEe6jy67_g7t5GQ",
+      "targetId" : "_mbu0AspvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "cart_service",
+      "id" : "_mbu0BMpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mbu0BspvEe6jy67_g7t5GQ",
+      "targetId" : "_mbu0BcpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "apache_server",
+      "id" : "_mbu0B8pvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mbu0CcpvEe6jy67_g7t5GQ",
+      "targetId" : "_mbu0CMpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "apache_server",
+      "id" : "_mbu0CspvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mbu0DMpvEe6jy67_g7t5GQ",
+      "targetId" : "_mbu0C8pvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "apache_server",
+      "id" : "_mbu0DcpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mbu0D8pvEe6jy67_g7t5GQ",
+      "targetId" : "_mbu0DspvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "auth_server",
+      "id" : "_mbu0EMpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mbu0EspvEe6jy67_g7t5GQ",
+      "targetId" : "_mbu0EcpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "auth_server",
+      "id" : "_mbu0E8pvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mbu0FcpvEe6jy67_g7t5GQ",
+      "targetId" : "_mbu0FMpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "auth_server",
+      "id" : "_mbu0FspvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mbu0GMpvEe6jy67_g7t5GQ",
+      "targetId" : "_mbu0F8pvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "auth_server",
+      "id" : "_mbu0GcpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mbu0G8pvEe6jy67_g7t5GQ",
+      "targetId" : "_mbu0GspvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "user",
+      "labels" : [ {
+        "labelTypeId" : "_mbuz6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mbuz9cpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mbuz6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mbuz9spvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mbuz6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mbuz98pvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_mbu0AspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.user_stereotype = TRUE\nset annotation.entrypoint = TRUE\nset annotation.exitpoint = TRUE\nforward apache_server",
+        "id" : "_mbu0AMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_mbuz4spvEe6jy67_g7t5GQ",
+      "type" : "node:input-output",
+      "children" : [ ]
+    }, {
+      "text" : "apache_server",
+      "labels" : [ {
+        "labelTypeId" : "_mbuz6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mbuz8MpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mbuz6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mbuz8cpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mbuz6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mbuz8spvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_mbuz_8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_mbu0EcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.web_server = TRUE\nset annotation.gateway = TRUE\nset annotation.infrastructural = TRUE\nforward user\nforward auth_server",
+        "id" : "_mbu0A8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.web_server = TRUE\nset annotation.gateway = TRUE\nset annotation.infrastructural = TRUE\nforward user\nforward auth_server",
+        "id" : "_mbu0CcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.web_server = TRUE\nset annotation.gateway = TRUE\nset annotation.infrastructural = TRUE\nforward user\nforward auth_server",
+        "id" : "_mbu0DMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.web_server = TRUE\nset annotation.gateway = TRUE\nset annotation.infrastructural = TRUE\nforward user\nforward auth_server",
+        "id" : "_mbu0D8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_mbuz48pvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "content_service",
+      "labels" : [ {
+        "labelTypeId" : "_mbuz6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mbuz68pvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_mbu0DspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_mbu0FMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      } ],
+      "id" : "_mbuz5MpvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "product_service",
+      "labels" : [ {
+        "labelTypeId" : "_mbuz6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mbuz68pvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_mbu0BcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_mbu0C8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_mbu0F8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      } ],
+      "id" : "_mbuz5cpvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "cart_service",
+      "labels" : [ {
+        "labelTypeId" : "_mbuz6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mbuz68pvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_mbu0CMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_mbu0GspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nforward apache_server\nforward auth_server",
+        "id" : "_mbu0BspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_mbuz5spvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "auth_server",
+      "labels" : [ {
+        "labelTypeId" : "_mbuz6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mbuz8spvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mbuz6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mbuz_MpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mbuz6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mbuz_cpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "behavior" : "set annotation.infrastructural = TRUE\nset annotation.authorization_server = TRUE\nset annotation.login_attempts_regulation}\" shape = Mrecord = TRUE",
+        "id" : "_mbu0EspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.infrastructural = TRUE\nset annotation.authorization_server = TRUE\nset annotation.login_attempts_regulation}\" shape = Mrecord = TRUE",
+        "id" : "_mbu0FcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.infrastructural = TRUE\nset annotation.authorization_server = TRUE\nset annotation.login_attempts_regulation}\" shape = Mrecord = TRUE",
+        "id" : "_mbu0GMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.infrastructural = TRUE\nset annotation.authorization_server = TRUE\nset annotation.login_attempts_regulation}\" shape = Mrecord = TRUE",
+        "id" : "_mbu0G8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_mbuz58pvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    } ]
+  },
+  "labelTypes" : [ {
+    "id" : "_mbuz6MpvEe6jy67_g7t5GQ",
+    "name" : "annotation",
+    "values" : [ {
+      "id" : "_mbuz68pvEe6jy67_g7t5GQ",
+      "text" : "internal"
+    }, {
+      "id" : "_mbuz8MpvEe6jy67_g7t5GQ",
+      "text" : "web_server"
+    }, {
+      "id" : "_mbuz8cpvEe6jy67_g7t5GQ",
+      "text" : "gateway"
+    }, {
+      "id" : "_mbuz8spvEe6jy67_g7t5GQ",
+      "text" : "infrastructural"
+    }, {
+      "id" : "_mbuz9cpvEe6jy67_g7t5GQ",
+      "text" : "user_stereotype"
+    }, {
+      "id" : "_mbuz9spvEe6jy67_g7t5GQ",
+      "text" : "entrypoint"
+    }, {
+      "id" : "_mbuz98pvEe6jy67_g7t5GQ",
+      "text" : "exitpoint"
+    }, {
+      "id" : "_mbuz_MpvEe6jy67_g7t5GQ",
+      "text" : "authorization_server"
+    }, {
+      "id" : "_mbuz_cpvEe6jy67_g7t5GQ",
+      "text" : "login_attempts_regulation}\" shape = Mrecord"
+    } ]
+  } ]
+}

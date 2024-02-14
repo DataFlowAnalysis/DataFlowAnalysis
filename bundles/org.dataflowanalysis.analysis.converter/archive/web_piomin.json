@@ -1,0 +1,407 @@
+{
+  "model" : {
+    "type" : "graph",
+    "id" : "root",
+    "children" : [ {
+      "text" : "discovery_server",
+      "id" : "_mtLwbspvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mtLwcMpvEe6jy67_g7t5GQ",
+      "targetId" : "_mtLwb8pvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "database_gateway_server",
+      "id" : "_mtLwccpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mtLwc8pvEe6jy67_g7t5GQ",
+      "targetId" : "_mtLwcspvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "user",
+      "id" : "_mtLwdMpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mtLwdspvEe6jy67_g7t5GQ",
+      "targetId" : "_mtLwdcpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "auth_server",
+      "id" : "_mtLwd8pvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mtLwecpvEe6jy67_g7t5GQ",
+      "targetId" : "_mtLweMpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "database_auth_server",
+      "id" : "_mtLwespvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mtLwfMpvEe6jy67_g7t5GQ",
+      "targetId" : "_mtLwe8pvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "gateway_server",
+      "id" : "_mtLwfcpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mtLwf8pvEe6jy67_g7t5GQ",
+      "targetId" : "_mtLwfspvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "account_service",
+      "id" : "_mtLwgMpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mtLwgspvEe6jy67_g7t5GQ",
+      "targetId" : "_mtLwgcpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "auth_server",
+      "id" : "_mtLwg8pvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mtLwhcpvEe6jy67_g7t5GQ",
+      "targetId" : "_mtLwhMpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "gateway_server",
+      "id" : "_mtLwhspvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mtLwiMpvEe6jy67_g7t5GQ",
+      "targetId" : "_mtLwh8pvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "customer_service",
+      "id" : "_mtLwicpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mtLwi8pvEe6jy67_g7t5GQ",
+      "targetId" : "_mtLwispvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "customer_service",
+      "id" : "_mtLwjMpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mtLwjspvEe6jy67_g7t5GQ",
+      "targetId" : "_mtLwjcpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "auth_server",
+      "id" : "_mtLwj8pvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mtLwkcpvEe6jy67_g7t5GQ",
+      "targetId" : "_mtLwkMpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "database_gateway_server",
+      "labels" : [ {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwTcpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwTspvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "behavior" : "set annotation.external_database = TRUE\nset annotation.plaintext_credentials = TRUE",
+        "id" : "_mtLwc8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_mtLwQspvEe6jy67_g7t5GQ",
+      "type" : "node:input-output",
+      "children" : [ ]
+    }, {
+      "text" : "user",
+      "labels" : [ {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwaMpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "behavior" : "set annotation.user_stereotype = TRUE",
+        "id" : "_mtLwdspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_mtLwQ8pvEe6jy67_g7t5GQ",
+      "type" : "node:input-output",
+      "children" : [ ]
+    }, {
+      "text" : "database_auth_server",
+      "labels" : [ {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwTcpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwTspvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwYspvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "behavior" : "set annotation.external_database = TRUE\nset annotation.plaintext_credentials = TRUE\nset annotation.tokenstore = TRUE",
+        "id" : "_mtLwfMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_mtLwRMpvEe6jy67_g7t5GQ",
+      "type" : "node:input-output",
+      "children" : [ ]
+    }, {
+      "text" : "discovery_server",
+      "labels" : [ {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwX8pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwU8pvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_mtLweMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_mtLwgcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_mtLwispvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.service_discovery = TRUE\nset annotation.infrastructural = TRUE\nforward auth_server\nforward account_service\nforward customer_service",
+        "id" : "_mtLwcMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_mtLwRcpvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "gateway_server",
+      "labels" : [ {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwUcpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwUspvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwTspvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwU8pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwVMpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwVcpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwVspvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwV8pvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_mtLwb8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_mtLwcspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_mtLwdcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.gateway = TRUE\nset annotation.in_memory_authentication = TRUE\nset annotation.plaintext_credentials = TRUE\nset annotation.infrastructural = TRUE\nset annotation.authentication_scope_all_requests = TRUE\nset annotation.load_balancer = TRUE\nset annotation.authentication = TRUE\nset annotation.entrypoint = TRUE\nforward discovery_server\nforward database_gateway_server\nforward user",
+        "id" : "_mtLwf8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.gateway = TRUE\nset annotation.in_memory_authentication = TRUE\nset annotation.plaintext_credentials = TRUE\nset annotation.infrastructural = TRUE\nset annotation.authentication_scope_all_requests = TRUE\nset annotation.load_balancer = TRUE\nset annotation.authentication = TRUE\nset annotation.entrypoint = TRUE\nforward discovery_server\nforward database_gateway_server\nforward user",
+        "id" : "_mtLwiMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_mtLwRspvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "auth_server",
+      "labels" : [ {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwa8pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwbMpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwU8pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwXMpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwbcpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwZcpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwVspvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_mtLwe8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_mtLwfspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.authorization_server = TRUE\nset annotation.encryption = TRUE\nset annotation.infrastructural = TRUE\nset annotation.resource_server = TRUE\nset annotation.token_server = TRUE\nset annotation.local_logging = TRUE\nset annotation.authentication = TRUE\nforward database_auth_server\nforward gateway_server",
+        "id" : "_mtLwecpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.authorization_server = TRUE\nset annotation.encryption = TRUE\nset annotation.infrastructural = TRUE\nset annotation.resource_server = TRUE\nset annotation.token_server = TRUE\nset annotation.local_logging = TRUE\nset annotation.authentication = TRUE\nforward database_auth_server\nforward gateway_server",
+        "id" : "_mtLwhcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.authorization_server = TRUE\nset annotation.encryption = TRUE\nset annotation.infrastructural = TRUE\nset annotation.resource_server = TRUE\nset annotation.token_server = TRUE\nset annotation.local_logging = TRUE\nset annotation.authentication = TRUE\nforward database_auth_server\nforward gateway_server",
+        "id" : "_mtLwkcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_mtLwR8pvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "account_service",
+      "labels" : [ {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwWspvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwW8pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwXMpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_mtLwhMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_mtLwh8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_mtLwjcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nset annotation.pre_authorized_endpoints = TRUE\nset annotation.resource_server = TRUE\nforward auth_server\nforward gateway_server\nforward customer_service",
+        "id" : "_mtLwgspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_mtLwSMpvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "customer_service",
+      "labels" : [ {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwWspvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwW8pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwXMpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mtLwSspvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mtLwZcpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_mtLwkMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nset annotation.pre_authorized_endpoints = TRUE\nset annotation.resource_server = TRUE\nset annotation.local_logging = TRUE\nforward auth_server",
+        "id" : "_mtLwi8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nset annotation.pre_authorized_endpoints = TRUE\nset annotation.resource_server = TRUE\nset annotation.local_logging = TRUE\nforward auth_server",
+        "id" : "_mtLwjspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_mtLwScpvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    } ]
+  },
+  "labelTypes" : [ {
+    "id" : "_mtLwSspvEe6jy67_g7t5GQ",
+    "name" : "annotation",
+    "values" : [ {
+      "id" : "_mtLwTcpvEe6jy67_g7t5GQ",
+      "text" : "external_database"
+    }, {
+      "id" : "_mtLwTspvEe6jy67_g7t5GQ",
+      "text" : "plaintext_credentials"
+    }, {
+      "id" : "_mtLwUcpvEe6jy67_g7t5GQ",
+      "text" : "gateway"
+    }, {
+      "id" : "_mtLwUspvEe6jy67_g7t5GQ",
+      "text" : "in_memory_authentication"
+    }, {
+      "id" : "_mtLwU8pvEe6jy67_g7t5GQ",
+      "text" : "infrastructural"
+    }, {
+      "id" : "_mtLwVMpvEe6jy67_g7t5GQ",
+      "text" : "authentication_scope_all_requests"
+    }, {
+      "id" : "_mtLwVcpvEe6jy67_g7t5GQ",
+      "text" : "load_balancer"
+    }, {
+      "id" : "_mtLwVspvEe6jy67_g7t5GQ",
+      "text" : "authentication"
+    }, {
+      "id" : "_mtLwV8pvEe6jy67_g7t5GQ",
+      "text" : "entrypoint"
+    }, {
+      "id" : "_mtLwWspvEe6jy67_g7t5GQ",
+      "text" : "internal"
+    }, {
+      "id" : "_mtLwW8pvEe6jy67_g7t5GQ",
+      "text" : "pre_authorized_endpoints"
+    }, {
+      "id" : "_mtLwXMpvEe6jy67_g7t5GQ",
+      "text" : "resource_server"
+    }, {
+      "id" : "_mtLwX8pvEe6jy67_g7t5GQ",
+      "text" : "service_discovery"
+    }, {
+      "id" : "_mtLwYspvEe6jy67_g7t5GQ",
+      "text" : "tokenstore"
+    }, {
+      "id" : "_mtLwZcpvEe6jy67_g7t5GQ",
+      "text" : "local_logging"
+    }, {
+      "id" : "_mtLwaMpvEe6jy67_g7t5GQ",
+      "text" : "user_stereotype"
+    }, {
+      "id" : "_mtLwa8pvEe6jy67_g7t5GQ",
+      "text" : "authorization_server"
+    }, {
+      "id" : "_mtLwbMpvEe6jy67_g7t5GQ",
+      "text" : "encryption"
+    }, {
+      "id" : "_mtLwbcpvEe6jy67_g7t5GQ",
+      "text" : "token_server"
+    } ]
+  } ]
+}

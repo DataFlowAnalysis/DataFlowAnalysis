@@ -1,0 +1,271 @@
+{
+  "model" : {
+    "type" : "graph",
+    "id" : "root",
+    "children" : [ {
+      "text" : "user",
+      "id" : "_nnkU_cpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_nnkU_8pvEe6jy67_g7t5GQ",
+      "targetId" : "_nnkU_spvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "apache_server",
+      "id" : "_nnkVAMpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_nnkVAspvEe6jy67_g7t5GQ",
+      "targetId" : "_nnkVAcpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "cart_service",
+      "id" : "_nnkVA8pvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_nnkVBcpvEe6jy67_g7t5GQ",
+      "targetId" : "_nnkVBMpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "apache_server",
+      "id" : "_nnkVBspvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_nnkVCMpvEe6jy67_g7t5GQ",
+      "targetId" : "_nnkVB8pvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "apache_server",
+      "id" : "_nnkVCcpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_nnkVC8pvEe6jy67_g7t5GQ",
+      "targetId" : "_nnkVCspvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "apache_server",
+      "id" : "_nnkVDMpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_nnkVDspvEe6jy67_g7t5GQ",
+      "targetId" : "_nnkVDcpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "apache_server",
+      "id" : "_nnkVD8pvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_nnkVEcpvEe6jy67_g7t5GQ",
+      "targetId" : "_nnkVEMpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "content_service",
+      "id" : "_nnkVEspvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_nnkVFMpvEe6jy67_g7t5GQ",
+      "targetId" : "_nnkVE8pvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "product_service",
+      "id" : "_nnkVFcpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_nnkVF8pvEe6jy67_g7t5GQ",
+      "targetId" : "_nnkVFspvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "cart_service",
+      "id" : "_nnkVGMpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_nnkVGspvEe6jy67_g7t5GQ",
+      "targetId" : "_nnkVGcpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "user",
+      "labels" : [ {
+        "labelTypeId" : "_nnkU6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_nnkU-MpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_nnkU6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_nnkU-cpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_nnkU6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_nnkU-spvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_nnkVAcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.user_stereotype = TRUE\nset annotation.entrypoint = TRUE\nset annotation.exitpoint = TRUE\nforward apache_server",
+        "id" : "_nnkU_8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_nnkU4spvEe6jy67_g7t5GQ",
+      "type" : "node:input-output",
+      "children" : [ ]
+    }, {
+      "text" : "apache_server",
+      "labels" : [ {
+        "labelTypeId" : "_nnkU6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_nnkU8MpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_nnkU6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_nnkU8cpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_nnkU6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_nnkU8spvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_nnkU_spvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.web_server = TRUE\nset annotation.gateway = TRUE\nset annotation.infrastructural = TRUE\nforward user",
+        "id" : "_nnkVAspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.web_server = TRUE\nset annotation.gateway = TRUE\nset annotation.infrastructural = TRUE\nforward user",
+        "id" : "_nnkVCMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.web_server = TRUE\nset annotation.gateway = TRUE\nset annotation.infrastructural = TRUE\nforward user",
+        "id" : "_nnkVC8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.web_server = TRUE\nset annotation.gateway = TRUE\nset annotation.infrastructural = TRUE\nforward user",
+        "id" : "_nnkVDspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.web_server = TRUE\nset annotation.gateway = TRUE\nset annotation.infrastructural = TRUE\nforward user",
+        "id" : "_nnkVEcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_nnkU48pvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "content_service",
+      "labels" : [ {
+        "labelTypeId" : "_nnkU6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_nnkU68pvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_nnkVDcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nforward apache_server",
+        "id" : "_nnkVFMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_nnkU5MpvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "product_service",
+      "labels" : [ {
+        "labelTypeId" : "_nnkU6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_nnkU68pvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_nnkVBMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_nnkVCspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nforward cart_service\nforward apache_server",
+        "id" : "_nnkVF8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_nnkU5cpvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "cart_service",
+      "labels" : [ {
+        "labelTypeId" : "_nnkU6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_nnkU68pvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_nnkVB8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nforward apache_server",
+        "id" : "_nnkVBcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nforward apache_server",
+        "id" : "_nnkVGspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_nnkU5spvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "service_discovery",
+      "labels" : [ {
+        "labelTypeId" : "_nnkU6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_nnkU8spvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_nnkU6MpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_nnkU9cpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_nnkVEMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_nnkVE8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_nnkVFspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_nnkVGcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      } ],
+      "id" : "_nnkU58pvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    } ]
+  },
+  "labelTypes" : [ {
+    "id" : "_nnkU6MpvEe6jy67_g7t5GQ",
+    "name" : "annotation",
+    "values" : [ {
+      "id" : "_nnkU68pvEe6jy67_g7t5GQ",
+      "text" : "internal"
+    }, {
+      "id" : "_nnkU8MpvEe6jy67_g7t5GQ",
+      "text" : "web_server"
+    }, {
+      "id" : "_nnkU8cpvEe6jy67_g7t5GQ",
+      "text" : "gateway"
+    }, {
+      "id" : "_nnkU8spvEe6jy67_g7t5GQ",
+      "text" : "infrastructural"
+    }, {
+      "id" : "_nnkU9cpvEe6jy67_g7t5GQ",
+      "text" : "service_discovery}\" shape = Mrecord"
+    }, {
+      "id" : "_nnkU-MpvEe6jy67_g7t5GQ",
+      "text" : "user_stereotype"
+    }, {
+      "id" : "_nnkU-cpvEe6jy67_g7t5GQ",
+      "text" : "entrypoint"
+    }, {
+      "id" : "_nnkU-spvEe6jy67_g7t5GQ",
+      "text" : "exitpoint"
+    } ]
+  } ]
+}

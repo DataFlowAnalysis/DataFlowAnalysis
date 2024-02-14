@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://www.example.org/dataflowdiagram" id="_mMbzoMpvEe6jy67_g7t5GQ">
+  <flows id="_mMbz28pvEe6jy67_g7t5GQ" entityName="github_repository" sourceNode="_mMbzospvEe6jy67_g7t5GQ" destinationNode="_mMbzpMpvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMbz3MpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMbz3cpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMbz3spvEe6jy67_g7t5GQ" entityName="config_server" sourceNode="_mMbzpMpvEe6jy67_g7t5GQ" destinationNode="_mMbzpcpvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMbz38pvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMbz4MpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMbz4cpvEe6jy67_g7t5GQ" entityName="tracing_server" sourceNode="_mMbzpspvEe6jy67_g7t5GQ" destinationNode="_mMbzpcpvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMbz4spvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMbz48pvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMbz5MpvEe6jy67_g7t5GQ" entityName="config_server" sourceNode="_mMbzpMpvEe6jy67_g7t5GQ" destinationNode="_mMbzpspvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMbz5cpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMbz5spvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMbz58pvEe6jy67_g7t5GQ" entityName="admin_server" sourceNode="_mMbzp8pvEe6jy67_g7t5GQ" destinationNode="_mMbzpcpvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMbz6MpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMbz6cpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMbz6spvEe6jy67_g7t5GQ" entityName="config_server" sourceNode="_mMbzpMpvEe6jy67_g7t5GQ" destinationNode="_mMbzp8pvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMbz68pvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMbz7MpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMbz7cpvEe6jy67_g7t5GQ" entityName="prometheus_server" sourceNode="_mMbzqMpvEe6jy67_g7t5GQ" destinationNode="_mMbzqcpvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMbz7spvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMbz78pvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMbz8MpvEe6jy67_g7t5GQ" entityName="customers_service" sourceNode="_mMbzqspvEe6jy67_g7t5GQ" destinationNode="_mMbzpcpvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMbz8cpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMbz8spvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMbz88pvEe6jy67_g7t5GQ" entityName="config_server" sourceNode="_mMbzpMpvEe6jy67_g7t5GQ" destinationNode="_mMbzqspvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMbz9MpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMbz9cpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMbz9spvEe6jy67_g7t5GQ" entityName="customers_service" sourceNode="_mMbzqspvEe6jy67_g7t5GQ" destinationNode="_mMbzpspvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMbz98pvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMbz-MpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMbz-cpvEe6jy67_g7t5GQ" entityName="customers_service" sourceNode="_mMbzqspvEe6jy67_g7t5GQ" destinationNode="_mMbzqMpvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMbz-spvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMbz-8pvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMbz_MpvEe6jy67_g7t5GQ" entityName="vets_service" sourceNode="_mMbzq8pvEe6jy67_g7t5GQ" destinationNode="_mMbzpcpvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMbz_cpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMbz_spvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMbz_8pvEe6jy67_g7t5GQ" entityName="config_server" sourceNode="_mMbzpMpvEe6jy67_g7t5GQ" destinationNode="_mMbzq8pvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMb0AMpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMb0AcpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMb0AspvEe6jy67_g7t5GQ" entityName="vets_service" sourceNode="_mMbzq8pvEe6jy67_g7t5GQ" destinationNode="_mMbzpspvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMb0A8pvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMb0BMpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMb0BcpvEe6jy67_g7t5GQ" entityName="vets_service" sourceNode="_mMbzq8pvEe6jy67_g7t5GQ" destinationNode="_mMbzqMpvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMb0BspvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMb0B8pvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMb0CMpvEe6jy67_g7t5GQ" entityName="visits_service" sourceNode="_mMbzrMpvEe6jy67_g7t5GQ" destinationNode="_mMbzpcpvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMb0CcpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMb0CspvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMb0C8pvEe6jy67_g7t5GQ" entityName="config_server" sourceNode="_mMbzpMpvEe6jy67_g7t5GQ" destinationNode="_mMbzrMpvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMb0DMpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMb0DcpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMb0DspvEe6jy67_g7t5GQ" entityName="visits_service" sourceNode="_mMbzrMpvEe6jy67_g7t5GQ" destinationNode="_mMbzpspvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMb0D8pvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMb0EMpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMb0EcpvEe6jy67_g7t5GQ" entityName="visits_service" sourceNode="_mMbzrMpvEe6jy67_g7t5GQ" destinationNode="_mMbzqMpvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMb0EspvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMb0E8pvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMb0FMpvEe6jy67_g7t5GQ" entityName="discovery_server" sourceNode="_mMbzpcpvEe6jy67_g7t5GQ" destinationNode="_mMbzrcpvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMb0FcpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMb0FspvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMb0F8pvEe6jy67_g7t5GQ" entityName="user" sourceNode="_mMbzo8pvEe6jy67_g7t5GQ" destinationNode="_mMbzrcpvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMb0GMpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMb0GcpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMb0GspvEe6jy67_g7t5GQ" entityName="api_gateway" sourceNode="_mMbzrcpvEe6jy67_g7t5GQ" destinationNode="_mMbzo8pvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMb0G8pvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMb0HMpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMb0HcpvEe6jy67_g7t5GQ" entityName="config_server" sourceNode="_mMbzpMpvEe6jy67_g7t5GQ" destinationNode="_mMbzrcpvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMb0HspvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMb0H8pvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMb0IMpvEe6jy67_g7t5GQ" entityName="api_gateway" sourceNode="_mMbzrcpvEe6jy67_g7t5GQ" destinationNode="_mMbzqMpvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMb0IcpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMb0IspvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMb0I8pvEe6jy67_g7t5GQ" entityName="api_gateway" sourceNode="_mMbzrcpvEe6jy67_g7t5GQ" destinationNode="_mMbzq8pvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMb0JMpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMb0JcpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMb0JspvEe6jy67_g7t5GQ" entityName="api_gateway" sourceNode="_mMbzrcpvEe6jy67_g7t5GQ" destinationNode="_mMbzrMpvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMb0J8pvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMb0KMpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMb0KcpvEe6jy67_g7t5GQ" entityName="api_gateway" sourceNode="_mMbzrcpvEe6jy67_g7t5GQ" destinationNode="_mMbzqspvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMb0KspvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMb0K8pvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMb0LMpvEe6jy67_g7t5GQ" entityName="api_gateway" sourceNode="_mMbzrcpvEe6jy67_g7t5GQ" destinationNode="_mMbzpspvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMb0LcpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMb0LspvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMb0L8pvEe6jy67_g7t5GQ" entityName="logging_server" sourceNode="_mMbzrspvEe6jy67_g7t5GQ" destinationNode="_mMbzqcpvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMb0MMpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMb0McpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMb0MspvEe6jy67_g7t5GQ" entityName="config_server" sourceNode="_mMbzpMpvEe6jy67_g7t5GQ" destinationNode="_mMbzrspvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMb0M8pvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMb0NMpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMb0NcpvEe6jy67_g7t5GQ" entityName="discovery_server" sourceNode="_mMbzpcpvEe6jy67_g7t5GQ" destinationNode="_mMbzrspvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMb0NspvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMb0N8pvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMcasMpvEe6jy67_g7t5GQ" entityName="tracing_server" sourceNode="_mMbzpspvEe6jy67_g7t5GQ" destinationNode="_mMbzrspvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMcascpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMcasspvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMcas8pvEe6jy67_g7t5GQ" entityName="admin_server" sourceNode="_mMbzp8pvEe6jy67_g7t5GQ" destinationNode="_mMbzrspvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMcatMpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMcatcpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMcatspvEe6jy67_g7t5GQ" entityName="prometheus_server" sourceNode="_mMbzqMpvEe6jy67_g7t5GQ" destinationNode="_mMbzrspvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMcat8pvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMcauMpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMcaucpvEe6jy67_g7t5GQ" entityName="grafana_server" sourceNode="_mMbzqcpvEe6jy67_g7t5GQ" destinationNode="_mMbzrspvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMcauspvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMcau8pvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMcavMpvEe6jy67_g7t5GQ" entityName="customers_service" sourceNode="_mMbzqspvEe6jy67_g7t5GQ" destinationNode="_mMbzrspvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMcavcpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMcavspvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMcav8pvEe6jy67_g7t5GQ" entityName="vets_service" sourceNode="_mMbzq8pvEe6jy67_g7t5GQ" destinationNode="_mMbzrspvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMcawMpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMcawcpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMcawspvEe6jy67_g7t5GQ" entityName="visits_service" sourceNode="_mMbzrMpvEe6jy67_g7t5GQ" destinationNode="_mMbzrspvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMcaw8pvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMcaxMpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_mMcaxcpvEe6jy67_g7t5GQ" entityName="api_gateway" sourceNode="_mMbzrcpvEe6jy67_g7t5GQ" destinationNode="_mMbzrspvEe6jy67_g7t5GQ">
+    <destinationPin href="spring-petclinic_10.datadictionary#_mMcaxspvEe6jy67_g7t5GQ"/>
+    <sourcePin href="spring-petclinic_10.datadictionary#_mMcax8pvEe6jy67_g7t5GQ"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:External" id="_mMbzospvEe6jy67_g7t5GQ" entityName="github_repository">
+    <behaviour href="spring-petclinic_10.datadictionary#_mMbzzcpvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzz8pvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbz0MpvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="_mMbzo8pvEe6jy67_g7t5GQ" entityName="user">
+    <behaviour href="spring-petclinic_10.datadictionary#_mMbz1MpvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbz1spvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbz0MpvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbz18pvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_mMbzpMpvEe6jy67_g7t5GQ" entityName="config_server">
+    <behaviour href="spring-petclinic_10.datadictionary#_mMbzw8pvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzxcpvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzs8pvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbztMpvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_mMbzpcpvEe6jy67_g7t5GQ" entityName="discovery_server">
+    <behaviour href="spring-petclinic_10.datadictionary#_mMbzxspvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzyMpvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzs8pvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbztMpvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_mMbzpspvEe6jy67_g7t5GQ" entityName="tracing_server">
+    <behaviour href="spring-petclinic_10.datadictionary#_mMbzsMpvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzsspvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzs8pvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbztMpvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_mMbzp8pvEe6jy67_g7t5GQ" entityName="admin_server">
+    <behaviour href="spring-petclinic_10.datadictionary#_mMbz0cpvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbz08pvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzs8pvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbztMpvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_mMbzqMpvEe6jy67_g7t5GQ" entityName="prometheus_server">
+    <behaviour href="spring-petclinic_10.datadictionary#_mMbzucpvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzu8pvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzs8pvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbztMpvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_mMbzqcpvEe6jy67_g7t5GQ" entityName="grafana_server">
+    <behaviour href="spring-petclinic_10.datadictionary#_mMbz2MpvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbz2spvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzs8pvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbztMpvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_mMbzqspvEe6jy67_g7t5GQ" entityName="customers_service">
+    <behaviour href="spring-petclinic_10.datadictionary#_mMbzv8pvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzt8pvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbztMpvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzuMpvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_mMbzq8pvEe6jy67_g7t5GQ" entityName="vets_service">
+    <behaviour href="spring-petclinic_10.datadictionary#_mMbztcpvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzt8pvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzuMpvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbztMpvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_mMbzrMpvEe6jy67_g7t5GQ" entityName="visits_service">
+    <behaviour href="spring-petclinic_10.datadictionary#_mMbzwcpvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzt8pvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbztMpvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzuMpvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_mMbzrcpvEe6jy67_g7t5GQ" entityName="api_gateway">
+    <behaviour href="spring-petclinic_10.datadictionary#_mMbzycpvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzy8pvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzs8pvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzzMpvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbztMpvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_mMbzrspvEe6jy67_g7t5GQ" entityName="logging_server">
+    <behaviour href="spring-petclinic_10.datadictionary#_mMbzvMpvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzs8pvEe6jy67_g7t5GQ"/>
+    <properties href="spring-petclinic_10.datadictionary#_mMbzvspvEe6jy67_g7t5GQ"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

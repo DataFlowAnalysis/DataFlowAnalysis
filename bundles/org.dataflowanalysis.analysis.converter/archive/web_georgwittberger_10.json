@@ -1,0 +1,292 @@
+{
+  "model" : {
+    "type" : "graph",
+    "id" : "root",
+    "children" : [ {
+      "text" : "user",
+      "id" : "_mIHUb8pvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mIHUccpvEe6jy67_g7t5GQ",
+      "targetId" : "_mIHUcMpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "apache_server",
+      "id" : "_mIHUcspvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mIHUdMpvEe6jy67_g7t5GQ",
+      "targetId" : "_mIHUc8pvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "cart_service",
+      "id" : "_mIHUdcpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mIHUd8pvEe6jy67_g7t5GQ",
+      "targetId" : "_mIHUdspvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "apache_server",
+      "id" : "_mIHUeMpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mIHUespvEe6jy67_g7t5GQ",
+      "targetId" : "_mIHUecpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "apache_server",
+      "id" : "_mIHUe8pvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mIHUfcpvEe6jy67_g7t5GQ",
+      "targetId" : "_mIHUfMpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "apache_server",
+      "id" : "_mIHUfspvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mIHUgMpvEe6jy67_g7t5GQ",
+      "targetId" : "_mIHUf8pvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "apache_server",
+      "id" : "_mIHUgcpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mIHUg8pvEe6jy67_g7t5GQ",
+      "targetId" : "_mIHUgspvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "content_service",
+      "id" : "_mIHUhMpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mIHUhspvEe6jy67_g7t5GQ",
+      "targetId" : "_mIHUhcpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "product_service",
+      "id" : "_mIHUh8pvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mIHUicpvEe6jy67_g7t5GQ",
+      "targetId" : "_mIHUiMpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "cart_service",
+      "id" : "_mIHUispvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_mIHUjMpvEe6jy67_g7t5GQ",
+      "targetId" : "_mIHUi8pvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "user",
+      "labels" : [ {
+        "labelTypeId" : "_mIHUWMpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mIHUaspvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mIHUWMpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mIHUa8pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mIHUWMpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mIHUbMpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_mIHUc8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.user_stereotype = TRUE\nset annotation.entrypoint = TRUE\nset annotation.exitpoint = TRUE\nforward apache_server",
+        "id" : "_mIHUccpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_mIHUUspvEe6jy67_g7t5GQ",
+      "type" : "node:input-output",
+      "children" : [ ]
+    }, {
+      "text" : "apache_server",
+      "labels" : [ {
+        "labelTypeId" : "_mIHUWMpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mIHUZspvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mIHUWMpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mIHUZ8pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mIHUWMpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mIHUYcpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mIHUWMpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mIHUXMpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_mIHUcMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.web_server = TRUE\nset annotation.gateway = TRUE\nset annotation.infrastructural = TRUE\nset annotation.local_logging = TRUE\nforward user",
+        "id" : "_mIHUdMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.web_server = TRUE\nset annotation.gateway = TRUE\nset annotation.infrastructural = TRUE\nset annotation.local_logging = TRUE\nforward user",
+        "id" : "_mIHUespvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.web_server = TRUE\nset annotation.gateway = TRUE\nset annotation.infrastructural = TRUE\nset annotation.local_logging = TRUE\nforward user",
+        "id" : "_mIHUfcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.web_server = TRUE\nset annotation.gateway = TRUE\nset annotation.infrastructural = TRUE\nset annotation.local_logging = TRUE\nforward user",
+        "id" : "_mIHUgMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.web_server = TRUE\nset annotation.gateway = TRUE\nset annotation.infrastructural = TRUE\nset annotation.local_logging = TRUE\nforward user",
+        "id" : "_mIHUg8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_mIHUU8pvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "content_service",
+      "labels" : [ {
+        "labelTypeId" : "_mIHUWMpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mIHUW8pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mIHUWMpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mIHUXMpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_mIHUf8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nset annotation.local_logging = TRUE\nforward apache_server",
+        "id" : "_mIHUhspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_mIHUVMpvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "product_service",
+      "labels" : [ {
+        "labelTypeId" : "_mIHUWMpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mIHUW8pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mIHUWMpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mIHUXMpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_mIHUdspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_mIHUfMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nset annotation.local_logging = TRUE\nforward cart_service\nforward apache_server",
+        "id" : "_mIHUicpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_mIHUVcpvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "cart_service",
+      "labels" : [ {
+        "labelTypeId" : "_mIHUWMpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mIHUW8pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mIHUWMpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mIHUXMpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_mIHUecpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nset annotation.local_logging = TRUE\nforward apache_server",
+        "id" : "_mIHUd8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nset annotation.local_logging = TRUE\nforward apache_server",
+        "id" : "_mIHUjMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_mIHUVspvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "logging_server",
+      "labels" : [ {
+        "labelTypeId" : "_mIHUWMpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mIHUYcpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mIHUWMpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mIHUYspvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_mIHUWMpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_mIHUY8pvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_mIHUgspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_mIHUhcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_mIHUiMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_mIHUi8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      } ],
+      "id" : "_mIHUV8pvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    } ]
+  },
+  "labelTypes" : [ {
+    "id" : "_mIHUWMpvEe6jy67_g7t5GQ",
+    "name" : "annotation",
+    "values" : [ {
+      "id" : "_mIHUW8pvEe6jy67_g7t5GQ",
+      "text" : "internal"
+    }, {
+      "id" : "_mIHUXMpvEe6jy67_g7t5GQ",
+      "text" : "local_logging"
+    }, {
+      "id" : "_mIHUYcpvEe6jy67_g7t5GQ",
+      "text" : "infrastructural"
+    }, {
+      "id" : "_mIHUYspvEe6jy67_g7t5GQ",
+      "text" : "logging_server"
+    }, {
+      "id" : "_mIHUY8pvEe6jy67_g7t5GQ",
+      "text" : "monitoring_dashboard}\" shape = Mrecord"
+    }, {
+      "id" : "_mIHUZspvEe6jy67_g7t5GQ",
+      "text" : "web_server"
+    }, {
+      "id" : "_mIHUZ8pvEe6jy67_g7t5GQ",
+      "text" : "gateway"
+    }, {
+      "id" : "_mIHUaspvEe6jy67_g7t5GQ",
+      "text" : "user_stereotype"
+    }, {
+      "id" : "_mIHUa8pvEe6jy67_g7t5GQ",
+      "text" : "entrypoint"
+    }, {
+      "id" : "_mIHUbMpvEe6jy67_g7t5GQ",
+      "text" : "exitpoint"
+    } ]
+  } ]
+}

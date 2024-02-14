@@ -18,6 +18,7 @@ public class Main {
 	}
 	
 	public static void readMicro(String path, boolean direct) {
+		
 		ObjectMapper objectMapper = new ObjectMapper();        
 		File file = new File(path);
         try {
@@ -111,14 +112,15 @@ public class Main {
 	
 
 	public static void main(String[] args) {
-		//Example Usage
-		/*readMicro("anilallewar_microservices-basics-spring-boot.json");
-        readDFD("anilallewar_microservices-basics-spring-boot", "test1.json"); 
-        readWeb("minimal.json");
-        readDFD("minimal", "test2.json");
-        readPlant("9.txt");
-        readDFD("9","test3.json");
-        readAss("TravelPlanner","travelPlanner");
-        readDFD("TravelPlanner","test4.json");*/
+		File directory = new File(".");
+        File[] files = directory.listFiles((dir, name) -> name.endsWith(".json"));
+        for(File file:files) {
+        	readMicro(file.getName());
+        	readDFD(file.getName().replaceAll("\\.json.*", ""),"web_"+file.getName());
+        	try {
+            	Thread.sleep(200);
+            }catch(InterruptedException e) {}
+        }
+        
 	} 
 }

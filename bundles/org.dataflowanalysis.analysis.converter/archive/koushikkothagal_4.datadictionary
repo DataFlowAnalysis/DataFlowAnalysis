@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://www.example.org/datadictionary" id="_qnS1YMpvEe6jy67_g7t5GQ">
+  <labelTypes id="_qnS1Z8pvEe6jy67_g7t5GQ" entityName="annotation">
+    <label id="_qnS1aspvEe6jy67_g7t5GQ" entityName="internal"/>
+    <label id="_qnS1bcpvEe6jy67_g7t5GQ" entityName="load_balancer"/>
+    <label id="_qnS1cMpvEe6jy67_g7t5GQ" entityName="external_website"/>
+    <label id="_qnS1c8pvEe6jy67_g7t5GQ" entityName="infrastructural"/>
+    <label id="_qnS1dMpvEe6jy67_g7t5GQ" entityName="service_discovery"/>
+    <label id="_qnS1ecpvEe6jy67_g7t5GQ" entityName="gateway"/>
+    <label id="_qnS1espvEe6jy67_g7t5GQ" entityName="transform_identity_representation&quot; shape = Mrecord"/>
+  </labelTypes>
+  <behaviour id="_qnS1aMpvEe6jy67_g7t5GQ">
+    <inPin id="_qnS1gspvEe6jy67_g7t5GQ"/>
+    <inPin id="_qnS1i8pvEe6jy67_g7t5GQ"/>
+    <inPin id="_qnS1jspvEe6jy67_g7t5GQ"/>
+    <outPin id="_qnS1gMpvEe6jy67_g7t5GQ"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_qnS1lspvEe6jy67_g7t5GQ" inputPins="_qnS1gspvEe6jy67_g7t5GQ _qnS1i8pvEe6jy67_g7t5GQ _qnS1jspvEe6jy67_g7t5GQ" outputPin="_qnS1gMpvEe6jy67_g7t5GQ" outputLabels="_qnS1aspvEe6jy67_g7t5GQ">
+      <term xsi:type="datadictionary:TRUE" id="_qnS1l8pvEe6jy67_g7t5GQ"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_qnS1qMpvEe6jy67_g7t5GQ" inputPins="_qnS1gspvEe6jy67_g7t5GQ _qnS1i8pvEe6jy67_g7t5GQ _qnS1jspvEe6jy67_g7t5GQ" outputPin="_qnS1gMpvEe6jy67_g7t5GQ"/>
+  </behaviour>
+  <behaviour id="_qnS1a8pvEe6jy67_g7t5GQ">
+    <inPin id="_qnS1lMpvEe6jy67_g7t5GQ"/>
+    <outPin id="_qnS1hspvEe6jy67_g7t5GQ"/>
+    <outPin id="_qnS1icpvEe6jy67_g7t5GQ"/>
+    <outPin id="_qnS1jMpvEe6jy67_g7t5GQ"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_qnS1mMpvEe6jy67_g7t5GQ" inputPins="_qnS1lMpvEe6jy67_g7t5GQ" outputPin="_qnS1hspvEe6jy67_g7t5GQ" outputLabels="_qnS1aspvEe6jy67_g7t5GQ _qnS1bcpvEe6jy67_g7t5GQ">
+      <term xsi:type="datadictionary:TRUE" id="_qnS1mcpvEe6jy67_g7t5GQ"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_qnS1mspvEe6jy67_g7t5GQ" inputPins="_qnS1lMpvEe6jy67_g7t5GQ" outputPin="_qnS1icpvEe6jy67_g7t5GQ" outputLabels="_qnS1aspvEe6jy67_g7t5GQ _qnS1bcpvEe6jy67_g7t5GQ">
+      <term xsi:type="datadictionary:TRUE" id="_qnS1m8pvEe6jy67_g7t5GQ"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_qnS1nMpvEe6jy67_g7t5GQ" inputPins="_qnS1lMpvEe6jy67_g7t5GQ" outputPin="_qnS1jMpvEe6jy67_g7t5GQ" outputLabels="_qnS1aspvEe6jy67_g7t5GQ _qnS1bcpvEe6jy67_g7t5GQ">
+      <term xsi:type="datadictionary:TRUE" id="_qnS1ncpvEe6jy67_g7t5GQ"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_qnS1qcpvEe6jy67_g7t5GQ" inputPins="_qnS1lMpvEe6jy67_g7t5GQ" outputPin="_qnS1hspvEe6jy67_g7t5GQ"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_qnS1qspvEe6jy67_g7t5GQ" inputPins="_qnS1lMpvEe6jy67_g7t5GQ" outputPin="_qnS1icpvEe6jy67_g7t5GQ"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_qnS1q8pvEe6jy67_g7t5GQ" inputPins="_qnS1lMpvEe6jy67_g7t5GQ" outputPin="_qnS1jMpvEe6jy67_g7t5GQ"/>
+  </behaviour>
+  <behaviour id="_qnS1bspvEe6jy67_g7t5GQ">
+    <outPin id="_qnS1g8pvEe6jy67_g7t5GQ"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_qnS1nspvEe6jy67_g7t5GQ" outputPin="_qnS1g8pvEe6jy67_g7t5GQ" outputLabels="_qnS1cMpvEe6jy67_g7t5GQ">
+      <term xsi:type="datadictionary:TRUE" id="_qnS1n8pvEe6jy67_g7t5GQ"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_qnS1rMpvEe6jy67_g7t5GQ" outputPin="_qnS1g8pvEe6jy67_g7t5GQ"/>
+  </behaviour>
+  <behaviour id="_qnS1ccpvEe6jy67_g7t5GQ">
+    <inPin id="_qnS1fMpvEe6jy67_g7t5GQ"/>
+    <inPin id="_qnS1f8pvEe6jy67_g7t5GQ"/>
+    <inPin id="_qnS1hcpvEe6jy67_g7t5GQ"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_qnS1cspvEe6jy67_g7t5GQ" outputLabels="_qnS1c8pvEe6jy67_g7t5GQ _qnS1dMpvEe6jy67_g7t5GQ"/>
+  </behaviour>
+  <behaviour id="_qnS1dcpvEe6jy67_g7t5GQ">
+    <inPin id="_qnS1iMpvEe6jy67_g7t5GQ"/>
+    <inPin id="_qnS1kcpvEe6jy67_g7t5GQ"/>
+    <outPin id="_qnS1fcpvEe6jy67_g7t5GQ"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_qnS1oMpvEe6jy67_g7t5GQ" inputPins="_qnS1iMpvEe6jy67_g7t5GQ _qnS1kcpvEe6jy67_g7t5GQ" outputPin="_qnS1fcpvEe6jy67_g7t5GQ" outputLabels="_qnS1aspvEe6jy67_g7t5GQ">
+      <term xsi:type="datadictionary:TRUE" id="_qnS1ocpvEe6jy67_g7t5GQ"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_qnS1rcpvEe6jy67_g7t5GQ" inputPins="_qnS1iMpvEe6jy67_g7t5GQ _qnS1kcpvEe6jy67_g7t5GQ" outputPin="_qnS1fcpvEe6jy67_g7t5GQ"/>
+  </behaviour>
+  <behaviour id="_qnS1d8pvEe6jy67_g7t5GQ">
+    <outPin id="_qnS1j8pvEe6jy67_g7t5GQ"/>
+    <outPin id="_qnS1kspvEe6jy67_g7t5GQ"/>
+    <outPin id="_qnS1lcpvEe6jy67_g7t5GQ"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_qnS1ospvEe6jy67_g7t5GQ" outputPin="_qnS1j8pvEe6jy67_g7t5GQ" outputLabels="_qnS1c8pvEe6jy67_g7t5GQ _qnS1ecpvEe6jy67_g7t5GQ _qnS1espvEe6jy67_g7t5GQ">
+      <term xsi:type="datadictionary:TRUE" id="_qnS1o8pvEe6jy67_g7t5GQ"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_qnS1pMpvEe6jy67_g7t5GQ" outputPin="_qnS1kspvEe6jy67_g7t5GQ" outputLabels="_qnS1c8pvEe6jy67_g7t5GQ _qnS1ecpvEe6jy67_g7t5GQ _qnS1espvEe6jy67_g7t5GQ">
+      <term xsi:type="datadictionary:TRUE" id="_qnS1pcpvEe6jy67_g7t5GQ"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_qnS1pspvEe6jy67_g7t5GQ" outputPin="_qnS1lcpvEe6jy67_g7t5GQ" outputLabels="_qnS1c8pvEe6jy67_g7t5GQ _qnS1ecpvEe6jy67_g7t5GQ _qnS1espvEe6jy67_g7t5GQ">
+      <term xsi:type="datadictionary:TRUE" id="_qnS1p8pvEe6jy67_g7t5GQ"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_qnS1rspvEe6jy67_g7t5GQ" outputPin="_qnS1j8pvEe6jy67_g7t5GQ"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_qnS1r8pvEe6jy67_g7t5GQ" outputPin="_qnS1kspvEe6jy67_g7t5GQ"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_qnS1sMpvEe6jy67_g7t5GQ" outputPin="_qnS1lcpvEe6jy67_g7t5GQ"/>
+  </behaviour>
+</datadictionary:DataDictionary>

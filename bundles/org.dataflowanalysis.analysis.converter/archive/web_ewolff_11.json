@@ -1,0 +1,392 @@
+{
+  "model" : {
+    "type" : "graph",
+    "id" : "root",
+    "children" : [ {
+      "text" : "eureka",
+      "id" : "_lZ8m5cpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_lZ8m58pvEe6jy67_g7t5GQ",
+      "targetId" : "_lZ8m5spvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "user",
+      "id" : "_lZ8m6MpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_lZ8m6spvEe6jy67_g7t5GQ",
+      "targetId" : "_lZ8m6cpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "zuul",
+      "id" : "_lZ8m68pvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_lZ8m7cpvEe6jy67_g7t5GQ",
+      "targetId" : "_lZ8m7MpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "turbine",
+      "id" : "_lZ8m7spvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_lZ8m8MpvEe6jy67_g7t5GQ",
+      "targetId" : "_lZ8m78pvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "catalog",
+      "id" : "_lZ8m8cpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_lZ8m88pvEe6jy67_g7t5GQ",
+      "targetId" : "_lZ8m8spvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "customer",
+      "id" : "_lZ8m9MpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_lZ8m9spvEe6jy67_g7t5GQ",
+      "targetId" : "_lZ8m9cpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "order",
+      "id" : "_lZ8m98pvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_lZ8m-cpvEe6jy67_g7t5GQ",
+      "targetId" : "_lZ8m-MpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "order",
+      "id" : "_lZ8m-spvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_lZ8m_MpvEe6jy67_g7t5GQ",
+      "targetId" : "_lZ8m-8pvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "order",
+      "id" : "_lZ8m_cpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_lZ8m_8pvEe6jy67_g7t5GQ",
+      "targetId" : "_lZ8m_spvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "order",
+      "id" : "_lZ8nAMpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_lZ8nAspvEe6jy67_g7t5GQ",
+      "targetId" : "_lZ8nAcpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "zuul",
+      "id" : "_lZ8nA8pvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_lZ8nBcpvEe6jy67_g7t5GQ",
+      "targetId" : "_lZ8nBMpvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "zuul",
+      "id" : "_lZ8nBspvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_lZ8nCMpvEe6jy67_g7t5GQ",
+      "targetId" : "_lZ8nB8pvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "zuul",
+      "id" : "_lZ8nCcpvEe6jy67_g7t5GQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_lZ8nC8pvEe6jy67_g7t5GQ",
+      "targetId" : "_lZ8nCspvEe6jy67_g7t5GQ",
+      "children" : [ ]
+    }, {
+      "text" : "user",
+      "labels" : [ {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8m3cpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8m3spvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8m38pvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_lZ8m7MpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.user_stereotype = TRUE\nset annotation.entrypoint = TRUE\nset annotation.exitpoint = TRUE\nforward zuul",
+        "id" : "_lZ8m6spvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_lZ8mwspvEe6jy67_g7t5GQ",
+      "type" : "node:input-output",
+      "children" : [ ]
+    }, {
+      "text" : "eureka",
+      "labels" : [ {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8m08pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8mzspvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8mz8pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8m0MpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_lZ8m78pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_lZ8m8spvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_lZ8m9cpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_lZ8m-MpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.service_discovery = TRUE\nset annotation.infrastructural = TRUE\nset annotation.local_logging = TRUE\nset annotation.log_sanitization = TRUE\nforward turbine\nforward catalog\nforward customer\nforward order",
+        "id" : "_lZ8m58pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_lZ8mw8pvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "zuul",
+      "labels" : [ {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8m2cpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8m2spvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8mzspvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8mz8pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8m0MpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_lZ8m5spvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_lZ8m6cpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.gateway = TRUE\nset annotation.load_balancer = TRUE\nset annotation.infrastructural = TRUE\nset annotation.local_logging = TRUE\nset annotation.log_sanitization = TRUE\nforward eureka\nforward user",
+        "id" : "_lZ8m7cpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.gateway = TRUE\nset annotation.load_balancer = TRUE\nset annotation.infrastructural = TRUE\nset annotation.local_logging = TRUE\nset annotation.log_sanitization = TRUE\nforward eureka\nforward user",
+        "id" : "_lZ8nBcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.gateway = TRUE\nset annotation.load_balancer = TRUE\nset annotation.infrastructural = TRUE\nset annotation.local_logging = TRUE\nset annotation.log_sanitization = TRUE\nforward eureka\nforward user",
+        "id" : "_lZ8nCMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.gateway = TRUE\nset annotation.load_balancer = TRUE\nset annotation.infrastructural = TRUE\nset annotation.local_logging = TRUE\nset annotation.log_sanitization = TRUE\nforward eureka\nforward user",
+        "id" : "_lZ8nC8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_lZ8mxMpvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "turbine",
+      "labels" : [ {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8mzMpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8mzcpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8mzspvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8mz8pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8m0MpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_lZ8nAcpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.monitoring_server = TRUE\nset annotation.monitoring_dashboard = TRUE\nset annotation.infrastructural = TRUE\nset annotation.local_logging = TRUE\nset annotation.log_sanitization = TRUE\nforward order",
+        "id" : "_lZ8m8MpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_lZ8mxcpvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "catalog",
+      "labels" : [ {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8m1spvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8mz8pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8m0MpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_lZ8m-8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_lZ8nB8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nset annotation.local_logging = TRUE\nset annotation.log_sanitization = TRUE\nforward order\nforward zuul",
+        "id" : "_lZ8m88pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_lZ8mxspvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "customer",
+      "labels" : [ {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8m1spvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8mz8pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8m0MpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_lZ8m_spvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_lZ8nBMpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nset annotation.local_logging = TRUE\nset annotation.log_sanitization = TRUE\nforward order\nforward zuul",
+        "id" : "_lZ8m9spvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_lZ8mx8pvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "order",
+      "labels" : [ {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8m1spvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8m2spvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8m5MpvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8mz8pvEe6jy67_g7t5GQ"
+      }, {
+        "labelTypeId" : "_lZ8mycpvEe6jy67_g7t5GQ",
+        "labelTypeValueId" : "_lZ8m0MpvEe6jy67_g7t5GQ"
+      } ],
+      "ports" : [ {
+        "id" : "_lZ8nCspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nset annotation.load_balancer = TRUE\nset annotation.circuit_breaker = TRUE\nset annotation.local_logging = TRUE\nset annotation.log_sanitization = TRUE\nforward zuul",
+        "id" : "_lZ8m-cpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nset annotation.load_balancer = TRUE\nset annotation.circuit_breaker = TRUE\nset annotation.local_logging = TRUE\nset annotation.log_sanitization = TRUE\nforward zuul",
+        "id" : "_lZ8m_MpvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nset annotation.load_balancer = TRUE\nset annotation.circuit_breaker = TRUE\nset annotation.local_logging = TRUE\nset annotation.log_sanitization = TRUE\nforward zuul",
+        "id" : "_lZ8m_8pvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set annotation.internal = TRUE\nset annotation.load_balancer = TRUE\nset annotation.circuit_breaker = TRUE\nset annotation.local_logging = TRUE\nset annotation.log_sanitization = TRUE\nforward zuul",
+        "id" : "_lZ8nAspvEe6jy67_g7t5GQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_lZ8myMpvEe6jy67_g7t5GQ",
+      "type" : "node:function",
+      "children" : [ ]
+    } ]
+  },
+  "labelTypes" : [ {
+    "id" : "_lZ8mycpvEe6jy67_g7t5GQ",
+    "name" : "annotation",
+    "values" : [ {
+      "id" : "_lZ8mzMpvEe6jy67_g7t5GQ",
+      "text" : "monitoring_server"
+    }, {
+      "id" : "_lZ8mzcpvEe6jy67_g7t5GQ",
+      "text" : "monitoring_dashboard"
+    }, {
+      "id" : "_lZ8mzspvEe6jy67_g7t5GQ",
+      "text" : "infrastructural"
+    }, {
+      "id" : "_lZ8mz8pvEe6jy67_g7t5GQ",
+      "text" : "local_logging"
+    }, {
+      "id" : "_lZ8m0MpvEe6jy67_g7t5GQ",
+      "text" : "log_sanitization"
+    }, {
+      "id" : "_lZ8m08pvEe6jy67_g7t5GQ",
+      "text" : "service_discovery"
+    }, {
+      "id" : "_lZ8m1spvEe6jy67_g7t5GQ",
+      "text" : "internal"
+    }, {
+      "id" : "_lZ8m2cpvEe6jy67_g7t5GQ",
+      "text" : "gateway"
+    }, {
+      "id" : "_lZ8m2spvEe6jy67_g7t5GQ",
+      "text" : "load_balancer"
+    }, {
+      "id" : "_lZ8m3cpvEe6jy67_g7t5GQ",
+      "text" : "user_stereotype"
+    }, {
+      "id" : "_lZ8m3spvEe6jy67_g7t5GQ",
+      "text" : "entrypoint"
+    }, {
+      "id" : "_lZ8m38pvEe6jy67_g7t5GQ",
+      "text" : "exitpoint"
+    }, {
+      "id" : "_lZ8m5MpvEe6jy67_g7t5GQ",
+      "text" : "circuit_breaker"
+    } ]
+  } ]
+}

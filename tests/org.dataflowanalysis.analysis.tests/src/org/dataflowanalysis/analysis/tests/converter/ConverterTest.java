@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.converter.tests;
+package org.dataflowanalysis.analysis.tests.converter;
 
 import org.junit.jupiter.api.*;
 
@@ -39,8 +39,8 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
-public class ConverterTests {
-	private static final String packagePath="src/org/dataflowanalysis/analysis/converter/tests/";
+public class ConverterTest {
+	private static final String packagePath="../org.dataflowanalysis.analysis.testmodels/models/ConverterTest/";
 	
 	@Test
 	@DisplayName("Test Web -> DFD -> Web")

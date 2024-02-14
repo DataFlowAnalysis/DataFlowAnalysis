@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://www.example.org/dataflowdiagram" id="_nx8Y4MpvEe6jy67_g7t5GQ">
+  <flows id="_nx8ZDspvEe6jy67_g7t5GQ" entityName="discovery_server" sourceNode="_nx8Y5cpvEe6jy67_g7t5GQ" destinationNode="_nx8Y5spvEe6jy67_g7t5GQ">
+    <destinationPin href="piomin_7.datadictionary#_nx8ZD8pvEe6jy67_g7t5GQ"/>
+    <sourcePin href="piomin_7.datadictionary#_nx8ZEMpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_nx8ZEcpvEe6jy67_g7t5GQ" entityName="database_gateway_server" sourceNode="_nx8Y4spvEe6jy67_g7t5GQ" destinationNode="_nx8Y5spvEe6jy67_g7t5GQ">
+    <destinationPin href="piomin_7.datadictionary#_nx8ZEspvEe6jy67_g7t5GQ"/>
+    <sourcePin href="piomin_7.datadictionary#_nx8ZE8pvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_nx8ZFMpvEe6jy67_g7t5GQ" entityName="user" sourceNode="_nx8Y48pvEe6jy67_g7t5GQ" destinationNode="_nx8Y5spvEe6jy67_g7t5GQ">
+    <destinationPin href="piomin_7.datadictionary#_nx8ZFcpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="piomin_7.datadictionary#_nx8_8MpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_nx8_8cpvEe6jy67_g7t5GQ" entityName="gateway_server" sourceNode="_nx8Y5spvEe6jy67_g7t5GQ" destinationNode="_nx8Y48pvEe6jy67_g7t5GQ">
+    <destinationPin href="piomin_7.datadictionary#_nx8_8spvEe6jy67_g7t5GQ"/>
+    <sourcePin href="piomin_7.datadictionary#_nx8_88pvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_nx8_9MpvEe6jy67_g7t5GQ" entityName="auth_server" sourceNode="_nx8Y58pvEe6jy67_g7t5GQ" destinationNode="_nx8Y5cpvEe6jy67_g7t5GQ">
+    <destinationPin href="piomin_7.datadictionary#_nx8_9cpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="piomin_7.datadictionary#_nx8_9spvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_nx8_98pvEe6jy67_g7t5GQ" entityName="database_auth_server" sourceNode="_nx8Y5MpvEe6jy67_g7t5GQ" destinationNode="_nx8Y58pvEe6jy67_g7t5GQ">
+    <destinationPin href="piomin_7.datadictionary#_nx8_-MpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="piomin_7.datadictionary#_nx8_-cpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_nx8_-spvEe6jy67_g7t5GQ" entityName="gateway_server" sourceNode="_nx8Y5spvEe6jy67_g7t5GQ" destinationNode="_nx8Y58pvEe6jy67_g7t5GQ">
+    <destinationPin href="piomin_7.datadictionary#_nx8_-8pvEe6jy67_g7t5GQ"/>
+    <sourcePin href="piomin_7.datadictionary#_nx8__MpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_nx8__cpvEe6jy67_g7t5GQ" entityName="account_service" sourceNode="_nx8Y6MpvEe6jy67_g7t5GQ" destinationNode="_nx8Y5cpvEe6jy67_g7t5GQ">
+    <destinationPin href="piomin_7.datadictionary#_nx8__spvEe6jy67_g7t5GQ"/>
+    <sourcePin href="piomin_7.datadictionary#_nx8__8pvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_nx9AAMpvEe6jy67_g7t5GQ" entityName="auth_server" sourceNode="_nx8Y58pvEe6jy67_g7t5GQ" destinationNode="_nx8Y6MpvEe6jy67_g7t5GQ">
+    <destinationPin href="piomin_7.datadictionary#_nx9AAcpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="piomin_7.datadictionary#_nx9AAspvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_nx9AA8pvEe6jy67_g7t5GQ" entityName="gateway_server" sourceNode="_nx8Y5spvEe6jy67_g7t5GQ" destinationNode="_nx8Y6MpvEe6jy67_g7t5GQ">
+    <destinationPin href="piomin_7.datadictionary#_nx9ABMpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="piomin_7.datadictionary#_nx9ABcpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_nx9ABspvEe6jy67_g7t5GQ" entityName="customer_service" sourceNode="_nx8Y6cpvEe6jy67_g7t5GQ" destinationNode="_nx8Y5cpvEe6jy67_g7t5GQ">
+    <destinationPin href="piomin_7.datadictionary#_nx9AB8pvEe6jy67_g7t5GQ"/>
+    <sourcePin href="piomin_7.datadictionary#_nx9ACMpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_nx9ACcpvEe6jy67_g7t5GQ" entityName="customer_service" sourceNode="_nx8Y6cpvEe6jy67_g7t5GQ" destinationNode="_nx8Y6MpvEe6jy67_g7t5GQ">
+    <destinationPin href="piomin_7.datadictionary#_nx9ACspvEe6jy67_g7t5GQ"/>
+    <sourcePin href="piomin_7.datadictionary#_nx9AC8pvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_nx9ADMpvEe6jy67_g7t5GQ" entityName="auth_server" sourceNode="_nx8Y58pvEe6jy67_g7t5GQ" destinationNode="_nx8Y6cpvEe6jy67_g7t5GQ">
+    <destinationPin href="piomin_7.datadictionary#_nx9ADcpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="piomin_7.datadictionary#_nx9ADspvEe6jy67_g7t5GQ"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:External" id="_nx8Y4spvEe6jy67_g7t5GQ" entityName="database_gateway_server">
+    <behaviour href="piomin_7.datadictionary#_nx8Y68pvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y7cpvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y7spvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y78pvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y8MpvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="_nx8Y48pvEe6jy67_g7t5GQ" entityName="user">
+    <behaviour href="piomin_7.datadictionary#_nx8ZBcpvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8ZB8pvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y7spvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y78pvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="_nx8Y5MpvEe6jy67_g7t5GQ" entityName="database_auth_server">
+    <behaviour href="piomin_7.datadictionary#_nx8ZAMpvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y7cpvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y7spvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y78pvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y8MpvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8ZAspvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_nx8Y5cpvEe6jy67_g7t5GQ" entityName="discovery_server">
+    <behaviour href="piomin_7.datadictionary#_nx8Y_cpvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y_8pvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y9cpvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_nx8Y5spvEe6jy67_g7t5GQ" entityName="gateway_server">
+    <behaviour href="piomin_7.datadictionary#_nx8Y8cpvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y88pvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y9MpvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y8MpvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y9cpvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y9spvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y98pvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_nx8Y58pvEe6jy67_g7t5GQ" entityName="auth_server">
+    <behaviour href="piomin_7.datadictionary#_nx8ZCMpvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8ZCspvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8ZC8pvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y9cpvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y_MpvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8ZDMpvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8ZDcpvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_nx8Y6MpvEe6jy67_g7t5GQ" entityName="account_service">
+    <behaviour href="piomin_7.datadictionary#_nx8Y-MpvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y-spvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y-8pvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y_MpvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_nx8Y6cpvEe6jy67_g7t5GQ" entityName="customer_service">
+    <behaviour href="piomin_7.datadictionary#_nx8ZA8pvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y-spvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y-8pvEe6jy67_g7t5GQ"/>
+    <properties href="piomin_7.datadictionary#_nx8Y_MpvEe6jy67_g7t5GQ"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

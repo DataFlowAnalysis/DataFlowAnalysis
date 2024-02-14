@@ -1,0 +1,365 @@
+{
+    "services": [
+        {
+            "name": "admin_dashboard",
+            "stereotypes": [
+                "administration_server",
+                "infrastructural",
+                "csrf_disabled"
+            ],
+            "tagged_values": {
+                "Administration Server": "Spring Boot Admin",
+                "Port": 8040
+            }
+        },
+        {
+            "name": "eureka_server",
+            "stereotypes": [
+                "service_discovery",
+                "infrastructural",
+                "csrf_disabled"
+            ],
+            "tagged_values": {
+                "Service Discovery": "Eureka",
+                "Port": 8761
+            }
+        },
+        {
+            "name": "rabbitmq",
+            "stereotypes": [
+                "message_broker",
+                "infrastructural"
+            ],
+            "tagged_values": {
+                "Message Broker": "RabbitMQ",
+                "Port": 4369
+            }
+        },
+        {
+            "name": "config_server",
+            "stereotypes": [
+                "configuration_server",
+                "infrastructural",
+                "csrf_disabled"
+            ],
+            "tagged_values": {
+                "Configuration Server": "Spring Cloud Config",
+                "Port": 8100
+            }
+        },
+        {
+            "name": "hystrix_dashboard",
+            "stereotypes": [
+                "monitoring_dashboard",
+                "monitoring_server",
+                "infrastructural",
+                "csrf_disabled"
+            ],
+            "tagged_values": {
+                "Monitoring Dashboard": "Hystrix",
+                "Monitoring Server": "Turbine",
+                "Port": 8050
+            }
+        },
+        {
+            "name": "service_a",
+            "stereotypes": [
+                "internal",
+                "circuit_breaker",
+                "csrf_disabled"
+            ],
+            "tagged_values": {
+                "Port": 8080,
+                "Endpoints": [
+                    "/"
+                ],
+                "Circuit Breaker": "Hystrix"
+            }
+        },
+        {
+            "name": "service_b",
+            "stereotypes": [
+                "internal",
+                "csrf_disabled"
+            ],
+            "tagged_values": {
+                "Port": 8070,
+                "Endpoints": [
+                    "/"
+                ]
+            }
+        },
+        {
+            "name": "zuul",
+            "stereotypes": [
+                "gateway",
+                "infrastructural",
+                "load_balancer",
+                "csrf_disabled",
+                "transform_identity_representation"
+            ],
+            "tagged_values": {
+                "Gateway": "Zuul",
+                "Port": 8060,
+                "Load Balancer": "Ribbon"
+            }
+        },
+        {
+            "name": "zipkin",
+            "stereotypes": [
+                "tracing_server",
+                "infrastructural"
+            ],
+            "tagged_values": {
+                "Tracing Server": "Zipkin",
+                "Port": 9411
+            }
+        }
+    ],
+    "information_flows": [
+        {
+            "sender": "admin_dashboard",
+            "receiver": "config_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "eureka_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "rabbitmq",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "admin_dashboard",
+            "receiver": "eureka_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "admin_dashboard",
+            "receiver": "hystrix_dashboard",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "hystrix_dashboard",
+            "receiver": "eureka_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "admin_dashboard",
+            "receiver": "service_a",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "service_a",
+            "receiver": "rabbitmq",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "service_a",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "service_a",
+            "receiver": "eureka_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "service_a",
+            "receiver": "hystrix_dashboard",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "admin_dashboard",
+            "receiver": "service_b",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "service_b",
+            "receiver": "rabbitmq",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "service_b",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "service_b",
+            "receiver": "eureka_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "service_a",
+            "receiver": "service_b",
+            "stereotypes": [
+                "restful_http",
+                "feign_connection"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "zuul",
+            "receiver": "user",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user",
+            "receiver": "zuul",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "zuul",
+            "receiver": "service_a",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "eureka_server",
+            "receiver": "zuul",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "rabbitmq",
+            "receiver": "zipkin",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "service_b",
+            "receiver": "zipkin",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "service_b",
+            "receiver": "hystrix_dashboard",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "service_a",
+            "receiver": "zipkin",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "admin_dashboard",
+            "receiver": "rabbitmq",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "admin_dashboard",
+            "receiver": "zuul",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "zuul",
+            "receiver": "rabbitmq",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "zuul",
+            "receiver": "zipkin",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "zuul",
+            "receiver": "config_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        }
+    ],
+    "external_entities": [
+        {
+            "name": "user",
+            "stereotypes": [
+                "user_stereotype",
+                "entrypoint",
+                "exitpoint"
+            ],
+            "tagged_values": {}
+        }
+    ]
+}

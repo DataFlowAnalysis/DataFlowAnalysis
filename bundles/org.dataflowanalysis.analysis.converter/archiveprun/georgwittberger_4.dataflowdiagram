@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://www.example.org/dataflowdiagram" id="_oaUAcMpvEe6jy67_g7t5GQ">
+  <flows id="_oaUAispvEe6jy67_g7t5GQ" entityName="user" sourceNode="_oaUAcspvEe6jy67_g7t5GQ" destinationNode="_oaUAc8pvEe6jy67_g7t5GQ">
+    <destinationPin href="georgwittberger_4.datadictionary#_oaUAi8pvEe6jy67_g7t5GQ"/>
+    <sourcePin href="georgwittberger_4.datadictionary#_oaUAjMpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_oaUAjcpvEe6jy67_g7t5GQ" entityName="apache_server" sourceNode="_oaUAc8pvEe6jy67_g7t5GQ" destinationNode="_oaUAcspvEe6jy67_g7t5GQ">
+    <destinationPin href="georgwittberger_4.datadictionary#_oaUAjspvEe6jy67_g7t5GQ"/>
+    <sourcePin href="georgwittberger_4.datadictionary#_oaUAj8pvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_oaUAkMpvEe6jy67_g7t5GQ" entityName="cart_service" sourceNode="_oaUAdspvEe6jy67_g7t5GQ" destinationNode="_oaUAdcpvEe6jy67_g7t5GQ">
+    <destinationPin href="georgwittberger_4.datadictionary#_oaUAkcpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="georgwittberger_4.datadictionary#_oaUAkspvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_oaUAk8pvEe6jy67_g7t5GQ" entityName="apache_server" sourceNode="_oaUAc8pvEe6jy67_g7t5GQ" destinationNode="_oaUAdspvEe6jy67_g7t5GQ">
+    <destinationPin href="georgwittberger_4.datadictionary#_oaUAlMpvEe6jy67_g7t5GQ"/>
+    <sourcePin href="georgwittberger_4.datadictionary#_oaUAlcpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_oaUAlspvEe6jy67_g7t5GQ" entityName="apache_server" sourceNode="_oaUAc8pvEe6jy67_g7t5GQ" destinationNode="_oaUAdcpvEe6jy67_g7t5GQ">
+    <destinationPin href="georgwittberger_4.datadictionary#_oaUAl8pvEe6jy67_g7t5GQ"/>
+    <sourcePin href="georgwittberger_4.datadictionary#_oaUAmMpvEe6jy67_g7t5GQ"/>
+  </flows>
+  <flows id="_oaUAmcpvEe6jy67_g7t5GQ" entityName="apache_server" sourceNode="_oaUAc8pvEe6jy67_g7t5GQ" destinationNode="_oaUAdMpvEe6jy67_g7t5GQ">
+    <destinationPin href="georgwittberger_4.datadictionary#_oaUAmspvEe6jy67_g7t5GQ"/>
+    <sourcePin href="georgwittberger_4.datadictionary#_oaUAm8pvEe6jy67_g7t5GQ"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:External" id="_oaUAcspvEe6jy67_g7t5GQ" entityName="user">
+    <behaviour href="georgwittberger_4.datadictionary#_oaUAg8pvEe6jy67_g7t5GQ"/>
+    <properties href="georgwittberger_4.datadictionary#_oaUAhcpvEe6jy67_g7t5GQ"/>
+    <properties href="georgwittberger_4.datadictionary#_oaUAhspvEe6jy67_g7t5GQ"/>
+    <properties href="georgwittberger_4.datadictionary#_oaUAh8pvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_oaUAc8pvEe6jy67_g7t5GQ" entityName="apache_server">
+    <behaviour href="georgwittberger_4.datadictionary#_oaUAfcpvEe6jy67_g7t5GQ"/>
+    <properties href="georgwittberger_4.datadictionary#_oaUAf8pvEe6jy67_g7t5GQ"/>
+    <properties href="georgwittberger_4.datadictionary#_oaUAgMpvEe6jy67_g7t5GQ"/>
+    <properties href="georgwittberger_4.datadictionary#_oaUAgcpvEe6jy67_g7t5GQ"/>
+    <properties href="georgwittberger_4.datadictionary#_oaUAgspvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_oaUAdMpvEe6jy67_g7t5GQ" entityName="content_service">
+    <behaviour href="georgwittberger_4.datadictionary#_oaUAeMpvEe6jy67_g7t5GQ"/>
+    <properties href="georgwittberger_4.datadictionary#_oaUAespvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_oaUAdcpvEe6jy67_g7t5GQ" entityName="product_service">
+    <behaviour href="georgwittberger_4.datadictionary#_oaUAiMpvEe6jy67_g7t5GQ"/>
+    <properties href="georgwittberger_4.datadictionary#_oaUAespvEe6jy67_g7t5GQ"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_oaUAdspvEe6jy67_g7t5GQ" entityName="cart_service">
+    <behaviour href="georgwittberger_4.datadictionary#_oaUAe8pvEe6jy67_g7t5GQ"/>
+    <properties href="georgwittberger_4.datadictionary#_oaUAespvEe6jy67_g7t5GQ"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

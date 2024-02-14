@@ -115,8 +115,9 @@ public class Main {
 		File directory = new File(".");
         File[] files = directory.listFiles((dir, name) -> name.endsWith(".json"));
         for(File file:files) {
-        	readMicro(file.getName());
-        	readDFD(file.getName().replaceAll("\\.json.*", ""),"web_"+file.getName());
+        	//readMicro(file.getName());
+        	//readDFD(file.getName().replaceAll("\\.json.*", ""),file.getName());
+        	readWeb(file.getName());
         	try {
             	Thread.sleep(200);
             }catch(InterruptedException e) {}

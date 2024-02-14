@@ -1,0 +1,334 @@
+{
+    "services": [
+        {
+            "name": "config_service",
+            "stereotypes": [
+                "configuration_server",
+                "infrastructural"
+            ],
+            "tagged_values": {
+                "Port": 8888,
+                "Configuration Server": "Spring Cloud Config"
+            }
+        },
+        {
+            "name": "eureka_service",
+            "stereotypes": [
+                "service_discovery",
+                "infrastructural"
+            ],
+            "tagged_values": {
+                "Service Discovery": "Eureka",
+                "Port": 8761
+            }
+        },
+        {
+            "name": "movie_service",
+            "stereotypes": [
+                "internal"
+            ],
+            "tagged_values": {
+                "Port": 8002,
+                "Endpoints": [
+                    "/movie/dummyData",
+                    "/movie/list",
+                    "/movie/{movieId}",
+                    "/movie"
+                ]
+            }
+        },
+        {
+            "name": "user_service",
+            "stereotypes": [
+                "internal"
+            ],
+            "tagged_values": {
+                "Port": 8001,
+                "Endpoints": [
+                    "/user",
+                    "/user/{userId}"
+                ]
+            }
+        },
+        {
+            "name": "recommendation_service",
+            "stereotypes": [
+                "internal"
+            ],
+            "tagged_values": {
+                "Port": 8003,
+                "Endpoints": [
+                    "/recommendation",
+                    "/recommendation/recommend/user/{userId}",
+                    "/recommendation/user",
+                    "/recommendation/movie/{movieId}",
+                    "/recommendation/user/{userId}",
+                    "/recommendation/dummyData",
+                    "/recommendation/movie"
+                ]
+            }
+        },
+        {
+            "name": "recommendation_client",
+            "stereotypes": [
+                "gateway",
+                "monitoring_dashboard",
+                "local_logging",
+                "infrastructural",
+                "circuit_breaker",
+                "load_balancer",
+                "transform_identity_representation"
+            ],
+            "tagged_values": {
+                "Port": 9000,
+                "Gateway": "Zuul",
+                "Monitoring Dashboard": "Hystrix",
+                "Circuit Breaker": "Hystrix",
+                "Load Balancer": "Ribbon",
+                "Endpoints": [
+                    "/user/{userId}",
+                    "/api/userDetails/{userId}",
+                    "/user",
+                    "/api",
+                    "/recommendation/dummyData",
+                    "/movie/dummyData",
+                    "/newuser",
+                    "/api/recommendation/user/{userId}",
+                    "/movie"
+                ]
+            }
+        }
+    ],
+    "external_entities": [
+        {
+            "name": "github_repository",
+            "stereotypes": [
+                "github_repository",
+                "entrypoint"
+            ],
+            "tagged_values": {
+                "URL": "https://github.com/mdeket/spring-cloud-example-config-repo.git"
+            }
+        },
+        {
+            "name": "database_movie_service",
+            "stereotypes": [
+                "entrypoint",
+                "exitpoint",
+                "external_database"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "name": "database_user_service",
+            "stereotypes": [
+                "entrypoint",
+                "exitpoint",
+                "external_database",
+                "plaintext_credentials"
+            ],
+            "tagged_values": {
+                "Port": 3306,
+                "Database": "MySQL",
+                "Username": "root",
+                "Password": "root"
+            }
+        },
+        {
+            "name": "database_recommendation_service",
+            "stereotypes": [
+                "exitpoint",
+                "entrypoint",
+                "external_database",
+                "plaintext_credentials"
+            ],
+            "tagged_values": {
+                "Database": "Neo4j",
+                "Port": 7474,
+                "Username": "neo4j",
+                "Password": "root"
+            }
+        },
+        {
+            "name": "user",
+            "stereotypes": [
+                "user_stereotype",
+                "entrypoint",
+                "exitpoint"
+            ],
+            "tagged_values": {}
+        }
+    ],
+    "information_flows": [
+        {
+            "sender": "github_repository",
+            "receiver": "config_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_service",
+            "receiver": "eureka_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "movie_service",
+            "receiver": "eureka_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_service",
+            "receiver": "movie_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "database_movie_service",
+            "receiver": "movie_service",
+            "stereotypes": [
+                "jdbc"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user_service",
+            "receiver": "eureka_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_service",
+            "receiver": "user_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "database_user_service",
+            "receiver": "user_service",
+            "stereotypes": [
+                "jdbc",
+                "plaintext_credentials_link"
+            ],
+            "tagged_values": {
+                "'Username'": "root",
+                "'Password'": "root"
+            }
+        },
+        {
+            "sender": "recommendation_service",
+            "receiver": "eureka_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_service",
+            "receiver": "recommendation_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "database_recommendation_service",
+            "receiver": "recommendation_service",
+            "stereotypes": [
+                "jdbc",
+                "plaintext_credentials_link"
+            ],
+            "tagged_values": {
+                "'Username'": "neo4j",
+                "'Password'": "root"
+            }
+        },
+        {
+            "sender": "eureka_service",
+            "receiver": "recommendation_client",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user",
+            "receiver": "recommendation_client",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "recommendation_client",
+            "receiver": "user",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_service",
+            "receiver": "recommendation_client",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "recommendation_client",
+            "receiver": "recommendation_service",
+            "stereotypes": [
+                "restful_http",
+                "circuit_breaker_link",
+                "load_balanced_link",
+                "feign_connection"
+            ],
+            "tagged_values": {
+                "'Circuit Breaker'": "Hystrix",
+                "'Load Balancer'": "Ribbon"
+            }
+        },
+        {
+            "sender": "recommendation_client",
+            "receiver": "movie_service",
+            "stereotypes": [
+                "restful_http",
+                "circuit_breaker_link",
+                "load_balanced_link",
+                "feign_connection"
+            ],
+            "tagged_values": {
+                "'Circuit Breaker'": "Hystrix",
+                "'Load Balancer'": "Ribbon"
+            }
+        },
+        {
+            "sender": "recommendation_client",
+            "receiver": "user_service",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link",
+                "circuit_breaker_link",
+                "feign_connection"
+            ],
+            "tagged_values": {
+                "'Load Balancer'": "Ribbon",
+                "'Circuit Breaker'": "Hystrix"
+            }
+        }
+    ]
+}

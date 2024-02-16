@@ -41,7 +41,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 public class ConverterTest {
 	private static final String packagePath="../org.dataflowanalysis.analysis.testmodels/models/ConverterTest/";
-	Converter converter;
+	private Converter converter;
 	
 	@BeforeEach
 	public void setup() {
@@ -51,8 +51,8 @@ public class ConverterTest {
 	@Test
 	@DisplayName("Test Web -> DFD -> Web")
 	public void webToDfdToWeb() {
-		converter.readWeb(packagePath+"minimal.json");
-		converter.readDFD(packagePath+"minimal",packagePath+"test.json");
+		converter.webToDfd(packagePath+"minimal.json");
+		converter.dfdToWeb(packagePath+"minimal",packagePath+"test.json");
 		
 		ObjectMapper objectMapper = new ObjectMapper();        
 		File file = new File(packagePath+"minimal.json");
@@ -177,12 +177,12 @@ public class ConverterTest {
 		MicroSecEnd microAfter = null;
 
 		try {
-            converter.runPython(packagePath+"anilallewar.json", "txt", packagePath+"toPlant.txt");
+            converter.runPythonScript(packagePath+"anilallewar.json", "txt", packagePath+"toPlant.txt");
             ObjectMapper objectMapper = new ObjectMapper();        
     		File file = new File(packagePath+"anilallewar.json");
     		microBefore = objectMapper.readValue(file, MicroSecEnd.class);
         
-            converter.runPython(packagePath+"toPlant.txt", "json", packagePath+"fromPlant.json");
+            converter.runPythonScript(packagePath+"toPlant.txt", "json", packagePath+"fromPlant.json");
             objectMapper = new ObjectMapper();        
     		file = new File(packagePath+"fromPlant.json");
     		microAfter = objectMapper.readValue(file, MicroSecEnd.class);

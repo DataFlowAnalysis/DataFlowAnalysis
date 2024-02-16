@@ -53,35 +53,13 @@ public class ReadMeTest extends BaseTest {
 		
 		// Code snippet from README starts here
 		List<ActionSequence> actionSequences = analysis.findAllSequences();
-		
 
 	    List<ActionSequence> propagationResult = analysis.evaluateDataFlows(actionSequences);
 	    
 	    for(ActionSequence actionSequence : propagationResult) {
-	    	List<AbstractActionSequenceElement<?>> violations = analysis.queryDataFlow(actionSequence,node -> {
-	    			if(hasNodeCharacteristic(node, "AssignedRoles", "Airline") && hasDataCharacteristic(node, "GrantedRoles", "User")) {
-	    				System.out.println(node.createPrintableNodeInformation());
-	    				return true;
-	    			}
-	    		return false;
-	    	}
+	    	List<AbstractActionSequenceElement<?>> violations = analysis.queryDataFlow(actionSequence,
+	        it -> false // Constraint goes here, return true, if constraint is violated
 	      );
-	    	System.out.println("Violations: " + violations);
 	    }
-	    
-	}
-	
-	public boolean hasNodeCharacteristic(AbstractActionSequenceElement<?> node, String type, String value) {
-		if(node.getAllNodeCharacteristics().stream().anyMatch(n -> n.getTypeName().equals(type) && n.getValueName().equals(value))) {
-				return true;
-		}
-		return false;
-	}
-	
-	public boolean hasDataCharacteristic(AbstractActionSequenceElement<?> node, String type, String value) {
-		if(node.getAllDataFlowVariables().stream().anyMatch(v -> v.getAllCharacteristics().stream().anyMatch(c -> c.getTypeName().equals(type) && c.getValueName().equals(value)))){
-			return true;
-		}
-		return false;
 	}
 }

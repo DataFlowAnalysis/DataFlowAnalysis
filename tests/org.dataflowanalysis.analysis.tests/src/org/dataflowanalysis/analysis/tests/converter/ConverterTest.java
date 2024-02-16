@@ -41,12 +41,18 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 public class ConverterTest {
 	private static final String packagePath="../org.dataflowanalysis.analysis.testmodels/models/ConverterTest/";
+	Converter converter;
+	
+	@BeforeEach
+	public void setup() {
+		converter=new Converter();
+	}
 	
 	@Test
 	@DisplayName("Test Web -> DFD -> Web")
 	public void webToDfdToWeb() {
-		Main.readWeb(packagePath+"minimal.json");
-		Main.readDFD(packagePath+"minimal",packagePath+"test.json");
+		converter.readWeb(packagePath+"minimal.json");
+		converter.readDFD(packagePath+"minimal",packagePath+"test.json");
 		
 		ObjectMapper objectMapper = new ObjectMapper();        
 		File file = new File(packagePath+"minimal.json");
@@ -171,12 +177,12 @@ public class ConverterTest {
 		MicroSecEnd microAfter = null;
 
 		try {
-            Main.runPython(packagePath+"anilallewar.json", "txt", packagePath+"toPlant.txt");
+            converter.runPython(packagePath+"anilallewar.json", "txt", packagePath+"toPlant.txt");
             ObjectMapper objectMapper = new ObjectMapper();        
     		File file = new File(packagePath+"anilallewar.json");
     		microBefore = objectMapper.readValue(file, MicroSecEnd.class);
         
-            Main.runPython(packagePath+"toPlant.txt", "json", packagePath+"fromPlant.json");
+            converter.runPython(packagePath+"toPlant.txt", "json", packagePath+"fromPlant.json");
             objectMapper = new ObjectMapper();        
     		file = new File(packagePath+"fromPlant.json");
     		microAfter = objectMapper.readValue(file, MicroSecEnd.class);
@@ -215,6 +221,90 @@ public class ConverterTest {
 	@Test
 	@DisplayName("Test Ass to DFD")
 	public void assToDfd() {
+		String name="TravelPlanner";
+		String modelFileName="travelPlanner";
+		String TEST_MODEL_PROJECT_NAME = "org.dataflowanalysis.analysis.testmodels";
+		
+		final var usageModelPath = Paths.get("models", name, modelFileName + ".usagemodel").toString();
+		final var allocationPath = Paths.get("models", name, modelFileName + ".allocation").toString();
+		final var nodeCharPath = Paths.get("models", name, modelFileName + ".nodecharacteristics").toString();
+				
+		DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder()
+		        .standalone()
+		        .modelProjectName(TEST_MODEL_PROJECT_NAME)
+		        .usePluginActivator(Activator.class)
+		        .useUsageModel(usageModelPath)
+		        .useAllocationModel(allocationPath)
+		        .useNodeCharacteristicsModel(nodeCharPath)
+		        .build();
+		
+		analysis.initializeAnalysis();
+		analysis.findAllSequences();
+		var sequences = analysis.findAllSequences();
+		var propagationResult = analysis.evaluateDataFlows(sequences);
+		
+		Map<String,String> assIdToName = new HashMap<>();
+		for(ActionSequence as : propagationResult) {
+			for(AbstractActionSequenceElement ase: as.getElements()) {
+				if(ase instanceof SEFFActionSequenceElement) {
+					var cast=(SEFFActionSequenceElement) ase;
+					assIdToName.putIfAbsent(cast.getElement().getId(), cast.getElement().getEntityName());
+				}
+				else if(ase instanceof CallingSEFFActionSequenceElement) {
+					var cast=(CallingSEFFActionSequenceElement) ase;
+					assIdToName.putIfAbsent(cast.getElement().getId(), cast.getElement().getEntityName());
+				}
+				else if(ase instanceof CallingUserActionSequenceElement) {
+					var cast=(CallingUserActionSequenceElement) ase;
+					assIdToName.putIfAbsent(cast.getElement().getId(), cast.getElement().getEntityName());
+				}
+				else {
+					var cast=(UserActionSequenceElement) ase;
+					assIdToName.putIfAbsent(cast.getElement().getId(), cast.getElement().getEntityName());
+				}
+			}
+		}
+		
+		ProcessASS ass2dfd = new ProcessASS();
+		
+		ass2dfd.transform(propagationResult);
+		
+		DataDictionary dd = ass2dfd.getDictionary();
+		DataFlowDiagram dfd = ass2dfd.getDataFlowDiagram();
+		
+		assertEquals(dfd.getNodes().size(),assIdToName.keySet().size());
+		
+		List<String> nodeIds = new ArrayList<>();
+		for(Node node :dfd.getNodes()) {
+			nodeIds.add(node.getId());
+		}
+		Collections.sort(nodeIds);
+		List<String> assIds=new ArrayList<>(assIdToName.keySet());
+		Collections.sort(assIds);
+		
+		assertEquals(assIds,nodeIds);
+		
+		for(Node node : dfd.getNodes()) {
+			assertEquals(node.getEntityName(),assIdToName.get(node.getId()));
+		}
+
+		List<String> flowNames=new ArrayList<>();
+		for(ActionSequence as : propagationResult) {
+			for(AbstractActionSequenceElement ase: as.getElements()) {
+				List<DataFlowVariable> variables=ase.getAllDataFlowVariables();
+				for(DataFlowVariable variable:variables) {
+					flowNames.add(variable.variableName());
+				}
+			}
+		}
+
+		assertEquals(flowNames.size(),dfd.getFlows().size());
+		
+	}
+	
+	@Test
+	@DisplayName("Test if manual online shop conversion is correct")
+	public void onlineShop() {
 		String name="TravelPlanner";
 		String modelFileName="travelPlanner";
 		String TEST_MODEL_PROJECT_NAME = "org.dataflowanalysis.analysis.testmodels";

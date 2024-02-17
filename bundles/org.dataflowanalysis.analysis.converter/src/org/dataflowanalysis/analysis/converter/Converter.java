@@ -151,22 +151,21 @@ public class Converter {
 		
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Resource createAndAddResource(String outputFile, String[] fileextensions, ResourceSet rs) {
 	     for (String fileext : fileextensions) {
 	        rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put(fileext, new XMLResourceFactoryImpl());
 	     }		
 	     URI uri = URI.createFileURI(outputFile);
 	     Resource resource = rs.createResource(uri);
-	     ((ResourceImpl)resource).setIntrinsicIDToEObjectMap(new HashMap());
+	     ((ResourceImpl)resource).setIntrinsicIDToEObjectMap(new HashMap<>());
 	     return resource;
 	  }
 	
-	@SuppressWarnings({"unchecked", "rawtypes"})
+
 	public void saveResource(Resource resource) {
-	     Map saveOptions = ((XMLResource)resource).getDefaultSaveOptions();
+	     Map<Object,Object> saveOptions = ((XMLResource)resource).getDefaultSaveOptions();
 	     saveOptions.put(XMLResource.OPTION_CONFIGURATION_CACHE, Boolean.TRUE);
-	     saveOptions.put(XMLResource.OPTION_USE_CACHED_LOOKUP_TABLE, new ArrayList());
+	     saveOptions.put(XMLResource.OPTION_USE_CACHED_LOOKUP_TABLE, new ArrayList<>());
 	     try {
 	        resource.save(saveOptions);
 	     } 

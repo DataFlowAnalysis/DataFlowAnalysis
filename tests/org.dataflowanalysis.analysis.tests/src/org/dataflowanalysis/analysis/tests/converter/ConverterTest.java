@@ -2,6 +2,8 @@ package org.dataflowanalysis.analysis.tests.converter;
 
 import org.junit.jupiter.api.*;
 
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,17 +46,13 @@ public class ConverterTest {
 	
 	@Test
 	@DisplayName("Test Web -> DFD -> Web")
-	public void webToDfdToWeb() {
+	public void webToDfdToWeb() throws StreamReadException, DatabindException, IOException {
 		CompleteDFD dfdBefore= converter.webToDfd(packagePath+"minimal");
 		DFD webAfter = converter.dfdToWeb(dfdBefore);
 		
 		ObjectMapper objectMapper = new ObjectMapper();        
 		File file = new File(packagePath+"minimal.json");
-		DFD webBefore = null;
-        try {
-            webBefore = objectMapper.readValue(file, DFD.class);
-        } 
-        catch (IOException e) {}
+		DFD webBefore = objectMapper.readValue(file, DFD.class);
                         
         webBefore.labelTypes().sort(Comparator.comparing(WebLabelType::id));
         webAfter.labelTypes().sort(Comparator.comparing(WebLabelType::id));
@@ -82,20 +80,12 @@ public class ConverterTest {
 	
 	@Test
 	@DisplayName("Test Micro -> DFD")
-	public void microToDfd() {
-		MicroSecEnd micro = null;
+	public void microToDfd() throws StreamReadException, DatabindException, IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		File file = new File(packagePath+"anilallewar.json");
-		CompleteDFD complete;
-        try {
-            micro = objectMapper.readValue(file, MicroSecEnd.class);
-            complete=new ProcessJSON().processMicro(micro);
-        } 
-        catch (IOException e) {
-            System.err.println("Error parsing file: " + file.getName());
-            e.printStackTrace();
-            complete=null;
-        }
+		MicroSecEnd micro = objectMapper.readValue(file, MicroSecEnd.class);
+		CompleteDFD complete=new ProcessJSON().processMicro(micro);
+        
 				
 		DataFlowDiagram dfd = complete.dataFlowDiagram();
 		@SuppressWarnings("unused")
@@ -145,24 +135,17 @@ public class ConverterTest {
 	
 	@Test
 	@DisplayName("Test JSON -> Plant -> JSON")
-	public void jsonToPlantToJson() {
-		MicroSecEnd microBefore = null;
-		MicroSecEnd microAfter = null;
-
-		try {
-            converter.runPythonScript(packagePath+"anilallewar.json", "txt", packagePath+"toPlant.txt");
-            ObjectMapper objectMapper = new ObjectMapper();        
-    		File file = new File(packagePath+"anilallewar.json");
-    		microBefore = objectMapper.readValue(file, MicroSecEnd.class);
-        
-            converter.runPythonScript(packagePath+"toPlant.txt", "json", packagePath+"fromPlant.json");
-            objectMapper = new ObjectMapper();        
-    		file = new File(packagePath+"fromPlant.json");
-    		microAfter = objectMapper.readValue(file, MicroSecEnd.class);
-		}
-		catch (IOException e) {
-            e.printStackTrace();
-        }
+	public void jsonToPlantToJson() throws StreamReadException, DatabindException, IOException {
+        converter.runPythonScript(packagePath+"anilallewar.json", "txt", packagePath+"toPlant.txt");
+        ObjectMapper objectMapper = new ObjectMapper();        
+		File file = new File(packagePath+"anilallewar.json");
+		MicroSecEnd microBefore = objectMapper.readValue(file, MicroSecEnd.class);
+    
+        converter.runPythonScript(packagePath+"toPlant.txt", "json", packagePath+"fromPlant.json");
+        objectMapper = new ObjectMapper();        
+		file = new File(packagePath+"fromPlant.json");
+		MicroSecEnd microAfter = objectMapper.readValue(file, MicroSecEnd.class);
+		
 		
 		microBefore.services().sort(Comparator.comparing(Service::name));
         microAfter.services().sort(Comparator.comparing(Service::name));
@@ -190,7 +173,6 @@ public class ConverterTest {
 		cleanup(packagePath+"FromPlant.json");
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked", "unused" })
 	@Test
 	@DisplayName("Test Ass to DFD")
 	public void assToDfd() {
@@ -218,9 +200,9 @@ public class ConverterTest {
 		
 		Map<String,String> assIdToName = new HashMap<>();
 		for(ActionSequence as : propagationResult) {
-			for(AbstractActionSequenceElement ase: as.getElements()) {
+			for(AbstractActionSequenceElement<?> ase: as.getElements()) {
 				if(ase instanceof SEFFActionSequenceElement) {
-					var cast=(SEFFActionSequenceElement) ase;
+					var cast=(SEFFActionSequenceElement<?>) ase;
 					assIdToName.putIfAbsent(cast.getElement().getId(), cast.getElement().getEntityName());
 				}
 				else if(ase instanceof CallingSEFFActionSequenceElement) {
@@ -232,7 +214,7 @@ public class ConverterTest {
 					assIdToName.putIfAbsent(cast.getElement().getId(), cast.getElement().getEntityName());
 				}
 				else {
-					var cast=(UserActionSequenceElement) ase;
+					var cast=(UserActionSequenceElement<?>) ase;
 					assIdToName.putIfAbsent(cast.getElement().getId(), cast.getElement().getEntityName());
 				}
 			}
@@ -242,7 +224,6 @@ public class ConverterTest {
 		
 		ass2dfd.transform(propagationResult);
 		
-		DataDictionary dd = ass2dfd.getDictionary();
 		DataFlowDiagram dfd = ass2dfd.getDataFlowDiagram();
 		
 		assertEquals(dfd.getNodes().size(),assIdToName.keySet().size());
@@ -263,7 +244,7 @@ public class ConverterTest {
 
 		List<String> flowNames=new ArrayList<>();
 		for(ActionSequence as : propagationResult) {
-			for(AbstractActionSequenceElement ase: as.getElements()) {
+			for(AbstractActionSequenceElement<?> ase: as.getElements()) {
 				List<DataFlowVariable> variables=ase.getAllDataFlowVariables();
 				for(DataFlowVariable variable:variables) {
 					flowNames.add(variable.variableName());
@@ -277,14 +258,12 @@ public class ConverterTest {
 	
 	@Test
 	@DisplayName("Test storing functionality")
-	public void testStore() {
+	public void testStore() throws StreamReadException, DatabindException, IOException {
 		ObjectMapper objectMapper = new ObjectMapper();        
 		File file = new File(packagePath+"minimal.json");
-		DFD webBefore = null;
-        try {
-            webBefore = objectMapper.readValue(file, DFD.class);
-        } 
-        catch (IOException e) {}
+		
+		DFD webBefore = objectMapper.readValue(file, DFD.class);
+
         CompleteDFD complete=converter.webToDfd(webBefore);
         converter.store(complete, packagePath+"minimal");
         DFD webAfter=converter.dfdToWeb(packagePath+"minimal");

@@ -1,6 +1,5 @@
 package org.dataflowanalysis.analysis.converter;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,18 +9,10 @@ import org.dataflowanalysis.analysis.converter.microsecend.*;
 import org.dataflowanalysis.analysis.converter.webdfd.*;
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.XMLResource;
-import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 
 public class ProcessJSON {
 	private dataflowdiagramFactory dfdFactory;
 	private datadictionaryFactory ddFactory;
-	private ResourceSet rs;
 	
 	private Map<String, Node> nodesMap;
 	private Map<Node,List<String>> nodeToLabelNames;
@@ -31,48 +22,17 @@ public class ProcessJSON {
 	public ProcessJSON() {
 		dfdFactory = dataflowdiagramFactory.eINSTANCE;
 		ddFactory = datadictionaryFactory.eINSTANCE;
-		rs = new ResourceSetImpl();
 		
 		nodesMap = new HashMap<>();
 		nodeToLabelNames = new HashMap<>();
 		labelTypeMap = new HashMap<>();
 		labelMap = new HashMap<>();
 	}
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Resource createAndAddResource(String outputFile, String[] fileextensions, ResourceSet rs) {
-	     for (String fileext : fileextensions) {
-	        rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put(fileext, new XMLResourceFactoryImpl());
-	     }		
-	     URI uri = URI.createFileURI(outputFile);
-	     Resource resource = rs.createResource(uri);
-	     ((ResourceImpl)resource).setIntrinsicIDToEObjectMap(new HashMap());
-	     return resource;
-	  }
-	
-	@SuppressWarnings({"unchecked", "rawtypes"})
-	public void saveResource(Resource resource) {
-	     Map saveOptions = ((XMLResource)resource).getDefaultSaveOptions();
-	     saveOptions.put(XMLResource.OPTION_CONFIGURATION_CACHE, Boolean.TRUE);
-	     saveOptions.put(XMLResource.OPTION_USE_CACHED_LOOKUP_TABLE, new ArrayList());
-	     try {
-	        resource.save(saveOptions);
-	     } 
-	     catch (IOException e) {
-	        throw new RuntimeException(e);
-	     }
-	}
-	
-	public void processMicro(MicroSecEnd micro, String output) {		
-		Resource dfdResource = createAndAddResource(output+".dataflowdiagram", new String[] {"dataflowdiagram"} ,rs);
-		Resource ddResource = createAndAddResource(output+".datadictionary", new String[] {"datadictionary"} ,rs);
-
+		
+	public CompleteDFD processMicro(MicroSecEnd micro) {		
 		DataFlowDiagram dfd = dfdFactory.createDataFlowDiagram();
 		DataDictionary dd = ddFactory.createDataDictionary();
- 
-		dfdResource.getContents().add(dfd);
-		ddResource.getContents().add(dd);
-		
+ 		
 		for(ExternalEntity ee : micro.externalEntities()) {
 			var external = dfdFactory.createExternal();
 			external.setEntityName(ee.name());
@@ -163,8 +123,7 @@ public class ProcessJSON {
 			}
 		}
 		
-		saveResource(dfdResource);
-		saveResource(ddResource);
+		return new CompleteDFD(dfd,dd);
 	}
 	
 	public List<Label> createLabels(List<String> labelNames, DataDictionary dd, LabelType annotation) {
@@ -184,22 +143,16 @@ public class ProcessJSON {
 		return labels;
 	}
 			
-	public void processWeb(DFD webdfd, String output) {
+	public CompleteDFD processWeb(DFD webdfd) {
 		nodesMap = new HashMap<String, Node>();
 		Map<String, Node> pinToNodeMap = new HashMap<String, Node>();
 		Map<String, Pin> pinMap = new HashMap<String, Pin>();
 		Map<String,Label> idToLabelMap = new HashMap<>();
 		Map<Node,Map<Pin,String>> nodeOutpinBehavior = new HashMap<>();
-		
-		Resource dfdResource = createAndAddResource(output+".dataflowdiagram", new String[] {"dataflowdiagram"} ,rs);
-		Resource ddResource = createAndAddResource(output+".datadictionary", new String[] {"datadictionary"} ,rs);
 
 		DataFlowDiagram dfd = dfdFactory.createDataFlowDiagram();
 		DataDictionary dd = ddFactory.createDataDictionary();
- 
-		dfdResource.getContents().add(dfd);
-		ddResource.getContents().add(dd);
-		
+
 		for(WebLabelType webLabelType : webdfd.labelTypes()) {
 			LabelType labelType = ddFactory.createLabelType();
 			labelType.setEntityName(webLabelType.name());
@@ -298,8 +251,7 @@ public class ProcessJSON {
 			}
 		}
 		
-		saveResource(dfdResource);
-		saveResource(ddResource);
+		return new CompleteDFD(dfd,dd);
 	}
 	
 	public void parseBehavior(Node node, Pin outpin, String lines, DataFlowDiagram dfd, DataDictionary dd) {

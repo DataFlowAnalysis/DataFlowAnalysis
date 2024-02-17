@@ -4,18 +4,13 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.IOException;
+
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 
 import org.dataflowanalysis.analysis.converter.webdfd.*;
 import org.dataflowanalysis.dfd.datadictionary.*;
@@ -24,9 +19,9 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Process;
 
 public class ProcessDFD {
 	
-	Map<Pin, String> mapInputPinToFlowName = new HashMap<>();
+	private Map<Pin, String> mapInputPinToFlowName = new HashMap<>();
 	
-	public void parse(String dfdFile, String ddFile, String outFile) {	
+	public DFD parse(String dfdFile, String ddFile) {	
 		//Init and get resources for dfd, dd model instances
 		ResourceSet rs = new ResourceSetImpl();
 		rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
@@ -38,7 +33,12 @@ public class ProcessDFD {
 		
 		DataFlowDiagram dfd = (DataFlowDiagram) dfdResource.getContents().get(0);
 		DataDictionary dd = (DataDictionary) ddResource.getContents().get(0);
-				
+		
+		return parse(dfd,dd);
+		
+	}
+	
+	public DFD parse(DataFlowDiagram dfd,DataDictionary dd) {
 		List<Child> children = new ArrayList<>();
 		List<WebLabelType> labelTypes = new ArrayList<>();
 		
@@ -98,18 +98,7 @@ public class ProcessDFD {
 			children.add(new Child(text, labels, ports,id,type,null,null,new ArrayList<>()));
 		}
 		
-		DFD output = new DFD (new Model("graph","root",children),labelTypes);
-		
-		ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-
-        try {
-            // Serialize object to JSON and write to a file
-            objectMapper.writeValue(new File(outFile), output);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		return new DFD (new Model("graph","root",children),labelTypes);
 	}
 	public Map<Pin, List<AbstractAssignment>> mapping(Node node) {
 		Map<Pin, List<AbstractAssignment>> mapPinToAssignments = new HashMap<>();

@@ -33,14 +33,14 @@ public class ProcessASS {
 			Node previousNode = null;
 			for (AbstractActionSequenceElement<?> ASE : actionSequence.getElements()) {
 				if(ASE instanceof AbstractPCMActionSequenceElement) {
-					previousNode = processActionSequenceElement((AbstractPCMActionSequenceElement)ASE, previousNode);
+					previousNode = processActionSequenceElement((AbstractPCMActionSequenceElement<?>)ASE, previousNode);
 				}
 			}
 		}
 		return new CompleteDFD(dfd,dd);
 	}
 	
-	private Node processActionSequenceElement(AbstractPCMActionSequenceElement<Entity> pcmASE, Node previousDFDNode) {
+	private Node processActionSequenceElement(AbstractPCMActionSequenceElement<? extends Entity> pcmASE, Node previousDFDNode) {
 		Node dfdNode = getOrCreateDFDNode(pcmASE);
 		
 		// Add a flow between previous node and current node
@@ -50,7 +50,7 @@ public class ProcessASS {
 	}
 	
 	
-	private void createFlows(Node source, Node dest, AbstractPCMActionSequenceElement<Entity> pcmASE) {
+	private void createFlows(Node source, Node dest, AbstractPCMActionSequenceElement<? extends Entity> pcmASE) {
 		if(source == null || dest == null) {
 			return;
 		}
@@ -111,7 +111,7 @@ public class ProcessASS {
 		return pin;
 	}
 		
-	private Node getOrCreateDFDNode(AbstractPCMActionSequenceElement<Entity> pcmASE) {
+	private Node getOrCreateDFDNode(AbstractPCMActionSequenceElement<? extends Entity> pcmASE) {
 		Node dfdNode = dfdNodeMap.get(pcmASE.getElement());
 		// check if a corresponding node has already been created
 		if(dfdNode == null) {
@@ -126,10 +126,10 @@ public class ProcessASS {
 		return dfdNode;
 	}
 	
-	private Node createCorrespondingDFDNode(AbstractPCMActionSequenceElement<Entity> pcmASE) {
+	private Node createCorrespondingDFDNode(AbstractPCMActionSequenceElement<? extends Entity> pcmASE) {
 		Node node;
 		
-		if (pcmASE instanceof UserActionSequenceElement) {
+		if (pcmASE instanceof UserActionSequenceElement<?>) {
 			node = dataflowdiagramFactory.eINSTANCE.createExternal();
 		} else {
 			node = dataflowdiagramFactory.eINSTANCE.createProcess();

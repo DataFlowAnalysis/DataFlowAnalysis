@@ -151,7 +151,7 @@ public class Converter {
 		
 	}
 	
-	public Resource createAndAddResource(String outputFile, String[] fileextensions, ResourceSet rs) {
+	private Resource createAndAddResource(String outputFile, String[] fileextensions, ResourceSet rs) {
 	     for (String fileext : fileextensions) {
 	        rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put(fileext, new XMLResourceFactoryImpl());
 	     }		
@@ -162,7 +162,7 @@ public class Converter {
 	  }
 	
 
-	public void saveResource(Resource resource) {
+	private void saveResource(Resource resource) {
 	     Map<Object,Object> saveOptions = ((XMLResource)resource).getDefaultSaveOptions();
 	     saveOptions.put(XMLResource.OPTION_CONFIGURATION_CACHE, Boolean.TRUE);
 	     saveOptions.put(XMLResource.OPTION_USE_CACHED_LOOKUP_TABLE, new ArrayList<>());

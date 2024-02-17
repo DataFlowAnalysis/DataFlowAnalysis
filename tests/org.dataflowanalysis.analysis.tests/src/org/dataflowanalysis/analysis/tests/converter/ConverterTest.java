@@ -275,7 +275,48 @@ public class ConverterTest {
 		
 	}
 	
-	public static void cleanup(String path) {
+	@Test
+	@DisplayName("Test storing functionality")
+	public void testStore() {
+		ObjectMapper objectMapper = new ObjectMapper();        
+		File file = new File(packagePath+"minimal.json");
+		DFD webBefore = null;
+        try {
+            webBefore = objectMapper.readValue(file, DFD.class);
+        } 
+        catch (IOException e) {}
+        CompleteDFD complete=converter.webToDfd(webBefore);
+        converter.store(complete, packagePath+"minimal");
+        DFD webAfter=converter.dfdToWeb(packagePath+"minimal");
+        
+        webBefore.labelTypes().sort(Comparator.comparing(WebLabelType::id));
+        webAfter.labelTypes().sort(Comparator.comparing(WebLabelType::id));
+        
+        List<Child> childrenBefore = webBefore.model().children();
+        List<Child> childrenAfter = webAfter.model().children();
+
+        childrenBefore.sort(Comparator.comparing(Child::id));
+        childrenAfter.sort(Comparator.comparing(Child::id));
+                
+        List<Child> combined=new ArrayList<>(childrenBefore);
+        combined.addAll(childrenAfter);
+        for(Child child: combined) {
+        	if(child.labels()!=null) {
+            	child.labels().sort(Comparator.comparing(WebLabel::labelTypeId).thenComparing(WebLabel::labelTypeValueId));
+        	}
+        	if(child.ports() != null) {
+            	child.ports().sort(Comparator.comparing(Port::id));
+
+        	}
+        }
+        
+        assertEquals(webBefore,webAfter);
+        
+        cleanup(packagePath+"minimal.datadictionary");
+        cleanup(packagePath+"minimal.dataflowdiagram");
+		
+	}
+	public void cleanup(String path) {
 		File file = new File(path);
 		file.delete();
 	}

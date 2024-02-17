@@ -14,7 +14,6 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
 
-@SuppressWarnings({"unchecked","rawtypes"})
 public class ProcessASS {
 	
 	private Map<Entity, Node> dfdNodeMap = new HashMap<>();
@@ -41,7 +40,7 @@ public class ProcessASS {
 		return new CompleteDFD(dfd,dd);
 	}
 	
-	private Node processActionSequenceElement(AbstractPCMActionSequenceElement pcmASE, Node previousDFDNode) {
+	private Node processActionSequenceElement(AbstractPCMActionSequenceElement<Entity> pcmASE, Node previousDFDNode) {
 		Node dfdNode = getOrCreateDFDNode(pcmASE);
 		
 		// Add a flow between previous node and current node
@@ -51,7 +50,7 @@ public class ProcessASS {
 	}
 	
 	
-	private void createFlows(Node source, Node dest, AbstractPCMActionSequenceElement pcmASE) {
+	private void createFlows(Node source, Node dest, AbstractPCMActionSequenceElement<Entity> pcmASE) {
 		if(source == null || dest == null) {
 			return;
 		}
@@ -112,7 +111,7 @@ public class ProcessASS {
 		return pin;
 	}
 		
-	private Node getOrCreateDFDNode(AbstractPCMActionSequenceElement pcmASE) {
+	private Node getOrCreateDFDNode(AbstractPCMActionSequenceElement<Entity> pcmASE) {
 		Node dfdNode = dfdNodeMap.get(pcmASE.getElement());
 		// check if a corresponding node has already been created
 		if(dfdNode == null) {
@@ -127,12 +126,12 @@ public class ProcessASS {
 		return dfdNode;
 	}
 	
-	private Node createCorrespondingDFDNode(AbstractPCMActionSequenceElement pcmASE) {
+	private Node createCorrespondingDFDNode(AbstractPCMActionSequenceElement<Entity> pcmASE) {
 		Node node;
 		
 		if (pcmASE instanceof UserActionSequenceElement) {
 			node = dataflowdiagramFactory.eINSTANCE.createExternal();
-		} else { //if (pcmASE instanceof SEFFActionSequenceElement)
+		} else {
 			node = dataflowdiagramFactory.eINSTANCE.createProcess();
 		}
 		

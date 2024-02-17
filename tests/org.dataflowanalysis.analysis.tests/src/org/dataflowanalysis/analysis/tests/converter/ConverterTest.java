@@ -51,7 +51,7 @@ public class ConverterTest {
 	@Test
 	@DisplayName("Test Web -> DFD -> Web")
 	public void webToDfdToWeb() {
-		converter.webToDfd(packagePath+"minimal.json");
+		converter.webToDfd(packagePath+"minimal",packagePath+"minimal");
 		converter.dfdToWeb(packagePath+"minimal",packagePath+"test.json");
 		
 		ObjectMapper objectMapper = new ObjectMapper();        
@@ -106,7 +106,7 @@ public class ConverterTest {
 		File file = new File(packagePath+"anilallewar.json");
         try {
             micro = objectMapper.readValue(file, MicroSecEnd.class);
-            new ProcessJSON().processMicro(packagePath+file.getName().replaceAll("\\.json.*", ""),micro);
+            new ProcessJSON().processMicro(micro,packagePath+file.getName().replaceAll("\\.json.*", ""));
         } 
         catch (IOException e) {
             System.err.println("Error parsing file: " + file.getName());

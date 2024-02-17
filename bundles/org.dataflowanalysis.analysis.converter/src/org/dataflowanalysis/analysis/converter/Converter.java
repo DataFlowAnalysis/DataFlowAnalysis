@@ -20,11 +20,11 @@ public class Converter {
 		objectMapper = new ObjectMapper();
 	}
 	
-	public void microToDfd(String path) {
-		file = new File(path);
+	public void microToDfd(String inputFile, String outputFile) {
+		file = new File(inputFile + ".json");
         try {
             MicroSecEnd micro = objectMapper.readValue(file, MicroSecEnd.class);
-            new ProcessJSON().processMicro(path.replaceAll("\\.json.*", ""),micro);
+            new ProcessJSON().processMicro(micro,outputFile);
         	System.out.println("Micro->DFD: " + file.getName());
         } 
         catch (IOException e) {
@@ -33,11 +33,11 @@ public class Converter {
         }
 	}
 	
-	public void webToDfd(String path) {
-		file = new File(path);
+	public void webToDfd(String inputFile, String outputFile) {
+		file = new File(inputFile + ".json");
         try {
             DFD dfd = objectMapper.readValue(file, DFD.class);
-            new ProcessJSON().processWeb(path.replaceAll("\\.json.*", ""),dfd);
+            new ProcessJSON().processWeb(dfd,outputFile);
             System.out.println("Web->DFD: " + file.getName());
         } 
         catch (IOException e) {
@@ -51,12 +51,12 @@ public class Converter {
 		System.out.println("DFD->Web: " + inputFile);
 	}
 	
-	public void plantToMicro(String path) {
-		String name = path.split("\\.")[0];
-        int exitCode = runPythonScript(path,"json",name+".json");
+	public void plantToMicro(String inputFile, String outputFile) {
+		String name = inputFile.split("\\.")[0];
+        int exitCode = runPythonScript(inputFile,"json",outputFile);
         if(exitCode == 0) {
-        	microToDfd(name+".json");
-        	System.out.println("Plant->DFD: " + path);
+        	microToDfd(name+".json","");
+        	System.out.println("Plant->DFD: " + inputFile);
         }
         else {
         	System.out.println("Check if python3 is set in PATH");
@@ -64,14 +64,14 @@ public class Converter {
         
 	}
 	
-	public void assToDFD(String name, String modelFileName, String modelProjectName) {		
-		final var usageModelPath = Paths.get("models", name, modelFileName + ".usagemodel").toString();
-		final var allocationPath = Paths.get("models", name, modelFileName + ".allocation").toString();
-		final var nodeCharPath = Paths.get("models", name, modelFileName + ".nodecharacteristics").toString();
+	public void assToDFD(String inputModel, String inputFile, String modelLocation, String outputFile) {		
+		final var usageModelPath = Paths.get("models", inputModel, inputFile + ".usagemodel").toString();
+		final var allocationPath = Paths.get("models", inputModel, inputFile + ".allocation").toString();
+		final var nodeCharPath = Paths.get("models", inputModel, inputFile + ".nodecharacteristics").toString();
 				
 		DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder()
 		        .standalone()
-		        .modelProjectName(modelProjectName)
+		        .modelProjectName(modelLocation)
 		        .usePluginActivator(Activator.class)
 		        .useUsageModel(usageModelPath)
 		        .useAllocationModel(allocationPath)
@@ -87,8 +87,8 @@ public class Converter {
 		
 		ass2dfd.transform(propagationResult);
 		
-		ass2dfd.saveModel(name + ".datadictionary", "datadictionary", ass2dfd.getDictionary());
-		ass2dfd.saveModel(name + ".dataflowdiagram", "dataflowdiagram", ass2dfd.getDataFlowDiagram());
+		ass2dfd.saveModel(outputFile + ".datadictionary", "datadictionary", ass2dfd.getDictionary());
+		ass2dfd.saveModel(outputFile + ".dataflowdiagram", "dataflowdiagram", ass2dfd.getDataFlowDiagram());
 	}
 	
 	public int runPythonScript(String in, String format, String out){

@@ -63,9 +63,9 @@ public class ProcessJSON {
 	     }
 	}
 	
-	public void processMicro(String name, MicroSecEnd micro) {		
-		Resource dfdResource = createAndAddResource(name+".dataflowdiagram", new String[] {"dataflowdiagram"} ,rs);
-		Resource ddResource = createAndAddResource(name+".datadictionary", new String[] {"datadictionary"} ,rs);
+	public void processMicro(MicroSecEnd micro, String output) {		
+		Resource dfdResource = createAndAddResource(output+".dataflowdiagram", new String[] {"dataflowdiagram"} ,rs);
+		Resource ddResource = createAndAddResource(output+".datadictionary", new String[] {"datadictionary"} ,rs);
 
 		DataFlowDiagram dfd = dfdFactory.createDataFlowDiagram();
 		DataDictionary dd = ddFactory.createDataDictionary();
@@ -184,15 +184,15 @@ public class ProcessJSON {
 		return labels;
 	}
 			
-	public void processWeb(String file, DFD webdfd) {
+	public void processWeb(DFD webdfd, String output) {
 		nodesMap = new HashMap<String, Node>();
 		Map<String, Node> pinToNodeMap = new HashMap<String, Node>();
 		Map<String, Pin> pinMap = new HashMap<String, Pin>();
 		Map<String,Label> idToLabelMap = new HashMap<>();
 		Map<Node,Map<Pin,String>> nodeOutpinBehavior = new HashMap<>();
 		
-		Resource dfdResource = createAndAddResource(file+".dataflowdiagram", new String[] {"dataflowdiagram"} ,rs);
-		Resource ddResource = createAndAddResource(file+".datadictionary", new String[] {"datadictionary"} ,rs);
+		Resource dfdResource = createAndAddResource(output+".dataflowdiagram", new String[] {"dataflowdiagram"} ,rs);
+		Resource ddResource = createAndAddResource(output+".datadictionary", new String[] {"datadictionary"} ,rs);
 
 		DataFlowDiagram dfd = dfdFactory.createDataFlowDiagram();
 		DataDictionary dd = ddFactory.createDataDictionary();

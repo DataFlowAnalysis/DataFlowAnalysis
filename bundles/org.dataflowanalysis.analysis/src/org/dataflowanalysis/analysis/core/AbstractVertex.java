@@ -126,25 +126,27 @@ public abstract class AbstractVertex<T> {
      * Returns a list of characteristic literals that are set for a given characteristic type in the list of all node
      * characteristics
      * <p>
-     * See {@link getDataFlowCharacteristicsWithName} for a similar method for data flow variables
+     * See {@link AbstractVertex#getDataFlowCharacteristicNamesWithType(String)} for a similar method for data flow variables
      * @param name Name of the characteristic type
      * @return Returns a list of all characteristic literals matching the characteristic type
      */
-    public List<String> getNodeCharacteristicNamesWithType(String name) {
-        return this.getAllNodeCharacteristics().stream().filter(cv -> cv.getTypeName().equals(name)).map(CharacteristicValue::getValueName)
+    public List<String> getNodeCharacteristicNamesWithName(String name) {
+        return this.getAllNodeCharacteristics().stream().filter(cv -> cv.getTypeName().equals(name))
+                .map(CharacteristicValue::getValueName)
                 .collect(Collectors.toList());
     }
 
     /**
      * Returns a list of characteristic literals that are set for a given characteristic type in the list of all node
-     * characteristics
+     * characteristics  
      * <p>
-     * See {@link getDataFlowCharacteristicsWithName} for a similar method for data flow variables
+     * See {@link AbstractVertex#getDataFlowCharacteristicIdsWithType(String)} for a similar method for data flow variables
      * @param name Name of the characteristic type
      * @return Returns a list of all characteristic literals matching the characteristic type
      */
-    public List<String> getNodeCharacteristicIdsWithType(String name) {
-        return this.getAllNodeCharacteristics().stream().filter(cv -> cv.getTypeName().equals(name)).map(CharacteristicValue::getValueId)
+    public List<String> getNodeCharacteristicIdsWithName(String name) {
+        return this.getAllNodeCharacteristics().stream().filter(cv -> cv.getTypeName().equals(name))
+                .map(CharacteristicValue::getValueId)
                 .collect(Collectors.toList());
     }
 
@@ -152,8 +154,8 @@ public abstract class AbstractVertex<T> {
      * Returns a List of IDs of characteristics and data flow variables that are set for a given characteristic type in the
      * list of all data flow variables
      * <p>
-     * See {@link getNodeCharacteristicIdsWithType} for a similar method for node characteristics
-     * @param name Name of the characteristic type
+     * See {@link AbstractVertex#getNodeCharacteristicIdsWithName(String)} for a similar method for node characteristics
+     * @param type Name of the characteristic type
      * @return Returns a list of all characteristic literals matching the characteristic type
      */
     public List<List<String>> getDataFlowCharacteristicIdsWithType(String type) {
@@ -175,8 +177,8 @@ public abstract class AbstractVertex<T> {
      * Returns a List of names of characteristics and dataflow variables that are set for a given characteristic type in the
      * list of all data flow variables
      * <p>
-     * See {@link getNodeCharacteristicNamesWithType} for a similar method for node characteristics
-     * @param name Name of the characteristic type
+     * See {@link AbstractVertex#getNodeCharacteristicNamesWithName(String)} for a similar method for node characteristics
+     * @param type Name of the characteristic type
      * @return Returns a list of all characteristic literals matching the characteristic type
      */
     public List<List<String>> getDataFlowCharacteristicNamesWithType(String type) {
@@ -196,8 +198,7 @@ public abstract class AbstractVertex<T> {
 
     /**
      * Returns a string with detailed information about a node's characteristics, data flow variables and the variables'
-     * characteristics.
-     * @param node a sequence element after the label propagation happened
+     * characteristics
      * @return a string with the node's string representation and a list of all related characteristics types and literals
      */
     public String createPrintableNodeInformation() {

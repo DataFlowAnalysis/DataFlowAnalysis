@@ -18,8 +18,8 @@ public abstract class AbstractPartialFlowGraph {
     protected final AbstractVertex<?> sink;
 
     /**
-     * Create a new action sequence with the given elements
-     * @param elements List of elements in the sequence
+     * Create a partial flow graph induced by the given sink
+     * @param sink Sink vertex that induces the partial flow graph
      */
     public AbstractPartialFlowGraph(AbstractVertex<?> sink) {
         this.sink = sink;

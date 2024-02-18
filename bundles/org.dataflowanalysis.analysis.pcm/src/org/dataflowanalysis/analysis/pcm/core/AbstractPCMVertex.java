@@ -23,14 +23,30 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
 
     /**
      * Constructs a new abstract pcm vertex with the underlying palladio element and assembly context
-     * @param vertex Underlying palladio element of the abstract pcm vertex
-     * @param context Assembly context of the abstract pcm vertex
+     * @param referencedElement Palladio element that is referenced by the vertex
+     * @param context Assembly context of the vertex
+     * @param resourceProvider Resource provider of the vertex used to calculate vertex and data characteristics
      */
     public AbstractPCMVertex(T referencedElement, Deque<AssemblyContext> context, ResourceProvider resourceProvider) {
         super(referencedElement);
         this.context = context;
         this.resourceProvider = resourceProvider;
         this.previousElements = List.of();
+    }
+
+    /**
+     * Constructs a new abstract pcm vertex with the underlying palladio element and assembly context
+     * @param referencedElement Palladio element that is referenced by the vertex
+     * @param previousElements List of vertices that preceded the vertex
+     * @param context Assembly context of the vertex
+     * @param resourceProvider Resource provider of the vertex used to calculate vertex and data characteristics
+     */
+    public AbstractPCMVertex(T referencedElement, List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
+                             ResourceProvider resourceProvider) {
+        super(referencedElement);
+        this.context = context;
+        this.resourceProvider = resourceProvider;
+        this.previousElements = previousElements;
     }
 
     public abstract AbstractPCMVertex<?> deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> isomorphism);
@@ -58,22 +74,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     }
 
     /**
-     * Constructs a new abstract pcm vertex with the underlying palladio element and assembly context
-     * @param vertex Underlying palladio element of the abstract pcm vertex
-     * @param context Assembly context of the abstract pcm vertex
-     */
-    public AbstractPCMVertex(T referencedElement, List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
-            ResourceProvider resourceProvider) {
-        super(referencedElement);
-        this.context = context;
-        this.resourceProvider = resourceProvider;
-        this.previousElements = previousElements;
-    }
-
-    /**
-     * Calculate the vertex characteristics for the sequence element with the given node characteristics calculator
-     * @param vertexCharacteristicsCalculator Node characteristics calculator that is used to calculate the characteristics
-     * for the vertex
+     * Calculate the vertex characteristics for the sequence element
      * @return Returns a list of vertex characteristics that are applied to the pcm vertex
      */
     protected List<CharacteristicValue> getVertexCharacteristics() {
@@ -82,10 +83,8 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     }
 
     /**
-     * Calculate the data characteristics for the vertex with the given data characteristics calculator, vertex
+     * Calculate the data characteristics for the vertex with the given vertex
      * characteristics, variable characterizations and old data flow variables
-     * @param dataCharacteristicsCalculatorFactory Data characteristics factory that is used to calculate the data
-     * characteristics at the present vertex
      * @param vertexCharacteristics Vertex characteristics present at the vertex
      * @param variableCharacterisations Variable characterizations present in the model
      * @param oldDataFlowVariables Old data flow variables present at the node

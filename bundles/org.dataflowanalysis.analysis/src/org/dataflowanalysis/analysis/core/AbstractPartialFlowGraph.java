@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -53,6 +54,19 @@ public abstract class AbstractPartialFlowGraph {
         }
         Collections.reverse(vertices);
         return vertices;
+    }
+    
+    /**
+     * This method determines the succeeding vertices of a given vertex.
+     * As calculating succeeding vertices is computationally expensive, 
+     * repeated use of the method is discouraged
+     * @param vertex Vertex of which the succeeding vertices should be calculated
+     * @return Returns a list of all succeeding vertices
+     */
+    public List<AbstractVertex<?>> getSucceedingVertices(AbstractVertex<?> vertex) {
+        return this.getVertices().stream()
+            .filter(it -> it.getPreviousElements().contains(vertex))
+            .collect(Collectors.toList());
     }
 
     /**

@@ -11,7 +11,7 @@ import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
 import org.dataflowanalysis.analysis.flowgraph.FlowGraph;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
-import org.dataflowanalysis.analysis.pcm.core.PCMNodeCharacteristicsCalculator;
+import org.dataflowanalysis.analysis.pcm.core.PCMVertexCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.dddsl.DDDslStandaloneSetup;
@@ -89,7 +89,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
         }
 
         // TODO Temporary fix
-        PCMNodeCharacteristicsCalculator nodeCharacteristicsCalculator = new PCMNodeCharacteristicsCalculator(resourceProvider);
+        PCMVertexCharacteristicsCalculator nodeCharacteristicsCalculator = new PCMVertexCharacteristicsCalculator(resourceProvider);
         nodeCharacteristicsCalculator.checkAssignments();
 
         return true;

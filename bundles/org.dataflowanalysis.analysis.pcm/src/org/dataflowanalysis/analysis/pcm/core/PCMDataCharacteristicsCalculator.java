@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristicType;
@@ -24,7 +23,7 @@ import org.dataflowanalysis.pcm.extension.model.confidentiality.dictionary.PCMDa
 import org.dataflowanalysis.pcm.extension.model.confidentiality.expression.LhsEnumCharacteristicReference;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.expression.NamedEnumCharacteristicReference;
 
-public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalculator {
+public class PCMDataCharacteristicsCalculator {
     private final List<DataFlowVariable> currentVariables;
     private final ResourceProvider resourceLoader;
 
@@ -63,7 +62,6 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
      * method. The final DataflowVariables for an element are accessed with {@link getCalculatedVariables}.
      * @param variableCharacterisation Variable Characterization at the Sequence Element
      */
-    @Override
     public void evaluate(ConfidentialityVariableCharacterisation variableCharacterisation) {
         var leftHandSide = (LhsEnumCharacteristicReference) variableCharacterisation.getLhs();
 
@@ -217,7 +215,6 @@ public class PCMDataCharacteristicsCalculator implements DataCharacteristicsCalc
      * Returns the list of DataFlowVariables that were calculated according to the VariableCharacterizations provided
      * @return List of DataFlowVariables after evaluating
      */
-    @Override
     public List<DataFlowVariable> getCalculatedCharacteristics() {
         return this.currentVariables.stream().filter(df -> !df.variableName().equals("container")).collect(Collectors.toList());
     }

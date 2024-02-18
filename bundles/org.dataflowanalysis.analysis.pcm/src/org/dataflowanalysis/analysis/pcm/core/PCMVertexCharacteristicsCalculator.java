@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Literal;
@@ -37,19 +36,18 @@ import org.palladiosimulator.pcm.usagemodel.UsageModel;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelPackage;
 
-public class PCMNodeCharacteristicsCalculator implements VertexCharacteristicsCalculator {
-    private final Logger logger = Logger.getLogger(PCMNodeCharacteristicsCalculator.class);
+public class PCMVertexCharacteristicsCalculator {
+    private final Logger logger = Logger.getLogger(PCMVertexCharacteristicsCalculator.class);
     private final ResourceProvider resourceLoader;
 
     /**
      * Creates a new node characteristic calculator with the given node
      * @param node Node of which the characteristics should be calculated. Should either be a User or SEFF Action.
      */
-    public PCMNodeCharacteristicsCalculator(ResourceProvider resourceProvider) {
+    public PCMVertexCharacteristicsCalculator(ResourceProvider resourceProvider) {
         this.resourceLoader = resourceProvider;
     }
 
-    @Override
     public List<CharacteristicValue> getNodeCharacteristics(Entity node, Deque<AssemblyContext> context) {
         Assignments assignments = this.resolveAssignments();
         List<AbstractAssignee> assignees;
@@ -159,7 +157,6 @@ public class PCMNodeCharacteristicsCalculator implements VertexCharacteristicsCa
                 .orElse(NodeCharacteristicsFactory.eINSTANCE.createAssignments());
     }
 
-    @Override
     public void checkAssignments() {
         Assignments assignments = this.resolveAssignments();
         for (AbstractAssignee assignee : assignments.getAssignee()) {

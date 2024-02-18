@@ -3,7 +3,6 @@ package org.dataflowanalysis.analysis.pcm.core;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.core.PartialFlowGraphFinder;
 import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.flowgraph.FlowGraph;
 import org.dataflowanalysis.analysis.pcm.flowgraph.PCMPartialFlowGraph;
@@ -26,7 +25,7 @@ public class PCMFlowGraph extends FlowGraph {
                     new IllegalArgumentException("Cannot find partial flow graphs with non-pcm resource provider"));
         }
         PCMResourceProvider pcmResourceProvider = (PCMResourceProvider) resourceProvider;
-        PartialFlowGraphFinder sequenceFinder = new PCMActionSequenceFinder(pcmResourceProvider);
+        PCMPartialFlowGraphFinder sequenceFinder = new PCMPartialFlowGraphFinder(pcmResourceProvider);
 
         return sequenceFinder.findPartialFlowGraphs().parallelStream().map(AbstractPartialFlowGraph.class::cast).collect(Collectors.toList());
     }

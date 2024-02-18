@@ -5,12 +5,10 @@ import java.util.List;
 import java.util.Map;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.core.DataCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
-import org.dataflowanalysis.analysis.core.VertexCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
 import org.dataflowanalysis.analysis.pcm.core.PCMDataCharacteristicsCalculator;
-import org.dataflowanalysis.analysis.pcm.core.PCMNodeCharacteristicsCalculator;
+import org.dataflowanalysis.analysis.pcm.core.PCMVertexCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -80,7 +78,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      * @return Returns a list of vertex characteristics that are applied to the pcm vertex
      */
     protected List<CharacteristicValue> getVertexCharacteristics() {
-        VertexCharacteristicsCalculator vertexCharacteristicsCalculator = new PCMNodeCharacteristicsCalculator(this.resourceProvider);
+        PCMVertexCharacteristicsCalculator vertexCharacteristicsCalculator = new PCMVertexCharacteristicsCalculator(this.resourceProvider);
         return vertexCharacteristicsCalculator.getNodeCharacteristics(this.referencedElement, this.context);
     }
 
@@ -96,7 +94,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      */
     protected List<DataFlowVariable> getDataFlowVariables(List<CharacteristicValue> vertexCharacteristics,
             List<ConfidentialityVariableCharacterisation> variableCharacterisations, List<DataFlowVariable> oldDataFlowVariables) {
-        DataCharacteristicsCalculator dataCharacteristicsCalculator = new PCMDataCharacteristicsCalculator(oldDataFlowVariables,
+        PCMDataCharacteristicsCalculator dataCharacteristicsCalculator = new PCMDataCharacteristicsCalculator(oldDataFlowVariables,
                 vertexCharacteristics, this.resourceProvider);
         variableCharacterisations.forEach(dataCharacteristicsCalculator::evaluate);
         return dataCharacteristicsCalculator.getCalculatedCharacteristics();

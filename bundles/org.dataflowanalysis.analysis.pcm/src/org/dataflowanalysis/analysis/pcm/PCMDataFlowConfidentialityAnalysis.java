@@ -54,8 +54,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
 
     @Override
     public PCMFlowGraph findFlowGraph() {
-        PCMResourceProvider pcmResourceProvider = (PCMResourceProvider) this.resourceProvider;
-        return new PCMFlowGraph(pcmResourceProvider);
+        return new PCMFlowGraph(this.resourceProvider);
     }
 
     @Override

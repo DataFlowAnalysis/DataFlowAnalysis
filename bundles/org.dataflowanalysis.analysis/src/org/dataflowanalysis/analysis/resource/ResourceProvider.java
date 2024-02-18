@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
@@ -89,7 +88,7 @@ public abstract class ResourceProvider {
         ArrayList<T> result = new ArrayList<>();
         for (Resource resource : this.resources.getResources()) {
             if (this.isTargetInResource(targetType, resource)) {
-                result.addAll(EcoreUtil.<T>getObjectsByType(resource.getContents(), targetType));
+                result.addAll(EcoreUtil.getObjectsByType(resource.getContents(), targetType));
             }
         }
         return result;
@@ -124,12 +123,13 @@ public abstract class ResourceProvider {
         }
 
         HashMap<EObject, Boolean> visitedNodes = new HashMap<>();
-        Deque<EObject> stack = new ArrayDeque<>();
-        stack.addAll(resource.getContents());
+        Deque<EObject> stack = new ArrayDeque<>(resource.getContents());
 
         while (!stack.isEmpty()) {
             EObject top = stack.pop();
-            stack.addAll(top.eContents().stream().filter(it -> !(visitedNodes.containsKey(it) && visitedNodes.get(it))).collect(Collectors.toList()));
+            stack.addAll(top.eContents().stream()
+                    .filter(it -> !(visitedNodes.containsKey(it) && visitedNodes.get(it)))
+                    .toList());
 
             if (visitedNodes.containsKey(top) && visitedNodes.get(top)) {
                 continue;

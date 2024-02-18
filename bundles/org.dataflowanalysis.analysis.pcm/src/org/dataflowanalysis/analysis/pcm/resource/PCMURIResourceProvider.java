@@ -35,7 +35,7 @@ public class PCMURIResourceProvider extends PCMResourceProvider {
         List<Resource> loadedResources = null;
         do {
             loadedResources = new ArrayList<>(this.resources.getResources());
-            loadedResources.forEach(it -> EcoreUtil.resolveAll(it));
+            loadedResources.forEach(EcoreUtil::resolveAll);
         } while (loadedResources.size() != this.resources.getResources().size());
     }
 

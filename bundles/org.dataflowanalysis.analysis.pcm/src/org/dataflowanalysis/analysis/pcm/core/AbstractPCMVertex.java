@@ -12,6 +12,7 @@ import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityV
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.OperationSignature;
+import org.palladiosimulator.pcm.repository.Parameter;
 
 public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex<T> {
     private final Logger logger = Logger.getLogger(AbstractPCMVertex.class);
@@ -104,7 +105,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      * @param variableCharacterisations Variable characterizations that are applied to the sequence element
      */
     protected void checkCallParameter(OperationSignature callSigniture, List<ConfidentialityVariableCharacterisation> variableCharacterisations) {
-        List<String> parameter = callSigniture.getParameters__OperationSignature().stream().map(it -> it.getParameterName()).toList();
+        List<String> parameter = callSigniture.getParameters__OperationSignature().stream().map(Parameter::getParameterName).toList();
 
         List<String> referencedParameter = variableCharacterisations.stream()
                 .map(it -> it.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage().getReferenceName()).toList();

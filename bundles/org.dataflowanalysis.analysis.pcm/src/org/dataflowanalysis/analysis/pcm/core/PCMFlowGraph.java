@@ -33,7 +33,7 @@ public class PCMFlowGraph extends FlowGraph {
     public PCMFlowGraph evaluate() {
         List<PCMPartialFlowGraph> actionSequences = this.getPartialFlowGraphs().parallelStream().map(PCMPartialFlowGraph.class::cast)
                 .collect(Collectors.toList());
-        List<AbstractPartialFlowGraph> evaluatedPartialFlowGraphs = actionSequences.parallelStream().map(it -> it.evaluate()).toList();
+        List<AbstractPartialFlowGraph> evaluatedPartialFlowGraphs = actionSequences.parallelStream().map(PCMPartialFlowGraph::evaluate).toList();
         return new PCMFlowGraph(evaluatedPartialFlowGraphs);
     }
 }

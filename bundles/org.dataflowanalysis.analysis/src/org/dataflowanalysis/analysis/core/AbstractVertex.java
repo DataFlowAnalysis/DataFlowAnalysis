@@ -131,7 +131,7 @@ public abstract class AbstractVertex<T> {
      * @return Returns a list of all characteristic literals matching the characteristic type
      */
     public List<String> getNodeCharacteristicNamesWithType(String name) {
-        return this.getAllNodeCharacteristics().stream().filter(cv -> cv.getTypeName().equals(name)).map(cv -> cv.getValueName())
+        return this.getAllNodeCharacteristics().stream().filter(cv -> cv.getTypeName().equals(name)).map(CharacteristicValue::getValueName)
                 .collect(Collectors.toList());
     }
 
@@ -144,7 +144,7 @@ public abstract class AbstractVertex<T> {
      * @return Returns a list of all characteristic literals matching the characteristic type
      */
     public List<String> getNodeCharacteristicIdsWithType(String name) {
-        return this.getAllNodeCharacteristics().stream().filter(cv -> cv.getTypeName().equals(name)).map(cv -> cv.getValueId())
+        return this.getAllNodeCharacteristics().stream().filter(cv -> cv.getTypeName().equals(name)).map(CharacteristicValue::getValueId)
                 .collect(Collectors.toList());
     }
 

@@ -19,6 +19,7 @@ import org.dataflowanalysis.pcm.extension.nodecharacteristics.nodecharacteristic
 import org.dataflowanalysis.pcm.extension.nodecharacteristics.nodecharacteristics.ResourceAssignee;
 import org.dataflowanalysis.pcm.extension.nodecharacteristics.nodecharacteristics.UsageAssignee;
 import org.palladiosimulator.pcm.allocation.Allocation;
+import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.allocation.AllocationPackage;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
@@ -85,10 +86,11 @@ public class PCMVertexCharacteristicsCalculator {
     private List<AbstractAssignee> getSEFF(Assignments assignments, Deque<AssemblyContext> context) {
         List<AbstractAssignee> resolvedAssignees = new ArrayList<>();
         var allocations = this.resourceLoader.lookupToplevelElement(AllocationPackage.eINSTANCE.getAllocation()).stream()
-                .filter(Allocation.class::isInstance).map(Allocation.class::cast).collect(Collectors.toList());
+                .filter(Allocation.class::isInstance).map(Allocation.class::cast)
+                .collect(Collectors.toList());
 
         Optional<Allocation> allocation = allocations.stream().filter(it -> it.getAllocationContexts_Allocation().stream()
-                .map(alloc -> alloc.getAssemblyContext_AllocationContext()).anyMatch(context.getFirst()::equals)).findFirst();
+                .map(AllocationContext::getAssemblyContext_AllocationContext).anyMatch(context.getFirst()::equals)).findFirst();
 
         if (allocation.isEmpty()) {
             logger.error("Could not find fitting allocation for assembly context of SEFF Node");

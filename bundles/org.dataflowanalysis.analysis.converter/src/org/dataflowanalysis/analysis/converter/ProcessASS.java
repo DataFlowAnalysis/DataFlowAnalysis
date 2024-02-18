@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import org.dataflowanalysis.analysis.core.*;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMActionSequenceElement;
-
+import org.dataflowanalysis.analysis.pcm.core.seff.SEFFActionSequenceElement;
 import org.dataflowanalysis.analysis.pcm.core.user.*;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
@@ -131,8 +131,11 @@ public class ProcessASS {
 		
 		if (pcmASE instanceof UserActionSequenceElement<?>) {
 			node = dataflowdiagramFactory.eINSTANCE.createExternal();
-		} else {
+		} else if (pcmASE instanceof SEFFActionSequenceElement<?>) {
 			node = dataflowdiagramFactory.eINSTANCE.createProcess();
+		}
+		else {
+			return null;
 		}
 		
 		Behaviour behaviour = datadictionaryFactory.eINSTANCE.createBehaviour();
@@ -153,28 +156,17 @@ public class ProcessASS {
 		}
 	}
 	
-	//inefficient as hell
 	private Label getOrCreateDFDLabel(CharacteristicValue charValue) {
-		LabelType type = null;
-		for(LabelType existingType : dd.getLabelTypes()) {
-			if(existingType.getEntityName().equals(charValue.getTypeName())) {
-				type = existingType;
-				break;
-			}
-		}
+		LabelType type=dd.getLabelTypes().stream().filter(f -> f.getEntityName().equals(charValue.getTypeName())).findFirst().orElse(null);
+				
 		if(type == null) {
 			type = datadictionaryFactory.eINSTANCE.createLabelType();
 			type.setEntityName(charValue.getTypeName());
 			this.dd.getLabelTypes().add(type);
 		}
 		
-		Label label = null;
-		for(Label existingLabel : type.getLabel()) {
-			if(existingLabel.getEntityName().equals(charValue.getValueName())) {
-				label = existingLabel;
-				break;
-			}
-		}
+		Label label =type.getLabel().stream().filter(f -> f.getEntityName().equals(charValue.getValueName())).findFirst().orElse(null);
+
 		if(label == null) {
 			label = datadictionaryFactory.eINSTANCE.createLabel();
 			label.setEntityName(charValue.getValueName());

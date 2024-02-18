@@ -36,9 +36,6 @@ public abstract class PCMResourceProvider extends ResourceProvider {
         if (this.lookupToplevelElement(SystemPackage.eINSTANCE.getSystem()).isEmpty()) {
             return false;
         }
-        if (this.lookupToplevelElement(ResourceenvironmentPackage.eINSTANCE.getResourceEnvironment()).isEmpty()) {
-            return false;
-        }
-        return true;
+        return !this.lookupToplevelElement(ResourceenvironmentPackage.eINSTANCE.getResourceEnvironment()).isEmpty();
     }
 }

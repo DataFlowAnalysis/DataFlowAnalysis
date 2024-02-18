@@ -148,10 +148,7 @@ public class DFDVertex extends AbstractVertex<EObject> {
             NOT notTerm = (NOT) term;
             return !evaluateTerm(notTerm.getNegatedTerm(), inputLabel);
         } else if (term instanceof LabelReference) {
-            if (inputLabel.contains(((LabelReference) term).getLabel()))
-                return true;
-            else
-                return false;
+            return inputLabel.contains(((LabelReference) term).getLabel());
         } else if (term instanceof BinaryOperator) {
             BinaryOperator binaryTerm = (BinaryOperator) term;
             if (binaryTerm instanceof AND) {

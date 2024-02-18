@@ -24,9 +24,6 @@ public abstract class DFDResourceProvider extends ResourceProvider {
      */
     @Override
     public boolean sufficientResourcesLoaded() {
-        if (this.getDataFlowDiagram() == null || this.getDataDictionary() == null) {
-            return false;
-        }
-        return true;
+        return this.getDataFlowDiagram() != null && this.getDataDictionary() != null;
     }
 }

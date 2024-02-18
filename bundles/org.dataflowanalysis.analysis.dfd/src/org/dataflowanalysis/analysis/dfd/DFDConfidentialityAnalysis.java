@@ -21,9 +21,9 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder
 public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalysis {
     private final Logger logger = Logger.getLogger(DFDConfidentialityAnalysis.class);
 
-    protected DFDResourceProvider resourceProvider;
-    protected Optional<Class<? extends Plugin>> modelProjectActivator;
-    protected String modelProjectName;
+    protected final DFDResourceProvider resourceProvider;
+    protected final Optional<Class<? extends Plugin>> modelProjectActivator;
+    protected final String modelProjectName;
 
     public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider, Optional<Class<? extends Plugin>> modelProjectActivator,
             String modelProjectName) {
@@ -33,7 +33,7 @@ public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalys
     }
 
     @Override
-    public boolean initializeAnalysis() {
+    public void initializeAnalysis() {
         Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("dataflowdiagram", new XMIResourceFactoryImpl());
         Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("datadictionary", new XMIResourceFactoryImpl());
 
@@ -58,7 +58,6 @@ public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalys
             logger.error("Insufficient amount of resources loaded");
             throw new IllegalStateException("Could not initialize analysis");
         }
-        return true;
     }
 
     @Override

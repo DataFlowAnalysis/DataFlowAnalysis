@@ -21,9 +21,8 @@ public interface DataFlowConfidentialityAnalysis {
 
     /**
      * Initializes the analysis by setting up the execution environment and loading the referenced models
-     * @return Returns true, if initialization was successful. Otherwise, the method returns false
      */
-    boolean initializeAnalysis();
+    void initializeAnalysis();
 
     /**
      * Determines the flow graph of the referenced models

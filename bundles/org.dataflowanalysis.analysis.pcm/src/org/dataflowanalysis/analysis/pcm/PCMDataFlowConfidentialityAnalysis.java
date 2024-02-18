@@ -31,8 +31,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
     private static final String PLUGIN_PATH = "org.dataflowanalysis.analysis.pcm";
     private final Logger logger;
 
-    // TODO: Temporary fix
-    protected PCMResourceProvider resourceProvider;
+    protected final PCMResourceProvider resourceProvider;
 
     protected final String modelProjectName;
     protected final Optional<Class<? extends Plugin>> modelProjectActivator;
@@ -74,7 +73,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
     }
 
     @Override
-    public boolean initializeAnalysis() {
+    public void initializeAnalysis() {
         if (initStandaloneAnalysis()) {
             logger.info("Successfully initialized standalone data flow analysis.");
         } else {
@@ -87,11 +86,8 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
             throw new IllegalStateException("Failed loading the required models for the data flow analysis.");
         }
 
-        // TODO Temporary fix
         PCMVertexCharacteristicsCalculator nodeCharacteristicsCalculator = new PCMVertexCharacteristicsCalculator(resourceProvider);
         nodeCharacteristicsCalculator.checkAssignments();
-
-        return true;
     }
 
     @Override

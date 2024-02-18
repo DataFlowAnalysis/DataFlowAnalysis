@@ -10,7 +10,7 @@ import org.dataflowanalysis.analysis.resource.ResourceProvider;
  */
 public abstract class FlowGraph {
     protected ResourceProvider resourceProvider;
-    private List<? extends AbstractPartialFlowGraph> partialFlowGraphs;
+    private final List<? extends AbstractPartialFlowGraph> partialFlowGraphs;
 
     /**
      * Creates a new flow graph with the given resource provider.

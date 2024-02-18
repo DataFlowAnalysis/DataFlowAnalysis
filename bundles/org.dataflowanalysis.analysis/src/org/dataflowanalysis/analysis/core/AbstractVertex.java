@@ -11,9 +11,9 @@ import org.apache.log4j.Logger;
  * element in a partial flow graph and links to an element. An element referenced in this way may be referenced multiple
  * times by different abstract vertices. Furthermore, the abstract vertex saved incoming and outgoing data flow
  * variables and the characteristics present at the vertex.
- * @param T Type parameter representing the type of the stored object
+ * @param <T> Type parameter representing the type of the stored object
  */
-public abstract class AbstractVertex<T extends Object> {
+public abstract class AbstractVertex<T> {
     private final Logger logger = Logger.getLogger(AbstractVertex.class);
 
     protected final T referencedElement;
@@ -207,7 +207,7 @@ public abstract class AbstractVertex<T extends Object> {
                 .map(e -> String.format("%s [%s]", e.variableName(), createPrintableCharacteristicsList(e.getAllCharacteristics())))
                 .collect(Collectors.joining(", "));
 
-        return String.format(template, this.toString(), System.lineSeparator(), nodeCharacteristics, System.lineSeparator(), dataCharacteristics,
+        return String.format(template, this, System.lineSeparator(), nodeCharacteristics, System.lineSeparator(), dataCharacteristics,
                 System.lineSeparator());
     }
 

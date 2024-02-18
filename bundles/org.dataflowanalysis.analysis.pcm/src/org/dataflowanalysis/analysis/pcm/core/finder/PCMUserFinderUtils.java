@@ -58,9 +58,9 @@ public class PCMUserFinderUtils {
             ResourceProvider resourceProvider) {
         UserPCMVertex<? extends AbstractUserAction> startElement;
         if (previousSequence.getSink() == null) {
-            startElement = new UserPCMVertex<Start>(currentAction, resourceProvider);
+            startElement = new UserPCMVertex<>(currentAction, resourceProvider);
         } else {
-            startElement = new UserPCMVertex<Start>(currentAction, List.of(previousSequence.getSink()), resourceProvider);
+            startElement = new UserPCMVertex<>(currentAction, List.of(previousSequence.getSink()), resourceProvider);
         }
         var currentSequence = new PCMPartialFlowGraph(startElement);
         return findSequencesForUserAction(currentAction.getSuccessor(), currentSequence, resourceProvider);
@@ -68,7 +68,7 @@ public class PCMUserFinderUtils {
 
     private static List<PCMPartialFlowGraph> findSequencesForUserStopAction(Stop currentAction, PCMPartialFlowGraph previousSequence,
             ResourceProvider resourceProvider) {
-        var stopElement = new UserPCMVertex<Stop>(currentAction, List.of(previousSequence.getSink()), resourceProvider);
+        var stopElement = new UserPCMVertex<>(currentAction, List.of(previousSequence.getSink()), resourceProvider);
         var currentSequence = new PCMPartialFlowGraph(stopElement);
 
         Optional<AbstractUserAction> parentAction = PCMQueryUtils.findParentOfType(currentAction, AbstractUserAction.class, false);
@@ -96,7 +96,7 @@ public class PCMUserFinderUtils {
         Optional<SEFFWithContext> calledSEFF = PCMQueryUtils.findCalledSEFF(calledRole, calledSignature, new ArrayDeque<>());
 
         if (calledSEFF.isEmpty()) {
-            return new ArrayList<PCMPartialFlowGraph>();
+            return new ArrayList<>();
         } else {
             Optional<StartAction> SEFFStartAction = PCMQueryUtils.getFirstStartActionInActionList(calledSEFF.get().seff().getSteps_Behaviour());
 

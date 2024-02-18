@@ -55,9 +55,9 @@ public class DFDVertex extends AbstractVertex<EObject> {
 
         Map<Pin, DFDVertex> previousVertices = this.getMapPinToPreviousVertex();
 
-        List<DataFlowVariable> dataFlowVariables = new ArrayList<DataFlowVariable>();
-        List<DataFlowVariable> outgoingDataFlowVariables = new ArrayList<DataFlowVariable>();
-        List<CharacteristicValue> nodeCharacteristics = new ArrayList<CharacteristicValue>();
+        List<DataFlowVariable> dataFlowVariables = new ArrayList<>();
+        List<DataFlowVariable> outgoingDataFlowVariables = new ArrayList<>();
+        List<CharacteristicValue> nodeCharacteristics = new ArrayList<>();
 
         Map<Pin, List<Label>> mapOutputPinToOutgoingLabels = new HashMap<>();
         Map<Pin, List<Label>> mapInputPinsToIncomingLabels = new HashMap<>();

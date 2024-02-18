@@ -86,7 +86,7 @@ public abstract class ResourceProvider {
      * @return Returns a list of objects that are of the target type
      */
     public <T extends EObject> List<T> lookupToplevelElement(EClass targetType) {
-        ArrayList<T> result = new ArrayList<T>();
+        ArrayList<T> result = new ArrayList<>();
         for (Resource resource : this.resources.getResources()) {
             if (this.isTargetInResource(targetType, resource)) {
                 result.addAll(EcoreUtil.<T>getObjectsByType(resource.getContents(), targetType));

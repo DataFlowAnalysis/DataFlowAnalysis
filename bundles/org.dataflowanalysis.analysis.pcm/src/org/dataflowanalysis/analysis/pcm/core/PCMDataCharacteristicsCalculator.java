@@ -202,7 +202,7 @@ public class PCMDataCharacteristicsCalculator {
                 .filter(it -> characteristicType.isEmpty() || it.getName().equals(characteristicType.get().getName()))
                 .filter(EnumCharacteristicType.class::isInstance).map(EnumCharacteristicType.class::cast)
                 .collect(Collectors.collectingAndThen(
-                        Collectors.toCollection(() -> new TreeSet<EnumCharacteristicType>(Comparator.comparing(EnumCharacteristicType::getName))),
+                        Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(EnumCharacteristicType::getName))),
                         ArrayList<EnumCharacteristicType>::new));
 
         characteristicTypes.stream().forEach(enumCharacteristicType -> enumCharacteristicType.getType().getLiterals().forEach(

@@ -31,6 +31,10 @@ public abstract class AbstractPartialFlowGraph {
      */
     public abstract AbstractPartialFlowGraph evaluate();
 
+    /**
+     * Returns the sink that induces the partial flow graph
+     * @return Returns the sink that induces the partial flow graph
+     */
     public AbstractVertex<?> getSink() {
         return sink;
     }

@@ -27,7 +27,7 @@ import org.palladiosimulator.pcm.core.entity.Entity;
  * methods for working with loaded resources, like finding specific model elements.
  */
 public abstract class ResourceProvider {
-    protected ResourceSet resources = new ResourceSetImpl();
+    protected final ResourceSet resources = new ResourceSetImpl();
 
     /**
      * Loads the required resources for a {@link DataFlowConfidentialityAnalysis}. The loaded resources should be saved into

@@ -212,8 +212,7 @@ public class DFDVertex extends AbstractVertex<EObject> {
             DFDVertex previousClone = this.mapPinToPreviousVertex.get(key).clone();
             newMapPinToPreviousVertex.put(key, previousClone);
         }
-        DFDVertex clone = new DFDVertex(this.name, this.node, newMapPinToPreviousVertex, new HashMap<>(this.mapPinToInputFlow));
-        return clone;
+        return new DFDVertex(this.name, this.node, newMapPinToPreviousVertex, new HashMap<>(this.mapPinToInputFlow));
     }
 
     public Map<Pin, DFDVertex> getMapPinToPreviousVertex() {

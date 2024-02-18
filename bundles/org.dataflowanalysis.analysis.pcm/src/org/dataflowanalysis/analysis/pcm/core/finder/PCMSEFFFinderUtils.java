@@ -120,7 +120,7 @@ public class PCMSEFFFinderUtils {
 
     private static List<PCMPartialFlowGraph> findSequencesForSEFFBranchAction(BranchAction currentAction, SEFFFinderContext context,
             PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
-        var flowGraph = currentAction.getBranches_Branch().stream().map(AbstractBranchTransition::getBranchBehaviour_BranchTransition)
+        return currentAction.getBranches_Branch().stream().map(AbstractBranchTransition::getBranchBehaviour_BranchTransition)
                 .map(ResourceDemandingBehaviour::getSteps_Behaviour).map(PCMQueryUtils::getFirstStartActionInActionList).flatMap(Optional::stream)
                 .map(it -> {
                     Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> isomorphism = new IdentityHashMap<>();
@@ -129,7 +129,6 @@ public class PCMSEFFFinderUtils {
                     clonedContext.replaceCallers(isomorphism);
                     return findSequencesForSEFFAction(it, clonedContext, clonedSequence, resourceProvider);
                 }).flatMap(List::stream).toList();
-        return flowGraph;
     }
 
     private static List<PCMPartialFlowGraph> findSequencesForSEFFActionReturning(ExternalCallAction currentAction, SEFFFinderContext context,

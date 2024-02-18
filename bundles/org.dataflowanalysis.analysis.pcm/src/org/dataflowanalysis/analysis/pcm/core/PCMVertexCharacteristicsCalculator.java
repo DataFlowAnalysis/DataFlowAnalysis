@@ -162,20 +162,17 @@ public class PCMVertexCharacteristicsCalculator {
     public void checkAssignments() {
         Assignments assignments = this.resolveAssignments();
         for (AbstractAssignee assignee : assignments.getAssignee()) {
-            if (assignee instanceof UsageAssignee) {
-                UsageAssignee usage = (UsageAssignee) assignee;
+            if (assignee instanceof UsageAssignee usage) {
                 if (!this.presentInUsageModel(usage.getUsagescenario())) {
                     throw new IllegalStateException("Referenced Usage Scenario is not loaded!");
                 }
                 this.checkCharacteristics(usage.getCharacteristics());
-            } else if (assignee instanceof ResourceAssignee) {
-                ResourceAssignee resource = (ResourceAssignee) assignee;
+            } else if (assignee instanceof ResourceAssignee resource) {
                 if (!this.presentInResource(resource.getResourcecontainer())) {
                     throw new IllegalStateException("Referenced Resource container is not loaded!");
                 }
                 this.checkCharacteristics(resource.getCharacteristics());
-            } else if (assignee instanceof AssemblyAssignee) {
-                AssemblyAssignee assembly = (AssemblyAssignee) assignee;
+            } else if (assignee instanceof AssemblyAssignee assembly) {
                 if (!this.presentInAssembly(assembly.getAssemblycontext()) && !this.presentInComposite(assembly.getAssemblycontext())) {
                     throw new IllegalStateException("Referenced Assembly context is not loaded!");
                 }

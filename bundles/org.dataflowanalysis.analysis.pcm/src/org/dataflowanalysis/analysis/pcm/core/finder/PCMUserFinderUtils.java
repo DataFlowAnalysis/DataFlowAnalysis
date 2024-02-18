@@ -6,7 +6,6 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Optional;
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
 import org.dataflowanalysis.analysis.pcm.flowgraph.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.flowgraph.PCMPartialFlowGraph;
 import org.dataflowanalysis.analysis.pcm.flowgraph.user.CallingUserPCMVertex;
@@ -152,8 +151,8 @@ public class PCMUserFinderUtils {
       EntryLevelSystemCall currentAction,
       PCMPartialFlowGraph previousSequence,
       ResourceProvider resourceProvider,
-      AbstractVertex<?> caller) {
-    List<AbstractVertex<?>> previousVertices = new ArrayList<>();
+      AbstractPCMVertex<?> caller) {
+    List<AbstractPCMVertex<?>> previousVertices = new ArrayList<>();
     previousVertices.add(caller);
     previousVertices.add(previousSequence.getSink());
     PCMPartialFlowGraph currentActionSequence =

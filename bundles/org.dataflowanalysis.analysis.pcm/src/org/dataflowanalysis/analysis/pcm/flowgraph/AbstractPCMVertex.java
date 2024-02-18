@@ -22,6 +22,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
 
   protected final Deque<AssemblyContext> context;
   protected final ResourceProvider resourceProvider;
+  protected List<? extends AbstractPCMVertex<?>> previousElements;
 
   /**
    * Constructs a new abstract pcm vertex with the underlying palladio element and assembly context
@@ -30,9 +31,10 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
    */
   public AbstractPCMVertex(
       T referencedElement, Deque<AssemblyContext> context, ResourceProvider resourceProvider) {
-    super(referencedElement, List.of());
+    super(referencedElement);
     this.context = context;
     this.resourceProvider = resourceProvider;
+    this.previousElements = List.of();
   }
 
   public abstract AbstractPCMVertex<?> deepCopy(
@@ -53,6 +55,15 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     super.setPropagationResult(
         incomingDataFlowVariables, outgoingDataFlowVariables, vertexCharacteristics);
   }
+  
+  @Override
+  public List<? extends AbstractVertex<?>> getPreviousElements() {
+	  return this.previousElements;
+	}
+  
+  public void setPreviousElements(List<? extends AbstractPCMVertex<?>> previousElements) {
+  	this.previousElements = previousElements;
+  }
 
   /**
    * Constructs a new abstract pcm vertex with the underlying palladio element and assembly context
@@ -61,12 +72,13 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
    */
   public AbstractPCMVertex(
       T referencedElement,
-      List<? extends AbstractVertex<?>> previousElements,
+      List<? extends AbstractPCMVertex<?>> previousElements,
       Deque<AssemblyContext> context,
       ResourceProvider resourceProvider) {
-    super(referencedElement, previousElements);
+    super(referencedElement);
     this.context = context;
     this.resourceProvider = resourceProvider;
+    this.previousElements = previousElements;
   }
 
   /**
@@ -93,7 +105,6 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
       List<CharacteristicValue> vertexCharacteristics,
       List<ConfidentialityVariableCharacterisation> variableCharacterisations,
       List<DataFlowVariable> oldDataFlowVariables) {
-    // TODO: Missing Resource Loader
     DataCharacteristicsCalculator dataCharacteristicsCalculator =
         new PCMDataCharacteristicsCalculator(
             oldDataFlowVariables, vertexCharacteristics, this.resourceProvider);

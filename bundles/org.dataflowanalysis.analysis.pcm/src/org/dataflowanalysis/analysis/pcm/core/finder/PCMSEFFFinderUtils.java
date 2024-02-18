@@ -203,8 +203,8 @@ public class PCMSEFFFinderUtils {
       SEFFFinderContext context,
       PCMPartialFlowGraph previousSequence,
       ResourceProvider resourceProvider,
-      AbstractVertex<?> caller) {
-    List<AbstractVertex<?>> previousVertices = new ArrayList<>();
+      AbstractPCMVertex<?> caller) {
+    List<AbstractPCMVertex<?>> previousVertices = new ArrayList<>();
     previousVertices.add(caller);
     previousVertices.add(previousSequence.getSink());
     PCMPartialFlowGraph currentActionSequence =

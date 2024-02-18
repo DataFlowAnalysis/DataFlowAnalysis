@@ -38,7 +38,7 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
    */
   public SEFFPCMVertex(
       T element,
-      List<? extends AbstractVertex<?>> previousElements,
+      List<? extends AbstractPCMVertex<?>> previousElements,
       Deque<AssemblyContext> context,
       List<Parameter> parameter,
       ResourceProvider resourceProvider) {

@@ -31,8 +31,8 @@ public class PCMPartialFlowGraph extends AbstractPartialFlowGraph {
   }
 
   @Override
-  public AbstractVertex<?> getSink() {
-    return this.sink;
+  public AbstractPCMVertex<?> getSink() {
+    return (AbstractPCMVertex<?>) this.sink;
   }
 
   public PCMPartialFlowGraph deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> isomorphism) {

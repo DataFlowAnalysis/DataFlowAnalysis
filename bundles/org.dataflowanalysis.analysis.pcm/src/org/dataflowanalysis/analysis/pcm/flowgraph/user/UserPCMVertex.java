@@ -31,7 +31,7 @@ public class UserPCMVertex<T extends AbstractUserAction> extends AbstractPCMVert
    */
   public UserPCMVertex(
       T element,
-      List<? extends AbstractVertex<?>> previousElements,
+      List<? extends AbstractPCMVertex<?>> previousElements,
       ResourceProvider resourceProvider) {
     super(element, previousElements, new ArrayDeque<>(), resourceProvider);
   }

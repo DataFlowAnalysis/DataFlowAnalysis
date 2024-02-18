@@ -42,17 +42,13 @@ public class DFDVertex extends AbstractVertex<EObject> {
       Node node,
       Map<Pin, DFDVertex> mapPinToPreviousVertex,
       Map<Pin, Flow> mapPinToInputFlow) {
-    super(
-        node,
-        new ArrayList<>(
-            mapPinToPreviousVertex
-                .values()));
+    super(node);
     this.name = name;
     this.node = node;
     this.mapPinToPreviousVertex = mapPinToPreviousVertex;
     this.mapPinToInputFlow = mapPinToInputFlow;
   }
-
+  
   @Override
   public void evaluateDataFlow() {
     if (super.isEvaluated()) return;

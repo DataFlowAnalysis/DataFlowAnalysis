@@ -30,7 +30,7 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction>
    */
   public CallingSEFFPCMVertex(
       ExternalCallAction element,
-      List<? extends AbstractVertex<?>> previousElements,
+      List<? extends AbstractPCMVertex<?>> previousElements,
       Deque<AssemblyContext> context,
       List<Parameter> parameter,
       boolean isCalling,

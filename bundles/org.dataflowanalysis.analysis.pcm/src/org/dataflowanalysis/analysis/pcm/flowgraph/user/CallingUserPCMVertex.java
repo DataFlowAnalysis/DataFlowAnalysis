@@ -23,7 +23,7 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall>
    */
   public CallingUserPCMVertex(
       EntryLevelSystemCall element,
-      List<? extends AbstractVertex<?>> previousElements,
+      List<? extends AbstractPCMVertex<?>> previousElements,
       boolean isCalling,
       ResourceProvider resourceProvider) {
     super(element, previousElements, resourceProvider);

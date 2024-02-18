@@ -20,7 +20,6 @@ public abstract class AbstractVertex<T extends Object> {
   private final Logger logger = Logger.getLogger(AbstractVertex.class);
 
   protected final T referencedElement;
-  protected List<? extends AbstractVertex<?>> previousElements;
 
   private Optional<List<DataFlowVariable>> incomingDataFlowVariables;
   private Optional<List<DataFlowVariable>> outgoingDataFlowVariables;
@@ -29,9 +28,8 @@ public abstract class AbstractVertex<T extends Object> {
   /**
    * Constructs a new action sequence element with empty data flow variables and node characteristics
    */
-  public AbstractVertex(T referencedElement, List<? extends AbstractVertex<?>> previousElements) {
+  public AbstractVertex(T referencedElement) {
     this.referencedElement = referencedElement;
-    this.previousElements = previousElements;
     this.incomingDataFlowVariables = Optional.empty();
     this.outgoingDataFlowVariables = Optional.empty();
     this.vertexCharacteristics = Optional.empty();
@@ -64,14 +62,6 @@ public abstract class AbstractVertex<T extends Object> {
     this.incomingDataFlowVariables = Optional.of(new ArrayList<>(incomingDataFlowVariables));
     this.outgoingDataFlowVariables = Optional.of(new ArrayList<>(outgoingDataFlowVariables));
     this.vertexCharacteristics = Optional.of(new ArrayList<>(vertexCharacteristics));
-  }
-
-  /**
-   * Sets the List of previous Elements for the vertex
-   * @param previousElements List of elements that precede the vertex
-   */
-  public void setPreviousElements(List<? extends AbstractVertex<?>> previousElements) {
-    this.previousElements = previousElements;
   }
 
   /**
@@ -129,16 +119,14 @@ public abstract class AbstractVertex<T extends Object> {
    * Returns the list of previous elements that precede the vertex
    * @return Returns a list of all preceding vertices of the vertex.
    */
-  public List<? extends AbstractVertex<?>> getPreviousElements() {
-    return this.previousElements;
-  }
+  public abstract List<? extends AbstractVertex<?>> getPreviousElements();
 
   /**
    * Returns whether the vertex is a source (e.g. does not have a source)
    * @return Returns true, if the vertex is a source. Otherwise, the method returns false
    */
   public boolean isSource() {
-    return this.previousElements.isEmpty();
+    return this.getPreviousElements().isEmpty();
   }
 
   /**

@@ -150,18 +150,19 @@ public class PCMDataCharacteristicsCalculator {
      * @return Returns, whether the characteristic value should be set
      */
     private boolean evaluateTerm(Term term, CharacteristicValue characteristicValue) {
-        return switch (term) {
-            case True ignored -> true;
-            case False ignored -> false;
-            case NamedEnumCharacteristicReference namedEnumCharacteristicReference ->
-                    evaluateNamedReference(namedEnumCharacteristicReference, characteristicValue);
-            case And andTerm ->
-                    evaluateTerm(andTerm.getLeft(), characteristicValue) && evaluateTerm(andTerm.getRight(), characteristicValue);
-            case Or orTerm ->
-                    evaluateTerm(orTerm.getLeft(), characteristicValue) || evaluateTerm(orTerm.getRight(), characteristicValue);
-            case null -> throw new IllegalArgumentException("Evaluation of term failed, as provided term is null");
-            default -> throw new IllegalArgumentException("Unknown type: " + term.getClass().getName());
-        };
+        if (term instanceof True) {
+            return true;
+        } else if (term instanceof False) {
+            return false;
+        } else if (term instanceof NamedEnumCharacteristicReference) {
+            return evaluateNamedReference((NamedEnumCharacteristicReference) term, characteristicValue);
+        } else if (term instanceof And andTerm) {
+            return evaluateTerm(andTerm.getLeft(), characteristicValue) && evaluateTerm(andTerm.getRight(), characteristicValue);
+        } else if (term instanceof Or orTerm) {
+            return evaluateTerm(orTerm.getLeft(), characteristicValue) || evaluateTerm(orTerm.getRight(), characteristicValue);
+        } else {
+            throw new IllegalArgumentException("Unknown type: " + term.getClass().getName());
+        }
     }
 
     /**

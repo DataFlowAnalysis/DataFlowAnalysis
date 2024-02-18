@@ -32,25 +32,23 @@ public class PCMUserFinderUtils {
 
     public static List<PCMPartialFlowGraph> findSequencesForUserAction(AbstractUserAction currentAction, PCMPartialFlowGraph previousSequence,
             ResourceProvider resourceProvider) {
-        switch (currentAction) {
-            case Start start -> {
-                return findSequencesForUserStartAction(start, previousSequence, resourceProvider);
-            }
-            case Stop stop -> {
-                return findSequencesForUserStopAction(stop, previousSequence, resourceProvider);
-            }
-            case Branch branch -> {
-                return findSequencesForUserBranchAction(branch, previousSequence, resourceProvider);
-            }
-            case EntryLevelSystemCall entryLevelSystemCall -> {
-                return findSequencesForEntryLevelSystemCall(entryLevelSystemCall, previousSequence, resourceProvider);
-            }
-            case null, default -> {
-                // default case: skip action and continue with successor
-                logger.info(
-                        String.format("Action %s has unsupported type of %s and is skipped.", currentAction.getId(), currentAction.getClass().getName()));
-                return findSequencesForUserAction(currentAction.getSuccessor(), previousSequence, resourceProvider);
-            }
+        if (currentAction instanceof Start) {
+            return findSequencesForUserStartAction((Start) currentAction, previousSequence, resourceProvider);
+
+        } else if (currentAction instanceof Stop) {
+            return findSequencesForUserStopAction((Stop) currentAction, previousSequence, resourceProvider);
+
+        } else if (currentAction instanceof Branch) {
+            return findSequencesForUserBranchAction((Branch) currentAction, previousSequence, resourceProvider);
+
+        } else if (currentAction instanceof EntryLevelSystemCall) {
+            return findSequencesForEntryLevelSystemCall((EntryLevelSystemCall) currentAction, previousSequence, resourceProvider);
+
+        } else {
+            // default case: skip action and continue with successor
+            logger.info(
+                    String.format("Action %s has unsupported type of %s and is skipped.", currentAction.getId(), currentAction.getClass().getName()));
+            return findSequencesForUserAction(currentAction.getSuccessor(), previousSequence, resourceProvider);
         }
     }
 

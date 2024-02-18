@@ -14,8 +14,7 @@ import org.dataflowanalysis.analysis.core.FlowGraph;
  * each node the method {@link DataFlowConfidentialityAnalysis#evaluateFlowGraph(FlowGraph)} must be called. Finally, a
  * constraint can be evaluated with
  * {@link DataFlowConfidentialityAnalysis#queryDataFlow(AbstractPartialFlowGraph, Predicate)} on each partial flow graph
- * contained in the previously returned flow graph. TODO: Naming: Confidentiality required here? Can´t this also analyse
- * something else?
+ * contained in the previously returned flow graph.
  */
 public interface DataFlowConfidentialityAnalysis {
     public static final String PLUGIN_PATH = "org.dataflowanalysis.analysis";

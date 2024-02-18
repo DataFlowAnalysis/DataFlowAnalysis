@@ -41,8 +41,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
 
     /**
      * Creates a new instance of an data flow analysis with the given parameters
-     * @param resourceLoader Resource loader, which loads the required model resources
-     * @param logger Logger to which error messages should be logged
+     * @param resourceProvider Resource provider that provides the required resources to the analysis
      * @param modelProjectName Name of the modelling project
      * @param modelProjectActivator Plugin class of the analysis
      */
@@ -140,12 +139,11 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
             Logger.getLogger(ResourceSetBasedAllContainersStateProvider.class).setLevel(Level.WARN);
             Logger.getLogger(AbstractCleaningLinker.class).setLevel(Level.WARN);
 
-            logger.info("Successfully initialized standalone log4j for the data flow analysis.");
+            logger.info("Successfully initialized standalone log4j for the data flow analysis");
             return true;
 
         } catch (StandaloneInitializationException e) {
-            logger.error("Unable to initialize standalone log4j for the data flow analysis.");
-            e.printStackTrace();
+            logger.error("Unable to initialize standalone log4j for the data flow analysis", e);
             return false;
         }
     }
@@ -160,9 +158,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
                     .registerProjectURI(DataFlowConfidentialityAnalysis.class, DataFlowConfidentialityAnalysis.PLUGIN_PATH)
                     .registerProjectURI(PCMDataFlowConfidentialityAnalysis.class, PCMDataFlowConfidentialityAnalysis.PLUGIN_PATH);
 
-            if (this.modelProjectActivator.isPresent()) {
-                initializationBuilder.registerProjectURI(this.modelProjectActivator.get(), this.modelProjectName);
-            }
+            this.modelProjectActivator.ifPresent(projectActivator -> initializationBuilder.registerProjectURI(projectActivator, this.modelProjectName));
 
             initializationBuilder.build().init();
 
@@ -170,8 +166,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
             return true;
 
         } catch (StandaloneInitializationException e) {
-            logger.error("Unable to initialize standalone environment for the data flow analysis.");
-            e.printStackTrace();
+            logger.error("Unable to initialize standalone environment for the data flow analysis", e);
             return false;
         }
     }
@@ -192,7 +187,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
             return true;
 
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+            logger.error("Could not load required models", e);
             return false;
         }
     }

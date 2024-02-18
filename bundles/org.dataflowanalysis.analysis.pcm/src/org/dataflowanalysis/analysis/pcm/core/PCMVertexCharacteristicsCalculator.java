@@ -238,10 +238,10 @@ public class PCMVertexCharacteristicsCalculator {
         List<Repository> repositories = this.resourceLoader.lookupToplevelElement(RepositoryPackage.eINSTANCE.getRepository()).parallelStream()
                 .filter(Repository.class::isInstance).map(Repository.class::cast)
                 .toList();
-        List<CompositeComponent> compositeCompontents = repositories.parallelStream().flatMap(it -> it.getComponents__Repository().stream())
+        List<CompositeComponent> compositeComponents = repositories.parallelStream().flatMap(it -> it.getComponents__Repository().stream())
                 .filter(CompositeComponent.class::isInstance).map(CompositeComponent.class::cast)
                 .toList();
-        return compositeCompontents.stream().anyMatch(it -> it.getAssemblyContexts__ComposedStructure().contains(assemblyContext));
+        return compositeComponents.stream().anyMatch(it -> it.getAssemblyContexts__ComposedStructure().contains(assemblyContext));
     }
 
     /**

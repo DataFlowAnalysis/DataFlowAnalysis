@@ -10,7 +10,7 @@ import org.dataflowanalysis.analysis.core.AbstractVertex;
  */
 public class PCMPartialFlowGraph extends AbstractPartialFlowGraph {
     /**
-     * Creates a empty new action sequence
+     * Creates an empty new action sequence
      */
     public PCMPartialFlowGraph() {
         super(null);

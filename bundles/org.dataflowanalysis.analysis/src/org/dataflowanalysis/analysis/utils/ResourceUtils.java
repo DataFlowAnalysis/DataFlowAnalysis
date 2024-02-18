@@ -8,7 +8,7 @@ import org.eclipse.emf.common.util.URI;
  */
 public class ResourceUtils {
     private ResourceUtils() {
-        throw new IllegalStateException("Utility classes should not be instanciated");
+        throw new IllegalStateException("Utility classes should not be instantiated");
     }
 
     /**

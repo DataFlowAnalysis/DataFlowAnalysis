@@ -48,8 +48,8 @@ public abstract class DataFlowAnalysisBuilder {
 
     /**
      * Sets the plugin activator project name of the analysis. The plugin activator is required to load model files from a
-     * project outside of the analysis project. Example: For the models contained in the
-     * org.dataflowanalysis.analysis.testmodels project/bundle the pluginActivator is the basic class present in the sources
+     * project outside the analysis project. Example:
+     * For the models contained in the {@code org.dataflowanalysis.analysis.testmodels} project/bundle the pluginActivator is the basic class present in the sources
      * of that project
      * @return Builder of the analysis
      */
@@ -69,7 +69,7 @@ public abstract class DataFlowAnalysisBuilder {
                     new IllegalStateException("Dataflow analysis can only be run in standalone mode"));
         }
         if (this.modelProjectName == null || this.modelProjectName.isEmpty()) {
-            logger.error("The dataflow analysis reuqires a model project name to be present to resolve paths to" + " the models",
+            logger.error("The dataflow analysis requires a model project name to be present to resolve paths to" + " the models",
                     new IllegalStateException("Model project name is required"));
         }
     }

@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 /**
  * This class represents a data flow variable with a given name and a list of {@link CharacteristicValue}s
  * An element can be represented as such:
- * {@code <variableName>.<characterisicType>.<characteristicValue> }
+ * {@code <variableName>.<characteristicType>.<characteristicValue> }
  */
 public record DataFlowVariable(String variableName, List<CharacteristicValue> characteristics) {
 

@@ -98,7 +98,7 @@ public class PCMDataFlowConfidentialityAnalysisBuilder extends DataFlowAnalysisB
 
     /**
      * Creates a new URI resource loader with the saved URIs
-     * @return New instance of an URI resource loader with the internally saved values
+     * @return New instance of a URI resource loader with the internally saved values
      */
     private PCMResourceProvider getURIResourceProvider() {
         return new PCMURIResourceProvider(ResourceUtils.createRelativePluginURI(relativeUsageModelPath, modelProjectName),

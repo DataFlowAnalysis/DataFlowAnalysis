@@ -38,7 +38,7 @@ public interface DataFlowConfidentialityAnalysis {
     FlowGraph evaluateFlowGraph(FlowGraph flowGraph);
 
     /**
-     * Evaluates a given condition on an partial flow graph and returns all elements that violate the given condition
+     * Evaluates a given condition on a partial flow graph and returns all elements that violate the given condition
      * @param partialFlowGraph Partial flow graph that is analyzed by the analysis
      * @param condition Condition that describes a violation at one vertex. If the condition returns true, the condition is
      * violated and the vertex is included in the output. Otherwise, the vertex is not included in the result of this

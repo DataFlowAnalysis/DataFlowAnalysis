@@ -215,7 +215,8 @@ public abstract class AbstractVertex<T> {
     /**
      * Returns a string with the names of all characteristic types and selected literals of all characteristic values.
      * @param characteristics a list of characteristics values
-     * @return a comma separated list of the format "type.literal, type.literal"
+     * @return  a comma separated list of the format:
+     *          "CharacteristicType.CharacteristicLiteral, CharacteristicType.CharacteristicLiteral"
      */
     public String createPrintableCharacteristicsList(List<CharacteristicValue> characteristics) {
         List<String> entries = characteristics.stream().map(it -> String.format("%s.%s", it.getTypeName(), it.getValueName())).toList();

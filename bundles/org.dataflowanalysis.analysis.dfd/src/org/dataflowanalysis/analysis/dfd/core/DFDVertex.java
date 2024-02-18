@@ -109,7 +109,7 @@ public class DFDVertex extends AbstractVertex<EObject> {
             }
         }
 
-        // Create outgoing dfvs from map
+        // Create outgoing data flow variables from map
         for (var pin : mapOutputPinToOutgoingLabels.keySet()) {
             List<CharacteristicValue> characteristics = new ArrayList<>();
             for (var label : mapOutputPinToOutgoingLabels.get(pin)) {

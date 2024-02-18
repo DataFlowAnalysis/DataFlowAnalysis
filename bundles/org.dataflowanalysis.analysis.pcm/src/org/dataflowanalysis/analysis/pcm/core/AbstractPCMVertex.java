@@ -100,11 +100,11 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
 
     /**
      * Checks the parameters to the call signature for characterizations that have no impact on the results at all
-     * @param callSigniture Call Signature of the call
+     * @param callSignature Call Signature of the call
      * @param variableCharacterisations Variable characterizations that are applied to the sequence element
      */
-    protected void checkCallParameter(OperationSignature callSigniture, List<ConfidentialityVariableCharacterisation> variableCharacterisations) {
-        List<String> parameter = callSigniture.getParameters__OperationSignature().stream().map(Parameter::getParameterName).toList();
+    protected void checkCallParameter(OperationSignature callSignature, List<ConfidentialityVariableCharacterisation> variableCharacterisations) {
+        List<String> parameter = callSignature.getParameters__OperationSignature().stream().map(Parameter::getParameterName).toList();
 
         List<String> referencedParameter = variableCharacterisations.stream()
                 .map(it -> it.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage().getReferenceName()).toList();

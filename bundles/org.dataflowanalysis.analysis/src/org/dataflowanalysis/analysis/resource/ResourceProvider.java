@@ -20,7 +20,7 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 
 /**
  * This class is responsible for accessing and loading resources for a {@link DataFlowConfidentialityAnalysis}. The
- * method {@link ResourceProvider#loadRequiredResources()} loads the requires resources and saves them into
+ * method {@link ResourceProvider#loadRequiredResources()} loads the required resources and saves them into
  * {@link ResourceProvider#resources}. The method {@link ResourceProvider#sufficientResourcesLoaded()} indicates whether
  * the resource provider has loaded enough resources that an analysis could be run Lastly, the class contains multiple
  * methods for working with loaded resources, like finding specific model elements.
@@ -114,7 +114,7 @@ public abstract class ResourceProvider {
      * Finds an element that fulfills the given condition in a given resource
      * @param condition Condition the element should fulfill
      * @param resource Resource that should be searched
-     * @return Returns the first entity, that fulfills the condition. As an element satisfying the condition may not exists,
+     * @return Returns the first entity, that fulfills the condition. As an element satisfying the condition may not exist,
      * the result is wrapped in an {@link Optional}
      */
     private Optional<EObject> findInResource(Predicate<EObject> condition, Resource resource) {

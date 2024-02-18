@@ -39,7 +39,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
     protected List<PCMDataDictionary> dataDictionaries;
 
     /**
-     * Creates a new instance of an data flow analysis with the given parameters
+     * Creates a new instance of a data flow analysis with the given parameters
      * @param resourceProvider Resource provider that provides the required resources to the analysis
      * @param modelProjectName Name of the modelling project
      * @param modelProjectActivator Plugin class of the analysis
@@ -144,7 +144,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
     }
 
     /**
-     * Initializes the workspace of the analysis to function without a eclipse installation
+     * Initializes the workspace of the analysis to function without an eclipse installation
      * @return Returns true, if standalone initialization was successful. Otherwise, the method returns false
      */
     private boolean initStandalone() {

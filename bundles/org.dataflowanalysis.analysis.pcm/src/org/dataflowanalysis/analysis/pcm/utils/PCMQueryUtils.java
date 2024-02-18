@@ -30,7 +30,7 @@ public class PCMQueryUtils {
     private static final Logger logger = Logger.getLogger(PCMQueryUtils.class);
 
     private PCMQueryUtils() {
-        throw new IllegalStateException("Utility classes should not be instanciated");
+        throw new IllegalStateException("Utility classes should not be instantiated");
     }
 
     /**

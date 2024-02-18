@@ -43,7 +43,7 @@ public class PCMDataCharacteristicsCalculator {
 
     /**
      * Create the container for node characteristics. Each node characteristic is saved within the container
-     * DataFlowVariable with it's characteristic type and value.
+     * DataFlowVariable with its characteristic type and value.
      * <p>
      * Furthermore, node characteristics cannot be modified by variable characterisations, so this variable is read-only.
      * @param nodeCharacteristics Given list of node characteristics present at the current node
@@ -55,8 +55,8 @@ public class PCMDataCharacteristicsCalculator {
     }
 
     /**
-     * Evaluate a Variable Characterization with the current Variables and update the internal state of the characteristics
-     * calculator. This method should be called for each Variable Characterization (e.g. Stoex)
+     * Evaluate a Variable Characterization with the current Variables and update the internal state of the calculator.
+     * This method should be called for each Variable Characterization (e.g. Sto-ex)
      * <p>
      * For easier use, the state of characteristics at a given sequence element, is managed and updated by calling this
      * method. The final DataflowVariables for an element are accessed with {@link PCMDataCharacteristicsCalculator#getCalculatedCharacteristics()}.
@@ -107,8 +107,8 @@ public class PCMDataCharacteristicsCalculator {
                 .filter(it -> !modifiedCharacteristics.contains(it))
                 .toList();
 
-        for (CharacteristicValue umodifedCharacteristic : unmodifiedCharacteristics) {
-            computedVariable = computedVariable.addCharacteristic(umodifedCharacteristic);
+        for (CharacteristicValue unmodifiedCharacteristic : unmodifiedCharacteristics) {
+            computedVariable = computedVariable.addCharacteristic(unmodifiedCharacteristic);
         }
 
         for (CharacteristicValue modifiedCharacteristic : modifiedCharacteristics) {

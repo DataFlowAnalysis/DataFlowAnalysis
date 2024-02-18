@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
@@ -42,13 +41,7 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
 
     @Override
     public void evaluateDataFlow() {
-        List<DataFlowVariable> incomingDataFlowVariables = List.of();
-        if (!super.isSource()) {
-            super.getPreviousElements().stream().filter(it -> !it.isEvaluated()).forEach(AbstractVertex::evaluateDataFlow);
-            incomingDataFlowVariables = super.getPreviousElements().stream().flatMap(it -> it.getAllOutgoingDataFlowVariables().stream())
-                    .collect(Collectors.toList());
-        }
-
+        List<DataFlowVariable> incomingDataFlowVariables = super.getIncomingDataFlowVariables();
         List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
 
         List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.isCalling
@@ -86,19 +79,7 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
         }
         CallingSEFFPCMVertex copy = new CallingSEFFPCMVertex(referencedElement, List.of(), new ArrayDeque<>(context),
                 new ArrayList<>(this.getParameter()), isCalling, resourceProvider);
-        if (this.isEvaluated()) {
-            copy.setPropagationResult(this.getAllIncomingDataFlowVariables(), this.getAllOutgoingDataFlowVariables(),
-                    this.getVertexCharacteristics());
-        }
-        isomorphism.put(this, copy);
-
-        List<? extends AbstractPCMVertex<?>> clonedPreviousElements = this.previousElements.stream()
-                .map(it -> it.deepCopy(isomorphism))
-                .toList();
-
-        copy.setPreviousElements(clonedPreviousElements);
-
-        return copy;
+        return super.updateCopy(copy, isomorphism);
     }
     
     @Override

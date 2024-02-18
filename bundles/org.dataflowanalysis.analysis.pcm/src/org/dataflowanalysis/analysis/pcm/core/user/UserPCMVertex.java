@@ -3,9 +3,7 @@ package org.dataflowanalysis.analysis.pcm.core.user;
 import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
@@ -38,14 +36,9 @@ public class UserPCMVertex<T extends AbstractUserAction> extends AbstractPCMVert
 
     @Override
     public void evaluateDataFlow() {
-        List<DataFlowVariable> incomingDataFlowVariables = List.of();
-        if (!super.isSource()) {
-            super.getPreviousElements().stream().filter(it -> !it.isEvaluated()).forEach(AbstractVertex::evaluateDataFlow);
-            incomingDataFlowVariables = super.getPreviousElements().stream().flatMap(it -> it.getAllOutgoingDataFlowVariables().stream())
-                    .collect(Collectors.toList());
-        }
-
+        List<DataFlowVariable> incomingDataFlowVariables = super.getIncomingDataFlowVariables();
         List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
+
         if (this.getReferencedElement() instanceof Start || this.getReferencedElement() instanceof Stop) {
             this.setPropagationResult(incomingDataFlowVariables, incomingDataFlowVariables, nodeCharacteristics);
             return;
@@ -84,18 +77,6 @@ public class UserPCMVertex<T extends AbstractUserAction> extends AbstractPCMVert
             return isomorphism.get(this);
         }
         UserPCMVertex<?> copy = new UserPCMVertex<>(referencedElement, List.of(), resourceProvider);
-        if (this.isEvaluated()) {
-            copy.setPropagationResult(this.getAllIncomingDataFlowVariables(), this.getAllOutgoingDataFlowVariables(),
-                    this.getVertexCharacteristics());
-        }
-        isomorphism.put(this, copy);
-
-        List<? extends AbstractPCMVertex<?>> clonedPreviousElements = this.previousElements.stream()
-                .map(it -> it.deepCopy(isomorphism))
-                .toList();
-
-        copy.setPreviousElements(clonedPreviousElements);
-
-        return copy;
+        return super.updateCopy(copy, isomorphism);
     }
 }

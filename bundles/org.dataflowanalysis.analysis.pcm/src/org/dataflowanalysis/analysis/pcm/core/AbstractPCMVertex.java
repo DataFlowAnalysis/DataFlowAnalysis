@@ -3,6 +3,8 @@ package org.dataflowanalysis.analysis.pcm.core;
 import java.util.Deque;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
@@ -73,6 +75,17 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
         this.previousElements = previousElements;
     }
 
+    protected List<DataFlowVariable> getIncomingDataFlowVariables() {
+        if (super.isSource()) return List.of();
+
+        this.getPreviousElements().stream()
+                .filter(it -> !it.isEvaluated())
+                .forEach(AbstractVertex::evaluateDataFlow);
+        return this.getPreviousElements().stream()
+                .flatMap(it -> it.getAllOutgoingDataFlowVariables().stream())
+                .collect(Collectors.toList());
+    }
+
     /**
      * Calculate the vertex characteristics for the sequence element
      * @return Returns a list of vertex characteristics that are applied to the pcm vertex
@@ -113,6 +126,21 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
             logger.warn("Unknown reference to variable " + it + " in variable characterisation in vertex " + this.referencedElement);
             logger.warn("Present variables:" + parameter + ", Referenced parameter: " + referencedParameter);
         });
+    }
+
+    protected AbstractPCMVertex<?> updateCopy(AbstractPCMVertex<?> copy, Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> isomorphism) {
+        if (this.isEvaluated()) {
+            copy.setPropagationResult(this.getAllIncomingDataFlowVariables(), this.getAllOutgoingDataFlowVariables(),
+                    this.getVertexCharacteristics());
+        }
+        isomorphism.put(this, copy);
+
+        List<? extends AbstractPCMVertex<?>> clonedPreviousElements = this.previousElements.stream()
+                .map(it -> it.deepCopy(isomorphism))
+                .toList();
+
+        copy.setPreviousElements(clonedPreviousElements);
+        return copy;
     }
 
     /**

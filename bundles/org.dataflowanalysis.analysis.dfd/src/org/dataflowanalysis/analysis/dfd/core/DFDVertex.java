@@ -55,8 +55,6 @@ public class DFDVertex extends AbstractVertex<EObject> {
 
         Map<Pin, DFDVertex> previousVertices = this.getMapPinToPreviousVertex();
 
-        List<DataFlowVariable> dataFlowVariables = new ArrayList<>();
-        List<DataFlowVariable> outgoingDataFlowVariables = new ArrayList<>();
         List<CharacteristicValue> nodeCharacteristics = new ArrayList<>();
 
         Map<Pin, List<Label>> mapOutputPinToOutgoingLabels = new HashMap<>();
@@ -87,14 +85,7 @@ public class DFDVertex extends AbstractVertex<EObject> {
         }
 
         // Create data flow variables from map
-        for (var pin : mapInputPinsToIncomingLabels.keySet()) {
-            List<CharacteristicValue> characteristics = new ArrayList<>();
-            for (var label : mapInputPinsToIncomingLabels.get(pin)) {
-                characteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label));
-            }
-            characteristics = characteristics.stream().filter(distinctByKey(CharacteristicValue::getValueId)).collect(Collectors.toList());
-            dataFlowVariables.add(new DataFlowVariable(pin.getId(), characteristics));
-        }
+        List<DataFlowVariable> dataFlowVariables = new ArrayList<>(this.processMappingToDataFlowVariables(mapInputPinsToIncomingLabels));
 
         // Create Map with all Outgoing Labels per pin
         for (var assignment : node.getBehaviour().getAssignment()) {
@@ -110,16 +101,25 @@ public class DFDVertex extends AbstractVertex<EObject> {
         }
 
         // Create outgoing data flow variables from map
-        for (var pin : mapOutputPinToOutgoingLabels.keySet()) {
+        List<DataFlowVariable> outgoingDataFlowVariables = new ArrayList<>(this.processMappingToDataFlowVariables(mapOutputPinToOutgoingLabels));
+
+        this.setPropagationResult(dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+    }
+
+    /**
+     * TODO: I extracted this method from duplicate code. Is this okay? Can you think of a more fitting name?
+     */
+    private List<DataFlowVariable> processMappingToDataFlowVariables(Map<Pin, List<Label>> pinToLabelMap) {
+        List<DataFlowVariable> dataFlowVariables = new ArrayList<>();
+        for (var pin : pinToLabelMap.keySet()) {
             List<CharacteristicValue> characteristics = new ArrayList<>();
-            for (var label : mapOutputPinToOutgoingLabels.get(pin)) {
+            for (var label : pinToLabelMap.get(pin)) {
                 characteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label));
             }
             characteristics = characteristics.stream().filter(distinctByKey(CharacteristicValue::getValueId)).collect(Collectors.toList());
-            outgoingDataFlowVariables.add(new DataFlowVariable(pin.getId(), characteristics));
+            dataFlowVariables.add(new DataFlowVariable(pin.getId(), characteristics));
         }
-
-        this.setPropagationResult(dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+        return dataFlowVariables;
     }
 
     private static List<Label> combineLabelsOnAllInputPins(AbstractAssignment assignment, Map<Pin, List<Label>> mapInputPinsToIncomingLabels) {

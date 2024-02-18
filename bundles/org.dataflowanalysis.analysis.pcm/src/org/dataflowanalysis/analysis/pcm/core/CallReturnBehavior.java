@@ -2,9 +2,9 @@ package org.dataflowanalysis.analysis.pcm.core;
 
 public interface CallReturnBehavior {
 
-    public boolean isCalling();
+    boolean isCalling();
 
-    public default boolean isReturning() {
+    default boolean isReturning() {
         return !isCalling();
     }
 }

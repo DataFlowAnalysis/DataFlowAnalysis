@@ -17,26 +17,26 @@ import org.dataflowanalysis.analysis.core.FlowGraph;
  * contained in the previously returned flow graph.
  */
 public interface DataFlowConfidentialityAnalysis {
-    public static final String PLUGIN_PATH = "org.dataflowanalysis.analysis";
+    String PLUGIN_PATH = "org.dataflowanalysis.analysis";
 
     /**
      * Initializes the analysis by setting up the execution environment and loading the referenced models
      * @return Returns true, if initialization was successful. Otherwise, the method returns false
      */
-    public boolean initializeAnalysis();
+    boolean initializeAnalysis();
 
     /**
      * Determines the flow graph of the referenced models
      * @return Returns the flow graph containing all flows present in the referenced models
      */
-    public FlowGraph findFlowGraph();
+    FlowGraph findFlowGraph();
 
     /**
      * Evaluates the flow graph and executes the label propagation on all vertices
      * @param flowGraph Flow Graph that should be evaluated
      * @return Returns a new flow graph that contains the evaluated vertices
      */
-    public FlowGraph evaluateFlowGraph(FlowGraph flowGraph);
+    FlowGraph evaluateFlowGraph(FlowGraph flowGraph);
 
     /**
      * Evaluates a given condition on an partial flow graph and returns all elements that violate the given condition
@@ -46,11 +46,11 @@ public interface DataFlowConfidentialityAnalysis {
      * method.
      * @return Returns a list of all nodes that matched the given condition
      */
-    public List<? extends AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph partialFlowGraph, Predicate<? super AbstractVertex<?>> condition);
+    List<? extends AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph partialFlowGraph, Predicate<? super AbstractVertex<?>> condition);
 
     /**
      * Sets the logger level of the analysis components
      * @param level Desired logger level of the analysis components
      */
-    public void setLoggerLevel(Level level);
+    void setLoggerLevel(Level level);
 }

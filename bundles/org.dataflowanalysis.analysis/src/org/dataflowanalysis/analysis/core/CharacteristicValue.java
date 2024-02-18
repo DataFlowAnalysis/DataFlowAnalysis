@@ -8,17 +8,17 @@ public interface CharacteristicValue {
      * This method returns the name of the characteristic type
      * @return Returns the name of the characteristic type
      */
-    public String getTypeName();
+    String getTypeName();
 
     /**
      * This method returns the name of the characteristic value
      * @return Returns the name of the characteristic value
      */
-    public String getValueName();
+    String getValueName();
 
     /**
      * This method returns the identifier of the characteristic value in the model
      * @return Returns the identifier of the characteristic value
      */
-    public String getValueId();
+    String getValueId();
 }

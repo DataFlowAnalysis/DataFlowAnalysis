@@ -9,8 +9,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 public class DFDURIResourceProvider extends DFDResourceProvider {
-    private URI dataFlowDiagramURI;
-    private URI dataDictionaryURI;
+    private final URI dataFlowDiagramURI;
+    private final URI dataDictionaryURI;
     private DataFlowDiagram dataFlowDiagram;
     private DataDictionary dataDictionary;
 

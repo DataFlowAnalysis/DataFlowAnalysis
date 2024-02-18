@@ -9,9 +9,9 @@ import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 
 public class PCMURIResourceProvider extends PCMResourceProvider {
-    private URI usageModelURI;
-    private URI allocationModelURI;
-    private URI nodeCharacteristicURI;
+    private final URI usageModelURI;
+    private final URI allocationModelURI;
+    private final URI nodeCharacteristicURI;
     private UsageModel usageModel;
     private Allocation allocation;
 

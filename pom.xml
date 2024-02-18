@@ -98,12 +98,9 @@
             <include>bundles/**/*.java</include>
             <include>tests/**/*.java</include>
           </includes>
-          <googleJavaFormat>
-            <version>1.19.2</version>
-            <style>GOOGLE</style>
-            <reflowLongStrings>true</reflowLongStrings>
-            <formatJavadoc>false</formatJavadoc>
-          </googleJavaFormat>
+          <eclipse>
+            <file>${maven.multiModuleProjectDirectory}/formatter.xml</file>
+          </eclipse>
           <importOrder/>
           <removeUnusedImports/>
         </java>

@@ -99,4 +99,13 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
 
         return copy;
     }
+    
+    @Override
+    public boolean equals(Object otherVertexObject) {
+        if (!(otherVertexObject instanceof CallingSEFFPCMVertex)) {
+            return false;
+        }
+        CallingSEFFPCMVertex otherVertex = (CallingSEFFPCMVertex) otherVertexObject;
+        return super.equals(otherVertex) && this.isCalling() == otherVertex.isCalling();
+    }
 }

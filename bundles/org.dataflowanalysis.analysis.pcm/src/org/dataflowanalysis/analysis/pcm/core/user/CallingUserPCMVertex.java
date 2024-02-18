@@ -93,4 +93,13 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
 
         return copy;
     }
+    
+    @Override
+    public boolean equals(Object otherVertexObject) {
+        if (!(otherVertexObject instanceof CallingUserPCMVertex)) {
+            return false;
+        }
+        CallingUserPCMVertex otherVertex = (CallingUserPCMVertex) otherVertexObject;
+        return super.equals(otherVertex) && this.isCalling() == otherVertex.isCalling();
+    }
 }

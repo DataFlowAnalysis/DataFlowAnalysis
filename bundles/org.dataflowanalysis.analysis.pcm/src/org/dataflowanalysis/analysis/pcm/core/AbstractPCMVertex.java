@@ -130,4 +130,13 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     public Deque<AssemblyContext> getContext() {
         return context;
     }
+    
+    @Override
+    public boolean equals(Object otherVertexObject) {
+        if (!(otherVertexObject instanceof AbstractPCMVertex<?>)) {
+            return false;
+        }
+        AbstractPCMVertex<?> otherVertex = (AbstractPCMVertex<?>) otherVertexObject;
+        return this.getReferencedElement().getId().equals(otherVertex.getReferencedElement().getId());
+    }
 }

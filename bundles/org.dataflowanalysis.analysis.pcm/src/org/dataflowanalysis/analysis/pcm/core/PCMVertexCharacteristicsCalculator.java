@@ -160,26 +160,26 @@ public class PCMVertexCharacteristicsCalculator {
     public void checkAssignments() {
         Assignments assignments = this.resolveAssignments();
         for (AbstractAssignee assignee : assignments.getAssignee()) {
-            if (assignee instanceof UsageAssignee) {
-                UsageAssignee usage = (UsageAssignee) assignee;
-                if (!this.presentInUsageModel(usage.getUsagescenario())) {
-                    throw new IllegalStateException("Referenced Usage Scenario is not loaded!");
+            switch (assignee) {
+                case UsageAssignee usage -> {
+                    if (!this.presentInUsageModel(usage.getUsagescenario())) {
+                        throw new IllegalStateException("Referenced Usage Scenario is not loaded!");
+                    }
+                    this.checkCharacteristics(usage.getCharacteristics());
                 }
-                this.checkCharacteristics(usage.getCharacteristics());
-            } else if (assignee instanceof ResourceAssignee) {
-                ResourceAssignee resource = (ResourceAssignee) assignee;
-                if (!this.presentInResource(resource.getResourcecontainer())) {
-                    throw new IllegalStateException("Referenced Resource container is not loaded!");
+                case ResourceAssignee resource -> {
+                    if (!this.presentInResource(resource.getResourcecontainer())) {
+                        throw new IllegalStateException("Referenced Resource container is not loaded!");
+                    }
+                    this.checkCharacteristics(resource.getCharacteristics());
                 }
-                this.checkCharacteristics(resource.getCharacteristics());
-            } else if (assignee instanceof AssemblyAssignee) {
-                AssemblyAssignee assembly = (AssemblyAssignee) assignee;
-                if (!this.presentInAssembly(assembly.getAssemblycontext()) && !this.presentInComposite(assembly.getAssemblycontext())) {
-                    throw new IllegalStateException("Referenced Assembly context is not loaded!");
+                case AssemblyAssignee assembly -> {
+                    if (!this.presentInAssembly(assembly.getAssemblycontext()) && !this.presentInComposite(assembly.getAssemblycontext())) {
+                        throw new IllegalStateException("Referenced Assembly context is not loaded!");
+                    }
+                    this.checkCharacteristics(assembly.getCharacteristics());
                 }
-                this.checkCharacteristics(assembly.getCharacteristics());
-            } else {
-                throw new IllegalStateException("Assignments contain unknown assignment target");
+                case null, default -> throw new IllegalStateException("Assignments contain unknown assignment target");
             }
         }
     }

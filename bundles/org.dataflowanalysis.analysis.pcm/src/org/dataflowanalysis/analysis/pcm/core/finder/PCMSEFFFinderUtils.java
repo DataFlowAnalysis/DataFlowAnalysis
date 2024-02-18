@@ -32,26 +32,28 @@ public class PCMSEFFFinderUtils {
     public static List<PCMPartialFlowGraph> findSequencesForSEFFAction(AbstractAction currentAction, SEFFFinderContext context,
             PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
 
-        if (currentAction instanceof StartAction) {
-            return findSequencesForSEFFStartAction((StartAction) currentAction, context, previousSequence, resourceProvider);
-
-        } else if (currentAction instanceof StopAction) {
-            return findSequencesForSEFFStopAction((StopAction) currentAction, context, previousSequence, resourceProvider);
-
-        } else if (currentAction instanceof ExternalCallAction) {
-            return findSequencesForSEFFExternalCallAction((ExternalCallAction) currentAction, context, previousSequence, resourceProvider);
-
-        } else if (currentAction instanceof SetVariableAction) {
-            return findSequencesForSEFFSetVariableAction((SetVariableAction) currentAction, context, previousSequence, resourceProvider);
-
-        } else if (currentAction instanceof BranchAction) {
-            return findSequencesForSEFFBranchAction((BranchAction) currentAction, context, previousSequence, resourceProvider);
-
-        } else {
-            // default case: skip action and continue with successor
-            logger.info(
-                    String.format("Action %s has unsupported type of %s and is skipped.", currentAction.getId(), currentAction.getClass().getName()));
-            return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context, previousSequence, resourceProvider);
+        switch (currentAction) {
+            case StartAction startAction -> {
+                return findSequencesForSEFFStartAction(startAction, context, previousSequence, resourceProvider);
+            }
+            case StopAction stopAction -> {
+                return findSequencesForSEFFStopAction(stopAction, context, previousSequence, resourceProvider);
+            }
+            case ExternalCallAction externalCallAction -> {
+                return findSequencesForSEFFExternalCallAction(externalCallAction, context, previousSequence, resourceProvider);
+            }
+            case SetVariableAction setVariableAction -> {
+                return findSequencesForSEFFSetVariableAction(setVariableAction, context, previousSequence, resourceProvider);
+            }
+            case BranchAction branchAction -> {
+                return findSequencesForSEFFBranchAction(branchAction, context, previousSequence, resourceProvider);
+            }
+            case null, default -> {
+                // default case: skip action and continue with successor
+                logger.info(
+                        String.format("Action %s has unsupported type of %s and is skipped.", currentAction.getId(), currentAction.getClass().getName()));
+                return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context, previousSequence, resourceProvider);
+            }
         }
     }
 

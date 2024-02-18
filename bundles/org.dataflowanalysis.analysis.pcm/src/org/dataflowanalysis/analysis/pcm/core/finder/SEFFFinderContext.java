@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.Map;
-import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
-import org.dataflowanalysis.analysis.pcm.flowgraph.AbstractPCMVertex;
-import org.dataflowanalysis.analysis.pcm.flowgraph.seff.CallingSEFFPCMVertex;
-import org.dataflowanalysis.analysis.pcm.flowgraph.user.CallingUserPCMVertex;
+
+import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
+import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFPCMVertex;
+import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.Parameter;
 

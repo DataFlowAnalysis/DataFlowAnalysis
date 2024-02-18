@@ -1,14 +1,12 @@
-package org.dataflowanalysis.analysis.pcm.flowgraph;
+package org.dataflowanalysis.analysis.pcm.core;
 
 import java.util.Deque;
 import java.util.List;
 import java.util.Map;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
-import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
-import org.dataflowanalysis.analysis.pcm.core.PCMDataCharacteristicsCalculator;
-import org.dataflowanalysis.analysis.pcm.core.PCMVertexCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;

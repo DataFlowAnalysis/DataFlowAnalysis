@@ -1,8 +1,9 @@
-package org.dataflowanalysis.analysis.pcm.flowgraph;
+package org.dataflowanalysis.analysis.pcm.core;
 
 import java.util.Map;
-import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
-import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
+
+import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
 
 /**
  * This class represents a partial flow graph that contains pcm vertices and is induced by one sink.

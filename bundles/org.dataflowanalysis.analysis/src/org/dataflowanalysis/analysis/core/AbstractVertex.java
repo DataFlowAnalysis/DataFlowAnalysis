@@ -1,12 +1,10 @@
-package org.dataflowanalysis.analysis.flowgraph;
+package org.dataflowanalysis.analysis.core;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.core.DataFlowVariable;
 
 /**
  * This class represents an abstract vertex in a {@link AbstractPartialFlowGraph}. An abstract vertex represents an

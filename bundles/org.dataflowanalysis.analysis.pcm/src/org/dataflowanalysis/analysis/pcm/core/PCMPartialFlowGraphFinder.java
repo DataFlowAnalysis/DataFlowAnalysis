@@ -3,7 +3,6 @@ package org.dataflowanalysis.analysis.pcm.core;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.pcm.core.finder.PCMUserFinderUtils;
-import org.dataflowanalysis.analysis.pcm.flowgraph.PCMPartialFlowGraph;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;

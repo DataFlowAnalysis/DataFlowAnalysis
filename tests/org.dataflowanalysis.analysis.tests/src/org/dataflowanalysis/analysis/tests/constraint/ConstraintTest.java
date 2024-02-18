@@ -3,8 +3,8 @@ package org.dataflowanalysis.analysis.tests.constraint;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
 import org.dataflowanalysis.analysis.tests.BaseTest;
 
 public class ConstraintTest extends BaseTest {

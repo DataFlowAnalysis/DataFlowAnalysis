@@ -2,8 +2,8 @@ package org.dataflowanalysis.analysis.tests;
 
 import java.util.List;
 import org.apache.log4j.Level;
-import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
-import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
+import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;

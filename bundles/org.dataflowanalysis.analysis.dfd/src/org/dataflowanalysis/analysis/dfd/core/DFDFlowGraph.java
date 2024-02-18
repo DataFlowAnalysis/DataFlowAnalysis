@@ -3,9 +3,9 @@ package org.dataflowanalysis.analysis.dfd.core;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.core.FlowGraph;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
-import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
-import org.dataflowanalysis.analysis.flowgraph.FlowGraph;
 
 public class DFDFlowGraph extends FlowGraph {
     private final Logger logger = Logger.getLogger(DFDFlowGraph.class);

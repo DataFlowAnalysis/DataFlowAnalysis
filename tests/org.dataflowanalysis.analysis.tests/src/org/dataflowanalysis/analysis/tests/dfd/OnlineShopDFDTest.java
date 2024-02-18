@@ -6,13 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 import java.nio.file.Paths;
 import java.util.List;
+
+import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.dfd.core.DFDCharacteristicValue;
 import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraph;
 import org.dataflowanalysis.analysis.dfd.core.DFDVertex;
-import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

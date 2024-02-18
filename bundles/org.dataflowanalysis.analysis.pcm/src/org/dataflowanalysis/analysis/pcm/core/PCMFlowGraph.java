@@ -3,9 +3,8 @@ package org.dataflowanalysis.analysis.pcm.core;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
-import org.dataflowanalysis.analysis.flowgraph.FlowGraph;
-import org.dataflowanalysis.analysis.pcm.flowgraph.PCMPartialFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.core.FlowGraph;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 
 public class PCMFlowGraph extends FlowGraph {

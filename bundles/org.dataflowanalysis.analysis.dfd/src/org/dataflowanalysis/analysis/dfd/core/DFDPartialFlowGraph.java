@@ -1,8 +1,9 @@
 package org.dataflowanalysis.analysis.dfd.core;
 
 import java.util.HashSet;
-import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
-import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
+
+import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
 
 public class DFDPartialFlowGraph extends AbstractPartialFlowGraph implements Comparable<DFDPartialFlowGraph> {
 

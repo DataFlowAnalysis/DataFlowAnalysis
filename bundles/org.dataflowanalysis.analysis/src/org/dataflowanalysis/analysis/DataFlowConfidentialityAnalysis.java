@@ -3,9 +3,9 @@ package org.dataflowanalysis.analysis;
 import java.util.List;
 import java.util.function.Predicate;
 import org.apache.log4j.Level;
-import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
-import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
-import org.dataflowanalysis.analysis.flowgraph.FlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.core.FlowGraph;
 
 /**
  * This interface represents the functionality of a data flow confidentiality analysis. To use the analysis the

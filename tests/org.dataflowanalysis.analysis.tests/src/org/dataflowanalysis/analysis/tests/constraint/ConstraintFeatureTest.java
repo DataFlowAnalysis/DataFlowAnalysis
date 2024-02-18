@@ -7,8 +7,8 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
-import org.dataflowanalysis.analysis.pcm.flowgraph.user.CallingUserPCMVertex;
-import org.dataflowanalysis.analysis.pcm.flowgraph.user.UserPCMVertex;
+import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
+import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

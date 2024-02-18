@@ -3,10 +3,11 @@ package org.dataflowanalysis.analysis.tests.constraint.data;
 import de.uka.ipd.sdq.identifier.Identifier;
 import java.util.List;
 import java.util.Map;
+
+import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
-import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
-import org.dataflowanalysis.analysis.pcm.flowgraph.AbstractPCMVertex;
+import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 
 public class ConstraintData {
     private final String nodeID;

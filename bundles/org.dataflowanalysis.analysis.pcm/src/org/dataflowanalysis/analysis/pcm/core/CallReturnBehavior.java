@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.pcm.flowgraph;
+package org.dataflowanalysis.analysis.pcm.core;
 
 public interface CallReturnBehavior {
 

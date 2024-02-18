@@ -43,9 +43,7 @@ public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalys
             var initializationBuilder = StandaloneInitializerBuilder.builder().registerProjectURI(DFDConfidentialityAnalysis.class,
                     DFDConfidentialityAnalysis.PLUGIN_PATH);
 
-            if (this.modelProjectActivator.isPresent()) {
-                initializationBuilder.registerProjectURI(this.modelProjectActivator.get(), this.modelProjectName);
-            }
+            this.modelProjectActivator.ifPresent(projectActivator -> initializationBuilder.registerProjectURI(projectActivator, this.modelProjectName));
 
             initializationBuilder.build().init();
 

@@ -19,81 +19,72 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializationExce
 import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder;
 
 public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalysis {
-  private final Logger logger = Logger.getLogger(DFDConfidentialityAnalysis.class);
+    private final Logger logger = Logger.getLogger(DFDConfidentialityAnalysis.class);
 
-  protected DFDResourceProvider resourceProvider;
-  protected Optional<Class<? extends Plugin>> modelProjectActivator;
-  protected String modelProjectName;
+    protected DFDResourceProvider resourceProvider;
+    protected Optional<Class<? extends Plugin>> modelProjectActivator;
+    protected String modelProjectName;
 
-  public DFDConfidentialityAnalysis(
-      DFDResourceProvider resourceProvider,
-      Optional<Class<? extends Plugin>> modelProjectActivator,
-      String modelProjectName) {
-    this.resourceProvider = resourceProvider;
-    this.modelProjectActivator = modelProjectActivator;
-    this.modelProjectName = modelProjectName;
-  }
-
-  @Override
-  public boolean initializeAnalysis() {
-    Resource.Factory.Registry.INSTANCE
-        .getExtensionToFactoryMap()
-        .put("dataflowdiagram", new XMIResourceFactoryImpl());
-    Resource.Factory.Registry.INSTANCE
-        .getExtensionToFactoryMap()
-        .put("datadictionary", new XMIResourceFactoryImpl());
-
-    EcorePlugin.ExtensionProcessor.process(null);
-
-    try {
-      var initializationBuilder =
-          StandaloneInitializerBuilder.builder()
-              .registerProjectURI(
-                  DFDConfidentialityAnalysis.class, DFDConfidentialityAnalysis.PLUGIN_PATH);
-
-      if (this.modelProjectActivator.isPresent()) {
-        initializationBuilder.registerProjectURI(
-            this.modelProjectActivator.get(), this.modelProjectName);
-      }
-
-      initializationBuilder.build().init();
-
-      logger.info("Successfully initialized standalone environment for the data flow analysis.");
-
-    } catch (StandaloneInitializationException e) {
-      logger.error("Could not initialize analysis", e);
-      throw new IllegalStateException("Could not initialize analysis");
+    public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider, Optional<Class<? extends Plugin>> modelProjectActivator,
+            String modelProjectName) {
+        this.resourceProvider = resourceProvider;
+        this.modelProjectActivator = modelProjectActivator;
+        this.modelProjectName = modelProjectName;
     }
-    this.resourceProvider.loadRequiredResources();
-    if (!this.resourceProvider.sufficientResourcesLoaded()) {
-      logger.error("Insufficient amount of resources loaded");
-      throw new IllegalStateException("Could not initialize analysis");
+
+    @Override
+    public boolean initializeAnalysis() {
+        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("dataflowdiagram", new XMIResourceFactoryImpl());
+        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("datadictionary", new XMIResourceFactoryImpl());
+
+        EcorePlugin.ExtensionProcessor.process(null);
+
+        try {
+            var initializationBuilder = StandaloneInitializerBuilder.builder().registerProjectURI(DFDConfidentialityAnalysis.class,
+                    DFDConfidentialityAnalysis.PLUGIN_PATH);
+
+            if (this.modelProjectActivator.isPresent()) {
+                initializationBuilder.registerProjectURI(this.modelProjectActivator.get(), this.modelProjectName);
+            }
+
+            initializationBuilder.build().init();
+
+            logger.info("Successfully initialized standalone environment for the data flow analysis.");
+
+        } catch (StandaloneInitializationException e) {
+            logger.error("Could not initialize analysis", e);
+            throw new IllegalStateException("Could not initialize analysis");
+        }
+        this.resourceProvider.loadRequiredResources();
+        if (!this.resourceProvider.sufficientResourcesLoaded()) {
+            logger.error("Insufficient amount of resources loaded");
+            throw new IllegalStateException("Could not initialize analysis");
+        }
+        return true;
     }
-    return true;
-  }
 
-  @Override
-  public DFDFlowGraph findFlowGraph() {
-    return new DFDFlowGraph(this.resourceProvider);
-  }
-
-  @Override
-  public DFDFlowGraph evaluateFlowGraph(FlowGraph flowGraph) {
-    if (!(flowGraph instanceof DFDFlowGraph)) {
-      logger.error("Cannot evaluate a non-dfd flow graph!", new IllegalArgumentException());
+    @Override
+    public DFDFlowGraph findFlowGraph() {
+        return new DFDFlowGraph(this.resourceProvider);
     }
-    DFDFlowGraph dfdFlowGraph = (DFDFlowGraph) flowGraph;
-    return dfdFlowGraph.evaluate();
-  }
 
-  @Override
-  public List<? extends AbstractVertex<?>> queryDataFlow(
-      AbstractPartialFlowGraph partialFlowGraph, Predicate<? super AbstractVertex<?>> condition) {
-    return partialFlowGraph.getVertices().parallelStream().filter(condition).toList();
-  }
+    @Override
+    public DFDFlowGraph evaluateFlowGraph(FlowGraph flowGraph) {
+        if (!(flowGraph instanceof DFDFlowGraph)) {
+            logger.error("Cannot evaluate a non-dfd flow graph!", new IllegalArgumentException());
+        }
+        DFDFlowGraph dfdFlowGraph = (DFDFlowGraph) flowGraph;
+        return dfdFlowGraph.evaluate();
+    }
 
-  @Override
-  public void setLoggerLevel(Level level) {
-    logger.setLevel(level);
-  }
+    @Override
+    public List<? extends AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph partialFlowGraph,
+            Predicate<? super AbstractVertex<?>> condition) {
+        return partialFlowGraph.getVertices().parallelStream().filter(condition).toList();
+    }
+
+    @Override
+    public void setLoggerLevel(Level level) {
+        logger.setLevel(level);
+    }
 }

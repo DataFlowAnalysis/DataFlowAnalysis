@@ -32,7 +32,7 @@ public class PCMURIResourceProvider extends PCMResourceProvider {
         this.usageModel = (UsageModel) this.loadModelContent(usageModelURI);
         this.allocation = (Allocation) this.loadModelContent(allocationModelURI);
         this.loadModelContent(this.nodeCharacteristicURI);
-        List<Resource> loadedResources = null;
+        List<Resource> loadedResources;
         do {
             loadedResources = new ArrayList<>(this.resources.getResources());
             loadedResources.forEach(EcoreUtil::resolveAll);

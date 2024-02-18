@@ -92,8 +92,9 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
         }
         isomorphism.put(this, copy);
 
-        List<AbstractPCMVertex<?>> clonedPreviousElements = this.previousElements.stream().filter(it -> (it instanceof AbstractPCMVertex<?>))
-                .map(it -> (AbstractPCMVertex<?>) it).map(it -> it.deepCopy(isomorphism)).collect(Collectors.toList());
+        List<? extends AbstractPCMVertex<?>> clonedPreviousElements = this.previousElements.stream()
+                .map(it -> it.deepCopy(isomorphism))
+                .toList();
 
         copy.setPreviousElements(clonedPreviousElements);
 

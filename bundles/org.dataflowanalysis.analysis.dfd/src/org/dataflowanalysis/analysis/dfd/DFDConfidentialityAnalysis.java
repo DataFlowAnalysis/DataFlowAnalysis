@@ -67,10 +67,10 @@ public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalys
 
     @Override
     public DFDFlowGraph evaluateFlowGraph(FlowGraph flowGraph) {
-        if (!(flowGraph instanceof DFDFlowGraph)) {
-            logger.error("Cannot evaluate a non-dfd flow graph!", new IllegalArgumentException());
+        if (!(flowGraph instanceof DFDFlowGraph dfdFlowGraph)) {
+            logger.error("Cannot evaluate a non-dfd flow graph!");
+            throw new IllegalStateException();
         }
-        DFDFlowGraph dfdFlowGraph = (DFDFlowGraph) flowGraph;
         return dfdFlowGraph.evaluate();
     }
 

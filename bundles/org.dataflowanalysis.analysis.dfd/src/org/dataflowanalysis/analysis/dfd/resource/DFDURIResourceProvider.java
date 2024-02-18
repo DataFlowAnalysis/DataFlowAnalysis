@@ -28,7 +28,7 @@ public class DFDURIResourceProvider extends DFDResourceProvider {
     public void loadRequiredResources() {
         this.dataFlowDiagram = (DataFlowDiagram) this.loadModelContent(dataFlowDiagramURI);
         this.dataDictionary = (DataDictionary) this.loadModelContent(dataDictionaryURI);
-        List<Resource> loadedResources = null;
+        List<Resource> loadedResources;
         do {
             loadedResources = new ArrayList<>(this.resources.getResources());
             loadedResources.forEach(EcoreUtil::resolveAll);

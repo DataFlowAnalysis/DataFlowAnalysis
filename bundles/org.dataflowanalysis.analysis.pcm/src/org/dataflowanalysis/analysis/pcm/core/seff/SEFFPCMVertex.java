@@ -108,12 +108,13 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
             if (seff.isPresent()) {
                 elementName = "Beginning " + seff.get().getDescribedService__SEFF().getEntityName();
             }
-            if (this.isBranching()) {
-                Optional<BranchAction> branchAction = PCMQueryUtils.findParentOfType(this.getReferencedElement(), BranchAction.class, false);
-                Optional<AbstractBranchTransition> branchTransition = PCMQueryUtils.findParentOfType(this.getReferencedElement(),
-                        AbstractBranchTransition.class, false);
-                elementName = "Branching " + seff.get().getDescribedService__SEFF().getEntityName() + "." + branchAction.get().getEntityName() + "."
-                        + branchTransition.get().getEntityName();
+            if (this.isBranching() && seff.isPresent()) {
+                BranchAction branchAction = PCMQueryUtils.findParentOfType(this.getReferencedElement(), BranchAction.class, false)
+                        .orElseThrow(() -> new IllegalStateException("Cannot find branch action"));
+                AbstractBranchTransition branchTransition = PCMQueryUtils.findParentOfType(this.getReferencedElement(), AbstractBranchTransition.class, false)
+                        .orElseThrow(() -> new IllegalStateException("Cannot find branch transition"));
+                elementName = "Branching " + seff.get().getDescribedService__SEFF().getEntityName() + "." + branchAction.getEntityName() + "."
+                        + branchTransition.getEntityName();
             }
         }
         if (this.getReferencedElement() instanceof StopAction) {
@@ -138,8 +139,9 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
         }
         isomorphism.put(this, copy);
 
-        List<AbstractPCMVertex<?>> clonedPreviousElements = this.previousElements.stream().filter(it -> (it instanceof AbstractPCMVertex<?>))
-                .map(it -> (AbstractPCMVertex<?>) it).map(it -> it.deepCopy(isomorphism)).collect(Collectors.toList());
+        List<? extends AbstractPCMVertex<?>> clonedPreviousElements = this.previousElements.stream()
+                .map(it -> it.deepCopy(isomorphism))
+                .toList();
 
         copy.setPreviousElements(clonedPreviousElements);
 

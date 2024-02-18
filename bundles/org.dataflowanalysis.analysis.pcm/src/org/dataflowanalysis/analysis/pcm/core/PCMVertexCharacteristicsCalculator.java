@@ -74,7 +74,8 @@ public class PCMVertexCharacteristicsCalculator {
      * @return List of resolved assignees matching the node
      */
     private List<AbstractAssignee> getUsage(Entity node, Assignments assignments) {
-        UsageScenario usageScenario = PCMQueryUtils.findParentOfType(node, UsageScenario.class, false).get();
+        UsageScenario usageScenario = PCMQueryUtils.findParentOfType(node, UsageScenario.class, false)
+                .orElseThrow(IllegalStateException::new);
         return assignments.getAssignee().stream().filter(UsageAssignee.class::isInstance).map(UsageAssignee.class::cast)
                 .filter(it -> it.getUsagescenario().equals(usageScenario)).collect(Collectors.toList());
     }

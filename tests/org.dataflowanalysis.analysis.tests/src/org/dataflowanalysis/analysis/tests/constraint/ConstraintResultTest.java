@@ -25,7 +25,7 @@ public class ConstraintResultTest extends ConstraintTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean travelPlannerCondition(AbstractVertex<?> node) {
-        List<String> assignedRoles = node.getNodeCharacteristicIdsWithType("AssignedRoles");
+        List<String> assignedRoles = node.getNodeCharacteristicIdsWithName("AssignedRoles");
         List<List<String>> grantedRoles = node.getDataFlowCharacteristicIdsWithType("GrantedRoles");
 
         printNodeInformation(node);
@@ -45,7 +45,7 @@ public class ConstraintResultTest extends ConstraintTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean internationalOnlineShopCondition(AbstractVertex<?> node) {
-        List<String> serverLocation = node.getNodeCharacteristicNamesWithType("ServerLocation");
+        List<String> serverLocation = node.getNodeCharacteristicNamesWithName("ServerLocation");
         List<String> dataSensitivity = node.getDataFlowCharacteristicNamesWithType("DataSensitivity").stream().flatMap(it -> it.stream())
                 .collect(Collectors.toList());
         printNodeInformation(node);
@@ -59,7 +59,7 @@ public class ConstraintResultTest extends ConstraintTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean returnCondition(AbstractVertex<?> node) {
-        List<String> assignedNode = node.getNodeCharacteristicNamesWithType("AssignedRole");
+        List<String> assignedNode = node.getNodeCharacteristicNamesWithName("AssignedRole");
         List<String> assignedVariables = node.getDataFlowCharacteristicNamesWithType("AssignedRole").stream().flatMap(it -> it.stream())
                 .collect(Collectors.toList());
 

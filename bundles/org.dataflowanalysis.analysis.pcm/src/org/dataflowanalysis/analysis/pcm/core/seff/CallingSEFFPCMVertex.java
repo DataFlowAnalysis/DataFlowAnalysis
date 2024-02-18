@@ -18,7 +18,7 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
 
-public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> implements CallReturnBehavior, Cloneable {
+public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> implements CallReturnBehavior {
     private final boolean isCalling;
 
     /**

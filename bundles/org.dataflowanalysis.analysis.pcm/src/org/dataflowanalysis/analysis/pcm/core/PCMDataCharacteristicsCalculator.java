@@ -29,10 +29,10 @@ public class PCMDataCharacteristicsCalculator {
 
     /**
      * Initialize Data characteristics Calculator with initial variables. In addition, the read-only container for node
-     * characteristics is created. See {@link createNodeCharacteristicsContainer}
+     * characteristics is created. See {@link PCMDataCharacteristicsCalculator#createNodeCharacteristicsContainer}
      * @param initialVariables DataFlowVariables of the previous ActionSequence Element
      * @param nodeCharacteristics Node Characteristics that might be referenced in the calculator
-     * @param resourceLoader Resource loader to resolve unknown characteristics in the dictionary
+     * @param resourceProvider Resource provider to resolve unknown characteristics in the dictionary
      */
     public PCMDataCharacteristicsCalculator(List<DataFlowVariable> initialVariables, List<CharacteristicValue> nodeCharacteristics,
             ResourceProvider resourceProvider) {
@@ -59,7 +59,7 @@ public class PCMDataCharacteristicsCalculator {
      * calculator. This method should be called for each Variable Characterization (e.g. Stoex)
      * <p>
      * For easier use, the state of characteristics at a given sequence element, is managed and updated by calling this
-     * method. The final DataflowVariables for an element are accessed with {@link getCalculatedVariables}.
+     * method. The final DataflowVariables for an element are accessed with {@link PCMDataCharacteristicsCalculator#getCalculatedCharacteristics()}.
      * @param variableCharacterisation Variable Characterization at the Sequence Element
      */
     public void evaluate(ConfidentialityVariableCharacterisation variableCharacterisation) {
@@ -82,7 +82,7 @@ public class PCMDataCharacteristicsCalculator {
 
     /**
      * Get a DataFlowVariable by a named reference
-     * @param variableCharacterisation Named reference, which contains the name of the DataFlowVariable
+     * @param reference Named reference, which contains the name of the data flow variable
      * @return Returns an Optional containing the DataFlowVariable, if the variable can be found in the list of currently
      * available DataFlowVariables
      */

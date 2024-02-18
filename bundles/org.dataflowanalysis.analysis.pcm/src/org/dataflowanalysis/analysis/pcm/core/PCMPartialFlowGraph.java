@@ -17,8 +17,8 @@ public class PCMPartialFlowGraph extends AbstractPartialFlowGraph {
     }
 
     /**
-     * Creates a pcm partial flow graph with the given (temporary) sink
-     * @param elements List of elements contained in the sequence
+     * Creates a pcm partial flow graph with the given sink
+     * @param sink Sink that induces the partial flow graph
      */
     public PCMPartialFlowGraph(AbstractVertex<?> sink) {
         super(sink);

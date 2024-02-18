@@ -19,7 +19,8 @@ public class UserPCMVertex<T extends AbstractUserAction> extends AbstractPCMVert
 
     /**
      * Creates a new User Sequence Element with the given Palladio User Action Element
-     * @param element
+     * @param element Element that is referenced by the pcm user vertex
+     * @param resourceProvider Resource provider used to calculate characteristics
      */
     public UserPCMVertex(T element, ResourceProvider resourceProvider) {
         super(element, new ArrayDeque<>(), resourceProvider);
@@ -27,7 +28,9 @@ public class UserPCMVertex<T extends AbstractUserAction> extends AbstractPCMVert
 
     /**
      * Creates a new User Sequence Element with the given Palladio User Action Element
-     * @param element
+     * @param element Element that is referenced by the pcm user vertex
+     * @param previousElements List of vertices that preceded the pcm user vertex
+     * @param resourceProvider Resource provider used to calculate characteristics
      */
     public UserPCMVertex(T element, List<? extends AbstractPCMVertex<?>> previousElements, ResourceProvider resourceProvider) {
         super(element, previousElements, new ArrayDeque<>(), resourceProvider);

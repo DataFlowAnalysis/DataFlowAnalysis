@@ -60,8 +60,8 @@ public class PCMDataFlowConfidentialityAnalysisBuilder extends DataFlowAnalysisB
     }
 
     /**
-     * Uses a new path for node characteristics
-     * @param relativeNodeCharacteristicsModelPath Relative path to the node characteristics model
+     * Uses a custom resource provider to provide model objects to the analysis
+     * @param resourceProvider Custom resource provider that is used by the analysis
      * @return Returns builder object of the analysis
      */
     public PCMDataFlowConfidentialityAnalysisBuilder useCustomResourceProvider(PCMResourceProvider resourceProvider) {
@@ -97,8 +97,7 @@ public class PCMDataFlowConfidentialityAnalysisBuilder extends DataFlowAnalysisB
     }
 
     /**
-     * Creates a new URI resource loader with the given (optional) node characteristic URI
-     * @param nodeCharacteristicsURI Optional URI to the node characteristics model
+     * Creates a new URI resource loader with the saved URIs
      * @return New instance of an URI resource loader with the internally saved values
      */
     private PCMResourceProvider getURIResourceProvider() {

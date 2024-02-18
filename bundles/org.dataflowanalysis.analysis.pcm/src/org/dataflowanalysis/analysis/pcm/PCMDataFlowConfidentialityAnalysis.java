@@ -145,7 +145,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
 
     /**
      * Initializes the workspace of the analysis to function without a eclipse installation
-     * @return
+     * @return Returns true, if standalone initialization was successful. Otherwise, the method returns false
      */
     private boolean initStandalone() {
         try {

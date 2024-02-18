@@ -24,7 +24,6 @@ public class SEFFFinderContext {
      * @param context Assembly context present at the SEFF element
      * @param callers List of callers that called the SEFF element
      * @param parameter List of parameters present at the SEFF element
-     * @param dataStores List of data stores that were discovered while finding sequences
      */
     public SEFFFinderContext(Deque<AssemblyContext> context, Deque<AbstractPCMVertex<?>> callers, List<Parameter> parameter) {
         this.context = context;
@@ -115,7 +114,7 @@ public class SEFFFinderContext {
 
     /**
      * Returns the currently saved parameter, that are available for the current SEFF element
-     * @return
+     * @return Returns a list of parameters present at the current finder position
      */
     public List<Parameter> getParameter() {
         return parameter;

@@ -70,7 +70,7 @@ public class DFDPartialFlowGraphFinder {
 
     /**
      * Get List of sink nodes
-     * @param flows All flows
+     * @param nodes All nodes
      * @return List of sink nodes
      */
     private static List<Node> getEndNodes(List<Node> nodes) {

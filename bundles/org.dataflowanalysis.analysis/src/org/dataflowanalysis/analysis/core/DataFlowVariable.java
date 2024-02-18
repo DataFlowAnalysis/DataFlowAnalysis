@@ -29,8 +29,8 @@ public record DataFlowVariable(String variableName, List<CharacteristicValue> ch
     }
 
     /**
-     * Determines, whether the data flow variable has an characteristic value applied.
-     * This is determined by {@link CharacteristicValue#equals(Object)}.
+     * Determines, whether the data flow variable has a characteristic value applied.
+     * This is determined by {@link Object#equals(Object)}.
      * 
      * @param characteristic Characteristic value that is searched
      * @return  Returns true, if the data flow variable has the characteristic value applied.

@@ -42,8 +42,8 @@ public class PCMVertexCharacteristicsCalculator {
     private final ResourceProvider resourceLoader;
 
     /**
-     * Creates a new node characteristic calculator with the given node
-     * @param node Node of which the characteristics should be calculated. Should either be a User or SEFF Action.
+     * Creates a new node characteristic calculator with the given resource provider
+     * @param resourceProvider Resource provider that is used to calculate characteristics for each node
      */
     public PCMVertexCharacteristicsCalculator(ResourceProvider resourceProvider) {
         this.resourceLoader = resourceProvider;

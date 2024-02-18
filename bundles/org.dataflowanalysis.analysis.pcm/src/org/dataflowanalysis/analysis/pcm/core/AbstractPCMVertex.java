@@ -116,16 +116,16 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     }
 
     /**
-     * Return the saved element of the sequence element
-     * @return
+     * Return the referenced element of the vertex
+     * @return Returns the referenced element
      */
     public T getReferencedElement() {
         return referencedElement;
     }
 
     /**
-     * Returns the assembly contexts of the sequence element
-     * @return Returns a {@link Deque} of {@link AssemblyContext}s that the sequence element has
+     * Returns the assembly contexts of the vertex
+     * @return Returns a {@link Deque} of {@link AssemblyContext}s that the vertex has
      */
     public Deque<AssemblyContext> getContext() {
         return context;

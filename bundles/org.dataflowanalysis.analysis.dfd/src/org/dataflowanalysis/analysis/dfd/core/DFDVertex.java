@@ -33,10 +33,10 @@ import org.eclipse.emf.ecore.EObject;
 
 public class DFDVertex extends AbstractVertex<EObject> {
 
-    String name;
-    Node node;
-    Map<Pin, DFDVertex> mapPinToPreviousVertex;
-    Map<Pin, Flow> mapPinToInputFlow;
+    private final String name;
+    private final Node node;
+    private final Map<Pin, DFDVertex> mapPinToPreviousVertex;
+    private final Map<Pin, Flow> mapPinToInputFlow;
 
     public DFDVertex(String name, Node node, Map<Pin, DFDVertex> mapPinToPreviousVertex, Map<Pin, Flow> mapPinToInputFlow) {
         super(node);
@@ -184,10 +184,6 @@ public class DFDVertex extends AbstractVertex<EObject> {
     @Override
     public List<AbstractVertex<?>> getPreviousElements() {
         return new ArrayList<>(this.mapPinToPreviousVertex.values());
-    }
-
-    public void setNode(Node node) {
-        this.node = node;
     }
 
     public boolean isEqual(DFDVertex vertex) {

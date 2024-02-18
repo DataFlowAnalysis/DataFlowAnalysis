@@ -119,8 +119,7 @@ public class PCMQueryUtils {
             }
         }
 
-        if (providingComponent instanceof BasicComponent) {
-            BasicComponent component = (BasicComponent) providingComponent;
+        if (providingComponent instanceof BasicComponent component) {
 
             Optional<ResourceDemandingSEFF> SEFF = component.getServiceEffectSpecifications__BasicComponent().stream()
                     .filter(ResourceDemandingSEFF.class::isInstance).map(ResourceDemandingSEFF.class::cast)

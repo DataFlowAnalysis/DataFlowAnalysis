@@ -144,13 +144,11 @@ public class DFDVertex extends AbstractVertex<EObject> {
     private static boolean evaluateTerm(Term term, List<Label> inputLabel) {
         if (term instanceof TRUE) {
             return true;
-        } else if (term instanceof NOT) {
-            NOT notTerm = (NOT) term;
+        } else if (term instanceof NOT notTerm) {
             return !evaluateTerm(notTerm.getNegatedTerm(), inputLabel);
         } else if (term instanceof LabelReference) {
             return inputLabel.contains(((LabelReference) term).getLabel());
-        } else if (term instanceof BinaryOperator) {
-            BinaryOperator binaryTerm = (BinaryOperator) term;
+        } else if (term instanceof BinaryOperator binaryTerm) {
             if (binaryTerm instanceof AND) {
                 return evaluateTerm(binaryTerm.getTerms().get(0), inputLabel) && evaluateTerm(binaryTerm.getTerms().get(1), inputLabel);
             } else if (binaryTerm instanceof OR) {

@@ -134,10 +134,9 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     
     @Override
     public boolean equals(Object otherVertexObject) {
-        if (!(otherVertexObject instanceof AbstractPCMVertex<?>)) {
+        if (!(otherVertexObject instanceof AbstractPCMVertex<?> otherVertex)) {
             return false;
         }
-        AbstractPCMVertex<?> otherVertex = (AbstractPCMVertex<?>) otherVertexObject;
         return this.getReferencedElement().getId().equals(otherVertex.getReferencedElement().getId());
     }
 }

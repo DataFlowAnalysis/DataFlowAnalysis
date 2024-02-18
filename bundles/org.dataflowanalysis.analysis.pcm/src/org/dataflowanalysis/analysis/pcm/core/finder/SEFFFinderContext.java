@@ -47,8 +47,7 @@ public class SEFFFinderContext {
      * @param caller Calling PCM element, for which parameter shall be updated
      */
     public void updateParameterForCallerReturning(AbstractVertex<?> caller) {
-        if (caller instanceof CallingUserPCMVertex) {
-            CallingUserPCMVertex callingUserElement = (CallingUserPCMVertex) caller;
+        if (caller instanceof CallingUserPCMVertex callingUserElement) {
             this.parameter = callingUserElement.getReferencedElement().getOperationSignature__EntryLevelSystemCall()
                     .getParameters__OperationSignature();
         } else {

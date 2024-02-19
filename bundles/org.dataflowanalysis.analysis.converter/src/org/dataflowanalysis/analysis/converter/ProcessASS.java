@@ -57,9 +57,8 @@ public class ProcessASS {
         for (DataFlowVariable flowVariable : FlowVariables) {
             String flowName = flowVariable.variableName();
 
-            Optional<Flow> optFlow = dfd.getFlows().stream()
-                    .filter(f -> (f.getSourceNode().equals(source) && f.getDestinationNode().equals(dest) && f.getEntityName().equals(flowName)))
-                    .findFirst();
+            Optional<Flow> optFlow = dfd.getFlows().stream().filter(f -> f.getSourceNode().equals(source))
+                    .filter(f -> f.getDestinationNode().equals(dest)).filter(f -> f.getEntityName().equals(flowName)).findFirst();
 
             if (optFlow.isPresent()) {
                 return; // possibly modify behavior later on

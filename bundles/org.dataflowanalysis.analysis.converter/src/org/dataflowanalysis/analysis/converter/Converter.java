@@ -10,12 +10,16 @@ import java.util.Map;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.testmodels.Activator;
+import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
+import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
+import org.dataflowanalysis.dfd.dataflowdiagram.dataflowdiagramPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 import org.dataflowanalysis.analysis.converter.microsecend.*;
 import org.dataflowanalysis.analysis.converter.webdfd.*;
@@ -138,6 +142,42 @@ public class Converter {
         saveResource(dfdResource);
         saveResource(ddResource);
 
+    }
+    
+    public MicroSecEnd loadMicro(String inputFile) {
+        objectMapper=new ObjectMapper();
+        file = new File(inputFile + ".json");
+        try {
+            return objectMapper.readValue(file, MicroSecEnd.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public DFD loadWeb(String inputFile) {
+        objectMapper=new ObjectMapper();
+        file = new File(inputFile + ".json");
+        try {
+            return objectMapper.readValue(file, DFD.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public CompleteDFD loadDFD(String inputFile) {
+        ResourceSet rs = new ResourceSetImpl();
+        rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
+        rs.getPackageRegistry().put(dataflowdiagramPackage.eNS_URI, dataflowdiagramPackage.eINSTANCE);
+
+        Resource dfdResource = rs.getResource(URI.createFileURI(inputFile+".dataflowdiagram"), true);
+        Resource ddResource = rs.getResource(URI.createFileURI(inputFile+".datadictionary"), true);
+
+        DataFlowDiagram dfd = (DataFlowDiagram) dfdResource.getContents().get(0);
+        DataDictionary dd = (DataDictionary) ddResource.getContents().get(0);
+
+        return new CompleteDFD(dfd, dd);
     }
 
     private Resource createAndAddResource(String outputFile, String[] fileextensions, ResourceSet rs) {

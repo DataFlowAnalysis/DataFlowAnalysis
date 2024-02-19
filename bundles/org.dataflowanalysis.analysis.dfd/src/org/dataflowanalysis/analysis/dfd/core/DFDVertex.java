@@ -73,8 +73,8 @@ public class DFDVertex extends AbstractVertex<EObject> {
 
         // Create Map with all incoming Labels per pin
         for (var pin : this.getMapPinToInputFlow().keySet()) {
-            for (var prevVertex : this.getMapPinToPreviousVertex().values()) {
-                for (var dfv : prevVertex.getAllOutgoingDataFlowVariables()) {
+            for (var previousVertex : this.getMapPinToPreviousVertex().values()) {
+                for (var dfv : previousVertex.getAllOutgoingDataFlowVariables()) {
                     if (dfv.getVariableName().equals(this.getMapPinToInputFlow().get(pin).getSourcePin().getId())) {
                         mapInputPinsToIncomingLabels.putIfAbsent(pin, new ArrayList<>());
                         for (var cv : dfv.getAllCharacteristics()) {
@@ -120,6 +120,7 @@ public class DFDVertex extends AbstractVertex<EObject> {
                 characteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label));
             }
             characteristics = characteristics.stream().filter(distinctByKey(CharacteristicValue::getValueId)).collect(Collectors.toList());
+            //Important: Dont change DFV naming scheme without changing evaluation logic
             dataFlowVariables.add(new DataFlowVariable(pin.getId(), characteristics));
         }
         return dataFlowVariables;
@@ -181,7 +182,7 @@ public class DFDVertex extends AbstractVertex<EObject> {
     public void unify(Set<DFDVertex> vertices) {
         for (var key : this.getMapPinToPreviousVertex().keySet()) {
             for (var vertex : vertices) {
-                if (vertex.isEqual(this.getMapPinToPreviousVertex().get(key))) {
+                if (vertex.equals(this.getMapPinToPreviousVertex().get(key))) {
                     this.getMapPinToPreviousVertex().put(key, vertex);
                 }
             }
@@ -191,24 +192,7 @@ public class DFDVertex extends AbstractVertex<EObject> {
             vertex.unify(vertices);
         }
     }
-   
-    /**
-     * Compares Vertices on equal Node, Name and incoming Vertices
-     * @param vertex Vertex to be compared to
-     * @return True if all relevant factors equal, false otherwise
-     */
-    public boolean isEqual(DFDVertex vertex) {
-        if (!this.node.equals(vertex.getNode()))
-            return false;
-        if (!this.name.equals(vertex.getName()))
-            return false;
-        for (var key : this.getMapPinToPreviousVertex().keySet()) {
-            if (!this.getMapPinToPreviousVertex().get(key).isEqual(vertex.getMapPinToPreviousVertex().get(key)))
-                return false;
-        }
-        return true;
-    }
-    
+       
 
     /**
      * Creates a clone of the vertex without considering Data Flow variables, Characteristics
@@ -227,6 +211,23 @@ public class DFDVertex extends AbstractVertex<EObject> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+    
+    @Override
+    public boolean equals(Object other) {
+    	if (!(other instanceof DFDVertex)) return false;
+    	
+    	DFDVertex vertex = (DFDVertex) other;
+    	
+		if (!this.node.equals(vertex.getNode()))
+		    return false;
+		if (!this.name.equals(vertex.getName()))
+		    return false;
+		for (var key : this.getMapPinToPreviousVertex().keySet()) {
+		    if (!this.getMapPinToPreviousVertex().get(key).equals(vertex.getMapPinToPreviousVertex().get(key)))
+		        return false;
+		}
+		return true;
+    }
     
     
     //Getter:    

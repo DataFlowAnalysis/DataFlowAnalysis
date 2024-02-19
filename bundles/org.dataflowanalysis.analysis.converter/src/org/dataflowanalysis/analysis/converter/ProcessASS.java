@@ -28,7 +28,7 @@ public class ProcessASS {
         return this.dfd;
     }
 
-    public CompleteDFD transform(List<ActionSequence> ass) {
+    public DataFlowDiagramAndDictionary transform(List<ActionSequence> ass) {
         for (ActionSequence actionSequence : ass) {
             Node previousNode = null;
             for (AbstractActionSequenceElement<?> ASE : actionSequence.getElements()) {
@@ -37,7 +37,7 @@ public class ProcessASS {
                 }
             }
         }
-        return new CompleteDFD(dfd, dd);
+        return new DataFlowDiagramAndDictionary(dfd, dd);
     }
 
     private Node processActionSequenceElement(AbstractPCMActionSequenceElement<? extends Entity> pcmASE, Node previousDFDNode) {

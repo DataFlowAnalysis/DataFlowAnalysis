@@ -36,32 +36,32 @@ public class Converter {
         objectMapper = new ObjectMapper();
     }
 
-    public CompleteDFD microToDfd(String inputFile) {
+    public DataFlowDiagramAndDictionary microToDfd(String inputFile) {
         return microToDfd(loadMicro(inputFile));
     }
 
-    public CompleteDFD microToDfd(MicroSecEnd inputFile) {
+    public DataFlowDiagramAndDictionary microToDfd(MicroSecEnd inputFile) {
         return new ProcessJSON().processMicro(inputFile);
     }
 
-    public CompleteDFD webToDfd(String inputFile) {
+    public DataFlowDiagramAndDictionary webToDfd(String inputFile) {
         return webToDfd(loadWeb(inputFile));
     }
 
-    public CompleteDFD webToDfd(DFD inputFile) {
+    public DataFlowDiagramAndDictionary webToDfd(WebEditorDfd inputFile) {
         return new ProcessJSON().processWeb(inputFile);
     }
 
-    public DFD dfdToWeb(String inputFile) {
-        CompleteDFD complete=loadDFD(inputFile);
+    public WebEditorDfd dfdToWeb(String inputFile) {
+        DataFlowDiagramAndDictionary complete=loadDFD(inputFile);
         return new ProcessDFD().parse(complete.dataFlowDiagram(), complete.dataDictionary());
     }
 
-    public DFD dfdToWeb(CompleteDFD complete) {
+    public WebEditorDfd dfdToWeb(DataFlowDiagramAndDictionary complete) {
         return new ProcessDFD().parse(complete.dataFlowDiagram(), complete.dataDictionary());
     }
 
-    public CompleteDFD plantToDFD(String inputFile) {
+    public DataFlowDiagramAndDictionary plantToDFD(String inputFile) {
         String name = inputFile.split("\\.")[0];
         int exitCode = runPythonScript(inputFile, "json", name + ".json");
         if (exitCode == 0) {
@@ -73,7 +73,7 @@ public class Converter {
 
     }
 
-    public CompleteDFD assToDFD(String inputModel, String inputFile, String modelLocation, String outputFile) {
+    public DataFlowDiagramAndDictionary assToDFD(String inputModel, String inputFile, String modelLocation, String outputFile) {
         final var usageModelPath = Paths.get("models", inputModel, inputFile + ".usagemodel").toString();
         final var allocationPath = Paths.get("models", inputModel, inputFile + ".allocation").toString();
         final var nodeCharPath = Paths.get("models", inputModel, inputFile + ".nodecharacteristics").toString();
@@ -106,7 +106,7 @@ public class Converter {
         return -1;
     }
 
-    public void store(DFD web, String outputFile) {
+    public void store(WebEditorDfd web, String outputFile) {
         objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -118,7 +118,7 @@ public class Converter {
         }
     }
 
-    public void store(CompleteDFD complete, String outputFile) {
+    public void store(DataFlowDiagramAndDictionary complete, String outputFile) {
         ResourceSet rs = new ResourceSetImpl();
         Resource dfdResource = createAndAddResource(outputFile + ".dataflowdiagram", new String[] {"dataflowdiagram"}, rs);
         Resource ddResource = createAndAddResource(outputFile + ".datadictionary", new String[] {"datadictionary"}, rs);
@@ -142,18 +142,18 @@ public class Converter {
         }
     }
     
-    public DFD loadWeb(String inputFile) {
+    public WebEditorDfd loadWeb(String inputFile) {
         objectMapper=new ObjectMapper();
         file = new File(inputFile + ".json");
         try {
-            return objectMapper.readValue(file, DFD.class);
+            return objectMapper.readValue(file, WebEditorDfd.class);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
     
-    public CompleteDFD loadDFD(String inputFile) {
+    public DataFlowDiagramAndDictionary loadDFD(String inputFile) {
         ResourceSet rs = new ResourceSetImpl();
         rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
         rs.getPackageRegistry().put(dataflowdiagramPackage.eNS_URI, dataflowdiagramPackage.eINSTANCE);
@@ -164,7 +164,7 @@ public class Converter {
         DataFlowDiagram dfd = (DataFlowDiagram) dfdResource.getContents().get(0);
         DataDictionary dd = (DataDictionary) ddResource.getContents().get(0);
 
-        return new CompleteDFD(dfd, dd);
+        return new DataFlowDiagramAndDictionary(dfd, dd);
     }
 
     private Resource createAndAddResource(String outputFile, String[] fileextensions, ResourceSet rs) {

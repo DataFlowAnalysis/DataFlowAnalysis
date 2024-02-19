@@ -45,12 +45,12 @@ public class ConverterTest {
     @Test
     @DisplayName("Test Web -> DFD -> Web")
     public void webToDfdToWeb() throws StreamReadException, DatabindException, IOException {
-        CompleteDFD dfdBefore = converter.webToDfd(packagePath + "minimal");
-        DFD webAfter = converter.dfdToWeb(dfdBefore);
+        DataFlowDiagramAndDictionary dfdBefore = converter.webToDfd(packagePath + "minimal");
+        WebEditorDfd webAfter = converter.dfdToWeb(dfdBefore);
 
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(packagePath + "minimal.json");
-        DFD webBefore = objectMapper.readValue(file, DFD.class);
+        WebEditorDfd webBefore = objectMapper.readValue(file, WebEditorDfd.class);
 
         webBefore.sort();
         webAfter.sort();
@@ -64,7 +64,7 @@ public class ConverterTest {
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(packagePath + "anilallewar.json");
         MicroSecEnd micro = objectMapper.readValue(file, MicroSecEnd.class);
-        CompleteDFD complete = new ProcessJSON().processMicro(micro);
+        DataFlowDiagramAndDictionary complete = new ProcessJSON().processMicro(micro);
 
         DataFlowDiagram dfd = complete.dataFlowDiagram();
         @SuppressWarnings("unused")
@@ -216,14 +216,14 @@ public class ConverterTest {
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(packagePath + "minimal.json");
 
-        DFD webBefore = objectMapper.readValue(file, DFD.class);
-        CompleteDFD completeBefore = converter.webToDfd(webBefore);
+        WebEditorDfd webBefore = objectMapper.readValue(file, WebEditorDfd.class);
+        DataFlowDiagramAndDictionary completeBefore = converter.webToDfd(webBefore);
         
         converter.store(webBefore, packagePath + "test");
         converter.store(completeBefore, packagePath + "minimal");
         
-        DFD webAfter=converter.loadWeb(packagePath+"test");
-        CompleteDFD completeAfter=converter.loadDFD(packagePath+"minimal");
+        WebEditorDfd webAfter=converter.loadWeb(packagePath+"test");
+        DataFlowDiagramAndDictionary completeAfter=converter.loadDFD(packagePath+"minimal");
         
         assertEquals(webBefore, webAfter);
         assertNotNull(completeAfter);

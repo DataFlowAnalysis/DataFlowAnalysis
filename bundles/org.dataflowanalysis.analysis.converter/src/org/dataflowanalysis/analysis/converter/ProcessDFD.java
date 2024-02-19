@@ -14,16 +14,16 @@ public class ProcessDFD {
 
     private final Map<Pin, String> mapInputPinToFlowName = new HashMap<>();
 
-    public DFD parse(DataFlowDiagram dfd, DataDictionary dd) {
+    public WebEditorDfd parse(DataFlowDiagram dfd, DataDictionary dd) {
         List<Child> children = new ArrayList<>();
-        List<WebLabelType> labelTypes = new ArrayList<>();
+        List<WebEditorLabelType> labelTypes = new ArrayList<>();
 
         for (LabelType labelType : dd.getLabelTypes()) {
             List<Value> values = new ArrayList<>();
             for (Label label : labelType.getLabel()) {
                 values.add(new Value(label.getId(), label.getEntityName()));
             }
-            labelTypes.add(new WebLabelType(labelType.getId(), labelType.getEntityName(), values));
+            labelTypes.add(new WebEditorLabelType(labelType.getId(), labelType.getEntityName(), values));
         }
 
         for (Flow flow : dfd.getFlows()) {
@@ -50,11 +50,11 @@ public class ProcessDFD {
                 type = "error";
             }
 
-            List<WebLabel> labels = new ArrayList<>();
+            List<WebEditorLabel> labels = new ArrayList<>();
             for (Label label : node.getProperties()) {
                 String labelTypeId = ((LabelType) label.eContainer()).getId();
                 String labelId = label.getId();
-                labels.add(new WebLabel(labelTypeId, labelId));
+                labels.add(new WebEditorLabel(labelTypeId, labelId));
             }
 
             List<Port> ports = new ArrayList<>();
@@ -73,7 +73,7 @@ public class ProcessDFD {
             children.add(new Child(text, labels, ports, id, type, null, null, new ArrayList<>()));
         }
 
-        return new DFD(new Model("graph", "root", children), labelTypes);
+        return new WebEditorDfd(new Model("graph", "root", children), labelTypes);
     }
 
     public Map<Pin, List<AbstractAssignment>> mapping(Node node) {

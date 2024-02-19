@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.converter.microsecend.*;
 import org.dataflowanalysis.analysis.converter.webdfd.*;
 import org.dataflowanalysis.dfd.datadictionary.*;
@@ -16,8 +17,9 @@ public class ProcessJSON {
 
     private Map<String, Node> nodesMap;
     private final Map<Node, List<String>> nodeToLabelNames;
-    private final Map<String, LabelType> labelTypeMap;
     private final Map<String, Label> labelMap;
+    
+    private final Logger logger = Logger.getLogger(ProcessJSON.class);
 
     public ProcessJSON() {
         dfdFactory = dataflowdiagramFactory.eINSTANCE;
@@ -25,11 +27,10 @@ public class ProcessJSON {
 
         nodesMap = new HashMap<>();
         nodeToLabelNames = new HashMap<>();
-        labelTypeMap = new HashMap<>();
         labelMap = new HashMap<>();
     }
 
-    public CompleteDFD processMicro(MicroSecEnd micro) {
+    public DataFlowDiagramAndDictionary processMicro(MicroSecEnd micro) {
         DataFlowDiagram dfd = dfdFactory.createDataFlowDiagram();
         DataDictionary dd = ddFactory.createDataDictionary();
 
@@ -53,7 +54,6 @@ public class ProcessJSON {
 
         LabelType annotation = ddFactory.createLabelType();
         annotation.setEntityName("annotation");
-        labelTypeMap.put("annotation", annotation);
         dd.getLabelTypes().add(annotation);
 
         for (Node node : nodesMap.values()) {
@@ -122,7 +122,7 @@ public class ProcessJSON {
             }
         }
 
-        return new CompleteDFD(dfd, dd);
+        return new DataFlowDiagramAndDictionary(dfd, dd);
     }
 
     public List<Label> createLabels(List<String> labelNames, DataDictionary dd, LabelType annotation) {
@@ -141,7 +141,7 @@ public class ProcessJSON {
         return labels;
     }
 
-    public CompleteDFD processWeb(DFD webdfd) {
+    public DataFlowDiagramAndDictionary processWeb(WebEditorDfd webdfd) {
         nodesMap = new HashMap<String, Node>();
         Map<String, Node> pinToNodeMap = new HashMap<>();
         Map<String, Pin> pinMap = new HashMap<>();
@@ -151,7 +151,7 @@ public class ProcessJSON {
         DataFlowDiagram dfd = dfdFactory.createDataFlowDiagram();
         DataDictionary dd = ddFactory.createDataDictionary();
 
-        for (WebLabelType webLabelType : webdfd.labelTypes()) {
+        for (WebEditorLabelType webLabelType : webdfd.labelTypes()) {
             LabelType labelType = ddFactory.createLabelType();
             labelType.setEntityName(webLabelType.name());
             labelType.setId(webLabelType.id());
@@ -172,15 +172,20 @@ public class ProcessJSON {
 
             if (type[0].equals("node")) {
                 Node node;
-                if (type[1].equals("function")) {
-                    node = dfdFactory.createProcess();
-                } else if (type[1].equals("storage")) {
-                    node = dfdFactory.createStore();
-                } else if (type[1].equals("input-output")) {
-                    node = dfdFactory.createExternal();
-                } else {
-                    node = null;
-                    System.out.println("Error");
+                switch (type[1]) {
+                    case "function":
+                        node = dfdFactory.createProcess();
+                        break;
+                    case "storage":
+                        node = dfdFactory.createStore();
+                        break;
+                    case "input-output":
+                        node = dfdFactory.createExternal();
+                        break;
+                    default:
+                        logger.error("Unrecognized node type: "+type[1]);
+                        continue;
+                        
                 }
                 node.setEntityName(name);
                 node.setId(child.id());
@@ -208,7 +213,7 @@ public class ProcessJSON {
                 }
 
                 List<Label> labelsAtNode = new ArrayList<>();
-                for (WebLabel webLabel : child.labels()) {
+                for (WebEditorLabel webLabel : child.labels()) {
                     labelsAtNode.add(idToLabelMap.get(webLabel.labelTypeValueId()));
                 }
                 node.getProperties().addAll(labelsAtNode);
@@ -245,7 +250,7 @@ public class ProcessJSON {
             }
         }
 
-        return new CompleteDFD(dfd, dd);
+        return new DataFlowDiagramAndDictionary(dfd, dd);
     }
 
     public void parseBehavior(Node node, Pin outpin, String lines, DataFlowDiagram dfd, DataDictionary dd) {

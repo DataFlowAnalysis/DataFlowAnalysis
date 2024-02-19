@@ -27,7 +27,6 @@ import org.dataflowanalysis.analysis.pcm.core.seff.*;
 import org.dataflowanalysis.analysis.pcm.core.user.*;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.dataflowanalysis.dfd.datadictionary.Assignment;
-import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
@@ -67,33 +66,16 @@ public class ConverterTest {
         DataFlowDiagramAndDictionary complete = new ProcessJSON().processMicro(micro);
 
         DataFlowDiagram dfd = complete.dataFlowDiagram();
-        @SuppressWarnings("unused")
-        DataDictionary dd = complete.dataDictionary();
 
         assertEquals(micro.externalEntities().size() + micro.services().size(), dfd.getNodes().size());
-
         assertEquals(micro.informationFlows().size(), dfd.getFlows().size());
 
         for (Service service : micro.services()) {
-            for (Node node : dfd.getNodes()) {
-                if (service.name().equals(node.getEntityName())) {
-                    assertEquals(service.stereotypes().size(), node.getProperties().size());
-                    for (int i = 0; i < service.stereotypes().size(); i++) {
-                        assertEquals(service.stereotypes().get(i), node.getProperties().get(i).getEntityName());
-                    }
-                }
-            }
+            checkEntityName(service,dfd);
         }
 
         for (ExternalEntity ee : micro.externalEntities()) {
-            for (Node node : dfd.getNodes()) {
-                if (ee.name().equals(node.getEntityName())) {
-                    assertEquals(ee.stereotypes().size(), node.getProperties().size());
-                    for (int i = 0; i < ee.stereotypes().size(); i++) {
-                        assertEquals(ee.stereotypes().get(i), node.getProperties().get(i).getEntityName());
-                    }
-                }
-            }
+            checkEntityName(ee,dfd);
         }
 
         int match = 0;
@@ -234,7 +216,19 @@ public class ConverterTest {
 
     }
 
-    public void cleanup(String path) {
+    private void cleanup(String path) {
         (new File(path)).delete();
     }
+    
+    public void checkEntityName(MicroSecEndProcess process, DataFlowDiagram dfd) {
+        for(Node node : dfd.getNodes()) {
+            if(process.name().equals(node.getEntityName())) {
+                assertEquals(process.stereotypes().size(),node.getProperties().size());
+                for(int i=0;i<process.stereotypes().size();i++) {
+                    assertEquals(process.stereotypes().get(i),node.getProperties().get(i).getEntityName());
+                }
+            }
+        }   
+    }
+    
 }

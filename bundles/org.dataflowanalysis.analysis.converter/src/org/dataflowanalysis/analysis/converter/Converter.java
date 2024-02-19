@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.testmodels.Activator;
@@ -31,6 +32,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public class Converter {
     private ObjectMapper objectMapper;
     private File file;
+    
+    private final Logger logger = Logger.getLogger(Converter.class);
 
     public Converter() {
         objectMapper = new ObjectMapper();
@@ -67,7 +70,7 @@ public class Converter {
         if (exitCode == 0) {
             return microToDfd(name + ".json");
         } else {
-            System.err.println("python");
+            logger.error("Make sure python3 is installed and set in PATH");
             return null;
         }
 
@@ -101,7 +104,7 @@ public class Converter {
             process = processBuilder.start();
             return process.waitFor();
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         return -1;
     }
@@ -114,7 +117,7 @@ public class Converter {
         try {
             objectMapper.writeValue(new File(outputFile+".json"), web);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 
@@ -137,7 +140,7 @@ public class Converter {
         try {
             return objectMapper.readValue(file, MicroSecEnd.class);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
             return null;
         }
     }
@@ -148,7 +151,7 @@ public class Converter {
         try {
             return objectMapper.readValue(file, WebEditorDfd.class);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
             return null;
         }
     }

@@ -11,13 +11,13 @@ import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
 
 public class ProcessJSON {
-    private dataflowdiagramFactory dfdFactory;
-    private datadictionaryFactory ddFactory;
+    private final dataflowdiagramFactory dfdFactory;
+    private final datadictionaryFactory ddFactory;
 
     private Map<String, Node> nodesMap;
-    private Map<Node, List<String>> nodeToLabelNames;
-    private Map<String, LabelType> labelTypeMap;
-    private Map<String, Label> labelMap;
+    private final Map<Node, List<String>> nodeToLabelNames;
+    private final Map<String, LabelType> labelTypeMap;
+    private final Map<String, Label> labelMap;
 
     public ProcessJSON() {
         dfdFactory = dataflowdiagramFactory.eINSTANCE;
@@ -94,7 +94,7 @@ public class ProcessJSON {
         for (Node node : nodesMap.values()) {
             var behaviour = node.getBehaviour();
             Assignment template = (Assignment) behaviour.getAssignment().get(0);
-            if (behaviour.getOutPin().size() != 0) {
+            if (!behaviour.getOutPin().isEmpty()) {
                 for (Pin outPin : behaviour.getOutPin()) {
                     Assignment assignment = ddFactory.createAssignment();
 
@@ -143,8 +143,8 @@ public class ProcessJSON {
 
     public CompleteDFD processWeb(DFD webdfd) {
         nodesMap = new HashMap<String, Node>();
-        Map<String, Node> pinToNodeMap = new HashMap<String, Node>();
-        Map<String, Pin> pinMap = new HashMap<String, Pin>();
+        Map<String, Node> pinToNodeMap = new HashMap<>();
+        Map<String, Pin> pinMap = new HashMap<>();
         Map<String, Label> idToLabelMap = new HashMap<>();
         Map<Node, Map<Pin, String>> nodeOutpinBehavior = new HashMap<>();
 

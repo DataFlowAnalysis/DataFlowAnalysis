@@ -16,9 +16,9 @@ import org.dataflowanalysis.dfd.dataflowdiagram.*;
 
 public class ProcessASS {
 
-    private Map<Entity, Node> dfdNodeMap = new HashMap<>();
-    private DataDictionary dd = datadictionaryFactory.eINSTANCE.createDataDictionary();
-    private DataFlowDiagram dfd = dataflowdiagramFactory.eINSTANCE.createDataFlowDiagram();
+    private final Map<Entity, Node> dfdNodeMap = new HashMap<>();
+    private final DataDictionary dd = datadictionaryFactory.eINSTANCE.createDataDictionary();
+    private final DataFlowDiagram dfd = dataflowdiagramFactory.eINSTANCE.createDataFlowDiagram();
 
     public DataDictionary getDictionary() {
         return this.dd;

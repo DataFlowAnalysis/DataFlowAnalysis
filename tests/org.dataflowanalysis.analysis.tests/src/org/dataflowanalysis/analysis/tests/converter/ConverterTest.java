@@ -219,7 +219,7 @@ public class ConverterTest {
         DFD webBefore = objectMapper.readValue(file, DFD.class);
         CompleteDFD completeBefore = converter.webToDfd(webBefore);
         
-        converter.store(webBefore, packagePath+"test.json");
+        converter.store(webBefore, packagePath + "test");
         converter.store(completeBefore, packagePath + "minimal");
         
         DFD webAfter=converter.loadWeb(packagePath+"test");
@@ -235,7 +235,6 @@ public class ConverterTest {
     }
 
     public void cleanup(String path) {
-        File file = new File(path);
-        file.delete();
+        (new File(path)).delete();
     }
 }

@@ -112,7 +112,7 @@ public class Converter {
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         try {
-            objectMapper.writeValue(new File(outputFile), web);
+            objectMapper.writeValue(new File(outputFile+".json"), web);
         } catch (IOException e) {
             e.printStackTrace();
         }

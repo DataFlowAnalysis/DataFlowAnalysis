@@ -12,7 +12,7 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Process;
 
 public class ProcessDFD {
 
-    private Map<Pin, String> mapInputPinToFlowName = new HashMap<>();
+    private final Map<Pin, String> mapInputPinToFlowName = new HashMap<>();
 
     public DFD parse(DataFlowDiagram dfd, DataDictionary dd) {
         List<Child> children = new ArrayList<>();

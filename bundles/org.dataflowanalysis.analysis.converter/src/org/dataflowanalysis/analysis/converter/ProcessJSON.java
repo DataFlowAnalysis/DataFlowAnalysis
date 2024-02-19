@@ -270,7 +270,7 @@ public class ProcessJSON {
             } else if (behaviorString.contains("set ")) {
                 String[] parts = behaviorString.split(" ");
                 if (parts[2].equals("=")) {
-                    boolean term = parts[3].equals("TRUE") ? true : false;
+                    boolean term = parts[3].equals("TRUE");
                     String typeName = parts[1].split("\\.")[0];
                     String valueName = parts[1].split("\\.")[1];
                     Label value = null;

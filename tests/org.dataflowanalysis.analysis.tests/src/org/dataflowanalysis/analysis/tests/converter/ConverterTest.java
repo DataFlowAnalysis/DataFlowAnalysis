@@ -13,9 +13,7 @@ import java.util.Collections;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -54,8 +52,8 @@ public class ConverterTest {
         File file = new File(packagePath + "minimal.json");
         DFD webBefore = objectMapper.readValue(file, DFD.class);
 
-        sortWeb(webBefore);
-        sortWeb(webAfter);
+        webBefore.sort();
+        webAfter.sort();
 
         assertEquals(webBefore, webAfter);
     }
@@ -127,26 +125,9 @@ public class ConverterTest {
         objectMapper = new ObjectMapper();
         file = new File(packagePath + "fromPlant.json");
         MicroSecEnd microAfter = objectMapper.readValue(file, MicroSecEnd.class);
-
-        microBefore.services().sort(Comparator.comparing(Service::name));
-        microAfter.services().sort(Comparator.comparing(Service::name));
-
-        microBefore.externalEntities().sort(Comparator.comparing(ExternalEntity::name));
-        microAfter.externalEntities().sort(Comparator.comparing(ExternalEntity::name));
-
-        microBefore.informationFlows().sort(Comparator.comparing(InformationFlow::sender).thenComparing(InformationFlow::receiver));
-        microAfter.informationFlows().sort(Comparator.comparing(InformationFlow::sender).thenComparing(InformationFlow::receiver));
-
-        List<List<String>> allStereotypes = new ArrayList<>();
-        allStereotypes.add(microBefore.services().stream().flatMap(node -> node.stereotypes().stream()).collect(Collectors.toList()));
-        allStereotypes.add(microAfter.services().stream().flatMap(node -> node.stereotypes().stream()).collect(Collectors.toList()));
-        allStereotypes.add(microBefore.externalEntities().stream().flatMap(node -> node.stereotypes().stream()).collect(Collectors.toList()));
-        allStereotypes.add(microAfter.externalEntities().stream().flatMap(node -> node.stereotypes().stream()).collect(Collectors.toList()));
-        allStereotypes.add(microBefore.informationFlows().stream().flatMap(node -> node.stereotypes().stream()).collect(Collectors.toList()));
-        allStereotypes.add(microAfter.informationFlows().stream().flatMap(node -> node.stereotypes().stream()).collect(Collectors.toList()));
-        for (List<String> stereotypes : allStereotypes) {
-            Collections.sort(stereotypes);
-        }
+        
+        microBefore.sort();
+        microAfter.sort();
 
         assertEquals(microBefore, microAfter);
 
@@ -256,22 +237,5 @@ public class ConverterTest {
     public void cleanup(String path) {
         File file = new File(path);
         file.delete();
-    }
-    
-    public void sortWeb(DFD web) {
-        web.labelTypes().sort(Comparator.comparing(WebLabelType::id));
-
-        List<Child> children = web.model().children();
-
-        children.sort(Comparator.comparing(Child::id));
-
-        for (Child child : children) {
-            if (child.labels() != null) {
-                child.labels().sort(Comparator.comparing(WebLabel::labelTypeId).thenComparing(WebLabel::labelTypeValueId));
-            }
-            if (child.ports() != null) {
-                child.ports().sort(Comparator.comparing(Port::id));
-            }
-        }
     }
 }

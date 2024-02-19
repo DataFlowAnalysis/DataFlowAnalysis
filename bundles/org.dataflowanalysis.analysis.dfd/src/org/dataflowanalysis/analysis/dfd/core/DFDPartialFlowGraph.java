@@ -17,5 +17,6 @@ public class DFDPartialFlowGraph extends AbstractPartialFlowGraph {
         newSink.unify(new HashSet<>());
         newSink.evaluateDataFlow();
         return new DFDPartialFlowGraph(newSink);
-    }
+    }  
+  
 }

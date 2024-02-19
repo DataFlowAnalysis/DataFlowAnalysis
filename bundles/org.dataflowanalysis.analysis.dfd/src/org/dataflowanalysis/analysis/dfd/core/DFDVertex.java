@@ -48,6 +48,7 @@ public class DFDVertex extends AbstractVertex<EObject> {
 
     @Override
     public void evaluateDataFlow() {
+    	//Return if already evaluated
         if (super.isEvaluated())
             return;
 
@@ -85,7 +86,7 @@ public class DFDVertex extends AbstractVertex<EObject> {
         }
 
         // Create data flow variables from map
-        List<DataFlowVariable> dataFlowVariables = new ArrayList<>(this.processMappingToDataFlowVariables(mapInputPinsToIncomingLabels));
+        List<DataFlowVariable> dataFlowVariables = new ArrayList<>(this.createDataFlowVariablesFromLabels(mapInputPinsToIncomingLabels));
 
         // Create Map with all Outgoing Labels per pin
         for (var assignment : node.getBehaviour().getAssignment()) {
@@ -101,15 +102,17 @@ public class DFDVertex extends AbstractVertex<EObject> {
         }
 
         // Create outgoing data flow variables from map
-        List<DataFlowVariable> outgoingDataFlowVariables = new ArrayList<>(this.processMappingToDataFlowVariables(mapOutputPinToOutgoingLabels));
+        List<DataFlowVariable> outgoingDataFlowVariables = new ArrayList<>(this.createDataFlowVariablesFromLabels(mapOutputPinToOutgoingLabels));
 
         this.setPropagationResult(dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
 
     /**
-     * TODO: I extracted this method from duplicate code. Is this okay? Can you think of a more fitting name?
+     * Create Data Flow Variables from Map mapping Input/Output Pin to labels
+     * @param pinToLabelMap Map mapping Input/Output Pin to labels
+     * @return List of created Data Flow Variables
      */
-    private List<DataFlowVariable> processMappingToDataFlowVariables(Map<Pin, List<Label>> pinToLabelMap) {
+    private List<DataFlowVariable> createDataFlowVariablesFromLabels(Map<Pin, List<Label>> pinToLabelMap) {
         List<DataFlowVariable> dataFlowVariables = new ArrayList<>();
         for (var pin : pinToLabelMap.keySet()) {
             List<CharacteristicValue> characteristics = new ArrayList<>();
@@ -122,6 +125,12 @@ public class DFDVertex extends AbstractVertex<EObject> {
         return dataFlowVariables;
     }
 
+    /**
+     * Combines all Incoming Labels from relevant input pins
+     * @param assignment Assignment to determine relevant input pins
+     * @param mapInputPinsToIncomingLabels Maps all input pins to all incoming labels
+     * @return List of relevant labels
+     */
     private static List<Label> combineLabelsOnAllInputPins(AbstractAssignment assignment, Map<Pin, List<Label>> mapInputPinsToIncomingLabels) {
         List<Label> allLabel = new ArrayList<>();
         for (var inputPin : assignment.getInputPins()) {
@@ -130,6 +139,12 @@ public class DFDVertex extends AbstractVertex<EObject> {
         return allLabel;
     }
 
+    /**
+     * Filters Objects to be distinct by key
+     * @param <T> Type of Of Object to be evaluated
+     * @param keyExtractor 
+     * @return
+     */
     public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
         KeySetView<Object, Boolean> seen = ConcurrentHashMap.newKeySet();
         return t -> seen.add(keyExtractor.apply(t));
@@ -159,6 +174,10 @@ public class DFDVertex extends AbstractVertex<EObject> {
         return false;
     }
 
+    /**
+     * Goes through the previous vertices and replaces equal vertices by the same vertex
+     * @param vertices Set of unique vertices that are used to replace equal vertices
+     */
     public void unify(Set<DFDVertex> vertices) {
         for (var key : this.getMapPinToPreviousVertex().keySet()) {
             for (var vertex : vertices) {
@@ -172,18 +191,12 @@ public class DFDVertex extends AbstractVertex<EObject> {
             vertex.unify(vertices);
         }
     }
-
-    @Override
-    public String toString() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public List<AbstractVertex<?>> getPreviousElements() {
-        return new ArrayList<>(this.mapPinToPreviousVertex.values());
-    }
-
+   
+    /**
+     * Compares Vertices on equal Node, Name and incoming Vertices
+     * @param vertex Vertex to be compared to
+     * @return True if all relevant factors equal, false otherwise
+     */
     public boolean isEqual(DFDVertex vertex) {
         if (!this.node.equals(vertex.getNode()))
             return false;
@@ -195,11 +208,11 @@ public class DFDVertex extends AbstractVertex<EObject> {
         }
         return true;
     }
+    
 
-    public Node getNode() {
-        return node;
-    }
-
+    /**
+     * Creates a clone of the vertex without considering Data Flow variables, Characteristics
+     */
     public DFDVertex clone() {
         Map<Pin, DFDVertex> newMapPinToPreviousVertex = new HashMap<>();
         for (var key : this.mapPinToPreviousVertex.keySet()) {
@@ -207,6 +220,24 @@ public class DFDVertex extends AbstractVertex<EObject> {
             newMapPinToPreviousVertex.put(key, previousClone);
         }
         return new DFDVertex(this.name, this.node, newMapPinToPreviousVertex, new HashMap<>(this.mapPinToInputFlow));
+    }
+    
+    @Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+    
+    
+    //Getter:    
+    
+    @Override
+    public List<AbstractVertex<?>> getPreviousElements() {
+        return new ArrayList<>(this.mapPinToPreviousVertex.values());
+    }
+    
+    public Node getNode() {
+        return node;
     }
 
     public Map<Pin, DFDVertex> getMapPinToPreviousVertex() {
@@ -220,4 +251,6 @@ public class DFDVertex extends AbstractVertex<EObject> {
     public String getName() {
         return name;
     }
+
+	
 }

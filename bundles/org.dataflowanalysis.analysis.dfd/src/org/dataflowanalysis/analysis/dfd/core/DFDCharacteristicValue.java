@@ -21,6 +21,10 @@ public record DFDCharacteristicValue(LabelType labelType, Label label) implement
         return this.label().getId();
     }
 
+    /**
+     * Returns the label stored in the Characteristics Value
+     * @return Label
+     */
     public Label getLabel() {
         return this.label;
     }

@@ -37,14 +37,7 @@ public class Converter {
     }
 
     public CompleteDFD microToDfd(String inputFile) {
-        file = new File(inputFile + ".json");
-        try {
-            MicroSecEnd micro = objectMapper.readValue(file, MicroSecEnd.class);
-            return new ProcessJSON().processMicro(micro);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return microToDfd(loadMicro(inputFile));
     }
 
     public CompleteDFD microToDfd(MicroSecEnd inputFile) {
@@ -52,14 +45,7 @@ public class Converter {
     }
 
     public CompleteDFD webToDfd(String inputFile) {
-        file = new File(inputFile + ".json");
-        try {
-            DFD dfd = objectMapper.readValue(file, DFD.class);
-            return new ProcessJSON().processWeb(dfd);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return webToDfd(loadWeb(inputFile));
     }
 
     public CompleteDFD webToDfd(DFD inputFile) {

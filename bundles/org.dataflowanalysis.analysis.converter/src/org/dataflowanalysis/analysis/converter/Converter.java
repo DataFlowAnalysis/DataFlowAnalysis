@@ -53,7 +53,8 @@ public class Converter {
     }
 
     public DFD dfdToWeb(String inputFile) {
-        return new ProcessDFD().parse(inputFile + ".dataflowdiagram", inputFile + ".datadictionary");
+        CompleteDFD complete=loadDFD(inputFile);
+        return new ProcessDFD().parse(complete.dataFlowDiagram(), complete.dataDictionary());
     }
 
     public DFD dfdToWeb(CompleteDFD complete) {

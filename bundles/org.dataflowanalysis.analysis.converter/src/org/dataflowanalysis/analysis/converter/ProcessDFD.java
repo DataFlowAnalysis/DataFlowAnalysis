@@ -5,12 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-
 import org.dataflowanalysis.analysis.converter.webdfd.*;
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
@@ -19,22 +13,6 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Process;
 public class ProcessDFD {
 
     private Map<Pin, String> mapInputPinToFlowName = new HashMap<>();
-
-    public DFD parse(String dfdFile, String ddFile) {
-        // Init and get resources for dfd, dd model instances
-        ResourceSet rs = new ResourceSetImpl();
-        rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
-        rs.getPackageRegistry().put(dataflowdiagramPackage.eNS_URI, dataflowdiagramPackage.eINSTANCE);
-
-        Resource dfdResource = rs.getResource(URI.createFileURI(dfdFile), true);
-        Resource ddResource = rs.getResource(URI.createFileURI(ddFile), true);
-
-        DataFlowDiagram dfd = (DataFlowDiagram) dfdResource.getContents().get(0);
-        DataDictionary dd = (DataDictionary) ddResource.getContents().get(0);
-
-        return parse(dfd, dd);
-
-    }
 
     public DFD parse(DataFlowDiagram dfd, DataDictionary dd) {
         List<Child> children = new ArrayList<>();

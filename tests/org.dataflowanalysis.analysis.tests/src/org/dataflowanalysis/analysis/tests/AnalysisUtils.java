@@ -43,7 +43,7 @@ public class AnalysisUtils {
      * <p>
      * If {@code sequence} is {@code null} or the sequences are of different length, they are considered unequal
      * @param sequence ActionSequence to be inspected
-     * @param expectedType Expected types of the given ActionSequence at all indexes
+     * @param expectedElementTypes Expected types of the given ActionSequence at all indexes
      */
     public static void assertSequenceElements(AbstractPartialFlowGraph sequence, List<Class<?>> expectedElementTypes) {
         var elements = sequence.getVertices();

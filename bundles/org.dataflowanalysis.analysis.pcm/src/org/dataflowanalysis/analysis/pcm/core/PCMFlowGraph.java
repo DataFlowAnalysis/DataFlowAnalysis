@@ -20,13 +20,11 @@ public class PCMFlowGraph extends FlowGraph {
     }
 
     public List<AbstractPartialFlowGraph> findPartialFlowGraphs() {
-        if (!(super.resourceProvider instanceof PCMResourceProvider)) {
-            logger.error("Cannot find partial flow graphs from non-pcm resource provider",
-                    new IllegalArgumentException("Cannot find partial flow graphs with non-pcm resource provider"));
+        if (!(this.resourceProvider instanceof PCMResourceProvider pcmResourceProvider)) {
+            logger.error("Cannot find partial flow graphs from non-pcm resource provider");
+            throw new IllegalArgumentException("Cannot find partial flow graphs with non-pcm resource provider");
         }
-        PCMResourceProvider pcmResourceProvider = (PCMResourceProvider) resourceProvider;
         PCMPartialFlowGraphFinder sequenceFinder = new PCMPartialFlowGraphFinder(pcmResourceProvider);
-
         return sequenceFinder.findPartialFlowGraphs().parallelStream().map(AbstractPartialFlowGraph.class::cast).collect(Collectors.toList());
     }
 

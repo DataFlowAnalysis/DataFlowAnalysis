@@ -20,10 +20,10 @@ public class DFDFlowGraph extends FlowGraph {
     }
 
     public List<AbstractPartialFlowGraph> findPartialFlowGraphs() {
-        if (!(this.resourceProvider instanceof DFDResourceProvider)) {
-            logger.error("Cannot find partial flow graphs for non-dfd resource provider", new IllegalArgumentException());
+        if (!(this.resourceProvider instanceof DFDResourceProvider dfdResourceProvider)) {
+            logger.error("Cannot find partial flow graphs for non-dfd resource provider");
+            throw new IllegalArgumentException();
         }
-        DFDResourceProvider dfdResourceProvider = (DFDResourceProvider) this.resourceProvider;
         return DFDPartialFlowGraphFinder.findAllPartialFlowGraphsInDFD(dfdResourceProvider.getDataFlowDiagram(),
                 dfdResourceProvider.getDataDictionary());
     }

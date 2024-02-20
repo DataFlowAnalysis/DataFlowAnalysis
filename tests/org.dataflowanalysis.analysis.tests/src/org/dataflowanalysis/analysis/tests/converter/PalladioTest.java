@@ -67,7 +67,7 @@ public class PalladioTest {
 
         PalladioProcesser ass2dfd = new PalladioProcesser();
 
-        DataFlowDiagram dfd = ass2dfd.process(propagationResult).dataFlowDiagram();
+        DataFlowDiagram dfd = ass2dfd.processPalladio(propagationResult).dataFlowDiagram();
 
         assertEquals(dfd.getNodes().size(), assIdToName.keySet().size());
 

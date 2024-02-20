@@ -20,7 +20,7 @@ public class PalladioProcesser {
     private final DataDictionary dataDictionary = datadictionaryFactory.eINSTANCE.createDataDictionary();
     private final DataFlowDiagram dataFlowDiagram = dataflowdiagramFactory.eINSTANCE.createDataFlowDiagram();
 
-    public DataFlowDiagramAndDictionary process(List<ActionSequence> ass) {
+    public DataFlowDiagramAndDictionary processPalladio(List<ActionSequence> ass) {
         for (ActionSequence actionSequence : ass) {
             Node previousNode = null;
             for (AbstractActionSequenceElement<?> ASE : actionSequence.getElements()) {

@@ -1,146 +1,33 @@
 package org.dataflowanalysis.analysis.converter;
 
-import java.util.ArrayList;
+import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.converter.microsecend.*;
 import org.dataflowanalysis.analysis.converter.webdfd.*;
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
+import org.dataflowanalysis.dfd.dataflowdiagram.Process;
 
-public class ProcessJSON {
+public class DataFlowDiagramProcessor {
+
+    private final Map<Pin, String> mapInputPinToFlowName = new HashMap<>();
     private final dataflowdiagramFactory dfdFactory;
     private final datadictionaryFactory ddFactory;
-
     private Map<String, Node> nodesMap;
-    private final Map<Node, List<String>> nodeToLabelNames;
-    private final Map<String, Label> labelMap;
+    
+    private final Logger logger = Logger.getLogger(MicroSecEndProcessor.class);
 
-    private final Logger logger = Logger.getLogger(ProcessJSON.class);
-
-    public ProcessJSON() {
+    
+    public DataFlowDiagramProcessor() {
         dfdFactory = dataflowdiagramFactory.eINSTANCE;
         ddFactory = datadictionaryFactory.eINSTANCE;
 
         nodesMap = new HashMap<>();
-        nodeToLabelNames = new HashMap<>();
-        labelMap = new HashMap<>();
     }
-
-    public DataFlowDiagramAndDictionary processMicro(MicroSecEnd micro) {
-        DataFlowDiagram dfd = dfdFactory.createDataFlowDiagram();
-        DataDictionary dd = ddFactory.createDataDictionary();
-
-        for (ExternalEntity ee : micro.externalEntities()) {
-            var external = dfdFactory.createExternal();
-            external.setEntityName(ee.name());
-
-            dfd.getNodes().add(external);
-            nodesMap.put(ee.name(), external);
-            nodeToLabelNames.put(external, ee.stereotypes());
-        }
-
-        for (Service service : micro.services()) {
-            var process = dfdFactory.createProcess();
-            process.setEntityName(service.name());
-
-            dfd.getNodes().add(process);
-            nodesMap.put(service.name(), process);
-            nodeToLabelNames.put(process, service.stereotypes());
-        }
-
-        LabelType annotation = ddFactory.createLabelType();
-        annotation.setEntityName("annotation");
-        dd.getLabelTypes().add(annotation);
-
-        for (Node node : nodesMap.values()) {
-            var behaviour = ddFactory.createBehaviour();
-            node.setBehaviour(behaviour);
-
-            var assignment = ddFactory.createAssignment();
-
-            assignment.getOutputLabels().addAll(createLabels(nodeToLabelNames.get(node), dd, annotation));
-
-            behaviour.getAssignment().add(assignment);
-
-            node.getProperties().addAll(assignment.getOutputLabels());
-
-            dd.getBehaviour().add(behaviour);
-        }
-
-        for (InformationFlow iflow : micro.informationFlows()) {
-            var source = nodesMap.get(iflow.sender());
-            var dest = nodesMap.get(iflow.receiver());
-
-            var flow = dfdFactory.createFlow();
-            flow.setSourceNode(source);
-            flow.setDestinationNode(dest);
-            flow.setEntityName(iflow.sender());
-
-            var inPin = ddFactory.createPin();
-            var outPin = ddFactory.createPin();
-            source.getBehaviour().getOutPin().add(outPin);
-            dest.getBehaviour().getInPin().add(inPin);
-
-            flow.setDestinationPin(inPin);
-            flow.setSourcePin(outPin);
-            dfd.getFlows().add(flow);
-        }
-
-        // NodeAssigment
-        for (Node node : nodesMap.values()) {
-            var behaviour = node.getBehaviour();
-            Assignment template = (Assignment) behaviour.getAssignment().get(0);
-            if (!behaviour.getOutPin().isEmpty()) {
-                for (Pin outPin : behaviour.getOutPin()) {
-                    Assignment assignment = ddFactory.createAssignment();
-
-                    assignment.getInputPins().addAll(behaviour.getInPin());
-                    assignment.setOutputPin(outPin);
-
-                    assignment.getOutputLabels().addAll(template.getOutputLabels());
-                    assignment.setTerm(ddFactory.createTRUE());
-
-                    behaviour.getAssignment().add(assignment);
-                }
-
-                behaviour.getAssignment().remove(template);
-            }
-        }
-
-        // ForwardAssignment
-        for (Node node : nodesMap.values()) {
-            var behaviour = node.getBehaviour();
-            for (Pin pin : behaviour.getOutPin()) {
-                var assignment = ddFactory.createForwardingAssignment();
-                assignment.setOutputPin(pin);
-                assignment.getInputPins().addAll(behaviour.getInPin());
-                behaviour.getAssignment().add(assignment);
-            }
-        }
-
-        return new DataFlowDiagramAndDictionary(dfd, dd);
-    }
-
-    public List<Label> createLabels(List<String> labelNames, DataDictionary dd, LabelType annotation) {
-        List<Label> labels = new ArrayList<>();
-        for (String labelName : labelNames) {
-            if (labelMap.containsKey(labelName)) {
-                labels.add(labelMap.get(labelName));
-            } else {
-                Label label = ddFactory.createLabel();
-                label.setEntityName(labelName);
-                annotation.getLabel().add(label);
-                labels.add(label);
-                labelMap.put(labelName, label);
-            }
-        }
-        return labels;
-    }
-
+    
     public DataFlowDiagramAndDictionary processWeb(WebEditorDfd webdfd) {
         nodesMap = new HashMap<String, Node>();
         Map<String, Node> pinToNodeMap = new HashMap<>();
@@ -253,7 +140,124 @@ public class ProcessJSON {
         return new DataFlowDiagramAndDictionary(dfd, dd);
     }
 
-    public void parseBehavior(Node node, Pin outpin, String lines, DataFlowDiagram dfd, DataDictionary dd) {
+
+    public WebEditorDfd processDfd(DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary) {
+        List<Child> children = new ArrayList<>();
+        List<WebEditorLabelType> labelTypes = new ArrayList<>();
+
+        for (LabelType labelType : dataDictionary.getLabelTypes()) {
+            List<Value> values = new ArrayList<>();
+            for (Label label : labelType.getLabel()) {
+                values.add(new Value(label.getId(), label.getEntityName()));
+            }
+            labelTypes.add(new WebEditorLabelType(labelType.getId(), labelType.getEntityName(), values));
+        }
+
+        for (Flow flow : dataFlowDiagram.getFlows()) {
+            String id = flow.getId();
+            String type = "edge:arrow";
+            String sourceId = flow.getSourcePin().getId();
+            String targetId = flow.getDestinationPin().getId();
+            String text = flow.getEntityName();
+            mapInputPinToFlowName.put(flow.getDestinationPin(), text);
+            children.add(new Child(text, null, null, id, type, sourceId, targetId, new ArrayList<>()));
+        }
+
+        for (Node node : dataFlowDiagram.getNodes()) {
+            String text = node.getEntityName();
+            String id = node.getId();
+            String type;
+            if (node instanceof Process) {
+                type = "node:function";
+            } else if (node instanceof Store) {
+                type = "node:storage";
+            } else if (node instanceof External) {
+                type = "node:input-output";
+            } else {
+                type = "error";
+            }
+
+            List<WebEditorLabel> labels = new ArrayList<>();
+            for (Label label : node.getProperties()) {
+                String labelTypeId = ((LabelType) label.eContainer()).getId();
+                String labelId = label.getId();
+                labels.add(new WebEditorLabel(labelTypeId, labelId));
+            }
+
+            List<Port> ports = new ArrayList<>();
+
+            for (Pin pin : node.getBehaviour().getInPin()) {
+                ports.add(new Port(null, pin.getId(), "port:dfd-input", new ArrayList<>()));
+            }
+
+            Map<Pin, List<AbstractAssignment>> mapPinToAssignments = mapping(node);
+
+            for (Pin pin : node.getBehaviour().getOutPin()) {
+                String behaviour = createBehaviourString(mapPinToAssignments.get(pin));
+                ports.add(new Port(behaviour, pin.getId(), "port:dfd-output", new ArrayList<>()));
+            }
+
+            children.add(new Child(text, labels, ports, id, type, null, null, new ArrayList<>()));
+        }
+
+        return new WebEditorDfd(new Model("graph", "root", children), labelTypes);
+    }
+
+    private Map<Pin, List<AbstractAssignment>> mapping(Node node) {
+        Map<Pin, List<AbstractAssignment>> mapPinToAssignments = new HashMap<>();
+
+        for (AbstractAssignment assignment : node.getBehaviour().getAssignment()) {
+            if (mapPinToAssignments.containsKey(assignment.getOutputPin())) {
+                mapPinToAssignments.get(assignment.getOutputPin()).add(assignment);
+            } else {
+                List<AbstractAssignment> list = new ArrayList<>();
+                list.add(assignment);
+                mapPinToAssignments.put(assignment.getOutputPin(), list);
+            }
+        }
+        return mapPinToAssignments;
+    }
+
+    private String createBehaviourString(List<AbstractAssignment> abstractAssignments) {
+        StringBuilder builder = new StringBuilder();
+        if (abstractAssignments != null) {
+            for (AbstractAssignment abstractAssignment : abstractAssignments) {
+                if (abstractAssignment instanceof ForwardingAssignment) {
+                    for (Pin inPin : abstractAssignment.getInputPins()) {
+                        builder.append("forward ").append(mapInputPinToFlowName.get(inPin)).append("\n");
+                    }
+                } else {
+                    Assignment assignment = (Assignment) abstractAssignment;
+                    String value = getTermValue(assignment.getTerm()) ? "TRUE" : "FALSE";
+
+                    for (Label label : assignment.getOutputLabels()) {
+                        try {
+                            builder.append("set ").append(((LabelType) label.eContainer()).getEntityName()).append(".").append(label.getEntityName())
+                                    .append(" = ").append(value).append("\n");
+                        } catch (IllegalArgumentException ex) {
+                            System.out.println(
+                                    "Caution!! WebEditor cant handle complex Assignments yet. Only TRUE or NOT(TRUE) supported. Everything else ignored");
+                        }
+                    }
+                }
+            }
+            return builder.toString().trim();
+        }
+        return null;
+
+    }
+
+    // Currently only supports True or False
+    private boolean getTermValue(Term term) throws IllegalArgumentException {
+        if (term instanceof TRUE)
+            return true;
+        if (term instanceof NOT) {
+            return !getTermValue(((NOT) term).getNegatedTerm());
+        }
+        throw new IllegalArgumentException();
+    }
+    
+    private void parseBehavior(Node node, Pin outpin, String lines, DataFlowDiagram dfd, DataDictionary dd) {
         String[] behaviorStrings = lines.split("\n");
         var behavior = node.getBehaviour();
         for (String behaviorString : behaviorStrings) {
@@ -309,7 +313,7 @@ public class ProcessJSON {
         }
     }
 
-    public void putValue(Map<Node, Map<Pin, String>> nestedHashMap, Node key1, Pin key2, String value) {
+    private void putValue(Map<Node, Map<Pin, String>> nestedHashMap, Node key1, Pin key2, String value) {
         nestedHashMap.computeIfAbsent(key1, k -> new HashMap<>()).put(key2, value);
     }
 }

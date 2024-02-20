@@ -44,7 +44,7 @@ public class Converter {
     }
 
     public DataFlowDiagramAndDictionary microToDfd(MicroSecEnd inputFile) {
-        return new ProcessJSON().processMicro(inputFile);
+        return new MicroSecEndProcessor().processMicro(inputFile);
     }
 
     public DataFlowDiagramAndDictionary webToDfd(String inputFile) {
@@ -52,16 +52,16 @@ public class Converter {
     }
 
     public DataFlowDiagramAndDictionary webToDfd(WebEditorDfd inputFile) {
-        return new ProcessJSON().processWeb(inputFile);
+        return new DataFlowDiagramProcessor().processWeb(inputFile);
     }
 
     public WebEditorDfd dfdToWeb(String inputFile) {
         DataFlowDiagramAndDictionary complete = loadDFD(inputFile);
-        return new ProcessDFD().process(complete.dataFlowDiagram(), complete.dataDictionary());
+        return new DataFlowDiagramProcessor().processDfd(complete.dataFlowDiagram(), complete.dataDictionary());
     }
 
     public WebEditorDfd dfdToWeb(DataFlowDiagramAndDictionary complete) {
-        return new ProcessDFD().process(complete.dataFlowDiagram(), complete.dataDictionary());
+        return new DataFlowDiagramProcessor().processDfd(complete.dataFlowDiagram(), complete.dataDictionary());
     }
 
     public DataFlowDiagramAndDictionary plantToDFD(String inputFile) {
@@ -92,7 +92,7 @@ public class Converter {
 
         PalladioProcesser ass2dfd = new PalladioProcesser();
 
-        return ass2dfd.process(propagationResult);
+        return ass2dfd.processPalladio(propagationResult);
     }
 
     public int runPythonScript(String in, String format, String out) {

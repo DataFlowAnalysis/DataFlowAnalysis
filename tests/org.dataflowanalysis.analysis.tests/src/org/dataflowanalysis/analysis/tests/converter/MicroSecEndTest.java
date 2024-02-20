@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramAndDictionary;
-import org.dataflowanalysis.analysis.converter.ProcessJSON;
+import org.dataflowanalysis.analysis.converter.MicroSecEndProcessor;
 import org.dataflowanalysis.analysis.converter.microsecend.ExternalEntity;
 import org.dataflowanalysis.analysis.converter.microsecend.InformationFlow;
 import org.dataflowanalysis.analysis.converter.microsecend.MicroSecEnd;
@@ -55,7 +55,7 @@ public class MicroSecEndTest extends ConverterTest{
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(packagePath + "anilallewar.json");
         MicroSecEnd micro = objectMapper.readValue(file, MicroSecEnd.class);
-        DataFlowDiagramAndDictionary complete = new ProcessJSON().processMicro(micro);
+        DataFlowDiagramAndDictionary complete = new MicroSecEndProcessor().processMicro(micro);
 
         DataFlowDiagram dfd = complete.dataFlowDiagram();
 

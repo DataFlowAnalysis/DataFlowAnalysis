@@ -1,5 +1,6 @@
 package org.dataflowanalysis.analysis.tests.constraint;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Paths;
@@ -74,7 +75,7 @@ public class ConstraintFeatureTest extends ConstraintTest {
      */
     @Test
     @DisplayName("Test whether unknown actions will not cause incorrect results")
-    public void testUnkownSEFFActions() {
+    public void testUnknownSEFFActions() {
         var usageModelPath = Paths.get("models", "IgnoredNodeTest", "default.usagemodel");
         var allocationPath = Paths.get("models", "IgnoredNodeTest", "default.allocation");
         var nodeCharacteristicsPath = Paths.get("models", "IgnoredNodeTest", "default.nodecharacteristics");
@@ -87,11 +88,11 @@ public class ConstraintFeatureTest extends ConstraintTest {
         var results = analysis.queryDataFlow(propagatedFlowGraph.getPartialFlowGraphs().get(0), node -> {
             printNodeInformation(node);
             if (node instanceof CallingUserPCMVertex && ((CallingUserPCMVertex) node).isReturning()) {
-                return node.getAllDataFlowVariables().size() != 0;
+                return !node.getAllDataFlowVariables().isEmpty();
             }
             return false;
         });
         printViolation(results);
-        assertTrue(results.size() == 1);
+        assertEquals(1, results.size(), "IgnoredNodeTest did not yield one violation");
     }
 }

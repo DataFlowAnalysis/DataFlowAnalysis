@@ -1,11 +1,11 @@
 package org.dataflowanalysis.analysis.tests.propagation;
 
 public class CharacteristicsData {
-    private int sequenceIndex;
-    private int elementIndex;
-    private String variable;
-    private String characteristicType;
-    private String characteristicValue;
+    private final int sequenceIndex;
+    private final int elementIndex;
+    private final String variable;
+    private final String characteristicType;
+    private final String characteristicValue;
 
     public CharacteristicsData(int sequenceIndex, int elementIndex, String variable, String characteristicType, String characteristicValue) {
         this.sequenceIndex = sequenceIndex;

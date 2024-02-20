@@ -42,7 +42,7 @@ public class ConstraintTest extends BaseTest {
                 .map(e -> String.format("%s [%s]", e.variableName(), createPrintableCharacteristicsList(e.getAllCharacteristics())))
                 .collect(Collectors.joining(", "));
 
-        return String.format(template, node.toString(), System.lineSeparator(), nodeCharacteristics, System.lineSeparator(), dataCharacteristics,
+        return String.format(template, node, System.lineSeparator(), nodeCharacteristics, System.lineSeparator(), dataCharacteristics,
                 System.lineSeparator());
     }
 

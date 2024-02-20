@@ -2,6 +2,7 @@ package org.dataflowanalysis.analysis.tests.propagation;
 
 import static org.dataflowanalysis.analysis.tests.AnalysisUtils.assertCharacteristicAbsent;
 import static org.dataflowanalysis.analysis.tests.AnalysisUtils.assertCharacteristicPresent;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.log4j.Level;
@@ -98,7 +99,7 @@ public class LabelPropagationTest extends BaseTest {
         PCMFlowGraph flowGraph = internationalOnlineShopAnalysis.findFlowGraph();
         PCMFlowGraph propagatedFlowGraph = internationalOnlineShopAnalysis.evaluateFlowGraph(flowGraph);
 
-        assertTrue(propagatedFlowGraph.getPartialFlowGraphs().size() >= 1);
+        assertFalse(propagatedFlowGraph.getPartialFlowGraphs().isEmpty());
 
         assertCharacteristicAbsent(propagatedFlowGraph.getPartialFlowGraphs().get(0), 0, "inventory", "DataSensitivity", "Public");
         assertCharacteristicAbsent(propagatedFlowGraph.getPartialFlowGraphs().get(0), 1, "RETURN", "DataSensitivity", "Public");
@@ -114,7 +115,7 @@ public class LabelPropagationTest extends BaseTest {
         PCMFlowGraph flowGraph = onlineShopAnalysis.findFlowGraph();
         PCMFlowGraph propagatedFlowGraph = onlineShopAnalysis.evaluateFlowGraph(flowGraph);
 
-        assertTrue(propagatedFlowGraph.getPartialFlowGraphs().size() >= 1);
+        assertFalse(propagatedFlowGraph.getPartialFlowGraphs().isEmpty());
 
         assertCharacteristicAbsent(propagatedFlowGraph.getPartialFlowGraphs().get(1), 0, "RETURN", "DataSensitivity", "Public");
     }

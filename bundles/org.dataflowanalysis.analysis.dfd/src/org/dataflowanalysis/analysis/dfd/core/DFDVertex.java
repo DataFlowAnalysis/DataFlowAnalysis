@@ -214,11 +214,9 @@ public class DFDVertex extends AbstractVertex<EObject> {
     
     @Override
     public boolean equals(Object other) {
-    	if (!(other instanceof DFDVertex)) return false;
-    	
-    	DFDVertex vertex = (DFDVertex) other;
-    	
-		if (!this.node.equals(vertex.getNode()))
+    	if (!(other instanceof DFDVertex vertex)) return false;
+
+        if (!this.node.equals(vertex.getNode()))
 		    return false;
 		if (!this.name.equals(vertex.getName()))
 		    return false;
@@ -228,9 +226,6 @@ public class DFDVertex extends AbstractVertex<EObject> {
 		}
 		return true;
     }
-    
-    
-    //Getter:    
     
     @Override
     public List<AbstractVertex<?>> getPreviousElements() {
@@ -252,6 +247,4 @@ public class DFDVertex extends AbstractVertex<EObject> {
     public String getName() {
         return name;
     }
-
-	
 }

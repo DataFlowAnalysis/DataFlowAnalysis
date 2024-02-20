@@ -73,8 +73,8 @@ public class OnlineShopDFDTest {
             var sink = partialFlowGraph.getSink();
             if (((DFDVertex) sink).getName().equals("User")) {
                 var propagatedLabels = retrieveDataLabels(sink);
-                var expectedPropagatedLables = List.of("Public");
-                assertIterableEquals(expectedPropagatedLables, propagatedLabels);
+                var expectedPropagatedLabels = List.of("Public");
+                assertIterableEquals(expectedPropagatedLabels, propagatedLabels);
                 return;
             }
         }

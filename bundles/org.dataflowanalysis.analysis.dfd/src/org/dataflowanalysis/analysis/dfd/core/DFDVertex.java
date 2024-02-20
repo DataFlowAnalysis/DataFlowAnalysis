@@ -120,7 +120,7 @@ public class DFDVertex extends AbstractVertex<EObject> {
                 characteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label));
             }
             characteristics = characteristics.stream().filter(distinctByKey(CharacteristicValue::getValueId)).collect(Collectors.toList());
-            //Important: Dont change DFV naming scheme without changing evaluation logic
+            //Important: Don't change DFV naming scheme without changing evaluation logic
             dataFlowVariables.add(new DataFlowVariable(pin.getId(), characteristics));
         }
         return dataFlowVariables;
@@ -142,7 +142,7 @@ public class DFDVertex extends AbstractVertex<EObject> {
 
     /**
      * Filters Objects to be distinct by key
-     * @param <T> Type of Of Object to be evaluated
+     * @param <T> Type of the Object to be evaluated
      * @param keyExtractor 
      * @return
      */

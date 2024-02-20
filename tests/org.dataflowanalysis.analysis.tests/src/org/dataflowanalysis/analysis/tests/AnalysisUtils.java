@@ -64,7 +64,7 @@ public class AnalysisUtils {
      * @return Problem message for the assertion
      */
     private static String createProblemMessage(int index, Class<?> expectedType, Class<?> actualType) {
-        return String.format("Type missmatch at index %d. Expected: %s, actual: %s.", index, expectedType.getSimpleName(),
+        return String.format("Type mismatch at index %d. Expected: %s, actual: %s.", index, expectedType.getSimpleName(),
                 actualType.getSimpleName());
     }
 

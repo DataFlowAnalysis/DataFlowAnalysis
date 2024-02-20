@@ -33,11 +33,6 @@ public class ConstraintViolations {
                     List.of(new CharacteristicValueData("ServerLocation", "nonEU"), new CharacteristicValueData("ServerLocation", "EU")),
                     Map.of("userdata", List.of(new CharacteristicValueData("DataSensitivity", "Personal")))));
 
-    public static final List<ConstraintData> dataStoreViolations = List
-            .of(new ConstraintData("_elixoHQdEe2W39w_cTGxjg", List.of(new CharacteristicValueData("AssignedRole", "User")),
-                    Map.of("RETURN", List.of(new CharacteristicValueData("GrantedRole", "Admin")), "ccd",
-                            List.of(new CharacteristicValueData("GrantedRole", "Admin")))));
-
     public static final List<ConstraintData> returnViolations = List.of(
             new ConstraintData("_nOhAgILtEe2YyoqaKVkqog", List.of(new CharacteristicValueData("AssignedRole", "User")),
                     Map.of("RETURN", List.of(new CharacteristicValueData("AssignedRole", "Admin")))),

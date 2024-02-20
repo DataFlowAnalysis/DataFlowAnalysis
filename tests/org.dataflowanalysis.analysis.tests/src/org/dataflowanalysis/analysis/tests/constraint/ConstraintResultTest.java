@@ -32,8 +32,9 @@ public class ConstraintResultTest extends ConstraintTest {
         printNodeInformation(node);
 
         for (List<String> dataFlowCharacteristicIds : grantedRoles) {
-            if (!dataFlowCharacteristicIds.isEmpty() && dataFlowCharacteristicIds.stream().distinct().filter(assignedRoles::contains)
-                    .collect(Collectors.toList()).isEmpty()) {
+            if (!dataFlowCharacteristicIds.isEmpty() && dataFlowCharacteristicIds.stream()
+                    .distinct()
+                    .noneMatch(assignedRoles::contains)) {
                 return true;
             }
         }
@@ -47,8 +48,9 @@ public class ConstraintResultTest extends ConstraintTest {
      */
     private boolean internationalOnlineShopCondition(AbstractVertex<?> node) {
         List<String> serverLocation = node.getNodeCharacteristicNamesWithName("ServerLocation");
-        List<String> dataSensitivity = node.getDataFlowCharacteristicNamesWithType("DataSensitivity").stream().flatMap(Collection::stream)
-                .collect(Collectors.toList());
+        List<String> dataSensitivity = node.getDataFlowCharacteristicNamesWithType("DataSensitivity").stream()
+                .flatMap(Collection::stream)
+                .toList();
         printNodeInformation(node);
 
         return dataSensitivity.stream().anyMatch(l -> l.equals("Personal")) && serverLocation.stream().anyMatch(l -> l.equals("nonEU"));
@@ -61,8 +63,9 @@ public class ConstraintResultTest extends ConstraintTest {
      */
     private boolean returnCondition(AbstractVertex<?> node) {
         List<String> assignedNode = node.getNodeCharacteristicNamesWithName("AssignedRole");
-        List<String> assignedVariables = node.getDataFlowCharacteristicNamesWithType("AssignedRole").stream().flatMap(Collection::stream)
-                .collect(Collectors.toList());
+        List<String> assignedVariables = node.getDataFlowCharacteristicNamesWithType("AssignedRole").stream()
+                .flatMap(Collection::stream)
+                .toList();
 
         printNodeInformation(node);
         if (assignedNode.isEmpty() || assignedVariables.isEmpty()) {

@@ -24,7 +24,7 @@ public class ActionSequenceFinderTest extends BaseTest {
         travelPlannerAnalysis.setLoggerLevel(Level.TRACE);
         assertEquals(ActionSequenceFinderPaths.travelPlannerPaths.size(), flowGraph.getPartialFlowGraphs().size(),
                 String.format("Expected two dataflow sequences, but found %s sequences", flowGraph.getPartialFlowGraphs().size()));
-        flowGraph.getPartialFlowGraphs().stream().forEach(logger::trace);
+        flowGraph.getPartialFlowGraphs().forEach(logger::trace);
     }
 
     /**
@@ -36,7 +36,7 @@ public class ActionSequenceFinderTest extends BaseTest {
         internationalOnlineShopAnalysis.setLoggerLevel(Level.TRACE);
         assertEquals(ActionSequenceFinderPaths.internationalOnlineShopPaths.size(), flowGraph.getPartialFlowGraphs().size(),
                 String.format("Expected two dataflow sequences, but found %s sequences", flowGraph.getPartialFlowGraphs().size()));
-        flowGraph.getPartialFlowGraphs().stream().forEach(logger::trace);
+        flowGraph.getPartialFlowGraphs().forEach(logger::trace);
     }
 
     /**
@@ -48,7 +48,7 @@ public class ActionSequenceFinderTest extends BaseTest {
         onlineShopAnalysis.setLoggerLevel(Level.TRACE);
         assertEquals(ActionSequenceFinderPaths.onlineShopPaths.size(), flowGraph.getPartialFlowGraphs().size(),
                 String.format("Expected two dataflow sequences, but found %s sequences", flowGraph.getPartialFlowGraphs().size()));
-        flowGraph.getPartialFlowGraphs().stream().forEach(logger::trace);
+        flowGraph.getPartialFlowGraphs().forEach(logger::trace);
     }
 
     @Test

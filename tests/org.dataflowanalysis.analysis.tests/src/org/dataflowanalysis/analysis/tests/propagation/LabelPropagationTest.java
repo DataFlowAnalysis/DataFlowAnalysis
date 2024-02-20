@@ -24,11 +24,11 @@ public class LabelPropagationTest extends BaseTest {
         PCMFlowGraph propagatedFlowGraph = travelPlannerAnalysis.evaluateFlowGraph(flowGraph);
 
         for (CharacteristicsData characteristicData : LabelPropagationCharacteristics.travelPlannerCharacteristics) {
-            assertTrue(propagatedFlowGraph.getPartialFlowGraphs().size() >= characteristicData.getSequenceIndex());
+            assertTrue(propagatedFlowGraph.getPartialFlowGraphs().size() >= characteristicData.sequenceIndex());
 
-            assertCharacteristicPresent(propagatedFlowGraph.getPartialFlowGraphs().get(characteristicData.getSequenceIndex()),
-                    characteristicData.getElementIndex(), characteristicData.getVariable(), characteristicData.getCharacteristicType(),
-                    characteristicData.getCharacteristicValue());
+            assertCharacteristicPresent(propagatedFlowGraph.getPartialFlowGraphs().get(characteristicData.sequenceIndex()),
+                    characteristicData.elementIndex(), characteristicData.variable(), characteristicData.characteristicType(),
+                    characteristicData.characteristicValue());
         }
     }
 
@@ -44,11 +44,11 @@ public class LabelPropagationTest extends BaseTest {
         PCMFlowGraph propagatedFlowGraph = internationalOnlineShopAnalysis.evaluateFlowGraph(flowGraph);
 
         for (CharacteristicsData characteristicData : LabelPropagationCharacteristics.internationalOnlineShopCharacteristics) {
-            assertTrue(propagatedFlowGraph.getPartialFlowGraphs().size() >= characteristicData.getSequenceIndex());
+            assertTrue(propagatedFlowGraph.getPartialFlowGraphs().size() >= characteristicData.sequenceIndex());
 
-            assertCharacteristicPresent(propagatedFlowGraph.getPartialFlowGraphs().get(characteristicData.getSequenceIndex()),
-                    characteristicData.getElementIndex(), characteristicData.getVariable(), characteristicData.getCharacteristicType(),
-                    characteristicData.getCharacteristicValue());
+            assertCharacteristicPresent(propagatedFlowGraph.getPartialFlowGraphs().get(characteristicData.sequenceIndex()),
+                    characteristicData.elementIndex(), characteristicData.variable(), characteristicData.characteristicType(),
+                    characteristicData.characteristicValue());
         }
     }
 
@@ -64,11 +64,11 @@ public class LabelPropagationTest extends BaseTest {
         PCMFlowGraph propagatedFlowGraph = onlineShopAnalysis.evaluateFlowGraph(flowGraph);
 
         for (CharacteristicsData characteristicData : LabelPropagationCharacteristics.onlineShopCharacteristics) {
-            assertTrue(propagatedFlowGraph.getPartialFlowGraphs().size() >= characteristicData.getSequenceIndex());
+            assertTrue(propagatedFlowGraph.getPartialFlowGraphs().size() >= characteristicData.sequenceIndex());
 
-            assertCharacteristicPresent(propagatedFlowGraph.getPartialFlowGraphs().get(characteristicData.getSequenceIndex()),
-                    characteristicData.getElementIndex(), characteristicData.getVariable(), characteristicData.getCharacteristicType(),
-                    characteristicData.getCharacteristicValue());
+            assertCharacteristicPresent(propagatedFlowGraph.getPartialFlowGraphs().get(characteristicData.sequenceIndex()),
+                    characteristicData.elementIndex(), characteristicData.variable(), characteristicData.characteristicType(),
+                    characteristicData.characteristicValue());
         }
     }
 

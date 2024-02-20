@@ -37,9 +37,9 @@ public class PalladioTest {
         final var allocationPath = Paths.get("models", inputModel, inputFile + ".allocation").toString();
         final var nodeCharPath = Paths.get("models", inputModel, inputFile + ".nodecharacteristics").toString();
 
-        DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
-                .modelProjectName(modelLocation).usePluginActivator(Activator.class).useUsageModel(usageModelPath)
-                .useAllocationModel(allocationPath).useNodeCharacteristicsModel(nodeCharPath).build();
+        DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone().modelProjectName(modelLocation)
+                .usePluginActivator(Activator.class).useUsageModel(usageModelPath).useAllocationModel(allocationPath)
+                .useNodeCharacteristicsModel(nodeCharPath).build();
 
         analysis.initializeAnalysis();
         analysis.findAllSequences();

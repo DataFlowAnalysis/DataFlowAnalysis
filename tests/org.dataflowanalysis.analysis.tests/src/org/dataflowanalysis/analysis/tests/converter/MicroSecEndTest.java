@@ -30,12 +30,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MicroSecEndTest extends ConverterTest {
     private MicroSecEndConverter converter;
-    
-    private final String ANILALLEWAR=Paths.get(packagePath,"anilallewar.json").toString();
-    private final String TO_PLANT=Paths.get(packagePath,"toPlant.txt").toString();
-    private final String FROM_PLANT=Paths.get(packagePath,"fromPlant.json").toString();
-    private final String JSON="json";
-    private final String TXT="txt";
+
+    private final String ANILALLEWAR = Paths.get(packagePath, "anilallewar.json").toString();
+    private final String TO_PLANT = Paths.get(packagePath, "toPlant.txt").toString();
+    private final String FROM_PLANT = Paths.get(packagePath, "fromPlant.json").toString();
+    private final String JSON = "json";
+    private final String TXT = "txt";
 
     @BeforeEach
     public void setup() {

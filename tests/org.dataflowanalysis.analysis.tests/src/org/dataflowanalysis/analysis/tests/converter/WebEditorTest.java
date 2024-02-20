@@ -20,11 +20,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class WebEditorTest extends ConverterTest {
     private DataFlowDiagramConverter converter;
-    
-    private final String MINIMAL = Paths.get(packagePath,"minimal.json").toString();
-    private final String TEST = Paths.get(packagePath,"test.json").toString();
-    private final String MINIMALDFD = Paths.get(packagePath,"minimal.dataflowdiagram").toString();
-    private final String MINIMALDD = Paths.get(packagePath,"minimal.datadictionary").toString();
+
+    private final String MINIMAL = Paths.get(packagePath, "minimal.json").toString();
+    private final String TEST = Paths.get(packagePath, "test.json").toString();
+    private final String MINIMALDFD = Paths.get(packagePath, "minimal.dataflowdiagram").toString();
+    private final String MINIMALDD = Paths.get(packagePath, "minimal.datadictionary").toString();
 
     @BeforeEach
     public void setup() {
@@ -60,7 +60,7 @@ public class WebEditorTest extends ConverterTest {
         converter.store(completeBefore, MINIMAL);
 
         WebEditorDfd webAfter = converter.loadWeb(TEST);
-        DataFlowDiagramAndDictionary completeAfter = converter.loadDFD(MINIMALDFD,MINIMALDD);
+        DataFlowDiagramAndDictionary completeAfter = converter.loadDFD(MINIMALDFD, MINIMALDD);
 
         assertEquals(webBefore, webAfter);
         assertNotNull(completeAfter);

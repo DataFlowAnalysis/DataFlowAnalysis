@@ -320,15 +320,15 @@ public class DataFlowDiagramConverter extends Converter {
                 behavior.getAssignment().add(assignment);
             } else if (behaviorString.contains("set ")) {
                 String regex = "\\bset\\s+(\\S+)\\s+=\\s+(.+)\\b";
-                
+
                 Pattern pattern = Pattern.compile(regex);
                 Matcher matcher = pattern.matcher(behaviorString);
                 matcher.find();
-                
+
                 String variable = matcher.group(1);
                 String typeName = variable.split("\\.")[0];
                 String valueName = variable.split("\\.")[1];
-                
+
                 Label value = null;
                 for (LabelType labelType : dd.getLabelTypes()) {
                     if (labelType.getEntityName().equals(typeName)) {
@@ -344,30 +344,29 @@ public class DataFlowDiagramConverter extends Converter {
                 assignment.getInputPins().addAll(behavior.getInPin());
                 assignment.setOutputPin(outpin);
                 assignment.getOutputLabels().add(value);
-                
+
                 behavior.getAssignment().add(assignment);
-                
-                List<String> expressions = Arrays.asList(matcher.group(2).split(" "));                
+
+                List<String> expressions = Arrays.asList(matcher.group(2).split(" "));
                 Stack<String> stack = new Stack<>();
                 stack.addAll(expressions);
-                
-                Term processedTerm=null;
+
+                Term processedTerm = null;
                 while (!stack.isEmpty()) {
-                    String current=stack.pop();
+                    String current = stack.pop();
                     if (current.equals("TRUE")) {
                         TRUE ddTrue = ddFactory.createTRUE();
-                        if (processedTerm==null){
-                            processedTerm=ddTrue; 
+                        if (processedTerm == null) {
+                            processedTerm = ddTrue;
                         }
-                    }
-                    else if (current.equals("FALSE")) {
+                    } else if (current.equals("FALSE")) {
                         NOT ddFalse = ddFactory.createNOT();
                         ddFalse.setNegatedTerm(ddFactory.createTRUE());
-                        if(processedTerm==null) {
-                            processedTerm=ddFalse; 
+                        if (processedTerm == null) {
+                            processedTerm = ddFalse;
                         }
                     }
-                }                
+                }
                 assignment.setTerm(processedTerm);
             }
         }
@@ -386,7 +385,7 @@ public class DataFlowDiagramConverter extends Converter {
     }
 
     public WebEditorDfd dfdToWeb(String inputDataFlowDiagram, String inputDataDictionary) {
-        DataFlowDiagramAndDictionary complete = loadDFD(inputDataFlowDiagram,inputDataDictionary);
+        DataFlowDiagramAndDictionary complete = loadDFD(inputDataFlowDiagram, inputDataDictionary);
         return processDfd(complete.dataFlowDiagram(), complete.dataDictionary());
     }
 

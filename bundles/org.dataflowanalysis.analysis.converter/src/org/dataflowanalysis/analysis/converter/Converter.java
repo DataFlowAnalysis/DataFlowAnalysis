@@ -30,11 +30,10 @@ public abstract class Converter {
 
     public void store(DataFlowDiagramAndDictionary complete, String outputFile) {
         String truncatedOutputFile;
-        if(outputFile.contains(".json")) {
+        if (outputFile.contains(".json")) {
             truncatedOutputFile = outputFile.substring(0, outputFile.length() - 5);
-        }
-        else {
-            truncatedOutputFile=outputFile;
+        } else {
+            truncatedOutputFile = outputFile;
         }
         ResourceSet rs = new ResourceSetImpl();
         Resource dfdResource = createAndAddResource(truncatedOutputFile + ".dataflowdiagram", new String[] {"dataflowdiagram"}, rs);

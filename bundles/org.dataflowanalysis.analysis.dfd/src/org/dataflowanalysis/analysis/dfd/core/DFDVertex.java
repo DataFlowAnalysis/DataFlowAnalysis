@@ -29,7 +29,6 @@ import org.dataflowanalysis.dfd.datadictionary.TRUE;
 import org.dataflowanalysis.dfd.datadictionary.Term;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * This class represents a vertex references a node in the dfd model.

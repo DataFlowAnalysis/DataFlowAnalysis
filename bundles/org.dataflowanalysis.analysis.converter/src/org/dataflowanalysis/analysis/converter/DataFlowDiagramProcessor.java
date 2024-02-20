@@ -35,24 +35,28 @@ public class DataFlowDiagramProcessor {
         Map<String, Label> idToLabelMap = new HashMap<>();
         Map<Node, Map<Pin, String>> nodeOutpinBehavior = new HashMap<>();
 
-        DataFlowDiagram dfd = dfdFactory.createDataFlowDiagram();
-        DataDictionary dd = ddFactory.createDataDictionary();
+        DataFlowDiagram dataFlowDiagram = dfdFactory.createDataFlowDiagram();
+        DataDictionary dataDictionary = ddFactory.createDataDictionary();
 
-        for (WebEditorLabelType webLabelType : webdfd.labelTypes()) {
-            LabelType labelType = ddFactory.createLabelType();
-            labelType.setEntityName(webLabelType.name());
-            labelType.setId(webLabelType.id());
-            for (Value value : webLabelType.values()) {
-                Label label = ddFactory.createLabel();
-                label.setEntityName(value.text());
-                label.setId(value.id());
-                labelType.getLabel().add(label);
-                idToLabelMap.put(label.getId(), label);
+        createWebLabelTypesAndValues(webdfd, idToLabelMap, dataDictionary);
+
+        createWebNodes(webdfd, pinToNodeMap, pinMap, idToLabelMap, nodeOutpinBehavior, dataFlowDiagram, dataDictionary);
+
+        createWebFlows(webdfd, pinToNodeMap, pinMap, dataFlowDiagram);
+
+        for (Node node : nodesMap.values()) {
+            if (nodeOutpinBehavior.containsKey(node)) {
+                for (Pin outpin : nodeOutpinBehavior.get(node).keySet()) {
+                    parseBehavior(node, outpin, nodeOutpinBehavior.get(node).get(outpin), dataFlowDiagram, dataDictionary);
+                }
             }
-            dd.getLabelTypes().add(labelType);
-
         }
 
+        return new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary);
+    }
+
+    private void createWebNodes(WebEditorDfd webdfd, Map<String, Node> pinToNodeMap, Map<String, Pin> pinMap, Map<String, Label> idToLabelMap,
+            Map<Node, Map<Pin, String>> nodeOutpinBehavior, DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary) {
         for (Child child : webdfd.model().children()) {
             String[] type = child.type().split(":");
             String name = child.text();
@@ -79,25 +83,9 @@ public class DataFlowDiagramProcessor {
 
                 var behaviour = ddFactory.createBehaviour();
                 node.setBehaviour(behaviour);
-                dd.getBehaviour().add(behaviour);
+                dataDictionary.getBehaviour().add(behaviour);
 
-                for (Port port : child.ports()) {
-                    if (port.type().equals("port:dfd-input")) {
-                        var inPin = ddFactory.createPin();
-                        inPin.setId(port.id());
-                        node.getBehaviour().getInPin().add(inPin);
-                        pinMap.put(port.id(), inPin);
-                    } else if (port.type().equals("port:dfd-output")) {
-                        var outPin = ddFactory.createPin();
-                        outPin.setId(port.id());
-                        node.getBehaviour().getOutPin().add(outPin);
-                        pinMap.put(port.id(), outPin);
-                        if (port.behavior() != null) {
-                            putValue(nodeOutpinBehavior, node, outPin, port.behavior());
-                        }
-                    }
-                    pinToNodeMap.put(port.id(), node);
-                }
+                createWebPins(pinToNodeMap, pinMap, nodeOutpinBehavior, child, node);
 
                 List<Label> labelsAtNode = new ArrayList<>();
                 for (WebEditorLabel webLabel : child.labels()) {
@@ -105,11 +93,13 @@ public class DataFlowDiagramProcessor {
                 }
                 node.getProperties().addAll(labelsAtNode);
 
-                dfd.getNodes().add(node);
+                dataFlowDiagram.getNodes().add(node);
                 nodesMap.put(child.id(), node);
             }
         }
+    }
 
+    private void createWebFlows(WebEditorDfd webdfd, Map<String, Node> pinToNodeMap, Map<String, Pin> pinMap, DataFlowDiagram dataFlowDiagram) {
         for (Child child : webdfd.model().children()) {
             String[] type = child.type().split(":");
 
@@ -125,26 +115,49 @@ public class DataFlowDiagramProcessor {
                 flow.setDestinationPin(pinMap.get(child.targetId()));
                 flow.setSourcePin(pinMap.get(child.sourceId()));
                 flow.setId(child.id());
-                dfd.getFlows().add(flow);
+                dataFlowDiagram.getFlows().add(flow);
             }
         }
-
-        for (Node node : nodesMap.values()) {
-            if (nodeOutpinBehavior.containsKey(node)) {
-                for (Pin outpin : nodeOutpinBehavior.get(node).keySet()) {
-                    parseBehavior(node, outpin, nodeOutpinBehavior.get(node).get(outpin), dfd, dd);
-                }
-            }
-        }
-
-        return new DataFlowDiagramAndDictionary(dfd, dd);
     }
 
+    private void createWebPins(Map<String, Node> pinToNodeMap, Map<String, Pin> pinMap, Map<Node, Map<Pin, String>> nodeOutpinBehavior, Child child,
+            Node node) {
+        for (Port port : child.ports()) {
+            if (port.type().equals("port:dfd-input")) {
+                var inPin = ddFactory.createPin();
+                inPin.setId(port.id());
+                node.getBehaviour().getInPin().add(inPin);
+                pinMap.put(port.id(), inPin);
+            } else if (port.type().equals("port:dfd-output")) {
+                var outPin = ddFactory.createPin();
+                outPin.setId(port.id());
+                node.getBehaviour().getOutPin().add(outPin);
+                pinMap.put(port.id(), outPin);
+                if (port.behavior() != null) {
+                    putValue(nodeOutpinBehavior, node, outPin, port.behavior());
+                }
+            }
+            pinToNodeMap.put(port.id(), node);
+        }
+    }
 
-    public WebEditorDfd processDfd(DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary) {
-        List<Child> children = new ArrayList<>();
-        List<WebEditorLabelType> labelTypes = new ArrayList<>();
+    private void createWebLabelTypesAndValues(WebEditorDfd webdfd, Map<String, Label> idToLabelMap, DataDictionary dataDictionary) {
+        for (WebEditorLabelType webLabelType : webdfd.labelTypes()) {
+            LabelType labelType = ddFactory.createLabelType();
+            labelType.setEntityName(webLabelType.name());
+            labelType.setId(webLabelType.id());
+            for (Value value : webLabelType.values()) {
+                Label label = ddFactory.createLabel();
+                label.setEntityName(value.text());
+                label.setId(value.id());
+                labelType.getLabel().add(label);
+                idToLabelMap.put(label.getId(), label);
+            }
+            dataDictionary.getLabelTypes().add(labelType);
+        }
+    }
 
+    private void createLabelTypesAndValues(List<WebEditorLabelType> labelTypes, DataDictionary dataDictionary) {
         for (LabelType labelType : dataDictionary.getLabelTypes()) {
             List<Value> values = new ArrayList<>();
             for (Label label : labelType.getLabel()) {
@@ -152,17 +165,22 @@ public class DataFlowDiagramProcessor {
             }
             labelTypes.add(new WebEditorLabelType(labelType.getId(), labelType.getEntityName(), values));
         }
+    }
+        
+    public WebEditorDfd processDfd(DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary) {
+        List<Child> children = new ArrayList<>();
+        List<WebEditorLabelType> labelTypes = new ArrayList<>();
 
-        for (Flow flow : dataFlowDiagram.getFlows()) {
-            String id = flow.getId();
-            String type = "edge:arrow";
-            String sourceId = flow.getSourcePin().getId();
-            String targetId = flow.getDestinationPin().getId();
-            String text = flow.getEntityName();
-            mapInputPinToFlowName.put(flow.getDestinationPin(), text);
-            children.add(new Child(text, null, null, id, type, sourceId, targetId, new ArrayList<>()));
-        }
+        createLabelTypesAndValues(labelTypes, dataDictionary);
 
+        createFlows(dataFlowDiagram, children);
+
+        createNodes(dataFlowDiagram, children);
+
+        return new WebEditorDfd(new Model("graph", "root", children), labelTypes);
+    }
+
+    private void createNodes(DataFlowDiagram dataFlowDiagram, List<Child> children) {
         for (Node node : dataFlowDiagram.getNodes()) {
             String text = node.getEntityName();
             String id = node.getId();
@@ -199,8 +217,18 @@ public class DataFlowDiagramProcessor {
 
             children.add(new Child(text, labels, ports, id, type, null, null, new ArrayList<>()));
         }
+    }
 
-        return new WebEditorDfd(new Model("graph", "root", children), labelTypes);
+    private void createFlows(DataFlowDiagram dataFlowDiagram, List<Child> children) {
+        for (Flow flow : dataFlowDiagram.getFlows()) {
+            String id = flow.getId();
+            String type = "edge:arrow";
+            String sourceId = flow.getSourcePin().getId();
+            String targetId = flow.getDestinationPin().getId();
+            String text = flow.getEntityName();
+            mapInputPinToFlowName.put(flow.getDestinationPin(), text);
+            children.add(new Child(text, null, null, id, type, sourceId, targetId, new ArrayList<>()));
+        }
     }
 
     private Map<Pin, List<AbstractAssignment>> mapping(Node node) {

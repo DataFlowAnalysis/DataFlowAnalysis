@@ -31,15 +31,26 @@ public class MicroSecEndProcessor {
         DataFlowDiagram dfd = dfdFactory.createDataFlowDiagram();
         DataDictionary dd = ddFactory.createDataDictionary();
 
-        for (ExternalEntity ee : micro.externalEntities()) {
-            var external = dfdFactory.createExternal();
-            external.setEntityName(ee.name());
+        createExternalEntities(micro, dfd);
 
-            dfd.getNodes().add(external);
-            nodesMap.put(ee.name(), external);
-            nodeToLabelNames.put(external, ee.stereotypes());
-        }
+        createProcesses(micro, dfd);
 
+        LabelType annotation = ddFactory.createLabelType();
+        annotation.setEntityName("annotation");
+        dd.getLabelTypes().add(annotation);
+
+        createBehavior(dd, annotation);
+
+        createFlows(micro, dfd);
+
+        createNodeAssignments();
+
+        createForwardingAssignments();
+
+        return new DataFlowDiagramAndDictionary(dfd, dd);
+    }
+
+    private void createProcesses(MicroSecEnd micro, DataFlowDiagram dfd) {
         for (Service service : micro.services()) {
             var process = dfdFactory.createProcess();
             process.setEntityName(service.name());
@@ -48,11 +59,20 @@ public class MicroSecEndProcessor {
             nodesMap.put(service.name(), process);
             nodeToLabelNames.put(process, service.stereotypes());
         }
+    }
 
-        LabelType annotation = ddFactory.createLabelType();
-        annotation.setEntityName("annotation");
-        dd.getLabelTypes().add(annotation);
+    private void createExternalEntities(MicroSecEnd micro, DataFlowDiagram dfd) {
+        for (ExternalEntity ee : micro.externalEntities()) {
+            var external = dfdFactory.createExternal();
+            external.setEntityName(ee.name());
 
+            dfd.getNodes().add(external);
+            nodesMap.put(ee.name(), external);
+            nodeToLabelNames.put(external, ee.stereotypes());
+        }
+    }
+
+    private void createBehavior(DataDictionary dd, LabelType annotation) {
         for (Node node : nodesMap.values()) {
             var behaviour = ddFactory.createBehaviour();
             node.setBehaviour(behaviour);
@@ -67,7 +87,9 @@ public class MicroSecEndProcessor {
 
             dd.getBehaviour().add(behaviour);
         }
+    }
 
+    private void createFlows(MicroSecEnd micro, DataFlowDiagram dfd) {
         for (InformationFlow iflow : micro.informationFlows()) {
             var source = nodesMap.get(iflow.sender());
             var dest = nodesMap.get(iflow.receiver());
@@ -86,8 +108,9 @@ public class MicroSecEndProcessor {
             flow.setSourcePin(outPin);
             dfd.getFlows().add(flow);
         }
+    }
 
-        // NodeAssigment
+    private void createNodeAssignments() {
         for (Node node : nodesMap.values()) {
             var behaviour = node.getBehaviour();
             Assignment template = (Assignment) behaviour.getAssignment().get(0);
@@ -107,8 +130,9 @@ public class MicroSecEndProcessor {
                 behaviour.getAssignment().remove(template);
             }
         }
+    }
 
-        // ForwardAssignment
+    private void createForwardingAssignments() {
         for (Node node : nodesMap.values()) {
             var behaviour = node.getBehaviour();
             for (Pin pin : behaviour.getOutPin()) {
@@ -118,8 +142,6 @@ public class MicroSecEndProcessor {
                 behaviour.getAssignment().add(assignment);
             }
         }
-
-        return new DataFlowDiagramAndDictionary(dfd, dd);
     }
 
     private List<Label> createLabels(List<String> labelNames, DataDictionary dd, LabelType annotation) {

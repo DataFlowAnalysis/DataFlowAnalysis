@@ -29,16 +29,16 @@ public class PalladioTest {
     @Test
     @DisplayName("Test Ass to DFD")
     public void assToDfd() {
-        String name = "TravelPlanner";
-        String modelFileName = "travelPlanner";
-        String TEST_MODEL_PROJECT_NAME = "org.dataflowanalysis.analysis.testmodels";
+        String inputModel = "TravelPlanner";
+        String inputFile = "travelPlanner";
+        String modelLocation = "org.dataflowanalysis.analysis.testmodels";
 
-        final var usageModelPath = Paths.get("models", name, modelFileName + ".usagemodel").toString();
-        final var allocationPath = Paths.get("models", name, modelFileName + ".allocation").toString();
-        final var nodeCharPath = Paths.get("models", name, modelFileName + ".nodecharacteristics").toString();
+        final var usageModelPath = Paths.get("models", inputModel, inputFile + ".usagemodel").toString();
+        final var allocationPath = Paths.get("models", inputModel, inputFile + ".allocation").toString();
+        final var nodeCharPath = Paths.get("models", inputModel, inputFile + ".nodecharacteristics").toString();
 
         DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
-                .modelProjectName(TEST_MODEL_PROJECT_NAME).usePluginActivator(Activator.class).useUsageModel(usageModelPath)
+                .modelProjectName(modelLocation).usePluginActivator(Activator.class).useUsageModel(usageModelPath)
                 .useAllocationModel(allocationPath).useNodeCharacteristicsModel(nodeCharPath).build();
 
         analysis.initializeAnalysis();
@@ -65,7 +65,7 @@ public class PalladioTest {
             }
         }
 
-        DataFlowDiagram dfd = new PalladioConverter().assToDFD(name, modelFileName, TEST_MODEL_PROJECT_NAME).dataFlowDiagram();
+        DataFlowDiagram dfd = new PalladioConverter().assToDFD(inputModel, inputFile, modelLocation).dataFlowDiagram();
 
         assertEquals(dfd.getNodes().size(), assIdToName.keySet().size());
 

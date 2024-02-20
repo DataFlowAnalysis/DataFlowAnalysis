@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramAndDictionary;
@@ -29,6 +30,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MicroSecEndTest extends ConverterTest {
     private MicroSecEndConverter converter;
+    
+    private final String ANILALLEWAR=Paths.get(packagePath,"anilallewar.json").toString();
+    private final String TO_PLANT=Paths.get(packagePath,"toPlant.txt").toString();
+    private final String FROM_PLANT=Paths.get(packagePath,"fromPlant.json").toString();
+    private final String JSON="json";
+    private final String TXT="txt";
 
     @BeforeEach
     public void setup() {
@@ -38,14 +45,14 @@ public class MicroSecEndTest extends ConverterTest {
     @Test
     @DisplayName("Test JSON -> Plant -> JSON")
     public void jsonToPlantToJson() throws StreamReadException, DatabindException, IOException {
-        converter.runPythonScript(packagePath + "anilallewar.json", "txt", packagePath + "toPlant.txt");
+        converter.runPythonScript(ANILALLEWAR, TXT, TO_PLANT);
         ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File(packagePath + "anilallewar.json");
+        File file = new File(ANILALLEWAR);
         MicroSecEnd microBefore = objectMapper.readValue(file, MicroSecEnd.class);
 
-        converter.runPythonScript(packagePath + "toPlant.txt", "json", packagePath + "fromPlant.json");
+        converter.runPythonScript(TO_PLANT, JSON, FROM_PLANT);
         objectMapper = new ObjectMapper();
-        file = new File(packagePath + "fromPlant.json");
+        file = new File(FROM_PLANT);
         MicroSecEnd microAfter = objectMapper.readValue(file, MicroSecEnd.class);
 
         microBefore.sort();
@@ -53,15 +60,15 @@ public class MicroSecEndTest extends ConverterTest {
 
         assertEquals(microBefore, microAfter);
 
-        cleanup(packagePath + "toPlant.txt");
-        cleanup(packagePath + "FromPlant.json");
+        cleanup(TO_PLANT);
+        cleanup(FROM_PLANT);
     }
 
     @Test
     @DisplayName("Test Micro -> DFD")
     public void microToDfd() throws StreamReadException, DatabindException, IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File(packagePath + "anilallewar.json");
+        File file = new File(ANILALLEWAR);
         MicroSecEnd micro = objectMapper.readValue(file, MicroSecEnd.class);
         DataFlowDiagramAndDictionary complete = new MicroSecEndConverter().microToDfd(micro);
 

@@ -193,7 +193,8 @@ public class MicroSecEndConverter extends Converter {
         }
 
     }
-
+    
+    //Tested with Python *3.11.5*, requires *argparse*, *ast* and *json* modules
     public int runPythonScript(String in, String format, String out) {
         String[] command = {"python3", "convert_model.py", in, format, "-op", out};
 

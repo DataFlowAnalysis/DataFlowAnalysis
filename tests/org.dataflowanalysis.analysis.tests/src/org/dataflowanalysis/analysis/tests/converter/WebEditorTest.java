@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramConverter;
@@ -19,6 +20,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class WebEditorTest extends ConverterTest {
     private DataFlowDiagramConverter converter;
+    
+    private final String MINIMAL = Paths.get(packagePath,"minimal.json").toString();
 
     @BeforeEach
     public void setup() {
@@ -32,7 +35,7 @@ public class WebEditorTest extends ConverterTest {
         WebEditorDfd webAfter = converter.dfdToWeb(dfdBefore);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File(packagePath + "minimal.json");
+        File file = new File(MINIMAL);
         WebEditorDfd webBefore = objectMapper.readValue(file, WebEditorDfd.class);
 
         webBefore.sort();
@@ -45,7 +48,7 @@ public class WebEditorTest extends ConverterTest {
     @DisplayName("Test storing and loading functionality")
     public void testStoreLoad() throws StreamReadException, DatabindException, IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File(packagePath + "minimal.json");
+        File file = new File(MINIMAL);
 
         WebEditorDfd webBefore = objectMapper.readValue(file, WebEditorDfd.class);
         DataFlowDiagramAndDictionary completeBefore = converter.webToDfd(webBefore);
@@ -59,9 +62,8 @@ public class WebEditorTest extends ConverterTest {
         assertEquals(webBefore, webAfter);
         assertNotNull(completeAfter);
 
-        cleanup(packagePath + "minimal.datadictionary");
-        cleanup(packagePath + "minimal.dataflowdiagram");
-        cleanup(packagePath + "test.json");
-
+        Paths.get(packagePath, "minimal.datadictionary").toFile().delete();
+        Paths.get(packagePath, "minimal.dataflowdiagram").toFile().delete();
+        Paths.get(packagePath, "test.json").toFile().delete();
     }
 }

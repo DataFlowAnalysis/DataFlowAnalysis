@@ -76,8 +76,11 @@ public class PCMVertexCharacteristicsCalculator {
     private List<AbstractAssignee> getUsage(Entity node, Assignments assignments) {
         UsageScenario usageScenario = PCMQueryUtils.findParentOfType(node, UsageScenario.class, false)
                 .orElseThrow(IllegalStateException::new);
-        return assignments.getAssignee().stream().filter(UsageAssignee.class::isInstance).map(UsageAssignee.class::cast)
-                .filter(it -> it.getUsagescenario().equals(usageScenario)).collect(Collectors.toList());
+        return assignments.getAssignee().stream()
+                .filter(UsageAssignee.class::isInstance)
+                .map(UsageAssignee.class::cast)
+                .filter(it -> it.getUsagescenario().equals(usageScenario))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -119,8 +122,11 @@ public class PCMVertexCharacteristicsCalculator {
      * @return List of resolved assignees matching the node
      */
     private List<AbstractAssignee> getAllocation(Assignments assignments, AssemblyContext assemblyContext) {
-        return assignments.getAssignee().stream().filter(AssemblyAssignee.class::isInstance).map(AssemblyAssignee.class::cast)
-                .filter(it -> it.getAssemblycontext().equals(assemblyContext)).collect(Collectors.toList());
+        return assignments.getAssignee().stream()
+                .filter(AssemblyAssignee.class::isInstance)
+                .map(AssemblyAssignee.class::cast)
+                .filter(it -> it.getAssemblycontext().equals(assemblyContext))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -130,8 +136,11 @@ public class PCMVertexCharacteristicsCalculator {
      * @return List of resolved assignees matching the node
      */
     private List<AbstractAssignee> getResource(Assignments assignments, ResourceContainer resourceContainer) {
-        return assignments.getAssignee().stream().filter(ResourceAssignee.class::isInstance).map(ResourceAssignee.class::cast)
-                .filter(it -> it.getResourcecontainer().equals(resourceContainer)).collect(Collectors.toList());
+        return assignments.getAssignee().stream()
+                .filter(ResourceAssignee.class::isInstance)
+                .map(ResourceAssignee.class::cast)
+                .filter(it -> it.getResourcecontainer().equals(resourceContainer))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -196,7 +205,8 @@ public class PCMVertexCharacteristicsCalculator {
         List<UsageModel> usageModel = this.resourceLoader.lookupToplevelElement(UsagemodelPackage.eINSTANCE.getUsageModel()).parallelStream()
                 .filter(UsageModel.class::isInstance).map(UsageModel.class::cast)
                 .toList();
-        return usageModel.stream().anyMatch(it -> it.getUsageScenario_UsageModel().contains(usageScenario));
+        return usageModel.stream()
+                .anyMatch(it -> it.getUsageScenario_UsageModel().contains(usageScenario));
     }
 
     /**
@@ -225,7 +235,8 @@ public class PCMVertexCharacteristicsCalculator {
         List<System> systems = this.resourceLoader.lookupToplevelElement(SystemPackage.eINSTANCE.getSystem()).parallelStream()
                 .filter(System.class::isInstance).map(System.class::cast)
                 .toList();
-        return systems.stream().anyMatch(it -> it.getAssemblyContexts__ComposedStructure().contains(assemblyContext));
+        return systems.stream()
+                .anyMatch(it -> it.getAssemblyContexts__ComposedStructure().contains(assemblyContext));
     }
 
     /**
@@ -241,7 +252,8 @@ public class PCMVertexCharacteristicsCalculator {
         List<CompositeComponent> compositeComponents = repositories.parallelStream().flatMap(it -> it.getComponents__Repository().stream())
                 .filter(CompositeComponent.class::isInstance).map(CompositeComponent.class::cast)
                 .toList();
-        return compositeComponents.stream().anyMatch(it -> it.getAssemblyContexts__ComposedStructure().contains(assemblyContext));
+        return compositeComponents.stream()
+                .anyMatch(it -> it.getAssemblyContexts__ComposedStructure().contains(assemblyContext));
     }
 
     /**

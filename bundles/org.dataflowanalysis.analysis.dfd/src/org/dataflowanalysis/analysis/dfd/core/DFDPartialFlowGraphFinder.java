@@ -30,7 +30,7 @@ public class DFDPartialFlowGraphFinder {
         List<AbstractPartialFlowGraph> sequences = new ArrayList<>();
 
         for (var endNode : endNodes) {
-            for (var sink : buildRec(new DFDVertex(endNode.getEntityName(), endNode, new HashMap<>(), new HashMap<>()), dfd.getFlows(),
+            for (var sink : buildRec(new DFDVertex(endNode, new HashMap<>(), new HashMap<>()), dfd.getFlows(),
                     endNode.getBehaviour().getInPin())) {
                 sink.unify(new HashSet<>());
                 sequences.add(new DFDPartialFlowGraph(sink));
@@ -57,7 +57,7 @@ public class DFDPartialFlowGraphFinder {
                         Node previousNode = flow.getSourceNode();
                         List<Pin> previousNodeInputPins = getAllPreviousNodeInputPins(previousNode, flow);
                         List<DFDVertex> previousNodeVertices = buildRec(
-                                new DFDVertex(previousNode.getEntityName(), previousNode, new HashMap<>(), new HashMap<>()), flows,
+                                new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()), flows,
                                 previousNodeInputPins);
                         newVertices.addAll(cloneVertexForMultipleFlowGraphs(vertex, inputPin, flow, previousNodeVertices));
                     }

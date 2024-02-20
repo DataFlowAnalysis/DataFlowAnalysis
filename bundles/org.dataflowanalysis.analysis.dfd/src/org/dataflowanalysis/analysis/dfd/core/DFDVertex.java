@@ -35,25 +35,19 @@ import org.eclipse.emf.ecore.EObject;
  * This class represents a vertex references a node in the dfd model.
  * Multiple dfd vertices may reference the same node
  */
-public class DFDVertex extends AbstractVertex<EObject> {
-
-    private final String name;
-    private final Node node;
+public class DFDVertex extends AbstractVertex<Node> {
     private final Map<Pin, DFDVertex> mapPinToPreviousVertex;
     private final Map<Pin, Flow> mapPinToInputFlow;
 
     /**
-     * Creates a new vertex with the given name, referenced node and pin mappings
-     * @param name Name of the vertex
+     * Creates a new vertex with the given referenced node and pin mappings
      * @param node Node that is referenced by the vertex
      * @param mapPinToPreviousVertex Map containing relationships between the pins of the vertex and previous vertices
      * @param mapPinToInputFlow Map containing relationships between the pins of the vertex
      *                          and the flows connecting the node to other vertices
      */
-    public DFDVertex(String name, Node node, Map<Pin, DFDVertex> mapPinToPreviousVertex, Map<Pin, Flow> mapPinToInputFlow) {
+    public DFDVertex(Node node, Map<Pin, DFDVertex> mapPinToPreviousVertex, Map<Pin, Flow> mapPinToInputFlow) {
         super(node);
-        this.name = name;
-        this.node = node;
         this.mapPinToPreviousVertex = mapPinToPreviousVertex;
         this.mapPinToInputFlow = mapPinToInputFlow;
     }
@@ -67,7 +61,7 @@ public class DFDVertex extends AbstractVertex<EObject> {
         if (super.isEvaluated())
             return;
 
-        Node node = this.getNode();
+        Node node = this.getReferencedElement();
 
         Map<Pin, DFDVertex> previousVertices = this.getMapPinToPreviousVertex();
 
@@ -218,21 +212,19 @@ public class DFDVertex extends AbstractVertex<EObject> {
             DFDVertex previousClone = this.mapPinToPreviousVertex.get(key).clone();
             newMapPinToPreviousVertex.put(key, previousClone);
         }
-        return new DFDVertex(this.name, this.node, newMapPinToPreviousVertex, new HashMap<>(this.mapPinToInputFlow));
+        return new DFDVertex(this.referencedElement, newMapPinToPreviousVertex, new HashMap<>(this.mapPinToInputFlow));
     }
     
     @Override
 	public String toString() {
-		return String.format("(%s, %s)", this.node.getEntityName(), this.node.getId());
+		return String.format("(%s, %s)", this.referencedElement.getEntityName(), this.referencedElement.getId());
 	}
     
     @Override
     public boolean equals(Object other) {
     	if (!(other instanceof DFDVertex vertex))
             return false;
-        if (!this.node.equals(vertex.getNode()))
-		    return false;
-		if (!this.name.equals(vertex.getName()))
+        if (!this.referencedElement.equals(vertex.getReferencedElement()))
 		    return false;
 		for (var key : this.getMapPinToPreviousVertex().keySet()) {
 		    if (!this.getMapPinToPreviousVertex().get(key).equals(vertex.getMapPinToPreviousVertex().get(key)))
@@ -244,10 +236,6 @@ public class DFDVertex extends AbstractVertex<EObject> {
     @Override
     public List<AbstractVertex<?>> getPreviousElements() {
         return new ArrayList<>(this.mapPinToPreviousVertex.values());
-    }
-
-    public Node getNode() {
-        return node;
     }
 
     /**
@@ -272,6 +260,6 @@ public class DFDVertex extends AbstractVertex<EObject> {
      * @return Returns the name of the vertex
      */
     public String getName() {
-        return name;
+        return this.getReferencedElement().getEntityName();
     }
 }

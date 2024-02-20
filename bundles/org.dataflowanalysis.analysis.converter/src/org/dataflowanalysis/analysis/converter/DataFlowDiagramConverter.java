@@ -1,11 +1,15 @@
 package org.dataflowanalysis.analysis.converter;
 
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.HashMap;
 import java.util.List;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Stack;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.converter.webdfd.*;
@@ -315,38 +319,56 @@ public class DataFlowDiagramConverter extends Converter {
                 assignment.getInputPins().add(inpin);
                 behavior.getAssignment().add(assignment);
             } else if (behaviorString.contains("set ")) {
-                String[] parts = behaviorString.split(" ");
-                if (parts[2].equals("=")) {
-                    boolean term = parts[3].equals("TRUE");
-                    String typeName = parts[1].split("\\.")[0];
-                    String valueName = parts[1].split("\\.")[1];
-                    Label value = null;
-                    for (LabelType labelType : dd.getLabelTypes()) {
-                        if (labelType.getEntityName().equals(typeName)) {
-                            for (Label label : labelType.getLabel()) {
-                                if (label.getEntityName().equals(valueName)) {
-                                    value = label;
-                                }
+                String regex = "\\bset\\s+(\\S+)\\s+=\\s+(.+)\\b";
+                
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(behaviorString);
+                matcher.find();
+                
+                String variable = matcher.group(1);
+                String typeName = variable.split("\\.")[0];
+                String valueName = variable.split("\\.")[1];
+                
+                Label value = null;
+                for (LabelType labelType : dd.getLabelTypes()) {
+                    if (labelType.getEntityName().equals(typeName)) {
+                        for (Label label : labelType.getLabel()) {
+                            if (label.getEntityName().equals(valueName)) {
+                                value = label;
                             }
                         }
                     }
-                    Assignment assignment = ddFactory.createAssignment();
-
-                    assignment.getInputPins().addAll(behavior.getInPin());
-                    assignment.setOutputPin(outpin);
-
-                    assignment.getOutputLabels().add(value);
-                    if (term) {
-                        assignment.setTerm(ddFactory.createTRUE());
-                    } else {
-                        TRUE t = ddFactory.createTRUE();
-                        NOT n = ddFactory.createNOT();
-                        n.setNegatedTerm(t);
-                        assignment.setTerm(n);
-                    }
-
-                    behavior.getAssignment().add(assignment);
                 }
+                Assignment assignment = ddFactory.createAssignment();
+
+                assignment.getInputPins().addAll(behavior.getInPin());
+                assignment.setOutputPin(outpin);
+                assignment.getOutputLabels().add(value);
+                
+                behavior.getAssignment().add(assignment);
+                
+                List<String> expressions = Arrays.asList(matcher.group(2).split(" "));                
+                Stack<String> stack = new Stack<>();
+                stack.addAll(expressions);
+                
+                Term processedTerm=null;
+                while (!stack.isEmpty()) {
+                    String current=stack.pop();
+                    if (current.equals("TRUE")) {
+                        TRUE ddTrue = ddFactory.createTRUE();
+                        if (processedTerm==null){
+                            processedTerm=ddTrue; 
+                        }
+                    }
+                    else if (current.equals("FALSE")) {
+                        NOT ddFalse = ddFactory.createNOT();
+                        ddFalse.setNegatedTerm(ddFactory.createTRUE());
+                        if(processedTerm==null) {
+                            processedTerm=ddFalse; 
+                        }
+                    }
+                }                
+                assignment.setTerm(processedTerm);
             }
         }
     }

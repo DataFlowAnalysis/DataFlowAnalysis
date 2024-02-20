@@ -109,9 +109,9 @@ public class ConstraintResultTest extends ConstraintTest {
     @Test
     public void oneAssemblyMultipleResourceTestConstraintResults() {
         PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(
-                Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.usagemodel"),
-                Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.allocation"),
-                Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.nodecharacteristics"));
+                Paths.get("models", "OneAssemblyMultipleResourceContainerTest", "default.usagemodel"),
+                Paths.get("models", "OneAssemblyMultipleResourceContainerTest", "default.allocation"),
+                Paths.get("models", "OneAssemblyMultipleResourceContainerTest", "default.nodecharacteristics"));
         analysis.setLoggerLevel(Level.TRACE);
         Predicate<AbstractVertex<?>> constraint = this::internationalOnlineShopCondition;
         List<ConstraintData> constraintData = ConstraintViolations.multipleResourcesViolations;

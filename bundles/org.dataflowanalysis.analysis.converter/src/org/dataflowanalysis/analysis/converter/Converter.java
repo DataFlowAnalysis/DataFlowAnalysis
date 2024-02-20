@@ -32,7 +32,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public class Converter {
     private ObjectMapper objectMapper;
     private File file;
-    
+
     private final Logger logger = Logger.getLogger(Converter.class);
 
     public Converter() {
@@ -56,7 +56,7 @@ public class Converter {
     }
 
     public WebEditorDfd dfdToWeb(String inputFile) {
-        DataFlowDiagramAndDictionary complete=loadDFD(inputFile);
+        DataFlowDiagramAndDictionary complete = loadDFD(inputFile);
         return new ProcessDFD().parse(complete.dataFlowDiagram(), complete.dataDictionary());
     }
 
@@ -115,7 +115,7 @@ public class Converter {
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         try {
-            objectMapper.writeValue(new File(outputFile+".json"), web);
+            objectMapper.writeValue(new File(outputFile + ".json"), web);
         } catch (IOException e) {
             logger.error(e);
         }
@@ -133,9 +133,9 @@ public class Converter {
         saveResource(ddResource);
 
     }
-    
+
     public MicroSecEnd loadMicro(String inputFile) {
-        objectMapper=new ObjectMapper();
+        objectMapper = new ObjectMapper();
         file = new File(inputFile + ".json");
         try {
             return objectMapper.readValue(file, MicroSecEnd.class);
@@ -144,9 +144,9 @@ public class Converter {
             return null;
         }
     }
-    
+
     public WebEditorDfd loadWeb(String inputFile) {
-        objectMapper=new ObjectMapper();
+        objectMapper = new ObjectMapper();
         file = new File(inputFile + ".json");
         try {
             return objectMapper.readValue(file, WebEditorDfd.class);
@@ -155,14 +155,14 @@ public class Converter {
             return null;
         }
     }
-    
+
     public DataFlowDiagramAndDictionary loadDFD(String inputFile) {
         ResourceSet rs = new ResourceSetImpl();
         rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
         rs.getPackageRegistry().put(dataflowdiagramPackage.eNS_URI, dataflowdiagramPackage.eINSTANCE);
 
-        Resource dfdResource = rs.getResource(URI.createFileURI(inputFile+".dataflowdiagram"), true);
-        Resource ddResource = rs.getResource(URI.createFileURI(inputFile+".datadictionary"), true);
+        Resource dfdResource = rs.getResource(URI.createFileURI(inputFile + ".dataflowdiagram"), true);
+        Resource ddResource = rs.getResource(URI.createFileURI(inputFile + ".datadictionary"), true);
 
         DataFlowDiagram dfd = (DataFlowDiagram) dfdResource.getContents().get(0);
         DataDictionary dd = (DataDictionary) ddResource.getContents().get(0);

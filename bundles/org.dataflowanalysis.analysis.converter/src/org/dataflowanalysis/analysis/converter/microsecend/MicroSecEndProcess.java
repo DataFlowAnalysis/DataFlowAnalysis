@@ -11,17 +11,18 @@ public class MicroSecEndProcess {
     protected String name;
     @JsonProperty("stereotypes")
     protected List<String> stereotypes;
-    @JsonProperty("tagged_values") @JsonDeserialize(using = TaggedValuesDeserializer.class) 
+    @JsonProperty("tagged_values")
+    @JsonDeserialize(using = TaggedValuesDeserializer.class)
     protected Map<String, List<String>> taggedValues;
-    
+
     public MicroSecEndProcess() {
-        
+
     }
-    
-    public MicroSecEndProcess (String name, List<String> stereotypes, Map<String, List<String>>taggedValues) {
-        this.name=name;
-        this.stereotypes=stereotypes;
-        this.taggedValues=taggedValues;
+
+    public MicroSecEndProcess(String name, List<String> stereotypes, Map<String, List<String>> taggedValues) {
+        this.name = name;
+        this.stereotypes = stereotypes;
+        this.taggedValues = taggedValues;
     }
 
     public String name() {
@@ -35,7 +36,7 @@ public class MicroSecEndProcess {
     public Map<String, List<String>> taggedValues() {
         return taggedValues;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

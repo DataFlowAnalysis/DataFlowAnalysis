@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public record WebEditorDfd(Model model, List<WebEditorLabelType> labelTypes) {
-    
+
     public void sort() {
         labelTypes().sort(Comparator.comparing(WebEditorLabelType::id));
 

@@ -18,7 +18,7 @@ public class ProcessJSON {
     private Map<String, Node> nodesMap;
     private final Map<Node, List<String>> nodeToLabelNames;
     private final Map<String, Label> labelMap;
-    
+
     private final Logger logger = Logger.getLogger(ProcessJSON.class);
 
     public ProcessJSON() {
@@ -183,9 +183,9 @@ public class ProcessJSON {
                         node = dfdFactory.createExternal();
                         break;
                     default:
-                        logger.error("Unrecognized node type: "+type[1]);
+                        logger.error("Unrecognized node type: " + type[1]);
                         continue;
-                        
+
                 }
                 node.setEntityName(name);
                 node.setId(child.id());

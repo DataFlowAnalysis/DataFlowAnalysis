@@ -13,7 +13,7 @@ public record MicroSecEnd(List<Service> services,
         @JsonProperty("external_entities") List<ExternalEntity> externalEntities,
 
         @JsonProperty("information_flows") List<InformationFlow> informationFlows) {
-    
+
     public void sort() {
         services().sort(Comparator.comparing(Service::name));
 

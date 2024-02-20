@@ -90,7 +90,7 @@ public class PalladioConverter extends Converter {
         return pin;
     }
 
-    // I know it is basically a code clone from above but i do not care
+    // A pin is equivalent if the same parameters are passed
     private Pin findOrCreateInputPin(Node dest, String parameters) {
         Optional<Pin> optPin = dest.getBehaviour().getInPin().stream().filter(p -> p.getEntityName().equals(parameters)).findAny();
         if (optPin.isPresent()) {
@@ -104,14 +104,12 @@ public class PalladioConverter extends Converter {
 
     private Node getOrCreateDFDNode(AbstractPCMActionSequenceElement<? extends Entity> pcmASE) {
         Node dfdNode = dfdNodeMap.get(pcmASE.getElement());
-        // check if a corresponding node has already been created
+
         if (dfdNode == null) {
-            // if not, create a node
             dfdNode = createCorrespondingDFDNode(pcmASE);
             dfdNodeMap.put(pcmASE.getElement(), dfdNode);
         }
 
-        // add all node characteristics to the current node (if not already present)
         addNodeCharacteristicsToNode(dfdNode, pcmASE.getAllNodeCharacteristics());
 
         return dfdNode;

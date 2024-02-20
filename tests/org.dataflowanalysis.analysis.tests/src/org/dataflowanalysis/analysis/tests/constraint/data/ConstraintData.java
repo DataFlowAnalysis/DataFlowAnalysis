@@ -22,11 +22,10 @@ public class ConstraintData {
     }
 
     public boolean matches(AbstractVertex<?> element) {
-        if (!(element instanceof AbstractPCMVertex<?>)) {
+        if (!(element instanceof AbstractPCMVertex<?> sequenceElement)) {
             return false;
         }
-        AbstractPCMVertex<?> sequenceElement = (AbstractPCMVertex<?>) element;
-        Identifier pcmElement = (Identifier) sequenceElement.getReferencedElement();
+        Identifier pcmElement = sequenceElement.getReferencedElement();
         return this.nodeID.equals(pcmElement.getId());
     }
 

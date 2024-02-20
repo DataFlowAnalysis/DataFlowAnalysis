@@ -31,6 +31,10 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.eclipse.emf.ecore.EObject;
 
+/**
+ * This class represents a vertex references a node in the dfd model.
+ * Multiple dfd vertices may reference the same node
+ */
 public class DFDVertex extends AbstractVertex<EObject> {
 
     private final String name;
@@ -38,6 +42,14 @@ public class DFDVertex extends AbstractVertex<EObject> {
     private final Map<Pin, DFDVertex> mapPinToPreviousVertex;
     private final Map<Pin, Flow> mapPinToInputFlow;
 
+    /**
+     * Creates a new vertex with the given name, referenced node and pin mappings
+     * @param name Name of the vertex
+     * @param node Node that is referenced by the vertex
+     * @param mapPinToPreviousVertex Map containing relationships between the pins of the vertex and previous vertices
+     * @param mapPinToInputFlow Map containing relationships between the pins of the vertex
+     *                          and the flows connecting the node to other vertices
+     */
     public DFDVertex(String name, Node node, Map<Pin, DFDVertex> mapPinToPreviousVertex, Map<Pin, Flow> mapPinToInputFlow) {
         super(node);
         this.name = name;
@@ -46,6 +58,9 @@ public class DFDVertex extends AbstractVertex<EObject> {
         this.mapPinToInputFlow = mapPinToInputFlow;
     }
 
+    /**
+     * Evaluates the given vertex by determining incoming and outgoing data flow variables and node characteristics
+     */
     @Override
     public void evaluateDataFlow() {
     	//Return if already evaluated
@@ -141,10 +156,10 @@ public class DFDVertex extends AbstractVertex<EObject> {
     }
 
     /**
-     * Filters Objects to be distinct by key
+     * Filters objects to be distinct by key
      * @param <T> Type of the Object to be evaluated
-     * @param keyExtractor 
-     * @return
+     * @param keyExtractor Mapping of an element to the value that is required to be unique
+     * @return Returns a predicate evaluating whether the value has been seen
      */
     public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
         KeySetView<Object, Boolean> seen = ConcurrentHashMap.newKeySet();
@@ -208,14 +223,13 @@ public class DFDVertex extends AbstractVertex<EObject> {
     
     @Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		return String.format("(%s, %s)", this.node.getEntityName(), this.node.getId());
 	}
     
     @Override
     public boolean equals(Object other) {
-    	if (!(other instanceof DFDVertex vertex)) return false;
-
+    	if (!(other instanceof DFDVertex vertex))
+            return false;
         if (!this.node.equals(vertex.getNode()))
 		    return false;
 		if (!this.name.equals(vertex.getName()))
@@ -231,19 +245,32 @@ public class DFDVertex extends AbstractVertex<EObject> {
     public List<AbstractVertex<?>> getPreviousElements() {
         return new ArrayList<>(this.mapPinToPreviousVertex.values());
     }
-    
+
     public Node getNode() {
         return node;
     }
 
+    /**
+     * Returns the mapping between pins of the node and the connected previous vertices
+     * @return Return the mapping between pins and previous vertices
+     */
     public Map<Pin, DFDVertex> getMapPinToPreviousVertex() {
         return mapPinToPreviousVertex;
     }
 
+    /**
+     * Returns the mapping between pins of the node and the connected input flows
+     * connecting the vertex to the previous vertices
+     * @return Returns the mapping between pins and incoming flows
+     */
     public Map<Pin, Flow> getMapPinToInputFlow() {
         return mapPinToInputFlow;
     }
 
+    /**
+     * Returns the name of the dfd vertex
+     * @return Returns the name of the vertex
+     */
     public String getName() {
         return name;
     }

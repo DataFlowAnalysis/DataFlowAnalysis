@@ -8,6 +8,10 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+/**
+ * This class represents a {@link DFDResourceProvider}
+ * that provides the resources to the analysis by loading them via a {@link URI}
+ */
 public class DFDURIResourceProvider extends DFDResourceProvider {
     private final URI dataFlowDiagramURI;
     private final URI dataDictionaryURI;

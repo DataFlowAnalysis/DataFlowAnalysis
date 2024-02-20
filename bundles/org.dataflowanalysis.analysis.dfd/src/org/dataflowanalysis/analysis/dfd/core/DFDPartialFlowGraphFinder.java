@@ -13,13 +13,16 @@ import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 
+/**
+ * The DFDPartialFlowGraphFinder determines all partial flow graphs contained in a model
+ */
 public class DFDPartialFlowGraphFinder {
 
     /**
-     * Finds all Partial Flow Graphs in a dataflowdiagram instance
+     * Finds all partial flow graphs in a dataflowdiagram model instance
      * @param dfd Data Flow Diagram model instance
      * @param dataDictionary Data Dictionary model instance
-     * @return All Partial Flow Graphs
+     * @return Returns a list of all partial flow graphs
      */
     public static List<AbstractPartialFlowGraph> findAllPartialFlowGraphsInDFD(DataFlowDiagram dfd, DataDictionary dataDictionary) {
         List<Node> endNodes = getEndNodes(dfd.getNodes());
@@ -37,10 +40,10 @@ public class DFDPartialFlowGraphFinder {
     }
 
     /**
-     * build List of sink vertices with previous Vertices for creation of Partial Flow Graphs
-     * @param sink single sink vertex without previous vertices calculated
-     * @param flows All Flows in the DFD
-     * @param inputPins Relevant input pins on vertex
+     * Builds a list of sink vertices with previous vertices for the creation of partial flow Graphs
+     * @param sink Single sink vertex without previous vertices calculated
+     * @param flows All flows in the data flow diagram
+     * @param inputPins Relevant input pins on the given vertex vertex
      * @return List of sinks created from the initial sink with previous vertices calculated
      */
     private static List<DFDVertex> buildRec(DFDVertex sink, List<Flow> flows, List<Pin> inputPins) {
@@ -66,10 +69,11 @@ public class DFDPartialFlowGraphFinder {
     }
     
     /**
-     * Calculated all input pins required on the Previous Node that will be needed to satisfy the assignments reaching the present node
-     * @param previousNode previous Node
-     * @param flow Flow from previous into present Node
-     * @return List of all required Pins
+     * Calculate all input pins required on the previous node that will be needed to satisfy the assignments
+     * to reach the present node
+     * @param previousNode Previous node
+     * @param flow Flow from previous into present node
+     * @return List of all required pins
      */
     private static List<Pin> getAllPreviousNodeInputPins(Node previousNode, Flow flow) {
     	List<Pin> previousNodeInputPins = new ArrayList<>();
@@ -82,12 +86,12 @@ public class DFDPartialFlowGraphFinder {
     }
     
     /**
-     * 
-     * @param vertex
-     * @param inputPin
-     * @param flow
-     * @param previousNodeVertices
-     * @return
+     * Clones a vertex with its predecessors to use in multiple other flow graphs
+     * @param vertex Vertex that should be cloned
+     * @param inputPin Input pin to the vertex from the previous vertices
+     * @param flow Flow between the input pin and the copied vertex
+     * @param previousNodeVertices List of previous vertices
+     * @return Returns a list of cloned vertices required for usage in multiple flow graphs
      */
     private static List<DFDVertex> cloneVertexForMultipleFlowGraphs(DFDVertex vertex, Pin inputPin, Flow flow, List<DFDVertex> previousNodeVertices) {
     	List<DFDVertex> newVertices = new ArrayList<>();
@@ -101,9 +105,9 @@ public class DFDPartialFlowGraphFinder {
     }
 
     /**
-     * Get List of sink nodes
-     * @param nodes All nodes
-     * @return List of sink nodes
+     * Gets a list of nodes that are sinks of the given list of nodes
+     * @param nodes A list of all nodes of which the sinks should be determined
+     * @return List of sink nodes reachable by the given list of nodes
      */
     private static List<Node> getEndNodes(List<Node> nodes) {
         List<Node> endNodes = new ArrayList<>(nodes);

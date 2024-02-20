@@ -18,6 +18,9 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
 import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder;
 
+/**
+ * This class represents a toplevel dfd confidentiality analysis which allows analysis of a given model
+ */
 public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalysis {
     private final Logger logger = Logger.getLogger(DFDConfidentialityAnalysis.class);
 

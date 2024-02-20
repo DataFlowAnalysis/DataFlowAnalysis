@@ -67,19 +67,7 @@ public class DFDVertex extends AbstractVertex<Node> {
 
         previousVertices.keySet().forEach(pin -> previousVertices.get(pin).evaluateDataFlow());
 
-        // Create Map with all incoming Labels per pin
-        for (var pin : this.getMapPinToInputFlow().keySet()) {
-            for (var previousVertex : this.getMapPinToPreviousVertex().values()) {
-                for (var dfv : previousVertex.getAllOutgoingDataFlowVariables()) {
-                    if (dfv.getVariableName().equals(this.getMapPinToInputFlow().get(pin).getSourcePin().getId())) {
-                        mapInputPinsToIncomingLabels.putIfAbsent(pin, new ArrayList<>());
-                        for (var cv : dfv.getAllCharacteristics()) {
-                            mapInputPinsToIncomingLabels.get(pin).add(((DFDCharacteristicValue) cv).getLabel());
-                        }
-                    }
-                }
-            }
-        }
+        this.getMapPinToInputFlow().keySet().forEach(pin -> this.fillMapOfIncomingLabelsPerPin(pin, mapInputPinsToIncomingLabels));        
 
         List<DataFlowVariable> dataFlowVariables = new ArrayList<>(this.createDataFlowVariablesFromLabels(mapInputPinsToIncomingLabels));
 
@@ -92,7 +80,31 @@ public class DFDVertex extends AbstractVertex<Node> {
 
         this.setPropagationResult(dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
+    
+    /**
+     * Fills map mapping input pins to incoming labels
+     * @param pin Pin to be evaluated
+     * @param mapInputPinsToIncomingLabels Map to be filled with incoming labels on pin
+     */
+    private void fillMapOfIncomingLabelsPerPin(Pin pin, Map<Pin, List<Label>> mapInputPinsToIncomingLabels) {
+    	for (var previousVertex : this.getMapPinToPreviousVertex().values()) {
+            for (var dfv : previousVertex.getAllOutgoingDataFlowVariables()) {
+                if (dfv.getVariableName().equals(this.getMapPinToInputFlow().get(pin).getSourcePin().getId())) {
+                    mapInputPinsToIncomingLabels.putIfAbsent(pin, new ArrayList<>());
+                    for (var cv : dfv.getAllCharacteristics()) {
+                        mapInputPinsToIncomingLabels.get(pin).add(((DFDCharacteristicValue) cv).getLabel());
+                    }
+                }
+            }
+        }
+    }
 
+    /**
+     * Calculates outgoing labels for assignment and adds them into mapOutputPinToOutgoingLabels
+     * @param assignment Assignment to be evaluated
+     * @param mapInputPinsToIncomingLabels Maps Input Pins to Incoming Labels
+     * @param mapOutputPinToOutgoingLabels Maps Output Pins to Outgoing Labels, to be filled by method
+     */
     private void handleOutgoingAssignments(AbstractAssignment assignment, Map<Pin, List<Label>> mapInputPinsToIncomingLabels,
             Map<Pin, List<Label>> mapOutputPinToOutgoingLabels) {
         List<Label> incomingLabels = combineLabelsOnAllInputPins(assignment, mapInputPinsToIncomingLabels);

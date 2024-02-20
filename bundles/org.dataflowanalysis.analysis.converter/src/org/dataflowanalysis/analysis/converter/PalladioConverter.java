@@ -1,20 +1,24 @@
 package org.dataflowanalysis.analysis.converter;
 
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.*;
+import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMActionSequenceElement;
 import org.dataflowanalysis.analysis.pcm.core.seff.SEFFActionSequenceElement;
 import org.dataflowanalysis.analysis.pcm.core.user.*;
+import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
 
-public class PalladioProcesser {
+public class PalladioConverter extends Converter {
 
     private final Map<Entity, Node> dfdNodeMap = new HashMap<>();
     private final DataDictionary dataDictionary = datadictionaryFactory.eINSTANCE.createDataDictionary();
@@ -60,7 +64,7 @@ public class PalladioProcesser {
             newFlow.setDestinationNode(dest);
             newFlow.setEntityName(flowName);
 
-            //Palladio Assumption: Each flows between two nodes with the same parameters/that are called the same use the same pin
+            // Palladio Assumption: Each flows between two nodes with the same parameters/that are called the same use the same pin
             Pin sourceOutPin = findOrCreateOutputPin(source, flowName);
             Pin destInPin = findOrCreateInputPin(dest, flowName);
             newFlow.setSourcePin(sourceOutPin);
@@ -143,7 +147,8 @@ public class PalladioProcesser {
     }
 
     private Label getOrCreateDFDLabel(CharacteristicValue charValue) {
-        LabelType type = dataDictionary.getLabelTypes().stream().filter(f -> f.getEntityName().equals(charValue.getTypeName())).findFirst().orElse(null);
+        LabelType type = dataDictionary.getLabelTypes().stream().filter(f -> f.getEntityName().equals(charValue.getTypeName())).findFirst()
+                .orElse(null);
 
         if (type == null) {
             type = datadictionaryFactory.eINSTANCE.createLabelType();
@@ -160,5 +165,22 @@ public class PalladioProcesser {
         }
 
         return label;
+    }
+
+    public DataFlowDiagramAndDictionary assToDFD(String inputModel, String inputFile, String modelLocation, String outputFile) {
+        final var usageModelPath = Paths.get("models", inputModel, inputFile + ".usagemodel").toString();
+        final var allocationPath = Paths.get("models", inputModel, inputFile + ".allocation").toString();
+        final var nodeCharPath = Paths.get("models", inputModel, inputFile + ".nodecharacteristics").toString();
+
+        DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone().modelProjectName(modelLocation)
+                .usePluginActivator(Activator.class).useUsageModel(usageModelPath).useAllocationModel(allocationPath)
+                .useNodeCharacteristicsModel(nodeCharPath).build();
+
+        analysis.initializeAnalysis();
+        analysis.findAllSequences();
+        var sequences = analysis.findAllSequences();
+        var propagationResult = analysis.evaluateDataFlows(sequences);
+
+        return processPalladio(propagationResult);
     }
 }

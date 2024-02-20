@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramAndDictionary;
-import org.dataflowanalysis.analysis.converter.MicroSecEndProcessor;
+import org.dataflowanalysis.analysis.converter.MicroSecEndConverter;
 import org.dataflowanalysis.analysis.converter.microsecend.ExternalEntity;
 import org.dataflowanalysis.analysis.converter.microsecend.InformationFlow;
 import org.dataflowanalysis.analysis.converter.microsecend.MicroSecEnd;
@@ -19,6 +19,7 @@ import org.dataflowanalysis.dfd.datadictionary.Pin;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +27,14 @@ import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class MicroSecEndTest extends ConverterTest{
+public class MicroSecEndTest extends ConverterTest {
+    private MicroSecEndConverter converter;
+
+    @BeforeEach
+    public void setup() {
+        converter = new MicroSecEndConverter();
+    }
+
     @Test
     @DisplayName("Test JSON -> Plant -> JSON")
     public void jsonToPlantToJson() throws StreamReadException, DatabindException, IOException {
@@ -39,7 +47,7 @@ public class MicroSecEndTest extends ConverterTest{
         objectMapper = new ObjectMapper();
         file = new File(packagePath + "fromPlant.json");
         MicroSecEnd microAfter = objectMapper.readValue(file, MicroSecEnd.class);
-        
+
         microBefore.sort();
         microAfter.sort();
 
@@ -48,14 +56,14 @@ public class MicroSecEndTest extends ConverterTest{
         cleanup(packagePath + "toPlant.txt");
         cleanup(packagePath + "FromPlant.json");
     }
-    
+
     @Test
     @DisplayName("Test Micro -> DFD")
     public void microToDfd() throws StreamReadException, DatabindException, IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(packagePath + "anilallewar.json");
         MicroSecEnd micro = objectMapper.readValue(file, MicroSecEnd.class);
-        DataFlowDiagramAndDictionary complete = new MicroSecEndProcessor().processMicro(micro);
+        DataFlowDiagramAndDictionary complete = new MicroSecEndConverter().processMicro(micro);
 
         DataFlowDiagram dfd = complete.dataFlowDiagram();
 
@@ -63,11 +71,11 @@ public class MicroSecEndTest extends ConverterTest{
         assertEquals(micro.informationFlows().size(), dfd.getFlows().size());
 
         for (Service service : micro.services()) {
-            checkEntityName(service,dfd);
+            checkEntityName(service, dfd);
         }
 
         for (ExternalEntity ee : micro.externalEntities()) {
-            checkEntityName(ee,dfd);
+            checkEntityName(ee, dfd);
         }
 
         int match = 0;
@@ -86,15 +94,15 @@ public class MicroSecEndTest extends ConverterTest{
         }
         assertEquals(match, micro.informationFlows().size());
     }
-    
+
     private void checkEntityName(MicroSecEndProcess process, DataFlowDiagram dfd) {
-        for(Node node : dfd.getNodes()) {
-            if(process.name().equals(node.getEntityName())) {
-                assertEquals(process.stereotypes().size(),node.getProperties().size());
-                for(int i=0;i<process.stereotypes().size();i++) {
-                    assertEquals(process.stereotypes().get(i),node.getProperties().get(i).getEntityName());
+        for (Node node : dfd.getNodes()) {
+            if (process.name().equals(node.getEntityName())) {
+                assertEquals(process.stereotypes().size(), node.getProperties().size());
+                for (int i = 0; i < process.stereotypes().size(); i++) {
+                    assertEquals(process.stereotypes().get(i), node.getProperties().get(i).getEntityName());
                 }
             }
-        }   
+        }
     }
 }

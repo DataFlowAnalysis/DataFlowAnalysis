@@ -7,7 +7,9 @@ import java.io.File;
 import java.io.IOException;
 
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramAndDictionary;
+import org.dataflowanalysis.analysis.converter.DataFlowDiagramConverter;
 import org.dataflowanalysis.analysis.converter.webdfd.WebEditorDfd;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +17,14 @@ import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class WebEditorTest extends ConverterTest{
+public class WebEditorTest extends ConverterTest {
+    private DataFlowDiagramConverter converter;
+
+    @BeforeEach
+    public void setup() {
+        converter = new DataFlowDiagramConverter();
+    }
+
     @Test
     @DisplayName("Test Web -> DFD -> Web")
     public void webToDfdToWeb() throws StreamReadException, DatabindException, IOException {
@@ -31,7 +40,7 @@ public class WebEditorTest extends ConverterTest{
 
         assertEquals(webBefore, webAfter);
     }
-    
+
     @Test
     @DisplayName("Test storing and loading functionality")
     public void testStoreLoad() throws StreamReadException, DatabindException, IOException {
@@ -40,13 +49,13 @@ public class WebEditorTest extends ConverterTest{
 
         WebEditorDfd webBefore = objectMapper.readValue(file, WebEditorDfd.class);
         DataFlowDiagramAndDictionary completeBefore = converter.webToDfd(webBefore);
-        
+
         converter.store(webBefore, packagePath + "test");
         converter.store(completeBefore, packagePath + "minimal");
-        
-        WebEditorDfd webAfter=converter.loadWeb(packagePath+"test");
-        DataFlowDiagramAndDictionary completeAfter=converter.loadDFD(packagePath+"minimal");
-        
+
+        WebEditorDfd webAfter = converter.loadWeb(packagePath + "test");
+        DataFlowDiagramAndDictionary completeAfter = converter.loadDFD(packagePath + "minimal");
+
         assertEquals(webBefore, webAfter);
         assertNotNull(completeAfter);
 

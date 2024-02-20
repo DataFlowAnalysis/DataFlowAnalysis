@@ -3,6 +3,8 @@ package org.dataflowanalysis.analysis.converter;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
@@ -10,24 +12,32 @@ import org.dataflowanalysis.analysis.converter.webdfd.*;
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.Process;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
-public class DataFlowDiagramProcessor {
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
+public class DataFlowDiagramConverter extends Converter {
 
     private final Map<Pin, String> mapInputPinToFlowName = new HashMap<>();
     private final dataflowdiagramFactory dfdFactory;
     private final datadictionaryFactory ddFactory;
     private Map<String, Node> nodesMap;
-    
-    private final Logger logger = Logger.getLogger(MicroSecEndProcessor.class);
 
-    
-    public DataFlowDiagramProcessor() {
+    private final Logger logger = Logger.getLogger(MicroSecEndConverter.class);
+
+    public DataFlowDiagramConverter() {
         dfdFactory = dataflowdiagramFactory.eINSTANCE;
         ddFactory = datadictionaryFactory.eINSTANCE;
 
         nodesMap = new HashMap<>();
     }
-    
+
     public DataFlowDiagramAndDictionary processWeb(WebEditorDfd webdfd) {
         nodesMap = new HashMap<String, Node>();
         Map<String, Node> pinToNodeMap = new HashMap<>();
@@ -166,7 +176,7 @@ public class DataFlowDiagramProcessor {
             labelTypes.add(new WebEditorLabelType(labelType.getId(), labelType.getEntityName(), values));
         }
     }
-        
+
     public WebEditorDfd processDfd(DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary) {
         List<Child> children = new ArrayList<>();
         List<WebEditorLabelType> labelTypes = new ArrayList<>();
@@ -284,7 +294,7 @@ public class DataFlowDiagramProcessor {
         }
         throw new IllegalArgumentException();
     }
-    
+
     private void parseBehavior(Node node, Pin outpin, String lines, DataFlowDiagram dfd, DataDictionary dd) {
         String[] behaviorStrings = lines.split("\n");
         var behavior = node.getBehaviour();
@@ -343,5 +353,59 @@ public class DataFlowDiagramProcessor {
 
     private void putValue(Map<Node, Map<Pin, String>> nestedHashMap, Node key1, Pin key2, String value) {
         nestedHashMap.computeIfAbsent(key1, k -> new HashMap<>()).put(key2, value);
+    }
+
+    public DataFlowDiagramAndDictionary webToDfd(String inputFile) {
+        return webToDfd(loadWeb(inputFile));
+    }
+
+    public DataFlowDiagramAndDictionary webToDfd(WebEditorDfd inputFile) {
+        return processWeb(inputFile);
+    }
+
+    public WebEditorDfd dfdToWeb(String inputFile) {
+        DataFlowDiagramAndDictionary complete = loadDFD(inputFile);
+        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary());
+    }
+
+    public WebEditorDfd dfdToWeb(DataFlowDiagramAndDictionary complete) {
+        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary());
+    }
+
+    public void store(WebEditorDfd web, String outputFile) {
+        objectMapper = new ObjectMapper();
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+        try {
+            objectMapper.writeValue(new File(outputFile + ".json"), web);
+        } catch (IOException e) {
+            logger.error(e);
+        }
+    }
+
+    public WebEditorDfd loadWeb(String inputFile) {
+        objectMapper = new ObjectMapper();
+        file = new File(inputFile + ".json");
+        try {
+            return objectMapper.readValue(file, WebEditorDfd.class);
+        } catch (IOException e) {
+            logger.error(e);
+            return null;
+        }
+    }
+
+    public DataFlowDiagramAndDictionary loadDFD(String inputFile) {
+        ResourceSet rs = new ResourceSetImpl();
+        rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
+        rs.getPackageRegistry().put(dataflowdiagramPackage.eNS_URI, dataflowdiagramPackage.eINSTANCE);
+
+        Resource dfdResource = rs.getResource(URI.createFileURI(inputFile + ".dataflowdiagram"), true);
+        Resource ddResource = rs.getResource(URI.createFileURI(inputFile + ".datadictionary"), true);
+
+        DataFlowDiagram dfd = (DataFlowDiagram) dfdResource.getContents().get(0);
+        DataDictionary dd = (DataDictionary) ddResource.getContents().get(0);
+
+        return new DataFlowDiagramAndDictionary(dfd, dd);
     }
 }

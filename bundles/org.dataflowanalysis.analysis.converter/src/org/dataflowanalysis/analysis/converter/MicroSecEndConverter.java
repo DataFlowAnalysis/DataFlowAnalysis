@@ -1,15 +1,19 @@
 package org.dataflowanalysis.analysis.converter;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.lang.Process;
 import org.dataflowanalysis.analysis.converter.microsecend.*;
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
 
-public class MicroSecEndProcessor {
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class MicroSecEndConverter extends Converter {
     private final dataflowdiagramFactory dfdFactory;
     private final datadictionaryFactory ddFactory;
 
@@ -17,8 +21,7 @@ public class MicroSecEndProcessor {
     private final Map<Node, List<String>> nodeToLabelNames;
     private final Map<String, Label> labelMap;
 
-
-    public MicroSecEndProcessor() {
+    public MicroSecEndConverter() {
         dfdFactory = dataflowdiagramFactory.eINSTANCE;
         ddFactory = datadictionaryFactory.eINSTANCE;
 
@@ -158,5 +161,50 @@ public class MicroSecEndProcessor {
             }
         }
         return labels;
+    }
+
+    public DataFlowDiagramAndDictionary microToDfd(String inputFile) {
+        return microToDfd(loadMicro(inputFile));
+    }
+
+    public DataFlowDiagramAndDictionary microToDfd(MicroSecEnd inputFile) {
+        return processMicro(inputFile);
+    }
+
+    public MicroSecEnd loadMicro(String inputFile) {
+        objectMapper = new ObjectMapper();
+        file = new File(inputFile + ".json");
+        try {
+            return objectMapper.readValue(file, MicroSecEnd.class);
+        } catch (IOException e) {
+            logger.error(e);
+            return null;
+        }
+    }
+
+    public DataFlowDiagramAndDictionary plantToDFD(String inputFile) {
+        String name = inputFile.split("\\.")[0];
+        int exitCode = runPythonScript(inputFile, "json", name + ".json");
+        if (exitCode == 0) {
+            return microToDfd(name + ".json");
+        } else {
+            logger.error("Make sure python3 is installed and set in PATH");
+            return null;
+        }
+
+    }
+
+    public int runPythonScript(String in, String format, String out) {
+        String[] command = {"python3", "convert_model.py", in, format, "-op", out};
+
+        ProcessBuilder processBuilder = new ProcessBuilder(command);
+        Process process;
+        try {
+            process = processBuilder.start();
+            return process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            logger.error(e);
+        }
+        return -1;
     }
 }

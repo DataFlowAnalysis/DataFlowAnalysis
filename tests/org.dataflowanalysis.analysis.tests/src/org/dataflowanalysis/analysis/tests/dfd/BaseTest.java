@@ -1,10 +1,13 @@
 package org.dataflowanalysis.analysis.tests.dfd;
 
 import static org.dataflowanalysis.analysis.tests.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.function.Predicate;
+
+import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraph;
@@ -21,8 +24,21 @@ public class BaseTest {
         final var minimalDataFlowDiagramPath = Paths.get("models", "DFDTestModels", "BranchingTest.dataflowdiagram");
         final var minimalDataDictionaryPath = Paths.get("models", "DFDTestModels", "BranchingTest.datadictionary");
 
-        this.analysis = new DFDDataFlowAnalysisBuilder().standalone().modelProjectName(TEST_MODEL_PROJECT_NAME).usePluginActivator(Activator.class)
-                .useDataFlowDiagram(minimalDataFlowDiagramPath.toString()).useDataDictionary(minimalDataDictionaryPath.toString()).build();
+        this.analysis = new DFDDataFlowAnalysisBuilder()
+                .standalone()
+                .modelProjectName(TEST_MODEL_PROJECT_NAME)
+                .usePluginActivator(Activator.class)
+                .useDataFlowDiagram(minimalDataFlowDiagramPath.toString())
+                .useDataDictionary(minimalDataDictionaryPath.toString())
+                .build();
+    }
+
+    private List<? extends AbstractVertex<?>> getViolationsForConstraint(Predicate<? super AbstractVertex<?>> constraint) {
+        this.analysis.initializeAnalysis();
+        DFDFlowGraph flowGraph = this.analysis.findFlowGraph();
+        DFDFlowGraph propagatedFlowGraph = this.analysis.evaluateFlowGraph(flowGraph);
+
+        return analysis.queryDataFlow(propagatedFlowGraph.getPartialFlowGraphs().get(0), constraint);
     }
 
     @Test
@@ -34,38 +50,14 @@ public class BaseTest {
 
     @Test
     public void noVertexCharacteristics_returnsNoViolation() {
-        this.analysis.initializeAnalysis();
-        DFDFlowGraph flowGraph = analysis.findFlowGraph();
-        DFDFlowGraph propagatedFlowGraph = this.analysis.evaluateFlowGraph(flowGraph);
-
-        var results = analysis.queryDataFlow(propagatedFlowGraph.getPartialFlowGraphs().get(0), node -> {
-            return node.getAllNodeCharacteristics().size() == 0;
-        });
+        var results = this.getViolationsForConstraint(node -> node.getAllNodeCharacteristics().isEmpty());
         assertTrue(results.isEmpty());
     }
 
     @Test
     public void noVertexCharacteristics_returnsViolations() {
-        this.analysis.initializeAnalysis();
-        DFDFlowGraph flowGraph = analysis.findFlowGraph();
-        DFDFlowGraph propagatedFlowGraph = this.analysis.evaluateFlowGraph(flowGraph);
-
-        var results = analysis.queryDataFlow(propagatedFlowGraph.getPartialFlowGraphs().get(0), node -> {
-            return node.getAllNodeCharacteristics().size() != 0;
-        });
-        assertTrue(!results.isEmpty());
-    }
-
-    @Test
-    public void numberOfNodes_returnsNoViolation() {
-        this.analysis.initializeAnalysis();
-        DFDFlowGraph flowGraph = analysis.findFlowGraph();
-        DFDFlowGraph propagatedFlowGraph = this.analysis.evaluateFlowGraph(flowGraph);
-
-        var results = analysis.queryDataFlow(propagatedFlowGraph.getPartialFlowGraphs().get(0), node -> {
-            return node.getAllNodeCharacteristics().size() == 0;
-        });
-        assertTrue(results.isEmpty());
+        var results = this.getViolationsForConstraint(node -> !node.getAllNodeCharacteristics().isEmpty());
+        assertFalse(results.isEmpty());
     }
 
     @Test

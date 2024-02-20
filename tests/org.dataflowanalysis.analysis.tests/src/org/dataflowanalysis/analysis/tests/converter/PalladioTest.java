@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.converter.ProcessASS;
+import org.dataflowanalysis.analysis.converter.PalladioProcesser;
 import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.core.ActionSequence;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
@@ -65,11 +65,9 @@ public class PalladioTest {
             }
         }
 
-        ProcessASS ass2dfd = new ProcessASS();
+        PalladioProcesser ass2dfd = new PalladioProcesser();
 
-        ass2dfd.transform(propagationResult);
-
-        DataFlowDiagram dfd = ass2dfd.getDataFlowDiagram();
+        DataFlowDiagram dfd = ass2dfd.process(propagationResult).dataFlowDiagram();
 
         assertEquals(dfd.getNodes().size(), assIdToName.keySet().size());
 

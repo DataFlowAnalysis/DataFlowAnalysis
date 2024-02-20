@@ -14,11 +14,11 @@ public class ProcessDFD {
 
     private final Map<Pin, String> mapInputPinToFlowName = new HashMap<>();
 
-    public WebEditorDfd parse(DataFlowDiagram dfd, DataDictionary dd) {
+    public WebEditorDfd process(DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary) {
         List<Child> children = new ArrayList<>();
         List<WebEditorLabelType> labelTypes = new ArrayList<>();
 
-        for (LabelType labelType : dd.getLabelTypes()) {
+        for (LabelType labelType : dataDictionary.getLabelTypes()) {
             List<Value> values = new ArrayList<>();
             for (Label label : labelType.getLabel()) {
                 values.add(new Value(label.getId(), label.getEntityName()));
@@ -26,7 +26,7 @@ public class ProcessDFD {
             labelTypes.add(new WebEditorLabelType(labelType.getId(), labelType.getEntityName(), values));
         }
 
-        for (Flow flow : dfd.getFlows()) {
+        for (Flow flow : dataFlowDiagram.getFlows()) {
             String id = flow.getId();
             String type = "edge:arrow";
             String sourceId = flow.getSourcePin().getId();
@@ -36,7 +36,7 @@ public class ProcessDFD {
             children.add(new Child(text, null, null, id, type, sourceId, targetId, new ArrayList<>()));
         }
 
-        for (Node node : dfd.getNodes()) {
+        for (Node node : dataFlowDiagram.getNodes()) {
             String text = node.getEntityName();
             String id = node.getId();
             String type;

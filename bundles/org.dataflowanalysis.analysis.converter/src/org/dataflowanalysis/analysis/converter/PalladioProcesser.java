@@ -14,21 +14,13 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
 
-public class ProcessASS {
+public class PalladioProcesser {
 
     private final Map<Entity, Node> dfdNodeMap = new HashMap<>();
-    private final DataDictionary dd = datadictionaryFactory.eINSTANCE.createDataDictionary();
-    private final DataFlowDiagram dfd = dataflowdiagramFactory.eINSTANCE.createDataFlowDiagram();
+    private final DataDictionary dataDictionary = datadictionaryFactory.eINSTANCE.createDataDictionary();
+    private final DataFlowDiagram dataFlowDiagram = dataflowdiagramFactory.eINSTANCE.createDataFlowDiagram();
 
-    public DataDictionary getDictionary() {
-        return this.dd;
-    }
-
-    public DataFlowDiagram getDataFlowDiagram() {
-        return this.dfd;
-    }
-
-    public DataFlowDiagramAndDictionary transform(List<ActionSequence> ass) {
+    public DataFlowDiagramAndDictionary process(List<ActionSequence> ass) {
         for (ActionSequence actionSequence : ass) {
             Node previousNode = null;
             for (AbstractActionSequenceElement<?> ASE : actionSequence.getElements()) {
@@ -37,19 +29,18 @@ public class ProcessASS {
                 }
             }
         }
-        return new DataFlowDiagramAndDictionary(dfd, dd);
+        return new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary);
     }
 
     private Node processActionSequenceElement(AbstractPCMActionSequenceElement<? extends Entity> pcmASE, Node previousDFDNode) {
         Node dfdNode = getOrCreateDFDNode(pcmASE);
 
-        // Add a flow between previous node and current node
-        createFlows(previousDFDNode, dfdNode, pcmASE);
+        createFlowBetweenPreviousAndCurrentNode(previousDFDNode, dfdNode, pcmASE);
 
         return dfdNode;
     }
 
-    private void createFlows(Node source, Node dest, AbstractPCMActionSequenceElement<? extends Entity> pcmASE) {
+    private void createFlowBetweenPreviousAndCurrentNode(Node source, Node dest, AbstractPCMActionSequenceElement<? extends Entity> pcmASE) {
         if (source == null || dest == null) {
             return;
         }
@@ -57,11 +48,11 @@ public class ProcessASS {
         for (DataFlowVariable flowVariable : FlowVariables) {
             String flowName = flowVariable.variableName();
 
-            Optional<Flow> optFlow = dfd.getFlows().stream().filter(f -> f.getSourceNode().equals(source))
+            Optional<Flow> optFlow = dataFlowDiagram.getFlows().stream().filter(f -> f.getSourceNode().equals(source))
                     .filter(f -> f.getDestinationNode().equals(dest)).filter(f -> f.getEntityName().equals(flowName)).findFirst();
 
             if (optFlow.isPresent()) {
-                return; // possibly modify behavior later on
+                return;
             }
 
             Flow newFlow = dataflowdiagramFactory.eINSTANCE.createFlow();
@@ -69,19 +60,17 @@ public class ProcessASS {
             newFlow.setDestinationNode(dest);
             newFlow.setEntityName(flowName);
 
-            // Assumption in Palladio: Each flows between two nodes with the same paramenters/that are called the same use the same
-            // pin
+            //Palladio Assumption: Each flows between two nodes with the same parameters/that are called the same use the same pin
             Pin sourceOutPin = findOrCreateOutputPin(source, flowName);
             Pin destInPin = findOrCreateInputPin(dest, flowName);
             newFlow.setSourcePin(sourceOutPin);
             newFlow.setDestinationPin(destInPin);
 
-            // modify behavior
             ForwardingAssignment forwarding = datadictionaryFactory.eINSTANCE.createForwardingAssignment();
             forwarding.setOutputPin(sourceOutPin);
             source.getBehaviour().getAssignment().add(forwarding);
 
-            this.dfd.getFlows().add(newFlow);
+            this.dataFlowDiagram.getFlows().add(newFlow);
         }
     }
 
@@ -139,8 +128,8 @@ public class ProcessASS {
         node.setEntityName(pcmASE.getElement().getEntityName());
         node.setId(pcmASE.getElement().getId());
         node.setBehaviour(behaviour);
-        dd.getBehaviour().add(behaviour);
-        dfd.getNodes().add(node);
+        dataDictionary.getBehaviour().add(behaviour);
+        dataFlowDiagram.getNodes().add(node);
         return node;
     }
 
@@ -154,12 +143,12 @@ public class ProcessASS {
     }
 
     private Label getOrCreateDFDLabel(CharacteristicValue charValue) {
-        LabelType type = dd.getLabelTypes().stream().filter(f -> f.getEntityName().equals(charValue.getTypeName())).findFirst().orElse(null);
+        LabelType type = dataDictionary.getLabelTypes().stream().filter(f -> f.getEntityName().equals(charValue.getTypeName())).findFirst().orElse(null);
 
         if (type == null) {
             type = datadictionaryFactory.eINSTANCE.createLabelType();
             type.setEntityName(charValue.getTypeName());
-            this.dd.getLabelTypes().add(type);
+            this.dataDictionary.getLabelTypes().add(type);
         }
 
         Label label = type.getLabel().stream().filter(f -> f.getEntityName().equals(charValue.getValueName())).findFirst().orElse(null);

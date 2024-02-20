@@ -57,11 +57,11 @@ public class Converter {
 
     public WebEditorDfd dfdToWeb(String inputFile) {
         DataFlowDiagramAndDictionary complete = loadDFD(inputFile);
-        return new ProcessDFD().parse(complete.dataFlowDiagram(), complete.dataDictionary());
+        return new ProcessDFD().process(complete.dataFlowDiagram(), complete.dataDictionary());
     }
 
     public WebEditorDfd dfdToWeb(DataFlowDiagramAndDictionary complete) {
-        return new ProcessDFD().parse(complete.dataFlowDiagram(), complete.dataDictionary());
+        return new ProcessDFD().process(complete.dataFlowDiagram(), complete.dataDictionary());
     }
 
     public DataFlowDiagramAndDictionary plantToDFD(String inputFile) {
@@ -90,9 +90,9 @@ public class Converter {
         var sequences = analysis.findAllSequences();
         var propagationResult = analysis.evaluateDataFlows(sequences);
 
-        ProcessASS ass2dfd = new ProcessASS();
+        PalladioProcesser ass2dfd = new PalladioProcesser();
 
-        return ass2dfd.transform(propagationResult);
+        return ass2dfd.process(propagationResult);
     }
 
     public int runPythonScript(String in, String format, String out) {

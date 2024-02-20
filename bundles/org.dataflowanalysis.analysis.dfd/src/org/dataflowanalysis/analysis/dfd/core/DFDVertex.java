@@ -114,22 +114,29 @@ public class DFDVertex extends AbstractVertex<Node> {
     }
 
     /**
-     * Create Data Flow Variables from Map mapping Input/Output Pin to labels
+     * Create Data Flow Variables from Map mapping Input/Output Pin to labels.
+     * Important:   The name of the data flow variable is equal to the id of the pin.
+     *              Any changes in the data flow variable naming scheme will require changes in the evaluation logic
      * @param pinToLabelMap Map mapping Input/Output Pin to labels
      * @return List of created Data Flow Variables
      */
     private List<DataFlowVariable> createDataFlowVariablesFromLabels(Map<Pin, List<Label>> pinToLabelMap) {
-        List<DataFlowVariable> dataFlowVariables = new ArrayList<>();
-        for (var pin : pinToLabelMap.keySet()) {
-            List<CharacteristicValue> characteristics = new ArrayList<>();
-            for (var label : pinToLabelMap.get(pin)) {
-                characteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label));
-            }
-            characteristics = characteristics.stream().filter(distinctByKey(CharacteristicValue::getValueId)).collect(Collectors.toList());
-            //Important: Don't change DFV naming scheme without changing evaluation logic
-            dataFlowVariables.add(new DataFlowVariable(pin.getId(), characteristics));
-        }
-        return dataFlowVariables;
+        return pinToLabelMap.keySet().stream()
+                .map(pin -> new DataFlowVariable(pin.getId(), this.getCharacteristicValuesForPin(pin, pinToLabelMap)))
+                .toList();
+    }
+
+    /**
+     * Determines the characteristic values present for a pin, given the mapping
+     * @param pin Pin of which the characteristic values shall be calculated
+     * @param pinToLabelMap Mapping of a pin to the assigned labels
+     * @return Returns a list of characteristic values assigned to the given pin
+     */
+    private List<CharacteristicValue> getCharacteristicValuesForPin(Pin pin, Map<Pin, List<Label>> pinToLabelMap) {
+        return pinToLabelMap.get(pin).stream()
+                .map(label -> new DFDCharacteristicValue((LabelType) label.eContainer(), label))
+                .filter(distinctByKey(CharacteristicValue::getValueId))
+                .collect(Collectors.toList());
     }
 
     /**

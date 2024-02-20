@@ -173,7 +173,7 @@ public class MicroSecEndConverter extends Converter {
 
     public MicroSecEnd loadMicro(String inputFile) {
         objectMapper = new ObjectMapper();
-        file = new File(inputFile + ".json");
+        file = new File(inputFile);
         try {
             return objectMapper.readValue(file, MicroSecEnd.class);
         } catch (IOException e) {

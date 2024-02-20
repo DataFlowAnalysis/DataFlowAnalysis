@@ -363,8 +363,8 @@ public class DataFlowDiagramConverter extends Converter {
         return processWeb(inputFile);
     }
 
-    public WebEditorDfd dfdToWeb(String inputFile) {
-        DataFlowDiagramAndDictionary complete = loadDFD(inputFile);
+    public WebEditorDfd dfdToWeb(String inputDataFlowDiagram, String inputDataDictionary) {
+        DataFlowDiagramAndDictionary complete = loadDFD(inputDataFlowDiagram,inputDataDictionary);
         return processDfd(complete.dataFlowDiagram(), complete.dataDictionary());
     }
 
@@ -378,7 +378,7 @@ public class DataFlowDiagramConverter extends Converter {
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         try {
-            objectMapper.writeValue(new File(outputFile + ".json"), web);
+            objectMapper.writeValue(new File(outputFile), web);
         } catch (IOException e) {
             logger.error(e);
         }
@@ -386,7 +386,7 @@ public class DataFlowDiagramConverter extends Converter {
 
     public WebEditorDfd loadWeb(String inputFile) {
         objectMapper = new ObjectMapper();
-        file = new File(inputFile + ".json");
+        file = new File(inputFile);
         try {
             return objectMapper.readValue(file, WebEditorDfd.class);
         } catch (IOException e) {
@@ -395,13 +395,13 @@ public class DataFlowDiagramConverter extends Converter {
         }
     }
 
-    public DataFlowDiagramAndDictionary loadDFD(String inputFile) {
+    public DataFlowDiagramAndDictionary loadDFD(String inputDataFlowDiagram, String inputDataDictionary) {
         ResourceSet rs = new ResourceSetImpl();
         rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
         rs.getPackageRegistry().put(dataflowdiagramPackage.eNS_URI, dataflowdiagramPackage.eINSTANCE);
 
-        Resource dfdResource = rs.getResource(URI.createFileURI(inputFile + ".dataflowdiagram"), true);
-        Resource ddResource = rs.getResource(URI.createFileURI(inputFile + ".datadictionary"), true);
+        Resource dfdResource = rs.getResource(URI.createFileURI(inputDataFlowDiagram), true);
+        Resource ddResource = rs.getResource(URI.createFileURI(inputDataDictionary), true);
 
         DataFlowDiagram dfd = (DataFlowDiagram) dfdResource.getContents().get(0);
         DataDictionary dd = (DataDictionary) ddResource.getContents().get(0);

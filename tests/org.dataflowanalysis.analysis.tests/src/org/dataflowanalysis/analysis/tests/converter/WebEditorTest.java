@@ -22,6 +22,9 @@ public class WebEditorTest extends ConverterTest {
     private DataFlowDiagramConverter converter;
     
     private final String MINIMAL = Paths.get(packagePath,"minimal.json").toString();
+    private final String TEST = Paths.get(packagePath,"test.json").toString();
+    private final String MINIMALDFD = Paths.get(packagePath,"minimal.dataflowdiagram").toString();
+    private final String MINIMALDD = Paths.get(packagePath,"minimal.datadictionary").toString();
 
     @BeforeEach
     public void setup() {
@@ -31,7 +34,7 @@ public class WebEditorTest extends ConverterTest {
     @Test
     @DisplayName("Test Web -> DFD -> Web")
     public void webToDfdToWeb() throws StreamReadException, DatabindException, IOException {
-        DataFlowDiagramAndDictionary dfdBefore = converter.webToDfd(packagePath + "minimal");
+        DataFlowDiagramAndDictionary dfdBefore = converter.webToDfd(MINIMAL);
         WebEditorDfd webAfter = converter.dfdToWeb(dfdBefore);
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -53,17 +56,17 @@ public class WebEditorTest extends ConverterTest {
         WebEditorDfd webBefore = objectMapper.readValue(file, WebEditorDfd.class);
         DataFlowDiagramAndDictionary completeBefore = converter.webToDfd(webBefore);
 
-        converter.store(webBefore, packagePath + "test");
-        converter.store(completeBefore, packagePath + "minimal");
+        converter.store(webBefore, TEST);
+        converter.store(completeBefore, MINIMAL);
 
-        WebEditorDfd webAfter = converter.loadWeb(packagePath + "test");
-        DataFlowDiagramAndDictionary completeAfter = converter.loadDFD(packagePath + "minimal");
+        WebEditorDfd webAfter = converter.loadWeb(TEST);
+        DataFlowDiagramAndDictionary completeAfter = converter.loadDFD(MINIMALDFD,MINIMALDD);
 
         assertEquals(webBefore, webAfter);
         assertNotNull(completeAfter);
 
-        Paths.get(packagePath, "minimal.datadictionary").toFile().delete();
-        Paths.get(packagePath, "minimal.dataflowdiagram").toFile().delete();
-        Paths.get(packagePath, "test.json").toFile().delete();
+        cleanup(MINIMALDFD);
+        cleanup(MINIMALDD);
+        cleanup(TEST);
     }
 }

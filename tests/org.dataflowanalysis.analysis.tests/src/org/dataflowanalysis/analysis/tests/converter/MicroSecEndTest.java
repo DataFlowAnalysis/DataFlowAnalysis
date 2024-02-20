@@ -67,10 +67,8 @@ public class MicroSecEndTest extends ConverterTest {
     @Test
     @DisplayName("Test Micro -> DFD")
     public void microToDfd() throws StreamReadException, DatabindException, IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File(ANILALLEWAR);
-        MicroSecEnd micro = objectMapper.readValue(file, MicroSecEnd.class);
-        DataFlowDiagramAndDictionary complete = new MicroSecEndConverter().microToDfd(micro);
+        MicroSecEnd micro = converter.loadMicro(ANILALLEWAR);
+        DataFlowDiagramAndDictionary complete = converter.microToDfd(micro);
 
         DataFlowDiagram dfd = complete.dataFlowDiagram();
 

@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.function.Predicate;
-
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
@@ -24,13 +23,8 @@ public class BaseTest {
         final var minimalDataFlowDiagramPath = Paths.get("models", "DFDTestModels", "BranchingTest.dataflowdiagram");
         final var minimalDataDictionaryPath = Paths.get("models", "DFDTestModels", "BranchingTest.datadictionary");
 
-        this.analysis = new DFDDataFlowAnalysisBuilder()
-                .standalone()
-                .modelProjectName(TEST_MODEL_PROJECT_NAME)
-                .usePluginActivator(Activator.class)
-                .useDataFlowDiagram(minimalDataFlowDiagramPath.toString())
-                .useDataDictionary(minimalDataDictionaryPath.toString())
-                .build();
+        this.analysis = new DFDDataFlowAnalysisBuilder().standalone().modelProjectName(TEST_MODEL_PROJECT_NAME).usePluginActivator(Activator.class)
+                .useDataFlowDiagram(minimalDataFlowDiagramPath.toString()).useDataDictionary(minimalDataDictionaryPath.toString()).build();
     }
 
     private List<? extends AbstractVertex<?>> getViolationsForConstraint(Predicate<? super AbstractVertex<?>> constraint) {

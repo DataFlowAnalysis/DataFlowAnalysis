@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 import java.nio.file.Paths;
 import java.util.List;
-
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;

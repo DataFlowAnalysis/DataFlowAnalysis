@@ -153,7 +153,8 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
                     .registerProjectURI(DataFlowConfidentialityAnalysis.class, DataFlowConfidentialityAnalysis.PLUGIN_PATH)
                     .registerProjectURI(PCMDataFlowConfidentialityAnalysis.class, PCMDataFlowConfidentialityAnalysis.PLUGIN_PATH);
 
-            this.modelProjectActivator.ifPresent(projectActivator -> initializationBuilder.registerProjectURI(projectActivator, this.modelProjectName));
+            this.modelProjectActivator
+                    .ifPresent(projectActivator -> initializationBuilder.registerProjectURI(projectActivator, this.modelProjectName));
 
             initializationBuilder.build().init();
 

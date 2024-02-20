@@ -10,7 +10,6 @@ import java.util.concurrent.ConcurrentHashMap.KeySetView;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
@@ -31,8 +30,7 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 
 /**
- * This class represents a vertex references a node in the dfd model.
- * Multiple dfd vertices may reference the same node
+ * This class represents a vertex references a node in the dfd model. Multiple dfd vertices may reference the same node
  */
 public class DFDVertex extends AbstractVertex<Node> {
     private final Map<Pin, DFDVertex> mapPinToPreviousVertex;
@@ -42,8 +40,8 @@ public class DFDVertex extends AbstractVertex<Node> {
      * Creates a new vertex with the given referenced node and pin mappings
      * @param node Node that is referenced by the vertex
      * @param mapPinToPreviousVertex Map containing relationships between the pins of the vertex and previous vertices
-     * @param mapPinToInputFlow Map containing relationships between the pins of the vertex
-     *                          and the flows connecting the node to other vertices
+     * @param mapPinToInputFlow Map containing relationships between the pins of the vertex and the flows connecting the
+     * node to other vertices
      */
     public DFDVertex(Node node, Map<Pin, DFDVertex> mapPinToPreviousVertex, Map<Pin, Flow> mapPinToInputFlow) {
         super(node);
@@ -67,8 +65,7 @@ public class DFDVertex extends AbstractVertex<Node> {
         this.getReferencedElement().getProperties()
                 .forEach(label -> nodeCharacteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label)));
 
-        previousVertices.keySet()
-                .forEach(pin -> previousVertices.get(pin).evaluateDataFlow());
+        previousVertices.keySet().forEach(pin -> previousVertices.get(pin).evaluateDataFlow());
 
         // Create Map with all incoming Labels per pin
         for (var pin : this.getMapPinToInputFlow().keySet()) {
@@ -97,7 +94,7 @@ public class DFDVertex extends AbstractVertex<Node> {
     }
 
     private void handleOutgoingAssignments(AbstractAssignment assignment, Map<Pin, List<Label>> mapInputPinsToIncomingLabels,
-                                           Map<Pin, List<Label>> mapOutputPinToOutgoingLabels) {
+            Map<Pin, List<Label>> mapOutputPinToOutgoingLabels) {
         List<Label> incomingLabels = combineLabelsOnAllInputPins(assignment, mapInputPinsToIncomingLabels);
 
         if (assignment instanceof ForwardingAssignment) {
@@ -114,15 +111,14 @@ public class DFDVertex extends AbstractVertex<Node> {
     }
 
     /**
-     * Create Data Flow Variables from Map mapping Input/Output Pin to labels.
-     * Important:   The name of the data flow variable is equal to the id of the pin.
-     *              Any changes in the data flow variable naming scheme will require changes in the evaluation logic
+     * Create Data Flow Variables from Map mapping Input/Output Pin to labels. Important: The name of the data flow variable
+     * is equal to the id of the pin. Any changes in the data flow variable naming scheme will require changes in the
+     * evaluation logic
      * @param pinToLabelMap Map mapping Input/Output Pin to labels
      * @return List of created Data Flow Variables
      */
     private List<DataFlowVariable> createDataFlowVariablesFromLabels(Map<Pin, List<Label>> pinToLabelMap) {
-        return pinToLabelMap.keySet().stream()
-                .map(pin -> new DataFlowVariable(pin.getId(), this.getCharacteristicValuesForPin(pin, pinToLabelMap)))
+        return pinToLabelMap.keySet().stream().map(pin -> new DataFlowVariable(pin.getId(), this.getCharacteristicValuesForPin(pin, pinToLabelMap)))
                 .toList();
     }
 
@@ -133,10 +129,8 @@ public class DFDVertex extends AbstractVertex<Node> {
      * @return Returns a list of characteristic values assigned to the given pin
      */
     private List<CharacteristicValue> getCharacteristicValuesForPin(Pin pin, Map<Pin, List<Label>> pinToLabelMap) {
-        return pinToLabelMap.get(pin).stream()
-                .map(label -> new DFDCharacteristicValue((LabelType) label.eContainer(), label))
-                .filter(distinctByKey(CharacteristicValue::getValueId))
-                .collect(Collectors.toList());
+        return pinToLabelMap.get(pin).stream().map(label -> new DFDCharacteristicValue((LabelType) label.eContainer(), label))
+                .filter(distinctByKey(CharacteristicValue::getValueId)).collect(Collectors.toList());
     }
 
     /**
@@ -203,36 +197,34 @@ public class DFDVertex extends AbstractVertex<Node> {
         }
         this.getMapPinToPreviousVertex().values().forEach(vertex -> vertex.unify(vertices));
     }
-       
 
     /**
      * Creates a clone of the vertex without considering data flow variables nor characteristics
      */
     public DFDVertex clone() {
         Map<Pin, DFDVertex> newMapPinToPreviousVertex = new HashMap<>();
-        this.mapPinToPreviousVertex.keySet()
-                .forEach(key -> newMapPinToPreviousVertex.put(key, this.mapPinToPreviousVertex.get(key).clone()));
+        this.mapPinToPreviousVertex.keySet().forEach(key -> newMapPinToPreviousVertex.put(key, this.mapPinToPreviousVertex.get(key).clone()));
         return new DFDVertex(this.referencedElement, newMapPinToPreviousVertex, new HashMap<>(this.mapPinToInputFlow));
     }
-    
+
     @Override
-	public String toString() {
-		return String.format("(%s, %s)", this.referencedElement.getEntityName(), this.referencedElement.getId());
-	}
-    
+    public String toString() {
+        return String.format("(%s, %s)", this.referencedElement.getEntityName(), this.referencedElement.getId());
+    }
+
     @Override
     public boolean equals(Object other) {
-    	if (!(other instanceof DFDVertex vertex))
+        if (!(other instanceof DFDVertex vertex))
             return false;
         if (!this.referencedElement.equals(vertex.getReferencedElement()))
-		    return false;
-		for (var key : this.getMapPinToPreviousVertex().keySet()) {
-		    if (!this.getMapPinToPreviousVertex().get(key).equals(vertex.getMapPinToPreviousVertex().get(key)))
-		        return false;
-		}
-		return true;
+            return false;
+        for (var key : this.getMapPinToPreviousVertex().keySet()) {
+            if (!this.getMapPinToPreviousVertex().get(key).equals(vertex.getMapPinToPreviousVertex().get(key)))
+                return false;
+        }
+        return true;
     }
-    
+
     @Override
     public List<AbstractVertex<?>> getPreviousElements() {
         return new ArrayList<>(this.mapPinToPreviousVertex.values());
@@ -247,8 +239,8 @@ public class DFDVertex extends AbstractVertex<Node> {
     }
 
     /**
-     * Returns the mapping between pins of the node and the connected input flows
-     * connecting the vertex to the previous vertices
+     * Returns the mapping between pins of the node and the connected input flows connecting the vertex to the previous
+     * vertices
      * @return Returns the mapping between pins and incoming flows
      */
     public Map<Pin, Flow> getMapPinToInputFlow() {

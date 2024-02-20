@@ -4,14 +4,13 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * This class represents a data flow variable with a given name and a list of {@link CharacteristicValue}s
- * An element can be represented as such:
- * {@code <variableName>.<characteristicType>.<characteristicValue> }
+ * This class represents a data flow variable with a given name and a list of {@link CharacteristicValue}s An element
+ * can be represented as such: {@code <variableName>.<characteristicType>.<characteristicValue> }
  */
 public record DataFlowVariable(String variableName, List<CharacteristicValue> characteristics) {
 
     /**
-     * Constructs a data flow variable with a given name and an empty list of characteristic values 
+     * Constructs a data flow variable with a given name and an empty list of characteristic values
      * @param variableName Name of the data flow variable
      */
     public DataFlowVariable(String variableName) {
@@ -29,12 +28,11 @@ public record DataFlowVariable(String variableName, List<CharacteristicValue> ch
     }
 
     /**
-     * Determines, whether the data flow variable has a characteristic value applied.
-     * This is determined by {@link Object#equals(Object)}.
-     * 
+     * Determines, whether the data flow variable has a characteristic value applied. This is determined by
+     * {@link Object#equals(Object)}.
      * @param characteristic Characteristic value that is searched
-     * @return  Returns true, if the data flow variable has the characteristic value applied.
-     *          Otherwise, the method returns false.
+     * @return Returns true, if the data flow variable has the characteristic value applied. Otherwise, the method returns
+     * false.
      */
     public boolean hasCharacteristic(CharacteristicValue characteristic) {
         return this.characteristics.contains(characteristic);
@@ -49,8 +47,8 @@ public record DataFlowVariable(String variableName, List<CharacteristicValue> ch
     }
 
     /**
-     * Returns the name of the data flow variable.
-     * For the data flow variable {@code ccd.Sensitivity.Personal}, it will return {@code ccd}
+     * Returns the name of the data flow variable. For the data flow variable {@code ccd.Sensitivity.Personal}, it will
+     * return {@code ccd}
      * @return Returns the name of the data flow variable.
      */
     public String getVariableName() {

@@ -127,9 +127,7 @@ public abstract class ResourceProvider {
 
         while (!stack.isEmpty()) {
             EObject top = stack.pop();
-            stack.addAll(top.eContents().stream()
-                    .filter(it -> !(visitedNodes.containsKey(it) && visitedNodes.get(it)))
-                    .toList());
+            stack.addAll(top.eContents().stream().filter(it -> !(visitedNodes.containsKey(it) && visitedNodes.get(it))).toList());
 
             if (visitedNodes.containsKey(top) && visitedNodes.get(top)) {
                 continue;

@@ -3,7 +3,6 @@ package org.dataflowanalysis.analysis.pcm.core.user;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
@@ -75,7 +74,7 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
         CallingUserPCMVertex copy = new CallingUserPCMVertex(referencedElement, List.of(), isCalling, resourceProvider);
         return super.updateCopy(copy, isomorphism);
     }
-    
+
     @Override
     public boolean equals(Object otherVertexObject) {
         if (!(otherVertexObject instanceof CallingUserPCMVertex otherVertex)) {

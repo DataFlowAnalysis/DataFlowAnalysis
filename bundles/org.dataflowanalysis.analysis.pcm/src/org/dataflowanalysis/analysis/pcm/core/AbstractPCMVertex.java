@@ -4,7 +4,6 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
@@ -44,7 +43,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      * @param resourceProvider Resource provider of the vertex used to calculate vertex and data characteristics
      */
     public AbstractPCMVertex(T referencedElement, List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
-                             ResourceProvider resourceProvider) {
+            ResourceProvider resourceProvider) {
         super(referencedElement);
         this.context = context;
         this.resourceProvider = resourceProvider;
@@ -76,14 +75,11 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     }
 
     protected List<DataFlowVariable> getIncomingDataFlowVariables() {
-        if (super.isSource()) return List.of();
+        if (super.isSource())
+            return List.of();
 
-        this.getPreviousElements().stream()
-                .filter(it -> !it.isEvaluated())
-                .forEach(AbstractVertex::evaluateDataFlow);
-        return this.getPreviousElements().stream()
-                .flatMap(it -> it.getAllOutgoingDataFlowVariables().stream())
-                .collect(Collectors.toList());
+        this.getPreviousElements().stream().filter(it -> !it.isEvaluated()).forEach(AbstractVertex::evaluateDataFlow);
+        return this.getPreviousElements().stream().flatMap(it -> it.getAllOutgoingDataFlowVariables().stream()).collect(Collectors.toList());
     }
 
     /**
@@ -96,8 +92,8 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     }
 
     /**
-     * Calculate the data characteristics for the vertex with the given vertex
-     * characteristics, variable characterizations and old data flow variables
+     * Calculate the data characteristics for the vertex with the given vertex characteristics, variable characterizations
+     * and old data flow variables
      * @param vertexCharacteristics Vertex characteristics present at the vertex
      * @param variableCharacterisations Variable characterizations present in the model
      * @param oldDataFlowVariables Old data flow variables present at the node
@@ -135,9 +131,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
         }
         isomorphism.put(this, copy);
 
-        List<? extends AbstractPCMVertex<?>> clonedPreviousElements = this.previousElements.stream()
-                .map(it -> it.deepCopy(isomorphism))
-                .toList();
+        List<? extends AbstractPCMVertex<?>> clonedPreviousElements = this.previousElements.stream().map(it -> it.deepCopy(isomorphism)).toList();
 
         copy.setPreviousElements(clonedPreviousElements);
         return copy;
@@ -158,7 +152,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     public Deque<AssemblyContext> getContext() {
         return context;
     }
-    
+
     @Override
     public boolean equals(Object otherVertexObject) {
         if (!(otherVertexObject instanceof AbstractPCMVertex<?> otherVertex)) {

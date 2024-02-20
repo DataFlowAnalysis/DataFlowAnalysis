@@ -170,9 +170,7 @@ public class PCMQueryUtils {
             Optional<RequiredRole> outerRequiredRole = composedStructure.getConnectors__ComposedStructure().stream()
                     .filter(RequiredDelegationConnector.class::isInstance).map(RequiredDelegationConnector.class::cast)
                     .filter(it -> it.getInnerRequiredRole_RequiredDelegationConnector().equals(requiredRole))
-                    .map(RequiredDelegationConnector::getOuterRequiredRole_RequiredDelegationConnector)
-                    .map(RequiredRole.class::cast)
-                    .findFirst();
+                    .map(RequiredDelegationConnector::getOuterRequiredRole_RequiredDelegationConnector).map(RequiredRole.class::cast).findFirst();
 
             if (outerRequiredRole.isEmpty()) {
                 throw new IllegalStateException("Unable to retrieve outer required role.");

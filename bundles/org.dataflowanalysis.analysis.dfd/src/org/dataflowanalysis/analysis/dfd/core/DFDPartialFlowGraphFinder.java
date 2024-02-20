@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
@@ -30,8 +29,7 @@ public class DFDPartialFlowGraphFinder {
         List<AbstractPartialFlowGraph> sequences = new ArrayList<>();
 
         for (var endNode : endNodes) {
-            for (var sink : buildRec(new DFDVertex(endNode, new HashMap<>(), new HashMap<>()), dfd.getFlows(),
-                    endNode.getBehaviour().getInPin())) {
+            for (var sink : buildRec(new DFDVertex(endNode, new HashMap<>(), new HashMap<>()), dfd.getFlows(), endNode.getBehaviour().getInPin())) {
                 sink.unify(new HashSet<>());
                 sequences.add(new DFDPartialFlowGraph(sink));
             }
@@ -56,8 +54,7 @@ public class DFDPartialFlowGraphFinder {
                     for (var vertex : vertices) {
                         Node previousNode = flow.getSourceNode();
                         List<Pin> previousNodeInputPins = getAllPreviousNodeInputPins(previousNode, flow);
-                        List<DFDVertex> previousNodeVertices = buildRec(
-                                new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()), flows,
+                        List<DFDVertex> previousNodeVertices = buildRec(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()), flows,
                                 previousNodeInputPins);
                         newVertices.addAll(cloneVertexForMultipleFlowGraphs(vertex, inputPin, flow, previousNodeVertices));
                     }
@@ -67,16 +64,16 @@ public class DFDPartialFlowGraphFinder {
         }
         return vertices;
     }
-    
+
     /**
-     * Calculate all input pins required on the previous node that will be needed to satisfy the assignments
-     * to reach the present node
+     * Calculate all input pins required on the previous node that will be needed to satisfy the assignments to reach the
+     * present node
      * @param previousNode Previous node
      * @param flow Flow from previous into present node
      * @return List of all required pins
      */
     private static List<Pin> getAllPreviousNodeInputPins(Node previousNode, Flow flow) {
-    	List<Pin> previousNodeInputPins = new ArrayList<>();
+        List<Pin> previousNodeInputPins = new ArrayList<>();
         for (var assignment : previousNode.getBehaviour().getAssignment()) {
             if (assignment.getOutputPin().equals(flow.getSourcePin())) {
                 previousNodeInputPins.addAll(assignment.getInputPins());
@@ -84,7 +81,7 @@ public class DFDPartialFlowGraphFinder {
         }
         return previousNodeInputPins;
     }
-    
+
     /**
      * Clones a vertex with its predecessors to use in multiple other flow graphs
      * @param vertex Vertex that should be cloned
@@ -94,14 +91,14 @@ public class DFDPartialFlowGraphFinder {
      * @return Returns a list of cloned vertices required for usage in multiple flow graphs
      */
     private static List<DFDVertex> cloneVertexForMultipleFlowGraphs(DFDVertex vertex, Pin inputPin, Flow flow, List<DFDVertex> previousNodeVertices) {
-    	List<DFDVertex> newVertices = new ArrayList<>();
-    	for (var previousVertex : previousNodeVertices) {
+        List<DFDVertex> newVertices = new ArrayList<>();
+        for (var previousVertex : previousNodeVertices) {
             DFDVertex newVertex = vertex.clone();
             newVertex.getMapPinToPreviousVertex().put(inputPin, previousVertex);
             newVertex.getMapPinToInputFlow().put(inputPin, flow);
             newVertices.add(newVertex);
         }
-    	return newVertices;
+        return newVertices;
     }
 
     /**

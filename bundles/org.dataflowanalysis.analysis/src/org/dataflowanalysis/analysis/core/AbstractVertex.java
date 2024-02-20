@@ -126,27 +126,26 @@ public abstract class AbstractVertex<T> {
      * Returns a list of characteristic literals that are set for a given characteristic type in the list of all node
      * characteristics
      * <p>
-     * See {@link AbstractVertex#getDataFlowCharacteristicNamesWithType(String)} for a similar method for data flow variables
+     * See {@link AbstractVertex#getDataFlowCharacteristicNamesWithType(String)} for a similar method for data flow
+     * variables
      * @param name Name of the characteristic type
      * @return Returns a list of all characteristic literals matching the characteristic type
      */
     public List<String> getNodeCharacteristicNamesWithName(String name) {
-        return this.getAllNodeCharacteristics().stream().filter(cv -> cv.getTypeName().equals(name))
-                .map(CharacteristicValue::getValueName)
+        return this.getAllNodeCharacteristics().stream().filter(cv -> cv.getTypeName().equals(name)).map(CharacteristicValue::getValueName)
                 .collect(Collectors.toList());
     }
 
     /**
      * Returns a list of characteristic literals that are set for a given characteristic type in the list of all node
-     * characteristics  
+     * characteristics
      * <p>
      * See {@link AbstractVertex#getDataFlowCharacteristicIdsWithType(String)} for a similar method for data flow variables
      * @param name Name of the characteristic type
      * @return Returns a list of all characteristic literals matching the characteristic type
      */
     public List<String> getNodeCharacteristicIdsWithName(String name) {
-        return this.getAllNodeCharacteristics().stream().filter(cv -> cv.getTypeName().equals(name))
-                .map(CharacteristicValue::getValueId)
+        return this.getAllNodeCharacteristics().stream().filter(cv -> cv.getTypeName().equals(name)).map(CharacteristicValue::getValueId)
                 .collect(Collectors.toList());
     }
 
@@ -215,8 +214,8 @@ public abstract class AbstractVertex<T> {
     /**
      * Returns a string with the names of all characteristic types and selected literals of all characteristic values.
      * @param characteristics a list of characteristics values
-     * @return  a comma separated list of the format:
-     *          "CharacteristicType.CharacteristicLiteral, CharacteristicType.CharacteristicLiteral"
+     * @return a comma separated list of the format: "CharacteristicType.CharacteristicLiteral,
+     * CharacteristicType.CharacteristicLiteral"
      */
     public String createPrintableCharacteristicsList(List<CharacteristicValue> characteristics) {
         List<String> entries = characteristics.stream().map(it -> String.format("%s.%s", it.getTypeName(), it.getValueName())).toList();

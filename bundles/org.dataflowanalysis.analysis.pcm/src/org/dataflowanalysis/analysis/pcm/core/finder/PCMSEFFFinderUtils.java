@@ -57,16 +57,16 @@ public class PCMSEFFFinderUtils {
 
     private static List<PCMPartialFlowGraph> findSequencesForSEFFStartAction(StartAction currentAction, SEFFFinderContext context,
             PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
-        var startElement = new SEFFPCMVertex<>(currentAction, List.of(previousSequence.getSink()), context.getContext(),
-                context.getParameter(), resourceProvider);
+        var startElement = new SEFFPCMVertex<>(currentAction, List.of(previousSequence.getSink()), context.getContext(), context.getParameter(),
+                resourceProvider);
         var currentSequence = new PCMPartialFlowGraph(startElement);
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction(), context, currentSequence, resourceProvider);
     }
 
     private static List<PCMPartialFlowGraph> findSequencesForSEFFStopAction(StopAction currentAction, SEFFFinderContext context,
             PCMPartialFlowGraph previousSequence, ResourceProvider resourceProvider) {
-        var stopElement = new SEFFPCMVertex<>(currentAction, List.of(previousSequence.getSink()), context.getContext(),
-                context.getParameter(), resourceProvider);
+        var stopElement = new SEFFPCMVertex<>(currentAction, List.of(previousSequence.getSink()), context.getContext(), context.getParameter(),
+                resourceProvider);
         var currentSequence = new PCMPartialFlowGraph(stopElement);
 
         Optional<AbstractAction> parentAction = PCMQueryUtils.findParentOfType(currentAction, AbstractAction.class, false);

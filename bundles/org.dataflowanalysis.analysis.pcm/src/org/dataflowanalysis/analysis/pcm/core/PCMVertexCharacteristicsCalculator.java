@@ -59,13 +59,10 @@ public class PCMVertexCharacteristicsCalculator {
         } else {
             throw new IllegalArgumentException("Unknown assignee:" + node.toString());
         }
-        List<EnumCharacteristic> enumCharacteristics = assignees.stream().flatMap(it -> it.getCharacteristics()
-                        .stream())
-                        .toList();
+        List<EnumCharacteristic> enumCharacteristics = assignees.stream().flatMap(it -> it.getCharacteristics().stream()).toList();
 
-        return enumCharacteristics.stream().flatMap(it -> it.getValues().stream()
-                        .map(val -> new PCMCharacteristicValue(it.getType(), val)))
-                        .collect(Collectors.toList());
+        return enumCharacteristics.stream().flatMap(it -> it.getValues().stream().map(val -> new PCMCharacteristicValue(it.getType(), val)))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -74,13 +71,9 @@ public class PCMVertexCharacteristicsCalculator {
      * @return List of resolved assignees matching the node
      */
     private List<AbstractAssignee> getUsage(Entity node, Assignments assignments) {
-        UsageScenario usageScenario = PCMQueryUtils.findParentOfType(node, UsageScenario.class, false)
-                .orElseThrow(IllegalStateException::new);
-        return assignments.getAssignee().stream()
-                .filter(UsageAssignee.class::isInstance)
-                .map(UsageAssignee.class::cast)
-                .filter(it -> it.getUsagescenario().equals(usageScenario))
-                .collect(Collectors.toList());
+        UsageScenario usageScenario = PCMQueryUtils.findParentOfType(node, UsageScenario.class, false).orElseThrow(IllegalStateException::new);
+        return assignments.getAssignee().stream().filter(UsageAssignee.class::isInstance).map(UsageAssignee.class::cast)
+                .filter(it -> it.getUsagescenario().equals(usageScenario)).collect(Collectors.toList());
     }
 
     /**
@@ -92,8 +85,7 @@ public class PCMVertexCharacteristicsCalculator {
     private List<AbstractAssignee> getSEFF(Assignments assignments, Deque<AssemblyContext> context) {
         List<AbstractAssignee> resolvedAssignees = new ArrayList<>();
         var allocations = this.resourceLoader.lookupToplevelElement(AllocationPackage.eINSTANCE.getAllocation()).stream()
-                .filter(Allocation.class::isInstance).map(Allocation.class::cast)
-                .toList();
+                .filter(Allocation.class::isInstance).map(Allocation.class::cast).toList();
 
         Optional<Allocation> allocation = allocations.stream().filter(it -> it.getAllocationContexts_Allocation().stream()
                 .map(AllocationContext::getAssemblyContext_AllocationContext).anyMatch(context.getFirst()::equals)).findFirst();
@@ -122,11 +114,8 @@ public class PCMVertexCharacteristicsCalculator {
      * @return List of resolved assignees matching the node
      */
     private List<AbstractAssignee> getAllocation(Assignments assignments, AssemblyContext assemblyContext) {
-        return assignments.getAssignee().stream()
-                .filter(AssemblyAssignee.class::isInstance)
-                .map(AssemblyAssignee.class::cast)
-                .filter(it -> it.getAssemblycontext().equals(assemblyContext))
-                .collect(Collectors.toList());
+        return assignments.getAssignee().stream().filter(AssemblyAssignee.class::isInstance).map(AssemblyAssignee.class::cast)
+                .filter(it -> it.getAssemblycontext().equals(assemblyContext)).collect(Collectors.toList());
     }
 
     /**
@@ -136,11 +125,8 @@ public class PCMVertexCharacteristicsCalculator {
      * @return List of resolved assignees matching the node
      */
     private List<AbstractAssignee> getResource(Assignments assignments, ResourceContainer resourceContainer) {
-        return assignments.getAssignee().stream()
-                .filter(ResourceAssignee.class::isInstance)
-                .map(ResourceAssignee.class::cast)
-                .filter(it -> it.getResourcecontainer().equals(resourceContainer))
-                .collect(Collectors.toList());
+        return assignments.getAssignee().stream().filter(ResourceAssignee.class::isInstance).map(ResourceAssignee.class::cast)
+                .filter(it -> it.getResourcecontainer().equals(resourceContainer)).collect(Collectors.toList());
     }
 
     /**
@@ -203,10 +189,8 @@ public class PCMVertexCharacteristicsCalculator {
      */
     private boolean presentInUsageModel(UsageScenario usageScenario) {
         List<UsageModel> usageModel = this.resourceLoader.lookupToplevelElement(UsagemodelPackage.eINSTANCE.getUsageModel()).parallelStream()
-                .filter(UsageModel.class::isInstance).map(UsageModel.class::cast)
-                .toList();
-        return usageModel.stream()
-                .anyMatch(it -> it.getUsageScenario_UsageModel().contains(usageScenario));
+                .filter(UsageModel.class::isInstance).map(UsageModel.class::cast).toList();
+        return usageModel.stream().anyMatch(it -> it.getUsageScenario_UsageModel().contains(usageScenario));
     }
 
     /**
@@ -218,11 +202,8 @@ public class PCMVertexCharacteristicsCalculator {
     private boolean presentInResource(ResourceContainer resourceContainer) {
         List<ResourceEnvironment> resourceEnvironments = this.resourceLoader
                 .lookupToplevelElement(ResourceenvironmentPackage.eINSTANCE.getResourceEnvironment()).parallelStream()
-                .filter(ResourceEnvironment.class::isInstance)
-                .map(ResourceEnvironment.class::cast)
-                .toList();
-        return resourceEnvironments.stream()
-                .anyMatch(it -> it.getResourceContainer_ResourceEnvironment().contains(resourceContainer));
+                .filter(ResourceEnvironment.class::isInstance).map(ResourceEnvironment.class::cast).toList();
+        return resourceEnvironments.stream().anyMatch(it -> it.getResourceContainer_ResourceEnvironment().contains(resourceContainer));
     }
 
     /**
@@ -233,10 +214,8 @@ public class PCMVertexCharacteristicsCalculator {
      */
     private boolean presentInAssembly(AssemblyContext assemblyContext) {
         List<System> systems = this.resourceLoader.lookupToplevelElement(SystemPackage.eINSTANCE.getSystem()).parallelStream()
-                .filter(System.class::isInstance).map(System.class::cast)
-                .toList();
-        return systems.stream()
-                .anyMatch(it -> it.getAssemblyContexts__ComposedStructure().contains(assemblyContext));
+                .filter(System.class::isInstance).map(System.class::cast).toList();
+        return systems.stream().anyMatch(it -> it.getAssemblyContexts__ComposedStructure().contains(assemblyContext));
     }
 
     /**
@@ -247,13 +226,10 @@ public class PCMVertexCharacteristicsCalculator {
      */
     private boolean presentInComposite(AssemblyContext assemblyContext) {
         List<Repository> repositories = this.resourceLoader.lookupToplevelElement(RepositoryPackage.eINSTANCE.getRepository()).parallelStream()
-                .filter(Repository.class::isInstance).map(Repository.class::cast)
-                .toList();
+                .filter(Repository.class::isInstance).map(Repository.class::cast).toList();
         List<CompositeComponent> compositeComponents = repositories.parallelStream().flatMap(it -> it.getComponents__Repository().stream())
-                .filter(CompositeComponent.class::isInstance).map(CompositeComponent.class::cast)
-                .toList();
-        return compositeComponents.stream()
-                .anyMatch(it -> it.getAssemblyContexts__ComposedStructure().contains(assemblyContext));
+                .filter(CompositeComponent.class::isInstance).map(CompositeComponent.class::cast).toList();
+        return compositeComponents.stream().anyMatch(it -> it.getAssemblyContexts__ComposedStructure().contains(assemblyContext));
     }
 
     /**
@@ -264,9 +240,7 @@ public class PCMVertexCharacteristicsCalculator {
         for (EnumCharacteristic characteristic : characteristics) {
             List<Literal> allowedLiterals = characteristic.getType().getType().getLiterals();
             List<Literal> foundLiterals = characteristic.getValues();
-            List<Literal> unknownLiterals = foundLiterals.parallelStream()
-                    .filter(it -> !allowedLiterals.contains(it))
-                    .toList();
+            List<Literal> unknownLiterals = foundLiterals.parallelStream().filter(it -> !allowedLiterals.contains(it)).toList();
             if (!unknownLiterals.isEmpty()) {
                 throw new IllegalStateException("Found unknown literal " + unknownLiterals.get(0).getName() + " in assigned characteristics!");
             }

@@ -13,8 +13,8 @@ public abstract class FlowGraph {
     private final List<? extends AbstractPartialFlowGraph> partialFlowGraphs;
 
     /**
-     * Creates a new flow graph with the given resource provider.
-     * Furthermore, the list of partial flow graphs is determined by calling {@link FlowGraph#findPartialFlowGraphs()}
+     * Creates a new flow graph with the given resource provider. Furthermore, the list of partial flow graphs is determined
+     * by calling {@link FlowGraph#findPartialFlowGraphs()}
      * @param resourceProvider Resource provider, that provides model files to the partial flow graph finder
      */
     public FlowGraph(ResourceProvider resourceProvider) {
@@ -39,8 +39,7 @@ public abstract class FlowGraph {
     public abstract List<AbstractPartialFlowGraph> findPartialFlowGraphs();
 
     /**
-     * Evaluates the flow graph by label propagation. 
-     * An evaluated copy of the flow graph is returned by this method
+     * Evaluates the flow graph by label propagation. An evaluated copy of the flow graph is returned by this method
      * @return Returns a new flow graph with evaluated partial flow graphs
      */
     public abstract FlowGraph evaluate();

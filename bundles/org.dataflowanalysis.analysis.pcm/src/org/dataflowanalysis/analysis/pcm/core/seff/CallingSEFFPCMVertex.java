@@ -6,7 +6,6 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
@@ -81,7 +80,7 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
                 new ArrayList<>(this.getParameter()), isCalling, resourceProvider);
         return super.updateCopy(copy, isomorphism);
     }
-    
+
     @Override
     public boolean equals(Object otherVertexObject) {
         if (!(otherVertexObject instanceof CallingSEFFPCMVertex otherVertex)) {

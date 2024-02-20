@@ -48,12 +48,8 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
         List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
 
         if (this.getReferencedElement() instanceof StartAction) {
-            List<String> variableNames = this.getParameter().stream()
-                    .map(Parameter::getParameterName)
-                    .toList();
-            incomingDataFlowVariables = incomingDataFlowVariables.stream()
-                    .filter(it -> variableNames.contains(it.variableName()))
-                    .toList();
+            List<String> variableNames = this.getParameter().stream().map(Parameter::getParameterName).toList();
+            incomingDataFlowVariables = incomingDataFlowVariables.stream().filter(it -> variableNames.contains(it.variableName())).toList();
             this.setPropagationResult(incomingDataFlowVariables, incomingDataFlowVariables, nodeCharacteristics);
             return;
         } else if (this.getReferencedElement() instanceof StopAction) {
@@ -104,7 +100,8 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
             if (this.isBranching() && seff.isPresent()) {
                 BranchAction branchAction = PCMQueryUtils.findParentOfType(this.getReferencedElement(), BranchAction.class, false)
                         .orElseThrow(() -> new IllegalStateException("Cannot find branch action"));
-                AbstractBranchTransition branchTransition = PCMQueryUtils.findParentOfType(this.getReferencedElement(), AbstractBranchTransition.class, false)
+                AbstractBranchTransition branchTransition = PCMQueryUtils
+                        .findParentOfType(this.getReferencedElement(), AbstractBranchTransition.class, false)
                         .orElseThrow(() -> new IllegalStateException("Cannot find branch transition"));
                 elementName = "Branching " + seff.get().getDescribedService__SEFF().getEntityName() + "." + branchAction.getEntityName() + "."
                         + branchTransition.getEntityName();

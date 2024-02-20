@@ -55,11 +55,12 @@ public class PCMDataCharacteristicsCalculator {
     }
 
     /**
-     * Evaluate a Variable Characterization with the current Variables and update the internal state of the calculator.
-     * This method should be called for each Variable Characterization (e.g. Sto-ex)
+     * Evaluate a Variable Characterization with the current Variables and update the internal state of the calculator. This
+     * method should be called for each Variable Characterization (e.g. Sto-ex)
      * <p>
      * For easier use, the state of characteristics at a given sequence element, is managed and updated by calling this
-     * method. The final DataflowVariables for an element are accessed with {@link PCMDataCharacteristicsCalculator#getCalculatedCharacteristics()}.
+     * method. The final DataflowVariables for an element are accessed with
+     * {@link PCMDataCharacteristicsCalculator#getCalculatedCharacteristics()}.
      * @param variableCharacterisation Variable Characterization at the Sequence Element
      */
     public void evaluate(ConfidentialityVariableCharacterisation variableCharacterisation) {
@@ -103,8 +104,7 @@ public class PCMDataCharacteristicsCalculator {
     private DataFlowVariable createModifiedDataFlowVariable(DataFlowVariable existingVariable, List<CharacteristicValue> modifiedCharacteristics,
             Term rightHandSide) {
         DataFlowVariable computedVariable = new DataFlowVariable(existingVariable.variableName());
-        var unmodifiedCharacteristics = existingVariable.getAllCharacteristics().stream()
-                .filter(it -> !modifiedCharacteristics.contains(it))
+        var unmodifiedCharacteristics = existingVariable.getAllCharacteristics().stream().filter(it -> !modifiedCharacteristics.contains(it))
                 .toList();
 
         for (CharacteristicValue unmodifiedCharacteristic : unmodifiedCharacteristics) {
@@ -114,8 +114,7 @@ public class PCMDataCharacteristicsCalculator {
         for (CharacteristicValue modifiedCharacteristic : modifiedCharacteristics) {
             if (evaluateTerm(rightHandSide, modifiedCharacteristic)) {
                 List<CharacteristicValue> modifiedCharacteristicValues = computedVariable.getAllCharacteristics().stream()
-                        .filter(it -> it.getTypeName().equals(modifiedCharacteristic.getTypeName()))
-                        .toList();
+                        .filter(it -> it.getTypeName().equals(modifiedCharacteristic.getTypeName())).toList();
 
                 if (modifiedCharacteristicValues.stream().noneMatch(it -> it.getValueName().equals(modifiedCharacteristic.getValueName()))) {
                     computedVariable = computedVariable.addCharacteristic(modifiedCharacteristic);
@@ -199,8 +198,7 @@ public class PCMDataCharacteristicsCalculator {
     private List<CharacteristicValue> discoverNewVariables(DataFlowVariable variable, Optional<EnumCharacteristicType> characteristicType) {
         List<CharacteristicValue> updatedCharacteristicValues = new ArrayList<>();
         var dataDictionaries = this.resourceLoader.lookupToplevelElement(DictionaryPackage.eINSTANCE.getPCMDataDictionary()).stream()
-                .filter(PCMDataDictionary.class::isInstance).map(PCMDataDictionary.class::cast)
-                .toList();
+                .filter(PCMDataDictionary.class::isInstance).map(PCMDataDictionary.class::cast).toList();
 
         List<EnumCharacteristicType> characteristicTypes = dataDictionaries.stream().flatMap(it -> it.getCharacteristicTypes().stream())
                 .filter(it -> characteristicType.isEmpty() || it.getName().equals(characteristicType.get().getName()))

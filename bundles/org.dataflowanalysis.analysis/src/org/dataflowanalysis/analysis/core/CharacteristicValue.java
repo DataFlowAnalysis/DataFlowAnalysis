@@ -1,7 +1,8 @@
 package org.dataflowanalysis.analysis.core;
 
 /**
- * This interface represents an element that represents a characteristic value with a given characteristic type name and characteristic value name.
+ * This interface represents an element that represents a characteristic value with a given characteristic type name and
+ * characteristic value name.
  */
 public interface CharacteristicValue {
     /**

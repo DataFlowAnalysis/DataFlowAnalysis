@@ -48,9 +48,9 @@ public abstract class DataFlowAnalysisBuilder {
 
     /**
      * Sets the plugin activator project name of the analysis. The plugin activator is required to load model files from a
-     * project outside the analysis project. Example:
-     * For the models contained in the {@code org.dataflowanalysis.analysis.testmodels} project/bundle the pluginActivator is the basic class present in the sources
-     * of that project
+     * project outside the analysis project. Example: For the models contained in the
+     * {@code org.dataflowanalysis.analysis.testmodels} project/bundle the pluginActivator is the basic class present in the
+     * sources of that project
      * @return Builder of the analysis
      */
     public DataFlowAnalysisBuilder usePluginActivator(Class<? extends Plugin> activator) {

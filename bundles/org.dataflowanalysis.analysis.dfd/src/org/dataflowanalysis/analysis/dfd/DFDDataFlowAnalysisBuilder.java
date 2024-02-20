@@ -9,9 +9,8 @@ import org.dataflowanalysis.analysis.utils.ResourceUtils;
 import org.eclipse.core.runtime.Plugin;
 
 /**
- * This class is used to build an instance of {@link DFDConfidentialityAnalysis}.
- * The data contained in this class is validated,
- * when calling {@link DFDDataFlowAnalysisBuilder#build()} before an analysis object is returned
+ * This class is used to build an instance of {@link DFDConfidentialityAnalysis}. The data contained in this class is
+ * validated, when calling {@link DFDDataFlowAnalysisBuilder#build()} before an analysis object is returned
  */
 public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
     private final Logger logger = Logger.getLogger(DFDDataFlowAnalysisBuilder.class);

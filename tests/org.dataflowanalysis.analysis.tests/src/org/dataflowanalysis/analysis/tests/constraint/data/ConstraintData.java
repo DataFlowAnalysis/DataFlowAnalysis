@@ -3,7 +3,6 @@ package org.dataflowanalysis.analysis.tests.constraint.data;
 import de.uka.ipd.sdq.identifier.Identifier;
 import java.util.List;
 import java.util.Map;
-
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;

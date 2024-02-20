@@ -1,7 +1,6 @@
 package org.dataflowanalysis.analysis.tests.sequencefinder;
 
 import java.util.List;
-
 import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.seff.SEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;

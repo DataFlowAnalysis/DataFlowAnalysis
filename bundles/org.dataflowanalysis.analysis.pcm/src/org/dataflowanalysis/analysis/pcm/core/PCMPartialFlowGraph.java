@@ -1,7 +1,6 @@
 package org.dataflowanalysis.analysis.pcm.core;
 
 import java.util.Map;
-
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 

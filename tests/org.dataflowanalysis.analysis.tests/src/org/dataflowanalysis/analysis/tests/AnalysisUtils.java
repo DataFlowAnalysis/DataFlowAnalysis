@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
-
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
@@ -64,8 +63,7 @@ public class AnalysisUtils {
      * @return Problem message for the assertion
      */
     private static String createProblemMessage(int index, Class<?> expectedType, Class<?> actualType) {
-        return String.format("Type mismatch at index %d. Expected: %s, actual: %s.", index, expectedType.getSimpleName(),
-                actualType.getSimpleName());
+        return String.format("Type mismatch at index %d. Expected: %s, actual: %s.", index, expectedType.getSimpleName(), actualType.getSimpleName());
     }
 
     /**

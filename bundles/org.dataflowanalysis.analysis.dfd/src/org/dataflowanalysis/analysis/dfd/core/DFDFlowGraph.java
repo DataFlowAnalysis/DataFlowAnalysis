@@ -15,8 +15,8 @@ public class DFDFlowGraph extends FlowGraph {
     private final Logger logger = Logger.getLogger(DFDFlowGraph.class);
 
     /**
-     * Creates a new instance of a dfd flow graph with the given resource provider.
-     * Partial flow graphs are determined via {@link DFDFlowGraph#findPartialFlowGraphs()}
+     * Creates a new instance of a dfd flow graph with the given resource provider. Partial flow graphs are determined via
+     * {@link DFDFlowGraph#findPartialFlowGraphs()}
      * @param resourceProvider Resource provider that provides model files to the partial flow graph finder
      */
     public DFDFlowGraph(DFDResourceProvider resourceProvider) {
@@ -46,8 +46,8 @@ public class DFDFlowGraph extends FlowGraph {
     }
 
     /**
-     * Evaluates the given flow graph by evaluating all contained partial flow graphs.
-     * The result of the evaluation is returned in a new dfd flow graph
+     * Evaluates the given flow graph by evaluating all contained partial flow graphs. The result of the evaluation is
+     * returned in a new dfd flow graph
      * @return New dfd flow graph containing the evaluated partial flow graphs
      */
     @Override

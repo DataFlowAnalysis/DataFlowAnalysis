@@ -201,21 +201,17 @@ public class DFDVertex extends AbstractVertex<Node> {
             }
             vertices.add(this.getMapPinToPreviousVertex().get(key));
         }
-        for (var vertex : this.getMapPinToPreviousVertex().values()) {
-            vertex.unify(vertices);
-        }
+        this.getMapPinToPreviousVertex().values().forEach(vertex -> vertex.unify(vertices));
     }
        
 
     /**
-     * Creates a clone of the vertex without considering Data Flow variables, Characteristics
+     * Creates a clone of the vertex without considering data flow variables nor characteristics
      */
     public DFDVertex clone() {
         Map<Pin, DFDVertex> newMapPinToPreviousVertex = new HashMap<>();
-        for (var key : this.mapPinToPreviousVertex.keySet()) {
-            DFDVertex previousClone = this.mapPinToPreviousVertex.get(key).clone();
-            newMapPinToPreviousVertex.put(key, previousClone);
-        }
+        this.mapPinToPreviousVertex.keySet()
+                .forEach(key -> newMapPinToPreviousVertex.put(key, this.mapPinToPreviousVertex.get(key).clone()));
         return new DFDVertex(this.referencedElement, newMapPinToPreviousVertex, new HashMap<>(this.mapPinToInputFlow));
     }
     

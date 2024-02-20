@@ -18,7 +18,7 @@ public class AnalysisUtils {
         // Utility class
     }
 
-    public static String TEST_MODEL_PROJECT_NAME = "org.dataflowanalysis.analysis.testmodels";
+    public static final String TEST_MODEL_PROJECT_NAME = "org.dataflowanalysis.analysis.testmodels";
 
     /**
      * <em>Assert</em> that {@code sequence} at index {@code index} and {@code expectedType} are of the same class.

@@ -24,7 +24,7 @@ public class PalladioConverter extends Converter {
     private final DataDictionary dataDictionary = datadictionaryFactory.eINSTANCE.createDataDictionary();
     private final DataFlowDiagram dataFlowDiagram = dataflowdiagramFactory.eINSTANCE.createDataFlowDiagram();
 
-    public DataFlowDiagramAndDictionary processPalladio(List<ActionSequence> ass) {
+    private DataFlowDiagramAndDictionary processPalladio(List<ActionSequence> ass) {
         for (ActionSequence actionSequence : ass) {
             Node previousNode = null;
             for (AbstractActionSequenceElement<?> ASE : actionSequence.getElements()) {
@@ -167,7 +167,7 @@ public class PalladioConverter extends Converter {
         return label;
     }
 
-    public DataFlowDiagramAndDictionary assToDFD(String inputModel, String inputFile, String modelLocation, String outputFile) {
+    public DataFlowDiagramAndDictionary assToDFD(String inputModel, String inputFile, String modelLocation) {
         final var usageModelPath = Paths.get("models", inputModel, inputFile + ".usagemodel").toString();
         final var allocationPath = Paths.get("models", inputModel, inputFile + ".allocation").toString();
         final var nodeCharPath = Paths.get("models", inputModel, inputFile + ".nodecharacteristics").toString();

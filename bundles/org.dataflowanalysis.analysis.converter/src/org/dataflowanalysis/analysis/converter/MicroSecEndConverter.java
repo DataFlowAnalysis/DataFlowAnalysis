@@ -30,7 +30,7 @@ public class MicroSecEndConverter extends Converter {
         labelMap = new HashMap<>();
     }
 
-    public DataFlowDiagramAndDictionary processMicro(MicroSecEnd micro) {
+    private DataFlowDiagramAndDictionary processMicro(MicroSecEnd micro) {
         DataFlowDiagram dfd = dfdFactory.createDataFlowDiagram();
         DataDictionary dd = ddFactory.createDataDictionary();
 

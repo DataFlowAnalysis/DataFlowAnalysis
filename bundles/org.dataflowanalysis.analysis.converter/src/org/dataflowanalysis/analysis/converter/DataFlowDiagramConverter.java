@@ -38,7 +38,7 @@ public class DataFlowDiagramConverter extends Converter {
         nodesMap = new HashMap<>();
     }
 
-    public DataFlowDiagramAndDictionary processWeb(WebEditorDfd webdfd) {
+    private DataFlowDiagramAndDictionary processWeb(WebEditorDfd webdfd) {
         nodesMap = new HashMap<String, Node>();
         Map<String, Node> pinToNodeMap = new HashMap<>();
         Map<String, Pin> pinMap = new HashMap<>();
@@ -177,7 +177,7 @@ public class DataFlowDiagramConverter extends Converter {
         }
     }
 
-    public WebEditorDfd processDfd(DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary) {
+    private WebEditorDfd processDfd(DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary) {
         List<Child> children = new ArrayList<>();
         List<WebEditorLabelType> labelTypes = new ArrayList<>();
 

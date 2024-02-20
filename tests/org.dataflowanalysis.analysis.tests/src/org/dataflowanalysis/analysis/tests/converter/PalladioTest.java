@@ -65,9 +65,7 @@ public class PalladioTest {
             }
         }
 
-        PalladioConverter ass2dfd = new PalladioConverter();
-
-        DataFlowDiagram dfd = ass2dfd.processPalladio(propagationResult).dataFlowDiagram();
+        DataFlowDiagram dfd = new PalladioConverter().assToDFD(name, modelFileName, TEST_MODEL_PROJECT_NAME).dataFlowDiagram();
 
         assertEquals(dfd.getNodes().size(), assIdToName.keySet().size());
 

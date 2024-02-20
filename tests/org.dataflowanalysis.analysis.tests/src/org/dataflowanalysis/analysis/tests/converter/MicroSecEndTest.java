@@ -63,7 +63,7 @@ public class MicroSecEndTest extends ConverterTest {
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(packagePath + "anilallewar.json");
         MicroSecEnd micro = objectMapper.readValue(file, MicroSecEnd.class);
-        DataFlowDiagramAndDictionary complete = new MicroSecEndConverter().processMicro(micro);
+        DataFlowDiagramAndDictionary complete = new MicroSecEndConverter().microToDfd(micro);
 
         DataFlowDiagram dfd = complete.dataFlowDiagram();
 

@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.FlowGraph;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
+import org.dataflowanalysis.analysis.resource.ResourceProvider;
 
 public class DFDFlowGraph extends FlowGraph {
     private final Logger logger = Logger.getLogger(DFDFlowGraph.class);
@@ -14,8 +15,8 @@ public class DFDFlowGraph extends FlowGraph {
         super(resourceProvider);
     }
 
-    public DFDFlowGraph(List<AbstractPartialFlowGraph> partialFlowGraphs) {
-        super(partialFlowGraphs);
+    public DFDFlowGraph(List<AbstractPartialFlowGraph> partialFlowGraphs, ResourceProvider resourceProvider) {
+        super(partialFlowGraphs, resourceProvider);
     }
 
     public List<AbstractPartialFlowGraph> findPartialFlowGraphs() {
@@ -33,6 +34,6 @@ public class DFDFlowGraph extends FlowGraph {
         for (var dfdPartialFlowGraph : this.getPartialFlowGraphs()) {
             evaluatedPartialFlowGraphs.add(dfdPartialFlowGraph.evaluate());
         }
-        return new DFDFlowGraph(evaluatedPartialFlowGraphs);
+        return new DFDFlowGraph(evaluatedPartialFlowGraphs, this.resourceProvider);
     }
 }

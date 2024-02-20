@@ -25,9 +25,11 @@ public abstract class FlowGraph {
     /**
      * Initializes a new flow graph with the given partial flow graphs
      * @param partialFlowGraphs List of partial flow graphs that are contained in the flow graph
+     * @param resourceProvider Resource provider that provides model files to the partial flow graph finder
      */
-    public FlowGraph(List<? extends AbstractPartialFlowGraph> partialFlowGraphs) {
+    public FlowGraph(List<? extends AbstractPartialFlowGraph> partialFlowGraphs, ResourceProvider resourceProvider) {
         this.partialFlowGraphs = partialFlowGraphs;
+        this.resourceProvider = resourceProvider;
     }
 
     /**

@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.FlowGraph;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
+import org.dataflowanalysis.analysis.resource.ResourceProvider;
 
 public class PCMFlowGraph extends FlowGraph {
     private static final Logger logger = Logger.getLogger(PCMFlowGraph.class);
@@ -14,8 +15,8 @@ public class PCMFlowGraph extends FlowGraph {
         super(resourceProvider);
     }
 
-    public PCMFlowGraph(List<AbstractPartialFlowGraph> partialFlowGraphs) {
-        super(partialFlowGraphs);
+    public PCMFlowGraph(List<AbstractPartialFlowGraph> partialFlowGraphs, ResourceProvider resourceProvider) {
+        super(partialFlowGraphs, resourceProvider);
     }
 
     public List<AbstractPartialFlowGraph> findPartialFlowGraphs() {
@@ -35,6 +36,6 @@ public class PCMFlowGraph extends FlowGraph {
                 .map(PCMPartialFlowGraph.class::cast)
                 .toList();
         List<AbstractPartialFlowGraph> evaluatedPartialFlowGraphs = actionSequences.parallelStream().map(PCMPartialFlowGraph::evaluate).toList();
-        return new PCMFlowGraph(evaluatedPartialFlowGraphs);
+        return new PCMFlowGraph(evaluatedPartialFlowGraphs, this.resourceProvider);
     }
 }

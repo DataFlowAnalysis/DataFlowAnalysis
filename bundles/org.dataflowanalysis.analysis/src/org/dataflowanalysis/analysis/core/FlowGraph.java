@@ -9,7 +9,7 @@ import org.dataflowanalysis.analysis.resource.ResourceProvider;
  * implementation of the flow graph
  */
 public abstract class FlowGraph {
-    protected ResourceProvider resourceProvider;
+    protected final ResourceProvider resourceProvider;
     private final List<? extends AbstractPartialFlowGraph> partialFlowGraphs;
 
     /**

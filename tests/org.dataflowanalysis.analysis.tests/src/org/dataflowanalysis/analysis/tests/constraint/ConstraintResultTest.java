@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -31,7 +32,7 @@ public class ConstraintResultTest extends ConstraintTest {
         printNodeInformation(node);
 
         for (List<String> dataFlowCharacteristicIds : grantedRoles) {
-            if (!dataFlowCharacteristicIds.isEmpty() && dataFlowCharacteristicIds.stream().distinct().filter(it -> assignedRoles.contains(it))
+            if (!dataFlowCharacteristicIds.isEmpty() && dataFlowCharacteristicIds.stream().distinct().filter(assignedRoles::contains)
                     .collect(Collectors.toList()).isEmpty()) {
                 return true;
             }
@@ -46,7 +47,7 @@ public class ConstraintResultTest extends ConstraintTest {
      */
     private boolean internationalOnlineShopCondition(AbstractVertex<?> node) {
         List<String> serverLocation = node.getNodeCharacteristicNamesWithName("ServerLocation");
-        List<String> dataSensitivity = node.getDataFlowCharacteristicNamesWithType("DataSensitivity").stream().flatMap(it -> it.stream())
+        List<String> dataSensitivity = node.getDataFlowCharacteristicNamesWithType("DataSensitivity").stream().flatMap(Collection::stream)
                 .collect(Collectors.toList());
         printNodeInformation(node);
 
@@ -60,7 +61,7 @@ public class ConstraintResultTest extends ConstraintTest {
      */
     private boolean returnCondition(AbstractVertex<?> node) {
         List<String> assignedNode = node.getNodeCharacteristicNamesWithName("AssignedRole");
-        List<String> assignedVariables = node.getDataFlowCharacteristicNamesWithType("AssignedRole").stream().flatMap(it -> it.stream())
+        List<String> assignedVariables = node.getDataFlowCharacteristicNamesWithType("AssignedRole").stream().flatMap(Collection::stream)
                 .collect(Collectors.toList());
 
         printNodeInformation(node);
@@ -79,7 +80,7 @@ public class ConstraintResultTest extends ConstraintTest {
     @Test
     public void travelPlannerTestConstraintResults() {
         travelPlannerAnalysis.setLoggerLevel(Level.TRACE);
-        Predicate<AbstractVertex<?>> constraint = node -> travelPlannerCondition(node);
+        Predicate<AbstractVertex<?>> constraint = this::travelPlannerCondition;
         List<ConstraintData> constraintData = ConstraintViolations.travelPlannerViolations;
         testAnalysis(travelPlannerAnalysis, constraint, constraintData);
     }
@@ -92,7 +93,7 @@ public class ConstraintResultTest extends ConstraintTest {
     @Test
     public void internationalOnlineShopTestConstraintResults() {
         internationalOnlineShopAnalysis.setLoggerLevel(Level.TRACE);
-        Predicate<AbstractVertex<?>> constraint = node -> internationalOnlineShopCondition(node);
+        Predicate<AbstractVertex<?>> constraint = this::internationalOnlineShopCondition;
         List<ConstraintData> constraintData = ConstraintViolations.internationalOnlineShopViolations;
         testAnalysis(internationalOnlineShopAnalysis, constraint, constraintData);
     }
@@ -109,7 +110,7 @@ public class ConstraintResultTest extends ConstraintTest {
                 Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.allocation"),
                 Paths.get("models", "OneAssembyMultipleResourceContainerTest", "default.nodecharacteristics"));
         analysis.setLoggerLevel(Level.TRACE);
-        Predicate<AbstractVertex<?>> constraint = node -> internationalOnlineShopCondition(node);
+        Predicate<AbstractVertex<?>> constraint = this::internationalOnlineShopCondition;
         List<ConstraintData> constraintData = ConstraintViolations.multipleResourcesViolations;
         testAnalysis(analysis, constraint, constraintData);
     }
@@ -123,7 +124,7 @@ public class ConstraintResultTest extends ConstraintTest {
     public void returnTestConstraintResults() {
         PCMDataFlowConfidentialityAnalysis returnAnalysis = super.initializeAnalysis(Paths.get("models", "ReturnTestModel", "default.usagemodel"),
                 Paths.get("models", "ReturnTestModel", "default.allocation"), Paths.get("models", "ReturnTestModel", "default.nodecharacteristics"));
-        Predicate<AbstractVertex<?>> constraint = node -> returnCondition(node);
+        Predicate<AbstractVertex<?>> constraint = this::returnCondition;
         returnAnalysis.setLoggerLevel(Level.TRACE);
         List<ConstraintData> constraintData = ConstraintViolations.returnViolations;
         testAnalysis(returnAnalysis, constraint, constraintData);
@@ -134,12 +135,12 @@ public class ConstraintResultTest extends ConstraintTest {
         PCMFlowGraph flowGraph = analysis.findFlowGraph();
         PCMFlowGraph propagatedFlowGraph = analysis.evaluateFlowGraph(flowGraph);
         List<AbstractVertex<?>> results = propagatedFlowGraph.getPartialFlowGraphs().stream().map(it -> analysis.queryDataFlow(it, constraint))
-                .flatMap(it -> it.stream()).collect(Collectors.toList());
+                .flatMap(Collection::stream).collect(Collectors.toList());
 
         assertEquals(constraintData.size(), results.size(), "Incorrect count of violations found");
 
         for (ConstraintData constraintNodeData : constraintData) {
-            var violatingNode = results.stream().filter(it -> constraintNodeData.matches(it)).findFirst();
+            var violatingNode = results.stream().filter(constraintNodeData::matches).findFirst();
 
             if (violatingNode.isEmpty()) {
                 fail("Could not find node for expected constraint violation");

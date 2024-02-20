@@ -56,28 +56,19 @@ public class DFDVertex extends AbstractVertex<Node> {
      */
     @Override
     public void evaluateDataFlow() {
-    	//Return if already evaluated
-        if (super.isEvaluated())
+        if (super.isEvaluated()) {
             return;
-
-        Node node = this.getReferencedElement();
-
+        }
         Map<Pin, DFDVertex> previousVertices = this.getMapPinToPreviousVertex();
 
         List<CharacteristicValue> nodeCharacteristics = new ArrayList<>();
-
-        Map<Pin, List<Label>> mapOutputPinToOutgoingLabels = new HashMap<>();
         Map<Pin, List<Label>> mapInputPinsToIncomingLabels = new HashMap<>();
 
-        // Adding characteristics
-        for (var label : node.getProperties()) {
-            nodeCharacteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label));
-        }
+        this.getReferencedElement().getProperties()
+                .forEach(label -> nodeCharacteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label)));
 
-        // Evaluate Previous Elements
-        for (var key : previousVertices.keySet()) {
-            previousVertices.get(key).evaluateDataFlow();
-        }
+        previousVertices.keySet()
+                .forEach(pin -> previousVertices.get(pin).evaluateDataFlow());
 
         // Create Map with all incoming Labels per pin
         for (var pin : this.getMapPinToInputFlow().keySet()) {
@@ -93,26 +84,33 @@ public class DFDVertex extends AbstractVertex<Node> {
             }
         }
 
-        // Create data flow variables from map
         List<DataFlowVariable> dataFlowVariables = new ArrayList<>(this.createDataFlowVariablesFromLabels(mapInputPinsToIncomingLabels));
 
-        // Create Map with all Outgoing Labels per pin
-        for (var assignment : node.getBehaviour().getAssignment()) {
-            List<Label> incomingLabels = combineLabelsOnAllInputPins(assignment, mapInputPinsToIncomingLabels);
-            mapOutputPinToOutgoingLabels.putIfAbsent(assignment.getOutputPin(), new ArrayList<>());
-            if (assignment instanceof ForwardingAssignment) {
-                mapOutputPinToOutgoingLabels.get(assignment.getOutputPin()).addAll(incomingLabels);
-            } else if (evaluateTerm(((Assignment) assignment).getTerm(), incomingLabels)) {
-                mapOutputPinToOutgoingLabels.get(assignment.getOutputPin()).addAll(((Assignment) assignment).getOutputLabels());
-            } else if (!evaluateTerm(((Assignment) assignment).getTerm(), incomingLabels)) {
-                mapOutputPinToOutgoingLabels.get(assignment.getOutputPin()).removeAll(((Assignment) assignment).getOutputLabels());
-            }
-        }
+        Map<Pin, List<Label>> mapOutputPinToOutgoingLabels = new HashMap<>();
+        var assignments = this.getReferencedElement().getBehaviour().getAssignment();
+        assignments.forEach(assignment -> mapOutputPinToOutgoingLabels.putIfAbsent(assignment.getOutputPin(), new ArrayList<>()));
+        assignments.forEach(assignment -> handleOutgoingAssignments(assignment, mapInputPinsToIncomingLabels, mapOutputPinToOutgoingLabels));
 
-        // Create outgoing data flow variables from map
         List<DataFlowVariable> outgoingDataFlowVariables = new ArrayList<>(this.createDataFlowVariablesFromLabels(mapOutputPinToOutgoingLabels));
 
         this.setPropagationResult(dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+    }
+
+    private void handleOutgoingAssignments(AbstractAssignment assignment, Map<Pin, List<Label>> mapInputPinsToIncomingLabels,
+                                           Map<Pin, List<Label>> mapOutputPinToOutgoingLabels) {
+        List<Label> incomingLabels = combineLabelsOnAllInputPins(assignment, mapInputPinsToIncomingLabels);
+
+        if (assignment instanceof ForwardingAssignment) {
+            mapOutputPinToOutgoingLabels.get(assignment.getOutputPin()).addAll(incomingLabels);
+            return;
+        }
+
+        if (evaluateTerm(((Assignment) assignment).getTerm(), incomingLabels)) {
+            mapOutputPinToOutgoingLabels.get(assignment.getOutputPin()).addAll(((Assignment) assignment).getOutputLabels());
+            return;
+        }
+
+        mapOutputPinToOutgoingLabels.get(assignment.getOutputPin()).removeAll(((Assignment) assignment).getOutputLabels());
     }
 
     /**

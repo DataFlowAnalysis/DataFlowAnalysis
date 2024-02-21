@@ -302,14 +302,12 @@ public class DataFlowDiagramConverter extends Converter {
         for (String behaviorString : behaviorStrings) {
             if (behaviorString.contains("forward ")) {
                 String packet = behaviorString.split(" ")[1];
-                Pin inpin = null;
-                for (Flow flow : dfd.getFlows()) {
-                    if (flow.getDestinationNode() == node) {
-                        if (flow.getEntityName().equals(packet)) {
-                            inpin = flow.getDestinationPin();
-                        }
-                    }
-                }
+                
+                Pin inpin = dfd.getFlows().stream()
+                        .filter(flow -> flow.getDestinationNode() == node)
+                        .filter(flow -> flow.getEntityName().equals(packet))
+                        .map(Flow::getDestinationPin).findAny().orElse(null);
+
 
                 var assignment = ddFactory.createForwardingAssignment();
                 assignment.setOutputPin(outpin);
@@ -326,16 +324,12 @@ public class DataFlowDiagramConverter extends Converter {
                 String typeName = variable.split("\\.")[0];
                 String valueName = variable.split("\\.")[1];
 
-                Label value = null;
-                for (LabelType labelType : dd.getLabelTypes()) {
-                    if (labelType.getEntityName().equals(typeName)) {
-                        for (Label label : labelType.getLabel()) {
-                            if (label.getEntityName().equals(valueName)) {
-                                value = label;
-                            }
-                        }
-                    }
-                }
+                Label value = dd.getLabelTypes().stream()
+                        .filter(labelType -> labelType.getEntityName().equals(typeName))
+                        .flatMap(labelType -> labelType.getLabel().stream())
+                        .filter(label -> label.getEntityName().equals(valueName))
+                        .findAny().orElse(null);
+                
                 Assignment assignment = ddFactory.createAssignment();
 
                 assignment.getInputPins().addAll(behavior.getInPin());
@@ -364,13 +358,14 @@ public class DataFlowDiagramConverter extends Converter {
                         }
                     }
                 }
+                                
                 assignment.setTerm(processedTerm);
             }
         }
     }
 
-    private void putValue(Map<Node, Map<Pin, String>> nestedHashMap, Node key1, Pin key2, String value) {
-        nestedHashMap.computeIfAbsent(key1, k -> new HashMap<>()).put(key2, value);
+    private void putValue(Map<Node, Map<Pin, String>> nestedHashMap, Node node, Pin pin, String value) {
+        nestedHashMap.computeIfAbsent(node, k -> new HashMap<>()).put(pin, value);
     }
 
     public DataFlowDiagramAndDictionary webToDfd(String inputFile) {
@@ -414,16 +409,16 @@ public class DataFlowDiagramConverter extends Converter {
     }
 
     public DataFlowDiagramAndDictionary loadDFD(String inputDataFlowDiagram, String inputDataDictionary) {
-        ResourceSet rs = new ResourceSetImpl();
-        rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
-        rs.getPackageRegistry().put(dataflowdiagramPackage.eNS_URI, dataflowdiagramPackage.eINSTANCE);
+        ResourceSet resourceSet = new ResourceSetImpl();
+        resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
+        resourceSet.getPackageRegistry().put(dataflowdiagramPackage.eNS_URI, dataflowdiagramPackage.eINSTANCE);
 
-        Resource dfdResource = rs.getResource(URI.createFileURI(inputDataFlowDiagram), true);
-        Resource ddResource = rs.getResource(URI.createFileURI(inputDataDictionary), true);
+        Resource dfdResource = resourceSet.getResource(URI.createFileURI(inputDataFlowDiagram), true);
+        Resource ddResource = resourceSet.getResource(URI.createFileURI(inputDataDictionary), true);
 
-        DataFlowDiagram dfd = (DataFlowDiagram) dfdResource.getContents().get(0);
-        DataDictionary dd = (DataDictionary) ddResource.getContents().get(0);
+        DataFlowDiagram datwFlowDiagram = (DataFlowDiagram) dfdResource.getContents().get(0);
+        DataDictionary dataDictionary = (DataDictionary) ddResource.getContents().get(0);
 
-        return new DataFlowDiagramAndDictionary(dfd, dd);
+        return new DataFlowDiagramAndDictionary(datwFlowDiagram, dataDictionary);
     }
 }

@@ -34,6 +34,8 @@ public class DataFlowDiagramConverter extends Converter {
     private Map<String, Node> nodesMap;
 
     private final Logger logger = Logger.getLogger(MicroSecEndConverter.class);
+    
+    private BehaviorConverter behaviorConverter;
 
     public DataFlowDiagramConverter() {
         dfdFactory = dataflowdiagramFactory.eINSTANCE;
@@ -51,6 +53,8 @@ public class DataFlowDiagramConverter extends Converter {
 
         DataFlowDiagram dataFlowDiagram = dfdFactory.createDataFlowDiagram();
         DataDictionary dataDictionary = ddFactory.createDataDictionary();
+        
+        behaviorConverter= new BehaviorConverter(dataDictionary);
 
         createWebLabelTypesAndValues(webdfd, idToLabelMap, dataDictionary);
 
@@ -184,6 +188,8 @@ public class DataFlowDiagramConverter extends Converter {
     private WebEditorDfd processDfd(DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary) {
         List<Child> children = new ArrayList<>();
         List<WebEditorLabelType> labelTypes = new ArrayList<>();
+        
+        behaviorConverter= new BehaviorConverter(dataDictionary);
 
         createLabelTypesAndValues(labelTypes, dataDictionary);
 
@@ -267,15 +273,14 @@ public class DataFlowDiagramConverter extends Converter {
                     }
                 } else {
                     Assignment assignment = (Assignment) abstractAssignment;
-                    String value = getTermValue(assignment.getTerm()) ? "TRUE" : "FALSE";
+                    String value = behaviorConverter.termToString(assignment.getTerm());
 
                     for (Label label : assignment.getOutputLabels()) {
                         try {
                             builder.append("set ").append(((LabelType) label.eContainer()).getEntityName()).append(".").append(label.getEntityName())
                                     .append(" = ").append(value).append("\n");
                         } catch (IllegalArgumentException ex) {
-                            System.out.println(
-                                    "Caution!! WebEditor cant handle complex Assignments yet. Only TRUE or NOT(TRUE) supported. Everything else ignored");
+                            logger.error("Illegal behavior argument");
                         }
                     }
                 }
@@ -284,16 +289,6 @@ public class DataFlowDiagramConverter extends Converter {
         }
         return null;
 
-    }
-
-    // Currently only supports True or False
-    private boolean getTermValue(Term term) throws IllegalArgumentException {
-        if (term instanceof TRUE)
-            return true;
-        if (term instanceof NOT) {
-            return !getTermValue(((NOT) term).getNegatedTerm());
-        }
-        throw new IllegalArgumentException();
     }
 
     private void parseBehavior(Node node, Pin outpin, String lines, DataFlowDiagram dfd, DataDictionary dd) {
@@ -318,48 +313,29 @@ public class DataFlowDiagramConverter extends Converter {
 
                 Pattern pattern = Pattern.compile(regex);
                 Matcher matcher = pattern.matcher(behaviorString);
-                matcher.find();
+                if(matcher.find()) {
+                    String variable = matcher.group(1);
+                    String typeName = variable.split("\\.")[0];
+                    String valueName = variable.split("\\.")[1];
 
-                String variable = matcher.group(1);
-                String typeName = variable.split("\\.")[0];
-                String valueName = variable.split("\\.")[1];
+                    Label value = dd.getLabelTypes().stream()
+                            .filter(labelType -> labelType.getEntityName().equals(typeName))
+                            .flatMap(labelType -> labelType.getLabel().stream())
+                            .filter(label -> label.getEntityName().equals(valueName))
+                            .findAny().orElse(null);
+                    
+                    Assignment assignment = ddFactory.createAssignment();
 
-                Label value = dd.getLabelTypes().stream()
-                        .filter(labelType -> labelType.getEntityName().equals(typeName))
-                        .flatMap(labelType -> labelType.getLabel().stream())
-                        .filter(label -> label.getEntityName().equals(valueName))
-                        .findAny().orElse(null);
-                
-                Assignment assignment = ddFactory.createAssignment();
+                    assignment.getInputPins().addAll(behavior.getInPin());
+                    assignment.setOutputPin(outpin);
+                    assignment.getOutputLabels().add(value);
 
-                assignment.getInputPins().addAll(behavior.getInPin());
-                assignment.setOutputPin(outpin);
-                assignment.getOutputLabels().add(value);
-
-                behavior.getAssignment().add(assignment);
-
-                List<String> expressions = Arrays.asList(matcher.group(2).split(" "));
-                Stack<String> stack = new Stack<>();
-                stack.addAll(expressions);
-
-                Term processedTerm = null;
-                while (!stack.isEmpty()) {
-                    String current = stack.pop();
-                    if (current.equals("TRUE")) {
-                        var ddTrue = ddFactory.createTRUE();
-                        if (processedTerm == null) {
-                            processedTerm = ddTrue;
-                        }
-                    } else if (current.equals("FALSE")) {
-                        var ddFalse = ddFactory.createNOT();
-                        ddFalse.setNegatedTerm(ddFactory.createTRUE());
-                        if (processedTerm == null) {
-                            processedTerm = ddFalse;
-                        }
-                    }
+                    behavior.getAssignment().add(assignment);
+                    
+                    Term term = behaviorConverter.stringToTerm(matcher.group(2));
+                                    
+                    assignment.setTerm(term);
                 }
-                                
-                assignment.setTerm(processedTerm);
             }
         }
     }

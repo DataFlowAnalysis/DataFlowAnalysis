@@ -18,7 +18,7 @@ public class BehaviorTest {
     @Test
     @DisplayName("Test Behavior Conversion")
     public void testBehavior(){
-        String behavior = "(A && TRUE) || !B";
+        String behavior = "(A.A && TRUE) || !B.B";
         assertEquals(behavior,converter.termToString(converter.stringToTerm(behavior)));
     }
 }

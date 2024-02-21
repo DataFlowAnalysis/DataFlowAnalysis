@@ -1,9 +1,12 @@
 package org.dataflowanalysis.analysis.converter;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Stack;
 
 import org.dataflowanalysis.dfd.datadictionary.AND;
+import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
+import org.dataflowanalysis.dfd.datadictionary.Label;
 import org.dataflowanalysis.dfd.datadictionary.LabelReference;
 import org.dataflowanalysis.dfd.datadictionary.NOT;
 import org.dataflowanalysis.dfd.datadictionary.OR;
@@ -13,14 +16,21 @@ import org.dataflowanalysis.dfd.datadictionary.datadictionaryFactory;
 
 public class BehaviorConverter {
     private final datadictionaryFactory ddFactory;
+    private DataDictionary dataDictionary;
     
     public BehaviorConverter() {
-        ddFactory = datadictionaryFactory.eINSTANCE; 
+        ddFactory = datadictionaryFactory.eINSTANCE;
+        dataDictionary = null;
+    }
+    
+    public BehaviorConverter(DataDictionary dataDictionary) {
+        this();
+        this.dataDictionary = dataDictionary;
     }
     
     public Term stringToTerm(String expression) {
         // Tokenize the expression
-        String[] tokens = expression.split(" ");
+        List<String> tokens = tokenize(expression);
         
         // Stack for operands
         Stack<Term> operands = new Stack<>();
@@ -97,10 +107,26 @@ public class BehaviorConverter {
             ddFalse.setNegatedTerm(ddFactory.createTRUE());
             return ddFalse;
         } else {
+            String typeName = token.split("\\.")[0];
+            String valueName = token.split("\\.")[1];
+
+            Label value = null;
+            
+            if(dataDictionary!=null) {
+                value=dataDictionary.getLabelTypes().stream()
+                        .filter(labelType -> labelType.getEntityName().equals(typeName))
+                        .flatMap(labelType -> labelType.getLabel().stream())
+                        .filter(label -> label.getEntityName().equals(valueName))
+                        .findAny().orElse(null);
+            }
+ 
+            if(value==null) {
+                value=ddFactory.createLabel();
+                value.setEntityName(token);
+            }
+            
             var labelReference = ddFactory.createLabelReference();
-            var label = ddFactory.createLabel();
-            label.setEntityName(token);
-            labelReference.setLabel(label);
+            labelReference.setLabel(value);
             return labelReference;
         }
     }
@@ -116,24 +142,64 @@ public class BehaviorConverter {
             return "TRUE";
         } else if (term instanceof AND) {
             List<Term> operands = ((AND)term).getTerms();
-            String result = termToString(operands.get(0), false) + " && " + termToString(operands.get(1), false);
-            // Add parentheses only if this AND is nested inside another operation
+            String result = termToString(operands.get(0), true) + " && " + termToString(operands.get(1), true);
             return isNested ? "(" + result + ")" : result;
         } else if (term instanceof OR) {
             List<Term> operands = ((OR)term).getTerms();
-            String result = termToString(operands.get(0), false) + " || " + termToString(operands.get(1), false);
-            // Add parentheses only if this OR is nested inside another operation
+            String result = termToString(operands.get(0), true) + " || " + termToString(operands.get(1), true);
             return isNested ? "(" + result + ")" : result;
         } else if (term instanceof NOT) {
-            Term negatedTerm = ((NOT)term).getNegatedTerm();
-            // For NOT, parentheses are added around the negated term only if it's a complex term itself
-            String negatedString = termToString(negatedTerm, false);
-            if (negatedTerm instanceof AND || negatedTerm instanceof OR) {
-                negatedString = "(" + negatedString + ")";
-            }
-            return "!" + negatedString;
+            return "!" + termToString(((NOT)term).getNegatedTerm(), false);
         } else {
             throw new IllegalArgumentException("Unknown term type");
         }
+    }
+    
+    private List<String> tokenize(String expression) {
+        List<String> tokens = new ArrayList<>();
+        StringBuilder token = new StringBuilder();
+
+        for (int i = 0; i < expression.length(); i++) {
+            char c = expression.charAt(i);
+
+            if (Character.isWhitespace(c)) {
+                // Skip whitespace
+                continue;
+            }
+
+            if (c == '(' || c == ')') {
+                // Directly add parentheses as separate tokens
+                if (token.length() > 0) {
+                    tokens.add(token.toString());
+                    token.setLength(0); // Reset the token builder
+                }
+                tokens.add(Character.toString(c));
+            } else if (c == '&' || c == '|' || c == '!') {
+                // Handle logical operators
+                if (token.length() > 0) {
+                    tokens.add(token.toString());
+                    token.setLength(0);
+                }
+                token.append(c);
+
+                // For && and ||, make sure to capture both characters
+                if ((c == '&' || c == '|') && i + 1 < expression.length() && expression.charAt(i + 1) == c) {
+                    i++; // Skip the next character since it's part of the operator
+                    token.append(c);
+                }
+
+                tokens.add(token.toString());
+                token.setLength(0);
+            } else {
+                // Build operand tokens
+                token.append(c);
+            }
+        }
+
+        if (token.length() > 0) {
+            tokens.add(token.toString());
+        }
+
+        return tokens;
     }
 }

@@ -264,31 +264,30 @@ public class DataFlowDiagramConverter extends Converter {
     }
 
     private String createBehaviourString(List<AbstractAssignment> abstractAssignments) {
+        if (abstractAssignments == null) {
+            return null;
+        }
         StringBuilder builder = new StringBuilder();
-        if (abstractAssignments != null) {
-            for (AbstractAssignment abstractAssignment : abstractAssignments) {
-                if (abstractAssignment instanceof ForwardingAssignment) {
-                    for (Pin inPin : abstractAssignment.getInputPins()) {
-                        builder.append("forward ").append(mapInputPinToFlowName.get(inPin)).append("\n");
-                    }
-                } else {
-                    Assignment assignment = (Assignment) abstractAssignment;
-                    String value = behaviorConverter.termToString(assignment.getTerm());
+        for (AbstractAssignment abstractAssignment : abstractAssignments) {
+            if (abstractAssignment instanceof ForwardingAssignment) {
+                for (Pin inPin : abstractAssignment.getInputPins()) {
+                    builder.append("forward ").append(mapInputPinToFlowName.get(inPin)).append("\n");
+                }
+            } else {
+                Assignment assignment = (Assignment) abstractAssignment;
+                String value = behaviorConverter.termToString(assignment.getTerm());
 
-                    for (Label label : assignment.getOutputLabels()) {
-                        try {
-                            builder.append("set ").append(((LabelType) label.eContainer()).getEntityName()).append(".").append(label.getEntityName())
-                                    .append(" = ").append(value).append("\n");
-                        } catch (IllegalArgumentException ex) {
-                            logger.error("Illegal behavior argument");
-                        }
+                for (Label label : assignment.getOutputLabels()) {
+                    try {
+                        builder.append("set ").append(((LabelType) label.eContainer()).getEntityName()).append(".").append(label.getEntityName())
+                                .append(" = ").append(value).append("\n");
+                    } catch (IllegalArgumentException ex) {
+                        logger.error("Illegal behavior argument");
                     }
                 }
             }
-            return builder.toString().trim();
         }
-        return null;
-
+        return builder.toString().trim();
     }
 
     private void parseBehavior(Node node, Pin outpin, String lines, DataFlowDiagram dfd, DataDictionary dd) {
@@ -313,7 +312,7 @@ public class DataFlowDiagramConverter extends Converter {
 
                 Pattern pattern = Pattern.compile(regex);
                 Matcher matcher = pattern.matcher(behaviorString);
-                if(matcher.find()) {
+                if(matcher.find() && matcher.groupCount()==2) {
                     String variable = matcher.group(1);
                     String typeName = variable.split("\\.")[0];
                     String valueName = variable.split("\\.")[1];

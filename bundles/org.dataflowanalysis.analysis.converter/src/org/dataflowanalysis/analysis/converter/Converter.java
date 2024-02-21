@@ -35,9 +35,9 @@ public abstract class Converter {
         } else {
             truncatedOutputFile = outputFile;
         }
-        ResourceSet rs = new ResourceSetImpl();
-        Resource dfdResource = createAndAddResource(truncatedOutputFile + ".dataflowdiagram", new String[] {"dataflowdiagram"}, rs);
-        Resource ddResource = createAndAddResource(truncatedOutputFile + ".datadictionary", new String[] {"datadictionary"}, rs);
+        ResourceSet resourceSet = new ResourceSetImpl();
+        Resource dfdResource = createAndAddResource(truncatedOutputFile + ".dataflowdiagram", new String[] {"dataflowdiagram"}, resourceSet);
+        Resource ddResource = createAndAddResource(truncatedOutputFile + ".datadictionary", new String[] {"datadictionary"}, resourceSet);
 
         dfdResource.getContents().add(complete.dataFlowDiagram());
         ddResource.getContents().add(complete.dataDictionary());
@@ -47,12 +47,12 @@ public abstract class Converter {
 
     }
 
-    private Resource createAndAddResource(String outputFile, String[] fileextensions, ResourceSet rs) {
-        for (String fileext : fileextensions) {
-            rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put(fileext, new XMLResourceFactoryImpl());
+    private Resource createAndAddResource(String outputFile, String[] fileextensions, ResourceSet resourceSet) {
+        for (String fileextension : fileextensions) {
+            resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(fileextension, new XMLResourceFactoryImpl());
         }
         URI uri = URI.createFileURI(outputFile);
-        Resource resource = rs.createResource(uri);
+        Resource resource = resourceSet.createResource(uri);
         ((ResourceImpl) resource).setIntrinsicIDToEObjectMap(new HashMap<>());
         return resource;
     }
@@ -64,7 +64,8 @@ public abstract class Converter {
         try {
             resource.save(saveOptions);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logger.error("Error saving DataFlowDiagram");
+            throw new RuntimeException(e);  
         }
     }
 }

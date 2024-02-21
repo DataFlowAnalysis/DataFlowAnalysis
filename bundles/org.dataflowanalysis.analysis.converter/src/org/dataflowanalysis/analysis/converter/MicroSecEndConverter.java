@@ -17,7 +17,7 @@ public class MicroSecEndConverter extends Converter {
     private final dataflowdiagramFactory dfdFactory;
     private final datadictionaryFactory ddFactory;
 
-    private Map<String, Node> nodesMap;
+    private final Map<String, Node> nodesMap;
     private final Map<Node, List<String>> nodeToLabelNames;
     private final Map<String, Label> labelMap;
 

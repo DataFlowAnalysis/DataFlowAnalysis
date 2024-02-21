@@ -6,7 +6,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-public class MicroSecEndProcess {
+public abstract class MicroSecEndProcess {
     @JsonProperty("name")
     protected String name;
     @JsonProperty("stereotypes")

@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class TaggedValuesDeserializer extends JsonDeserializer<Map<String, List<String>>> {
 
     @Override
-    public Map<String, List<String>> deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException {
+    public Map<String, List<String>> deserialize(JsonParser parser, DeserializationContext context) throws IOException {
         Map<String, List<String>> result = new HashMap<>();
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -38,10 +38,6 @@ public class TaggedValuesDeserializer extends JsonDeserializer<Map<String, List<
     }
 
     private String getValueAsString(JsonNode node) {
-        if (node.isTextual()) {
-            return node.asText();
-        } else {
-            return node.toString();
-        }
+        return node.isTextual() ? node.asText() : node.toString();
     }
 }

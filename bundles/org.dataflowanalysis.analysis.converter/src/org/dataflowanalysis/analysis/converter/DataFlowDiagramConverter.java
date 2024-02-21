@@ -43,7 +43,7 @@ public class DataFlowDiagramConverter extends Converter {
     }
 
     private DataFlowDiagramAndDictionary processWeb(WebEditorDfd webdfd) {
-        nodesMap = new HashMap<String, Node>();
+        nodesMap = new HashMap<>();
         Map<String, Node> pinToNodeMap = new HashMap<>();
         Map<String, Pin> pinMap = new HashMap<>();
         Map<String, Label> idToLabelMap = new HashMap<>();
@@ -207,6 +207,7 @@ public class DataFlowDiagramConverter extends Converter {
                 type = "node:input-output";
             } else {
                 type = "error";
+                logger.error("Unrecognized node type");
             }
 
             List<WebEditorLabel> labels = new ArrayList<>();
@@ -218,16 +219,12 @@ public class DataFlowDiagramConverter extends Converter {
 
             List<Port> ports = new ArrayList<>();
 
-            for (Pin pin : node.getBehaviour().getInPin()) {
-                ports.add(new Port(null, pin.getId(), "port:dfd-input", new ArrayList<>()));
-            }
+            node.getBehaviour().getInPin().forEach(pin -> ports.add(new Port(null, pin.getId(), "port:dfd-input", new ArrayList<>())));
 
             Map<Pin, List<AbstractAssignment>> mapPinToAssignments = mapping(node);
-
-            for (Pin pin : node.getBehaviour().getOutPin()) {
-                String behaviour = createBehaviourString(mapPinToAssignments.get(pin));
-                ports.add(new Port(behaviour, pin.getId(), "port:dfd-output", new ArrayList<>()));
-            }
+            
+            node.getBehaviour().getOutPin()
+            .forEach(pin -> ports.add(new Port(createBehaviourString(mapPinToAssignments.get(pin)), pin.getId(), "port:dfd-output", new ArrayList<>())));
 
             children.add(new Child(text, labels, ports, id, type, null, null, new ArrayList<>()));
         }
@@ -355,12 +352,12 @@ public class DataFlowDiagramConverter extends Converter {
                 while (!stack.isEmpty()) {
                     String current = stack.pop();
                     if (current.equals("TRUE")) {
-                        TRUE ddTrue = ddFactory.createTRUE();
+                        var ddTrue = ddFactory.createTRUE();
                         if (processedTerm == null) {
                             processedTerm = ddTrue;
                         }
                     } else if (current.equals("FALSE")) {
-                        NOT ddFalse = ddFactory.createNOT();
+                        var ddFalse = ddFactory.createNOT();
                         ddFalse.setNegatedTerm(ddFactory.createTRUE());
                         if (processedTerm == null) {
                             processedTerm = ddFalse;

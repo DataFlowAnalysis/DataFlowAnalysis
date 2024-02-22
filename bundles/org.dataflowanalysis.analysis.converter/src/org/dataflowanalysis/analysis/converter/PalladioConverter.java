@@ -4,7 +4,6 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.*;
@@ -24,12 +23,12 @@ public class PalladioConverter extends Converter {
     private final DataDictionary dataDictionary = datadictionaryFactory.eINSTANCE.createDataDictionary();
     private final DataFlowDiagram dataFlowDiagram = dataflowdiagramFactory.eINSTANCE.createDataFlowDiagram();
 
-    private DataFlowDiagramAndDictionary processPalladio(List<ActionSequence> ass) {
-        for (ActionSequence actionSequence : ass) {
+    private DataFlowDiagramAndDictionary processPalladio(List<ActionSequence> actionSequences) {
+        for (ActionSequence actionSequence : actionSequences) {
             Node previousNode = null;
-            for (AbstractActionSequenceElement<?> ASE : actionSequence.getElements()) {
-                if (ASE instanceof AbstractPCMActionSequenceElement) {
-                    previousNode = processActionSequenceElement((AbstractPCMActionSequenceElement<?>) ASE, previousNode);
+            for (AbstractActionSequenceElement<?> actionSequenceElement : actionSequence.getElements()) {
+                if (actionSequenceElement instanceof AbstractPCMActionSequenceElement) {
+                    previousNode = processActionSequenceElement((AbstractPCMActionSequenceElement<?>) actionSequenceElement, previousNode);
                 }
             }
         }
@@ -48,53 +47,51 @@ public class PalladioConverter extends Converter {
         if (source == null || dest == null) {
             return;
         }
-        List<DataFlowVariable> FlowVariables = pcmASE.getAllDataFlowVariables();
-        for (DataFlowVariable flowVariable : FlowVariables) {
+        List<DataFlowVariable> flowVariables = pcmASE.getAllDataFlowVariables();
+        for (DataFlowVariable flowVariable : flowVariables) {
             String flowName = flowVariable.variableName();
 
-            Optional<Flow> optFlow = dataFlowDiagram.getFlows().stream().filter(f -> f.getSourceNode().equals(source))
-                    .filter(f -> f.getDestinationNode().equals(dest)).filter(f -> f.getEntityName().equals(flowName)).findFirst();
-
-            if (optFlow.isPresent()) {
-                return;
-            }
-
-            Flow newFlow = dataflowdiagramFactory.eINSTANCE.createFlow();
-            newFlow.setSourceNode(source);
-            newFlow.setDestinationNode(dest);
-            newFlow.setEntityName(flowName);
-
-            // Palladio Assumption: Each flows between two nodes with the same parameters/that are called the same use the same pin
-            Pin sourceOutPin = findOrCreateOutputPin(source, flowName);
-            Pin destInPin = findOrCreateInputPin(dest, flowName);
-            newFlow.setSourcePin(sourceOutPin);
-            newFlow.setDestinationPin(destInPin);
-
-            ForwardingAssignment forwarding = datadictionaryFactory.eINSTANCE.createForwardingAssignment();
-            forwarding.setOutputPin(sourceOutPin);
-            source.getBehaviour().getAssignment().add(forwarding);
-
-            this.dataFlowDiagram.getFlows().add(newFlow);
+            dataFlowDiagram.getFlows().stream().filter(f -> f.getSourceNode().equals(source)).filter(f -> f.getDestinationNode().equals(dest))
+                    .filter(f -> f.getEntityName().equals(flowName)).findFirst().orElse(createFlow(source, dest, flowName));
         }
     }
 
-    // A pin is equivalent if the same parameters are passed
-    private Pin findOrCreateOutputPin(Node source, String parameters) {
-        return source.getBehaviour().getOutPin().stream().filter(p -> p.getEntityName().equals(parameters)).findAny().orElse(createPin(source,parameters,false));
+    private Flow createFlow(Node source, Node dest, String flowName) {
+        Flow newFlow = dataflowdiagramFactory.eINSTANCE.createFlow();
+        newFlow.setSourceNode(source);
+        newFlow.setDestinationNode(dest);
+        newFlow.setEntityName(flowName);
+        Pin sourceOutPin = findOutputPin(source, flowName);
+        Pin destInPin = findInputPin(dest, flowName);
+        newFlow.setSourcePin(sourceOutPin);
+        newFlow.setDestinationPin(destInPin);
+
+        ForwardingAssignment forwarding = datadictionaryFactory.eINSTANCE.createForwardingAssignment();
+        forwarding.setOutputPin(sourceOutPin);
+        source.getBehaviour().getAssignment().add(forwarding);
+
+        this.dataFlowDiagram.getFlows().add(newFlow);
+        return newFlow;
     }
 
     // A pin is equivalent if the same parameters are passed
-    private Pin findOrCreateInputPin(Node dest, String parameters) {
-        return dest.getBehaviour().getInPin().stream().filter(p -> p.getEntityName().equals(parameters)).findAny().orElse(createPin(dest, parameters, true));
+    private Pin findOutputPin(Node source, String parameters) {
+        return source.getBehaviour().getOutPin().stream().filter(p -> p.getEntityName().equals(parameters)).findAny()
+                .orElse(createPin(source, parameters, false));
+    }
+
+    // A pin is equivalent if the same parameters are passed
+    private Pin findInputPin(Node dest, String parameters) {
+        return dest.getBehaviour().getInPin().stream().filter(p -> p.getEntityName().equals(parameters)).findAny()
+                .orElse(createPin(dest, parameters, true));
     }
 
     private Pin createPin(Node node, String parameters, boolean isInPin) {
         Pin pin = datadictionaryFactory.eINSTANCE.createPin();
         pin.setEntityName(parameters);
-        if(isInPin) {
+        if (isInPin) {
             node.getBehaviour().getInPin().add(pin);
-        }
-        else {
+        } else {
             node.getBehaviour().getOutPin().add(pin);
         }
         return pin;

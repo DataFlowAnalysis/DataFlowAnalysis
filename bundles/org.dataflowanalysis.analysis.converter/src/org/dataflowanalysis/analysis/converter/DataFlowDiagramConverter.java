@@ -3,6 +3,7 @@ package org.dataflowanalysis.analysis.converter;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.HashMap;
 import java.util.List;
 import java.io.File;
@@ -54,19 +55,20 @@ public class DataFlowDiagramConverter extends Converter {
 
         behaviorConverter = new BehaviorConverter(dataDictionary);
 
-        createWebLabelTypesAndValues(webdfd, idToLabelMap, dataDictionary);
+        createWebLabelTypes(webdfd, idToLabelMap, dataDictionary);
 
         createWebNodes(webdfd, pinToNodeMap, pinMap, idToLabelMap, nodeOutpinBehavior, dataFlowDiagram, dataDictionary);
 
         createWebFlows(webdfd, pinToNodeMap, pinMap, dataFlowDiagram);
 
-        for (Node node : nodesMap.values()) {
-            if (nodeOutpinBehavior.containsKey(node)) {
-                for (Pin outpin : nodeOutpinBehavior.get(node).keySet()) {
-                    parseBehavior(node, outpin, nodeOutpinBehavior.get(node).get(outpin), dataFlowDiagram, dataDictionary);
-                }
-            }
-        }
+        List<Node> nodesInBehavior = nodeOutpinBehavior.keySet().stream().collect(Collectors.toList());
+
+        nodesInBehavior.forEach(node -> {
+            Map<Pin, String> outpinBehaviors = nodeOutpinBehavior.get(node);
+            outpinBehaviors.forEach((outpin, behavior) -> {
+                parseBehavior(node, outpin, behavior, dataFlowDiagram, dataDictionary);
+            });
+        });
 
         return new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary);
     }
@@ -78,22 +80,16 @@ public class DataFlowDiagramConverter extends Converter {
             String name = child.text();
 
             if (type[0].equals("node")) {
-                Node node;
-                switch (type[1]) {
-                    case "function":
-                        node = dfdFactory.createProcess();
-                        break;
-                    case "storage":
-                        node = dfdFactory.createStore();
-                        break;
-                    case "input-output":
-                        node = dfdFactory.createExternal();
-                        break;
-                    default:
+                Node node = switch (type[1]) {
+                    case "function" -> dfdFactory.createProcess();
+                    case "storage" -> dfdFactory.createStore();
+                    case "input-output" -> dfdFactory.createExternal();
+                    default -> {
                         logger.error("Unrecognized node type: " + type[1]);
                         continue;
+                    }
+                };
 
-                }
                 node.setEntityName(name);
                 node.setId(child.id());
 
@@ -116,61 +112,71 @@ public class DataFlowDiagramConverter extends Converter {
     }
 
     private void createWebFlows(WebEditorDfd webdfd, Map<String, Node> pinToNodeMap, Map<String, Pin> pinMap, DataFlowDiagram dataFlowDiagram) {
-        for (Child child : webdfd.model().children()) {
-            String[] type = child.type().split(":");
 
-            if (type[0].equals("edge")) {
-                var source = pinToNodeMap.get(child.sourceId());
-                var dest = pinToNodeMap.get(child.targetId());
+        webdfd.model().children().stream().filter(child -> child.type().contains("edge:")).forEach(child -> {
+            var source = pinToNodeMap.get(child.sourceId());
+            var dest = pinToNodeMap.get(child.targetId());
 
-                var flow = dfdFactory.createFlow();
-                flow.setSourceNode(source);
-                flow.setDestinationNode(dest);
-                flow.setEntityName(child.text());
+            var flow = dfdFactory.createFlow();
+            flow.setSourceNode(source);
+            flow.setDestinationNode(dest);
+            flow.setEntityName(child.text());
 
-                flow.setDestinationPin(pinMap.get(child.targetId()));
-                flow.setSourcePin(pinMap.get(child.sourceId()));
-                flow.setId(child.id());
-                dataFlowDiagram.getFlows().add(flow);
-            }
-        }
+            flow.setDestinationPin(pinMap.get(child.targetId()));
+            flow.setSourcePin(pinMap.get(child.sourceId()));
+            flow.setId(child.id());
+            dataFlowDiagram.getFlows().add(flow);
+        });
+
     }
 
     private void createWebPins(Map<String, Node> pinToNodeMap, Map<String, Pin> pinMap, Map<Node, Map<Pin, String>> nodeOutpinBehavior, Child child,
             Node node) {
         for (Port port : child.ports()) {
-            if (port.type().equals("port:dfd-input")) {
-                var inPin = ddFactory.createPin();
-                inPin.setId(port.id());
-                node.getBehaviour().getInPin().add(inPin);
-                pinMap.put(port.id(), inPin);
-            } else if (port.type().equals("port:dfd-output")) {
-                var outPin = ddFactory.createPin();
-                outPin.setId(port.id());
-                node.getBehaviour().getOutPin().add(outPin);
-                pinMap.put(port.id(), outPin);
-                if (port.behavior() != null) {
-                    putValue(nodeOutpinBehavior, node, outPin, port.behavior());
-                }
+            switch (port.type()) {
+                case "port:dfd-input" -> pinMap.put(port.id(), createWebInPin(node, port));
+                case "port:dfd-output" -> pinMap.put(port.id(), createWebOutPin(nodeOutpinBehavior, node, port));
+                default -> logger.error("Unrecognized port type");
             }
             pinToNodeMap.put(port.id(), node);
         }
     }
 
-    private void createWebLabelTypesAndValues(WebEditorDfd webdfd, Map<String, Label> idToLabelMap, DataDictionary dataDictionary) {
+    private Pin createWebOutPin(Map<Node, Map<Pin, String>> nodeOutpinBehavior, Node node, Port port) {
+        var outPin = ddFactory.createPin();
+        outPin.setId(port.id());
+        node.getBehaviour().getOutPin().add(outPin);
+        if (port.behavior() != null) {
+            putValue(nodeOutpinBehavior, node, outPin, port.behavior());
+        }
+        return outPin;
+    }
+
+    private Pin createWebInPin(Node node, Port port) {
+        var inPin = ddFactory.createPin();
+        inPin.setId(port.id());
+        node.getBehaviour().getInPin().add(inPin);
+        return inPin;
+    }
+
+    private void createWebLabelTypes(WebEditorDfd webdfd, Map<String, Label> idToLabelMap, DataDictionary dataDictionary) {
         for (WebEditorLabelType webLabelType : webdfd.labelTypes()) {
             LabelType labelType = ddFactory.createLabelType();
             labelType.setEntityName(webLabelType.name());
             labelType.setId(webLabelType.id());
             for (Value value : webLabelType.values()) {
-                Label label = ddFactory.createLabel();
-                label.setEntityName(value.text());
-                label.setId(value.id());
-                labelType.getLabel().add(label);
-                idToLabelMap.put(label.getId(), label);
+                createWebLabel(idToLabelMap, labelType, value);
             }
             dataDictionary.getLabelTypes().add(labelType);
         }
+    }
+
+    private void createWebLabel(Map<String, Label> idToLabelMap, LabelType labelType, Value value) {
+        Label label = ddFactory.createLabel();
+        label.setEntityName(value.text());
+        label.setId(value.id());
+        labelType.getLabel().add(label);
+        idToLabelMap.put(label.getId(), label);
     }
 
     private void createLabelTypesAndValues(List<WebEditorLabelType> labelTypes, DataDictionary dataDictionary) {
@@ -236,14 +242,18 @@ public class DataFlowDiagramConverter extends Converter {
 
     private void createFlows(DataFlowDiagram dataFlowDiagram, List<Child> children) {
         for (Flow flow : dataFlowDiagram.getFlows()) {
-            String id = flow.getId();
-            String type = "edge:arrow";
-            String sourceId = flow.getSourcePin().getId();
-            String targetId = flow.getDestinationPin().getId();
-            String text = flow.getEntityName();
-            mapInputPinToFlowName.put(flow.getDestinationPin(), text);
-            children.add(new Child(text, null, null, id, type, sourceId, targetId, new ArrayList<>()));
+            mapInputPinToFlowName.put(flow.getDestinationPin(), flow.getEntityName());
+            children.add(createWebFlow(flow));
         }
+    }
+
+    private Child createWebFlow(Flow flow) {
+        String id = flow.getId();
+        String type = "edge:arrow";
+        String sourceId = flow.getSourcePin().getId();
+        String targetId = flow.getDestinationPin().getId();
+        String text = flow.getEntityName();
+        return new Child(text, null, null, id, type, sourceId, targetId, new ArrayList<>());
     }
 
     private Map<Pin, List<AbstractAssignment>> mapping(Node node) {

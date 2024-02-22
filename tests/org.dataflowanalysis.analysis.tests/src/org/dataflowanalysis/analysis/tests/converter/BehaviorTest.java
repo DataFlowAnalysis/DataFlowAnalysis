@@ -9,16 +9,16 @@ import org.junit.jupiter.api.Test;
 
 public class BehaviorTest {
     private BehaviorConverter converter;
-    
+
     @BeforeEach
     public void init() {
-        converter=new BehaviorConverter();
+        converter = new BehaviorConverter();
     }
-    
+
     @Test
     @DisplayName("Test Behavior Conversion")
-    public void testBehavior(){
+    public void testBehavior() {
         String behavior = "(A.A && TRUE) || !B.B";
-        assertEquals(behavior,converter.termToString(converter.stringToTerm(behavior)));
+        assertEquals(behavior, converter.termToString(converter.stringToTerm(behavior)));
     }
 }

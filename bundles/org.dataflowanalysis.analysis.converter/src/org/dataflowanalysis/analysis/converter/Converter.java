@@ -30,7 +30,7 @@ public abstract class Converter {
 
     public void store(DataFlowDiagramAndDictionary complete, String outputFile) {
         String truncatedOutputFile;
-        if (outputFile.contains(".json")) {
+        if (outputFile.endsWith(".json")) {
             truncatedOutputFile = outputFile.substring(0, outputFile.length() - 5);
         } else {
             truncatedOutputFile = outputFile;

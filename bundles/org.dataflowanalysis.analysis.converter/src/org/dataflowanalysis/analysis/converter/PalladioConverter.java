@@ -37,7 +37,7 @@ public class PalladioConverter extends Converter {
     }
 
     private Node processActionSequenceElement(AbstractPCMActionSequenceElement<? extends Entity> pcmASE, Node previousDFDNode) {
-        Node dfdNode = getOrCreateDFDNode(pcmASE);
+        Node dfdNode = getDFDNode(pcmASE);
 
         createFlowBetweenPreviousAndCurrentNode(previousDFDNode, dfdNode, pcmASE);
 
@@ -80,38 +80,41 @@ public class PalladioConverter extends Converter {
 
     // A pin is equivalent if the same parameters are passed
     private Pin findOrCreateOutputPin(Node source, String parameters) {
-        Optional<Pin> optPin = source.getBehaviour().getOutPin().stream().filter(p -> p.getEntityName().equals(parameters)).findAny();
-        if (optPin.isPresent()) {
-            return optPin.get();
-        }
-        Pin pin = datadictionaryFactory.eINSTANCE.createPin();
-        pin.setEntityName(parameters);
-        source.getBehaviour().getOutPin().add(pin);
-        return pin;
+        return source.getBehaviour().getOutPin().stream().filter(p -> p.getEntityName().equals(parameters)).findAny().orElse(createPin(source,parameters,false));
     }
 
     // A pin is equivalent if the same parameters are passed
     private Pin findOrCreateInputPin(Node dest, String parameters) {
-        Optional<Pin> optPin = dest.getBehaviour().getInPin().stream().filter(p -> p.getEntityName().equals(parameters)).findAny();
-        if (optPin.isPresent()) {
-            return optPin.get();
-        }
+        return dest.getBehaviour().getInPin().stream().filter(p -> p.getEntityName().equals(parameters)).findAny().orElse(createPin(dest, parameters, true));
+    }
+
+    private Pin createPin(Node node, String parameters, boolean isInPin) {
         Pin pin = datadictionaryFactory.eINSTANCE.createPin();
         pin.setEntityName(parameters);
-        dest.getBehaviour().getInPin().add(pin);
+        if(isInPin) {
+            node.getBehaviour().getInPin().add(pin);
+        }
+        else {
+            node.getBehaviour().getOutPin().add(pin);
+        }
         return pin;
     }
 
-    private Node getOrCreateDFDNode(AbstractPCMActionSequenceElement<? extends Entity> pcmASE) {
+    private Node getDFDNode(AbstractPCMActionSequenceElement<? extends Entity> pcmASE) {
         Node dfdNode = dfdNodeMap.get(pcmASE.getElement());
 
         if (dfdNode == null) {
-            dfdNode = createCorrespondingDFDNode(pcmASE);
-            dfdNodeMap.put(pcmASE.getElement(), dfdNode);
+            dfdNode = createDFDNode(pcmASE);
         }
 
         addNodeCharacteristicsToNode(dfdNode, pcmASE.getAllNodeCharacteristics());
 
+        return dfdNode;
+    }
+
+    private Node createDFDNode(AbstractPCMActionSequenceElement<? extends Entity> pcmASE) {
+        Node dfdNode = createCorrespondingDFDNode(pcmASE);
+        dfdNodeMap.put(pcmASE.getElement(), dfdNode);
         return dfdNode;
     }
 

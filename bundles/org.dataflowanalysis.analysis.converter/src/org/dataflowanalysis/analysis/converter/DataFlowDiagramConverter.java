@@ -8,8 +8,6 @@ import java.util.List;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Stack;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.converter.webdfd.*;
@@ -34,7 +32,7 @@ public class DataFlowDiagramConverter extends Converter {
     private Map<String, Node> nodesMap;
 
     private final Logger logger = Logger.getLogger(MicroSecEndConverter.class);
-    
+
     private BehaviorConverter behaviorConverter;
 
     public DataFlowDiagramConverter() {
@@ -53,8 +51,8 @@ public class DataFlowDiagramConverter extends Converter {
 
         DataFlowDiagram dataFlowDiagram = dfdFactory.createDataFlowDiagram();
         DataDictionary dataDictionary = ddFactory.createDataDictionary();
-        
-        behaviorConverter= new BehaviorConverter(dataDictionary);
+
+        behaviorConverter = new BehaviorConverter(dataDictionary);
 
         createWebLabelTypesAndValues(webdfd, idToLabelMap, dataDictionary);
 
@@ -188,8 +186,8 @@ public class DataFlowDiagramConverter extends Converter {
     private WebEditorDfd processDfd(DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary) {
         List<Child> children = new ArrayList<>();
         List<WebEditorLabelType> labelTypes = new ArrayList<>();
-        
-        behaviorConverter= new BehaviorConverter(dataDictionary);
+
+        behaviorConverter = new BehaviorConverter(dataDictionary);
 
         createLabelTypesAndValues(labelTypes, dataDictionary);
 
@@ -228,9 +226,9 @@ public class DataFlowDiagramConverter extends Converter {
             node.getBehaviour().getInPin().forEach(pin -> ports.add(new Port(null, pin.getId(), "port:dfd-input", new ArrayList<>())));
 
             Map<Pin, List<AbstractAssignment>> mapPinToAssignments = mapping(node);
-            
-            node.getBehaviour().getOutPin()
-            .forEach(pin -> ports.add(new Port(createBehaviourString(mapPinToAssignments.get(pin)), pin.getId(), "port:dfd-output", new ArrayList<>())));
+
+            node.getBehaviour().getOutPin().forEach(pin -> ports
+                    .add(new Port(createBehaviourString(mapPinToAssignments.get(pin)), pin.getId(), "port:dfd-output", new ArrayList<>())));
 
             children.add(new Child(text, labels, ports, id, type, null, null, new ArrayList<>()));
         }
@@ -296,12 +294,9 @@ public class DataFlowDiagramConverter extends Converter {
         for (String behaviorString : behaviorStrings) {
             if (behaviorString.contains("forward ")) {
                 String packet = behaviorString.split(" ")[1];
-                
-                Pin inpin = dfd.getFlows().stream()
-                        .filter(flow -> flow.getDestinationNode() == node)
-                        .filter(flow -> flow.getEntityName().equals(packet))
-                        .map(Flow::getDestinationPin).findAny().orElse(null);
 
+                Pin inpin = dfd.getFlows().stream().filter(flow -> flow.getDestinationNode() == node)
+                        .filter(flow -> flow.getEntityName().equals(packet)).map(Flow::getDestinationPin).findAny().orElse(null);
 
                 var assignment = ddFactory.createForwardingAssignment();
                 assignment.setOutputPin(outpin);
@@ -312,17 +307,15 @@ public class DataFlowDiagramConverter extends Converter {
 
                 Pattern pattern = Pattern.compile(regex);
                 Matcher matcher = pattern.matcher(behaviorString);
-                if(matcher.find() && matcher.groupCount()==2) {
+                if (matcher.find() && matcher.groupCount() == 2) {
                     String variable = matcher.group(1);
                     String typeName = variable.split("\\.")[0];
                     String valueName = variable.split("\\.")[1];
 
-                    Label value = dd.getLabelTypes().stream()
-                            .filter(labelType -> labelType.getEntityName().equals(typeName))
-                            .flatMap(labelType -> labelType.getLabel().stream())
-                            .filter(label -> label.getEntityName().equals(valueName))
-                            .findAny().orElse(null);
-                    
+                    Label value = dd.getLabelTypes().stream().filter(labelType -> labelType.getEntityName().equals(typeName))
+                            .flatMap(labelType -> labelType.getLabel().stream()).filter(label -> label.getEntityName().equals(valueName)).findAny()
+                            .orElse(null);
+
                     Assignment assignment = ddFactory.createAssignment();
 
                     assignment.getInputPins().addAll(behavior.getInPin());
@@ -330,9 +323,9 @@ public class DataFlowDiagramConverter extends Converter {
                     assignment.getOutputLabels().add(value);
 
                     behavior.getAssignment().add(assignment);
-                    
+
                     Term term = behaviorConverter.stringToTerm(matcher.group(2));
-                                    
+
                     assignment.setTerm(term);
                 }
             }
@@ -385,7 +378,8 @@ public class DataFlowDiagramConverter extends Converter {
 
     public DataFlowDiagramAndDictionary loadDFD(String inputDataFlowDiagram, String inputDataDictionary) {
         ResourceSet resourceSet = new ResourceSetImpl();
-        resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
+        resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION,
+                new XMIResourceFactoryImpl());
         resourceSet.getPackageRegistry().put(dataflowdiagramPackage.eNS_URI, dataflowdiagramPackage.eINSTANCE);
 
         Resource dfdResource = resourceSet.getResource(URI.createFileURI(inputDataFlowDiagram), true);

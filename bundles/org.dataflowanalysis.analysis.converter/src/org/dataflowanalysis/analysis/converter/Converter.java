@@ -65,7 +65,7 @@ public abstract class Converter {
             resource.save(saveOptions);
         } catch (IOException e) {
             logger.error("Error saving DataFlowDiagram");
-            throw new RuntimeException(e);  
+            throw new RuntimeException(e);
         }
     }
 }

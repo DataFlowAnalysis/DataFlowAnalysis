@@ -17,21 +17,21 @@ import org.dataflowanalysis.dfd.datadictionary.datadictionaryFactory;
 public class BehaviorConverter {
     private final datadictionaryFactory ddFactory;
     private DataDictionary dataDictionary;
-    
+
     public BehaviorConverter() {
         ddFactory = datadictionaryFactory.eINSTANCE;
         dataDictionary = null;
     }
-    
+
     public BehaviorConverter(DataDictionary dataDictionary) {
         this();
         this.dataDictionary = dataDictionary;
     }
-    
+
     public Term stringToTerm(String expression) {
         // Tokenize the expression
         List<String> tokens = tokenize(expression);
-        
+
         // Stack for operands
         Stack<Term> operands = new Stack<>();
         // Stack for operators
@@ -111,26 +111,24 @@ public class BehaviorConverter {
             String valueName = token.split("\\.")[1];
 
             Label value = null;
-            
-            if(dataDictionary!=null) {
-                value=dataDictionary.getLabelTypes().stream()
-                        .filter(labelType -> labelType.getEntityName().equals(typeName))
-                        .flatMap(labelType -> labelType.getLabel().stream())
-                        .filter(label -> label.getEntityName().equals(valueName))
-                        .findAny().orElse(null);
+
+            if (dataDictionary != null) {
+                value = dataDictionary.getLabelTypes().stream().filter(labelType -> labelType.getEntityName().equals(typeName))
+                        .flatMap(labelType -> labelType.getLabel().stream()).filter(label -> label.getEntityName().equals(valueName)).findAny()
+                        .orElse(null);
             }
- 
-            if(value==null) {
-                value=ddFactory.createLabel();
+
+            if (value == null) {
+                value = ddFactory.createLabel();
                 value.setEntityName(token);
             }
-            
+
             var labelReference = ddFactory.createLabelReference();
             labelReference.setLabel(value);
             return labelReference;
         }
     }
-    
+
     public String termToString(Term term) {
         return termToString(term, false);
     }
@@ -140,21 +138,21 @@ public class BehaviorConverter {
             return ((LabelReference) term).getLabel().getEntityName();
         } else if (term instanceof TRUE) {
             return "TRUE";
-        } else if (term instanceof AND) {
-            List<Term> operands = ((AND)term).getTerms();
+        } else if (term instanceof AND and) {
+            List<Term> operands = and.getTerms();
             String result = termToString(operands.get(0), true) + " && " + termToString(operands.get(1), true);
             return isNested ? "(" + result + ")" : result;
-        } else if (term instanceof OR) {
-            List<Term> operands = ((OR)term).getTerms();
+        } else if (term instanceof OR or) {
+            List<Term> operands = or.getTerms();
             String result = termToString(operands.get(0), true) + " || " + termToString(operands.get(1), true);
             return isNested ? "(" + result + ")" : result;
-        } else if (term instanceof NOT) {
-            return "!" + termToString(((NOT)term).getNegatedTerm(), false);
+        } else if (term instanceof NOT not) {
+            return "!" + termToString(not.getNegatedTerm(), false);
         } else {
             throw new IllegalArgumentException("Unknown term type");
         }
     }
-    
+
     private List<String> tokenize(String expression) {
         List<String> tokens = new ArrayList<>();
         StringBuilder token = new StringBuilder();

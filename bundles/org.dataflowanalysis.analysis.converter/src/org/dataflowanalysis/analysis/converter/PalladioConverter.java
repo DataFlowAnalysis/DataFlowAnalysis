@@ -123,6 +123,7 @@ public class PalladioConverter extends Converter {
         } else if (pcmASE instanceof SEFFActionSequenceElement<?>) {
             node = dataflowdiagramFactory.eINSTANCE.createProcess();
         } else {
+            logger.error("Unregcognized palladio element");
             return null;
         }
 
@@ -146,23 +147,26 @@ public class PalladioConverter extends Converter {
 
     private Label getOrCreateDFDLabel(CharacteristicValue charValue) {
         LabelType type = dataDictionary.getLabelTypes().stream().filter(f -> f.getEntityName().equals(charValue.getTypeName())).findFirst()
-                .orElse(null);
+                .orElse(createLabelType(charValue));
 
-        if (type == null) {
-            type = datadictionaryFactory.eINSTANCE.createLabelType();
-            type.setEntityName(charValue.getTypeName());
-            this.dataDictionary.getLabelTypes().add(type);
-        }
-
-        Label label = type.getLabel().stream().filter(f -> f.getEntityName().equals(charValue.getValueName())).findFirst().orElse(null);
-
-        if (label == null) {
-            label = datadictionaryFactory.eINSTANCE.createLabel();
-            label.setEntityName(charValue.getValueName());
-            type.getLabel().add(label);
-        }
+        Label label = type.getLabel().stream().filter(f -> f.getEntityName().equals(charValue.getValueName())).findFirst()
+                .orElse(createLabel(charValue, type));
 
         return label;
+    }
+
+    private Label createLabel(CharacteristicValue charValue, LabelType type) {
+        Label label = datadictionaryFactory.eINSTANCE.createLabel();
+        label.setEntityName(charValue.getValueName());
+        type.getLabel().add(label);
+        return label;
+    }
+
+    private LabelType createLabelType(CharacteristicValue charValue) {
+        LabelType type = datadictionaryFactory.eINSTANCE.createLabelType();
+        type.setEntityName(charValue.getTypeName());
+        this.dataDictionary.getLabelTypes().add(type);
+        return type;
     }
 
     public DataFlowDiagramAndDictionary assToDFD(String inputModel, String inputFile, String modelLocation) {

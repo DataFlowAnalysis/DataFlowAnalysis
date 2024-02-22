@@ -15,10 +15,7 @@ import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
 import org.dataflowanalysis.analysis.core.ActionSequence;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
-import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFActionSequenceElement;
-import org.dataflowanalysis.analysis.pcm.core.seff.SEFFActionSequenceElement;
-import org.dataflowanalysis.analysis.pcm.core.user.CallingUserActionSequenceElement;
-import org.dataflowanalysis.analysis.pcm.core.user.UserActionSequenceElement;
+import org.dataflowanalysis.analysis.pcm.core.AbstractPCMActionSequenceElement;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
@@ -49,19 +46,8 @@ public class PalladioTest {
         Map<String, String> assIdToName = new HashMap<>();
         for (ActionSequence as : propagationResult) {
             for (AbstractActionSequenceElement<?> ase : as.getElements()) {
-                if (ase instanceof SEFFActionSequenceElement) {
-                    var cast = (SEFFActionSequenceElement<?>) ase;
-                    assIdToName.putIfAbsent(cast.getElement().getId(), cast.getElement().getEntityName());
-                } else if (ase instanceof CallingSEFFActionSequenceElement) {
-                    var cast = (CallingSEFFActionSequenceElement) ase;
-                    assIdToName.putIfAbsent(cast.getElement().getId(), cast.getElement().getEntityName());
-                } else if (ase instanceof CallingUserActionSequenceElement) {
-                    var cast = (CallingUserActionSequenceElement) ase;
-                    assIdToName.putIfAbsent(cast.getElement().getId(), cast.getElement().getEntityName());
-                } else {
-                    var cast = (UserActionSequenceElement<?>) ase;
-                    assIdToName.putIfAbsent(cast.getElement().getId(), cast.getElement().getEntityName());
-                }
+                var cast = (AbstractPCMActionSequenceElement<?>) ase;
+                assIdToName.putIfAbsent(cast.getElement().getId(), cast.getElement().getEntityName());
             }
         }
 

@@ -32,7 +32,7 @@ public class DataFlowDiagramConverter extends Converter {
     private final datadictionaryFactory ddFactory;
     private Map<String, Node> nodesMap;
 
-    private final Logger logger = Logger.getLogger(MicroSecEndConverter.class);
+    private final Logger logger = Logger.getLogger(DataFlowDiagramConverter.class);
 
     private BehaviorConverter behaviorConverter;
 
@@ -99,10 +99,9 @@ public class DataFlowDiagramConverter extends Converter {
 
                 createWebPins(pinToNodeMap, pinMap, nodeOutpinBehavior, child, node);
 
-                List<Label> labelsAtNode = new ArrayList<>();
-                for (WebEditorLabel webLabel : child.labels()) {
-                    labelsAtNode.add(idToLabelMap.get(webLabel.labelTypeValueId()));
-                }
+                List<Label> labelsAtNode = child.labels().stream()
+                        .map(it -> idToLabelMap.get(it.labelTypeValueId()))
+                        .toList();
                 node.getProperties().addAll(labelsAtNode);
 
                 dataFlowDiagram.getNodes().add(node);
@@ -286,12 +285,8 @@ public class DataFlowDiagramConverter extends Converter {
                 String value = behaviorConverter.termToString(assignment.getTerm());
 
                 for (Label label : assignment.getOutputLabels()) {
-                    try {
-                        builder.append("set ").append(((LabelType) label.eContainer()).getEntityName()).append(".").append(label.getEntityName())
-                                .append(" = ").append(value).append("\n");
-                    } catch (IllegalArgumentException ex) {
-                        logger.error("Illegal behavior argument");
-                    }
+                    builder.append("set ").append(((LabelType) label.eContainer()).getEntityName()).append(".").append(label.getEntityName())
+                                .append(" = ").append(value).append("\n");       
                 }
             }
         }
@@ -317,27 +312,30 @@ public class DataFlowDiagramConverter extends Converter {
 
                 Pattern pattern = Pattern.compile(regex);
                 Matcher matcher = pattern.matcher(behaviorString);
-                if (matcher.find() && matcher.groupCount() == 2) {
-                    String variable = matcher.group(1);
-                    String typeName = variable.split("\\.")[0];
-                    String valueName = variable.split("\\.")[1];
-
-                    Label value = dd.getLabelTypes().stream().filter(labelType -> labelType.getEntityName().equals(typeName))
-                            .flatMap(labelType -> labelType.getLabel().stream()).filter(label -> label.getEntityName().equals(valueName)).findAny()
-                            .orElse(null);
-
-                    Assignment assignment = ddFactory.createAssignment();
-
-                    assignment.getInputPins().addAll(behavior.getInPin());
-                    assignment.setOutputPin(outpin);
-                    assignment.getOutputLabels().add(value);
-
-                    behavior.getAssignment().add(assignment);
-
-                    Term term = behaviorConverter.stringToTerm(matcher.group(2));
-
-                    assignment.setTerm(term);
+                if (!matcher.find() || matcher.groupCount() != 2) {
+                    logger.error("Invalid behavior string:");
+                    logger.error(behaviorStrings);
+                    continue;
                 }
+                String variable = matcher.group(1);
+                String typeName = variable.split("\\.")[0];
+                String valueName = variable.split("\\.")[1];
+
+                Label value = dd.getLabelTypes().stream().filter(labelType -> labelType.getEntityName().equals(typeName))
+                        .flatMap(labelType -> labelType.getLabel().stream()).filter(label -> label.getEntityName().equals(valueName)).findAny()
+                        .orElse(null);
+
+                Assignment assignment = ddFactory.createAssignment();
+
+                assignment.getInputPins().addAll(behavior.getInPin());
+                assignment.setOutputPin(outpin);
+                assignment.getOutputLabels().add(value);
+
+                behavior.getAssignment().add(assignment);
+
+                Term term = behaviorConverter.stringToTerm(matcher.group(2));
+
+                assignment.setTerm(term);
             }
         }
     }
@@ -371,6 +369,7 @@ public class DataFlowDiagramConverter extends Converter {
         try {
             objectMapper.writeValue(new File(outputFile), web);
         } catch (IOException e) {
+            logger.error("Could not store web dfd:");
             logger.error(e);
         }
     }
@@ -381,6 +380,7 @@ public class DataFlowDiagramConverter extends Converter {
         try {
             return objectMapper.readValue(file, WebEditorDfd.class);
         } catch (IOException e) {
+            logger.error("Could not load web dfd:");
             logger.error(e);
             return null;
         }

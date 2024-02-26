@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.dfd.datadictionary.AND;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.Label;
@@ -17,6 +18,8 @@ import org.dataflowanalysis.dfd.datadictionary.datadictionaryFactory;
 public class BehaviorConverter {
     private final datadictionaryFactory ddFactory;
     private DataDictionary dataDictionary;
+    
+    private final Logger logger = Logger.getLogger(BehaviorConverter.class);
 
     public BehaviorConverter() {
         ddFactory = datadictionaryFactory.eINSTANCE;
@@ -96,37 +99,42 @@ public class BehaviorConverter {
                 notOperation.setNegatedTerm(negated);
                 operands.push(notOperation);
                 break;
+            default:
+                logger.error("Unknow operator");
         }
     }
 
     private Term createTerm(String token) {
         if (token.equals("TRUE")) {
             return ddFactory.createTRUE();
-        } else if (token.equals("FALSE")) {
+        }
+        
+        if (token.equals("FALSE")) {
             var ddFalse = ddFactory.createNOT();
             ddFalse.setNegatedTerm(ddFactory.createTRUE());
             return ddFalse;
-        } else {
-            String typeName = token.split("\\.")[0];
-            String valueName = token.split("\\.")[1];
-
-            Label value = null;
-
-            if (dataDictionary != null) {
-                value = dataDictionary.getLabelTypes().stream().filter(labelType -> labelType.getEntityName().equals(typeName))
-                        .flatMap(labelType -> labelType.getLabel().stream()).filter(label -> label.getEntityName().equals(valueName)).findAny()
-                        .orElse(null);
-            }
-
-            if (value == null) {
-                value = ddFactory.createLabel();
-                value.setEntityName(token);
-            }
-
-            var labelReference = ddFactory.createLabelReference();
-            labelReference.setLabel(value);
-            return labelReference;
         }
+        
+        String typeName = token.split("\\.")[0];
+        String valueName = token.split("\\.")[1];
+
+        Label value = null;
+
+        if (dataDictionary != null) {
+            value = dataDictionary.getLabelTypes().stream().filter(labelType -> labelType.getEntityName().equals(typeName))
+                    .flatMap(labelType -> labelType.getLabel().stream()).filter(label -> label.getEntityName().equals(valueName)).findAny()
+                    .orElse(null);
+        }
+
+        if (value == null) {
+            value = ddFactory.createLabel();
+            value.setEntityName(token);
+        }
+
+        var labelReference = ddFactory.createLabelReference();
+        labelReference.setLabel(value);
+        return labelReference;
+        
     }
 
     public String termToString(Term term) {
@@ -134,8 +142,8 @@ public class BehaviorConverter {
     }
 
     private String termToString(Term term, boolean isNested) {
-        if (term instanceof LabelReference) {
-            return ((LabelReference) term).getLabel().getEntityName();
+        if (term instanceof LabelReference labelReference) {
+            return labelReference.getLabel().getEntityName();
         } else if (term instanceof TRUE) {
             return "TRUE";
         } else if (term instanceof AND and) {

@@ -2,8 +2,6 @@ package org.dataflowanalysis.analysis.converter;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -11,7 +9,6 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
@@ -28,6 +25,11 @@ public abstract class Converter {
         objectMapper = new ObjectMapper();
     }
 
+    /**
+     * Stores a DataFlowDiagramAndDictionary object into a specified output file.
+     * @param complete The DataFlowDiagramAndDictionary object to store.
+     * @param outputFile The path of the output file.
+     */
     public void store(DataFlowDiagramAndDictionary complete, String outputFile) {
         String truncatedOutputFile;
         if (outputFile.endsWith(".json")) {
@@ -52,15 +54,11 @@ public abstract class Converter {
             resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(fileextension, new XMLResourceFactoryImpl());
         }
         URI uri = URI.createFileURI(outputFile);
-        Resource resource = resourceSet.createResource(uri);
-        ((ResourceImpl) resource).setIntrinsicIDToEObjectMap(new HashMap<>());
-        return resource;
+        return resourceSet.createResource(uri);
     }
 
     private void saveResource(Resource resource) {
         Map<Object, Object> saveOptions = ((XMLResource) resource).getDefaultSaveOptions();
-        saveOptions.put(XMLResource.OPTION_CONFIGURATION_CACHE, Boolean.TRUE);
-        saveOptions.put(XMLResource.OPTION_USE_CACHED_LOOKUP_TABLE, new ArrayList<>());
         try {
             resource.save(saveOptions);
         } catch (IOException e) {

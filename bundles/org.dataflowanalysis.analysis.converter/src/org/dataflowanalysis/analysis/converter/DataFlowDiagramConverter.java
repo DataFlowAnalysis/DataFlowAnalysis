@@ -26,12 +26,18 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+/**
+ * Converts data flow diagrams and dictionaries between web editor formats and the application's internal
+ * representation. Inherits from {@link Converter} to utilize shared conversion logic while providing specific
+ * functionality for handling data flow diagram formats. Supports loading from and storing to files, and conversion
+ * between different data representation formats.
+ */
 public class DataFlowDiagramConverter extends Converter {
 
-    private final Map<Pin, String> mapInputPinToFlowName = new HashMap<>();
+    private final Map<Pin, String> inputPinToFlowNameMap = new HashMap<>();
     private final dataflowdiagramFactory dfdFactory;
     private final datadictionaryFactory ddFactory;
-    private Map<String, Node> nodesMap;
+    private Map<String, Node> idToNodeMap;
 
     private final Logger logger = Logger.getLogger(DataFlowDiagramConverter.class);
 
@@ -41,15 +47,15 @@ public class DataFlowDiagramConverter extends Converter {
         dfdFactory = dataflowdiagramFactory.eINSTANCE;
         ddFactory = datadictionaryFactory.eINSTANCE;
 
-        nodesMap = new HashMap<>();
+        idToNodeMap = new HashMap<>();
     }
 
     private DataFlowDiagramAndDictionary processWeb(WebEditorDfd webdfd) {
-        nodesMap = new HashMap<>();
+        idToNodeMap = new HashMap<>();
         Map<String, Node> pinToNodeMap = new HashMap<>();
-        Map<String, Pin> pinMap = new HashMap<>();
+        Map<String, Pin> idToPinMap = new HashMap<>();
         Map<String, Label> idToLabelMap = new HashMap<>();
-        Map<Node, Map<Pin, String>> nodeOutpinBehavior = new HashMap<>();
+        Map<Node, Map<Pin, String>> nodeOutpinBehaviorMap = new HashMap<>();
 
         DataFlowDiagram dataFlowDiagram = dfdFactory.createDataFlowDiagram();
         DataDictionary dataDictionary = ddFactory.createDataDictionary();
@@ -58,14 +64,14 @@ public class DataFlowDiagramConverter extends Converter {
 
         createWebLabelTypes(webdfd, idToLabelMap, dataDictionary);
 
-        createWebNodes(webdfd, pinToNodeMap, pinMap, idToLabelMap, nodeOutpinBehavior, dataFlowDiagram, dataDictionary);
+        createWebNodes(webdfd, pinToNodeMap, idToPinMap, idToLabelMap, nodeOutpinBehaviorMap, dataFlowDiagram, dataDictionary);
 
-        createWebFlows(webdfd, pinToNodeMap, pinMap, dataFlowDiagram);
+        createWebFlows(webdfd, pinToNodeMap, idToPinMap, dataFlowDiagram);
 
-        List<Node> nodesInBehavior = nodeOutpinBehavior.keySet().stream().collect(Collectors.toList());
+        List<Node> nodesInBehavior = nodeOutpinBehaviorMap.keySet().stream().collect(Collectors.toList());
 
         nodesInBehavior.forEach(node -> {
-            Map<Pin, String> outpinBehaviors = nodeOutpinBehavior.get(node);
+            Map<Pin, String> outpinBehaviors = nodeOutpinBehaviorMap.get(node);
             outpinBehaviors.forEach((outpin, behavior) -> {
                 parseBehavior(node, outpin, behavior, dataFlowDiagram, dataDictionary);
             });
@@ -104,7 +110,7 @@ public class DataFlowDiagramConverter extends Converter {
                 node.getProperties().addAll(labelsAtNode);
 
                 dataFlowDiagram.getNodes().add(node);
-                nodesMap.put(child.id(), node);
+                idToNodeMap.put(child.id(), node);
             }
         }
     }
@@ -240,7 +246,7 @@ public class DataFlowDiagramConverter extends Converter {
 
     private void createFlows(DataFlowDiagram dataFlowDiagram, List<Child> children) {
         for (Flow flow : dataFlowDiagram.getFlows()) {
-            mapInputPinToFlowName.put(flow.getDestinationPin(), flow.getEntityName());
+            inputPinToFlowNameMap.put(flow.getDestinationPin(), flow.getEntityName());
             children.add(createWebFlow(flow));
         }
     }
@@ -277,7 +283,7 @@ public class DataFlowDiagramConverter extends Converter {
         for (AbstractAssignment abstractAssignment : abstractAssignments) {
             if (abstractAssignment instanceof ForwardingAssignment) {
                 for (Pin inPin : abstractAssignment.getInputPins()) {
-                    builder.append("forward ").append(mapInputPinToFlowName.get(inPin)).append("\n");
+                    builder.append("forward ").append(inputPinToFlowNameMap.get(inPin)).append("\n");
                 }
             } else {
                 Assignment assignment = (Assignment) abstractAssignment;
@@ -343,23 +349,49 @@ public class DataFlowDiagramConverter extends Converter {
         nestedHashMap.computeIfAbsent(node, k -> new HashMap<>()).put(pin, value);
     }
 
+    /**
+     * Converts a Web Editor DFD format file into a DataFlowDiagramAndDictionary object.
+     * @param inputFile The path of the input file in Web Editor DFD format.
+     * @return DataFlowDiagramAndDictionary object representing the converted data flow diagram and dictionary.
+     */
     public DataFlowDiagramAndDictionary webToDfd(String inputFile) {
         return webToDfd(loadWeb(inputFile).get());
     }
 
+    /**
+     * Converts a WebEditorDfd object into a DataFlowDiagramAndDictionary object.
+     * @param inputFile The WebEditorDfd object to convert.
+     * @return DataFlowDiagramAndDictionary object representing the converted data flow diagram and dictionary.
+     */
     public DataFlowDiagramAndDictionary webToDfd(WebEditorDfd inputFile) {
         return processWeb(inputFile);
     }
 
+    /**
+     * Converts Data Flow Diagram and Data Dictionary provided via paths into a WebEditorDfd object.
+     * @param inputDataFlowDiagram The path of the data flow diagram.
+     * @param inputDataDictionary The path of the data dictionary.
+     * @return WebEditorDfd object representing the web editor version of the data flow diagram.
+     */
     public WebEditorDfd dfdToWeb(String inputDataFlowDiagram, String inputDataDictionary) {
         DataFlowDiagramAndDictionary complete = loadDFD(inputDataFlowDiagram, inputDataDictionary);
         return processDfd(complete.dataFlowDiagram(), complete.dataDictionary());
     }
 
+    /**
+     * Converts a DataFlowDiagramAndDictionary object into a WebEditorDfd object.
+     * @param complete The DataFlowDiagramAndDictionary object to convert.
+     * @return WebEditorDfd object representing the web editor version of the data flow diagram.
+     */
     public WebEditorDfd dfdToWeb(DataFlowDiagramAndDictionary complete) {
         return processDfd(complete.dataFlowDiagram(), complete.dataDictionary());
     }
 
+    /**
+     * Stores a WebEditorDfd object into a specified output file.
+     * @param web The WebEditorDfd object to store.
+     * @param outputFile The path of the output file.
+     */
     public void store(WebEditorDfd web, String outputFile) {
         objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
@@ -372,6 +404,11 @@ public class DataFlowDiagramConverter extends Converter {
         }
     }
 
+    /**
+     * Loads a WebEditorDfd object from a specified input file.
+     * @param inputFile The path of the input file.
+     * @return Optional containing the loaded WebEditorDfd object; empty if an error occurs.
+     */
     public Optional<WebEditorDfd> loadWeb(String inputFile) {
         objectMapper = new ObjectMapper();
         file = new File(inputFile);
@@ -384,6 +421,12 @@ public class DataFlowDiagramConverter extends Converter {
         }
     }
 
+    /**
+     * Loads a data flow diagram and data dictionary from specified input files and returns them as a combined object.
+     * @param inputDataFlowDiagram The path of the input data flow diagram file.
+     * @param inputDataDictionary The path of the input data dictionary file.
+     * @return DataFlowDiagramAndDictionary object representing the loaded data flow diagram and dictionary.
+     */
     public DataFlowDiagramAndDictionary loadDFD(String inputDataFlowDiagram, String inputDataDictionary) {
         ResourceSet resourceSet = new ResourceSetImpl();
         resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION,

@@ -16,6 +16,10 @@ import org.dataflowanalysis.dfd.datadictionary.TRUE;
 import org.dataflowanalysis.dfd.datadictionary.Term;
 import org.dataflowanalysis.dfd.datadictionary.datadictionaryFactory;
 
+/**
+ * Converts string expressions to {@link Term} instances and vice versa, based on a given {@link DataDictionary}.
+ * Supports logical operations AND, OR, and NOT.
+ */
 public class BehaviorConverter {
     private final datadictionaryFactory ddFactory;
     private DataDictionary dataDictionary;
@@ -32,6 +36,12 @@ public class BehaviorConverter {
         this.dataDictionary = dataDictionary;
     }
 
+    /**
+     * Converts a string expression into a {@link Term} instance. The expression can include logical operators (&&, ||, !)
+     * and operands represented by strings.
+     * @param expression the logical expression to convert
+     * @return the {@link Term} representation of the expression
+     */
     public Term stringToTerm(String expression) {
         List<String> tokens = tokenize(expression);
 
@@ -133,6 +143,11 @@ public class BehaviorConverter {
 
     }
 
+    /**
+     * Converts a {@link Term} instance back into its string representation.
+     * @param term the {@link Term} instance to convert
+     * @return the string representation of the term
+     */
     public String termToString(Term term) {
         return termToString(term, false);
     }

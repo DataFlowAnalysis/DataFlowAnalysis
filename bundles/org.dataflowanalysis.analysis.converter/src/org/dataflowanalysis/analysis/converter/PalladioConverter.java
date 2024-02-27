@@ -17,6 +17,10 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
 
+/**
+ * Converts Palladio models to the data flow diagram and dictionary representation. Inherits from {@link Converter} to
+ * utilize shared conversion logic while providing specific functionality for handling Palladio models.
+ */
 public class PalladioConverter extends Converter {
 
     private final Map<Entity, Node> dfdNodeMap = new HashMap<>();
@@ -169,6 +173,13 @@ public class PalladioConverter extends Converter {
         return type;
     }
 
+    /**
+     * Converts a Palladio model into a DataFlowDiagramAndDictionary object.
+     * @param inputModel Name of the model folder.
+     * @patam inputFile Name of the model file.
+     * @param modelLocation Location of the model folder.
+     * @return DataFlowDiagramAndDictionary object representing the converted Palladio model.
+     */
     public DataFlowDiagramAndDictionary assToDFD(String inputModel, String inputFile, String modelLocation) {
         final var usageModelPath = Paths.get("models", inputModel, inputFile + ".usagemodel").toString();
         final var allocationPath = Paths.get("models", inputModel, inputFile + ".allocation").toString();

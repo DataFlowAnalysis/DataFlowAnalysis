@@ -14,6 +14,10 @@ import org.dataflowanalysis.dfd.dataflowdiagram.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Converts MicroSecEnd models to the data flow diagram and dictionary representation. Inherits from {@link Converter}
+ * to utilize shared conversion logic while providing specific functionality for handling MicroSecEnd models.
+ */
 public class MicroSecEndConverter extends Converter {
     private final dataflowdiagramFactory dfdFactory;
     private final datadictionaryFactory ddFactory;
@@ -164,14 +168,29 @@ public class MicroSecEndConverter extends Converter {
         return labels;
     }
 
+    /**
+     * Converts MicroSecEnd model to DataFlowDiagramAndDictionary.
+     * @param inputFile File path of the MicroSecEnd model.
+     * @return DataFlowDiagramAndDictionary representation.
+     */
     public DataFlowDiagramAndDictionary microToDfd(String inputFile) {
         return microToDfd(loadMicro(inputFile).get());
     }
 
+    /**
+     * Converts MicroSecEnd model to DataFlowDiagramAndDictionary.
+     * @param inputFile MicroSecEnd object to be converted.
+     * @return DataFlowDiagramAndDictionary representation.
+     */
     public DataFlowDiagramAndDictionary microToDfd(MicroSecEnd inputFile) {
         return processMicro(inputFile);
     }
 
+    /**
+     * Deserializes MicroSecEnd file into an object.
+     * @param inputFile File path containing MicroSecEnd model.
+     * @return Optional of MicroSecEnd if deserialization is successful, otherwise empty.
+     */
     public Optional<MicroSecEnd> loadMicro(String inputFile) {
         objectMapper = new ObjectMapper();
         file = new File(inputFile);
@@ -184,6 +203,11 @@ public class MicroSecEndConverter extends Converter {
         }
     }
 
+    /**
+     * Converts PlantUML file to DataFlowDiagramAndDictionary via Python script.
+     * @param inputFile Path to PlantUML file.
+     * @return Optional of DataFlowDiagramAndDictionary if successful, otherwise empty.
+     */
     public Optional<DataFlowDiagramAndDictionary> plantToDFD(String inputFile) {
         String name = inputFile.split("\\.")[0];
         int exitCode = runPythonScript(inputFile, "json", name + ".json");
@@ -197,6 +221,13 @@ public class MicroSecEndConverter extends Converter {
     }
 
     // Tested with Python *3.11.5*, requires *argparse*, *ast* and *json* modules
+    /**
+     * Runs Python script for model conversion.
+     * @param in Input file path.
+     * @param format Desired output format.
+     * @param out Output file path.
+     * @return Exit code of the process (0 for success, -1 for error).
+     */
     public int runPythonScript(String in, String format, String out) {
         String[] command = {"python3", "convert_model.py", in, format, "-op", out};
 

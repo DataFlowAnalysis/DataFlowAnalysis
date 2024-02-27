@@ -1,6 +1,7 @@
 package org.dataflowanalysis.analysis.converter;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -18,7 +19,7 @@ import org.dataflowanalysis.dfd.datadictionary.datadictionaryFactory;
 public class BehaviorConverter {
     private final datadictionaryFactory ddFactory;
     private DataDictionary dataDictionary;
-    
+
     private final Logger logger = Logger.getLogger(BehaviorConverter.class);
 
     public BehaviorConverter() {
@@ -32,12 +33,10 @@ public class BehaviorConverter {
     }
 
     public Term stringToTerm(String expression) {
-        // Tokenize the expression
         List<String> tokens = tokenize(expression);
 
-        // Stack for operands
         Stack<Term> operands = new Stack<>();
-        // Stack for operators
+
         Stack<String> operators = new Stack<>();
 
         for (String token : tokens) {
@@ -108,33 +107,30 @@ public class BehaviorConverter {
         if (token.equals("TRUE")) {
             return ddFactory.createTRUE();
         }
-        
+
         if (token.equals("FALSE")) {
             var ddFalse = ddFactory.createNOT();
             ddFalse.setNegatedTerm(ddFactory.createTRUE());
             return ddFalse;
         }
-        
+
         String typeName = token.split("\\.")[0];
         String valueName = token.split("\\.")[1];
 
-        Label value = null;
+        Optional<Label> optionalValue = Optional.ofNullable(dataDictionary)
+                .flatMap(dd -> dd.getLabelTypes().stream().filter(labelType -> labelType.getEntityName().equals(typeName))
+                        .flatMap(labelType -> labelType.getLabel().stream()).filter(label -> label.getEntityName().equals(valueName)).findAny());
 
-        if (dataDictionary != null) {
-            value = dataDictionary.getLabelTypes().stream().filter(labelType -> labelType.getEntityName().equals(typeName))
-                    .flatMap(labelType -> labelType.getLabel().stream()).filter(label -> label.getEntityName().equals(valueName)).findAny()
-                    .orElse(null);
-        }
-
-        if (value == null) {
-            value = ddFactory.createLabel();
-            value.setEntityName(token);
-        }
+        Label value = optionalValue.orElseGet(() -> {
+            Label label = ddFactory.createLabel();
+            label.setEntityName(token);
+            return label;
+        });
 
         var labelReference = ddFactory.createLabelReference();
         labelReference.setLabel(value);
         return labelReference;
-        
+
     }
 
     public String termToString(Term term) {
@@ -166,39 +162,39 @@ public class BehaviorConverter {
         StringBuilder token = new StringBuilder();
 
         for (int i = 0; i < expression.length(); i++) {
-            char c = expression.charAt(i);
+            char current = expression.charAt(i);
 
-            if (Character.isWhitespace(c)) {
+            if (Character.isWhitespace(current)) {
                 // Skip whitespace
                 continue;
             }
 
-            if (c == '(' || c == ')') {
+            if (current == '(' || current == ')') {
                 // Directly add parentheses as separate tokens
                 if (token.length() > 0) {
                     tokens.add(token.toString());
                     token.setLength(0); // Reset the token builder
                 }
-                tokens.add(Character.toString(c));
-            } else if (c == '&' || c == '|' || c == '!') {
+                tokens.add(Character.toString(current));
+            } else if (current == '&' || current == '|' || current == '!') {
                 // Handle logical operators
                 if (token.length() > 0) {
                     tokens.add(token.toString());
                     token.setLength(0);
                 }
-                token.append(c);
+                token.append(current);
 
                 // For && and ||, make sure to capture both characters
-                if ((c == '&' || c == '|') && i + 1 < expression.length() && expression.charAt(i + 1) == c) {
+                if ((current == '&' || current == '|') && i + 1 < expression.length() && expression.charAt(i + 1) == current) {
                     i++; // Skip the next character since it's part of the operator
-                    token.append(c);
+                    token.append(current);
                 }
 
                 tokens.add(token.toString());
                 token.setLength(0);
             } else {
                 // Build operand tokens
-                token.append(c);
+                token.append(current);
             }
         }
 

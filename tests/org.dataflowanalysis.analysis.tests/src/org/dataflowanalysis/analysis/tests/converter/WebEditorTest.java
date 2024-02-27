@@ -59,7 +59,7 @@ public class WebEditorTest extends ConverterTest {
         converter.store(webBefore, TEST);
         converter.store(completeBefore, MINIMAL);
 
-        WebEditorDfd webAfter = converter.loadWeb(TEST);
+        WebEditorDfd webAfter = converter.loadWeb(TEST).get();
         DataFlowDiagramAndDictionary completeAfter = converter.loadDFD(MINIMALDFD, MINIMALDD);
 
         assertEquals(webBefore, webAfter);

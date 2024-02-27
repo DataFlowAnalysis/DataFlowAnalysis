@@ -1,6 +1,7 @@
 package org.dataflowanalysis.analysis.converter;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -99,9 +100,7 @@ public class DataFlowDiagramConverter extends Converter {
 
                 createWebPins(pinToNodeMap, pinMap, nodeOutpinBehavior, child, node);
 
-                List<Label> labelsAtNode = child.labels().stream()
-                        .map(it -> idToLabelMap.get(it.labelTypeValueId()))
-                        .toList();
+                List<Label> labelsAtNode = child.labels().stream().map(it -> idToLabelMap.get(it.labelTypeValueId())).toList();
                 node.getProperties().addAll(labelsAtNode);
 
                 dataFlowDiagram.getNodes().add(node);
@@ -286,7 +285,7 @@ public class DataFlowDiagramConverter extends Converter {
 
                 for (Label label : assignment.getOutputLabels()) {
                     builder.append("set ").append(((LabelType) label.eContainer()).getEntityName()).append(".").append(label.getEntityName())
-                                .append(" = ").append(value).append("\n");       
+                            .append(" = ").append(value).append("\n");
                 }
             }
         }
@@ -345,7 +344,7 @@ public class DataFlowDiagramConverter extends Converter {
     }
 
     public DataFlowDiagramAndDictionary webToDfd(String inputFile) {
-        return webToDfd(loadWeb(inputFile));
+        return webToDfd(loadWeb(inputFile).get());
     }
 
     public DataFlowDiagramAndDictionary webToDfd(WebEditorDfd inputFile) {
@@ -369,20 +368,19 @@ public class DataFlowDiagramConverter extends Converter {
         try {
             objectMapper.writeValue(new File(outputFile), web);
         } catch (IOException e) {
-            logger.error("Could not store web dfd:");
-            logger.error(e);
+            logger.error("Could not store web dfd:", e);
         }
     }
 
-    public WebEditorDfd loadWeb(String inputFile) {
+    public Optional<WebEditorDfd> loadWeb(String inputFile) {
         objectMapper = new ObjectMapper();
         file = new File(inputFile);
         try {
-            return objectMapper.readValue(file, WebEditorDfd.class);
+            WebEditorDfd result = objectMapper.readValue(file, WebEditorDfd.class);
+            return Optional.ofNullable(result); // This will never be null given readValue's behavior, but it's a safe usage pattern.
         } catch (IOException e) {
-            logger.error("Could not load web dfd:");
-            logger.error(e);
-            return null;
+            logger.error("Could not load web dfd:", e);
+            return Optional.empty();
         }
     }
 

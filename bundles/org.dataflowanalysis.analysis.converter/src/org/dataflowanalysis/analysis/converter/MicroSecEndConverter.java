@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.lang.Process;
 import org.dataflowanalysis.analysis.converter.microsecend.*;
 import org.dataflowanalysis.dfd.datadictionary.*;
@@ -164,32 +165,33 @@ public class MicroSecEndConverter extends Converter {
     }
 
     public DataFlowDiagramAndDictionary microToDfd(String inputFile) {
-        return microToDfd(loadMicro(inputFile));
+        return microToDfd(loadMicro(inputFile).get());
     }
 
     public DataFlowDiagramAndDictionary microToDfd(MicroSecEnd inputFile) {
         return processMicro(inputFile);
     }
 
-    public MicroSecEnd loadMicro(String inputFile) {
+    public Optional<MicroSecEnd> loadMicro(String inputFile) {
         objectMapper = new ObjectMapper();
         file = new File(inputFile);
         try {
-            return objectMapper.readValue(file, MicroSecEnd.class);
+            MicroSecEnd result = objectMapper.readValue(file, MicroSecEnd.class);
+            return Optional.ofNullable(result); // This will never be null given readValue's behavior, but it's a safe usage pattern.
         } catch (IOException e) {
-            logger.error(e);
-            return null;
+            logger.error("Could not load MicroSecEnd:", e);
+            return Optional.empty();
         }
     }
 
-    public DataFlowDiagramAndDictionary plantToDFD(String inputFile) {
+    public Optional<DataFlowDiagramAndDictionary> plantToDFD(String inputFile) {
         String name = inputFile.split("\\.")[0];
         int exitCode = runPythonScript(inputFile, "json", name + ".json");
         if (exitCode == 0) {
-            return microToDfd(name + ".json");
+            return Optional.ofNullable(microToDfd(name + ".json"));
         } else {
             logger.error("Make sure python3 is installed and set in PATH");
-            return null;
+            return Optional.empty();
         }
 
     }

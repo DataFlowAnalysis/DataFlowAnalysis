@@ -11,11 +11,11 @@ import java.util.Map;
 
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.converter.PalladioConverter;
-import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
-import org.dataflowanalysis.analysis.core.ActionSequence;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
-import org.dataflowanalysis.analysis.pcm.core.AbstractPCMActionSequenceElement;
+import org.dataflowanalysis.analysis.pcm.flowgraph.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
@@ -34,20 +34,24 @@ public class PalladioTest {
         final var allocationPath = Paths.get("models", inputModel, inputFile + ".allocation").toString();
         final var nodeCharPath = Paths.get("models", inputModel, inputFile + ".nodecharacteristics").toString();
 
-        DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone().modelProjectName(modelLocation)
-                .usePluginActivator(Activator.class).useUsageModel(usageModelPath).useAllocationModel(allocationPath)
-                .useNodeCharacteristicsModel(nodeCharPath).build();
+        DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder()
+            .standalone()
+            .modelProjectName(modelLocation)
+            .usePluginActivator(Activator.class)
+            .useUsageModel(usageModelPath)
+            .useAllocationModel(allocationPath)
+            .useNodeCharacteristicsModel(nodeCharPath)
+            .build();
 
         analysis.initializeAnalysis();
-        analysis.findAllSequences();
-        var sequences = analysis.findAllSequences();
-        var propagationResult = analysis.evaluateDataFlows(sequences);
+        var sequences = analysis.findFlowGraph();
+        var propagationResult = analysis.evaluateFlowGraph(sequences);
 
         Map<String, String> assIdToName = new HashMap<>();
-        for (ActionSequence as : propagationResult) {
-            for (AbstractActionSequenceElement<?> ase : as.getElements()) {
-                var cast = (AbstractPCMActionSequenceElement<?>) ase;
-                assIdToName.putIfAbsent(cast.getElement().getId(), cast.getElement().getEntityName());
+        for (AbstractPartialFlowGraph as : propagationResult.getPartialFlowGraphs()) {
+            for (AbstractVertex<?> ase : as.getVertices()) {
+                var cast = (AbstractPCMVertex<?>) ase;
+                assIdToName.putIfAbsent(cast.getReferencedElement().getId(), cast.getReferencedElement().getEntityName());
             }
         }
 
@@ -70,8 +74,8 @@ public class PalladioTest {
         }
 
         List<String> flowNames = new ArrayList<>();
-        for (ActionSequence as : propagationResult) {
-            for (AbstractActionSequenceElement<?> ase : as.getElements()) {
+        for (AbstractPartialFlowGraph as : propagationResult.getPartialFlowGraphs()) {
+            for (AbstractVertex<?> ase : as.getVertices()) {
                 List<DataFlowVariable> variables = ase.getAllDataFlowVariables();
                 for (DataFlowVariable variable : variables) {
                     flowNames.add(variable.variableName());

@@ -7,10 +7,13 @@ import java.util.Map;
 
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.*;
+import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
+import org.dataflowanalysis.analysis.flowgraph.FlowGraph;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
-import org.dataflowanalysis.analysis.pcm.core.AbstractPCMActionSequenceElement;
-import org.dataflowanalysis.analysis.pcm.core.seff.SEFFActionSequenceElement;
-import org.dataflowanalysis.analysis.pcm.core.user.*;
+import org.dataflowanalysis.analysis.pcm.flowgraph.AbstractPCMVertex;
+import org.dataflowanalysis.analysis.pcm.flowgraph.seff.*;
+import org.dataflowanalysis.analysis.pcm.flowgraph.user.*;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
@@ -27,19 +30,19 @@ public class PalladioConverter extends Converter {
     private final DataDictionary dataDictionary = datadictionaryFactory.eINSTANCE.createDataDictionary();
     private final DataFlowDiagram dataFlowDiagram = dataflowdiagramFactory.eINSTANCE.createDataFlowDiagram();
 
-    private DataFlowDiagramAndDictionary processPalladio(List<ActionSequence> actionSequences) {
-        for (ActionSequence actionSequence : actionSequences) {
+    private DataFlowDiagramAndDictionary processPalladio(FlowGraph actionSequences) {
+        for (AbstractPartialFlowGraph actionSequence : actionSequences.getPartialFlowGraphs()) {
             Node previousNode = null;
-            for (AbstractActionSequenceElement<?> actionSequenceElement : actionSequence.getElements()) {
-                if (actionSequenceElement instanceof AbstractPCMActionSequenceElement) {
-                    previousNode = processActionSequenceElement((AbstractPCMActionSequenceElement<?>) actionSequenceElement, previousNode);
+            for (AbstractVertex<?> actionSequenceElement : actionSequence.getVertices()) {
+                if (actionSequenceElement instanceof AbstractPCMVertex) {
+                    previousNode = processActionSequenceElement((AbstractPCMVertex<?>) actionSequenceElement, previousNode);
                 }
             }
         }
         return new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary);
     }
 
-    private Node processActionSequenceElement(AbstractPCMActionSequenceElement<? extends Entity> pcmASE, Node previousDFDNode) {
+    private Node processActionSequenceElement(AbstractPCMVertex<? extends Entity> pcmASE, Node previousDFDNode) {
         Node dfdNode = getDFDNode(pcmASE);
 
         createFlowBetweenPreviousAndCurrentNode(previousDFDNode, dfdNode, pcmASE);
@@ -47,7 +50,7 @@ public class PalladioConverter extends Converter {
         return dfdNode;
     }
 
-    private void createFlowBetweenPreviousAndCurrentNode(Node source, Node dest, AbstractPCMActionSequenceElement<? extends Entity> pcmASE) {
+    private void createFlowBetweenPreviousAndCurrentNode(Node source, Node dest, AbstractPCMVertex<? extends Entity> pcmASE) {
         if (source == null || dest == null) {
             return;
         }
@@ -101,8 +104,8 @@ public class PalladioConverter extends Converter {
         return pin;
     }
 
-    private Node getDFDNode(AbstractPCMActionSequenceElement<? extends Entity> pcmASE) {
-        Node dfdNode = dfdNodeMap.get(pcmASE.getElement());
+    private Node getDFDNode(AbstractPCMVertex<? extends Entity> pcmASE) {
+        Node dfdNode = dfdNodeMap.get(pcmASE.getReferencedElement());
 
         if (dfdNode == null) {
             dfdNode = createDFDNode(pcmASE);
@@ -113,18 +116,18 @@ public class PalladioConverter extends Converter {
         return dfdNode;
     }
 
-    private Node createDFDNode(AbstractPCMActionSequenceElement<? extends Entity> pcmASE) {
+    private Node createDFDNode(AbstractPCMVertex<? extends Entity> pcmASE) {
         Node dfdNode = createCorrespondingDFDNode(pcmASE);
-        dfdNodeMap.put(pcmASE.getElement(), dfdNode);
+        dfdNodeMap.put(pcmASE.getReferencedElement(), dfdNode);
         return dfdNode;
     }
 
-    private Node createCorrespondingDFDNode(AbstractPCMActionSequenceElement<? extends Entity> pcmASE) {
+    private Node createCorrespondingDFDNode(AbstractPCMVertex<? extends Entity> pcmASE) {
         Node node;
 
-        if (pcmASE instanceof UserActionSequenceElement<?>) {
+        if (pcmASE instanceof UserPCMVertex<?>) {
             node = dataflowdiagramFactory.eINSTANCE.createExternal();
-        } else if (pcmASE instanceof SEFFActionSequenceElement<?>) {
+        } else if (pcmASE instanceof SEFFPCMVertex<?>) {
             node = dataflowdiagramFactory.eINSTANCE.createProcess();
         } else {
             logger.error("Unregcognized palladio element");
@@ -132,8 +135,8 @@ public class PalladioConverter extends Converter {
         }
 
         Behaviour behaviour = datadictionaryFactory.eINSTANCE.createBehaviour();
-        node.setEntityName(pcmASE.getElement().getEntityName());
-        node.setId(pcmASE.getElement().getId());
+        node.setEntityName(pcmASE.getReferencedElement().getEntityName());
+        node.setId(pcmASE.getReferencedElement().getId());
         node.setBehaviour(behaviour);
         dataDictionary.getBehaviour().add(behaviour);
         dataFlowDiagram.getNodes().add(node);
@@ -190,9 +193,8 @@ public class PalladioConverter extends Converter {
                 .useNodeCharacteristicsModel(nodeCharPath).build();
 
         analysis.initializeAnalysis();
-        analysis.findAllSequences();
-        var sequences = analysis.findAllSequences();
-        var propagationResult = analysis.evaluateDataFlows(sequences);
+        var sequences = analysis.findFlowGraph();
+        var propagationResult = analysis.evaluateFlowGraph(sequences);
 
         return processPalladio(propagationResult);
     }

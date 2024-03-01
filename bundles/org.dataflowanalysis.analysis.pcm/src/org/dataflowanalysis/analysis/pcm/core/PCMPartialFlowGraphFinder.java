@@ -2,7 +2,9 @@ package org.dataflowanalysis.analysis.pcm.core;
 
 import java.util.List;
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.pcm.core.finder.PCMUserFinderUtils;
+import org.dataflowanalysis.analysis.pcm.core.finder.PCMUserFinder;
+import org.dataflowanalysis.analysis.pcm.core.finder.SEFFPCMVertexFactory;
+import org.dataflowanalysis.analysis.pcm.core.finder.UserPCMVertexFactory;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
@@ -13,9 +15,15 @@ public class PCMPartialFlowGraphFinder {
     private final Logger logger = Logger.getLogger(PCMPartialFlowGraphFinder.class);
 
     private final ResourceProvider resourceProvider;
+    private PCMUserFinder userFinder;
 
     public PCMPartialFlowGraphFinder(ResourceProvider resourceProvider) {
-        this.resourceProvider = resourceProvider;
+        this(resourceProvider, new PCMUserFinder(new UserPCMVertexFactory(), new SEFFPCMVertexFactory()));
+    }
+    
+    public PCMPartialFlowGraphFinder(ResourceProvider resourceProvider, PCMUserFinder userFinder) {
+    	this.resourceProvider = resourceProvider;
+    	this.userFinder = userFinder;
     }
 
     public List<PCMPartialFlowGraph> findPartialFlowGraphs() {
@@ -29,7 +37,7 @@ public class PCMPartialFlowGraphFinder {
         PCMPartialFlowGraph initialList = new PCMPartialFlowGraph();
         List<Start> startActions = PCMQueryUtils.findStartActionsForUsageModel(usageModel);
 
-        return startActions.stream().map(it -> PCMUserFinderUtils.findSequencesForUserAction(it, initialList, this.resourceProvider))
+        return startActions.stream().map(it -> userFinder.findSequencesForUserAction(it, initialList, this.resourceProvider))
                 .flatMap(List::stream).toList();
     }
 }

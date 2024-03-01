@@ -34,14 +34,9 @@ public class PalladioTest {
         final var allocationPath = Paths.get("models", inputModel, inputFile + ".allocation").toString();
         final var nodeCharPath = Paths.get("models", inputModel, inputFile + ".nodecharacteristics").toString();
 
-        DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder()
-            .standalone()
-            .modelProjectName(modelLocation)
-            .usePluginActivator(Activator.class)
-            .useUsageModel(usageModelPath)
-            .useAllocationModel(allocationPath)
-            .useNodeCharacteristicsModel(nodeCharPath)
-            .build();
+        DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone().modelProjectName(modelLocation)
+                .usePluginActivator(Activator.class).useUsageModel(usageModelPath).useAllocationModel(allocationPath)
+                .useNodeCharacteristicsModel(nodeCharPath).build();
 
         analysis.initializeAnalysis();
         var sequences = analysis.findFlowGraph();
@@ -55,7 +50,7 @@ public class PalladioTest {
             }
         }
 
-        DataFlowDiagram dfd = new PalladioConverter().assToDFD(inputModel, inputFile, modelLocation).dataFlowDiagram();
+        DataFlowDiagram dfd = new PalladioConverter().palladioToDFD(inputModel, inputFile, modelLocation).dataFlowDiagram();
 
         assertEquals(dfd.getNodes().size(), assIdToName.keySet().size());
 

@@ -183,7 +183,7 @@ public class PalladioConverter extends Converter {
      * @param modelLocation Location of the model folder.
      * @return DataFlowDiagramAndDictionary object representing the converted Palladio model.
      */
-    public DataFlowDiagramAndDictionary assToDFD(String inputModel, String inputFile, String modelLocation) {
+    public DataFlowDiagramAndDictionary palladioToDFD(String inputModel, String inputFile, String modelLocation) {
         final var usageModelPath = Paths.get("models", inputModel, inputFile + ".usagemodel").toString();
         final var allocationPath = Paths.get("models", inputModel, inputFile + ".allocation").toString();
         final var nodeCharPath = Paths.get("models", inputModel, inputFile + ".nodecharacteristics").toString();

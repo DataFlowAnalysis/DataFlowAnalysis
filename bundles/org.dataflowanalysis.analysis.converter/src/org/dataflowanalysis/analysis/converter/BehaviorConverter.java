@@ -25,6 +25,10 @@ public class BehaviorConverter {
     private DataDictionary dataDictionary;
 
     private final Logger logger = Logger.getLogger(BehaviorConverter.class);
+    
+    private final String LOGICAL_AND = "&&";
+    private final String LOGICAL_OR = "||";
+    private final String LOGICAL_NOT = "!";
 
     public BehaviorConverter() {
         ddFactory = datadictionaryFactory.eINSTANCE;
@@ -75,16 +79,16 @@ public class BehaviorConverter {
     }
 
     private boolean isOperator(String token) {
-        return token.equals("&&") || token.equals("||") || token.equals("!");
+        return token.equals(LOGICAL_AND) || token.equals(LOGICAL_OR) || token.equals(LOGICAL_NOT);
     }
 
     private int precedence(String operator) {
         switch (operator) {
-            case "||":
+            case LOGICAL_OR:
                 return 1;
-            case "&&":
+            case LOGICAL_AND:
                 return 2;
-            case "!":
+            case LOGICAL_NOT:
                 return 3;
             default:
                 return -1;
@@ -93,16 +97,16 @@ public class BehaviorConverter {
 
     private void performOperation(Stack<Term> operands, String operator) {
         switch (operator) {
-            case "&&":
-            case "||":
+            case LOGICAL_AND:
+            case LOGICAL_OR:
                 var right = operands.pop();
                 var left = operands.pop();
-                var operation = (operator.equals("&&")) ? ddFactory.createAND() : ddFactory.createOR();
+                var operation = (operator.equals(LOGICAL_AND)) ? ddFactory.createAND() : ddFactory.createOR();
                 operation.getTerms().add(left);
                 operation.getTerms().add(right);
                 operands.push(operation);
                 break;
-            case "!":
+            case LOGICAL_NOT:
                 var negated = operands.pop();
                 var notOperation = ddFactory.createNOT();
                 notOperation.setNegatedTerm(negated);
@@ -110,6 +114,7 @@ public class BehaviorConverter {
                 break;
             default:
                 logger.error("Unknow operator");
+                throw new IllegalArgumentException (operator);
         }
     }
 
@@ -159,14 +164,14 @@ public class BehaviorConverter {
             return "TRUE";
         } else if (term instanceof AND and) {
             List<Term> operands = and.getTerms();
-            String result = termToString(operands.get(0), true) + " && " + termToString(operands.get(1), true);
+            String result = termToString(operands.get(0), true) + " "+LOGICAL_AND+" " + termToString(operands.get(1), true);
             return isNested ? "(" + result + ")" : result;
         } else if (term instanceof OR or) {
             List<Term> operands = or.getTerms();
-            String result = termToString(operands.get(0), true) + " || " + termToString(operands.get(1), true);
+            String result = termToString(operands.get(0), true) + " "+LOGICAL_OR+" " + termToString(operands.get(1), true);
             return isNested ? "(" + result + ")" : result;
         } else if (term instanceof NOT not) {
-            return "!" + termToString(not.getNegatedTerm(), false);
+            return LOGICAL_NOT + termToString(not.getNegatedTerm(), false);
         } else {
             throw new IllegalArgumentException("Unknown term type");
         }

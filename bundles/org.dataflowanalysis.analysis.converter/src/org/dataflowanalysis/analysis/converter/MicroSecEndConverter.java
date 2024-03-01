@@ -196,7 +196,7 @@ public class MicroSecEndConverter extends Converter {
         file = new File(inputFile);
         try {
             MicroSecEnd result = objectMapper.readValue(file, MicroSecEnd.class);
-            return Optional.ofNullable(result); // This will never be null given readValue's behavior, but it's a safe usage pattern.
+            return Optional.ofNullable(result);
         } catch (IOException e) {
             logger.error("Could not load MicroSecEnd:", e);
             return Optional.empty();

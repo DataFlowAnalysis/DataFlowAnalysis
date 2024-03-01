@@ -3,11 +3,10 @@ package org.dataflowanalysis.analysis.pcm.informationflow.core.user;
 import java.util.List;
 
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
-import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 
-public class IFReturningUserPCMVertex extends CallingUserPCMVertex {
+public class IFReturningUserPCMVertex extends AbstractIFCallingUserPCMVertex {
 
 	public IFReturningUserPCMVertex(EntryLevelSystemCall element, List<? extends AbstractPCMVertex<?>> previousElements,
 			ResourceProvider resourceProvider) {

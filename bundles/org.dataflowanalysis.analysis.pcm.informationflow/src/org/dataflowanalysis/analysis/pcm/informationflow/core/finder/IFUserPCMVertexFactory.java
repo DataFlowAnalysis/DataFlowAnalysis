@@ -6,6 +6,8 @@ import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.finder.IUserPCMVertexFactory;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
+import org.dataflowanalysis.analysis.pcm.informationflow.core.IFConfigurablePCMVertex;
+import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategy;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.user.IFCallingUserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.user.IFReturningUserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.user.IFStartUserPCMVertex;
@@ -16,43 +18,73 @@ import org.palladiosimulator.pcm.usagemodel.Start;
 import org.palladiosimulator.pcm.usagemodel.Stop;
 
 /**
- * A factory for creating {@link UserPCMVertex}. Uses the implementation for informationflow.
+ * A factory for creating {@link UserPCMVertex}. Uses the implementation for
+ * informationflow.
  *
  */
 public class IFUserPCMVertexFactory implements IUserPCMVertexFactory {
 
+	private boolean considerImplicitFlow;
+	private IFPCMExtractionStrategy extractionStrategy;
+
+	public IFUserPCMVertexFactory() {
+		this(false, null); // TODO
+	}
+
+	public IFUserPCMVertexFactory(boolean considerImplicitFlow, IFPCMExtractionStrategy extractionStrategy) {
+		this.considerImplicitFlow = considerImplicitFlow;
+		this.extractionStrategy = extractionStrategy;
+	}
+
 	@Override
 	public UserPCMVertex<Start> createStartElement(Start element, ResourceProvider resourceProvider) {
-		return new IFStartUserPCMVertex(element, resourceProvider);
+		var vertex = new IFStartUserPCMVertex(element, resourceProvider);
+		configureVertex(vertex);
+		return vertex;
 	}
 
 	@Override
 	public UserPCMVertex<Start> createStartElement(Start element, List<? extends AbstractPCMVertex<?>> previousElements,
 			ResourceProvider resourceProvider) {
-		return new IFStartUserPCMVertex(element, previousElements, resourceProvider);
+		var vertex = new IFStartUserPCMVertex(element, previousElements, resourceProvider);
+		configureVertex(vertex);
+		return vertex;
 	}
 
 	@Override
 	public UserPCMVertex<Stop> createStopElement(Stop element, ResourceProvider resourceProvider) {
-		return new IFStopUserPCMVertex(element, resourceProvider);
+		var vertex = new IFStopUserPCMVertex(element, resourceProvider);
+		configureVertex(vertex);
+		return vertex;
 	}
 
 	@Override
 	public UserPCMVertex<Stop> createStopElement(Stop element, List<? extends AbstractPCMVertex<?>> previousElements,
 			ResourceProvider resourceProvider) {
-		return new IFStopUserPCMVertex(element, previousElements, resourceProvider);
+		var vertex = new IFStopUserPCMVertex(element, previousElements, resourceProvider);
+		configureVertex(vertex);
+		return vertex;
 	}
 
 	@Override
 	public CallingUserPCMVertex createCallingElement(EntryLevelSystemCall element,
 			List<? extends AbstractPCMVertex<?>> previousElements, ResourceProvider resourceProvider) {
-		return new IFCallingUserPCMVertex(element, previousElements, resourceProvider);
+		var vertex = new IFCallingUserPCMVertex(element, previousElements, resourceProvider);
+		configureVertex(vertex);
+		return vertex;
 	}
 
 	@Override
 	public CallingUserPCMVertex createReturningElement(EntryLevelSystemCall element,
 			List<? extends AbstractPCMVertex<?>> previousElements, ResourceProvider resourceProvider) {
-		return new IFReturningUserPCMVertex(element, previousElements, resourceProvider);
+		var vertex = new IFReturningUserPCMVertex(element, previousElements, resourceProvider);
+		configureVertex(vertex);
+		return vertex;
+	}
+
+	private void configureVertex(IFConfigurablePCMVertex vertex) {
+		vertex.setConsiderImplicitFlow(considerImplicitFlow);
+		vertex.setExtractionStrategy(extractionStrategy);
 	}
 
 }

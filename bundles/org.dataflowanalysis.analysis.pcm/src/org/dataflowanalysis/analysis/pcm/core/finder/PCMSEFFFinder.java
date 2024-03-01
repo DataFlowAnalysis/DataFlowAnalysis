@@ -29,10 +29,17 @@ import org.palladiosimulator.pcm.seff.StopAction;
 public class PCMSEFFFinder {
 
 	private ISEFFPCMVertexFactory elementFactory;
+	private PCMUserFinder userFinder;
 	private final Logger logger = Logger.getLogger(PCMSEFFFinder.class);
 	
-	public PCMSEFFFinder(ISEFFPCMVertexFactory elementFactory) {
+	protected PCMSEFFFinder(ISEFFPCMVertexFactory elementFactory, PCMUserFinder userFinder) {
 		this.elementFactory = elementFactory;
+		this.userFinder = userFinder;
+	}
+	
+	public PCMSEFFFinder(ISEFFPCMVertexFactory seffElementFactory, IUserPCMVertexFactory userElementFactory) {
+		this.elementFactory = seffElementFactory;
+		this.userFinder = new PCMUserFinder(userElementFactory, this);
 	}
 
     public List<PCMPartialFlowGraph> findSequencesForSEFFAction(AbstractAction currentAction, SEFFFinderContext context,
@@ -166,7 +173,7 @@ public class PCMSEFFFinder {
         if (!context.getCallers().isEmpty()) {
             throw new IllegalStateException("Illegal state in action sequence finder.");
         } else {
-            return PCMUserFinderUtils.findSequencesForUserActionReturning(caller.getReferencedElement(), previousSequence, resourceProvider, caller);
+            return userFinder.findSequencesForUserActionReturning(caller.getReferencedElement(), previousSequence, resourceProvider, caller);
         }
     }
 

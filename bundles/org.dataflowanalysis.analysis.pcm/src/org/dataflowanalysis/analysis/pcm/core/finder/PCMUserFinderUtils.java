@@ -8,7 +8,7 @@ import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 
 public class PCMUserFinderUtils {
-    private static PCMUserFinder userFinder = new PCMUserFinder(new UserPCMVertexFactory());
+    private static PCMUserFinder userFinder = new PCMUserFinder(new UserPCMVertexFactory(), new SEFFPCMVertexFactory());
 
     private PCMUserFinderUtils() {
         // Utility class

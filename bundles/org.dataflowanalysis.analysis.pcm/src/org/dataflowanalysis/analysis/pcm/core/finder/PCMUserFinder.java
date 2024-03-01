@@ -27,9 +27,16 @@ public class PCMUserFinder {
 	
 	private IUserPCMVertexFactory elementFactory;
 	private final Logger logger = Logger.getLogger(PCMUserFinder.class);
+	private PCMSEFFFinder seffFinder;
 	
-	public PCMUserFinder(IUserPCMVertexFactory elementFactory) {
-		this.elementFactory = elementFactory;
+	protected PCMUserFinder(IUserPCMVertexFactory userElementFactory, PCMSEFFFinder seffFinder) {
+		this.elementFactory = userElementFactory;
+		this.seffFinder = seffFinder;
+	}
+	
+	public PCMUserFinder(IUserPCMVertexFactory userElementFactory, ISEFFPCMVertexFactory seffElementFactory) {
+		this.elementFactory = userElementFactory;
+		this.seffFinder = new PCMSEFFFinder(seffElementFactory, this);
 	}
 	
 	public List<PCMPartialFlowGraph> findSequencesForUserAction(AbstractUserAction currentAction, PCMPartialFlowGraph previousSequence,
@@ -108,7 +115,7 @@ public class PCMUserFinder {
 
                 SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get().context(), callers,
                         calledSignature.getParameters__OperationSignature());
-                return PCMSEFFFinderUtils.findSequencesForSEFFAction(SEFFStartAction.get(), finderContext, currentActionSequence, resourceProvider);
+                return seffFinder.findSequencesForSEFFAction(SEFFStartAction.get(), finderContext, currentActionSequence, resourceProvider);
             }
         }
     }

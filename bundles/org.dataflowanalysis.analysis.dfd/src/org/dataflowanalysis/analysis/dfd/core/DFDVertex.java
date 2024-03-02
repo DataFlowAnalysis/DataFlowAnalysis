@@ -57,30 +57,53 @@ public class DFDVertex extends AbstractVertex<Node> {
         if (super.isEvaluated()) {
             return;
         }
-        Map<Pin, DFDVertex> previousVertices = this.getPinDFDVertexMap();
+        evaluatePreviousVertices();
 
-        List<CharacteristicValue> nodeCharacteristics = new ArrayList<>();
+        List<CharacteristicValue> nodeCharacteristics = determineNodeCharacteristics();
+
         Map<Pin, List<Label>> inputPinsIncomingLabelMap = new HashMap<>();
-
-        this.getReferencedElement().getProperties()
-                .forEach(label -> nodeCharacteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label)));
-
-        previousVertices.keySet().forEach(pin -> previousVertices.get(pin).evaluateDataFlow());
-
         this.getPinFlowMap().keySet().forEach(pin -> this.fillMapOfIncomingLabelsPerPin(pin, inputPinsIncomingLabelMap));
 
         List<DataFlowVariable> dataFlowVariables = new ArrayList<>(this.createDataFlowVariablesFromLabels(inputPinsIncomingLabelMap));
 
+        Map<Pin, List<Label>> outputPinsOutgoingLabelMap = determineOutputPinOutgoingLabelMap(inputPinsIncomingLabelMap);
+
+        List<DataFlowVariable> outgoingDataFlowVariables = new ArrayList<>(this.createDataFlowVariablesFromLabels(outputPinsOutgoingLabelMap));
+        this.setPropagationResult(dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+    }
+
+    /**
+     * Determines the outgoing labels for each output pin of the vertex with the given map between incoming pins and their labels
+     * @param inputPinsIncomingLabelMap Map containing each input pin with their corresponding labels
+     * @return Returns the map of output pins with their labels
+     */
+    private Map<Pin, List<Label>> determineOutputPinOutgoingLabelMap(Map<Pin, List<Label>> inputPinsIncomingLabelMap) {
         Map<Pin, List<Label>> outputPinsOutgoingLabelMap = new HashMap<>();
         var assignments = this.getReferencedElement().getBehaviour().getAssignment();
         assignments.forEach(assignment -> outputPinsOutgoingLabelMap.putIfAbsent(assignment.getOutputPin(), new ArrayList<>()));
         assignments.forEach(assignment -> handleOutgoingAssignments(assignment, inputPinsIncomingLabelMap, outputPinsOutgoingLabelMap));
-
-        List<DataFlowVariable> outgoingDataFlowVariables = new ArrayList<>(this.createDataFlowVariablesFromLabels(outputPinsOutgoingLabelMap));
-
-        this.setPropagationResult(dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+        return outputPinsOutgoingLabelMap;
     }
-    
+
+    /**
+     * Determine node characteristics of the dfd vertex
+     * @return Returns a list of all node characteristics that are applied at the vertex
+     */
+    private List<CharacteristicValue> determineNodeCharacteristics() {
+        List<CharacteristicValue> nodeCharacteristics = new ArrayList<>();
+        this.getReferencedElement().getProperties()
+                .forEach(label -> nodeCharacteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label)));
+        return nodeCharacteristics;
+    }
+
+    /**
+     * Evaluates previous vertices determined by {@link this#getPinDFDVertexMap()}
+     */
+    private void evaluatePreviousVertices() {
+        Map<Pin, DFDVertex> previousVertices = this.getPinDFDVertexMap();
+        previousVertices.keySet().forEach(pin -> previousVertices.get(pin).evaluateDataFlow());
+    }
+
     /**
      * Fills map mapping input pins to incoming labels
      * @param pin Pin to be evaluated

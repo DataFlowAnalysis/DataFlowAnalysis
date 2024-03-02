@@ -5,31 +5,36 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.core.PartialFlowGraphFinder;
+import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
-import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
-import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 
 /**
  * The DFDPartialFlowGraphFinder determines all partial flow graphs contained in a model
  */
-public class DFDPartialFlowGraphFinder {
+public class DFDPartialFlowGraphFinder implements PartialFlowGraphFinder {
+
+    private final DFDResourceProvider resourceProvider;
+
+    public DFDPartialFlowGraphFinder(DFDResourceProvider resourceProvider) {
+        this.resourceProvider = resourceProvider;
+    }
 
     /**
      * Finds all partial flow graphs in a dataflowdiagram model instance
-     * @param dfd Data Flow Diagram model instance
-     * @param dataDictionary Data Dictionary model instance
      * @return Returns a list of all partial flow graphs
      */
-    public static List<AbstractPartialFlowGraph> findAllPartialFlowGraphsInDFD(DataFlowDiagram dfd, DataDictionary dataDictionary) {
-        List<Node> endNodes = getEndNodes(dfd.getNodes());
+    @Override
+    public List<AbstractPartialFlowGraph> findPartialFlowGraphs() {
+        List<Node> endNodes = getEndNodes(this.resourceProvider.getDataFlowDiagram().getNodes());
 
         List<AbstractPartialFlowGraph> sequences = new ArrayList<>();
 
         for (var endNode : endNodes) {
-            for (var sink : buildRec(new DFDVertex(endNode, new HashMap<>(), new HashMap<>()), dfd.getFlows(), endNode.getBehaviour().getInPin())) {
+            for (var sink : buildRec(new DFDVertex(endNode, new HashMap<>(), new HashMap<>()), this.resourceProvider.getDataFlowDiagram().getFlows(), endNode.getBehaviour().getInPin())) {
                 sink.unify(new HashSet<>());
                 sequences.add(new DFDPartialFlowGraph(sink));
             }
@@ -44,7 +49,7 @@ public class DFDPartialFlowGraphFinder {
      * @param inputPins Relevant input pins on the given vertex vertex
      * @return List of sinks created from the initial sink with previous vertices calculated
      */
-    private static List<DFDVertex> buildRec(DFDVertex sink, List<Flow> flows, List<Pin> inputPins) {
+    private List<DFDVertex> buildRec(DFDVertex sink, List<Flow> flows, List<Pin> inputPins) {
         List<DFDVertex> vertices = new ArrayList<>();
         vertices.add(sink);
         for (var inputPin : inputPins) {
@@ -72,7 +77,7 @@ public class DFDPartialFlowGraphFinder {
      * @param flow Flow from previous into present node
      * @return List of all required pins
      */
-    private static List<Pin> getAllPreviousNodeInputPins(Node previousNode, Flow flow) {
+    private List<Pin> getAllPreviousNodeInputPins(Node previousNode, Flow flow) {
         List<Pin> previousNodeInputPins = new ArrayList<>();
         for (var assignment : previousNode.getBehaviour().getAssignment()) {
             if (assignment.getOutputPin().equals(flow.getSourcePin())) {
@@ -90,7 +95,7 @@ public class DFDPartialFlowGraphFinder {
      * @param previousNodeVertices List of previous vertices
      * @return Returns a list of cloned vertices required for usage in multiple flow graphs
      */
-    private static List<DFDVertex> cloneVertexForMultipleFlowGraphs(DFDVertex vertex, Pin inputPin, Flow flow, List<DFDVertex> previousNodeVertices) {
+    private List<DFDVertex> cloneVertexForMultipleFlowGraphs(DFDVertex vertex, Pin inputPin, Flow flow, List<DFDVertex> previousNodeVertices) {
         List<DFDVertex> newVertices = new ArrayList<>();
         for (var previousVertex : previousNodeVertices) {
             DFDVertex newVertex = vertex.clone();
@@ -106,7 +111,7 @@ public class DFDPartialFlowGraphFinder {
      * @param nodes A list of all nodes of which the sinks should be determined
      * @return List of sink nodes reachable by the given list of nodes
      */
-    private static List<Node> getEndNodes(List<Node> nodes) {
+    private List<Node> getEndNodes(List<Node> nodes) {
         List<Node> endNodes = new ArrayList<>(nodes);
         for (Node node : nodes) {
             if (node.getBehaviour().getInPin().isEmpty())

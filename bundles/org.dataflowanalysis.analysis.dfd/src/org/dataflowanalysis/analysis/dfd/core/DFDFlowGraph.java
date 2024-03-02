@@ -41,8 +41,7 @@ public class DFDFlowGraph extends FlowGraph {
             logger.error("Cannot find partial flow graphs for non-dfd resource provider");
             throw new IllegalArgumentException();
         }
-        return DFDPartialFlowGraphFinder.findAllPartialFlowGraphsInDFD(dfdResourceProvider.getDataFlowDiagram(),
-                dfdResourceProvider.getDataDictionary());
+        return new DFDPartialFlowGraphFinder(dfdResourceProvider).findPartialFlowGraphs();
     }
 
     /**

@@ -28,10 +28,10 @@ public class ConstraintFeatureTest extends ConstraintTest {
         PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
 
         PCMFlowGraph flowGraph = analysis.findFlowGraph();
-        PCMFlowGraph propagatedFlowGraph = analysis.evaluateFlowGraph(flowGraph);
+        flowGraph.evaluate();
 
         logger.setLevel(Level.TRACE);
-        var results = analysis.queryDataFlow(propagatedFlowGraph.getPartialFlowGraphs().get(0), node -> {
+        var results = analysis.queryDataFlow(flowGraph.getPartialFlowGraphs().get(0), node -> {
             printNodeInformation(node);
             if (node instanceof UserPCMVertex<?>) {
                 return node.getAllNodeCharacteristics().size() != 1;
@@ -55,10 +55,10 @@ public class ConstraintFeatureTest extends ConstraintTest {
         PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
 
         PCMFlowGraph flowGraph = analysis.findFlowGraph();
-        PCMFlowGraph propagatedFlowGraph = analysis.evaluateFlowGraph(flowGraph);
+        flowGraph.evaluate();
 
         logger.setLevel(Level.TRACE);
-        var results = analysis.queryDataFlow(propagatedFlowGraph.getPartialFlowGraphs().get(0), node -> {
+        var results = analysis.queryDataFlow(flowGraph.getPartialFlowGraphs().get(0), node -> {
             printNodeInformation(node);
             if (node instanceof UserPCMVertex<?>) {
                 return node.getAllNodeCharacteristics().size() != 1;
@@ -82,10 +82,10 @@ public class ConstraintFeatureTest extends ConstraintTest {
         PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
 
         PCMFlowGraph flowGraph = analysis.findFlowGraph();
-        PCMFlowGraph propagatedFlowGraph = analysis.evaluateFlowGraph(flowGraph);
+        flowGraph.evaluate();
 
         logger.setLevel(Level.TRACE);
-        var results = analysis.queryDataFlow(propagatedFlowGraph.getPartialFlowGraphs().get(0), node -> {
+        var results = analysis.queryDataFlow(flowGraph.getPartialFlowGraphs().get(0), node -> {
             printNodeInformation(node);
             if (node instanceof CallingUserPCMVertex && ((CallingUserPCMVertex) node).isReturning()) {
                 return !node.getAllDataFlowVariables().isEmpty();

@@ -27,7 +27,6 @@ public abstract class AbstractPartialFlowGraph {
 
     /**
      * Evaluate the data flow of the partial flow graph with the given node and data characteristics calculator
-     * @return Returns the evaluated partial flow graph in which vertex and data characteristics were calculated
      */
     public abstract AbstractPartialFlowGraph evaluate();
 

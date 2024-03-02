@@ -43,10 +43,9 @@ public class Main {
       analysis.initializeAnalysis();
 
       PCMFlowGraph flowGraph = analysis.findFlowGraph();
+      flowGraph.evaluate();
 
-      PCMFlowGraph propagatedFlowGraph = analysis.evaluateFlowGraph(flowGraph);
-	    
-      for(AbstractPartialFlowGraph actionSequence : propagatedFlowGraph.getPartialFlowGraphs()) {
+      for (AbstractPartialFlowGraph actionSequence : flowGraph.getPartialFlowGraphs()) {
 	       List<AbstractVertex<?>> violations = analysis.queryDataFlow(actionSequence,
 	       it -> false // Constraint goes here, return true, if constraint is violated
 	     );

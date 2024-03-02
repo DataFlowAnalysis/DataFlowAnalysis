@@ -31,13 +31,6 @@ public abstract class DataFlowConfidentialityAnalysis {
     public abstract FlowGraph findFlowGraph();
 
     /**
-     * Evaluates the flow graph and executes the label propagation on all vertices
-     * @param flowGraph Flow Graph that should be evaluated
-     * @return Returns a new flow graph that contains the evaluated vertices
-     */
-    public abstract FlowGraph evaluateFlowGraph(FlowGraph flowGraph);
-
-    /**
      * Evaluates a given condition on a partial flow graph and returns all elements that violate the given condition
      * @param partialFlowGraph Partial flow graph that is analyzed by the analysis
      * @param condition Condition that describes a violation at one vertex. If the condition returns true, the condition is

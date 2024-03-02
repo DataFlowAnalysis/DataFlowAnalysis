@@ -58,15 +58,6 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
     }
 
     @Override
-    public PCMFlowGraph evaluateFlowGraph(FlowGraph flowGraph) {
-        if (!(flowGraph instanceof PCMFlowGraph pcmFlowGraph)) {
-            logger.error("Cannot evaluate non-pcm flow graph!");
-            throw new IllegalArgumentException();
-        }
-        return pcmFlowGraph.evaluate();
-    }
-
-    @Override
     public void initializeAnalysis() {
         if (initStandaloneAnalysis()) {
             logger.info("Successfully initialized standalone data flow analysis.");

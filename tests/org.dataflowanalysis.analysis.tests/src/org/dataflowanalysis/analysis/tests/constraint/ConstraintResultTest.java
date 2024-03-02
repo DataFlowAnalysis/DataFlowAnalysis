@@ -145,8 +145,8 @@ public class ConstraintResultTest extends ConstraintTest {
     public void testAnalysis(PCMDataFlowConfidentialityAnalysis analysis, Predicate<AbstractVertex<?>> constraint,
             List<ConstraintData> constraintData) {
         PCMFlowGraph flowGraph = analysis.findFlowGraph();
-        PCMFlowGraph propagatedFlowGraph = analysis.evaluateFlowGraph(flowGraph);
-        List<AbstractVertex<?>> results = propagatedFlowGraph.getPartialFlowGraphs().stream().map(it -> analysis.queryDataFlow(it, constraint))
+        flowGraph.evaluate();
+        List<AbstractVertex<?>> results = flowGraph.getPartialFlowGraphs().stream().map(it -> analysis.queryDataFlow(it, constraint))
                 .flatMap(Collection::stream).collect(Collectors.toList());
 
         assertEquals(constraintData.size(), results.size(), "Incorrect count of violations found");

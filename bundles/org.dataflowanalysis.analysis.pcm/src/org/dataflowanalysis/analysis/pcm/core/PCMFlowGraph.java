@@ -28,15 +28,4 @@ public class PCMFlowGraph extends FlowGraph {
         PCMPartialFlowGraphFinder sequenceFinder = new PCMPartialFlowGraphFinder(pcmResourceProvider);
         return sequenceFinder.findPartialFlowGraphs().parallelStream().map(AbstractPartialFlowGraph.class::cast).collect(Collectors.toList());
     }
-
-    @Override
-    public PCMFlowGraph evaluate() {
-        List<PCMPartialFlowGraph> partialFlowGraphs = this.getPartialFlowGraphs().parallelStream()
-                .map(PCMPartialFlowGraph.class::cast)
-                .toList();
-        List<AbstractPartialFlowGraph> evaluatedPartialFlowGraphs = partialFlowGraphs.parallelStream()
-                .map(PCMPartialFlowGraph::evaluate)
-                .toList();
-        return new PCMFlowGraph(evaluatedPartialFlowGraphs, this.resourceProvider);
-    }
 }

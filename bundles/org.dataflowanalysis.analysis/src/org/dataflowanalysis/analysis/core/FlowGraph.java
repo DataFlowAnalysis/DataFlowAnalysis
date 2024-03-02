@@ -1,6 +1,8 @@
 package org.dataflowanalysis.analysis.core;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 
 /**
@@ -10,7 +12,7 @@ import org.dataflowanalysis.analysis.resource.ResourceProvider;
  */
 public abstract class FlowGraph {
     protected final ResourceProvider resourceProvider;
-    private final List<? extends AbstractPartialFlowGraph> partialFlowGraphs;
+    private List<? extends AbstractPartialFlowGraph> partialFlowGraphs;
 
     /**
      * Creates a new flow graph with the given resource provider. Furthermore, the list of partial flow graphs is determined
@@ -40,9 +42,12 @@ public abstract class FlowGraph {
 
     /**
      * Evaluates the flow graph by label propagation. An evaluated copy of the flow graph is returned by this method
-     * @return Returns a new flow graph with evaluated partial flow graphs
      */
-    public abstract FlowGraph evaluate();
+    public void evaluate() {
+        this.partialFlowGraphs = this.getPartialFlowGraphs().stream()
+                .map(AbstractPartialFlowGraph::evaluate)
+                .toList();
+    }
 
     /**
      * Returns the list of saved partial flow graphs that are contained in the flow graph

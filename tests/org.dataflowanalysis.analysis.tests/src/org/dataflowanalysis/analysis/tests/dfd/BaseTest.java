@@ -30,9 +30,9 @@ public class BaseTest {
     private List<? extends AbstractVertex<?>> getViolationsForConstraint(Predicate<? super AbstractVertex<?>> constraint) {
         this.analysis.initializeAnalysis();
         DFDFlowGraph flowGraph = this.analysis.findFlowGraph();
-        DFDFlowGraph propagatedFlowGraph = this.analysis.evaluateFlowGraph(flowGraph);
+        flowGraph.evaluate();
 
-        return analysis.queryDataFlow(propagatedFlowGraph.getPartialFlowGraphs().get(0), constraint);
+        return analysis.queryDataFlow(flowGraph.getPartialFlowGraphs().get(0), constraint);
     }
 
     @Test
@@ -58,9 +58,9 @@ public class BaseTest {
     public void test_unification() {
         this.analysis.initializeAnalysis();
         DFDFlowGraph flowGraph = analysis.findFlowGraph();
-        DFDFlowGraph propagatedFlowGraph = this.analysis.evaluateFlowGraph(flowGraph);
+        flowGraph.evaluate();
 
-        for (var pfg : propagatedFlowGraph.getPartialFlowGraphs()) {
+        for (var pfg : flowGraph.getPartialFlowGraphs()) {
             assertTrue(pfg.getVertices().stream().filter(v -> ((DFDVertex) v).getName().equals("In")).count() < 2);
         }
     }
@@ -69,9 +69,9 @@ public class BaseTest {
     public void test_labelPropagation() {
         this.analysis.initializeAnalysis();
         DFDFlowGraph flowGraph = analysis.findFlowGraph();
-        DFDFlowGraph propagatedFlowGraph = this.analysis.evaluateFlowGraph(flowGraph);
+        flowGraph.evaluate();
 
-        for (var pfg : propagatedFlowGraph.getPartialFlowGraphs()) {
+        for (var pfg : flowGraph.getPartialFlowGraphs()) {
             for (var vertex : pfg.getVertices()) {
                 assertTrue((!vertex.getAllIncomingDataFlowVariables().isEmpty()) || (!vertex.getAllOutgoingDataFlowVariables().isEmpty()));
             }

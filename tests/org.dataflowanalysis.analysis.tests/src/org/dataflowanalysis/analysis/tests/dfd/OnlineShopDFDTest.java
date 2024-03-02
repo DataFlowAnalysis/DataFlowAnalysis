@@ -50,9 +50,9 @@ public class OnlineShopDFDTest {
     @Test
     public void testNodeLabels() {
         var flowGraph = analysis.findFlowGraph();
-        var propagatedFlowGraph = this.analysis.evaluateFlowGraph(flowGraph);
+        flowGraph.evaluate();
 
-        for (var partialFlowGraph : propagatedFlowGraph.getPartialFlowGraphs()) {
+        for (var partialFlowGraph : flowGraph.getPartialFlowGraphs()) {
             for (var vertex : partialFlowGraph.getVertices()) {
                 if (((DFDVertex) vertex).getName().equals("User")) {
                     var userVertexLabels = retrieveNodeLabels(vertex);
@@ -67,8 +67,8 @@ public class OnlineShopDFDTest {
     @Test
     public void testDataLabelPropagation() {
         var flowGraph = analysis.findFlowGraph();
-        var propagatedFlowGraph = this.analysis.evaluateFlowGraph(flowGraph);
-        for (var partialFlowGraph : propagatedFlowGraph.getPartialFlowGraphs()) {
+        flowGraph.evaluate();
+        for (var partialFlowGraph : flowGraph.getPartialFlowGraphs()) {
             var sink = partialFlowGraph.getSink();
             if (((DFDVertex) sink).getName().equals("User")) {
                 var propagatedLabels = retrieveDataLabels(sink);
@@ -82,12 +82,12 @@ public class OnlineShopDFDTest {
     @Test
     public void testRealisticConstraints() {
         var flowGraph = analysis.findFlowGraph();
-        var propagatedFlowGraph = this.analysis.evaluateFlowGraph(flowGraph);
+        flowGraph.evaluate();
 
         // Constraint 1: Personal data flowing to a node that is deployed outside the EU
         // Should find 1 violation
         int violationsFound = 0;
-        for (var partialFlowGraph : propagatedFlowGraph.getPartialFlowGraphs()) {
+        for (var partialFlowGraph : flowGraph.getPartialFlowGraphs()) {
             var violations = analysis.queryDataFlow(partialFlowGraph, it -> {
                 var nodeLabels = retrieveNodeLabels(it);
                 var dataLabels = retrieveDataLabels(it);
@@ -101,7 +101,7 @@ public class OnlineShopDFDTest {
 
         // Constraint 2: Personal data in a node deployed outside the EU w/o encryption
         // Should find 0 violations
-        for (var partialFlowGraph : propagatedFlowGraph.getPartialFlowGraphs()) {
+        for (var partialFlowGraph : flowGraph.getPartialFlowGraphs()) {
             var violations = analysis.queryDataFlow(partialFlowGraph, it -> {
                 var nodeLabels = retrieveNodeLabels(it);
                 var dataLabels = retrieveDataLabels(it);

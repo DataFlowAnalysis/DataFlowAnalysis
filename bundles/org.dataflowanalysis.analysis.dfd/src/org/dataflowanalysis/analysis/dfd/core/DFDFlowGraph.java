@@ -24,15 +24,6 @@ public class DFDFlowGraph extends FlowGraph {
     }
 
     /**
-     * Creates a new instance of a dfd flow graph with the given partial flow graphs and resource provider
-     * @param partialFlowGraphs Partial flow graphs the dfd flow graph should contain
-     * @param resourceProvider Resource provider that provides model files
-     */
-    public DFDFlowGraph(List<AbstractPartialFlowGraph> partialFlowGraphs, ResourceProvider resourceProvider) {
-        super(partialFlowGraphs, resourceProvider);
-    }
-
-    /**
      * Find a list of partial flow graphs that are contained in the model provided by the given resource provider
      * @return Returns a list of (unevaluated) partial flow graphs
      */
@@ -42,19 +33,5 @@ public class DFDFlowGraph extends FlowGraph {
             throw new IllegalArgumentException();
         }
         return new DFDPartialFlowGraphFinder(dfdResourceProvider).findPartialFlowGraphs();
-    }
-
-    /**
-     * Evaluates the given flow graph by evaluating all contained partial flow graphs. The result of the evaluation is
-     * returned in a new dfd flow graph
-     * @return New dfd flow graph containing the evaluated partial flow graphs
-     */
-    @Override
-    public DFDFlowGraph evaluate() {
-        List<AbstractPartialFlowGraph> evaluatedPartialFlowGraphs = new ArrayList<>();
-        for (var dfdPartialFlowGraph : this.getPartialFlowGraphs()) {
-            evaluatedPartialFlowGraphs.add(dfdPartialFlowGraph.evaluate());
-        }
-        return new DFDFlowGraph(evaluatedPartialFlowGraphs, this.resourceProvider);
     }
 }

@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramConverter;
 import org.dataflowanalysis.analysis.converter.webdfd.WebEditorDfd;
+import org.dataflowanalysis.dfd.datadictionary.Pin;
+import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -41,7 +43,7 @@ public class WebEditorTest extends ConverterTest {
     public void webToDfdToWeb() throws StreamReadException, DatabindException, IOException {
         DataFlowDiagramAndDictionary dfdBefore = converter.webToDfd(minimalWebDFD);
         WebEditorDfd webAfter = converter.dfdToWeb(dfdBefore);
-
+        
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(minimalWebDFD);
         WebEditorDfd webBefore = objectMapper.readValue(file, WebEditorDfd.class);
@@ -50,6 +52,8 @@ public class WebEditorTest extends ConverterTest {
         webAfter.sort();
 
         assertEquals(webBefore, webAfter);
+        
+        checkBehaviorAndPinNames(dfdBefore);
     }
 
     @Test
@@ -70,8 +74,8 @@ public class WebEditorTest extends ConverterTest {
         assertEquals(webBefore, webAfter);
         assertNotNull(completeAfter);
 
-        cleanup(minimalDataFlowDiagram);
-        cleanup(minimalDataDictionary);
+        //cleanup(minimalDataFlowDiagram);
+        //cleanup(minimalDataDictionary);
         cleanup(tempWebDFD);
     }
 
@@ -103,6 +107,39 @@ public class WebEditorTest extends ConverterTest {
                 .allMatch(flowA -> convertedDFD.dataFlowDiagram().getFlows().stream()
                         .anyMatch(flowB -> flowA.getSourceNode().getEntityName().equals(flowB.getSourceNode().getEntityName())
                                 && flowA.getDestinationNode().getEntityName().equals(flowB.getDestinationNode().getEntityName()))));
+        
+        checkBehaviorAndPinNames(manualDFD);
 
+    }
+    
+    private void checkBehaviorAndPinNames(DataFlowDiagramAndDictionary dfd) {
+        for (Node node : dfd.dataFlowDiagram().getNodes()) {
+            var behaviour=node.getBehaviour();
+            assertEquals(node.getEntityName(),behaviour.getEntityName());
+
+            for (Pin inPin:behaviour.getInPin()) {
+                String flowName="";
+                
+                for(Flow flow:dfd.dataFlowDiagram().getFlows()) {
+                    if(flow.getDestinationPin().equals(inPin)){
+                        flowName=flow.getEntityName();
+                    }
+                }
+                
+                assertEquals(inPin.getEntityName(),node.getEntityName()+"_in_"+flowName);
+            }
+            
+            for (Pin outPin:behaviour.getOutPin()) {
+                String flowName="";
+                
+                for(Flow flow:dfd.dataFlowDiagram().getFlows()) {
+                    if(flow.getSourcePin().equals(outPin)){
+                        flowName=flow.getEntityName();
+                    }
+                }
+                
+                assertEquals(outPin.getEntityName(),node.getEntityName()+"_out_"+flowName);
+            }
+        }
     }
 }

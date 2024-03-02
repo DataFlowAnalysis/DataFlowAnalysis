@@ -101,6 +101,7 @@ public class DataFlowDiagramConverter extends Converter {
                 node.setId(child.id());
 
                 var behaviour = ddFactory.createBehaviour();
+                behaviour.setEntityName(name);
                 node.setBehaviour(behaviour);
                 dataDictionary.getBehaviour().add(behaviour);
 
@@ -125,9 +126,15 @@ public class DataFlowDiagramConverter extends Converter {
             flow.setSourceNode(source);
             flow.setDestinationNode(dest);
             flow.setEntityName(child.text());
-
-            flow.setDestinationPin(pinMap.get(child.targetId()));
-            flow.setSourcePin(pinMap.get(child.sourceId()));
+            
+            var destPin = pinMap.get(child.targetId());
+            var sourcePin = pinMap.get(child.sourceId());
+            
+            destPin.setEntityName(destPin.getEntityName()+child.text());
+            sourcePin.setEntityName(sourcePin.getEntityName()+child.text());
+            
+            flow.setDestinationPin(destPin);
+            flow.setSourcePin(sourcePin);
             flow.setId(child.id());
             dataFlowDiagram.getFlows().add(flow);
         });
@@ -149,6 +156,7 @@ public class DataFlowDiagramConverter extends Converter {
     private Pin createWebOutPin(Map<Node, Map<Pin, String>> nodeOutpinBehavior, Node node, Port port) {
         var outPin = ddFactory.createPin();
         outPin.setId(port.id());
+        outPin.setEntityName(node.getEntityName()+"_out_");
         node.getBehaviour().getOutPin().add(outPin);
         if (port.behavior() != null) {
             putValue(nodeOutpinBehavior, node, outPin, port.behavior());
@@ -159,6 +167,7 @@ public class DataFlowDiagramConverter extends Converter {
     private Pin createWebInPin(Node node, Port port) {
         var inPin = ddFactory.createPin();
         inPin.setId(port.id());
+        inPin.setEntityName(node.getEntityName()+"_in_");
         node.getBehaviour().getInPin().add(inPin);
         return inPin;
     }

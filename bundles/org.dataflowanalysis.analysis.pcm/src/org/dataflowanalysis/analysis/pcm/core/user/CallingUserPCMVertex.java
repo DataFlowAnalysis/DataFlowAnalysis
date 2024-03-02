@@ -67,12 +67,12 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
     }
 
     @Override
-    public AbstractPCMVertex<?> deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> isomorphism) {
-        if (isomorphism.get(this) != null) {
-            return isomorphism.get(this);
+    public AbstractPCMVertex<?> deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
+        if (vertexMapping.get(this) != null) {
+            return vertexMapping.get(this);
         }
         CallingUserPCMVertex copy = new CallingUserPCMVertex(referencedElement, List.of(), isCalling, resourceProvider);
-        return super.updateCopy(copy, isomorphism);
+        return super.updateCopy(copy, vertexMapping);
     }
 
     @Override

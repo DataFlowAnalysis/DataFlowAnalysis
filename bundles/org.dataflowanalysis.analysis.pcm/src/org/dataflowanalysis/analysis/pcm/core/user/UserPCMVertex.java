@@ -72,11 +72,11 @@ public class UserPCMVertex<T extends AbstractUserAction> extends AbstractPCMVert
     }
 
     @Override
-    public AbstractPCMVertex<?> deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> isomorphism) {
-        if (isomorphism.get(this) != null) {
-            return isomorphism.get(this);
+    public AbstractPCMVertex<?> deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
+        if (vertexMapping.get(this) != null) {
+            return vertexMapping.get(this);
         }
         UserPCMVertex<?> copy = new UserPCMVertex<>(referencedElement, List.of(), resourceProvider);
-        return super.updateCopy(copy, isomorphism);
+        return super.updateCopy(copy, vertexMapping);
     }
 }

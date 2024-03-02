@@ -34,10 +34,10 @@ public class PCMPartialFlowGraph extends AbstractPartialFlowGraph {
         return (AbstractPCMVertex<?>) this.sink;
     }
 
-    public PCMPartialFlowGraph deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> isomorphism) {
+    public PCMPartialFlowGraph deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
         AbstractPCMVertex<?> pcmSink = (AbstractPCMVertex<?>) this.sink;
 
-        AbstractPCMVertex<?> clonedSink = pcmSink.deepCopy(isomorphism);
+        AbstractPCMVertex<?> clonedSink = pcmSink.deepCopy(vertexMapping);
 
         return new PCMPartialFlowGraph(clonedSink);
     }

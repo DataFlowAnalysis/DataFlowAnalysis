@@ -72,13 +72,13 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
     }
 
     @Override
-    public AbstractPCMVertex<?> deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> isomorphism) {
-        if (isomorphism.get(this) != null) {
-            return isomorphism.get(this);
+    public AbstractPCMVertex<?> deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
+        if (vertexMapping.get(this) != null) {
+            return vertexMapping.get(this);
         }
         CallingSEFFPCMVertex copy = new CallingSEFFPCMVertex(referencedElement, List.of(), new ArrayDeque<>(context),
                 new ArrayList<>(this.getParameter()), isCalling, resourceProvider);
-        return super.updateCopy(copy, isomorphism);
+        return super.updateCopy(copy, vertexMapping);
     }
 
     @Override

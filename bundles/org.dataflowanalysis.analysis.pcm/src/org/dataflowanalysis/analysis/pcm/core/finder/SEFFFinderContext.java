@@ -53,11 +53,11 @@ public class SEFFFinderContext {
         }
     }
 
-    public void replaceCallers(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> isomorphism) {
+    public void replaceCallers(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
         Deque<AbstractPCMVertex<?>> newCallers = new ArrayDeque<>();
         while (!this.callers.isEmpty()) {
             AbstractPCMVertex<?> element = this.callers.pop();
-            AbstractPCMVertex<?> mappedElement = isomorphism.getOrDefault(element, element);
+            AbstractPCMVertex<?> mappedElement = vertexMapping.getOrDefault(element, element);
             newCallers.addLast(mappedElement);
         }
         this.callers = newCallers;

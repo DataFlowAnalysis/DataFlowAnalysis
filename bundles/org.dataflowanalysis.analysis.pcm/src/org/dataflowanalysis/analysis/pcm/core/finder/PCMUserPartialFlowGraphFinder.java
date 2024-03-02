@@ -84,8 +84,8 @@ public class PCMUserPartialFlowGraphFinder {
         return currentAction.getBranchTransitions_Branch().stream().map(BranchTransition::getBranchedBehaviour_BranchTransition)
                 .map(PCMQueryUtils::getStartActionOfScenarioBehavior).flatMap(Optional::stream)
                 .map(it -> {
-                    Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> isomorphism = new IdentityHashMap<>();
-                    PCMPartialFlowGraph clonedSequence = this.currentPartialFlowGraph.deepCopy(isomorphism);
+                    Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping = new IdentityHashMap<>();
+                    PCMPartialFlowGraph clonedSequence = this.currentPartialFlowGraph.deepCopy(vertexMapping);
                     return new PCMUserPartialFlowGraphFinder(this.resourceProvider, clonedSequence).findSequencesForUserAction(it);
                 }).flatMap(List::stream).toList();
     }

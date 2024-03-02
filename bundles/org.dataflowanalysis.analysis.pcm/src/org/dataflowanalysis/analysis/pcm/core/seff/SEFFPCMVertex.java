@@ -117,12 +117,12 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
     }
 
     @Override
-    public AbstractPCMVertex<?> deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> isomorphism) {
-        if (isomorphism.get(this) != null) {
-            return isomorphism.get(this);
+    public AbstractPCMVertex<?> deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
+        if (vertexMapping.get(this) != null) {
+            return vertexMapping.get(this);
         }
         SEFFPCMVertex<?> copy = new SEFFPCMVertex<>(referencedElement, List.of(), new ArrayDeque<>(context), new ArrayList<>(this.getParameter()),
                 resourceProvider);
-        return super.updateCopy(copy, isomorphism);
+        return super.updateCopy(copy, vertexMapping);
     }
 }

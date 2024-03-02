@@ -128,10 +128,10 @@ public class PCMSEFFPartialFlowGraphFinder {
         return currentAction.getBranches_Branch().stream().map(AbstractBranchTransition::getBranchBehaviour_BranchTransition)
                 .map(ResourceDemandingBehaviour::getSteps_Behaviour).map(PCMQueryUtils::getFirstStartActionInActionList).flatMap(Optional::stream)
                 .map(it -> {
-                    Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> isomorphism = new IdentityHashMap<>();
-                    PCMPartialFlowGraph clonedPartialFlowGraph = this.currentPartialFlowGraph.deepCopy(isomorphism);
+                    Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping = new IdentityHashMap<>();
+                    PCMPartialFlowGraph clonedPartialFlowGraph = this.currentPartialFlowGraph.deepCopy(vertexMapping);
                     SEFFFinderContext clonedContext = new SEFFFinderContext(context);
-                    clonedContext.replaceCallers(isomorphism);
+                    clonedContext.replaceCallers(vertexMapping);
                     return new PCMSEFFPartialFlowGraphFinder(resourceProvider, clonedContext, clonedPartialFlowGraph).findSequencesForSEFFAction(it);
                 }).flatMap(List::stream).toList();
     }

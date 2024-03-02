@@ -94,8 +94,8 @@ public class DFDPartialFlowGraphFinder {
         List<DFDVertex> newVertices = new ArrayList<>();
         for (var previousVertex : previousNodeVertices) {
             DFDVertex newVertex = vertex.clone();
-            newVertex.getMapPinToPreviousVertex().put(inputPin, previousVertex);
-            newVertex.getMapPinToInputFlow().put(inputPin, flow);
+            newVertex.getPinDFDVertexMap().put(inputPin, previousVertex);
+            newVertex.getPinFlowMap().put(inputPin, flow);
             newVertices.add(newVertex);
         }
         return newVertices;

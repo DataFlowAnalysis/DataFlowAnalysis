@@ -33,20 +33,20 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
  * This class represents a vertex references a node in the dfd model. Multiple dfd vertices may reference the same node
  */
 public class DFDVertex extends AbstractVertex<Node> {
-    private final Map<Pin, DFDVertex> mapPinToPreviousVertex;
-    private final Map<Pin, Flow> mapPinToInputFlow;
+    private final Map<Pin, DFDVertex> pinDFDVertexMap;
+    private final Map<Pin, Flow> pinFlowMap;
 
     /**
      * Creates a new vertex with the given referenced node and pin mappings
      * @param node Node that is referenced by the vertex
-     * @param mapPinToPreviousVertex Map containing relationships between the pins of the vertex and previous vertices
-     * @param mapPinToInputFlow Map containing relationships between the pins of the vertex and the flows connecting the
+     * @param pinDFDVertexMap Map containing relationships between the pins of the vertex and previous vertices
+     * @param pinFlowMap Map containing relationships between the pins of the vertex and the flows connecting the
      * node to other vertices
      */
-    public DFDVertex(Node node, Map<Pin, DFDVertex> mapPinToPreviousVertex, Map<Pin, Flow> mapPinToInputFlow) {
+    public DFDVertex(Node node, Map<Pin, DFDVertex> pinDFDVertexMap, Map<Pin, Flow> pinFlowMap) {
         super(node);
-        this.mapPinToPreviousVertex = mapPinToPreviousVertex;
-        this.mapPinToInputFlow = mapPinToInputFlow;
+        this.pinDFDVertexMap = pinDFDVertexMap;
+        this.pinFlowMap = pinFlowMap;
     }
 
     /**
@@ -57,26 +57,26 @@ public class DFDVertex extends AbstractVertex<Node> {
         if (super.isEvaluated()) {
             return;
         }
-        Map<Pin, DFDVertex> previousVertices = this.getMapPinToPreviousVertex();
+        Map<Pin, DFDVertex> previousVertices = this.getPinDFDVertexMap();
 
         List<CharacteristicValue> nodeCharacteristics = new ArrayList<>();
-        Map<Pin, List<Label>> mapInputPinsToIncomingLabels = new HashMap<>();
+        Map<Pin, List<Label>> inputPinsIncomingLabelMap = new HashMap<>();
 
         this.getReferencedElement().getProperties()
                 .forEach(label -> nodeCharacteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label)));
 
         previousVertices.keySet().forEach(pin -> previousVertices.get(pin).evaluateDataFlow());
 
-        this.getMapPinToInputFlow().keySet().forEach(pin -> this.fillMapOfIncomingLabelsPerPin(pin, mapInputPinsToIncomingLabels));        
+        this.getPinFlowMap().keySet().forEach(pin -> this.fillMapOfIncomingLabelsPerPin(pin, inputPinsIncomingLabelMap));
 
-        List<DataFlowVariable> dataFlowVariables = new ArrayList<>(this.createDataFlowVariablesFromLabels(mapInputPinsToIncomingLabels));
+        List<DataFlowVariable> dataFlowVariables = new ArrayList<>(this.createDataFlowVariablesFromLabels(inputPinsIncomingLabelMap));
 
-        Map<Pin, List<Label>> mapOutputPinToOutgoingLabels = new HashMap<>();
+        Map<Pin, List<Label>> outputPinsOutgoingLabelMap = new HashMap<>();
         var assignments = this.getReferencedElement().getBehaviour().getAssignment();
-        assignments.forEach(assignment -> mapOutputPinToOutgoingLabels.putIfAbsent(assignment.getOutputPin(), new ArrayList<>()));
-        assignments.forEach(assignment -> handleOutgoingAssignments(assignment, mapInputPinsToIncomingLabels, mapOutputPinToOutgoingLabels));
+        assignments.forEach(assignment -> outputPinsOutgoingLabelMap.putIfAbsent(assignment.getOutputPin(), new ArrayList<>()));
+        assignments.forEach(assignment -> handleOutgoingAssignments(assignment, inputPinsIncomingLabelMap, outputPinsOutgoingLabelMap));
 
-        List<DataFlowVariable> outgoingDataFlowVariables = new ArrayList<>(this.createDataFlowVariablesFromLabels(mapOutputPinToOutgoingLabels));
+        List<DataFlowVariable> outgoingDataFlowVariables = new ArrayList<>(this.createDataFlowVariablesFromLabels(outputPinsOutgoingLabelMap));
 
         this.setPropagationResult(dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
@@ -84,15 +84,15 @@ public class DFDVertex extends AbstractVertex<Node> {
     /**
      * Fills map mapping input pins to incoming labels
      * @param pin Pin to be evaluated
-     * @param mapInputPinsToIncomingLabels Map to be filled with incoming labels on pin
+     * @param inputPinsIncomingLabelMap Map to be filled with incoming labels on pin
      */
-    private void fillMapOfIncomingLabelsPerPin(Pin pin, Map<Pin, List<Label>> mapInputPinsToIncomingLabels) {
-    	for (var previousVertex : this.getMapPinToPreviousVertex().values()) {
+    private void fillMapOfIncomingLabelsPerPin(Pin pin, Map<Pin, List<Label>> inputPinsIncomingLabelMap) {
+    	for (var previousVertex : this.getPinDFDVertexMap().values()) {
             for (var dfv : previousVertex.getAllOutgoingDataFlowVariables()) {
-                if (dfv.getVariableName().equals(this.getMapPinToInputFlow().get(pin).getSourcePin().getId())) {
-                    mapInputPinsToIncomingLabels.putIfAbsent(pin, new ArrayList<>());
+                if (dfv.getVariableName().equals(this.getPinFlowMap().get(pin).getSourcePin().getId())) {
+                    inputPinsIncomingLabelMap.putIfAbsent(pin, new ArrayList<>());
                     for (var cv : dfv.getAllCharacteristics()) {
-                        mapInputPinsToIncomingLabels.get(pin).add(((DFDCharacteristicValue) cv).getLabel());
+                        inputPinsIncomingLabelMap.get(pin).add(((DFDCharacteristicValue) cv).getLabel());
                     }
                 }
             }
@@ -102,24 +102,24 @@ public class DFDVertex extends AbstractVertex<Node> {
     /**
      * Calculates outgoing labels for assignment and adds them into mapOutputPinToOutgoingLabels
      * @param assignment Assignment to be evaluated
-     * @param mapInputPinsToIncomingLabels Maps Input Pins to Incoming Labels
-     * @param mapOutputPinToOutgoingLabels Maps Output Pins to Outgoing Labels, to be filled by method
+     * @param inputPinsIncomingLabelMap Maps Input Pins to Incoming Labels
+     * @param outputPinsOutgoingLabelMap Maps Output Pins to Outgoing Labels, to be filled by method
      */
-    private void handleOutgoingAssignments(AbstractAssignment assignment, Map<Pin, List<Label>> mapInputPinsToIncomingLabels,
-            Map<Pin, List<Label>> mapOutputPinToOutgoingLabels) {
-        List<Label> incomingLabels = combineLabelsOnAllInputPins(assignment, mapInputPinsToIncomingLabels);
+    private void handleOutgoingAssignments(AbstractAssignment assignment, Map<Pin, List<Label>> inputPinsIncomingLabelMap,
+            Map<Pin, List<Label>> outputPinsOutgoingLabelMap) {
+        List<Label> incomingLabels = combineLabelsOnAllInputPins(assignment, inputPinsIncomingLabelMap);
 
         if (assignment instanceof ForwardingAssignment) {
-            mapOutputPinToOutgoingLabels.get(assignment.getOutputPin()).addAll(incomingLabels);
+            outputPinsOutgoingLabelMap.get(assignment.getOutputPin()).addAll(incomingLabels);
             return;
         }
 
         if (evaluateTerm(((Assignment) assignment).getTerm(), incomingLabels)) {
-            mapOutputPinToOutgoingLabels.get(assignment.getOutputPin()).addAll(((Assignment) assignment).getOutputLabels());
+            outputPinsOutgoingLabelMap.get(assignment.getOutputPin()).addAll(((Assignment) assignment).getOutputLabels());
             return;
         }
 
-        mapOutputPinToOutgoingLabels.get(assignment.getOutputPin()).removeAll(((Assignment) assignment).getOutputLabels());
+        outputPinsOutgoingLabelMap.get(assignment.getOutputPin()).removeAll(((Assignment) assignment).getOutputLabels());
     }
 
     /**
@@ -148,13 +148,13 @@ public class DFDVertex extends AbstractVertex<Node> {
     /**
      * Combines all Incoming Labels from relevant input pins
      * @param assignment Assignment to determine relevant input pins
-     * @param mapInputPinsToIncomingLabels Maps all input pins to all incoming labels
+     * @param inputPinsIncomingLabelMap Maps all input pins to all incoming labels
      * @return List of relevant labels
      */
-    private static List<Label> combineLabelsOnAllInputPins(AbstractAssignment assignment, Map<Pin, List<Label>> mapInputPinsToIncomingLabels) {
+    private static List<Label> combineLabelsOnAllInputPins(AbstractAssignment assignment, Map<Pin, List<Label>> inputPinsIncomingLabelMap) {
         List<Label> allLabel = new ArrayList<>();
         for (var inputPin : assignment.getInputPins()) {
-            allLabel.addAll(mapInputPinsToIncomingLabels.getOrDefault(inputPin, new ArrayList<>()));
+            allLabel.addAll(inputPinsIncomingLabelMap.getOrDefault(inputPin, new ArrayList<>()));
         }
         return allLabel;
     }
@@ -199,24 +199,24 @@ public class DFDVertex extends AbstractVertex<Node> {
      * @param vertices Set of unique vertices that are used to replace equal vertices
      */
     public void unify(Set<DFDVertex> vertices) {
-        for (var key : this.getMapPinToPreviousVertex().keySet()) {
+        for (var key : this.getPinDFDVertexMap().keySet()) {
             for (var vertex : vertices) {
-                if (vertex.equals(this.getMapPinToPreviousVertex().get(key))) {
-                    this.getMapPinToPreviousVertex().put(key, vertex);
+                if (vertex.equals(this.getPinDFDVertexMap().get(key))) {
+                    this.getPinDFDVertexMap().put(key, vertex);
                 }
             }
-            vertices.add(this.getMapPinToPreviousVertex().get(key));
+            vertices.add(this.getPinDFDVertexMap().get(key));
         }
-        this.getMapPinToPreviousVertex().values().forEach(vertex -> vertex.unify(vertices));
+        this.getPinDFDVertexMap().values().forEach(vertex -> vertex.unify(vertices));
     }
 
     /**
      * Creates a clone of the vertex without considering data flow variables nor characteristics
      */
     public DFDVertex clone() {
-        Map<Pin, DFDVertex> newMapPinToPreviousVertex = new HashMap<>();
-        this.mapPinToPreviousVertex.keySet().forEach(key -> newMapPinToPreviousVertex.put(key, this.mapPinToPreviousVertex.get(key).clone()));
-        return new DFDVertex(this.referencedElement, newMapPinToPreviousVertex, new HashMap<>(this.mapPinToInputFlow));
+        Map<Pin, DFDVertex> copiedPinDFDVertexMap = new HashMap<>();
+        this.pinDFDVertexMap.keySet().forEach(key -> copiedPinDFDVertexMap.put(key, this.pinDFDVertexMap.get(key).clone()));
+        return new DFDVertex(this.referencedElement, copiedPinDFDVertexMap, new HashMap<>(this.pinFlowMap));
     }
 
     @Override
@@ -230,8 +230,8 @@ public class DFDVertex extends AbstractVertex<Node> {
             return false;
         if (!this.referencedElement.equals(vertex.getReferencedElement()))
             return false;
-        for (var key : this.getMapPinToPreviousVertex().keySet()) {
-            if (!this.getMapPinToPreviousVertex().get(key).equals(vertex.getMapPinToPreviousVertex().get(key)))
+        for (var key : this.getPinDFDVertexMap().keySet()) {
+            if (!this.getPinDFDVertexMap().get(key).equals(vertex.getPinDFDVertexMap().get(key)))
                 return false;
         }
         return true;
@@ -239,15 +239,15 @@ public class DFDVertex extends AbstractVertex<Node> {
 
     @Override
     public List<AbstractVertex<?>> getPreviousElements() {
-        return new ArrayList<>(this.mapPinToPreviousVertex.values());
+        return new ArrayList<>(this.pinDFDVertexMap.values());
     }
 
     /**
      * Returns the mapping between pins of the node and the connected previous vertices
      * @return Return the mapping between pins and previous vertices
      */
-    public Map<Pin, DFDVertex> getMapPinToPreviousVertex() {
-        return mapPinToPreviousVertex;
+    public Map<Pin, DFDVertex> getPinDFDVertexMap() {
+        return pinDFDVertexMap;
     }
 
     /**
@@ -255,8 +255,8 @@ public class DFDVertex extends AbstractVertex<Node> {
      * vertices
      * @return Returns the mapping between pins and incoming flows
      */
-    public Map<Pin, Flow> getMapPinToInputFlow() {
-        return mapPinToInputFlow;
+    public Map<Pin, Flow> getPinFlowMap() {
+        return pinFlowMap;
     }
 
     /**

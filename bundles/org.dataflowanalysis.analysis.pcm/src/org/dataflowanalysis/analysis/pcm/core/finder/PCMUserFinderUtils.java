@@ -1,10 +1,7 @@
 package org.dataflowanalysis.analysis.pcm.core.finder;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.PCMPartialFlowGraph;
@@ -81,7 +78,11 @@ public class PCMUserFinderUtils {
             ResourceProvider resourceProvider) {
         return currentAction.getBranchTransitions_Branch().stream().map(BranchTransition::getBranchedBehaviour_BranchTransition)
                 .map(PCMQueryUtils::getStartActionOfScenarioBehavior).flatMap(Optional::stream)
-                .map(it -> findSequencesForUserAction(it, previousSequence, resourceProvider)).flatMap(List::stream).toList();
+                .map(it -> {
+                    Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> isomorphism = new IdentityHashMap<>();
+                    PCMPartialFlowGraph clonedSequence = previousSequence.deepCopy(isomorphism);
+                    return findSequencesForUserAction(it, clonedSequence, resourceProvider);
+                }).flatMap(List::stream).toList();
     }
 
     private static List<PCMPartialFlowGraph> findSequencesForEntryLevelSystemCall(EntryLevelSystemCall currentAction,

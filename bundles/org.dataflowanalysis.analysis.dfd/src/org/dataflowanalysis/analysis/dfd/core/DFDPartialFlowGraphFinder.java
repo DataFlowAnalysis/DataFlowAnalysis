@@ -34,7 +34,7 @@ public class DFDPartialFlowGraphFinder implements PartialFlowGraphFinder {
         List<AbstractPartialFlowGraph> sequences = new ArrayList<>();
 
         for (var endNode : endNodes) {
-            for (var sink : buildRec(new DFDVertex(endNode, new HashMap<>(), new HashMap<>()), this.resourceProvider.getDataFlowDiagram().getFlows(), endNode.getBehaviour().getInPin())) {
+            for (var sink : determineSinks(new DFDVertex(endNode, new HashMap<>(), new HashMap<>()), this.resourceProvider.getDataFlowDiagram().getFlows(), endNode.getBehaviour().getInPin())) {
                 sink.unify(new HashSet<>());
                 sequences.add(new DFDPartialFlowGraph(sink));
             }
@@ -43,13 +43,15 @@ public class DFDPartialFlowGraphFinder implements PartialFlowGraphFinder {
     }
 
     /**
-     * Builds a list of sink vertices with previous vertices for the creation of partial flow Graphs
+     * Builds a list of sink vertices with previous vertices for the creation of partial flow graphs.
+     * <p/>
+     * This method preforms the determination of sinks recursively
      * @param sink Single sink vertex without previous vertices calculated
      * @param flows All flows in the data flow diagram
      * @param inputPins Relevant input pins on the given vertex vertex
      * @return List of sinks created from the initial sink with previous vertices calculated
      */
-    private List<DFDVertex> buildRec(DFDVertex sink, List<Flow> flows, List<Pin> inputPins) {
+    private List<DFDVertex> determineSinks(DFDVertex sink, List<Flow> flows, List<Pin> inputPins) {
         List<DFDVertex> vertices = new ArrayList<>();
         vertices.add(sink);
         for (var inputPin : inputPins) {
@@ -59,7 +61,7 @@ public class DFDPartialFlowGraphFinder implements PartialFlowGraphFinder {
                     for (var vertex : vertices) {
                         Node previousNode = flow.getSourceNode();
                         List<Pin> previousNodeInputPins = getAllPreviousNodeInputPins(previousNode, flow);
-                        List<DFDVertex> previousNodeVertices = buildRec(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()), flows,
+                        List<DFDVertex> previousNodeVertices = determineSinks(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()), flows,
                                 previousNodeInputPins);
                         newVertices.addAll(cloneVertexForMultipleFlowGraphs(vertex, inputPin, flow, previousNodeVertices));
                     }

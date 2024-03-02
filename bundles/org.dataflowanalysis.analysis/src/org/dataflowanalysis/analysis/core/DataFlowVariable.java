@@ -1,6 +1,7 @@
 package org.dataflowanalysis.analysis.core;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -44,6 +45,17 @@ public record DataFlowVariable(String variableName, List<CharacteristicValue> ch
      */
     public List<CharacteristicValue> getAllCharacteristics() {
         return this.characteristics;
+    }
+
+    /**
+     * Returns a list of characteristic with the given characteristic type
+     * @param characteristicType Name of the characteristic type
+     * @return Returns a list of all characteristics matching the characteristic type
+     */
+    public List<CharacteristicValue> getCharacteristicsWithName(String characteristicType) {
+        return this.characteristics().stream()
+                .filter(cv -> cv.getTypeName().equals(characteristicType))
+                .collect(Collectors.toList());
     }
 
     /**

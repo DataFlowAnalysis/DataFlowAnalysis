@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
@@ -26,13 +27,17 @@ public class ConstraintResultTest extends ConstraintTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean travelPlannerCondition(AbstractVertex<?> node) {
-        List<String> assignedRoles = node.getNodeCharacteristicIdsWithName("AssignedRoles");
-        List<List<String>> grantedRoles = node.getDataFlowCharacteristicIdsWithType("GrantedRoles");
+        List<String> assignedRoles = node.getNodeCharacteristicsWithName("AssignedRoles").stream()
+                .map(CharacteristicValue::getValueName)
+                .toList();
+        Collection<List<CharacteristicValue>> grantedRoles = node.getDataFlowCharacteristicsWithName("GrantedRoles").values();
 
         printNodeInformation(node);
 
-        for (List<String> dataFlowCharacteristicIds : grantedRoles) {
-            if (!dataFlowCharacteristicIds.isEmpty() && dataFlowCharacteristicIds.stream().distinct().noneMatch(assignedRoles::contains)) {
+        for (List<CharacteristicValue> dataFlowCharacteristics : grantedRoles) {
+            if (!dataFlowCharacteristics.isEmpty() && dataFlowCharacteristics.stream().distinct()
+                    .map(CharacteristicValue::getValueName)
+                    .noneMatch(assignedRoles::contains)) {
                 return true;
             }
         }
@@ -45,8 +50,13 @@ public class ConstraintResultTest extends ConstraintTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean internationalOnlineShopCondition(AbstractVertex<?> node) {
-        List<String> serverLocation = node.getNodeCharacteristicNamesWithName("ServerLocation");
-        List<String> dataSensitivity = node.getDataFlowCharacteristicNamesWithType("DataSensitivity").stream().flatMap(Collection::stream).toList();
+        List<String> serverLocation = node.getNodeCharacteristicsWithName("ServerLocation").stream()
+                .map(CharacteristicValue::getValueName)
+                .toList();
+        List<String> dataSensitivity = node.getDataFlowCharacteristicsWithName("DataSensitivity").values().stream()
+                .flatMap(Collection::stream)
+                .map(CharacteristicValue::getValueName)
+                .toList();
         printNodeInformation(node);
 
         return dataSensitivity.stream().anyMatch(l -> l.equals("Personal")) && serverLocation.stream().anyMatch(l -> l.equals("nonEU"));
@@ -58,8 +68,13 @@ public class ConstraintResultTest extends ConstraintTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean returnCondition(AbstractVertex<?> node) {
-        List<String> assignedNode = node.getNodeCharacteristicNamesWithName("AssignedRole");
-        List<String> assignedVariables = node.getDataFlowCharacteristicNamesWithType("AssignedRole").stream().flatMap(Collection::stream).toList();
+        List<String> assignedNode = new ArrayList<>(node.getNodeCharacteristicsWithName("AssignedRole").stream()
+                .map(CharacteristicValue::getValueName)
+                .toList());
+        List<String> assignedVariables = node.getDataFlowCharacteristicsWithName("AssignedRole").values().stream()
+                .flatMap(Collection::stream)
+                .map(CharacteristicValue::getValueName)
+                .toList();
 
         printNodeInformation(node);
         if (assignedNode.isEmpty() || assignedVariables.isEmpty()) {

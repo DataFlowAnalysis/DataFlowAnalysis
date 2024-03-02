@@ -2,6 +2,7 @@ package org.dataflowanalysis.analysis.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
@@ -123,76 +124,40 @@ public abstract class AbstractVertex<T> {
     }
 
     /**
-     * Returns a list of characteristic literals that are set for a given characteristic type in the list of all node
-     * characteristics
+     * Returns a list of node characteristic with the given characteristic type
      * <p>
-     * See {@link AbstractVertex#getDataFlowCharacteristicNamesWithType(String)} for a similar method for data flow
+     * See {@link AbstractVertex#getDataFlowVariablesWithName(String)} for a similar method for data flow
      * variables
-     * @param name Name of the characteristic type
-     * @return Returns a list of all characteristic literals matching the characteristic type
+     * @param characteristicType Name of the characteristic type
+     * @return Returns a list of all node characteristics matching the characteristic type
      */
-    public List<String> getNodeCharacteristicNamesWithName(String name) {
-        return this.getAllNodeCharacteristics().stream().filter(cv -> cv.getTypeName().equals(name)).map(CharacteristicValue::getValueName)
+    public List<CharacteristicValue> getNodeCharacteristicsWithName(String characteristicType) {
+        return this.getAllNodeCharacteristics().stream()
+                .filter(cv -> cv.getTypeName().equals(characteristicType))
                 .collect(Collectors.toList());
     }
 
     /**
-     * Returns a list of characteristic literals that are set for a given characteristic type in the list of all node
-     * characteristics
+     * Returns a list of data flow variables with the given name
      * <p>
-     * See {@link AbstractVertex#getDataFlowCharacteristicIdsWithType(String)} for a similar method for data flow variables
-     * @param name Name of the characteristic type
-     * @return Returns a list of all characteristic literals matching the characteristic type
+     * See {@link AbstractVertex#getNodeCharacteristicsWithName(String)} for a similar method for node characteristics
+     * @param dataFlowVariable Name of the data flow variable
+     * @return Returns a list of all data flow variables with the given name
      */
-    public List<String> getNodeCharacteristicIdsWithName(String name) {
-        return this.getAllNodeCharacteristics().stream().filter(cv -> cv.getTypeName().equals(name)).map(CharacteristicValue::getValueId)
+    public List<DataFlowVariable> getDataFlowVariablesWithName(String dataFlowVariable) {
+        return this.getAllIncomingDataFlowVariables().stream()
+                .filter(it -> it.getVariableName().equals(dataFlowVariable))
                 .collect(Collectors.toList());
     }
 
     /**
-     * Returns a List of IDs of characteristics and data flow variables that are set for a given characteristic type in the
-     * list of all data flow variables
-     * <p>
-     * See {@link AbstractVertex#getNodeCharacteristicIdsWithName(String)} for a similar method for node characteristics
-     * @param type Name of the characteristic type
-     * @return Returns a list of all characteristic literals matching the characteristic type
+     * Returns a map containing the data flow characteristics with the given characteristic type for each data flow variable
+     * @param characteristicType Name of the characteristic type
+     * @return Returns a map with data flow characteristics with the given name for each data flow variable
      */
-    public List<List<String>> getDataFlowCharacteristicIdsWithType(String type) {
-        List<List<String>> dfCharIds = new ArrayList<>();
-        for (DataFlowVariable df : this.getAllDataFlowVariables()) {
-            List<String> charValueIds = new ArrayList<>();
-            for (CharacteristicValue charValue : df.getAllCharacteristics()) {
-                if (charValue.getTypeName().equals(type)) {
-                    charValueIds.add(charValue.getValueId());
-                }
-            }
-            dfCharIds.add(charValueIds);
-        }
-
-        return dfCharIds;
-    }
-
-    /**
-     * Returns a List of names of characteristics and dataflow variables that are set for a given characteristic type in the
-     * list of all data flow variables
-     * <p>
-     * See {@link AbstractVertex#getNodeCharacteristicNamesWithName(String)} for a similar method for node characteristics
-     * @param type Name of the characteristic type
-     * @return Returns a list of all characteristic literals matching the characteristic type
-     */
-    public List<List<String>> getDataFlowCharacteristicNamesWithType(String type) {
-        List<List<String>> dfCharIds = new ArrayList<>();
-        for (DataFlowVariable df : this.getAllDataFlowVariables()) {
-            List<String> charValueIds = new ArrayList<>();
-            for (CharacteristicValue charValue : df.getAllCharacteristics()) {
-                if (charValue.getTypeName().equals(type)) {
-                    charValueIds.add(charValue.getValueName());
-                }
-            }
-            dfCharIds.add(charValueIds);
-        }
-
-        return dfCharIds;
+    public Map<String, List<CharacteristicValue>> getDataFlowCharacteristicsWithName(String characteristicType) {
+        return this.getAllIncomingDataFlowVariables().stream()
+                .collect(Collectors.toMap(DataFlowVariable::getVariableName, it -> it.getCharacteristicsWithName(characteristicType)));
     }
 
     /**

@@ -3,12 +3,15 @@ package org.dataflowanalysis.analysis.pcm.core.user;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.CallReturnBehavior;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
+import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 
 public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> implements CallReturnBehavior {
@@ -36,15 +39,7 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
         List<DataFlowVariable> incomingDataFlowVariables = super.getIncomingDataFlowVariables();
         List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
 
-        List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.isCalling
-                ? super.getReferencedElement().getInputParameterUsages_EntryLevelSystemCall().stream()
-                        .flatMap(it -> it.getVariableCharacterisation_VariableUsage().stream())
-                        .filter(ConfidentialityVariableCharacterisation.class::isInstance).map(ConfidentialityVariableCharacterisation.class::cast)
-                        .collect(Collectors.toList())
-                : super.getReferencedElement().getOutputParameterUsages_EntryLevelSystemCall().stream()
-                        .flatMap(it -> it.getVariableCharacterisation_VariableUsage().stream())
-                        .filter(ConfidentialityVariableCharacterisation.class::isInstance).map(ConfidentialityVariableCharacterisation.class::cast)
-                        .collect(Collectors.toList());
+        List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.getVariableCharacterizations();
 
         if (this.isCalling()) {
             super.checkCallParameter(super.getReferencedElement().getOperationSignature__EntryLevelSystemCall(), variableCharacterisations);
@@ -57,6 +52,23 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
                     .collect(Collectors.toList());
         }
         this.setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+    }
+
+    /**
+     * Determines the variable characterizations that should be evaluated at the vertex.
+     * Calling User vertices evaluate their input variable characterizations before calling.
+     * Returning User vertices evaluate their output variable characterizations after returning from the called element
+     * @return Returns a list of variable characterizations that are applicable to the current vertex
+     */
+    private List<ConfidentialityVariableCharacterisation> getVariableCharacterizations() {
+        Stream<VariableUsage> relevantVariableUsages = this.isCalling ?
+                super.getReferencedElement().getInputParameterUsages_EntryLevelSystemCall().stream() :
+                super.getReferencedElement().getOutputParameterUsages_EntryLevelSystemCall().stream();
+        return relevantVariableUsages
+                .flatMap(it -> it.getVariableCharacterisation_VariableUsage().stream())
+                .filter(ConfidentialityVariableCharacterisation.class::isInstance)
+                .map(ConfidentialityVariableCharacterisation.class::cast)
+                .collect(Collectors.toList());
     }
 
     @Override

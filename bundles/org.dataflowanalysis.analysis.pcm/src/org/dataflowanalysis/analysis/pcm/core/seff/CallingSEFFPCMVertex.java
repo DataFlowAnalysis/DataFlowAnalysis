@@ -6,6 +6,8 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
@@ -13,6 +15,7 @@ import org.dataflowanalysis.analysis.pcm.core.CallReturnBehavior;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
 
@@ -43,15 +46,7 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
         List<DataFlowVariable> incomingDataFlowVariables = super.getIncomingDataFlowVariables();
         List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
 
-        List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.isCalling
-                ? super.getReferencedElement().getInputVariableUsages__CallAction().stream()
-                        .flatMap(it -> it.getVariableCharacterisation_VariableUsage().stream())
-                        .filter(ConfidentialityVariableCharacterisation.class::isInstance).map(ConfidentialityVariableCharacterisation.class::cast)
-                        .collect(Collectors.toList())
-                : super.getReferencedElement().getReturnVariableUsage__CallReturnAction().stream()
-                        .flatMap(it -> it.getVariableCharacterisation_VariableUsage().stream())
-                        .filter(ConfidentialityVariableCharacterisation.class::isInstance).map(ConfidentialityVariableCharacterisation.class::cast)
-                        .collect(Collectors.toList());
+        List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.getVariableCharacterizations();
         if (this.isCalling()) {
             super.checkCallParameter(super.getReferencedElement().getCalledService_ExternalService(), variableCharacterisations);
         }
@@ -62,6 +57,23 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
                     .collect(Collectors.toList());
         }
         this.setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+    }
+
+    /**
+     * Determines the variable characterizations that should be evaluated at the vertex.
+     * Calling SEFF vertices evaluate their input variable characterizations before calling.
+     * Returning SEFF vertices evaluate their return variable characterizations after returning from the called SEFF
+     * @return Returns a list of variable characterizations that are applicable to the current vertex
+     */
+    private List<ConfidentialityVariableCharacterisation> getVariableCharacterizations() {
+        Stream<VariableUsage> relevantVariableUsages = this.isCalling ?
+                super.getReferencedElement().getInputVariableUsages__CallAction().stream() :
+                super.getReferencedElement().getReturnVariableUsage__CallReturnAction().stream();
+        return relevantVariableUsages
+                .flatMap(it -> it.getVariableCharacterisation_VariableUsage().stream())
+                .filter(ConfidentialityVariableCharacterisation.class::isInstance)
+                .map(ConfidentialityVariableCharacterisation.class::cast)
+                .collect(Collectors.toList());
     }
 
     @Override

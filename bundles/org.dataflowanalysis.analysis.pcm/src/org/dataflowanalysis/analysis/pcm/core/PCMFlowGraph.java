@@ -31,8 +31,12 @@ public class PCMFlowGraph extends FlowGraph {
 
     @Override
     public PCMFlowGraph evaluate() {
-        List<PCMPartialFlowGraph> actionSequences = this.getPartialFlowGraphs().parallelStream().map(PCMPartialFlowGraph.class::cast).toList();
-        List<AbstractPartialFlowGraph> evaluatedPartialFlowGraphs = actionSequences.parallelStream().map(PCMPartialFlowGraph::evaluate).toList();
+        List<PCMPartialFlowGraph> partialFlowGraphs = this.getPartialFlowGraphs().parallelStream()
+                .map(PCMPartialFlowGraph.class::cast)
+                .toList();
+        List<AbstractPartialFlowGraph> evaluatedPartialFlowGraphs = partialFlowGraphs.parallelStream()
+                .map(PCMPartialFlowGraph::evaluate)
+                .toList();
         return new PCMFlowGraph(evaluatedPartialFlowGraphs, this.resourceProvider);
     }
 }

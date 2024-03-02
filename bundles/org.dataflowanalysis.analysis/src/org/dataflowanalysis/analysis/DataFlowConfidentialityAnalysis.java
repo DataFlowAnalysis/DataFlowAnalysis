@@ -46,7 +46,7 @@ public abstract class DataFlowConfidentialityAnalysis {
      * @return Returns a list of all nodes that matched the given condition
      */
     public List<? extends AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph partialFlowGraph, Predicate<? super AbstractVertex<?>> condition) {
-        return partialFlowGraph.getVertices().parallelStream().filter(condition).toList();
+        return partialFlowGraph.getVertices().stream().filter(condition).toList();
     }
 
     /**

@@ -11,7 +11,7 @@ import java.util.Map;
 
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramAndDictionary;
-import org.dataflowanalysis.analysis.converter.PalladioConverter;
+import org.dataflowanalysis.analysis.converter.PCMConverter;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
@@ -23,24 +23,24 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class PalladioTest {
+public class PCMTest {
     @Test
     @DisplayName("Test Palladio to DFD")
     public void palladioToDfd() {
         String modelLocation = "org.dataflowanalysis.analysis.testmodels";
-        
+
         String inputModel = "TravelPlanner";
         String inputFile = "travelPlanner";
-        
+
         testSpecificModel(inputModel, inputFile, modelLocation, null);
-        
-        /*inputModel = "InternationalOnlineShop";
-        inputFile = "default";
-        
-        String dataflowdiagram = Paths.get("..", modelLocation, "models", "OnlineShopDFD","onlineshop.dataflowdiagram").toString();
-        String datadictionary = Paths.get("..", modelLocation, "models", "OnlineShopDFD","onlineshop.datadictionary").toString();
-        
-        testSpecificModel(inputModel, inputFile, modelLocation, new DataFlowDiagramConverter().loadDFD(dataflowdiagram, datadictionary));*/
+
+        /*
+         * inputModel = "InternationalOnlineShop"; inputFile = "default"; String dataflowdiagram = Paths.get("..",
+         * modelLocation, "models", "OnlineShopDFD","onlineshop.dataflowdiagram").toString(); String datadictionary =
+         * Paths.get("..", modelLocation, "models", "OnlineShopDFD","onlineshop.datadictionary").toString();
+         * testSpecificModel(inputModel, inputFile, modelLocation, new DataFlowDiagramConverter().loadDFD(dataflowdiagram,
+         * datadictionary));
+         */
 
     }
 
@@ -64,13 +64,12 @@ public class PalladioTest {
                 assIdToName.putIfAbsent(cast.getReferencedElement().getId(), cast.getReferencedElement().getEntityName());
             }
         }
-        
+
         DataFlowDiagram dfd;
-        if(complete!=null) {
-            dfd=complete.dataFlowDiagram();
-        }
-        else {
-            dfd = new PalladioConverter().palladioToDFD(inputModel, inputFile, modelLocation).dataFlowDiagram();
+        if (complete != null) {
+            dfd = complete.dataFlowDiagram();
+        } else {
+            dfd = new PCMConverter().pcmToDFD(inputModel, inputFile, modelLocation).dataFlowDiagram();
         }
 
         assertEquals(dfd.getNodes().size(), assIdToName.keySet().size());

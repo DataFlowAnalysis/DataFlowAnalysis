@@ -214,7 +214,6 @@ public class MicroSecEndConverter extends Converter {
         if (exitCode == 0) {
             return Optional.ofNullable(microToDfd(name + ".json"));
         } else {
-            logger.error("Make sure python3 is installed and set in PATH");
             return Optional.empty();
         }
 
@@ -237,7 +236,7 @@ public class MicroSecEndConverter extends Converter {
             process = processBuilder.start();
             return process.waitFor();
         } catch (IOException | InterruptedException e) {
-            logger.error(e);
+            logger.error("Make sure python3 is installed and set in PATH",e);
         }
         return -1;
     }

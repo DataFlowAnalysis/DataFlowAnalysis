@@ -25,7 +25,7 @@ public class BehaviorConverter {
     private DataDictionary dataDictionary;
 
     private final Logger logger = Logger.getLogger(BehaviorConverter.class);
-    
+
     private final String LOGICAL_AND = "&&";
     private final String LOGICAL_OR = "||";
     private final String LOGICAL_NOT = "!";
@@ -114,7 +114,7 @@ public class BehaviorConverter {
                 break;
             default:
                 logger.error("Unknow operator");
-                throw new IllegalArgumentException (operator);
+                throw new IllegalArgumentException(operator);
         }
     }
 
@@ -164,14 +164,20 @@ public class BehaviorConverter {
             return "TRUE";
         } else if (term instanceof AND and) {
             List<Term> operands = and.getTerms();
-            String result = termToString(operands.get(0), true) + " "+LOGICAL_AND+" " + termToString(operands.get(1), true);
+            String result = termToString(operands.get(0), true) + " " + LOGICAL_AND + " " + termToString(operands.get(1), true);
             return isNested ? "(" + result + ")" : result;
         } else if (term instanceof OR or) {
             List<Term> operands = or.getTerms();
-            String result = termToString(operands.get(0), true) + " "+LOGICAL_OR+" " + termToString(operands.get(1), true);
+            String result = termToString(operands.get(0), true) + " " + LOGICAL_OR + " " + termToString(operands.get(1), true);
             return isNested ? "(" + result + ")" : result;
         } else if (term instanceof NOT not) {
-            return LOGICAL_NOT + termToString(not.getNegatedTerm(), false);
+            if (not.getNegatedTerm() instanceof TRUE) {
+                return "FALSE";
+            }
+            if (not.getNegatedTerm() instanceof LabelReference) {
+                return LOGICAL_NOT + termToString(not.getNegatedTerm(), false);
+            }
+            return LOGICAL_NOT + termToString(not.getNegatedTerm(), true);
         } else {
             throw new IllegalArgumentException("Unknown term type");
         }

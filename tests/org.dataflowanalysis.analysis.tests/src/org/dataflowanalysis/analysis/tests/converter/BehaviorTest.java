@@ -5,7 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.dataflowanalysis.analysis.converter.BehaviorConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class BehaviorTest {
     private BehaviorConverter converter;
@@ -14,11 +15,23 @@ public class BehaviorTest {
     public void init() {
         converter = new BehaviorConverter();
     }
-
-    @Test
+    
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "TRUE || FALSE",
+            "TypeA.ValueA && TypeB.ValueB",
+            "TypeA.ValueA || TypeB.ValueB",
+            "!TypeA.ValueA && TypeB.ValueB",
+            "TypeA.ValueA || !TypeB.ValueB",
+            "(TypeA.ValueA && TypeB.ValueB) || TypeC.ValueC",
+            "!(TypeA.ValueA || TypeB.ValueB) && TypeC.ValueC",
+            "((TypeA.ValueA && TRUE) || !TypeB.ValueB) || FALSE",
+            "(!TypeA.ValueA && TypeB.ValueB) || (TypeC.ValueC && !TypeD.ValueD)",
+            "((TypeA.ValueA || !TypeB.ValueB) && TypeC.ValueC) || (TypeD.ValueD && !(TypeE.ValueE || TypeF.ValueF))",
+            "!((TypeA.ValueA && (TypeB.ValueB || !TypeC.ValueC)) || (!(TypeD.ValueD && TypeE.ValueE) && (TypeF.ValueF || TypeG.ValueG)))"
+        })
     @DisplayName("Test Behavior Conversion")
-    public void testBehavior() {
-        String behavior = "(TypeA.ValueA && TRUE) || !TypeB.ValueB";
+    void testBehaviorConversion(String behavior) {
         assertEquals(behavior, converter.termToString(converter.stringToTerm(behavior)));
     }
 }

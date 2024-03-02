@@ -26,10 +26,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class WebEditorTest extends ConverterTest {
     private DataFlowDiagramConverter converter;
 
-    private final String MINIMAL = Paths.get(packagePath, "minimal.json").toString();
-    private final String TEST = Paths.get(packagePath, "test.json").toString();
-    private final String MINIMALDFD = Paths.get(packagePath, "minimal.dataflowdiagram").toString();
-    private final String MINIMALDD = Paths.get(packagePath, "minimal.datadictionary").toString();
+    private final String minimalWebDFD = Paths.get(packagePath, "minimal.json").toString();
+    private final String tempWebDFD = Paths.get(packagePath, "test.json").toString();
+    private final String minimalDataFlowDiagram = Paths.get(packagePath, "minimal.dataflowdiagram").toString();
+    private final String minimalDataDictionary = Paths.get(packagePath, "minimal.datadictionary").toString();
 
     @BeforeEach
     public void setup() {
@@ -39,11 +39,11 @@ public class WebEditorTest extends ConverterTest {
     @Test
     @DisplayName("Test Web -> DFD -> Web")
     public void webToDfdToWeb() throws StreamReadException, DatabindException, IOException {
-        DataFlowDiagramAndDictionary dfdBefore = converter.webToDfd(MINIMAL);
+        DataFlowDiagramAndDictionary dfdBefore = converter.webToDfd(minimalWebDFD);
         WebEditorDfd webAfter = converter.dfdToWeb(dfdBefore);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File(MINIMAL);
+        File file = new File(minimalWebDFD);
         WebEditorDfd webBefore = objectMapper.readValue(file, WebEditorDfd.class);
 
         webBefore.sort();
@@ -56,56 +56,53 @@ public class WebEditorTest extends ConverterTest {
     @DisplayName("Test storing and loading functionality")
     public void testStoreLoad() throws StreamReadException, DatabindException, IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File(MINIMAL);
+        File file = new File(minimalWebDFD);
 
         WebEditorDfd webBefore = objectMapper.readValue(file, WebEditorDfd.class);
         DataFlowDiagramAndDictionary completeBefore = converter.webToDfd(webBefore);
 
-        converter.store(webBefore, TEST);
-        converter.store(completeBefore, MINIMAL);
+        converter.store(webBefore, tempWebDFD);
+        converter.store(completeBefore, minimalWebDFD);
 
-        WebEditorDfd webAfter = converter.loadWeb(TEST).get();
-        DataFlowDiagramAndDictionary completeAfter = converter.loadDFD(MINIMALDFD, MINIMALDD);
+        WebEditorDfd webAfter = converter.loadWeb(tempWebDFD).get();
+        DataFlowDiagramAndDictionary completeAfter = converter.loadDFD(minimalDataFlowDiagram, minimalDataDictionary);
 
         assertEquals(webBefore, webAfter);
         assertNotNull(completeAfter);
 
-        cleanup(MINIMALDFD);
-        cleanup(MINIMALDD);
-        cleanup(TEST);
+        cleanup(minimalDataFlowDiagram);
+        cleanup(minimalDataDictionary);
+        cleanup(tempWebDFD);
     }
-    
+
     @Test
     @DisplayName("Test manual conversion")
-    public void testManual(){
-        String dataflowdiagram = Paths.get("..", "org.dataflowanalysis.analysis.testmodels", "models", "OnlineShopDFD","onlineshop.dataflowdiagram").toString();
-        String datadictionary = Paths.get("..", "org.dataflowanalysis.analysis.testmodels", "models", "OnlineShopDFD","onlineshop.datadictionary").toString();
-        DataFlowDiagramAndDictionary manualDFD = converter.loadDFD(dataflowdiagram,datadictionary);
-        
-        DataFlowDiagramAndDictionary convertedDFD = converter.webToDfd(MINIMAL);
-        
-        assertEquals(manualDFD.dataFlowDiagram().getNodes().size(),convertedDFD.dataFlowDiagram().getNodes().size());
-                
-        List<String> nodeEntityNamesManual = manualDFD.dataFlowDiagram().getNodes().stream()
-                .map(Node::getEntityName).collect(Collectors.toList());
+    public void testManual() {
+        String dataflowdiagram = Paths.get("..", "org.dataflowanalysis.analysis.testmodels", "models", "OnlineShopDFD", "onlineshop.dataflowdiagram")
+                .toString();
+        String datadictionary = Paths.get("..", "org.dataflowanalysis.analysis.testmodels", "models", "OnlineShopDFD", "onlineshop.datadictionary")
+                .toString();
+        DataFlowDiagramAndDictionary manualDFD = converter.loadDFD(dataflowdiagram, datadictionary);
+
+        DataFlowDiagramAndDictionary convertedDFD = converter.webToDfd(minimalWebDFD);
+
+        assertEquals(manualDFD.dataFlowDiagram().getNodes().size(), convertedDFD.dataFlowDiagram().getNodes().size());
+
+        List<String> nodeEntityNamesManual = manualDFD.dataFlowDiagram().getNodes().stream().map(Node::getEntityName).collect(Collectors.toList());
         Collections.sort(nodeEntityNamesManual);
-        
-        List<String> nodeEntityNamesConverted = convertedDFD.dataFlowDiagram().getNodes().stream()
-                .map(Node::getEntityName).collect(Collectors.toList());
+
+        List<String> nodeEntityNamesConverted = convertedDFD.dataFlowDiagram().getNodes().stream().map(Node::getEntityName)
+                .collect(Collectors.toList());
         Collections.sort(nodeEntityNamesConverted);
 
-        assertEquals(nodeEntityNamesManual,nodeEntityNamesConverted);
-        
-        assertEquals(manualDFD.dataFlowDiagram().getFlows().size(),convertedDFD.dataFlowDiagram().getFlows().size());
-        
-        assertTrue(manualDFD.dataFlowDiagram().getFlows().stream() // Stream over the first list
-            .allMatch(flowA -> // Check if all elements of the first list
-                    convertedDFD.dataFlowDiagram().getFlows().stream() // Stream over the second list
-                    .anyMatch(flowB -> // Check if any element in the second list
-                            flowA.getSourceNode().getEntityName().equals(flowB.getSourceNode().getEntityName()) && // matches the source name
-                            flowA.getDestinationNode().getEntityName().equals(flowB.getDestinationNode().getEntityName()) // and destination name
-                    )
-            ));
+        assertEquals(nodeEntityNamesManual, nodeEntityNamesConverted);
+
+        assertEquals(manualDFD.dataFlowDiagram().getFlows().size(), convertedDFD.dataFlowDiagram().getFlows().size());
+
+        assertTrue(manualDFD.dataFlowDiagram().getFlows().stream()
+                .allMatch(flowA -> convertedDFD.dataFlowDiagram().getFlows().stream()
+                        .anyMatch(flowB -> flowA.getSourceNode().getEntityName().equals(flowB.getSourceNode().getEntityName())
+                                && flowA.getDestinationNode().getEntityName().equals(flowB.getDestinationNode().getEntityName()))));
 
     }
 }

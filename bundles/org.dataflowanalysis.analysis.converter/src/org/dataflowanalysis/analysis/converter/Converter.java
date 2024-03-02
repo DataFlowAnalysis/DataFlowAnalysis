@@ -31,9 +31,10 @@ public abstract class Converter {
      * @param outputFile The path of the output file.
      */
     public void store(DataFlowDiagramAndDictionary complete, String outputFile) {
+        String fileEnding = ".json";
         String truncatedOutputFile;
-        if (outputFile.endsWith(".json")) {
-            truncatedOutputFile = outputFile.substring(0, outputFile.length() - 5);
+        if (outputFile.endsWith(fileEnding)) {
+            truncatedOutputFile = outputFile.substring(0, outputFile.length() - fileEnding.length());
         } else {
             truncatedOutputFile = outputFile;
         }

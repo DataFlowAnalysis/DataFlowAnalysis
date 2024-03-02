@@ -1,7 +1,6 @@
 package org.dataflowanalysis.analysis.core;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 

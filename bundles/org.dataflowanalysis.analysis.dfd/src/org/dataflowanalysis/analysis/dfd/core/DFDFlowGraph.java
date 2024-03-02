@@ -1,12 +1,10 @@
 package org.dataflowanalysis.analysis.dfd.core;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.FlowGraph;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
-import org.dataflowanalysis.analysis.resource.ResourceProvider;
 
 /**
  * This class represents a flow graph in a dfd model

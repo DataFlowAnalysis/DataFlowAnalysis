@@ -11,7 +11,7 @@ import org.dataflowanalysis.analysis.core.FlowGraph;
  * This interface represents the functionality of a data flow confidentiality analysis. To use the analysis the
  * {@link DataFlowConfidentialityAnalysis#initializeAnalysis()} method must be called. After that the flow graph of the
  * model can be determined with {@link DataFlowConfidentialityAnalysis#findFlowGraph()}. To determine characteristics at
- * each node the method {@link DataFlowConfidentialityAnalysis#evaluateFlowGraph(FlowGraph)} must be called. Finally, a
+ * each node the method {@link FlowGraph#evaluate()} must be called. Finally, a
  * constraint can be evaluated with
  * {@link DataFlowConfidentialityAnalysis#queryDataFlow(AbstractPartialFlowGraph, Predicate)} on each partial flow graph
  * contained in the previously returned flow graph.

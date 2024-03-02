@@ -53,11 +53,12 @@ public class PCMVertexCharacteristicsCalculator {
         Assignments assignments = this.resolveAssignments();
         List<AbstractAssignee> assignees;
         if (node instanceof AbstractUserAction) {
-            assignees = this.getUsage(node, assignments);
+            assignees = this.getUsageNodeAssignments(node, assignments);
         } else if (node instanceof AbstractAction) {
-            assignees = this.getSEFF(assignments, context);
+            assignees = this.getSEFFNodeAssignments(assignments, context);
         } else {
-            throw new IllegalArgumentException("Unknown assignee:" + node.toString());
+            logger.error(String.format("Requested node characteristics of unknown entity %s", node));
+            throw new IllegalArgumentException();
         }
         List<EnumCharacteristic> enumCharacteristics = assignees.stream().flatMap(it -> it.getCharacteristics().stream()).toList();
 
@@ -70,7 +71,7 @@ public class PCMVertexCharacteristicsCalculator {
      * @param assignments Resolved assignment container
      * @return List of resolved assignees matching the node
      */
-    private List<AbstractAssignee> getUsage(Entity node, Assignments assignments) {
+    private List<AbstractAssignee> getUsageNodeAssignments(Entity node, Assignments assignments) {
         UsageScenario usageScenario = PCMQueryUtils.findParentOfType(node, UsageScenario.class, false).orElseThrow(IllegalStateException::new);
         return assignments.getAssignee().stream().filter(UsageAssignee.class::isInstance).map(UsageAssignee.class::cast)
                 .filter(it -> it.getUsagescenario().equals(usageScenario)).collect(Collectors.toList());
@@ -82,7 +83,7 @@ public class PCMVertexCharacteristicsCalculator {
      * @param context Context of the SEFF node
      * @return List of resolved assignees matching the node
      */
-    private List<AbstractAssignee> getSEFF(Assignments assignments, Deque<AssemblyContext> context) {
+    private List<AbstractAssignee> getSEFFNodeAssignments(Assignments assignments, Deque<AssemblyContext> context) {
         List<AbstractAssignee> resolvedAssignees = new ArrayList<>();
         var allocations = this.resourceLoader.lookupToplevelElement(AllocationPackage.eINSTANCE.getAllocation()).stream()
                 .filter(Allocation.class::isInstance).map(Allocation.class::cast).toList();
@@ -97,10 +98,10 @@ public class PCMVertexCharacteristicsCalculator {
 
         var allocationContexts = allocation.get().getAllocationContexts_Allocation();
         allocationContexts.stream().filter(it -> context.contains(it.getAssemblyContext_AllocationContext())).forEach(it -> {
-            resolvedAssignees.addAll(getAllocation(assignments, it.getAssemblyContext_AllocationContext()));
-            resolvedAssignees.addAll(getResource(assignments, it.getResourceContainer_AllocationContext()));
+            resolvedAssignees.addAll(getAllocationAssignees(assignments, it.getAssemblyContext_AllocationContext()));
+            resolvedAssignees.addAll(getResourceAssignees(assignments, it.getResourceContainer_AllocationContext()));
             if (it.getAssemblyContext_AllocationContext().getEncapsulatedComponent__AssemblyContext() instanceof CompositeComponent) {
-                resolvedAssignees.addAll(getComposite(assignments, context,
+                resolvedAssignees.addAll(getCompositeComponentAssignees(assignments, context,
                         (CompositeComponent) it.getAssemblyContext_AllocationContext().getEncapsulatedComponent__AssemblyContext()));
             }
         });
@@ -113,7 +114,7 @@ public class PCMVertexCharacteristicsCalculator {
      * @param assemblyContext Given assembly context
      * @return List of resolved assignees matching the node
      */
-    private List<AbstractAssignee> getAllocation(Assignments assignments, AssemblyContext assemblyContext) {
+    private List<AbstractAssignee> getAllocationAssignees(Assignments assignments, AssemblyContext assemblyContext) {
         return assignments.getAssignee().stream().filter(AssemblyAssignee.class::isInstance).map(AssemblyAssignee.class::cast)
                 .filter(it -> it.getAssemblycontext().equals(assemblyContext)).collect(Collectors.toList());
     }
@@ -124,7 +125,7 @@ public class PCMVertexCharacteristicsCalculator {
      * @param resourceContainer Given resource container
      * @return List of resolved assignees matching the node
      */
-    private List<AbstractAssignee> getResource(Assignments assignments, ResourceContainer resourceContainer) {
+    private List<AbstractAssignee> getResourceAssignees(Assignments assignments, ResourceContainer resourceContainer) {
         return assignments.getAssignee().stream().filter(ResourceAssignee.class::isInstance).map(ResourceAssignee.class::cast)
                 .filter(it -> it.getResourcecontainer().equals(resourceContainer)).collect(Collectors.toList());
     }
@@ -136,12 +137,12 @@ public class PCMVertexCharacteristicsCalculator {
      * @param compositeComponent Given composite component
      * @return Returns the list of all contained assignees of a SEFF node inside a given composite component
      */
-    private List<AbstractAssignee> getComposite(Assignments assignments, Deque<AssemblyContext> context, CompositeComponent compositeComponent) {
+    private List<AbstractAssignee> getCompositeComponentAssignees(Assignments assignments, Deque<AssemblyContext> context, CompositeComponent compositeComponent) {
         List<AbstractAssignee> evaluatedAssignees = new ArrayList<>();
         List<AssemblyContext> assemblyContexts = compositeComponent.getAssemblyContexts__ComposedStructure();
         for (AssemblyContext assemblyContext : assemblyContexts) {
             if (context.contains(assemblyContext)) {
-                evaluatedAssignees.addAll(this.getAllocation(assignments, assemblyContext));
+                evaluatedAssignees.addAll(this.getAllocationAssignees(assignments, assemblyContext));
             }
         }
         return evaluatedAssignees;

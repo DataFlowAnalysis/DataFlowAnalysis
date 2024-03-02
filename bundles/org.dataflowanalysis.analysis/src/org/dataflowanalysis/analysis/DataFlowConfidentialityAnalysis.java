@@ -16,26 +16,26 @@ import org.dataflowanalysis.analysis.core.FlowGraph;
  * {@link DataFlowConfidentialityAnalysis#queryDataFlow(AbstractPartialFlowGraph, Predicate)} on each partial flow graph
  * contained in the previously returned flow graph.
  */
-public interface DataFlowConfidentialityAnalysis {
-    String PLUGIN_PATH = "org.dataflowanalysis.analysis";
+public abstract class DataFlowConfidentialityAnalysis {
+    public static final String PLUGIN_PATH = "org.dataflowanalysis.analysis";
 
     /**
      * Initializes the analysis by setting up the execution environment and loading the referenced models
      */
-    void initializeAnalysis();
+    public abstract void initializeAnalysis();
 
     /**
      * Determines the flow graph of the referenced models
      * @return Returns the flow graph containing all flows present in the referenced models
      */
-    FlowGraph findFlowGraph();
+    public abstract FlowGraph findFlowGraph();
 
     /**
      * Evaluates the flow graph and executes the label propagation on all vertices
      * @param flowGraph Flow Graph that should be evaluated
      * @return Returns a new flow graph that contains the evaluated vertices
      */
-    FlowGraph evaluateFlowGraph(FlowGraph flowGraph);
+    public abstract FlowGraph evaluateFlowGraph(FlowGraph flowGraph);
 
     /**
      * Evaluates a given condition on a partial flow graph and returns all elements that violate the given condition
@@ -45,11 +45,13 @@ public interface DataFlowConfidentialityAnalysis {
      * method.
      * @return Returns a list of all nodes that matched the given condition
      */
-    List<? extends AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph partialFlowGraph, Predicate<? super AbstractVertex<?>> condition);
+    public List<? extends AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph partialFlowGraph, Predicate<? super AbstractVertex<?>> condition) {
+        return partialFlowGraph.getVertices().parallelStream().filter(condition).toList();
+    }
 
     /**
      * Sets the logger level of the analysis components
      * @param level Desired logger level of the analysis components
      */
-    void setLoggerLevel(Level level);
+    public abstract void setLoggerLevel(Level level);
 }

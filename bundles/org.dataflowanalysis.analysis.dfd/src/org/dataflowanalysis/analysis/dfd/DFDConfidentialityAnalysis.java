@@ -21,7 +21,7 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder
 /**
  * This class represents a toplevel dfd confidentiality analysis which allows analysis of a given model
  */
-public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalysis {
+public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis {
     private final Logger logger = Logger.getLogger(DFDConfidentialityAnalysis.class);
 
     protected final DFDResourceProvider resourceProvider;
@@ -76,12 +76,6 @@ public class DFDConfidentialityAnalysis implements DataFlowConfidentialityAnalys
             throw new IllegalStateException();
         }
         return dfdFlowGraph.evaluate();
-    }
-
-    @Override
-    public List<? extends AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph partialFlowGraph,
-            Predicate<? super AbstractVertex<?>> condition) {
-        return partialFlowGraph.getVertices().parallelStream().filter(condition).toList();
     }
 
     @Override

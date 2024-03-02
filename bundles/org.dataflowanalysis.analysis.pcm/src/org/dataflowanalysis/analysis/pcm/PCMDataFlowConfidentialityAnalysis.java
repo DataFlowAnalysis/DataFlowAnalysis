@@ -27,7 +27,7 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializationExce
 import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder;
 import tools.mdsd.library.standalone.initialization.log4j.Log4jInitilizationTask;
 
-public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentialityAnalysis {
+public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityAnalysis {
     private static final String PLUGIN_PATH = "org.dataflowanalysis.analysis.pcm";
     private final Logger logger;
 
@@ -64,11 +64,6 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
             throw new IllegalArgumentException();
         }
         return pcmFlowGraph.evaluate();
-    }
-
-    @Override
-    public List<? extends AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph sequence, Predicate<? super AbstractVertex<?>> condition) {
-        return sequence.getVertices().parallelStream().filter(condition).toList();
     }
 
     @Override

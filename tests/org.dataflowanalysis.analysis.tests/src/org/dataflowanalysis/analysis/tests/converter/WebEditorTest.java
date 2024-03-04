@@ -34,6 +34,7 @@ public class WebEditorTest extends ConverterTest {
     private final String tempWebDFD = Paths.get(packagePath, "test.json").toString();
     private final String minimalDataFlowDiagram = Paths.get(packagePath, "minimal.dataflowdiagram").toString();
     private final String minimalDataDictionary = Paths.get(packagePath, "minimal.datadictionary").toString();
+    private final String PROJECT = "org.dataflowanalysis.analysis.testmodels";
 
     @BeforeEach
     public void setup() {
@@ -71,7 +72,7 @@ public class WebEditorTest extends ConverterTest {
         converter.storeDFD(completeBefore, minimalWebDFD);
 
         WebEditorDfd webAfter = converter.loadWeb(tempWebDFD).get();
-        DataFlowDiagramAndDictionary completeAfter = converter.loadDFD(minimalDataFlowDiagram, minimalDataDictionary);
+        DataFlowDiagramAndDictionary completeAfter = converter.loadDFD(PROJECT,minimalDataFlowDiagram, minimalDataDictionary);
 
         assertEquals(webBefore, webAfter);
         assertNotNull(completeAfter);
@@ -86,7 +87,7 @@ public class WebEditorTest extends ConverterTest {
     public void testManual() throws StandaloneInitializationException {
         String dataflowdiagram = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram").toString();
         String datadictionary = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary").toString();
-        DataFlowDiagramAndDictionary manualDFD = converter.loadDFD(dataflowdiagram, datadictionary);
+        DataFlowDiagramAndDictionary manualDFD = converter.loadDFD(PROJECT,dataflowdiagram, datadictionary);
 
         DataFlowDiagramAndDictionary convertedDFD = converter.webToDfd(minimalWebDFD);
 

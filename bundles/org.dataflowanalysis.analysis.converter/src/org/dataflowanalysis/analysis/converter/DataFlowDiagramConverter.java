@@ -77,8 +77,8 @@ public class DataFlowDiagramConverter extends Converter {
      * @return WebEditorDfd object representing the web editor version of the data flow diagram.
      * @throws StandaloneInitializationException
      */
-    public WebEditorDfd dfdToWeb(String inputDataFlowDiagram, String inputDataDictionary) throws StandaloneInitializationException {
-        DataFlowDiagramAndDictionary complete = loadDFD(inputDataFlowDiagram, inputDataDictionary);
+    public WebEditorDfd dfdToWeb(String project, String inputDataFlowDiagram, String inputDataDictionary) throws StandaloneInitializationException {
+        DataFlowDiagramAndDictionary complete = loadDFD(project,inputDataFlowDiagram, inputDataDictionary);
         return processDfd(complete.dataFlowDiagram(), complete.dataDictionary());
     }
 
@@ -131,11 +131,11 @@ public class DataFlowDiagramConverter extends Converter {
      * @param inputDataDictionary The path of the input data dictionary file.
      * @return DataFlowDiagramAndDictionary object representing the loaded data flow diagram and dictionary.
      */
-    public DataFlowDiagramAndDictionary loadDFD(String inputDataFlowDiagram, String inputDataDictionary) throws StandaloneInitializationException {
-        StandaloneInitializerBuilder.builder().registerProjectURI(Activator.class, "org.dataflowanalysis.analysis.testmodels").build().init();
+    public DataFlowDiagramAndDictionary loadDFD(String project, String inputDataFlowDiagram, String inputDataDictionary) throws StandaloneInitializationException {
+        StandaloneInitializerBuilder.builder().registerProjectURI(Activator.class, project).build().init();
 
-        URI dfdURI = ResourceUtils.createRelativePluginURI(inputDataFlowDiagram, "org.dataflowanalysis.analysis.testmodels");
-        URI ddURI = ResourceUtils.createRelativePluginURI(inputDataDictionary, "org.dataflowanalysis.analysis.testmodels");
+        URI dfdURI = ResourceUtils.createRelativePluginURI(inputDataFlowDiagram, project);
+        URI ddURI = ResourceUtils.createRelativePluginURI(inputDataDictionary, project);
         System.out.println(dfdURI);
         System.out.println(ddURI);
 

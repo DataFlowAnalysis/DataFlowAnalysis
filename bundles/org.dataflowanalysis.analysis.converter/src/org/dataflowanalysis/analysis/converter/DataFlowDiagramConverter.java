@@ -78,7 +78,7 @@ public class DataFlowDiagramConverter extends Converter {
      * @throws StandaloneInitializationException
      */
     public WebEditorDfd dfdToWeb(String project, String inputDataFlowDiagram, String inputDataDictionary) throws StandaloneInitializationException {
-        DataFlowDiagramAndDictionary complete = loadDFD(project,inputDataFlowDiagram, inputDataDictionary);
+        DataFlowDiagramAndDictionary complete = loadDFD(project, inputDataFlowDiagram, inputDataDictionary);
         return processDfd(complete.dataFlowDiagram(), complete.dataDictionary());
     }
 
@@ -131,7 +131,8 @@ public class DataFlowDiagramConverter extends Converter {
      * @param inputDataDictionary The path of the input data dictionary file.
      * @return DataFlowDiagramAndDictionary object representing the loaded data flow diagram and dictionary.
      */
-    public DataFlowDiagramAndDictionary loadDFD(String project, String inputDataFlowDiagram, String inputDataDictionary) throws StandaloneInitializationException {
+    public DataFlowDiagramAndDictionary loadDFD(String project, String inputDataFlowDiagram, String inputDataDictionary)
+            throws StandaloneInitializationException {
         StandaloneInitializerBuilder.builder().registerProjectURI(Activator.class, project).build().init();
 
         URI dfdURI = ResourceUtils.createRelativePluginURI(inputDataFlowDiagram, project);

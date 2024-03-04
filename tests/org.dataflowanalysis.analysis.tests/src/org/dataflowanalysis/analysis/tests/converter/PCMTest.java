@@ -13,10 +13,10 @@ import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.analysis.converter.PCMConverter;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
-import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
-import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
+import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
-import org.dataflowanalysis.analysis.pcm.flowgraph.AbstractPCMVertex;
+import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
@@ -55,10 +55,10 @@ public class PCMTest {
 
         analysis.initializeAnalysis();
         var flowGraph = analysis.findFlowGraph();
-        var propagationResult = analysis.evaluateFlowGraph(flowGraph);
+        flowGraph.evaluate();
 
         Map<String, String> assIdToName = new HashMap<>();
-        for (AbstractPartialFlowGraph aPFG : propagationResult.getPartialFlowGraphs()) {
+        for (AbstractPartialFlowGraph aPFG : flowGraph.getPartialFlowGraphs()) {
             for (AbstractVertex<?> abstractVertex : aPFG.getVertices()) {
                 var cast = (AbstractPCMVertex<?>) abstractVertex;
                 assIdToName.putIfAbsent(cast.getReferencedElement().getId(), cast.getReferencedElement().getEntityName());
@@ -89,7 +89,7 @@ public class PCMTest {
         }
 
         List<String> flowNames = new ArrayList<>();
-        for (AbstractPartialFlowGraph as : propagationResult.getPartialFlowGraphs()) {
+        for (AbstractPartialFlowGraph as : flowGraph.getPartialFlowGraphs()) {
             for (AbstractVertex<?> ase : as.getVertices()) {
                 List<DataFlowVariable> variables = ase.getAllDataFlowVariables();
                 for (DataFlowVariable variable : variables) {

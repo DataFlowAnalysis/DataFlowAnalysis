@@ -7,13 +7,13 @@ import java.util.Map;
 
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.*;
-import org.dataflowanalysis.analysis.flowgraph.AbstractPartialFlowGraph;
-import org.dataflowanalysis.analysis.flowgraph.AbstractVertex;
-import org.dataflowanalysis.analysis.flowgraph.FlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.core.FlowGraph;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
-import org.dataflowanalysis.analysis.pcm.flowgraph.AbstractPCMVertex;
-import org.dataflowanalysis.analysis.pcm.flowgraph.seff.*;
-import org.dataflowanalysis.analysis.pcm.flowgraph.user.*;
+import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
+import org.dataflowanalysis.analysis.pcm.core.seff.*;
+import org.dataflowanalysis.analysis.pcm.core.user.*;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
@@ -48,9 +48,9 @@ public class PCMConverter extends Converter {
 
         analysis.initializeAnalysis();
         var flowGraph = analysis.findFlowGraph();
-        var propagationResult = analysis.evaluateFlowGraph(flowGraph);
+        flowGraph.evaluate();
 
-        return processPalladio(propagationResult);
+        return processPalladio(flowGraph);
     }
 
     private DataFlowDiagramAndDictionary processPalladio(FlowGraph flowGraph) {

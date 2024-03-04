@@ -43,7 +43,7 @@ public class WebEditorTest extends ConverterTest {
     public void webToDfdToWeb() throws StreamReadException, DatabindException, IOException {
         DataFlowDiagramAndDictionary dfdBefore = converter.webToDfd(minimalWebDFD);
         WebEditorDfd webAfter = converter.dfdToWeb(dfdBefore);
-        
+
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(minimalWebDFD);
         WebEditorDfd webBefore = objectMapper.readValue(file, WebEditorDfd.class);
@@ -52,7 +52,7 @@ public class WebEditorTest extends ConverterTest {
         webAfter.sort();
 
         assertEquals(webBefore, webAfter);
-        
+
         checkBehaviorAndPinNames(dfdBefore);
     }
 
@@ -65,8 +65,8 @@ public class WebEditorTest extends ConverterTest {
         WebEditorDfd webBefore = objectMapper.readValue(file, WebEditorDfd.class);
         DataFlowDiagramAndDictionary completeBefore = converter.webToDfd(webBefore);
 
-        converter.store(webBefore, tempWebDFD);
-        converter.store(completeBefore, minimalWebDFD);
+        converter.storeWeb(webBefore, tempWebDFD);
+        converter.storeDFD(completeBefore, minimalWebDFD);
 
         WebEditorDfd webAfter = converter.loadWeb(tempWebDFD).get();
         DataFlowDiagramAndDictionary completeAfter = converter.loadDFD(minimalDataFlowDiagram, minimalDataDictionary);
@@ -74,8 +74,8 @@ public class WebEditorTest extends ConverterTest {
         assertEquals(webBefore, webAfter);
         assertNotNull(completeAfter);
 
-        //cleanup(minimalDataFlowDiagram);
-        //cleanup(minimalDataDictionary);
+        cleanup(minimalDataFlowDiagram);
+        cleanup(minimalDataDictionary);
         cleanup(tempWebDFD);
     }
 
@@ -107,38 +107,38 @@ public class WebEditorTest extends ConverterTest {
                 .allMatch(flowA -> convertedDFD.dataFlowDiagram().getFlows().stream()
                         .anyMatch(flowB -> flowA.getSourceNode().getEntityName().equals(flowB.getSourceNode().getEntityName())
                                 && flowA.getDestinationNode().getEntityName().equals(flowB.getDestinationNode().getEntityName()))));
-        
+
         checkBehaviorAndPinNames(manualDFD);
 
     }
-    
+
     private void checkBehaviorAndPinNames(DataFlowDiagramAndDictionary dfd) {
         for (Node node : dfd.dataFlowDiagram().getNodes()) {
-            var behaviour=node.getBehaviour();
-            assertEquals(node.getEntityName(),behaviour.getEntityName());
+            var behaviour = node.getBehaviour();
+            assertEquals(node.getEntityName(), behaviour.getEntityName());
 
-            for (Pin inPin:behaviour.getInPin()) {
-                String flowName="";
-                
-                for(Flow flow:dfd.dataFlowDiagram().getFlows()) {
-                    if(flow.getDestinationPin().equals(inPin)){
-                        flowName=flow.getEntityName();
+            for (Pin inPin : behaviour.getInPin()) {
+                String flowName = "";
+
+                for (Flow flow : dfd.dataFlowDiagram().getFlows()) {
+                    if (flow.getDestinationPin().equals(inPin)) {
+                        flowName = flow.getEntityName();
                     }
                 }
-                
-                assertEquals(inPin.getEntityName(),node.getEntityName()+"_in_"+flowName);
+
+                assertEquals(inPin.getEntityName(), node.getEntityName() + "_in_" + flowName);
             }
-            
-            for (Pin outPin:behaviour.getOutPin()) {
-                String flowName="";
-                
-                for(Flow flow:dfd.dataFlowDiagram().getFlows()) {
-                    if(flow.getSourcePin().equals(outPin)){
-                        flowName=flow.getEntityName();
+
+            for (Pin outPin : behaviour.getOutPin()) {
+                String flowName = "";
+
+                for (Flow flow : dfd.dataFlowDiagram().getFlows()) {
+                    if (flow.getSourcePin().equals(outPin)) {
+                        flowName = flow.getEntityName();
                     }
                 }
-                
-                assertEquals(outPin.getEntityName(),node.getEntityName()+"_out_"+flowName);
+
+                assertEquals(outPin.getEntityName(), node.getEntityName() + "_out_" + flowName);
             }
         }
     }

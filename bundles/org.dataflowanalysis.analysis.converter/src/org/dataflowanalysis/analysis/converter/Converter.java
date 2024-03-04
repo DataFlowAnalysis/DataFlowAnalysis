@@ -30,7 +30,7 @@ public abstract class Converter {
      * @param complete The DataFlowDiagramAndDictionary object to store.
      * @param outputFile The path of the output file.
      */
-    public void store(DataFlowDiagramAndDictionary complete, String outputFile) {
+    public void storeDFD(DataFlowDiagramAndDictionary complete, String outputFile) {
         String fileEnding = ".json";
         String truncatedOutputFile;
         if (outputFile.endsWith(fileEnding)) {

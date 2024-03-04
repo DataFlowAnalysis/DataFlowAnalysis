@@ -4,6 +4,14 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * Represents a port in the web editor dfd
+ * @param behavior Expression containing behavior. Can be empty
+ * @param id The id of the port
+ * @param type The type of the port (in/out)
+ * @param children A list of {@link Child}
+ */
+
 // The WebEditor is susceptible to changes, and to accommodate new fields, we disregard any unseen fields
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record Port(String behavior, String id, String type, List<Object> children) {

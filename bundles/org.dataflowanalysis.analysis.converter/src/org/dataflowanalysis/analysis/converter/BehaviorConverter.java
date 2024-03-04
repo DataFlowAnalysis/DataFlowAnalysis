@@ -78,6 +78,15 @@ public class BehaviorConverter {
         return operands.pop();
     }
 
+    /**
+     * Converts a {@link Term} instance back into its string representation.
+     * @param term the {@link Term} instance to convert
+     * @return the string representation of the term
+     */
+    public String termToString(Term term) {
+        return termToString(term, false);
+    }
+
     private boolean isOperator(String token) {
         return token.equals(LOGICAL_AND) || token.equals(LOGICAL_OR) || token.equals(LOGICAL_NOT);
     }
@@ -146,15 +155,6 @@ public class BehaviorConverter {
         labelReference.setLabel(value);
         return labelReference;
 
-    }
-
-    /**
-     * Converts a {@link Term} instance back into its string representation.
-     * @param term the {@link Term} instance to convert
-     * @return the string representation of the term
-     */
-    public String termToString(Term term) {
-        return termToString(term, false);
     }
 
     private String termToString(Term term, boolean isNested) {

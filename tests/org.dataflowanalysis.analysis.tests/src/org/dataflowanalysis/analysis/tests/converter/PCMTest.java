@@ -54,13 +54,13 @@ public class PCMTest {
                 .useNodeCharacteristicsModel(nodeCharPath).build();
 
         analysis.initializeAnalysis();
-        var sequences = analysis.findFlowGraph();
-        var propagationResult = analysis.evaluateFlowGraph(sequences);
+        var flowGraph = analysis.findFlowGraph();
+        var propagationResult = analysis.evaluateFlowGraph(flowGraph);
 
         Map<String, String> assIdToName = new HashMap<>();
-        for (AbstractPartialFlowGraph as : propagationResult.getPartialFlowGraphs()) {
-            for (AbstractVertex<?> ase : as.getVertices()) {
-                var cast = (AbstractPCMVertex<?>) ase;
+        for (AbstractPartialFlowGraph aPFG : propagationResult.getPartialFlowGraphs()) {
+            for (AbstractVertex<?> abstractVertex : aPFG.getVertices()) {
+                var cast = (AbstractPCMVertex<?>) abstractVertex;
                 assIdToName.putIfAbsent(cast.getReferencedElement().getId(), cast.getReferencedElement().getEntityName());
             }
         }

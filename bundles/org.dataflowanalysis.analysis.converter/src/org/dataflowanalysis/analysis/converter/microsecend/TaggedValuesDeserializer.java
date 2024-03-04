@@ -13,8 +13,14 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Utility class for deserializing <b>target_values</b> from the MicroSecEnd dataset.
+ */
 public class TaggedValuesDeserializer extends JsonDeserializer<Map<String, List<String>>> {
 
+    /**
+     * Overrides the default Jackson deserializer
+     */
     @Override
     public Map<String, List<String>> deserialize(JsonParser parser, DeserializationContext context) throws IOException {
         Map<String, List<String>> result = new HashMap<>();

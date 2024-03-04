@@ -35,6 +35,79 @@ public class MicroSecEndConverter extends Converter {
         labelMap = new HashMap<>();
     }
 
+    /**
+     * Converts MicroSecEnd model to DataFlowDiagramAndDictionary.
+     * @param inputFile File path of the MicroSecEnd model.
+     * @return DataFlowDiagramAndDictionary representation.
+     */
+    public DataFlowDiagramAndDictionary microToDfd(String inputFile) {
+        return microToDfd(loadMicro(inputFile).get());
+    }
+
+    /**
+     * Converts MicroSecEnd model to DataFlowDiagramAndDictionary.
+     * @param inputFile MicroSecEnd object to be converted.
+     * @return DataFlowDiagramAndDictionary representation.
+     */
+    public DataFlowDiagramAndDictionary microToDfd(MicroSecEnd inputFile) {
+        return processMicro(inputFile);
+    }
+
+    /**
+     * Deserializes MicroSecEnd file into an object.
+     * @param inputFile File path containing MicroSecEnd model.
+     * @return Optional of MicroSecEnd if deserialization is successful, otherwise empty.
+     */
+    public Optional<MicroSecEnd> loadMicro(String inputFile) {
+        objectMapper = new ObjectMapper();
+        file = new File(inputFile);
+        try {
+            MicroSecEnd result = objectMapper.readValue(file, MicroSecEnd.class);
+            return Optional.ofNullable(result);
+        } catch (IOException e) {
+            logger.error("Could not load MicroSecEnd:", e);
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * Converts PlantUML file to DataFlowDiagramAndDictionary via Python script.
+     * @param inputFile Path to PlantUML file.
+     * @return Optional of DataFlowDiagramAndDictionary if successful, otherwise empty.
+     */
+    public Optional<DataFlowDiagramAndDictionary> plantToDFD(String inputFile) {
+        String name = inputFile.split("\\.")[0];
+        int exitCode = runPythonScript(inputFile, "json", name + ".json");
+        if (exitCode == 0) {
+            return Optional.ofNullable(microToDfd(name + ".json"));
+        } else {
+            return Optional.empty();
+        }
+
+    }
+
+    // Tested with Python *3.11.5*, requires *argparse*, *ast* and *json* modules
+    /**
+     * Runs Python script for model conversion.
+     * @param in Input file path.
+     * @param format Desired output format.
+     * @param out Output file path.
+     * @return Exit code of the process (0 for success, -1 for error).
+     */
+    public int runPythonScript(String in, String format, String out) {
+        String[] command = {"python3", "convert_model.py", in, format, "-op", out};
+
+        ProcessBuilder processBuilder = new ProcessBuilder(command);
+        Process process;
+        try {
+            process = processBuilder.start();
+            return process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            logger.error("Make sure python3 is installed and set in PATH", e);
+        }
+        return -1;
+    }
+
     private DataFlowDiagramAndDictionary processMicro(MicroSecEnd micro) {
         DataFlowDiagram dfd = dfdFactory.createDataFlowDiagram();
         DataDictionary dd = ddFactory.createDataDictionary();
@@ -168,76 +241,4 @@ public class MicroSecEndConverter extends Converter {
         return labels;
     }
 
-    /**
-     * Converts MicroSecEnd model to DataFlowDiagramAndDictionary.
-     * @param inputFile File path of the MicroSecEnd model.
-     * @return DataFlowDiagramAndDictionary representation.
-     */
-    public DataFlowDiagramAndDictionary microToDfd(String inputFile) {
-        return microToDfd(loadMicro(inputFile).get());
-    }
-
-    /**
-     * Converts MicroSecEnd model to DataFlowDiagramAndDictionary.
-     * @param inputFile MicroSecEnd object to be converted.
-     * @return DataFlowDiagramAndDictionary representation.
-     */
-    public DataFlowDiagramAndDictionary microToDfd(MicroSecEnd inputFile) {
-        return processMicro(inputFile);
-    }
-
-    /**
-     * Deserializes MicroSecEnd file into an object.
-     * @param inputFile File path containing MicroSecEnd model.
-     * @return Optional of MicroSecEnd if deserialization is successful, otherwise empty.
-     */
-    public Optional<MicroSecEnd> loadMicro(String inputFile) {
-        objectMapper = new ObjectMapper();
-        file = new File(inputFile);
-        try {
-            MicroSecEnd result = objectMapper.readValue(file, MicroSecEnd.class);
-            return Optional.ofNullable(result);
-        } catch (IOException e) {
-            logger.error("Could not load MicroSecEnd:", e);
-            return Optional.empty();
-        }
-    }
-
-    /**
-     * Converts PlantUML file to DataFlowDiagramAndDictionary via Python script.
-     * @param inputFile Path to PlantUML file.
-     * @return Optional of DataFlowDiagramAndDictionary if successful, otherwise empty.
-     */
-    public Optional<DataFlowDiagramAndDictionary> plantToDFD(String inputFile) {
-        String name = inputFile.split("\\.")[0];
-        int exitCode = runPythonScript(inputFile, "json", name + ".json");
-        if (exitCode == 0) {
-            return Optional.ofNullable(microToDfd(name + ".json"));
-        } else {
-            return Optional.empty();
-        }
-
-    }
-
-    // Tested with Python *3.11.5*, requires *argparse*, *ast* and *json* modules
-    /**
-     * Runs Python script for model conversion.
-     * @param in Input file path.
-     * @param format Desired output format.
-     * @param out Output file path.
-     * @return Exit code of the process (0 for success, -1 for error).
-     */
-    public int runPythonScript(String in, String format, String out) {
-        String[] command = {"python3", "convert_model.py", in, format, "-op", out};
-
-        ProcessBuilder processBuilder = new ProcessBuilder(command);
-        Process process;
-        try {
-            process = processBuilder.start();
-            return process.waitFor();
-        } catch (IOException | InterruptedException e) {
-            logger.error("Make sure python3 is installed and set in PATH",e);
-        }
-        return -1;
-    }
 }

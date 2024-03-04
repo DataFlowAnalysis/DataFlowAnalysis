@@ -50,6 +50,99 @@ public class DataFlowDiagramConverter extends Converter {
         idToNodeMap = new HashMap<>();
     }
 
+    /**
+     * Converts a Web Editor DFD format file into a DataFlowDiagramAndDictionary object.
+     * @param inputFile The path of the input file in Web Editor DFD format.
+     * @return DataFlowDiagramAndDictionary object representing the converted data flow diagram and dictionary.
+     */
+    public DataFlowDiagramAndDictionary webToDfd(String inputFile) {
+        return webToDfd(loadWeb(inputFile).get());
+    }
+
+    /**
+     * Converts a WebEditorDfd object into a DataFlowDiagramAndDictionary object.
+     * @param inputFile The WebEditorDfd object to convert.
+     * @return DataFlowDiagramAndDictionary object representing the converted data flow diagram and dictionary.
+     */
+    public DataFlowDiagramAndDictionary webToDfd(WebEditorDfd inputFile) {
+        return processWeb(inputFile);
+    }
+
+    /**
+     * Converts Data Flow Diagram and Data Dictionary provided via paths into a WebEditorDfd object.
+     * @param inputDataFlowDiagram The path of the data flow diagram.
+     * @param inputDataDictionary The path of the data dictionary.
+     * @return WebEditorDfd object representing the web editor version of the data flow diagram.
+     */
+    public WebEditorDfd dfdToWeb(String inputDataFlowDiagram, String inputDataDictionary) {
+        DataFlowDiagramAndDictionary complete = loadDFD(inputDataFlowDiagram, inputDataDictionary);
+        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary());
+    }
+
+    /**
+     * Converts a DataFlowDiagramAndDictionary object into a WebEditorDfd object.
+     * @param complete The DataFlowDiagramAndDictionary object to convert.
+     * @return WebEditorDfd object representing the web editor version of the data flow diagram.
+     */
+    public WebEditorDfd dfdToWeb(DataFlowDiagramAndDictionary complete) {
+        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary());
+    }
+
+    /**
+     * Stores a WebEditorDfd object into a specified output file.
+     * @param web The WebEditorDfd object to store.
+     * @param outputFile The path of the output file.
+     */
+    public void storeWeb(WebEditorDfd web, String outputFile) {
+        objectMapper = new ObjectMapper();
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+        try {
+            objectMapper.writeValue(new File(outputFile), web);
+        } catch (IOException e) {
+            logger.error("Could not store web dfd:", e);
+        }
+    }
+
+    /**
+     * Loads a WebEditorDfd object from a specified input file.
+     * @param inputFile The path of the input file.
+     * @return Optional containing the loaded WebEditorDfd object; empty if an error occurs.
+     */
+    public Optional<WebEditorDfd> loadWeb(String inputFile) {
+        objectMapper = new ObjectMapper();
+        file = new File(inputFile);
+        try {
+            WebEditorDfd result = objectMapper.readValue(file, WebEditorDfd.class);
+            return Optional.ofNullable(result); // This will never be null given readValue's behavior, but it's a safe usage pattern.
+        } catch (IOException e) {
+            logger.error("Could not load web dfd:", e);
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * Loads a data flow diagram and data dictionary from specified input files and returns them as a combined object.
+     * @param inputDataFlowDiagram The path of the input data flow diagram file.
+     * @param inputDataDictionary The path of the input data dictionary file.
+     * @return DataFlowDiagramAndDictionary object representing the loaded data flow diagram and dictionary.
+     */
+    public DataFlowDiagramAndDictionary loadDFD(String inputDataFlowDiagram, String inputDataDictionary) {
+        ResourceSet resourceSet = new ResourceSetImpl();
+        resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION,
+                new XMIResourceFactoryImpl());
+        resourceSet.getPackageRegistry().put(dataflowdiagramPackage.eNS_URI, dataflowdiagramPackage.eINSTANCE);
+
+        Resource dfdResource = resourceSet.getResource(URI.createFileURI(inputDataFlowDiagram), true);
+        Resource ddResource = resourceSet.getResource(URI.createFileURI(inputDataDictionary), true);
+
+        DataFlowDiagram datwFlowDiagram = (DataFlowDiagram) dfdResource.getContents().get(0);
+        DataDictionary dataDictionary = (DataDictionary) ddResource.getContents().get(0);
+
+        return new DataFlowDiagramAndDictionary(datwFlowDiagram, dataDictionary);
+    }
+
     private DataFlowDiagramAndDictionary processWeb(WebEditorDfd webdfd) {
         idToNodeMap = new HashMap<>();
         Map<String, Node> pinToNodeMap = new HashMap<>();
@@ -126,13 +219,13 @@ public class DataFlowDiagramConverter extends Converter {
             flow.setSourceNode(source);
             flow.setDestinationNode(dest);
             flow.setEntityName(child.text());
-            
+
             var destPin = pinMap.get(child.targetId());
             var sourcePin = pinMap.get(child.sourceId());
-            
-            destPin.setEntityName(destPin.getEntityName()+child.text());
-            sourcePin.setEntityName(sourcePin.getEntityName()+child.text());
-            
+
+            destPin.setEntityName(destPin.getEntityName() + child.text());
+            sourcePin.setEntityName(sourcePin.getEntityName() + child.text());
+
             flow.setDestinationPin(destPin);
             flow.setSourcePin(sourcePin);
             flow.setId(child.id());
@@ -156,7 +249,7 @@ public class DataFlowDiagramConverter extends Converter {
     private Pin createWebOutPin(Map<Node, Map<Pin, String>> nodeOutpinBehavior, Node node, Port port) {
         var outPin = ddFactory.createPin();
         outPin.setId(port.id());
-        outPin.setEntityName(node.getEntityName()+"_out_");
+        outPin.setEntityName(node.getEntityName() + "_out_");
         node.getBehaviour().getOutPin().add(outPin);
         if (port.behavior() != null) {
             putValue(nodeOutpinBehavior, node, outPin, port.behavior());
@@ -167,7 +260,7 @@ public class DataFlowDiagramConverter extends Converter {
     private Pin createWebInPin(Node node, Port port) {
         var inPin = ddFactory.createPin();
         inPin.setId(port.id());
-        inPin.setEntityName(node.getEntityName()+"_in_");
+        inPin.setEntityName(node.getEntityName() + "_in_");
         node.getBehaviour().getInPin().add(inPin);
         return inPin;
     }
@@ -358,96 +451,4 @@ public class DataFlowDiagramConverter extends Converter {
         nestedHashMap.computeIfAbsent(node, k -> new HashMap<>()).put(pin, value);
     }
 
-    /**
-     * Converts a Web Editor DFD format file into a DataFlowDiagramAndDictionary object.
-     * @param inputFile The path of the input file in Web Editor DFD format.
-     * @return DataFlowDiagramAndDictionary object representing the converted data flow diagram and dictionary.
-     */
-    public DataFlowDiagramAndDictionary webToDfd(String inputFile) {
-        return webToDfd(loadWeb(inputFile).get());
-    }
-
-    /**
-     * Converts a WebEditorDfd object into a DataFlowDiagramAndDictionary object.
-     * @param inputFile The WebEditorDfd object to convert.
-     * @return DataFlowDiagramAndDictionary object representing the converted data flow diagram and dictionary.
-     */
-    public DataFlowDiagramAndDictionary webToDfd(WebEditorDfd inputFile) {
-        return processWeb(inputFile);
-    }
-
-    /**
-     * Converts Data Flow Diagram and Data Dictionary provided via paths into a WebEditorDfd object.
-     * @param inputDataFlowDiagram The path of the data flow diagram.
-     * @param inputDataDictionary The path of the data dictionary.
-     * @return WebEditorDfd object representing the web editor version of the data flow diagram.
-     */
-    public WebEditorDfd dfdToWeb(String inputDataFlowDiagram, String inputDataDictionary) {
-        DataFlowDiagramAndDictionary complete = loadDFD(inputDataFlowDiagram, inputDataDictionary);
-        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary());
-    }
-
-    /**
-     * Converts a DataFlowDiagramAndDictionary object into a WebEditorDfd object.
-     * @param complete The DataFlowDiagramAndDictionary object to convert.
-     * @return WebEditorDfd object representing the web editor version of the data flow diagram.
-     */
-    public WebEditorDfd dfdToWeb(DataFlowDiagramAndDictionary complete) {
-        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary());
-    }
-
-    /**
-     * Stores a WebEditorDfd object into a specified output file.
-     * @param web The WebEditorDfd object to store.
-     * @param outputFile The path of the output file.
-     */
-    public void store(WebEditorDfd web, String outputFile) {
-        objectMapper = new ObjectMapper();
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-
-        try {
-            objectMapper.writeValue(new File(outputFile), web);
-        } catch (IOException e) {
-            logger.error("Could not store web dfd:", e);
-        }
-    }
-
-    /**
-     * Loads a WebEditorDfd object from a specified input file.
-     * @param inputFile The path of the input file.
-     * @return Optional containing the loaded WebEditorDfd object; empty if an error occurs.
-     */
-    public Optional<WebEditorDfd> loadWeb(String inputFile) {
-        objectMapper = new ObjectMapper();
-        file = new File(inputFile);
-        try {
-            WebEditorDfd result = objectMapper.readValue(file, WebEditorDfd.class);
-            return Optional.ofNullable(result); // This will never be null given readValue's behavior, but it's a safe usage pattern.
-        } catch (IOException e) {
-            logger.error("Could not load web dfd:", e);
-            return Optional.empty();
-        }
-    }
-
-    /**
-     * Loads a data flow diagram and data dictionary from specified input files and returns them as a combined object.
-     * @param inputDataFlowDiagram The path of the input data flow diagram file.
-     * @param inputDataDictionary The path of the input data dictionary file.
-     * @return DataFlowDiagramAndDictionary object representing the loaded data flow diagram and dictionary.
-     */
-    public DataFlowDiagramAndDictionary loadDFD(String inputDataFlowDiagram, String inputDataDictionary) {
-        ResourceSet resourceSet = new ResourceSetImpl();
-        resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION,
-                new XMIResourceFactoryImpl());
-        resourceSet.getPackageRegistry().put(dataflowdiagramPackage.eNS_URI, dataflowdiagramPackage.eINSTANCE);
-
-        Resource dfdResource = resourceSet.getResource(URI.createFileURI(inputDataFlowDiagram), true);
-        Resource ddResource = resourceSet.getResource(URI.createFileURI(inputDataDictionary), true);
-
-        DataFlowDiagram datwFlowDiagram = (DataFlowDiagram) dfdResource.getContents().get(0);
-        DataDictionary dataDictionary = (DataDictionary) ddResource.getContents().get(0);
-
-        return new DataFlowDiagramAndDictionary(datwFlowDiagram, dataDictionary);
-    }
 }

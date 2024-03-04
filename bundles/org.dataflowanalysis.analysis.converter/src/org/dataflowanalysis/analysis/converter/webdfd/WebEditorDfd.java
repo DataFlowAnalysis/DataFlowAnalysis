@@ -3,8 +3,16 @@ package org.dataflowanalysis.analysis.converter.webdfd;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Represents a web editor data flow diagram
+ * @param model The model containing the nodes and flows
+ * @param labelTypes A list of {@link WebEditorLabelType}
+ */
 public record WebEditorDfd(Model model, List<WebEditorLabelType> labelTypes) {
 
+    /**
+     * Sorts the data flow diagram based on the id's of the contents
+     */
     public void sort() {
         labelTypes().sort(Comparator.comparing(WebEditorLabelType::id));
 

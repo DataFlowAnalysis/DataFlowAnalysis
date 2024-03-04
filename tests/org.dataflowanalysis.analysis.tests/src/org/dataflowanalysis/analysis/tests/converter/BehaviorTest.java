@@ -15,21 +15,13 @@ public class BehaviorTest {
     public void init() {
         converter = new BehaviorConverter();
     }
-    
+
     @ParameterizedTest
-    @ValueSource(strings = {
-            "TRUE || FALSE",
-            "TypeA.ValueA && TypeB.ValueB",
-            "TypeA.ValueA || TypeB.ValueB",
-            "!TypeA.ValueA && TypeB.ValueB",
-            "TypeA.ValueA || !TypeB.ValueB",
-            "(TypeA.ValueA && TypeB.ValueB) || TypeC.ValueC",
-            "!(TypeA.ValueA || TypeB.ValueB) && TypeC.ValueC",
-            "((TypeA.ValueA && TRUE) || !TypeB.ValueB) || FALSE",
-            "(!TypeA.ValueA && TypeB.ValueB) || (TypeC.ValueC && !TypeD.ValueD)",
+    @ValueSource(strings = {"TRUE || FALSE", "TypeA.ValueA && TypeB.ValueB", "TypeA.ValueA || TypeB.ValueB", "!TypeA.ValueA && TypeB.ValueB",
+            "TypeA.ValueA || !TypeB.ValueB", "(TypeA.ValueA && TypeB.ValueB) || TypeC.ValueC", "!(TypeA.ValueA || TypeB.ValueB) && TypeC.ValueC",
+            "((TypeA.ValueA && TRUE) || !TypeB.ValueB) || FALSE", "(!TypeA.ValueA && TypeB.ValueB) || (TypeC.ValueC && !TypeD.ValueD)",
             "((TypeA.ValueA || !TypeB.ValueB) && TypeC.ValueC) || (TypeD.ValueD && !(TypeE.ValueE || TypeF.ValueF))",
-            "!((TypeA.ValueA && (TypeB.ValueB || !TypeC.ValueC)) || (!(TypeD.ValueD && TypeE.ValueE) && (TypeF.ValueF || TypeG.ValueG)))"
-        })
+            "!((TypeA.ValueA && (TypeB.ValueB || !TypeC.ValueC)) || (!(TypeD.ValueD && TypeE.ValueE) && (TypeF.ValueF || TypeG.ValueG)))"})
     @DisplayName("Test Behavior Conversion")
     void testBehaviorConversion(String behavior) {
         assertEquals(behavior, converter.termToString(converter.stringToTerm(behavior)));

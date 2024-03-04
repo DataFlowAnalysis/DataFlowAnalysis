@@ -30,31 +30,54 @@ public class PCMConverter extends Converter {
     private final DataDictionary dataDictionary = datadictionaryFactory.eINSTANCE.createDataDictionary();
     private final DataFlowDiagram dataFlowDiagram = dataflowdiagramFactory.eINSTANCE.createDataFlowDiagram();
 
-    private DataFlowDiagramAndDictionary processPalladio(FlowGraph actionSequences) {
-        for (AbstractPartialFlowGraph actionSequence : actionSequences.getPartialFlowGraphs()) {
+    /**
+     * Converts a PCM model into a DataFlowDiagramAndDictionary object.
+     * @param inputModel Name of the model folder.
+     * @param inputFile Name of the model file.
+     * @param modelLocation Location of the model folder.
+     * @return DataFlowDiagramAndDictionary object representing the converted Palladio model.
+     */
+    public DataFlowDiagramAndDictionary pcmToDFD(String inputModel, String inputFile, String modelLocation) {
+        final var usageModelPath = Paths.get("models", inputModel, inputFile + ".usagemodel").toString();
+        final var allocationPath = Paths.get("models", inputModel, inputFile + ".allocation").toString();
+        final var nodeCharPath = Paths.get("models", inputModel, inputFile + ".nodecharacteristics").toString();
+
+        DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone().modelProjectName(modelLocation)
+                .usePluginActivator(Activator.class).useUsageModel(usageModelPath).useAllocationModel(allocationPath)
+                .useNodeCharacteristicsModel(nodeCharPath).build();
+
+        analysis.initializeAnalysis();
+        var flowGraph = analysis.findFlowGraph();
+        var propagationResult = analysis.evaluateFlowGraph(flowGraph);
+
+        return processPalladio(propagationResult);
+    }
+
+    private DataFlowDiagramAndDictionary processPalladio(FlowGraph flowGraph) {
+        for (AbstractPartialFlowGraph aPFG : flowGraph.getPartialFlowGraphs()) {
             Node previousNode = null;
-            for (AbstractVertex<?> actionSequenceElement : actionSequence.getVertices()) {
-                if (actionSequenceElement instanceof AbstractPCMVertex) {
-                    previousNode = processActionSequenceElement((AbstractPCMVertex<?>) actionSequenceElement, previousNode);
+            for (AbstractVertex<?> abstractVertex : aPFG.getVertices()) {
+                if (abstractVertex instanceof AbstractPCMVertex) {
+                    previousNode = processAbstractPCMVertex((AbstractPCMVertex<?>) abstractVertex, previousNode);
                 }
             }
         }
         return new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary);
     }
 
-    private Node processActionSequenceElement(AbstractPCMVertex<? extends Entity> pcmASE, Node previousDFDNode) {
-        Node dfdNode = getDFDNode(pcmASE);
+    private Node processAbstractPCMVertex(AbstractPCMVertex<? extends Entity> pcmVertex, Node previousDFDNode) {
+        Node dfdNode = getDFDNode(pcmVertex);
 
-        createFlowBetweenPreviousAndCurrentNode(previousDFDNode, dfdNode, pcmASE);
+        createFlowBetweenPreviousAndCurrentNode(previousDFDNode, dfdNode, pcmVertex);
 
         return dfdNode;
     }
 
-    private void createFlowBetweenPreviousAndCurrentNode(Node source, Node dest, AbstractPCMVertex<? extends Entity> pcmASE) {
+    private void createFlowBetweenPreviousAndCurrentNode(Node source, Node dest, AbstractPCMVertex<? extends Entity> pcmVertex) {
         if (source == null || dest == null) {
             return;
         }
-        List<DataFlowVariable> flowVariables = pcmASE.getAllDataFlowVariables();
+        List<DataFlowVariable> flowVariables = pcmVertex.getAllDataFlowVariables();
         for (DataFlowVariable flowVariable : flowVariables) {
             String flowName = flowVariable.variableName();
 
@@ -104,30 +127,30 @@ public class PCMConverter extends Converter {
         return pin;
     }
 
-    private Node getDFDNode(AbstractPCMVertex<? extends Entity> pcmASE) {
-        Node dfdNode = dfdNodeMap.get(pcmASE.getReferencedElement());
+    private Node getDFDNode(AbstractPCMVertex<? extends Entity> pcmVertex) {
+        Node dfdNode = dfdNodeMap.get(pcmVertex.getReferencedElement());
 
         if (dfdNode == null) {
-            dfdNode = createDFDNode(pcmASE);
+            dfdNode = createDFDNode(pcmVertex);
         }
 
-        addNodeCharacteristicsToNode(dfdNode, pcmASE.getAllNodeCharacteristics());
+        addNodeCharacteristicsToNode(dfdNode, pcmVertex.getAllNodeCharacteristics());
 
         return dfdNode;
     }
 
-    private Node createDFDNode(AbstractPCMVertex<? extends Entity> pcmASE) {
-        Node dfdNode = createCorrespondingDFDNode(pcmASE);
-        dfdNodeMap.put(pcmASE.getReferencedElement(), dfdNode);
+    private Node createDFDNode(AbstractPCMVertex<? extends Entity> pcmVertex) {
+        Node dfdNode = createCorrespondingDFDNode(pcmVertex);
+        dfdNodeMap.put(pcmVertex.getReferencedElement(), dfdNode);
         return dfdNode;
     }
 
-    private Node createCorrespondingDFDNode(AbstractPCMVertex<? extends Entity> pcmASE) {
+    private Node createCorrespondingDFDNode(AbstractPCMVertex<? extends Entity> pcmVertex) {
         Node node;
 
-        if (pcmASE instanceof UserPCMVertex<?>) {
+        if (pcmVertex instanceof UserPCMVertex<?>) {
             node = dataflowdiagramFactory.eINSTANCE.createExternal();
-        } else if (pcmASE instanceof SEFFPCMVertex<?>) {
+        } else if (pcmVertex instanceof SEFFPCMVertex<?>) {
             node = dataflowdiagramFactory.eINSTANCE.createProcess();
         } else {
             logger.error("Unregcognized palladio element");
@@ -135,8 +158,8 @@ public class PCMConverter extends Converter {
         }
 
         Behaviour behaviour = datadictionaryFactory.eINSTANCE.createBehaviour();
-        node.setEntityName(pcmASE.getReferencedElement().getEntityName());
-        node.setId(pcmASE.getReferencedElement().getId());
+        node.setEntityName(pcmVertex.getReferencedElement().getEntityName());
+        node.setId(pcmVertex.getReferencedElement().getId());
         node.setBehaviour(behaviour);
         dataDictionary.getBehaviour().add(behaviour);
         dataFlowDiagram.getNodes().add(node);
@@ -176,26 +199,4 @@ public class PCMConverter extends Converter {
         return type;
     }
 
-    /**
-     * Converts a Palladio model into a DataFlowDiagramAndDictionary object.
-     * @param inputModel Name of the model folder.
-     * @patam inputFile Name of the model file.
-     * @param modelLocation Location of the model folder.
-     * @return DataFlowDiagramAndDictionary object representing the converted Palladio model.
-     */
-    public DataFlowDiagramAndDictionary pcmToDFD(String inputModel, String inputFile, String modelLocation) {
-        final var usageModelPath = Paths.get("models", inputModel, inputFile + ".usagemodel").toString();
-        final var allocationPath = Paths.get("models", inputModel, inputFile + ".allocation").toString();
-        final var nodeCharPath = Paths.get("models", inputModel, inputFile + ".nodecharacteristics").toString();
-
-        DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone().modelProjectName(modelLocation)
-                .usePluginActivator(Activator.class).useUsageModel(usageModelPath).useAllocationModel(allocationPath)
-                .useNodeCharacteristicsModel(nodeCharPath).build();
-
-        analysis.initializeAnalysis();
-        var sequences = analysis.findFlowGraph();
-        var propagationResult = analysis.evaluateFlowGraph(sequences);
-
-        return processPalladio(propagationResult);
-    }
 }

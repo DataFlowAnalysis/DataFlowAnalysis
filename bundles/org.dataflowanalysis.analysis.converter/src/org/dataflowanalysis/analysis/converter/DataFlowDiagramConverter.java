@@ -137,8 +137,6 @@ public class DataFlowDiagramConverter extends Converter {
 
         URI dfdURI = ResourceUtils.createRelativePluginURI(inputDataFlowDiagram, project);
         URI ddURI = ResourceUtils.createRelativePluginURI(inputDataDictionary, project);
-        System.out.println(dfdURI);
-        System.out.println(ddURI);
 
         var provider = new DFDURIResourceProvider(dfdURI, ddURI);
         provider.loadRequiredResources();

@@ -32,8 +32,8 @@ public class WebEditorTest extends ConverterTest {
 
     private final String minimalWebDFD = Paths.get(packagePath, "minimal.json").toString();
     private final String tempWebDFD = Paths.get(packagePath, "test.json").toString();
-    private final String minimalDataFlowDiagram = Paths.get(packagePath, "minimal.dataflowdiagram").toString();
-    private final String minimalDataDictionary = Paths.get(packagePath, "minimal.datadictionary").toString();
+    private final String minimalDataFlowDiagram = Paths.get("models", "ConverterTest", "minimal.dataflowdiagram").toString();
+    private final String minimalDataDictionary = Paths.get("models", "ConverterTest", "minimal.datadictionary").toString();
     private final String PROJECT = "org.dataflowanalysis.analysis.testmodels";
 
     @BeforeEach
@@ -77,8 +77,8 @@ public class WebEditorTest extends ConverterTest {
         assertEquals(webBefore, webAfter);
         assertNotNull(completeAfter);
 
-        cleanup(minimalDataFlowDiagram);
-        cleanup(minimalDataDictionary);
+        cleanup("../" + PROJECT + "/" + minimalDataFlowDiagram);
+        cleanup("../" + PROJECT + "/" + minimalDataDictionary);
         cleanup(tempWebDFD);
     }
 

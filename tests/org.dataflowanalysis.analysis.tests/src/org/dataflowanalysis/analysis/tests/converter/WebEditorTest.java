@@ -1,7 +1,6 @@
 package org.dataflowanalysis.analysis.tests.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
@@ -73,9 +72,10 @@ public class WebEditorTest extends ConverterTest {
 
         WebEditorDfd webAfter = converter.loadWeb(tempWebDFD).get();
         DataFlowDiagramAndDictionary completeAfter = converter.loadDFD(PROJECT, minimalDataFlowDiagram, minimalDataDictionary);
-
+        
         assertEquals(webBefore, webAfter);
-        assertNotNull(completeAfter);
+        assertEquals(completeBefore.dataFlowDiagram().getNodes().size(),completeAfter.dataFlowDiagram().getNodes().size());
+        assertEquals(completeBefore.dataFlowDiagram().getFlows().size(),completeAfter.dataFlowDiagram().getFlows().size());
 
         cleanup("../" + PROJECT + "/" + minimalDataFlowDiagram);
         cleanup("../" + PROJECT + "/" + minimalDataDictionary);

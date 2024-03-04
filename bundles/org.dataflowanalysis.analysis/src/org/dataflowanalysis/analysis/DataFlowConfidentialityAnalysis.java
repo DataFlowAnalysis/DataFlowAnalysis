@@ -2,22 +2,49 @@ package org.dataflowanalysis.analysis;
 
 import java.util.List;
 import java.util.function.Predicate;
-
 import org.apache.log4j.Level;
-import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
-import org.dataflowanalysis.analysis.core.ActionSequence;
+import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.core.FlowGraph;
 
-public interface DataFlowConfidentialityAnalysis {
-	public static final String PLUGIN_PATH = "org.dataflowanalysis.analysis";
+/**
+ * This interface represents the functionality of a data flow confidentiality analysis. To use the analysis the
+ * {@link DataFlowConfidentialityAnalysis#initializeAnalysis()} method must be called. After that the flow graph of the
+ * model can be determined with {@link DataFlowConfidentialityAnalysis#findFlowGraph()}. To determine characteristics at
+ * each node the method {@link FlowGraph#evaluate()} must be called. Finally, a
+ * constraint can be evaluated with
+ * {@link DataFlowConfidentialityAnalysis#queryDataFlow(AbstractPartialFlowGraph, Predicate)} on each partial flow graph
+ * contained in the previously returned flow graph.
+ */
+public abstract class DataFlowConfidentialityAnalysis {
+    public static final String PLUGIN_PATH = "org.dataflowanalysis.analysis";
 
-    public boolean initializeAnalysis();
+    /**
+     * Initializes the analysis by setting up the execution environment and loading the referenced models
+     */
+    public abstract void initializeAnalysis();
 
-    public List<ActionSequence> findAllSequences();
+    /**
+     * Determines the flow graph of the referenced models
+     * @return Returns the flow graph containing all flows present in the referenced models
+     */
+    public abstract FlowGraph findFlowGraph();
 
-    public List<ActionSequence> evaluateDataFlows(List<ActionSequence> sequences);
+    /**
+     * Evaluates a given condition on a partial flow graph and returns all elements that violate the given condition
+     * @param partialFlowGraph Partial flow graph that is analyzed by the analysis
+     * @param condition Condition that describes a violation at one vertex. If the condition returns true, the condition is
+     * violated and the vertex is included in the output. Otherwise, the vertex is not included in the result of this
+     * method.
+     * @return Returns a list of all nodes that matched the given condition
+     */
+    public List<? extends AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph partialFlowGraph, Predicate<? super AbstractVertex<?>> condition) {
+        return partialFlowGraph.getVertices().stream().filter(condition).toList();
+    }
 
-    public List<AbstractActionSequenceElement<?>> queryDataFlow(ActionSequence sequence,
-            Predicate<? super AbstractActionSequenceElement<?>> condition);
-    
-    public void setLoggerLevel(Level level);
+    /**
+     * Sets the logger level of the analysis components
+     * @param level Desired logger level of the analysis components
+     */
+    public abstract void setLoggerLevel(Level level);
 }

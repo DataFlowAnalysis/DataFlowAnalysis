@@ -4,8 +4,8 @@ import static org.dataflowanalysis.analysis.tests.AnalysisUtils.TEST_MODEL_PROJE
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
-import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
+import org.apache.log4j.Level;
+import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,9 +14,9 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 @TestInstance(Lifecycle.PER_CLASS)
 public class BaseTest {
-    protected DataFlowConfidentialityAnalysis onlineShopAnalysis;
-    protected DataFlowConfidentialityAnalysis internationalOnlineShopAnalysis;
-    protected DataFlowConfidentialityAnalysis travelPlannerAnalysis;
+    protected PCMDataFlowConfidentialityAnalysis onlineShopAnalysis;
+    protected PCMDataFlowConfidentialityAnalysis internationalOnlineShopAnalysis;
+    protected PCMDataFlowConfidentialityAnalysis travelPlannerAnalysis;
 
     @BeforeAll
     public void initializeOnlineShopAnalysis() {
@@ -33,7 +33,7 @@ public class BaseTest {
         final var usageModelPath = Paths.get("models", "InternationalOnlineShop", "default.usagemodel");
         final var allocationPath = Paths.get("models", "InternationalOnlineShop", "default.allocation");
         final var nodeCharacteristicsPath = Paths.get("models", "InternationalOnlineShop", "default.nodecharacteristics");
-        
+
         internationalOnlineShopAnalysis = this.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
         internationalOnlineShopAnalysis.initializeAnalysis();
     }
@@ -46,18 +46,14 @@ public class BaseTest {
 
         travelPlannerAnalysis = this.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
         travelPlannerAnalysis.initializeAnalysis();
+        travelPlannerAnalysis.setLoggerLevel(Level.TRACE);
     }
-    
-    protected DataFlowConfidentialityAnalysis initializeAnalysis(Path usagePath, Path allocationPath, Path nodePath) {
-    	DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder()
-        		.standalone()
-        		.modelProjectName(TEST_MODEL_PROJECT_NAME)
-    			.usePluginActivator(Activator.class)
-    			.useUsageModel(usagePath.toString())
-    			.useAllocationModel(allocationPath.toString())
-    			.useNodeCharacteristicsModel(nodePath.toString())
-    			.build();
-    	analysis.initializeAnalysis();
-    	return analysis;
+
+    protected PCMDataFlowConfidentialityAnalysis initializeAnalysis(Path usagePath, Path allocationPath, Path nodePath) {
+        PCMDataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
+                .modelProjectName(TEST_MODEL_PROJECT_NAME).usePluginActivator(Activator.class).useUsageModel(usagePath.toString())
+                .useAllocationModel(allocationPath.toString()).useNodeCharacteristicsModel(nodePath.toString()).build();
+        analysis.initializeAnalysis();
+        return analysis;
     }
 }

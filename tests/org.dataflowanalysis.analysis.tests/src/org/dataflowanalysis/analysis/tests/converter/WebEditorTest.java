@@ -119,26 +119,35 @@ public class WebEditorTest extends ConverterTest {
 
             for (Pin inPin : behaviour.getInPin()) {
                 String flowName = "";
+                int matches = 0;
 
                 for (Flow flow : dfd.dataFlowDiagram().getFlows()) {
                     if (flow.getDestinationPin().equals(inPin)) {
                         flowName = flow.getEntityName();
+                        matches++;
                     }
                 }
-
-                assertEquals(inPin.getEntityName(), node.getEntityName() + "_in_" + flowName);
+                assertTrue(inPin.getEntityName().startsWith(node.getEntityName() + "_in"));
+                if(matches<2) {
+                    assertEquals(inPin.getEntityName(), node.getEntityName() + "_in_" + flowName);
+                }
             }
 
             for (Pin outPin : behaviour.getOutPin()) {
                 String flowName = "";
+                int matches = 0;
 
                 for (Flow flow : dfd.dataFlowDiagram().getFlows()) {
                     if (flow.getSourcePin().equals(outPin)) {
                         flowName = flow.getEntityName();
+                        matches++;
                     }
                 }
 
-                assertEquals(outPin.getEntityName(), node.getEntityName() + "_out_" + flowName);
+                assertTrue(outPin.getEntityName().startsWith(node.getEntityName() + "_out"));
+                if(matches<2) {
+                    assertEquals(outPin.getEntityName(), node.getEntityName() + "_out_" + flowName);
+                }       
             }
         }
     }

@@ -16,15 +16,17 @@ import org.dataflowanalysis.analysis.converter.webdfd.*;
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.Process;
+import org.dataflowanalysis.analysis.dfd.resource.DFDURIResourceProvider;
+import org.dataflowanalysis.analysis.testmodels.Activator;
+import org.dataflowanalysis.analysis.utils.ResourceUtils;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+
+import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
+import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder;
 
 /**
  * Converts data flow diagrams and dictionaries between web editor formats and the application's internal
@@ -73,8 +75,9 @@ public class DataFlowDiagramConverter extends Converter {
      * @param inputDataFlowDiagram The path of the data flow diagram.
      * @param inputDataDictionary The path of the data dictionary.
      * @return WebEditorDfd object representing the web editor version of the data flow diagram.
+     * @throws StandaloneInitializationException
      */
-    public WebEditorDfd dfdToWeb(String inputDataFlowDiagram, String inputDataDictionary) {
+    public WebEditorDfd dfdToWeb(String inputDataFlowDiagram, String inputDataDictionary) throws StandaloneInitializationException {
         DataFlowDiagramAndDictionary complete = loadDFD(inputDataFlowDiagram, inputDataDictionary);
         return processDfd(complete.dataFlowDiagram(), complete.dataDictionary());
     }
@@ -128,19 +131,17 @@ public class DataFlowDiagramConverter extends Converter {
      * @param inputDataDictionary The path of the input data dictionary file.
      * @return DataFlowDiagramAndDictionary object representing the loaded data flow diagram and dictionary.
      */
-    public DataFlowDiagramAndDictionary loadDFD(String inputDataFlowDiagram, String inputDataDictionary) {
-        ResourceSet resourceSet = new ResourceSetImpl();
-        resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION,
-                new XMIResourceFactoryImpl());
-        resourceSet.getPackageRegistry().put(dataflowdiagramPackage.eNS_URI, dataflowdiagramPackage.eINSTANCE);
+    public DataFlowDiagramAndDictionary loadDFD(String inputDataFlowDiagram, String inputDataDictionary) throws StandaloneInitializationException {
+        StandaloneInitializerBuilder.builder().registerProjectURI(Activator.class, "org.dataflowanalysis.analysis.testmodels").build().init();
 
-        Resource dfdResource = resourceSet.getResource(URI.createFileURI(inputDataFlowDiagram), true);
-        Resource ddResource = resourceSet.getResource(URI.createFileURI(inputDataDictionary), true);
+        URI dfdURI = ResourceUtils.createRelativePluginURI(inputDataFlowDiagram, "org.dataflowanalysis.analysis.testmodels");
+        URI ddURI = ResourceUtils.createRelativePluginURI(inputDataDictionary, "org.dataflowanalysis.analysis.testmodels");
+        System.out.println(dfdURI);
+        System.out.println(ddURI);
 
-        DataFlowDiagram datwFlowDiagram = (DataFlowDiagram) dfdResource.getContents().get(0);
-        DataDictionary dataDictionary = (DataDictionary) ddResource.getContents().get(0);
-
-        return new DataFlowDiagramAndDictionary(datwFlowDiagram, dataDictionary);
+        var provider = new DFDURIResourceProvider(dfdURI, ddURI);
+        provider.loadRequiredResources();
+        return new DataFlowDiagramAndDictionary(provider.getDataFlowDiagram(), provider.getDataDictionary());
     }
 
     private DataFlowDiagramAndDictionary processWeb(WebEditorDfd webdfd) {

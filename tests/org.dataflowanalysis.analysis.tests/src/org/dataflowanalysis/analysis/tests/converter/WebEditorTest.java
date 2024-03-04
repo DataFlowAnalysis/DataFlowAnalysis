@@ -25,6 +25,8 @@ import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
+
 public class WebEditorTest extends ConverterTest {
     private DataFlowDiagramConverter converter;
 
@@ -58,7 +60,7 @@ public class WebEditorTest extends ConverterTest {
 
     @Test
     @DisplayName("Test storing and loading functionality")
-    public void testStoreLoad() throws StreamReadException, DatabindException, IOException {
+    public void testStoreLoad() throws StreamReadException, DatabindException, IOException, StandaloneInitializationException {
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(minimalWebDFD);
 
@@ -81,11 +83,9 @@ public class WebEditorTest extends ConverterTest {
 
     @Test
     @DisplayName("Test manual conversion")
-    public void testManual() {
-        String dataflowdiagram = Paths.get("..", "org.dataflowanalysis.analysis.testmodels", "models", "OnlineShopDFD", "onlineshop.dataflowdiagram")
-                .toString();
-        String datadictionary = Paths.get("..", "org.dataflowanalysis.analysis.testmodels", "models", "OnlineShopDFD", "onlineshop.datadictionary")
-                .toString();
+    public void testManual() throws StandaloneInitializationException {
+        String dataflowdiagram = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram").toString();
+        String datadictionary = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary").toString();
         DataFlowDiagramAndDictionary manualDFD = converter.loadDFD(dataflowdiagram, datadictionary);
 
         DataFlowDiagramAndDictionary convertedDFD = converter.webToDfd(minimalWebDFD);
@@ -128,7 +128,7 @@ public class WebEditorTest extends ConverterTest {
                     }
                 }
                 assertTrue(inPin.getEntityName().startsWith(node.getEntityName() + "_in"));
-                if(matches<2) {
+                if (matches < 2) {
                     assertEquals(inPin.getEntityName(), node.getEntityName() + "_in_" + flowName);
                 }
             }
@@ -145,9 +145,9 @@ public class WebEditorTest extends ConverterTest {
                 }
 
                 assertTrue(outPin.getEntityName().startsWith(node.getEntityName() + "_out"));
-                if(matches<2) {
+                if (matches < 2) {
                     assertEquals(outPin.getEntityName(), node.getEntityName() + "_out_" + flowName);
-                }       
+                }
             }
         }
     }

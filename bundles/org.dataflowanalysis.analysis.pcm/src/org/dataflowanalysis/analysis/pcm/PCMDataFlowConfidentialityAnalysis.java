@@ -11,7 +11,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
-import org.dataflowanalysis.analysis.pcm.core.PCMVertexCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.dddsl.DDDslStandaloneSetup;
@@ -69,6 +68,7 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
         } else {
             throw new IllegalStateException("Failed loading the required models for the data flow analysis.");
         }
+    }
 
   @Override
   public void setLoggerLevel(Level level) {
@@ -81,26 +81,6 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
     Logger.getLogger(ResourceSetBasedAllContainersStateProvider.class).setLevel(level);
     Logger.getLogger(AbstractCleaningLinker.class).setLevel(level);
   }
-
-  /**
-   * Returns the resource provider of the analysis.
-   * The resource provider may be used to access the loaded PCM model of the analysis.
-   * @return Resource provider of the analysis
-   */
-  public ResourceProvider getResourceProvider() {
-    return this.resourceProvider;
-  }
-
-  /**
-   * Initializes the standalone analysis to allow logging and EMF Profiles
-   * @return Returns false, if analysis could not be setup
-   */
-  private boolean initStandaloneAnalysis() {
-    EcorePlugin.ExtensionProcessor.process(null);
-
-    if (!setupLogLevels() || !initStandalone()) {
-      return false;
-    }
 
   /**
    * Sets up logging for the analysis
@@ -141,28 +121,6 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
         }
         DDDslStandaloneSetup.doSetup();
         return true;
-    }
-
-    /**
-     * Sets up logging for the analysis
-     * @return Returns true, if logging could be setup. Otherwise, the method returns false
-     */
-    private boolean setupLogLevels() {
-        try {
-            new Log4jInitilizationTask().initilizationWithoutPlatform();
-
-            Logger.getLogger(AbstractInternalAntlrParser.class).setLevel(Level.WARN);
-            Logger.getLogger(DefaultLinkingService.class).setLevel(Level.WARN);
-            Logger.getLogger(ResourceSetBasedAllContainersStateProvider.class).setLevel(Level.WARN);
-            Logger.getLogger(AbstractCleaningLinker.class).setLevel(Level.WARN);
-
-            logger.info("Successfully initialized standalone log4j for the data flow analysis");
-            return true;
-
-        } catch (StandaloneInitializationException e) {
-            logger.error("Unable to initialize standalone log4j for the data flow analysis", e);
-            return false;
-        }
     }
 
     /**

@@ -1,7 +1,6 @@
 package org.dataflowanalysis.analysis.dfd;
 
 import java.util.Optional;
-import java.util.function.Predicate;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.EnhancedPatternLayout;
@@ -40,48 +39,6 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
     this.modelProjectName = modelProjectName;
   }
 
-  @Override
-  public boolean initializeAnalysis() {
-    Resource.Factory.Registry.INSTANCE
-        .getExtensionToFactoryMap()
-        .put("dataflowdiagram", new XMIResourceFactoryImpl());
-    Resource.Factory.Registry.INSTANCE
-        .getExtensionToFactoryMap()
-        .put("datadictionary", new XMIResourceFactoryImpl());
-
-    EcorePlugin.ExtensionProcessor.process(null);
-
-    try {
-      BasicConfigurator.resetConfiguration();
-      BasicConfigurator.configure(
-          new ConsoleAppender(new EnhancedPatternLayout("%-6r [%p] %-35C{1} - %m%n")));
-
-      Logger.getLogger(AbstractInternalAntlrParser.class).setLevel(Level.WARN);
-      Logger.getLogger(DefaultLinkingService.class).setLevel(Level.WARN);
-      Logger.getLogger(ResourceSetBasedAllContainersStateProvider.class).setLevel(Level.WARN);
-      Logger.getLogger(AbstractCleaningLinker.class).setLevel(Level.WARN);
-
-      logger.info("Successfully initialized standalone log4j for the data flow analysis.");
-
-      var initializationBuilder =
-          StandaloneInitializerBuilder.builder()
-              .registerProjectURI(
-                  DFDConfidentialityAnalysis.class, DFDConfidentialityAnalysis.PLUGIN_PATH);
-
-      if (this.modelProjectActivator.isPresent()) {
-        initializationBuilder.registerProjectURI(
-            this.modelProjectActivator.get(), this.modelProjectName);
-      }
-
-      initializationBuilder.build().init();
-
-      logger.info("Successfully initialized standalone environment for the data flow analysis.");
-
-    } catch (StandaloneInitializationException e) {
-      logger.error("Could not initialize analysis", e);
-      throw new IllegalStateException("Could not initialize analysis");
-    }
-
     @Override
     public void initializeAnalysis() {
         Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("dataflowdiagram", new XMIResourceFactoryImpl());
@@ -90,6 +47,16 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
         EcorePlugin.ExtensionProcessor.process(null);
 
         try {
+        	BasicConfigurator.resetConfiguration();
+          BasicConfigurator.configure(
+              new ConsoleAppender(new EnhancedPatternLayout("%-6r [%p] %-35C{1} - %m%n")));
+
+          Logger.getLogger(AbstractInternalAntlrParser.class).setLevel(Level.WARN);
+          Logger.getLogger(DefaultLinkingService.class).setLevel(Level.WARN);
+          Logger.getLogger(ResourceSetBasedAllContainersStateProvider.class).setLevel(Level.WARN);
+          Logger.getLogger(AbstractCleaningLinker.class).setLevel(Level.WARN);
+
+          logger.info("Successfully initialized standalone log4j for the data flow analysis.");
             var initializationBuilder = StandaloneInitializerBuilder.builder().registerProjectURI(DFDConfidentialityAnalysis.class,
                     DFDConfidentialityAnalysis.PLUGIN_PATH);
 

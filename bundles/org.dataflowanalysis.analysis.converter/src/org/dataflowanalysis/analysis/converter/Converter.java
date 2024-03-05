@@ -50,9 +50,9 @@ public abstract class Converter {
         saveResource(dfdResource);
         saveResource(ddResource);
         
-        String parent= Paths.get(truncatedOutputFile + ".datadictionary").getParent().toString()+"/";
+        var hrefPath = Paths.get(truncatedOutputFile + ".datadictionary");
         List<String> fileContent = Files.readAllLines(Paths.get(truncatedOutputFile + ".dataflowdiagram"));
-        List<String> modifiedContent = fileContent.stream().map(line -> line.replace(parent, "")).collect(Collectors.toList());
+        List<String> modifiedContent = fileContent.stream().map(line -> line.replace(hrefPath.toString(), hrefPath.getFileName().toString())).collect(Collectors.toList());
         Files.write(Paths.get(truncatedOutputFile + ".dataflowdiagram"), modifiedContent);
 
     }

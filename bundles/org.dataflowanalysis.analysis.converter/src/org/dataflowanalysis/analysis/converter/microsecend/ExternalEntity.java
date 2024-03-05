@@ -1,17 +1,8 @@
 package org.dataflowanalysis.analysis.converter.microsecend;
 
-import java.util.List;
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-public record ExternalEntity (
-    String name,
-    
-    List<String> stereotypes,
-    
-    @JsonProperty("tagged_values")
-    @JsonDeserialize(using = TaggedValuesDeserializer.class)
-    Map<String, List<String>> taggedValues
-) {}
+/**
+ * Represents a ExternalEntity within the MicroSecEnd model. Inherits common properties such as name, stereotypes, and
+ * tagged values from the MicroSecEndProcess abstract class.
+ */
+public class ExternalEntity extends MicroSecEndProcess {
+}

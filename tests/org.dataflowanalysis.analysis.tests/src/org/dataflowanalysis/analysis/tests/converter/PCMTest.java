@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramAndDictionary;
+import org.dataflowanalysis.analysis.converter.DataFlowDiagramConverter;
 import org.dataflowanalysis.analysis.converter.PCMConverter;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
@@ -20,8 +21,11 @@ import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
 
 public class PCMTest {
     @Test
@@ -33,14 +37,20 @@ public class PCMTest {
         String inputFile = "travelPlanner";
 
         testSpecificModel(inputModel, inputFile, modelLocation, null);
+    }
 
-        /*
-         * inputModel = "InternationalOnlineShop"; inputFile = "default"; String dataflowdiagram = Paths.get("..",
-         * modelLocation, "models", "OnlineShopDFD","onlineshop.dataflowdiagram").toString(); String datadictionary =
-         * Paths.get("..", modelLocation, "models", "OnlineShopDFD","onlineshop.datadictionary").toString();
-         * testSpecificModel(inputModel, inputFile, modelLocation, new DataFlowDiagramConverter().loadDFD(dataflowdiagram,
-         * datadictionary));
-         */
+    @Test
+    @Disabled("There is currently no manually converted pcm model")
+    @DisplayName("Test manual Palladio to DFD")
+    public void manualPCMToDfd() throws StandaloneInitializationException {
+        String modelLocation = "org.dataflowanalysis.analysis.testmodels";
+
+        String inputModel = "InternationalOnlineShop";
+        String inputFile = "default";
+        String dataflowdiagram = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram").toString();
+        String datadictionary = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary").toString();
+        testSpecificModel(inputModel, inputFile, modelLocation,
+                new DataFlowDiagramConverter().loadDFD(modelLocation, dataflowdiagram, datadictionary));
 
     }
 

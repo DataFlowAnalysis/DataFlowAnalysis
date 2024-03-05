@@ -74,10 +74,10 @@ public class WebEditorTest extends ConverterTest {
 
         WebEditorDfd webAfter = converter.loadWeb(tempWebDFD).get();
         DataFlowDiagramAndDictionary completeAfter = converter.loadDFD(PROJECT, minimalDataFlowDiagram, minimalDataDictionary);
-        
+
         assertEquals(webBefore, webAfter);
-        assertEquals(completeBefore.dataFlowDiagram().getNodes().size(),completeAfter.dataFlowDiagram().getNodes().size());
-        assertEquals(completeBefore.dataFlowDiagram().getFlows().size(),completeAfter.dataFlowDiagram().getFlows().size());
+        assertEquals(completeBefore.dataFlowDiagram().getNodes().size(), completeAfter.dataFlowDiagram().getNodes().size());
+        assertEquals(completeBefore.dataFlowDiagram().getFlows().size(), completeAfter.dataFlowDiagram().getFlows().size());
 
         cleanup("../" + PROJECT + "/" + minimalDataFlowDiagram);
         cleanup("../" + PROJECT + "/" + minimalDataDictionary);

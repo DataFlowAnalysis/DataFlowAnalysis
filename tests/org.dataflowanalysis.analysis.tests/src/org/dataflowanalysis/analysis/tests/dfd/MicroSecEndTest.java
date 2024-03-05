@@ -5,8 +5,7 @@ import java.util.List;
 import java.io.File;
 
 
-import org.dataflowanalysis.analysis.core.AbstractActionSequenceElement;
-import org.dataflowanalysis.analysis.core.ActionSequence;
+import org.dataflowanalysis.analysis.core.*;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.utils.ResourceUtils;
@@ -33,22 +32,22 @@ public class MicroSecEndTest extends BaseTest {
 		var analysis=buildAnalysis(model);
 		analysis.initializeAnalysis();
 		System.out.println(analysis.toString());
-		var sequences = analysis.findAllSequences();
-		var propagationResult = analysis.evaluateDataFlows(sequences);
+		var flowGraph = analysis.findFlowGraph();
+		flowGraph.evaluate();
+		
+		for (AbstractPartialFlowGraph aPFG : flowGraph.getPartialFlowGraphs()) {
+            List<? extends AbstractVertex<?>> violations = analysis.queryDataFlow(aPFG,node -> {
+                if(hasNodeCharacteristic(node, "annotation", "infrastructural") && hasDataCharacteristic(node, "annotation", "internal")) {
+                    System.out.println(node.createPrintableNodeInformation());
 
-	    for(ActionSequence actionSequence : propagationResult) {
-	    	List<AbstractActionSequenceElement<?>> violations = analysis.queryDataFlow(actionSequence,node -> {
-	    			if(hasNodeCharacteristic(node, "annotation", "infrastructural") && hasDataCharacteristic(node, "annotation", "internal")) {
-	    				System.out.println(node.createPrintableNodeInformation());
-
-	    			}
-	    		return false;
-	    	}
-	      );
-		    if(!violations.isEmpty()) {
-		    	System.out.println("Violations: " + violations);
-		    }
-	    }
+                }
+            return false;
+        }
+      );
+            if(!violations.isEmpty()) {
+                System.out.println("Violations: " + violations);
+            }
+        }
 	}
 	
 	@Test
@@ -62,14 +61,14 @@ public class MicroSecEndTest extends BaseTest {
 		//ResourceUtils.createRelativePluginURI("jferrater.json", PROJECT_NAME);
 	}
 	
-	public boolean hasNodeCharacteristic(AbstractActionSequenceElement<?> node, String type, String value) {
+	public boolean hasNodeCharacteristic(AbstractVertex<?> node, String type, String value) {
 		if(node.getAllNodeCharacteristics().stream().anyMatch(n -> n.getTypeName().equals(type) && n.getValueName().equals(value))) {
 				return true;
 		}
 		return false;
 	}
 	
-	public boolean hasDataCharacteristic(AbstractActionSequenceElement<?> node, String type, String value) {
+	public boolean hasDataCharacteristic(AbstractVertex<?> node, String type, String value) {
 		if(node.getAllDataFlowVariables().stream().anyMatch(v -> v.getAllCharacteristics().stream().anyMatch(c -> c.getTypeName().equals(type) && c.getValueName().equals(value)))){
 			return true;
 		}

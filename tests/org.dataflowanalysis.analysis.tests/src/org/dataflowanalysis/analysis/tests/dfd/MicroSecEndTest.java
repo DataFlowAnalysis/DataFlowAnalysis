@@ -2,10 +2,11 @@ package org.dataflowanalysis.analysis.tests.dfd;
 
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.ArrayList;
-
+import java.util.Collections;
 import java.io.File;
-
 
 import org.dataflowanalysis.analysis.core.*;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
@@ -20,6 +21,7 @@ public class MicroSecEndTest {
     public static String PROJECT_NAME = "org.dataflowanalysis.analysis.tests";
     private FlowGraph flowGraph;
     private DFDConfidentialityAnalysis analysis;
+    private Map<Integer,Map<Integer,List<AbstractVertex<?>>>> violationsMap;
 	
 	public DFDConfidentialityAnalysis buildAnalysis(String name) {
     	var DataFlowDiagramPath = Paths.get(name+".dataflowdiagram");
@@ -42,30 +44,34 @@ public class MicroSecEndTest {
         flowGraph.evaluate();
 	}
 	
-	public void runAnalysis() {
+	public void runAnalysis(int variant) {
 		for (AbstractPartialFlowGraph aPFG : flowGraph.getPartialFlowGraphs()) {
-            List<? extends AbstractVertex<?>> violations = analysis.queryDataFlow(aPFG,node -> {
-                //Rule0
+            analysis.queryDataFlow(aPFG,node -> {
+                int rule=0;
                 if(hasNodeCharacteristic(node, "annotation", "infrastructural") && hasDataCharacteristic(node, "annotation", "internal")) {
-                    System.out.println(node.createPrintableNodeInformation());
+                    addToMap(violationsMap,variant,rule,node);
                     return true;
                 }
             return false;
         }
       );
-            if(!violations.isEmpty()) {
-                System.out.println("Violations: " + violations);
-            }
         }
 	}
 	
 	@Test
 	public void testConstraints() {
 		List<String> models = getModelNames();
+		violationsMap=new HashMap<>();
         for(String model : models) {
             System.out.println(model);
             initAnalysis(model);
-        	runAnalysis();
+            var variant = Integer.parseInt(model.replaceAll(".*\\D+(\\d+)$", "$1"));
+        	runAnalysis(variant);
+        }
+        for(int variant : violationsMap.keySet()) {
+            System.out.println("Variant: "+variant);
+            System.out.println("Broken rules: "+violationsMap.get(variant).keySet());
+            System.out.println("");
         }
 	}
 	
@@ -87,8 +93,6 @@ public class MicroSecEndTest {
             System.out.println(model);
             var converter = new DataFlowDiagramConverter();
             var dfd = converter.webToDfd(model+".json");
-            converter.dfdToWeb(dfd);
-            converter.webToDfd(converter.dfdToWeb(dfd));
             converter.storeDFD(dfd,model);
         }
     }
@@ -106,6 +110,7 @@ public class MicroSecEndTest {
                 fileNames.add(nameWithoutExtension);
             }
         }
+        Collections.sort(fileNames);
         return fileNames;
     }
 	
@@ -121,5 +126,19 @@ public class MicroSecEndTest {
 			return true;
 		}
 		return false;
+	}
+	
+	private void addToMap(Map<Integer, Map<Integer, List<AbstractVertex<?>>>> map, int variant, int rule, AbstractVertex<?> node) {
+	    map.putIfAbsent(variant, new HashMap<>());
+	    
+	    Map<Integer, List<AbstractVertex<?>>> secondaryMap = map.get(variant);
+	    
+	    if (!secondaryMap.containsKey(rule)) {
+	        List<AbstractVertex<?>> list = new ArrayList<>();
+	        list.add(node);
+	        secondaryMap.put(rule, list);
+	    } else {
+	        secondaryMap.get(rule).add(node);
+	    }
 	}
 }

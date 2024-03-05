@@ -2,44 +2,52 @@ package org.dataflowanalysis.analysis.tests.dfd;
 
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.ArrayList;
 import java.io.File;
 
 
 import org.dataflowanalysis.analysis.core.*;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
-import org.dataflowanalysis.analysis.utils.ResourceUtils;
 import org.dataflowanalysis.analysis.converter.Activator;
+import org.dataflowanalysis.analysis.converter.DataFlowDiagramConverter;
 import org.junit.jupiter.api.Test;
 
-public class MicroSecEndTest extends BaseTest {
+import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
+
+public class MicroSecEndTest {
     public static String PROJECT_NAME = "org.dataflowanalysis.analysis.converter";
+    private FlowGraph flowGraph;
+    private DFDConfidentialityAnalysis analysis;
 	
 	public DFDConfidentialityAnalysis buildAnalysis(String name) {
-	var DataFlowDiagramPath = Paths.get(name+".dataflowdiagram");
-	var DataDictionaryPath = Paths.get(name+".datadictionary");
-	
-	return new DFDDataFlowAnalysisBuilder()
-			.standalone()
-			.modelProjectName(PROJECT_NAME)
-			.usePluginActivator(Activator.class)
-			.useDataFlowDiagram(DataFlowDiagramPath.toString())
-			.useDataDictionary(DataDictionaryPath.toString())
-			.build();
+    	var DataFlowDiagramPath = Paths.get(name+".dataflowdiagram");
+    	var DataDictionaryPath = Paths.get(name+".datadictionary");
+    	
+    	return new DFDDataFlowAnalysisBuilder()
+    			.standalone()
+    			.modelProjectName(PROJECT_NAME)
+    			.usePluginActivator(Activator.class)
+    			.useDataFlowDiagram(DataFlowDiagramPath.toString())
+    			.useDataDictionary(DataDictionaryPath.toString())
+    			.build();
 	}
 	
-	public void runAnalysis(String model) {
-		var analysis=buildAnalysis(model);
-		analysis.initializeAnalysis();
-		System.out.println(analysis.toString());
-		var flowGraph = analysis.findFlowGraph();
-		flowGraph.evaluate();
-		
+	public void initAnalysis(String model) {
+	    analysis=buildAnalysis(model);
+        analysis.initializeAnalysis();
+        System.out.println(analysis.toString());
+        flowGraph = analysis.findFlowGraph();
+        flowGraph.evaluate();
+	}
+	
+	public void runAnalysis() {
 		for (AbstractPartialFlowGraph aPFG : flowGraph.getPartialFlowGraphs()) {
             List<? extends AbstractVertex<?>> violations = analysis.queryDataFlow(aPFG,node -> {
+                //Rule0
                 if(hasNodeCharacteristic(node, "annotation", "infrastructural") && hasDataCharacteristic(node, "annotation", "internal")) {
                     System.out.println(node.createPrintableNodeInformation());
-
+                    return true;
                 }
             return false;
         }
@@ -51,24 +59,57 @@ public class MicroSecEndTest extends BaseTest {
 	}
 	
 	@Test
-	public void test() {
-		File directory = new File("../../bundles/org.dataflowanalysis.analysis.converter");
-        File[] files = directory.listFiles((dir, name) -> name.endsWith(".json"));
-        for(File file:files) {
-        	runAnalysis(file.getName().replaceAll("\\.json.*", ""));
+	public void testConstraints() {
+		List<String> models = getModelNames();
+        for(String model : models) {
+            System.out.println(model);
+            initAnalysis(model);
+        	runAnalysis();
         }
-		//CreateURI
-		//ResourceUtils.createRelativePluginURI("jferrater.json", PROJECT_NAME);
 	}
 	
-	public boolean hasNodeCharacteristic(AbstractVertex<?> node, String type, String value) {
+	@Test
+    public void convertAllToWeb() throws StandaloneInitializationException {
+        List<String> models = getModelNames();
+        for(String model : models) {
+            var converter = new DataFlowDiagramConverter();
+            converter.storeWeb(converter.dfdToWeb(PROJECT_NAME, model+".dataflowdiagram", model+".datadictionary", Activator.class), "../../bundles/org.dataflowanalysis.analysis.converter/"+model+".json");
+        }
+    }
+	
+	@Test
+    public void convertAllToDFD() {
+        List<String> models = getModelNames();
+        for(String model : models) {
+            var converter = new DataFlowDiagramConverter();
+            converter.storeDFD(converter.webToDfd("../../bundles/org.dataflowanalysis.analysis.converter/"+model+".json"), "../../bundles/org.dataflowanalysis.analysis.converter/"+model);
+        }
+    }
+
+    private List<String> getModelNames() {
+        String fileEnding = ".json";
+        
+        File directory = new File("../../bundles/org.dataflowanalysis.analysis.converter");
+        File[] files = directory.listFiles((dir, name) -> name.endsWith(fileEnding));
+        List<String> fileNames = new ArrayList<>();
+        if (files != null) {
+            for (File file : files) {
+                String name = file.getName();
+                String nameWithoutExtension = name.substring(0, name.length() - fileEnding.length());
+                fileNames.add(nameWithoutExtension);
+            }
+        }
+        return fileNames;
+    }
+	
+	private boolean hasNodeCharacteristic(AbstractVertex<?> node, String type, String value) {
 		if(node.getAllNodeCharacteristics().stream().anyMatch(n -> n.getTypeName().equals(type) && n.getValueName().equals(value))) {
 				return true;
 		}
 		return false;
 	}
 	
-	public boolean hasDataCharacteristic(AbstractVertex<?> node, String type, String value) {
+	private boolean hasDataCharacteristic(AbstractVertex<?> node, String type, String value) {
 		if(node.getAllDataFlowVariables().stream().anyMatch(v -> v.getAllCharacteristics().stream().anyMatch(c -> c.getTypeName().equals(type) && c.getValueName().equals(value)))){
 			return true;
 		}

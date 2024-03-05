@@ -32,12 +32,8 @@ public abstract class Converter {
      */
     public void storeDFD(DataFlowDiagramAndDictionary complete, String outputFile) {
         String fileEnding = ".json";
-        String truncatedOutputFile;
-        if (outputFile.endsWith(fileEnding)) {
-            truncatedOutputFile = outputFile.substring(0, outputFile.length() - fileEnding.length());
-        } else {
-            truncatedOutputFile = outputFile;
-        }
+        String truncatedOutputFile = outputFile.endsWith(fileEnding) ? outputFile.substring(0, outputFile.length() - fileEnding.length())
+                : outputFile;
         ResourceSet resourceSet = new ResourceSetImpl();
         Resource dfdResource = createAndAddResource(truncatedOutputFile + ".dataflowdiagram", new String[] {"dataflowdiagram"}, resourceSet);
         Resource ddResource = createAndAddResource(truncatedOutputFile + ".datadictionary", new String[] {"datadictionary"}, resourceSet);

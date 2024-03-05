@@ -2,10 +2,15 @@ package org.dataflowanalysis.analysis;
 
 import java.util.List;
 import java.util.function.Predicate;
-import org.apache.log4j.Level;
+
+import org.apache.log4j.*;
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.FlowGraph;
+import org.eclipse.xtext.linking.impl.AbstractCleaningLinker;
+import org.eclipse.xtext.linking.impl.DefaultLinkingService;
+import org.eclipse.xtext.parser.antlr.AbstractInternalAntlrParser;
+import org.eclipse.xtext.resource.containers.ResourceSetBasedAllContainersStateProvider;
 
 /**
  * This interface represents the functionality of a data flow confidentiality analysis. To use the analysis the
@@ -18,6 +23,7 @@ import org.dataflowanalysis.analysis.core.FlowGraph;
  */
 public abstract class DataFlowConfidentialityAnalysis {
     public static final String PLUGIN_PATH = "org.dataflowanalysis.analysis";
+    private final Logger logger = Logger.getLogger(DataFlowConfidentialityAnalysis.class);
 
     /**
      * Initializes the analysis by setting up the execution environment and loading the referenced models
@@ -47,4 +53,20 @@ public abstract class DataFlowConfidentialityAnalysis {
      * @param level Desired logger level of the analysis components
      */
     public abstract void setLoggerLevel(Level level);
+
+    /**
+     * Sets up the unified logging environment for the data flow analysis
+     */
+    protected void setupLoggers() {
+        BasicConfigurator.resetConfiguration();
+        BasicConfigurator.configure(
+                new ConsoleAppender(new EnhancedPatternLayout("%-6r [%p] %-35C{1} - %m%n")));
+
+        Logger.getLogger(AbstractInternalAntlrParser.class).setLevel(Level.WARN);
+        Logger.getLogger(DefaultLinkingService.class).setLevel(Level.WARN);
+        Logger.getLogger(ResourceSetBasedAllContainersStateProvider.class).setLevel(Level.WARN);
+        Logger.getLogger(AbstractCleaningLinker.class).setLevel(Level.WARN);
+
+        logger.info("Successfully initialized standalone log4j for the data flow analysis.");
+    }
 }

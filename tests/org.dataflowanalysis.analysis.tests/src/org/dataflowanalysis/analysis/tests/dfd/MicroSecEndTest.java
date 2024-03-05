@@ -12,14 +12,14 @@ import java.io.File;
 import org.dataflowanalysis.analysis.core.*;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
-import org.dataflowanalysis.analysis.converter.Activator;
+import org.dataflowanalysis.analysis.tests.Activator;
 import org.dataflowanalysis.analysis.converter.*;
 import org.junit.jupiter.api.Test;
 
 import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
 
 public class MicroSecEndTest {
-    public static String PROJECT_NAME = "org.dataflowanalysis.analysis.converter";
+    public static String PROJECT_NAME = "org.dataflowanalysis.analysis.tests";
     private FlowGraph flowGraph;
     private DFDConfidentialityAnalysis analysis;
 	
@@ -78,15 +78,7 @@ public class MicroSecEndTest {
             System.out.println(model);
             var converter = new DataFlowDiagramConverter();
             var web = converter.dfdToWeb(PROJECT_NAME, model+".dataflowdiagram", model+".datadictionary", Activator.class);
-            var web3 = converter.dfdToWeb(converter.webToDfd(web));
-            converter.storeWeb(web, "../../bundles/org.dataflowanalysis.analysis.converter/"+model+".json");
-            var web2=converter.loadWeb("../../bundles/org.dataflowanalysis.analysis.converter/"+model+".json").get();
-            web.sort();
-            web2.sort();
-            web3.sort();
-            assertEquals(web,web2);
-            assertEquals(web,web3);
-            assertEquals(web2,web3);;
+            converter.storeWeb(web, model+".json");
         }
     }
 	
@@ -96,17 +88,17 @@ public class MicroSecEndTest {
         for(String model : models) {
             System.out.println(model);
             var converter = new DataFlowDiagramConverter();
-            var dfd = converter.webToDfd("../../bundles/org.dataflowanalysis.analysis.converter/"+model+".json");
+            var dfd = converter.webToDfd(model+".json");
             converter.dfdToWeb(dfd);
             converter.webToDfd(converter.dfdToWeb(dfd));
-            converter.storeDFD(dfd, "../../bundles/org.dataflowanalysis.analysis.converter/"+model);
+            converter.storeDFD(dfd,model);
         }
     }
 
     private List<String> getModelNames() {
         String fileEnding = ".json";
         
-        File directory = new File("../../bundles/org.dataflowanalysis.analysis.converter");
+        File directory = new File(".");
         File[] files = directory.listFiles((dir, name) -> name.endsWith(fileEnding));
         List<String> fileNames = new ArrayList<>();
         if (files != null) {

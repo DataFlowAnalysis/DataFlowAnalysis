@@ -82,24 +82,6 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
     Logger.getLogger(AbstractCleaningLinker.class).setLevel(level);
   }
 
-  /**
-   * Sets up logging for the analysis
-   * @return Returns true, if logging could be setup. Otherwise, the method returns false
-   */
-  private boolean setupLogLevels() {
-    BasicConfigurator.resetConfiguration();
-    BasicConfigurator.configure(
-        new ConsoleAppender(new EnhancedPatternLayout("%-6r [%p] %-35C{1} - %m%n")));
-
-    Logger.getLogger(AbstractInternalAntlrParser.class).setLevel(Level.WARN);
-    Logger.getLogger(DefaultLinkingService.class).setLevel(Level.WARN);
-    Logger.getLogger(ResourceSetBasedAllContainersStateProvider.class).setLevel(Level.WARN);
-    Logger.getLogger(AbstractCleaningLinker.class).setLevel(Level.WARN);
-
-    logger.info("Successfully initialized standalone log4j for the data flow analysis.");
-    return true;
-  }
-
     /**
      * Returns the resource provider of the analysis. The resource provider may be used to access the loaded PCM model of
      * the analysis.
@@ -116,7 +98,8 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
     private boolean initStandaloneAnalysis() {
         EcorePlugin.ExtensionProcessor.process(null);
 
-        if (!setupLogLevels() || !initStandalone()) {
+        super.setupLoggers();
+        if (!initStandalone()) {
             return false;
         }
         DDDslStandaloneSetup.doSetup();

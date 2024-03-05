@@ -47,16 +47,7 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
         EcorePlugin.ExtensionProcessor.process(null);
 
         try {
-        	BasicConfigurator.resetConfiguration();
-          BasicConfigurator.configure(
-              new ConsoleAppender(new EnhancedPatternLayout("%-6r [%p] %-35C{1} - %m%n")));
-
-          Logger.getLogger(AbstractInternalAntlrParser.class).setLevel(Level.WARN);
-          Logger.getLogger(DefaultLinkingService.class).setLevel(Level.WARN);
-          Logger.getLogger(ResourceSetBasedAllContainersStateProvider.class).setLevel(Level.WARN);
-          Logger.getLogger(AbstractCleaningLinker.class).setLevel(Level.WARN);
-
-          logger.info("Successfully initialized standalone log4j for the data flow analysis.");
+            super.setupLoggers();
             var initializationBuilder = StandaloneInitializerBuilder.builder().registerProjectURI(DFDConfidentialityAnalysis.class,
                     DFDConfidentialityAnalysis.PLUGIN_PATH);
 

@@ -17,7 +17,6 @@ import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.Process;
 import org.dataflowanalysis.analysis.dfd.resource.DFDURIResourceProvider;
-import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.dataflowanalysis.analysis.utils.ResourceUtils;
 import org.eclipse.emf.common.util.URI;
 

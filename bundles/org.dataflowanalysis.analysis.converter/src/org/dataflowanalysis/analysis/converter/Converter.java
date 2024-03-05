@@ -2,7 +2,11 @@ package org.dataflowanalysis.analysis.converter;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 
@@ -29,11 +33,13 @@ public abstract class Converter {
      * Stores a DataFlowDiagramAndDictionary object into a specified output file.
      * @param complete The DataFlowDiagramAndDictionary object to store.
      * @param outputFile The path of the output file.
+     * @throws IOException 
      */
-    public void storeDFD(DataFlowDiagramAndDictionary complete, String outputFile) {
+    public void storeDFD(DataFlowDiagramAndDictionary complete, String outputFile) throws IOException {
         String fileEnding = ".json";
         String truncatedOutputFile = outputFile.endsWith(fileEnding) ? outputFile.substring(0, outputFile.length() - fileEnding.length())
                 : outputFile;
+
         ResourceSet resourceSet = new ResourceSetImpl();
         Resource dfdResource = createAndAddResource(truncatedOutputFile + ".dataflowdiagram", new String[] {"dataflowdiagram"}, resourceSet);
         Resource ddResource = createAndAddResource(truncatedOutputFile + ".datadictionary", new String[] {"datadictionary"}, resourceSet);
@@ -43,6 +49,11 @@ public abstract class Converter {
 
         saveResource(dfdResource);
         saveResource(ddResource);
+        
+        String parent= Paths.get(truncatedOutputFile + ".datadictionary").getParent().toString()+"/";
+        List<String> fileContent = Files.readAllLines(Paths.get(truncatedOutputFile + ".dataflowdiagram"));
+        List<String> modifiedContent = fileContent.stream().map(line -> line.replace(parent, "")).collect(Collectors.toList());
+        Files.write(Paths.get(truncatedOutputFile + ".dataflowdiagram"), modifiedContent);
 
     }
 

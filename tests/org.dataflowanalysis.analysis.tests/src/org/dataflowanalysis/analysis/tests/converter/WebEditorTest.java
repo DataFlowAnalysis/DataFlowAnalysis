@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramConverter;
 import org.dataflowanalysis.analysis.converter.webdfd.WebEditorDfd;
+
 import org.dataflowanalysis.dfd.datadictionary.Pin;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -31,10 +31,9 @@ public class WebEditorTest extends ConverterTest {
     private DataFlowDiagramConverter converter;
 
     private final String minimalWebDFD = Paths.get(packagePath, "minimal.json").toString();
-    private final String tempWebDFD = Paths.get(packagePath, "test.json").toString();
-    private final String minimalDataFlowDiagram = Paths.get("models", "ConverterTest", "minimal.dataflowdiagram").toString();
-    private final String minimalDataDictionary = Paths.get("models", "ConverterTest", "minimal.datadictionary").toString();
-    private final String PROJECT = "org.dataflowanalysis.analysis.testmodels";
+    private final String tempWebDFD = "test.json";
+    private final String TEST_MODELS = "org.dataflowanalysis.analysis.testmodels";
+    private final String TESTS = "org.dataflowanalysis.analysis.tests";
 
     @BeforeEach
     public void setup() {
@@ -60,7 +59,7 @@ public class WebEditorTest extends ConverterTest {
     }
 
     @Test
-    @Disabled("Does not run on the CICD pipeline and has no priority right now")
+    // @Disabled("Does not run on the CICD pipeline and has no priority right now")
     @DisplayName("Test storing and loading functionality")
     public void testStoreLoad() throws StreamReadException, DatabindException, IOException, StandaloneInitializationException {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -70,17 +69,18 @@ public class WebEditorTest extends ConverterTest {
         DataFlowDiagramAndDictionary completeBefore = converter.webToDfd(webBefore);
 
         converter.storeWeb(webBefore, tempWebDFD);
-        converter.storeDFD(completeBefore, minimalWebDFD);
+        converter.storeDFD(completeBefore, tempWebDFD);
 
         WebEditorDfd webAfter = converter.loadWeb(tempWebDFD).get();
-        DataFlowDiagramAndDictionary completeAfter = converter.loadDFD(PROJECT, minimalDataFlowDiagram, minimalDataDictionary);
+        DataFlowDiagramAndDictionary completeAfter = converter.loadDFD(TESTS, "test.dataflowdiagram", "test.datadictionary",
+                org.dataflowanalysis.analysis.tests.Activator.class);
 
         assertEquals(webBefore, webAfter);
         assertEquals(completeBefore.dataFlowDiagram().getNodes().size(), completeAfter.dataFlowDiagram().getNodes().size());
         assertEquals(completeBefore.dataFlowDiagram().getFlows().size(), completeAfter.dataFlowDiagram().getFlows().size());
 
-        cleanup("../" + PROJECT + "/" + minimalDataFlowDiagram);
-        cleanup("../" + PROJECT + "/" + minimalDataDictionary);
+        cleanup("test.dataflowdiagram");
+        cleanup("test.datadictionary");
         cleanup(tempWebDFD);
     }
 
@@ -89,7 +89,8 @@ public class WebEditorTest extends ConverterTest {
     public void testManual() throws StandaloneInitializationException {
         String dataflowdiagram = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram").toString();
         String datadictionary = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary").toString();
-        DataFlowDiagramAndDictionary manualDFD = converter.loadDFD(PROJECT, dataflowdiagram, datadictionary);
+        DataFlowDiagramAndDictionary manualDFD = converter.loadDFD(TEST_MODELS, dataflowdiagram, datadictionary,
+                org.dataflowanalysis.analysis.testmodels.Activator.class);
 
         DataFlowDiagramAndDictionary convertedDFD = converter.webToDfd(minimalWebDFD);
 

@@ -50,7 +50,7 @@ public class PCMTest {
         String dataflowdiagram = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram").toString();
         String datadictionary = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary").toString();
         testSpecificModel(inputModel, inputFile, modelLocation,
-                new DataFlowDiagramConverter().loadDFD(modelLocation, dataflowdiagram, datadictionary));
+                new DataFlowDiagramConverter().loadDFD(modelLocation, dataflowdiagram, datadictionary, Activator.class));
 
     }
 

@@ -3,11 +3,14 @@ package org.dataflowanalysis.analysis.pcm;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.ConsoleAppender;
+import org.apache.log4j.EnhancedPatternLayout;
 import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
-import org.dataflowanalysis.analysis.pcm.core.PCMVertexCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.dddsl.DDDslStandaloneSetup;
@@ -21,7 +24,6 @@ import org.eclipse.xtext.parser.antlr.AbstractInternalAntlrParser;
 import org.eclipse.xtext.resource.containers.ResourceSetBasedAllContainersStateProvider;
 import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
 import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder;
-import tools.mdsd.library.standalone.initialization.log4j.Log4jInitilizationTask;
 
 public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityAnalysis {
     private static final String PLUGIN_PATH = "org.dataflowanalysis.analysis.pcm";
@@ -66,19 +68,19 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
         } else {
             throw new IllegalStateException("Failed loading the required models for the data flow analysis.");
         }
-
-        PCMVertexCharacteristicsCalculator nodeCharacteristicsCalculator = new PCMVertexCharacteristicsCalculator(resourceProvider);
-        nodeCharacteristicsCalculator.checkAssignments();
     }
 
-    @Override
-    public void setLoggerLevel(Level level) {
-        logger.setLevel(level);
-        Logger.getLogger(AbstractInternalAntlrParser.class).setLevel(level);
-        Logger.getLogger(DefaultLinkingService.class).setLevel(level);
-        Logger.getLogger(ResourceSetBasedAllContainersStateProvider.class).setLevel(level);
-        Logger.getLogger(AbstractCleaningLinker.class).setLevel(level);
-    }
+  @Override
+  public void setLoggerLevel(Level level) {
+    logger.setLevel(level);
+    Logger rootLogger = LogManager.getRootLogger();
+    rootLogger.setLevel(level);
+
+    Logger.getLogger(AbstractInternalAntlrParser.class).setLevel(level);
+    Logger.getLogger(DefaultLinkingService.class).setLevel(level);
+    Logger.getLogger(ResourceSetBasedAllContainersStateProvider.class).setLevel(level);
+    Logger.getLogger(AbstractCleaningLinker.class).setLevel(level);
+  }
 
     /**
      * Returns the resource provider of the analysis. The resource provider may be used to access the loaded PCM model of
@@ -96,33 +98,12 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
     private boolean initStandaloneAnalysis() {
         EcorePlugin.ExtensionProcessor.process(null);
 
-        if (!setupLogLevels() || !initStandalone()) {
+        super.setupLoggers();
+        if (!initStandalone()) {
             return false;
         }
         DDDslStandaloneSetup.doSetup();
         return true;
-    }
-
-    /**
-     * Sets up logging for the analysis
-     * @return Returns true, if logging could be setup. Otherwise, the method returns false
-     */
-    private boolean setupLogLevels() {
-        try {
-            new Log4jInitilizationTask().initilizationWithoutPlatform();
-
-            Logger.getLogger(AbstractInternalAntlrParser.class).setLevel(Level.WARN);
-            Logger.getLogger(DefaultLinkingService.class).setLevel(Level.WARN);
-            Logger.getLogger(ResourceSetBasedAllContainersStateProvider.class).setLevel(Level.WARN);
-            Logger.getLogger(AbstractCleaningLinker.class).setLevel(Level.WARN);
-
-            logger.info("Successfully initialized standalone log4j for the data flow analysis");
-            return true;
-
-        } catch (StandaloneInitializationException e) {
-            logger.error("Unable to initialize standalone log4j for the data flow analysis", e);
-            return false;
-        }
     }
 
     /**

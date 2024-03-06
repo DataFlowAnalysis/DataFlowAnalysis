@@ -1,8 +1,13 @@
 package org.dataflowanalysis.analysis;
 
 import java.util.Optional;
-import org.apache.log4j.Logger;
+
+import org.apache.log4j.*;
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.xtext.linking.impl.AbstractCleaningLinker;
+import org.eclipse.xtext.linking.impl.DefaultLinkingService;
+import org.eclipse.xtext.parser.antlr.AbstractInternalAntlrParser;
+import org.eclipse.xtext.resource.containers.ResourceSetBasedAllContainersStateProvider;
 
 /**
  * This class represents a basic builder for a {@link DataFlowConfidentialityAnalysis}. A concrete subclass of the

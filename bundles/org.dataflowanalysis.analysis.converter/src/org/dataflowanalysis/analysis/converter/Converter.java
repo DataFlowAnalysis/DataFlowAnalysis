@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -34,6 +33,7 @@ public abstract class Converter {
         String fileEnding = ".json";
         String truncatedOutputFile = outputFile.endsWith(fileEnding) ? outputFile.substring(0, outputFile.length() - fileEnding.length())
                 : outputFile;
+
         ResourceSet resourceSet = new ResourceSetImpl();
         Resource dfdResource = createAndAddResource(truncatedOutputFile + ".dataflowdiagram", new String[] {"dataflowdiagram"}, resourceSet);
         Resource ddResource = createAndAddResource(truncatedOutputFile + ".datadictionary", new String[] {"datadictionary"}, resourceSet);
@@ -43,7 +43,6 @@ public abstract class Converter {
 
         saveResource(dfdResource);
         saveResource(ddResource);
-
     }
 
     private Resource createAndAddResource(String outputFile, String[] fileextensions, ResourceSet resourceSet) {
@@ -56,6 +55,7 @@ public abstract class Converter {
 
     private void saveResource(Resource resource) {
         Map<Object, Object> saveOptions = ((XMLResource) resource).getDefaultSaveOptions();
+        saveOptions.put(XMLResource.OPTION_URI_HANDLER, new FileNameOnlyURIHandler());
         try {
             resource.save(saveOptions);
         } catch (IOException e) {

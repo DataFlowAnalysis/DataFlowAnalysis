@@ -69,18 +69,22 @@ public class WebEditorTest extends ConverterTest {
         DataFlowDiagramAndDictionary completeBefore = converter.webToDfd(webBefore);
 
         converter.storeWeb(webBefore, tempWebDFD);
-        converter.storeDFD(completeBefore, tempWebDFD);
+        converter.storeDFD(completeBefore, "bin"+File.separator+tempWebDFD);
 
         WebEditorDfd webAfter = converter.loadWeb(tempWebDFD).get();
-        DataFlowDiagramAndDictionary completeAfter = converter.loadDFD(TESTS, "test.dataflowdiagram", "test.datadictionary",
+        DataFlowDiagramAndDictionary completeAfter = converter.loadDFD(TESTS, "bin/test.dataflowdiagram", "bin/test.datadictionary",
                 org.dataflowanalysis.analysis.tests.Activator.class);
 
         assertEquals(webBefore, webAfter);
         assertEquals(completeBefore.dataFlowDiagram().getNodes().size(), completeAfter.dataFlowDiagram().getNodes().size());
         assertEquals(completeBefore.dataFlowDiagram().getFlows().size(), completeAfter.dataFlowDiagram().getFlows().size());
+        
+        for(int i=0;i<completeBefore.dataFlowDiagram().getNodes().size();i++) {
+            assertEquals(completeBefore.dataFlowDiagram().getNodes().get(i).getBehaviour().getEntityName(),completeAfter.dataFlowDiagram().getNodes().get(i).getBehaviour().getEntityName());
+        }
 
-        cleanup("test.dataflowdiagram");
-        cleanup("test.datadictionary");
+        cleanup("bin"+File.separator+"test.dataflowdiagram");
+        cleanup("bin"+File.separator+"test.datadictionary");
         cleanup(tempWebDFD);
     }
 

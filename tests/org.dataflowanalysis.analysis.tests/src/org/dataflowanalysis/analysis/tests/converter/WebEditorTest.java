@@ -69,7 +69,7 @@ public class WebEditorTest extends ConverterTest {
         DataFlowDiagramAndDictionary completeBefore = converter.webToDfd(webBefore);
 
         converter.storeWeb(webBefore, tempWebDFD);
-        converter.storeDFD(completeBefore, "bin/"+tempWebDFD);
+        converter.storeDFD(completeBefore, "bin"+File.separator+tempWebDFD);
 
         WebEditorDfd webAfter = converter.loadWeb(tempWebDFD).get();
         DataFlowDiagramAndDictionary completeAfter = converter.loadDFD(TESTS, "bin/test.dataflowdiagram", "bin/test.datadictionary",
@@ -83,8 +83,8 @@ public class WebEditorTest extends ConverterTest {
             assertEquals(completeBefore.dataFlowDiagram().getNodes().get(i).getBehaviour().getEntityName(),completeAfter.dataFlowDiagram().getNodes().get(i).getBehaviour().getEntityName());
         }
 
-        cleanup("bin/test.dataflowdiagram");
-        cleanup("bin/test.datadictionary");
+        cleanup("bin"+File.separator+"test.dataflowdiagram");
+        cleanup("bin"+File.separator+"test.datadictionary");
         cleanup(tempWebDFD);
     }
 

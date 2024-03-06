@@ -2,14 +2,9 @@ package org.dataflowanalysis.analysis.converter;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
-
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -33,9 +28,8 @@ public abstract class Converter {
      * Stores a DataFlowDiagramAndDictionary object into a specified output file.
      * @param complete The DataFlowDiagramAndDictionary object to store.
      * @param outputFile The path of the output file.
-     * @throws IOException 
      */
-    public void storeDFD(DataFlowDiagramAndDictionary complete, String outputFile) throws IOException {
+    public void storeDFD(DataFlowDiagramAndDictionary complete, String outputFile) {
         String fileEnding = ".json";
         String truncatedOutputFile = outputFile.endsWith(fileEnding) ? outputFile.substring(0, outputFile.length() - fileEnding.length())
                 : outputFile;
@@ -49,12 +43,6 @@ public abstract class Converter {
 
         saveResource(dfdResource);
         saveResource(ddResource);
-        
-        var hrefPath = Paths.get(truncatedOutputFile + ".datadictionary");
-        List<String> fileContent = Files.readAllLines(Paths.get(truncatedOutputFile + ".dataflowdiagram"));
-        List<String> modifiedContent = fileContent.stream().map(line -> line.replace(hrefPath.toString(), hrefPath.getFileName().toString())).collect(Collectors.toList());
-        Files.write(Paths.get(truncatedOutputFile + ".dataflowdiagram"), modifiedContent);
-
     }
 
     private Resource createAndAddResource(String outputFile, String[] fileextensions, ResourceSet resourceSet) {
@@ -67,6 +55,7 @@ public abstract class Converter {
 
     private void saveResource(Resource resource) {
         Map<Object, Object> saveOptions = ((XMLResource) resource).getDefaultSaveOptions();
+        saveOptions.put(XMLResource.OPTION_URI_HANDLER, new FileNameOnlyURIHandler());
         try {
             resource.save(saveOptions);
         } catch (IOException e) {

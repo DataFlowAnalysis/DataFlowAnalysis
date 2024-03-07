@@ -74,10 +74,6 @@ public class MicroSecEndTest extends ConverterTest {
         MicroSecEnd micro = converter.loadMicro(ANILALLEWAR).get();
         DataFlowDiagramAndDictionary complete = converter.microToDfd(micro);
         
-        var dfdConverter = new DataFlowDiagramConverter();
-        var web = dfdConverter.dfdToWeb(complete);
-        dfdConverter.storeWeb(web, packagePath+"/test.json");
-
         DataFlowDiagram dfd = complete.dataFlowDiagram();
 
         assertEquals(micro.externalEntities().size() + micro.services().size(), dfd.getNodes().size());
@@ -107,6 +103,13 @@ public class MicroSecEndTest extends ConverterTest {
             }
         }
         assertEquals(match, micro.informationFlows().size());
+        
+        //Ensure created DFD is correctly handled by DataFlowDiagramConverter
+        var webConverter = new DataFlowDiagramConverter();
+        var webBefore = webConverter.dfdToWeb(complete);
+        webConverter.storeWeb(webBefore, packagePath+"/test.json");
+        var webAfter=webConverter.dfdToWeb(webConverter.webToDfd(webBefore));
+        assertEquals(webBefore,webAfter);
     }
 
     private void checkEntityName(MicroSecEndProcess process, DataFlowDiagram dfd) {

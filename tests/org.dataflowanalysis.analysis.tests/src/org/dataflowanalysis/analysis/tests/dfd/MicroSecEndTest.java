@@ -48,7 +48,7 @@ public class MicroSecEndTest {
 		for (AbstractPartialFlowGraph aPFG : flowGraph.getPartialFlowGraphs()) {
             analysis.queryDataFlow(aPFG,node -> {
                 int rule=0;
-                if(hasNodeCharacteristic(node, "annotation", "infrastructural") && hasDataCharacteristic(node, "annotation", "internal")) {
+                if(hasNodeCharacteristic(node, "Stereotype", "infrastructural") && hasDataCharacteristic(node, "Stereotype", "internal")) {
                     addToMap(violationsMap,variant,rule,node);
                     return true;
                 }

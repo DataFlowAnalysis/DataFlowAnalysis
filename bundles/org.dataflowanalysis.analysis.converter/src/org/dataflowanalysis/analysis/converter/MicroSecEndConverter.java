@@ -23,16 +23,22 @@ public class MicroSecEndConverter extends Converter {
     private final datadictionaryFactory ddFactory;
 
     private final Map<String, Node> nodesMap;
-    private final Map<Node, List<String>> nodeToLabelNames;
-    private final Map<String, Label> labelMap;
+    private final Map<Node, List<String>> nodeToLabelNamesMap;
+    private final Map<Node, Map<String, List<String>>> nodeToLabelTypeNamesMap;
+    private final Map<String, Map<String, Label>> labelMap;
+    private final Map<String, LabelType> labelTypeMap;
+    private Map<Pin, List<Label>> outpinToFlowLabelMap;
 
     public MicroSecEndConverter() {
         dfdFactory = dataflowdiagramFactory.eINSTANCE;
         ddFactory = datadictionaryFactory.eINSTANCE;
 
         nodesMap = new HashMap<>();
-        nodeToLabelNames = new HashMap<>();
+        nodeToLabelNamesMap = new HashMap<>();
         labelMap = new HashMap<>();
+        labelTypeMap = new HashMap<>();
+        nodeToLabelTypeNamesMap = new HashMap<>();
+        outpinToFlowLabelMap = new HashMap<>();
     }
 
     /**
@@ -116,13 +122,15 @@ public class MicroSecEndConverter extends Converter {
 
         createProcesses(micro, dfd);
 
-        LabelType annotation = ddFactory.createLabelType();
-        annotation.setEntityName("annotation");
-        dd.getLabelTypes().add(annotation);
+        LabelType stereotype = ddFactory.createLabelType();
+        stereotype.setEntityName("Stereotype");
+        dd.getLabelTypes().add(stereotype);
+        labelTypeMap.put(stereotype.getEntityName(), stereotype);
+        labelMap.put(stereotype.getEntityName(), new HashMap<>());
 
-        createBehavior(dd, annotation);
+        createBehavior(dd, stereotype);
 
-        createFlows(micro, dfd);
+        createFlows(micro, dfd, dd, stereotype);
 
         createNodeAssignments();
 
@@ -138,7 +146,8 @@ public class MicroSecEndConverter extends Converter {
 
             dfd.getNodes().add(process);
             nodesMap.put(service.name(), process);
-            nodeToLabelNames.put(process, service.stereotypes());
+            nodeToLabelNamesMap.put(process, service.stereotypes());
+            nodeToLabelTypeNamesMap.put(process, service.taggedValues());
         }
     }
 
@@ -149,28 +158,31 @@ public class MicroSecEndConverter extends Converter {
 
             dfd.getNodes().add(external);
             nodesMap.put(ee.name(), external);
-            nodeToLabelNames.put(external, ee.stereotypes());
+            nodeToLabelNamesMap.put(external, ee.stereotypes());
+            nodeToLabelTypeNamesMap.put(external, ee.taggedValues());
         }
     }
 
-    private void createBehavior(DataDictionary dd, LabelType annotation) {
+    private void createBehavior(DataDictionary dd, LabelType stereotype) {
         for (Node node : nodesMap.values()) {
             var behaviour = ddFactory.createBehaviour();
             node.setBehaviour(behaviour);
 
             var assignment = ddFactory.createAssignment();
 
-            assignment.getOutputLabels().addAll(createLabels(nodeToLabelNames.get(node), dd, annotation));
+            assignment.getOutputLabels().addAll(createLabels(nodeToLabelNamesMap.get(node), dd, stereotype));
 
             behaviour.getAssignment().add(assignment);
 
             node.getProperties().addAll(assignment.getOutputLabels());
 
+            node.getProperties().addAll(createTaggedValueLabels(nodeToLabelTypeNamesMap.get(node), dd));
+
             dd.getBehaviour().add(behaviour);
         }
     }
 
-    private void createFlows(MicroSecEnd micro, DataFlowDiagram dfd) {
+    private void createFlows(MicroSecEnd micro, DataFlowDiagram dfd, DataDictionary dd, LabelType stereotype) {
         for (InformationFlow iflow : micro.informationFlows()) {
             var source = nodesMap.get(iflow.sender());
             var dest = nodesMap.get(iflow.receiver());
@@ -188,6 +200,11 @@ public class MicroSecEndConverter extends Converter {
             flow.setDestinationPin(inPin);
             flow.setSourcePin(outPin);
             dfd.getFlows().add(flow);
+
+            List<Label> flowLabels = new ArrayList<>();
+            flowLabels.addAll(createLabels(iflow.stereotypes(), dd, stereotype));
+            flowLabels.addAll(createTaggedValueLabels(iflow.taggedValues(), dd));
+            outpinToFlowLabelMap.put(outPin, flowLabels);
         }
     }
 
@@ -203,6 +220,7 @@ public class MicroSecEndConverter extends Converter {
                     assignment.setOutputPin(outPin);
 
                     assignment.getOutputLabels().addAll(template.getOutputLabels());
+                    assignment.getOutputLabels().addAll(outpinToFlowLabelMap.get(outPin));
                     assignment.setTerm(ddFactory.createTRUE());
 
                     behaviour.getAssignment().add(assignment);
@@ -225,20 +243,39 @@ public class MicroSecEndConverter extends Converter {
         }
     }
 
-    private List<Label> createLabels(List<String> labelNames, DataDictionary dd, LabelType annotation) {
+    private List<Label> createLabels(List<String> labelNames, DataDictionary dd, LabelType labelType) {
         List<Label> labels = new ArrayList<>();
+        var labelTypeName = labelType.getEntityName();
         for (String labelName : labelNames) {
-            if (labelMap.containsKey(labelName)) {
-                labels.add(labelMap.get(labelName));
+            if (labelMap.get(labelTypeName).containsKey(labelName)) {
+                labels.add(labelMap.get(labelTypeName).get(labelName));
             } else {
                 Label label = ddFactory.createLabel();
                 label.setEntityName(labelName);
-                annotation.getLabel().add(label);
+                labelType.getLabel().add(label);
                 labels.add(label);
-                labelMap.put(labelName, label);
+                labelMap.get(labelTypeName).put(labelName, label);
             }
         }
         return labels;
     }
 
+    private List<Label> createTaggedValueLabels(Map<String, List<String>> taggedValues, DataDictionary dd) {
+        List<Label> labels = new ArrayList<>();
+        for (String labelTypeName : taggedValues.keySet()) {
+            var labelNames = taggedValues.get(labelTypeName);
+            LabelType labelType;
+            if (labelTypeMap.containsKey(labelTypeName)) {
+                labelType = labelTypeMap.get(labelTypeName);
+            } else {
+                labelType = ddFactory.createLabelType();
+                labelType.setEntityName(labelTypeName);
+                dd.getLabelTypes().add(labelType);
+                labelTypeMap.put(labelTypeName, labelType);
+                labelMap.put(labelTypeName, new HashMap<>());
+            }
+            labels.addAll(createLabels(labelNames, dd, labelType));
+        }
+        return labels;
+    }
 }

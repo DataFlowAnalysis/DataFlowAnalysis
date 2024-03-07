@@ -7,15 +7,19 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramAndDictionary;
-import org.dataflowanalysis.analysis.converter.MicroSecEndConverter;
+import org.dataflowanalysis.analysis.converter.*;
 import org.dataflowanalysis.analysis.converter.microsecend.ExternalEntity;
 import org.dataflowanalysis.analysis.converter.microsecend.InformationFlow;
 import org.dataflowanalysis.analysis.converter.microsecend.MicroSecEnd;
 import org.dataflowanalysis.analysis.converter.microsecend.MicroSecEndProcess;
 import org.dataflowanalysis.analysis.converter.microsecend.Service;
 import org.dataflowanalysis.dfd.datadictionary.Assignment;
+import org.dataflowanalysis.dfd.datadictionary.Label;
+import org.dataflowanalysis.dfd.datadictionary.LabelType;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
@@ -92,21 +96,45 @@ public class MicroSecEndTest extends ConverterTest {
                     List<Pin> outpins = flow.getSourceNode().getBehaviour().getOutPin();
                     assertTrue(outpins.contains(outpin));
                     Assignment assignment = (Assignment) flow.getSourceNode().getBehaviour().getAssignment().get(outpins.indexOf(outpin));
-                    assertEquals(assignment.getOutputLabels().size(), flow.getSourceNode().getProperties().size());
+
+                    Set<String> outputNames = assignment.getOutputLabels().stream().map(Label::getEntityName).collect(Collectors.toSet());
+                    Set<String> propertyStereotypeNames = flow.getSourceNode().getProperties().stream()
+                            .filter(label -> ((LabelType) label.eContainer()).getEntityName().equals("Stereotype"))
+                            .map(label -> label.getEntityName()).collect(Collectors.toSet());
+
+                    assertTrue(propertyStereotypeNames.stream().allMatch(outputNames::contains));
+                    assertTrue(iflow.stereotypes().stream().allMatch(outputNames::contains));
+                    for (var taggedLabels : iflow.taggedValues().values()) {
+                        assertTrue(taggedLabels.stream().allMatch(outputNames::contains));
+                    }
+
                     match++;
                 }
             }
         }
         assertEquals(match, micro.informationFlows().size());
+
+        ensureCorrectDFDConversion(complete);
+    }
+
+    private void ensureCorrectDFDConversion(DataFlowDiagramAndDictionary complete) {
+        var webConverter = new DataFlowDiagramConverter();
+        var webBefore = webConverter.dfdToWeb(complete);
+        var webAfter = webConverter.dfdToWeb(webConverter.webToDfd(webBefore));
+        assertEquals(webBefore, webAfter);
     }
 
     private void checkEntityName(MicroSecEndProcess process, DataFlowDiagram dfd) {
         for (Node node : dfd.getNodes()) {
             if (process.name().equals(node.getEntityName())) {
-                assertEquals(process.stereotypes().size(), node.getProperties().size());
-                for (int i = 0; i < process.stereotypes().size(); i++) {
-                    assertEquals(process.stereotypes().get(i), node.getProperties().get(i).getEntityName());
-                }
+                assertEquals(process.stereotypes().size() + process.taggedValues().values().stream().mapToInt(List::size).sum(),
+                        node.getProperties().size());
+                assertEquals(process.stereotypes().size(), node.getProperties().stream()
+                        .filter(l -> ((LabelType) l.eContainer()).getEntityName().equals("Stereotype")).collect(Collectors.toList()).size());
+
+                Set<String> stereotypeNames = node.getProperties().stream().map(Label::getEntityName).collect(Collectors.toSet());
+
+                assertTrue(process.stereotypes().stream().allMatch(stereotypeNames::contains));
             }
         }
     }

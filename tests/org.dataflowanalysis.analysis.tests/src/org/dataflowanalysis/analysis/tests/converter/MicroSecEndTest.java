@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramAndDictionary;
-import org.dataflowanalysis.analysis.converter.MicroSecEndConverter;
+import org.dataflowanalysis.analysis.converter.*;
 import org.dataflowanalysis.analysis.converter.microsecend.ExternalEntity;
 import org.dataflowanalysis.analysis.converter.microsecend.InformationFlow;
 import org.dataflowanalysis.analysis.converter.microsecend.MicroSecEnd;
@@ -73,6 +73,10 @@ public class MicroSecEndTest extends ConverterTest {
     public void microToDfd() throws StreamReadException, DatabindException, IOException {
         MicroSecEnd micro = converter.loadMicro(ANILALLEWAR).get();
         DataFlowDiagramAndDictionary complete = converter.microToDfd(micro);
+        
+        var dfdConverter = new DataFlowDiagramConverter();
+        var web = dfdConverter.dfdToWeb(complete);
+        dfdConverter.storeWeb(web, packagePath+"/test.json");
 
         DataFlowDiagram dfd = complete.dataFlowDiagram();
 

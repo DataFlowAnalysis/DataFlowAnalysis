@@ -23,8 +23,8 @@ public class MicroSecEndConverter extends Converter {
     private final datadictionaryFactory ddFactory;
 
     private final Map<String, Node> nodesMap;
-    private final Map<Node, List<String>> nodeToLabelNames;
-    private final Map<Node, Map<String, List<String>>> nodeToLabelTypeNames;
+    private final Map<Node, List<String>> nodeToLabelNamesMap;
+    private final Map<Node, Map<String, List<String>>> nodeToLabelTypeNamesMap;
     private final Map<String, Map<String, Label>> labelMap;
     private final Map<String, LabelType> labelTypeMap;
     private Map<Pin, List<Label>> outpinToFlowLabelMap;
@@ -34,10 +34,10 @@ public class MicroSecEndConverter extends Converter {
         ddFactory = datadictionaryFactory.eINSTANCE;
 
         nodesMap = new HashMap<>();
-        nodeToLabelNames = new HashMap<>();
+        nodeToLabelNamesMap = new HashMap<>();
         labelMap = new HashMap<>();
         labelTypeMap = new HashMap<>();
-        nodeToLabelTypeNames = new HashMap<>();
+        nodeToLabelTypeNamesMap = new HashMap<>();
         outpinToFlowLabelMap = new HashMap<>();
     }
 
@@ -146,8 +146,8 @@ public class MicroSecEndConverter extends Converter {
 
             dfd.getNodes().add(process);
             nodesMap.put(service.name(), process);
-            nodeToLabelNames.put(process, service.stereotypes());
-            nodeToLabelTypeNames.put(process, service.taggedValues());
+            nodeToLabelNamesMap.put(process, service.stereotypes());
+            nodeToLabelTypeNamesMap.put(process, service.taggedValues());
         }
     }
 
@@ -158,8 +158,8 @@ public class MicroSecEndConverter extends Converter {
 
             dfd.getNodes().add(external);
             nodesMap.put(ee.name(), external);
-            nodeToLabelNames.put(external, ee.stereotypes());
-            nodeToLabelTypeNames.put(external, ee.taggedValues());
+            nodeToLabelNamesMap.put(external, ee.stereotypes());
+            nodeToLabelTypeNamesMap.put(external, ee.taggedValues());
         }
     }
 
@@ -170,13 +170,13 @@ public class MicroSecEndConverter extends Converter {
 
             var assignment = ddFactory.createAssignment();
 
-            assignment.getOutputLabels().addAll(createLabels(nodeToLabelNames.get(node), dd, stereotype));
+            assignment.getOutputLabels().addAll(createLabels(nodeToLabelNamesMap.get(node), dd, stereotype));
 
             behaviour.getAssignment().add(assignment);
 
             node.getProperties().addAll(assignment.getOutputLabels());
 
-            node.getProperties().addAll(createTaggedValueLabels(nodeToLabelTypeNames.get(node), dd));
+            node.getProperties().addAll(createTaggedValueLabels(nodeToLabelTypeNamesMap.get(node), dd));
 
             dd.getBehaviour().add(behaviour);
         }

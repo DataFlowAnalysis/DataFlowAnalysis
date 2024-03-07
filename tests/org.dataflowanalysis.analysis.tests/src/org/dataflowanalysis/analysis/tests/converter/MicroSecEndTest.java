@@ -114,7 +114,10 @@ public class MicroSecEndTest extends ConverterTest {
         }
         assertEquals(match, micro.informationFlows().size());
 
-        // Ensure created DFD is correctly handled by DataFlowDiagramConverter
+        ensureCorrectDFDConversion(complete);
+    }
+
+    private void ensureCorrectDFDConversion(DataFlowDiagramAndDictionary complete) {
         var webConverter = new DataFlowDiagramConverter();
         var webBefore = webConverter.dfdToWeb(complete);
         var webAfter = webConverter.dfdToWeb(webConverter.webToDfd(webBefore));

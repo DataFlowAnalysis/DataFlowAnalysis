@@ -14,7 +14,6 @@ import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuild
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.seff.*;
 import org.dataflowanalysis.analysis.pcm.core.user.*;
-import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
 import org.dataflowanalysis.dfd.datadictionary.*;

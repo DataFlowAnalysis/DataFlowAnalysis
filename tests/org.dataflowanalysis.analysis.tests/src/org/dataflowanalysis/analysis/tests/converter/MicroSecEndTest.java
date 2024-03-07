@@ -97,15 +97,15 @@ public class MicroSecEndTest extends ConverterTest {
                     assertTrue(outpins.contains(outpin));
                     Assignment assignment = (Assignment) flow.getSourceNode().getBehaviour().getAssignment().get(outpins.indexOf(outpin));
 
-                    Set<String> outputNames = assignment.getOutputLabels().stream().map(Label::getEntityName).collect(Collectors.toSet());
+                    Set<String> outputNames = assignment.getOutputLabels().stream().map(label -> computeCompleteLabel(label)).collect(Collectors.toSet());
                     Set<String> propertyStereotypeNames = flow.getSourceNode().getProperties().stream()
                             .filter(label -> ((LabelType) label.eContainer()).getEntityName().equals("Stereotype"))
-                            .map(label -> label.getEntityName()).collect(Collectors.toSet());
+                            .map(label -> computeCompleteLabel(label)).collect(Collectors.toSet());
 
                     assertTrue(propertyStereotypeNames.stream().allMatch(outputNames::contains));
-                    assertTrue(iflow.stereotypes().stream().allMatch(outputNames::contains));
-                    for (var taggedLabels : iflow.taggedValues().values()) {
-                        assertTrue(taggedLabels.stream().allMatch(outputNames::contains));
+                    assertTrue(iflow.stereotypes().stream().map(label->"Stereotype."+label).allMatch(outputNames::contains));
+                    for (var labelType : iflow.taggedValues().keySet()) {
+                        assertTrue(iflow.taggedValues().get(labelType).stream().map(label -> labelType+"."+label).allMatch(outputNames::contains));
                     }
 
                     match++;
@@ -117,6 +117,13 @@ public class MicroSecEndTest extends ConverterTest {
         ensureCorrectDFDConversion(complete);
     }
 
+    private String computeCompleteLabel(Label label) {
+        var labelName = label.getEntityName();
+        var labelType = (LabelType) label.eContainer();
+        var labelTypeName = labelType.getEntityName();
+        return labelTypeName+"."+labelName;
+    }
+    
     private void ensureCorrectDFDConversion(DataFlowDiagramAndDictionary complete) {
         var webConverter = new DataFlowDiagramConverter();
         var webBefore = webConverter.dfdToWeb(complete);

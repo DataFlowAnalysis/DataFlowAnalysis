@@ -70,10 +70,10 @@ public class MicroSecEndTest extends ConverterTest {
 
     @Test
     @DisplayName("Test Micro -> DFD")
-    public void microToDfd() throws StreamReadException, DatabindException, IOException {        
+    public void microToDfd() throws StreamReadException, DatabindException, IOException {
         MicroSecEnd micro = converter.loadMicro(ANILALLEWAR).get();
         DataFlowDiagramAndDictionary complete = converter.microToDfd(micro);
-        
+
         DataFlowDiagram dfd = complete.dataFlowDiagram();
 
         assertEquals(micro.externalEntities().size() + micro.services().size(), dfd.getNodes().size());
@@ -96,32 +96,42 @@ public class MicroSecEndTest extends ConverterTest {
                     List<Pin> outpins = flow.getSourceNode().getBehaviour().getOutPin();
                     assertTrue(outpins.contains(outpin));
                     Assignment assignment = (Assignment) flow.getSourceNode().getBehaviour().getAssignment().get(outpins.indexOf(outpin));
-                    //assertEquals(assignment.getOutputLabels().size(), flow.getSourceNode().getProperties()
-                            //.stream().filter(l -> ((LabelType)l.eContainer()).getEntityName().equals("Stereotype") ).collect(Collectors.toList()).size());
+
+                    Set<String> outputNames = assignment.getOutputLabels().stream().map(Label::getEntityName).collect(Collectors.toSet());
+                    Set<String> propertyStereotypeNames = flow.getSourceNode().getProperties().stream()
+                            .filter(label -> ((LabelType) label.eContainer()).getEntityName().equals("Stereotype"))
+                            .map(label -> label.getEntityName()).collect(Collectors.toSet());
+
+                    assertTrue(propertyStereotypeNames.stream().allMatch(outputNames::contains));
+                    assertTrue(iflow.stereotypes().stream().allMatch(outputNames::contains));
+                    for (var taggedLabels : iflow.taggedValues().values()) {
+                        assertTrue(taggedLabels.stream().allMatch(outputNames::contains));
+                    }
+
                     match++;
                 }
             }
         }
         assertEquals(match, micro.informationFlows().size());
-        
-        //Ensure created DFD is correctly handled by DataFlowDiagramConverter
+
+        // Ensure created DFD is correctly handled by DataFlowDiagramConverter
         var webConverter = new DataFlowDiagramConverter();
         var webBefore = webConverter.dfdToWeb(complete);
-        webConverter.storeWeb(webBefore, packagePath+"/test.json");
-        var webAfter=webConverter.dfdToWeb(webConverter.webToDfd(webBefore));
-        assertEquals(webBefore,webAfter);
+        var webAfter = webConverter.dfdToWeb(webConverter.webToDfd(webBefore));
+        assertEquals(webBefore, webAfter);
     }
 
     private void checkEntityName(MicroSecEndProcess process, DataFlowDiagram dfd) {
         for (Node node : dfd.getNodes()) {
             if (process.name().equals(node.getEntityName())) {
-                assertEquals(process.stereotypes().size()+process.taggedValues().values().stream().mapToInt(List::size).sum(), node.getProperties().size());
-                assertEquals(process.stereotypes().size(),node.getProperties()
-                            .stream().filter(l -> ((LabelType)l.eContainer()).getEntityName().equals("Stereotype") ).collect(Collectors.toList()).size());
-                
-                Set<String> allLabelNames = node.getProperties().stream().map(Label::getEntityName).collect(Collectors.toSet());
+                assertEquals(process.stereotypes().size() + process.taggedValues().values().stream().mapToInt(List::size).sum(),
+                        node.getProperties().size());
+                assertEquals(process.stereotypes().size(), node.getProperties().stream()
+                        .filter(l -> ((LabelType) l.eContainer()).getEntityName().equals("Stereotype")).collect(Collectors.toList()).size());
 
-                assertTrue(process.stereotypes().stream().allMatch(allLabelNames::contains));
+                Set<String> stereotypeNames = node.getProperties().stream().map(Label::getEntityName).collect(Collectors.toSet());
+
+                assertTrue(process.stereotypes().stream().allMatch(stereotypeNames::contains));
             }
         }
     }

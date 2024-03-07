@@ -25,8 +25,9 @@ public class MicroSecEndConverter extends Converter {
     private final Map<String, Node> nodesMap;
     private final Map<Node, List<String>> nodeToLabelNames;
     private final Map<Node, Map<String, List<String>>> nodeToLabelTypeNames;
-    private final Map<String,Map<String, Label>> labelMap;
+    private final Map<String, Map<String, Label>> labelMap;
     private final Map<String, LabelType> labelTypeMap;
+    private Map<Pin, List<Label>> outpinToFlowLabelMap;
 
     public MicroSecEndConverter() {
         dfdFactory = dataflowdiagramFactory.eINSTANCE;
@@ -37,6 +38,7 @@ public class MicroSecEndConverter extends Converter {
         labelMap = new HashMap<>();
         labelTypeMap = new HashMap<>();
         nodeToLabelTypeNames = new HashMap<>();
+        outpinToFlowLabelMap = new HashMap<>();
     }
 
     /**
@@ -111,17 +113,8 @@ public class MicroSecEndConverter extends Converter {
         }
         return -1;
     }
-    
-    /**
-     * This function removes everything that is not a number or a letter from the given String
-     * @param input
-     * @return sanatizedString
-     */
-    public String sanitizeString(String input) {
-        return input.trim().replaceAll("[^a-zA-Z0-9]", "");
-    }
 
-    private DataFlowDiagramAndDictionary processMicro(MicroSecEnd micro) {        
+    private DataFlowDiagramAndDictionary processMicro(MicroSecEnd micro) {
         DataFlowDiagram dfd = dfdFactory.createDataFlowDiagram();
         DataDictionary dd = ddFactory.createDataDictionary();
 
@@ -132,7 +125,7 @@ public class MicroSecEndConverter extends Converter {
         LabelType stereotype = ddFactory.createLabelType();
         stereotype.setEntityName("Stereotype");
         dd.getLabelTypes().add(stereotype);
-        labelTypeMap.put(stereotype.getEntityName(),stereotype);
+        labelTypeMap.put(stereotype.getEntityName(), stereotype);
         labelMap.put(stereotype.getEntityName(), new HashMap<>());
 
         createBehavior(dd, stereotype);
@@ -182,9 +175,9 @@ public class MicroSecEndConverter extends Converter {
             behaviour.getAssignment().add(assignment);
 
             node.getProperties().addAll(assignment.getOutputLabels());
-            
+
             node.getProperties().addAll(createTaggedValueLabels(nodeToLabelTypeNames.get(node), dd));
-                        
+
             dd.getBehaviour().add(behaviour);
         }
     }
@@ -207,10 +200,11 @@ public class MicroSecEndConverter extends Converter {
             flow.setDestinationPin(inPin);
             flow.setSourcePin(outPin);
             dfd.getFlows().add(flow);
-            
-            Assignment sourceAssignment = (Assignment) source.getBehaviour().getAssignment().get(0);
-            sourceAssignment.getOutputLabels().addAll(createLabels(iflow.stereotypes(), dd, stereotype));
-            sourceAssignment.getOutputLabels().addAll(createTaggedValueLabels(iflow.taggedValues(),dd));
+
+            List<Label> flowLabels = new ArrayList<>();
+            flowLabels.addAll(createLabels(iflow.stereotypes(), dd, stereotype));
+            flowLabels.addAll(createTaggedValueLabels(iflow.taggedValues(), dd));
+            outpinToFlowLabelMap.put(outPin, flowLabels);
         }
     }
 
@@ -226,6 +220,7 @@ public class MicroSecEndConverter extends Converter {
                     assignment.setOutputPin(outPin);
 
                     assignment.getOutputLabels().addAll(template.getOutputLabels());
+                    assignment.getOutputLabels().addAll(outpinToFlowLabelMap.get(outPin));
                     assignment.setTerm(ddFactory.createTRUE());
 
                     behaviour.getAssignment().add(assignment);
@@ -250,7 +245,7 @@ public class MicroSecEndConverter extends Converter {
 
     private List<Label> createLabels(List<String> labelNames, DataDictionary dd, LabelType labelType) {
         List<Label> labels = new ArrayList<>();
-        var labelTypeName=labelType.getEntityName();
+        var labelTypeName = labelType.getEntityName();
         for (String labelName : labelNames) {
             if (labelMap.get(labelTypeName).containsKey(labelName)) {
                 labels.add(labelMap.get(labelTypeName).get(labelName));
@@ -264,23 +259,22 @@ public class MicroSecEndConverter extends Converter {
         }
         return labels;
     }
-    
+
     private List<Label> createTaggedValueLabels(Map<String, List<String>> taggedValues, DataDictionary dd) {
         List<Label> labels = new ArrayList<>();
-        for(String labelTypeName : taggedValues.keySet()) {
+        for (String labelTypeName : taggedValues.keySet()) {
             var labelNames = taggedValues.get(labelTypeName);
             LabelType labelType;
             if (labelTypeMap.containsKey(labelTypeName)) {
-                labelType=labelTypeMap.get(labelTypeName);
-            }
-            else {
+                labelType = labelTypeMap.get(labelTypeName);
+            } else {
                 labelType = ddFactory.createLabelType();
                 labelType.setEntityName(labelTypeName);
                 dd.getLabelTypes().add(labelType);
                 labelTypeMap.put(labelTypeName, labelType);
-                labelMap.put(labelTypeName,new HashMap<>());
+                labelMap.put(labelTypeName, new HashMap<>());
             }
-            labels.addAll(createLabels(labelNames,dd,labelType));
+            labels.addAll(createLabels(labelNames, dd, labelType));
         }
         return labels;
     }

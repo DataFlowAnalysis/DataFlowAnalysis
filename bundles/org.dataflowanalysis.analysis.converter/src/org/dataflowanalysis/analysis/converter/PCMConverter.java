@@ -1,6 +1,5 @@
 package org.dataflowanalysis.analysis.converter;
 
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,18 +31,36 @@ public class PCMConverter extends Converter {
 
     /**
      * Converts a PCM model into a DataFlowDiagramAndDictionary object.
-     * @param inputModel Name of the model folder.
-     * @param inputFile Name of the model file.
      * @param modelLocation Location of the model folder.
+     * @param usageModelPath Location of the usage model.
+     * @param allocationPath Location of the allocation.
+     * @param nodeCharPath Location of the node characteristics.
+     * @param activator Activator class of the plugin where the model resides. 
      * @return DataFlowDiagramAndDictionary object representing the converted Palladio model.
      */
-    public DataFlowDiagramAndDictionary pcmToDFD(String inputModel, String inputFile, String modelLocation, Class<? extends Plugin> activator) {
-        final var usageModelPath = Paths.get("models", inputModel, inputFile + ".usagemodel").toString();
-        final var allocationPath = Paths.get("models", inputModel, inputFile + ".allocation").toString();
-        final var nodeCharPath = Paths.get("models", inputModel, inputFile + ".nodecharacteristics").toString();
-
+    public DataFlowDiagramAndDictionary pcmToDFD(String modelLocation,String usageModelPath, String allocationPath, String nodeCharPath, Class<? extends Plugin> activator) {
         DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone().modelProjectName(modelLocation)
                 .usePluginActivator(activator).useUsageModel(usageModelPath).useAllocationModel(allocationPath)
+                .useNodeCharacteristicsModel(nodeCharPath).build();
+
+        analysis.initializeAnalysis();
+        var flowGraph = analysis.findFlowGraph();
+        flowGraph.evaluate();
+
+        return processPalladio(flowGraph);
+    }
+    
+    /**
+     * Converts a PCM model into a DataFlowDiagramAndDictionary object.
+     * @param modelLocation Location of the model folder.
+     * @param usageModelPath Location of the usage model.
+     * @param allocationPath Location of the allocation.
+     * @param nodeCharPath Location of the node characteristics. 
+     * @return DataFlowDiagramAndDictionary object representing the converted Palladio model.
+     */
+    public DataFlowDiagramAndDictionary pcmToDFD(String modelLocation,String usageModelPath, String allocationPath, String nodeCharPath) {
+        DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone().modelProjectName(modelLocation)
+                .useUsageModel(usageModelPath).useAllocationModel(allocationPath)
                 .useNodeCharacteristicsModel(nodeCharPath).build();
 
         analysis.initializeAnalysis();

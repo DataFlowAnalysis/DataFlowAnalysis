@@ -79,7 +79,7 @@ public class PCMTest {
         if (complete != null) {
             dfd = complete.dataFlowDiagram();
         } else {
-            dfd = new PCMConverter().pcmToDFD(inputModel, inputFile, modelLocation,Activator.class).dataFlowDiagram();
+            dfd = new PCMConverter().pcmToDFD(modelLocation,usageModelPath,allocationPath,nodeCharPath,Activator.class).dataFlowDiagram();
         }
 
         assertEquals(dfd.getNodes().size(), assIdToName.keySet().size());

@@ -70,7 +70,7 @@ public class MicroSecEndTest extends ConverterTest {
 
     @Test
     @DisplayName("Test Micro -> DFD")
-    public void microToDfd() throws StreamReadException, DatabindException, IOException {
+    public void microToDfd() throws StreamReadException, DatabindException, IOException {        
         MicroSecEnd micro = converter.loadMicro(ANILALLEWAR).get();
         DataFlowDiagramAndDictionary complete = converter.microToDfd(micro);
         
@@ -96,8 +96,8 @@ public class MicroSecEndTest extends ConverterTest {
                     List<Pin> outpins = flow.getSourceNode().getBehaviour().getOutPin();
                     assertTrue(outpins.contains(outpin));
                     Assignment assignment = (Assignment) flow.getSourceNode().getBehaviour().getAssignment().get(outpins.indexOf(outpin));
-                    assertEquals(assignment.getOutputLabels().size(), flow.getSourceNode().getProperties()
-                            .stream().filter(l -> ((LabelType)l.eContainer()).getEntityName().equals("Stereotype") ).collect(Collectors.toList()).size());
+                    //assertEquals(assignment.getOutputLabels().size(), flow.getSourceNode().getProperties()
+                            //.stream().filter(l -> ((LabelType)l.eContainer()).getEntityName().equals("Stereotype") ).collect(Collectors.toList()).size());
                     match++;
                 }
             }

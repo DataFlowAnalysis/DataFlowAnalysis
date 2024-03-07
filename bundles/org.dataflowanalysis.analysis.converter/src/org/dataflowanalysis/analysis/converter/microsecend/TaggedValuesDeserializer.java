@@ -3,6 +3,7 @@ package org.dataflowanalysis.analysis.converter.microsecend;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonParser;
@@ -27,13 +28,20 @@ public class TaggedValuesDeserializer extends JsonDeserializer<Map<String, List<
         ObjectMapper objectMapper = new ObjectMapper();
 
         while (parser.nextToken() != JsonToken.END_OBJECT) {
-            String fieldName = parser.getCurrentName();
+            String fieldName = parser.getCurrentName().trim().replaceAll("[^a-zA-Z0-9]", "");
             parser.nextToken();
 
             if (parser.getCurrentToken() == JsonToken.START_ARRAY) {
                 List<String> values = objectMapper.readValue(parser, new TypeReference<List<String>>() {
                 });
-                result.put(fieldName, values);
+                List<String> sanitizedValues = new ArrayList<>();
+                for(String value:values) {
+                    var sanitizedValue=value.trim().replaceAll("[^a-zA-Z0-9]", "");
+                    if(!sanitizedValue.equals("")) {
+                        sanitizedValues.add(sanitizedValue);
+                    } 
+                }
+                result.put(fieldName, sanitizedValues);
             } else {
                 String singleValue = getValueAsString(parser.readValueAsTree());
                 result.put(fieldName, List.of(singleValue));
@@ -44,6 +52,6 @@ public class TaggedValuesDeserializer extends JsonDeserializer<Map<String, List<
     }
 
     private String getValueAsString(JsonNode node) {
-        return node.isTextual() ? node.asText() : node.toString();
+        return (node.isTextual() ? node.asText() : node.toString()).trim().replaceAll("[^a-zA-Z0-9]", "");
     }
 }

@@ -111,8 +111,17 @@ public class MicroSecEndConverter extends Converter {
         }
         return -1;
     }
+    
+    /**
+     * This function removes everything that is not a number or a letter from the given String
+     * @param input
+     * @return sanatizedString
+     */
+    public String sanitizeString(String input) {
+        return input.trim().replaceAll("[^a-zA-Z0-9]", "");
+    }
 
-    private DataFlowDiagramAndDictionary processMicro(MicroSecEnd micro) {
+    private DataFlowDiagramAndDictionary processMicro(MicroSecEnd micro) {        
         DataFlowDiagram dfd = dfdFactory.createDataFlowDiagram();
         DataDictionary dd = ddFactory.createDataDictionary();
 
@@ -199,8 +208,9 @@ public class MicroSecEndConverter extends Converter {
             flow.setSourcePin(outPin);
             dfd.getFlows().add(flow);
             
-            createLabels(iflow.stereotypes(), dd, stereotype);
-            createTaggedValueLabels(iflow.taggedValues(),dd);
+            Assignment sourceAssignment = (Assignment) source.getBehaviour().getAssignment().get(0);
+            sourceAssignment.getOutputLabels().addAll(createLabels(iflow.stereotypes(), dd, stereotype));
+            sourceAssignment.getOutputLabels().addAll(createTaggedValueLabels(iflow.taggedValues(),dd));
         }
     }
 
@@ -254,6 +264,7 @@ public class MicroSecEndConverter extends Converter {
         }
         return labels;
     }
+    
     private List<Label> createTaggedValueLabels(Map<String, List<String>> taggedValues, DataDictionary dd) {
         List<Label> labels = new ArrayList<>();
         for(String labelTypeName : taggedValues.keySet()) {
@@ -273,5 +284,4 @@ public class MicroSecEndConverter extends Converter {
         }
         return labels;
     }
-
 }

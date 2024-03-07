@@ -35,11 +35,11 @@ public class TaggedValuesDeserializer extends JsonDeserializer<Map<String, List<
                 List<String> values = objectMapper.readValue(parser, new TypeReference<List<String>>() {
                 });
                 List<String> sanitizedValues = new ArrayList<>();
-                for(String value:values) {
-                    var sanitizedValue=value.trim().replaceAll("[^a-zA-Z0-9]", "");
-                    if(!sanitizedValue.equals("")) {
+                for (String value : values) {
+                    var sanitizedValue = value.trim().replaceAll("[^a-zA-Z0-9]", "");
+                    if (!sanitizedValue.equals("")) {
                         sanitizedValues.add(sanitizedValue);
-                    } 
+                    }
                 }
                 result.put(fieldName, sanitizedValues);
             } else {

@@ -128,7 +128,7 @@ public class MicroSecEndConverter extends Converter {
 
         createBehavior(dd, stereotype);
 
-        createFlows(micro, dfd);
+        createFlows(micro, dfd, dd, stereotype);
 
         createNodeAssignments();
 
@@ -180,7 +180,7 @@ public class MicroSecEndConverter extends Converter {
         }
     }
 
-    private void createFlows(MicroSecEnd micro, DataFlowDiagram dfd) {
+    private void createFlows(MicroSecEnd micro, DataFlowDiagram dfd, DataDictionary dd, LabelType stereotype) {
         for (InformationFlow iflow : micro.informationFlows()) {
             var source = nodesMap.get(iflow.sender());
             var dest = nodesMap.get(iflow.receiver());
@@ -198,6 +198,9 @@ public class MicroSecEndConverter extends Converter {
             flow.setDestinationPin(inPin);
             flow.setSourcePin(outPin);
             dfd.getFlows().add(flow);
+            
+            createStereotypeLabels(iflow.stereotypes(), dd, stereotype);
+            createTaggedValueLabels(iflow.taggedValues(),dd);
         }
     }
 

@@ -47,12 +47,21 @@ public class MicroSecEndTest {
 	public void runAnalysis(int variant) {
 		for (AbstractPartialFlowGraph aPFG : flowGraph.getPartialFlowGraphs()) {
             analysis.queryDataFlow(aPFG,node -> {
-                int rule=0;
-                if(hasNodeCharacteristic(node, "Stereotype", "infrastructural") && hasDataCharacteristic(node, "Stereotype", "internal")) {
-                    addToMap(violationsMap,variant,rule,node);
-                    return true;
+                var violation=false;
+                
+                if((hasNodeCharacteristic(node, "Stereotype", "internal") && hasDataCharacteristic(node, "Stereotype", "entrypoint") && !(hasDataCharacteristic(node, "Stereotype", "gateway")))
+                        || (hasNodeCharacteristic(node, "Stereotype", "gateway") && hasDataCharacteristic(node, "Stereotype", "internal"))
+                        || (hasNodeCharacteristic(node, "Stereotype", "configuration_server") && hasDataCharacteristic(node, "Stereotype", "internal"))){
+                    addToMap(violationsMap,variant,1,node);
+                    violation=true;
                 }
-            return false;
+                
+                if(hasDataCharacteristic(node, "Stereotype", "internal")&&!hasDataCharacteristic(node,"Stereotype","authenticated_request")){
+                    addToMap(violationsMap,variant,2,node);
+                    violation=true;
+                }
+                
+            return violation;
         }
       );
         }

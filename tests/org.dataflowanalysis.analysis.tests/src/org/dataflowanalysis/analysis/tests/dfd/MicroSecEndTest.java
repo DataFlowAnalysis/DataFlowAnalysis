@@ -65,6 +65,31 @@ public class MicroSecEndTest {
                     violation=true;
                 }
                 
+                if(hasDataCharacteristic(node, "Stereotype", "internal")&&!hasDataCharacteristic(node,"Stereotype","transform_identity_representation")){
+                    addToMap(violationsMap,variant,4,node);
+                    violation=true;
+                }
+                
+                if(hasDataCharacteristic(node, "Stereotype", "internal")&&!hasDataCharacteristic(node,"Stereotype","token_validation")){
+                    addToMap(violationsMap,variant,5,node);
+                    violation=true;
+                }
+                
+                if(hasDataCharacteristic(node, "Stereotype", "entrypoint")&&!hasDataCharacteristic(node,"Stereotype","encrypted_connection")){
+                    addToMap(violationsMap,variant,7,node);
+                    violation=true;
+                }
+                
+                if(hasDataCharacteristic(node, "Stereotype", "internal")&&!hasDataCharacteristic(node,"Stereotype","encrypted_connection")){
+                    addToMap(violationsMap,variant,8,node);
+                    violation=true;
+                }
+                
+                if(hasNodeCharacteristic(node, "Stereotype", "local_logging")&&!hasNodeCharacteristic(node,"Stereotype","log_sanitization")){
+                    addToMap(violationsMap,variant,11,node);
+                    violation=true;
+                }
+                
             return violation;
         }
       );
@@ -129,17 +154,11 @@ public class MicroSecEndTest {
     }
 	
 	private boolean hasNodeCharacteristic(AbstractVertex<?> node, String type, String value) {
-		if(node.getAllNodeCharacteristics().stream().anyMatch(n -> n.getTypeName().equals(type) && n.getValueName().equals(value))) {
-				return true;
-		}
-		return false;
+	    return node.getAllNodeCharacteristics().stream().anyMatch(n -> n.getTypeName().equals(type) && n.getValueName().equals(value));
 	}
 	
 	private boolean hasDataCharacteristic(AbstractVertex<?> node, String type, String value) {
-		if(node.getAllDataFlowVariables().stream().anyMatch(v -> v.getAllCharacteristics().stream().anyMatch(c -> c.getTypeName().equals(type) && c.getValueName().equals(value)))){
-			return true;
-		}
-		return false;
+		return node.getAllDataFlowVariables().stream().anyMatch(v -> v.getAllCharacteristics().stream().anyMatch(c -> c.getTypeName().equals(type) && c.getValueName().equals(value)));
 	}
 	
 	private void addToMap(Map<Integer, Map<Integer, List<AbstractVertex<?>>>> map, int variant, int rule, AbstractVertex<?> node) {

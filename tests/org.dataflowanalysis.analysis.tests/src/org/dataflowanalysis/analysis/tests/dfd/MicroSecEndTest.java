@@ -6,6 +6,9 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import java.io.File;
 
 import org.dataflowanalysis.analysis.core.*;
@@ -22,6 +25,7 @@ public class MicroSecEndTest {
     private FlowGraph flowGraph;
     private DFDConfidentialityAnalysis analysis;
     private Map<Integer,Map<Integer,List<AbstractVertex<?>>>> violationsMap;
+    private String location="jferrater";
 	
 	public DFDConfidentialityAnalysis buildAnalysis(String name) {
     	var DataFlowDiagramPath = Paths.get(name+".dataflowdiagram");
@@ -69,47 +73,48 @@ public class MicroSecEndTest {
 	
 	@Test
 	public void testConstraints() {
-		List<String> models = getModelNames();
+		List<String> models = getModelNames(location);
 		violationsMap=new HashMap<>();
         for(String model : models) {
             System.out.println(model);
-            initAnalysis(model);
+            initAnalysis(Paths.get(location, model).toString());
             var variant = Integer.parseInt(model.replaceAll(".*\\D+(\\d+)$", "$1"));
         	runAnalysis(variant);
         }
         for(int variant : violationsMap.keySet()) {
             System.out.println("Variant: "+variant);
-            System.out.println("Broken rules: "+violationsMap.get(variant).keySet());
+            System.out.println("Violations: "+violationsMap.get(variant).keySet());
             System.out.println("");
+            assertFalse(violationsMap.get(variant).keySet().contains(variant));
         }
 	}
 	
 	@Test
     public void convertAllToWeb() throws StandaloneInitializationException {
-        List<String> models = getModelNames();
+        List<String> models = getModelNames(location);
         for(String model : models) {
             System.out.println(model);
             var converter = new DataFlowDiagramConverter();
-            var web = converter.dfdToWeb(PROJECT_NAME, model+".dataflowdiagram", model+".datadictionary", Activator.class);
-            converter.storeWeb(web, model+".json");
+            var web = converter.dfdToWeb(PROJECT_NAME, Paths.get(location,model+".dataflowdiagram").toString(), Paths.get(location,model+".datadictionary").toString(), Activator.class);
+            converter.storeWeb(web, Paths.get(location,model+".json").toString());
         }
     }
 	
 	@Test
     public void convertAllToDFD() {
-        List<String> models = getModelNames();
+        List<String> models = getModelNames(location);
         for(String model : models) {
             System.out.println(model);
             var converter = new DataFlowDiagramConverter();
-            var dfd = converter.webToDfd(model+".json");
-            converter.storeDFD(dfd,model);
+            var dfd = converter.webToDfd(Paths.get(location,model+".json").toString());
+            converter.storeDFD(dfd,Paths.get(location,model).toString());
         }
     }
 
-    private List<String> getModelNames() {
+    private List<String> getModelNames(String location) {
         String fileEnding = ".json";
         
-        File directory = new File(".");
+        File directory = new File(location);
         File[] files = directory.listFiles((dir, name) -> name.endsWith(fileEnding));
         List<String> fileNames = new ArrayList<>();
         if (files != null) {

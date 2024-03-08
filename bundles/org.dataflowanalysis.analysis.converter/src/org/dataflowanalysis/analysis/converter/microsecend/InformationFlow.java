@@ -2,6 +2,7 @@ package org.dataflowanalysis.analysis.converter.microsecend;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -21,4 +22,8 @@ public record InformationFlow(String sender,
         List<String> stereotypes,
 
         @JsonProperty("tagged_values") @JsonDeserialize(using = TaggedValuesDeserializer.class) Map<String, List<String>> taggedValues) {
+
+    public InformationFlow {
+        stereotypes = stereotypes.stream().map(stereotype -> stereotype.trim().replaceAll("[^a-zA-Z0-9]", "")).collect(Collectors.toList());
+    }
 }

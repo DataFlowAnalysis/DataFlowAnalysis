@@ -1,14 +1,19 @@
 package org.dataflowanalysis.analysis.pcm.informationflow.core.seff;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
+import org.dataflowanalysis.analysis.core.CharacteristicValue;
+import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.IFConfigurablePCMVertex;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategy;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
+import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
 
@@ -38,6 +43,27 @@ public abstract class AbstractIFCallingSEFFPCMVertex extends CallingSEFFPCMVerte
 
 	public IFPCMExtractionStrategy getExtractionStrategy() {
 		return extractionStrategy;
+	}
+
+	/*
+	 * Same as in AbstractIFSEFFPCMVertex:
+	 */
+	// TODO Less redundant way?
+
+	protected List<VariableCharacterisation> extractStandardVariableCharacterisations() {
+		return new ArrayList<VariableCharacterisation>();
+	}
+
+	@Override
+	protected List<DataFlowVariable> getDataFlowVariables(List<CharacteristicValue> vertexCharacteristics,
+			List<ConfidentialityVariableCharacterisation> variableCharacterisations,
+			List<DataFlowVariable> oldDataFlowVariables) {
+		List<VariableCharacterisation> allVariableCharacterisations = extractStandardVariableCharacterisations();
+		List<ConfidentialityVariableCharacterisation> effectiveVariableCharacterisations = extractionStrategy
+				.calculateEffectiveConfidentialityVariableCharacterisation(allVariableCharacterisations);
+		return super.getDataFlowVariables(vertexCharacteristics, effectiveVariableCharacterisations,
+				oldDataFlowVariables);
+
 	}
 
 }

@@ -1,20 +1,25 @@
 package org.dataflowanalysis.analysis.pcm.informationflow.core.seff;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
+import org.dataflowanalysis.analysis.core.CharacteristicValue;
+import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.seff.SEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.IFConfigurablePCMVertex;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategy;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
+import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 
 public abstract class AbstractIFSEFFPCMVertex<T extends AbstractAction> extends SEFFPCMVertex<T>
 		implements IFConfigurablePCMVertex {
-	
+
 	private boolean considerImplicitFlow;
 	private IFPCMExtractionStrategy extractionStrategy;
 
@@ -23,7 +28,7 @@ public abstract class AbstractIFSEFFPCMVertex<T extends AbstractAction> extends 
 		super(element, previousElements, context, parameter, resourceProvider);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public void setConsiderImplicitFlow(boolean consider) {
 		this.considerImplicitFlow = consider;
 	}
@@ -38,6 +43,54 @@ public abstract class AbstractIFSEFFPCMVertex<T extends AbstractAction> extends 
 
 	public IFPCMExtractionStrategy getExtractionStrategy() {
 		return extractionStrategy;
+	}
+
+	/*
+	 * Assumed sequence of evaluateDataFlow()
+	 */
+
+//	public void evaluateDataFlow() {
+//		List<DataFlowVariable> incoming = getIncomingDataFlowVariables();
+//		modifyIncomingDataFlowVariables(incoming);
+//
+//		List<VariableCharacterisation> variableCharacterisations = extractStandardVariableCharacterisations();
+//		List<ConfidentialityVariableCharacterisation> propagationCharacterisations = extractionStrategy
+//				.calculateEffectiveConfidentialityVariableCharacterisation(variableCharacterisations);
+//
+//		List<DataFlowVariable> outgoing = getDataFlowVariables(getVertexCharacteristics(), propagationCharacterisations,
+//				incoming);
+//		modifyOutgoingDataFlowVariables(outgoing);
+//
+//		setPropagationResult(incoming, outgoing, getVertexCharacteristics());
+//	}
+
+//	protected void modifyIncomingDataFlowVariables(List<DataFlowVariable> incoming) {
+//
+//	}
+
+	protected List<VariableCharacterisation> extractStandardVariableCharacterisations() {
+		return new ArrayList<VariableCharacterisation>();
+	}
+
+//	protected void modifyOutgoingDataFlowVariables(List<DataFlowVariable> outgoing) {
+//
+//	}
+
+	/*
+	 * Quick Entry Points TODO Change the implementation of the vertices in PCM to
+	 * create better extension points
+	 */
+
+	@Override
+	protected List<DataFlowVariable> getDataFlowVariables(List<CharacteristicValue> vertexCharacteristics,
+			List<ConfidentialityVariableCharacterisation> variableCharacterisations,
+			List<DataFlowVariable> oldDataFlowVariables) {
+		List<VariableCharacterisation> allVariableCharacterisations = extractStandardVariableCharacterisations();
+		List<ConfidentialityVariableCharacterisation> effectiveVariableCharacterisations = extractionStrategy
+				.calculateEffectiveConfidentialityVariableCharacterisation(allVariableCharacterisations);
+		return super.getDataFlowVariables(vertexCharacteristics, effectiveVariableCharacterisations,
+				oldDataFlowVariables);
+
 	}
 
 }

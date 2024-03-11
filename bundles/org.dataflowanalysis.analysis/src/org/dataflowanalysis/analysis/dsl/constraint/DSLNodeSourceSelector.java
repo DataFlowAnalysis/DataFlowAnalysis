@@ -6,38 +6,38 @@ import org.dataflowanalysis.analysis.dsl.selectors.NodeCharacteristicsSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexType;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexTypeSelector;
 
-public class FirstDSLNodeSelector {
+public class DSLNodeSourceSelector {
     private final AnalysisConstraint analysisConstraint;
 
-    public FirstDSLNodeSelector(AnalysisConstraint analysisConstraint) {
+    public DSLNodeSourceSelector(AnalysisConstraint analysisConstraint) {
         this.analysisConstraint = analysisConstraint;
     }
 
-    public FirstDSLNodeSelector withCharacteristic(String characteristicType, String characteristicValue) {
+    public DSLNodeSourceSelector withCharacteristic(String characteristicType, String characteristicValue) {
         this.analysisConstraint.addFlowSource(new NodeCharacteristicsSelector(new CharacteristicsSelectorData(characteristicType, characteristicValue)));
         return this;
     }
 
-    public FirstDSLNodeSelector withoutCharacteristic(String characteristicType, String characteristicValue) {
+    public DSLNodeSourceSelector withoutCharacteristic(String characteristicType, String characteristicValue) {
         this.analysisConstraint.addFlowSource(new NodeCharacteristicsSelector(new CharacteristicsSelectorData(characteristicType, characteristicValue), true));
         return this;
     }
 
-    public FirstDSLNodeSelector withType(VertexType vertexType) {
+    public DSLNodeSourceSelector withType(VertexType vertexType) {
         this.analysisConstraint.addFlowSource(new VertexTypeSelector(vertexType));
         return this;
     }
 
-    public FirstDSLNodeSelector withoutType(VertexType vertexType) {
+    public DSLNodeSourceSelector withoutType(VertexType vertexType) {
         this.analysisConstraint.addFlowSource(new VertexTypeSelector(vertexType, true));
         return this;
     }
 
-    public FirstDSLDataSelector ofData() {
-        return new FirstDSLDataSelector(this.analysisConstraint);
+    public DSLDataSourceSelector ofData() {
+        return new DSLDataSourceSelector(this.analysisConstraint);
     }
 
-    public SecondDSLSelector neverFlows() {
-        return new SecondDSLSelector(this.analysisConstraint);
+    public DSLSinkSelector neverFlows() {
+        return new DSLSinkSelector(this.analysisConstraint);
     }
 }

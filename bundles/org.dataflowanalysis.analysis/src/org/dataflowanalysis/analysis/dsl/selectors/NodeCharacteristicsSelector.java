@@ -6,30 +6,24 @@ import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import java.util.List;
 
 public class NodeCharacteristicsSelector extends DataSelector {
-    private final List<CharacteristicsSelectorData> nodeCharacteristics;
+    private final CharacteristicsSelectorData nodeCharacteristic;
     private final boolean inverted;
 
-    public NodeCharacteristicsSelector(List<CharacteristicsSelectorData> nodeCharacteristics) {
-        this.nodeCharacteristics = nodeCharacteristics;
+    public NodeCharacteristicsSelector(CharacteristicsSelectorData nodeCharacteristic) {
+        this.nodeCharacteristic = nodeCharacteristic;
         this.inverted = false;
     }
 
-    public NodeCharacteristicsSelector(List<CharacteristicsSelectorData> nodeCharacteristics, boolean inverted) {
-        this.nodeCharacteristics = nodeCharacteristics;
+    public NodeCharacteristicsSelector(CharacteristicsSelectorData nodeCharacteristic, boolean inverted) {
+        this.nodeCharacteristic = nodeCharacteristic;
         this.inverted = inverted;
     }
 
     @Override
     public boolean matches(AbstractVertex<?> vertex) {
         List<CharacteristicValue> presentCharacteristics = vertex.getAllNodeCharacteristics();
-        if (this.inverted) {
-            return presentCharacteristics.stream()
-                    .noneMatch(it -> this.nodeCharacteristics.stream()
-                            .anyMatch(characteristic -> characteristic.matchesCharacteristic(it)));
-        } else {
-            return presentCharacteristics.stream()
-                    .anyMatch(it -> this.nodeCharacteristics.stream()
-                            .anyMatch(characteristic -> characteristic.matchesCharacteristic(it)));
-        }
+        return this.inverted ?
+                presentCharacteristics.stream().noneMatch(this.nodeCharacteristic::matchesCharacteristic) :
+                presentCharacteristics.stream().anyMatch(this.nodeCharacteristic::matchesCharacteristic);
     }
 }

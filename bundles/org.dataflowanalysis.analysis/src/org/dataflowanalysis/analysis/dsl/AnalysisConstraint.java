@@ -1,6 +1,5 @@
 package org.dataflowanalysis.analysis.dsl;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
@@ -10,8 +9,13 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class AnalysisConstraint {
-    private List<AbstractSelector> flowSource;
-    private List<AbstractSelector> flowDestination;
+    private final List<AbstractSelector> flowSource;
+    private final List<AbstractSelector> flowDestination;
+
+    public AnalysisConstraint() {
+        this.flowSource = new ArrayList<>();
+        this.flowDestination = new ArrayList<>();
+    }
 
     // TODO: Can we look at partial flow graphs independently?
     // TODO: This is a native implementation that does not account for variables

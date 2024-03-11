@@ -7,16 +7,16 @@ import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import java.util.List;
 
 public class DataCharacteristicsSelector extends DataSelector {
-    private final List<CharacteristicsSelectorData> dataCharacteristics;
+    private final CharacteristicsSelectorData dataCharacteristic;
     private final boolean inverted;
 
-    public DataCharacteristicsSelector(List<CharacteristicsSelectorData> dataCharacteristics) {
-        this.dataCharacteristics = dataCharacteristics;
+    public DataCharacteristicsSelector(CharacteristicsSelectorData dataCharacteristic) {
+        this.dataCharacteristic = dataCharacteristic;
         this.inverted = false;
     }
 
-    public DataCharacteristicsSelector(List<CharacteristicsSelectorData> dataCharacteristics, boolean inverted) {
-        this.dataCharacteristics = dataCharacteristics;
+    public DataCharacteristicsSelector(CharacteristicsSelectorData dataCharacteristic, boolean inverted) {
+        this.dataCharacteristic = dataCharacteristic;
         this.inverted = inverted;
     }
 
@@ -25,14 +25,8 @@ public class DataCharacteristicsSelector extends DataSelector {
         List<CharacteristicValue> presentCharacteristics = vertex.getAllIncomingDataFlowVariables().stream()
                 .flatMap(it -> it.characteristics().stream())
                 .toList();
-        if (this.inverted) {
-            return presentCharacteristics.stream()
-                    .noneMatch(it -> this.dataCharacteristics.stream()
-                            .anyMatch(characteristic -> characteristic.matchesCharacteristic(it)));
-        } else {
-            return presentCharacteristics.stream()
-                    .anyMatch(it -> this.dataCharacteristics.stream()
-                            .anyMatch(characteristic -> characteristic.matchesCharacteristic(it)));
-        }
+        return this.inverted ?
+                presentCharacteristics.stream().noneMatch(this.dataCharacteristic::matchesCharacteristic) :
+                presentCharacteristics.stream().anyMatch(this.dataCharacteristic::matchesCharacteristic);
     }
 }

@@ -4,30 +4,28 @@ import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.selectors.CharacteristicsSelectorData;
 import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
 
-import java.util.List;
-
-public class FirstDSLDataSelector {
+public class DSLDataSourceSelector {
     private final AnalysisConstraint analysisConstraint;
 
-    public FirstDSLDataSelector(AnalysisConstraint analysisConstraint) {
+    public DSLDataSourceSelector(AnalysisConstraint analysisConstraint) {
         this.analysisConstraint = analysisConstraint;
     }
 
-    public FirstDSLDataSelector withLabel(String characteristicType, String characteristicValue) {
+    public DSLDataSourceSelector withLabel(String characteristicType, String characteristicValue) {
         this.analysisConstraint.addFlowSource(new DataCharacteristicsSelector(new CharacteristicsSelectorData(characteristicType, characteristicValue)));
         return this;
     }
 
-    public FirstDSLDataSelector withoutLabel(String characteristicType, String characteristicValue) {
+    public DSLDataSourceSelector withoutLabel(String characteristicType, String characteristicValue) {
         this.analysisConstraint.addFlowSource(new DataCharacteristicsSelector(new CharacteristicsSelectorData(characteristicType, characteristicValue), true));
         return this;
     }
 
-    public FirstDSLNodeSelector ofNode() {
-        return new FirstDSLNodeSelector(this.analysisConstraint);
+    public DSLNodeSourceSelector ofNode() {
+        return new DSLNodeSourceSelector(this.analysisConstraint);
     }
 
-    public SecondDSLSelector neverFlows() {
-        return new SecondDSLSelector(this.analysisConstraint);
+    public DSLSinkSelector neverFlows() {
+        return new DSLSinkSelector(this.analysisConstraint);
     }
 }

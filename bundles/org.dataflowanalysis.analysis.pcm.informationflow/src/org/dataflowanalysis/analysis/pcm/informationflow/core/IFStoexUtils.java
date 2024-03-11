@@ -45,7 +45,7 @@ public class IFStoexUtils {
 	 * @param expression the given expression
 	 * @return a List of all Variables used
 	 */
-	public List<CharacterisedVariable> findVariablesInExpression(Expression expression) {
+	public static List<CharacterisedVariable> findVariablesInExpression(Expression expression) {
 		// Explicitly differentiated between atoms for debugging purposes.
 		// (Missing an important element like Parenthesis is more obvious.)
 		if (expression instanceof Variable) {
@@ -85,7 +85,7 @@ public class IFStoexUtils {
 		}
 	}
 
-	private List<CharacterisedVariable> findVariableInVariable(Variable variable) {
+	private static List<CharacterisedVariable> findVariableInVariable(Variable variable) {
 		// Assumes that CharacterisedVariable is the sole implementation of Variable.
 		if (variable instanceof CharacterisedVariable) {
 			var vars = new ArrayList<CharacterisedVariable>();
@@ -99,56 +99,56 @@ public class IFStoexUtils {
 		}
 	}
 
-	private List<CharacterisedVariable> findVariableInNotVariableAtom(Atom atom) {
+	private static List<CharacterisedVariable> findVariableInNotVariableAtom(Atom atom) {
 		return new ArrayList<CharacterisedVariable>();
 	}
 
-	private List<CharacterisedVariable> findVariablesInBooleanOperatorExpression(BooleanOperatorExpression expression) {
+	private static List<CharacterisedVariable> findVariablesInBooleanOperatorExpression(BooleanOperatorExpression expression) {
 		var vars = findVariablesInExpression(expression.getLeft());
 		vars.addAll(findVariablesInExpression(expression.getRight()));
 		return vars;
 	}
 
-	private List<CharacterisedVariable> findVariablesInIfElseExpression(IfElseExpression expression) {
+	private static List<CharacterisedVariable> findVariablesInIfElseExpression(IfElseExpression expression) {
 		var vars = findVariablesInExpression(expression.getConditionExpression());
 		vars.addAll(findVariablesInExpression(expression.getIfExpression()));
 		vars.addAll(findVariablesInExpression(expression.getElseExpression()));
 		return vars;
 	}
 
-	private List<CharacterisedVariable> findVariablesInCompareExpression(CompareExpression expression) {
+	private static List<CharacterisedVariable> findVariablesInCompareExpression(CompareExpression expression) {
 		var vars = findVariablesInExpression(expression.getLeft());
 		vars.addAll(findVariablesInExpression(expression.getRight()));
 		return vars;
 	}
 
-	private List<CharacterisedVariable> findVariablesInTermExpression(TermExpression expression) {
+	private static List<CharacterisedVariable> findVariablesInTermExpression(TermExpression expression) {
 		var vars = findVariablesInExpression(expression.getLeft());
 		vars.addAll(findVariablesInExpression(expression.getRight()));
 		return vars;
 	}
 
-	private List<CharacterisedVariable> findVariablesInProductExpression(ProductExpression expression) {
+	private static List<CharacterisedVariable> findVariablesInProductExpression(ProductExpression expression) {
 		var vars = findVariablesInExpression(expression.getLeft());
 		vars.addAll(findVariablesInExpression(expression.getRight()));
 		return vars;
 	}
 
-	private List<CharacterisedVariable> findVariablesInPowerExpression(PowerExpression expression) {
+	private static List<CharacterisedVariable> findVariablesInPowerExpression(PowerExpression expression) {
 		var vars = findVariablesInExpression(expression.getBase());
 		vars.addAll(findVariablesInExpression(expression.getExponent()));
 		return vars;
 	}
 
-	private List<CharacterisedVariable> findVariablesInNegativeExpression(NegativeExpression expression) {
+	private static List<CharacterisedVariable> findVariablesInNegativeExpression(NegativeExpression expression) {
 		return findVariablesInExpression(expression.getInner());
 	}
 
-	private List<CharacterisedVariable> findVariablesInNotExpression(NotExpression expression) {
+	private static List<CharacterisedVariable> findVariablesInNotExpression(NotExpression expression) {
 		return findVariablesInExpression(expression.getInner());
 	}
 
-	private List<CharacterisedVariable> findVariablesInParenthesis(Parenthesis expression) {
+	private static List<CharacterisedVariable> findVariablesInParenthesis(Parenthesis expression) {
 		return findVariablesInExpression(expression.getInnerExpression());
 	}
 

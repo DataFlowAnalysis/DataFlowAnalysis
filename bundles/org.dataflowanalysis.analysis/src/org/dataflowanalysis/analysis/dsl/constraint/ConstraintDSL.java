@@ -16,11 +16,11 @@ public class ConstraintDSL {
         this.analysisConstraint = new AnalysisConstraint();
     }
 
-    public FirstDSLNodeSelector ofNode() {
-        return new FirstDSLNodeSelector(analysisConstraint);
+    public DSLNodeSourceSelector ofNode() {
+        return new DSLNodeSourceSelector(analysisConstraint);
     }
 
-    public FirstDSLDataSelector ofData() {
-        return new FirstDSLDataSelector(analysisConstraint);
+    public DSLDataSourceSelector ofData() {
+        return new DSLDataSourceSelector(analysisConstraint);
     }
 }

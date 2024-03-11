@@ -4,19 +4,19 @@ import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.selectors.CharacteristicsSelectorData;
 import org.dataflowanalysis.analysis.dsl.selectors.NodeCharacteristicsSelector;
 
-public class SecondDSLNodeSelector {
+public class DSLNodeSinkSelector {
     private final AnalysisConstraint analysisConstraint;
 
-    public SecondDSLNodeSelector(AnalysisConstraint analysisConstraint) {
+    public DSLNodeSinkSelector(AnalysisConstraint analysisConstraint) {
         this.analysisConstraint = analysisConstraint;
     }
 
-    public SecondDSLNodeSelector withCharacteristic(String characteristicType, String characteristicValue) {
+    public DSLNodeSinkSelector withCharacteristic(String characteristicType, String characteristicValue) {
         this.analysisConstraint.addFlowDestination(new NodeCharacteristicsSelector(new CharacteristicsSelectorData(characteristicType, characteristicValue)));
         return this;
     }
 
-    public SecondDSLNodeSelector withoutCharacteristic(String characteristicType, String characteristicValue) {
+    public DSLNodeSinkSelector withoutCharacteristic(String characteristicType, String characteristicValue) {
         this.analysisConstraint.addFlowDestination(new NodeCharacteristicsSelector(new CharacteristicsSelectorData(characteristicType, characteristicValue), true));
         return this;
     }

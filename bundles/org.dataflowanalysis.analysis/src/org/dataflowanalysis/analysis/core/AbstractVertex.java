@@ -127,22 +127,36 @@ public abstract class AbstractVertex<T> {
     /**
      * Returns a list of node characteristic with the given characteristic type
      * <p>
-     * See {@link AbstractVertex#getDataFlowVariablesWithName(String)} for a similar method for data flow variables
+     * See {@link AbstractVertex#getDataFlowVariables(String)} for a similar method for data flow
+     * variables
      * @param characteristicType Name of the characteristic type
      * @return Returns a list of all node characteristics matching the characteristic type
      */
-    public List<CharacteristicValue> getNodeCharacteristicsWithName(String characteristicType) {
-        return this.getAllNodeCharacteristics()
-                .stream()
-                .filter(cv -> cv.getTypeName()
-                        .equals(characteristicType))
+    public List<CharacteristicValue> getNodeCharacteristics(String characteristicType) {
+        return this.getAllNodeCharacteristics().stream()
+                .filter(cv -> cv.getTypeName().equals(characteristicType))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns a list of node characteristic value names with the given characteristic type
+     * <p>
+     * See {@link AbstractVertex#getDataFlowVariableNames(String)} for a similar method for data flow
+     * variables
+     * @param characteristicType Name of the characteristic type
+     * @return Returns a list of all node characteristics matching the characteristic type
+     */
+    public List<String> getNodeCharacteristicNames(String characteristicType) {
+        return this.getAllNodeCharacteristics().stream()
+                .filter(cv -> cv.getTypeName().equals(characteristicType))
+                .map(CharacteristicValue::getValueName)
                 .collect(Collectors.toList());
     }
 
     /**
      * Returns a list of data flow variables with the given name
      * <p>
-     * See {@link AbstractVertex#getNodeCharacteristicsWithName(String)} for a similar method for node characteristics
+     * See {@link AbstractVertex#getNodeCharacteristics(String)} for a similar method for node characteristics
      * @param dataFlowVariable Name of the data flow variable
      * @return Returns a list of all data flow variables with the given name
      */
@@ -153,13 +167,44 @@ public abstract class AbstractVertex<T> {
     }
 
     /**
+     * Returns a list of data flow variable names with the given name
+     * <p>
+     * See {@link AbstractVertex#getNodeCharacteristicNames(String)} for a similar method for node characteristics
+     * @param dataFlowVariable Name of the data flow variable
+     * @return Returns a list of all data flow variables with the given name
+     */
+    public List<String> getDataFlowVariableNames(String dataFlowVariable) {
+        return this.getAllIncomingDataFlowVariables().stream()
+                .map(DataFlowVariable::variableName)
+                .filter(s -> s.equals(dataFlowVariable))
+                .collect(Collectors.toList());
+    }
+
+    /**
      * Returns a map containing the data flow characteristics with the given characteristic type for each data flow variable
+     * <p>
+     * To get the characteristic value names for the data flow variables use {@link AbstractVertex#getDataFlowCharacteristicNames(String)}
      * @param characteristicType Name of the characteristic type
      * @return Returns a map with data flow characteristics with the given name for each data flow variable
      */
     public Map<String, List<CharacteristicValue>> getDataFlowCharacteristicsWithName(String characteristicType) {
         return this.getAllIncomingDataFlowVariables().stream()
                 .collect(Collectors.toMap(DataFlowVariable::variableName, it -> it.getCharacteristicsWithName(characteristicType)));
+    }
+
+    /**
+     * Returns a map containing the data flow characteristics with the given characteristic type for each data flow variable
+     * <p>
+     * To get the characteristic values for the data flow variables use {@link AbstractVertex#getDataFlowCharacteristics(String)}
+     * @param characteristicType Name of the characteristic type
+     * @return Returns a map with data flow characteristics with the given name for each data flow variable
+     */
+    public Map<String, List<String>> getDataFlowCharacteristicNames(String characteristicType) {
+        return this.getAllIncomingDataFlowVariables().stream()
+                .collect(Collectors.toMap(DataFlowVariable::variableName,
+                        it -> it.getCharacteristicsWithName(characteristicType).stream()
+                                .map(CharacteristicValue::getValueName)
+                                .toList()));
     }
 
     /**

@@ -1,6 +1,9 @@
 package org.dataflowanalysis.analysis.pcm.core;
 
+import java.util.IdentityHashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 
@@ -34,10 +37,14 @@ public class PCMPartialFlowGraph extends AbstractPartialFlowGraph {
         return (AbstractPCMVertex<?>) this.sink;
     }
 
-    public PCMPartialFlowGraph deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
-        AbstractPCMVertex<?> pcmSink = (AbstractPCMVertex<?>) this.sink;
+    @Override
+    public PCMPartialFlowGraph copy() {
+        return this.copy(new IdentityHashMap<>());
+    }
 
-        AbstractPCMVertex<?> clonedSink = pcmSink.deepCopy(vertexMapping);
+    public PCMPartialFlowGraph copy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
+        AbstractPCMVertex<?> pcmSink = (AbstractPCMVertex<?>) this.sink;
+        AbstractPCMVertex<?> clonedSink = pcmSink.copy(vertexMapping);
 
         return new PCMPartialFlowGraph(clonedSink);
     }

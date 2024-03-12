@@ -33,7 +33,7 @@ public class DFDPartialFlowGraph extends AbstractPartialFlowGraph {
     }
 
     @Override
-    public AbstractPartialFlowGraph copy(Map<? extends AbstractVertex<?>, ? extends AbstractVertex<?>> vertexMapping) {
+    public AbstractPartialFlowGraph copy() {
         DFDVertex copiedSink = ((DFDVertex) sink).clone();
         copiedSink.unify(new HashSet<>());
         return new DFDPartialFlowGraph(copiedSink);

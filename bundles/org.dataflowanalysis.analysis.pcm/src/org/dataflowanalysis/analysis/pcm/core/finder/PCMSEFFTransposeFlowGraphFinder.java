@@ -137,7 +137,7 @@ public class PCMSEFFTransposeFlowGraphFinder {
                 .map(PCMQueryUtils::getFirstStartActionInActionList)
                 .flatMap(Optional::stream)
                 .map(it -> {
-                    Map<AbstractVertex<?>, AbstractVertex<?>> vertexMapping = new IdentityHashMap<>();
+                    Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping = new IdentityHashMap<>();
                     PCMPartialFlowGraph clonedPartialFlowGraph = this.currentPartialFlowGraph.copy(vertexMapping);
                     SEFFFinderContext clonedContext = new SEFFFinderContext(context);
                     clonedContext.replaceCallers(vertexMapping);

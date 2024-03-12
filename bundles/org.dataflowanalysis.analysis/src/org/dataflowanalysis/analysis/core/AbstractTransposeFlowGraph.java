@@ -30,7 +30,7 @@ public abstract class AbstractTransposeFlowGraph {
      * The references of vertices to the model elements will remain identical
      * @return Returns a copy of the partial flow graph
      */
-    public abstract AbstractPartialFlowGraph copy(Map<? extends AbstractVertex<?>, ? extends AbstractVertex<?>> vertexMapping);
+    public abstract AbstractPartialFlowGraph copy();
 
     /**
      * Returns the sink that induces the partial flow graph

@@ -91,7 +91,7 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
     }
 
     @Override
-    public AbstractPCMVertex<?> deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
+    public AbstractPCMVertex<?> copy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
         if (vertexMapping.get(this) != null) {
             return vertexMapping.get(this);
         }

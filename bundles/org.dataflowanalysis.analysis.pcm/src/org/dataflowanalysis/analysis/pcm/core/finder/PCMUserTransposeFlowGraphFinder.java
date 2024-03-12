@@ -88,7 +88,7 @@ public class PCMUserTransposeFlowGraphFinder {
                 .map(PCMQueryUtils::getStartActionOfScenarioBehavior)
                 .flatMap(Optional::stream)
                 .map(it -> {
-                    Map<AbstractVertex<?>, AbstractVertex<?>> vertexMapping = new IdentityHashMap<>();
+                    Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping = new IdentityHashMap<>();
                     PCMPartialFlowGraph clonedSequence = this.currentPartialFlowGraph.copy(vertexMapping);
                     return new PCMUserPartialFlowGraphFinder(this.resourceProvider, clonedSequence).findSequencesForUserAction(it);
                 })

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://www.example.org/dataflowdiagram" id="_PUCT0OBNEe6EAJ2dR7ulVw">
+  <flows id="_PUCUOeBNEe6EAJ2dR7ulVw" entityName="github_repository" sourceNode="_PUCT0uBNEe6EAJ2dR7ulVw" destinationNode="_PUCT1-BNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUOuBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUO-BNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUPeBNEe6EAJ2dR7ulVw" entityName="config_service" sourceNode="_PUCT1-BNEe6EAJ2dR7ulVw" destinationNode="_PUCT2OBNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUPuBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUP-BNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUQOBNEe6EAJ2dR7ulVw" entityName="movie_service" sourceNode="_PUCT2eBNEe6EAJ2dR7ulVw" destinationNode="_PUCT2OBNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUQeBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUQuBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUQ-BNEe6EAJ2dR7ulVw" entityName="config_service" sourceNode="_PUCT1-BNEe6EAJ2dR7ulVw" destinationNode="_PUCT2eBNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUROBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUReBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCURuBNEe6EAJ2dR7ulVw" entityName="database_movie_service" sourceNode="_PUCT0-BNEe6EAJ2dR7ulVw" destinationNode="_PUCT2eBNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUR-BNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUSOBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUSuBNEe6EAJ2dR7ulVw" entityName="user_service" sourceNode="_PUCT2uBNEe6EAJ2dR7ulVw" destinationNode="_PUCT2OBNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUS-BNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUTOBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUTeBNEe6EAJ2dR7ulVw" entityName="config_service" sourceNode="_PUCT1-BNEe6EAJ2dR7ulVw" destinationNode="_PUCT2uBNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUTuBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUT-BNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUUOBNEe6EAJ2dR7ulVw" entityName="database_user_service" sourceNode="_PUCT1OBNEe6EAJ2dR7ulVw" destinationNode="_PUCT2uBNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUUeBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUUuBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUVOBNEe6EAJ2dR7ulVw" entityName="recommendation_service" sourceNode="_PUCT2-BNEe6EAJ2dR7ulVw" destinationNode="_PUCT2OBNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUVeBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUVuBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUV-BNEe6EAJ2dR7ulVw" entityName="config_service" sourceNode="_PUCT1-BNEe6EAJ2dR7ulVw" destinationNode="_PUCT2-BNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUWOBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUWeBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUWuBNEe6EAJ2dR7ulVw" entityName="database_recommendation_service" sourceNode="_PUCT1eBNEe6EAJ2dR7ulVw" destinationNode="_PUCT2-BNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUW-BNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUXOBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUXeBNEe6EAJ2dR7ulVw" entityName="eureka_service" sourceNode="_PUCT2OBNEe6EAJ2dR7ulVw" destinationNode="_PUCT3OBNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUXuBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUX-BNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUYOBNEe6EAJ2dR7ulVw" entityName="user" sourceNode="_PUCT1uBNEe6EAJ2dR7ulVw" destinationNode="_PUCT3OBNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUYeBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUYuBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUY-BNEe6EAJ2dR7ulVw" entityName="recommendation_client" sourceNode="_PUCT3OBNEe6EAJ2dR7ulVw" destinationNode="_PUCT1uBNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUZOBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUZeBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUZuBNEe6EAJ2dR7ulVw" entityName="config_service" sourceNode="_PUCT1-BNEe6EAJ2dR7ulVw" destinationNode="_PUCT3OBNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUZ-BNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUaOBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUaeBNEe6EAJ2dR7ulVw" entityName="recommendation_client" sourceNode="_PUCT3OBNEe6EAJ2dR7ulVw" destinationNode="_PUCT2-BNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUauBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUa-BNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUb-BNEe6EAJ2dR7ulVw" entityName="recommendation_client" sourceNode="_PUCT3OBNEe6EAJ2dR7ulVw" destinationNode="_PUCT2eBNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUcOBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUceBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUcuBNEe6EAJ2dR7ulVw" entityName="recommendation_client" sourceNode="_PUCT3OBNEe6EAJ2dR7ulVw" destinationNode="_PUCT2uBNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUc-BNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUdOBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUdeBNEe6EAJ2dR7ulVw" entityName="config_service" sourceNode="_PUCT1-BNEe6EAJ2dR7ulVw" destinationNode="_PUCT3eBNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUduBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUd-BNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUeOBNEe6EAJ2dR7ulVw" entityName="eureka_service" sourceNode="_PUCT2OBNEe6EAJ2dR7ulVw" destinationNode="_PUCT3eBNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUeeBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUeuBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUe-BNEe6EAJ2dR7ulVw" entityName="movie_service" sourceNode="_PUCT2eBNEe6EAJ2dR7ulVw" destinationNode="_PUCT3eBNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUfOBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUfeBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUfuBNEe6EAJ2dR7ulVw" entityName="user_service" sourceNode="_PUCT2uBNEe6EAJ2dR7ulVw" destinationNode="_PUCT3eBNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUf-BNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUgOBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUgeBNEe6EAJ2dR7ulVw" entityName="recommendation_service" sourceNode="_PUCT2-BNEe6EAJ2dR7ulVw" destinationNode="_PUCT3eBNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUguBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUg-BNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PUCUhOBNEe6EAJ2dR7ulVw" entityName="recommendation_client" sourceNode="_PUCT3OBNEe6EAJ2dR7ulVw" destinationNode="_PUCT3eBNEe6EAJ2dR7ulVw">
+    <destinationPin href="mdeket_6.datadictionary#_PUCUheBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="mdeket_6.datadictionary#_PUCUhuBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:External" id="_PUCT0uBNEe6EAJ2dR7ulVw" entityName="github_repository">
+    <behaviour href="mdeket_6.datadictionary#_PUCUKeBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUK-BNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUDOBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCULeBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="_PUCT0-BNEe6EAJ2dR7ulVw" entityName="database_movie_service">
+    <behaviour href="mdeket_6.datadictionary#_PUCULuBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUDOBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUC-BNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUDeBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="_PUCT1OBNEe6EAJ2dR7ulVw" entityName="database_user_service">
+    <behaviour href="mdeket_6.datadictionary#_PUCUH-BNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUDOBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUC-BNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUDeBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUDuBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUIeBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUIuBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUI-BNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUFeBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="_PUCT1eBNEe6EAJ2dR7ulVw" entityName="database_recommendation_service">
+    <behaviour href="mdeket_6.datadictionary#_PUCUCeBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUC-BNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUDOBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUDeBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUDuBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUEOBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUEeBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUE-BNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUFeBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="_PUCT1uBNEe6EAJ2dR7ulVw" entityName="user">
+    <behaviour href="mdeket_6.datadictionary#_PUCUNuBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUOOBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUDOBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUC-BNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PUCT1-BNEe6EAJ2dR7ulVw" entityName="config_service">
+    <behaviour href="mdeket_6.datadictionary#_PUCUMOBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUMuBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT6uBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUM-BNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUNeBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PUCT2OBNEe6EAJ2dR7ulVw" entityName="eureka_service">
+    <behaviour href="mdeket_6.datadictionary#_PUCT5-BNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT6eBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT6uBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT6-BNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT7eBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PUCT2eBNEe6EAJ2dR7ulVw" entityName="movie_service">
+    <behaviour href="mdeket_6.datadictionary#_PUCUJOBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT4eBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT_uBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUJuBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUJ-BNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUAeBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUKOBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PUCT2uBNEe6EAJ2dR7ulVw" entityName="user_service">
+    <behaviour href="mdeket_6.datadictionary#_PUCT3-BNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT4eBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT4-BNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT5OBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT5uBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PUCT2-BNEe6EAJ2dR7ulVw" entityName="recommendation_service">
+    <behaviour href="mdeket_6.datadictionary#_PUCUFuBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT4eBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUGOBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUGeBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUGuBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUG-BNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUHOBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT_eBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUHeBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUHuBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PUCT3OBNEe6EAJ2dR7ulVw" entityName="recommendation_client">
+    <behaviour href="mdeket_6.datadictionary#_PUCT8uBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT9OBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT9eBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT9uBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT6uBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT9-BNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT-OBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT-uBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT5OBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT--BNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT4-BNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT_OBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT_eBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT_uBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT_-BNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUAOBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUAeBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUA-BNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUBeBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUBuBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCUCOBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PUCT3eBNEe6EAJ2dR7ulVw" entityName="authorization_server">
+    <behaviour href="mdeket_6.datadictionary#_PUCT7uBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT6uBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT8OBNEe6EAJ2dR7ulVw"/>
+    <properties href="mdeket_6.datadictionary#_PUCT8eBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

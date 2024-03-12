@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://www.example.org/dataflowdiagram" id="_PTycMOBNEe6EAJ2dR7ulVw">
+  <flows id="_PTycX-BNEe6EAJ2dR7ulVw" entityName="ratings_data_service" sourceNode="_PTycNOBNEe6EAJ2dR7ulVw" destinationNode="_PTycM-BNEe6EAJ2dR7ulVw">
+    <destinationPin href="koushikkothagal_4.datadictionary#_PTycYOBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="koushikkothagal_4.datadictionary#_PTycYeBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PTycY-BNEe6EAJ2dR7ulVw" entityName="movie_info_service" sourceNode="_PTycNeBNEe6EAJ2dR7ulVw" destinationNode="_PTycM-BNEe6EAJ2dR7ulVw">
+    <destinationPin href="koushikkothagal_4.datadictionary#_PTycZOBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="koushikkothagal_4.datadictionary#_PTycZeBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PTycZuBNEe6EAJ2dR7ulVw" entityName="external_website" sourceNode="_PTycMuBNEe6EAJ2dR7ulVw" destinationNode="_PTycNeBNEe6EAJ2dR7ulVw">
+    <destinationPin href="koushikkothagal_4.datadictionary#_PTycZ-BNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="koushikkothagal_4.datadictionary#_PTycaOBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PTycaeBNEe6EAJ2dR7ulVw" entityName="movie_catalog_service" sourceNode="_PTycNuBNEe6EAJ2dR7ulVw" destinationNode="_PTycM-BNEe6EAJ2dR7ulVw">
+    <destinationPin href="koushikkothagal_4.datadictionary#_PTycauBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="koushikkothagal_4.datadictionary#_PTyca-BNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PTycbeBNEe6EAJ2dR7ulVw" entityName="movie_catalog_service" sourceNode="_PTycNuBNEe6EAJ2dR7ulVw" destinationNode="_PTycNOBNEe6EAJ2dR7ulVw">
+    <destinationPin href="koushikkothagal_4.datadictionary#_PTycbuBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="koushikkothagal_4.datadictionary#_PTycb-BNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PTyccOBNEe6EAJ2dR7ulVw" entityName="movie_catalog_service" sourceNode="_PTycNuBNEe6EAJ2dR7ulVw" destinationNode="_PTycNeBNEe6EAJ2dR7ulVw">
+    <destinationPin href="koushikkothagal_4.datadictionary#_PTycceBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="koushikkothagal_4.datadictionary#_PTyccuBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PTycc-BNEe6EAJ2dR7ulVw" entityName="gateway" sourceNode="_PTycN-BNEe6EAJ2dR7ulVw" destinationNode="_PTycNeBNEe6EAJ2dR7ulVw">
+    <destinationPin href="koushikkothagal_4.datadictionary#_PTycdOBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="koushikkothagal_4.datadictionary#_PTycdeBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PTycduBNEe6EAJ2dR7ulVw" entityName="gateway" sourceNode="_PTycN-BNEe6EAJ2dR7ulVw" destinationNode="_PTycNOBNEe6EAJ2dR7ulVw">
+    <destinationPin href="koushikkothagal_4.datadictionary#_PTycd-BNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="koushikkothagal_4.datadictionary#_PTyceOBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PTyceeBNEe6EAJ2dR7ulVw" entityName="gateway" sourceNode="_PTycN-BNEe6EAJ2dR7ulVw" destinationNode="_PTycNuBNEe6EAJ2dR7ulVw">
+    <destinationPin href="koushikkothagal_4.datadictionary#_PTyceuBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="koushikkothagal_4.datadictionary#_PTyce-BNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:External" id="_PTycMuBNEe6EAJ2dR7ulVw" entityName="external_website">
+    <behaviour href="koushikkothagal_4.datadictionary#_PTycSeBNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycS-BNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycTeBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PTycM-BNEe6EAJ2dR7ulVw" entityName="discovery_server">
+    <behaviour href="koushikkothagal_4.datadictionary#_PTycTuBNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycUOBNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycUeBNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycUuBNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycVOBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PTycNOBNEe6EAJ2dR7ulVw" entityName="ratings_data_service">
+    <behaviour href="koushikkothagal_4.datadictionary#_PTycVeBNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycO-BNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycV-BNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycWOBNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycWeBNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycWuBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PTycNeBNEe6EAJ2dR7ulVw" entityName="movie_info_service">
+    <behaviour href="koushikkothagal_4.datadictionary#_PTycOeBNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycO-BNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycPeBNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycPuBNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycQOBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PTycNuBNEe6EAJ2dR7ulVw" entityName="movie_catalog_service">
+    <behaviour href="koushikkothagal_4.datadictionary#_PTycQeBNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycO-BNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycQ-BNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycROBNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycReBNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycRuBNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycSOBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PTycN-BNEe6EAJ2dR7ulVw" entityName="gateway">
+    <behaviour href="koushikkothagal_4.datadictionary#_PTycW-BNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycUOBNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycXeBNEe6EAJ2dR7ulVw"/>
+    <properties href="koushikkothagal_4.datadictionary#_PTycXuBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

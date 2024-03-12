@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://www.example.org/dataflowdiagram" id="_PSLSoOBNEe6EAJ2dR7ulVw">
+  <flows id="_PSLTHuBNEe6EAJ2dR7ulVw" entityName="elasticsearch" sourceNode="_PSLSpOBNEe6EAJ2dR7ulVw" destinationNode="_PSLSpeBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTH-BNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTIOBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTIuBNEe6EAJ2dR7ulVw" entityName="logstash" sourceNode="_PSLSpuBNEe6EAJ2dR7ulVw" destinationNode="_PSLSpOBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTI-BNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTJOBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTJeBNEe6EAJ2dR7ulVw" entityName="github_repository" sourceNode="_PSLSouBNEe6EAJ2dR7ulVw" destinationNode="_PSLSqeBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTJuBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTJ-BNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTKOBNEe6EAJ2dR7ulVw" entityName="config_server" sourceNode="_PSLSqeBNEe6EAJ2dR7ulVw" destinationNode="_PSLSqOBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTKeBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTKuBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTLeBNEe6EAJ2dR7ulVw" entityName="config_server" sourceNode="_PSLSqeBNEe6EAJ2dR7ulVw" destinationNode="_PSLSp-BNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTLuBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTL-BNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTMOBNEe6EAJ2dR7ulVw" entityName="config_server" sourceNode="_PSLSqeBNEe6EAJ2dR7ulVw" destinationNode="_PSLSquBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTMeBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTMuBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTM-BNEe6EAJ2dR7ulVw" entityName="config_server" sourceNode="_PSLSqeBNEe6EAJ2dR7ulVw" destinationNode="_PSLSq-BNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTNOBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTNeBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTNuBNEe6EAJ2dR7ulVw" entityName="monitor_dashboard" sourceNode="_PSLSq-BNEe6EAJ2dR7ulVw" destinationNode="_PSLSqOBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTN-BNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTOOBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTOeBNEe6EAJ2dR7ulVw" entityName="rabbitmq" sourceNode="_PSLSp-BNEe6EAJ2dR7ulVw" destinationNode="_PSLSrOBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTOuBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTO-BNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTPOBNEe6EAJ2dR7ulVw" entityName="turbine_server" sourceNode="_PSLSrOBNEe6EAJ2dR7ulVw" destinationNode="_PSLSqOBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTPeBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTPuBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTP-BNEe6EAJ2dR7ulVw" entityName="config_server" sourceNode="_PSLSqeBNEe6EAJ2dR7ulVw" destinationNode="_PSLSrOBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTQOBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTQeBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTQuBNEe6EAJ2dR7ulVw" entityName="turbine_server" sourceNode="_PSLSrOBNEe6EAJ2dR7ulVw" destinationNode="_PSLSq-BNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTQ-BNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTROBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTReBNEe6EAJ2dR7ulVw" entityName="rabbitmq" sourceNode="_PSLSp-BNEe6EAJ2dR7ulVw" destinationNode="_PSLSreBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTRuBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTR-BNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTSOBNEe6EAJ2dR7ulVw" entityName="config_server" sourceNode="_PSLSqeBNEe6EAJ2dR7ulVw" destinationNode="_PSLSruBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTSeBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTSuBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTS-BNEe6EAJ2dR7ulVw" entityName="product_service" sourceNode="_PSLSruBNEe6EAJ2dR7ulVw" destinationNode="_PSLSqOBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTTOBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTTeBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTTuBNEe6EAJ2dR7ulVw" entityName="config_server" sourceNode="_PSLSqeBNEe6EAJ2dR7ulVw" destinationNode="_PSLSr-BNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTT-BNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTUOBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTUeBNEe6EAJ2dR7ulVw" entityName="recommendation_service" sourceNode="_PSLSr-BNEe6EAJ2dR7ulVw" destinationNode="_PSLSqOBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTUuBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTU-BNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTVOBNEe6EAJ2dR7ulVw" entityName="config_server" sourceNode="_PSLSqeBNEe6EAJ2dR7ulVw" destinationNode="_PSLSsOBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTVeBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTVuBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTV-BNEe6EAJ2dR7ulVw" entityName="review_service" sourceNode="_PSLSsOBNEe6EAJ2dR7ulVw" destinationNode="_PSLSqOBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTWOBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTWeBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTWuBNEe6EAJ2dR7ulVw" entityName="config_server" sourceNode="_PSLSqeBNEe6EAJ2dR7ulVw" destinationNode="_PSLSseBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTW-BNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTXOBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTXeBNEe6EAJ2dR7ulVw" entityName="auth_server" sourceNode="_PSLSquBNEe6EAJ2dR7ulVw" destinationNode="_PSLSseBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTXuBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTX-BNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTYOBNEe6EAJ2dR7ulVw" entityName="composite_service" sourceNode="_PSLSseBNEe6EAJ2dR7ulVw" destinationNode="_PSLSqOBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTYeBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTYuBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTZeBNEe6EAJ2dR7ulVw" entityName="composite_service" sourceNode="_PSLSseBNEe6EAJ2dR7ulVw" destinationNode="_PSLSp-BNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTZuBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTZ-BNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTaOBNEe6EAJ2dR7ulVw" entityName="composite_service" sourceNode="_PSLSseBNEe6EAJ2dR7ulVw" destinationNode="_PSLSruBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTaeBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTauBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTa-BNEe6EAJ2dR7ulVw" entityName="composite_service" sourceNode="_PSLSseBNEe6EAJ2dR7ulVw" destinationNode="_PSLSr-BNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTbOBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTbeBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTbuBNEe6EAJ2dR7ulVw" entityName="composite_service" sourceNode="_PSLSseBNEe6EAJ2dR7ulVw" destinationNode="_PSLSsOBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTb-BNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTcOBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTceBNEe6EAJ2dR7ulVw" entityName="user" sourceNode="_PSLSo-BNEe6EAJ2dR7ulVw" destinationNode="_PSLSsuBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTcuBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTc-BNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTdOBNEe6EAJ2dR7ulVw" entityName="user" sourceNode="_PSLSo-BNEe6EAJ2dR7ulVw" destinationNode="_PSLSquBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTdeBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTduBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTd-BNEe6EAJ2dR7ulVw" entityName="edge_server" sourceNode="_PSLSsuBNEe6EAJ2dR7ulVw" destinationNode="_PSLSseBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTeOBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTeeBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTeuBNEe6EAJ2dR7ulVw" entityName="discovery_server" sourceNode="_PSLSqOBNEe6EAJ2dR7ulVw" destinationNode="_PSLSsuBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTe-BNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTfOBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTfeBNEe6EAJ2dR7ulVw" entityName="config_server" sourceNode="_PSLSqeBNEe6EAJ2dR7ulVw" destinationNode="_PSLSsuBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTfuBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTf-BNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTgOBNEe6EAJ2dR7ulVw" entityName="edge_server" sourceNode="_PSLSsuBNEe6EAJ2dR7ulVw" destinationNode="_PSLSquBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTgeBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTguBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTg-BNEe6EAJ2dR7ulVw" entityName="discovery_server" sourceNode="_PSLSqOBNEe6EAJ2dR7ulVw" destinationNode="_PSLSpuBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLThOBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTheBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLThuBNEe6EAJ2dR7ulVw" entityName="config_server" sourceNode="_PSLSqeBNEe6EAJ2dR7ulVw" destinationNode="_PSLSpuBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTh-BNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTiOBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTieBNEe6EAJ2dR7ulVw" entityName="auth_server" sourceNode="_PSLSquBNEe6EAJ2dR7ulVw" destinationNode="_PSLSpuBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTiuBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTi-BNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTjOBNEe6EAJ2dR7ulVw" entityName="product_service" sourceNode="_PSLSruBNEe6EAJ2dR7ulVw" destinationNode="_PSLSpuBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTjeBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTjuBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTj-BNEe6EAJ2dR7ulVw" entityName="recommendation_service" sourceNode="_PSLSr-BNEe6EAJ2dR7ulVw" destinationNode="_PSLSpuBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTkOBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTkeBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTkuBNEe6EAJ2dR7ulVw" entityName="review_service" sourceNode="_PSLSsOBNEe6EAJ2dR7ulVw" destinationNode="_PSLSpuBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTk-BNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTlOBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTleBNEe6EAJ2dR7ulVw" entityName="composite_service" sourceNode="_PSLSseBNEe6EAJ2dR7ulVw" destinationNode="_PSLSpuBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTluBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTl-BNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTmOBNEe6EAJ2dR7ulVw" entityName="monitor_dashboard" sourceNode="_PSLSq-BNEe6EAJ2dR7ulVw" destinationNode="_PSLSpuBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTmeBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTmuBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTm-BNEe6EAJ2dR7ulVw" entityName="edge_server" sourceNode="_PSLSsuBNEe6EAJ2dR7ulVw" destinationNode="_PSLSpuBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTnOBNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLTneBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <flows id="_PSLTnuBNEe6EAJ2dR7ulVw" entityName="zipkin_server" sourceNode="_PSLSreBNEe6EAJ2dR7ulVw" destinationNode="_PSLSpuBNEe6EAJ2dR7ulVw">
+    <destinationPin href="callistaenterprise.datadictionary#_PSLTn-BNEe6EAJ2dR7ulVw"/>
+    <sourcePin href="callistaenterprise.datadictionary#_PSLToOBNEe6EAJ2dR7ulVw"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:External" id="_PSLSouBNEe6EAJ2dR7ulVw" entityName="github_repository">
+    <behaviour href="callistaenterprise.datadictionary#_PSLTBuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLTCOBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLTCuBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="_PSLSo-BNEe6EAJ2dR7ulVw" entityName="user">
+    <behaviour href="callistaenterprise.datadictionary#_PSLTD-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLTEeBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PSLSpOBNEe6EAJ2dR7ulVw" entityName="elasticsearch">
+    <behaviour href="callistaenterprise.datadictionary#_PSLS2eBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLStuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS2-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS3eBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS3uBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PSLSpeBNEe6EAJ2dR7ulVw" entityName="kibana">
+    <behaviour href="callistaenterprise.datadictionary#_PSLTC-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLStuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS4eBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLTDeBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLTDuBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PSLSpuBNEe6EAJ2dR7ulVw" entityName="logstash">
+    <behaviour href="callistaenterprise.datadictionary#_PSLS0-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLStuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS1eBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS1uBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS2OBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PSLSp-BNEe6EAJ2dR7ulVw" entityName="rabbitmq">
+    <behaviour href="callistaenterprise.datadictionary#_PSLSyuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLStuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSzOBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSzuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSz-BNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PSLSqOBNEe6EAJ2dR7ulVw" entityName="discovery_server">
+    <behaviour href="callistaenterprise.datadictionary#_PSLS8-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLStuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS9eBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS9uBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS-OBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS-eBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS--BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS_eBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PSLSqeBNEe6EAJ2dR7ulVw" entityName="config_server">
+    <behaviour href="callistaenterprise.datadictionary#_PSLS7eBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLStuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS7-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSv-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS8OBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS8uBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PSLSquBNEe6EAJ2dR7ulVw" entityName="auth_server">
+    <behaviour href="callistaenterprise.datadictionary#_PSLTEuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLStuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLTFOBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS6eBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSv-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS9uBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLTFeBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLTF-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLTGOBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLTGeBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLTGuBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PSLSq-BNEe6EAJ2dR7ulVw" entityName="monitor_dashboard">
+    <behaviour href="callistaenterprise.datadictionary#_PSLS3-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLStuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS4eBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSv-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS4-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS5OBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PSLSrOBNEe6EAJ2dR7ulVw" entityName="turbine_server">
+    <behaviour href="callistaenterprise.datadictionary#_PSLSxOBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLStuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSxuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSv-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSx-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSyeBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PSLSreBNEe6EAJ2dR7ulVw" entityName="zipkin_server">
+    <behaviour href="callistaenterprise.datadictionary#_PSLStOBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLStuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSt-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSueBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSu-BNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PSLSruBNEe6EAJ2dR7ulVw" entityName="product_service">
+    <behaviour href="callistaenterprise.datadictionary#_PSLTG-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSvuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSv-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLTHeBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSwuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSw-BNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PSLSr-BNEe6EAJ2dR7ulVw" entityName="recommendation_service">
+    <behaviour href="callistaenterprise.datadictionary#_PSLSvOBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSvuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSv-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSweBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSwuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSw-BNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PSLSsOBNEe6EAJ2dR7ulVw" entityName="review_service">
+    <behaviour href="callistaenterprise.datadictionary#_PSLS0OBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSvuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSv-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS0uBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSwuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSw-BNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PSLSseBNEe6EAJ2dR7ulVw" entityName="composite_service">
+    <behaviour href="callistaenterprise.datadictionary#_PSLS5eBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSvuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSv-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS5-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS6OBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS6eBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS6uBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSw-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS7OBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="_PSLSsuBNEe6EAJ2dR7ulVw" entityName="edge_server">
+    <behaviour href="callistaenterprise.datadictionary#_PSLS_uBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLStuBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLTAOBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS6eBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLSv-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS6OBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLS5-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLTAeBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLTA-BNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLTBOBNEe6EAJ2dR7ulVw"/>
+    <properties href="callistaenterprise.datadictionary#_PSLTBeBNEe6EAJ2dR7ulVw"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

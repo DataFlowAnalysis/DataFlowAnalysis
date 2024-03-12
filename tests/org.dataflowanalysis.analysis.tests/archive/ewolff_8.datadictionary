@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://www.example.org/datadictionary" id="_PSv6YeBNEe6EAJ2dR7ulVw">
+  <labelTypes id="_PSv6aeBNEe6EAJ2dR7ulVw" entityName="Stereotype">
+    <label id="_PSv6bOBNEe6EAJ2dR7ulVw" entityName="monitoring_server"/>
+    <label id="_PSv6beBNEe6EAJ2dR7ulVw" entityName="monitoring_dashboard"/>
+    <label id="_PSv6buBNEe6EAJ2dR7ulVw" entityName="infrastructural"/>
+    <label id="_PSv6d-BNEe6EAJ2dR7ulVw" entityName="service_discovery"/>
+    <label id="_PSv6feBNEe6EAJ2dR7ulVw" entityName="internal"/>
+    <label id="_PSv6iOBNEe6EAJ2dR7ulVw" entityName="gateway"/>
+    <label id="_PSv6ieBNEe6EAJ2dR7ulVw" entityName="load_balancer"/>
+    <label id="_PSv6kOBNEe6EAJ2dR7ulVw" entityName="user_stereotype"/>
+    <label id="_PSv6keBNEe6EAJ2dR7ulVw" entityName="entrypoint"/>
+    <label id="_PSv6kuBNEe6EAJ2dR7ulVw" entityName="exitpoint"/>
+    <label id="_PSv6mOBNEe6EAJ2dR7ulVw" entityName="circuit_breaker"/>
+    <label id="_PSv6meBNEe6EAJ2dR7ulVw" entityName="local_logging"/>
+    <label id="_PSv6ouBNEe6EAJ2dR7ulVw" entityName="restfulhttp"/>
+    <label id="_PSv6o-BNEe6EAJ2dR7ulVw" entityName="encryptedconnection"/>
+  </labelTypes>
+  <labelTypes id="_PSv6b-BNEe6EAJ2dR7ulVw" entityName="MonitoringDashboard">
+    <label id="_PSv6cOBNEe6EAJ2dR7ulVw" entityName="Hystrix"/>
+  </labelTypes>
+  <labelTypes id="_PSv6ceBNEe6EAJ2dR7ulVw" entityName="Port">
+    <label id="_PSv6cuBNEe6EAJ2dR7ulVw" entityName="8989"/>
+    <label id="_PSv6eOBNEe6EAJ2dR7ulVw" entityName="8761"/>
+    <label id="_PSv6heBNEe6EAJ2dR7ulVw" entityName="8080"/>
+  </labelTypes>
+  <labelTypes id="_PSv6c-BNEe6EAJ2dR7ulVw" entityName="MonitoringServer">
+    <label id="_PSv6dOBNEe6EAJ2dR7ulVw" entityName="Turbine"/>
+  </labelTypes>
+  <labelTypes id="_PSv6eeBNEe6EAJ2dR7ulVw" entityName="ServiceDiscovery">
+    <label id="_PSv6euBNEe6EAJ2dR7ulVw" entityName="Eureka"/>
+  </labelTypes>
+  <labelTypes id="_PSv6fuBNEe6EAJ2dR7ulVw" entityName="Endpoints">
+    <label id="_PSv6f-BNEe6EAJ2dR7ulVw" entityName="catalog"/>
+    <label id="_PSv6gOBNEe6EAJ2dR7ulVw" entityName="idhtml"/>
+    <label id="_PSv6geBNEe6EAJ2dR7ulVw" entityName="listhtml"/>
+    <label id="_PSv6guBNEe6EAJ2dR7ulVw" entityName="formhtml"/>
+    <label id="_PSv6g-BNEe6EAJ2dR7ulVw" entityName="searchFormhtml"/>
+    <label id="_PSv6hOBNEe6EAJ2dR7ulVw" entityName="searchByNamehtml"/>
+    <label id="_PSv6leBNEe6EAJ2dR7ulVw" entityName="customer"/>
+    <label id="_PSv6muBNEe6EAJ2dR7ulVw" entityName="id"/>
+    <label id="_PSv6m-BNEe6EAJ2dR7ulVw" entityName="line"/>
+    <label id="_PSv6nOBNEe6EAJ2dR7ulVw" entityName="order"/>
+  </labelTypes>
+  <labelTypes id="_PSv6iuBNEe6EAJ2dR7ulVw" entityName="Gateway">
+    <label id="_PSv6i-BNEe6EAJ2dR7ulVw" entityName="Zuul"/>
+  </labelTypes>
+  <labelTypes id="_PSv6jOBNEe6EAJ2dR7ulVw" entityName="LoadBalancer">
+    <label id="_PSv6jeBNEe6EAJ2dR7ulVw" entityName="Ribbon"/>
+  </labelTypes>
+  <labelTypes id="_PSv6neBNEe6EAJ2dR7ulVw" entityName="CircuitBreaker">
+    <label id="_PSv6nuBNEe6EAJ2dR7ulVw" entityName="Hystrix"/>
+  </labelTypes>
+  <behaviour id="_PSv6auBNEe6EAJ2dR7ulVw">
+    <inPin id="_PSv6veBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSv6rOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSv6yOBNEe6EAJ2dR7ulVw" inputPins="_PSv6veBNEe6EAJ2dR7ulVw" outputPin="_PSv6rOBNEe6EAJ2dR7ulVw" outputLabels="_PSv6bOBNEe6EAJ2dR7ulVw _PSv6beBNEe6EAJ2dR7ulVw _PSv6buBNEe6EAJ2dR7ulVw _PSv6ouBNEe6EAJ2dR7ulVw _PSv6o-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSv6yeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSv64uBNEe6EAJ2dR7ulVw" inputPins="_PSv6veBNEe6EAJ2dR7ulVw" outputPin="_PSv6rOBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSv6deBNEe6EAJ2dR7ulVw">
+    <inPin id="_PSv6q-BNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSv6ruBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSv6seBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSv6tOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSv6oeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSv6yuBNEe6EAJ2dR7ulVw" inputPins="_PSv6q-BNEe6EAJ2dR7ulVw _PSv6ruBNEe6EAJ2dR7ulVw _PSv6seBNEe6EAJ2dR7ulVw _PSv6tOBNEe6EAJ2dR7ulVw" outputPin="_PSv6oeBNEe6EAJ2dR7ulVw" outputLabels="_PSv6d-BNEe6EAJ2dR7ulVw _PSv6buBNEe6EAJ2dR7ulVw _PSv6ouBNEe6EAJ2dR7ulVw _PSv6o-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSv6y-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSv64-BNEe6EAJ2dR7ulVw" inputPins="_PSv6q-BNEe6EAJ2dR7ulVw _PSv6ruBNEe6EAJ2dR7ulVw _PSv6seBNEe6EAJ2dR7ulVw _PSv6tOBNEe6EAJ2dR7ulVw" outputPin="_PSv6oeBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSv6e-BNEe6EAJ2dR7ulVw">
+    <inPin id="_PSv6t-BNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSv6w-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSv6r-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSv6zOBNEe6EAJ2dR7ulVw" inputPins="_PSv6t-BNEe6EAJ2dR7ulVw _PSv6w-BNEe6EAJ2dR7ulVw" outputPin="_PSv6r-BNEe6EAJ2dR7ulVw" outputLabels="_PSv6feBNEe6EAJ2dR7ulVw _PSv6ouBNEe6EAJ2dR7ulVw _PSv6o-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSv6zeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSv65OBNEe6EAJ2dR7ulVw" inputPins="_PSv6t-BNEe6EAJ2dR7ulVw _PSv6w-BNEe6EAJ2dR7ulVw" outputPin="_PSv6r-BNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSv6huBNEe6EAJ2dR7ulVw">
+    <inPin id="_PSv6oOBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSv6peBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSv6qeBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSv6weBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSv6xOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSv6x-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSv6zuBNEe6EAJ2dR7ulVw" inputPins="_PSv6oOBNEe6EAJ2dR7ulVw _PSv6peBNEe6EAJ2dR7ulVw" outputPin="_PSv6qeBNEe6EAJ2dR7ulVw" outputLabels="_PSv6iOBNEe6EAJ2dR7ulVw _PSv6ieBNEe6EAJ2dR7ulVw _PSv6buBNEe6EAJ2dR7ulVw _PSv6ouBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSv6z-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSv60OBNEe6EAJ2dR7ulVw" inputPins="_PSv6oOBNEe6EAJ2dR7ulVw _PSv6peBNEe6EAJ2dR7ulVw" outputPin="_PSv6weBNEe6EAJ2dR7ulVw" outputLabels="_PSv6iOBNEe6EAJ2dR7ulVw _PSv6ieBNEe6EAJ2dR7ulVw _PSv6buBNEe6EAJ2dR7ulVw _PSv6ouBNEe6EAJ2dR7ulVw _PSv6o-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSv60eBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSv60uBNEe6EAJ2dR7ulVw" inputPins="_PSv6oOBNEe6EAJ2dR7ulVw _PSv6peBNEe6EAJ2dR7ulVw" outputPin="_PSv6xOBNEe6EAJ2dR7ulVw" outputLabels="_PSv6iOBNEe6EAJ2dR7ulVw _PSv6ieBNEe6EAJ2dR7ulVw _PSv6buBNEe6EAJ2dR7ulVw _PSv6ouBNEe6EAJ2dR7ulVw _PSv6o-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSv60-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSv61OBNEe6EAJ2dR7ulVw" inputPins="_PSv6oOBNEe6EAJ2dR7ulVw _PSv6peBNEe6EAJ2dR7ulVw" outputPin="_PSv6x-BNEe6EAJ2dR7ulVw" outputLabels="_PSv6iOBNEe6EAJ2dR7ulVw _PSv6ieBNEe6EAJ2dR7ulVw _PSv6buBNEe6EAJ2dR7ulVw _PSv6ouBNEe6EAJ2dR7ulVw _PSv6o-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSv61eBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSv65eBNEe6EAJ2dR7ulVw" inputPins="_PSv6oOBNEe6EAJ2dR7ulVw _PSv6peBNEe6EAJ2dR7ulVw" outputPin="_PSv6qeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSv65uBNEe6EAJ2dR7ulVw" inputPins="_PSv6oOBNEe6EAJ2dR7ulVw _PSv6peBNEe6EAJ2dR7ulVw" outputPin="_PSv6weBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSv65-BNEe6EAJ2dR7ulVw" inputPins="_PSv6oOBNEe6EAJ2dR7ulVw _PSv6peBNEe6EAJ2dR7ulVw" outputPin="_PSv6xOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSv66OBNEe6EAJ2dR7ulVw" inputPins="_PSv6oOBNEe6EAJ2dR7ulVw _PSv6peBNEe6EAJ2dR7ulVw" outputPin="_PSv6x-BNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSv6juBNEe6EAJ2dR7ulVw">
+    <inPin id="_PSv6qOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSv6puBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSv61uBNEe6EAJ2dR7ulVw" inputPins="_PSv6qOBNEe6EAJ2dR7ulVw" outputPin="_PSv6puBNEe6EAJ2dR7ulVw" outputLabels="_PSv6kOBNEe6EAJ2dR7ulVw _PSv6keBNEe6EAJ2dR7ulVw _PSv6kuBNEe6EAJ2dR7ulVw _PSv6ouBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSv61-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSv66eBNEe6EAJ2dR7ulVw" inputPins="_PSv6qOBNEe6EAJ2dR7ulVw" outputPin="_PSv6puBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSv6k-BNEe6EAJ2dR7ulVw">
+    <inPin id="_PSv6uuBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSv6wOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSv6suBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSv62OBNEe6EAJ2dR7ulVw" inputPins="_PSv6uuBNEe6EAJ2dR7ulVw _PSv6wOBNEe6EAJ2dR7ulVw" outputPin="_PSv6suBNEe6EAJ2dR7ulVw" outputLabels="_PSv6feBNEe6EAJ2dR7ulVw _PSv6ouBNEe6EAJ2dR7ulVw _PSv6o-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSv62eBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSv66uBNEe6EAJ2dR7ulVw" inputPins="_PSv6uuBNEe6EAJ2dR7ulVw _PSv6wOBNEe6EAJ2dR7ulVw" outputPin="_PSv6suBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSv6luBNEe6EAJ2dR7ulVw">
+    <inPin id="_PSv6xuBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSv6teBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSv6uOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSv6u-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSv6vuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSv62uBNEe6EAJ2dR7ulVw" inputPins="_PSv6xuBNEe6EAJ2dR7ulVw" outputPin="_PSv6teBNEe6EAJ2dR7ulVw" outputLabels="_PSv6feBNEe6EAJ2dR7ulVw _PSv6ieBNEe6EAJ2dR7ulVw _PSv6mOBNEe6EAJ2dR7ulVw _PSv6meBNEe6EAJ2dR7ulVw _PSv6ouBNEe6EAJ2dR7ulVw _PSv6o-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSv62-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSv63OBNEe6EAJ2dR7ulVw" inputPins="_PSv6xuBNEe6EAJ2dR7ulVw" outputPin="_PSv6uOBNEe6EAJ2dR7ulVw" outputLabels="_PSv6feBNEe6EAJ2dR7ulVw _PSv6ieBNEe6EAJ2dR7ulVw _PSv6mOBNEe6EAJ2dR7ulVw _PSv6meBNEe6EAJ2dR7ulVw _PSv6ouBNEe6EAJ2dR7ulVw _PSv6o-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSv63eBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSv63uBNEe6EAJ2dR7ulVw" inputPins="_PSv6xuBNEe6EAJ2dR7ulVw" outputPin="_PSv6u-BNEe6EAJ2dR7ulVw" outputLabels="_PSv6feBNEe6EAJ2dR7ulVw _PSv6ieBNEe6EAJ2dR7ulVw _PSv6mOBNEe6EAJ2dR7ulVw _PSv6meBNEe6EAJ2dR7ulVw _PSv6ouBNEe6EAJ2dR7ulVw _PSv6o-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSv63-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSv64OBNEe6EAJ2dR7ulVw" inputPins="_PSv6xuBNEe6EAJ2dR7ulVw" outputPin="_PSv6vuBNEe6EAJ2dR7ulVw" outputLabels="_PSv6feBNEe6EAJ2dR7ulVw _PSv6ieBNEe6EAJ2dR7ulVw _PSv6mOBNEe6EAJ2dR7ulVw _PSv6meBNEe6EAJ2dR7ulVw _PSv6ouBNEe6EAJ2dR7ulVw _PSv6o-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSv64eBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSv66-BNEe6EAJ2dR7ulVw" inputPins="_PSv6xuBNEe6EAJ2dR7ulVw" outputPin="_PSv6teBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSv67OBNEe6EAJ2dR7ulVw" inputPins="_PSv6xuBNEe6EAJ2dR7ulVw" outputPin="_PSv6uOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSv67eBNEe6EAJ2dR7ulVw" inputPins="_PSv6xuBNEe6EAJ2dR7ulVw" outputPin="_PSv6u-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSv67uBNEe6EAJ2dR7ulVw" inputPins="_PSv6xuBNEe6EAJ2dR7ulVw" outputPin="_PSv6vuBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+</datadictionary:DataDictionary>

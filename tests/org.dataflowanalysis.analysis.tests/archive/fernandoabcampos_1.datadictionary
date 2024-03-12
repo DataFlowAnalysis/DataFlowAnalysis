@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://www.example.org/datadictionary" id="_PSy9seBNEe6EAJ2dR7ulVw">
+  <labelTypes id="_PSy9veBNEe6EAJ2dR7ulVw" entityName="Stereotype">
+    <label id="_PSy9wOBNEe6EAJ2dR7ulVw" entityName="monitoring_server"/>
+    <label id="_PSy9weBNEe6EAJ2dR7ulVw" entityName="infrastructural"/>
+    <label id="_PSy9yOBNEe6EAJ2dR7ulVw" entityName="monitoring_dashboard"/>
+    <label id="_PSy9zuBNEe6EAJ2dR7ulVw" entityName="configuration_server"/>
+    <label id="_PSy91OBNEe6EAJ2dR7ulVw" entityName="service_discovery"/>
+    <label id="_PSy92uBNEe6EAJ2dR7ulVw" entityName="internal"/>
+    <label id="_PSy93uBNEe6EAJ2dR7ulVw" entityName="gateway"/>
+    <label id="_PSy93-BNEe6EAJ2dR7ulVw" entityName="load_balancer"/>
+    <label id="_PSy94OBNEe6EAJ2dR7ulVw" entityName="authentication_scopes_all"/>
+    <label id="_PSy96uBNEe6EAJ2dR7ulVw" entityName="github_repository"/>
+    <label id="_PSy96-BNEe6EAJ2dR7ulVw" entityName="entrypoint"/>
+    <label id="_PSy98OBNEe6EAJ2dR7ulVw" entityName="circuit_breaker"/>
+    <label id="_PSy99eBNEe6EAJ2dR7ulVw" entityName="user_stereotype"/>
+    <label id="_PSy99uBNEe6EAJ2dR7ulVw" entityName="exitpoint"/>
+    <label id="_PSy9-eBNEe6EAJ2dR7ulVw" entityName="message_broker"/>
+    <label id="_PSy-AOBNEe6EAJ2dR7ulVw" entityName="restfulhttp"/>
+    <label id="_PSy-JeBNEe6EAJ2dR7ulVw" entityName="circuitbreakerlink"/>
+    <label id="_PSy-KeBNEe6EAJ2dR7ulVw" entityName="feignconnection"/>
+    <label id="_PSy-KuBNEe6EAJ2dR7ulVw" entityName="loadbalancedlink"/>
+  </labelTypes>
+  <labelTypes id="_PSy9wuBNEe6EAJ2dR7ulVw" entityName="Port">
+    <label id="_PSy9w-BNEe6EAJ2dR7ulVw" entityName="8989"/>
+    <label id="_PSy9y-BNEe6EAJ2dR7ulVw" entityName="8179"/>
+    <label id="_PSy9z-BNEe6EAJ2dR7ulVw" entityName="9090"/>
+    <label id="_PSy91eBNEe6EAJ2dR7ulVw" entityName="8761"/>
+    <label id="_PSy92-BNEe6EAJ2dR7ulVw" entityName="8080"/>
+    <label id="_PSy94-BNEe6EAJ2dR7ulVw" entityName="8765"/>
+    <label id="_PSy9_OBNEe6EAJ2dR7ulVw" entityName="5672"/>
+  </labelTypes>
+  <labelTypes id="_PSy9xOBNEe6EAJ2dR7ulVw" entityName="MonitoringServer">
+    <label id="_PSy9xeBNEe6EAJ2dR7ulVw" entityName="Turbine"/>
+  </labelTypes>
+  <labelTypes id="_PSy9yeBNEe6EAJ2dR7ulVw" entityName="MonitoringDashboard">
+    <label id="_PSy9yuBNEe6EAJ2dR7ulVw" entityName="Hystrix"/>
+  </labelTypes>
+  <labelTypes id="_PSy90OBNEe6EAJ2dR7ulVw" entityName="ConfigurationServer">
+    <label id="_PSy90eBNEe6EAJ2dR7ulVw" entityName="SpringCloudConfig"/>
+  </labelTypes>
+  <labelTypes id="_PSy91uBNEe6EAJ2dR7ulVw" entityName="ServiceDiscovery">
+    <label id="_PSy91-BNEe6EAJ2dR7ulVw" entityName="Eureka"/>
+  </labelTypes>
+  <labelTypes id="_PSy94eBNEe6EAJ2dR7ulVw" entityName="Gateway">
+    <label id="_PSy94uBNEe6EAJ2dR7ulVw" entityName="Zuul"/>
+  </labelTypes>
+  <labelTypes id="_PSy95OBNEe6EAJ2dR7ulVw" entityName="LoadBalancer">
+    <label id="_PSy95eBNEe6EAJ2dR7ulVw" entityName="Ribbon"/>
+  </labelTypes>
+  <labelTypes id="_PSy97OBNEe6EAJ2dR7ulVw" entityName="URL">
+    <label id="_PSy97eBNEe6EAJ2dR7ulVw" entityName="httpsgithubcomfernandoabcamposmicroservicesconfiggit"/>
+  </labelTypes>
+  <labelTypes id="_PSy98eBNEe6EAJ2dR7ulVw" entityName="CircuitBreaker">
+    <label id="_PSy98uBNEe6EAJ2dR7ulVw" entityName="Hystrix"/>
+  </labelTypes>
+  <labelTypes id="_PSy9-uBNEe6EAJ2dR7ulVw" entityName="MessageBroker">
+    <label id="_PSy9--BNEe6EAJ2dR7ulVw" entityName="RabbitMQ"/>
+  </labelTypes>
+  <behaviour id="_PSy9vuBNEe6EAJ2dR7ulVw">
+    <inPin id="_PSy-DuBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSy-EeBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-DOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-FeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-SeBNEe6EAJ2dR7ulVw" inputPins="_PSy-DuBNEe6EAJ2dR7ulVw _PSy-EeBNEe6EAJ2dR7ulVw" outputPin="_PSy-DOBNEe6EAJ2dR7ulVw" outputLabels="_PSy9wOBNEe6EAJ2dR7ulVw _PSy9weBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-SuBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-S-BNEe6EAJ2dR7ulVw" inputPins="_PSy-DuBNEe6EAJ2dR7ulVw _PSy-EeBNEe6EAJ2dR7ulVw" outputPin="_PSy-FeBNEe6EAJ2dR7ulVw" outputLabels="_PSy9wOBNEe6EAJ2dR7ulVw _PSy9weBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-TOBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-eeBNEe6EAJ2dR7ulVw" inputPins="_PSy-DuBNEe6EAJ2dR7ulVw _PSy-EeBNEe6EAJ2dR7ulVw" outputPin="_PSy-DOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-euBNEe6EAJ2dR7ulVw" inputPins="_PSy-DuBNEe6EAJ2dR7ulVw _PSy-EeBNEe6EAJ2dR7ulVw" outputPin="_PSy-FeBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSy9xuBNEe6EAJ2dR7ulVw">
+    <inPin id="_PSy-COBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSy-FOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-BuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-TeBNEe6EAJ2dR7ulVw" inputPins="_PSy-COBNEe6EAJ2dR7ulVw _PSy-FOBNEe6EAJ2dR7ulVw" outputPin="_PSy-BuBNEe6EAJ2dR7ulVw" outputLabels="_PSy9yOBNEe6EAJ2dR7ulVw _PSy9weBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-TuBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-e-BNEe6EAJ2dR7ulVw" inputPins="_PSy-COBNEe6EAJ2dR7ulVw _PSy-FOBNEe6EAJ2dR7ulVw" outputPin="_PSy-BuBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSy9zOBNEe6EAJ2dR7ulVw">
+    <inPin id="_PSy9_uBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-A-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-CeBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-EuBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-G-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-IeBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-MOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-P-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-T-BNEe6EAJ2dR7ulVw" inputPins="_PSy9_uBNEe6EAJ2dR7ulVw" outputPin="_PSy-A-BNEe6EAJ2dR7ulVw" outputLabels="_PSy9zuBNEe6EAJ2dR7ulVw _PSy9weBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-UOBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-UeBNEe6EAJ2dR7ulVw" inputPins="_PSy9_uBNEe6EAJ2dR7ulVw" outputPin="_PSy-CeBNEe6EAJ2dR7ulVw" outputLabels="_PSy9zuBNEe6EAJ2dR7ulVw _PSy9weBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-UuBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-U-BNEe6EAJ2dR7ulVw" inputPins="_PSy9_uBNEe6EAJ2dR7ulVw" outputPin="_PSy-EuBNEe6EAJ2dR7ulVw" outputLabels="_PSy9zuBNEe6EAJ2dR7ulVw _PSy9weBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-VOBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-VeBNEe6EAJ2dR7ulVw" inputPins="_PSy9_uBNEe6EAJ2dR7ulVw" outputPin="_PSy-G-BNEe6EAJ2dR7ulVw" outputLabels="_PSy9zuBNEe6EAJ2dR7ulVw _PSy9weBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-VuBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-V-BNEe6EAJ2dR7ulVw" inputPins="_PSy9_uBNEe6EAJ2dR7ulVw" outputPin="_PSy-IeBNEe6EAJ2dR7ulVw" outputLabels="_PSy9zuBNEe6EAJ2dR7ulVw _PSy9weBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-WOBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-WeBNEe6EAJ2dR7ulVw" inputPins="_PSy9_uBNEe6EAJ2dR7ulVw" outputPin="_PSy-MOBNEe6EAJ2dR7ulVw" outputLabels="_PSy9zuBNEe6EAJ2dR7ulVw _PSy9weBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-WuBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-W-BNEe6EAJ2dR7ulVw" inputPins="_PSy9_uBNEe6EAJ2dR7ulVw" outputPin="_PSy-P-BNEe6EAJ2dR7ulVw" outputLabels="_PSy9zuBNEe6EAJ2dR7ulVw _PSy9weBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-XOBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-fOBNEe6EAJ2dR7ulVw" inputPins="_PSy9_uBNEe6EAJ2dR7ulVw" outputPin="_PSy-A-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-feBNEe6EAJ2dR7ulVw" inputPins="_PSy9_uBNEe6EAJ2dR7ulVw" outputPin="_PSy-CeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-fuBNEe6EAJ2dR7ulVw" inputPins="_PSy9_uBNEe6EAJ2dR7ulVw" outputPin="_PSy-EuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-f-BNEe6EAJ2dR7ulVw" inputPins="_PSy9_uBNEe6EAJ2dR7ulVw" outputPin="_PSy-G-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-gOBNEe6EAJ2dR7ulVw" inputPins="_PSy9_uBNEe6EAJ2dR7ulVw" outputPin="_PSy-IeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-geBNEe6EAJ2dR7ulVw" inputPins="_PSy9_uBNEe6EAJ2dR7ulVw" outputPin="_PSy-MOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-guBNEe6EAJ2dR7ulVw" inputPins="_PSy9_uBNEe6EAJ2dR7ulVw" outputPin="_PSy-P-BNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSy90uBNEe6EAJ2dR7ulVw">
+    <inPin id="_PSy-AuBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSy-BeBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSy-C-BNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSy-F-BNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSy-HeBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSy-I-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-NuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-XeBNEe6EAJ2dR7ulVw" inputPins="_PSy-AuBNEe6EAJ2dR7ulVw _PSy-BeBNEe6EAJ2dR7ulVw _PSy-C-BNEe6EAJ2dR7ulVw _PSy-F-BNEe6EAJ2dR7ulVw _PSy-HeBNEe6EAJ2dR7ulVw _PSy-I-BNEe6EAJ2dR7ulVw" outputPin="_PSy-NuBNEe6EAJ2dR7ulVw" outputLabels="_PSy91OBNEe6EAJ2dR7ulVw _PSy9weBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-XuBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-g-BNEe6EAJ2dR7ulVw" inputPins="_PSy-AuBNEe6EAJ2dR7ulVw _PSy-BeBNEe6EAJ2dR7ulVw _PSy-C-BNEe6EAJ2dR7ulVw _PSy-F-BNEe6EAJ2dR7ulVw _PSy-HeBNEe6EAJ2dR7ulVw _PSy-I-BNEe6EAJ2dR7ulVw" outputPin="_PSy-NuBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSy92OBNEe6EAJ2dR7ulVw">
+    <inPin id="_PSy-GuBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSy-LOBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSy-ROBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-GOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-X-BNEe6EAJ2dR7ulVw" inputPins="_PSy-GuBNEe6EAJ2dR7ulVw _PSy-LOBNEe6EAJ2dR7ulVw _PSy-ROBNEe6EAJ2dR7ulVw" outputPin="_PSy-GOBNEe6EAJ2dR7ulVw" outputLabels="_PSy92uBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-YOBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-hOBNEe6EAJ2dR7ulVw" inputPins="_PSy-GuBNEe6EAJ2dR7ulVw _PSy-LOBNEe6EAJ2dR7ulVw _PSy-ROBNEe6EAJ2dR7ulVw" outputPin="_PSy-GOBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSy93OBNEe6EAJ2dR7ulVw">
+    <inPin id="_PSy-NeBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSy-OOBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSy-PuBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-POBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-QuBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-ReBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-SOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-YeBNEe6EAJ2dR7ulVw" inputPins="_PSy-NeBNEe6EAJ2dR7ulVw _PSy-OOBNEe6EAJ2dR7ulVw _PSy-PuBNEe6EAJ2dR7ulVw" outputPin="_PSy-POBNEe6EAJ2dR7ulVw" outputLabels="_PSy93uBNEe6EAJ2dR7ulVw _PSy9weBNEe6EAJ2dR7ulVw _PSy93-BNEe6EAJ2dR7ulVw _PSy94OBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-YuBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-Y-BNEe6EAJ2dR7ulVw" inputPins="_PSy-NeBNEe6EAJ2dR7ulVw _PSy-OOBNEe6EAJ2dR7ulVw _PSy-PuBNEe6EAJ2dR7ulVw" outputPin="_PSy-QuBNEe6EAJ2dR7ulVw" outputLabels="_PSy93uBNEe6EAJ2dR7ulVw _PSy9weBNEe6EAJ2dR7ulVw _PSy93-BNEe6EAJ2dR7ulVw _PSy94OBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-ZOBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-ZeBNEe6EAJ2dR7ulVw" inputPins="_PSy-NeBNEe6EAJ2dR7ulVw _PSy-OOBNEe6EAJ2dR7ulVw _PSy-PuBNEe6EAJ2dR7ulVw" outputPin="_PSy-ReBNEe6EAJ2dR7ulVw" outputLabels="_PSy93uBNEe6EAJ2dR7ulVw _PSy9weBNEe6EAJ2dR7ulVw _PSy93-BNEe6EAJ2dR7ulVw _PSy94OBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-ZuBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-Z-BNEe6EAJ2dR7ulVw" inputPins="_PSy-NeBNEe6EAJ2dR7ulVw _PSy-OOBNEe6EAJ2dR7ulVw _PSy-PuBNEe6EAJ2dR7ulVw" outputPin="_PSy-SOBNEe6EAJ2dR7ulVw" outputLabels="_PSy93uBNEe6EAJ2dR7ulVw _PSy9weBNEe6EAJ2dR7ulVw _PSy93-BNEe6EAJ2dR7ulVw _PSy94OBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-aOBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-heBNEe6EAJ2dR7ulVw" inputPins="_PSy-NeBNEe6EAJ2dR7ulVw _PSy-OOBNEe6EAJ2dR7ulVw _PSy-PuBNEe6EAJ2dR7ulVw" outputPin="_PSy-POBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-huBNEe6EAJ2dR7ulVw" inputPins="_PSy-NeBNEe6EAJ2dR7ulVw _PSy-OOBNEe6EAJ2dR7ulVw _PSy-PuBNEe6EAJ2dR7ulVw" outputPin="_PSy-QuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-h-BNEe6EAJ2dR7ulVw" inputPins="_PSy-NeBNEe6EAJ2dR7ulVw _PSy-OOBNEe6EAJ2dR7ulVw _PSy-PuBNEe6EAJ2dR7ulVw" outputPin="_PSy-ReBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-iOBNEe6EAJ2dR7ulVw" inputPins="_PSy-NeBNEe6EAJ2dR7ulVw _PSy-OOBNEe6EAJ2dR7ulVw _PSy-PuBNEe6EAJ2dR7ulVw" outputPin="_PSy-SOBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSy95uBNEe6EAJ2dR7ulVw">
+    <inPin id="_PSy-IOBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSy-J-BNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSy-QeBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-HuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-aeBNEe6EAJ2dR7ulVw" inputPins="_PSy-IOBNEe6EAJ2dR7ulVw _PSy-J-BNEe6EAJ2dR7ulVw _PSy-QeBNEe6EAJ2dR7ulVw" outputPin="_PSy-HuBNEe6EAJ2dR7ulVw" outputLabels="_PSy92uBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-auBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-ieBNEe6EAJ2dR7ulVw" inputPins="_PSy-IOBNEe6EAJ2dR7ulVw _PSy-J-BNEe6EAJ2dR7ulVw _PSy-QeBNEe6EAJ2dR7ulVw" outputPin="_PSy-HuBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSy96OBNEe6EAJ2dR7ulVw">
+    <outPin id="_PSy9_-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-a-BNEe6EAJ2dR7ulVw" outputPin="_PSy9_-BNEe6EAJ2dR7ulVw" outputLabels="_PSy96uBNEe6EAJ2dR7ulVw _PSy96-BNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-bOBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-iuBNEe6EAJ2dR7ulVw" outputPin="_PSy9_-BNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSy97uBNEe6EAJ2dR7ulVw">
+    <inPin id="_PSy-L-BNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSy-R-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-JOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-KOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-LeBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-M-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-beBNEe6EAJ2dR7ulVw" inputPins="_PSy-L-BNEe6EAJ2dR7ulVw _PSy-R-BNEe6EAJ2dR7ulVw" outputPin="_PSy-JOBNEe6EAJ2dR7ulVw" outputLabels="_PSy92uBNEe6EAJ2dR7ulVw _PSy98OBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw _PSy-JeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-buBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-b-BNEe6EAJ2dR7ulVw" inputPins="_PSy-L-BNEe6EAJ2dR7ulVw _PSy-R-BNEe6EAJ2dR7ulVw" outputPin="_PSy-KOBNEe6EAJ2dR7ulVw" outputLabels="_PSy92uBNEe6EAJ2dR7ulVw _PSy98OBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw _PSy-JeBNEe6EAJ2dR7ulVw _PSy-KeBNEe6EAJ2dR7ulVw _PSy-KuBNEe6EAJ2dR7ulVw _PSy98uBNEe6EAJ2dR7ulVw _PSy95eBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-cOBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-ceBNEe6EAJ2dR7ulVw" inputPins="_PSy-L-BNEe6EAJ2dR7ulVw _PSy-R-BNEe6EAJ2dR7ulVw" outputPin="_PSy-LeBNEe6EAJ2dR7ulVw" outputLabels="_PSy92uBNEe6EAJ2dR7ulVw _PSy98OBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw _PSy-JeBNEe6EAJ2dR7ulVw _PSy-KeBNEe6EAJ2dR7ulVw _PSy-KuBNEe6EAJ2dR7ulVw _PSy98uBNEe6EAJ2dR7ulVw _PSy95eBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-cuBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-c-BNEe6EAJ2dR7ulVw" inputPins="_PSy-L-BNEe6EAJ2dR7ulVw _PSy-R-BNEe6EAJ2dR7ulVw" outputPin="_PSy-M-BNEe6EAJ2dR7ulVw" outputLabels="_PSy92uBNEe6EAJ2dR7ulVw _PSy98OBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-dOBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-i-BNEe6EAJ2dR7ulVw" inputPins="_PSy-L-BNEe6EAJ2dR7ulVw _PSy-R-BNEe6EAJ2dR7ulVw" outputPin="_PSy-JOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-jOBNEe6EAJ2dR7ulVw" inputPins="_PSy-L-BNEe6EAJ2dR7ulVw _PSy-R-BNEe6EAJ2dR7ulVw" outputPin="_PSy-KOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-jeBNEe6EAJ2dR7ulVw" inputPins="_PSy-L-BNEe6EAJ2dR7ulVw _PSy-R-BNEe6EAJ2dR7ulVw" outputPin="_PSy-LeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-juBNEe6EAJ2dR7ulVw" inputPins="_PSy-L-BNEe6EAJ2dR7ulVw _PSy-R-BNEe6EAJ2dR7ulVw" outputPin="_PSy-M-BNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSy98-BNEe6EAJ2dR7ulVw">
+    <inPin id="_PSy-O-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-OeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-deBNEe6EAJ2dR7ulVw" inputPins="_PSy-O-BNEe6EAJ2dR7ulVw" outputPin="_PSy-OeBNEe6EAJ2dR7ulVw" outputLabels="_PSy99eBNEe6EAJ2dR7ulVw _PSy96-BNEe6EAJ2dR7ulVw _PSy99uBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-duBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-j-BNEe6EAJ2dR7ulVw" inputPins="_PSy-O-BNEe6EAJ2dR7ulVw" outputPin="_PSy-OeBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSy99-BNEe6EAJ2dR7ulVw">
+    <inPin id="_PSy-MuBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSy-D-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSy-d-BNEe6EAJ2dR7ulVw" inputPins="_PSy-MuBNEe6EAJ2dR7ulVw" outputPin="_PSy-D-BNEe6EAJ2dR7ulVw" outputLabels="_PSy9-eBNEe6EAJ2dR7ulVw _PSy9weBNEe6EAJ2dR7ulVw _PSy-AOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSy-eOBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSy-kOBNEe6EAJ2dR7ulVw" inputPins="_PSy-MuBNEe6EAJ2dR7ulVw" outputPin="_PSy-D-BNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+</datadictionary:DataDictionary>

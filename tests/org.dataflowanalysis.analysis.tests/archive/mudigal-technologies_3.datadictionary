@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://www.example.org/datadictionary" id="_PURkYeBNEe6EAJ2dR7ulVw">
+  <labelTypes id="_PURkcuBNEe6EAJ2dR7ulVw" entityName="Stereotype">
+    <label id="_PURkdeBNEe6EAJ2dR7ulVw" entityName="internal"/>
+    <label id="_PURkduBNEe6EAJ2dR7ulVw" entityName="local_logging"/>
+    <label id="_PURke-BNEe6EAJ2dR7ulVw" entityName="logging_server"/>
+    <label id="_PURkfOBNEe6EAJ2dR7ulVw" entityName="infrastructural"/>
+    <label id="_PURkhuBNEe6EAJ2dR7ulVw" entityName="web_application"/>
+    <label id="_PURkjOBNEe6EAJ2dR7ulVw" entityName="authorization_server}&quot; shape = Mrecord"/>
+    <label id="_PURkj-BNEe6EAJ2dR7ulVw" entityName="search_engine"/>
+    <label id="_PURkmOBNEe6EAJ2dR7ulVw" entityName="service_discovery"/>
+    <label id="_PURknuBNEe6EAJ2dR7ulVw" entityName="message_broker"/>
+    <label id="_PURkn-BNEe6EAJ2dR7ulVw" entityName="plaintext_credentials"/>
+    <label id="_PURkqeBNEe6EAJ2dR7ulVw" entityName="monitoring_dashboard"/>
+    <label id="_PURkr-BNEe6EAJ2dR7ulVw" entityName="gateway"/>
+    <label id="_PURksOBNEe6EAJ2dR7ulVw" entityName="load_balancer"/>
+    <label id="_PURkweBNEe6EAJ2dR7ulVw" entityName="user_stereotype"/>
+    <label id="_PURkwuBNEe6EAJ2dR7ulVw" entityName="entrypoint"/>
+    <label id="_PURkw-BNEe6EAJ2dR7ulVw" entityName="exitpoint"/>
+    <label id="_PURkyeBNEe6EAJ2dR7ulVw" entityName="restfulhttp"/>
+    <label id="_PURk3-BNEe6EAJ2dR7ulVw" entityName="messageproducerrabbitmq"/>
+    <label id="_PURk4OBNEe6EAJ2dR7ulVw" entityName="plaintextcredentialslink"/>
+    <label id="_PURk6OBNEe6EAJ2dR7ulVw" entityName="messageconsumerrabbitmq"/>
+    <label id="_PURk--BNEe6EAJ2dR7ulVw" entityName="jdbc"/>
+  </labelTypes>
+  <labelTypes id="_PURkd-BNEe6EAJ2dR7ulVw" entityName="Port">
+    <label id="_PURkeOBNEe6EAJ2dR7ulVw" entityName="8082"/>
+    <label id="_PURkfeBNEe6EAJ2dR7ulVw" entityName="5000"/>
+    <label id="_PURkh-BNEe6EAJ2dR7ulVw" entityName="4200"/>
+    <label id="_PURkkuBNEe6EAJ2dR7ulVw" entityName="9200"/>
+    <label id="_PURkleBNEe6EAJ2dR7ulVw" entityName="8084"/>
+    <label id="_PURkmeBNEe6EAJ2dR7ulVw" entityName="8500"/>
+    <label id="_PURkpOBNEe6EAJ2dR7ulVw" entityName="15672"/>
+    <label id="_PURkrOBNEe6EAJ2dR7ulVw" entityName="4040"/>
+    <label id="_PURks-BNEe6EAJ2dR7ulVw" entityName="8080"/>
+    <label id="_PURku-BNEe6EAJ2dR7ulVw" entityName="5601"/>
+  </labelTypes>
+  <labelTypes id="_PURkfuBNEe6EAJ2dR7ulVw" entityName="LoggingServer">
+    <label id="_PURkf-BNEe6EAJ2dR7ulVw" entityName="Logstash"/>
+  </labelTypes>
+  <labelTypes id="_PURkguBNEe6EAJ2dR7ulVw" entityName="Process">
+    <label id="_PURkg-BNEe6EAJ2dR7ulVw" entityName="servicetwodb"/>
+    <label id="_PURkvuBNEe6EAJ2dR7ulVw" entityName="serviceonedb"/>
+  </labelTypes>
+  <labelTypes id="_PURkiOBNEe6EAJ2dR7ulVw" entityName="WebApplication">
+    <label id="_PURkieBNEe6EAJ2dR7ulVw" entityName="Nginx"/>
+  </labelTypes>
+  <labelTypes id="_PURkkOBNEe6EAJ2dR7ulVw" entityName="SearchEngine">
+    <label id="_PURkkeBNEe6EAJ2dR7ulVw" entityName="Elasticsearch"/>
+  </labelTypes>
+  <labelTypes id="_PURkmuBNEe6EAJ2dR7ulVw" entityName="ServiceDiscovery">
+    <label id="_PURkm-BNEe6EAJ2dR7ulVw" entityName="Consul"/>
+  </labelTypes>
+  <labelTypes id="_PURkoOBNEe6EAJ2dR7ulVw" entityName="MessageBroker">
+    <label id="_PURkoeBNEe6EAJ2dR7ulVw" entityName="RabbitMQ"/>
+  </labelTypes>
+  <labelTypes id="_PURkouBNEe6EAJ2dR7ulVw" entityName="Username">
+    <label id="_PURko-BNEe6EAJ2dR7ulVw" entityName="mudigal"/>
+    <label id="_PURk_-BNEe6EAJ2dR7ulVw" entityName="servicetwo"/>
+  </labelTypes>
+  <labelTypes id="_PURkpeBNEe6EAJ2dR7ulVw" entityName="Password">
+    <label id="_PURkpuBNEe6EAJ2dR7ulVw" entityName="mudigal"/>
+    <label id="_PURlAOBNEe6EAJ2dR7ulVw" entityName="servicetwo"/>
+  </labelTypes>
+  <labelTypes id="_PURkquBNEe6EAJ2dR7ulVw" entityName="MonitoringDashboard">
+    <label id="_PURkq-BNEe6EAJ2dR7ulVw" entityName="WeaveScope"/>
+    <label id="_PURkuuBNEe6EAJ2dR7ulVw" entityName="Kibana"/>
+  </labelTypes>
+  <labelTypes id="_PURkseBNEe6EAJ2dR7ulVw" entityName="Gateway">
+    <label id="_PURksuBNEe6EAJ2dR7ulVw" entityName="Zuul"/>
+  </labelTypes>
+  <labelTypes id="_PURktOBNEe6EAJ2dR7ulVw" entityName="LoadBalancer">
+    <label id="_PURkteBNEe6EAJ2dR7ulVw" entityName="Ribbon"/>
+  </labelTypes>
+  <labelTypes id="_PURk4eBNEe6EAJ2dR7ulVw" entityName="RoutingKey">
+    <label id="_PURk4uBNEe6EAJ2dR7ulVw" entityName="commudigalmicroservicessampleservice"/>
+  </labelTypes>
+  <labelTypes id="_PURk4-BNEe6EAJ2dR7ulVw" entityName="ProducerExchange">
+    <label id="_PURk5OBNEe6EAJ2dR7ulVw" entityName="commudigalmicroservicessampleservicesexchange"/>
+  </labelTypes>
+  <labelTypes id="_PURk6eBNEe6EAJ2dR7ulVw" entityName="Queue">
+    <label id="_PURk6uBNEe6EAJ2dR7ulVw" entityName="commudigalmicroservicessampleserviceone"/>
+    <label id="_PURk9-BNEe6EAJ2dR7ulVw" entityName="commudigalmicroservicessampleservicetwo"/>
+  </labelTypes>
+  <behaviour id="_PURkc-BNEe6EAJ2dR7ulVw">
+    <inPin id="_PURk1-BNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURk5uBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURk-eBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlAuBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURk2-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURk3uBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlGOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlUeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlXuBNEe6EAJ2dR7ulVw" inputPins="_PURk1-BNEe6EAJ2dR7ulVw _PURk5uBNEe6EAJ2dR7ulVw _PURk-eBNEe6EAJ2dR7ulVw _PURlAuBNEe6EAJ2dR7ulVw" outputPin="_PURk2-BNEe6EAJ2dR7ulVw" outputLabels="_PURkdeBNEe6EAJ2dR7ulVw _PURkduBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlX-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlYOBNEe6EAJ2dR7ulVw" inputPins="_PURk1-BNEe6EAJ2dR7ulVw _PURk5uBNEe6EAJ2dR7ulVw _PURk-eBNEe6EAJ2dR7ulVw _PURlAuBNEe6EAJ2dR7ulVw" outputPin="_PURk3uBNEe6EAJ2dR7ulVw" outputLabels="_PURkdeBNEe6EAJ2dR7ulVw _PURkduBNEe6EAJ2dR7ulVw _PURk3-BNEe6EAJ2dR7ulVw _PURk4OBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw _PURk4uBNEe6EAJ2dR7ulVw _PURk5OBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlYeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlYuBNEe6EAJ2dR7ulVw" inputPins="_PURk1-BNEe6EAJ2dR7ulVw _PURk5uBNEe6EAJ2dR7ulVw _PURk-eBNEe6EAJ2dR7ulVw _PURlAuBNEe6EAJ2dR7ulVw" outputPin="_PURlGOBNEe6EAJ2dR7ulVw" outputLabels="_PURkdeBNEe6EAJ2dR7ulVw _PURkduBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlY-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlZOBNEe6EAJ2dR7ulVw" inputPins="_PURk1-BNEe6EAJ2dR7ulVw _PURk5uBNEe6EAJ2dR7ulVw _PURk-eBNEe6EAJ2dR7ulVw _PURlAuBNEe6EAJ2dR7ulVw" outputPin="_PURlUeBNEe6EAJ2dR7ulVw" outputLabels="_PURkdeBNEe6EAJ2dR7ulVw _PURkduBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlZeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURluuBNEe6EAJ2dR7ulVw" inputPins="_PURk1-BNEe6EAJ2dR7ulVw _PURk5uBNEe6EAJ2dR7ulVw _PURk-eBNEe6EAJ2dR7ulVw _PURlAuBNEe6EAJ2dR7ulVw" outputPin="_PURk2-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURlu-BNEe6EAJ2dR7ulVw" inputPins="_PURk1-BNEe6EAJ2dR7ulVw _PURk5uBNEe6EAJ2dR7ulVw _PURk-eBNEe6EAJ2dR7ulVw _PURlAuBNEe6EAJ2dR7ulVw" outputPin="_PURk3uBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURlvOBNEe6EAJ2dR7ulVw" inputPins="_PURk1-BNEe6EAJ2dR7ulVw _PURk5uBNEe6EAJ2dR7ulVw _PURk-eBNEe6EAJ2dR7ulVw _PURlAuBNEe6EAJ2dR7ulVw" outputPin="_PURlGOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURlveBNEe6EAJ2dR7ulVw" inputPins="_PURk1-BNEe6EAJ2dR7ulVw _PURk5uBNEe6EAJ2dR7ulVw _PURk-eBNEe6EAJ2dR7ulVw _PURlAuBNEe6EAJ2dR7ulVw" outputPin="_PURlUeBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PURkeeBNEe6EAJ2dR7ulVw">
+    <inPin id="_PURk2uBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURk7-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURk0uBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlOeBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlSOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlZuBNEe6EAJ2dR7ulVw" inputPins="_PURk2uBNEe6EAJ2dR7ulVw _PURk7-BNEe6EAJ2dR7ulVw" outputPin="_PURk0uBNEe6EAJ2dR7ulVw" outputLabels="_PURke-BNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlZ-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlaOBNEe6EAJ2dR7ulVw" inputPins="_PURk2uBNEe6EAJ2dR7ulVw _PURk7-BNEe6EAJ2dR7ulVw" outputPin="_PURlOeBNEe6EAJ2dR7ulVw" outputLabels="_PURke-BNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlaeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlauBNEe6EAJ2dR7ulVw" inputPins="_PURk2uBNEe6EAJ2dR7ulVw _PURk7-BNEe6EAJ2dR7ulVw" outputPin="_PURlSOBNEe6EAJ2dR7ulVw" outputLabels="_PURke-BNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURla-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURlvuBNEe6EAJ2dR7ulVw" inputPins="_PURk2uBNEe6EAJ2dR7ulVw _PURk7-BNEe6EAJ2dR7ulVw" outputPin="_PURk0uBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURlv-BNEe6EAJ2dR7ulVw" inputPins="_PURk2uBNEe6EAJ2dR7ulVw _PURk7-BNEe6EAJ2dR7ulVw" outputPin="_PURlOeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURlwOBNEe6EAJ2dR7ulVw" inputPins="_PURk2uBNEe6EAJ2dR7ulVw _PURk7-BNEe6EAJ2dR7ulVw" outputPin="_PURlSOBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PURkgOBNEe6EAJ2dR7ulVw">
+    <outPin id="_PURk_uBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlIeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlbOBNEe6EAJ2dR7ulVw" outputPin="_PURk_uBNEe6EAJ2dR7ulVw" outputLabels="_PURk--BNEe6EAJ2dR7ulVw _PURk4OBNEe6EAJ2dR7ulVw _PURk_-BNEe6EAJ2dR7ulVw _PURlAOBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlbeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlbuBNEe6EAJ2dR7ulVw" outputPin="_PURlIeBNEe6EAJ2dR7ulVw" outputLabels="_PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlb-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURlweBNEe6EAJ2dR7ulVw" outputPin="_PURk_uBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURlwuBNEe6EAJ2dR7ulVw" outputPin="_PURlIeBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PURkhOBNEe6EAJ2dR7ulVw">
+    <inPin id="_PURlC-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlD-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlEuBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlJOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlWuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlcOBNEe6EAJ2dR7ulVw" inputPins="_PURlC-BNEe6EAJ2dR7ulVw" outputPin="_PURlD-BNEe6EAJ2dR7ulVw" outputLabels="_PURkhuBNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlceBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlcuBNEe6EAJ2dR7ulVw" inputPins="_PURlC-BNEe6EAJ2dR7ulVw" outputPin="_PURlEuBNEe6EAJ2dR7ulVw" outputLabels="_PURkhuBNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlc-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURldOBNEe6EAJ2dR7ulVw" inputPins="_PURlC-BNEe6EAJ2dR7ulVw" outputPin="_PURlJOBNEe6EAJ2dR7ulVw" outputLabels="_PURkhuBNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURldeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlduBNEe6EAJ2dR7ulVw" inputPins="_PURlC-BNEe6EAJ2dR7ulVw" outputPin="_PURlWuBNEe6EAJ2dR7ulVw" outputLabels="_PURkhuBNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURld-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURlw-BNEe6EAJ2dR7ulVw" inputPins="_PURlC-BNEe6EAJ2dR7ulVw" outputPin="_PURlD-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURlxOBNEe6EAJ2dR7ulVw" inputPins="_PURlC-BNEe6EAJ2dR7ulVw" outputPin="_PURlEuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURlxeBNEe6EAJ2dR7ulVw" inputPins="_PURlC-BNEe6EAJ2dR7ulVw" outputPin="_PURlJOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURlxuBNEe6EAJ2dR7ulVw" inputPins="_PURlC-BNEe6EAJ2dR7ulVw" outputPin="_PURlWuBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PURkiuBNEe6EAJ2dR7ulVw">
+    <inPin id="_PURlO-BNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlPuBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlQeBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlROBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlR-BNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlSuBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlTeBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlUOBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlU-BNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlVuBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlWeBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlXOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURki-BNEe6EAJ2dR7ulVw" outputLabels="_PURkfOBNEe6EAJ2dR7ulVw _PURkjOBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PURkjeBNEe6EAJ2dR7ulVw">
+    <inPin id="_PURk0eBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURk1eBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlNuBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlReBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURleOBNEe6EAJ2dR7ulVw" inputPins="_PURk0eBNEe6EAJ2dR7ulVw" outputPin="_PURk1eBNEe6EAJ2dR7ulVw" outputLabels="_PURkj-BNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURleeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURleuBNEe6EAJ2dR7ulVw" inputPins="_PURk0eBNEe6EAJ2dR7ulVw" outputPin="_PURlNuBNEe6EAJ2dR7ulVw" outputLabels="_PURkj-BNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURle-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlfOBNEe6EAJ2dR7ulVw" inputPins="_PURk0eBNEe6EAJ2dR7ulVw" outputPin="_PURlReBNEe6EAJ2dR7ulVw" outputLabels="_PURkj-BNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlfeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURlx-BNEe6EAJ2dR7ulVw" inputPins="_PURk0eBNEe6EAJ2dR7ulVw" outputPin="_PURk1eBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURlyOBNEe6EAJ2dR7ulVw" inputPins="_PURk0eBNEe6EAJ2dR7ulVw" outputPin="_PURlNuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURlyeBNEe6EAJ2dR7ulVw" inputPins="_PURk0eBNEe6EAJ2dR7ulVw" outputPin="_PURlReBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PURkk-BNEe6EAJ2dR7ulVw">
+    <inPin id="_PURk7OBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURk9eBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURk_eBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlBeBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURk8OBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURk8-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlHuBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlVOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlfuBNEe6EAJ2dR7ulVw" inputPins="_PURk7OBNEe6EAJ2dR7ulVw _PURk9eBNEe6EAJ2dR7ulVw _PURk_eBNEe6EAJ2dR7ulVw _PURlBeBNEe6EAJ2dR7ulVw" outputPin="_PURk8OBNEe6EAJ2dR7ulVw" outputLabels="_PURkdeBNEe6EAJ2dR7ulVw _PURkduBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlf-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlgOBNEe6EAJ2dR7ulVw" inputPins="_PURk7OBNEe6EAJ2dR7ulVw _PURk9eBNEe6EAJ2dR7ulVw _PURk_eBNEe6EAJ2dR7ulVw _PURlBeBNEe6EAJ2dR7ulVw" outputPin="_PURk8-BNEe6EAJ2dR7ulVw" outputLabels="_PURkdeBNEe6EAJ2dR7ulVw _PURkduBNEe6EAJ2dR7ulVw _PURk3-BNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw _PURk4OBNEe6EAJ2dR7ulVw _PURk4uBNEe6EAJ2dR7ulVw _PURk5OBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlgeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlguBNEe6EAJ2dR7ulVw" inputPins="_PURk7OBNEe6EAJ2dR7ulVw _PURk9eBNEe6EAJ2dR7ulVw _PURk_eBNEe6EAJ2dR7ulVw _PURlBeBNEe6EAJ2dR7ulVw" outputPin="_PURlHuBNEe6EAJ2dR7ulVw" outputLabels="_PURkdeBNEe6EAJ2dR7ulVw _PURkduBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlg-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlhOBNEe6EAJ2dR7ulVw" inputPins="_PURk7OBNEe6EAJ2dR7ulVw _PURk9eBNEe6EAJ2dR7ulVw _PURk_eBNEe6EAJ2dR7ulVw _PURlBeBNEe6EAJ2dR7ulVw" outputPin="_PURlVOBNEe6EAJ2dR7ulVw" outputLabels="_PURkdeBNEe6EAJ2dR7ulVw _PURkduBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlheBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURlyuBNEe6EAJ2dR7ulVw" inputPins="_PURk7OBNEe6EAJ2dR7ulVw _PURk9eBNEe6EAJ2dR7ulVw _PURk_eBNEe6EAJ2dR7ulVw _PURlBeBNEe6EAJ2dR7ulVw" outputPin="_PURk8OBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURly-BNEe6EAJ2dR7ulVw" inputPins="_PURk7OBNEe6EAJ2dR7ulVw _PURk9eBNEe6EAJ2dR7ulVw _PURk_eBNEe6EAJ2dR7ulVw _PURlBeBNEe6EAJ2dR7ulVw" outputPin="_PURk8-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURlzOBNEe6EAJ2dR7ulVw" inputPins="_PURk7OBNEe6EAJ2dR7ulVw _PURk9eBNEe6EAJ2dR7ulVw _PURk_eBNEe6EAJ2dR7ulVw _PURlBeBNEe6EAJ2dR7ulVw" outputPin="_PURlHuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURlzeBNEe6EAJ2dR7ulVw" inputPins="_PURk7OBNEe6EAJ2dR7ulVw _PURk9eBNEe6EAJ2dR7ulVw _PURk_eBNEe6EAJ2dR7ulVw _PURlBeBNEe6EAJ2dR7ulVw" outputPin="_PURlVOBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PURkluBNEe6EAJ2dR7ulVw">
+    <inPin id="_PURkx-BNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURky-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURk2OBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURk7eBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlCeBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlKuBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlPOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlhuBNEe6EAJ2dR7ulVw" inputPins="_PURkx-BNEe6EAJ2dR7ulVw _PURky-BNEe6EAJ2dR7ulVw" outputPin="_PURk2OBNEe6EAJ2dR7ulVw" outputLabels="_PURkmOBNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlh-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURliOBNEe6EAJ2dR7ulVw" inputPins="_PURkx-BNEe6EAJ2dR7ulVw _PURky-BNEe6EAJ2dR7ulVw" outputPin="_PURk7eBNEe6EAJ2dR7ulVw" outputLabels="_PURkmOBNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlieBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURliuBNEe6EAJ2dR7ulVw" inputPins="_PURkx-BNEe6EAJ2dR7ulVw _PURky-BNEe6EAJ2dR7ulVw" outputPin="_PURlCeBNEe6EAJ2dR7ulVw" outputLabels="_PURkmOBNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURli-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURljOBNEe6EAJ2dR7ulVw" inputPins="_PURkx-BNEe6EAJ2dR7ulVw _PURky-BNEe6EAJ2dR7ulVw" outputPin="_PURlKuBNEe6EAJ2dR7ulVw" outputLabels="_PURkmOBNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURljeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURljuBNEe6EAJ2dR7ulVw" inputPins="_PURkx-BNEe6EAJ2dR7ulVw _PURky-BNEe6EAJ2dR7ulVw" outputPin="_PURlPOBNEe6EAJ2dR7ulVw" outputLabels="_PURkmOBNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlj-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURlzuBNEe6EAJ2dR7ulVw" inputPins="_PURkx-BNEe6EAJ2dR7ulVw _PURky-BNEe6EAJ2dR7ulVw" outputPin="_PURk2OBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURlz-BNEe6EAJ2dR7ulVw" inputPins="_PURkx-BNEe6EAJ2dR7ulVw _PURky-BNEe6EAJ2dR7ulVw" outputPin="_PURk7eBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl0OBNEe6EAJ2dR7ulVw" inputPins="_PURkx-BNEe6EAJ2dR7ulVw _PURky-BNEe6EAJ2dR7ulVw" outputPin="_PURlCeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl0eBNEe6EAJ2dR7ulVw" inputPins="_PURkx-BNEe6EAJ2dR7ulVw _PURky-BNEe6EAJ2dR7ulVw" outputPin="_PURlKuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl0uBNEe6EAJ2dR7ulVw" inputPins="_PURkx-BNEe6EAJ2dR7ulVw _PURky-BNEe6EAJ2dR7ulVw" outputPin="_PURlPOBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PURknOBNEe6EAJ2dR7ulVw">
+    <inPin id="_PURk3eBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURk8uBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURk5-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURk9uBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlJ-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlTuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlkOBNEe6EAJ2dR7ulVw" inputPins="_PURk3eBNEe6EAJ2dR7ulVw _PURk8uBNEe6EAJ2dR7ulVw" outputPin="_PURk5-BNEe6EAJ2dR7ulVw" outputLabels="_PURknuBNEe6EAJ2dR7ulVw _PURkn-BNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURk6OBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw _PURk6uBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlkeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlkuBNEe6EAJ2dR7ulVw" inputPins="_PURk3eBNEe6EAJ2dR7ulVw _PURk8uBNEe6EAJ2dR7ulVw" outputPin="_PURk9uBNEe6EAJ2dR7ulVw" outputLabels="_PURknuBNEe6EAJ2dR7ulVw _PURkn-BNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURk6OBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw _PURk9-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlk-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURllOBNEe6EAJ2dR7ulVw" inputPins="_PURk3eBNEe6EAJ2dR7ulVw _PURk8uBNEe6EAJ2dR7ulVw" outputPin="_PURlJ-BNEe6EAJ2dR7ulVw" outputLabels="_PURknuBNEe6EAJ2dR7ulVw _PURkn-BNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlleBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlluBNEe6EAJ2dR7ulVw" inputPins="_PURk3eBNEe6EAJ2dR7ulVw _PURk8uBNEe6EAJ2dR7ulVw" outputPin="_PURlTuBNEe6EAJ2dR7ulVw" outputLabels="_PURknuBNEe6EAJ2dR7ulVw _PURkn-BNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURll-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl0-BNEe6EAJ2dR7ulVw" inputPins="_PURk3eBNEe6EAJ2dR7ulVw _PURk8uBNEe6EAJ2dR7ulVw" outputPin="_PURk5-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl1OBNEe6EAJ2dR7ulVw" inputPins="_PURk3eBNEe6EAJ2dR7ulVw _PURk8uBNEe6EAJ2dR7ulVw" outputPin="_PURk9uBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl1eBNEe6EAJ2dR7ulVw" inputPins="_PURk3eBNEe6EAJ2dR7ulVw _PURk8uBNEe6EAJ2dR7ulVw" outputPin="_PURlJ-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl1uBNEe6EAJ2dR7ulVw" inputPins="_PURk3eBNEe6EAJ2dR7ulVw _PURk8uBNEe6EAJ2dR7ulVw" outputPin="_PURlTuBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PURkp-BNEe6EAJ2dR7ulVw">
+    <inPin id="_PURlFOBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlF-BNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlGuBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlHeBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlIOBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlI-BNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlJuBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlKeBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlLOBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlL-BNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlMuBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlNeBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlOOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlXeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlmOBNEe6EAJ2dR7ulVw" inputPins="_PURlFOBNEe6EAJ2dR7ulVw _PURlF-BNEe6EAJ2dR7ulVw _PURlGuBNEe6EAJ2dR7ulVw _PURlHeBNEe6EAJ2dR7ulVw _PURlIOBNEe6EAJ2dR7ulVw _PURlI-BNEe6EAJ2dR7ulVw _PURlJuBNEe6EAJ2dR7ulVw _PURlKeBNEe6EAJ2dR7ulVw _PURlLOBNEe6EAJ2dR7ulVw _PURlL-BNEe6EAJ2dR7ulVw _PURlMuBNEe6EAJ2dR7ulVw _PURlNeBNEe6EAJ2dR7ulVw _PURlOOBNEe6EAJ2dR7ulVw" outputPin="_PURlXeBNEe6EAJ2dR7ulVw" outputLabels="_PURkqeBNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlmeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl1-BNEe6EAJ2dR7ulVw" inputPins="_PURlFOBNEe6EAJ2dR7ulVw _PURlF-BNEe6EAJ2dR7ulVw _PURlGuBNEe6EAJ2dR7ulVw _PURlHeBNEe6EAJ2dR7ulVw _PURlIOBNEe6EAJ2dR7ulVw _PURlI-BNEe6EAJ2dR7ulVw _PURlJuBNEe6EAJ2dR7ulVw _PURlKeBNEe6EAJ2dR7ulVw _PURlLOBNEe6EAJ2dR7ulVw _PURlL-BNEe6EAJ2dR7ulVw _PURlMuBNEe6EAJ2dR7ulVw _PURlNeBNEe6EAJ2dR7ulVw _PURlOOBNEe6EAJ2dR7ulVw" outputPin="_PURlXeBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PURkreBNEe6EAJ2dR7ulVw">
+    <inPin id="_PURlCOBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PURlEeBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlA-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlBuBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlFeBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlV-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlmuBNEe6EAJ2dR7ulVw" inputPins="_PURlCOBNEe6EAJ2dR7ulVw _PURlEeBNEe6EAJ2dR7ulVw" outputPin="_PURlA-BNEe6EAJ2dR7ulVw" outputLabels="_PURkr-BNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURksOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlm-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlnOBNEe6EAJ2dR7ulVw" inputPins="_PURlCOBNEe6EAJ2dR7ulVw _PURlEeBNEe6EAJ2dR7ulVw" outputPin="_PURlBuBNEe6EAJ2dR7ulVw" outputLabels="_PURkr-BNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURksOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlneBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlnuBNEe6EAJ2dR7ulVw" inputPins="_PURlCOBNEe6EAJ2dR7ulVw _PURlEeBNEe6EAJ2dR7ulVw" outputPin="_PURlFeBNEe6EAJ2dR7ulVw" outputLabels="_PURkr-BNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURksOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURln-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURloOBNEe6EAJ2dR7ulVw" inputPins="_PURlCOBNEe6EAJ2dR7ulVw _PURlEeBNEe6EAJ2dR7ulVw" outputPin="_PURlV-BNEe6EAJ2dR7ulVw" outputLabels="_PURkr-BNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURksOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURloeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl2OBNEe6EAJ2dR7ulVw" inputPins="_PURlCOBNEe6EAJ2dR7ulVw _PURlEeBNEe6EAJ2dR7ulVw" outputPin="_PURlA-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl2eBNEe6EAJ2dR7ulVw" inputPins="_PURlCOBNEe6EAJ2dR7ulVw _PURlEeBNEe6EAJ2dR7ulVw" outputPin="_PURlBuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl2uBNEe6EAJ2dR7ulVw" inputPins="_PURlCOBNEe6EAJ2dR7ulVw _PURlEeBNEe6EAJ2dR7ulVw" outputPin="_PURlFeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl2-BNEe6EAJ2dR7ulVw" inputPins="_PURlCOBNEe6EAJ2dR7ulVw _PURlEeBNEe6EAJ2dR7ulVw" outputPin="_PURlV-BNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PURktuBNEe6EAJ2dR7ulVw">
+    <inPin id="_PURkzuBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURkyOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlLeBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlP-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlouBNEe6EAJ2dR7ulVw" inputPins="_PURkzuBNEe6EAJ2dR7ulVw" outputPin="_PURkyOBNEe6EAJ2dR7ulVw" outputLabels="_PURkmOBNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlo-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlpOBNEe6EAJ2dR7ulVw" inputPins="_PURkzuBNEe6EAJ2dR7ulVw" outputPin="_PURlLeBNEe6EAJ2dR7ulVw" outputLabels="_PURkmOBNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlpeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlpuBNEe6EAJ2dR7ulVw" inputPins="_PURkzuBNEe6EAJ2dR7ulVw" outputPin="_PURlP-BNEe6EAJ2dR7ulVw" outputLabels="_PURkmOBNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlp-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl3OBNEe6EAJ2dR7ulVw" inputPins="_PURkzuBNEe6EAJ2dR7ulVw" outputPin="_PURkyOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl3eBNEe6EAJ2dR7ulVw" inputPins="_PURkzuBNEe6EAJ2dR7ulVw" outputPin="_PURlLeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl3uBNEe6EAJ2dR7ulVw" inputPins="_PURkzuBNEe6EAJ2dR7ulVw" outputPin="_PURlP-BNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PURkuOBNEe6EAJ2dR7ulVw">
+    <inPin id="_PURk1OBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlM-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlS-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlqOBNEe6EAJ2dR7ulVw" inputPins="_PURk1OBNEe6EAJ2dR7ulVw" outputPin="_PURlM-BNEe6EAJ2dR7ulVw" outputLabels="_PURkqeBNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlqeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlquBNEe6EAJ2dR7ulVw" inputPins="_PURk1OBNEe6EAJ2dR7ulVw" outputPin="_PURlS-BNEe6EAJ2dR7ulVw" outputLabels="_PURkqeBNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlq-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl3-BNEe6EAJ2dR7ulVw" inputPins="_PURk1OBNEe6EAJ2dR7ulVw" outputPin="_PURlM-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl4OBNEe6EAJ2dR7ulVw" inputPins="_PURk1OBNEe6EAJ2dR7ulVw" outputPin="_PURlS-BNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PURkvOBNEe6EAJ2dR7ulVw">
+    <outPin id="_PURk-uBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlG-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlrOBNEe6EAJ2dR7ulVw" outputPin="_PURk-uBNEe6EAJ2dR7ulVw" outputLabels="_PURk--BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlreBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlruBNEe6EAJ2dR7ulVw" outputPin="_PURlG-BNEe6EAJ2dR7ulVw" outputLabels="_PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlr-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl4eBNEe6EAJ2dR7ulVw" outputPin="_PURk-uBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl4uBNEe6EAJ2dR7ulVw" outputPin="_PURlG-BNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PURkv-BNEe6EAJ2dR7ulVw">
+    <inPin id="_PURlDuBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlDOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlsOBNEe6EAJ2dR7ulVw" inputPins="_PURlDuBNEe6EAJ2dR7ulVw" outputPin="_PURlDOBNEe6EAJ2dR7ulVw" outputLabels="_PURkweBNEe6EAJ2dR7ulVw _PURkwuBNEe6EAJ2dR7ulVw _PURkw-BNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlseBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl4-BNEe6EAJ2dR7ulVw" inputPins="_PURlDuBNEe6EAJ2dR7ulVw" outputPin="_PURlDOBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PURkxOBNEe6EAJ2dR7ulVw">
+    <outPin id="_PURkzOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURkz-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlMOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PURlQuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURlsuBNEe6EAJ2dR7ulVw" outputPin="_PURkzOBNEe6EAJ2dR7ulVw" outputLabels="_PURkmOBNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURls-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURltOBNEe6EAJ2dR7ulVw" outputPin="_PURkz-BNEe6EAJ2dR7ulVw" outputLabels="_PURkmOBNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlteBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURltuBNEe6EAJ2dR7ulVw" outputPin="_PURlMOBNEe6EAJ2dR7ulVw" outputLabels="_PURkmOBNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlt-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PURluOBNEe6EAJ2dR7ulVw" outputPin="_PURlQuBNEe6EAJ2dR7ulVw" outputLabels="_PURkmOBNEe6EAJ2dR7ulVw _PURkfOBNEe6EAJ2dR7ulVw _PURkyeBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PURlueBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl5OBNEe6EAJ2dR7ulVw" outputPin="_PURkzOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl5eBNEe6EAJ2dR7ulVw" outputPin="_PURkz-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl5uBNEe6EAJ2dR7ulVw" outputPin="_PURlMOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PURl5-BNEe6EAJ2dR7ulVw" outputPin="_PURlQuBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+</datadictionary:DataDictionary>

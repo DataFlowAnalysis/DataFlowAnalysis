@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://www.example.org/datadictionary" id="_PSgCweBNEe6EAJ2dR7ulVw">
+  <labelTypes id="_PSgCy-BNEe6EAJ2dR7ulVw" entityName="Stereotype">
+    <label id="_PSgCzuBNEe6EAJ2dR7ulVw" entityName="monitoring_server"/>
+    <label id="_PSgCz-BNEe6EAJ2dR7ulVw" entityName="monitoring_dashboard"/>
+    <label id="_PSgC0OBNEe6EAJ2dR7ulVw" entityName="infrastructural"/>
+    <label id="_PSgC0eBNEe6EAJ2dR7ulVw" entityName="local_logging"/>
+    <label id="_PSgC2uBNEe6EAJ2dR7ulVw" entityName="message_broker}&quot; shape = Mrecord"/>
+    <label id="_PSgC3eBNEe6EAJ2dR7ulVw" entityName="logging_server}&quot; shape = Mrecord"/>
+    <label id="_PSgC4OBNEe6EAJ2dR7ulVw" entityName="service_discovery"/>
+    <label id="_PSgC5uBNEe6EAJ2dR7ulVw" entityName="internal"/>
+    <label id="_PSgC8eBNEe6EAJ2dR7ulVw" entityName="gateway"/>
+    <label id="_PSgC8uBNEe6EAJ2dR7ulVw" entityName="load_balancer"/>
+    <label id="_PSgC-eBNEe6EAJ2dR7ulVw" entityName="user_stereotype"/>
+    <label id="_PSgC-uBNEe6EAJ2dR7ulVw" entityName="entrypoint"/>
+    <label id="_PSgC--BNEe6EAJ2dR7ulVw" entityName="exitpoint"/>
+    <label id="_PSgDAeBNEe6EAJ2dR7ulVw" entityName="circuit_breaker"/>
+    <label id="_PSgDCuBNEe6EAJ2dR7ulVw" entityName="restfulhttp"/>
+  </labelTypes>
+  <labelTypes id="_PSgC0uBNEe6EAJ2dR7ulVw" entityName="MonitoringDashboard">
+    <label id="_PSgC0-BNEe6EAJ2dR7ulVw" entityName="Hystrix"/>
+  </labelTypes>
+  <labelTypes id="_PSgC1OBNEe6EAJ2dR7ulVw" entityName="Port">
+    <label id="_PSgC1eBNEe6EAJ2dR7ulVw" entityName="8989"/>
+    <label id="_PSgC4eBNEe6EAJ2dR7ulVw" entityName="8761"/>
+    <label id="_PSgC7uBNEe6EAJ2dR7ulVw" entityName="8080"/>
+  </labelTypes>
+  <labelTypes id="_PSgC1uBNEe6EAJ2dR7ulVw" entityName="MonitoringServer">
+    <label id="_PSgC1-BNEe6EAJ2dR7ulVw" entityName="Turbine"/>
+  </labelTypes>
+  <labelTypes id="_PSgC4uBNEe6EAJ2dR7ulVw" entityName="ServiceDiscovery">
+    <label id="_PSgC4-BNEe6EAJ2dR7ulVw" entityName="Eureka"/>
+  </labelTypes>
+  <labelTypes id="_PSgC5-BNEe6EAJ2dR7ulVw" entityName="Endpoints">
+    <label id="_PSgC6OBNEe6EAJ2dR7ulVw" entityName="catalog"/>
+    <label id="_PSgC6eBNEe6EAJ2dR7ulVw" entityName="idhtml"/>
+    <label id="_PSgC6uBNEe6EAJ2dR7ulVw" entityName="listhtml"/>
+    <label id="_PSgC6-BNEe6EAJ2dR7ulVw" entityName="formhtml"/>
+    <label id="_PSgC7OBNEe6EAJ2dR7ulVw" entityName="searchFormhtml"/>
+    <label id="_PSgC7eBNEe6EAJ2dR7ulVw" entityName="searchByNamehtml"/>
+    <label id="_PSgC_uBNEe6EAJ2dR7ulVw" entityName="customer"/>
+    <label id="_PSgDAuBNEe6EAJ2dR7ulVw" entityName="id"/>
+    <label id="_PSgDA-BNEe6EAJ2dR7ulVw" entityName="line"/>
+    <label id="_PSgDBOBNEe6EAJ2dR7ulVw" entityName="order"/>
+  </labelTypes>
+  <labelTypes id="_PSgC8-BNEe6EAJ2dR7ulVw" entityName="Gateway">
+    <label id="_PSgC9OBNEe6EAJ2dR7ulVw" entityName="Zuul"/>
+  </labelTypes>
+  <labelTypes id="_PSgC9eBNEe6EAJ2dR7ulVw" entityName="LoadBalancer">
+    <label id="_PSgC9uBNEe6EAJ2dR7ulVw" entityName="Ribbon"/>
+  </labelTypes>
+  <labelTypes id="_PSgDBeBNEe6EAJ2dR7ulVw" entityName="CircuitBreaker">
+    <label id="_PSgDBuBNEe6EAJ2dR7ulVw" entityName="Hystrix"/>
+  </labelTypes>
+  <behaviour id="_PSgCzOBNEe6EAJ2dR7ulVw">
+    <inPin id="_PSgDJOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSgDE-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSgDOuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSgDROBNEe6EAJ2dR7ulVw" inputPins="_PSgDJOBNEe6EAJ2dR7ulVw" outputPin="_PSgDE-BNEe6EAJ2dR7ulVw" outputLabels="_PSgCzuBNEe6EAJ2dR7ulVw _PSgCz-BNEe6EAJ2dR7ulVw _PSgC0OBNEe6EAJ2dR7ulVw _PSgC0eBNEe6EAJ2dR7ulVw _PSgDCuBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSgDReBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSgDRuBNEe6EAJ2dR7ulVw" inputPins="_PSgDJOBNEe6EAJ2dR7ulVw" outputPin="_PSgDOuBNEe6EAJ2dR7ulVw" outputLabels="_PSgCzuBNEe6EAJ2dR7ulVw _PSgCz-BNEe6EAJ2dR7ulVw _PSgC0OBNEe6EAJ2dR7ulVw _PSgC0eBNEe6EAJ2dR7ulVw _PSgDCuBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSgDR-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSgDbOBNEe6EAJ2dR7ulVw" inputPins="_PSgDJOBNEe6EAJ2dR7ulVw" outputPin="_PSgDE-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSgDbeBNEe6EAJ2dR7ulVw" inputPins="_PSgDJOBNEe6EAJ2dR7ulVw" outputPin="_PSgDOuBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSgC2OBNEe6EAJ2dR7ulVw">
+    <inPin id="_PSgDM-BNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSgDNuBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSgDOeBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSgDPOBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSgDP-BNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSgDQuBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSgDMeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSgDSOBNEe6EAJ2dR7ulVw" inputPins="_PSgDM-BNEe6EAJ2dR7ulVw _PSgDNuBNEe6EAJ2dR7ulVw _PSgDOeBNEe6EAJ2dR7ulVw _PSgDPOBNEe6EAJ2dR7ulVw _PSgDP-BNEe6EAJ2dR7ulVw _PSgDQuBNEe6EAJ2dR7ulVw" outputPin="_PSgDMeBNEe6EAJ2dR7ulVw" outputLabels="_PSgC0OBNEe6EAJ2dR7ulVw _PSgC2uBNEe6EAJ2dR7ulVw _PSgDCuBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSgDSeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSgDbuBNEe6EAJ2dR7ulVw" inputPins="_PSgDM-BNEe6EAJ2dR7ulVw _PSgDNuBNEe6EAJ2dR7ulVw _PSgDOeBNEe6EAJ2dR7ulVw _PSgDPOBNEe6EAJ2dR7ulVw _PSgDP-BNEe6EAJ2dR7ulVw _PSgDQuBNEe6EAJ2dR7ulVw" outputPin="_PSgDMeBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSgC2-BNEe6EAJ2dR7ulVw">
+    <inPin id="_PSgDMOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSgC3OBNEe6EAJ2dR7ulVw" outputLabels="_PSgC0OBNEe6EAJ2dR7ulVw _PSgC3eBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSgC3uBNEe6EAJ2dR7ulVw">
+    <inPin id="_PSgDEuBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSgDFeBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSgDGOBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSgDG-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSgDCeBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSgDNOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSgDSuBNEe6EAJ2dR7ulVw" inputPins="_PSgDEuBNEe6EAJ2dR7ulVw _PSgDFeBNEe6EAJ2dR7ulVw _PSgDGOBNEe6EAJ2dR7ulVw _PSgDG-BNEe6EAJ2dR7ulVw" outputPin="_PSgDCeBNEe6EAJ2dR7ulVw" outputLabels="_PSgC4OBNEe6EAJ2dR7ulVw _PSgC0OBNEe6EAJ2dR7ulVw _PSgC0eBNEe6EAJ2dR7ulVw _PSgDCuBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSgDS-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSgDTOBNEe6EAJ2dR7ulVw" inputPins="_PSgDEuBNEe6EAJ2dR7ulVw _PSgDFeBNEe6EAJ2dR7ulVw _PSgDGOBNEe6EAJ2dR7ulVw _PSgDG-BNEe6EAJ2dR7ulVw" outputPin="_PSgDNOBNEe6EAJ2dR7ulVw" outputLabels="_PSgC4OBNEe6EAJ2dR7ulVw _PSgC0OBNEe6EAJ2dR7ulVw _PSgC0eBNEe6EAJ2dR7ulVw _PSgDCuBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSgDTeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSgDb-BNEe6EAJ2dR7ulVw" inputPins="_PSgDEuBNEe6EAJ2dR7ulVw _PSgDFeBNEe6EAJ2dR7ulVw _PSgDGOBNEe6EAJ2dR7ulVw _PSgDG-BNEe6EAJ2dR7ulVw" outputPin="_PSgDCeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSgDcOBNEe6EAJ2dR7ulVw" inputPins="_PSgDEuBNEe6EAJ2dR7ulVw _PSgDFeBNEe6EAJ2dR7ulVw _PSgDGOBNEe6EAJ2dR7ulVw _PSgDG-BNEe6EAJ2dR7ulVw" outputPin="_PSgDNOBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSgC5OBNEe6EAJ2dR7ulVw">
+    <inPin id="_PSgDHuBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSgDKuBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSgDFuBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSgDPeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSgDTuBNEe6EAJ2dR7ulVw" inputPins="_PSgDHuBNEe6EAJ2dR7ulVw _PSgDKuBNEe6EAJ2dR7ulVw" outputPin="_PSgDFuBNEe6EAJ2dR7ulVw" outputLabels="_PSgC5uBNEe6EAJ2dR7ulVw _PSgC0eBNEe6EAJ2dR7ulVw _PSgDCuBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSgDT-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSgDUOBNEe6EAJ2dR7ulVw" inputPins="_PSgDHuBNEe6EAJ2dR7ulVw _PSgDKuBNEe6EAJ2dR7ulVw" outputPin="_PSgDPeBNEe6EAJ2dR7ulVw" outputLabels="_PSgC5uBNEe6EAJ2dR7ulVw _PSgC0eBNEe6EAJ2dR7ulVw _PSgDCuBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSgDUeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSgDceBNEe6EAJ2dR7ulVw" inputPins="_PSgDHuBNEe6EAJ2dR7ulVw _PSgDKuBNEe6EAJ2dR7ulVw" outputPin="_PSgDFuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSgDcuBNEe6EAJ2dR7ulVw" inputPins="_PSgDHuBNEe6EAJ2dR7ulVw _PSgDKuBNEe6EAJ2dR7ulVw" outputPin="_PSgDPeBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSgC7-BNEe6EAJ2dR7ulVw">
+    <inPin id="_PSgDCOBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSgDDOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSgDEOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSgDKOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSgDK-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSgDLuBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSgDN-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSgDUuBNEe6EAJ2dR7ulVw" inputPins="_PSgDCOBNEe6EAJ2dR7ulVw _PSgDDOBNEe6EAJ2dR7ulVw" outputPin="_PSgDEOBNEe6EAJ2dR7ulVw" outputLabels="_PSgC8eBNEe6EAJ2dR7ulVw _PSgC8uBNEe6EAJ2dR7ulVw _PSgC0OBNEe6EAJ2dR7ulVw _PSgC0eBNEe6EAJ2dR7ulVw _PSgDCuBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSgDU-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSgDVOBNEe6EAJ2dR7ulVw" inputPins="_PSgDCOBNEe6EAJ2dR7ulVw _PSgDDOBNEe6EAJ2dR7ulVw" outputPin="_PSgDKOBNEe6EAJ2dR7ulVw" outputLabels="_PSgC8eBNEe6EAJ2dR7ulVw _PSgC8uBNEe6EAJ2dR7ulVw _PSgC0OBNEe6EAJ2dR7ulVw _PSgC0eBNEe6EAJ2dR7ulVw _PSgDCuBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSgDVeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSgDVuBNEe6EAJ2dR7ulVw" inputPins="_PSgDCOBNEe6EAJ2dR7ulVw _PSgDDOBNEe6EAJ2dR7ulVw" outputPin="_PSgDK-BNEe6EAJ2dR7ulVw" outputLabels="_PSgC8eBNEe6EAJ2dR7ulVw _PSgC8uBNEe6EAJ2dR7ulVw _PSgC0OBNEe6EAJ2dR7ulVw _PSgC0eBNEe6EAJ2dR7ulVw _PSgDCuBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSgDV-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSgDWOBNEe6EAJ2dR7ulVw" inputPins="_PSgDCOBNEe6EAJ2dR7ulVw _PSgDDOBNEe6EAJ2dR7ulVw" outputPin="_PSgDLuBNEe6EAJ2dR7ulVw" outputLabels="_PSgC8eBNEe6EAJ2dR7ulVw _PSgC8uBNEe6EAJ2dR7ulVw _PSgC0OBNEe6EAJ2dR7ulVw _PSgC0eBNEe6EAJ2dR7ulVw _PSgDCuBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSgDWeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSgDWuBNEe6EAJ2dR7ulVw" inputPins="_PSgDCOBNEe6EAJ2dR7ulVw _PSgDDOBNEe6EAJ2dR7ulVw" outputPin="_PSgDN-BNEe6EAJ2dR7ulVw" outputLabels="_PSgC8eBNEe6EAJ2dR7ulVw _PSgC8uBNEe6EAJ2dR7ulVw _PSgC0OBNEe6EAJ2dR7ulVw _PSgC0eBNEe6EAJ2dR7ulVw _PSgDCuBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSgDW-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSgDc-BNEe6EAJ2dR7ulVw" inputPins="_PSgDCOBNEe6EAJ2dR7ulVw _PSgDDOBNEe6EAJ2dR7ulVw" outputPin="_PSgDEOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSgDdOBNEe6EAJ2dR7ulVw" inputPins="_PSgDCOBNEe6EAJ2dR7ulVw _PSgDDOBNEe6EAJ2dR7ulVw" outputPin="_PSgDKOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSgDdeBNEe6EAJ2dR7ulVw" inputPins="_PSgDCOBNEe6EAJ2dR7ulVw _PSgDDOBNEe6EAJ2dR7ulVw" outputPin="_PSgDK-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSgDduBNEe6EAJ2dR7ulVw" inputPins="_PSgDCOBNEe6EAJ2dR7ulVw _PSgDDOBNEe6EAJ2dR7ulVw" outputPin="_PSgDLuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSgDd-BNEe6EAJ2dR7ulVw" inputPins="_PSgDCOBNEe6EAJ2dR7ulVw _PSgDDOBNEe6EAJ2dR7ulVw" outputPin="_PSgDN-BNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSgC9-BNEe6EAJ2dR7ulVw">
+    <inPin id="_PSgDD-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSgDDeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSgDXOBNEe6EAJ2dR7ulVw" inputPins="_PSgDD-BNEe6EAJ2dR7ulVw" outputPin="_PSgDDeBNEe6EAJ2dR7ulVw" outputLabels="_PSgC-eBNEe6EAJ2dR7ulVw _PSgC-uBNEe6EAJ2dR7ulVw _PSgC--BNEe6EAJ2dR7ulVw _PSgDCuBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSgDXeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSgDeOBNEe6EAJ2dR7ulVw" inputPins="_PSgDD-BNEe6EAJ2dR7ulVw" outputPin="_PSgDDeBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSgC_OBNEe6EAJ2dR7ulVw">
+    <inPin id="_PSgDIeBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PSgDJ-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSgDGeBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSgDQOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSgDXuBNEe6EAJ2dR7ulVw" inputPins="_PSgDIeBNEe6EAJ2dR7ulVw _PSgDJ-BNEe6EAJ2dR7ulVw" outputPin="_PSgDGeBNEe6EAJ2dR7ulVw" outputLabels="_PSgC5uBNEe6EAJ2dR7ulVw _PSgC0eBNEe6EAJ2dR7ulVw _PSgDCuBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSgDX-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSgDYOBNEe6EAJ2dR7ulVw" inputPins="_PSgDIeBNEe6EAJ2dR7ulVw _PSgDJ-BNEe6EAJ2dR7ulVw" outputPin="_PSgDQOBNEe6EAJ2dR7ulVw" outputLabels="_PSgC5uBNEe6EAJ2dR7ulVw _PSgC0eBNEe6EAJ2dR7ulVw _PSgDCuBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSgDYeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSgDeeBNEe6EAJ2dR7ulVw" inputPins="_PSgDIeBNEe6EAJ2dR7ulVw _PSgDJ-BNEe6EAJ2dR7ulVw" outputPin="_PSgDGeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSgDeuBNEe6EAJ2dR7ulVw" inputPins="_PSgDIeBNEe6EAJ2dR7ulVw _PSgDJ-BNEe6EAJ2dR7ulVw" outputPin="_PSgDQOBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PSgC_-BNEe6EAJ2dR7ulVw">
+    <inPin id="_PSgDLeBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSgDHOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSgDH-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSgDIuBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSgDJeBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PSgDQ-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSgDYuBNEe6EAJ2dR7ulVw" inputPins="_PSgDLeBNEe6EAJ2dR7ulVw" outputPin="_PSgDHOBNEe6EAJ2dR7ulVw" outputLabels="_PSgC5uBNEe6EAJ2dR7ulVw _PSgC8uBNEe6EAJ2dR7ulVw _PSgDAeBNEe6EAJ2dR7ulVw _PSgC0eBNEe6EAJ2dR7ulVw _PSgDCuBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSgDY-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSgDZOBNEe6EAJ2dR7ulVw" inputPins="_PSgDLeBNEe6EAJ2dR7ulVw" outputPin="_PSgDH-BNEe6EAJ2dR7ulVw" outputLabels="_PSgC5uBNEe6EAJ2dR7ulVw _PSgC8uBNEe6EAJ2dR7ulVw _PSgDAeBNEe6EAJ2dR7ulVw _PSgC0eBNEe6EAJ2dR7ulVw _PSgDCuBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSgDZeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSgDZuBNEe6EAJ2dR7ulVw" inputPins="_PSgDLeBNEe6EAJ2dR7ulVw" outputPin="_PSgDIuBNEe6EAJ2dR7ulVw" outputLabels="_PSgC5uBNEe6EAJ2dR7ulVw _PSgC8uBNEe6EAJ2dR7ulVw _PSgDAeBNEe6EAJ2dR7ulVw _PSgC0eBNEe6EAJ2dR7ulVw _PSgDCuBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSgDZ-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSgDaOBNEe6EAJ2dR7ulVw" inputPins="_PSgDLeBNEe6EAJ2dR7ulVw" outputPin="_PSgDJeBNEe6EAJ2dR7ulVw" outputLabels="_PSgC5uBNEe6EAJ2dR7ulVw _PSgC8uBNEe6EAJ2dR7ulVw _PSgDAeBNEe6EAJ2dR7ulVw _PSgC0eBNEe6EAJ2dR7ulVw _PSgDCuBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSgDaeBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PSgDauBNEe6EAJ2dR7ulVw" inputPins="_PSgDLeBNEe6EAJ2dR7ulVw" outputPin="_PSgDQ-BNEe6EAJ2dR7ulVw" outputLabels="_PSgC5uBNEe6EAJ2dR7ulVw _PSgC8uBNEe6EAJ2dR7ulVw _PSgDAeBNEe6EAJ2dR7ulVw _PSgC0eBNEe6EAJ2dR7ulVw _PSgDCuBNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PSgDa-BNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSgDe-BNEe6EAJ2dR7ulVw" inputPins="_PSgDLeBNEe6EAJ2dR7ulVw" outputPin="_PSgDHOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSgDfOBNEe6EAJ2dR7ulVw" inputPins="_PSgDLeBNEe6EAJ2dR7ulVw" outputPin="_PSgDH-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSgDfeBNEe6EAJ2dR7ulVw" inputPins="_PSgDLeBNEe6EAJ2dR7ulVw" outputPin="_PSgDIuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSgDfuBNEe6EAJ2dR7ulVw" inputPins="_PSgDLeBNEe6EAJ2dR7ulVw" outputPin="_PSgDJeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PSgDf-BNEe6EAJ2dR7ulVw" inputPins="_PSgDLeBNEe6EAJ2dR7ulVw" outputPin="_PSgDQ-BNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+</datadictionary:DataDictionary>

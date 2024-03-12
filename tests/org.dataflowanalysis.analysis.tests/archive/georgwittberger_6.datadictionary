@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://www.example.org/datadictionary" id="_PTVJMeBNEe6EAJ2dR7ulVw">
+  <labelTypes id="_PTVJOOBNEe6EAJ2dR7ulVw" entityName="Stereotype">
+    <label id="_PTVJO-BNEe6EAJ2dR7ulVw" entityName="internal"/>
+    <label id="_PTVJQ-BNEe6EAJ2dR7ulVw" entityName="web_server"/>
+    <label id="_PTVJROBNEe6EAJ2dR7ulVw" entityName="gateway"/>
+    <label id="_PTVJReBNEe6EAJ2dR7ulVw" entityName="infrastructural"/>
+    <label id="_PTVJSuBNEe6EAJ2dR7ulVw" entityName="user_stereotype"/>
+    <label id="_PTVJS-BNEe6EAJ2dR7ulVw" entityName="entrypoint"/>
+    <label id="_PTVJTOBNEe6EAJ2dR7ulVw" entityName="exitpoint"/>
+    <label id="_PTVJUuBNEe6EAJ2dR7ulVw" entityName="authorization_server"/>
+    <label id="_PTVJU-BNEe6EAJ2dR7ulVw" entityName="login_attempts_regulation}&quot; shape = Mrecord"/>
+    <label id="_PTVJV-BNEe6EAJ2dR7ulVw" entityName="restfulhttp"/>
+  </labelTypes>
+  <labelTypes id="_PTVJPOBNEe6EAJ2dR7ulVw" entityName="Port">
+    <label id="_PTVJPeBNEe6EAJ2dR7ulVw" entityName="11080"/>
+    <label id="_PTVJQOBNEe6EAJ2dR7ulVw" entityName="11082"/>
+    <label id="_PTVJT-BNEe6EAJ2dR7ulVw" entityName="11081"/>
+  </labelTypes>
+  <labelTypes id="_PTVJRuBNEe6EAJ2dR7ulVw" entityName="WebServer">
+    <label id="_PTVJR-BNEe6EAJ2dR7ulVw" entityName="Apachehttpd"/>
+  </labelTypes>
+  <behaviour id="_PTVJOeBNEe6EAJ2dR7ulVw">
+    <inPin id="_PTVJZeBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PTVJa-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PTVJOuBNEe6EAJ2dR7ulVw" outputLabels="_PTVJO-BNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PTVJPuBNEe6EAJ2dR7ulVw">
+    <inPin id="_PTVJX-BNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PTVJceBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PTVJXeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PTVJc-BNEe6EAJ2dR7ulVw" inputPins="_PTVJX-BNEe6EAJ2dR7ulVw _PTVJceBNEe6EAJ2dR7ulVw" outputPin="_PTVJXeBNEe6EAJ2dR7ulVw" outputLabels="_PTVJO-BNEe6EAJ2dR7ulVw _PTVJV-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PTVJdOBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PTVJh-BNEe6EAJ2dR7ulVw" inputPins="_PTVJX-BNEe6EAJ2dR7ulVw _PTVJceBNEe6EAJ2dR7ulVw" outputPin="_PTVJXeBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PTVJQeBNEe6EAJ2dR7ulVw">
+    <inPin id="_PTVJVeBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PTVJaOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PTVJWuBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PTVJYOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PTVJY-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PTVJZuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PTVJdeBNEe6EAJ2dR7ulVw" inputPins="_PTVJVeBNEe6EAJ2dR7ulVw _PTVJaOBNEe6EAJ2dR7ulVw" outputPin="_PTVJWuBNEe6EAJ2dR7ulVw" outputLabels="_PTVJQ-BNEe6EAJ2dR7ulVw _PTVJROBNEe6EAJ2dR7ulVw _PTVJReBNEe6EAJ2dR7ulVw _PTVJV-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PTVJduBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PTVJd-BNEe6EAJ2dR7ulVw" inputPins="_PTVJVeBNEe6EAJ2dR7ulVw _PTVJaOBNEe6EAJ2dR7ulVw" outputPin="_PTVJYOBNEe6EAJ2dR7ulVw" outputLabels="_PTVJQ-BNEe6EAJ2dR7ulVw _PTVJROBNEe6EAJ2dR7ulVw _PTVJReBNEe6EAJ2dR7ulVw _PTVJV-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PTVJeOBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PTVJeeBNEe6EAJ2dR7ulVw" inputPins="_PTVJVeBNEe6EAJ2dR7ulVw _PTVJaOBNEe6EAJ2dR7ulVw" outputPin="_PTVJY-BNEe6EAJ2dR7ulVw" outputLabels="_PTVJQ-BNEe6EAJ2dR7ulVw _PTVJROBNEe6EAJ2dR7ulVw _PTVJReBNEe6EAJ2dR7ulVw _PTVJV-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PTVJeuBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PTVJe-BNEe6EAJ2dR7ulVw" inputPins="_PTVJVeBNEe6EAJ2dR7ulVw _PTVJaOBNEe6EAJ2dR7ulVw" outputPin="_PTVJZuBNEe6EAJ2dR7ulVw" outputLabels="_PTVJQ-BNEe6EAJ2dR7ulVw _PTVJROBNEe6EAJ2dR7ulVw _PTVJReBNEe6EAJ2dR7ulVw _PTVJV-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PTVJfOBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PTVJiOBNEe6EAJ2dR7ulVw" inputPins="_PTVJVeBNEe6EAJ2dR7ulVw _PTVJaOBNEe6EAJ2dR7ulVw" outputPin="_PTVJWuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PTVJieBNEe6EAJ2dR7ulVw" inputPins="_PTVJVeBNEe6EAJ2dR7ulVw _PTVJaOBNEe6EAJ2dR7ulVw" outputPin="_PTVJYOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PTVJiuBNEe6EAJ2dR7ulVw" inputPins="_PTVJVeBNEe6EAJ2dR7ulVw _PTVJaOBNEe6EAJ2dR7ulVw" outputPin="_PTVJY-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PTVJi-BNEe6EAJ2dR7ulVw" inputPins="_PTVJVeBNEe6EAJ2dR7ulVw _PTVJaOBNEe6EAJ2dR7ulVw" outputPin="_PTVJZuBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PTVJSOBNEe6EAJ2dR7ulVw">
+    <inPin id="_PTVJWeBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PTVJVuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PTVJfeBNEe6EAJ2dR7ulVw" inputPins="_PTVJWeBNEe6EAJ2dR7ulVw" outputPin="_PTVJVuBNEe6EAJ2dR7ulVw" outputLabels="_PTVJSuBNEe6EAJ2dR7ulVw _PTVJS-BNEe6EAJ2dR7ulVw _PTVJTOBNEe6EAJ2dR7ulVw _PTVJV-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PTVJfuBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PTVJjOBNEe6EAJ2dR7ulVw" inputPins="_PTVJWeBNEe6EAJ2dR7ulVw" outputPin="_PTVJVuBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PTVJTeBNEe6EAJ2dR7ulVw">
+    <inPin id="_PTVJXOBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PTVJYuBNEe6EAJ2dR7ulVw"/>
+    <inPin id="_PTVJbuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PTVJTuBNEe6EAJ2dR7ulVw" outputLabels="_PTVJO-BNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+  <behaviour id="_PTVJUOBNEe6EAJ2dR7ulVw">
+    <outPin id="_PTVJaeBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PTVJbOBNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PTVJb-BNEe6EAJ2dR7ulVw"/>
+    <outPin id="_PTVJcuBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_PTVJf-BNEe6EAJ2dR7ulVw" outputPin="_PTVJaeBNEe6EAJ2dR7ulVw" outputLabels="_PTVJReBNEe6EAJ2dR7ulVw _PTVJUuBNEe6EAJ2dR7ulVw _PTVJU-BNEe6EAJ2dR7ulVw _PTVJV-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PTVJgOBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PTVJgeBNEe6EAJ2dR7ulVw" outputPin="_PTVJbOBNEe6EAJ2dR7ulVw" outputLabels="_PTVJReBNEe6EAJ2dR7ulVw _PTVJUuBNEe6EAJ2dR7ulVw _PTVJU-BNEe6EAJ2dR7ulVw _PTVJV-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PTVJguBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PTVJg-BNEe6EAJ2dR7ulVw" outputPin="_PTVJb-BNEe6EAJ2dR7ulVw" outputLabels="_PTVJReBNEe6EAJ2dR7ulVw _PTVJUuBNEe6EAJ2dR7ulVw _PTVJU-BNEe6EAJ2dR7ulVw _PTVJV-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PTVJhOBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_PTVJheBNEe6EAJ2dR7ulVw" outputPin="_PTVJcuBNEe6EAJ2dR7ulVw" outputLabels="_PTVJReBNEe6EAJ2dR7ulVw _PTVJUuBNEe6EAJ2dR7ulVw _PTVJU-BNEe6EAJ2dR7ulVw _PTVJV-BNEe6EAJ2dR7ulVw">
+      <term xsi:type="datadictionary:TRUE" id="_PTVJhuBNEe6EAJ2dR7ulVw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PTVJjeBNEe6EAJ2dR7ulVw" outputPin="_PTVJaeBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PTVJjuBNEe6EAJ2dR7ulVw" outputPin="_PTVJbOBNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PTVJj-BNEe6EAJ2dR7ulVw" outputPin="_PTVJb-BNEe6EAJ2dR7ulVw"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_PTVJkOBNEe6EAJ2dR7ulVw" outputPin="_PTVJcuBNEe6EAJ2dR7ulVw"/>
+  </behaviour>
+</datadictionary:DataDictionary>

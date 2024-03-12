@@ -1,6 +1,8 @@
 package org.dataflowanalysis.analysis.dfd.core;
 
 import java.util.HashSet;
+import java.util.Map;
+
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 
@@ -29,5 +31,13 @@ public class DFDPartialFlowGraph extends AbstractPartialFlowGraph {
         newSink.evaluateDataFlow();
         return new DFDPartialFlowGraph(newSink);
     }
+
+    @Override
+    public AbstractPartialFlowGraph copy(Map<? extends AbstractVertex<?>, ? extends AbstractVertex<?>> vertexMapping) {
+        DFDVertex copiedSink = ((DFDVertex) sink).clone();
+        copiedSink.unify(new HashSet<>());
+        return new DFDPartialFlowGraph(copiedSink);
+    }
+
 
 }

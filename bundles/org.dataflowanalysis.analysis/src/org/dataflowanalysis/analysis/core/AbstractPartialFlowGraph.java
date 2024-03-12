@@ -1,11 +1,6 @@
 package org.dataflowanalysis.analysis.core;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Deque;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -29,6 +24,13 @@ public abstract class AbstractPartialFlowGraph {
      * Evaluate the data flow of the partial flow graph with the given node and data characteristics calculator
      */
     public abstract AbstractPartialFlowGraph evaluate();
+
+    /**
+     * Returns a copy of the partial flow graph, with all included vertices copied.
+     * The references of vertices to the model elements will remain identical
+     * @return Returns a copy of the partial flow graph
+     */
+    public abstract AbstractPartialFlowGraph copy(Map<? extends AbstractVertex<?>, ? extends AbstractVertex<?>> vertexMapping);
 
     /**
      * Returns the sink that induces the partial flow graph

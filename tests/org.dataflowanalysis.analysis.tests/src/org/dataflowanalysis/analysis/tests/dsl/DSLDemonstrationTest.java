@@ -2,7 +2,9 @@ package org.dataflowanalysis.analysis.tests.dsl;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.core.FlowGraph;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
 import org.dataflowanalysis.analysis.dsl.selectors.CharacteristicsSelectorData;
@@ -30,7 +32,23 @@ public class DSLDemonstrationTest extends BaseTest {
                 .withCharacteristic("ServerLocation", "nonEU")
                 .create();
 
-        evaluateAnalysis(constraint);
+        evaluateAnalysis(constraint, internationalOnlineShopAnalysis);
+    }
+
+    @Test
+    public void testVariableDSL() {
+        AnalysisConstraint constraint = new ConstraintDSL()
+                .ofData()
+
+                // TODO: Should withLabel have this functionality
+                .withLabel("AssignedRoles", "$role")
+
+                .neverFlows()
+                .toNode()
+                .withCharacteristic("GrantedRoles", "$role")
+                .create();
+
+        evaluateAnalysis(constraint, travelPlannerAnalysis);
     }
 
     @Test
@@ -39,11 +57,11 @@ public class DSLDemonstrationTest extends BaseTest {
         constraint.addFlowSource(new DataCharacteristicsSelector(new CharacteristicsSelectorData("DataSensitivity", "Personal")));
         constraint.addFlowDestination(new NodeCharacteristicsSelector(new CharacteristicsSelectorData("ServerLocation", "nonEU")));
 
-        evaluateAnalysis(constraint);
+        evaluateAnalysis(constraint, internationalOnlineShopAnalysis);
     }
 
-    private void evaluateAnalysis(AnalysisConstraint constraint) {
-        PCMFlowGraph flowGraph = internationalOnlineShopAnalysis.findFlowGraph();
+    private void evaluateAnalysis(AnalysisConstraint constraint, DataFlowConfidentialityAnalysis analysis) {
+        FlowGraph flowGraph = analysis.findFlowGraph();
         flowGraph.evaluate();
         List<AbstractVertex<?>> results = flowGraph.getPartialFlowGraphs().stream()
                 .flatMap(pfg -> constraint.matchPartialFlowGraph(pfg).stream())

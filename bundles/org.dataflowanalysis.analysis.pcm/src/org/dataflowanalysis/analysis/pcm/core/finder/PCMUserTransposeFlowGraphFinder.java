@@ -2,6 +2,7 @@ package org.dataflowanalysis.analysis.pcm.core.finder;
 
 import java.util.*;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.PCMTransposeFlowGraph;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
@@ -87,9 +88,9 @@ public class PCMUserTransposeFlowGraphFinder {
                 .map(PCMQueryUtils::getStartActionOfScenarioBehavior)
                 .flatMap(Optional::stream)
                 .map(it -> {
-                    Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping = new IdentityHashMap<>();
-                    PCMTransposeFlowGraph clonedSequence = this.currentTransposeFlowGraph.deepCopy(vertexMapping);
-                    return new PCMUserTransposeFlowGraphFinder(this.resourceProvider, clonedSequence).findSequencesForUserAction(it);
+                    Map<AbstractVertex<?>, AbstractVertex<?>> vertexMapping = new IdentityHashMap<>();
+                    PCMPartialFlowGraph clonedSequence = this.currentPartialFlowGraph.copy(vertexMapping);
+                    return new PCMUserPartialFlowGraphFinder(this.resourceProvider, clonedSequence).findSequencesForUserAction(it);
                 })
                 .flatMap(List::stream)
                 .toList();

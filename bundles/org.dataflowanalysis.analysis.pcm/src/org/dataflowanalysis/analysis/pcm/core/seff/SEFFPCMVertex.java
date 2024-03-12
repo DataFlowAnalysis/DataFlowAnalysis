@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
@@ -140,7 +141,7 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
     }
 
     @Override
-    public AbstractPCMVertex<?> deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
+    public AbstractPCMVertex<?> copy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
         if (vertexMapping.get(this) != null) {
             return vertexMapping.get(this);
         }

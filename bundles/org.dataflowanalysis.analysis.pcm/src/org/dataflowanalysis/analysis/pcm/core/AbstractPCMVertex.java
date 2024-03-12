@@ -50,7 +50,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
         this.previousElements = previousElements;
     }
 
-    public abstract AbstractPCMVertex<?> deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping);
+    public abstract AbstractPCMVertex<?> copy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping);
 
     /**
      * Sets the propagation result of the Vertex to the given result. This method should only be called once on elements
@@ -146,9 +146,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
         }
         vertexMapping.put(this, copy);
 
-        List<? extends AbstractPCMVertex<?>> clonedPreviousElements = this.previousElements.stream()
-                .map(it -> it.deepCopy(vertexMapping))
-                .toList();
+        List<? extends AbstractPCMVertex<?>> clonedPreviousElements = this.previousElements.stream().map(it -> it.copy(vertexMapping)).toList();
 
         copy.setPreviousElements(clonedPreviousElements);
         return copy;

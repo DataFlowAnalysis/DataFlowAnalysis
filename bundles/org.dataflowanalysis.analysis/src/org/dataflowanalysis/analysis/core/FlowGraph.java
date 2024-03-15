@@ -37,7 +37,7 @@ public abstract class FlowGraph {
      * Determines the partial flow graphs present in the model pointed to by {@link FlowGraph#resourceProvider}
      * @return Returns a list of (unevaluated) partial flow graphs contained in the model
      */
-    public abstract List<AbstractPartialFlowGraph> findPartialFlowGraphs();
+    public abstract List<? extends AbstractPartialFlowGraph> findPartialFlowGraphs();
 
     /**
      * Evaluates the flow graph by label propagation. An evaluated copy of the flow graph is returned by this method

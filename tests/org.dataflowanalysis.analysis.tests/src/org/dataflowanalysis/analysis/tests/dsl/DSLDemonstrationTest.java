@@ -1,0 +1,77 @@
+package org.dataflowanalysis.analysis.tests.dsl;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.core.FlowGraph;
+import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
+import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
+import org.dataflowanalysis.analysis.dsl.selectors.CharacteristicsSelectorData;
+import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.NodeCharacteristicsSelector;
+import org.dataflowanalysis.analysis.tests.BaseTest;
+import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintViolations;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.List;
+
+public class DSLDemonstrationTest extends BaseTest {
+    private static final Logger logger = Logger.getLogger(DSLDemonstrationTest.class);
+
+    @Test
+    public void testDSL() {
+        var constraint = new ConstraintDSL()
+                .ofData()
+                .withLabel("DataSensitivity", "Personal")
+                .ofNode()
+                .neverFlows()
+                .toVertex()
+                .withCharacteristic("ServerLocation", "nonEU")
+                .create();
+
+        evaluateAnalysis(constraint, internationalOnlineShopAnalysis);
+    }
+
+    @Test
+    public void testVariableDSL() {
+        AnalysisConstraint constraint = new ConstraintDSL()
+                .ofData()
+
+                // TODO: Should withLabel have this functionality
+                .withLabel("AssignedRoles", "$assignedRole")
+
+                .neverFlows()
+                .toVertex()
+                .withCharacteristic("GrantedRoles", "$grantedRole")
+                /*
+                .where()
+                .isEmpty(Intersection.of("$grantedRoles", "$assignedRoles"))
+                 */
+                .create();
+
+        evaluateAnalysis(constraint, travelPlannerAnalysis);
+    }
+
+    @Test
+    public void testDataObjects() {
+        AnalysisConstraint constraint = new AnalysisConstraint();
+        constraint.addFlowSource(new DataCharacteristicsSelector(new CharacteristicsSelectorData("DataSensitivity", "Personal")));
+        constraint.addFlowDestination(new NodeCharacteristicsSelector(new CharacteristicsSelectorData("ServerLocation", "nonEU")));
+
+        evaluateAnalysis(constraint, internationalOnlineShopAnalysis);
+    }
+
+    private void evaluateAnalysis(AnalysisConstraint constraint, DataFlowConfidentialityAnalysis analysis) {
+        FlowGraph flowGraph = analysis.findFlowGraph();
+        flowGraph.evaluate();
+        List<AbstractVertex<?>> results = flowGraph.getPartialFlowGraphs().stream()
+                .flatMap(pfg -> constraint.matchPartialFlowGraph(pfg).stream())
+                .toList();
+        logger.setLevel(Level.TRACE);
+        results.forEach(vertex -> logger.trace(vertex.createPrintableNodeInformation()));
+        assertEquals(ConstraintViolations.internationalOnlineShopViolations.size(), results.size());
+    }
+}

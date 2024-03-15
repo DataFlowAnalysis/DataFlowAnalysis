@@ -9,7 +9,7 @@ public class DSLSinkSelector {
         this.analysisConstraint = analysisConstraint;
     }
 
-    public DSLNodeSinkSelector toNode() {
+    public DSLNodeSinkSelector toVertex() {
         return new DSLNodeSinkSelector(this.analysisConstraint);
     }
 }

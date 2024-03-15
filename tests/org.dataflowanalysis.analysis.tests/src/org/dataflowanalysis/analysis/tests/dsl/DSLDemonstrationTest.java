@@ -10,7 +10,6 @@ import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
 import org.dataflowanalysis.analysis.dsl.selectors.CharacteristicsSelectorData;
 import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.NodeCharacteristicsSelector;
-import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
 import org.dataflowanalysis.analysis.tests.BaseTest;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintViolations;
 import org.junit.jupiter.api.Test;
@@ -24,11 +23,12 @@ public class DSLDemonstrationTest extends BaseTest {
 
     @Test
     public void testDSL() {
-        AnalysisConstraint constraint = new ConstraintDSL()
+        var constraint = new ConstraintDSL()
                 .ofData()
                 .withLabel("DataSensitivity", "Personal")
+                .ofNode()
                 .neverFlows()
-                .toNode()
+                .toVertex()
                 .withCharacteristic("ServerLocation", "nonEU")
                 .create();
 
@@ -41,11 +41,15 @@ public class DSLDemonstrationTest extends BaseTest {
                 .ofData()
 
                 // TODO: Should withLabel have this functionality
-                .withLabel("AssignedRoles", "$role")
+                .withLabel("AssignedRoles", "$assignedRole")
 
                 .neverFlows()
-                .toNode()
-                .withCharacteristic("GrantedRoles", "$role")
+                .toVertex()
+                .withCharacteristic("GrantedRoles", "$grantedRole")
+                /*
+                .where()
+                .isEmpty(Intersection.of("$grantedRoles", "$assignedRoles"))
+                 */
                 .create();
 
         evaluateAnalysis(constraint, travelPlannerAnalysis);

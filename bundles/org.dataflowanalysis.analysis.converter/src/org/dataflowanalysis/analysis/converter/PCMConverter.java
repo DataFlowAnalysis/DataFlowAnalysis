@@ -99,7 +99,7 @@ public class PCMConverter extends Converter {
             String flowName = flowVariable.variableName();
 
             dataFlowDiagram.getFlows().stream().filter(f -> f.getSourceNode().equals(source)).filter(f -> f.getDestinationNode().equals(dest))
-                    .filter(f -> f.getEntityName().equals(flowName)).findFirst().orElse(createFlow(source, dest, flowName));
+                    .filter(f -> f.getEntityName().equals(flowName)).findFirst().orElseGet(()->createFlow(source, dest, flowName));
         }
     }
 
@@ -124,13 +124,13 @@ public class PCMConverter extends Converter {
     // A pin is equivalent if the same parameters are passed
     private Pin findOutputPin(Node source, String parameters) {
         return source.getBehaviour().getOutPin().stream().filter(p -> p.getEntityName().equals(parameters)).findAny()
-                .orElse(createPin(source, parameters, false));
+                .orElseGet(()->createPin(source, parameters, false));
     }
 
     // A pin is equivalent if the same parameters are passed
     private Pin findInputPin(Node dest, String parameters) {
         return dest.getBehaviour().getInPin().stream().filter(p -> p.getEntityName().equals(parameters)).findAny()
-                .orElse(createPin(dest, parameters, true));
+                .orElseGet(()->createPin(dest, parameters, true));
     }
 
     private Pin createPin(Node node, String parameters, boolean isInPin) {
@@ -194,10 +194,10 @@ public class PCMConverter extends Converter {
 
     private Label getOrCreateDFDLabel(CharacteristicValue charValue) {
         LabelType type = dataDictionary.getLabelTypes().stream().filter(f -> f.getEntityName().equals(charValue.getTypeName())).findFirst()
-                .orElse(createLabelType(charValue));
+                .orElseGet(()->createLabelType(charValue));
 
         Label label = type.getLabel().stream().filter(f -> f.getEntityName().equals(charValue.getValueName())).findFirst()
-                .orElse(createLabel(charValue, type));
+                .orElseGet(()->createLabel(charValue, type));
 
         return label;
     }

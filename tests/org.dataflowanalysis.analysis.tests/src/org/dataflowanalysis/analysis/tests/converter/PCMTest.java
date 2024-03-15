@@ -1,6 +1,7 @@
 package org.dataflowanalysis.analysis.tests.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -8,17 +9,21 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramConverter;
 import org.dataflowanalysis.analysis.converter.PCMConverter;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.FlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.testmodels.Activator;
+import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.junit.jupiter.api.Disabled;
@@ -33,10 +38,8 @@ public class PCMTest {
     public void palladioToDfd() {
         String modelLocation = "org.dataflowanalysis.analysis.testmodels";
 
-        String inputModel = "TravelPlanner";
-        String inputFile = "travelPlanner";
-
-        testSpecificModel(inputModel, inputFile, modelLocation, null);
+        testSpecificModel("CoronaWarnApp", "default", modelLocation,"cwa.json", null);
+        testSpecificModel("TravelPlanner", "travelPlanner", modelLocation,null, null);
     }
 
     @Test
@@ -49,12 +52,12 @@ public class PCMTest {
         String inputFile = "default";
         String dataflowdiagram = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram").toString();
         String datadictionary = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary").toString();
-        testSpecificModel(inputModel, inputFile, modelLocation,
+        testSpecificModel(inputModel, inputFile, modelLocation,null,
                 new DataFlowDiagramConverter().loadDFD(modelLocation, dataflowdiagram, datadictionary, Activator.class));
 
     }
 
-    private void testSpecificModel(String inputModel, String inputFile, String modelLocation, DataFlowDiagramAndDictionary complete) {
+    private void testSpecificModel(String inputModel, String inputFile, String modelLocation,String webTarget, DataFlowDiagramAndDictionary complete) {
         final var usageModelPath = Paths.get("models", inputModel, inputFile + ".usagemodel").toString();
         final var allocationPath = Paths.get("models", inputModel, inputFile + ".allocation").toString();
         final var nodeCharPath = Paths.get("models", inputModel, inputFile + ".nodecharacteristics").toString();
@@ -75,12 +78,17 @@ public class PCMTest {
             }
         }
 
-        DataFlowDiagram dfd;
-        if (complete != null) {
-            dfd = complete.dataFlowDiagram();
-        } else {
-            dfd = new PCMConverter().pcmToDFD(modelLocation,usageModelPath,allocationPath,nodeCharPath,Activator.class).dataFlowDiagram();
+        if (complete == null) {
+            complete = new PCMConverter().pcmToDFD(modelLocation,usageModelPath,allocationPath,nodeCharPath,Activator.class);
         }
+        
+        if(webTarget!=null) {
+            var dfdConverter = new DataFlowDiagramConverter();
+            var web = dfdConverter.dfdToWeb(complete);
+            dfdConverter.storeWeb(web, webTarget);
+        }
+        
+        DataFlowDiagram dfd=complete.dataFlowDiagram();
 
         assertEquals(dfd.getNodes().size(), assIdToName.keySet().size());
 
@@ -109,5 +117,44 @@ public class PCMTest {
         }
 
         assertEquals(flowNames.size(), dfd.getFlows().size());
+        
+        checkLabels(complete.dataDictionary(), flowGraph);
+    }
+    
+    public static void checkLabels(DataDictionary dd, FlowGraph flowGraph) {
+        Map<String,CharacteristicValue> chars = new HashMap<>();
+        for(var pfg : flowGraph.getPartialFlowGraphs()) {
+            for(var vertex : pfg.getVertices()) {
+                for(var nodeChar : vertex.getAllNodeCharacteristics()) {
+                    chars.putIfAbsent(nodeChar.getValueId(),nodeChar);   
+                }
+                for(var dataVariable : vertex.getAllDataFlowVariables()) {
+                    for(var dataChar : dataVariable.getAllCharacteristics()) {
+                        chars.putIfAbsent(dataChar.getValueId(),dataChar); 
+                    }
+                }
+            }
+        }
+        
+        List<String> labelsPCM=chars.values().stream().map(c -> c.getTypeName()+"."+c.getValueName()).collect(Collectors.toList());
+        List<String> labelsDFD=new ArrayList<>();
+        
+        Map<String,List<String>> labelMap= new HashMap<>();
+        for(var labelType : dd.getLabelTypes()) {
+            labelMap.put(labelType.getEntityName(), new ArrayList<>());
+            for(var label : labelType.getLabel()) {
+                var labels=labelMap.get(labelType.getEntityName());
+                //prevent duplicate labels
+                assertTrue(!labels.contains(label.getEntityName()));
+                labels.add(label.getEntityName());
+                labelMap.put(labelType.getEntityName(),labels); 
+                labelsDFD.add(labelType.getEntityName()+"."+label.getEntityName());
+            }
+        }
+        
+        Collections.sort(labelsPCM);
+        Collections.sort(labelsDFD);
+        
+        assertEquals(labelsPCM,labelsDFD);
     }
 }

@@ -14,6 +14,14 @@ import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
 
+/**
+ * An IFPCMExtractionStrategy calculates
+ * {@link ConfidentialityVariableCharacterisation}s for a lattice. The
+ * calculated {@link ConfidentialityVariableCharacterisation} represent
+ * effective constraints and are derived from the given parameters following a
+ * concrete strategy.
+ *
+ */
 public abstract class IFPCMExtractionStrategy {
 
 	private final static String LATTICE_CHARACTERISTIC_TYPE_NAME = "Lattice";
@@ -25,17 +33,31 @@ public abstract class IFPCMExtractionStrategy {
 	private CharacteristicType latticeCharacteristicType;
 	private boolean initialized;
 
-	// TODO Eventually also needs to calculate DataFlowVariables?
+	// TODO Eventually also needs to handle DataFlowVariables?
 
 	// TODO What if there are VariableCharacterisations from different
 	// VariableUsages with different Variables? Write assumption only one in
 	// specification? Should be handled somewhere (here or in the Element classes).
+	// Probably here.
 
+	/**
+	 * Creates an IFPCMExtractionStrategy for the given resourceProvider
+	 * 
+	 * @param resourceProvider the resourceProvider
+	 */
 	public IFPCMExtractionStrategy(ResourceProvider resourceProvider) {
 		this.resourceProvider = resourceProvider;
 		this.initialized = false;
 	}
 
+	/**
+	 * Calculates effective {@link ConfidentialityVariableCharacterisation}s from
+	 * defined characterizations. Assumes all characterizations to be for the same
+	 * variable.
+	 * 
+	 * @param allCharacterisations the defined characterizations
+	 * @return the effective characterizations
+	 */
 	public List<ConfidentialityVariableCharacterisation> calculateEffectiveConfidentialityVariableCharacterisation(
 			List<VariableCharacterisation> allCharacterisations) {
 
@@ -53,6 +75,18 @@ public abstract class IFPCMExtractionStrategy {
 		return calculateEffectiveConfidentialityVariableCharacterisation(confChars, normalChars);
 	}
 
+	/**
+	 * Calculates effective {@link ConfidentialityVariableCharacterisation}s from
+	 * defined characterizations. Assumes all characterizations to be for the same
+	 * variable.
+	 * 
+	 * @param confidentialityCharacterisations the defined
+	 *                                         {@link ConfidentialityVariableCharacterisation}s
+	 * @param normalCharacterisations          the defined characterizations which
+	 *                                         are not
+	 *                                         {@link ConfidentialityVariableCharacterisation}s
+	 * @return the effective characterizations
+	 */
 	public List<ConfidentialityVariableCharacterisation> calculateEffectiveConfidentialityVariableCharacterisation(
 			List<ConfidentialityVariableCharacterisation> confidentialityCharacterisations,
 			List<VariableCharacterisation> normalCharacterisations) {

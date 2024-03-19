@@ -7,6 +7,12 @@ import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.expression.LhsEnumCharacteristicReference;
 
+/**
+ * An {@link IFPCMExtractionStrategy} which prefers defined
+ * {@link ConfidentialityVariableCharacterisation} to calculated
+ * characterizations.
+ *
+ */
 public class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrategy {
 
 	public IFPCMExtractionStrategyPrefer(ResourceProvider resourceProvider) {

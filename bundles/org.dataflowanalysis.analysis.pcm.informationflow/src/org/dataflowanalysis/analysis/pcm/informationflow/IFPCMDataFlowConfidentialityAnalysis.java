@@ -9,7 +9,6 @@ import org.dataflowanalysis.analysis.pcm.core.finder.PCMUserFinder;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategy;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.finder.IFSEFFPCMVertextFactory;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.finder.IFUserPCMVertexFactory;
-import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.eclipse.core.runtime.Plugin;
 
 /**
@@ -41,13 +40,8 @@ public class IFPCMDataFlowConfidentialityAnalysis extends PCMDataFlowConfidentia
 	public IFPCMDataFlowConfidentialityAnalysis(PCMDataFlowConfidentialityAnalysis analysis, String modelProjectName,
 			Optional<Class<? extends Plugin>> modelProjectActivator, boolean considerImplicitFlows,
 			IFPCMExtractionStrategy extractionStrategy) {
-		/*
-		 * Assumes the getResourceProvider()-method of
-		 * PCMDataFlowConfidentialityAnalysis returns a PCMResourceProvider. This
-		 * assumption is used in the PCMDataFlowConfidentialityAnalysis internally as
-		 * well.
-		 */
-		super((PCMResourceProvider) analysis.getResourceProvider(), modelProjectName, modelProjectActivator);
+
+		super(analysis.getResourceProvider(), modelProjectName, modelProjectActivator);
 		this.considerImplicitFlows = considerImplicitFlows;
 		this.extractionStrategy = extractionStrategy;
 	}

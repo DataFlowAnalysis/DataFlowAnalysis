@@ -36,7 +36,7 @@ public class UserPCMVertex<T extends AbstractUserAction> extends AbstractPCMVert
 
     @Override
     public void evaluateDataFlow() {
-        List<DataFlowVariable> incomingDataFlowVariables = super.getIncomingDataFlowVariables();
+        List<DataFlowVariable> incomingDataFlowVariables = getIncomingDataFlowVariables();
         List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
 
         if (this.getReferencedElement() instanceof Start || this.getReferencedElement() instanceof Stop) {

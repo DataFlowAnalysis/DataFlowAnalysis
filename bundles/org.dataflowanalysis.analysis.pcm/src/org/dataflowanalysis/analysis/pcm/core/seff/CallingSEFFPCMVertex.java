@@ -40,7 +40,7 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
 
     @Override
     public void evaluateDataFlow() {
-        List<DataFlowVariable> incomingDataFlowVariables = super.getIncomingDataFlowVariables();
+        List<DataFlowVariable> incomingDataFlowVariables = getIncomingDataFlowVariables();
         List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
 
         List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.isCalling
@@ -55,7 +55,7 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
         if (this.isCalling()) {
             super.checkCallParameter(super.getReferencedElement().getCalledService_ExternalService(), variableCharacterisations);
         }
-        List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(nodeCharacteristics, variableCharacterisations,
+        List<DataFlowVariable> outgoingDataFlowVariables = getDataFlowVariables(nodeCharacteristics, variableCharacterisations,
                 incomingDataFlowVariables);
         if (this.isReturning()) {
             outgoingDataFlowVariables = outgoingDataFlowVariables.stream().filter(it -> !it.getVariableName().equals("RETURN"))

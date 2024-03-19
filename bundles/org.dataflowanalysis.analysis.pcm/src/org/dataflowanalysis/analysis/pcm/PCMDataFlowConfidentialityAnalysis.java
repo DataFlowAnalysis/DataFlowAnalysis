@@ -13,7 +13,6 @@ import org.dataflowanalysis.analysis.core.FlowGraph;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
 import org.dataflowanalysis.analysis.pcm.core.PCMVertexCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
-import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.dddsl.DDDslStandaloneSetup;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.dictionary.DictionaryPackage;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.dictionary.PCMDataDictionary;
@@ -103,7 +102,7 @@ public class PCMDataFlowConfidentialityAnalysis implements DataFlowConfidentiali
      * the analysis.
      * @return Resource provider of the analysis
      */
-    public ResourceProvider getResourceProvider() {
+    public PCMResourceProvider getResourceProvider() {
         return this.resourceProvider;
     }
 

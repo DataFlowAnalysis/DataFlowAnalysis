@@ -9,8 +9,20 @@ import org.dataflowanalysis.analysis.resource.ResourceProvider;
  * implementation of the flow graph
  */
 public abstract class FlowGraph {
-    protected final ResourceProvider resourceProvider;
-    private final List<? extends AbstractPartialFlowGraph> partialFlowGraphs;
+    protected ResourceProvider resourceProvider;
+    private List<? extends AbstractPartialFlowGraph> partialFlowGraphs;
+    
+    
+    /**
+     * Creates a new flow graph. Initialize should be called before the FlowGraph is used.
+     */
+    protected FlowGraph() {
+    }
+    
+    protected void initialize(ResourceProvider resourceProvider) {
+    	this.resourceProvider = resourceProvider;
+    	this.partialFlowGraphs = this.findPartialFlowGraphs();
+    }
 
     /**
      * Creates a new flow graph with the given resource provider. Furthermore, the list of partial flow graphs is determined
@@ -18,8 +30,7 @@ public abstract class FlowGraph {
      * @param resourceProvider Resource provider, that provides model files to the partial flow graph finder
      */
     public FlowGraph(ResourceProvider resourceProvider) {
-        this.resourceProvider = resourceProvider;
-        this.partialFlowGraphs = this.findPartialFlowGraphs();
+        initialize(resourceProvider);
     }
 
     /**
@@ -50,5 +61,13 @@ public abstract class FlowGraph {
      */
     public List<? extends AbstractPartialFlowGraph> getPartialFlowGraphs() {
         return this.partialFlowGraphs;
+    }
+    
+    /**
+     * Returns the used resourceProvider.
+     * @return resourceProvier
+     */
+    protected ResourceProvider getResourceProvider() {
+    	return resourceProvider;
     }
 }

@@ -1,13 +1,7 @@
 package org.dataflowanalysis.analysis.pcm.informationflow;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 
-import org.apache.log4j.Level;
-import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
-import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.core.FlowGraph;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
 import org.dataflowanalysis.analysis.pcm.core.PCMPartialFlowGraphFinder;
@@ -16,7 +10,6 @@ import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStr
 import org.dataflowanalysis.analysis.pcm.informationflow.core.finder.IFSEFFPCMVertextFactory;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.finder.IFUserPCMVertexFactory;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
-import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.eclipse.core.runtime.Plugin;
 
 /**
@@ -28,12 +21,6 @@ import org.eclipse.core.runtime.Plugin;
  */
 public class IFPCMDataFlowConfidentialityAnalysis extends PCMDataFlowConfidentialityAnalysis {
 
-	/*
-	 * This class is a proxy to a PCMDataFlowConfidentialityAnalysis. Therefore,
-	 * this class should use the methods of the given analysis instead of the
-	 * inherited methods. Every method should be overwritten.
-	 */
-	private PCMDataFlowConfidentialityAnalysis analysis;
 	private boolean considerImplicitFlows;
 	private IFPCMExtractionStrategy extractionStrategy;
 
@@ -61,14 +48,8 @@ public class IFPCMDataFlowConfidentialityAnalysis extends PCMDataFlowConfidentia
 		 * well.
 		 */
 		super((PCMResourceProvider) analysis.getResourceProvider(), modelProjectName, modelProjectActivator);
-		this.analysis = analysis;
 		this.considerImplicitFlows = considerImplicitFlows;
 		this.extractionStrategy = extractionStrategy;
-	}
-
-	@Override
-	public void initializeAnalysis() {
-		analysis.initializeAnalysis();
 	}
 
 	@Override
@@ -80,26 +61,5 @@ public class IFPCMDataFlowConfidentialityAnalysis extends PCMDataFlowConfidentia
 		var sequenceFinder = new PCMPartialFlowGraphFinder(resourceProvider, userFinder);
 
 		return new PCMFlowGraph(resourceProvider, sequenceFinder);
-	}
-
-	@Override
-	public PCMFlowGraph evaluateFlowGraph(FlowGraph flowGraph) {
-		return analysis.evaluateFlowGraph(flowGraph);
-	}
-
-	@Override
-	public List<? extends AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph partialFlowGraph,
-			Predicate<? super AbstractVertex<?>> condition) {
-		return analysis.queryDataFlow(partialFlowGraph, condition);
-	}
-
-	@Override
-	public void setLoggerLevel(Level level) {
-		analysis.setLoggerLevel(level);
-	}
-
-	@Override
-	public ResourceProvider getResourceProvider() {
-		return super.getResourceProvider();
 	}
 }

@@ -19,6 +19,10 @@ public abstract class FlowGraph {
     protected FlowGraph() {
     }
     
+    /**
+     * Initializes the used resourceProvider and the partialFlowGraphs by calling {@link #findPartialFlowGraphs()}.
+     * @param resourceProvider the resourceProvider
+     */
     protected void initialize(ResourceProvider resourceProvider) {
     	this.resourceProvider = resourceProvider;
     	this.partialFlowGraphs = this.findPartialFlowGraphs();

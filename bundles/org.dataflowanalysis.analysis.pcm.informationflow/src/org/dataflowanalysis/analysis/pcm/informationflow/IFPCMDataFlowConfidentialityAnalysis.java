@@ -3,7 +3,6 @@ package org.dataflowanalysis.analysis.pcm.informationflow;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
@@ -38,6 +37,8 @@ public class IFPCMDataFlowConfidentialityAnalysis extends PCMDataFlowConfidentia
 	private boolean considerImplicitFlows;
 	private IFPCMExtractionStrategy extractionStrategy;
 
+	public static final String PLUGIN_PATH = "org.dataflowanalysis.analysis.pcm.informationflow";
+
 	/**
 	 * Creates an {@link IFPCMDataFlowConfidentialityAnalysis} with the given
 	 * parameters. Note, this is an proxy to a
@@ -60,6 +61,9 @@ public class IFPCMDataFlowConfidentialityAnalysis extends PCMDataFlowConfidentia
 		 * well.
 		 */
 		super((PCMResourceProvider) analysis.getResourceProvider(), modelProjectName, modelProjectActivator);
+		this.analysis = analysis;
+		this.considerImplicitFlows = considerImplicitFlows;
+		this.extractionStrategy = extractionStrategy;
 	}
 
 	@Override
@@ -74,20 +78,8 @@ public class IFPCMDataFlowConfidentialityAnalysis extends PCMDataFlowConfidentia
 		var seffElementFactory = new IFSEFFPCMVertextFactory(considerImplicitFlows, extractionStrategy);
 		var userFinder = new PCMUserFinder(userElementFactory, seffElementFactory);
 		var sequenceFinder = new PCMPartialFlowGraphFinder(resourceProvider, userFinder);
-		/*
-		 * TODO Code duplication from PCMFlowGraph#findPartialFlowGraphs. Could not
-		 * change the used PartialFlowGraphFinder without changes to the
-		 * FlowGraph-Constructor: The Constructor either expects already calculated
-		 * PartialFlowGraphs or calls the method findPartialFlowGraphs() directly. Since
-		 * the super-Constructor has to be called first, I found no option to change the
-		 * PCMPartialFlowGraphFinder (in a flexible way) without changing FlowGraph.
-		 * (Flexible here means that the used Finder is not hardcoded in a subclass,
-		 * meaning there is no option of configuration).
-		 */
-		List<AbstractPartialFlowGraph> partialFlowGraphs = sequenceFinder.findPartialFlowGraphs().parallelStream()
-				.map(AbstractPartialFlowGraph.class::cast).collect(Collectors.toList());
 
-		return new PCMFlowGraph(partialFlowGraphs, resourceProvider);
+		return new PCMFlowGraph(resourceProvider, sequenceFinder);
 	}
 
 	@Override

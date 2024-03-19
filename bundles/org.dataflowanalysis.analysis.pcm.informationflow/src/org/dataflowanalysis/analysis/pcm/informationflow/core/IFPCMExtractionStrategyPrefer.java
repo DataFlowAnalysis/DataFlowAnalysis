@@ -23,12 +23,13 @@ public class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrategy {
 		for (ConfidentialityVariableCharacterisation calculatedCharacterisation : calculatedCharacterisations) {
 			LhsEnumCharacteristicReference lhsCalcChar = (LhsEnumCharacteristicReference) calculatedCharacterisation
 					.getLhs();
+
 			boolean isDefined = false;
 			for (ConfidentialityVariableCharacterisation definedCharacterisation : definedCharacterisations) {
 				LhsEnumCharacteristicReference lhsDefChar = (LhsEnumCharacteristicReference) definedCharacterisation
 						.getLhs();
-				if (lhsCalcChar.getLiteral().getName().equals(lhsDefChar.getLiteral().getName()) && lhsCalcChar
-						.getCharacteristicType().getName().equals(lhsDefChar.getCharacteristicType().getName())) {
+
+				if (isMatchingDefinition(lhsCalcChar, lhsDefChar)) {
 					isDefined = true;
 				}
 			}
@@ -38,6 +39,20 @@ public class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrategy {
 		}
 
 		return resultingCharacterisations;
+	}
+
+	private boolean isMatchingDefinition(LhsEnumCharacteristicReference lhsCalcChar,
+			LhsEnumCharacteristicReference lhsDefChar) {
+
+		boolean defCtWildcard = lhsDefChar.getCharacteristicType() == null;
+		boolean matchingCharacteristicType = defCtWildcard
+				|| lhsCalcChar.getCharacteristicType().getName().equals(lhsDefChar.getCharacteristicType().getName());
+
+		boolean defLiteralWildcard = lhsDefChar.getLiteral() == null;
+		boolean matchingLiteral = defLiteralWildcard
+				|| lhsCalcChar.getLiteral().getName().equals(lhsDefChar.getLiteral().getName());
+
+		return matchingCharacteristicType && matchingLiteral;
 	}
 
 }

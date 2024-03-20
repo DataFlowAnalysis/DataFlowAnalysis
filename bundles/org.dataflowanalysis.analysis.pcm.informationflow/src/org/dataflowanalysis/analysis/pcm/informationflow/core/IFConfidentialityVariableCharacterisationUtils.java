@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.CharacteristicType;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Enumeration;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Literal;
+import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.expressions.And;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.expressions.ExpressionsFactory;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.expressions.Not;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.expressions.Or;
@@ -70,12 +71,13 @@ public class IFConfidentialityVariableCharacterisationUtils {
 		List<Literal> higherLevels = lattice.getLiterals().stream().filter(l -> l.getId().compareTo(level.getId()) > 0)
 				.toList();
 
-		List<Term> dependencies = new ArrayList<>();
+		List<Term> levelDependencies = new ArrayList<>();
+		List<Term> higherDependencies = new ArrayList<>();
 		for (AbstractNamedReference reference : references) {
-			dependencies.add(createNamedEnumCharacteristicReference(reference, latticeCharacteristicType, level));
+			levelDependencies.add(createNamedEnumCharacteristicReference(reference, latticeCharacteristicType, level));
 			for (Literal latticeLevel : higherLevels) {
-				dependencies.add(createNot(
-						createNamedEnumCharacteristicReference(reference, latticeCharacteristicType, latticeLevel)));
+				higherDependencies.add(
+						createNamedEnumCharacteristicReference(reference, latticeCharacteristicType, latticeLevel));
 			}
 		}
 
@@ -83,7 +85,7 @@ public class IFConfidentialityVariableCharacterisationUtils {
 		var confVar = confFactory.createConfidentialityVariableCharacterisation();
 
 		confVar.setLhs(createLhs(latticeCharacteristicType, level));
-		confVar.setRhs(createOrRhs(dependencies));
+		confVar.setRhs(createRhs(levelDependencies, higherDependencies));
 		confVar.setVariableUsage_VariableCharacterisation(createVariableUsage(characterisedVariable));
 		return confVar;
 	}
@@ -99,7 +101,23 @@ public class IFConfidentialityVariableCharacterisationUtils {
 		return lhs;
 	}
 
-	private static Term createOrRhs(List<Term> variables) {
+	private static Term createRhs(List<Term> levelVariables, List<Term> higherVariables) {
+		ExpressionsFactory expsFac = ExpressionsFactory.eINSTANCE;
+
+		Term positiveTerm = createOrTerm(levelVariables);
+
+		if (higherVariables.size() < 1) {
+			return positiveTerm;
+		}
+		Term negatedTerm = createNot(createOrTerm(higherVariables));
+
+		And andTerm = expsFac.createAnd();
+		andTerm.setLeft(positiveTerm);
+		andTerm.setRight(negatedTerm);
+		return andTerm;
+	}
+
+	private static Term createOrTerm(List<Term> variables) {
 		if (variables.size() < 1) {
 			String errorMsg = "The creation of a ConfidentialityVariableCharacterisation without Variable dependencies is undefined.";
 			logger.error(errorMsg);

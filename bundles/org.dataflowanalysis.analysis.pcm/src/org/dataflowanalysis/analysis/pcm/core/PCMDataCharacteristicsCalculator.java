@@ -163,7 +163,7 @@ public class PCMDataCharacteristicsCalculator {
         } else if (term instanceof Or orTerm) {
             return evaluateTerm(orTerm.getLeft(), characteristicValue) || evaluateTerm(orTerm.getRight(), characteristicValue);
         } else if (term instanceof Not notTerm) {
-        	return evaluateTerm(notTerm.getTerm(), characteristicValue);
+        	return !evaluateTerm(notTerm.getTerm(), characteristicValue);
         } else {
             throw new IllegalArgumentException("Unknown type: " + term.getClass().getName());
         }

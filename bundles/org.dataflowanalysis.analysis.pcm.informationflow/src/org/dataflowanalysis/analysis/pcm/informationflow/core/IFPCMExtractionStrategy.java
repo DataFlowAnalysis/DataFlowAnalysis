@@ -1,7 +1,11 @@
 package org.dataflowanalysis.analysis.pcm.informationflow.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
@@ -34,11 +38,6 @@ public abstract class IFPCMExtractionStrategy {
 	private boolean initialized;
 
 	// TODO Eventually also needs to handle DataFlowVariables?
-
-	// TODO What if there are VariableCharacterisations from different
-	// VariableUsages with different Variables? Write assumption only one in
-	// specification? Should be handled somewhere (here or in the Element classes).
-	// Probably here.
 
 	/**
 	 * Creates an IFPCMExtractionStrategy for the given resourceProvider
@@ -91,6 +90,33 @@ public abstract class IFPCMExtractionStrategy {
 			List<ConfidentialityVariableCharacterisation> confidentialityCharacterisations,
 			List<VariableCharacterisation> normalCharacterisations) {
 
+		var variableNameToNormalChars = mapVariableNameToVarChar(normalCharacterisations);
+		var variableNameToConfChars = mapVariableNameToVarChar(confidentialityCharacterisations);
+
+		Set<String> characterisedVariableNames = new HashSet<>(variableNameToNormalChars.keySet());
+		characterisedVariableNames.addAll(variableNameToConfChars.keySet());
+
+		List<ConfidentialityVariableCharacterisation> allResultingCvcs = new ArrayList<>();
+		for (String characterisedVariableName : characterisedVariableNames) {
+			var normalCharsForVariable = variableNameToNormalChars.get(characterisedVariableName);
+			if (normalCharsForVariable == null) {
+				normalCharsForVariable = new ArrayList<>();
+			}
+			var confCharsForVariable = variableNameToConfChars.get(characterisedVariableName);
+			if (confCharsForVariable == null) {
+				confCharsForVariable = new ArrayList<>();
+			}
+
+			var resultingCvcs = calculateEffectiveCvcForVariable(confCharsForVariable, normalCharsForVariable);
+			allResultingCvcs.addAll(resultingCvcs);
+		}
+		return allResultingCvcs;
+	}
+
+	private List<ConfidentialityVariableCharacterisation> calculateEffectiveCvcForVariable(
+			List<ConfidentialityVariableCharacterisation> confidentialityCharacterisations,
+			List<VariableCharacterisation> normalCharacterisations) {
+
 		List<ConfidentialityVariableCharacterisation> calculatedCharacterisations = new ArrayList<>();
 		if (normalCharacterisations.size() > 0) {
 			AbstractNamedReference characterisedVariable = normalCharacterisations.get(0)
@@ -103,7 +129,22 @@ public abstract class IFPCMExtractionStrategy {
 
 		return calculateResultingConfidentialityVaraibleCharacterisations(calculatedCharacterisations,
 				confidentialityCharacterisations);
+	}
 
+	private <T extends VariableCharacterisation> Map<String, List<T>> mapVariableNameToVarChar(List<T> varChars) {
+		Map<String, List<T>> variableNameToVarChars = new HashMap<>();
+		for (var varChar : varChars) {
+			String variableName = varChar.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage()
+					.getReferenceName();
+			var mappedVarChars = variableNameToVarChars.get(variableName);
+
+			if (mappedVarChars == null) {
+				mappedVarChars = new ArrayList<>();
+			}
+			mappedVarChars.add(varChar);
+			variableNameToVarChars.put(variableName, mappedVarChars);
+		}
+		return variableNameToVarChars;
 	}
 
 	protected List<AbstractNamedReference> extractVariableDependencies(

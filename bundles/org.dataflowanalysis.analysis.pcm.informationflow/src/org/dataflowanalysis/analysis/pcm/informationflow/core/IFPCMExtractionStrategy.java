@@ -91,12 +91,16 @@ public abstract class IFPCMExtractionStrategy {
 			List<ConfidentialityVariableCharacterisation> confidentialityCharacterisations,
 			List<VariableCharacterisation> normalCharacterisations) {
 
-		AbstractNamedReference characterisedVariable = normalCharacterisations.get(0)
-				.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage();
+		List<ConfidentialityVariableCharacterisation> calculatedCharacterisations = new ArrayList<>();
+		if (normalCharacterisations.size() > 0) {
+			AbstractNamedReference characterisedVariable = normalCharacterisations.get(0)
+					.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage();
+			var dependencies = extractVariableDependencies(normalCharacterisations);
 
-		var dependencies = extractVariableDependencies(normalCharacterisations);
-		var calculatedCharacterisations = calculateConfidentialityVariableCharacteristationsFromReferences(dependencies,
-				characterisedVariable);
+			calculatedCharacterisations = calculateConfidentialityVariableCharacteristationsFromReferences(dependencies,
+					characterisedVariable);
+		}
+
 		return calculateResultingConfidentialityVaraibleCharacterisations(calculatedCharacterisations,
 				confidentialityCharacterisations);
 

@@ -67,8 +67,7 @@ public class IFConfidentialityVariableCharacterisationUtils {
 			AbstractNamedReference characterisedVariable, List<AbstractNamedReference> references,
 			CharacteristicType latticeCharacteristicType, Enumeration lattice, Literal level) {
 
-		// Assumes the ids of the lattice are ordered from lowest to highest.
-		List<Literal> higherLevels = lattice.getLiterals().stream().filter(l -> l.getId().compareTo(level.getId()) > 0)
+		List<Literal> higherLevels = lattice.getLiterals().stream().filter(l -> IFLatticeUtils.isHigherLevel(l, level))
 				.toList();
 
 		List<Term> levelDependencies = new ArrayList<>();

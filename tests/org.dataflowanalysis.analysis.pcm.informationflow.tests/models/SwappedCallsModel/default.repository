@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="ASCII"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="_GatYMObbEe6g7Pjr7QvGCA" entityName="New Repository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_LCT1cObbEe6g7Pjr7QvGCA" entityName="SwappingCallComponent">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_zCz58ObbEe6g7Pjr7QvGCA" entityName="SwappingCallComponent.SwappingCall.OperationProvidedRole1" providedInterface__OperationProvidedRole="_OrQ5IObbEe6g7Pjr7QvGCA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_zveLoObbEe6g7Pjr7QvGCA" entityName="SwappingCallComponent.ConfidentialCallee.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_P7nGsObbEe6g7Pjr7QvGCA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_0Z-hMObbEe6g7Pjr7QvGCA" entityName="SwappingCallComponent.NonConfidentialCallee.OperationRequiredRole2" requiredInterface__OperationRequiredRole="_RwmSYObbEe6g7Pjr7QvGCA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_zDLtYObbEe6g7Pjr7QvGCA" describedService__SEFF="_alR0EObbEe6g7Pjr7QvGCA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_zDLtYebbEe6g7Pjr7QvGCA" successor_AbstractAction="_CJ_7gObcEe6g7Pjr7QvGCA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_zDLtYubbEe6g7Pjr7QvGCA" predecessor_AbstractAction="_FPBLsObcEe6g7Pjr7QvGCA"/>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_CJ_7gObcEe6g7Pjr7QvGCA" entityName="SetVariableAction1" predecessor_AbstractAction="_zDLtYebbEe6g7Pjr7QvGCA" successor_AbstractAction="_CpEdIObcEe6g7Pjr7QvGCA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="first.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="tmp"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_CpEdIObcEe6g7Pjr7QvGCA" entityName="SetVariableAction2" predecessor_AbstractAction="_CJ_7gObcEe6g7Pjr7QvGCA" successor_AbstractAction="_DVOYgObcEe6g7Pjr7QvGCA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="second.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="first"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_DVOYgObcEe6g7Pjr7QvGCA" entityName="SetVariableAction3" predecessor_AbstractAction="_CpEdIObcEe6g7Pjr7QvGCA" successor_AbstractAction="_DthjwObcEe6g7Pjr7QvGCA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="tmp.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="second"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_DthjwObcEe6g7Pjr7QvGCA" entityName="ExternalCallAction1" predecessor_AbstractAction="_DVOYgObcEe6g7Pjr7QvGCA" successor_AbstractAction="_FPBLsObcEe6g7Pjr7QvGCA" calledService_ExternalService="_kaiB8ObbEe6g7Pjr7QvGCA" role_ExternalService="_zveLoObbEe6g7Pjr7QvGCA">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="first.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="confidential"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_FPBLsObcEe6g7Pjr7QvGCA" entityName="ExternalCallAction2" predecessor_AbstractAction="_DthjwObcEe6g7Pjr7QvGCA" successor_AbstractAction="_zDLtYubbEe6g7Pjr7QvGCA" calledService_ExternalService="_soI8kObbEe6g7Pjr7QvGCA" role_ExternalService="_0Z-hMObbEe6g7Pjr7QvGCA">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="second.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="nonConfidential"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_TnsW4ObbEe6g7Pjr7QvGCA" entityName="ConfidentialCalleeComponent">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_1CwYcObbEe6g7Pjr7QvGCA" entityName="ConfidentialCalleeComponent.ConfidentialCallee.OperationProvidedRole1" providedInterface__OperationProvidedRole="_P7nGsObbEe6g7Pjr7QvGCA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_1DHk0ObbEe6g7Pjr7QvGCA" describedService__SEFF="_kaiB8ObbEe6g7Pjr7QvGCA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_1DIL4ObbEe6g7Pjr7QvGCA" successor_AbstractAction="_1DIL4ebbEe6g7Pjr7QvGCA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_1DIL4ebbEe6g7Pjr7QvGCA" predecessor_AbstractAction="_1DIL4ObbEe6g7Pjr7QvGCA"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_V6tiYObbEe6g7Pjr7QvGCA" entityName="NonConfidentialCalleeComponent">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_1w7tEObbEe6g7Pjr7QvGCA" entityName="NonConfidentialCalleeComponent.NonConfidentialCallee.OperationProvidedRole1" providedInterface__OperationProvidedRole="_RwmSYObbEe6g7Pjr7QvGCA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_1w-JUObbEe6g7Pjr7QvGCA" describedService__SEFF="_soI8kObbEe6g7Pjr7QvGCA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_1w-JUebbEe6g7Pjr7QvGCA" successor_AbstractAction="_1w-JUubbEe6g7Pjr7QvGCA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_1w-JUubbEe6g7Pjr7QvGCA" predecessor_AbstractAction="_1w-JUebbEe6g7Pjr7QvGCA"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_OrQ5IObbEe6g7Pjr7QvGCA" entityName="SwappingCall">
+    <signatures__OperationInterface id="_alR0EObbEe6g7Pjr7QvGCA" entityName="swappingCall">
+      <parameters__OperationSignature parameterName="first">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+      </parameters__OperationSignature>
+      <parameters__OperationSignature parameterName="second">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+      </parameters__OperationSignature>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_P7nGsObbEe6g7Pjr7QvGCA" entityName="ConfidentialCallee">
+    <signatures__OperationInterface id="_kaiB8ObbEe6g7Pjr7QvGCA" entityName="confidentialMethod">
+      <parameters__OperationSignature parameterName="confidential">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+      </parameters__OperationSignature>
+      <returnType__OperationSignature xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_RwmSYObbEe6g7Pjr7QvGCA" entityName="NonConfidentialCallee">
+    <signatures__OperationInterface id="_soI8kObbEe6g7Pjr7QvGCA" entityName="nonConfidentialMethod">
+      <parameters__OperationSignature parameterName="nonConfidential">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+      </parameters__OperationSignature>
+      <returnType__OperationSignature xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+</repository:Repository>

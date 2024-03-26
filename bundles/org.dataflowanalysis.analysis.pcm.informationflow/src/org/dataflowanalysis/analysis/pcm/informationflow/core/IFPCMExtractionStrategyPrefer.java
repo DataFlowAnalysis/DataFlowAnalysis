@@ -2,7 +2,9 @@ package org.dataflowanalysis.analysis.pcm.informationflow.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.expression.LhsEnumCharacteristicReference;
@@ -10,7 +12,8 @@ import org.dataflowanalysis.pcm.extension.model.confidentiality.expression.LhsEn
 /**
  * An {@link IFPCMExtractionStrategy} which prefers defined
  * {@link ConfidentialityVariableCharacterisation} to calculated
- * characterizations.
+ * characterizations. In case of implicit flows, defined characterizations are
+ * not modified to consider implicit flow.
  *
  */
 public class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrategy {
@@ -19,10 +22,13 @@ public class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrategy {
 		super(resourceProvider);
 	}
 
+	// TODO Additional possible handling with modification to definedChars in case
+	// of implicit flow?
 	@Override
 	protected List<ConfidentialityVariableCharacterisation> calculateResultingConfidentialityVaraibleCharacterisations(
 			List<ConfidentialityVariableCharacterisation> calculatedCharacterisations,
-			List<ConfidentialityVariableCharacterisation> definedCharacterisations) {
+			List<ConfidentialityVariableCharacterisation> definedCharacterisations,
+			Optional<DataFlowVariable> optionalSecurityContext) {
 
 		List<ConfidentialityVariableCharacterisation> resultingCharacterisations = new ArrayList<>(
 				definedCharacterisations);

@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.CharacteristicType;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Enumeration;
@@ -17,6 +19,7 @@ import org.dataflowanalysis.pcm.extension.model.confidentiality.dictionary.PCMDa
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
+import de.uka.ipd.sdq.stoex.Expression;
 
 /**
  * An IFPCMExtractionStrategy calculates
@@ -37,8 +40,6 @@ public abstract class IFPCMExtractionStrategy {
 	private CharacteristicType latticeCharacteristicType;
 	private boolean initialized;
 
-	// TODO Eventually also needs to handle DataFlowVariables?
-
 	/**
 	 * Creates an IFPCMExtractionStrategy for the given resourceProvider
 	 * 
@@ -51,14 +52,88 @@ public abstract class IFPCMExtractionStrategy {
 
 	/**
 	 * Calculates effective {@link ConfidentialityVariableCharacterisation}s from
-	 * defined characterizations. Assumes all characterizations to be for the same
-	 * variable.
+	 * defined characterizations.
 	 * 
 	 * @param allCharacterisations the defined characterizations
 	 * @return the effective characterizations
 	 */
 	public List<ConfidentialityVariableCharacterisation> calculateEffectiveConfidentialityVariableCharacterisation(
 			List<VariableCharacterisation> allCharacterisations) {
+
+		return calculateEffectiveConfidentialityVariableCharacterisation(allCharacterisations, Optional.empty());
+	}
+
+	/**
+	 * Calculates effective {@link ConfidentialityVariableCharacterisation}s from
+	 * defined characterizations.
+	 * 
+	 * @param confidentialityCharacterisations the defined
+	 *                                         {@link ConfidentialityVariableCharacterisation}s
+	 * @param normalCharacterisations          the defined characterizations which
+	 *                                         are not
+	 *                                         {@link ConfidentialityVariableCharacterisation}s
+	 * @return the effective characterizations
+	 */
+	public List<ConfidentialityVariableCharacterisation> calculateEffectiveConfidentialityVariableCharacterisation(
+			List<ConfidentialityVariableCharacterisation> confidentialityCharacterisations,
+			List<VariableCharacterisation> normalCharacterisations) {
+
+		return calculateEffectiveConfidentialityVariableCharacterisation(confidentialityCharacterisations,
+				normalCharacterisations, Optional.empty());
+	}
+
+	/**
+	 * Calculates effective {@link ConfidentialityVariableCharacterisation}s from
+	 * defined characterizations and a security context.
+	 * 
+	 * @param allCharacterisations the defined characterizations
+	 * @param securityContext      the security context
+	 * @return the effective characterizations
+	 */
+	public List<ConfidentialityVariableCharacterisation> calculateEffectiveConfidentialityVariableCharacterisation(
+			List<VariableCharacterisation> allCharacterisations, DataFlowVariable securityContext) {
+		return calculateEffectiveConfidentialityVariableCharacterisation(allCharacterisations,
+				Optional.of(securityContext));
+	}
+
+	/**
+	 * Calculates effective {@link ConfidentialityVariableCharacterisation}s from
+	 * defined characterizations and a security context.
+	 * 
+	 * @param confidentialityCharacterisations the defined
+	 *                                         {@link ConfidentialityVariableCharacterisation}s
+	 * @param normalCharacterisations          the defined characterizations which
+	 *                                         are not
+	 *                                         {@link ConfidentialityVariableCharacterisation}s
+	 * @param securityContext                  the security context
+	 * @return the effective characterizations
+	 */
+	public List<ConfidentialityVariableCharacterisation> calculateEffectiveConfidentialityVariableCharacterisation(
+			List<ConfidentialityVariableCharacterisation> confidentialityCharacterisations,
+			List<VariableCharacterisation> normalCharacterisations, DataFlowVariable securityContext) {
+		return calculateEffectiveConfidentialityVariableCharacterisation(confidentialityCharacterisations,
+				normalCharacterisations, Optional.of(securityContext));
+	}
+
+	/**
+	 * Calculates {@link ConfidentialityVariableCharacterisation}s from an
+	 * expression for a variable.
+	 * 
+	 * @param variable            the variable
+	 * @param dependentExpression the expression
+	 * @return the characterization
+	 */
+	public List<ConfidentialityVariableCharacterisation> calculateConfidentialityVariableCharacterisationForExpression(
+			String variable, Expression dependentExpression) {
+
+		AbstractNamedReference variableRef = IFStoexUtils.createReferenceFromName(variable);
+		var dependencies = IFStoexUtils.findVariablesInExpression(dependentExpression).stream()
+				.map(it -> it.getId_Variable()).toList();
+		return calculateConfidentialityVariableCharacteristationsFromReferences(dependencies, variableRef);
+	}
+
+	private List<ConfidentialityVariableCharacterisation> calculateEffectiveConfidentialityVariableCharacterisation(
+			List<VariableCharacterisation> allCharacterisations, Optional<DataFlowVariable> optionalSecurityContext) {
 
 		List<ConfidentialityVariableCharacterisation> confChars = new ArrayList<ConfidentialityVariableCharacterisation>();
 		List<VariableCharacterisation> normalChars = new ArrayList<VariableCharacterisation>();
@@ -71,24 +146,14 @@ public abstract class IFPCMExtractionStrategy {
 			}
 		}
 
-		return calculateEffectiveConfidentialityVariableCharacterisation(confChars, normalChars);
+		return calculateEffectiveConfidentialityVariableCharacterisation(confChars, normalChars,
+				optionalSecurityContext);
 	}
 
-	/**
-	 * Calculates effective {@link ConfidentialityVariableCharacterisation}s from
-	 * defined characterizations. Assumes all characterizations to be for the same
-	 * variable.
-	 * 
-	 * @param confidentialityCharacterisations the defined
-	 *                                         {@link ConfidentialityVariableCharacterisation}s
-	 * @param normalCharacterisations          the defined characterizations which
-	 *                                         are not
-	 *                                         {@link ConfidentialityVariableCharacterisation}s
-	 * @return the effective characterizations
-	 */
-	public List<ConfidentialityVariableCharacterisation> calculateEffectiveConfidentialityVariableCharacterisation(
+	private List<ConfidentialityVariableCharacterisation> calculateEffectiveConfidentialityVariableCharacterisation(
 			List<ConfidentialityVariableCharacterisation> confidentialityCharacterisations,
-			List<VariableCharacterisation> normalCharacterisations) {
+			List<VariableCharacterisation> normalCharacterisations,
+			Optional<DataFlowVariable> optionalSecurityContext) {
 
 		var variableNameToNormalChars = mapVariableNameToVarChar(normalCharacterisations);
 		var variableNameToConfChars = mapVariableNameToVarChar(confidentialityCharacterisations);
@@ -107,28 +172,35 @@ public abstract class IFPCMExtractionStrategy {
 				confCharsForVariable = new ArrayList<>();
 			}
 
-			var resultingCvcs = calculateEffectiveCvcForVariable(confCharsForVariable, normalCharsForVariable);
+			var resultingCvcs = calculateEffectiveCvcForVariable(confCharsForVariable, normalCharsForVariable,
+					optionalSecurityContext);
 			allResultingCvcs.addAll(resultingCvcs);
 		}
 		return allResultingCvcs;
+
 	}
 
 	private List<ConfidentialityVariableCharacterisation> calculateEffectiveCvcForVariable(
 			List<ConfidentialityVariableCharacterisation> confidentialityCharacterisations,
-			List<VariableCharacterisation> normalCharacterisations) {
+			List<VariableCharacterisation> normalCharacterisations,
+			Optional<DataFlowVariable> optionalSecurityContext) {
 
 		List<ConfidentialityVariableCharacterisation> calculatedCharacterisations = new ArrayList<>();
 		if (normalCharacterisations.size() > 0) {
 			AbstractNamedReference characterisedVariable = normalCharacterisations.get(0)
 					.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage();
 			var dependencies = extractVariableDependencies(normalCharacterisations);
+			if (optionalSecurityContext.isPresent()) {
+				String securityContextName = optionalSecurityContext.get().getVariableName();
+				dependencies.add(IFStoexUtils.createReferenceFromName(securityContextName));
+			}
 
 			calculatedCharacterisations = calculateConfidentialityVariableCharacteristationsFromReferences(dependencies,
 					characterisedVariable);
 		}
 
 		return calculateResultingConfidentialityVaraibleCharacterisations(calculatedCharacterisations,
-				confidentialityCharacterisations);
+				confidentialityCharacterisations, optionalSecurityContext);
 	}
 
 	private <T extends VariableCharacterisation> Map<String, List<T>> mapVariableNameToVarChar(List<T> varChars) {
@@ -165,7 +237,8 @@ public abstract class IFPCMExtractionStrategy {
 
 	protected abstract List<ConfidentialityVariableCharacterisation> calculateResultingConfidentialityVaraibleCharacterisations(
 			List<ConfidentialityVariableCharacterisation> calculatedCharacterisations,
-			List<ConfidentialityVariableCharacterisation> definedCharacterisations);
+			List<ConfidentialityVariableCharacterisation> definedCharacterisations,
+			Optional<DataFlowVariable> optionalSecurityContext);
 
 	protected Enumeration getLattice() {
 		if (!initialized) {

@@ -20,9 +20,11 @@ import de.uka.ipd.sdq.stoex.Parenthesis;
 import de.uka.ipd.sdq.stoex.PowerExpression;
 import de.uka.ipd.sdq.stoex.ProbabilityFunctionLiteral;
 import de.uka.ipd.sdq.stoex.ProductExpression;
+import de.uka.ipd.sdq.stoex.StoexFactory;
 import de.uka.ipd.sdq.stoex.StringLiteral;
 import de.uka.ipd.sdq.stoex.TermExpression;
 import de.uka.ipd.sdq.stoex.Variable;
+import de.uka.ipd.sdq.stoex.VariableReference;
 
 /**
  * A Utils class for Variables in stoex Expressions.
@@ -31,6 +33,8 @@ import de.uka.ipd.sdq.stoex.Variable;
 public class IFStoexUtils {
 
 	private static Logger logger = Logger.getLogger(IFStoexUtils.class);
+
+	private static final StoexFactory stoexFac = StoexFactory.eINSTANCE;
 
 	private IFStoexUtils() {
 	}
@@ -103,7 +107,8 @@ public class IFStoexUtils {
 		return new ArrayList<CharacterisedVariable>();
 	}
 
-	private static List<CharacterisedVariable> findVariablesInBooleanOperatorExpression(BooleanOperatorExpression expression) {
+	private static List<CharacterisedVariable> findVariablesInBooleanOperatorExpression(
+			BooleanOperatorExpression expression) {
 		var vars = findVariablesInExpression(expression.getLeft());
 		vars.addAll(findVariablesInExpression(expression.getRight()));
 		return vars;
@@ -150,6 +155,18 @@ public class IFStoexUtils {
 
 	private static List<CharacterisedVariable> findVariablesInParenthesis(Parenthesis expression) {
 		return findVariablesInExpression(expression.getInnerExpression());
+	}
+
+	/**
+	 * Create a {@link VariableReference} with the given name
+	 * 
+	 * @param name the name
+	 * @return the created reference
+	 */
+	public static VariableReference createReferenceFromName(String name) {
+		var variableRef = stoexFac.createVariableReference();
+		variableRef.setReferenceName("x");
+		return variableRef;
 	}
 
 }

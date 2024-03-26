@@ -1,8 +1,10 @@
 package org.dataflowanalysis.analysis.pcm.informationflow.core.seff;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+import java.util.Map;
 
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
@@ -44,6 +46,22 @@ public abstract class AbstractIFSEFFPCMVertex<T extends AbstractAction> extends 
 	public IFPCMExtractionStrategy getExtractionStrategy() {
 		return extractionStrategy;
 	}
+
+	@Override
+	public AbstractPCMVertex<?> deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> isomorphism) {
+		if (isomorphism.get(this) != null) {
+			return isomorphism.get(this);
+		}
+		AbstractIFSEFFPCMVertex<T> copy = createIFSEFFVertex(getReferencedElement(), List.of(),
+				new ArrayDeque<>(context), new ArrayList<>(getParameter()), resourceProvider);
+		copy.setConsiderImplicitFlow(isConsideringImplicitFlow());
+		copy.setExtractionStrategy(getExtractionStrategy());
+		return super.updateCopy(copy, isomorphism);
+	}
+
+	protected abstract AbstractIFSEFFPCMVertex<T> createIFSEFFVertex(T element,
+			List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
+			List<Parameter> parameter, ResourceProvider resourceProvider);
 
 	/*
 	 * Assumed sequence of evaluateDataFlow()

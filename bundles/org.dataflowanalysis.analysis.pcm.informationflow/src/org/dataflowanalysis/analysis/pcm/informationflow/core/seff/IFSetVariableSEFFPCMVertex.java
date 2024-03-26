@@ -25,4 +25,11 @@ public class IFSetVariableSEFFPCMVertex extends AbstractIFSEFFPCMVertex<SetVaria
 				.flatMap(it -> it.getVariableCharacterisation_VariableUsage().stream()).toList();
 	}
 
+	@Override
+	protected AbstractIFSEFFPCMVertex<SetVariableAction> createIFSEFFVertex(SetVariableAction element,
+			List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
+			List<Parameter> parameter, ResourceProvider resourceProvider) {
+		return new IFSetVariableSEFFPCMVertex(element, previousElements, context, parameter, resourceProvider);
+	}
+
 }

@@ -17,4 +17,11 @@ public class IFStopSEFFPCMVertex extends AbstractIFSEFFPCMVertex<StopAction> {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	protected AbstractIFSEFFPCMVertex<StopAction> createIFSEFFVertex(StopAction element,
+			List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
+			List<Parameter> parameter, ResourceProvider resourceProvider) {
+		return new IFStopSEFFPCMVertex(element, previousElements, context, parameter, resourceProvider);
+	}
+
 }

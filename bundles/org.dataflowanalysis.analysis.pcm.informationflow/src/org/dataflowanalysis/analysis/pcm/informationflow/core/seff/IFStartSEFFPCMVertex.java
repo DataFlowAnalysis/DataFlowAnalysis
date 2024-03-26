@@ -17,4 +17,11 @@ public class IFStartSEFFPCMVertex extends AbstractIFSEFFPCMVertex<StartAction> {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	protected AbstractIFSEFFPCMVertex<StartAction> createIFSEFFVertex(StartAction element,
+			List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
+			List<Parameter> parameter, ResourceProvider resourceProvider) {
+		return new IFStartSEFFPCMVertex(element, previousElements, context, parameter, resourceProvider);
+	}
+
 }

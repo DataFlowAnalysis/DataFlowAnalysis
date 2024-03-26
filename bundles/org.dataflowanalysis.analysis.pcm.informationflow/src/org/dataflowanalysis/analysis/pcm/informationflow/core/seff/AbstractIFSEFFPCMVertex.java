@@ -86,7 +86,7 @@ public abstract class AbstractIFSEFFPCMVertex<T extends AbstractAction> extends 
 //
 //	}
 
-	protected List<VariableCharacterisation> extractStandardVariableCharacterisations() {
+	protected List<VariableCharacterisation> extractVariableCharacterisations() {
 		return new ArrayList<VariableCharacterisation>();
 	}
 
@@ -103,7 +103,7 @@ public abstract class AbstractIFSEFFPCMVertex<T extends AbstractAction> extends 
 	protected List<DataFlowVariable> getDataFlowVariables(List<CharacteristicValue> vertexCharacteristics,
 			List<ConfidentialityVariableCharacterisation> variableCharacterisations,
 			List<DataFlowVariable> oldDataFlowVariables) {
-		List<VariableCharacterisation> allVariableCharacterisations = extractStandardVariableCharacterisations();
+		List<VariableCharacterisation> allVariableCharacterisations = extractVariableCharacterisations();
 		List<ConfidentialityVariableCharacterisation> effectiveVariableCharacterisations = extractionStrategy
 				.calculateEffectiveConfidentialityVariableCharacterisation(allVariableCharacterisations);
 		return super.getDataFlowVariables(vertexCharacteristics, effectiveVariableCharacterisations,

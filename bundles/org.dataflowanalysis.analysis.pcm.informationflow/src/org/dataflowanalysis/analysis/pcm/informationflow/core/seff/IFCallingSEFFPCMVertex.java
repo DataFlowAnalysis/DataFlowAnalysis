@@ -19,7 +19,7 @@ public class IFCallingSEFFPCMVertex extends AbstractIFCallingSEFFPCMVertex {
 	}
 
 	@Override
-	protected List<VariableCharacterisation> extractStandardVariableCharacterisations() {
+	protected List<VariableCharacterisation> extractVariableCharacterisations() {
 		ExternalCallAction element = getReferencedElement();
 		return element.getInputVariableUsages__CallAction().stream()
 				.flatMap(it -> it.getVariableCharacterisation_VariableUsage().stream()).toList();

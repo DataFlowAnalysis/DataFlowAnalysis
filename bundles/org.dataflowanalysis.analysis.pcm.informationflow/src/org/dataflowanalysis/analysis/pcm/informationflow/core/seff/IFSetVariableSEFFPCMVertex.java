@@ -19,7 +19,7 @@ public class IFSetVariableSEFFPCMVertex extends AbstractIFSEFFPCMVertex<SetVaria
 	}
 
 	@Override
-	protected List<VariableCharacterisation> extractStandardVariableCharacterisations() {
+	protected List<VariableCharacterisation> extractVariableCharacterisations() {
 		SetVariableAction element = getReferencedElement();
 		return element.getLocalVariableUsages_SetVariableAction().stream()
 				.flatMap(it -> it.getVariableCharacterisation_VariableUsage().stream()).toList();

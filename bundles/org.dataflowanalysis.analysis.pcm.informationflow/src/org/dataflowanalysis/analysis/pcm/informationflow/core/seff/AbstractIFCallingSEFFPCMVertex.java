@@ -68,7 +68,7 @@ public abstract class AbstractIFCallingSEFFPCMVertex extends CallingSEFFPCMVerte
 			List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
 			List<Parameter> parameter, ResourceProvider resourceProvider);
 
-	protected List<VariableCharacterisation> extractStandardVariableCharacterisations() {
+	protected List<VariableCharacterisation> extractVariableCharacterisations() {
 		return new ArrayList<VariableCharacterisation>();
 	}
 
@@ -76,7 +76,7 @@ public abstract class AbstractIFCallingSEFFPCMVertex extends CallingSEFFPCMVerte
 	protected List<DataFlowVariable> getDataFlowVariables(List<CharacteristicValue> vertexCharacteristics,
 			List<ConfidentialityVariableCharacterisation> variableCharacterisations,
 			List<DataFlowVariable> oldDataFlowVariables) {
-		List<VariableCharacterisation> allVariableCharacterisations = extractStandardVariableCharacterisations();
+		List<VariableCharacterisation> allVariableCharacterisations = extractVariableCharacterisations();
 		List<ConfidentialityVariableCharacterisation> effectiveVariableCharacterisations = extractionStrategy
 				.calculateEffectiveConfidentialityVariableCharacterisation(allVariableCharacterisations);
 		return super.getDataFlowVariables(vertexCharacteristics, effectiveVariableCharacterisations,

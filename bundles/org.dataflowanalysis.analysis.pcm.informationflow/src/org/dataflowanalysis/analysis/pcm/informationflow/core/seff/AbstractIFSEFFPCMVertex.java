@@ -1,7 +1,6 @@
 package org.dataflowanalysis.analysis.pcm.informationflow.core.seff;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.Map;
@@ -29,9 +28,11 @@ public abstract class AbstractIFSEFFPCMVertex<T extends AbstractAction> extends 
 	private IFPCMExtractionStrategy extractionStrategy;
 
 	public AbstractIFSEFFPCMVertex(T element, List<? extends AbstractPCMVertex<?>> previousElements,
-			Deque<AssemblyContext> context, List<Parameter> parameter, ResourceProvider resourceProvider) {
+			Deque<AssemblyContext> context, List<Parameter> parameter, ResourceProvider resourceProvider,
+			boolean considerImplicitFlow, IFPCMExtractionStrategy extractionStrategy) {
 		super(element, previousElements, context, parameter, resourceProvider);
-		// TODO Auto-generated constructor stub
+		this.considerImplicitFlow = considerImplicitFlow;
+		this.extractionStrategy = extractionStrategy;
 	}
 
 	public void setConsiderImplicitFlow(boolean consider) {
@@ -55,16 +56,16 @@ public abstract class AbstractIFSEFFPCMVertex<T extends AbstractAction> extends 
 		if (isomorphism.get(this) != null) {
 			return isomorphism.get(this);
 		}
-		AbstractIFSEFFPCMVertex<T> copy = createIFSEFFVertex(getReferencedElement(), List.of(),
-				new ArrayDeque<>(context), new ArrayList<>(getParameter()), resourceProvider);
-		copy.setConsiderImplicitFlow(isConsideringImplicitFlow());
-		copy.setExtractionStrategy(getExtractionStrategy());
+		AbstractIFSEFFPCMVertex<T> copy = createIFSEFFVertex(getReferencedElement(), List.copyOf(previousElements),
+				new ArrayDeque<>(getContext()), List.copyOf(getParameter()), resourceProvider, considerImplicitFlow,
+				extractionStrategy);
 		return super.updateCopy(copy, isomorphism);
 	}
 
 	protected abstract AbstractIFSEFFPCMVertex<T> createIFSEFFVertex(T element,
 			List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
-			List<Parameter> parameter, ResourceProvider resourceProvider);
+			List<Parameter> parameter, ResourceProvider resourceProvider, boolean considerImplicitFlow,
+			IFPCMExtractionStrategy extractionStrategy);
 
 	protected boolean isElementInGuardedBranchTransitionSEFF() {
 		T element = getReferencedElement();

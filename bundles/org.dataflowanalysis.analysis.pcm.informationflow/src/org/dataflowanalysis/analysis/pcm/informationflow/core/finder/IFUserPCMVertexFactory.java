@@ -6,7 +6,6 @@ import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.finder.IUserPCMVertexFactory;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
-import org.dataflowanalysis.analysis.pcm.informationflow.core.IFConfigurablePCMVertex;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategy;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.user.IFCallingUserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.user.IFReturningUserPCMVertex;
@@ -36,49 +35,38 @@ public class IFUserPCMVertexFactory implements IUserPCMVertexFactory {
 
 	@Override
 	public UserPCMVertex<Start> createStartElement(Start element, ResourceProvider resourceProvider) {
-		var vertex = new UserPCMVertex<Start>(element, resourceProvider);
-		return vertex;
+		return new UserPCMVertex<Start>(element, resourceProvider);
 	}
 
 	@Override
 	public UserPCMVertex<Start> createStartElement(Start element, List<? extends AbstractPCMVertex<?>> previousElements,
 			ResourceProvider resourceProvider) {
-		var vertex = new UserPCMVertex<Start>(element, previousElements, resourceProvider);
-		return vertex;
+		return new UserPCMVertex<Start>(element, previousElements, resourceProvider);
 	}
 
 	@Override
 	public UserPCMVertex<Stop> createStopElement(Stop element, ResourceProvider resourceProvider) {
-		var vertex = new UserPCMVertex<Stop>(element, resourceProvider);
-		return vertex;
+		return new UserPCMVertex<Stop>(element, resourceProvider);
 	}
 
 	@Override
 	public UserPCMVertex<Stop> createStopElement(Stop element, List<? extends AbstractPCMVertex<?>> previousElements,
 			ResourceProvider resourceProvider) {
-		var vertex = new UserPCMVertex<Stop>(element, previousElements, resourceProvider);
-		return vertex;
+		return new UserPCMVertex<Stop>(element, previousElements, resourceProvider);
 	}
 
 	@Override
 	public CallingUserPCMVertex createCallingElement(EntryLevelSystemCall element,
 			List<? extends AbstractPCMVertex<?>> previousElements, ResourceProvider resourceProvider) {
-		var vertex = new IFCallingUserPCMVertex(element, previousElements, resourceProvider);
-		configureVertex(vertex);
-		return vertex;
+		return new IFCallingUserPCMVertex(element, previousElements, resourceProvider, considerImplicitFlow,
+				extractionStrategy);
 	}
 
 	@Override
 	public CallingUserPCMVertex createReturningElement(EntryLevelSystemCall element,
 			List<? extends AbstractPCMVertex<?>> previousElements, ResourceProvider resourceProvider) {
-		var vertex = new IFReturningUserPCMVertex(element, previousElements, resourceProvider);
-		configureVertex(vertex);
-		return vertex;
-	}
-
-	private void configureVertex(IFConfigurablePCMVertex vertex) {
-		vertex.setConsiderImplicitFlow(considerImplicitFlow);
-		vertex.setExtractionStrategy(extractionStrategy);
+		return new IFReturningUserPCMVertex(element, previousElements, resourceProvider, considerImplicitFlow,
+				extractionStrategy);
 	}
 
 }

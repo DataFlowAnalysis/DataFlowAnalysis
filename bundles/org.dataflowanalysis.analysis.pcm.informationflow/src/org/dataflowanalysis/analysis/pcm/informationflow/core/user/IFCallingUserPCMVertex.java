@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
+import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategy;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
@@ -12,15 +13,17 @@ import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 public class IFCallingUserPCMVertex extends AbstractIFCallingUserPCMVertex {
 
 	public IFCallingUserPCMVertex(EntryLevelSystemCall element, List<? extends AbstractPCMVertex<?>> previousElements,
-			ResourceProvider resourceProvider) {
-		super(element, previousElements, true, resourceProvider);
-		// TODO Auto-generated constructor stub
+			ResourceProvider resourceProvider, boolean considerImplicitFlow,
+			IFPCMExtractionStrategy extractionStrategy) {
+		super(element, previousElements, true, resourceProvider, considerImplicitFlow, extractionStrategy);
 	}
 
 	@Override
 	protected AbstractIFCallingUserPCMVertex createIFUserVertex(EntryLevelSystemCall element,
-			List<? extends AbstractPCMVertex<?>> previousElements, ResourceProvider resourceProvider) {
-		return new IFCallingUserPCMVertex(element, previousElements, resourceProvider);
+			List<? extends AbstractPCMVertex<?>> previousElements, ResourceProvider resourceProvider,
+			boolean considerImplicitFlow, IFPCMExtractionStrategy extractionStrategy) {
+		return new IFCallingUserPCMVertex(element, previousElements, resourceProvider, considerImplicitFlow,
+				extractionStrategy);
 	}
 
 	@Override

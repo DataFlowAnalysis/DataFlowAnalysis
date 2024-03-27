@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
+import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategy;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -15,16 +16,19 @@ import org.palladiosimulator.pcm.seff.ExternalCallAction;
 public class IFCallingSEFFPCMVertex extends AbstractIFCallingSEFFPCMVertex {
 
 	public IFCallingSEFFPCMVertex(ExternalCallAction element, List<? extends AbstractPCMVertex<?>> previousElements,
-			Deque<AssemblyContext> context, List<Parameter> parameter, ResourceProvider resourceProvider) {
-		super(element, previousElements, context, parameter, true, resourceProvider);
-		// TODO Auto-generated constructor stub
+			Deque<AssemblyContext> context, List<Parameter> parameter, ResourceProvider resourceProvider,
+			boolean considerImplicitFlow, IFPCMExtractionStrategy extractionStrategy) {
+		super(element, previousElements, context, parameter, true, resourceProvider, considerImplicitFlow,
+				extractionStrategy);
 	}
 
 	@Override
 	protected AbstractIFCallingSEFFPCMVertex createIFSEFFVertex(ExternalCallAction element,
 			List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
-			List<Parameter> parameter, ResourceProvider resourceProvider) {
-		return new IFCallingSEFFPCMVertex(element, previousElements, context, parameter, resourceProvider);
+			List<Parameter> parameter, ResourceProvider resourceProvider, boolean considerImplicitFlow,
+			IFPCMExtractionStrategy extractionStrategy) {
+		return new IFCallingSEFFPCMVertex(element, previousElements, context, parameter, resourceProvider,
+				considerImplicitFlow, extractionStrategy);
 	}
 
 	@Override

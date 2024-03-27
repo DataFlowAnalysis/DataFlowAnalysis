@@ -20,10 +20,11 @@ public abstract class AbstractIFCallingUserPCMVertex extends CallingUserPCMVerte
 	private IFPCMExtractionStrategy extractionStrategy;
 
 	public AbstractIFCallingUserPCMVertex(EntryLevelSystemCall element,
-			List<? extends AbstractPCMVertex<?>> previousElements, boolean isCalling,
-			ResourceProvider resourceProvider) {
+			List<? extends AbstractPCMVertex<?>> previousElements, boolean isCalling, ResourceProvider resourceProvider,
+			boolean considerImplicitFlow, IFPCMExtractionStrategy extractionStrategy) {
 		super(element, previousElements, isCalling, resourceProvider);
-		// TODO Auto-generated constructor stub
+		this.considerImplicitFlow = considerImplicitFlow;
+		this.extractionStrategy = extractionStrategy;
 	}
 
 	public void setConsiderImplicitFlow(boolean consider) {
@@ -52,14 +53,14 @@ public abstract class AbstractIFCallingUserPCMVertex extends CallingUserPCMVerte
 		if (isomorphism.get(this) != null) {
 			return isomorphism.get(this);
 		}
-		AbstractIFCallingUserPCMVertex copy = createIFUserVertex(getReferencedElement(), List.of(), resourceProvider);
-		copy.setConsiderImplicitFlow(isConsideringImplicitFlow());
-		copy.setExtractionStrategy(getExtractionStrategy());
+		AbstractIFCallingUserPCMVertex copy = createIFUserVertex(getReferencedElement(), List.copyOf(previousElements),
+				resourceProvider, considerImplicitFlow, extractionStrategy);
 		return super.updateCopy(copy, isomorphism);
 	}
 
 	protected abstract AbstractIFCallingUserPCMVertex createIFUserVertex(EntryLevelSystemCall element,
-			List<? extends AbstractPCMVertex<?>> previousElements, ResourceProvider resourceProvider);
+			List<? extends AbstractPCMVertex<?>> previousElements, ResourceProvider resourceProvider,
+			boolean considerImplicitFlow, IFPCMExtractionStrategy extractionStrategy);
 
 	@Override
 	public void evaluateDataFlow() {

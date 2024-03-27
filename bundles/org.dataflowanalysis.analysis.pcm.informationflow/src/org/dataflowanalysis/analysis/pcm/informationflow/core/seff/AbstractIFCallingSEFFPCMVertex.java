@@ -1,7 +1,6 @@
 package org.dataflowanalysis.analysis.pcm.informationflow.core.seff;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.Map;
@@ -26,9 +25,11 @@ public abstract class AbstractIFCallingSEFFPCMVertex extends CallingSEFFPCMVerte
 
 	public AbstractIFCallingSEFFPCMVertex(ExternalCallAction element,
 			List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
-			List<Parameter> parameter, boolean isCalling, ResourceProvider resourceProvider) {
+			List<Parameter> parameter, boolean isCalling, ResourceProvider resourceProvider,
+			boolean considerImplicitFlow, IFPCMExtractionStrategy extractionStrategy) {
 		super(element, previousElements, context, parameter, isCalling, resourceProvider);
-		// TODO Auto-generated constructor stub
+		this.considerImplicitFlow = considerImplicitFlow;
+		this.extractionStrategy = extractionStrategy;
 	}
 
 	public void setConsiderImplicitFlow(boolean consider) {
@@ -57,16 +58,16 @@ public abstract class AbstractIFCallingSEFFPCMVertex extends CallingSEFFPCMVerte
 		if (isomorphism.get(this) != null) {
 			return isomorphism.get(this);
 		}
-		AbstractIFCallingSEFFPCMVertex copy = createIFSEFFVertex(getReferencedElement(), List.of(),
-				new ArrayDeque<>(context), new ArrayList<>(getParameter()), resourceProvider);
-		copy.setConsiderImplicitFlow(isConsideringImplicitFlow());
-		copy.setExtractionStrategy(getExtractionStrategy());
+		AbstractIFCallingSEFFPCMVertex copy = createIFSEFFVertex(getReferencedElement(), List.copyOf(previousElements),
+				new ArrayDeque<>(getContext()), List.copyOf(getParameter()), resourceProvider, considerImplicitFlow,
+				extractionStrategy);
 		return super.updateCopy(copy, isomorphism);
 	}
 
 	protected abstract AbstractIFCallingSEFFPCMVertex createIFSEFFVertex(ExternalCallAction element,
 			List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
-			List<Parameter> parameter, ResourceProvider resourceProvider);
+			List<Parameter> parameter, ResourceProvider resourceProvider, boolean considerImplicitFlow,
+			IFPCMExtractionStrategy extractionStrategy);
 
 	@Override
 	public void evaluateDataFlow() {

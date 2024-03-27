@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
+import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategy;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.IFSecurityContextUtils;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
@@ -21,16 +22,19 @@ import de.uka.ipd.sdq.stoex.Expression;
 public class IFStartSEFFPCMVertex extends AbstractIFSEFFPCMVertex<StartAction> {
 
 	public IFStartSEFFPCMVertex(StartAction element, List<? extends AbstractPCMVertex<?>> previousElements,
-			Deque<AssemblyContext> context, List<Parameter> parameter, ResourceProvider resourceProvider) {
-		super(element, previousElements, context, parameter, resourceProvider);
-		// TODO Auto-generated constructor stub
+			Deque<AssemblyContext> context, List<Parameter> parameter, ResourceProvider resourceProvider,
+			boolean considerImplicitFlow, IFPCMExtractionStrategy extractionStrategy) {
+		super(element, previousElements, context, parameter, resourceProvider, considerImplicitFlow,
+				extractionStrategy);
 	}
 
 	@Override
 	protected AbstractIFSEFFPCMVertex<StartAction> createIFSEFFVertex(StartAction element,
 			List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
-			List<Parameter> parameter, ResourceProvider resourceProvider) {
-		return new IFStartSEFFPCMVertex(element, previousElements, context, parameter, resourceProvider);
+			List<Parameter> parameter, ResourceProvider resourceProvider, boolean considerImplicitFlow,
+			IFPCMExtractionStrategy extractionStrategy) {
+		return new IFStartSEFFPCMVertex(element, previousElements, context, parameter, resourceProvider,
+				considerImplicitFlow, extractionStrategy);
 	}
 
 	@Override

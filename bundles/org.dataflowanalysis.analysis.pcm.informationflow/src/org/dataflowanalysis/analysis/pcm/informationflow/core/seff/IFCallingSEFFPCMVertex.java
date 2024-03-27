@@ -3,8 +3,10 @@ package org.dataflowanalysis.analysis.pcm.informationflow.core.seff;
 import java.util.Deque;
 import java.util.List;
 
+import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
+import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.repository.Parameter;
@@ -19,6 +21,18 @@ public class IFCallingSEFFPCMVertex extends AbstractIFCallingSEFFPCMVertex {
 	}
 
 	@Override
+	protected AbstractIFCallingSEFFPCMVertex createIFSEFFVertex(ExternalCallAction element,
+			List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
+			List<Parameter> parameter, ResourceProvider resourceProvider) {
+		return new IFCallingSEFFPCMVertex(element, previousElements, context, parameter, resourceProvider);
+	}
+
+	@Override
+	protected List<DataFlowVariable> modifyIncomingDataFlowVariables(List<DataFlowVariable> incomingVariables) {
+		return incomingVariables;
+	}
+
+	@Override
 	protected List<VariableCharacterisation> extractVariableCharacterisations() {
 		ExternalCallAction element = getReferencedElement();
 		return element.getInputVariableUsages__CallAction().stream()
@@ -26,10 +40,15 @@ public class IFCallingSEFFPCMVertex extends AbstractIFCallingSEFFPCMVertex {
 	}
 
 	@Override
-	protected AbstractIFCallingSEFFPCMVertex createIFSEFFVertex(ExternalCallAction element,
-			List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
-			List<Parameter> parameter, ResourceProvider resourceProvider) {
-		return new IFCallingSEFFPCMVertex(element, previousElements, context, parameter, resourceProvider);
+	protected void checkConfidentialityVariableCharacterisations(
+			List<ConfidentialityVariableCharacterisation> characterisations) {
+		checkCallParameter(super.getReferencedElement().getCalledService_ExternalService(), characterisations);
+
+	}
+
+	@Override
+	protected List<DataFlowVariable> modifyOutgoingDataFlowVariables(List<DataFlowVariable> outgoingVariables) {
+		return outgoingVariables;
 	}
 
 }

@@ -6,12 +6,12 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Map;
 
-import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.IFConfigurablePCMVertex;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategy;
+import org.dataflowanalysis.analysis.pcm.informationflow.core.IFSecurityContextUtils;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -68,20 +68,34 @@ public abstract class AbstractIFCallingSEFFPCMVertex extends CallingSEFFPCMVerte
 			List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
 			List<Parameter> parameter, ResourceProvider resourceProvider);
 
-	protected List<VariableCharacterisation> extractVariableCharacterisations() {
-		return new ArrayList<VariableCharacterisation>();
-	}
-
 	@Override
-	protected List<DataFlowVariable> getDataFlowVariables(List<CharacteristicValue> vertexCharacteristics,
-			List<ConfidentialityVariableCharacterisation> variableCharacterisations,
-			List<DataFlowVariable> oldDataFlowVariables) {
-		List<VariableCharacterisation> allVariableCharacterisations = extractVariableCharacterisations();
-		List<ConfidentialityVariableCharacterisation> effectiveVariableCharacterisations = extractionStrategy
-				.calculateEffectiveConfidentialityVariableCharacterisation(allVariableCharacterisations);
-		return super.getDataFlowVariables(vertexCharacteristics, effectiveVariableCharacterisations,
-				oldDataFlowVariables);
+	public void evaluateDataFlow() {
+		var incomingDataFlowVariables = getIncomingDataFlowVariables();
+		incomingDataFlowVariables = modifyIncomingDataFlowVariables(incomingDataFlowVariables);
 
+		// Security context should only have been added when considering implicit flow
+		var securityContext = IFSecurityContextUtils.getActiveSecurityContext(incomingDataFlowVariables);
+
+		var allVariableCharacterisations = extractVariableCharacterisations();
+		var effectiveVariableCharacterisations = getExtractionStrategy()
+				.calculateEffectiveConfidentialityVariableCharacterisation(allVariableCharacterisations,
+						securityContext);
+		checkConfidentialityVariableCharacterisations(effectiveVariableCharacterisations);
+
+		var outgoingDataFlowVariables = getDataFlowVariables(getVertexCharacteristics(),
+				effectiveVariableCharacterisations, incomingDataFlowVariables);
+		outgoingDataFlowVariables = modifyOutgoingDataFlowVariables(outgoingDataFlowVariables);
+
+		setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, getVertexCharacteristics());
 	}
+
+	protected abstract List<DataFlowVariable> modifyIncomingDataFlowVariables(List<DataFlowVariable> incomingVariables);
+
+	protected abstract List<VariableCharacterisation> extractVariableCharacterisations();
+
+	protected abstract void checkConfidentialityVariableCharacterisations(
+			List<ConfidentialityVariableCharacterisation> characterisations);
+
+	protected abstract List<DataFlowVariable> modifyOutgoingDataFlowVariables(List<DataFlowVariable> outgoingVariables);
 
 }

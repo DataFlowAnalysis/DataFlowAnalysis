@@ -124,15 +124,27 @@ public abstract class IFPCMExtractionStrategy {
 	 * @return the characterization
 	 */
 	public List<ConfidentialityVariableCharacterisation> calculateConfidentialityVariableCharacterisationForExpression(
-			String variable, Expression dependentExpression) {
+			String variable, Expression dependentExpression, Optional<DataFlowVariable> optionalSecurityContext) {
 
 		AbstractNamedReference variableRef = IFStoexUtils.createReferenceFromName(variable);
 		var dependencies = IFStoexUtils.findVariablesInExpression(dependentExpression).stream()
 				.map(it -> it.getId_Variable()).toList();
+		if (optionalSecurityContext.isPresent()) {
+			String securityContextName = optionalSecurityContext.get().getVariableName();
+			dependencies.add(IFStoexUtils.createReferenceFromName(securityContextName));
+		}
 		return calculateConfidentialityVariableCharacteristationsFromReferences(dependencies, variableRef);
 	}
 
-	private List<ConfidentialityVariableCharacterisation> calculateEffectiveConfidentialityVariableCharacterisation(
+	/**
+	 * Calculates effective {@link ConfidentialityVariableCharacterisation}s from
+	 * defined characterizations and if present a security context.
+	 * 
+	 * @param allCharacterisations    the defined characterizations
+	 * @param optionalSecurityContext the security context
+	 * @return the effective characterizations
+	 */
+	public List<ConfidentialityVariableCharacterisation> calculateEffectiveConfidentialityVariableCharacterisation(
 			List<VariableCharacterisation> allCharacterisations, Optional<DataFlowVariable> optionalSecurityContext) {
 
 		List<ConfidentialityVariableCharacterisation> confChars = new ArrayList<ConfidentialityVariableCharacterisation>();
@@ -150,7 +162,19 @@ public abstract class IFPCMExtractionStrategy {
 				optionalSecurityContext);
 	}
 
-	private List<ConfidentialityVariableCharacterisation> calculateEffectiveConfidentialityVariableCharacterisation(
+	/**
+	 * Calculates effective {@link ConfidentialityVariableCharacterisation}s from
+	 * defined characterizations and if present a security context.
+	 * 
+	 * @param confidentialityCharacterisations the defined
+	 *                                         {@link ConfidentialityVariableCharacterisation}s
+	 * @param normalCharacterisations          the defined characterizations which
+	 *                                         are not
+	 *                                         {@link ConfidentialityVariableCharacterisation}s
+	 * @param optionalSecurityContext          the security context
+	 * @return the effective characterizations
+	 */
+	public List<ConfidentialityVariableCharacterisation> calculateEffectiveConfidentialityVariableCharacterisation(
 			List<ConfidentialityVariableCharacterisation> confidentialityCharacterisations,
 			List<VariableCharacterisation> normalCharacterisations,
 			Optional<DataFlowVariable> optionalSecurityContext) {

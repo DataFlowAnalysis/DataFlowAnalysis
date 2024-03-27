@@ -6,18 +6,21 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Map;
 
-import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.seff.SEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.IFConfigurablePCMVertex;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategy;
+import org.dataflowanalysis.analysis.pcm.informationflow.core.IFSecurityContextUtils;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.seff.AbstractAction;
+import org.palladiosimulator.pcm.seff.BranchAction;
+import org.palladiosimulator.pcm.seff.GuardedBranchTransition;
+import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 
 public abstract class AbstractIFSEFFPCMVertex<T extends AbstractAction> extends SEFFPCMVertex<T>
 		implements IFConfigurablePCMVertex {
@@ -63,52 +66,56 @@ public abstract class AbstractIFSEFFPCMVertex<T extends AbstractAction> extends 
 			List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
 			List<Parameter> parameter, ResourceProvider resourceProvider);
 
-	/*
-	 * Assumed sequence of evaluateDataFlow()
-	 */
+	protected boolean isElementInGuardedBranchTransitionSEFF() {
+		T element = getReferencedElement();
+		var container = element.eContainer();
+		if (!(container instanceof ResourceDemandingBehaviour)) {
+			return false;
+		}
+		var guardedBranchTransitionContainer = container.eContainer();
+		if (!(guardedBranchTransitionContainer instanceof GuardedBranchTransition)) {
+			return false;
+		}
+		var branchContainer = guardedBranchTransitionContainer.eContainer();
+		if (!(branchContainer instanceof BranchAction)) {
+			return false;
+		}
 
-//	public void evaluateDataFlow() {
-//		List<DataFlowVariable> incoming = getIncomingDataFlowVariables();
-//		modifyIncomingDataFlowVariables(incoming);
-//
-//		List<VariableCharacterisation> variableCharacterisations = extractStandardVariableCharacterisations();
-//		List<ConfidentialityVariableCharacterisation> propagationCharacterisations = extractionStrategy
-//				.calculateEffectiveConfidentialityVariableCharacterisation(variableCharacterisations);
-//
-//		List<DataFlowVariable> outgoing = getDataFlowVariables(getVertexCharacteristics(), propagationCharacterisations,
-//				incoming);
-//		modifyOutgoingDataFlowVariables(outgoing);
-//
-//		setPropagationResult(incoming, outgoing, getVertexCharacteristics());
-//	}
-
-//	protected void modifyIncomingDataFlowVariables(List<DataFlowVariable> incoming) {
-//
-//	}
-
-	protected List<VariableCharacterisation> extractVariableCharacterisations() {
-		return new ArrayList<VariableCharacterisation>();
+		return false;
 	}
 
-//	protected void modifyOutgoingDataFlowVariables(List<DataFlowVariable> outgoing) {
-//
-//	}
-
 	/*
-	 * Quick Entry Points TODO Change the implementation of the vertices in PCM to
-	 * create better extension points
+	 * evaluateDataFlow() implemented as template pattern
 	 */
 
 	@Override
-	protected List<DataFlowVariable> getDataFlowVariables(List<CharacteristicValue> vertexCharacteristics,
-			List<ConfidentialityVariableCharacterisation> variableCharacterisations,
-			List<DataFlowVariable> oldDataFlowVariables) {
-		List<VariableCharacterisation> allVariableCharacterisations = extractVariableCharacterisations();
-		List<ConfidentialityVariableCharacterisation> effectiveVariableCharacterisations = extractionStrategy
-				.calculateEffectiveConfidentialityVariableCharacterisation(allVariableCharacterisations);
-		return super.getDataFlowVariables(vertexCharacteristics, effectiveVariableCharacterisations,
-				oldDataFlowVariables);
+	public void evaluateDataFlow() {
+		var incomingDataFlowVariables = getIncomingDataFlowVariables();
+		incomingDataFlowVariables = modifyIncomingDataFlowVariables(incomingDataFlowVariables);
 
+		// Security context should only have been added when considering implicit flow
+		var securityContext = IFSecurityContextUtils.getActiveSecurityContext(incomingDataFlowVariables);
+
+		var allVariableCharacterisations = extractVariableCharacterisations();
+		var effectiveVariableCharacterisations = getExtractionStrategy()
+				.calculateEffectiveConfidentialityVariableCharacterisation(allVariableCharacterisations,
+						securityContext);
+		checkConfidentialityVariableCharacterisations(effectiveVariableCharacterisations);
+
+		var outgoingDataFlowVariables = getDataFlowVariables(getVertexCharacteristics(),
+				effectiveVariableCharacterisations, incomingDataFlowVariables);
+		outgoingDataFlowVariables = modifyOutgoingDataFlowVariables(outgoingDataFlowVariables);
+
+		setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, getVertexCharacteristics());
 	}
+
+	protected abstract List<DataFlowVariable> modifyIncomingDataFlowVariables(List<DataFlowVariable> incomingVariables);
+
+	protected abstract List<VariableCharacterisation> extractVariableCharacterisations();
+
+	protected abstract void checkConfidentialityVariableCharacterisations(
+			List<ConfidentialityVariableCharacterisation> characterisations);
+
+	protected abstract List<DataFlowVariable> modifyOutgoingDataFlowVariables(List<DataFlowVariable> outgoingVariables);
 
 }

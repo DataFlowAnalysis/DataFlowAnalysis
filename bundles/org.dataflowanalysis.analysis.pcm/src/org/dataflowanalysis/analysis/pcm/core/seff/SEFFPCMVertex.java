@@ -48,13 +48,11 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
         List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
 
         if (this.getReferencedElement() instanceof StartAction) {
-            List<String> variableNames = this.getParameter().stream().map(Parameter::getParameterName).toList();
-            incomingDataFlowVariables = incomingDataFlowVariables.stream().filter(it -> variableNames.contains(it.variableName())).toList();
+            incomingDataFlowVariables = filterCallParameters(incomingDataFlowVariables);
             this.setPropagationResult(incomingDataFlowVariables, incomingDataFlowVariables, nodeCharacteristics);
             return;
         } else if (this.getReferencedElement() instanceof StopAction) {
-            List<DataFlowVariable> outgoingDataFlowVariables = incomingDataFlowVariables.parallelStream()
-                    .filter(it -> it.getVariableName().equals("RETURN")).collect(Collectors.toList());
+            List<DataFlowVariable> outgoingDataFlowVariables = filterReturnParameter(incomingDataFlowVariables);
             this.setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
             return;
         } else if (!(this.getReferencedElement() instanceof SetVariableAction)) {
@@ -70,6 +68,30 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
                 incomingDataFlowVariables);
         this.setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
+    
+    /**
+	 * Modifies the incoming DataFlowVariables to only contain call parameters.
+	 * 
+	 * @param incomingDataFlowVariables the incoming DataFlowVariables to be
+	 *                                  modified
+	 * @return the filtered incoming DataFlowVariables
+	 */
+	protected List<DataFlowVariable> filterCallParameters(List<DataFlowVariable> incomingDataFlowVariables) {
+		List<String> variableNames = this.getParameter().stream().map(Parameter::getParameterName).toList();
+		return incomingDataFlowVariables.stream().filter(it -> variableNames.contains(it.variableName())).toList();
+	}
+
+	/**
+	 * Modifies the outgoing DataFlowVariables to only contain return parameters.
+	 * 
+	 * @param outgoingDataFlowVariables the outgoing DataFlowVariables to be
+	 *                                  modified
+	 * @return the filtered outgoing DataFlowVariables
+	 */
+	protected List<DataFlowVariable> filterReturnParameter(List<DataFlowVariable> outgoingDataFlowVariables) {
+		return outgoingDataFlowVariables.parallelStream().filter(it -> it.getVariableName().equals("RETURN"))
+				.collect(Collectors.toList());
+	}
 
     /**
      * Returns a list of parameters, that the SEFF was called with

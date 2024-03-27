@@ -10,8 +10,6 @@ import org.dataflowanalysis.analysis.pcm.informationflow.core.IFConfigurablePCMV
 import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategy;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.user.IFCallingUserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.user.IFReturningUserPCMVertex;
-import org.dataflowanalysis.analysis.pcm.informationflow.core.user.IFStartUserPCMVertex;
-import org.dataflowanalysis.analysis.pcm.informationflow.core.user.IFStopUserPCMVertex;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 import org.palladiosimulator.pcm.usagemodel.Start;
@@ -38,31 +36,27 @@ public class IFUserPCMVertexFactory implements IUserPCMVertexFactory {
 
 	@Override
 	public UserPCMVertex<Start> createStartElement(Start element, ResourceProvider resourceProvider) {
-		var vertex = new IFStartUserPCMVertex(element, resourceProvider);
-		configureVertex(vertex);
+		var vertex = new UserPCMVertex<Start>(element, resourceProvider);
 		return vertex;
 	}
 
 	@Override
 	public UserPCMVertex<Start> createStartElement(Start element, List<? extends AbstractPCMVertex<?>> previousElements,
 			ResourceProvider resourceProvider) {
-		var vertex = new IFStartUserPCMVertex(element, previousElements, resourceProvider);
-		configureVertex(vertex);
+		var vertex = new UserPCMVertex<Start>(element, previousElements, resourceProvider);
 		return vertex;
 	}
 
 	@Override
 	public UserPCMVertex<Stop> createStopElement(Stop element, ResourceProvider resourceProvider) {
-		var vertex = new IFStopUserPCMVertex(element, resourceProvider);
-		configureVertex(vertex);
+		var vertex = new UserPCMVertex<Stop>(element, resourceProvider);
 		return vertex;
 	}
 
 	@Override
 	public UserPCMVertex<Stop> createStopElement(Stop element, List<? extends AbstractPCMVertex<?>> previousElements,
 			ResourceProvider resourceProvider) {
-		var vertex = new IFStopUserPCMVertex(element, previousElements, resourceProvider);
-		configureVertex(vertex);
+		var vertex = new UserPCMVertex<Stop>(element, previousElements, resourceProvider);
 		return vertex;
 	}
 

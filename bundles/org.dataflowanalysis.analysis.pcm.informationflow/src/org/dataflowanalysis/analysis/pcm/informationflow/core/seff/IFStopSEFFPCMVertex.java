@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
+import org.dataflowanalysis.analysis.pcm.core.seff.SEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategy;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.IFSecurityContextUtils;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
@@ -13,10 +14,39 @@ import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityV
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.repository.Parameter;
+import org.palladiosimulator.pcm.seff.GuardedBranchTransition;
 import org.palladiosimulator.pcm.seff.StopAction;
 
+/**
+ * A concrete implementation of {@link AbstractIFSEFFPCMVertex} with the
+ * underlying SEFF element type {@link StopAction}.
+ * 
+ * If the {@code StopAction} is directly in the SEFF of a
+ * {@link GuardedBranchTransition} this vertex also handles the returning
+ * evaluation of the logically following {@code GuardedBranchTransition}. Note,
+ * this is only relevant in case of handling implicit flow.
+ *
+ */
 public class IFStopSEFFPCMVertex extends AbstractIFSEFFPCMVertex<StopAction> {
 
+	/**
+	 * As for a {@link SEFFPCMVertex} the vertex has an underlying StopAction SEFF
+	 * element which influences the behavior through defined
+	 * VariableCharacterisations. The vertex can have {@code previousElements} from
+	 * which the incoming DataFlowVariables are received. Furthermore, the vertex
+	 * contains an {@link AssemblyContext}, passed {@link Parameter}s as well as a
+	 * {@link ResourceProvider}. Lastly, the vertex might consider implicit flow and
+	 * requires an {@link IFPCMExtractionStrategy} to define how label propagation
+	 * functions are extracted.
+	 * 
+	 * @param element              the underlying SEFF element
+	 * @param previousElements     the previous vertices
+	 * @param context              the AssemblyContext
+	 * @param parameter            the passed Parameters
+	 * @param resourceProvider     the ResourceProvider
+	 * @param considerImplicitFlow whether to consider implicit flow
+	 * @param extractionStrategy   the extraction strategy
+	 */
 	public IFStopSEFFPCMVertex(StopAction element, List<? extends AbstractPCMVertex<?>> previousElements,
 			Deque<AssemblyContext> context, List<Parameter> parameter, ResourceProvider resourceProvider,
 			boolean considerImplicitFlow, IFPCMExtractionStrategy extractionStrategy) {

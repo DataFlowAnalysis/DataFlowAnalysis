@@ -21,12 +21,52 @@ import org.palladiosimulator.pcm.seff.BranchAction;
 import org.palladiosimulator.pcm.seff.GuardedBranchTransition;
 import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 
+/**
+ * A vertex for the evaluation of information flows. In comparison to
+ * {@link SEFFPCMVertex} ConfidentialityVariableCharacterisations can be partly
+ * generated from normal VariableCharacterisations in accordance with an
+ * {@link IFPCMExtractionStrategy}. Further, the vertex allows the consideration
+ * of implicit flows.
+ * 
+ * In an evaluation step a label propagation function is calculated in
+ * accordance with the {@link IFPCMExtractionStrategy}. This label propagation
+ * function is specified in form of ConfidentialityVariableCharacterisations and
+ * defines how the outgoing DataFlowVariables are calculated from incoming
+ * DataFlowVariables.
+ *
+ * 
+ * @param <T>
+ */
 public abstract class AbstractIFSEFFPCMVertex<T extends AbstractAction> extends SEFFPCMVertex<T>
 		implements IFConfigurablePCMVertex {
+
+	/*
+	 * Note, most of the defined behavior in this class is nearly duplicated in
+	 * AbstractIFCallingSEFFPCMVertex and AbstractIFCallingUserPCMVertex. Changes in
+	 * this class may require changes in the named classes.
+	 */
 
 	private boolean considerImplicitFlow;
 	private IFPCMExtractionStrategy extractionStrategy;
 
+	/**
+	 * As for a {@link SEFFPCMVertex} the vertex has an underlying SEFF element of
+	 * the type T which influences the behavior through defined
+	 * VariableCharacterisations. The vertex can have {@code previousElements} from
+	 * which the incoming DataFlowVariables are received. Furthermore, the vertex
+	 * contains an {@link AssemblyContext}, passed {@link Parameter}s as well as a
+	 * {@link ResourceProvider}. Lastly, the vertex might consider implicit flow and
+	 * requires an {@link IFPCMExtractionStrategy} to define how label propagation
+	 * functions are extracted.
+	 * 
+	 * @param element              the underlying SEFF element
+	 * @param previousElements     the previous vertices
+	 * @param context              the AssemblyContext
+	 * @param parameter            the passed Parameters
+	 * @param resourceProvider     the ResourceProvider
+	 * @param considerImplicitFlow whether to consider implicit flow
+	 * @param extractionStrategy   the extraction strategy
+	 */
 	public AbstractIFSEFFPCMVertex(T element, List<? extends AbstractPCMVertex<?>> previousElements,
 			Deque<AssemblyContext> context, List<Parameter> parameter, ResourceProvider resourceProvider,
 			boolean considerImplicitFlow, IFPCMExtractionStrategy extractionStrategy) {
@@ -62,11 +102,34 @@ public abstract class AbstractIFSEFFPCMVertex<T extends AbstractAction> extends 
 		return super.updateCopy(copy, isomorphism);
 	}
 
+	/**
+	 * Creates the concrete implementation of the vertex with the given parameters.
+	 * The method is primary used for {@link #deepCopy(Map)}.
+	 * 
+	 * @param element
+	 * @param previousElements
+	 * @param context
+	 * @param parameter
+	 * @param resourceProvider
+	 * @param considerImplicitFlow
+	 * @param extractionStrategy
+	 * @return the created vertex
+	 * 
+	 * @see #AbstractIFSEFFPCMVertex(AbstractAction, List, Deque, List,
+	 *      ResourceProvider, boolean, IFPCMExtractionStrategy)
+	 */
 	protected abstract AbstractIFSEFFPCMVertex<T> createIFSEFFVertex(T element,
 			List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
 			List<Parameter> parameter, ResourceProvider resourceProvider, boolean considerImplicitFlow,
 			IFPCMExtractionStrategy extractionStrategy);
 
+	/**
+	 * Returns true if the underlying SEFF element is directly part of a SEFF
+	 * induced by a {@code GuardedBranchTransition}.
+	 * 
+	 * @return true if the underlying SEFF element is directly part of a SEFF
+	 *         induced by a {@code GuardedBranchTransition}
+	 */
 	protected boolean isElementInGuardedBranchTransitionSEFF() {
 		T element = getReferencedElement();
 		var container = element.eContainer();
@@ -110,13 +173,39 @@ public abstract class AbstractIFSEFFPCMVertex<T extends AbstractAction> extends 
 		setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, getVertexCharacteristics());
 	}
 
+	/**
+	 * Modifies the incoming DataFlowVariables of the vertex as the first step in
+	 * {@link #evaluateDataFlow()}.
+	 * 
+	 * @param incomingVariables the incoming DataFlowVariables
+	 * @return the modified incoming DataFlowVariables
+	 */
 	protected abstract List<DataFlowVariable> modifyIncomingDataFlowVariables(List<DataFlowVariable> incomingVariables);
 
+	/**
+	 * Extracts defined VariableCharacterisations from the underlying SEFF element
+	 * as the second step in {@link #evaluateDataFlow()}.
+	 * 
+	 * @return the defined VariableCharacterisations
+	 */
 	protected abstract List<VariableCharacterisation> extractVariableCharacterisations();
 
+	/**
+	 * Checks the used ConfidentialityVariableCharacterisations as a step in
+	 * {@link #evaluateDataFlow()}.
+	 * 
+	 * @param characterisations the used ConfidentialyVariableCharacterisations
+	 */
 	protected abstract void checkConfidentialityVariableCharacterisations(
 			List<ConfidentialityVariableCharacterisation> characterisations);
 
+	/**
+	 * Modifies the calculated outgoing DataFlowVariables of the vertex as the last
+	 * step in {@link #evaluateDataFlow()} before setting the propagation result.
+	 * 
+	 * @param outgoingVariables the calculated outgoing DataFlowVariables
+	 * @return the modified outgoing DataFlowVariables
+	 */
 	protected abstract List<DataFlowVariable> modifyOutgoingDataFlowVariables(List<DataFlowVariable> outgoingVariables);
 
 }

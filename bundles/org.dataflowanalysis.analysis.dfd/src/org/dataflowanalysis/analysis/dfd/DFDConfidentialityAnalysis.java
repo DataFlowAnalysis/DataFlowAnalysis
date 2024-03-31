@@ -4,7 +4,7 @@ import java.util.Optional;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraph;
+import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
@@ -64,8 +64,8 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
     }
 
     @Override
-    public DFDFlowGraph findFlowGraph() {
-        return new DFDFlowGraph(this.resourceProvider);
+    public DFDFlowGraphCollection findFlowGraphs() {
+        return new DFDFlowGraphCollection(this.resourceProvider);
     }
 
     @Override

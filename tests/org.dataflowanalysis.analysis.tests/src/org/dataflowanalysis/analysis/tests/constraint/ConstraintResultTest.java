@@ -15,7 +15,7 @@ import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
+import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraphCollection;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintData;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintViolations;
 import org.junit.jupiter.api.Test;
@@ -156,7 +156,7 @@ public class ConstraintResultTest extends ConstraintTest {
 
     public void testAnalysis(PCMDataFlowConfidentialityAnalysis analysis, Predicate<AbstractVertex<?>> constraint,
             List<ConstraintData> constraintData) {
-        PCMFlowGraph flowGraph = analysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
         List<AbstractVertex<?>> results = flowGraph.getTransposedFlowGraphs().stream().map(it -> analysis.queryDataFlow(it, constraint))
                 .flatMap(Collection::stream).collect(Collectors.toList());

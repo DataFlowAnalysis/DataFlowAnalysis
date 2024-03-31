@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 import org.apache.log4j.*;
 import org.dataflowanalysis.analysis.core.AbstractTransposedFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.core.FlowGraph;
+import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.eclipse.xtext.linking.impl.AbstractCleaningLinker;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.parser.antlr.AbstractInternalAntlrParser;
@@ -14,8 +14,8 @@ import org.eclipse.xtext.resource.containers.ResourceSetBasedAllContainersStateP
 /**
  * This interface represents the functionality of a data flow confidentiality analysis. To use the analysis the
  * {@link DataFlowConfidentialityAnalysis#initializeAnalysis()} method must be called. After that the flow graph of the
- * model can be determined with {@link DataFlowConfidentialityAnalysis#findFlowGraph()}. To determine characteristics at
- * each node the method {@link FlowGraph#evaluate()} must be called. Finally, a
+ * model can be determined with {@link DataFlowConfidentialityAnalysis#findFlowGraphs()}. To determine characteristics at
+ * each node the method {@link FlowGraphCollection#evaluate()} must be called. Finally, a
  * constraint can be evaluated with
  * {@link DataFlowConfidentialityAnalysis#queryDataFlow(AbstractTransposedFlowGraph, Predicate)} on each transposed flow graph
  * contained in the previously returned flow graph.
@@ -30,10 +30,10 @@ public abstract class DataFlowConfidentialityAnalysis {
     public abstract void initializeAnalysis();
 
     /**
-     * Determines the flow graph of the referenced models
-     * @return Returns the flow graph containing all flows present in the referenced models
+     * Determines the collection of flow graphs in the referenced models
+     * @return Returns the collection of flow graphs containing all flows present in the referenced models
      */
-    public abstract FlowGraph findFlowGraph();
+    public abstract FlowGraphCollection findFlowGraphs();
 
     /**
      * Evaluates a given condition on a transposed flow graph and returns all elements that violate the given condition

@@ -7,7 +7,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
+import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraphCollection;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.dddsl.DDDslStandaloneSetup;
@@ -48,8 +48,8 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
     }
 
     @Override
-    public PCMFlowGraph findFlowGraph() {
-        return new PCMFlowGraph(this.resourceProvider);
+    public PCMFlowGraphCollection findFlowGraphs() {
+        return new PCMFlowGraphCollection(this.resourceProvider);
     }
 
     @Override

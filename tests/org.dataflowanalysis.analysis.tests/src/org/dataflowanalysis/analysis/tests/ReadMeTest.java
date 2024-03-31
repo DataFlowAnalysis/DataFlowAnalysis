@@ -6,7 +6,7 @@ import org.dataflowanalysis.analysis.core.AbstractTransposedFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
-import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
+import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraphCollection;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +32,7 @@ public class ReadMeTest extends BaseTest {
         // Information
         analysis.initializeAnalysis();
 
-        PCMFlowGraph flowGraph = analysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
         for (AbstractTransposedFlowGraph actionSequence : flowGraph.getTransposedFlowGraphs()) {
@@ -52,7 +52,7 @@ public class ReadMeTest extends BaseTest {
         PCMDataFlowConfidentialityAnalysis analysis = travelPlannerAnalysis;
 
         // Code snippet from README starts here
-        PCMFlowGraph flowGraph = analysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
         for (AbstractTransposedFlowGraph actionSequence : flowGraph.getTransposedFlowGraphs()) {

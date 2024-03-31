@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
-import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraph;
+import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.core.DFDVertex;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +33,7 @@ public class BaseTest {
 
     private List<? extends AbstractVertex<?>> getViolationsForConstraint(Predicate<? super AbstractVertex<?>> constraint) {
         this.analysis.initializeAnalysis();
-        DFDFlowGraph flowGraph = this.analysis.findFlowGraph();
+        DFDFlowGraphCollection flowGraph = this.analysis.findFlowGraphs();
         flowGraph.evaluate();
 
         return analysis.queryDataFlow(flowGraph.getTransposedFlowGraphs().get(0), constraint);
@@ -42,7 +42,7 @@ public class BaseTest {
     @Test
     public void numberOfTransposedFlowGraphs_equalsFour() {
         this.analysis.initializeAnalysis();
-        DFDFlowGraph flowGraph = analysis.findFlowGraph();
+        DFDFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         assertEquals(flowGraph.getTransposedFlowGraphs().size(), 4);
     }
 
@@ -63,7 +63,7 @@ public class BaseTest {
     @Test
     public void test_unification() {
         this.analysis.initializeAnalysis();
-        DFDFlowGraph flowGraph = analysis.findFlowGraph();
+        DFDFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
         for (var pfg : flowGraph.getTransposedFlowGraphs()) {
@@ -74,7 +74,7 @@ public class BaseTest {
     @Test
     public void test_labelPropagation() {
         this.analysis.initializeAnalysis();
-        DFDFlowGraph flowGraph = analysis.findFlowGraph();
+        DFDFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
         for (var pfg : flowGraph.getTransposedFlowGraphs()) {

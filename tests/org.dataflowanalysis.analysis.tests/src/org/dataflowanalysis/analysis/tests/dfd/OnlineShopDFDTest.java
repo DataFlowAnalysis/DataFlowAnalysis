@@ -11,7 +11,7 @@ import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.dfd.core.DFDCharacteristicValue;
-import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraph;
+import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.core.DFDVertex;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,13 +38,13 @@ public class OnlineShopDFDTest {
 
     @Test
     public void numberOfTransposedFlowGraphs_equalsThree() {
-        DFDFlowGraph flowGraph = analysis.findFlowGraph();
+        DFDFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         assertEquals(flowGraph.getTransposedFlowGraphs().size(), 3);
     }
 
     @Test
     public void checkSinks() {
-        var flowGraph = analysis.findFlowGraph();
+        var flowGraph = analysis.findFlowGraphs();
         var entityNames = flowGraph.getTransposedFlowGraphs().stream().map(pfg -> ((DFDVertex) pfg.getSink()).getName()).toList();
 
         var expectedNames = List.of("User", "Database", "Database");
@@ -53,7 +53,7 @@ public class OnlineShopDFDTest {
 
     @Test
     public void testNodeLabels() {
-        var flowGraph = analysis.findFlowGraph();
+        var flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
         for (var transposedFlowGraph : flowGraph.getTransposedFlowGraphs()) {
@@ -70,7 +70,7 @@ public class OnlineShopDFDTest {
 
     @Test
     public void testDataLabelPropagation() {
-        var flowGraph = analysis.findFlowGraph();
+        var flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
         for (var transposedFlowGraph : flowGraph.getTransposedFlowGraphs()) {
             var sink = transposedFlowGraph.getSink();
@@ -85,7 +85,7 @@ public class OnlineShopDFDTest {
 
     @Test
     public void testRealisticConstraints() {
-        var flowGraph = analysis.findFlowGraph();
+        var flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
         // Constraint 1: Personal data flowing to a node that is deployed outside the EU

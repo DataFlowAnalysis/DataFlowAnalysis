@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.log4j.Level;
-import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
+import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraphCollection;
 import org.dataflowanalysis.analysis.tests.BaseTest;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +20,7 @@ public class LabelPropagationTest extends BaseTest {
     @Test
     public void travelPlannerCharacteristicsPresentTest() {
         travelPlannerAnalysis.setLoggerLevel(Level.TRACE);
-        PCMFlowGraph flowGraph = travelPlannerAnalysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = travelPlannerAnalysis.findFlowGraphs();
         flowGraph.evaluate();
 
         for (CharacteristicsData characteristicData : LabelPropagationCharacteristics.travelPlannerCharacteristics) {
@@ -40,7 +40,7 @@ public class LabelPropagationTest extends BaseTest {
     @Test
     public void internationalOnlineShopCharacteristicsPresentTest() {
         internationalOnlineShopAnalysis.setLoggerLevel(Level.TRACE);
-        PCMFlowGraph flowGraph = internationalOnlineShopAnalysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = internationalOnlineShopAnalysis.findFlowGraphs();
         flowGraph.evaluate();
 
         for (CharacteristicsData characteristicData : LabelPropagationCharacteristics.internationalOnlineShopCharacteristics) {
@@ -60,7 +60,7 @@ public class LabelPropagationTest extends BaseTest {
     @Test
     public void onlineShopCharacteristicsPresentTest() {
         onlineShopAnalysis.setLoggerLevel(Level.TRACE);
-        PCMFlowGraph flowGraph = onlineShopAnalysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = onlineShopAnalysis.findFlowGraphs();
         flowGraph.evaluate();
 
         for (CharacteristicsData characteristicData : LabelPropagationCharacteristics.onlineShopCharacteristics) {
@@ -79,7 +79,7 @@ public class LabelPropagationTest extends BaseTest {
      */
     @Test
     public void travelPlannerCharacteristicsAbsentTest() {
-        PCMFlowGraph flowGraph = travelPlannerAnalysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = travelPlannerAnalysis.findFlowGraphs();
         flowGraph.evaluate();
 
         assertTrue(flowGraph.getTransposedFlowGraphs().size() >= 2);
@@ -96,7 +96,7 @@ public class LabelPropagationTest extends BaseTest {
      */
     @Test
     public void internationalOnlineShopCharacteristicsAbsentTest() {
-        PCMFlowGraph flowGraph = internationalOnlineShopAnalysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = internationalOnlineShopAnalysis.findFlowGraphs();
         flowGraph.evaluate();
 
         assertFalse(flowGraph.getTransposedFlowGraphs().isEmpty());
@@ -112,7 +112,7 @@ public class LabelPropagationTest extends BaseTest {
      */
     @Test
     public void onlineShopCharacteristicsAbsentTest() {
-        PCMFlowGraph flowGraph = onlineShopAnalysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = onlineShopAnalysis.findFlowGraphs();
         flowGraph.evaluate();
 
         assertFalse(flowGraph.getTransposedFlowGraphs().isEmpty());

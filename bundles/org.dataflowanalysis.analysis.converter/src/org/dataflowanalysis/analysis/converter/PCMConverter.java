@@ -7,7 +7,7 @@ import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.*;
 import org.dataflowanalysis.analysis.core.AbstractTransposedFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.core.FlowGraph;
+import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.seff.*;
@@ -47,7 +47,7 @@ public class PCMConverter extends Converter {
                 .build();
 
         analysis.initializeAnalysis();
-        var flowGraph = analysis.findFlowGraph();
+        var flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
         return processPalladio(flowGraph);
@@ -70,14 +70,14 @@ public class PCMConverter extends Converter {
                 .build();
 
         analysis.initializeAnalysis();
-        var flowGraph = analysis.findFlowGraph();
+        var flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
         return processPalladio(flowGraph);
     }
 
-    private DataFlowDiagramAndDictionary processPalladio(FlowGraph flowGraph) {
-        for (AbstractTransposedFlowGraph aPFG : flowGraph.getTransposedFlowGraphs()) {
+    private DataFlowDiagramAndDictionary processPalladio(FlowGraphCollection flowGraphCollection) {
+        for (AbstractTransposedFlowGraph aPFG : flowGraphCollection.getTransposedFlowGraphs()) {
             Node previousNode = null;
             for (AbstractVertex<?> abstractVertex : aPFG.getVertices()) {
                 if (abstractVertex instanceof AbstractPCMVertex) {

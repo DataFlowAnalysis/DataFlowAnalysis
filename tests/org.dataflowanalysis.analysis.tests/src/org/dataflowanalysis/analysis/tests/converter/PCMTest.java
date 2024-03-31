@@ -72,7 +72,7 @@ public class PCMTest {
                 .build();
 
         analysis.initializeAnalysis();
-        var flowGraph = analysis.findFlowGraph();
+        var flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
         Map<String, String> assIdToName = new HashMap<>();

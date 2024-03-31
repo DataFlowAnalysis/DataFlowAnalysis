@@ -3,7 +3,7 @@ package org.dataflowanalysis.analysis.pcm.core.finder;
 import java.util.*;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
-import org.dataflowanalysis.analysis.pcm.core.PCMPartialFlowGraph;
+import org.dataflowanalysis.analysis.pcm.core.PCMTransposedFlowGraph;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
@@ -19,23 +19,23 @@ import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 import org.palladiosimulator.pcm.usagemodel.Start;
 import org.palladiosimulator.pcm.usagemodel.Stop;
 
-public class PCMUserPartialFlowGraphFinder {
-    private static final Logger logger = Logger.getLogger(PCMUserPartialFlowGraphFinder.class);
+public class PCMUserTransposedFlowGraphFinder {
+    private static final Logger logger = Logger.getLogger(PCMUserTransposedFlowGraphFinder.class);
 
     private final ResourceProvider resourceProvider;
-    private PCMPartialFlowGraph currentPartialFlowGraph;
+    private PCMTransposedFlowGraph currentTransposedFlowGraph;
 
-    public PCMUserPartialFlowGraphFinder(ResourceProvider resourceProvider) {
+    public PCMUserTransposedFlowGraphFinder(ResourceProvider resourceProvider) {
         this.resourceProvider = resourceProvider;
-        this.currentPartialFlowGraph = new PCMPartialFlowGraph();
+        this.currentTransposedFlowGraph = new PCMTransposedFlowGraph();
     }
 
-    public PCMUserPartialFlowGraphFinder(ResourceProvider resourceProvider, PCMPartialFlowGraph currentPartialFlowGraph) {
+    public PCMUserTransposedFlowGraphFinder(ResourceProvider resourceProvider, PCMTransposedFlowGraph currentTransposedFlowGraph) {
         this.resourceProvider = resourceProvider;
-        this.currentPartialFlowGraph = currentPartialFlowGraph;
+        this.currentTransposedFlowGraph = currentTransposedFlowGraph;
     }
 
-    public List<PCMPartialFlowGraph> findSequencesForUserAction(AbstractUserAction initialAction) {
+    public List<PCMTransposedFlowGraph> findSequencesForUserAction(AbstractUserAction initialAction) {
         if (initialAction instanceof Start) {
             return findSequencesForUserStartAction((Start) initialAction);
 
@@ -56,48 +56,42 @@ public class PCMUserPartialFlowGraphFinder {
         }
     }
 
-    protected List<PCMPartialFlowGraph> findSequencesForUserStartAction(Start currentAction) {
+    protected List<PCMTransposedFlowGraph> findSequencesForUserStartAction(Start currentAction) {
         UserPCMVertex<? extends AbstractUserAction> startElement;
-        if (this.currentPartialFlowGraph.getSink() == null) {
+        if (this.currentTransposedFlowGraph.getSink() == null) {
             startElement = new UserPCMVertex<>(currentAction, resourceProvider);
         } else {
-            startElement = new UserPCMVertex<>(currentAction, List.of(this.currentPartialFlowGraph.getSink()), resourceProvider);
+            startElement = new UserPCMVertex<>(currentAction, List.of(this.currentTransposedFlowGraph.getSink()), resourceProvider);
         }
-        this.currentPartialFlowGraph = new PCMPartialFlowGraph(startElement);
+        this.currentTransposedFlowGraph = new PCMTransposedFlowGraph(startElement);
         return findSequencesForUserAction(currentAction.getSuccessor());
     }
 
-    protected List<PCMPartialFlowGraph> findSequencesForUserStopAction(Stop currentAction) {
-        var stopElement = new UserPCMVertex<>(currentAction, List.of(this.currentPartialFlowGraph.getSink()), resourceProvider);
+    protected List<PCMTransposedFlowGraph> findSequencesForUserStopAction(Stop currentAction) {
+        var stopElement = new UserPCMVertex<>(currentAction, List.of(this.currentTransposedFlowGraph.getSink()), resourceProvider);
 
         Optional<AbstractUserAction> parentAction = PCMQueryUtils.findParentOfType(currentAction, AbstractUserAction.class, false);
         if (parentAction.isEmpty()) {
-            return List.of(new PCMPartialFlowGraph(stopElement));
+            return List.of(new PCMTransposedFlowGraph(stopElement));
         } else {
-            this.currentPartialFlowGraph = new PCMPartialFlowGraph(stopElement);
-            return findSequencesForUserAction(parentAction.get()
-                    .getSuccessor());
+            this.currentTransposedFlowGraph = new PCMTransposedFlowGraph(stopElement);
+            return findSequencesForUserAction(parentAction.get().getSuccessor());
         }
     }
 
-    protected List<PCMPartialFlowGraph> findSequencesForUserBranchAction(Branch currentAction) {
-        return currentAction.getBranchTransitions_Branch()
-                .stream()
-                .map(BranchTransition::getBranchedBehaviour_BranchTransition)
-                .map(PCMQueryUtils::getStartActionOfScenarioBehavior)
-                .flatMap(Optional::stream)
+    protected List<PCMTransposedFlowGraph> findSequencesForUserBranchAction(Branch currentAction) {
+        return currentAction.getBranchTransitions_Branch().stream().map(BranchTransition::getBranchedBehaviour_BranchTransition)
+                .map(PCMQueryUtils::getStartActionOfScenarioBehavior).flatMap(Optional::stream)
                 .map(it -> {
                     Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping = new IdentityHashMap<>();
-                    PCMPartialFlowGraph clonedSequence = this.currentPartialFlowGraph.deepCopy(vertexMapping);
-                    return new PCMUserPartialFlowGraphFinder(this.resourceProvider, clonedSequence).findSequencesForUserAction(it);
-                })
-                .flatMap(List::stream)
-                .toList();
+                    PCMTransposedFlowGraph clonedSequence = this.currentTransposedFlowGraph.deepCopy(vertexMapping);
+                    return new PCMUserTransposedFlowGraphFinder(this.resourceProvider, clonedSequence).findSequencesForUserAction(it);
+                }).flatMap(List::stream).toList();
     }
 
-    protected List<PCMPartialFlowGraph> findSequencesForEntryLevelSystemCall(EntryLevelSystemCall currentAction) {
-        var callingEntity = new CallingUserPCMVertex(currentAction, List.of(this.currentPartialFlowGraph.getSink()), true, resourceProvider);
-        this.currentPartialFlowGraph = new PCMPartialFlowGraph(callingEntity);
+    protected List<PCMTransposedFlowGraph> findSequencesForEntryLevelSystemCall(EntryLevelSystemCall currentAction) {
+        var callingEntity = new CallingUserPCMVertex(currentAction, List.of(this.currentTransposedFlowGraph.getSink()), true, resourceProvider);
+        this.currentTransposedFlowGraph = new PCMTransposedFlowGraph(callingEntity);
 
         OperationProvidedRole calledRole = currentAction.getProvidedRole_EntryLevelSystemCall();
         OperationSignature calledSignature = currentAction.getOperationSignature__EntryLevelSystemCall();
@@ -117,19 +111,20 @@ public class PCMUserPartialFlowGraphFinder {
                 Deque<AbstractPCMVertex<?>> callers = new ArrayDeque<>();
                 callers.add(callingEntity);
 
-                SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get()
-                        .context(), callers, calledSignature.getParameters__OperationSignature());
-                return new PCMSEFFPartialFlowGraphFinder(resourceProvider, finderContext, this.currentPartialFlowGraph)
+                SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get().context(), callers,
+                        calledSignature.getParameters__OperationSignature());
+                return new PCMSEFFTransposedFlowGraphFinder(resourceProvider, finderContext, this.currentTransposedFlowGraph)
                         .findSequencesForSEFFAction(SEFFStartAction.get());
             }
         }
     }
 
-    public List<PCMPartialFlowGraph> findSequencesForUserActionReturning(EntryLevelSystemCall currentAction, AbstractPCMVertex<?> caller) {
+    public List<PCMTransposedFlowGraph> findSequencesForUserActionReturning(EntryLevelSystemCall currentAction, AbstractPCMVertex<?> caller) {
         List<AbstractPCMVertex<?>> previousVertices = new ArrayList<>();
         previousVertices.add(caller);
-        previousVertices.add(this.currentPartialFlowGraph.getSink());
-        this.currentPartialFlowGraph = new PCMPartialFlowGraph(new CallingUserPCMVertex(currentAction, previousVertices, false, resourceProvider));
+        previousVertices.add(this.currentTransposedFlowGraph.getSink());
+        this.currentTransposedFlowGraph = new PCMTransposedFlowGraph(
+                new CallingUserPCMVertex(currentAction, previousVertices, false, resourceProvider));
         return findSequencesForUserAction(currentAction.getSuccessor());
     }
 }

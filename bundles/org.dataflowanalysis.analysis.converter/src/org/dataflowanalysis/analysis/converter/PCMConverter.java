@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.*;
-import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractTransposedFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.FlowGraph;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
@@ -77,7 +77,7 @@ public class PCMConverter extends Converter {
     }
 
     private DataFlowDiagramAndDictionary processPalladio(FlowGraph flowGraph) {
-        for (AbstractPartialFlowGraph aPFG : flowGraph.getPartialFlowGraphs()) {
+        for (AbstractTransposedFlowGraph aPFG : flowGraph.getTransposedFlowGraphs()) {
             Node previousNode = null;
             for (AbstractVertex<?> abstractVertex : aPFG.getVertices()) {
                 if (abstractVertex instanceof AbstractPCMVertex) {

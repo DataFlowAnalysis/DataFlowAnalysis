@@ -12,7 +12,8 @@ import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramConverter;
 import org.dataflowanalysis.analysis.converter.PCMConverter;
-import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.AbstractTransposedFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
@@ -75,7 +76,7 @@ public class PCMTest {
         flowGraph.evaluate();
 
         Map<String, String> assIdToName = new HashMap<>();
-        for (AbstractPartialFlowGraph aPFG : flowGraph.getPartialFlowGraphs()) {
+        for (AbstractTransposedFlowGraph aPFG : flowGraph.getTransposedFlowGraphs()) {
             for (AbstractVertex<?> abstractVertex : aPFG.getVertices()) {
                 var cast = (AbstractPCMVertex<?>) abstractVertex;
                 assIdToName.putIfAbsent(cast.getReferencedElement()
@@ -113,7 +114,7 @@ public class PCMTest {
         }
 
         List<String> flowNames = new ArrayList<>();
-        for (AbstractPartialFlowGraph as : flowGraph.getPartialFlowGraphs()) {
+        for (AbstractTransposedFlowGraph as : flowGraph.getTransposedFlowGraphs()) {
             for (AbstractVertex<?> ase : as.getVertices()) {
                 List<DataFlowVariable> variables = ase.getAllDataFlowVariables();
                 for (DataFlowVariable variable : variables) {

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
-import org.dataflowanalysis.analysis.core.PartialFlowGraphFinder;
+import org.dataflowanalysis.analysis.core.AbstractTransposedFlowGraph;
+import org.dataflowanalysis.analysis.core.TransposedFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
@@ -13,26 +13,25 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 
 /**
- * The DFDPartialFlowGraphFinder determines all partial flow graphs contained in a model
+ * The DFDTransposedFlowGraphFinder determines all transposed flow graphs contained in a model
  */
-public class DFDPartialFlowGraphFinder implements PartialFlowGraphFinder {
+public class DFDTransposedFlowGraphFinder implements TransposedFlowGraphFinder {
 
     private final DFDResourceProvider resourceProvider;
 
-    public DFDPartialFlowGraphFinder(DFDResourceProvider resourceProvider) {
+    public DFDTransposedFlowGraphFinder(DFDResourceProvider resourceProvider) {
         this.resourceProvider = resourceProvider;
     }
 
     /**
-     * Finds all partial flow graphs in a dataflowdiagram model instance
-     * @return Returns a list of all partial flow graphs
+     * Finds all transposed flow graphs in a dataflowdiagram model instance
+     * @return Returns a list of all transposed flow graphs
      */
     @Override
-    public List<AbstractPartialFlowGraph> findPartialFlowGraphs() {
-        List<Node> endNodes = getEndNodes(this.resourceProvider.getDataFlowDiagram()
-                .getNodes());
+    public List<AbstractTransposedFlowGraph> findTransposedFlowGraphs() {
+        List<Node> endNodes = getEndNodes(this.resourceProvider.getDataFlowDiagram().getNodes());
 
-        List<AbstractPartialFlowGraph> sequences = new ArrayList<>();
+        List<AbstractTransposedFlowGraph> sequences = new ArrayList<>();
 
         for (var endNode : endNodes) {
             for (var sink : determineSinks(new DFDVertex(endNode, new HashMap<>(), new HashMap<>()), this.resourceProvider.getDataFlowDiagram()
@@ -40,14 +39,14 @@ public class DFDPartialFlowGraphFinder implements PartialFlowGraphFinder {
                     endNode.getBehaviour()
                             .getInPin())) {
                 sink.unify(new HashSet<>());
-                sequences.add(new DFDPartialFlowGraph(sink));
+                sequences.add(new DFDTransposedFlowGraph(sink));
             }
         }
         return sequences;
     }
 
     /**
-     * Builds a list of sink vertices with previous vertices for the creation of partial flow graphs.
+     * Builds a list of sink vertices with previous vertices for the creation of transposed flow graphs.
      * <p/>
      * This method preforms the determination of sinks recursively
      * @param sink Single sink vertex without previous vertices calculated

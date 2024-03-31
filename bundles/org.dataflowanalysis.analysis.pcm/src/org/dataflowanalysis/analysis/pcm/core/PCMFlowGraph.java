@@ -3,9 +3,9 @@ package org.dataflowanalysis.analysis.pcm.core;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractTransposedFlowGraph;
 import org.dataflowanalysis.analysis.core.FlowGraph;
-import org.dataflowanalysis.analysis.pcm.core.finder.PCMPartialFlowGraphFinder;
+import org.dataflowanalysis.analysis.pcm.core.finder.PCMTransposedFlowGraphFinder;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 
@@ -16,19 +16,16 @@ public class PCMFlowGraph extends FlowGraph {
         super(resourceProvider);
     }
 
-    public PCMFlowGraph(List<AbstractPartialFlowGraph> partialFlowGraphs, ResourceProvider resourceProvider) {
-        super(partialFlowGraphs, resourceProvider);
+    public PCMFlowGraph(List<AbstractTransposedFlowGraph> transposedFlowGraphs, ResourceProvider resourceProvider) {
+        super(transposedFlowGraphs, resourceProvider);
     }
 
-    public List<AbstractPartialFlowGraph> findPartialFlowGraphs() {
+    public List<AbstractTransposedFlowGraph> findTransposedFlowGraphs() {
         if (!(this.resourceProvider instanceof PCMResourceProvider pcmResourceProvider)) {
-            logger.error("Cannot find partial flow graphs from non-pcm resource provider");
-            throw new IllegalArgumentException("Cannot find partial flow graphs with non-pcm resource provider");
+            logger.error("Cannot find transposed flow graphs from non-pcm resource provider");
+            throw new IllegalArgumentException("Cannot find transposed flow graphs with non-pcm resource provider");
         }
-        PCMPartialFlowGraphFinder sequenceFinder = new PCMPartialFlowGraphFinder(pcmResourceProvider);
-        return sequenceFinder.findPartialFlowGraphs()
-                .parallelStream()
-                .map(AbstractPartialFlowGraph.class::cast)
-                .collect(Collectors.toList());
+        PCMTransposedFlowGraphFinder sequenceFinder = new PCMTransposedFlowGraphFinder(pcmResourceProvider);
+        return sequenceFinder.findTransposedFlowGraphs().parallelStream().map(AbstractTransposedFlowGraph.class::cast).collect(Collectors.toList());
     }
 }

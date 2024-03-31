@@ -36,16 +36,14 @@ public class BaseTest {
         DFDFlowGraph flowGraph = this.analysis.findFlowGraph();
         flowGraph.evaluate();
 
-        return analysis.queryDataFlow(flowGraph.getPartialFlowGraphs()
-                .get(0), constraint);
+        return analysis.queryDataFlow(flowGraph.getTransposedFlowGraphs().get(0), constraint);
     }
 
     @Test
-    public void numberOfPartialFlowGraphs_equalsFour() {
+    public void numberOfTransposedFlowGraphs_equalsFour() {
         this.analysis.initializeAnalysis();
         DFDFlowGraph flowGraph = analysis.findFlowGraph();
-        assertEquals(flowGraph.getPartialFlowGraphs()
-                .size(), 4);
+        assertEquals(flowGraph.getTransposedFlowGraphs().size(), 4);
     }
 
     @Test
@@ -68,12 +66,8 @@ public class BaseTest {
         DFDFlowGraph flowGraph = analysis.findFlowGraph();
         flowGraph.evaluate();
 
-        for (var pfg : flowGraph.getPartialFlowGraphs()) {
-            assertTrue(pfg.getVertices()
-                    .stream()
-                    .filter(v -> ((DFDVertex) v).getName()
-                            .equals("In"))
-                    .count() < 2);
+        for (var pfg : flowGraph.getTransposedFlowGraphs()) {
+            assertTrue(pfg.getVertices().stream().filter(v -> ((DFDVertex) v).getName().equals("In")).count() < 2);
         }
     }
 
@@ -83,7 +77,7 @@ public class BaseTest {
         DFDFlowGraph flowGraph = analysis.findFlowGraph();
         flowGraph.evaluate();
 
-        for (var pfg : flowGraph.getPartialFlowGraphs()) {
+        for (var pfg : flowGraph.getTransposedFlowGraphs()) {
             for (var vertex : pfg.getVertices()) {
                 assertTrue((!vertex.getAllIncomingDataFlowVariables()
                         .isEmpty())

@@ -8,7 +8,7 @@ import java.util.Optional;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
-import org.dataflowanalysis.analysis.pcm.core.PCMPartialFlowGraph;
+import org.dataflowanalysis.analysis.pcm.core.PCMTransposedFlowGraph;
 import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.seff.SEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
@@ -26,20 +26,20 @@ import org.palladiosimulator.pcm.seff.SetVariableAction;
 import org.palladiosimulator.pcm.seff.StartAction;
 import org.palladiosimulator.pcm.seff.StopAction;
 
-public class PCMSEFFPartialFlowGraphFinder {
-    private static final Logger logger = Logger.getLogger(PCMSEFFPartialFlowGraphFinder.class);
+public class PCMSEFFTransposedFlowGraphFinder {
+    private static final Logger logger = Logger.getLogger(PCMSEFFTransposedFlowGraphFinder.class);
 
     private final ResourceProvider resourceProvider;
     private final SEFFFinderContext context;
-    private PCMPartialFlowGraph currentPartialFlowGraph;
+    private PCMTransposedFlowGraph currentTransposedFlowGraph;
 
-    public PCMSEFFPartialFlowGraphFinder(ResourceProvider resourceProvider, SEFFFinderContext context, PCMPartialFlowGraph currentPartialFlowGraph) {
+    public PCMSEFFTransposedFlowGraphFinder(ResourceProvider resourceProvider, SEFFFinderContext context, PCMTransposedFlowGraph currentTransposedFlowGraph) {
         this.resourceProvider = resourceProvider;
         this.context = context;
-        this.currentPartialFlowGraph = currentPartialFlowGraph;
+        this.currentTransposedFlowGraph = currentTransposedFlowGraph;
     }
 
-    public List<PCMPartialFlowGraph> findSequencesForSEFFAction(AbstractAction currentAction) {
+    public List<PCMTransposedFlowGraph> findSequencesForSEFFAction(AbstractAction currentAction) {
 
         if (currentAction instanceof StartAction) {
             return findSequencesForSEFFStartAction((StartAction) currentAction);
@@ -64,17 +64,17 @@ public class PCMSEFFPartialFlowGraphFinder {
         }
     }
 
-    protected List<PCMPartialFlowGraph> findSequencesForSEFFStartAction(StartAction currentAction) {
-        var startElement = new SEFFPCMVertex<>(currentAction, List.of(this.currentPartialFlowGraph.getSink()), context.getContext(),
-                context.getParameter(), resourceProvider);
-        this.currentPartialFlowGraph = new PCMPartialFlowGraph(startElement);
+    protected List<PCMTransposedFlowGraph> findSequencesForSEFFStartAction(StartAction currentAction) {
+        var startElement = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposedFlowGraph.getSink()),
+                context.getContext(), context.getParameter(), resourceProvider);
+        this.currentTransposedFlowGraph = new PCMTransposedFlowGraph(startElement);
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction());
     }
 
-    protected List<PCMPartialFlowGraph> findSequencesForSEFFStopAction(StopAction currentAction) {
-        var stopElement = new SEFFPCMVertex<>(currentAction, List.of(this.currentPartialFlowGraph.getSink()), context.getContext(),
-                context.getParameter(), resourceProvider);
-        this.currentPartialFlowGraph = new PCMPartialFlowGraph(stopElement);
+    protected List<PCMTransposedFlowGraph> findSequencesForSEFFStopAction(StopAction currentAction) {
+        var stopElement = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposedFlowGraph.getSink()),
+                context.getContext(), context.getParameter(), resourceProvider);
+        this.currentTransposedFlowGraph = new PCMTransposedFlowGraph(stopElement);
 
         Optional<AbstractAction> parentAction = PCMQueryUtils.findParentOfType(currentAction, AbstractAction.class, false);
         if (parentAction.isPresent()) {
@@ -88,11 +88,11 @@ public class PCMSEFFPartialFlowGraphFinder {
         }
     }
 
-    protected List<PCMPartialFlowGraph> findSequencesForSEFFExternalCallAction(ExternalCallAction currentAction) {
+    protected List<PCMTransposedFlowGraph> findSequencesForSEFFExternalCallAction(ExternalCallAction currentAction) {
 
-        var callingEntity = new CallingSEFFPCMVertex(currentAction, List.of(this.currentPartialFlowGraph.getSink()), context.getContext(),
-                context.getParameter(), true, resourceProvider);
-        this.currentPartialFlowGraph = new PCMPartialFlowGraph(callingEntity);
+        var callingEntity = new CallingSEFFPCMVertex(currentAction, List.of(this.currentTransposedFlowGraph.getSink()), context.getContext(), context.getParameter(),
+                true, resourceProvider);
+        this.currentTransposedFlowGraph = new PCMTransposedFlowGraph(callingEntity);
 
         OperationRequiredRole calledRole = currentAction.getRole_ExternalService();
         OperationSignature calledSignature = currentAction.getCalledService_ExternalService();
@@ -119,43 +119,37 @@ public class PCMSEFFPartialFlowGraphFinder {
         }
     }
 
-    protected List<PCMPartialFlowGraph> findSequencesForSEFFSetVariableAction(SetVariableAction currentAction) {
+    protected List<PCMTransposedFlowGraph> findSequencesForSEFFSetVariableAction(SetVariableAction currentAction) {
 
-        var newEntity = new SEFFPCMVertex<>(currentAction, List.of(this.currentPartialFlowGraph.getSink()), context.getContext(),
-                context.getParameter(), resourceProvider);
-        this.currentPartialFlowGraph = new PCMPartialFlowGraph(newEntity);
+        var newEntity = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposedFlowGraph.getSink()), context.getContext(), context.getParameter(),
+                resourceProvider);
+        this.currentTransposedFlowGraph = new PCMTransposedFlowGraph(newEntity);
 
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction());
     }
 
-    protected List<PCMPartialFlowGraph> findSequencesForSEFFBranchAction(BranchAction currentAction) {
-        return currentAction.getBranches_Branch()
-                .stream()
-                .map(AbstractBranchTransition::getBranchBehaviour_BranchTransition)
-                .map(ResourceDemandingBehaviour::getSteps_Behaviour)
-                .map(PCMQueryUtils::getFirstStartActionInActionList)
-                .flatMap(Optional::stream)
+    protected List<PCMTransposedFlowGraph> findSequencesForSEFFBranchAction(BranchAction currentAction) {
+        return currentAction.getBranches_Branch().stream().map(AbstractBranchTransition::getBranchBehaviour_BranchTransition)
+                .map(ResourceDemandingBehaviour::getSteps_Behaviour).map(PCMQueryUtils::getFirstStartActionInActionList).flatMap(Optional::stream)
                 .map(it -> {
                     Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping = new IdentityHashMap<>();
-                    PCMPartialFlowGraph clonedPartialFlowGraph = this.currentPartialFlowGraph.deepCopy(vertexMapping);
+                    PCMTransposedFlowGraph clonedTransposedFlowGraph = this.currentTransposedFlowGraph.deepCopy(vertexMapping);
                     SEFFFinderContext clonedContext = new SEFFFinderContext(context);
                     clonedContext.replaceCallers(vertexMapping);
-                    return new PCMSEFFPartialFlowGraphFinder(resourceProvider, clonedContext, clonedPartialFlowGraph).findSequencesForSEFFAction(it);
-                })
-                .flatMap(List::stream)
-                .toList();
+                    return new PCMSEFFTransposedFlowGraphFinder(resourceProvider, clonedContext, clonedTransposedFlowGraph).findSequencesForSEFFAction(it);
+                }).flatMap(List::stream).toList();
     }
 
-    protected List<PCMPartialFlowGraph> findSequencesForSEFFActionReturning(ExternalCallAction currentAction, AbstractPCMVertex<?> caller) {
+    protected List<PCMTransposedFlowGraph> findSequencesForSEFFActionReturning(ExternalCallAction currentAction, AbstractPCMVertex<?> caller) {
         List<AbstractPCMVertex<?>> previousVertices = new ArrayList<>();
         previousVertices.add(caller);
-        previousVertices.add(this.currentPartialFlowGraph.getSink());
-        this.currentPartialFlowGraph = new PCMPartialFlowGraph(
+        previousVertices.add(this.currentTransposedFlowGraph.getSink());
+        this.currentTransposedFlowGraph = new PCMTransposedFlowGraph(
                 new CallingSEFFPCMVertex(currentAction, previousVertices, context.getContext(), context.getParameter(), false, resourceProvider));
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction());
     }
 
-    public List<PCMPartialFlowGraph> returnToCaller(AbstractVertex<?> caller) {
+    public List<PCMTransposedFlowGraph> returnToCaller(AbstractVertex<?> caller) {
         if (caller instanceof CallingUserPCMVertex) {
             return returnToUserCaller((CallingUserPCMVertex) caller);
 
@@ -168,18 +162,17 @@ public class PCMSEFFPartialFlowGraphFinder {
         }
     }
 
-    protected List<PCMPartialFlowGraph> returnToUserCaller(CallingUserPCMVertex caller) {
-        if (!this.context.getCallers()
-                .isEmpty()) {
+    protected List<PCMTransposedFlowGraph> returnToUserCaller(CallingUserPCMVertex caller) {
+        if (!this.context.getCallers().isEmpty()) {
             logger.error("SEFF Action wanted to return without a matching calling user sequence element");
             throw new IllegalStateException();
         } else {
-            return new PCMUserPartialFlowGraphFinder(resourceProvider, this.currentPartialFlowGraph)
+            return new PCMUserTransposedFlowGraphFinder(resourceProvider, this.currentTransposedFlowGraph)
                     .findSequencesForUserActionReturning(caller.getReferencedElement(), caller);
         }
     }
 
-    protected List<PCMPartialFlowGraph> returnToSEFFCaller(CallingSEFFPCMVertex caller) {
+    protected List<PCMTransposedFlowGraph> returnToSEFFCaller(CallingSEFFPCMVertex caller) {
         context.updateSEFFContext(caller.getContext());
         return findSequencesForSEFFActionReturning(caller.getReferencedElement(), caller);
     }

@@ -28,28 +28,22 @@ This is step is required, as standalone initialization of the analysis requires 
 A basic analysis can be executed with the following example:
 
 ```java
-public class Main {
-  public static void main(String[] args) {
-      PCMDataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder()
-	        .standalone()
-	        .modelProjectName("<PROJECT_NAME>")
-	        .usePluginActivator(Activator.class)
-	        .useUsageModel("<USAGE_MODEL_PATH>")
-	        .useAllocationModel("<ALLOCATION_MODEL_PATH>")
-	        .useNodeCharacteristicsModel("<NODE_MODEL_PATH>")
-	        .build(); 
+public static void main(String[] args) {
+    PCMDataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone().modelProjectName("<PROJECT_NAME>")
+        .usePluginActivator(Activator.class).useUsageModel("<USAGE_MODEL_PATH>").useAllocationModel("<ALLOCATION_MODEL_PATH>")
+        .useNodeCharacteristicsModel("<NODE_MODEL_PATH>").build();
 
-      analysis.setLoggerLevel(Level.TRACE); // Set desired logger level. Level.TRACE provides additional propagation Information
-      analysis.initializeAnalysis();
+    analysis.setLoggerLevel(Level.TRACE); // Set desired logger level. Level.TRACE provides additional propagation
+    // Information
+    analysis.initializeAnalysis();
 
-      PCMFlowGraph flowGraph = analysis.findFlowGraph();
-      flowGraph.evaluate();
+    PCMFlowGraph flowGraph = analysis.findFlowGraph();
+    flowGraph.evaluate();
 
-      for (AbstractPartialFlowGraph actionSequence : flowGraph.getPartialFlowGraphs()) {
-	       List<AbstractVertex<?>> violations = analysis.queryDataFlow(actionSequence,
-	       it -> false // Constraint goes here, return true, if constraint is violated
-	     );
-	   }
+    for (AbstractTransposedFlowGraph actionSequence : flowGraph.getTransposedFlowGraphs()) {
+        List<? extends AbstractVertex<?>> violations = analysis.queryDataFlow(actionSequence, it -> false // Constraint goes here, return true, if
+                                                                                                          // constraint is violated
+        );
     }
 }
 ```

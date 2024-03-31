@@ -105,7 +105,7 @@ public abstract class AbstractVertex<T> {
      * Returns a list of all present node characteristics for the action sequence element
      * @return List of present node characteristics
      */
-    public List<CharacteristicValue> getAllNodeCharacteristics() {
+    public List<CharacteristicValue> getAllVertexCharacteristics() {
         return this.vertexCharacteristics.orElseThrow(IllegalStateException::new);
     }
 
@@ -133,7 +133,7 @@ public abstract class AbstractVertex<T> {
      * @return Returns a list of all node characteristics matching the characteristic type
      */
     public List<CharacteristicValue> getNodeCharacteristics(String characteristicType) {
-        return this.getAllNodeCharacteristics().stream()
+        return this.getAllVertexCharacteristics().stream()
                 .filter(cv -> cv.getTypeName().equals(characteristicType))
                 .collect(Collectors.toList());
     }
@@ -147,7 +147,7 @@ public abstract class AbstractVertex<T> {
      * @return Returns a list of all node characteristics matching the characteristic type
      */
     public List<String> getNodeCharacteristicNames(String characteristicType) {
-        return this.getAllNodeCharacteristics().stream()
+        return this.getAllVertexCharacteristics().stream()
                 .filter(cv -> cv.getTypeName().equals(characteristicType))
                 .map(CharacteristicValue::getValueName)
                 .collect(Collectors.toList());
@@ -214,9 +214,8 @@ public abstract class AbstractVertex<T> {
      */
     public String createPrintableNodeInformation() {
         String template = "Propagated %s%s\tNode characteristics: %s%s\tData flow Variables:  %s%s";
-        String nodeCharacteristics = createPrintableCharacteristicsList(this.getAllNodeCharacteristics());
-        String dataCharacteristics = this.getAllDataFlowVariables()
-                .stream()
+        String nodeCharacteristics = createPrintableCharacteristicsList(this.getAllVertexCharacteristics());
+        String dataCharacteristics = this.getAllDataFlowVariables().stream()
                 .map(e -> String.format("%s [%s]", e.variableName(), createPrintableCharacteristicsList(e.getAllCharacteristics())))
                 .collect(Collectors.joining(", "));
 

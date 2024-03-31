@@ -167,10 +167,8 @@ public class ConstraintResultTest extends ConstraintTest {
                 fail("Could not find node for expected constraint violation");
             }
 
-            List<CharacteristicValue> nodeCharacteristics = violatingNode.get()
-                    .getAllNodeCharacteristics();
-            List<DataFlowVariable> dataFlowVariables = violatingNode.get()
-                    .getAllDataFlowVariables();
+            List<CharacteristicValue> nodeCharacteristics = violatingNode.get().getAllVertexCharacteristics();
+            List<DataFlowVariable> dataFlowVariables = violatingNode.get().getAllDataFlowVariables();
 
             assertEquals(constraintNodeData.nodeCharacteristicsCount(), nodeCharacteristics.size());
             assertEquals(constraintNodeData.dataFlowVariablesCount(), dataFlowVariables.size());

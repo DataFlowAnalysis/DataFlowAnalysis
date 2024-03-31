@@ -124,7 +124,7 @@ public class PCMTest {
         List<String> flowNames = new ArrayList<>();
         for (AbstractTransposeFlowGraph as : flowGraph.getTransposeFlowGraphs()) {
             for (AbstractVertex<?> ase : as.getVertices()) {
-                List<DataFlowVariable> variables = ase.getAllDataFlowVariables();
+                List<DataFlowVariable> variables = ase.getAllDataCharacteristics();
                 for (DataFlowVariable variable : variables) {
                     flowNames.add(variable.variableName());
                 }

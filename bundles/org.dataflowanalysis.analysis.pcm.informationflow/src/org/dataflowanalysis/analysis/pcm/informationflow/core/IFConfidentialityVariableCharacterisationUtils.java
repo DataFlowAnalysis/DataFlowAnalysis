@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.CharacteristicType;
+import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristicType;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Enumeration;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Literal;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.expressions.And;
@@ -46,12 +47,82 @@ public class IFConfidentialityVariableCharacterisationUtils {
 	private IFConfidentialityVariableCharacterisationUtils() {
 	}
 
+	// TODO change usedReferences to Strings
+
+	public static List<ConfidentialityVariableCharacterisation> resolveWildcards(
+			ConfidentialityVariableCharacterisation characterisation,
+			List<EnumCharacteristicType> allCharacteristicTypes) {
+		return resolveCharacteristicTypeWildcard(characterisation, allCharacteristicTypes).stream()
+				.flatMap(confChar -> resolveLiteralWildcard(confChar).stream()).toList();
+	}
+
+	// TODO assumes EnumCharacteristicType and present
+	public static List<ConfidentialityVariableCharacterisation> resolveLiteralWildcard(
+			ConfidentialityVariableCharacterisation characterisation) {
+
+		var enumCharacteristicType = (EnumCharacteristicType) getLhsEnumCharacteristicReference(characterisation)
+				.getCharacteristicType();
+		List<ConfidentialityVariableCharacterisation> resolvedCharacterisations = new ArrayList<>();
+		for (Literal level : enumCharacteristicType.getType().getLiterals()) {
+			var resolvedConfChar = copyConfidentialityVariableCharacterisation(characterisation);
+
+			var lhs = getLhsEnumCharacteristicReference(resolvedConfChar);
+			lhs.setLiteral(level);
+
+			List<NamedEnumCharacteristicReference> varsInRhs = extractAllVariables(resolvedConfChar.getRhs());
+			varsInRhs.stream().forEach(variable -> variable.setLiteral(level));
+
+			resolvedCharacterisations.add(resolvedConfChar);
+		}
+		return resolvedCharacterisations;
+	}
+
+	public static List<ConfidentialityVariableCharacterisation> resolveCharacteristicTypeWildcard(
+			ConfidentialityVariableCharacterisation characterisation,
+			List<EnumCharacteristicType> allCharacteristicTypes) {
+
+		List<ConfidentialityVariableCharacterisation> resolvedCharacterisations = new ArrayList<>();
+		for (var characteristicType : allCharacteristicTypes) {
+			var resolvedConfChar = copyConfidentialityVariableCharacterisation(characterisation);
+
+			var lhs = getLhsEnumCharacteristicReference(resolvedConfChar);
+			lhs.setCharacteristicType(characteristicType);
+
+			List<NamedEnumCharacteristicReference> varsInRhs = extractAllVariables(resolvedConfChar.getRhs());
+			varsInRhs.stream().forEach(variable -> variable.setCharacteristicType(characteristicType));
+
+			resolvedCharacterisations.add(resolvedConfChar);
+		}
+		return resolvedCharacterisations;
+	}
+
+	private static ConfidentialityVariableCharacterisation copyConfidentialityVariableCharacterisation(
+			ConfidentialityVariableCharacterisation confChar) {
+
+		var copiedConfChar = confFac.createConfidentialityVariableCharacterisation();
+		var lhs = getLhsEnumCharacteristicReference(confChar);
+
+		copiedConfChar.setLhs(createLhs(lhs.getCharacteristicType(), lhs.getLiteral()));
+		copiedConfChar.setRhs(copyTerm(confChar.getRhs()));
+		copiedConfChar.setVariableUsage_VariableCharacterisation(createVariableUsage(
+				confChar.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage()));
+		return copiedConfChar;
+	}
+	// TODO
+
+//	Assumes that the given
+//	 * characterizations do not have a wildcard as characteristicType and the
+//	 * characteristicType to be an instance of EnumCharacteristicType. Should the
+//	 * Literal be specified as a wildcard, there must be only one characterization
+//	 * given.
+
 	/**
 	 * Creates a {@link ConfidentialityVariableCharacterisation} for each level of
 	 * the given lattice for the given latticeCharacteristicType. The behavior of
 	 * the resulting {@link ConfidentialityVariableCharacterisation} is to set the
-	 * maximum Label of the given characterizations and the constraint. Assumes the
-	 * given characterizations only set one level.
+	 * maximum Label of the given characterizations and the constraint. Assumes that
+	 * the given characterizations only set one level. Assumes that the given
+	 * characterizations do not have any wildcards.
 	 * 
 	 * @param confChars                 the given characterizations
 	 * @param constraint                the given constraint
@@ -308,6 +379,37 @@ public class IFConfidentialityVariableCharacterisationUtils {
 			logger.error(errorMsg);
 			throw new IllegalArgumentException(errorMsg);
 		}
+	}
+
+	private static List<NamedEnumCharacteristicReference> extractAllVariables(Term term) {
+		if (term instanceof True) {
+			return new ArrayList<>();
+		} else if (term instanceof False) {
+			return new ArrayList<>();
+		} else if (term instanceof NamedEnumCharacteristicReference namedRef) {
+			List<NamedEnumCharacteristicReference> variableList = new ArrayList<>();
+			variableList.add(namedRef);
+			return variableList;
+		} else if (term instanceof And andTerm) {
+			var variables = extractAllVariables(andTerm.getLeft());
+			variables.addAll(extractAllVariables(andTerm.getRight()));
+			return variables;
+		} else if (term instanceof Or orTerm) {
+			var variables = extractAllVariables(orTerm.getLeft());
+			variables.addAll(extractAllVariables(orTerm.getRight()));
+			return variables;
+		} else if (term instanceof Not notTerm) {
+			return extractAllVariables(notTerm.getTerm());
+		} else {
+			String errorMsg = "Tried to copy unknown term element: " + term;
+			logger.error(errorMsg);
+			throw new IllegalArgumentException(errorMsg);
+		}
+	}
+
+	private static LhsEnumCharacteristicReference getLhsEnumCharacteristicReference(
+			ConfidentialityVariableCharacterisation confChar) {
+		return (LhsEnumCharacteristicReference) confChar.getLhs();
 	}
 
 }

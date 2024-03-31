@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
+import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristicType;
+import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Literal;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.expression.LhsEnumCharacteristicReference;
 
@@ -21,6 +23,8 @@ public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrat
 		super(resourceProvider);
 	}
 
+	// TODO check if only max one defined CVC for each Latticelevel?
+
 	@Override
 	protected List<ConfidentialityVariableCharacterisation> calculateResultingConfidentialityVaraibleCharacterisations(
 			List<ConfidentialityVariableCharacterisation> calculatedCharacterisations,
@@ -32,7 +36,21 @@ public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrat
 		for (var definedChar : definedCharacterisations) {
 			LhsEnumCharacteristicReference lhsDefinedChar = (LhsEnumCharacteristicReference) definedChar.getLhs();
 
-			if (lhsDefinedChar.getLiteral().getEnum().equals(getLattice())) {
+			Literal definedLiteral = lhsDefinedChar.getLiteral();
+
+			if (definedLiteral == null) {
+				List<EnumCharacteristicType> nonLatticCharacteristicTypes = IFPCMDataDictionaryUtils
+						.getAllEnumCharacteristicTypesExceptLattice(getResourceProvider());
+				EnumCharacteristicType latticeCharacteristicType = IFPCMDataDictionaryUtils
+						.getLatticeCharacteristicType(getResourceProvider());
+
+				var resolvedNonLatticeConfChars = IFConfidentialityVariableCharacterisationUtils
+						.resolveCharacteristicTypeWildcard(definedChar, nonLatticCharacteristicTypes);
+				definedNonLatticeChars.addAll(resolvedNonLatticeConfChars);
+				var resolvedLatticeChar = IFConfidentialityVariableCharacterisationUtils.resolveWildcards(definedChar,
+						List.of(latticeCharacteristicType));
+				definedLatticeChars.addAll(resolvedLatticeChar);
+			} else if (lhsDefinedChar.getLiteral().getEnum().equals(getLattice())) {
 				definedLatticeChars.add(definedChar);
 			} else {
 				definedNonLatticeChars.add(definedChar);

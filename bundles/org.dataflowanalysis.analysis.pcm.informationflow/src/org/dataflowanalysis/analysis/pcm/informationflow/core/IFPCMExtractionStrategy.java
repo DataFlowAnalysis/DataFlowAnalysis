@@ -8,14 +8,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.CharacteristicType;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Enumeration;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
-import org.dataflowanalysis.pcm.extension.model.confidentiality.dictionary.DictionaryPackage;
-import org.dataflowanalysis.pcm.extension.model.confidentiality.dictionary.PCMDataDictionary;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
@@ -31,10 +28,6 @@ import de.uka.ipd.sdq.stoex.Expression;
  */
 public abstract class IFPCMExtractionStrategy {
 
-	private final static String LATTICE_CHARACTERISTIC_TYPE_NAME = "Lattice";
-	private final static String LATTICE_NAME = LATTICE_CHARACTERISTIC_TYPE_NAME;
-
-	private Logger logger = Logger.getLogger(IFPCMExtractionStrategy.class);
 	private ResourceProvider resourceProvider;
 	private Enumeration lattice;
 	private CharacteristicType latticeCharacteristicType;
@@ -299,23 +292,17 @@ public abstract class IFPCMExtractionStrategy {
 		return latticeCharacteristicType;
 	}
 
-	private void initializeResources() {
-		var diccs = resourceProvider.lookupToplevelElement(DictionaryPackage.eINSTANCE.getPCMDataDictionary()).stream()
-				.filter(PCMDataDictionary.class::isInstance).map(PCMDataDictionary.class::cast).toList();
-		for (PCMDataDictionary dicc : diccs) {
-			var lattice = dicc.getCharacteristicEnumerations().stream().filter(l -> l.getName().matches(LATTICE_NAME))
-					.findFirst();
-			var latticeCharacteristicType = dicc.getCharacteristicTypes().stream()
-					.filter(charType -> charType.getName().matches(LATTICE_CHARACTERISTIC_TYPE_NAME)).findFirst();
-			if (lattice.isPresent() && latticeCharacteristicType.isPresent()) {
-				this.lattice = lattice.get();
-				this.latticeCharacteristicType = latticeCharacteristicType.get();
-				return;
-			}
-		}
+	/**
+	 * Returns the ResourceProvider used for the extraction.
+	 * 
+	 * @return the ResourceProvider used for the extraction
+	 */
+	protected ResourceProvider getResourceProvider() {
+		return resourceProvider;
+	}
 
-		String errorMsg = "No pddc present with 'Lattice' as CharacteristicType and Enumeration";
-		logger.error(errorMsg);
-		throw new IllegalStateException(errorMsg);
+	private void initializeResources() {
+		latticeCharacteristicType = IFPCMDataDictionaryUtils.getLatticeCharacteristicType(resourceProvider);
+		lattice = IFPCMDataDictionaryUtils.getLatticeEnumeration(resourceProvider);
 	}
 }

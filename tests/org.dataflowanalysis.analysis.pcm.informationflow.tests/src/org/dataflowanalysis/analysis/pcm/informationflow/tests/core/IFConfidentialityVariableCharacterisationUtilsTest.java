@@ -1,6 +1,8 @@
 package org.dataflowanalysis.analysis.pcm.informationflow.tests.core;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -138,6 +140,77 @@ class IFConfidentialityVariableCharacterisationUtilsTest {
 		varToLevel.put("b", "High");
 		assertTrue(CvcTestUtils.evaluateCvcLatticeMapping(confVarChars, enumeration, varToLevel, "High"),
 				"Should forward 'High' for a=High, b=High");
+	}
+
+	@Test
+	void testModifyWithConstraintFromMaximumJoin() {
+		EnumCharacteristicType characteristicType = createLattice("Low", "Mid", "High");
+		Enumeration enumeration = characteristicType.getType();
+
+		var characterisedVariable = createCharacterisedVariableX();
+		var dependencies = createDependencies("a");
+
+		// Assumes createMaximumJoin to work
+		var initialConfChars = IFConfidentialityVariableCharacterisationUtils
+				.createMaximumJoinCharacterisationsForLattice(characterisedVariable, dependencies, characteristicType,
+						enumeration);
+
+		var constraint = createDependencies("securityContext").get(0);
+		var modifiedConfChars = IFConfidentialityVariableCharacterisationUtils
+				.createModifiedCharacterisationsForAdditionalHigherEqualConstraint(initialConfChars, constraint,
+						characteristicType, enumeration);
+
+		assertEquals(3, modifiedConfChars.size(),
+				"For Low, Mid and High each a ConfidentialityVariableCharacterisation");
+
+		// TODO assertEquals initialConfChars with newlyGenerated initialConfChars?
+
+		Map<String, String> varToLevel = new HashMap<>();
+
+		varToLevel.put("a", "Low");
+		varToLevel.put("securityContext", "Low");
+		assertTrue(CvcTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "Low"),
+				"Should set 'Low' for a=Low, securityContext=Low");
+
+		varToLevel.put("a", "Mid");
+		varToLevel.put("securityContext", "Low");
+		assertTrue(CvcTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "Mid"),
+				"Should set 'Mid' for a=Mid, securityContext=Low");
+
+		varToLevel.put("a", "High");
+		varToLevel.put("securityContext", "Low");
+		assertTrue(CvcTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "High"),
+				"Should set 'High' for a=High, securityContext=Low");
+
+		varToLevel.put("a", "Low");
+		varToLevel.put("securityContext", "Mid");
+		assertTrue(CvcTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "Mid"),
+				"Should set 'Mid' for a=Low, securityContext=Mid");
+
+		varToLevel.put("a", "Mid");
+		varToLevel.put("securityContext", "Mid");
+		assertTrue(CvcTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "Mid"),
+				"Should set 'Mid' for a=Mid, securityContext=Mid");
+
+		varToLevel.put("a", "High");
+		varToLevel.put("securityContext", "Mid");
+		assertTrue(CvcTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "High"),
+				"Should set 'High' for a=High, securityContext=Mid");
+
+		varToLevel.put("a", "Low");
+		varToLevel.put("securityContext", "High");
+		assertTrue(CvcTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "High"),
+				"Should set 'High' for a=Low, securityContext=High");
+
+		varToLevel.put("a", "Mid");
+		varToLevel.put("securityContext", "High");
+		assertTrue(CvcTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "High"),
+				"Should set 'High' for a=Mid, securityContext=High");
+
+		varToLevel.put("a", "High");
+		varToLevel.put("securityContext", "High");
+		assertTrue(CvcTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "High"),
+				"Should set 'High' for a=High, securityContext=High");
 	}
 
 	/*

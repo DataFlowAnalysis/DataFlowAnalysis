@@ -243,7 +243,7 @@ public abstract class IFPCMExtractionStrategy {
 		return variableNameToVarChars;
 	}
 
-	protected List<AbstractNamedReference> extractVariableDependencies(
+	private List<AbstractNamedReference> extractVariableDependencies(
 			List<VariableCharacterisation> variableCharacterisations) {
 		return variableCharacterisations.stream()
 				.flatMap(varChar -> IFStoexUtils
@@ -252,18 +252,34 @@ public abstract class IFPCMExtractionStrategy {
 				.toList();
 	}
 
-	protected List<ConfidentialityVariableCharacterisation> calculateConfidentialityVariableCharacteristationsFromReferences(
+	private List<ConfidentialityVariableCharacterisation> calculateConfidentialityVariableCharacteristationsFromReferences(
 			List<AbstractNamedReference> references, AbstractNamedReference characterisedVariable) {
 
 		return IFConfidentialityVariableCharacterisationUtils.createMaximumJoinCharacterisationsForLattice(
 				characterisedVariable, references, getLatticeCharacteristicType(), getLattice());
 	}
 
+	/**
+	 * Determines the resulting effective
+	 * {@link ConfidentialityVariableCharacterisation} from calculated
+	 * characterizations, defined characterizations and optionally an security
+	 * context.
+	 * 
+	 * @param calculatedCharacterisations the calculated characterizations
+	 * @param definedCharacterisations    the defined characterizations
+	 * @param optionalSecurityContext     the optional security context
+	 * @return the resulting characterizations
+	 */
 	protected abstract List<ConfidentialityVariableCharacterisation> calculateResultingConfidentialityVaraibleCharacterisations(
 			List<ConfidentialityVariableCharacterisation> calculatedCharacterisations,
 			List<ConfidentialityVariableCharacterisation> definedCharacterisations,
 			Optional<DataFlowVariable> optionalSecurityContext);
 
+	/**
+	 * Returns the lattice used for the extraction.
+	 * 
+	 * @return the lattice used for the extraction
+	 */
 	protected Enumeration getLattice() {
 		if (!initialized) {
 			initializeResources();
@@ -271,6 +287,11 @@ public abstract class IFPCMExtractionStrategy {
 		return lattice;
 	}
 
+	/**
+	 * Returns the CharacteristicType used for the extraction.
+	 * 
+	 * @return the CharacteristicType used for the extraction
+	 */
 	protected CharacteristicType getLatticeCharacteristicType() {
 		if (!initialized) {
 			initializeResources();

@@ -24,10 +24,6 @@ public class IFUserPCMVertexFactory implements IUserPCMVertexFactory {
 	private boolean considerImplicitFlow;
 	private IFPCMExtractionStrategy extractionStrategy;
 
-	public IFUserPCMVertexFactory() {
-		this(false, null); // TODO
-	}
-
 	public IFUserPCMVertexFactory(boolean considerImplicitFlow, IFPCMExtractionStrategy extractionStrategy) {
 		this.considerImplicitFlow = considerImplicitFlow;
 		this.extractionStrategy = extractionStrategy;

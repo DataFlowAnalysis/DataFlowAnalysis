@@ -31,10 +31,6 @@ public class IFSEFFPCMVertextFactory implements ISEFFPCMVertexFactory {
 	private boolean considerImplicitFlow;
 	private IFPCMExtractionStrategy extractionStrategy;
 
-	public IFSEFFPCMVertextFactory() {
-		this(false, null); // TODO
-	}
-
 	public IFSEFFPCMVertextFactory(boolean considerImplicitFlow, IFPCMExtractionStrategy extractionStrategy) {
 		this.considerImplicitFlow = considerImplicitFlow;
 		this.extractionStrategy = extractionStrategy;

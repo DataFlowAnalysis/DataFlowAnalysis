@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategy;
-import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategyPrefer;
+import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategyPreferUnmodified;
 import org.dataflowanalysis.analysis.pcm.informationflow.tests.ModelCreationTestUtils;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.DataDictionaryCharacterizedFactory;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristicType;
@@ -44,7 +44,7 @@ class IFPCMExtractionStrategyTest {
 	@BeforeEach
 	void prepareStrategy() {
 		var analysis = ModelCreationTestUtils.createSwappedCallsAnalysis();
-		extractionStrategy = new IFPCMExtractionStrategyPrefer(analysis.getResourceProvider());
+		extractionStrategy = new IFPCMExtractionStrategyPreferUnmodified(analysis.getResourceProvider());
 	}
 
 	@Test

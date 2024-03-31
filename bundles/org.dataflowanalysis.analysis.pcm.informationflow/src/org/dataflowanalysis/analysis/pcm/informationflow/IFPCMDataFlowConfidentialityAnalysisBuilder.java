@@ -2,7 +2,7 @@ package org.dataflowanalysis.analysis.pcm.informationflow;
 
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategy;
-import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategyPrefer;
+import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategyPreferConsider;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.eclipse.core.runtime.Plugin;
 
@@ -50,7 +50,7 @@ public class IFPCMDataFlowConfidentialityAnalysisBuilder extends PCMDataFlowConf
 		var analysis = super.build();
 
 		if (extractionStrategy == null) {
-			extractionStrategy = new IFPCMExtractionStrategyPrefer(analysis.getResourceProvider());
+			extractionStrategy = new IFPCMExtractionStrategyPreferConsider(analysis.getResourceProvider());
 		}
 		return new IFPCMDataFlowConfidentialityAnalysis(analysis, modelProjectName, pluginActivator,
 				considerImplictFlows, extractionStrategy);

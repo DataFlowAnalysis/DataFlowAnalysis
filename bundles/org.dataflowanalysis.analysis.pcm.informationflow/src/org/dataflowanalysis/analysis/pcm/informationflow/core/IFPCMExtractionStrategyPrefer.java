@@ -12,59 +12,57 @@ import org.dataflowanalysis.pcm.extension.model.confidentiality.expression.LhsEn
 /**
  * An {@link IFPCMExtractionStrategy} which prefers defined
  * {@link ConfidentialityVariableCharacterisation} to calculated
- * characterizations. In case of implicit flows, defined characterizations are
- * not modified to consider implicit flow.
+ * characterizations.
  *
  */
-public class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrategy {
+public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrategy {
 
 	public IFPCMExtractionStrategyPrefer(ResourceProvider resourceProvider) {
 		super(resourceProvider);
 	}
 
-	// TODO Additional possible handling with modification to definedChars in case
-	// of implicit flow?
 	@Override
 	protected List<ConfidentialityVariableCharacterisation> calculateResultingConfidentialityVaraibleCharacterisations(
 			List<ConfidentialityVariableCharacterisation> calculatedCharacterisations,
 			List<ConfidentialityVariableCharacterisation> definedCharacterisations,
 			Optional<DataFlowVariable> optionalSecurityContext) {
 
+		List<ConfidentialityVariableCharacterisation> definedLatticeChars = new ArrayList<>();
+		List<ConfidentialityVariableCharacterisation> definedNonLatticeChars = new ArrayList<>();
+		for (var definedChar : definedCharacterisations) {
+			LhsEnumCharacteristicReference lhsDefinedChar = (LhsEnumCharacteristicReference) definedChar.getLhs();
+
+			if (lhsDefinedChar.getLiteral().getEnum().equals(getLattice())) {
+				definedLatticeChars.add(definedChar);
+			} else {
+				definedNonLatticeChars.add(definedChar);
+			}
+		}
+
 		List<ConfidentialityVariableCharacterisation> resultingCharacterisations = new ArrayList<>(
-				definedCharacterisations);
-		for (ConfidentialityVariableCharacterisation calculatedCharacterisation : calculatedCharacterisations) {
-			LhsEnumCharacteristicReference lhsCalcChar = (LhsEnumCharacteristicReference) calculatedCharacterisation
-					.getLhs();
+				definedNonLatticeChars);
 
-			boolean isDefined = false;
-			for (ConfidentialityVariableCharacterisation definedCharacterisation : definedCharacterisations) {
-				LhsEnumCharacteristicReference lhsDefChar = (LhsEnumCharacteristicReference) definedCharacterisation
-						.getLhs();
-
-				if (isMatchingDefinition(lhsCalcChar, lhsDefChar)) {
-					isDefined = true;
-				}
-			}
-			if (!isDefined) {
-				resultingCharacterisations.add(calculatedCharacterisation);
-			}
+		if (definedLatticeChars.isEmpty()) {
+			resultingCharacterisations.addAll(calculatedCharacterisations);
+		} else if (optionalSecurityContext.isEmpty()) {
+			resultingCharacterisations.addAll(definedCharacterisations);
+		} else {
+			resultingCharacterisations.addAll(
+					modifyResultingCvcsWithSecurityContext(definedCharacterisations, optionalSecurityContext.get()));
 		}
 
 		return resultingCharacterisations;
 	}
 
-	private boolean isMatchingDefinition(LhsEnumCharacteristicReference lhsCalcChar,
-			LhsEnumCharacteristicReference lhsDefChar) {
-
-		boolean defCtWildcard = lhsDefChar.getCharacteristicType() == null;
-		boolean matchingCharacteristicType = defCtWildcard
-				|| lhsCalcChar.getCharacteristicType().getName().equals(lhsDefChar.getCharacteristicType().getName());
-
-		boolean defLiteralWildcard = lhsDefChar.getLiteral() == null;
-		boolean matchingLiteral = defLiteralWildcard
-				|| lhsCalcChar.getLiteral().getName().equals(lhsDefChar.getLiteral().getName());
-
-		return matchingCharacteristicType && matchingLiteral;
-	}
+	/**
+	 * Modifies the defined {@link ConfidentialityVariableCharacterisation}s in case
+	 * of implicit flows.
+	 * 
+	 * @param definedCharacterisations the defined characterizations
+	 * @param securityContext          the security context for the implicit flow
+	 * @return the resulting characterizations
+	 */
+	protected abstract List<ConfidentialityVariableCharacterisation> modifyResultingCvcsWithSecurityContext(
+			List<ConfidentialityVariableCharacterisation> definedCharacterisations, DataFlowVariable securityContext);
 
 }

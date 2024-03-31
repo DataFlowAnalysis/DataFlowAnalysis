@@ -180,7 +180,7 @@ public class PCMConverter extends Converter {
         if (source == null || dest == null) {
             return;
         }
-        List<DataFlowVariable> flowVariables = pcmVertex.getAllDataFlowVariables();
+        List<DataFlowVariable> flowVariables = pcmVertex.getAllDataCharacteristics();
         for (DataFlowVariable flowVariable : flowVariables) {
             String flowName = flowVariable.variableName();
 
@@ -262,7 +262,7 @@ public class PCMConverter extends Converter {
             dfdNode = createDFDNode(pcmVertex);
         }
 
-        addNodeCharacteristicsToNode(dfdNode, pcmVertex.getAllNodeCharacteristics());
+        addNodeCharacteristicsToNode(dfdNode, pcmVertex.getAllVertexCharacteristics());
 
         return dfdNode;
     }

@@ -9,6 +9,7 @@ import org.dataflowanalysis.analysis.pcm.core.finder.PCMUserFinder;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategy;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.finder.IFSEFFPCMVertextFactory;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.finder.IFUserPCMVertexFactory;
+import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.eclipse.core.runtime.Plugin;
 
 /**
@@ -27,21 +28,20 @@ public class IFPCMDataFlowConfidentialityAnalysis extends PCMDataFlowConfidentia
 
 	/**
 	 * Creates an {@link IFPCMDataFlowConfidentialityAnalysis} with the given
-	 * parameters. Note, this is an proxy to a
-	 * {@link PCMDataFlowConfidentialityAnalysis} apart from the graph generation.
+	 * parameters.
 	 * 
-	 * @param analysis              the proxied PCMDataFlowconfidentialityAnalysis
+	 * @param resourceProvider      the resourceProvider for the analysis
 	 * @param modelProjectName      the name of the modeled project
 	 * @param modelProjectActivator the plugin class of the analysis
 	 * @param considerImplicitFlows true, if the analysis should consider implicit
 	 *                              flows. False, otherwise.
 	 * @param extractionStrategy    the extraction strategy of the analysis
 	 */
-	public IFPCMDataFlowConfidentialityAnalysis(PCMDataFlowConfidentialityAnalysis analysis, String modelProjectName,
+	public IFPCMDataFlowConfidentialityAnalysis(PCMResourceProvider resourceProvider, String modelProjectName,
 			Optional<Class<? extends Plugin>> modelProjectActivator, boolean considerImplicitFlows,
 			IFPCMExtractionStrategy extractionStrategy) {
 
-		super(analysis.getResourceProvider(), modelProjectName, modelProjectActivator);
+		super(resourceProvider, modelProjectName, modelProjectActivator);
 		this.considerImplicitFlows = considerImplicitFlows;
 		this.extractionStrategy = extractionStrategy;
 	}

@@ -52,8 +52,8 @@ public class IFPCMDataFlowConfidentialityAnalysisBuilder extends PCMDataFlowConf
 		if (extractionStrategy == null) {
 			extractionStrategy = new IFPCMExtractionStrategyPreferConsider(analysis.getResourceProvider());
 		}
-		return new IFPCMDataFlowConfidentialityAnalysis(analysis, modelProjectName, pluginActivator,
-				considerImplictFlows, extractionStrategy);
+		return new IFPCMDataFlowConfidentialityAnalysis(analysis.getResourceProvider(), modelProjectName,
+				pluginActivator, considerImplictFlows, extractionStrategy);
 	}
 
 	/*

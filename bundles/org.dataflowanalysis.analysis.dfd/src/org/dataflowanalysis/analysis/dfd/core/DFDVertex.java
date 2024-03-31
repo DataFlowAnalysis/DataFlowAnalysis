@@ -118,16 +118,11 @@ public class DFDVertex extends AbstractVertex<Node> {
      * @param inputPinsIncomingLabelMap Map to be filled with incoming labels on pin
      */
     private void fillMapOfIncomingLabelsPerPin(Pin pin, Map<Pin, List<Label>> inputPinsIncomingLabelMap) {
-        for (var previousVertex : this.getPinDFDVertexMap()
-                .values()) {
-            for (var dfv : previousVertex.getAllOutgoingDataFlowVariables()) {
-                if (dfv.variableName()
-                        .equals(this.getPinFlowMap()
-                                .get(pin)
-                                .getSourcePin()
-                                .getId())) {
+    	for (var previousVertex : this.getPinDFDVertexMap().values()) {
+            for (var dataCharacteristic : previousVertex.getAllOutgoingDataCharacteristics()) {
+                if (dataCharacteristic.variableName().equals(this.getPinFlowMap().get(pin).getSourcePin().getId())) {
                     inputPinsIncomingLabelMap.putIfAbsent(pin, new ArrayList<>());
-                    for (var cv : dfv.getAllCharacteristics()) {
+                    for (var cv : dataCharacteristic.getAllCharacteristics()) {
                         inputPinsIncomingLabelMap.get(pin)
                                 .add(((DFDCharacteristicValue) cv).getLabel());
                     }

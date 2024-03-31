@@ -19,17 +19,17 @@ public abstract class AbstractVertex<T> {
 
     protected final T referencedElement;
 
-    private Optional<List<DataFlowVariable>> incomingDataFlowVariables;
-    private Optional<List<DataFlowVariable>> outgoingDataFlowVariables;
+    private Optional<List<DataFlowVariable>> incomingDataCharacteristics;
+    private Optional<List<DataFlowVariable>> outgoingDataCharacteristics;
     private Optional<List<CharacteristicValue>> vertexCharacteristics;
 
     /**
-     * Constructs a new action sequence element with empty data flow variables and node characteristics
+     * Constructs a new action sequence element with empty data characteristics and node characteristics
      */
     public AbstractVertex(T referencedElement) {
         this.referencedElement = referencedElement;
-        this.incomingDataFlowVariables = Optional.empty();
-        this.outgoingDataFlowVariables = Optional.empty();
+        this.incomingDataCharacteristics = Optional.empty();
+        this.outgoingDataCharacteristics = Optional.empty();
         this.vertexCharacteristics = Optional.empty();
     }
 
@@ -45,18 +45,18 @@ public abstract class AbstractVertex<T> {
     /**
      * Sets the propagation result of the Vertex to the given result. This method should only be called once on elements
      * that are not evaluated.
-     * @param incomingDataFlowVariables Incoming data flow variables that flow into the vertex
-     * @param outgoingDataFlowVariables Outgoing data flow variables that flow out of the vertex
+     * @param incomingDataCharacteristics Incoming data characteristics that flow into the vertex
+     * @param outgoingDataCharacteristics Outgoing data characteristics that flow out of the vertex
      * @param vertexCharacteristics Vertex characteristics present at the node
      */
-    protected void setPropagationResult(List<DataFlowVariable> incomingDataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables,
+    protected void setPropagationResult(List<DataFlowVariable> incomingDataCharacteristics, List<DataFlowVariable> outgoingDataCharacteristics,
             List<CharacteristicValue> vertexCharacteristics) {
         if (this.isEvaluated()) {
             logger.error("Cannot set propagation result of already evaluated vertex");
             throw new IllegalArgumentException();
         }
-        this.incomingDataFlowVariables = Optional.of(new ArrayList<>(incomingDataFlowVariables));
-        this.outgoingDataFlowVariables = Optional.of(new ArrayList<>(outgoingDataFlowVariables));
+        this.incomingDataCharacteristics = Optional.of(new ArrayList<>(incomingDataCharacteristics));
+        this.outgoingDataCharacteristics = Optional.of(new ArrayList<>(outgoingDataCharacteristics));
         this.vertexCharacteristics = Optional.of(new ArrayList<>(vertexCharacteristics));
     }
 
@@ -65,7 +65,7 @@ public abstract class AbstractVertex<T> {
      * @return Returns true, if the node is evaluated. Otherwise, the method returns false
      */
     public boolean isEvaluated() {
-        return this.incomingDataFlowVariables.isPresent() && this.outgoingDataFlowVariables.isPresent() && this.vertexCharacteristics.isPresent();
+        return this.incomingDataCharacteristics.isPresent() && this.outgoingDataCharacteristics.isPresent() && this.vertexCharacteristics.isPresent();
     }
 
     /**
@@ -78,27 +78,27 @@ public abstract class AbstractVertex<T> {
     }
 
     /**
-     * Returns a list of all data flow variables that are present for the action sequence element
-     * @return List of present data flow variables
+     * Returns a list of all data characteristics that are present for the action sequence element
+     * @return List of present data characteristics
      */
-    public List<DataFlowVariable> getAllDataFlowVariables() {
-        return this.incomingDataFlowVariables.orElseThrow(IllegalStateException::new);
+    public List<DataFlowVariable> getAllDataCharacteristics() {
+        return this.incomingDataCharacteristics.orElseThrow(IllegalStateException::new);
     }
 
     /**
-     * Returns a list of all incoming data flow variables that are present for the action sequence element
-     * @return List of present incoming data flow variables (e.g. the variables at the input pin of the DFD representation)
+     * Returns a list of all incoming data characteristics that are present for the action sequence element
+     * @return List of present incoming data characteristics (e.g. the variables at the input pin of the DFD representation)
      */
-    public List<DataFlowVariable> getAllIncomingDataFlowVariables() {
-        return this.incomingDataFlowVariables.orElseThrow(IllegalStateException::new);
+    public List<DataFlowVariable> getAllIncomingDataCharacteristics() {
+        return this.incomingDataCharacteristics.orElseThrow(IllegalStateException::new);
     }
 
     /**
-     * Returns a list of all outgoing data flow variables that are present for the action sequence element
-     * @return List of present outgoing data flow variables (e.g. the variables at the output pin of the DFD representation)
+     * Returns a list of all outgoing data characteristics that are present for the action sequence element
+     * @return List of present outgoing data characteristics (e.g. the variables at the output pin of the DFD representation)
      */
-    public List<DataFlowVariable> getAllOutgoingDataFlowVariables() {
-        return this.outgoingDataFlowVariables.orElseThrow(IllegalStateException::new);
+    public List<DataFlowVariable> getAllOutgoingDataCharacteristics() {
+        return this.outgoingDataCharacteristics.orElseThrow(IllegalStateException::new);
     }
 
     /**
@@ -160,8 +160,8 @@ public abstract class AbstractVertex<T> {
      * @param dataFlowVariable Name of the data flow variable
      * @return Returns a list of all data flow variables with the given name
      */
-    public List<DataFlowVariable> getDataFlowVariablesWithName(String dataFlowVariable) {
-        return this.getAllIncomingDataFlowVariables().stream()
+    public List<DataFlowVariable> getDataFlowVariables(String dataFlowVariable) {
+        return this.getAllIncomingDataCharacteristics().stream()
                 .filter(it -> it.variableName().equals(dataFlowVariable))
                 .collect(Collectors.toList());
     }
@@ -174,7 +174,7 @@ public abstract class AbstractVertex<T> {
      * @return Returns a list of all data flow variables with the given name
      */
     public List<String> getDataFlowVariableNames(String dataFlowVariable) {
-        return this.getAllIncomingDataFlowVariables().stream()
+        return this.getAllIncomingDataCharacteristics().stream()
                 .map(DataFlowVariable::variableName)
                 .filter(s -> s.equals(dataFlowVariable))
                 .collect(Collectors.toList());
@@ -187,8 +187,8 @@ public abstract class AbstractVertex<T> {
      * @param characteristicType Name of the characteristic type
      * @return Returns a map with data flow characteristics with the given name for each data flow variable
      */
-    public Map<String, List<CharacteristicValue>> getDataFlowCharacteristicsWithName(String characteristicType) {
-        return this.getAllIncomingDataFlowVariables().stream()
+    public Map<String, List<CharacteristicValue>> getDataFlowCharacteristics(String characteristicType) {
+        return this.getAllIncomingDataCharacteristics().stream()
                 .collect(Collectors.toMap(DataFlowVariable::variableName, it -> it.getCharacteristicsWithName(characteristicType)));
     }
 
@@ -200,7 +200,7 @@ public abstract class AbstractVertex<T> {
      * @return Returns a map with data flow characteristics with the given name for each data flow variable
      */
     public Map<String, List<String>> getDataFlowCharacteristicNames(String characteristicType) {
-        return this.getAllIncomingDataFlowVariables().stream()
+        return this.getAllIncomingDataCharacteristics().stream()
                 .collect(Collectors.toMap(DataFlowVariable::variableName,
                         it -> it.getCharacteristicsWithName(characteristicType).stream()
                                 .map(CharacteristicValue::getValueName)
@@ -215,7 +215,7 @@ public abstract class AbstractVertex<T> {
     public String createPrintableNodeInformation() {
         String template = "Propagated %s%s\tNode characteristics: %s%s\tData flow Variables:  %s%s";
         String nodeCharacteristics = createPrintableCharacteristicsList(this.getAllVertexCharacteristics());
-        String dataCharacteristics = this.getAllDataFlowVariables().stream()
+        String dataCharacteristics = this.getAllDataCharacteristics().stream()
                 .map(e -> String.format("%s [%s]", e.variableName(), createPrintableCharacteristicsList(e.getAllCharacteristics())))
                 .collect(Collectors.joining(", "));
 

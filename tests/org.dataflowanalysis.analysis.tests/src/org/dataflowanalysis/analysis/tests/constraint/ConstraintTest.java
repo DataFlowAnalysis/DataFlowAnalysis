@@ -38,7 +38,7 @@ public class ConstraintTest extends BaseTest {
     protected String createPrintableNodeInformation(AbstractVertex<?> node) {
         String template = "%s%s\tNode characteristics: %s%s\tData flow Variables:  %s%s";
         String nodeCharacteristics = createPrintableCharacteristicsList(node.getAllVertexCharacteristics());
-        String dataCharacteristics = node.getAllDataFlowVariables().stream()
+        String dataCharacteristics = node.getAllDataCharacteristics().stream()
                 .map(e -> String.format("%s [%s]", e.variableName(), createPrintableCharacteristicsList(e.getAllCharacteristics())))
                 .collect(Collectors.joining(", "));
 

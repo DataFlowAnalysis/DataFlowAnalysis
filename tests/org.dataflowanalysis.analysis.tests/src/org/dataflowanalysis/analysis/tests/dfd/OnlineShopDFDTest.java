@@ -128,12 +128,7 @@ public class OnlineShopDFDTest {
     }
 
     private List<String> retrieveDataLabels(AbstractVertex<?> vertex) {
-        return vertex.getAllDataFlowVariables()
-                .stream()
-                .map(DataFlowVariable::getAllCharacteristics)
-                .flatMap(List::stream)
-                .map(DFDCharacteristicValue.class::cast)
-                .map(DFDCharacteristicValue::getValueName)
-                .toList();
+        return vertex.getAllDataCharacteristics().stream().map(DataFlowVariable::getAllCharacteristics).flatMap(List::stream)
+                .map(DFDCharacteristicValue.class::cast).map(DFDCharacteristicValue::getValueName).toList();
     }
 }

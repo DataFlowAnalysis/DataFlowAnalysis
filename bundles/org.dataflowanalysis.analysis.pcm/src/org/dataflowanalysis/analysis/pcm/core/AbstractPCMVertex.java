@@ -55,14 +55,14 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     /**
      * Sets the propagation result of the Vertex to the given result. This method should only be called once on elements
      * that are not evaluated.
-     * @param incomingDataFlowVariables Incoming data flow variables that flow into the vertex
-     * @param outgoingDataFlowVariables Outgoing data flow variables that flow out of the vertex
+     * @param incomingDataCharacteristics Incoming data flow variables that flow into the vertex
+     * @param outgoingDataCharacteristics Outgoing data flow variables that flow out of the vertex
      * @param vertexCharacteristics Vertex characteristics present at the node
      */
     @Override
-    protected void setPropagationResult(List<DataFlowVariable> incomingDataFlowVariables, List<DataFlowVariable> outgoingDataFlowVariables,
-            List<CharacteristicValue> vertexCharacteristics) {
-        super.setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, vertexCharacteristics);
+    protected void setPropagationResult(List<DataFlowVariable> incomingDataCharacteristics, List<DataFlowVariable> outgoingDataCharacteristics,
+                                        List<CharacteristicValue> vertexCharacteristics) {
+        super.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics);
     }
 
     @Override
@@ -78,15 +78,8 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
         if (super.isSource())
             return List.of();
 
-        this.getPreviousElements()
-                .stream()
-                .filter(it -> !it.isEvaluated())
-                .forEach(AbstractVertex::evaluateDataFlow);
-        return this.getPreviousElements()
-                .stream()
-                .flatMap(it -> it.getAllOutgoingDataFlowVariables()
-                        .stream())
-                .collect(Collectors.toList());
+        this.getPreviousElements().stream().filter(it -> !it.isEvaluated()).forEach(AbstractVertex::evaluateDataFlow);
+        return this.getPreviousElements().stream().flatMap(it -> it.getAllOutgoingDataCharacteristics().stream()).collect(Collectors.toList());
     }
 
     /**
@@ -141,7 +134,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
 
     protected AbstractPCMVertex<?> updateCopy(AbstractPCMVertex<?> copy, Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
         if (this.isEvaluated()) {
-            copy.setPropagationResult(this.getAllIncomingDataFlowVariables(), this.getAllOutgoingDataFlowVariables(),
+            copy.setPropagationResult(this.getAllIncomingDataCharacteristics(), this.getAllOutgoingDataCharacteristics(),
                     this.getVertexCharacteristics());
         }
         vertexMapping.put(this, copy);

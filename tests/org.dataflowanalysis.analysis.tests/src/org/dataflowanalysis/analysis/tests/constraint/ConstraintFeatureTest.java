@@ -85,15 +85,13 @@ public class ConstraintFeatureTest extends ConstraintTest {
         flowGraph.evaluate();
 
         logger.setLevel(Level.TRACE);
-        var results = analysis.queryDataFlow(flowGraph.getTransposeFlowGraphs()
-                .get(0), node -> {
-                    printNodeInformation(node);
-                    if (node instanceof CallingUserPCMVertex && ((CallingUserPCMVertex) node).isReturning()) {
-                        return !node.getAllDataFlowVariables()
-                                .isEmpty();
-                    }
-                    return false;
-                });
+        var results = analysis.queryDataFlow(flowGraph.getPartialFlowGraphs().get(0), node -> {
+            printNodeInformation(node);
+            if (node instanceof CallingUserPCMVertex && ((CallingUserPCMVertex) node).isReturning()) {
+                return !node.getAllDataCharacteristics().isEmpty();
+            }
+            return false;
+        });
         printViolation(results);
         assertEquals(1, results.size(), "IgnoredNodeTest did not yield one violation");
     }

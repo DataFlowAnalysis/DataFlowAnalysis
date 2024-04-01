@@ -47,8 +47,18 @@ public class IFConfidentialityVariableCharacterisationUtils {
 	private IFConfidentialityVariableCharacterisationUtils() {
 	}
 
-	// TODO change usedReferences to Strings
+	// TODO change usedReferences to Strings?
 
+	/**
+	 * Resolves wildcards for the {@link CharacteristicType} and {@link Literal} in
+	 * a {@link ConfidentialityVariableCharacterisation}. The resolving is achieved
+	 * by creating a {@link ConfidentialityVariableCharacterisation} for each given
+	 * {@link EnumCharacteristicType} and its corresponding {@link Literal}s.
+	 * 
+	 * @param characterisation       the given characterization
+	 * @param allCharacteristicTypes the given characteristic types
+	 * @return the created characterizations
+	 */
 	public static List<ConfidentialityVariableCharacterisation> resolveWildcards(
 			ConfidentialityVariableCharacterisation characterisation,
 			List<EnumCharacteristicType> allCharacteristicTypes) {
@@ -56,7 +66,17 @@ public class IFConfidentialityVariableCharacterisationUtils {
 				.flatMap(confChar -> resolveLiteralWildcard(confChar).stream()).toList();
 	}
 
-	// TODO assumes EnumCharacteristicType and present
+	/**
+	 * Resolves wildcards for the {@link Literal} in a
+	 * {@link ConfidentialityVariableCharacterisation} by creating a
+	 * {@link ConfidentialityVariableCharacterisation} for each {@link Literal} in
+	 * the corresponding {@link Enumeration}. Assumes the {@link CharacteristicType}
+	 * of the {@link ConfidentialityVariableCharacterisation} to be present and an
+	 * instance of {@link EnumCharacteristicType}.
+	 * 
+	 * @param characterisation the given characterization
+	 * @return the created characterizations
+	 */
 	public static List<ConfidentialityVariableCharacterisation> resolveLiteralWildcard(
 			ConfidentialityVariableCharacterisation characterisation) {
 
@@ -77,6 +97,16 @@ public class IFConfidentialityVariableCharacterisationUtils {
 		return resolvedCharacterisations;
 	}
 
+	/**
+	 * Resolves wildcards for the {@link CharacteristicType} in a
+	 * {@link ConfidentialityVariableCharacterisation} by creating a
+	 * {@link ConfidentialityVariableCharacterisation} for each given
+	 * {@link EnumCharacteristicType}.
+	 * 
+	 * @param characterisation       the given characterization
+	 * @param allCharacteristicTypes the given characteristic types
+	 * @return the created characterizations
+	 */
 	public static List<ConfidentialityVariableCharacterisation> resolveCharacteristicTypeWildcard(
 			ConfidentialityVariableCharacterisation characterisation,
 			List<EnumCharacteristicType> allCharacteristicTypes) {
@@ -108,13 +138,6 @@ public class IFConfidentialityVariableCharacterisationUtils {
 				confChar.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage()));
 		return copiedConfChar;
 	}
-	// TODO
-
-//	Assumes that the given
-//	 * characterizations do not have a wildcard as characteristicType and the
-//	 * characteristicType to be an instance of EnumCharacteristicType. Should the
-//	 * Literal be specified as a wildcard, there must be only one characterization
-//	 * given.
 
 	/**
 	 * Creates a {@link ConfidentialityVariableCharacterisation} for each level of
@@ -122,7 +145,8 @@ public class IFConfidentialityVariableCharacterisationUtils {
 	 * the resulting {@link ConfidentialityVariableCharacterisation} is to set the
 	 * maximum Label of the given characterizations and the constraint. Assumes that
 	 * the given characterizations only set one level. Assumes that the given
-	 * characterizations do not have any wildcards.
+	 * characterizations do not have any wildcards. Assumes that only one
+	 * specification is present for each level - not more.
 	 * 
 	 * @param confChars                 the given characterizations
 	 * @param constraint                the given constraint
@@ -149,6 +173,7 @@ public class IFConfidentialityVariableCharacterisationUtils {
 		return modifiedCharacterisations;
 	}
 
+	// TODO handling if a level has no specified confChar.
 	private static ConfidentialityVariableCharacterisation createModifiedCvcForLevel(
 			Map<Literal, ConfidentialityVariableCharacterisation> literalToDefinedConfChar,
 			AbstractNamedReference constraint, Literal level, CharacteristicType latticeCharacteristicType,
@@ -325,7 +350,7 @@ public class IFConfidentialityVariableCharacterisationUtils {
 	private static NamedEnumCharacteristicReference createNamedEnumCharacteristicReference(
 			AbstractNamedReference reference, CharacteristicType laticeCharacteristicType, Literal literal) {
 
-		// PCMDataCharacteristicsCalculator expect NamedEnumCharacteristicReferences
+		// PCMDataCharacteristicsCalculator expects NamedEnumCharacteristicReferences
 		NamedEnumCharacteristicReference variable = expFac.createNamedEnumCharacteristicReference();
 
 		variable.setCharacteristicType(laticeCharacteristicType);

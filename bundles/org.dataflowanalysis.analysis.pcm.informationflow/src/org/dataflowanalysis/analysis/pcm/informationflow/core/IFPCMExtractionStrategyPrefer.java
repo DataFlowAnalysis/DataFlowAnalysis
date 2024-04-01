@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristicType;
@@ -19,11 +20,11 @@ import org.dataflowanalysis.pcm.extension.model.confidentiality.expression.LhsEn
  */
 public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrategy {
 
+	private final static Logger logger = Logger.getLogger(IFPCMExtractionStrategyPrefer.class);
+
 	public IFPCMExtractionStrategyPrefer(ResourceProvider resourceProvider) {
 		super(resourceProvider);
 	}
-
-	// TODO check if only max one defined CVC for each Latticelevel?
 
 	@Override
 	protected List<ConfidentialityVariableCharacterisation> calculateResultingConfidentialityVaraibleCharacterisations(
@@ -57,6 +58,8 @@ public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrat
 			}
 		}
 
+		checkOnlyOneCvcForEachLevel(definedLatticeChars);
+
 		List<ConfidentialityVariableCharacterisation> resultingCharacterisations = new ArrayList<>(
 				definedNonLatticeChars);
 
@@ -70,6 +73,22 @@ public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrat
 		}
 
 		return resultingCharacterisations;
+	}
+
+	private void checkOnlyOneCvcForEachLevel(List<ConfidentialityVariableCharacterisation> latticeConfChars) {
+		for (Literal level : getLattice().getLiterals()) {
+			long confCharsForLevel = latticeConfChars.stream().map(confChar -> confChar.getLhs())
+					.filter(LhsEnumCharacteristicReference.class::isInstance)
+					.map(LhsEnumCharacteristicReference.class::cast)
+					.filter(confCharLhs -> confCharLhs.getCharacteristicType().equals(getLatticeCharacteristicType()))
+					.filter(confCharLhs -> confCharLhs.getLiteral().equals(level)).count();
+			if (confCharsForLevel > 1) {
+				String errorMsg = "For the level '" + level.getName()
+						+ "' of the lattice there are multiple definitions in one element.";
+				logger.error(errorMsg);
+				throw new IllegalStateException(errorMsg);
+			}
+		}
 	}
 
 	/**

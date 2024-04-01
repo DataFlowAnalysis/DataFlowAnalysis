@@ -1,8 +1,8 @@
 package org.dataflowanalysis.analysis.pcm.informationflow;
 
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
-import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategy;
-import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategyPreferConsider;
+import org.dataflowanalysis.analysis.pcm.informationflow.core.extraction.IFPCMExtractionStrategy;
+import org.dataflowanalysis.analysis.pcm.informationflow.core.extraction.IFPCMExtractionStrategyPreferConsider;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.eclipse.core.runtime.Plugin;
 

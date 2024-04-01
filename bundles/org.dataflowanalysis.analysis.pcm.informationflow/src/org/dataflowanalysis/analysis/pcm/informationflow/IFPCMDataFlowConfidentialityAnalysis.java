@@ -6,7 +6,7 @@ import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
 import org.dataflowanalysis.analysis.pcm.core.PCMPartialFlowGraphFinder;
 import org.dataflowanalysis.analysis.pcm.core.finder.PCMUserFinder;
-import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategy;
+import org.dataflowanalysis.analysis.pcm.informationflow.core.extraction.IFPCMExtractionStrategy;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.finder.IFSEFFPCMVertextFactory;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.finder.IFUserPCMVertexFactory;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;

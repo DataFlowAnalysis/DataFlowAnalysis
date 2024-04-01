@@ -6,7 +6,7 @@ import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.finder.IUserPCMVertexFactory;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
-import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategy;
+import org.dataflowanalysis.analysis.pcm.informationflow.core.extraction.IFPCMExtractionStrategy;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.user.IFCallingUserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.user.IFReturningUserPCMVertex;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;

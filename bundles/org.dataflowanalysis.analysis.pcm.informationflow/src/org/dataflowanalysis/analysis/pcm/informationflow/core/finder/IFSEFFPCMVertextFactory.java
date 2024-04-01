@@ -7,7 +7,7 @@ import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.finder.ISEFFPCMVertexFactory;
 import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.seff.SEFFPCMVertex;
-import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategy;
+import org.dataflowanalysis.analysis.pcm.informationflow.core.extraction.IFPCMExtractionStrategy;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.seff.IFCallingSEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.seff.IFReturningSEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.seff.IFSetVariableSEFFPCMVertex;

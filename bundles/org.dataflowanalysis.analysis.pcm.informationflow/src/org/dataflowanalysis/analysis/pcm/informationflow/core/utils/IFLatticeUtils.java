@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.pcm.informationflow.core;
+package org.dataflowanalysis.analysis.pcm.informationflow.core.utils;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Enumeration;

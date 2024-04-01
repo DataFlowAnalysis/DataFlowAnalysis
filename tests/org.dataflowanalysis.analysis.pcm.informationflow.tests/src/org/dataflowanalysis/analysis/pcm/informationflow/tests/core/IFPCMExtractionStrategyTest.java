@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategy;
-import org.dataflowanalysis.analysis.pcm.informationflow.core.IFPCMExtractionStrategyPreferUnmodified;
+import org.dataflowanalysis.analysis.pcm.informationflow.core.extraction.IFPCMExtractionStrategy;
+import org.dataflowanalysis.analysis.pcm.informationflow.core.extraction.IFPCMExtractionStrategyPreferUnmodified;
 import org.dataflowanalysis.analysis.pcm.informationflow.tests.ModelCreationTestUtils;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.DataDictionaryCharacterizedFactory;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristicType;

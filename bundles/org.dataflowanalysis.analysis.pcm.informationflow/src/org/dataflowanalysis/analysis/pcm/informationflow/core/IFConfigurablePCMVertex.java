@@ -1,5 +1,7 @@
 package org.dataflowanalysis.analysis.pcm.informationflow.core;
 
+import org.dataflowanalysis.analysis.pcm.informationflow.core.extraction.IFPCMExtractionStrategy;
+
 /**
  * Defines configuration options for the extraction of label propagation
  * functions of a vertex from the PCM.

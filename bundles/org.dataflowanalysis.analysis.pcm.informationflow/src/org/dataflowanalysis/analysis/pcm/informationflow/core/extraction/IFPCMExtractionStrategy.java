@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.pcm.informationflow.core;
+package org.dataflowanalysis.analysis.pcm.informationflow.core.extraction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +9,9 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.pcm.informationflow.core.utils.IFConfidentialityVariableCharacterisationUtils;
+import org.dataflowanalysis.analysis.pcm.informationflow.core.utils.IFPCMDataDictionaryUtils;
+import org.dataflowanalysis.analysis.pcm.informationflow.core.utils.IFStoexUtils;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.CharacteristicType;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Enumeration;

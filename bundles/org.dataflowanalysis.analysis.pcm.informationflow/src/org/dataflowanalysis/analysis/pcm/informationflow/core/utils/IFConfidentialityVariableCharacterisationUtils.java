@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.pcm.informationflow.core;
+package org.dataflowanalysis.analysis.pcm.informationflow.core.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;

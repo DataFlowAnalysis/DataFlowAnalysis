@@ -14,6 +14,7 @@ import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionar
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristicType;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Enumeration;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Literal;
+import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.expressions.ExpressionsFactory;
 import org.junit.jupiter.api.Test;
 
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
@@ -26,6 +27,7 @@ class IFConfidentialityVariableCharacterisationUtilsTest {
 
 	private final DataDictionaryCharacterizedFactory ddcFac = DataDictionaryCharacterizedFactory.eINSTANCE;
 	private final StoexFactory stoexFac = StoexFactory.eINSTANCE;;
+	private final ExpressionsFactory expsFac = ExpressionsFactory.eINSTANCE;
 
 	@Test
 	void testCreateMaximumJoinOneLatticeOneReference() {
@@ -211,6 +213,45 @@ class IFConfidentialityVariableCharacterisationUtilsTest {
 		varToLevel.put("securityContext", "High");
 		assertTrue(CvcTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "High"),
 				"Should set 'High' for a=High, securityContext=High");
+	}
+
+	@Test
+	void testModifyWithConstraintWithOneLevelSpecifiedMidTrue() {
+		EnumCharacteristicType characteristicType = createLattice("Low", "Mid", "High");
+		Enumeration enumeration = characteristicType.getType();
+
+		var characterisedVariable = createCharacterisedVariableX();
+		var dependencies = createDependencies("a");
+
+		// Assumes createMaximumJoin to work
+		var initialConfChars = IFConfidentialityVariableCharacterisationUtils
+				.createMaximumJoinCharacterisationsForLattice(characterisedVariable, dependencies, characteristicType,
+						enumeration);
+		var midConfChar = initialConfChars.get(1);
+		midConfChar.setRhs(expsFac.createTrue());
+		initialConfChars = List.of(midConfChar);
+
+		var constraint = createDependencies("securityContext").get(0);
+		var modifiedConfChars = IFConfidentialityVariableCharacterisationUtils
+				.createModifiedCharacterisationsForAdditionalHigherEqualConstraint(initialConfChars, constraint,
+						characteristicType, enumeration);
+
+		assertEquals(3, modifiedConfChars.size(),
+				"For Low, Mid and High each a ConfidentialityVariableCharacterisation");
+
+		Map<String, String> varToLevel = new HashMap<>();
+
+		varToLevel.put("securityContext", "Low");
+		assertTrue(CvcTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "Mid"),
+				"Should set 'Mid' for Litteral.Mid := true, securityContext=Low");
+
+		varToLevel.put("securityContext", "Mid");
+		assertTrue(CvcTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "Mid"),
+				"Should set 'Mid' for Litteral.Mid := true, securityContext=Mid");
+
+		varToLevel.put("securityContext", "High");
+		assertTrue(CvcTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "High"),
+				"Should set 'High' for Litteral.Mid := true, securityContext=High");
 	}
 
 	/*

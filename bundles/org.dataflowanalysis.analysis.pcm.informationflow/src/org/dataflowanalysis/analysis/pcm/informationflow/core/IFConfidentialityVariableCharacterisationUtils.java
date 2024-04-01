@@ -146,7 +146,8 @@ public class IFConfidentialityVariableCharacterisationUtils {
 	 * maximum Label of the given characterizations and the constraint. Assumes that
 	 * the given characterizations only set one level. Assumes that the given
 	 * characterizations do not have any wildcards. Assumes that only one
-	 * specification is present for each level - not more.
+	 * specification is present for each level - not more. Assumes at least one
+	 * characterization to be present.
 	 * 
 	 * @param confChars                 the given characterizations
 	 * @param constraint                the given constraint
@@ -158,6 +159,15 @@ public class IFConfidentialityVariableCharacterisationUtils {
 	public static List<ConfidentialityVariableCharacterisation> createModifiedCharacterisationsForAdditionalHigherEqualConstraint(
 			List<ConfidentialityVariableCharacterisation> confChars, AbstractNamedReference constraint,
 			CharacteristicType latticeCharacteristicType, Enumeration lattice) {
+
+		if (confChars.size() <= 0) {
+			String errorMsg = "At least one characterization has to be given.";
+			logger.error(errorMsg);
+			throw new IllegalArgumentException(errorMsg);
+		}
+		AbstractNamedReference characterizedVariable = confChars.get(0).getVariableUsage_VariableCharacterisation()
+				.getNamedReference__VariableUsage();
+
 		Map<Literal, ConfidentialityVariableCharacterisation> literalToDefinedConfCar = new HashMap<>();
 		for (var confChar : confChars) {
 			LhsEnumCharacteristicReference lhsConfChar = (LhsEnumCharacteristicReference) confChar.getLhs();
@@ -166,31 +176,31 @@ public class IFConfidentialityVariableCharacterisationUtils {
 
 		List<ConfidentialityVariableCharacterisation> modifiedCharacterisations = new ArrayList<>();
 		for (Literal latticeLevel : lattice.getLiterals()) {
-			modifiedCharacterisations.add(createModifiedCvcForLevel(literalToDefinedConfCar, constraint, latticeLevel,
-					latticeCharacteristicType, lattice));
+			modifiedCharacterisations.add(createModifiedCvcForLevel(characterizedVariable, literalToDefinedConfCar,
+					constraint, latticeLevel, latticeCharacteristicType, lattice));
 		}
 
 		return modifiedCharacterisations;
 	}
 
-	// TODO handling if a level has no specified confChar.
 	private static ConfidentialityVariableCharacterisation createModifiedCvcForLevel(
+			AbstractNamedReference characterizedVariable,
 			Map<Literal, ConfidentialityVariableCharacterisation> literalToDefinedConfChar,
 			AbstractNamedReference constraint, Literal level, CharacteristicType latticeCharacteristicType,
 			Enumeration lattice) {
 
-		var definedLevelConfChar = literalToDefinedConfChar.get(level);
-		var characterisedVariable = definedLevelConfChar.getVariableUsage_VariableCharacterisation()
-				.getNamedReference__VariableUsage();
-
 		List<Term> lowerDefinedTerms = new ArrayList<>();
 		for (Literal latticeLevel : lattice.getLiterals()) {
-			if (IFLatticeUtils.isLowerLevel(latticeLevel, level)) {
+			if (IFLatticeUtils.isLowerLevel(latticeLevel, level)
+					&& literalToDefinedConfChar.get(latticeLevel) != null) {
 				lowerDefinedTerms.add(copyTerm(literalToDefinedConfChar.get(latticeLevel).getRhs()));
 			}
 		}
 
-		Term levelTerm = copyTerm(literalToDefinedConfChar.get(level).getRhs());
+		Term levelTerm = null;
+		if (literalToDefinedConfChar.get(level) != null) {
+			levelTerm = copyTerm(literalToDefinedConfChar.get(level).getRhs());
+		}
 
 		Term levelConstraintVariable = createNamedEnumCharacteristicReference(constraint, latticeCharacteristicType,
 				level);
@@ -208,7 +218,7 @@ public class IFConfidentialityVariableCharacterisationUtils {
 		confChar.setLhs(createLhs(latticeCharacteristicType, level));
 		confChar.setRhs(createRhsForAdditionalHigherEqualConstraint(lowerDefinedTerms, levelTerm,
 				levelConstraintVariable, higherConstraintVariables));
-		confChar.setVariableUsage_VariableCharacterisation(createVariableUsage(characterisedVariable));
+		confChar.setVariableUsage_VariableCharacterisation(createVariableUsage(characterizedVariable));
 
 		return confChar;
 	}
@@ -216,11 +226,15 @@ public class IFConfidentialityVariableCharacterisationUtils {
 	private static Term createRhsForAdditionalHigherEqualConstraint(List<Term> lowerDefinedTerms, Term levelTerm,
 			Term levelConstraintVariable, List<Term> higherConstraintVariables) {
 
-		Term levelShouldBeSet = levelTerm;
+		Term levelShouldBeSet = expsFac.createFalse();
+		if (levelTerm != null) {
+			levelShouldBeSet = levelTerm;
+		}
+
 		if (!higherConstraintVariables.isEmpty()) {
 			Term notHigherConstraintsORed = createNot(createOrTerm(higherConstraintVariables));
 			And isApplyableAndConfirmsSecurityContext = expsFac.createAnd();
-			isApplyableAndConfirmsSecurityContext.setLeft(levelTerm);
+			isApplyableAndConfirmsSecurityContext.setLeft(levelShouldBeSet);
 			isApplyableAndConfirmsSecurityContext.setRight(notHigherConstraintsORed);
 			levelShouldBeSet = isApplyableAndConfirmsSecurityContext;
 		}

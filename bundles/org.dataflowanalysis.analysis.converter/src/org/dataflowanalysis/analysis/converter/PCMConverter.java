@@ -9,7 +9,7 @@ import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
@@ -180,8 +180,8 @@ public class PCMConverter extends Converter {
         if (source == null || dest == null) {
             return;
         }
-        List<DataFlowVariable> flowVariables = pcmVertex.getAllDataCharacteristics();
-        for (DataFlowVariable flowVariable : flowVariables) {
+        List<DataCharacteristic> flowVariables = pcmVertex.getAllDataCharacteristics();
+        for (DataCharacteristic flowVariable : flowVariables) {
             String flowName = flowVariable.variableName();
 
             dataFlowDiagram.getFlows()

@@ -83,9 +83,9 @@ public class BaseTest {
 
         for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
             for (var vertex : transposeFlowGraph.getVertices()) {
-                assertTrue((!vertex.getAllIncomingDataFlowVariables()
+                assertTrue((!vertex.getAllIncomingDataCharacteristics()
                         .isEmpty())
-                        || (!vertex.getAllOutgoingDataFlowVariables()
+                        || (!vertex.getAllOutgoingDataCharacteristics()
                                 .isEmpty()));
             }
         }

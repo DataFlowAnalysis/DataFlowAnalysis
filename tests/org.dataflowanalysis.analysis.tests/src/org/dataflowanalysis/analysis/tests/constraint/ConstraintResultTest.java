@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraphCollection;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintData;
@@ -168,17 +168,17 @@ public class ConstraintResultTest extends ConstraintTest {
             }
 
             List<CharacteristicValue> nodeCharacteristics = violatingNode.get().getAllVertexCharacteristics();
-            List<DataFlowVariable> dataFlowVariables = violatingNode.get().getAllDataCharacteristics();
+            List<DataCharacteristic> dataCharacteristics = violatingNode.get().getAllDataCharacteristics();
 
-            assertEquals(constraintNodeData.nodeCharacteristicsCount(), nodeCharacteristics.size());
-            assertEquals(constraintNodeData.dataFlowVariablesCount(), dataFlowVariables.size());
+            assertEquals(constraintNodeData.vertexCharacteristicsCount(), nodeCharacteristics.size());
+            assertEquals(constraintNodeData.dataCharacteristicsCount(), dataCharacteristics.size());
 
             for (CharacteristicValue characteristicValue : nodeCharacteristics) {
                 assertTrue(constraintNodeData.hasNodeCharacteristic(characteristicValue));
             }
 
-            for (DataFlowVariable dataFlowVariable : dataFlowVariables) {
-                assertTrue(constraintNodeData.hasDataFlowVariable(dataFlowVariable));
+            for (DataCharacteristic dataCharacteristic : dataCharacteristics) {
+                assertTrue(constraintNodeData.hasDataCharacteristics(dataCharacteristic));
             }
         }
     }

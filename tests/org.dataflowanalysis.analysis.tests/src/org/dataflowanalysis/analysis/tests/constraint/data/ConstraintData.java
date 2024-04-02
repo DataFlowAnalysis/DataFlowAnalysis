@@ -5,19 +5,19 @@ import java.util.List;
 import java.util.Map;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 
 public class ConstraintData {
     private final String nodeID;
-    private final List<CharacteristicValueData> nodeCharacteristics;
-    private final Map<String, List<CharacteristicValueData>> dataFlowVariables;
+    private final List<CharacteristicValueData> vertexCharacteristics;
+    private final Map<String, List<CharacteristicValueData>> dataCharacteristics;
 
-    public ConstraintData(String nodeID, List<CharacteristicValueData> nodeCharacteristics,
-            Map<String, List<CharacteristicValueData>> dataFlowVariable) {
+    public ConstraintData(String nodeID, List<CharacteristicValueData> vertexCharacteristics,
+            Map<String, List<CharacteristicValueData>> dataCharacteristics) {
         this.nodeID = nodeID;
-        this.nodeCharacteristics = nodeCharacteristics;
-        this.dataFlowVariables = dataFlowVariable;
+        this.vertexCharacteristics = vertexCharacteristics;
+        this.dataCharacteristics = dataCharacteristics;
     }
 
     public boolean matches(AbstractVertex<?> element) {
@@ -29,14 +29,12 @@ public class ConstraintData {
     }
 
     public boolean hasNodeCharacteristic(CharacteristicValue actualCharacteristicValue) {
-        return hasCharacteristicValue(nodeCharacteristics, actualCharacteristicValue);
+        return hasCharacteristicValue(vertexCharacteristics, actualCharacteristicValue);
     }
 
-    public boolean hasDataFlowVariable(DataFlowVariable actualDataFlowVariable) {
-        List<CharacteristicValueData> expectedCharacteristicValues = this.dataFlowVariables.get(actualDataFlowVariable.variableName());
-        return actualDataFlowVariable.characteristics()
-                .stream()
-                .allMatch(it -> hasCharacteristicValue(expectedCharacteristicValues, it));
+    public boolean hasDataCharacteristics(DataCharacteristic actualDataCharacteristic) {
+        List<CharacteristicValueData> expectedCharacteristicValues = this.dataCharacteristics.get(actualDataCharacteristic.variableName());
+        return actualDataCharacteristic.characteristics().stream().allMatch(it -> hasCharacteristicValue(expectedCharacteristicValues, it));
     }
 
     private boolean hasCharacteristicValue(List<CharacteristicValueData> data, CharacteristicValue actualCharacteristicValue) {
@@ -47,11 +45,11 @@ public class ConstraintData {
                         .equals(it.characteristicLiteral()));
     }
 
-    public int nodeCharacteristicsCount() {
-        return this.nodeCharacteristics.size();
+    public int vertexCharacteristicsCount() {
+        return this.vertexCharacteristics.size();
     }
 
-    public int dataFlowVariablesCount() {
-        return this.dataFlowVariables.size();
+    public int dataCharacteristicsCount() {
+        return this.dataCharacteristics.size();
     }
 }

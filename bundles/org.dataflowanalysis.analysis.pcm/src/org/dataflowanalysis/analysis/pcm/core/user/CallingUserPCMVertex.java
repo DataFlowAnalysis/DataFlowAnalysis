@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.CallReturnBehavior;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
@@ -35,7 +35,7 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
 
     @Override
     public void evaluateDataFlow() {
-        List<DataFlowVariable> incomingDataFlowVariables = super.getIncomingDataFlowVariables();
+        List<DataCharacteristic> incomingDataCharacteristics = super.getIncomingDataCharacteristics();
         List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
 
         List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.getVariableCharacterizations();
@@ -44,15 +44,13 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
             super.checkCallParameter(super.getReferencedElement().getOperationSignature__EntryLevelSystemCall(), variableCharacterisations);
         }
 
-        List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(nodeCharacteristics, variableCharacterisations,
-                incomingDataFlowVariables);
+        List<DataCharacteristic> outgoingDataCharacteristics = super.getDataCharacteristics(nodeCharacteristics, variableCharacterisations,
+                incomingDataCharacteristics);
         if (this.isReturning()) {
-            outgoingDataFlowVariables = outgoingDataFlowVariables.stream()
-                    .filter(it -> !it.variableName()
-                            .equals("RETURN"))
+            outgoingDataCharacteristics = outgoingDataCharacteristics.stream().filter(it -> !it.getVariableName().equals("RETURN"))
                     .collect(Collectors.toList());
         }
-        this.setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+        this.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, nodeCharacteristics);
     }
 
     /**

@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -55,12 +55,12 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     /**
      * Sets the propagation result of the Vertex to the given result. This method should only be called once on elements
      * that are not evaluated.
-     * @param incomingDataCharacteristics Incoming data flow variables that flow into the vertex
-     * @param outgoingDataCharacteristics Outgoing data flow variables that flow out of the vertex
+     * @param incomingDataCharacteristics Incoming data characteristics that flow into the vertex
+     * @param outgoingDataCharacteristics Outgoing data characteristics that flow out of the vertex
      * @param vertexCharacteristics Vertex characteristics present at the node
      */
     @Override
-    protected void setPropagationResult(List<DataFlowVariable> incomingDataCharacteristics, List<DataFlowVariable> outgoingDataCharacteristics,
+    protected void setPropagationResult(List<DataCharacteristic> incomingDataCharacteristics, List<DataCharacteristic> outgoingDataCharacteristics,
                                         List<CharacteristicValue> vertexCharacteristics) {
         super.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics);
     }
@@ -74,7 +74,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
         this.previousElements = previousElements;
     }
 
-    protected List<DataFlowVariable> getIncomingDataFlowVariables() {
+    protected List<DataCharacteristic> getIncomingDataCharacteristics() {
         if (super.isSource())
             return List.of();
 
@@ -93,15 +93,15 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
 
     /**
      * Calculate the data characteristics for the vertex with the given vertex characteristics, variable characterizations
-     * and old data flow variables
+     * and old data characteristics
      * @param vertexCharacteristics Vertex characteristics present at the vertex
      * @param variableCharacterisations Variable characterizations present in the model
-     * @param oldDataFlowVariables Old data flow variables present at the node
+     * @param oldDataCharacteristics Old data characteristics present at the node
      * @return Returns a list of data characteristics that are applied to the sequence element
      */
-    protected List<DataFlowVariable> getDataFlowVariables(List<CharacteristicValue> vertexCharacteristics,
-            List<ConfidentialityVariableCharacterisation> variableCharacterisations, List<DataFlowVariable> oldDataFlowVariables) {
-        PCMDataCharacteristicsCalculator dataCharacteristicsCalculator = new PCMDataCharacteristicsCalculator(oldDataFlowVariables,
+    protected List<DataCharacteristic> getDataCharacteristics(List<CharacteristicValue> vertexCharacteristics,
+                                                              List<ConfidentialityVariableCharacterisation> variableCharacterisations, List<DataCharacteristic> oldDataCharacteristics) {
+        PCMDataCharacteristicsCalculator dataCharacteristicsCalculator = new PCMDataCharacteristicsCalculator(oldDataCharacteristics,
                 vertexCharacteristics, this.resourceProvider);
         variableCharacterisations.forEach(dataCharacteristicsCalculator::evaluate);
         return dataCharacteristicsCalculator.getCalculatedCharacteristics();

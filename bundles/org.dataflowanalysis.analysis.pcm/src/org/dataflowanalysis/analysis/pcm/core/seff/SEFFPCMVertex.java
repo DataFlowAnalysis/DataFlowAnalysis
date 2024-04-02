@@ -8,9 +8,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
@@ -45,25 +44,18 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
 
     @Override
     public void evaluateDataFlow() {
-        List<DataFlowVariable> incomingDataFlowVariables = super.getIncomingDataFlowVariables();
+        List<DataCharacteristic> incomingDataCharacteristics = super.getIncomingDataCharacteristics();
         List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
 
         if (this.getReferencedElement() instanceof StartAction) {
-            List<String> variableNames = this.getParameter()
-                    .stream()
-                    .map(Parameter::getParameterName)
-                    .toList();
-            incomingDataFlowVariables = incomingDataFlowVariables.stream()
-                    .filter(it -> variableNames.contains(it.variableName()))
-                    .toList();
-            this.setPropagationResult(incomingDataFlowVariables, incomingDataFlowVariables, nodeCharacteristics);
+            List<String> variableNames = this.getParameter().stream().map(Parameter::getParameterName).toList();
+            incomingDataCharacteristics = incomingDataCharacteristics.stream().filter(it -> variableNames.contains(it.variableName())).toList();
+            this.setPropagationResult(incomingDataCharacteristics, incomingDataCharacteristics, nodeCharacteristics);
             return;
         } else if (this.getReferencedElement() instanceof StopAction) {
-            List<DataFlowVariable> outgoingDataFlowVariables = incomingDataFlowVariables.parallelStream()
-                    .filter(it -> it.variableName()
-                            .equals("RETURN"))
-                    .collect(Collectors.toList());
-            this.setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+            List<DataCharacteristic> outgoingDataCharacteristics = incomingDataCharacteristics.parallelStream()
+                    .filter(it -> it.getVariableName().equals("RETURN")).collect(Collectors.toList());
+            this.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, nodeCharacteristics);
             return;
         } else if (!(this.getReferencedElement() instanceof SetVariableAction)) {
             logger.error("Found unexpected sequence element of unknown PCM type " + this.getReferencedElement()
@@ -81,9 +73,9 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
                 .map(ConfidentialityVariableCharacterisation.class::cast)
                 .toList();
 
-        List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(nodeCharacteristics, variableCharacterisations,
-                incomingDataFlowVariables);
-        this.setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+        List<DataCharacteristic> outgoingDataCharacteristics = super.getDataCharacteristics(nodeCharacteristics, variableCharacterisations,
+                incomingDataCharacteristics);
+        this.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, nodeCharacteristics);
     }
 
     /**

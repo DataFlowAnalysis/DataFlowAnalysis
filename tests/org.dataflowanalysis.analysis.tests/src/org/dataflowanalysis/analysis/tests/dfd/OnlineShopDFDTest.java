@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import java.nio.file.Paths;
 import java.util.List;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.dfd.core.DFDCharacteristicValue;
@@ -128,7 +128,7 @@ public class OnlineShopDFDTest {
     }
 
     private List<String> retrieveDataLabels(AbstractVertex<?> vertex) {
-        return vertex.getAllDataCharacteristics().stream().map(DataFlowVariable::getAllCharacteristics).flatMap(List::stream)
+        return vertex.getAllDataCharacteristics().stream().map(DataCharacteristic::getAllCharacteristics).flatMap(List::stream)
                 .map(DFDCharacteristicValue.class::cast).map(DFDCharacteristicValue::getValueName).toList();
     }
 }

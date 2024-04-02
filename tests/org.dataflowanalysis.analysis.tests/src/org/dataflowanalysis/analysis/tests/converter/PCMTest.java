@@ -76,8 +76,8 @@ public class PCMTest {
         flowGraph.evaluate();
 
         Map<String, String> assIdToName = new HashMap<>();
-        for (AbstractTransposedFlowGraph aPFG : flowGraph.getTransposedFlowGraphs()) {
-            for (AbstractVertex<?> abstractVertex : aPFG.getVertices()) {
+        for (AbstractTransposedFlowGraph transposedFlowGraph : flowGraph.getTransposedFlowGraphs()) {
+            for (AbstractVertex<?> abstractVertex : transposedFlowGraph.getVertices()) {
                 var cast = (AbstractPCMVertex<?>) abstractVertex;
                 assIdToName.putIfAbsent(cast.getReferencedElement()
                         .getId(),

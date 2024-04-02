@@ -45,7 +45,7 @@ public class OnlineShopDFDTest {
     @Test
     public void checkSinks() {
         var flowGraph = analysis.findFlowGraphs();
-        var entityNames = flowGraph.getTransposedFlowGraphs().stream().map(pfg -> ((DFDVertex) pfg.getSink()).getName()).toList();
+        var entityNames = flowGraph.getTransposedFlowGraphs().stream().map(it -> ((DFDVertex) it.getSink()).getName()).toList();
 
         var expectedNames = List.of("User", "Database", "Database");
         assertIterableEquals(expectedNames, entityNames);

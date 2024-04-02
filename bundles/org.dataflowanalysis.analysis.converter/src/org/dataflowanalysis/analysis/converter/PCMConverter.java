@@ -77,9 +77,9 @@ public class PCMConverter extends Converter {
     }
 
     private DataFlowDiagramAndDictionary processPalladio(FlowGraphCollection flowGraphCollection) {
-        for (AbstractTransposedFlowGraph aPFG : flowGraphCollection.getTransposedFlowGraphs()) {
+        for (AbstractTransposedFlowGraph transposedFlowGraph : flowGraphCollection.getTransposedFlowGraphs()) {
             Node previousNode = null;
-            for (AbstractVertex<?> abstractVertex : aPFG.getVertices()) {
+            for (AbstractVertex<?> abstractVertex : transposedFlowGraph.getVertices()) {
                 if (abstractVertex instanceof AbstractPCMVertex) {
                     previousNode = processAbstractPCMVertex((AbstractPCMVertex<?>) abstractVertex, previousNode);
                 }

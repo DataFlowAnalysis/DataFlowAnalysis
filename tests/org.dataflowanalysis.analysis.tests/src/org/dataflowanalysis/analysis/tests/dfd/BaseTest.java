@@ -66,8 +66,8 @@ public class BaseTest {
         DFDFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        for (var pfg : flowGraph.getTransposedFlowGraphs()) {
-            assertTrue(pfg.getVertices().stream().filter(v -> ((DFDVertex) v).getName().equals("In")).count() < 2);
+        for (var transposedFlowGraph : flowGraph.getTransposedFlowGraphs()) {
+            assertTrue(transposedFlowGraph.getVertices().stream().filter(v -> ((DFDVertex) v).getName().equals("In")).count() < 2);
         }
     }
 
@@ -77,12 +77,9 @@ public class BaseTest {
         DFDFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        for (var pfg : flowGraph.getTransposedFlowGraphs()) {
-            for (var vertex : pfg.getVertices()) {
-                assertTrue((!vertex.getAllIncomingDataFlowVariables()
-                        .isEmpty())
-                        || (!vertex.getAllOutgoingDataFlowVariables()
-                                .isEmpty()));
+        for (var transposedFlowGraph : flowGraph.getTransposedFlowGraphs()) {
+            for (var vertex : transposedFlowGraph.getVertices()) {
+                assertTrue((!vertex.getAllIncomingDataFlowVariables().isEmpty()) || (!vertex.getAllOutgoingDataFlowVariables().isEmpty()));
             }
         }
     }

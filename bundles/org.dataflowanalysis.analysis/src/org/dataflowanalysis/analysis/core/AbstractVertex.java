@@ -120,20 +120,22 @@ public abstract class AbstractVertex<T> {
      * @return Returns true, if the vertex is a source. Otherwise, the method returns false
      */
     public boolean isSource() {
-        return this.getPreviousElements().isEmpty();
+        return this.getPreviousElements()
+                .isEmpty();
     }
 
     /**
      * Returns a list of node characteristic with the given characteristic type
      * <p>
-     * See {@link AbstractVertex#getDataFlowVariablesWithName(String)} for a similar method for data flow
-     * variables
+     * See {@link AbstractVertex#getDataFlowVariablesWithName(String)} for a similar method for data flow variables
      * @param characteristicType Name of the characteristic type
      * @return Returns a list of all node characteristics matching the characteristic type
      */
     public List<CharacteristicValue> getNodeCharacteristicsWithName(String characteristicType) {
-        return this.getAllNodeCharacteristics().stream()
-                .filter(cv -> cv.getTypeName().equals(characteristicType))
+        return this.getAllNodeCharacteristics()
+                .stream()
+                .filter(cv -> cv.getTypeName()
+                        .equals(characteristicType))
                 .collect(Collectors.toList());
     }
 
@@ -145,8 +147,10 @@ public abstract class AbstractVertex<T> {
      * @return Returns a list of all data flow variables with the given name
      */
     public List<DataFlowVariable> getDataFlowVariablesWithName(String dataFlowVariable) {
-        return this.getAllIncomingDataFlowVariables().stream()
-                .filter(it -> it.getVariableName().equals(dataFlowVariable))
+        return this.getAllIncomingDataFlowVariables()
+                .stream()
+                .filter(it -> it.getVariableName()
+                        .equals(dataFlowVariable))
                 .collect(Collectors.toList());
     }
 
@@ -156,7 +160,8 @@ public abstract class AbstractVertex<T> {
      * @return Returns a map with data flow characteristics with the given name for each data flow variable
      */
     public Map<String, List<CharacteristicValue>> getDataFlowCharacteristicsWithName(String characteristicType) {
-        return this.getAllIncomingDataFlowVariables().stream()
+        return this.getAllIncomingDataFlowVariables()
+                .stream()
                 .collect(Collectors.toMap(DataFlowVariable::getVariableName, it -> it.getCharacteristicsWithName(characteristicType)));
     }
 
@@ -168,7 +173,8 @@ public abstract class AbstractVertex<T> {
     public String createPrintableNodeInformation() {
         String template = "Propagated %s%s\tNode characteristics: %s%s\tData flow Variables:  %s%s";
         String nodeCharacteristics = createPrintableCharacteristicsList(this.getAllNodeCharacteristics());
-        String dataCharacteristics = this.getAllDataFlowVariables().stream()
+        String dataCharacteristics = this.getAllDataFlowVariables()
+                .stream()
                 .map(e -> String.format("%s [%s]", e.variableName(), createPrintableCharacteristicsList(e.getAllCharacteristics())))
                 .collect(Collectors.joining(", "));
 
@@ -183,7 +189,9 @@ public abstract class AbstractVertex<T> {
      * CharacteristicType.CharacteristicLiteral"
      */
     public String createPrintableCharacteristicsList(List<CharacteristicValue> characteristics) {
-        List<String> entries = characteristics.stream().map(it -> String.format("%s.%s", it.getTypeName(), it.getValueName())).toList();
+        List<String> entries = characteristics.stream()
+                .map(it -> String.format("%s.%s", it.getTypeName(), it.getValueName()))
+                .toList();
         return String.join(", ", entries);
     }
 }

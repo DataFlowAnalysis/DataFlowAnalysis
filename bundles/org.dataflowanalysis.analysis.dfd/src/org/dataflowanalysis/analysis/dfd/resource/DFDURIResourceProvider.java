@@ -36,7 +36,8 @@ public class DFDURIResourceProvider extends DFDResourceProvider {
         do {
             loadedResources = new ArrayList<>(this.resources.getResources());
             loadedResources.forEach(EcoreUtil::resolveAll);
-        } while (loadedResources.size() != this.resources.getResources().size());
+        } while (loadedResources.size() != this.resources.getResources()
+                .size());
     }
 
     @Override

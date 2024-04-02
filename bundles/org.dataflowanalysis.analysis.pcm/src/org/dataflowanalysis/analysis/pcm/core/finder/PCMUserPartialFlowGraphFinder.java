@@ -1,7 +1,6 @@
 package org.dataflowanalysis.analysis.pcm.core.finder;
 
 import java.util.*;
-
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.PCMPartialFlowGraph;
@@ -51,8 +50,8 @@ public class PCMUserPartialFlowGraphFinder {
 
         } else {
             // default case: skip action and continue with successor
-            logger.info(
-                    String.format("Action %s has unsupported type of %s and is skipped.", initialAction.getId(), initialAction.getClass().getName()));
+            logger.info(String.format("Action %s has unsupported type of %s and is skipped.", initialAction.getId(), initialAction.getClass()
+                    .getName()));
             return findSequencesForUserAction(initialAction.getSuccessor());
         }
     }
@@ -76,18 +75,24 @@ public class PCMUserPartialFlowGraphFinder {
             return List.of(new PCMPartialFlowGraph(stopElement));
         } else {
             this.currentPartialFlowGraph = new PCMPartialFlowGraph(stopElement);
-            return findSequencesForUserAction(parentAction.get().getSuccessor());
+            return findSequencesForUserAction(parentAction.get()
+                    .getSuccessor());
         }
     }
 
     protected List<PCMPartialFlowGraph> findSequencesForUserBranchAction(Branch currentAction) {
-        return currentAction.getBranchTransitions_Branch().stream().map(BranchTransition::getBranchedBehaviour_BranchTransition)
-                .map(PCMQueryUtils::getStartActionOfScenarioBehavior).flatMap(Optional::stream)
+        return currentAction.getBranchTransitions_Branch()
+                .stream()
+                .map(BranchTransition::getBranchedBehaviour_BranchTransition)
+                .map(PCMQueryUtils::getStartActionOfScenarioBehavior)
+                .flatMap(Optional::stream)
                 .map(it -> {
                     Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping = new IdentityHashMap<>();
                     PCMPartialFlowGraph clonedSequence = this.currentPartialFlowGraph.deepCopy(vertexMapping);
                     return new PCMUserPartialFlowGraphFinder(this.resourceProvider, clonedSequence).findSequencesForUserAction(it);
-                }).flatMap(List::stream).toList();
+                })
+                .flatMap(List::stream)
+                .toList();
     }
 
     protected List<PCMPartialFlowGraph> findSequencesForEntryLevelSystemCall(EntryLevelSystemCall currentAction) {
@@ -102,7 +107,9 @@ public class PCMUserPartialFlowGraphFinder {
             logger.error(String.format("Could not find the called SEFF for the action %s", currentAction));
             throw new IllegalStateException();
         } else {
-            Optional<StartAction> SEFFStartAction = PCMQueryUtils.getFirstStartActionInActionList(calledSEFF.get().seff().getSteps_Behaviour());
+            Optional<StartAction> SEFFStartAction = PCMQueryUtils.getFirstStartActionInActionList(calledSEFF.get()
+                    .seff()
+                    .getSteps_Behaviour());
 
             if (SEFFStartAction.isEmpty()) {
                 throw new IllegalStateException("Unable to find SEFF start action");
@@ -110,8 +117,8 @@ public class PCMUserPartialFlowGraphFinder {
                 Deque<AbstractPCMVertex<?>> callers = new ArrayDeque<>();
                 callers.add(callingEntity);
 
-                SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get().context(), callers,
-                        calledSignature.getParameters__OperationSignature());
+                SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get()
+                        .context(), callers, calledSignature.getParameters__OperationSignature());
                 return new PCMSEFFPartialFlowGraphFinder(resourceProvider, finderContext, this.currentPartialFlowGraph)
                         .findSequencesForSEFFAction(SEFFStartAction.get());
             }
@@ -122,8 +129,7 @@ public class PCMUserPartialFlowGraphFinder {
         List<AbstractPCMVertex<?>> previousVertices = new ArrayList<>();
         previousVertices.add(caller);
         previousVertices.add(this.currentPartialFlowGraph.getSink());
-        this.currentPartialFlowGraph = new PCMPartialFlowGraph(
-                new CallingUserPCMVertex(currentAction, previousVertices, false, resourceProvider));
+        this.currentPartialFlowGraph = new PCMPartialFlowGraph(new CallingUserPCMVertex(currentAction, previousVertices, false, resourceProvider));
         return findSequencesForUserAction(currentAction.getSuccessor());
     }
 }

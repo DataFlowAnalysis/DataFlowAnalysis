@@ -1,7 +1,6 @@
 package org.dataflowanalysis.analysis.core;
 
 import java.util.List;
-
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 
 /**
@@ -43,7 +42,8 @@ public abstract class FlowGraph {
      * Evaluates the flow graph by label propagation. An evaluated copy of the flow graph is returned by this method
      */
     public void evaluate() {
-        this.partialFlowGraphs = this.getPartialFlowGraphs().stream()
+        this.partialFlowGraphs = this.getPartialFlowGraphs()
+                .stream()
                 .map(AbstractPartialFlowGraph::evaluate)
                 .toList();
     }

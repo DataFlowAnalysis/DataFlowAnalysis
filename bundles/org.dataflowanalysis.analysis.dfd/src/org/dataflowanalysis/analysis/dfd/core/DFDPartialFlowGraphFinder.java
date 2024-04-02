@@ -29,12 +29,16 @@ public class DFDPartialFlowGraphFinder implements PartialFlowGraphFinder {
      */
     @Override
     public List<AbstractPartialFlowGraph> findPartialFlowGraphs() {
-        List<Node> endNodes = getEndNodes(this.resourceProvider.getDataFlowDiagram().getNodes());
+        List<Node> endNodes = getEndNodes(this.resourceProvider.getDataFlowDiagram()
+                .getNodes());
 
         List<AbstractPartialFlowGraph> sequences = new ArrayList<>();
 
         for (var endNode : endNodes) {
-            for (var sink : determineSinks(new DFDVertex(endNode, new HashMap<>(), new HashMap<>()), this.resourceProvider.getDataFlowDiagram().getFlows(), endNode.getBehaviour().getInPin())) {
+            for (var sink : determineSinks(new DFDVertex(endNode, new HashMap<>(), new HashMap<>()), this.resourceProvider.getDataFlowDiagram()
+                    .getFlows(),
+                    endNode.getBehaviour()
+                            .getInPin())) {
                 sink.unify(new HashSet<>());
                 sequences.add(new DFDPartialFlowGraph(sink));
             }
@@ -57,7 +61,8 @@ public class DFDPartialFlowGraphFinder implements PartialFlowGraphFinder {
         for (var inputPin : inputPins) {
             List<DFDVertex> newVertices = new ArrayList<>();
             for (var flow : flows) {
-                if (flow.getDestinationPin().equals(inputPin)) {
+                if (flow.getDestinationPin()
+                        .equals(inputPin)) {
                     for (var vertex : vertices) {
                         Node previousNode = flow.getSourceNode();
                         List<Pin> previousNodeInputPins = getAllPreviousNodeInputPins(previousNode, flow);
@@ -81,8 +86,10 @@ public class DFDPartialFlowGraphFinder implements PartialFlowGraphFinder {
      */
     private List<Pin> getAllPreviousNodeInputPins(Node previousNode, Flow flow) {
         List<Pin> previousNodeInputPins = new ArrayList<>();
-        for (var assignment : previousNode.getBehaviour().getAssignment()) {
-            if (assignment.getOutputPin().equals(flow.getSourcePin())) {
+        for (var assignment : previousNode.getBehaviour()
+                .getAssignment()) {
+            if (assignment.getOutputPin()
+                    .equals(flow.getSourcePin())) {
                 previousNodeInputPins.addAll(assignment.getInputPins());
             }
         }
@@ -101,8 +108,10 @@ public class DFDPartialFlowGraphFinder implements PartialFlowGraphFinder {
         List<DFDVertex> newVertices = new ArrayList<>();
         for (var previousVertex : previousNodeVertices) {
             DFDVertex newVertex = vertex.clone();
-            newVertex.getPinDFDVertexMap().put(inputPin, previousVertex);
-            newVertex.getPinFlowMap().put(inputPin, flow);
+            newVertex.getPinDFDVertexMap()
+                    .put(inputPin, previousVertex);
+            newVertex.getPinFlowMap()
+                    .put(inputPin, flow);
             newVertices.add(newVertex);
         }
         return newVertices;
@@ -116,11 +125,16 @@ public class DFDPartialFlowGraphFinder implements PartialFlowGraphFinder {
     private List<Node> getEndNodes(List<Node> nodes) {
         List<Node> endNodes = new ArrayList<>(nodes);
         for (Node node : nodes) {
-            if (node.getBehaviour().getInPin().isEmpty())
+            if (node.getBehaviour()
+                    .getInPin()
+                    .isEmpty())
                 endNodes.remove(node);
-            for (Pin inputPin : node.getBehaviour().getInPin()) {
-                for (AbstractAssignment assignment : node.getBehaviour().getAssignment()) {
-                    if (assignment.getInputPins().contains(inputPin)) {
+            for (Pin inputPin : node.getBehaviour()
+                    .getInPin()) {
+                for (AbstractAssignment assignment : node.getBehaviour()
+                        .getAssignment()) {
+                    if (assignment.getInputPins()
+                            .contains(inputPin)) {
                         endNodes.remove(node);
                         break;
                     }

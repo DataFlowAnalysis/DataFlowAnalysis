@@ -43,31 +43,48 @@ public class UserPCMVertex<T extends AbstractUserAction> extends AbstractPCMVert
             this.setPropagationResult(incomingDataFlowVariables, incomingDataFlowVariables, nodeCharacteristics);
             return;
         }
-        logger.error("Found unexpected sequence element of unknown PCM type " + this.getReferencedElement().getClass().getName());
+        logger.error("Found unexpected sequence element of unknown PCM type " + this.getReferencedElement()
+                .getClass()
+                .getName());
         throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");
     }
 
     @Override
     public String toString() {
         if (this.getReferencedElement() instanceof Start) {
-            return String.format("%s (Starting %s, %s)", this.getClass().getSimpleName(), this.getEntityNameOfScenarioBehaviour(),
-                    this.getReferencedElement().getId());
+            return String.format("%s (Starting %s, %s)", this.getClass()
+                    .getSimpleName(), this.getEntityNameOfScenarioBehaviour(),
+                    this.getReferencedElement()
+                            .getId());
         }
         if (this.getReferencedElement() instanceof Stop) {
-            return String.format("%s (Stopping %s, %s)", this.getClass().getSimpleName(), this.getEntityNameOfScenarioBehaviour(),
-                    this.getReferencedElement().getId());
+            return String.format("%s (Stopping %s, %s)", this.getClass()
+                    .getSimpleName(), this.getEntityNameOfScenarioBehaviour(),
+                    this.getReferencedElement()
+                            .getId());
         }
-        return String.format("%s (%s, %s))", this.getClass().getSimpleName(), this.getReferencedElement().getEntityName(),
-                this.getReferencedElement().getId());
+        return String.format("%s (%s, %s))", this.getClass()
+                .getSimpleName(),
+                this.getReferencedElement()
+                        .getEntityName(),
+                this.getReferencedElement()
+                        .getId());
     }
 
     private String getEntityNameOfScenarioBehaviour() {
-        if (this.getReferencedElement().getScenarioBehaviour_AbstractUserAction().getUsageScenario_SenarioBehaviour() != null) {
-            return "usage: %s".formatted(
-                    this.getReferencedElement().getScenarioBehaviour_AbstractUserAction().getUsageScenario_SenarioBehaviour().getEntityName());
+        if (this.getReferencedElement()
+                .getScenarioBehaviour_AbstractUserAction()
+                .getUsageScenario_SenarioBehaviour() != null) {
+            return "usage: %s".formatted(this.getReferencedElement()
+                    .getScenarioBehaviour_AbstractUserAction()
+                    .getUsageScenario_SenarioBehaviour()
+                    .getEntityName());
         } else {
-            return "branch: %s".formatted(this.getReferencedElement().getScenarioBehaviour_AbstractUserAction()
-                    .getBranchTransition_ScenarioBehaviour().getBranch_BranchTransition().getEntityName());
+            return "branch: %s".formatted(this.getReferencedElement()
+                    .getScenarioBehaviour_AbstractUserAction()
+                    .getBranchTransition_ScenarioBehaviour()
+                    .getBranch_BranchTransition()
+                    .getEntityName());
         }
     }
 

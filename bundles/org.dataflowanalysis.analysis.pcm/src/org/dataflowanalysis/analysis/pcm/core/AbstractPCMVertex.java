@@ -78,8 +78,15 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
         if (super.isSource())
             return List.of();
 
-        this.getPreviousElements().stream().filter(it -> !it.isEvaluated()).forEach(AbstractVertex::evaluateDataFlow);
-        return this.getPreviousElements().stream().flatMap(it -> it.getAllOutgoingDataFlowVariables().stream()).collect(Collectors.toList());
+        this.getPreviousElements()
+                .stream()
+                .filter(it -> !it.isEvaluated())
+                .forEach(AbstractVertex::evaluateDataFlow);
+        return this.getPreviousElements()
+                .stream()
+                .flatMap(it -> it.getAllOutgoingDataFlowVariables()
+                        .stream())
+                .collect(Collectors.toList());
     }
 
     /**
@@ -113,15 +120,23 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      * @param variableCharacterisations Variable characterizations that are applied to the sequence element
      */
     protected void checkCallParameter(OperationSignature callSignature, List<ConfidentialityVariableCharacterisation> variableCharacterisations) {
-        List<String> parameter = callSignature.getParameters__OperationSignature().stream().map(Parameter::getParameterName).toList();
+        List<String> parameter = callSignature.getParameters__OperationSignature()
+                .stream()
+                .map(Parameter::getParameterName)
+                .toList();
 
         List<String> referencedParameter = variableCharacterisations.stream()
-                .map(it -> it.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage().getReferenceName()).toList();
+                .map(it -> it.getVariableUsage_VariableCharacterisation()
+                        .getNamedReference__VariableUsage()
+                        .getReferenceName())
+                .toList();
 
-        referencedParameter.stream().filter(it -> !parameter.contains(it)).forEach(it -> {
-            logger.warn("Unknown reference to variable " + it + " in variable characterisation in vertex " + this.referencedElement);
-            logger.warn("Present variables:" + parameter + ", Referenced parameter: " + referencedParameter);
-        });
+        referencedParameter.stream()
+                .filter(it -> !parameter.contains(it))
+                .forEach(it -> {
+                    logger.warn("Unknown reference to variable " + it + " in variable characterisation in vertex " + this.referencedElement);
+                    logger.warn("Present variables:" + parameter + ", Referenced parameter: " + referencedParameter);
+                });
     }
 
     protected AbstractPCMVertex<?> updateCopy(AbstractPCMVertex<?> copy, Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
@@ -131,7 +146,9 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
         }
         vertexMapping.put(this, copy);
 
-        List<? extends AbstractPCMVertex<?>> clonedPreviousElements = this.previousElements.stream().map(it -> it.deepCopy(vertexMapping)).toList();
+        List<? extends AbstractPCMVertex<?>> clonedPreviousElements = this.previousElements.stream()
+                .map(it -> it.deepCopy(vertexMapping))
+                .toList();
 
         copy.setPreviousElements(clonedPreviousElements);
         return copy;
@@ -158,6 +175,9 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
         if (!(otherVertexObject instanceof AbstractPCMVertex<?> otherVertex)) {
             return false;
         }
-        return this.getReferencedElement().getId().equals(otherVertex.getReferencedElement().getId());
+        return this.getReferencedElement()
+                .getId()
+                .equals(otherVertex.getReferencedElement()
+                        .getId());
     }
 }

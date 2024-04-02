@@ -1,9 +1,9 @@
 package org.dataflowanalysis.analysis.converter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -11,8 +11,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public abstract class Converter {
     protected ObjectMapper objectMapper;
@@ -38,8 +36,10 @@ public abstract class Converter {
         Resource dfdResource = createAndAddResource(truncatedOutputFile + ".dataflowdiagram", new String[] {"dataflowdiagram"}, resourceSet);
         Resource ddResource = createAndAddResource(truncatedOutputFile + ".datadictionary", new String[] {"datadictionary"}, resourceSet);
 
-        dfdResource.getContents().add(complete.dataFlowDiagram());
-        ddResource.getContents().add(complete.dataDictionary());
+        dfdResource.getContents()
+                .add(complete.dataFlowDiagram());
+        ddResource.getContents()
+                .add(complete.dataDictionary());
 
         saveResource(dfdResource);
         saveResource(ddResource);
@@ -47,7 +47,9 @@ public abstract class Converter {
 
     private Resource createAndAddResource(String outputFile, String[] fileextensions, ResourceSet resourceSet) {
         for (String fileextension : fileextensions) {
-            resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(fileextension, new XMLResourceFactoryImpl());
+            resourceSet.getResourceFactoryRegistry()
+                    .getExtensionToFactoryMap()
+                    .put(fileextension, new XMLResourceFactoryImpl());
         }
         URI uri = URI.createFileURI(outputFile);
         return resourceSet.createResource(uri);

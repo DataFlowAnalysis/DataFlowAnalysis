@@ -1,11 +1,10 @@
 package org.dataflowanalysis.analysis.converter.microsecend;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 public abstract class MicroSecEndProcess {
     @JsonProperty("name")
@@ -22,7 +21,10 @@ public abstract class MicroSecEndProcess {
 
     public MicroSecEndProcess(String name, List<String> stereotypes, Map<String, List<String>> taggedValues) {
         this.name = name;
-        this.stereotypes = stereotypes.stream().map(stereotype -> stereotype.trim().replaceAll("[^a-zA-Z0-9]", "")).collect(Collectors.toList());
+        this.stereotypes = stereotypes.stream()
+                .map(stereotype -> stereotype.trim()
+                        .replaceAll("[^a-zA-Z0-9]", ""))
+                .collect(Collectors.toList());
         this.taggedValues = taggedValues;
     }
 

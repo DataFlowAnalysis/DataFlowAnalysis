@@ -8,14 +8,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramConverter;
 import org.dataflowanalysis.analysis.converter.PCMConverter;
-import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.testmodels.Activator;
@@ -24,7 +23,6 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
 
 public class PCMTest {
@@ -47,21 +45,30 @@ public class PCMTest {
 
         String inputModel = "InternationalOnlineShop";
         String inputFile = "default";
-        String dataflowdiagram = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram").toString();
-        String datadictionary = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary").toString();
+        String dataflowdiagram = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram")
+                .toString();
+        String datadictionary = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary")
+                .toString();
         testSpecificModel(inputModel, inputFile, modelLocation,
                 new DataFlowDiagramConverter().loadDFD(modelLocation, dataflowdiagram, datadictionary, Activator.class));
 
     }
 
     private void testSpecificModel(String inputModel, String inputFile, String modelLocation, DataFlowDiagramAndDictionary complete) {
-        final var usageModelPath = Paths.get("models", inputModel, inputFile + ".usagemodel").toString();
-        final var allocationPath = Paths.get("models", inputModel, inputFile + ".allocation").toString();
-        final var nodeCharPath = Paths.get("models", inputModel, inputFile + ".nodecharacteristics").toString();
+        final var usageModelPath = Paths.get("models", inputModel, inputFile + ".usagemodel")
+                .toString();
+        final var allocationPath = Paths.get("models", inputModel, inputFile + ".allocation")
+                .toString();
+        final var nodeCharPath = Paths.get("models", inputModel, inputFile + ".nodecharacteristics")
+                .toString();
 
-        DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone().modelProjectName(modelLocation)
-                .usePluginActivator(Activator.class).useUsageModel(usageModelPath).useAllocationModel(allocationPath)
-                .useNodeCharacteristicsModel(nodeCharPath).build();
+        DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
+                .modelProjectName(modelLocation)
+                .usePluginActivator(Activator.class)
+                .useUsageModel(usageModelPath)
+                .useAllocationModel(allocationPath)
+                .useNodeCharacteristicsModel(nodeCharPath)
+                .build();
 
         analysis.initializeAnalysis();
         var flowGraph = analysis.findFlowGraph();
@@ -71,7 +78,10 @@ public class PCMTest {
         for (AbstractPartialFlowGraph aPFG : flowGraph.getPartialFlowGraphs()) {
             for (AbstractVertex<?> abstractVertex : aPFG.getVertices()) {
                 var cast = (AbstractPCMVertex<?>) abstractVertex;
-                assIdToName.putIfAbsent(cast.getReferencedElement().getId(), cast.getReferencedElement().getEntityName());
+                assIdToName.putIfAbsent(cast.getReferencedElement()
+                        .getId(),
+                        cast.getReferencedElement()
+                                .getEntityName());
             }
         }
 
@@ -79,10 +89,14 @@ public class PCMTest {
         if (complete != null) {
             dfd = complete.dataFlowDiagram();
         } else {
-            dfd = new PCMConverter().pcmToDFD(modelLocation,usageModelPath,allocationPath,nodeCharPath,Activator.class).dataFlowDiagram();
+            dfd = new PCMConverter().pcmToDFD(modelLocation, usageModelPath, allocationPath, nodeCharPath, Activator.class)
+                    .dataFlowDiagram();
         }
 
-        assertEquals(dfd.getNodes().size(), assIdToName.keySet().size());
+        assertEquals(dfd.getNodes()
+                .size(),
+                assIdToName.keySet()
+                        .size());
 
         List<String> nodeIds = new ArrayList<>();
         for (Node node : dfd.getNodes()) {
@@ -108,6 +122,7 @@ public class PCMTest {
             }
         }
 
-        assertEquals(flowNames.size(), dfd.getFlows().size());
+        assertEquals(flowNames.size(), dfd.getFlows()
+                .size());
     }
 }

@@ -1,8 +1,7 @@
 package org.dataflowanalysis.analysis.converter.webdfd;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.List;
 
 /**
  * Represents a web editor model consisting of type, id, and a list of children.

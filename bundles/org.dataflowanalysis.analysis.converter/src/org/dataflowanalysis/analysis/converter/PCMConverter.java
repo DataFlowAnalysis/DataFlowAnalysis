@@ -103,15 +103,15 @@ public class PCMConverter extends Converter {
                 }
             }
             return elementName;
-        }
-        if (vertex instanceof CallingSEFFPCMVertex cast) {
-            return cast.getReferencedElement().getEntityName();
-        }
+        }       
         if (vertex instanceof UserPCMVertex<?> cast) {
             if (cast.getReferencedElement() instanceof Start || cast.getReferencedElement() instanceof Stop) {
                 return cast.getEntityNameOfScenarioBehaviour();
             }
             return cast.getReferencedElement().getEntityName();     
+        }
+        if (vertex instanceof CallingSEFFPCMVertex cast) {
+            return cast.getReferencedElement().getEntityName();
         }
         if (vertex instanceof CallingUserPCMVertex cast) {
             return cast.getReferencedElement().getEntityName();

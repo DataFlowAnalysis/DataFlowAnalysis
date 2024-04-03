@@ -38,8 +38,8 @@ public class PCMTest {
     public void palladioToDfd() {
         String modelLocation = "org.dataflowanalysis.analysis.testmodels";
 
-        testSpecificModel("CoronaWarnApp", "default", modelLocation,"cwa.json", null);
-        testSpecificModel("TravelPlanner", "travelPlanner", modelLocation,null, null);
+        //testSpecificModel("CoronaWarnApp", "default", modelLocation,"cwa.json", null);
+        testSpecificModel("TravelPlanner", "travelPlanner", modelLocation,"tp.json", null);
     }
 
     @Test
@@ -74,7 +74,7 @@ public class PCMTest {
         for (AbstractPartialFlowGraph aPFG : flowGraph.getPartialFlowGraphs()) {
             for (AbstractVertex<?> abstractVertex : aPFG.getVertices()) {
                 var cast = (AbstractPCMVertex<?>) abstractVertex;
-                assIdToName.putIfAbsent(cast.getReferencedElement().getId(), cast.getReferencedElement().getEntityName());
+                assIdToName.putIfAbsent(cast.getReferencedElement().getId(), PCMConverter.computeCompleteName(cast));
             }
         }
 

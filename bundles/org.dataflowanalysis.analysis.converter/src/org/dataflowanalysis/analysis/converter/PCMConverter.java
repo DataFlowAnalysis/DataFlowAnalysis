@@ -3,6 +3,7 @@ package org.dataflowanalysis.analysis.converter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.*;
@@ -13,8 +14,15 @@ import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuild
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.seff.*;
 import org.dataflowanalysis.analysis.pcm.core.user.*;
+import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.palladiosimulator.pcm.core.entity.Entity;
-
+import org.palladiosimulator.pcm.seff.AbstractBranchTransition;
+import org.palladiosimulator.pcm.seff.BranchAction;
+import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
+import org.palladiosimulator.pcm.seff.StartAction;
+import org.palladiosimulator.pcm.seff.StopAction;
+import org.palladiosimulator.pcm.usagemodel.Start;
+import org.palladiosimulator.pcm.usagemodel.Stop;
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
 import org.eclipse.core.runtime.Plugin;
@@ -68,6 +76,47 @@ public class PCMConverter extends Converter {
         flowGraph.evaluate();
 
         return processPalladio(flowGraph);
+    }
+    
+    public static String computeCompleteName(AbstractPCMVertex<?> vertex) {
+        if (vertex instanceof SEFFPCMVertex<?> cast) {
+            String elementName = cast.getReferencedElement().getEntityName();
+            if (cast.getReferencedElement() instanceof StartAction) {
+                Optional<ResourceDemandingSEFF> seff = PCMQueryUtils.findParentOfType(cast.getReferencedElement(), ResourceDemandingSEFF.class, false);
+                if (seff.isPresent()) {
+                    elementName = "Beginning " + seff.get().getDescribedService__SEFF().getEntityName();
+                }
+                if (cast.isBranching() && seff.isPresent()) {
+                    BranchAction branchAction = PCMQueryUtils.findParentOfType(cast.getReferencedElement(), BranchAction.class, false)
+                            .orElseThrow(() -> new IllegalStateException("Cannot find branch action"));
+                    AbstractBranchTransition branchTransition = PCMQueryUtils
+                            .findParentOfType(cast.getReferencedElement(), AbstractBranchTransition.class, false)
+                            .orElseThrow(() -> new IllegalStateException("Cannot find branch transition"));
+                    elementName = "Branching " + seff.get().getDescribedService__SEFF().getEntityName() + "." + branchAction.getEntityName() + "."
+                            + branchTransition.getEntityName();
+                }
+            }
+            if (cast.getReferencedElement() instanceof StopAction) {
+                Optional<ResourceDemandingSEFF> seff = PCMQueryUtils.findParentOfType(cast.getReferencedElement(), ResourceDemandingSEFF.class, false);
+                if (seff.isPresent()) {
+                    elementName = "Ending " + seff.get().getDescribedService__SEFF().getEntityName();
+                }
+            }
+            return elementName;
+        }
+        if (vertex instanceof CallingSEFFPCMVertex cast) {
+            return cast.getReferencedElement().getEntityName();
+        }
+        if (vertex instanceof UserPCMVertex<?> cast) {
+            if (cast.getReferencedElement() instanceof Start || cast.getReferencedElement() instanceof Stop) {
+                return cast.getEntityNameOfScenarioBehaviour();
+            }
+            return cast.getReferencedElement().getEntityName();     
+        }
+        if (vertex instanceof CallingUserPCMVertex cast) {
+            return cast.getReferencedElement().getEntityName();
+        }
+        return vertex.getReferencedElement().getEntityName();
     }
 
     private DataFlowDiagramAndDictionary processPalladio(FlowGraph flowGraph) {
@@ -175,7 +224,7 @@ public class PCMConverter extends Converter {
         }
 
         Behaviour behaviour = datadictionaryFactory.eINSTANCE.createBehaviour();
-        node.setEntityName(pcmVertex.getReferencedElement().getEntityName());
+        node.setEntityName(computeCompleteName(pcmVertex));
         node.setId(pcmVertex.getReferencedElement().getId());
         node.setBehaviour(behaviour);
         dataDictionary.getBehaviour().add(behaviour);

@@ -36,8 +36,9 @@ public class ReadMeTest extends BaseTest {
         flowGraph.evaluate();
 
         for (AbstractTransposeFlowGraph transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
-            List<? extends AbstractVertex<?>> violations = analysis.queryDataFlow(transposeFlowGraph, it -> false // Constraint goes here, return true, if
-                                                                                                              // constraint is violated
+            List<? extends AbstractVertex<?>> violations = analysis.queryDataFlow(transposeFlowGraph, it -> false // Constraint goes here, return
+                                                                                                                  // true, if
+            // constraint is violated
             );
         }
     }

@@ -9,8 +9,8 @@ import org.apache.log4j.Logger;
 
 /**
  * This class represents an abstract vertex in a {@link AbstractTransposeFlowGraph}. An abstract vertex represents an
- * element in a transpose flow graph and links to an element. An element referenced in this way may be referenced multiple
- * times by different abstract vertices. Furthermore, the abstract vertex saved incoming and outgoing data flow
+ * element in a transpose flow graph and links to an element. An element referenced in this way may be referenced
+ * multiple times by different abstract vertices. Furthermore, the abstract vertex saved incoming and outgoing data flow
  * variables and the characteristics present at the vertex.
  * @param <T> Type parameter representing the type of the stored object
  */

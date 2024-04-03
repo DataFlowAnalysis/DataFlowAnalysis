@@ -5,16 +5,16 @@ import org.dataflowanalysis.analysis.resource.ResourceProvider;
 
 /**
  * This class represents an abstract flow graph collection that contains all flows contained in a model. The method
- * {@link FlowGraphCollection#findTransposeFlowGraphs()} will be called to determine the transpose flow graphs for the specific
- * implementation of the flow graph
+ * {@link FlowGraphCollection#findTransposeFlowGraphs()} will be called to determine the transpose flow graphs for the
+ * specific implementation of the flow graph
  */
 public abstract class FlowGraphCollection {
     protected final ResourceProvider resourceProvider;
     private List<? extends AbstractTransposeFlowGraph> transposeFlowGraphs;
 
     /**
-     * Creates a new collection of flow graphs with the given resource provider. Furthermore, the list of transpose flow graphs is determined
-     * by calling {@link FlowGraphCollection#findTransposeFlowGraphs()}
+     * Creates a new collection of flow graphs with the given resource provider. Furthermore, the list of transpose flow
+     * graphs is determined by calling {@link FlowGraphCollection#findTransposeFlowGraphs()}
      * @param resourceProvider Resource provider, that provides model files to the transpose flow graph finder
      */
     public FlowGraphCollection(ResourceProvider resourceProvider) {
@@ -39,10 +39,12 @@ public abstract class FlowGraphCollection {
     public abstract List<AbstractTransposeFlowGraph> findTransposeFlowGraphs();
 
     /**
-     * Evaluates the collection of flow graphs with label propagation. An evaluated copy of the flow graph is returned by this method
+     * Evaluates the collection of flow graphs with label propagation. An evaluated copy of the flow graph is returned by
+     * this method
      */
     public void evaluate() {
-        this.transposeFlowGraphs = this.getTransposeFlowGraphs().stream()
+        this.transposeFlowGraphs = this.getTransposeFlowGraphs()
+                .stream()
                 .map(AbstractTransposeFlowGraph::evaluate)
                 .toList();
     }

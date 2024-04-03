@@ -24,11 +24,12 @@ public class LabelPropagationTest extends BaseTest {
         flowGraph.evaluate();
 
         for (CharacteristicsData characteristicData : LabelPropagationCharacteristics.travelPlannerCharacteristics) {
-            assertTrue(flowGraph.getTransposeFlowGraphs().size() >= characteristicData.sequenceIndex());
+            assertTrue(flowGraph.getTransposeFlowGraphs()
+                    .size() >= characteristicData.sequenceIndex());
 
-            assertCharacteristicPresent(flowGraph.getTransposeFlowGraphs().get(characteristicData.sequenceIndex()),
-                    characteristicData.elementIndex(), characteristicData.variable(), characteristicData.characteristicType(),
-                    characteristicData.characteristicValue());
+            assertCharacteristicPresent(flowGraph.getTransposeFlowGraphs()
+                    .get(characteristicData.sequenceIndex()), characteristicData.elementIndex(), characteristicData.variable(),
+                    characteristicData.characteristicType(), characteristicData.characteristicValue());
         }
     }
 
@@ -44,11 +45,12 @@ public class LabelPropagationTest extends BaseTest {
         flowGraph.evaluate();
 
         for (CharacteristicsData characteristicData : LabelPropagationCharacteristics.internationalOnlineShopCharacteristics) {
-            assertTrue(flowGraph.getTransposeFlowGraphs().size() >= characteristicData.sequenceIndex());
+            assertTrue(flowGraph.getTransposeFlowGraphs()
+                    .size() >= characteristicData.sequenceIndex());
 
-            assertCharacteristicPresent(flowGraph.getTransposeFlowGraphs().get(characteristicData.sequenceIndex()),
-                    characteristicData.elementIndex(), characteristicData.variable(), characteristicData.characteristicType(),
-                    characteristicData.characteristicValue());
+            assertCharacteristicPresent(flowGraph.getTransposeFlowGraphs()
+                    .get(characteristicData.sequenceIndex()), characteristicData.elementIndex(), characteristicData.variable(),
+                    characteristicData.characteristicType(), characteristicData.characteristicValue());
         }
     }
 
@@ -64,11 +66,12 @@ public class LabelPropagationTest extends BaseTest {
         flowGraph.evaluate();
 
         for (CharacteristicsData characteristicData : LabelPropagationCharacteristics.onlineShopCharacteristics) {
-            assertTrue(flowGraph.getTransposeFlowGraphs().size() >= characteristicData.sequenceIndex());
+            assertTrue(flowGraph.getTransposeFlowGraphs()
+                    .size() >= characteristicData.sequenceIndex());
 
-            assertCharacteristicPresent(flowGraph.getTransposeFlowGraphs().get(characteristicData.sequenceIndex()),
-                    characteristicData.elementIndex(), characteristicData.variable(), characteristicData.characteristicType(),
-                    characteristicData.characteristicValue());
+            assertCharacteristicPresent(flowGraph.getTransposeFlowGraphs()
+                    .get(characteristicData.sequenceIndex()), characteristicData.elementIndex(), characteristicData.variable(),
+                    characteristicData.characteristicType(), characteristicData.characteristicValue());
         }
     }
 
@@ -82,11 +85,15 @@ public class LabelPropagationTest extends BaseTest {
         PCMFlowGraphCollection flowGraph = travelPlannerAnalysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        assertTrue(flowGraph.getTransposeFlowGraphs().size() >= 2);
+        assertTrue(flowGraph.getTransposeFlowGraphs()
+                .size() >= 2);
 
-        assertCharacteristicAbsent(flowGraph.getTransposeFlowGraphs().get(0), 2, "ccd", "AssignedRoles", "User");
-        assertCharacteristicAbsent(flowGraph.getTransposeFlowGraphs().get(0), 6, "RETURN", "GrantedRoles", "User");
-        assertCharacteristicAbsent(flowGraph.getTransposeFlowGraphs().get(0), 6, "RETURN", "GrantedRoles", "Airline");
+        assertCharacteristicAbsent(flowGraph.getTransposeFlowGraphs()
+                .get(0), 2, "ccd", "AssignedRoles", "User");
+        assertCharacteristicAbsent(flowGraph.getTransposeFlowGraphs()
+                .get(0), 6, "RETURN", "GrantedRoles", "User");
+        assertCharacteristicAbsent(flowGraph.getTransposeFlowGraphs()
+                .get(0), 6, "RETURN", "GrantedRoles", "Airline");
     }
 
     /**
@@ -99,10 +106,13 @@ public class LabelPropagationTest extends BaseTest {
         PCMFlowGraphCollection flowGraph = internationalOnlineShopAnalysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        assertFalse(flowGraph.getTransposeFlowGraphs().isEmpty());
+        assertFalse(flowGraph.getTransposeFlowGraphs()
+                .isEmpty());
 
-        assertCharacteristicAbsent(flowGraph.getTransposeFlowGraphs().get(0), 0, "inventory", "DataSensitivity", "Public");
-        assertCharacteristicAbsent(flowGraph.getTransposeFlowGraphs().get(0), 1, "RETURN", "DataSensitivity", "Public");
+        assertCharacteristicAbsent(flowGraph.getTransposeFlowGraphs()
+                .get(0), 0, "inventory", "DataSensitivity", "Public");
+        assertCharacteristicAbsent(flowGraph.getTransposeFlowGraphs()
+                .get(0), 1, "RETURN", "DataSensitivity", "Public");
     }
 
     /**
@@ -115,8 +125,10 @@ public class LabelPropagationTest extends BaseTest {
         PCMFlowGraphCollection flowGraph = onlineShopAnalysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        assertFalse(flowGraph.getTransposeFlowGraphs().isEmpty());
+        assertFalse(flowGraph.getTransposeFlowGraphs()
+                .isEmpty());
 
-        assertCharacteristicAbsent(flowGraph.getTransposeFlowGraphs().get(1), 0, "RETURN", "DataSensitivity", "Public");
+        assertCharacteristicAbsent(flowGraph.getTransposeFlowGraphs()
+                .get(1), 0, "RETURN", "DataSensitivity", "Public");
     }
 }

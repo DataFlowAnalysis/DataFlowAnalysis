@@ -77,8 +77,8 @@ public abstract class AbstractTransposeFlowGraph {
     }
 
     /**
-     * Returns a stream over all elements present in the transpose flow graph. The order of elements is completely arbitrary,
-     * but deterministic.
+     * Returns a stream over all elements present in the transpose flow graph. The order of elements is completely
+     * arbitrary, but deterministic.
      * @return Returns a stream over all elements in the transpose flow graph
      */
     public Stream<? extends AbstractVertex<?>> stream() {

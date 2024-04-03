@@ -39,13 +39,17 @@ public class OnlineShopDFDTest {
     @Test
     public void numberOfTransposeFlowGraphs_equalsThree() {
         DFDFlowGraphCollection flowGraph = analysis.findFlowGraphs();
-        assertEquals(flowGraph.getTransposeFlowGraphs().size(), 3);
+        assertEquals(flowGraph.getTransposeFlowGraphs()
+                .size(), 3);
     }
 
     @Test
     public void checkSinks() {
         var flowGraph = analysis.findFlowGraphs();
-        var entityNames = flowGraph.getTransposeFlowGraphs().stream().map(it -> ((DFDVertex) it.getSink()).getName()).toList();
+        var entityNames = flowGraph.getTransposeFlowGraphs()
+                .stream()
+                .map(it -> ((DFDVertex) it.getSink()).getName())
+                .toList();
 
         var expectedNames = List.of("User", "Database", "Database");
         assertIterableEquals(expectedNames, entityNames);
@@ -58,7 +62,8 @@ public class OnlineShopDFDTest {
 
         for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
             for (var vertex : transposeFlowGraph.getVertices()) {
-                if (((DFDVertex) vertex).getName().equals("User")) {
+                if (((DFDVertex) vertex).getName()
+                        .equals("User")) {
                     var userVertexLabels = retrieveNodeLabels(vertex);
                     var expectedLabels = List.of("EU");
                     assertIterableEquals(expectedLabels, userVertexLabels);
@@ -74,7 +79,8 @@ public class OnlineShopDFDTest {
         flowGraph.evaluate();
         for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
             var sink = transposeFlowGraph.getSink();
-            if (((DFDVertex) sink).getName().equals("User")) {
+            if (((DFDVertex) sink).getName()
+                    .equals("User")) {
                 var propagatedLabels = retrieveDataLabels(sink);
                 var expectedPropagatedLabels = List.of("Public");
                 assertIterableEquals(expectedPropagatedLabels, propagatedLabels);

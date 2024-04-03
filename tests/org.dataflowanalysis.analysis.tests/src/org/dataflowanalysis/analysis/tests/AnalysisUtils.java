@@ -132,9 +132,14 @@ public class AnalysisUtils {
      * @param characteristicValue Expected characteristic value at the given {@code index}
      */
     public static void assertCharacteristicPresent(AbstractTransposeFlowGraph sequence, int index, String variableName, String characteristicType,
-                                                   String characteristicValue) {
-        var sequenceElement = sequence.getVertices().get(index);
-        var dataflowVariable = sequenceElement.getAllDataFlowVariables().stream().filter(it -> it.variableName().equals(variableName)).findAny();
+            String characteristicValue) {
+        var sequenceElement = sequence.getVertices()
+                .get(index);
+        var dataflowVariable = sequenceElement.getAllDataFlowVariables()
+                .stream()
+                .filter(it -> it.variableName()
+                        .equals(variableName))
+                .findAny();
 
         if (dataflowVariable.isEmpty()) {
             fail(String.format("Did not find dataflow variable with name %s at sequence element %s", variableName, sequenceElement));
@@ -168,9 +173,11 @@ public class AnalysisUtils {
      * @param characteristicValue Expected characteristic value at the given {@code index}
      */
     public static void assertCharacteristicAbsent(AbstractTransposeFlowGraph sequence, int index, String variableName, String characteristicType,
-                                                  String characteristicValue) {
-        if (sequence.getVertices().size() < index) {
-            fail("Action sequence with length " + sequence.getVertices().size() + " is not long enough for index " + index);
+            String characteristicValue) {
+        if (sequence.getVertices()
+                .size() < index) {
+            fail("Action sequence with length " + sequence.getVertices()
+                    .size() + " is not long enough for index " + index);
         }
         var sequenceElement = sequence.getVertices()
                 .get(index);

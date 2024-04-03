@@ -29,7 +29,8 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
      */
     @Override
     public List<AbstractTransposeFlowGraph> findTransposeFlowGraphs() {
-        List<Node> endNodes = getEndNodes(this.resourceProvider.getDataFlowDiagram().getNodes());
+        List<Node> endNodes = getEndNodes(this.resourceProvider.getDataFlowDiagram()
+                .getNodes());
 
         List<AbstractTransposeFlowGraph> sequences = new ArrayList<>();
 

@@ -31,6 +31,7 @@ public class PCMTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
 
         return startActions.stream()
                 .map(it -> new PCMUserTransposeFlowGraphFinder(this.resourceProvider).findSequencesForUserAction(it))
-                .flatMap(List::stream).toList();
+                .flatMap(List::stream)
+                .toList();
     }
 }

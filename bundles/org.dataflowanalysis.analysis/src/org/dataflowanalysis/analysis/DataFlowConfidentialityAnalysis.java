@@ -14,11 +14,10 @@ import org.eclipse.xtext.resource.containers.ResourceSetBasedAllContainersStateP
 /**
  * This interface represents the functionality of a data flow confidentiality analysis. To use the analysis the
  * {@link DataFlowConfidentialityAnalysis#initializeAnalysis()} method must be called. After that the flow graph of the
- * model can be determined with {@link DataFlowConfidentialityAnalysis#findFlowGraphs()}. To determine characteristics at
- * each node the method {@link FlowGraphCollection#evaluate()} must be called. Finally, a
- * constraint can be evaluated with
- * {@link DataFlowConfidentialityAnalysis#queryDataFlow(AbstractTransposeFlowGraph, Predicate)} on each transpose flow graph
- * contained in the previously returned flow graph.
+ * model can be determined with {@link DataFlowConfidentialityAnalysis#findFlowGraphs()}. To determine characteristics
+ * at each node the method {@link FlowGraphCollection#evaluate()} must be called. Finally, a constraint can be evaluated
+ * with {@link DataFlowConfidentialityAnalysis#queryDataFlow(AbstractTransposeFlowGraph, Predicate)} on each transpose
+ * flow graph contained in the previously returned flow graph.
  */
 public abstract class DataFlowConfidentialityAnalysis {
     public static final String PLUGIN_PATH = "org.dataflowanalysis.analysis";
@@ -43,8 +42,12 @@ public abstract class DataFlowConfidentialityAnalysis {
      * method.
      * @return Returns a list of all nodes that matched the given condition
      */
-    public List<? extends AbstractVertex<?>> queryDataFlow(AbstractTransposeFlowGraph transposeFlowGraph, Predicate<? super AbstractVertex<?>> condition) {
-        return transposeFlowGraph.getVertices().stream().filter(condition).toList();
+    public List<? extends AbstractVertex<?>> queryDataFlow(AbstractTransposeFlowGraph transposeFlowGraph,
+            Predicate<? super AbstractVertex<?>> condition) {
+        return transposeFlowGraph.getVertices()
+                .stream()
+                .filter(condition)
+                .toList();
     }
 
     /**

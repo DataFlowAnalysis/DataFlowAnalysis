@@ -158,8 +158,11 @@ public class ConstraintResultTest extends ConstraintTest {
             List<ConstraintData> constraintData) {
         PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
-        List<AbstractVertex<?>> results = flowGraph.getTransposeFlowGraphs().stream().map(it -> analysis.queryDataFlow(it, constraint))
-                .flatMap(Collection::stream).collect(Collectors.toList());
+        List<AbstractVertex<?>> results = flowGraph.getTransposeFlowGraphs()
+                .stream()
+                .map(it -> analysis.queryDataFlow(it, constraint))
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
 
         assertEquals(constraintData.size(), results.size(), "Incorrect count of violations found");
 

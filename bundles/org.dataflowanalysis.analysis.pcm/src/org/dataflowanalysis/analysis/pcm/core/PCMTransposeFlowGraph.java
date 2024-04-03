@@ -25,7 +25,8 @@ public class PCMTransposeFlowGraph extends AbstractTransposeFlowGraph {
 
     @Override
     public AbstractTransposeFlowGraph evaluate() {
-        this.getSink().evaluateDataFlow();
+        this.getSink()
+                .evaluateDataFlow();
         return this;
     }
 

@@ -26,6 +26,9 @@ public class PCMFlowGraphCollection extends FlowGraphCollection {
             throw new IllegalArgumentException("Cannot find transpose flow graphs with non-pcm resource provider");
         }
         PCMTransposeFlowGraphFinder sequenceFinder = new PCMTransposeFlowGraphFinder(pcmResourceProvider);
-        return sequenceFinder.findTransposeFlowGraphs().parallelStream().map(AbstractTransposeFlowGraph.class::cast).collect(Collectors.toList());
+        return sequenceFinder.findTransposeFlowGraphs()
+                .parallelStream()
+                .map(AbstractTransposeFlowGraph.class::cast)
+                .collect(Collectors.toList());
     }
 }

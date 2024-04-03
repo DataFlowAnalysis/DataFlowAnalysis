@@ -33,7 +33,8 @@ public class PCMSEFFTransposeFlowGraphFinder {
     private final SEFFFinderContext context;
     private PCMTransposeFlowGraph currentTransposeFlowGraph;
 
-    public PCMSEFFTransposeFlowGraphFinder(ResourceProvider resourceProvider, SEFFFinderContext context, PCMTransposeFlowGraph currentTransposeFlowGraph) {
+    public PCMSEFFTransposeFlowGraphFinder(ResourceProvider resourceProvider, SEFFFinderContext context,
+            PCMTransposeFlowGraph currentTransposeFlowGraph) {
         this.resourceProvider = resourceProvider;
         this.context = context;
         this.currentTransposeFlowGraph = currentTransposeFlowGraph;
@@ -65,15 +66,15 @@ public class PCMSEFFTransposeFlowGraphFinder {
     }
 
     protected List<PCMTransposeFlowGraph> findSequencesForSEFFStartAction(StartAction currentAction) {
-        var startElement = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()),
-                context.getContext(), context.getParameter(), resourceProvider);
+        var startElement = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), context.getContext(),
+                context.getParameter(), resourceProvider);
         this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(startElement);
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction());
     }
 
     protected List<PCMTransposeFlowGraph> findSequencesForSEFFStopAction(StopAction currentAction) {
-        var stopElement = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()),
-                context.getContext(), context.getParameter(), resourceProvider);
+        var stopElement = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), context.getContext(),
+                context.getParameter(), resourceProvider);
         this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(stopElement);
 
         Optional<AbstractAction> parentAction = PCMQueryUtils.findParentOfType(currentAction, AbstractAction.class, false);
@@ -90,8 +91,8 @@ public class PCMSEFFTransposeFlowGraphFinder {
 
     protected List<PCMTransposeFlowGraph> findSequencesForSEFFExternalCallAction(ExternalCallAction currentAction) {
 
-        var callingEntity = new CallingSEFFPCMVertex(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), context.getContext(), context.getParameter(),
-                true, resourceProvider);
+        var callingEntity = new CallingSEFFPCMVertex(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), context.getContext(),
+                context.getParameter(), true, resourceProvider);
         this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(callingEntity);
 
         OperationRequiredRole calledRole = currentAction.getRole_ExternalService();
@@ -121,23 +122,30 @@ public class PCMSEFFTransposeFlowGraphFinder {
 
     protected List<PCMTransposeFlowGraph> findSequencesForSEFFSetVariableAction(SetVariableAction currentAction) {
 
-        var newEntity = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), context.getContext(), context.getParameter(),
-                resourceProvider);
+        var newEntity = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), context.getContext(),
+                context.getParameter(), resourceProvider);
         this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(newEntity);
 
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction());
     }
 
     protected List<PCMTransposeFlowGraph> findSequencesForSEFFBranchAction(BranchAction currentAction) {
-        return currentAction.getBranches_Branch().stream().map(AbstractBranchTransition::getBranchBehaviour_BranchTransition)
-                .map(ResourceDemandingBehaviour::getSteps_Behaviour).map(PCMQueryUtils::getFirstStartActionInActionList).flatMap(Optional::stream)
+        return currentAction.getBranches_Branch()
+                .stream()
+                .map(AbstractBranchTransition::getBranchBehaviour_BranchTransition)
+                .map(ResourceDemandingBehaviour::getSteps_Behaviour)
+                .map(PCMQueryUtils::getFirstStartActionInActionList)
+                .flatMap(Optional::stream)
                 .map(it -> {
                     Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping = new IdentityHashMap<>();
                     PCMTransposeFlowGraph clonedTransposeFlowGraph = this.currentTransposeFlowGraph.deepCopy(vertexMapping);
                     SEFFFinderContext clonedContext = new SEFFFinderContext(context);
                     clonedContext.replaceCallers(vertexMapping);
-                    return new PCMSEFFTransposeFlowGraphFinder(resourceProvider, clonedContext, clonedTransposeFlowGraph).findSequencesForSEFFAction(it);
-                }).flatMap(List::stream).toList();
+                    return new PCMSEFFTransposeFlowGraphFinder(resourceProvider, clonedContext, clonedTransposeFlowGraph)
+                            .findSequencesForSEFFAction(it);
+                })
+                .flatMap(List::stream)
+                .toList();
     }
 
     protected List<PCMTransposeFlowGraph> findSequencesForSEFFActionReturning(ExternalCallAction currentAction, AbstractPCMVertex<?> caller) {
@@ -163,7 +171,8 @@ public class PCMSEFFTransposeFlowGraphFinder {
     }
 
     protected List<PCMTransposeFlowGraph> returnToUserCaller(CallingUserPCMVertex caller) {
-        if (!this.context.getCallers().isEmpty()) {
+        if (!this.context.getCallers()
+                .isEmpty()) {
             logger.error("SEFF Action wanted to return without a matching calling user sequence element");
             throw new IllegalStateException();
         } else {

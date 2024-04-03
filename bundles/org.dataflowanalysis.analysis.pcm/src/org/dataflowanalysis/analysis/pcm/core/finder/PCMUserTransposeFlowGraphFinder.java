@@ -75,18 +75,24 @@ public class PCMUserTransposeFlowGraphFinder {
             return List.of(new PCMTransposeFlowGraph(stopElement));
         } else {
             this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(stopElement);
-            return findSequencesForUserAction(parentAction.get().getSuccessor());
+            return findSequencesForUserAction(parentAction.get()
+                    .getSuccessor());
         }
     }
 
     protected List<PCMTransposeFlowGraph> findSequencesForUserBranchAction(Branch currentAction) {
-        return currentAction.getBranchTransitions_Branch().stream().map(BranchTransition::getBranchedBehaviour_BranchTransition)
-                .map(PCMQueryUtils::getStartActionOfScenarioBehavior).flatMap(Optional::stream)
+        return currentAction.getBranchTransitions_Branch()
+                .stream()
+                .map(BranchTransition::getBranchedBehaviour_BranchTransition)
+                .map(PCMQueryUtils::getStartActionOfScenarioBehavior)
+                .flatMap(Optional::stream)
                 .map(it -> {
                     Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping = new IdentityHashMap<>();
                     PCMTransposeFlowGraph clonedSequence = this.currentTransposeFlowGraph.deepCopy(vertexMapping);
                     return new PCMUserTransposeFlowGraphFinder(this.resourceProvider, clonedSequence).findSequencesForUserAction(it);
-                }).flatMap(List::stream).toList();
+                })
+                .flatMap(List::stream)
+                .toList();
     }
 
     protected List<PCMTransposeFlowGraph> findSequencesForEntryLevelSystemCall(EntryLevelSystemCall currentAction) {
@@ -111,8 +117,8 @@ public class PCMUserTransposeFlowGraphFinder {
                 Deque<AbstractPCMVertex<?>> callers = new ArrayDeque<>();
                 callers.add(callingEntity);
 
-                SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get().context(), callers,
-                        calledSignature.getParameters__OperationSignature());
+                SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get()
+                        .context(), callers, calledSignature.getParameters__OperationSignature());
                 return new PCMSEFFTransposeFlowGraphFinder(resourceProvider, finderContext, this.currentTransposeFlowGraph)
                         .findSequencesForSEFFAction(SEFFStartAction.get());
             }

@@ -57,13 +57,4 @@ public record DataFlowVariable(String variableName, List<CharacteristicValue> ch
                 .filter(cv -> cv.getTypeName().equals(characteristicType))
                 .collect(Collectors.toList());
     }
-
-    /**
-     * Returns the name of the data flow variable. For the data flow variable {@code ccd.Sensitivity.Personal}, it will
-     * return {@code ccd}
-     * @return Returns the name of the data flow variable.
-     */
-    public String getVariableName() {
-        return variableName;
-    }
 }

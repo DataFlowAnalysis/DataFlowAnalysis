@@ -111,6 +111,7 @@ public class PCMTest {
             for (AbstractVertex<?> ase : as.getVertices()) {
                 List<DataFlowVariable> variables = ase.getAllDataFlowVariables();
                 for (DataFlowVariable variable : variables) {
+                    System.out.println(variable.variableName());
                     flowNames.add(variable.variableName());
                 }
             }
@@ -121,7 +122,7 @@ public class PCMTest {
         checkLabels(complete.dataDictionary(), flowGraph);
     }
     
-    public static void checkLabels(DataDictionary dd, FlowGraph flowGraph) {
+    private void checkLabels(DataDictionary dd, FlowGraph flowGraph) {
         Map<String,CharacteristicValue> chars = new HashMap<>();
         for(var pfg : flowGraph.getPartialFlowGraphs()) {
             for(var vertex : pfg.getVertices()) {

@@ -119,8 +119,10 @@ public class PCMDataFlowConfidentialityAnalysisBuilder extends DataFlowAnalysisB
                     new IllegalStateException("The Analysis requires an allocation model"));
         }
         if (this.customResourceProvider.isPresent()) {
-            this.customResourceProvider.get().loadRequiredResources();
-            if (!this.customResourceProvider.get().sufficientResourcesLoaded()) {
+            this.customResourceProvider.get()
+                    .loadRequiredResources();
+            if (!this.customResourceProvider.get()
+                    .sufficientResourcesLoaded()) {
                 logger.error("The custom resource provider could not load all required resources",
                         new IllegalStateException("Could not load all required resources"));
             }

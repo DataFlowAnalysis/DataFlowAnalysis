@@ -40,14 +40,18 @@ public class PCMQueryUtils {
      */
     public static Optional<Start> getStartActionOfScenarioBehavior(ScenarioBehaviour scenarioBehavior) {
         logger.info("Finding start action of " + scenarioBehavior.getEntityName());
-        List<Start> candidates = scenarioBehavior.getActions_ScenarioBehaviour().stream().filter(Start.class::isInstance).map(Start.class::cast)
+        List<Start> candidates = scenarioBehavior.getActions_ScenarioBehaviour()
+                .stream()
+                .filter(Start.class::isInstance)
+                .map(Start.class::cast)
                 .toList();
 
         if (candidates.size() > 1) {
             logger.warn(String.format("UsageScenario %s contains more than one start action.", scenarioBehavior.getEntityName()));
         }
 
-        return candidates.stream().findFirst();
+        return candidates.stream()
+                .findFirst();
     }
 
     /**
@@ -56,7 +60,10 @@ public class PCMQueryUtils {
      * @return Returns the first found start action
      */
     public static Optional<StartAction> getFirstStartActionInActionList(List<AbstractAction> actionList) {
-        return actionList.stream().filter(StartAction.class::isInstance).map(StartAction.class::cast).findFirst();
+        return actionList.stream()
+                .filter(StartAction.class::isInstance)
+                .map(StartAction.class::cast)
+                .findFirst();
     }
 
     /**
@@ -65,8 +72,12 @@ public class PCMQueryUtils {
      * @return List of start actions that are provided by the usage model
      */
     public static List<Start> findStartActionsForUsageModel(UsageModel usageModel) {
-        return usageModel.getUsageScenario_UsageModel().stream().map(UsageScenario::getScenarioBehaviour_UsageScenario)
-                .map(PCMQueryUtils::getStartActionOfScenarioBehavior).flatMap(Optional::stream).toList();
+        return usageModel.getUsageScenario_UsageModel()
+                .stream()
+                .map(UsageScenario::getScenarioBehaviour_UsageScenario)
+                .map(PCMQueryUtils::getStartActionOfScenarioBehavior)
+                .flatMap(Optional::stream)
+                .toList();
     }
 
     /**
@@ -111,19 +122,25 @@ public class PCMQueryUtils {
             if (connector.isEmpty()) {
                 throw new IllegalStateException("Unable to find provided delegation connector.");
             } else {
-                AssemblyContext assemblyContext = connector.get().getAssemblyContext_ProvidedDelegationConnector();
+                AssemblyContext assemblyContext = connector.get()
+                        .getAssemblyContext_ProvidedDelegationConnector();
                 newContexts.add(assemblyContext);
 
-                role = connector.get().getInnerProvidedRole_ProvidedDelegationConnector();
+                role = connector.get()
+                        .getInnerProvidedRole_ProvidedDelegationConnector();
                 providingComponent = role.getProvidingEntity_ProvidedRole();
             }
         }
 
         if (providingComponent instanceof BasicComponent component) {
 
-            Optional<ResourceDemandingSEFF> SEFF = component.getServiceEffectSpecifications__BasicComponent().stream()
-                    .filter(ResourceDemandingSEFF.class::isInstance).map(ResourceDemandingSEFF.class::cast)
-                    .filter(it -> it.getDescribedService__SEFF().equals(calledSignature)).findFirst();
+            Optional<ResourceDemandingSEFF> SEFF = component.getServiceEffectSpecifications__BasicComponent()
+                    .stream()
+                    .filter(ResourceDemandingSEFF.class::isInstance)
+                    .map(ResourceDemandingSEFF.class::cast)
+                    .filter(it -> it.getDescribedService__SEFF()
+                            .equals(calledSignature))
+                    .findFirst();
 
             if (SEFF.isEmpty()) {
                 throw new IllegalStateException("Unable to find called seff.");
@@ -149,28 +166,41 @@ public class PCMQueryUtils {
     public static Optional<SEFFWithContext> findCalledSEFF(RequiredRole requiredRole, OperationSignature calledSignature,
             Deque<AssemblyContext> context) {
 
-        ComposedStructure composedStructure = context.getLast().getParentStructure__AssemblyContext();
+        ComposedStructure composedStructure = context.getLast()
+                .getParentStructure__AssemblyContext();
         Deque<AssemblyContext> newContexts = new ArrayDeque<>(context);
 
         // test if there is an assembly connector satisfying the required role
-        Optional<AssemblyConnector> assemblyConnector = composedStructure.getConnectors__ComposedStructure().stream()
-                .filter(AssemblyConnector.class::isInstance).map(AssemblyConnector.class::cast)
-                .filter(it -> it.getRequiredRole_AssemblyConnector().equals(requiredRole))
-                .filter(it -> it.getRequiringAssemblyContext_AssemblyConnector().equals(newContexts.getLast())).findFirst();
+        Optional<AssemblyConnector> assemblyConnector = composedStructure.getConnectors__ComposedStructure()
+                .stream()
+                .filter(AssemblyConnector.class::isInstance)
+                .map(AssemblyConnector.class::cast)
+                .filter(it -> it.getRequiredRole_AssemblyConnector()
+                        .equals(requiredRole))
+                .filter(it -> it.getRequiringAssemblyContext_AssemblyConnector()
+                        .equals(newContexts.getLast()))
+                .findFirst();
 
         if (assemblyConnector.isPresent()) {
             newContexts.remove(newContexts.getLast());
-            AssemblyContext newAssemblyContext = assemblyConnector.get().getProvidingAssemblyContext_AssemblyConnector();
-            OperationProvidedRole providedRole = assemblyConnector.get().getProvidedRole_AssemblyConnector();
+            AssemblyContext newAssemblyContext = assemblyConnector.get()
+                    .getProvidingAssemblyContext_AssemblyConnector();
+            OperationProvidedRole providedRole = assemblyConnector.get()
+                    .getProvidedRole_AssemblyConnector();
             newContexts.add(newAssemblyContext);
             return findCalledSEFF(providedRole, calledSignature, newContexts);
         } else {
 
             // go to the parent composed structure to satisfy the required role
-            Optional<RequiredRole> outerRequiredRole = composedStructure.getConnectors__ComposedStructure().stream()
-                    .filter(RequiredDelegationConnector.class::isInstance).map(RequiredDelegationConnector.class::cast)
-                    .filter(it -> it.getInnerRequiredRole_RequiredDelegationConnector().equals(requiredRole))
-                    .map(RequiredDelegationConnector::getOuterRequiredRole_RequiredDelegationConnector).map(RequiredRole.class::cast).findFirst();
+            Optional<RequiredRole> outerRequiredRole = composedStructure.getConnectors__ComposedStructure()
+                    .stream()
+                    .filter(RequiredDelegationConnector.class::isInstance)
+                    .map(RequiredDelegationConnector.class::cast)
+                    .filter(it -> it.getInnerRequiredRole_RequiredDelegationConnector()
+                            .equals(requiredRole))
+                    .map(RequiredDelegationConnector::getOuterRequiredRole_RequiredDelegationConnector)
+                    .map(RequiredRole.class::cast)
+                    .findFirst();
 
             if (outerRequiredRole.isEmpty()) {
                 throw new IllegalStateException("Unable to retrieve outer required role.");
@@ -182,8 +212,12 @@ public class PCMQueryUtils {
     }
 
     private static Optional<ProvidedDelegationConnector> findProvidedDelegationConnector(ComposedStructure component, ProvidedRole outerRole) {
-        return component.getConnectors__ComposedStructure().stream().filter(ProvidedDelegationConnector.class::isInstance)
-                .map(ProvidedDelegationConnector.class::cast).filter(it -> it.getOuterProvidedRole_ProvidedDelegationConnector().equals(outerRole))
+        return component.getConnectors__ComposedStructure()
+                .stream()
+                .filter(ProvidedDelegationConnector.class::isInstance)
+                .map(ProvidedDelegationConnector.class::cast)
+                .filter(it -> it.getOuterProvidedRole_ProvidedDelegationConnector()
+                        .equals(outerRole))
                 .findFirst();
     }
 }

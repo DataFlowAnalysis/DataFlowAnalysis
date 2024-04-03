@@ -22,9 +22,12 @@ public class ActionSequenceFinderTest extends BaseTest {
     public void testTravelPlannerCount() {
         PCMFlowGraph flowGraph = travelPlannerAnalysis.findFlowGraph();
         travelPlannerAnalysis.setLoggerLevel(Level.TRACE);
-        assertEquals(ActionSequenceFinderPaths.travelPlannerPaths.size(), flowGraph.getPartialFlowGraphs().size(),
-                String.format("Expected two dataflow sequences, but found %s sequences", flowGraph.getPartialFlowGraphs().size()));
-        flowGraph.getPartialFlowGraphs().forEach(logger::trace);
+        assertEquals(ActionSequenceFinderPaths.travelPlannerPaths.size(), flowGraph.getPartialFlowGraphs()
+                .size(),
+                String.format("Expected two dataflow sequences, but found %s sequences", flowGraph.getPartialFlowGraphs()
+                        .size()));
+        flowGraph.getPartialFlowGraphs()
+                .forEach(logger::trace);
     }
 
     /**
@@ -34,9 +37,12 @@ public class ActionSequenceFinderTest extends BaseTest {
     public void testInternationalOnlineShopCount() {
         PCMFlowGraph flowGraph = internationalOnlineShopAnalysis.findFlowGraph();
         internationalOnlineShopAnalysis.setLoggerLevel(Level.TRACE);
-        assertEquals(ActionSequenceFinderPaths.internationalOnlineShopPaths.size(), flowGraph.getPartialFlowGraphs().size(),
-                String.format("Expected two dataflow sequences, but found %s sequences", flowGraph.getPartialFlowGraphs().size()));
-        flowGraph.getPartialFlowGraphs().forEach(logger::trace);
+        assertEquals(ActionSequenceFinderPaths.internationalOnlineShopPaths.size(), flowGraph.getPartialFlowGraphs()
+                .size(),
+                String.format("Expected two dataflow sequences, but found %s sequences", flowGraph.getPartialFlowGraphs()
+                        .size()));
+        flowGraph.getPartialFlowGraphs()
+                .forEach(logger::trace);
     }
 
     /**
@@ -46,19 +52,24 @@ public class ActionSequenceFinderTest extends BaseTest {
     public void testOnlineShopCount() {
         PCMFlowGraph flowGraph = onlineShopAnalysis.findFlowGraph();
         onlineShopAnalysis.setLoggerLevel(Level.TRACE);
-        assertEquals(ActionSequenceFinderPaths.onlineShopPaths.size(), flowGraph.getPartialFlowGraphs().size(),
-                String.format("Expected two dataflow sequences, but found %s sequences", flowGraph.getPartialFlowGraphs().size()));
-        flowGraph.getPartialFlowGraphs().forEach(logger::trace);
+        assertEquals(ActionSequenceFinderPaths.onlineShopPaths.size(), flowGraph.getPartialFlowGraphs()
+                .size(),
+                String.format("Expected two dataflow sequences, but found %s sequences", flowGraph.getPartialFlowGraphs()
+                        .size()));
+        flowGraph.getPartialFlowGraphs()
+                .forEach(logger::trace);
     }
 
     @Test
     public void testTravelPlannerPath() {
         PCMFlowGraph flowGraph = travelPlannerAnalysis.findFlowGraph();
 
-        assertTrue(flowGraph.getPartialFlowGraphs().size() >= ActionSequenceFinderPaths.travelPlannerPaths.size());
+        assertTrue(flowGraph.getPartialFlowGraphs()
+                .size() >= ActionSequenceFinderPaths.travelPlannerPaths.size());
 
         for (int i = 0; i < ActionSequenceFinderPaths.travelPlannerPaths.size(); i++) {
-            assertSequenceElements(flowGraph.getPartialFlowGraphs().get(i), ActionSequenceFinderPaths.travelPlannerPaths.get(i));
+            assertSequenceElements(flowGraph.getPartialFlowGraphs()
+                    .get(i), ActionSequenceFinderPaths.travelPlannerPaths.get(i));
         }
     }
 
@@ -66,10 +77,12 @@ public class ActionSequenceFinderTest extends BaseTest {
     public void testInternationalOnlineShopPath() {
         PCMFlowGraph flowGraph = internationalOnlineShopAnalysis.findFlowGraph();
 
-        assertTrue(flowGraph.getPartialFlowGraphs().size() >= ActionSequenceFinderPaths.internationalOnlineShopPaths.size());
+        assertTrue(flowGraph.getPartialFlowGraphs()
+                .size() >= ActionSequenceFinderPaths.internationalOnlineShopPaths.size());
 
         for (int i = 0; i < ActionSequenceFinderPaths.internationalOnlineShopPaths.size(); i++) {
-            assertSequenceElements(flowGraph.getPartialFlowGraphs().get(i), ActionSequenceFinderPaths.internationalOnlineShopPaths.get(i));
+            assertSequenceElements(flowGraph.getPartialFlowGraphs()
+                    .get(i), ActionSequenceFinderPaths.internationalOnlineShopPaths.get(i));
         }
     }
 
@@ -77,10 +90,12 @@ public class ActionSequenceFinderTest extends BaseTest {
     public void testOnlineShopPath() {
         PCMFlowGraph flowGraph = onlineShopAnalysis.findFlowGraph();
 
-        assertTrue(flowGraph.getPartialFlowGraphs().size() >= ActionSequenceFinderPaths.onlineShopPaths.size());
+        assertTrue(flowGraph.getPartialFlowGraphs()
+                .size() >= ActionSequenceFinderPaths.onlineShopPaths.size());
 
         for (int i = 0; i < ActionSequenceFinderPaths.onlineShopPaths.size(); i++) {
-            assertSequenceElements(flowGraph.getPartialFlowGraphs().get(i), ActionSequenceFinderPaths.onlineShopPaths.get(i));
+            assertSequenceElements(flowGraph.getPartialFlowGraphs()
+                    .get(i), ActionSequenceFinderPaths.onlineShopPaths.get(i));
         }
     }
 
@@ -92,7 +107,8 @@ public class ActionSequenceFinderTest extends BaseTest {
     @Test
     public void testTravelPlannerSEFFContent() {
         PCMFlowGraph flowGraph = travelPlannerAnalysis.findFlowGraph();
-        assertSEFFSequenceElementContent(flowGraph.getPartialFlowGraphs().get(0), 27, "ask airline to book flight");
+        assertSEFFSequenceElementContent(flowGraph.getPartialFlowGraphs()
+                .get(0), 27, "ask airline to book flight");
     }
 
     /**
@@ -103,7 +119,8 @@ public class ActionSequenceFinderTest extends BaseTest {
     @Test
     public void testInternationalOnlineShopSEFFContent() {
         PCMFlowGraph flowGraph = internationalOnlineShopAnalysis.findFlowGraph();
-        assertSEFFSequenceElementContent(flowGraph.getPartialFlowGraphs().get(0), 17, "DatabaseStoreUserData");
+        assertSEFFSequenceElementContent(flowGraph.getPartialFlowGraphs()
+                .get(0), 17, "DatabaseStoreUserData");
     }
 
     /**
@@ -114,7 +131,8 @@ public class ActionSequenceFinderTest extends BaseTest {
     @Test
     public void testOnlineShopSEFFContent() {
         PCMFlowGraph flowGraph = onlineShopAnalysis.findFlowGraph();
-        assertSEFFSequenceElementContent(flowGraph.getPartialFlowGraphs().get(0), 3, "DatabaseLoadInventory");
+        assertSEFFSequenceElementContent(flowGraph.getPartialFlowGraphs()
+                .get(0), 3, "DatabaseLoadInventory");
     }
 
     /**
@@ -125,7 +143,8 @@ public class ActionSequenceFinderTest extends BaseTest {
     @Test
     public void testTravelPlannerUserContent() {
         PCMFlowGraph flowGraph = travelPlannerAnalysis.findFlowGraph();
-        assertUserSequenceElementContent(flowGraph.getPartialFlowGraphs().get(0), 5, "look for flights");
+        assertUserSequenceElementContent(flowGraph.getPartialFlowGraphs()
+                .get(0), 5, "look for flights");
     }
 
     /**
@@ -136,7 +155,8 @@ public class ActionSequenceFinderTest extends BaseTest {
     @Test
     public void testInternationalOnlineShopUserContent() {
         PCMFlowGraph flowGraph = internationalOnlineShopAnalysis.findFlowGraph();
-        assertUserSequenceElementContent(flowGraph.getPartialFlowGraphs().get(0), 11, "BuyEntryLevelSystemCall");
+        assertUserSequenceElementContent(flowGraph.getPartialFlowGraphs()
+                .get(0), 11, "BuyEntryLevelSystemCall");
     }
 
     /**
@@ -147,6 +167,7 @@ public class ActionSequenceFinderTest extends BaseTest {
     @Test
     public void testOnlineShopUserContent() {
         PCMFlowGraph flowGraph = onlineShopAnalysis.findFlowGraph();
-        assertUserSequenceElementContent(flowGraph.getPartialFlowGraphs().get(0), 1, "ViewEntryLevelSystemCall");
+        assertUserSequenceElementContent(flowGraph.getPartialFlowGraphs()
+                .get(0), 1, "ViewEntryLevelSystemCall");
     }
 }

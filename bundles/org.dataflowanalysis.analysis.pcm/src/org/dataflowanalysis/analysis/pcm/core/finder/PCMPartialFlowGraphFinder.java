@@ -31,6 +31,7 @@ public class PCMPartialFlowGraphFinder implements PartialFlowGraphFinder {
 
         return startActions.stream()
                 .map(it -> new PCMUserPartialFlowGraphFinder(this.resourceProvider).findSequencesForUserAction(it))
-                .flatMap(List::stream).toList();
+                .flatMap(List::stream)
+                .toList();
     }
 }

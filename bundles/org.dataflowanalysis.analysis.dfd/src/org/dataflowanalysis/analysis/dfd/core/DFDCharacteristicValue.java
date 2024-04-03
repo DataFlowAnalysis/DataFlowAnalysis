@@ -13,17 +13,20 @@ public record DFDCharacteristicValue(LabelType labelType, Label label) implement
 
     @Override
     public String getTypeName() {
-        return this.labelType().getEntityName();
+        return this.labelType()
+                .getEntityName();
     }
 
     @Override
     public String getValueName() {
-        return this.label().getEntityName();
+        return this.label()
+                .getEntityName();
     }
 
     @Override
     public String getValueId() {
-        return this.label().getId();
+        return this.label()
+                .getId();
     }
 
     /**

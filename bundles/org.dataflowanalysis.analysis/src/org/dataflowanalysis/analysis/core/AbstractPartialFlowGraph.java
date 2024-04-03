@@ -52,7 +52,10 @@ public abstract class AbstractPartialFlowGraph {
                 continue;
             }
             vertices.add(currentElement);
-            currentElement.getPreviousElements().stream().filter(Objects::nonNull).filter(it -> !vertices.contains(it))
+            currentElement.getPreviousElements()
+                    .stream()
+                    .filter(Objects::nonNull)
+                    .filter(it -> !vertices.contains(it))
                     .forEach(currentElements::push);
         }
         Collections.reverse(vertices);
@@ -66,7 +69,11 @@ public abstract class AbstractPartialFlowGraph {
      * @return Returns a list of all succeeding vertices
      */
     public List<AbstractVertex<?>> getSucceedingVertices(AbstractVertex<?> vertex) {
-        return this.getVertices().stream().filter(it -> it.getPreviousElements().contains(vertex)).collect(Collectors.toList());
+        return this.getVertices()
+                .stream()
+                .filter(it -> it.getPreviousElements()
+                        .contains(vertex))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -75,11 +82,15 @@ public abstract class AbstractPartialFlowGraph {
      * @return Returns a stream over all elements in the partial flow graph
      */
     public Stream<? extends AbstractVertex<?>> stream() {
-        return this.getVertices().stream();
+        return this.getVertices()
+                .stream();
     }
 
     @Override
     public String toString() {
-        return this.getVertices().stream().map(AbstractVertex::toString).reduce("", (t, u) -> String.format("%s%s%s", t, System.lineSeparator(), u));
+        return this.getVertices()
+                .stream()
+                .map(AbstractVertex::toString)
+                .reduce("", (t, u) -> String.format("%s%s%s", t, System.lineSeparator(), u));
     }
 }

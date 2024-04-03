@@ -18,7 +18,8 @@ public class ResourceUtils {
      * @return Returns plug-in path with the given project name and provided relative path
      */
     public static URI createRelativePluginURI(String relativePath, String modelProjectName) {
-        String path = Paths.get(modelProjectName, relativePath).toString();
+        String path = Paths.get(modelProjectName, relativePath)
+                .toString();
         return URI.createPlatformPluginURI(path, false);
     }
 }

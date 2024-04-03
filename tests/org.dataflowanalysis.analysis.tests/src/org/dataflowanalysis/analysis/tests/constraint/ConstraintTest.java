@@ -38,7 +38,8 @@ public class ConstraintTest extends BaseTest {
     protected String createPrintableNodeInformation(AbstractVertex<?> node) {
         String template = "%s%s\tNode characteristics: %s%s\tData flow Variables:  %s%s";
         String nodeCharacteristics = createPrintableCharacteristicsList(node.getAllNodeCharacteristics());
-        String dataCharacteristics = node.getAllDataFlowVariables().stream()
+        String dataCharacteristics = node.getAllDataFlowVariables()
+                .stream()
                 .map(e -> String.format("%s [%s]", e.variableName(), createPrintableCharacteristicsList(e.getAllCharacteristics())))
                 .collect(Collectors.joining(", "));
 
@@ -52,7 +53,9 @@ public class ConstraintTest extends BaseTest {
      * @return a comma separated list of the format "type.literal, type.literal"
      */
     protected String createPrintableCharacteristicsList(List<CharacteristicValue> characteristics) {
-        List<String> entries = characteristics.stream().map(it -> String.format("%s.%s", it.getTypeName(), it.getValueName())).toList();
+        List<String> entries = characteristics.stream()
+                .map(it -> String.format("%s.%s", it.getTypeName(), it.getValueName()))
+                .toList();
         return String.join(", ", entries);
     }
 }

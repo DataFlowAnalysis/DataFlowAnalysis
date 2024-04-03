@@ -1,11 +1,10 @@
 package org.dataflowanalysis.analysis.converter.microsecend;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Represents the flow of information between entities in a system.
@@ -24,6 +23,9 @@ public record InformationFlow(String sender,
         @JsonProperty("tagged_values") @JsonDeserialize(using = TaggedValuesDeserializer.class) Map<String, List<String>> taggedValues) {
 
     public InformationFlow {
-        stereotypes = stereotypes.stream().map(stereotype -> stereotype.trim().replaceAll("[^a-zA-Z0-9]", "")).collect(Collectors.toList());
+        stereotypes = stereotypes.stream()
+                .map(stereotype -> stereotype.trim()
+                        .replaceAll("[^a-zA-Z0-9]", ""))
+                .collect(Collectors.toList());
     }
 }

@@ -23,8 +23,12 @@ public class BaseTest {
         final var minimalDataFlowDiagramPath = Paths.get("models", "DFDTestModels", "BranchingTest.dataflowdiagram");
         final var minimalDataDictionaryPath = Paths.get("models", "DFDTestModels", "BranchingTest.datadictionary");
 
-        this.analysis = new DFDDataFlowAnalysisBuilder().standalone().modelProjectName(TEST_MODEL_PROJECT_NAME).usePluginActivator(Activator.class)
-                .useDataFlowDiagram(minimalDataFlowDiagramPath.toString()).useDataDictionary(minimalDataDictionaryPath.toString()).build();
+        this.analysis = new DFDDataFlowAnalysisBuilder().standalone()
+                .modelProjectName(TEST_MODEL_PROJECT_NAME)
+                .usePluginActivator(Activator.class)
+                .useDataFlowDiagram(minimalDataFlowDiagramPath.toString())
+                .useDataDictionary(minimalDataDictionaryPath.toString())
+                .build();
     }
 
     private List<? extends AbstractVertex<?>> getViolationsForConstraint(Predicate<? super AbstractVertex<?>> constraint) {
@@ -32,25 +36,29 @@ public class BaseTest {
         DFDFlowGraph flowGraph = this.analysis.findFlowGraph();
         flowGraph.evaluate();
 
-        return analysis.queryDataFlow(flowGraph.getPartialFlowGraphs().get(0), constraint);
+        return analysis.queryDataFlow(flowGraph.getPartialFlowGraphs()
+                .get(0), constraint);
     }
 
     @Test
     public void numberOfPartialFlowGraphs_equalsFour() {
         this.analysis.initializeAnalysis();
         DFDFlowGraph flowGraph = analysis.findFlowGraph();
-        assertEquals(flowGraph.getPartialFlowGraphs().size(), 4);
+        assertEquals(flowGraph.getPartialFlowGraphs()
+                .size(), 4);
     }
 
     @Test
     public void noVertexCharacteristics_returnsNoViolation() {
-        var results = this.getViolationsForConstraint(node -> node.getAllNodeCharacteristics().isEmpty());
+        var results = this.getViolationsForConstraint(node -> node.getAllNodeCharacteristics()
+                .isEmpty());
         assertTrue(results.isEmpty());
     }
 
     @Test
     public void noVertexCharacteristics_returnsViolations() {
-        var results = this.getViolationsForConstraint(node -> !node.getAllNodeCharacteristics().isEmpty());
+        var results = this.getViolationsForConstraint(node -> !node.getAllNodeCharacteristics()
+                .isEmpty());
         assertFalse(results.isEmpty());
     }
 
@@ -61,7 +69,11 @@ public class BaseTest {
         flowGraph.evaluate();
 
         for (var pfg : flowGraph.getPartialFlowGraphs()) {
-            assertTrue(pfg.getVertices().stream().filter(v -> ((DFDVertex) v).getName().equals("In")).count() < 2);
+            assertTrue(pfg.getVertices()
+                    .stream()
+                    .filter(v -> ((DFDVertex) v).getName()
+                            .equals("In"))
+                    .count() < 2);
         }
     }
 
@@ -73,7 +85,10 @@ public class BaseTest {
 
         for (var pfg : flowGraph.getPartialFlowGraphs()) {
             for (var vertex : pfg.getVertices()) {
-                assertTrue((!vertex.getAllIncomingDataFlowVariables().isEmpty()) || (!vertex.getAllOutgoingDataFlowVariables().isEmpty()));
+                assertTrue((!vertex.getAllIncomingDataFlowVariables()
+                        .isEmpty())
+                        || (!vertex.getAllOutgoingDataFlowVariables()
+                                .isEmpty()));
             }
         }
     }

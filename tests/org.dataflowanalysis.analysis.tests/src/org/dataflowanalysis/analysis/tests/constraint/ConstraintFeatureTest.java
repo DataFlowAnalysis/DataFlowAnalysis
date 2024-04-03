@@ -31,14 +31,17 @@ public class ConstraintFeatureTest extends ConstraintTest {
         flowGraph.evaluate();
 
         logger.setLevel(Level.TRACE);
-        var results = analysis.queryDataFlow(flowGraph.getPartialFlowGraphs().get(0), node -> {
-            printNodeInformation(node);
-            if (node instanceof UserPCMVertex<?>) {
-                return node.getAllNodeCharacteristics().size() != 1;
-            } else {
-                return node.getAllNodeCharacteristics().size() != 2;
-            }
-        });
+        var results = analysis.queryDataFlow(flowGraph.getPartialFlowGraphs()
+                .get(0), node -> {
+                    printNodeInformation(node);
+                    if (node instanceof UserPCMVertex<?>) {
+                        return node.getAllNodeCharacteristics()
+                                .size() != 1;
+                    } else {
+                        return node.getAllNodeCharacteristics()
+                                .size() != 2;
+                    }
+                });
         printViolation(results);
         assertTrue(results.isEmpty());
     }
@@ -58,14 +61,17 @@ public class ConstraintFeatureTest extends ConstraintTest {
         flowGraph.evaluate();
 
         logger.setLevel(Level.TRACE);
-        var results = analysis.queryDataFlow(flowGraph.getPartialFlowGraphs().get(0), node -> {
-            printNodeInformation(node);
-            if (node instanceof UserPCMVertex<?>) {
-                return node.getAllNodeCharacteristics().size() != 1;
-            } else {
-                return node.getAllNodeCharacteristics().size() != 3;
-            }
-        });
+        var results = analysis.queryDataFlow(flowGraph.getPartialFlowGraphs()
+                .get(0), node -> {
+                    printNodeInformation(node);
+                    if (node instanceof UserPCMVertex<?>) {
+                        return node.getAllNodeCharacteristics()
+                                .size() != 1;
+                    } else {
+                        return node.getAllNodeCharacteristics()
+                                .size() != 3;
+                    }
+                });
         printViolation(results);
         assertTrue(results.isEmpty());
     }
@@ -85,13 +91,15 @@ public class ConstraintFeatureTest extends ConstraintTest {
         flowGraph.evaluate();
 
         logger.setLevel(Level.TRACE);
-        var results = analysis.queryDataFlow(flowGraph.getPartialFlowGraphs().get(0), node -> {
-            printNodeInformation(node);
-            if (node instanceof CallingUserPCMVertex && ((CallingUserPCMVertex) node).isReturning()) {
-                return !node.getAllDataFlowVariables().isEmpty();
-            }
-            return false;
-        });
+        var results = analysis.queryDataFlow(flowGraph.getPartialFlowGraphs()
+                .get(0), node -> {
+                    printNodeInformation(node);
+                    if (node instanceof CallingUserPCMVertex && ((CallingUserPCMVertex) node).isReturning()) {
+                        return !node.getAllDataFlowVariables()
+                                .isEmpty();
+                    }
+                    return false;
+                });
         printViolation(results);
         assertEquals(1, results.size(), "IgnoredNodeTest did not yield one violation");
     }

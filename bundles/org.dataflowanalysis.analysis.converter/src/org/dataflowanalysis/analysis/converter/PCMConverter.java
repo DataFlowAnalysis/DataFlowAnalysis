@@ -3,7 +3,6 @@ package org.dataflowanalysis.analysis.converter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.*;
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
@@ -13,11 +12,10 @@ import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuild
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.seff.*;
 import org.dataflowanalysis.analysis.pcm.core.user.*;
-import org.palladiosimulator.pcm.core.entity.Entity;
-
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
 import org.eclipse.core.runtime.Plugin;
+import org.palladiosimulator.pcm.core.entity.Entity;
 
 /**
  * Converts Palladio models to the data flow diagram and dictionary representation. Inherits from {@link Converter} to
@@ -35,13 +33,18 @@ public class PCMConverter extends Converter {
      * @param usageModelPath Location of the usage model.
      * @param allocationPath Location of the allocation.
      * @param nodeCharPath Location of the node characteristics.
-     * @param activator Activator class of the plugin where the model resides. 
+     * @param activator Activator class of the plugin where the model resides.
      * @return DataFlowDiagramAndDictionary object representing the converted Palladio model.
      */
-    public DataFlowDiagramAndDictionary pcmToDFD(String modelLocation,String usageModelPath, String allocationPath, String nodeCharPath, Class<? extends Plugin> activator) {
-        DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone().modelProjectName(modelLocation)
-                .usePluginActivator(activator).useUsageModel(usageModelPath).useAllocationModel(allocationPath)
-                .useNodeCharacteristicsModel(nodeCharPath).build();
+    public DataFlowDiagramAndDictionary pcmToDFD(String modelLocation, String usageModelPath, String allocationPath, String nodeCharPath,
+            Class<? extends Plugin> activator) {
+        DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
+                .modelProjectName(modelLocation)
+                .usePluginActivator(activator)
+                .useUsageModel(usageModelPath)
+                .useAllocationModel(allocationPath)
+                .useNodeCharacteristicsModel(nodeCharPath)
+                .build();
 
         analysis.initializeAnalysis();
         var flowGraph = analysis.findFlowGraph();
@@ -49,19 +52,22 @@ public class PCMConverter extends Converter {
 
         return processPalladio(flowGraph);
     }
-    
+
     /**
      * Converts a PCM model into a DataFlowDiagramAndDictionary object.
      * @param modelLocation Location of the model folder.
      * @param usageModelPath Location of the usage model.
      * @param allocationPath Location of the allocation.
-     * @param nodeCharPath Location of the node characteristics. 
+     * @param nodeCharPath Location of the node characteristics.
      * @return DataFlowDiagramAndDictionary object representing the converted Palladio model.
      */
-    public DataFlowDiagramAndDictionary pcmToDFD(String modelLocation,String usageModelPath, String allocationPath, String nodeCharPath) {
-        DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone().modelProjectName(modelLocation)
-                .useUsageModel(usageModelPath).useAllocationModel(allocationPath)
-                .useNodeCharacteristicsModel(nodeCharPath).build();
+    public DataFlowDiagramAndDictionary pcmToDFD(String modelLocation, String usageModelPath, String allocationPath, String nodeCharPath) {
+        DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
+                .modelProjectName(modelLocation)
+                .useUsageModel(usageModelPath)
+                .useAllocationModel(allocationPath)
+                .useNodeCharacteristicsModel(nodeCharPath)
+                .build();
 
         analysis.initializeAnalysis();
         var flowGraph = analysis.findFlowGraph();
@@ -98,8 +104,16 @@ public class PCMConverter extends Converter {
         for (DataFlowVariable flowVariable : flowVariables) {
             String flowName = flowVariable.variableName();
 
-            dataFlowDiagram.getFlows().stream().filter(f -> f.getSourceNode().equals(source)).filter(f -> f.getDestinationNode().equals(dest))
-                    .filter(f -> f.getEntityName().equals(flowName)).findFirst().orElse(createFlow(source, dest, flowName));
+            dataFlowDiagram.getFlows()
+                    .stream()
+                    .filter(f -> f.getSourceNode()
+                            .equals(source))
+                    .filter(f -> f.getDestinationNode()
+                            .equals(dest))
+                    .filter(f -> f.getEntityName()
+                            .equals(flowName))
+                    .findFirst()
+                    .orElse(createFlow(source, dest, flowName));
         }
     }
 
@@ -115,21 +129,34 @@ public class PCMConverter extends Converter {
 
         ForwardingAssignment forwarding = datadictionaryFactory.eINSTANCE.createForwardingAssignment();
         forwarding.setOutputPin(sourceOutPin);
-        source.getBehaviour().getAssignment().add(forwarding);
+        source.getBehaviour()
+                .getAssignment()
+                .add(forwarding);
 
-        this.dataFlowDiagram.getFlows().add(newFlow);
+        this.dataFlowDiagram.getFlows()
+                .add(newFlow);
         return newFlow;
     }
 
     // A pin is equivalent if the same parameters are passed
     private Pin findOutputPin(Node source, String parameters) {
-        return source.getBehaviour().getOutPin().stream().filter(p -> p.getEntityName().equals(parameters)).findAny()
+        return source.getBehaviour()
+                .getOutPin()
+                .stream()
+                .filter(p -> p.getEntityName()
+                        .equals(parameters))
+                .findAny()
                 .orElse(createPin(source, parameters, false));
     }
 
     // A pin is equivalent if the same parameters are passed
     private Pin findInputPin(Node dest, String parameters) {
-        return dest.getBehaviour().getInPin().stream().filter(p -> p.getEntityName().equals(parameters)).findAny()
+        return dest.getBehaviour()
+                .getInPin()
+                .stream()
+                .filter(p -> p.getEntityName()
+                        .equals(parameters))
+                .findAny()
                 .orElse(createPin(dest, parameters, true));
     }
 
@@ -137,9 +164,13 @@ public class PCMConverter extends Converter {
         Pin pin = datadictionaryFactory.eINSTANCE.createPin();
         pin.setEntityName(parameters);
         if (isInPin) {
-            node.getBehaviour().getInPin().add(pin);
+            node.getBehaviour()
+                    .getInPin()
+                    .add(pin);
         } else {
-            node.getBehaviour().getOutPin().add(pin);
+            node.getBehaviour()
+                    .getOutPin()
+                    .add(pin);
         }
         return pin;
     }
@@ -175,28 +206,42 @@ public class PCMConverter extends Converter {
         }
 
         Behaviour behaviour = datadictionaryFactory.eINSTANCE.createBehaviour();
-        node.setEntityName(pcmVertex.getReferencedElement().getEntityName());
-        node.setId(pcmVertex.getReferencedElement().getId());
+        node.setEntityName(pcmVertex.getReferencedElement()
+                .getEntityName());
+        node.setId(pcmVertex.getReferencedElement()
+                .getId());
         node.setBehaviour(behaviour);
-        dataDictionary.getBehaviour().add(behaviour);
-        dataFlowDiagram.getNodes().add(node);
+        dataDictionary.getBehaviour()
+                .add(behaviour);
+        dataFlowDiagram.getNodes()
+                .add(node);
         return node;
     }
 
     private void addNodeCharacteristicsToNode(Node node, List<CharacteristicValue> charValues) {
         for (CharacteristicValue charValue : charValues) {
             Label label = getOrCreateDFDLabel(charValue);
-            if (!node.getProperties().contains(label)) {
-                node.getProperties().add(label);
+            if (!node.getProperties()
+                    .contains(label)) {
+                node.getProperties()
+                        .add(label);
             }
         }
     }
 
     private Label getOrCreateDFDLabel(CharacteristicValue charValue) {
-        LabelType type = dataDictionary.getLabelTypes().stream().filter(f -> f.getEntityName().equals(charValue.getTypeName())).findFirst()
+        LabelType type = dataDictionary.getLabelTypes()
+                .stream()
+                .filter(f -> f.getEntityName()
+                        .equals(charValue.getTypeName()))
+                .findFirst()
                 .orElse(createLabelType(charValue));
 
-        Label label = type.getLabel().stream().filter(f -> f.getEntityName().equals(charValue.getValueName())).findFirst()
+        Label label = type.getLabel()
+                .stream()
+                .filter(f -> f.getEntityName()
+                        .equals(charValue.getValueName()))
+                .findFirst()
                 .orElse(createLabel(charValue, type));
 
         return label;
@@ -205,14 +250,16 @@ public class PCMConverter extends Converter {
     private Label createLabel(CharacteristicValue charValue, LabelType type) {
         Label label = datadictionaryFactory.eINSTANCE.createLabel();
         label.setEntityName(charValue.getValueName());
-        type.getLabel().add(label);
+        type.getLabel()
+                .add(label);
         return label;
     }
 
     private LabelType createLabelType(CharacteristicValue charValue) {
         LabelType type = datadictionaryFactory.eINSTANCE.createLabelType();
         type.setEntityName(charValue.getTypeName());
-        this.dataDictionary.getLabelTypes().add(type);
+        this.dataDictionary.getLabelTypes()
+                .add(type);
         return type;
     }
 

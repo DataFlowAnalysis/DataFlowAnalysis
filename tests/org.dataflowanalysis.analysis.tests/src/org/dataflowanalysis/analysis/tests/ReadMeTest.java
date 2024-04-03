@@ -20,9 +20,13 @@ public class ReadMeTest extends BaseTest {
 
     // --------------------------------------------------
     public static void main(String[] args) {
-        PCMDataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone().modelProjectName("<PROJECT_NAME>")
-                .usePluginActivator(Activator.class).useUsageModel("<USAGE_MODEL_PATH>").useAllocationModel("<ALLOCATION_MODEL_PATH>")
-                .useNodeCharacteristicsModel("<NODE_MODEL_PATH>").build();
+        PCMDataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
+                .modelProjectName("<PROJECT_NAME>")
+                .usePluginActivator(Activator.class)
+                .useUsageModel("<USAGE_MODEL_PATH>")
+                .useAllocationModel("<ALLOCATION_MODEL_PATH>")
+                .useNodeCharacteristicsModel("<NODE_MODEL_PATH>")
+                .build();
 
         analysis.setLoggerLevel(Level.TRACE); // Set desired logger level. Level.TRACE provides additional propagation
         // Information

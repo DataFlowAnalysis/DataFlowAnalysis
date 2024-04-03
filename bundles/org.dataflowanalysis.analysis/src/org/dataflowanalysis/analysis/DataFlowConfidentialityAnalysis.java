@@ -2,7 +2,6 @@ package org.dataflowanalysis.analysis;
 
 import java.util.List;
 import java.util.function.Predicate;
-
 import org.apache.log4j.*;
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
@@ -16,8 +15,7 @@ import org.eclipse.xtext.resource.containers.ResourceSetBasedAllContainersStateP
  * This interface represents the functionality of a data flow confidentiality analysis. To use the analysis the
  * {@link DataFlowConfidentialityAnalysis#initializeAnalysis()} method must be called. After that the flow graph of the
  * model can be determined with {@link DataFlowConfidentialityAnalysis#findFlowGraph()}. To determine characteristics at
- * each node the method {@link FlowGraph#evaluate()} must be called. Finally, a
- * constraint can be evaluated with
+ * each node the method {@link FlowGraph#evaluate()} must be called. Finally, a constraint can be evaluated with
  * {@link DataFlowConfidentialityAnalysis#queryDataFlow(AbstractPartialFlowGraph, Predicate)} on each partial flow graph
  * contained in the previously returned flow graph.
  */
@@ -44,8 +42,12 @@ public abstract class DataFlowConfidentialityAnalysis {
      * method.
      * @return Returns a list of all nodes that matched the given condition
      */
-    public List<? extends AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph partialFlowGraph, Predicate<? super AbstractVertex<?>> condition) {
-        return partialFlowGraph.getVertices().stream().filter(condition).toList();
+    public List<? extends AbstractVertex<?>> queryDataFlow(AbstractPartialFlowGraph partialFlowGraph,
+            Predicate<? super AbstractVertex<?>> condition) {
+        return partialFlowGraph.getVertices()
+                .stream()
+                .filter(condition)
+                .toList();
     }
 
     /**
@@ -59,13 +61,16 @@ public abstract class DataFlowConfidentialityAnalysis {
      */
     protected void setupLoggers() {
         BasicConfigurator.resetConfiguration();
-        BasicConfigurator.configure(
-                new ConsoleAppender(new EnhancedPatternLayout("%-6r [%p] %-35C{1} - %m%n")));
+        BasicConfigurator.configure(new ConsoleAppender(new EnhancedPatternLayout("%-6r [%p] %-35C{1} - %m%n")));
 
-        Logger.getLogger(AbstractInternalAntlrParser.class).setLevel(Level.WARN);
-        Logger.getLogger(DefaultLinkingService.class).setLevel(Level.WARN);
-        Logger.getLogger(ResourceSetBasedAllContainersStateProvider.class).setLevel(Level.WARN);
-        Logger.getLogger(AbstractCleaningLinker.class).setLevel(Level.WARN);
+        Logger.getLogger(AbstractInternalAntlrParser.class)
+                .setLevel(Level.WARN);
+        Logger.getLogger(DefaultLinkingService.class)
+                .setLevel(Level.WARN);
+        Logger.getLogger(ResourceSetBasedAllContainersStateProvider.class)
+                .setLevel(Level.WARN);
+        Logger.getLogger(AbstractCleaningLinker.class)
+                .setLevel(Level.WARN);
 
         logger.info("Successfully initialized standalone log4j for the data flow analysis.");
     }

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
@@ -53,24 +52,27 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
         List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(nodeCharacteristics, variableCharacterisations,
                 incomingDataFlowVariables);
         if (this.isReturning()) {
-            outgoingDataFlowVariables = outgoingDataFlowVariables.stream().filter(it -> !it.getVariableName().equals("RETURN"))
+            outgoingDataFlowVariables = outgoingDataFlowVariables.stream()
+                    .filter(it -> !it.getVariableName()
+                            .equals("RETURN"))
                     .collect(Collectors.toList());
         }
         this.setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
     }
 
     /**
-     * Determines the variable characterizations that should be evaluated at the vertex.
-     * Calling SEFF vertices evaluate their input variable characterizations before calling.
-     * Returning SEFF vertices evaluate their return variable characterizations after returning from the called SEFF
+     * Determines the variable characterizations that should be evaluated at the vertex. Calling SEFF vertices evaluate
+     * their input variable characterizations before calling. Returning SEFF vertices evaluate their return variable
+     * characterizations after returning from the called SEFF
      * @return Returns a list of variable characterizations that are applicable to the current vertex
      */
     private List<ConfidentialityVariableCharacterisation> getVariableCharacterizations() {
-        Stream<VariableUsage> relevantVariableUsages = this.isCalling ?
-                super.getReferencedElement().getInputVariableUsages__CallAction().stream() :
-                super.getReferencedElement().getReturnVariableUsage__CallReturnAction().stream();
-        return relevantVariableUsages
-                .flatMap(it -> it.getVariableCharacterisation_VariableUsage().stream())
+        Stream<VariableUsage> relevantVariableUsages = this.isCalling ? super.getReferencedElement().getInputVariableUsages__CallAction()
+                .stream()
+                : super.getReferencedElement().getReturnVariableUsage__CallReturnAction()
+                        .stream();
+        return relevantVariableUsages.flatMap(it -> it.getVariableCharacterisation_VariableUsage()
+                .stream())
                 .filter(ConfidentialityVariableCharacterisation.class::isInstance)
                 .map(ConfidentialityVariableCharacterisation.class::cast)
                 .collect(Collectors.toList());
@@ -79,8 +81,12 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
     @Override
     public String toString() {
         String calling = isCalling ? "calling" : "returning";
-        return String.format("%s / %s (%s, %s))", this.getClass().getSimpleName(), calling, this.getReferencedElement().getEntityName(),
-                this.getReferencedElement().getId());
+        return String.format("%s / %s (%s, %s))", this.getClass()
+                .getSimpleName(), calling,
+                this.getReferencedElement()
+                        .getEntityName(),
+                this.getReferencedElement()
+                        .getId());
     }
 
     @Override

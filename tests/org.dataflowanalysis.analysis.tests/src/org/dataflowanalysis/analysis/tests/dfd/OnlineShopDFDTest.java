@@ -26,8 +26,12 @@ public class OnlineShopDFDTest {
         final var dataFlowDiagramPath = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram");
         final var dataDictionaryPath = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary");
 
-        this.analysis = new DFDDataFlowAnalysisBuilder().standalone().modelProjectName(TEST_MODEL_PROJECT_NAME).usePluginActivator(Activator.class)
-                .useDataFlowDiagram(dataFlowDiagramPath.toString()).useDataDictionary(dataDictionaryPath.toString()).build();
+        this.analysis = new DFDDataFlowAnalysisBuilder().standalone()
+                .modelProjectName(TEST_MODEL_PROJECT_NAME)
+                .usePluginActivator(Activator.class)
+                .useDataFlowDiagram(dataFlowDiagramPath.toString())
+                .useDataDictionary(dataDictionaryPath.toString())
+                .build();
 
         this.analysis.initializeAnalysis();
     }
@@ -35,13 +39,17 @@ public class OnlineShopDFDTest {
     @Test
     public void numberOfPartialFlowGraphs_equalsThree() {
         DFDFlowGraph flowGraph = analysis.findFlowGraph();
-        assertEquals(flowGraph.getPartialFlowGraphs().size(), 3);
+        assertEquals(flowGraph.getPartialFlowGraphs()
+                .size(), 3);
     }
 
     @Test
     public void checkSinks() {
         var flowGraph = analysis.findFlowGraph();
-        var entityNames = flowGraph.getPartialFlowGraphs().stream().map(pfg -> ((DFDVertex) pfg.getSink()).getName()).toList();
+        var entityNames = flowGraph.getPartialFlowGraphs()
+                .stream()
+                .map(pfg -> ((DFDVertex) pfg.getSink()).getName())
+                .toList();
 
         var expectedNames = List.of("User", "Database", "Database");
         assertIterableEquals(expectedNames, entityNames);
@@ -54,7 +62,8 @@ public class OnlineShopDFDTest {
 
         for (var partialFlowGraph : flowGraph.getPartialFlowGraphs()) {
             for (var vertex : partialFlowGraph.getVertices()) {
-                if (((DFDVertex) vertex).getName().equals("User")) {
+                if (((DFDVertex) vertex).getName()
+                        .equals("User")) {
                     var userVertexLabels = retrieveNodeLabels(vertex);
                     var expectedLabels = List.of("EU");
                     assertIterableEquals(expectedLabels, userVertexLabels);
@@ -70,7 +79,8 @@ public class OnlineShopDFDTest {
         flowGraph.evaluate();
         for (var partialFlowGraph : flowGraph.getPartialFlowGraphs()) {
             var sink = partialFlowGraph.getSink();
-            if (((DFDVertex) sink).getName().equals("User")) {
+            if (((DFDVertex) sink).getName()
+                    .equals("User")) {
                 var propagatedLabels = retrieveDataLabels(sink);
                 var expectedPropagatedLabels = List.of("Public");
                 assertIterableEquals(expectedPropagatedLabels, propagatedLabels);
@@ -114,11 +124,20 @@ public class OnlineShopDFDTest {
     }
 
     private List<String> retrieveNodeLabels(AbstractVertex<?> vertex) {
-        return vertex.getAllNodeCharacteristics().stream().map(DFDCharacteristicValue.class::cast).map(DFDCharacteristicValue::getValueName).toList();
+        return vertex.getAllNodeCharacteristics()
+                .stream()
+                .map(DFDCharacteristicValue.class::cast)
+                .map(DFDCharacteristicValue::getValueName)
+                .toList();
     }
 
     private List<String> retrieveDataLabels(AbstractVertex<?> vertex) {
-        return vertex.getAllDataFlowVariables().stream().map(DataFlowVariable::getAllCharacteristics).flatMap(List::stream)
-                .map(DFDCharacteristicValue.class::cast).map(DFDCharacteristicValue::getValueName).toList();
+        return vertex.getAllDataFlowVariables()
+                .stream()
+                .map(DataFlowVariable::getAllCharacteristics)
+                .flatMap(List::stream)
+                .map(DFDCharacteristicValue.class::cast)
+                .map(DFDCharacteristicValue::getValueName)
+                .toList();
     }
 }

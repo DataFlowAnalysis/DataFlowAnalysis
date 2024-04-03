@@ -1,9 +1,6 @@
 package org.dataflowanalysis.analysis.dfd;
 
 import java.util.Optional;
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.EnhancedPatternLayout;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
@@ -13,10 +10,6 @@ import org.eclipse.core.runtime.Plugin;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.eclipse.xtext.linking.impl.AbstractCleaningLinker;
-import org.eclipse.xtext.linking.impl.DefaultLinkingService;
-import org.eclipse.xtext.parser.antlr.AbstractInternalAntlrParser;
-import org.eclipse.xtext.resource.containers.ResourceSetBasedAllContainersStateProvider;
 import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
 import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder;
 
@@ -30,31 +23,32 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
     protected final Optional<Class<? extends Plugin>> modelProjectActivator;
     protected final String modelProjectName;
 
-  public DFDConfidentialityAnalysis(
-      DFDResourceProvider resourceProvider,
-      Optional<Class<? extends Plugin>> modelProjectActivator,
-      String modelProjectName) {
-    this.resourceProvider = resourceProvider;
-    this.modelProjectActivator = modelProjectActivator;
-    this.modelProjectName = modelProjectName;
-  }
+    public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider, Optional<Class<? extends Plugin>> modelProjectActivator,
+            String modelProjectName) {
+        this.resourceProvider = resourceProvider;
+        this.modelProjectActivator = modelProjectActivator;
+        this.modelProjectName = modelProjectName;
+    }
 
     @Override
     public void initializeAnalysis() {
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("dataflowdiagram", new XMIResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("datadictionary", new XMIResourceFactoryImpl());
+        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap()
+                .put("dataflowdiagram", new XMIResourceFactoryImpl());
+        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap()
+                .put("datadictionary", new XMIResourceFactoryImpl());
 
         EcorePlugin.ExtensionProcessor.process(null);
 
         try {
             super.setupLoggers();
-            var initializationBuilder = StandaloneInitializerBuilder.builder().registerProjectURI(DFDConfidentialityAnalysis.class,
-                    DFDConfidentialityAnalysis.PLUGIN_PATH);
+            var initializationBuilder = StandaloneInitializerBuilder.builder()
+                    .registerProjectURI(DFDConfidentialityAnalysis.class, DFDConfidentialityAnalysis.PLUGIN_PATH);
 
             this.modelProjectActivator
                     .ifPresent(projectActivator -> initializationBuilder.registerProjectURI(projectActivator, this.modelProjectName));
 
-            initializationBuilder.build().init();
+            initializationBuilder.build()
+                    .init();
 
             logger.info("Successfully initialized standalone environment for the data flow analysis.");
 

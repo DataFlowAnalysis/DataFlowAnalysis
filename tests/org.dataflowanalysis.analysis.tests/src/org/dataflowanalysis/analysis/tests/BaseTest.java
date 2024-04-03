@@ -24,11 +24,10 @@ public class BaseTest {
         final var allocationPath = Paths.get("models", "BranchingOnlineShop", "default.allocation");
         final var nodeCharacteristicsPath = Paths.get("models", "BranchingOnlineShop", "default.nodecharacteristics");
 
-    onlineShopAnalysis =
-        this.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
-    onlineShopAnalysis.initializeAnalysis();
-    onlineShopAnalysis.setLoggerLevel(Level.TRACE);
-  }
+        onlineShopAnalysis = this.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
+        onlineShopAnalysis.initializeAnalysis();
+        onlineShopAnalysis.setLoggerLevel(Level.TRACE);
+    }
 
     @BeforeAll
     public void initializeInternationalOnlineShopAnalysis() {
@@ -36,11 +35,10 @@ public class BaseTest {
         final var allocationPath = Paths.get("models", "InternationalOnlineShop", "default.allocation");
         final var nodeCharacteristicsPath = Paths.get("models", "InternationalOnlineShop", "default.nodecharacteristics");
 
-    internationalOnlineShopAnalysis =
-        this.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
-    internationalOnlineShopAnalysis.initializeAnalysis();
-    internationalOnlineShopAnalysis.setLoggerLevel(Level.TRACE);
-  }
+        internationalOnlineShopAnalysis = this.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
+        internationalOnlineShopAnalysis.initializeAnalysis();
+        internationalOnlineShopAnalysis.setLoggerLevel(Level.TRACE);
+    }
 
     @BeforeAll
     public void initializeTravelPlannerAnalysis() {
@@ -55,8 +53,12 @@ public class BaseTest {
 
     protected PCMDataFlowConfidentialityAnalysis initializeAnalysis(Path usagePath, Path allocationPath, Path nodePath) {
         PCMDataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
-                .modelProjectName(TEST_MODEL_PROJECT_NAME).usePluginActivator(Activator.class).useUsageModel(usagePath.toString())
-                .useAllocationModel(allocationPath.toString()).useNodeCharacteristicsModel(nodePath.toString()).build();
+                .modelProjectName(TEST_MODEL_PROJECT_NAME)
+                .usePluginActivator(Activator.class)
+                .useUsageModel(usagePath.toString())
+                .useAllocationModel(allocationPath.toString())
+                .useNodeCharacteristicsModel(nodePath.toString())
+                .build();
         analysis.initializeAnalysis();
         return analysis;
     }

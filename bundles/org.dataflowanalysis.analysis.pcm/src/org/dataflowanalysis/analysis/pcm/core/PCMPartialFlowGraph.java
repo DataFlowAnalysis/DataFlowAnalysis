@@ -25,7 +25,8 @@ public class PCMPartialFlowGraph extends AbstractPartialFlowGraph {
 
     @Override
     public AbstractPartialFlowGraph evaluate() {
-        this.getSink().evaluateDataFlow();
+        this.getSink()
+                .evaluateDataFlow();
         return this;
     }
 

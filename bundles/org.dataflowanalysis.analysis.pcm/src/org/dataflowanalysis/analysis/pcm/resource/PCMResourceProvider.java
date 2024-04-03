@@ -30,12 +30,15 @@ public abstract class PCMResourceProvider extends ResourceProvider {
         if (this.getUsageModel() == null || this.getAllocation() == null) {
             return false;
         }
-        if (this.lookupToplevelElement(RepositoryPackage.eINSTANCE.getRepository()).isEmpty()) {
+        if (this.lookupToplevelElement(RepositoryPackage.eINSTANCE.getRepository())
+                .isEmpty()) {
             return false;
         }
-        if (this.lookupToplevelElement(SystemPackage.eINSTANCE.getSystem()).isEmpty()) {
+        if (this.lookupToplevelElement(SystemPackage.eINSTANCE.getSystem())
+                .isEmpty()) {
             return false;
         }
-        return !this.lookupToplevelElement(ResourceenvironmentPackage.eINSTANCE.getResourceEnvironment()).isEmpty();
+        return !this.lookupToplevelElement(ResourceenvironmentPackage.eINSTANCE.getResourceEnvironment())
+                .isEmpty();
     }
 }

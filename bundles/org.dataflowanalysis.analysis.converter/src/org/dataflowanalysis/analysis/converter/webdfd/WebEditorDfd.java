@@ -22,13 +22,10 @@ public record WebEditorDfd(Model model, List<WebEditorLabelType> labelTypes) {
 
         for (Child child : children) {
             if (child.labels() != null) {
-                child.labels()
-                        .sort(Comparator.comparing(WebEditorLabel::labelTypeId)
-                                .thenComparing(WebEditorLabel::labelTypeValueId));
+                child.labels().sort(Comparator.comparing(WebEditorLabel::labelTypeId).thenComparing(WebEditorLabel::labelTypeValueId));
             }
             if (child.ports() != null) {
-                child.ports()
-                        .sort(Comparator.comparing(Port::id));
+                child.ports().sort(Comparator.comparing(Port::id));
             }
         }
     }

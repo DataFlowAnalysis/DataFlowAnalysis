@@ -23,9 +23,6 @@ public record InformationFlow(String sender,
         @JsonProperty("tagged_values") @JsonDeserialize(using = TaggedValuesDeserializer.class) Map<String, List<String>> taggedValues) {
 
     public InformationFlow {
-        stereotypes = stereotypes.stream()
-                .map(stereotype -> stereotype.trim()
-                        .replaceAll("[^a-zA-Z0-9]", ""))
-                .collect(Collectors.toList());
+        stereotypes = stereotypes.stream().map(stereotype -> stereotype.trim().replaceAll("[^a-zA-Z0-9]", "")).collect(Collectors.toList());
     }
 }

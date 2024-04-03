@@ -123,8 +123,7 @@ public class MicroSecEndConverter extends Converter {
 
         LabelType stereotype = ddFactory.createLabelType();
         stereotype.setEntityName("Stereotype");
-        dd.getLabelTypes()
-                .add(stereotype);
+        dd.getLabelTypes().add(stereotype);
         labelTypeMap.put(stereotype.getEntityName(), stereotype);
         labelMap.put(stereotype.getEntityName(), new HashMap<>());
 
@@ -144,8 +143,7 @@ public class MicroSecEndConverter extends Converter {
             var process = dfdFactory.createProcess();
             process.setEntityName(service.name());
 
-            dfd.getNodes()
-                    .add(process);
+            dfd.getNodes().add(process);
             nodesMap.put(service.name(), process);
             nodeToLabelNamesMap.put(process, service.stereotypes());
             nodeToLabelTypeNamesMap.put(process, service.taggedValues());
@@ -157,8 +155,7 @@ public class MicroSecEndConverter extends Converter {
             var external = dfdFactory.createExternal();
             external.setEntityName(ee.name());
 
-            dfd.getNodes()
-                    .add(external);
+            dfd.getNodes().add(external);
             nodesMap.put(ee.name(), external);
             nodeToLabelNamesMap.put(external, ee.stereotypes());
             nodeToLabelTypeNamesMap.put(external, ee.taggedValues());
@@ -172,20 +169,15 @@ public class MicroSecEndConverter extends Converter {
 
             var assignment = ddFactory.createAssignment();
 
-            assignment.getOutputLabels()
-                    .addAll(createLabels(nodeToLabelNamesMap.get(node), dd, stereotype));
+            assignment.getOutputLabels().addAll(createLabels(nodeToLabelNamesMap.get(node), dd, stereotype));
 
-            behaviour.getAssignment()
-                    .add(assignment);
+            behaviour.getAssignment().add(assignment);
 
-            node.getProperties()
-                    .addAll(assignment.getOutputLabels());
+            node.getProperties().addAll(assignment.getOutputLabels());
 
-            node.getProperties()
-                    .addAll(createTaggedValueLabels(nodeToLabelTypeNamesMap.get(node), dd));
+            node.getProperties().addAll(createTaggedValueLabels(nodeToLabelTypeNamesMap.get(node), dd));
 
-            dd.getBehaviour()
-                    .add(behaviour);
+            dd.getBehaviour().add(behaviour);
         }
     }
 
@@ -201,17 +193,12 @@ public class MicroSecEndConverter extends Converter {
 
             var inPin = ddFactory.createPin();
             var outPin = ddFactory.createPin();
-            source.getBehaviour()
-                    .getOutPin()
-                    .add(outPin);
-            dest.getBehaviour()
-                    .getInPin()
-                    .add(inPin);
+            source.getBehaviour().getOutPin().add(outPin);
+            dest.getBehaviour().getInPin().add(inPin);
 
             flow.setDestinationPin(inPin);
             flow.setSourcePin(outPin);
-            dfd.getFlows()
-                    .add(flow);
+            dfd.getFlows().add(flow);
 
             List<Label> flowLabels = new ArrayList<>();
             flowLabels.addAll(createLabels(iflow.stereotypes(), dd, stereotype));
@@ -223,29 +210,22 @@ public class MicroSecEndConverter extends Converter {
     private void createNodeAssignments() {
         for (Node node : nodesMap.values()) {
             var behaviour = node.getBehaviour();
-            Assignment template = (Assignment) behaviour.getAssignment()
-                    .get(0);
-            if (!behaviour.getOutPin()
-                    .isEmpty()) {
+            Assignment template = (Assignment) behaviour.getAssignment().get(0);
+            if (!behaviour.getOutPin().isEmpty()) {
                 for (Pin outPin : behaviour.getOutPin()) {
                     Assignment assignment = ddFactory.createAssignment();
 
-                    assignment.getInputPins()
-                            .addAll(behaviour.getInPin());
+                    assignment.getInputPins().addAll(behaviour.getInPin());
                     assignment.setOutputPin(outPin);
 
-                    assignment.getOutputLabels()
-                            .addAll(template.getOutputLabels());
-                    assignment.getOutputLabels()
-                            .addAll(outpinToFlowLabelMap.get(outPin));
+                    assignment.getOutputLabels().addAll(template.getOutputLabels());
+                    assignment.getOutputLabels().addAll(outpinToFlowLabelMap.get(outPin));
                     assignment.setTerm(ddFactory.createTRUE());
 
-                    behaviour.getAssignment()
-                            .add(assignment);
+                    behaviour.getAssignment().add(assignment);
                 }
 
-                behaviour.getAssignment()
-                        .remove(template);
+                behaviour.getAssignment().remove(template);
             }
         }
     }
@@ -256,10 +236,8 @@ public class MicroSecEndConverter extends Converter {
             for (Pin pin : behaviour.getOutPin()) {
                 var assignment = ddFactory.createForwardingAssignment();
                 assignment.setOutputPin(pin);
-                assignment.getInputPins()
-                        .addAll(behaviour.getInPin());
-                behaviour.getAssignment()
-                        .add(assignment);
+                assignment.getInputPins().addAll(behaviour.getInPin());
+                behaviour.getAssignment().add(assignment);
             }
         }
     }
@@ -268,18 +246,14 @@ public class MicroSecEndConverter extends Converter {
         List<Label> labels = new ArrayList<>();
         var labelTypeName = labelType.getEntityName();
         for (String labelName : labelNames) {
-            if (labelMap.get(labelTypeName)
-                    .containsKey(labelName)) {
-                labels.add(labelMap.get(labelTypeName)
-                        .get(labelName));
+            if (labelMap.get(labelTypeName).containsKey(labelName)) {
+                labels.add(labelMap.get(labelTypeName).get(labelName));
             } else {
                 Label label = ddFactory.createLabel();
                 label.setEntityName(labelName);
-                labelType.getLabel()
-                        .add(label);
+                labelType.getLabel().add(label);
                 labels.add(label);
-                labelMap.get(labelTypeName)
-                        .put(labelName, label);
+                labelMap.get(labelTypeName).put(labelName, label);
             }
         }
         return labels;
@@ -295,8 +269,7 @@ public class MicroSecEndConverter extends Converter {
             } else {
                 labelType = ddFactory.createLabelType();
                 labelType.setEntityName(labelTypeName);
-                dd.getLabelTypes()
-                        .add(labelType);
+                dd.getLabelTypes().add(labelType);
                 labelTypeMap.put(labelTypeName, labelType);
                 labelMap.put(labelTypeName, new HashMap<>());
             }

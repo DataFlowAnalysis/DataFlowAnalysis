@@ -9,25 +9,17 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import java.util.stream.Collectors;
-
 
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramConverter;
 import org.dataflowanalysis.analysis.converter.PCMConverter;
-
-import org.dataflowanalysis.analysis.core.DataFlowVariable;
-import org.dataflowanalysis.analysis.core.FlowGraph;
-import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
-import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.core.CharacteristicValue;
-
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
-
+import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.testmodels.Activator;
@@ -38,6 +30,7 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
 
 public class PCMTest {
@@ -55,6 +48,10 @@ public class PCMTest {
     public void manualPCMToDfd() throws StandaloneInitializationException {
         String modelLocation = "org.dataflowanalysis.analysis.testmodels";
 
+        String inputModel = "InternationalOnlineShop";
+        String inputFile = "default";
+        String dataflowdiagram = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram").toString();
+        String datadictionary = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary").toString();
         testSpecificModel(inputModel, inputFile, modelLocation, null,
                 new DataFlowDiagramConverter().loadDFD(modelLocation, dataflowdiagram, datadictionary, Activator.class));
 
@@ -123,8 +120,8 @@ public class PCMTest {
 
         assertEquals(flowNames.size(), dfd.getFlows().size());
 
-        //When transforming PCM to DFD, we represent all outputs through forwarding assignments. 
-        //This approach omits certain behaviors and labels that are not essential for visual representation.
+        // When transforming PCM to DFD, we represent all outputs through forwarding assignments.
+        // This approach omits certain behaviors and labels that are not essential for visual representation.
         for (var behavior : dd.getBehaviour()) {
             for (var assignment : behavior.getAssignment()) {
                 assertTrue(assignment instanceof ForwardingAssignment);
@@ -134,9 +131,9 @@ public class PCMTest {
         checkLabels(dd, flowGraph);
     }
 
-    private void checkLabels(DataDictionary dd, FlowGraph flowGraph) {
+    private void checkLabels(DataDictionary dd, FlowGraphCollection flowGraph) {
         Map<String, CharacteristicValue> chars = new HashMap<>();
-        for (var pfg : flowGraph.getPartialFlowGraphs()) {
+        for (var pfg : flowGraph.getTransposeFlowGraphs()) {
             for (var vertex : pfg.getVertices()) {
                 for (var nodeChar : vertex.getAllNodeCharacteristics()) {
                     chars.putIfAbsent(nodeChar.getValueId(), nodeChar);

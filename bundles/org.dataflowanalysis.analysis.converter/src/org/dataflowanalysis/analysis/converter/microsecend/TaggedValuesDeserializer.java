@@ -27,9 +27,7 @@ public class TaggedValuesDeserializer extends JsonDeserializer<Map<String, List<
         ObjectMapper objectMapper = new ObjectMapper();
 
         while (parser.nextToken() != JsonToken.END_OBJECT) {
-            String fieldName = parser.getCurrentName()
-                    .trim()
-                    .replaceAll("[^a-zA-Z0-9]", "");
+            String fieldName = parser.getCurrentName().trim().replaceAll("[^a-zA-Z0-9]", "");
             parser.nextToken();
 
             if (parser.getCurrentToken() == JsonToken.START_ARRAY) {
@@ -37,8 +35,7 @@ public class TaggedValuesDeserializer extends JsonDeserializer<Map<String, List<
                 });
                 List<String> sanitizedValues = new ArrayList<>();
                 for (String value : values) {
-                    var sanitizedValue = value.trim()
-                            .replaceAll("[^a-zA-Z0-9]", "");
+                    var sanitizedValue = value.trim().replaceAll("[^a-zA-Z0-9]", "");
                     if (!sanitizedValue.equals("")) {
                         sanitizedValues.add(sanitizedValue);
                     }
@@ -54,7 +51,6 @@ public class TaggedValuesDeserializer extends JsonDeserializer<Map<String, List<
     }
 
     private String getValueAsString(JsonNode node) {
-        return (node.isTextual() ? node.asText() : node.toString()).trim()
-                .replaceAll("[^a-zA-Z0-9]", "");
+        return (node.isTextual() ? node.asText() : node.toString()).trim().replaceAll("[^a-zA-Z0-9]", "");
     }
 }

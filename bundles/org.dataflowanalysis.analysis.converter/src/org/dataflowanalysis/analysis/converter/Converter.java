@@ -36,10 +36,8 @@ public abstract class Converter {
         Resource dfdResource = createAndAddResource(truncatedOutputFile + ".dataflowdiagram", new String[] {"dataflowdiagram"}, resourceSet);
         Resource ddResource = createAndAddResource(truncatedOutputFile + ".datadictionary", new String[] {"datadictionary"}, resourceSet);
 
-        dfdResource.getContents()
-                .add(complete.dataFlowDiagram());
-        ddResource.getContents()
-                .add(complete.dataDictionary());
+        dfdResource.getContents().add(complete.dataFlowDiagram());
+        ddResource.getContents().add(complete.dataDictionary());
 
         saveResource(dfdResource);
         saveResource(ddResource);
@@ -47,9 +45,7 @@ public abstract class Converter {
 
     private Resource createAndAddResource(String outputFile, String[] fileextensions, ResourceSet resourceSet) {
         for (String fileextension : fileextensions) {
-            resourceSet.getResourceFactoryRegistry()
-                    .getExtensionToFactoryMap()
-                    .put(fileextension, new XMLResourceFactoryImpl());
+            resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(fileextension, new XMLResourceFactoryImpl());
         }
         URI uri = URI.createFileURI(outputFile);
         System.out.println(uri);

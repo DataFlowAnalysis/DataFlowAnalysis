@@ -5,8 +5,7 @@ import java.nio.file.Paths;
 import org.apache.log4j.Logger;
 
 public class ConverterTest {
-    protected static final String packagePath = Paths.get("..", "org.dataflowanalysis.analysis.testmodels", "models", "ConverterTest")
-            .toString();
+    protected static final String packagePath = Paths.get("..", "org.dataflowanalysis.analysis.testmodels", "models", "ConverterTest").toString();
     private final Logger logger = Logger.getLogger(ConverterTest.class);
 
     protected void cleanup(String path) {

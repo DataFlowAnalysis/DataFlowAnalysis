@@ -29,19 +29,23 @@ A basic analysis can be executed with the following example:
 
 ```java
 public static void main(String[] args) {
-    PCMDataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone().modelProjectName("<PROJECT_NAME>")
-        .usePluginActivator(Activator.class).useUsageModel("<USAGE_MODEL_PATH>").useAllocationModel("<ALLOCATION_MODEL_PATH>")
-        .useNodeCharacteristicsModel("<NODE_MODEL_PATH>").build();
+    PCMDataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
+            .modelProjectName("<PROJECT_NAME>")
+            .usePluginActivator(Activator.class)
+            .useUsageModel("<USAGE_MODEL_PATH>")
+            .useAllocationModel("<ALLOCATION_MODEL_PATH>")
+            .useNodeCharacteristicsModel("<NODE_MODEL_PATH>")
+            .build();
 
     analysis.setLoggerLevel(Level.TRACE); // Set desired logger level. Level.TRACE provides additional propagation
     // Information
     analysis.initializeAnalysis();
 
-    PCMFlowGraph flowGraph = analysis.findFlowGraph();
+    PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
     flowGraph.evaluate();
 
-    for (AbstractTransposedFlowGraph actionSequence : flowGraph.getTransposedFlowGraphs()) {
-        List<? extends AbstractVertex<?>> violations = analysis.queryDataFlow(actionSequence, it -> false // Constraint goes here, return true, if
+    for (AbstractTransposeFlowGraph transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
+        List<? extends AbstractVertex<?>> violations = analysis.queryDataFlow(transposeFlowGraph, it -> false // Constraint goes here, return true, if
                                                                                                           // constraint is violated
         );
     }

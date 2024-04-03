@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.log4j.Level;
-import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
+import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraphCollection;
 import org.dataflowanalysis.analysis.tests.BaseTest;
 import org.junit.jupiter.api.Test;
 
@@ -20,14 +20,14 @@ public class LabelPropagationTest extends BaseTest {
     @Test
     public void travelPlannerCharacteristicsPresentTest() {
         travelPlannerAnalysis.setLoggerLevel(Level.TRACE);
-        PCMFlowGraph flowGraph = travelPlannerAnalysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = travelPlannerAnalysis.findFlowGraphs();
         flowGraph.evaluate();
 
         for (CharacteristicsData characteristicData : LabelPropagationCharacteristics.travelPlannerCharacteristics) {
-            assertTrue(flowGraph.getPartialFlowGraphs()
+            assertTrue(flowGraph.getTransposeFlowGraphs()
                     .size() >= characteristicData.sequenceIndex());
 
-            assertCharacteristicPresent(flowGraph.getPartialFlowGraphs()
+            assertCharacteristicPresent(flowGraph.getTransposeFlowGraphs()
                     .get(characteristicData.sequenceIndex()), characteristicData.elementIndex(), characteristicData.variable(),
                     characteristicData.characteristicType(), characteristicData.characteristicValue());
         }
@@ -41,14 +41,14 @@ public class LabelPropagationTest extends BaseTest {
     @Test
     public void internationalOnlineShopCharacteristicsPresentTest() {
         internationalOnlineShopAnalysis.setLoggerLevel(Level.TRACE);
-        PCMFlowGraph flowGraph = internationalOnlineShopAnalysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = internationalOnlineShopAnalysis.findFlowGraphs();
         flowGraph.evaluate();
 
         for (CharacteristicsData characteristicData : LabelPropagationCharacteristics.internationalOnlineShopCharacteristics) {
-            assertTrue(flowGraph.getPartialFlowGraphs()
+            assertTrue(flowGraph.getTransposeFlowGraphs()
                     .size() >= characteristicData.sequenceIndex());
 
-            assertCharacteristicPresent(flowGraph.getPartialFlowGraphs()
+            assertCharacteristicPresent(flowGraph.getTransposeFlowGraphs()
                     .get(characteristicData.sequenceIndex()), characteristicData.elementIndex(), characteristicData.variable(),
                     characteristicData.characteristicType(), characteristicData.characteristicValue());
         }
@@ -62,14 +62,14 @@ public class LabelPropagationTest extends BaseTest {
     @Test
     public void onlineShopCharacteristicsPresentTest() {
         onlineShopAnalysis.setLoggerLevel(Level.TRACE);
-        PCMFlowGraph flowGraph = onlineShopAnalysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = onlineShopAnalysis.findFlowGraphs();
         flowGraph.evaluate();
 
         for (CharacteristicsData characteristicData : LabelPropagationCharacteristics.onlineShopCharacteristics) {
-            assertTrue(flowGraph.getPartialFlowGraphs()
+            assertTrue(flowGraph.getTransposeFlowGraphs()
                     .size() >= characteristicData.sequenceIndex());
 
-            assertCharacteristicPresent(flowGraph.getPartialFlowGraphs()
+            assertCharacteristicPresent(flowGraph.getTransposeFlowGraphs()
                     .get(characteristicData.sequenceIndex()), characteristicData.elementIndex(), characteristicData.variable(),
                     characteristicData.characteristicType(), characteristicData.characteristicValue());
         }
@@ -82,17 +82,17 @@ public class LabelPropagationTest extends BaseTest {
      */
     @Test
     public void travelPlannerCharacteristicsAbsentTest() {
-        PCMFlowGraph flowGraph = travelPlannerAnalysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = travelPlannerAnalysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        assertTrue(flowGraph.getPartialFlowGraphs()
+        assertTrue(flowGraph.getTransposeFlowGraphs()
                 .size() >= 2);
 
-        assertCharacteristicAbsent(flowGraph.getPartialFlowGraphs()
+        assertCharacteristicAbsent(flowGraph.getTransposeFlowGraphs()
                 .get(0), 2, "ccd", "AssignedRoles", "User");
-        assertCharacteristicAbsent(flowGraph.getPartialFlowGraphs()
+        assertCharacteristicAbsent(flowGraph.getTransposeFlowGraphs()
                 .get(0), 6, "RETURN", "GrantedRoles", "User");
-        assertCharacteristicAbsent(flowGraph.getPartialFlowGraphs()
+        assertCharacteristicAbsent(flowGraph.getTransposeFlowGraphs()
                 .get(0), 6, "RETURN", "GrantedRoles", "Airline");
     }
 
@@ -103,15 +103,15 @@ public class LabelPropagationTest extends BaseTest {
      */
     @Test
     public void internationalOnlineShopCharacteristicsAbsentTest() {
-        PCMFlowGraph flowGraph = internationalOnlineShopAnalysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = internationalOnlineShopAnalysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        assertFalse(flowGraph.getPartialFlowGraphs()
+        assertFalse(flowGraph.getTransposeFlowGraphs()
                 .isEmpty());
 
-        assertCharacteristicAbsent(flowGraph.getPartialFlowGraphs()
+        assertCharacteristicAbsent(flowGraph.getTransposeFlowGraphs()
                 .get(0), 0, "inventory", "DataSensitivity", "Public");
-        assertCharacteristicAbsent(flowGraph.getPartialFlowGraphs()
+        assertCharacteristicAbsent(flowGraph.getTransposeFlowGraphs()
                 .get(0), 1, "RETURN", "DataSensitivity", "Public");
     }
 
@@ -122,13 +122,13 @@ public class LabelPropagationTest extends BaseTest {
      */
     @Test
     public void onlineShopCharacteristicsAbsentTest() {
-        PCMFlowGraph flowGraph = onlineShopAnalysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = onlineShopAnalysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        assertFalse(flowGraph.getPartialFlowGraphs()
+        assertFalse(flowGraph.getTransposeFlowGraphs()
                 .isEmpty());
 
-        assertCharacteristicAbsent(flowGraph.getPartialFlowGraphs()
+        assertCharacteristicAbsent(flowGraph.getTransposeFlowGraphs()
                 .get(1), 0, "RETURN", "DataSensitivity", "Public");
     }
 }

@@ -11,7 +11,7 @@ import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.dfd.core.DFDCharacteristicValue;
-import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraph;
+import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.core.DFDVertex;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,18 +37,18 @@ public class OnlineShopDFDTest {
     }
 
     @Test
-    public void numberOfPartialFlowGraphs_equalsThree() {
-        DFDFlowGraph flowGraph = analysis.findFlowGraph();
-        assertEquals(flowGraph.getPartialFlowGraphs()
+    public void numberOfTransposeFlowGraphs_equalsThree() {
+        DFDFlowGraphCollection flowGraph = analysis.findFlowGraphs();
+        assertEquals(flowGraph.getTransposeFlowGraphs()
                 .size(), 3);
     }
 
     @Test
     public void checkSinks() {
-        var flowGraph = analysis.findFlowGraph();
-        var entityNames = flowGraph.getPartialFlowGraphs()
+        var flowGraph = analysis.findFlowGraphs();
+        var entityNames = flowGraph.getTransposeFlowGraphs()
                 .stream()
-                .map(pfg -> ((DFDVertex) pfg.getSink()).getName())
+                .map(it -> ((DFDVertex) it.getSink()).getName())
                 .toList();
 
         var expectedNames = List.of("User", "Database", "Database");
@@ -57,11 +57,11 @@ public class OnlineShopDFDTest {
 
     @Test
     public void testNodeLabels() {
-        var flowGraph = analysis.findFlowGraph();
+        var flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        for (var partialFlowGraph : flowGraph.getPartialFlowGraphs()) {
-            for (var vertex : partialFlowGraph.getVertices()) {
+        for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
+            for (var vertex : transposeFlowGraph.getVertices()) {
                 if (((DFDVertex) vertex).getName()
                         .equals("User")) {
                     var userVertexLabels = retrieveNodeLabels(vertex);
@@ -75,10 +75,10 @@ public class OnlineShopDFDTest {
 
     @Test
     public void testDataLabelPropagation() {
-        var flowGraph = analysis.findFlowGraph();
+        var flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
-        for (var partialFlowGraph : flowGraph.getPartialFlowGraphs()) {
-            var sink = partialFlowGraph.getSink();
+        for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
+            var sink = transposeFlowGraph.getSink();
             if (((DFDVertex) sink).getName()
                     .equals("User")) {
                 var propagatedLabels = retrieveDataLabels(sink);
@@ -91,14 +91,14 @@ public class OnlineShopDFDTest {
 
     @Test
     public void testRealisticConstraints() {
-        var flowGraph = analysis.findFlowGraph();
+        var flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
         // Constraint 1: Personal data flowing to a node that is deployed outside the EU
         // Should find 1 violation
         int violationsFound = 0;
-        for (var partialFlowGraph : flowGraph.getPartialFlowGraphs()) {
-            var violations = analysis.queryDataFlow(partialFlowGraph, it -> {
+        for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
+            var violations = analysis.queryDataFlow(transposeFlowGraph, it -> {
                 var nodeLabels = retrieveNodeLabels(it);
                 var dataLabels = retrieveDataLabels(it);
 
@@ -111,8 +111,8 @@ public class OnlineShopDFDTest {
 
         // Constraint 2: Personal data in a node deployed outside the EU w/o encryption
         // Should find 0 violations
-        for (var partialFlowGraph : flowGraph.getPartialFlowGraphs()) {
-            var violations = analysis.queryDataFlow(partialFlowGraph, it -> {
+        for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
+            var violations = analysis.queryDataFlow(transposeFlowGraph, it -> {
                 var nodeLabels = retrieveNodeLabels(it);
                 var dataLabels = retrieveDataLabels(it);
 

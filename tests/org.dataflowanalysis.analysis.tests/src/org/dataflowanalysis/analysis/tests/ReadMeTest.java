@@ -2,11 +2,11 @@ package org.dataflowanalysis.analysis.tests;
 
 import java.util.List;
 import org.apache.log4j.Level;
-import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
-import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
+import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraphCollection;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.junit.jupiter.api.Test;
 
@@ -32,12 +32,13 @@ public class ReadMeTest extends BaseTest {
         // Information
         analysis.initializeAnalysis();
 
-        PCMFlowGraph flowGraph = analysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        for (AbstractPartialFlowGraph actionSequence : flowGraph.getPartialFlowGraphs()) {
-            List<? extends AbstractVertex<?>> violations = analysis.queryDataFlow(actionSequence, it -> false // Constraint goes here, return true, if
-                                                                                                              // constraint is violated
+        for (AbstractTransposeFlowGraph transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
+            List<? extends AbstractVertex<?>> violations = analysis.queryDataFlow(transposeFlowGraph, it -> false // Constraint goes here, return
+                                                                                                                  // true, if
+            // constraint is violated
             );
         }
     }
@@ -52,10 +53,10 @@ public class ReadMeTest extends BaseTest {
         PCMDataFlowConfidentialityAnalysis analysis = travelPlannerAnalysis;
 
         // Code snippet from README starts here
-        PCMFlowGraph flowGraph = analysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        for (AbstractPartialFlowGraph actionSequence : flowGraph.getPartialFlowGraphs()) {
+        for (AbstractTransposeFlowGraph actionSequence : flowGraph.getTransposeFlowGraphs()) {
             List<? extends AbstractVertex<?>> violations = analysis.queryDataFlow(actionSequence, it -> false // Constraint goes here, return true, if
                                                                                                               // constraint is violated
             );

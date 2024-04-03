@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
-import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraph;
+import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.core.DFDVertex;
 import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,18 +33,18 @@ public class BaseTest {
 
     private List<? extends AbstractVertex<?>> getViolationsForConstraint(Predicate<? super AbstractVertex<?>> constraint) {
         this.analysis.initializeAnalysis();
-        DFDFlowGraph flowGraph = this.analysis.findFlowGraph();
+        DFDFlowGraphCollection flowGraph = this.analysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        return analysis.queryDataFlow(flowGraph.getPartialFlowGraphs()
+        return analysis.queryDataFlow(flowGraph.getTransposeFlowGraphs()
                 .get(0), constraint);
     }
 
     @Test
-    public void numberOfPartialFlowGraphs_equalsFour() {
+    public void numberOfTransposeFlowGraphs_equalsFour() {
         this.analysis.initializeAnalysis();
-        DFDFlowGraph flowGraph = analysis.findFlowGraph();
-        assertEquals(flowGraph.getPartialFlowGraphs()
+        DFDFlowGraphCollection flowGraph = analysis.findFlowGraphs();
+        assertEquals(flowGraph.getTransposeFlowGraphs()
                 .size(), 4);
     }
 
@@ -65,11 +65,11 @@ public class BaseTest {
     @Test
     public void test_unification() {
         this.analysis.initializeAnalysis();
-        DFDFlowGraph flowGraph = analysis.findFlowGraph();
+        DFDFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        for (var pfg : flowGraph.getPartialFlowGraphs()) {
-            assertTrue(pfg.getVertices()
+        for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
+            assertTrue(transposeFlowGraph.getVertices()
                     .stream()
                     .filter(v -> ((DFDVertex) v).getName()
                             .equals("In"))
@@ -80,11 +80,11 @@ public class BaseTest {
     @Test
     public void test_labelPropagation() {
         this.analysis.initializeAnalysis();
-        DFDFlowGraph flowGraph = analysis.findFlowGraph();
+        DFDFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        for (var pfg : flowGraph.getPartialFlowGraphs()) {
-            for (var vertex : pfg.getVertices()) {
+        for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
+            for (var vertex : transposeFlowGraph.getVertices()) {
                 assertTrue((!vertex.getAllIncomingDataFlowVariables()
                         .isEmpty())
                         || (!vertex.getAllOutgoingDataFlowVariables()

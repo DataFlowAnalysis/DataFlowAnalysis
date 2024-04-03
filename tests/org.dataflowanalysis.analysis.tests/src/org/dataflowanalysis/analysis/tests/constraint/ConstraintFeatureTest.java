@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
+import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraphCollection;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
 import org.junit.jupiter.api.DisplayName;
@@ -27,11 +27,11 @@ public class ConstraintFeatureTest extends ConstraintTest {
         var nodeCharacteristicsPath = Paths.get("models", "NodeCharacteristicsTest", "default.nodecharacteristics");
         PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
 
-        PCMFlowGraph flowGraph = analysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
         logger.setLevel(Level.TRACE);
-        var results = analysis.queryDataFlow(flowGraph.getPartialFlowGraphs()
+        var results = analysis.queryDataFlow(flowGraph.getTransposeFlowGraphs()
                 .get(0), node -> {
                     printNodeInformation(node);
                     if (node instanceof UserPCMVertex<?>) {
@@ -57,11 +57,11 @@ public class ConstraintFeatureTest extends ConstraintTest {
         var nodeCharacteristicsPath = Paths.get("models", "CompositeCharacteristicsTest", "default.nodecharacteristics");
         PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
 
-        PCMFlowGraph flowGraph = analysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
         logger.setLevel(Level.TRACE);
-        var results = analysis.queryDataFlow(flowGraph.getPartialFlowGraphs()
+        var results = analysis.queryDataFlow(flowGraph.getTransposeFlowGraphs()
                 .get(0), node -> {
                     printNodeInformation(node);
                     if (node instanceof UserPCMVertex<?>) {
@@ -87,11 +87,11 @@ public class ConstraintFeatureTest extends ConstraintTest {
         var nodeCharacteristicsPath = Paths.get("models", "IgnoredNodeTest", "default.nodecharacteristics");
         PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
 
-        PCMFlowGraph flowGraph = analysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
         logger.setLevel(Level.TRACE);
-        var results = analysis.queryDataFlow(flowGraph.getPartialFlowGraphs()
+        var results = analysis.queryDataFlow(flowGraph.getTransposeFlowGraphs()
                 .get(0), node -> {
                     printNodeInformation(node);
                     if (node instanceof CallingUserPCMVertex && ((CallingUserPCMVertex) node).isReturning()) {

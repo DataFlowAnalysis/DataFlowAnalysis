@@ -47,7 +47,9 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
         List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(nodeCharacteristics, variableCharacterisations,
                 incomingDataFlowVariables);
         if (this.isReturning()) {
-            outgoingDataFlowVariables = outgoingDataFlowVariables.stream().filter(it -> !it.variableName().equals("RETURN"))
+            outgoingDataFlowVariables = outgoingDataFlowVariables.stream()
+                    .filter(it -> !it.variableName()
+                            .equals("RETURN"))
                     .collect(Collectors.toList());
         }
         this.setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);

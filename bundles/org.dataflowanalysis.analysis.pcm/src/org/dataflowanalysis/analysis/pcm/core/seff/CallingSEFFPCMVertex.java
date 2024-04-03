@@ -53,7 +53,9 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
                 incomingDataFlowVariables);
         if (this.isReturning()) {
 
-            outgoingDataFlowVariables = outgoingDataFlowVariables.stream().filter(it -> !it.variableName().equals("RETURN"))
+            outgoingDataFlowVariables = outgoingDataFlowVariables.stream()
+                    .filter(it -> !it.variableName()
+                            .equals("RETURN"))
                     .collect(Collectors.toList());
         }
         this.setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);

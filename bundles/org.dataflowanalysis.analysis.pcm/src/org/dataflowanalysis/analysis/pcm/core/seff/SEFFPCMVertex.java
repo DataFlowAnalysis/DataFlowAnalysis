@@ -59,7 +59,9 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
             return;
         } else if (this.getReferencedElement() instanceof StopAction) {
             List<DataFlowVariable> outgoingDataFlowVariables = incomingDataFlowVariables.parallelStream()
-                    .filter(it -> it.variableName().equals("RETURN")).collect(Collectors.toList());
+                    .filter(it -> it.variableName()
+                            .equals("RETURN"))
+                    .collect(Collectors.toList());
             this.setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
             return;
         } else if (!(this.getReferencedElement() instanceof SetVariableAction)) {

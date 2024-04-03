@@ -72,9 +72,13 @@ public class UserPCMVertex<T extends AbstractUserAction> extends AbstractPCMVert
     }
 
     public String getEntityNameOfScenarioBehaviour() {
-        if (this.getReferencedElement().getScenarioBehaviour_AbstractUserAction().getUsageScenario_SenarioBehaviour() != null) {
-            return "usage: %s".formatted(
-                    this.getReferencedElement().getScenarioBehaviour_AbstractUserAction().getUsageScenario_SenarioBehaviour().getEntityName());
+        if (this.getReferencedElement()
+                .getScenarioBehaviour_AbstractUserAction()
+                .getUsageScenario_SenarioBehaviour() != null) {
+            return "usage: %s".formatted(this.getReferencedElement()
+                    .getScenarioBehaviour_AbstractUserAction()
+                    .getUsageScenario_SenarioBehaviour()
+                    .getEntityName());
         } else {
             return "branch: %s".formatted(this.getReferencedElement()
                     .getScenarioBehaviour_AbstractUserAction()

@@ -50,13 +50,15 @@ public class BaseTest {
 
     @Test
     public void noVertexCharacteristics_returnsNoViolation() {
-        var results = this.getViolationsForConstraint(node -> node.getAllVertexCharacteristics().isEmpty());
+        var results = this.getViolationsForConstraint(node -> node.getAllVertexCharacteristics()
+                .isEmpty());
         assertTrue(results.isEmpty());
     }
 
     @Test
     public void noVertexCharacteristics_returnsViolations() {
-        var results = this.getViolationsForConstraint(node -> !node.getAllVertexCharacteristics().isEmpty());
+        var results = this.getViolationsForConstraint(node -> !node.getAllVertexCharacteristics()
+                .isEmpty());
         assertFalse(results.isEmpty());
     }
 

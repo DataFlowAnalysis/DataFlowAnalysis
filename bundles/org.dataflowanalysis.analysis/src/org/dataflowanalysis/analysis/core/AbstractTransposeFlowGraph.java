@@ -2,9 +2,9 @@ package org.dataflowanalysis.analysis.core;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
-import java.util.Collections;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -31,8 +31,8 @@ public abstract class AbstractTransposeFlowGraph {
     public abstract AbstractTransposeFlowGraph evaluate();
 
     /**
-     * Returns a copy of the partial flow graph, with all included vertices copied.
-     * The references of vertices to the model elements will remain identical
+     * Returns a copy of the partial flow graph, with all included vertices copied. The references of vertices to the model
+     * elements will remain identical
      * @return Returns a copy of the partial flow graph
      */
     public abstract AbstractTransposeFlowGraph copy();

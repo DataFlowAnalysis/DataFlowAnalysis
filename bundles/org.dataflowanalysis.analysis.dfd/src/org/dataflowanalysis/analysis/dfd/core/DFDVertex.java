@@ -118,12 +118,18 @@ public class DFDVertex extends AbstractVertex<Node> {
      * @param inputPinsIncomingLabelMap Map to be filled with incoming labels on pin
      */
     private void fillMapOfIncomingLabelsPerPin(Pin pin, Map<Pin, List<Label>> inputPinsIncomingLabelMap) {
-    	for (var previousVertex : this.getPinDFDVertexMap().values()) {
+        for (var previousVertex : this.getPinDFDVertexMap()
+                .values()) {
             for (var dataFlowCharacteristics : previousVertex.getAllOutgoingDataCharacteristics()) {
-                if (dataFlowCharacteristics.getVariableName().equals(this.getPinFlowMap().get(pin).getSourcePin().getId())) {
+                if (dataFlowCharacteristics.getVariableName()
+                        .equals(this.getPinFlowMap()
+                                .get(pin)
+                                .getSourcePin()
+                                .getId())) {
                     inputPinsIncomingLabelMap.putIfAbsent(pin, new ArrayList<>());
                     for (var characteristicValue : dataFlowCharacteristics.getAllCharacteristics()) {
-                        inputPinsIncomingLabelMap.get(pin).add(((DFDCharacteristicValue) characteristicValue).getLabel());
+                        inputPinsIncomingLabelMap.get(pin)
+                                .add(((DFDCharacteristicValue) characteristicValue).getLabel());
                     }
                 }
             }
@@ -157,14 +163,16 @@ public class DFDVertex extends AbstractVertex<Node> {
     }
 
     /**
-     * Create data characteristics from Map mapping Input/Output Pin to labels. Important: The name of the data characteristic
-     * is equal to the id of the pin. Any changes in the data characteristics naming scheme will require changes in the
-     * evaluation logic
+     * Create data characteristics from Map mapping Input/Output Pin to labels. Important: The name of the data
+     * characteristic is equal to the id of the pin. Any changes in the data characteristics naming scheme will require
+     * changes in the evaluation logic
      * @param pinToLabelMap Map mapping Input/Output Pin to labels
      * @return List of created data characteristics
      */
     private List<DataCharacteristic> createDataCharacteristicsFromLabels(Map<Pin, List<Label>> pinToLabelMap) {
-        return pinToLabelMap.keySet().stream().map(pin -> new DataCharacteristic(pin.getId(), this.getCharacteristicValuesForPin(pin, pinToLabelMap)))
+        return pinToLabelMap.keySet()
+                .stream()
+                .map(pin -> new DataCharacteristic(pin.getId(), this.getCharacteristicValuesForPin(pin, pinToLabelMap)))
                 .toList();
     }
 

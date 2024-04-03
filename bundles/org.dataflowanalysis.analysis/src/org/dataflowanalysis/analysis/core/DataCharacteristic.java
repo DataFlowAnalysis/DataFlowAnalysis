@@ -24,7 +24,8 @@ public record DataCharacteristic(String variableName, List<CharacteristicValue> 
      * @return Returns a new data characteristic object with the updated characteristic values
      */
     public DataCharacteristic addCharacteristic(CharacteristicValue characteristic) {
-        List<CharacteristicValue> newCharacteristics = Stream.concat(characteristics.stream(), Stream.of(characteristic)).toList();
+        List<CharacteristicValue> newCharacteristics = Stream.concat(characteristics.stream(), Stream.of(characteristic))
+                .toList();
         return new DataCharacteristic(variableName, newCharacteristics);
     }
 

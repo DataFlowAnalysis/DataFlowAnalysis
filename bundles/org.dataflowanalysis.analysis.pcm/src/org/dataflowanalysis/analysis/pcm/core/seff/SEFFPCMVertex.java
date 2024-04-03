@@ -48,13 +48,20 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
         List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
 
         if (this.getReferencedElement() instanceof StartAction) {
-            List<String> variableNames = this.getParameter().stream().map(Parameter::getParameterName).toList();
-            incomingDataCharacteristics = incomingDataCharacteristics.stream().filter(it -> variableNames.contains(it.variableName())).toList();
+            List<String> variableNames = this.getParameter()
+                    .stream()
+                    .map(Parameter::getParameterName)
+                    .toList();
+            incomingDataCharacteristics = incomingDataCharacteristics.stream()
+                    .filter(it -> variableNames.contains(it.variableName()))
+                    .toList();
             this.setPropagationResult(incomingDataCharacteristics, incomingDataCharacteristics, nodeCharacteristics);
             return;
         } else if (this.getReferencedElement() instanceof StopAction) {
             List<DataCharacteristic> outgoingDataCharacteristics = incomingDataCharacteristics.parallelStream()
-                    .filter(it -> it.getVariableName().equals("RETURN")).collect(Collectors.toList());
+                    .filter(it -> it.getVariableName()
+                            .equals("RETURN"))
+                    .collect(Collectors.toList());
             this.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, nodeCharacteristics);
             return;
         } else if (!(this.getReferencedElement() instanceof SetVariableAction)) {

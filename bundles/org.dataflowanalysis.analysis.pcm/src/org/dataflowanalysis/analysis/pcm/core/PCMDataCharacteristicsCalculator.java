@@ -28,22 +28,22 @@ public class PCMDataCharacteristicsCalculator {
     private final ResourceProvider resourceLoader;
 
     /**
-     * Initialize Data characteristics Calculator with initial characteristics. In addition, the read-only container for node
-     * characteristics is created. See {@link PCMDataCharacteristicsCalculator#createNodeCharacteristicsContainer}
+     * Initialize Data characteristics Calculator with initial characteristics. In addition, the read-only container for
+     * node characteristics is created. See {@link PCMDataCharacteristicsCalculator#createNodeCharacteristicsContainer}
      * @param initialCharacteristics Data characteristics of the previous vertex
      * @param nodeCharacteristics Vertex characteristics that might be referenced in the calculator
      * @param resourceProvider Resource provider to resolve unknown characteristics in the dictionary
      */
     public PCMDataCharacteristicsCalculator(List<DataCharacteristic> initialCharacteristics, List<CharacteristicValue> nodeCharacteristics,
-                                            ResourceProvider resourceProvider) {
+            ResourceProvider resourceProvider) {
         this.currentVariables = new ArrayList<>(initialCharacteristics);
         this.resourceLoader = resourceProvider;
         createNodeCharacteristicsContainer(nodeCharacteristics);
     }
 
     /**
-     * Create the container for vertex characteristics. Each node characteristic is saved within the container
-     * data characteristics with its characteristic type and value.
+     * Create the container for vertex characteristics. Each node characteristic is saved within the container data
+     * characteristics with its characteristic type and value.
      * <p>
      * Furthermore, vertex characteristics cannot be modified by variable characterisations, so this variable is read-only.
      * @param vertexCharacteristics Given list of vertex characteristics present at the current node
@@ -55,8 +55,8 @@ public class PCMDataCharacteristicsCalculator {
     }
 
     /**
-     * Evaluate a Variable Characterization with the current data characteristics and update the internal state of the calculator. This
-     * method should be called for each Variable Characterization (e.g. Sto-ex)
+     * Evaluate a Variable Characterization with the current data characteristics and update the internal state of the
+     * calculator. This method should be called for each Variable Characterization (e.g. Sto-ex)
      * <p>
      * For easier use, the state of characteristics at a given sequence element, is managed and updated by calling this
      * method. The final data characteristics for an element are accessed with
@@ -70,8 +70,10 @@ public class PCMDataCharacteristicsCalculator {
         Literal characteristicValue = leftHandSide.getLiteral();
         Term rightHandSide = variableCharacterisation.getRhs();
 
-        AbstractNamedReference reference = variableCharacterisation.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage();
-        DataCharacteristic existingCharacteristic = this.getDataCharacteristicByReference(reference).orElse(new DataCharacteristic(reference.getReferenceName()));
+        AbstractNamedReference reference = variableCharacterisation.getVariableUsage_VariableCharacterisation()
+                .getNamedReference__VariableUsage();
+        DataCharacteristic existingCharacteristic = this.getDataCharacteristicByReference(reference)
+                .orElse(new DataCharacteristic(reference.getReferenceName()));
 
         List<CharacteristicValue> modifiedCharacteristics = calculateModifiedCharacteristics(existingCharacteristic, characteristicType,
                 characteristicValue);
@@ -96,18 +98,20 @@ public class PCMDataCharacteristicsCalculator {
     }
 
     /**
-     * Creates a modified data characteristic according to the old characteristics of the existing data characteristic and the modified
-     * characteristics.
+     * Creates a modified data characteristic according to the old characteristics of the existing data characteristic and
+     * the modified characteristics.
      * @param existingCharacteristic Existing data characteristic with the same name
      * @param modifiedCharacteristics Characteristics of the data characteristic that are modified
      * @param rightHandSide Right hand side of the variable characterization, to indicate whether a characteristic is added
      * or not
      * @return Returns a new data characteristic with the updated characteristics
      */
-    private DataCharacteristic createModifiedDataCharacteristic(DataCharacteristic existingCharacteristic, List<CharacteristicValue> modifiedCharacteristics,
-                                                                Term rightHandSide) {
+    private DataCharacteristic createModifiedDataCharacteristic(DataCharacteristic existingCharacteristic,
+            List<CharacteristicValue> modifiedCharacteristics, Term rightHandSide) {
         DataCharacteristic computedVariable = new DataCharacteristic(existingCharacteristic.variableName());
-        var unmodifiedCharacteristics = existingCharacteristic.getAllCharacteristics().stream().filter(it -> !modifiedCharacteristics.contains(it))
+        var unmodifiedCharacteristics = existingCharacteristic.getAllCharacteristics()
+                .stream()
+                .filter(it -> !modifiedCharacteristics.contains(it))
                 .toList();
 
         for (CharacteristicValue unmodifiedCharacteristic : unmodifiedCharacteristics) {
@@ -139,15 +143,20 @@ public class PCMDataCharacteristicsCalculator {
      * @param characteristicValue Bound for the characteristic value. May be null to allow a wildcard
      * @return Returns the list of all characteristics that are modified with the given bounds
      */
-    private List<CharacteristicValue> calculateModifiedCharacteristics(DataCharacteristic existingCharacteristic, EnumCharacteristicType characteristicType,
-                                                                       Literal characteristicValue) {
+    private List<CharacteristicValue> calculateModifiedCharacteristics(DataCharacteristic existingCharacteristic,
+            EnumCharacteristicType characteristicType, Literal characteristicValue) {
         if (characteristicValue == null && characteristicType != null) {
             return discoverNewVariables(existingCharacteristic, Optional.of(characteristicType));
         } else if (characteristicValue == null) {
             return discoverNewVariables(existingCharacteristic, Optional.empty());
         } else {
-            return List.of(existingCharacteristic.getAllCharacteristics().stream().filter(it -> it.getValueName().equals(characteristicValue.getName()))
-                    .filter(it -> it.getTypeName().equals(characteristicType.getName())).findAny()
+            return List.of(existingCharacteristic.getAllCharacteristics()
+                    .stream()
+                    .filter(it -> it.getValueName()
+                            .equals(characteristicValue.getName()))
+                    .filter(it -> it.getTypeName()
+                            .equals(characteristicType.getName()))
+                    .findAny()
                     .orElse(new PCMCharacteristicValue(characteristicType, characteristicValue)));
         }
     }
@@ -194,8 +203,13 @@ public class PCMDataCharacteristicsCalculator {
         var characteristicReferenceValueName = characteristicReference.getLiteral() != null ? characteristicReference.getLiteral()
                 .getName() : characteristicValue.getValueName();
 
-        var characteristic = dataCharacteristic.getAllCharacteristics().stream().filter(it -> it.getTypeName().equals(characteristicReferenceTypeName))
-                .filter(it -> it.getValueName().equals(characteristicReferenceValueName)).findAny();
+        var characteristic = dataCharacteristic.getAllCharacteristics()
+                .stream()
+                .filter(it -> it.getTypeName()
+                        .equals(characteristicReferenceTypeName))
+                .filter(it -> it.getValueName()
+                        .equals(characteristicReferenceValueName))
+                .findAny();
         return characteristic.isPresent() && dataCharacteristic.hasCharacteristic(characteristic.get());
     }
 
@@ -237,6 +251,9 @@ public class PCMDataCharacteristicsCalculator {
      * @return List of data characteristics after evaluating
      */
     public List<DataCharacteristic> getCalculatedCharacteristics() {
-        return this.currentVariables.stream().filter(df -> !df.variableName().equals("container")).collect(Collectors.toList());
+        return this.currentVariables.stream()
+                .filter(df -> !df.variableName()
+                        .equals("container"))
+                .collect(Collectors.toList());
     }
 }

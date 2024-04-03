@@ -47,7 +47,9 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
         List<DataCharacteristic> outgoingDataCharacteristics = super.getDataCharacteristics(nodeCharacteristics, variableCharacterisations,
                 incomingDataCharacteristics);
         if (this.isReturning()) {
-            outgoingDataCharacteristics = outgoingDataCharacteristics.stream().filter(it -> !it.getVariableName().equals("RETURN"))
+            outgoingDataCharacteristics = outgoingDataCharacteristics.stream()
+                    .filter(it -> !it.getVariableName()
+                            .equals("RETURN"))
                     .collect(Collectors.toList());
         }
         this.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, nodeCharacteristics);

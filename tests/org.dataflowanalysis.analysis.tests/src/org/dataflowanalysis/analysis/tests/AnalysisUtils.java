@@ -133,15 +133,26 @@ public class AnalysisUtils {
      */
     public static void assertCharacteristicPresent(AbstractTransposeFlowGraph sequence, int index, String variableName, String characteristicType,
             String characteristicValue) {
-        var sequenceElement = sequence.getVertices().get(index);
-        var dataCharacteristic = sequenceElement.getAllDataCharacteristics().stream().filter(it -> it.variableName().equals(variableName)).findAny();
+        var sequenceElement = sequence.getVertices()
+                .get(index);
+        var dataCharacteristic = sequenceElement.getAllDataCharacteristics()
+                .stream()
+                .filter(it -> it.variableName()
+                        .equals(variableName))
+                .findAny();
 
         if (dataCharacteristic.isEmpty()) {
             fail(String.format("Did not find dataflow variable with name %s at sequence element %s", variableName, sequenceElement));
         }
 
-        var result = dataCharacteristic.get().characteristics().stream().filter(it -> it.getTypeName().equals(characteristicType))
-                .filter(it -> it.getValueName().equals(characteristicValue)).findAny();
+        var result = dataCharacteristic.get()
+                .characteristics()
+                .stream()
+                .filter(it -> it.getTypeName()
+                        .equals(characteristicType))
+                .filter(it -> it.getValueName()
+                        .equals(characteristicValue))
+                .findAny();
 
         if (result.isEmpty()) {
             fail(String.format("Could not find dataflow variable %s.%s.%s at sequence element %s", variableName, characteristicType,
@@ -168,12 +179,24 @@ public class AnalysisUtils {
             fail("Action sequence with length " + sequence.getVertices()
                     .size() + " is not long enough for index " + index);
         }
-        var sequenceElement = sequence.getVertices().get(index);
-        var dataCharacteristic = sequenceElement.getAllDataCharacteristics().stream().filter(it -> it.variableName().equals(variableName)).findAny();
+        var sequenceElement = sequence.getVertices()
+                .get(index);
+        var dataCharacteristic = sequenceElement.getAllDataCharacteristics()
+                .stream()
+                .filter(it -> it.variableName()
+                        .equals(variableName))
+                .findAny();
         if (dataCharacteristic.isEmpty()) {
             return;
         }
-        assertTrue(dataCharacteristic.get().characteristics().stream().filter(it -> it.getTypeName().equals(characteristicType))
-                .filter(it -> it.getValueName().equals(characteristicValue)).findAny().isEmpty());
+        assertTrue(dataCharacteristic.get()
+                .characteristics()
+                .stream()
+                .filter(it -> it.getTypeName()
+                        .equals(characteristicType))
+                .filter(it -> it.getValueName()
+                        .equals(characteristicValue))
+                .findAny()
+                .isEmpty());
     }
 }

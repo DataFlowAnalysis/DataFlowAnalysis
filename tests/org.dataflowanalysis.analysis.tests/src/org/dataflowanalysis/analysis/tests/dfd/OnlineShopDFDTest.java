@@ -124,11 +124,20 @@ public class OnlineShopDFDTest {
     }
 
     private List<String> retrieveNodeLabels(AbstractVertex<?> vertex) {
-        return vertex.getAllVertexCharacteristics().stream().map(DFDCharacteristicValue.class::cast).map(DFDCharacteristicValue::getValueName).toList();
+        return vertex.getAllVertexCharacteristics()
+                .stream()
+                .map(DFDCharacteristicValue.class::cast)
+                .map(DFDCharacteristicValue::getValueName)
+                .toList();
     }
 
     private List<String> retrieveDataLabels(AbstractVertex<?> vertex) {
-        return vertex.getAllDataCharacteristics().stream().map(DataCharacteristic::getAllCharacteristics).flatMap(List::stream)
-                .map(DFDCharacteristicValue.class::cast).map(DFDCharacteristicValue::getValueName).toList();
+        return vertex.getAllDataCharacteristics()
+                .stream()
+                .map(DataCharacteristic::getAllCharacteristics)
+                .flatMap(List::stream)
+                .map(DFDCharacteristicValue.class::cast)
+                .map(DFDCharacteristicValue::getValueName)
+                .toList();
     }
 }

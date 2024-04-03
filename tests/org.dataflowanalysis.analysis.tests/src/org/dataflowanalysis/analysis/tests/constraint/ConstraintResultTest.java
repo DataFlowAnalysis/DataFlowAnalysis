@@ -27,10 +27,12 @@ public class ConstraintResultTest extends ConstraintTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean travelPlannerCondition(AbstractVertex<?> node) {
-        List<String> assignedRoles = node.getVertexCharacteristics("AssignedRoles").stream()
+        List<String> assignedRoles = node.getVertexCharacteristics("AssignedRoles")
+                .stream()
                 .map(CharacteristicValue::getValueName)
                 .toList();
-        Collection<List<CharacteristicValue>> grantedRoles = node.getDataCharacteristicMap("GrantedRoles").values();
+        Collection<List<CharacteristicValue>> grantedRoles = node.getDataCharacteristicMap("GrantedRoles")
+                .values();
 
         printNodeInformation(node);
 
@@ -51,10 +53,13 @@ public class ConstraintResultTest extends ConstraintTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean internationalOnlineShopCondition(AbstractVertex<?> node) {
-        List<String> serverLocation = node.getVertexCharacteristics("ServerLocation").stream()
+        List<String> serverLocation = node.getVertexCharacteristics("ServerLocation")
+                .stream()
                 .map(CharacteristicValue::getValueName)
                 .toList();
-        List<String> dataSensitivity = node.getDataCharacteristicMap("DataSensitivity").values().stream()
+        List<String> dataSensitivity = node.getDataCharacteristicMap("DataSensitivity")
+                .values()
+                .stream()
                 .flatMap(Collection::stream)
                 .map(CharacteristicValue::getValueName)
                 .toList();
@@ -72,10 +77,13 @@ public class ConstraintResultTest extends ConstraintTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean returnCondition(AbstractVertex<?> node) {
-        List<String> assignedNode = new ArrayList<>(node.getVertexCharacteristics("AssignedRole").stream()
+        List<String> assignedNode = new ArrayList<>(node.getVertexCharacteristics("AssignedRole")
+                .stream()
                 .map(CharacteristicValue::getValueName)
                 .toList());
-        List<String> assignedVariables = node.getDataCharacteristicMap("AssignedRole").values().stream()
+        List<String> assignedVariables = node.getDataCharacteristicMap("AssignedRole")
+                .values()
+                .stream()
                 .flatMap(Collection::stream)
                 .map(CharacteristicValue::getValueName)
                 .toList();
@@ -167,8 +175,10 @@ public class ConstraintResultTest extends ConstraintTest {
                 fail("Could not find node for expected constraint violation");
             }
 
-            List<CharacteristicValue> nodeCharacteristics = violatingNode.get().getAllVertexCharacteristics();
-            List<DataCharacteristic> dataCharacteristics = violatingNode.get().getAllDataCharacteristics();
+            List<CharacteristicValue> nodeCharacteristics = violatingNode.get()
+                    .getAllVertexCharacteristics();
+            List<DataCharacteristic> dataCharacteristics = violatingNode.get()
+                    .getAllDataCharacteristics();
 
             assertEquals(constraintNodeData.vertexCharacteristicsCount(), nodeCharacteristics.size());
             assertEquals(constraintNodeData.dataCharacteristicsCount(), dataCharacteristics.size());

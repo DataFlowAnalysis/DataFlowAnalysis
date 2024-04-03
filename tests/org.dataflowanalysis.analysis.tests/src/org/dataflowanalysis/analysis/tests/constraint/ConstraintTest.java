@@ -21,8 +21,8 @@ public class ConstraintTest extends BaseTest {
     }
 
     /**
-     * Prints detailed information of a node with its data and vertex characteristics. The information is printed
-     * using the logger's trace function.
+     * Prints detailed information of a node with its data and vertex characteristics. The information is printed using the
+     * logger's trace function.
      * @param node The sequence element whose information shall be printed
      */
     protected void printNodeInformation(AbstractVertex<?> node) {
@@ -32,12 +32,14 @@ public class ConstraintTest extends BaseTest {
     /**
      * Returns a string with detailed information about a node's data and vertex characteristics.
      * @param node Vertex after the label propagation happened
-     * @return Returns a String with the vertex's string representation and a list of all related characteristics types and literals
+     * @return Returns a String with the vertex's string representation and a list of all related characteristics types and
+     * literals
      */
     protected String createPrintableNodeInformation(AbstractVertex<?> node) {
         String template = "%s%s\tNode characteristics: %s%s\tData flow Variables:  %s%s";
         String nodeCharacteristics = createPrintableCharacteristicsList(node.getAllVertexCharacteristics());
-        String dataCharacteristics = node.getAllDataCharacteristics().stream()
+        String dataCharacteristics = node.getAllDataCharacteristics()
+                .stream()
                 .map(e -> String.format("%s [%s]", e.variableName(), createPrintableCharacteristicsList(e.getAllCharacteristics())))
                 .collect(Collectors.joining(", "));
 

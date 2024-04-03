@@ -61,7 +61,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      */
     @Override
     protected void setPropagationResult(List<DataCharacteristic> incomingDataCharacteristics, List<DataCharacteristic> outgoingDataCharacteristics,
-                                        List<CharacteristicValue> vertexCharacteristics) {
+            List<CharacteristicValue> vertexCharacteristics) {
         super.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics);
     }
 
@@ -78,8 +78,15 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
         if (super.isSource())
             return List.of();
 
-        this.getPreviousElements().stream().filter(it -> !it.isEvaluated()).forEach(AbstractVertex::evaluateDataFlow);
-        return this.getPreviousElements().stream().flatMap(it -> it.getAllOutgoingDataCharacteristics().stream()).collect(Collectors.toList());
+        this.getPreviousElements()
+                .stream()
+                .filter(it -> !it.isEvaluated())
+                .forEach(AbstractVertex::evaluateDataFlow);
+        return this.getPreviousElements()
+                .stream()
+                .flatMap(it -> it.getAllOutgoingDataCharacteristics()
+                        .stream())
+                .collect(Collectors.toList());
     }
 
     /**
@@ -100,7 +107,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      * @return Returns a list of data characteristics that are applied to the sequence element
      */
     protected List<DataCharacteristic> getDataCharacteristics(List<CharacteristicValue> vertexCharacteristics,
-                                                              List<ConfidentialityVariableCharacterisation> variableCharacterisations, List<DataCharacteristic> oldDataCharacteristics) {
+            List<ConfidentialityVariableCharacterisation> variableCharacterisations, List<DataCharacteristic> oldDataCharacteristics) {
         PCMDataCharacteristicsCalculator dataCharacteristicsCalculator = new PCMDataCharacteristicsCalculator(oldDataCharacteristics,
                 vertexCharacteristics, this.resourceProvider);
         variableCharacterisations.forEach(dataCharacteristicsCalculator::evaluate);
@@ -139,7 +146,9 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
         }
         vertexMapping.put(this, copy);
 
-        List<? extends AbstractPCMVertex<?>> clonedPreviousElements = this.previousElements.stream().map(it -> it.copy(vertexMapping)).toList();
+        List<? extends AbstractPCMVertex<?>> clonedPreviousElements = this.previousElements.stream()
+                .map(it -> it.copy(vertexMapping))
+                .toList();
 
         copy.setPreviousElements(clonedPreviousElements);
         return copy;

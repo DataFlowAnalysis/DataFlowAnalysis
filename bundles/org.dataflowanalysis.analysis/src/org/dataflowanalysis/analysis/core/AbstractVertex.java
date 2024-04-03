@@ -50,7 +50,7 @@ public abstract class AbstractVertex<T> {
      * @param vertexCharacteristics Vertex characteristics present at the node
      */
     protected void setPropagationResult(List<DataCharacteristic> incomingDataCharacteristics, List<DataCharacteristic> outgoingDataCharacteristics,
-                                        List<CharacteristicValue> vertexCharacteristics) {
+            List<CharacteristicValue> vertexCharacteristics) {
         if (this.isEvaluated()) {
             logger.error("Cannot set propagation result of already evaluated vertex");
             throw new IllegalArgumentException();
@@ -95,7 +95,8 @@ public abstract class AbstractVertex<T> {
 
     /**
      * Returns a list of all outgoing data characteristics that are present for the action sequence element
-     * @return List of present outgoing data characteristics (e.g. the variables at the output pin of the DFD representation)
+     * @return List of present outgoing data characteristics (e.g. the variables at the output pin of the DFD
+     * representation)
      */
     public List<DataCharacteristic> getAllOutgoingDataCharacteristics() {
         return this.outgoingDataCharacteristics.orElseThrow(IllegalStateException::new);
@@ -127,28 +128,30 @@ public abstract class AbstractVertex<T> {
     /**
      * Returns a list of vertex characteristics with the given characteristic type
      * <p>
-     * See {@link AbstractVertex#getDataCharacteristics(String)} for a similar method for data flow
-     * variables
+     * See {@link AbstractVertex#getDataCharacteristics(String)} for a similar method for data flow variables
      * @param requiredCharacteristicTypeName Name of the characteristic type
      * @return Returns a list of all vertex characteristics matching the characteristic type
      */
     public List<CharacteristicValue> getVertexCharacteristics(String requiredCharacteristicTypeName) {
-        return this.getAllVertexCharacteristics().stream()
-                .filter(cv -> cv.getTypeName().equals(requiredCharacteristicTypeName))
+        return this.getAllVertexCharacteristics()
+                .stream()
+                .filter(cv -> cv.getTypeName()
+                        .equals(requiredCharacteristicTypeName))
                 .collect(Collectors.toList());
     }
 
     /**
      * Returns a list of vertex characteristic value names with the given characteristic type
      * <p>
-     * See {@link AbstractVertex#getDataCharacteristicNames(String)} for a similar method for data flow
-     * variables
+     * See {@link AbstractVertex#getDataCharacteristicNames(String)} for a similar method for data flow variables
      * @param requiredCharacteristicTypeName Name of the characteristic type
      * @return Returns a list of all vertex characteristics matching the characteristic type
      */
     public List<String> getVertexCharacteristicNames(String requiredCharacteristicTypeName) {
-        return this.getAllVertexCharacteristics().stream()
-                .filter(cv -> cv.getTypeName().equals(requiredCharacteristicTypeName))
+        return this.getAllVertexCharacteristics()
+                .stream()
+                .filter(cv -> cv.getTypeName()
+                        .equals(requiredCharacteristicTypeName))
                 .map(CharacteristicValue::getValueName)
                 .collect(Collectors.toList());
     }
@@ -161,8 +164,10 @@ public abstract class AbstractVertex<T> {
      * @return Returns a list of all data characteristics with the given name
      */
     public List<DataCharacteristic> getDataCharacteristics(String requiredDataCharacteristicName) {
-        return this.getAllIncomingDataCharacteristics().stream()
-                .filter(it -> it.getVariableName().equals(requiredDataCharacteristicName))
+        return this.getAllIncomingDataCharacteristics()
+                .stream()
+                .filter(it -> it.getVariableName()
+                        .equals(requiredDataCharacteristicName))
                 .collect(Collectors.toList());
     }
 
@@ -174,8 +179,10 @@ public abstract class AbstractVertex<T> {
      * @return Returns a list of all data characteristics with the given name
      */
     public List<String> getDataCharacteristicNames(String requiredDataCharacteristicName) {
-        return this.getAllIncomingDataCharacteristics().stream()
-                .filter(it -> it.getVariableName().equals(requiredDataCharacteristicName))
+        return this.getAllIncomingDataCharacteristics()
+                .stream()
+                .filter(it -> it.getVariableName()
+                        .equals(requiredDataCharacteristicName))
                 .map(DataCharacteristic::variableName)
                 .collect(Collectors.toList());
     }
@@ -183,38 +190,45 @@ public abstract class AbstractVertex<T> {
     /**
      * Returns a map containing the characteristic values with the given characteristic type for each data characteristic
      * <p>
-     * To get the characteristic value names for the data characteristics use {@link AbstractVertex#getDataCharacteristicNamesMap(String)}
+     * To get the characteristic value names for the data characteristics use
+     * {@link AbstractVertex#getDataCharacteristicNamesMap(String)}
      * @param requiredCharacteristicTypeName Required name of the characteristic type
      * @return Returns a map with characteristic values with the given name for each data characteristic
      */
     public Map<String, List<CharacteristicValue>> getDataCharacteristicMap(String requiredCharacteristicTypeName) {
-        return this.getAllIncomingDataCharacteristics().stream()
+        return this.getAllIncomingDataCharacteristics()
+                .stream()
                 .collect(Collectors.toMap(DataCharacteristic::getVariableName, it -> it.getCharacteristicsWithName(requiredCharacteristicTypeName)));
     }
 
     /**
-     * Returns a map containing the characteristic value names with the given characteristic type for each data characteristic
+     * Returns a map containing the characteristic value names with the given characteristic type for each data
+     * characteristic
      * <p>
-     * To get the characteristic values for the data characteristics use {@link AbstractVertex#getDataCharacteristicMap(String)}
+     * To get the characteristic values for the data characteristics use
+     * {@link AbstractVertex#getDataCharacteristicMap(String)}
      * @param requiredCharacteristicTypeName Required name of the characteristic type
      * @return Returns a map with characteristic value names with the given name for each data characteristic
      */
     public Map<String, List<String>> getDataCharacteristicNamesMap(String requiredCharacteristicTypeName) {
-        return this.getAllIncomingDataCharacteristics().stream()
-                .collect(Collectors.toMap(DataCharacteristic::getVariableName,
-                        it -> it.getCharacteristicsWithName(requiredCharacteristicTypeName).stream()
-                                .map(CharacteristicValue::getValueName)
-                                .toList()));
+        return this.getAllIncomingDataCharacteristics()
+                .stream()
+                .collect(Collectors.toMap(DataCharacteristic::getVariableName, it -> it.getCharacteristicsWithName(requiredCharacteristicTypeName)
+                        .stream()
+                        .map(CharacteristicValue::getValueName)
+                        .toList()));
     }
 
     /**
      * Returns a string with detailed information about a vertex's data and vertex characteristics
-     * @return Returns a String with the node's string representation and a list of all related characteristics types and literals
+     * @return Returns a String with the node's string representation and a list of all related characteristics types and
+     * literals
      */
     public String createPrintableNodeInformation() {
         String template = "Propagated %s%s\tNode characteristics: %s%s\tData flow Variables:  %s%s";
         String nodeCharacteristics = createPrintableCharacteristicsList(this.getAllVertexCharacteristics());
-        String dataCharacteristics = this.getAllDataCharacteristics().stream()
+        String dataCharacteristics = this.getAllDataCharacteristics()
+                .stream()
                 .map(e -> String.format("%s [%s]", e.variableName(), createPrintableCharacteristicsList(e.getAllCharacteristics())))
                 .collect(Collectors.joining(", "));
 

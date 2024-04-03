@@ -180,9 +180,9 @@ public class PCMConverter extends Converter {
         if (source == null || dest == null) {
             return;
         }
-        List<DataCharacteristic> flowVariables = pcmVertex.getAllDataCharacteristics();
-        for (DataCharacteristic flowVariable : flowVariables) {
-            String flowName = flowVariable.variableName();
+        List<DataCharacteristic> dataCharacteristics = pcmVertex.getAllDataCharacteristics();
+        for (DataCharacteristic dataCharacteristic : dataCharacteristics) {
+            String flowName = dataCharacteristic.variableName();
 
             dataFlowDiagram.getFlows()
                     .stream()

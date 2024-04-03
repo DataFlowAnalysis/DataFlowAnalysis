@@ -182,11 +182,11 @@ public class PCMDataCharacteristicsCalculator {
      * @return Returns, whether the characteristic reference evaluates to true or false (or is undefined)
      */
     private boolean evaluateNamedReference(NamedEnumCharacteristicReference characteristicReference, CharacteristicValue characteristicValue) {
-        var optionalDataflowVariable = getDataCharacteristicByReference(characteristicReference.getNamedReference());
-        if (optionalDataflowVariable.isEmpty()) {
+        var optionalDataCharacteristic = getDataCharacteristicByReference(characteristicReference.getNamedReference());
+        if (optionalDataCharacteristic.isEmpty()) {
             return false;
         }
-        var dataflowVariable = optionalDataflowVariable.get();
+        var dataCharacteristic = optionalDataCharacteristic.get();
         var characteristicReferenceTypeName = characteristicReference.getCharacteristicType() != null
                 ? characteristicReference.getCharacteristicType()
                         .getName()
@@ -194,14 +194,9 @@ public class PCMDataCharacteristicsCalculator {
         var characteristicReferenceValueName = characteristicReference.getLiteral() != null ? characteristicReference.getLiteral()
                 .getName() : characteristicValue.getValueName();
 
-        var characteristic = dataflowVariable.getAllCharacteristics()
-                .stream()
-                .filter(it -> it.getTypeName()
-                        .equals(characteristicReferenceTypeName))
-                .filter(it -> it.getValueName()
-                        .equals(characteristicReferenceValueName))
-                .findAny();
-        return characteristic.isPresent() && dataflowVariable.hasCharacteristic(characteristic.get());
+        var characteristic = dataCharacteristic.getAllCharacteristics().stream().filter(it -> it.getTypeName().equals(characteristicReferenceTypeName))
+                .filter(it -> it.getValueName().equals(characteristicReferenceValueName)).findAny();
+        return characteristic.isPresent() && dataCharacteristic.hasCharacteristic(characteristic.get());
     }
 
     /**

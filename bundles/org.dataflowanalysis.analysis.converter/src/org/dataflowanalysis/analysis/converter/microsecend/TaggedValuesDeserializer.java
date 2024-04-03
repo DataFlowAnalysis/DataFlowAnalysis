@@ -1,11 +1,5 @@
 package org.dataflowanalysis.analysis.converter.microsecend;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -13,6 +7,11 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Utility class for deserializing <b>target_values</b> from the MicroSecEnd dataset.
@@ -28,7 +27,9 @@ public class TaggedValuesDeserializer extends JsonDeserializer<Map<String, List<
         ObjectMapper objectMapper = new ObjectMapper();
 
         while (parser.nextToken() != JsonToken.END_OBJECT) {
-            String fieldName = parser.getCurrentName().trim().replaceAll("[^a-zA-Z0-9]", "");
+            String fieldName = parser.getCurrentName()
+                    .trim()
+                    .replaceAll("[^a-zA-Z0-9]", "");
             parser.nextToken();
 
             if (parser.getCurrentToken() == JsonToken.START_ARRAY) {
@@ -36,7 +37,8 @@ public class TaggedValuesDeserializer extends JsonDeserializer<Map<String, List<
                 });
                 List<String> sanitizedValues = new ArrayList<>();
                 for (String value : values) {
-                    var sanitizedValue = value.trim().replaceAll("[^a-zA-Z0-9]", "");
+                    var sanitizedValue = value.trim()
+                            .replaceAll("[^a-zA-Z0-9]", "");
                     if (!sanitizedValue.equals("")) {
                         sanitizedValues.add(sanitizedValue);
                     }
@@ -52,6 +54,7 @@ public class TaggedValuesDeserializer extends JsonDeserializer<Map<String, List<
     }
 
     private String getValueAsString(JsonNode node) {
-        return (node.isTextual() ? node.asText() : node.toString()).trim().replaceAll("[^a-zA-Z0-9]", "");
+        return (node.isTextual() ? node.asText() : node.toString()).trim()
+                .replaceAll("[^a-zA-Z0-9]", "");
     }
 }

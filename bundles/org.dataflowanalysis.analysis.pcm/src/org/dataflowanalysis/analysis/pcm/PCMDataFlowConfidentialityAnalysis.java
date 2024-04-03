@@ -3,14 +3,11 @@ package org.dataflowanalysis.analysis.pcm;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.EnhancedPatternLayout;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
+import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraphCollection;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.dddsl.DDDslStandaloneSetup;
@@ -51,8 +48,8 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
     }
 
     @Override
-    public PCMFlowGraph findFlowGraph() {
-        return new PCMFlowGraph(this.resourceProvider);
+    public PCMFlowGraphCollection findFlowGraphs() {
+        return new PCMFlowGraphCollection(this.resourceProvider);
     }
 
     @Override
@@ -70,17 +67,21 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
         }
     }
 
-  @Override
-  public void setLoggerLevel(Level level) {
-    logger.setLevel(level);
-    Logger rootLogger = LogManager.getRootLogger();
-    rootLogger.setLevel(level);
+    @Override
+    public void setLoggerLevel(Level level) {
+        logger.setLevel(level);
+        Logger rootLogger = LogManager.getRootLogger();
+        rootLogger.setLevel(level);
 
-    Logger.getLogger(AbstractInternalAntlrParser.class).setLevel(level);
-    Logger.getLogger(DefaultLinkingService.class).setLevel(level);
-    Logger.getLogger(ResourceSetBasedAllContainersStateProvider.class).setLevel(level);
-    Logger.getLogger(AbstractCleaningLinker.class).setLevel(level);
-  }
+        Logger.getLogger(AbstractInternalAntlrParser.class)
+                .setLevel(level);
+        Logger.getLogger(DefaultLinkingService.class)
+                .setLevel(level);
+        Logger.getLogger(ResourceSetBasedAllContainersStateProvider.class)
+                .setLevel(level);
+        Logger.getLogger(AbstractCleaningLinker.class)
+                .setLevel(level);
+    }
 
     /**
      * Returns the resource provider of the analysis. The resource provider may be used to access the loaded PCM model of
@@ -119,7 +120,8 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
             this.modelProjectActivator
                     .ifPresent(projectActivator -> initializationBuilder.registerProjectURI(projectActivator, this.modelProjectName));
 
-            initializationBuilder.build().init();
+            initializationBuilder.build()
+                    .init();
 
             logger.info("Successfully initialized standalone environment for the data flow analysis.");
             return true;
@@ -138,8 +140,11 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
         try {
             this.resourceProvider.loadRequiredResources();
 
-            this.dataDictionaries = this.resourceProvider.lookupToplevelElement(DictionaryPackage.eINSTANCE.getPCMDataDictionary()).stream()
-                    .filter(PCMDataDictionary.class::isInstance).map(PCMDataDictionary.class::cast).collect(Collectors.toList());
+            this.dataDictionaries = this.resourceProvider.lookupToplevelElement(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
+                    .stream()
+                    .filter(PCMDataDictionary.class::isInstance)
+                    .map(PCMDataDictionary.class::cast)
+                    .collect(Collectors.toList());
 
             logger.info(String.format("Successfully loaded %d data %s.", this.dataDictionaries.size(),
                     this.dataDictionaries.size() == 1 ? "dictionary" : "dictionaries"));

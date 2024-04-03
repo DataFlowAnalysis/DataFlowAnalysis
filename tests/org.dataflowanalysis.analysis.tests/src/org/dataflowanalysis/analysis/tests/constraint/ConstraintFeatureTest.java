@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
+import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraphCollection;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
 import org.junit.jupiter.api.DisplayName;
@@ -27,18 +27,21 @@ public class ConstraintFeatureTest extends ConstraintTest {
         var nodeCharacteristicsPath = Paths.get("models", "NodeCharacteristicsTest", "default.nodecharacteristics");
         PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
 
-        PCMFlowGraph flowGraph = analysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
         logger.setLevel(Level.TRACE);
-        var results = analysis.queryDataFlow(flowGraph.getPartialFlowGraphs().get(0), node -> {
-            printNodeInformation(node);
-            if (node instanceof UserPCMVertex<?>) {
-                return node.getAllNodeCharacteristics().size() != 1;
-            } else {
-                return node.getAllNodeCharacteristics().size() != 2;
-            }
-        });
+        var results = analysis.queryDataFlow(flowGraph.getTransposeFlowGraphs()
+                .get(0), node -> {
+                    printNodeInformation(node);
+                    if (node instanceof UserPCMVertex<?>) {
+                        return node.getAllNodeCharacteristics()
+                                .size() != 1;
+                    } else {
+                        return node.getAllNodeCharacteristics()
+                                .size() != 2;
+                    }
+                });
         printViolation(results);
         assertTrue(results.isEmpty());
     }
@@ -54,18 +57,21 @@ public class ConstraintFeatureTest extends ConstraintTest {
         var nodeCharacteristicsPath = Paths.get("models", "CompositeCharacteristicsTest", "default.nodecharacteristics");
         PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
 
-        PCMFlowGraph flowGraph = analysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
         logger.setLevel(Level.TRACE);
-        var results = analysis.queryDataFlow(flowGraph.getPartialFlowGraphs().get(0), node -> {
-            printNodeInformation(node);
-            if (node instanceof UserPCMVertex<?>) {
-                return node.getAllNodeCharacteristics().size() != 1;
-            } else {
-                return node.getAllNodeCharacteristics().size() != 3;
-            }
-        });
+        var results = analysis.queryDataFlow(flowGraph.getTransposeFlowGraphs()
+                .get(0), node -> {
+                    printNodeInformation(node);
+                    if (node instanceof UserPCMVertex<?>) {
+                        return node.getAllNodeCharacteristics()
+                                .size() != 1;
+                    } else {
+                        return node.getAllNodeCharacteristics()
+                                .size() != 3;
+                    }
+                });
         printViolation(results);
         assertTrue(results.isEmpty());
     }
@@ -81,17 +87,19 @@ public class ConstraintFeatureTest extends ConstraintTest {
         var nodeCharacteristicsPath = Paths.get("models", "IgnoredNodeTest", "default.nodecharacteristics");
         PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
 
-        PCMFlowGraph flowGraph = analysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
         logger.setLevel(Level.TRACE);
-        var results = analysis.queryDataFlow(flowGraph.getPartialFlowGraphs().get(0), node -> {
-            printNodeInformation(node);
-            if (node instanceof CallingUserPCMVertex && ((CallingUserPCMVertex) node).isReturning()) {
-                return !node.getAllDataFlowVariables().isEmpty();
-            }
-            return false;
-        });
+        var results = analysis.queryDataFlow(flowGraph.getTransposeFlowGraphs()
+                .get(0), node -> {
+                    printNodeInformation(node);
+                    if (node instanceof CallingUserPCMVertex && ((CallingUserPCMVertex) node).isReturning()) {
+                        return !node.getAllDataFlowVariables()
+                                .isEmpty();
+                    }
+                    return false;
+                });
         printViolation(results);
         assertEquals(1, results.size(), "IgnoredNodeTest did not yield one violation");
     }

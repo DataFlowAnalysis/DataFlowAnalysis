@@ -48,8 +48,13 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
         List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
 
         if (this.getReferencedElement() instanceof StartAction) {
-            List<String> variableNames = this.getParameter().stream().map(Parameter::getParameterName).toList();
-            incomingDataFlowVariables = incomingDataFlowVariables.stream().filter(it -> variableNames.contains(it.variableName())).toList();
+            List<String> variableNames = this.getParameter()
+                    .stream()
+                    .map(Parameter::getParameterName)
+                    .toList();
+            incomingDataFlowVariables = incomingDataFlowVariables.stream()
+                    .filter(it -> variableNames.contains(it.variableName()))
+                    .toList();
             this.setPropagationResult(incomingDataFlowVariables, incomingDataFlowVariables, nodeCharacteristics);
             return;
         } else if (this.getReferencedElement() instanceof StopAction) {
@@ -58,13 +63,20 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
             this.setPropagationResult(incomingDataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
             return;
         } else if (!(this.getReferencedElement() instanceof SetVariableAction)) {
-            logger.error("Found unexpected sequence element of unknown PCM type " + this.getReferencedElement().getClass().getName());
+            logger.error("Found unexpected sequence element of unknown PCM type " + this.getReferencedElement()
+                    .getClass()
+                    .getName());
             throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");
         }
 
         List<ConfidentialityVariableCharacterisation> variableCharacterisations = ((SetVariableAction) this.getReferencedElement())
-                .getLocalVariableUsages_SetVariableAction().stream().flatMap(it -> it.getVariableCharacterisation_VariableUsage().stream())
-                .filter(ConfidentialityVariableCharacterisation.class::isInstance).map(ConfidentialityVariableCharacterisation.class::cast).toList();
+                .getLocalVariableUsages_SetVariableAction()
+                .stream()
+                .flatMap(it -> it.getVariableCharacterisation_VariableUsage()
+                        .stream())
+                .filter(ConfidentialityVariableCharacterisation.class::isInstance)
+                .map(ConfidentialityVariableCharacterisation.class::cast)
+                .toList();
 
         List<DataFlowVariable> outgoingDataFlowVariables = super.getDataFlowVariables(nodeCharacteristics, variableCharacterisations,
                 incomingDataFlowVariables);
@@ -91,11 +103,14 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
 
     @Override
     public String toString() {
-        String elementName = this.getReferencedElement().getEntityName();
+        String elementName = this.getReferencedElement()
+                .getEntityName();
         if (this.getReferencedElement() instanceof StartAction) {
             Optional<ResourceDemandingSEFF> seff = PCMQueryUtils.findParentOfType(this.getReferencedElement(), ResourceDemandingSEFF.class, false);
             if (seff.isPresent()) {
-                elementName = "Beginning " + seff.get().getDescribedService__SEFF().getEntityName();
+                elementName = "Beginning " + seff.get()
+                        .getDescribedService__SEFF()
+                        .getEntityName();
             }
             if (this.isBranching() && seff.isPresent()) {
                 BranchAction branchAction = PCMQueryUtils.findParentOfType(this.getReferencedElement(), BranchAction.class, false)
@@ -103,17 +118,23 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
                 AbstractBranchTransition branchTransition = PCMQueryUtils
                         .findParentOfType(this.getReferencedElement(), AbstractBranchTransition.class, false)
                         .orElseThrow(() -> new IllegalStateException("Cannot find branch transition"));
-                elementName = "Branching " + seff.get().getDescribedService__SEFF().getEntityName() + "." + branchAction.getEntityName() + "."
-                        + branchTransition.getEntityName();
+                elementName = "Branching " + seff.get()
+                        .getDescribedService__SEFF()
+                        .getEntityName() + "." + branchAction.getEntityName() + "." + branchTransition.getEntityName();
             }
         }
         if (this.getReferencedElement() instanceof StopAction) {
             Optional<ResourceDemandingSEFF> seff = PCMQueryUtils.findParentOfType(this.getReferencedElement(), ResourceDemandingSEFF.class, false);
             if (seff.isPresent()) {
-                elementName = "Ending " + seff.get().getDescribedService__SEFF().getEntityName();
+                elementName = "Ending " + seff.get()
+                        .getDescribedService__SEFF()
+                        .getEntityName();
             }
         }
-        return String.format("%s (%s, %s))", this.getClass().getSimpleName(), elementName, this.getReferencedElement().getId());
+        return String.format("%s (%s, %s))", this.getClass()
+                .getSimpleName(), elementName,
+                this.getReferencedElement()
+                        .getId());
     }
 
     @Override

@@ -70,8 +70,10 @@ public class PCMDataCharacteristicsCalculator {
         Literal characteristicValue = leftHandSide.getLiteral();
         Term rightHandSide = variableCharacterisation.getRhs();
 
-        AbstractNamedReference reference = variableCharacterisation.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage();
-        DataFlowVariable existingVariable = this.getDataFlowVariableByReference(reference).orElse(new DataFlowVariable(reference.getReferenceName()));
+        AbstractNamedReference reference = variableCharacterisation.getVariableUsage_VariableCharacterisation()
+                .getNamedReference__VariableUsage();
+        DataFlowVariable existingVariable = this.getDataFlowVariableByReference(reference)
+                .orElse(new DataFlowVariable(reference.getReferenceName()));
 
         List<CharacteristicValue> modifiedCharacteristics = calculateModifiedCharacteristics(existingVariable, characteristicType,
                 characteristicValue);
@@ -89,7 +91,10 @@ public class PCMDataCharacteristicsCalculator {
      */
     private Optional<DataFlowVariable> getDataFlowVariableByReference(AbstractNamedReference reference) {
         String variableName = reference.getReferenceName();
-        return this.currentVariables.stream().filter(it -> it.variableName().equals(variableName)).findAny();
+        return this.currentVariables.stream()
+                .filter(it -> it.variableName()
+                        .equals(variableName))
+                .findAny();
     }
 
     /**
@@ -104,7 +109,9 @@ public class PCMDataCharacteristicsCalculator {
     private DataFlowVariable createModifiedDataFlowVariable(DataFlowVariable existingVariable, List<CharacteristicValue> modifiedCharacteristics,
             Term rightHandSide) {
         DataFlowVariable computedVariable = new DataFlowVariable(existingVariable.variableName());
-        var unmodifiedCharacteristics = existingVariable.getAllCharacteristics().stream().filter(it -> !modifiedCharacteristics.contains(it))
+        var unmodifiedCharacteristics = existingVariable.getAllCharacteristics()
+                .stream()
+                .filter(it -> !modifiedCharacteristics.contains(it))
                 .toList();
 
         for (CharacteristicValue unmodifiedCharacteristic : unmodifiedCharacteristics) {
@@ -113,10 +120,15 @@ public class PCMDataCharacteristicsCalculator {
 
         for (CharacteristicValue modifiedCharacteristic : modifiedCharacteristics) {
             if (evaluateTerm(rightHandSide, modifiedCharacteristic)) {
-                List<CharacteristicValue> modifiedCharacteristicValues = computedVariable.getAllCharacteristics().stream()
-                        .filter(it -> it.getTypeName().equals(modifiedCharacteristic.getTypeName())).toList();
+                List<CharacteristicValue> modifiedCharacteristicValues = computedVariable.getAllCharacteristics()
+                        .stream()
+                        .filter(it -> it.getTypeName()
+                                .equals(modifiedCharacteristic.getTypeName()))
+                        .toList();
 
-                if (modifiedCharacteristicValues.stream().noneMatch(it -> it.getValueName().equals(modifiedCharacteristic.getValueName()))) {
+                if (modifiedCharacteristicValues.stream()
+                        .noneMatch(it -> it.getValueName()
+                                .equals(modifiedCharacteristic.getValueName()))) {
                     computedVariable = computedVariable.addCharacteristic(modifiedCharacteristic);
                 }
             }
@@ -138,8 +150,13 @@ public class PCMDataCharacteristicsCalculator {
         } else if (characteristicValue == null) {
             return discoverNewVariables(existingVariable, Optional.empty());
         } else {
-            return List.of(existingVariable.getAllCharacteristics().stream().filter(it -> it.getValueName().equals(characteristicValue.getName()))
-                    .filter(it -> it.getTypeName().equals(characteristicType.getName())).findAny()
+            return List.of(existingVariable.getAllCharacteristics()
+                    .stream()
+                    .filter(it -> it.getValueName()
+                            .equals(characteristicValue.getName()))
+                    .filter(it -> it.getTypeName()
+                            .equals(characteristicType.getName()))
+                    .findAny()
                     .orElse(new PCMCharacteristicValue(characteristicType, characteristicValue)));
         }
     }
@@ -162,7 +179,8 @@ public class PCMDataCharacteristicsCalculator {
         } else if (term instanceof Or orTerm) {
             return evaluateTerm(orTerm.getLeft(), characteristicValue) || evaluateTerm(orTerm.getRight(), characteristicValue);
         } else {
-            throw new IllegalArgumentException("Unknown type: " + term.getClass().getName());
+            throw new IllegalArgumentException("Unknown type: " + term.getClass()
+                    .getName());
         }
     }
 
@@ -179,13 +197,19 @@ public class PCMDataCharacteristicsCalculator {
         }
         var dataflowVariable = optionalDataflowVariable.get();
         var characteristicReferenceTypeName = characteristicReference.getCharacteristicType() != null
-                ? characteristicReference.getCharacteristicType().getName()
+                ? characteristicReference.getCharacteristicType()
+                        .getName()
                 : characteristicValue.getTypeName();
-        var characteristicReferenceValueName = characteristicReference.getLiteral() != null ? characteristicReference.getLiteral().getName()
-                : characteristicValue.getValueName();
+        var characteristicReferenceValueName = characteristicReference.getLiteral() != null ? characteristicReference.getLiteral()
+                .getName() : characteristicValue.getValueName();
 
-        var characteristic = dataflowVariable.getAllCharacteristics().stream().filter(it -> it.getTypeName().equals(characteristicReferenceTypeName))
-                .filter(it -> it.getValueName().equals(characteristicReferenceValueName)).findAny();
+        var characteristic = dataflowVariable.getAllCharacteristics()
+                .stream()
+                .filter(it -> it.getTypeName()
+                        .equals(characteristicReferenceTypeName))
+                .filter(it -> it.getValueName()
+                        .equals(characteristicReferenceValueName))
+                .findAny();
         return characteristic.isPresent() && dataflowVariable.hasCharacteristic(characteristic.get());
     }
 
@@ -197,18 +221,28 @@ public class PCMDataCharacteristicsCalculator {
      */
     private List<CharacteristicValue> discoverNewVariables(DataFlowVariable variable, Optional<EnumCharacteristicType> characteristicType) {
         List<CharacteristicValue> updatedCharacteristicValues = new ArrayList<>();
-        var dataDictionaries = this.resourceLoader.lookupToplevelElement(DictionaryPackage.eINSTANCE.getPCMDataDictionary()).stream()
-                .filter(PCMDataDictionary.class::isInstance).map(PCMDataDictionary.class::cast).toList();
+        var dataDictionaries = this.resourceLoader.lookupToplevelElement(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
+                .stream()
+                .filter(PCMDataDictionary.class::isInstance)
+                .map(PCMDataDictionary.class::cast)
+                .toList();
 
-        List<EnumCharacteristicType> characteristicTypes = dataDictionaries.stream().flatMap(it -> it.getCharacteristicTypes().stream())
-                .filter(it -> characteristicType.isEmpty() || it.getName().equals(characteristicType.get().getName()))
-                .filter(EnumCharacteristicType.class::isInstance).map(EnumCharacteristicType.class::cast)
+        List<EnumCharacteristicType> characteristicTypes = dataDictionaries.stream()
+                .flatMap(it -> it.getCharacteristicTypes()
+                        .stream())
+                .filter(it -> characteristicType.isEmpty() || it.getName()
+                        .equals(characteristicType.get()
+                                .getName()))
+                .filter(EnumCharacteristicType.class::isInstance)
+                .map(EnumCharacteristicType.class::cast)
                 .collect(Collectors.collectingAndThen(
                         Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(EnumCharacteristicType::getName))),
                         ArrayList<EnumCharacteristicType>::new));
 
-        characteristicTypes.forEach(enumCharacteristicType -> enumCharacteristicType.getType().getLiterals().forEach(
-                characteristicValue -> updatedCharacteristicValues.add(new PCMCharacteristicValue(enumCharacteristicType, characteristicValue))));
+        characteristicTypes.forEach(enumCharacteristicType -> enumCharacteristicType.getType()
+                .getLiterals()
+                .forEach(characteristicValue -> updatedCharacteristicValues
+                        .add(new PCMCharacteristicValue(enumCharacteristicType, characteristicValue))));
         return updatedCharacteristicValues;
     }
 
@@ -217,6 +251,9 @@ public class PCMDataCharacteristicsCalculator {
      * @return List of DataFlowVariables after evaluating
      */
     public List<DataFlowVariable> getCalculatedCharacteristics() {
-        return this.currentVariables.stream().filter(df -> !df.variableName().equals("container")).collect(Collectors.toList());
+        return this.currentVariables.stream()
+                .filter(df -> !df.variableName()
+                        .equals("container"))
+                .collect(Collectors.toList());
     }
 }

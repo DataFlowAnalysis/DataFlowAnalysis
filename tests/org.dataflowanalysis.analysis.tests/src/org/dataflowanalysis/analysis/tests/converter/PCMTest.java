@@ -9,17 +9,25 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import java.util.stream.Collectors;
+
 
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramConverter;
 import org.dataflowanalysis.analysis.converter.PCMConverter;
+
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.core.FlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
+
+import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.core.DataFlowVariable;
+
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.testmodels.Activator;
@@ -30,7 +38,6 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
 
 public class PCMTest {
@@ -48,10 +55,6 @@ public class PCMTest {
     public void manualPCMToDfd() throws StandaloneInitializationException {
         String modelLocation = "org.dataflowanalysis.analysis.testmodels";
 
-        String inputModel = "InternationalOnlineShop";
-        String inputFile = "default";
-        String dataflowdiagram = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram").toString();
-        String datadictionary = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary").toString();
         testSpecificModel(inputModel, inputFile, modelLocation, null,
                 new DataFlowDiagramConverter().loadDFD(modelLocation, dataflowdiagram, datadictionary, Activator.class));
 
@@ -68,12 +71,12 @@ public class PCMTest {
                 .useNodeCharacteristicsModel(nodeCharPath).build();
 
         analysis.initializeAnalysis();
-        var flowGraph = analysis.findFlowGraph();
+        var flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
         Map<String, String> assIdToName = new HashMap<>();
-        for (AbstractPartialFlowGraph aPFG : flowGraph.getPartialFlowGraphs()) {
-            for (AbstractVertex<?> abstractVertex : aPFG.getVertices()) {
+        for (AbstractTransposeFlowGraph transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
+            for (AbstractVertex<?> abstractVertex : transposeFlowGraph.getVertices()) {
                 var cast = (AbstractPCMVertex<?>) abstractVertex;
                 assIdToName.putIfAbsent(cast.getReferencedElement().getId(), PCMConverter.computeCompleteName(cast));
             }
@@ -109,7 +112,7 @@ public class PCMTest {
         }
 
         List<String> flowNames = new ArrayList<>();
-        for (AbstractPartialFlowGraph as : flowGraph.getPartialFlowGraphs()) {
+        for (AbstractTransposeFlowGraph as : flowGraph.getTransposeFlowGraphs()) {
             for (AbstractVertex<?> ase : as.getVertices()) {
                 List<DataFlowVariable> variables = ase.getAllDataFlowVariables();
                 for (DataFlowVariable variable : variables) {

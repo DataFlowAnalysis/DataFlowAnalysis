@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 
 /**
- * This class represents an abstract vertex in a {@link AbstractPartialFlowGraph}. An abstract vertex represents an
- * element in a partial flow graph and links to an element. An element referenced in this way may be referenced multiple
- * times by different abstract vertices. Furthermore, the abstract vertex saved incoming and outgoing data flow
+ * This class represents an abstract vertex in a {@link AbstractTransposeFlowGraph}. An abstract vertex represents an
+ * element in a transpose flow graph and links to an element. An element referenced in this way may be referenced
+ * multiple times by different abstract vertices. Furthermore, the abstract vertex saved incoming and outgoing data flow
  * variables and the characteristics present at the vertex.
  * @param <T> Type parameter representing the type of the stored object
  */
@@ -120,20 +120,22 @@ public abstract class AbstractVertex<T> {
      * @return Returns true, if the vertex is a source. Otherwise, the method returns false
      */
     public boolean isSource() {
-        return this.getPreviousElements().isEmpty();
+        return this.getPreviousElements()
+                .isEmpty();
     }
 
     /**
      * Returns a list of node characteristic with the given characteristic type
      * <p>
-     * See {@link AbstractVertex#getDataFlowVariablesWithName(String)} for a similar method for data flow
-     * variables
+     * See {@link AbstractVertex#getDataFlowVariablesWithName(String)} for a similar method for data flow variables
      * @param characteristicType Name of the characteristic type
      * @return Returns a list of all node characteristics matching the characteristic type
      */
     public List<CharacteristicValue> getNodeCharacteristicsWithName(String characteristicType) {
-        return this.getAllNodeCharacteristics().stream()
-                .filter(cv -> cv.getTypeName().equals(characteristicType))
+        return this.getAllNodeCharacteristics()
+                .stream()
+                .filter(cv -> cv.getTypeName()
+                        .equals(characteristicType))
                 .collect(Collectors.toList());
     }
 
@@ -168,7 +170,8 @@ public abstract class AbstractVertex<T> {
     public String createPrintableNodeInformation() {
         String template = "Propagated %s%s\tNode characteristics: %s%s\tData flow Variables:  %s%s";
         String nodeCharacteristics = createPrintableCharacteristicsList(this.getAllNodeCharacteristics());
-        String dataCharacteristics = this.getAllDataFlowVariables().stream()
+        String dataCharacteristics = this.getAllDataFlowVariables()
+                .stream()
                 .map(e -> String.format("%s [%s]", e.variableName(), createPrintableCharacteristicsList(e.getAllCharacteristics())))
                 .collect(Collectors.joining(", "));
 
@@ -183,7 +186,9 @@ public abstract class AbstractVertex<T> {
      * CharacteristicType.CharacteristicLiteral"
      */
     public String createPrintableCharacteristicsList(List<CharacteristicValue> characteristics) {
-        List<String> entries = characteristics.stream().map(it -> String.format("%s.%s", it.getTypeName(), it.getValueName())).toList();
+        List<String> entries = characteristics.stream()
+                .map(it -> String.format("%s.%s", it.getTypeName(), it.getValueName()))
+                .toList();
         return String.join(", ", entries);
     }
 }

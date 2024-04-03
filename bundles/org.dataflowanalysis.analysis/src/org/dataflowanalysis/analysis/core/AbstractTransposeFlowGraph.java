@@ -10,29 +10,29 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * This abstract class represents a partial flow graph induced by a sink {@link AbstractPartialFlowGraph#getSink()}.
- * Ambiguous flows, like multiple flows to one input pin, are resolved in the partial flow graph and represent one
+ * This abstract class represents a transpose flow graph induced by a sink {@link AbstractTransposeFlowGraph#getSink()}.
+ * Ambiguous flows, like multiple flows to one input pin, are resolved in the transpose flow graph and represent one
  * possible assignment
  */
-public abstract class AbstractPartialFlowGraph {
+public abstract class AbstractTransposeFlowGraph {
     protected final AbstractVertex<?> sink;
 
     /**
-     * Create a partial flow graph induced by the given sink
-     * @param sink Sink vertex that induces the partial flow graph
+     * Create a transpose flow graph induced by the given sink
+     * @param sink Sink vertex that induces the transpose flow graph
      */
-    public AbstractPartialFlowGraph(AbstractVertex<?> sink) {
+    public AbstractTransposeFlowGraph(AbstractVertex<?> sink) {
         this.sink = sink;
     }
 
     /**
-     * Evaluate the data flow of the partial flow graph with the given node and data characteristics calculator
+     * Evaluate the data flow of the transpose flow graph with the given node and data characteristics calculator
      */
-    public abstract AbstractPartialFlowGraph evaluate();
+    public abstract AbstractTransposeFlowGraph evaluate();
 
     /**
-     * Returns the sink that induces the partial flow graph
-     * @return Returns the sink that induces the partial flow graph
+     * Returns the sink that induces the transpose flow graph
+     * @return Returns the sink that induces the transpose flow graph
      */
     public AbstractVertex<?> getSink() {
         return sink;
@@ -52,7 +52,10 @@ public abstract class AbstractPartialFlowGraph {
                 continue;
             }
             vertices.add(currentElement);
-            currentElement.getPreviousElements().stream().filter(Objects::nonNull).filter(it -> !vertices.contains(it))
+            currentElement.getPreviousElements()
+                    .stream()
+                    .filter(Objects::nonNull)
+                    .filter(it -> !vertices.contains(it))
                     .forEach(currentElements::push);
         }
         Collections.reverse(vertices);
@@ -66,20 +69,28 @@ public abstract class AbstractPartialFlowGraph {
      * @return Returns a list of all succeeding vertices
      */
     public List<AbstractVertex<?>> getSucceedingVertices(AbstractVertex<?> vertex) {
-        return this.getVertices().stream().filter(it -> it.getPreviousElements().contains(vertex)).collect(Collectors.toList());
+        return this.getVertices()
+                .stream()
+                .filter(it -> it.getPreviousElements()
+                        .contains(vertex))
+                .collect(Collectors.toList());
     }
 
     /**
-     * Returns a stream over all elements present in the partial flow graph. The order of elements is completely arbitrary,
-     * but deterministic.
-     * @return Returns a stream over all elements in the partial flow graph
+     * Returns a stream over all elements present in the transpose flow graph. The order of elements is completely
+     * arbitrary, but deterministic.
+     * @return Returns a stream over all elements in the transpose flow graph
      */
     public Stream<? extends AbstractVertex<?>> stream() {
-        return this.getVertices().stream();
+        return this.getVertices()
+                .stream();
     }
 
     @Override
     public String toString() {
-        return this.getVertices().stream().map(AbstractVertex::toString).reduce("", (t, u) -> String.format("%s%s%s", t, System.lineSeparator(), u));
+        return this.getVertices()
+                .stream()
+                .map(AbstractVertex::toString)
+                .reduce("", (t, u) -> String.format("%s%s%s", t, System.lineSeparator(), u));
     }
 }

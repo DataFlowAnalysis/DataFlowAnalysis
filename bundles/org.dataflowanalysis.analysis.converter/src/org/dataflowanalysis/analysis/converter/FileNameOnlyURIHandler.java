@@ -9,7 +9,8 @@ import org.eclipse.emf.ecore.xmi.impl.URIHandlerImpl;
 public class FileNameOnlyURIHandler extends URIHandlerImpl {
     @Override
     public URI deresolve(URI uri) {
-        return URI.createFileURI(uri.lastSegment()).appendFragment(uri.fragment());
+        return URI.createFileURI(uri.lastSegment())
+                .appendFragment(uri.fragment());
     }
 
 }

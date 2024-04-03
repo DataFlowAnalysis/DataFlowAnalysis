@@ -51,7 +51,8 @@ public abstract class ResourceProvider {
         for (Resource resource : this.getResources()) {
             Optional<EObject> result = this.findInResource(it -> {
                 if (it instanceof Entity) {
-                    return ((Entity) it).getId().equals(id);
+                    return ((Entity) it).getId()
+                            .equals(id);
                 }
                 return false;
             }, resource);
@@ -104,10 +105,12 @@ public abstract class ResourceProvider {
         Resource resource = resources.getResource(modelURI, true);
         if (resource == null) {
             throw new IllegalArgumentException(String.format("Model with URI %s could not be loaded", modelURI));
-        } else if (resource.getContents().isEmpty()) {
+        } else if (resource.getContents()
+                .isEmpty()) {
             throw new IllegalArgumentException(String.format("Model with URI %s is empty", modelURI));
         }
-        return resource.getContents().get(0);
+        return resource.getContents()
+                .get(0);
     }
 
     /**
@@ -127,7 +130,10 @@ public abstract class ResourceProvider {
 
         while (!stack.isEmpty()) {
             EObject top = stack.pop();
-            stack.addAll(top.eContents().stream().filter(it -> !(visitedNodes.containsKey(it) && visitedNodes.get(it))).toList());
+            stack.addAll(top.eContents()
+                    .stream()
+                    .filter(it -> !(visitedNodes.containsKey(it) && visitedNodes.get(it)))
+                    .toList());
 
             if (visitedNodes.containsKey(top) && visitedNodes.get(top)) {
                 continue;

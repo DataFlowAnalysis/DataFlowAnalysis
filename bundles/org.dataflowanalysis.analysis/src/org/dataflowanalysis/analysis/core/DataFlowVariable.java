@@ -24,7 +24,8 @@ public record DataFlowVariable(String variableName, List<CharacteristicValue> ch
      * @return Returns a new data flow variable object with the updated characteristic values
      */
     public DataFlowVariable addCharacteristic(CharacteristicValue characteristic) {
-        List<CharacteristicValue> newCharacteristics = Stream.concat(characteristics.stream(), Stream.of(characteristic)).toList();
+        List<CharacteristicValue> newCharacteristics = Stream.concat(characteristics.stream(), Stream.of(characteristic))
+                .toList();
         return new DataFlowVariable(variableName, newCharacteristics);
     }
 
@@ -53,8 +54,10 @@ public record DataFlowVariable(String variableName, List<CharacteristicValue> ch
      * @return Returns a list of all characteristics matching the characteristic type
      */
     public List<CharacteristicValue> getCharacteristicsWithName(String characteristicType) {
-        return this.characteristics().stream()
-                .filter(cv -> cv.getTypeName().equals(characteristicType))
+        return this.characteristics()
+                .stream()
+                .filter(cv -> cv.getTypeName()
+                        .equals(characteristicType))
                 .collect(Collectors.toList());
     }
 }

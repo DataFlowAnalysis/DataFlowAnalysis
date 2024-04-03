@@ -15,7 +15,7 @@ import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraph;
+import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraphCollection;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintData;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintViolations;
 import org.junit.jupiter.api.Test;
@@ -27,15 +27,18 @@ public class ConstraintResultTest extends ConstraintTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean travelPlannerCondition(AbstractVertex<?> node) {
-        List<String> assignedRoles = node.getNodeCharacteristicsWithName("AssignedRoles").stream()
+        List<String> assignedRoles = node.getNodeCharacteristicsWithName("AssignedRoles")
+                .stream()
                 .map(CharacteristicValue::getValueName)
                 .toList();
-        Collection<List<CharacteristicValue>> grantedRoles = node.getDataFlowCharacteristicsWithName("GrantedRoles").values();
+        Collection<List<CharacteristicValue>> grantedRoles = node.getDataFlowCharacteristicsWithName("GrantedRoles")
+                .values();
 
         printNodeInformation(node);
 
         for (List<CharacteristicValue> dataFlowCharacteristics : grantedRoles) {
-            if (!dataFlowCharacteristics.isEmpty() && dataFlowCharacteristics.stream().distinct()
+            if (!dataFlowCharacteristics.isEmpty() && dataFlowCharacteristics.stream()
+                    .distinct()
                     .map(CharacteristicValue::getValueName)
                     .noneMatch(assignedRoles::contains)) {
                 return true;
@@ -50,16 +53,22 @@ public class ConstraintResultTest extends ConstraintTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean internationalOnlineShopCondition(AbstractVertex<?> node) {
-        List<String> serverLocation = node.getNodeCharacteristicsWithName("ServerLocation").stream()
+        List<String> serverLocation = node.getNodeCharacteristicsWithName("ServerLocation")
+                .stream()
                 .map(CharacteristicValue::getValueName)
                 .toList();
-        List<String> dataSensitivity = node.getDataFlowCharacteristicsWithName("DataSensitivity").values().stream()
+        List<String> dataSensitivity = node.getDataFlowCharacteristicsWithName("DataSensitivity")
+                .values()
+                .stream()
                 .flatMap(Collection::stream)
                 .map(CharacteristicValue::getValueName)
                 .toList();
         printNodeInformation(node);
 
-        return dataSensitivity.stream().anyMatch(l -> l.equals("Personal")) && serverLocation.stream().anyMatch(l -> l.equals("nonEU"));
+        return dataSensitivity.stream()
+                .anyMatch(l -> l.equals("Personal"))
+                && serverLocation.stream()
+                        .anyMatch(l -> l.equals("nonEU"));
     }
 
     /**
@@ -68,10 +77,13 @@ public class ConstraintResultTest extends ConstraintTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean returnCondition(AbstractVertex<?> node) {
-        List<String> assignedNode = new ArrayList<>(node.getNodeCharacteristicsWithName("AssignedRole").stream()
+        List<String> assignedNode = new ArrayList<>(node.getNodeCharacteristicsWithName("AssignedRole")
+                .stream()
                 .map(CharacteristicValue::getValueName)
                 .toList());
-        List<String> assignedVariables = node.getDataFlowCharacteristicsWithName("AssignedRole").values().stream()
+        List<String> assignedVariables = node.getDataFlowCharacteristicsWithName("AssignedRole")
+                .values()
+                .stream()
                 .flatMap(Collection::stream)
                 .map(CharacteristicValue::getValueName)
                 .toList();
@@ -144,22 +156,29 @@ public class ConstraintResultTest extends ConstraintTest {
 
     public void testAnalysis(PCMDataFlowConfidentialityAnalysis analysis, Predicate<AbstractVertex<?>> constraint,
             List<ConstraintData> constraintData) {
-        PCMFlowGraph flowGraph = analysis.findFlowGraph();
+        PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
-        List<AbstractVertex<?>> results = flowGraph.getPartialFlowGraphs().stream().map(it -> analysis.queryDataFlow(it, constraint))
-                .flatMap(Collection::stream).collect(Collectors.toList());
+        List<AbstractVertex<?>> results = flowGraph.getTransposeFlowGraphs()
+                .stream()
+                .map(it -> analysis.queryDataFlow(it, constraint))
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
 
         assertEquals(constraintData.size(), results.size(), "Incorrect count of violations found");
 
         for (ConstraintData constraintNodeData : constraintData) {
-            var violatingNode = results.stream().filter(constraintNodeData::matches).findFirst();
+            var violatingNode = results.stream()
+                    .filter(constraintNodeData::matches)
+                    .findFirst();
 
             if (violatingNode.isEmpty()) {
                 fail("Could not find node for expected constraint violation");
             }
 
-            List<CharacteristicValue> nodeCharacteristics = violatingNode.get().getAllNodeCharacteristics();
-            List<DataFlowVariable> dataFlowVariables = violatingNode.get().getAllDataFlowVariables();
+            List<CharacteristicValue> nodeCharacteristics = violatingNode.get()
+                    .getAllNodeCharacteristics();
+            List<DataFlowVariable> dataFlowVariables = violatingNode.get()
+                    .getAllDataFlowVariables();
 
             assertEquals(constraintNodeData.nodeCharacteristicsCount(), nodeCharacteristics.size());
             assertEquals(constraintNodeData.dataFlowVariablesCount(), dataFlowVariables.size());

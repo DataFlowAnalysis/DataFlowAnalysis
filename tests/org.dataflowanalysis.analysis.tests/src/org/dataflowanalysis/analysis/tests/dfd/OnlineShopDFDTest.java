@@ -37,15 +37,15 @@ public class OnlineShopDFDTest {
     }
 
     @Test
-    public void numberOfTransposedFlowGraphs_equalsThree() {
+    public void numberOfTransposeFlowGraphs_equalsThree() {
         DFDFlowGraphCollection flowGraph = analysis.findFlowGraphs();
-        assertEquals(flowGraph.getTransposedFlowGraphs().size(), 3);
+        assertEquals(flowGraph.getTransposeFlowGraphs().size(), 3);
     }
 
     @Test
     public void checkSinks() {
         var flowGraph = analysis.findFlowGraphs();
-        var entityNames = flowGraph.getTransposedFlowGraphs().stream().map(it -> ((DFDVertex) it.getSink()).getName()).toList();
+        var entityNames = flowGraph.getTransposeFlowGraphs().stream().map(it -> ((DFDVertex) it.getSink()).getName()).toList();
 
         var expectedNames = List.of("User", "Database", "Database");
         assertIterableEquals(expectedNames, entityNames);
@@ -56,8 +56,8 @@ public class OnlineShopDFDTest {
         var flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        for (var transposedFlowGraph : flowGraph.getTransposedFlowGraphs()) {
-            for (var vertex : transposedFlowGraph.getVertices()) {
+        for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
+            for (var vertex : transposeFlowGraph.getVertices()) {
                 if (((DFDVertex) vertex).getName().equals("User")) {
                     var userVertexLabels = retrieveNodeLabels(vertex);
                     var expectedLabels = List.of("EU");
@@ -72,8 +72,8 @@ public class OnlineShopDFDTest {
     public void testDataLabelPropagation() {
         var flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
-        for (var transposedFlowGraph : flowGraph.getTransposedFlowGraphs()) {
-            var sink = transposedFlowGraph.getSink();
+        for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
+            var sink = transposeFlowGraph.getSink();
             if (((DFDVertex) sink).getName().equals("User")) {
                 var propagatedLabels = retrieveDataLabels(sink);
                 var expectedPropagatedLabels = List.of("Public");
@@ -91,8 +91,8 @@ public class OnlineShopDFDTest {
         // Constraint 1: Personal data flowing to a node that is deployed outside the EU
         // Should find 1 violation
         int violationsFound = 0;
-        for (var transposedFlowGraph : flowGraph.getTransposedFlowGraphs()) {
-            var violations = analysis.queryDataFlow(transposedFlowGraph, it -> {
+        for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
+            var violations = analysis.queryDataFlow(transposeFlowGraph, it -> {
                 var nodeLabels = retrieveNodeLabels(it);
                 var dataLabels = retrieveDataLabels(it);
 
@@ -105,8 +105,8 @@ public class OnlineShopDFDTest {
 
         // Constraint 2: Personal data in a node deployed outside the EU w/o encryption
         // Should find 0 violations
-        for (var transposedFlowGraph : flowGraph.getTransposedFlowGraphs()) {
-            var violations = analysis.queryDataFlow(transposedFlowGraph, it -> {
+        for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
+            var violations = analysis.queryDataFlow(transposeFlowGraph, it -> {
                 var nodeLabels = retrieveNodeLabels(it);
                 var dataLabels = retrieveDataLabels(it);
 

@@ -3,7 +3,7 @@ package org.dataflowanalysis.analysis;
 import java.util.List;
 import java.util.function.Predicate;
 import org.apache.log4j.*;
-import org.dataflowanalysis.analysis.core.AbstractTransposedFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.eclipse.xtext.linking.impl.AbstractCleaningLinker;
@@ -17,7 +17,7 @@ import org.eclipse.xtext.resource.containers.ResourceSetBasedAllContainersStateP
  * model can be determined with {@link DataFlowConfidentialityAnalysis#findFlowGraphs()}. To determine characteristics at
  * each node the method {@link FlowGraphCollection#evaluate()} must be called. Finally, a
  * constraint can be evaluated with
- * {@link DataFlowConfidentialityAnalysis#queryDataFlow(AbstractTransposedFlowGraph, Predicate)} on each transposed flow graph
+ * {@link DataFlowConfidentialityAnalysis#queryDataFlow(AbstractTransposeFlowGraph, Predicate)} on each transpose flow graph
  * contained in the previously returned flow graph.
  */
 public abstract class DataFlowConfidentialityAnalysis {
@@ -36,15 +36,15 @@ public abstract class DataFlowConfidentialityAnalysis {
     public abstract FlowGraphCollection findFlowGraphs();
 
     /**
-     * Evaluates a given condition on a transposed flow graph and returns all elements that violate the given condition
-     * @param transposedFlowGraph Transposed flow graph that is analyzed by the analysis
+     * Evaluates a given condition on a transpose flow graph and returns all elements that violate the given condition
+     * @param transposeFlowGraph Transpose flow graph that is analyzed by the analysis
      * @param condition Condition that describes a violation at one vertex. If the condition returns true, the condition is
      * violated and the vertex is included in the output. Otherwise, the vertex is not included in the result of this
      * method.
      * @return Returns a list of all nodes that matched the given condition
      */
-    public List<? extends AbstractVertex<?>> queryDataFlow(AbstractTransposedFlowGraph transposedFlowGraph, Predicate<? super AbstractVertex<?>> condition) {
-        return transposedFlowGraph.getVertices().stream().filter(condition).toList();
+    public List<? extends AbstractVertex<?>> queryDataFlow(AbstractTransposeFlowGraph transposeFlowGraph, Predicate<? super AbstractVertex<?>> condition) {
+        return transposeFlowGraph.getVertices().stream().filter(condition).toList();
     }
 
     /**

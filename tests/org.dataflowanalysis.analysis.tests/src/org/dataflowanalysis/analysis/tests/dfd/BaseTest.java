@@ -36,14 +36,14 @@ public class BaseTest {
         DFDFlowGraphCollection flowGraph = this.analysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        return analysis.queryDataFlow(flowGraph.getTransposedFlowGraphs().get(0), constraint);
+        return analysis.queryDataFlow(flowGraph.getTransposeFlowGraphs().get(0), constraint);
     }
 
     @Test
-    public void numberOfTransposedFlowGraphs_equalsFour() {
+    public void numberOfTransposeFlowGraphs_equalsFour() {
         this.analysis.initializeAnalysis();
         DFDFlowGraphCollection flowGraph = analysis.findFlowGraphs();
-        assertEquals(flowGraph.getTransposedFlowGraphs().size(), 4);
+        assertEquals(flowGraph.getTransposeFlowGraphs().size(), 4);
     }
 
     @Test
@@ -66,8 +66,8 @@ public class BaseTest {
         DFDFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        for (var transposedFlowGraph : flowGraph.getTransposedFlowGraphs()) {
-            assertTrue(transposedFlowGraph.getVertices().stream().filter(v -> ((DFDVertex) v).getName().equals("In")).count() < 2);
+        for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
+            assertTrue(transposeFlowGraph.getVertices().stream().filter(v -> ((DFDVertex) v).getName().equals("In")).count() < 2);
         }
     }
 
@@ -77,8 +77,8 @@ public class BaseTest {
         DFDFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        for (var transposedFlowGraph : flowGraph.getTransposedFlowGraphs()) {
-            for (var vertex : transposedFlowGraph.getVertices()) {
+        for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
+            for (var vertex : transposeFlowGraph.getVertices()) {
                 assertTrue((!vertex.getAllIncomingDataFlowVariables().isEmpty()) || (!vertex.getAllOutgoingDataFlowVariables().isEmpty()));
             }
         }

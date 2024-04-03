@@ -3,7 +3,7 @@ package org.dataflowanalysis.analysis.pcm.core.finder;
 import java.util.*;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
-import org.dataflowanalysis.analysis.pcm.core.PCMTransposedFlowGraph;
+import org.dataflowanalysis.analysis.pcm.core.PCMTransposeFlowGraph;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
@@ -19,23 +19,23 @@ import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 import org.palladiosimulator.pcm.usagemodel.Start;
 import org.palladiosimulator.pcm.usagemodel.Stop;
 
-public class PCMUserTransposedFlowGraphFinder {
-    private static final Logger logger = Logger.getLogger(PCMUserTransposedFlowGraphFinder.class);
+public class PCMUserTransposeFlowGraphFinder {
+    private static final Logger logger = Logger.getLogger(PCMUserTransposeFlowGraphFinder.class);
 
     private final ResourceProvider resourceProvider;
-    private PCMTransposedFlowGraph currentTransposedFlowGraph;
+    private PCMTransposeFlowGraph currentTransposeFlowGraph;
 
-    public PCMUserTransposedFlowGraphFinder(ResourceProvider resourceProvider) {
+    public PCMUserTransposeFlowGraphFinder(ResourceProvider resourceProvider) {
         this.resourceProvider = resourceProvider;
-        this.currentTransposedFlowGraph = new PCMTransposedFlowGraph();
+        this.currentTransposeFlowGraph = new PCMTransposeFlowGraph();
     }
 
-    public PCMUserTransposedFlowGraphFinder(ResourceProvider resourceProvider, PCMTransposedFlowGraph currentTransposedFlowGraph) {
+    public PCMUserTransposeFlowGraphFinder(ResourceProvider resourceProvider, PCMTransposeFlowGraph currentTransposeFlowGraph) {
         this.resourceProvider = resourceProvider;
-        this.currentTransposedFlowGraph = currentTransposedFlowGraph;
+        this.currentTransposeFlowGraph = currentTransposeFlowGraph;
     }
 
-    public List<PCMTransposedFlowGraph> findSequencesForUserAction(AbstractUserAction initialAction) {
+    public List<PCMTransposeFlowGraph> findSequencesForUserAction(AbstractUserAction initialAction) {
         if (initialAction instanceof Start) {
             return findSequencesForUserStartAction((Start) initialAction);
 
@@ -56,42 +56,42 @@ public class PCMUserTransposedFlowGraphFinder {
         }
     }
 
-    protected List<PCMTransposedFlowGraph> findSequencesForUserStartAction(Start currentAction) {
+    protected List<PCMTransposeFlowGraph> findSequencesForUserStartAction(Start currentAction) {
         UserPCMVertex<? extends AbstractUserAction> startElement;
-        if (this.currentTransposedFlowGraph.getSink() == null) {
+        if (this.currentTransposeFlowGraph.getSink() == null) {
             startElement = new UserPCMVertex<>(currentAction, resourceProvider);
         } else {
-            startElement = new UserPCMVertex<>(currentAction, List.of(this.currentTransposedFlowGraph.getSink()), resourceProvider);
+            startElement = new UserPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), resourceProvider);
         }
-        this.currentTransposedFlowGraph = new PCMTransposedFlowGraph(startElement);
+        this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(startElement);
         return findSequencesForUserAction(currentAction.getSuccessor());
     }
 
-    protected List<PCMTransposedFlowGraph> findSequencesForUserStopAction(Stop currentAction) {
-        var stopElement = new UserPCMVertex<>(currentAction, List.of(this.currentTransposedFlowGraph.getSink()), resourceProvider);
+    protected List<PCMTransposeFlowGraph> findSequencesForUserStopAction(Stop currentAction) {
+        var stopElement = new UserPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), resourceProvider);
 
         Optional<AbstractUserAction> parentAction = PCMQueryUtils.findParentOfType(currentAction, AbstractUserAction.class, false);
         if (parentAction.isEmpty()) {
-            return List.of(new PCMTransposedFlowGraph(stopElement));
+            return List.of(new PCMTransposeFlowGraph(stopElement));
         } else {
-            this.currentTransposedFlowGraph = new PCMTransposedFlowGraph(stopElement);
+            this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(stopElement);
             return findSequencesForUserAction(parentAction.get().getSuccessor());
         }
     }
 
-    protected List<PCMTransposedFlowGraph> findSequencesForUserBranchAction(Branch currentAction) {
+    protected List<PCMTransposeFlowGraph> findSequencesForUserBranchAction(Branch currentAction) {
         return currentAction.getBranchTransitions_Branch().stream().map(BranchTransition::getBranchedBehaviour_BranchTransition)
                 .map(PCMQueryUtils::getStartActionOfScenarioBehavior).flatMap(Optional::stream)
                 .map(it -> {
                     Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping = new IdentityHashMap<>();
-                    PCMTransposedFlowGraph clonedSequence = this.currentTransposedFlowGraph.deepCopy(vertexMapping);
-                    return new PCMUserTransposedFlowGraphFinder(this.resourceProvider, clonedSequence).findSequencesForUserAction(it);
+                    PCMTransposeFlowGraph clonedSequence = this.currentTransposeFlowGraph.deepCopy(vertexMapping);
+                    return new PCMUserTransposeFlowGraphFinder(this.resourceProvider, clonedSequence).findSequencesForUserAction(it);
                 }).flatMap(List::stream).toList();
     }
 
-    protected List<PCMTransposedFlowGraph> findSequencesForEntryLevelSystemCall(EntryLevelSystemCall currentAction) {
-        var callingEntity = new CallingUserPCMVertex(currentAction, List.of(this.currentTransposedFlowGraph.getSink()), true, resourceProvider);
-        this.currentTransposedFlowGraph = new PCMTransposedFlowGraph(callingEntity);
+    protected List<PCMTransposeFlowGraph> findSequencesForEntryLevelSystemCall(EntryLevelSystemCall currentAction) {
+        var callingEntity = new CallingUserPCMVertex(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), true, resourceProvider);
+        this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(callingEntity);
 
         OperationProvidedRole calledRole = currentAction.getProvidedRole_EntryLevelSystemCall();
         OperationSignature calledSignature = currentAction.getOperationSignature__EntryLevelSystemCall();
@@ -113,17 +113,17 @@ public class PCMUserTransposedFlowGraphFinder {
 
                 SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get().context(), callers,
                         calledSignature.getParameters__OperationSignature());
-                return new PCMSEFFTransposedFlowGraphFinder(resourceProvider, finderContext, this.currentTransposedFlowGraph)
+                return new PCMSEFFTransposeFlowGraphFinder(resourceProvider, finderContext, this.currentTransposeFlowGraph)
                         .findSequencesForSEFFAction(SEFFStartAction.get());
             }
         }
     }
 
-    public List<PCMTransposedFlowGraph> findSequencesForUserActionReturning(EntryLevelSystemCall currentAction, AbstractPCMVertex<?> caller) {
+    public List<PCMTransposeFlowGraph> findSequencesForUserActionReturning(EntryLevelSystemCall currentAction, AbstractPCMVertex<?> caller) {
         List<AbstractPCMVertex<?>> previousVertices = new ArrayList<>();
         previousVertices.add(caller);
-        previousVertices.add(this.currentTransposedFlowGraph.getSink());
-        this.currentTransposedFlowGraph = new PCMTransposedFlowGraph(
+        previousVertices.add(this.currentTransposeFlowGraph.getSink());
+        this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(
                 new CallingUserPCMVertex(currentAction, previousVertices, false, resourceProvider));
         return findSequencesForUserAction(currentAction.getSuccessor());
     }

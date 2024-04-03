@@ -31,7 +31,7 @@ public class ConstraintFeatureTest extends ConstraintTest {
         flowGraph.evaluate();
 
         logger.setLevel(Level.TRACE);
-        var results = analysis.queryDataFlow(flowGraph.getTransposedFlowGraphs().get(0), node -> {
+        var results = analysis.queryDataFlow(flowGraph.getTransposeFlowGraphs().get(0), node -> {
             printNodeInformation(node);
             if (node instanceof UserPCMVertex<?>) {
                 return node.getAllNodeCharacteristics().size() != 1;
@@ -58,7 +58,7 @@ public class ConstraintFeatureTest extends ConstraintTest {
         flowGraph.evaluate();
 
         logger.setLevel(Level.TRACE);
-        var results = analysis.queryDataFlow(flowGraph.getTransposedFlowGraphs().get(0), node -> {
+        var results = analysis.queryDataFlow(flowGraph.getTransposeFlowGraphs().get(0), node -> {
             printNodeInformation(node);
             if (node instanceof UserPCMVertex<?>) {
                 return node.getAllNodeCharacteristics().size() != 1;
@@ -85,7 +85,7 @@ public class ConstraintFeatureTest extends ConstraintTest {
         flowGraph.evaluate();
 
         logger.setLevel(Level.TRACE);
-        var results = analysis.queryDataFlow(flowGraph.getTransposedFlowGraphs().get(0), node -> {
+        var results = analysis.queryDataFlow(flowGraph.getTransposeFlowGraphs().get(0), node -> {
             printNodeInformation(node);
             if (node instanceof CallingUserPCMVertex && ((CallingUserPCMVertex) node).isReturning()) {
                 return !node.getAllDataFlowVariables().isEmpty();

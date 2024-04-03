@@ -2,7 +2,7 @@ package org.dataflowanalysis.analysis.tests;
 
 import java.util.List;
 import org.apache.log4j.Level;
-import org.dataflowanalysis.analysis.core.AbstractTransposedFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
@@ -35,8 +35,8 @@ public class ReadMeTest extends BaseTest {
         PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        for (AbstractTransposedFlowGraph actionSequence : flowGraph.getTransposedFlowGraphs()) {
-            List<? extends AbstractVertex<?>> violations = analysis.queryDataFlow(actionSequence, it -> false // Constraint goes here, return true, if
+        for (AbstractTransposeFlowGraph transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
+            List<? extends AbstractVertex<?>> violations = analysis.queryDataFlow(transposeFlowGraph, it -> false // Constraint goes here, return true, if
                                                                                                               // constraint is violated
             );
         }
@@ -55,7 +55,7 @@ public class ReadMeTest extends BaseTest {
         PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        for (AbstractTransposedFlowGraph actionSequence : flowGraph.getTransposedFlowGraphs()) {
+        for (AbstractTransposeFlowGraph actionSequence : flowGraph.getTransposeFlowGraphs()) {
             List<? extends AbstractVertex<?>> violations = analysis.queryDataFlow(actionSequence, it -> false // Constraint goes here, return true, if
                                                                                                               // constraint is violated
             );

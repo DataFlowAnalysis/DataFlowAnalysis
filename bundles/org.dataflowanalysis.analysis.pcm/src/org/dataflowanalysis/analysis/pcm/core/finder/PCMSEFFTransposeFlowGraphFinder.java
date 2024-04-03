@@ -8,7 +8,7 @@ import java.util.Optional;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
-import org.dataflowanalysis.analysis.pcm.core.PCMTransposedFlowGraph;
+import org.dataflowanalysis.analysis.pcm.core.PCMTransposeFlowGraph;
 import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.seff.SEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
@@ -26,20 +26,20 @@ import org.palladiosimulator.pcm.seff.SetVariableAction;
 import org.palladiosimulator.pcm.seff.StartAction;
 import org.palladiosimulator.pcm.seff.StopAction;
 
-public class PCMSEFFTransposedFlowGraphFinder {
-    private static final Logger logger = Logger.getLogger(PCMSEFFTransposedFlowGraphFinder.class);
+public class PCMSEFFTransposeFlowGraphFinder {
+    private static final Logger logger = Logger.getLogger(PCMSEFFTransposeFlowGraphFinder.class);
 
     private final ResourceProvider resourceProvider;
     private final SEFFFinderContext context;
-    private PCMTransposedFlowGraph currentTransposedFlowGraph;
+    private PCMTransposeFlowGraph currentTransposeFlowGraph;
 
-    public PCMSEFFTransposedFlowGraphFinder(ResourceProvider resourceProvider, SEFFFinderContext context, PCMTransposedFlowGraph currentTransposedFlowGraph) {
+    public PCMSEFFTransposeFlowGraphFinder(ResourceProvider resourceProvider, SEFFFinderContext context, PCMTransposeFlowGraph currentTransposeFlowGraph) {
         this.resourceProvider = resourceProvider;
         this.context = context;
-        this.currentTransposedFlowGraph = currentTransposedFlowGraph;
+        this.currentTransposeFlowGraph = currentTransposeFlowGraph;
     }
 
-    public List<PCMTransposedFlowGraph> findSequencesForSEFFAction(AbstractAction currentAction) {
+    public List<PCMTransposeFlowGraph> findSequencesForSEFFAction(AbstractAction currentAction) {
 
         if (currentAction instanceof StartAction) {
             return findSequencesForSEFFStartAction((StartAction) currentAction);
@@ -64,17 +64,17 @@ public class PCMSEFFTransposedFlowGraphFinder {
         }
     }
 
-    protected List<PCMTransposedFlowGraph> findSequencesForSEFFStartAction(StartAction currentAction) {
-        var startElement = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposedFlowGraph.getSink()),
+    protected List<PCMTransposeFlowGraph> findSequencesForSEFFStartAction(StartAction currentAction) {
+        var startElement = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()),
                 context.getContext(), context.getParameter(), resourceProvider);
-        this.currentTransposedFlowGraph = new PCMTransposedFlowGraph(startElement);
+        this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(startElement);
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction());
     }
 
-    protected List<PCMTransposedFlowGraph> findSequencesForSEFFStopAction(StopAction currentAction) {
-        var stopElement = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposedFlowGraph.getSink()),
+    protected List<PCMTransposeFlowGraph> findSequencesForSEFFStopAction(StopAction currentAction) {
+        var stopElement = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()),
                 context.getContext(), context.getParameter(), resourceProvider);
-        this.currentTransposedFlowGraph = new PCMTransposedFlowGraph(stopElement);
+        this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(stopElement);
 
         Optional<AbstractAction> parentAction = PCMQueryUtils.findParentOfType(currentAction, AbstractAction.class, false);
         if (parentAction.isPresent()) {
@@ -88,11 +88,11 @@ public class PCMSEFFTransposedFlowGraphFinder {
         }
     }
 
-    protected List<PCMTransposedFlowGraph> findSequencesForSEFFExternalCallAction(ExternalCallAction currentAction) {
+    protected List<PCMTransposeFlowGraph> findSequencesForSEFFExternalCallAction(ExternalCallAction currentAction) {
 
-        var callingEntity = new CallingSEFFPCMVertex(currentAction, List.of(this.currentTransposedFlowGraph.getSink()), context.getContext(), context.getParameter(),
+        var callingEntity = new CallingSEFFPCMVertex(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), context.getContext(), context.getParameter(),
                 true, resourceProvider);
-        this.currentTransposedFlowGraph = new PCMTransposedFlowGraph(callingEntity);
+        this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(callingEntity);
 
         OperationRequiredRole calledRole = currentAction.getRole_ExternalService();
         OperationSignature calledSignature = currentAction.getCalledService_ExternalService();
@@ -119,37 +119,37 @@ public class PCMSEFFTransposedFlowGraphFinder {
         }
     }
 
-    protected List<PCMTransposedFlowGraph> findSequencesForSEFFSetVariableAction(SetVariableAction currentAction) {
+    protected List<PCMTransposeFlowGraph> findSequencesForSEFFSetVariableAction(SetVariableAction currentAction) {
 
-        var newEntity = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposedFlowGraph.getSink()), context.getContext(), context.getParameter(),
+        var newEntity = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), context.getContext(), context.getParameter(),
                 resourceProvider);
-        this.currentTransposedFlowGraph = new PCMTransposedFlowGraph(newEntity);
+        this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(newEntity);
 
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction());
     }
 
-    protected List<PCMTransposedFlowGraph> findSequencesForSEFFBranchAction(BranchAction currentAction) {
+    protected List<PCMTransposeFlowGraph> findSequencesForSEFFBranchAction(BranchAction currentAction) {
         return currentAction.getBranches_Branch().stream().map(AbstractBranchTransition::getBranchBehaviour_BranchTransition)
                 .map(ResourceDemandingBehaviour::getSteps_Behaviour).map(PCMQueryUtils::getFirstStartActionInActionList).flatMap(Optional::stream)
                 .map(it -> {
                     Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping = new IdentityHashMap<>();
-                    PCMTransposedFlowGraph clonedTransposedFlowGraph = this.currentTransposedFlowGraph.deepCopy(vertexMapping);
+                    PCMTransposeFlowGraph clonedTransposeFlowGraph = this.currentTransposeFlowGraph.deepCopy(vertexMapping);
                     SEFFFinderContext clonedContext = new SEFFFinderContext(context);
                     clonedContext.replaceCallers(vertexMapping);
-                    return new PCMSEFFTransposedFlowGraphFinder(resourceProvider, clonedContext, clonedTransposedFlowGraph).findSequencesForSEFFAction(it);
+                    return new PCMSEFFTransposeFlowGraphFinder(resourceProvider, clonedContext, clonedTransposeFlowGraph).findSequencesForSEFFAction(it);
                 }).flatMap(List::stream).toList();
     }
 
-    protected List<PCMTransposedFlowGraph> findSequencesForSEFFActionReturning(ExternalCallAction currentAction, AbstractPCMVertex<?> caller) {
+    protected List<PCMTransposeFlowGraph> findSequencesForSEFFActionReturning(ExternalCallAction currentAction, AbstractPCMVertex<?> caller) {
         List<AbstractPCMVertex<?>> previousVertices = new ArrayList<>();
         previousVertices.add(caller);
-        previousVertices.add(this.currentTransposedFlowGraph.getSink());
-        this.currentTransposedFlowGraph = new PCMTransposedFlowGraph(
+        previousVertices.add(this.currentTransposeFlowGraph.getSink());
+        this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(
                 new CallingSEFFPCMVertex(currentAction, previousVertices, context.getContext(), context.getParameter(), false, resourceProvider));
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction());
     }
 
-    public List<PCMTransposedFlowGraph> returnToCaller(AbstractVertex<?> caller) {
+    public List<PCMTransposeFlowGraph> returnToCaller(AbstractVertex<?> caller) {
         if (caller instanceof CallingUserPCMVertex) {
             return returnToUserCaller((CallingUserPCMVertex) caller);
 
@@ -162,17 +162,17 @@ public class PCMSEFFTransposedFlowGraphFinder {
         }
     }
 
-    protected List<PCMTransposedFlowGraph> returnToUserCaller(CallingUserPCMVertex caller) {
+    protected List<PCMTransposeFlowGraph> returnToUserCaller(CallingUserPCMVertex caller) {
         if (!this.context.getCallers().isEmpty()) {
             logger.error("SEFF Action wanted to return without a matching calling user sequence element");
             throw new IllegalStateException();
         } else {
-            return new PCMUserTransposedFlowGraphFinder(resourceProvider, this.currentTransposedFlowGraph)
+            return new PCMUserTransposeFlowGraphFinder(resourceProvider, this.currentTransposeFlowGraph)
                     .findSequencesForUserActionReturning(caller.getReferencedElement(), caller);
         }
     }
 
-    protected List<PCMTransposedFlowGraph> returnToSEFFCaller(CallingSEFFPCMVertex caller) {
+    protected List<PCMTransposeFlowGraph> returnToSEFFCaller(CallingSEFFPCMVertex caller) {
         context.updateSEFFContext(caller.getContext());
         return findSequencesForSEFFActionReturning(caller.getReferencedElement(), caller);
     }

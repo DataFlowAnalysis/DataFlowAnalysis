@@ -10,29 +10,29 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * This abstract class represents a transposed flow graph induced by a sink {@link AbstractTransposedFlowGraph#getSink()}.
- * Ambiguous flows, like multiple flows to one input pin, are resolved in the transposed flow graph and represent one
+ * This abstract class represents a transpose flow graph induced by a sink {@link AbstractTransposeFlowGraph#getSink()}.
+ * Ambiguous flows, like multiple flows to one input pin, are resolved in the transpose flow graph and represent one
  * possible assignment
  */
-public abstract class AbstractTransposedFlowGraph {
+public abstract class AbstractTransposeFlowGraph {
     protected final AbstractVertex<?> sink;
 
     /**
-     * Create a transposed flow graph induced by the given sink
-     * @param sink Sink vertex that induces the transposed flow graph
+     * Create a transpose flow graph induced by the given sink
+     * @param sink Sink vertex that induces the transpose flow graph
      */
-    public AbstractTransposedFlowGraph(AbstractVertex<?> sink) {
+    public AbstractTransposeFlowGraph(AbstractVertex<?> sink) {
         this.sink = sink;
     }
 
     /**
-     * Evaluate the data flow of the transposed flow graph with the given node and data characteristics calculator
+     * Evaluate the data flow of the transpose flow graph with the given node and data characteristics calculator
      */
-    public abstract AbstractTransposedFlowGraph evaluate();
+    public abstract AbstractTransposeFlowGraph evaluate();
 
     /**
-     * Returns the sink that induces the transposed flow graph
-     * @return Returns the sink that induces the transposed flow graph
+     * Returns the sink that induces the transpose flow graph
+     * @return Returns the sink that induces the transpose flow graph
      */
     public AbstractVertex<?> getSink() {
         return sink;
@@ -77,9 +77,9 @@ public abstract class AbstractTransposedFlowGraph {
     }
 
     /**
-     * Returns a stream over all elements present in the transposed flow graph. The order of elements is completely arbitrary,
+     * Returns a stream over all elements present in the transpose flow graph. The order of elements is completely arbitrary,
      * but deterministic.
-     * @return Returns a stream over all elements in the transposed flow graph
+     * @return Returns a stream over all elements in the transpose flow graph
      */
     public Stream<? extends AbstractVertex<?>> stream() {
         return this.getVertices()

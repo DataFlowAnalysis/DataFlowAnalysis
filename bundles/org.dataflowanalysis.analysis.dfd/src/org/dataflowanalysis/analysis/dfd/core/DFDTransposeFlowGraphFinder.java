@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import org.dataflowanalysis.analysis.core.AbstractTransposedFlowGraph;
-import org.dataflowanalysis.analysis.core.TransposedFlowGraphFinder;
+import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
+import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
@@ -13,25 +13,25 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 
 /**
- * The DFDTransposedFlowGraphFinder determines all transposed flow graphs contained in a model
+ * The DFDTransposeFlowGraphFinder determines all transpose flow graphs contained in a model
  */
-public class DFDTransposedFlowGraphFinder implements TransposedFlowGraphFinder {
+public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
 
     private final DFDResourceProvider resourceProvider;
 
-    public DFDTransposedFlowGraphFinder(DFDResourceProvider resourceProvider) {
+    public DFDTransposeFlowGraphFinder(DFDResourceProvider resourceProvider) {
         this.resourceProvider = resourceProvider;
     }
 
     /**
-     * Finds all transposed flow graphs in a dataflowdiagram model instance
-     * @return Returns a list of all transposed flow graphs
+     * Finds all transpose flow graphs in a dataflowdiagram model instance
+     * @return Returns a list of all transpose flow graphs
      */
     @Override
-    public List<AbstractTransposedFlowGraph> findTransposedFlowGraphs() {
+    public List<AbstractTransposeFlowGraph> findTransposeFlowGraphs() {
         List<Node> endNodes = getEndNodes(this.resourceProvider.getDataFlowDiagram().getNodes());
 
-        List<AbstractTransposedFlowGraph> sequences = new ArrayList<>();
+        List<AbstractTransposeFlowGraph> sequences = new ArrayList<>();
 
         for (var endNode : endNodes) {
             for (var sink : determineSinks(new DFDVertex(endNode, new HashMap<>(), new HashMap<>()), this.resourceProvider.getDataFlowDiagram()
@@ -39,14 +39,14 @@ public class DFDTransposedFlowGraphFinder implements TransposedFlowGraphFinder {
                     endNode.getBehaviour()
                             .getInPin())) {
                 sink.unify(new HashSet<>());
-                sequences.add(new DFDTransposedFlowGraph(sink));
+                sequences.add(new DFDTransposeFlowGraph(sink));
             }
         }
         return sequences;
     }
 
     /**
-     * Builds a list of sink vertices with previous vertices for the creation of transposed flow graphs.
+     * Builds a list of sink vertices with previous vertices for the creation of transpose flow graphs.
      * <p/>
      * This method preforms the determination of sinks recursively
      * @param sink Single sink vertex without previous vertices calculated

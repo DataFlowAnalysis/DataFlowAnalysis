@@ -39,8 +39,7 @@ public class PCMTest {
     public void palladioToDfd() {
         String modelLocation = "org.dataflowanalysis.analysis.testmodels";
 
-        //testSpecificModel("CoronaWarnApp", "default", modelLocation,"cwa.json", null);
-        testSpecificModel("TravelPlanner", "travelPlanner", modelLocation, "tp.json", null);
+        testSpecificModel("TravelPlanner", "travelPlanner", modelLocation, null, null);
     }
 
     @Test

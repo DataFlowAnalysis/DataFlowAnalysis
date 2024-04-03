@@ -2,7 +2,7 @@ package org.dataflowanalysis.analysis.dfd.core;
 
 import java.util.List;
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.analysis.core.AbstractPartialFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.FlowGraph;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 
@@ -14,26 +14,26 @@ public class DFDFlowGraph extends FlowGraph {
 
     /**
      * Creates a new instance of a dfd flow graph with the given resource provider. Partial flow graphs are determined via
-     * {@link DFDFlowGraph#findPartialFlowGraphs()}
+     * {@link DFDFlowGraph#findTransposeFlowGraphs()}
      * @param resourceProvider Resource provider that provides model files to the partial flow graph finder
      */
     public DFDFlowGraph(DFDResourceProvider resourceProvider) {
         super(resourceProvider);
     }
     
-    public DFDFlowGraph(DFDResourceProvider resourceProvider, List<? extends AbstractPartialFlowGraph> partialFlowGraphs) {
-    	super(partialFlowGraphs, resourceProvider);
+    public DFDFlowGraph(DFDResourceProvider resourceProvider, List<? extends AbstractTransposeFlowGraph> transposeFlowGraphs) {
+    	super(transposeFlowGraphs, resourceProvider);
     }
 
     /**
      * Find a list of partial flow graphs that are contained in the model provided by the given resource provider
      * @return Returns a list of (unevaluated) partial flow graphs
      */
-    public List<? extends AbstractPartialFlowGraph> findPartialFlowGraphs() {
+    public List<? extends AbstractTransposeFlowGraph> findTransposeFlowGraphs() {
         if (!(this.resourceProvider instanceof DFDResourceProvider dfdResourceProvider)) {
             logger.error("Cannot find partial flow graphs for non-dfd resource provider");
             throw new IllegalArgumentException();
         }
-        return new DFDPartialFlowGraphFinder(dfdResourceProvider).findPartialFlowGraphs();
+        return new DFDTransposeFlowGraphFinder(dfdResourceProvider).findTransposeFlowGraphs();
     }
 }

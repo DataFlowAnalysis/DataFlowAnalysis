@@ -36,7 +36,7 @@ public abstract class FlowGraphCollection {
      * Determines the transpose flow graphs present in the model pointed to by {@link FlowGraphCollection#resourceProvider}
      * @return Returns a list of (unevaluated) transpose flow graphs contained in the model
      */
-    public abstract List<AbstractTransposeFlowGraph> findTransposeFlowGraphs();
+    public abstract List<? extends AbstractTransposeFlowGraph> findTransposeFlowGraphs();
 
     /**
      * Evaluates the collection of flow graphs with label propagation. An evaluated copy of the flow graph is returned by

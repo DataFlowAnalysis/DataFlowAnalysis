@@ -30,12 +30,22 @@ public record MicroSecEnd(List<Service> services,
 
         externalEntities().sort(Comparator.comparing(ExternalEntity::name));
 
-        informationFlows().sort(Comparator.comparing(InformationFlow::sender).thenComparing(InformationFlow::receiver));
+        informationFlows().sort(Comparator.comparing(InformationFlow::sender)
+                .thenComparing(InformationFlow::receiver));
 
         List<List<String>> allStereotypes = new ArrayList<>();
-        allStereotypes.add(services().stream().flatMap(node -> node.stereotypes().stream()).collect(Collectors.toList()));
-        allStereotypes.add(externalEntities().stream().flatMap(node -> node.stereotypes().stream()).collect(Collectors.toList()));
-        allStereotypes.add(informationFlows().stream().flatMap(node -> node.stereotypes().stream()).collect(Collectors.toList()));
+        allStereotypes.add(services().stream()
+                .flatMap(node -> node.stereotypes()
+                        .stream())
+                .collect(Collectors.toList()));
+        allStereotypes.add(externalEntities().stream()
+                .flatMap(node -> node.stereotypes()
+                        .stream())
+                .collect(Collectors.toList()));
+        allStereotypes.add(informationFlows().stream()
+                .flatMap(node -> node.stereotypes()
+                        .stream())
+                .collect(Collectors.toList()));
         allStereotypes.forEach(stereotype -> Collections.sort(stereotype));
     }
 

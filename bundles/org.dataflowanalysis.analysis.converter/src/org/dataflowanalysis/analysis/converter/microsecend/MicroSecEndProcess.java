@@ -21,7 +21,10 @@ public abstract class MicroSecEndProcess {
 
     public MicroSecEndProcess(String name, List<String> stereotypes, Map<String, List<String>> taggedValues) {
         this.name = name;
-        this.stereotypes = stereotypes.stream().map(stereotype -> stereotype.trim().replaceAll("[^a-zA-Z0-9]", "")).collect(Collectors.toList());
+        this.stereotypes = stereotypes.stream()
+                .map(stereotype -> stereotype.trim()
+                        .replaceAll("[^a-zA-Z0-9]", ""))
+                .collect(Collectors.toList());
         this.taggedValues = taggedValues;
     }
 

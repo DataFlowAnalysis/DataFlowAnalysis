@@ -56,7 +56,8 @@ public class BehaviorConverter {
             if (token.equals("(")) {
                 operators.push(token);
             } else if (token.equals(")")) {
-                while (!operators.isEmpty() && !operators.peek().equals("(")) {
+                while (!operators.isEmpty() && !operators.peek()
+                        .equals("(")) {
                     performOperation(operands, operators.pop());
                 }
                 operators.pop(); // Remove the '(' from the stack
@@ -110,8 +111,10 @@ public class BehaviorConverter {
                 var right = operands.pop();
                 var left = operands.pop();
                 var operation = (operator.equals(LOGICAL_AND)) ? ddFactory.createAND() : ddFactory.createOR();
-                operation.getTerms().add(left);
-                operation.getTerms().add(right);
+                operation.getTerms()
+                        .add(left);
+                operation.getTerms()
+                        .add(right);
                 operands.push(operation);
                 break;
             case LOGICAL_NOT:
@@ -141,8 +144,15 @@ public class BehaviorConverter {
         String valueName = token.split("\\.")[1];
 
         Optional<Label> optionalValue = Optional.ofNullable(dataDictionary)
-                .flatMap(dd -> dd.getLabelTypes().stream().filter(labelType -> labelType.getEntityName().equals(typeName))
-                        .flatMap(labelType -> labelType.getLabel().stream()).filter(label -> label.getEntityName().equals(valueName)).findAny());
+                .flatMap(dd -> dd.getLabelTypes()
+                        .stream()
+                        .filter(labelType -> labelType.getEntityName()
+                                .equals(typeName))
+                        .flatMap(labelType -> labelType.getLabel()
+                                .stream())
+                        .filter(label -> label.getEntityName()
+                                .equals(valueName))
+                        .findAny());
 
         Label value = optionalValue.orElseGet(() -> {
             Label label = ddFactory.createLabel();
@@ -158,7 +168,8 @@ public class BehaviorConverter {
 
     private String termToString(Term term, boolean isNested) {
         if (term instanceof LabelReference labelReference) {
-            return labelReference.getLabel().getEntityName();
+            return labelReference.getLabel()
+                    .getEntityName();
         } else if (term instanceof TRUE) {
             return "TRUE";
         } else if (term instanceof AND and) {

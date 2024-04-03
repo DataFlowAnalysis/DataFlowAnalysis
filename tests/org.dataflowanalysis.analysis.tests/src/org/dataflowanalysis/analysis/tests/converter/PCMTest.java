@@ -50,8 +50,10 @@ public class PCMTest {
 
         String inputModel = "InternationalOnlineShop";
         String inputFile = "default";
-        String dataflowdiagram = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram").toString();
-        String datadictionary = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary").toString();
+        String dataflowdiagram = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram")
+                .toString();
+        String datadictionary = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary")
+                .toString();
         testSpecificModel(inputModel, inputFile, modelLocation, null,
                 new DataFlowDiagramConverter().loadDFD(modelLocation, dataflowdiagram, datadictionary, Activator.class));
 
@@ -59,13 +61,20 @@ public class PCMTest {
 
     private void testSpecificModel(String inputModel, String inputFile, String modelLocation, String webTarget,
             DataFlowDiagramAndDictionary complete) {
-        final var usageModelPath = Paths.get("models", inputModel, inputFile + ".usagemodel").toString();
-        final var allocationPath = Paths.get("models", inputModel, inputFile + ".allocation").toString();
-        final var nodeCharPath = Paths.get("models", inputModel, inputFile + ".nodecharacteristics").toString();
+        final var usageModelPath = Paths.get("models", inputModel, inputFile + ".usagemodel")
+                .toString();
+        final var allocationPath = Paths.get("models", inputModel, inputFile + ".allocation")
+                .toString();
+        final var nodeCharPath = Paths.get("models", inputModel, inputFile + ".nodecharacteristics")
+                .toString();
 
-        DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone().modelProjectName(modelLocation)
-                .usePluginActivator(Activator.class).useUsageModel(usageModelPath).useAllocationModel(allocationPath)
-                .useNodeCharacteristicsModel(nodeCharPath).build();
+        DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
+                .modelProjectName(modelLocation)
+                .usePluginActivator(Activator.class)
+                .useUsageModel(usageModelPath)
+                .useAllocationModel(allocationPath)
+                .useNodeCharacteristicsModel(nodeCharPath)
+                .build();
 
         analysis.initializeAnalysis();
         var flowGraph = analysis.findFlowGraphs();
@@ -75,7 +84,8 @@ public class PCMTest {
         for (AbstractTransposeFlowGraph transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
             for (AbstractVertex<?> abstractVertex : transposeFlowGraph.getVertices()) {
                 var cast = (AbstractPCMVertex<?>) abstractVertex;
-                assIdToName.putIfAbsent(cast.getReferencedElement().getId(), PCMConverter.computeCompleteName(cast));
+                assIdToName.putIfAbsent(cast.getReferencedElement()
+                        .getId(), PCMConverter.computeCompleteName(cast));
             }
         }
 
@@ -92,7 +102,10 @@ public class PCMTest {
         DataFlowDiagram dfd = complete.dataFlowDiagram();
         var dd = complete.dataDictionary();
 
-        assertEquals(dfd.getNodes().size(), assIdToName.keySet().size());
+        assertEquals(dfd.getNodes()
+                .size(),
+                assIdToName.keySet()
+                        .size());
 
         List<String> nodeIds = new ArrayList<>();
         for (Node node : dfd.getNodes()) {
@@ -118,7 +131,8 @@ public class PCMTest {
             }
         }
 
-        assertEquals(flowNames.size(), dfd.getFlows().size());
+        assertEquals(flowNames.size(), dfd.getFlows()
+                .size());
 
         // When transforming PCM to DFD, we represent all outputs through forwarding assignments.
         // This approach omits certain behaviors and labels that are not essential for visual representation.
@@ -141,7 +155,10 @@ public class PCMTest {
             }
         }
 
-        List<String> labelsPCM = chars.values().stream().map(c -> c.getTypeName() + "." + c.getValueName()).collect(Collectors.toList());
+        List<String> labelsPCM = chars.values()
+                .stream()
+                .map(c -> c.getTypeName() + "." + c.getValueName())
+                .collect(Collectors.toList());
         List<String> labelsDFD = new ArrayList<>();
 
         Map<String, List<String>> labelMap = new HashMap<>();

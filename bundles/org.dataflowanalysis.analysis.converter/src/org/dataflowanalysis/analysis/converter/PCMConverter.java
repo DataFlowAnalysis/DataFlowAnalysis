@@ -98,6 +98,11 @@ public class PCMConverter extends Converter {
         return processPalladio(flowGraph);
     }
 
+    /**
+     * This method compute the complete name of a PCM vertex depending on its type
+     * @param vertex
+     * @return String containing the complete name
+     */
     public static String computeCompleteName(AbstractPCMVertex<?> vertex) {
         if (vertex instanceof SEFFPCMVertex<?> cast) {
             String elementName = cast.getReferencedElement()

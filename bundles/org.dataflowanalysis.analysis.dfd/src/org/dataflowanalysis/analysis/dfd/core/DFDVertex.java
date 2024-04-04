@@ -121,7 +121,11 @@ public class DFDVertex extends AbstractVertex<Node> {
         for (var previousVertex : this.getPinDFDVertexMap()
                 .values()) {
             for (var dfv : previousVertex.getAllOutgoingDataFlowVariables()) {
-                if (dfv.variableName().equals(this.getPinFlowMap().get(pin).getSourcePin().getId())) {
+                if (dfv.variableName()
+                        .equals(this.getPinFlowMap()
+                                .get(pin)
+                                .getSourcePin()
+                                .getId())) {
                     inputPinsIncomingLabelMap.putIfAbsent(pin, new ArrayList<>());
                     for (var cv : dfv.getAllCharacteristics()) {
                         inputPinsIncomingLabelMap.get(pin)

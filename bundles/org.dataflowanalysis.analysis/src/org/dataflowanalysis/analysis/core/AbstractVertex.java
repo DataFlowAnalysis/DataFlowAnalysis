@@ -147,10 +147,8 @@ public abstract class AbstractVertex<T> {
      * @return Returns a list of all data flow variables with the given name
      */
     public List<DataFlowVariable> getDataFlowVariablesWithName(String dataFlowVariable) {
-        return this.getAllIncomingDataFlowVariables()
-                .stream()
-                .filter(it -> it.getVariableName()
-                        .equals(dataFlowVariable))
+        return this.getAllIncomingDataFlowVariables().stream()
+                .filter(it -> it.variableName().equals(dataFlowVariable))
                 .collect(Collectors.toList());
     }
 
@@ -160,9 +158,8 @@ public abstract class AbstractVertex<T> {
      * @return Returns a map with data flow characteristics with the given name for each data flow variable
      */
     public Map<String, List<CharacteristicValue>> getDataFlowCharacteristicsWithName(String characteristicType) {
-        return this.getAllIncomingDataFlowVariables()
-                .stream()
-                .collect(Collectors.toMap(DataFlowVariable::getVariableName, it -> it.getCharacteristicsWithName(characteristicType)));
+        return this.getAllIncomingDataFlowVariables().stream()
+                .collect(Collectors.toMap(DataFlowVariable::variableName, it -> it.getCharacteristicsWithName(characteristicType)));
     }
 
     /**

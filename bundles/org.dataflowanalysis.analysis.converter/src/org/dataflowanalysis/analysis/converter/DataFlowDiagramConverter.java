@@ -350,8 +350,9 @@ public class DataFlowDiagramConverter extends Converter {
 
             List<WebEditorLabel> labels = new ArrayList<>();
             for (Label label : node.getProperties()) {
-                String labelTypeId = ((LabelType) label.eContainer()).getId();
                 String labelId = label.getId();
+                String labelTypeId = ((LabelType) label.eContainer()).getId();
+
                 labels.add(new WebEditorLabel(labelTypeId, labelId));
             }
 

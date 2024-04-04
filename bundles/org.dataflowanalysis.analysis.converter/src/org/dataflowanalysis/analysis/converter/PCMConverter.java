@@ -3,19 +3,41 @@ package org.dataflowanalysis.analysis.converter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.core.*;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.core.CharacteristicValue;
+import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
-import org.dataflowanalysis.analysis.pcm.core.seff.*;
-import org.dataflowanalysis.analysis.pcm.core.user.*;
-import org.dataflowanalysis.dfd.datadictionary.*;
-import org.dataflowanalysis.dfd.dataflowdiagram.*;
+import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFPCMVertex;
+import org.dataflowanalysis.analysis.pcm.core.seff.SEFFPCMVertex;
+import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
+import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
+import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
+import org.dataflowanalysis.dfd.datadictionary.Behaviour;
+import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
+import org.dataflowanalysis.dfd.datadictionary.ForwardingAssignment;
+import org.dataflowanalysis.dfd.datadictionary.Label;
+import org.dataflowanalysis.dfd.datadictionary.LabelType;
+import org.dataflowanalysis.dfd.datadictionary.Pin;
+import org.dataflowanalysis.dfd.datadictionary.datadictionaryFactory;
+import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
+import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
+import org.dataflowanalysis.dfd.dataflowdiagram.Node;
+import org.dataflowanalysis.dfd.dataflowdiagram.dataflowdiagramFactory;
 import org.eclipse.core.runtime.Plugin;
 import org.palladiosimulator.pcm.core.entity.Entity;
+import org.palladiosimulator.pcm.seff.AbstractBranchTransition;
+import org.palladiosimulator.pcm.seff.BranchAction;
+import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
+import org.palladiosimulator.pcm.seff.StartAction;
+import org.palladiosimulator.pcm.seff.StopAction;
+import org.palladiosimulator.pcm.usagemodel.Start;
+import org.palladiosimulator.pcm.usagemodel.Stop;
 
 /**
  * Converts Palladio models to the data flow diagram and dictionary representation. Inherits from {@link Converter} to
@@ -76,6 +98,64 @@ public class PCMConverter extends Converter {
         return processPalladio(flowGraph);
     }
 
+    /**
+     * This method compute the complete name of a PCM vertex depending on its type
+     * @param vertex
+     * @return String containing the complete name
+     */
+    public static String computeCompleteName(AbstractPCMVertex<?> vertex) {
+        if (vertex instanceof SEFFPCMVertex<?> cast) {
+            String elementName = cast.getReferencedElement()
+                    .getEntityName();
+            if (cast.getReferencedElement() instanceof StartAction) {
+                Optional<ResourceDemandingSEFF> seff = PCMQueryUtils.findParentOfType(cast.getReferencedElement(), ResourceDemandingSEFF.class,
+                        false);
+                if (seff.isPresent()) {
+                    elementName = "Beginning " + seff.get()
+                            .getDescribedService__SEFF()
+                            .getEntityName();
+                }
+                if (cast.isBranching() && seff.isPresent()) {
+                    BranchAction branchAction = PCMQueryUtils.findParentOfType(cast.getReferencedElement(), BranchAction.class, false)
+                            .orElseThrow(() -> new IllegalStateException("Cannot find branch action"));
+                    AbstractBranchTransition branchTransition = PCMQueryUtils
+                            .findParentOfType(cast.getReferencedElement(), AbstractBranchTransition.class, false)
+                            .orElseThrow(() -> new IllegalStateException("Cannot find branch transition"));
+                    elementName = "Branching " + seff.get()
+                            .getDescribedService__SEFF()
+                            .getEntityName() + "." + branchAction.getEntityName() + "." + branchTransition.getEntityName();
+                }
+            }
+            if (cast.getReferencedElement() instanceof StopAction) {
+                Optional<ResourceDemandingSEFF> seff = PCMQueryUtils.findParentOfType(cast.getReferencedElement(), ResourceDemandingSEFF.class,
+                        false);
+                if (seff.isPresent()) {
+                    elementName = "Ending " + seff.get()
+                            .getDescribedService__SEFF()
+                            .getEntityName();
+                }
+            }
+            return elementName;
+        }
+        if (vertex instanceof UserPCMVertex<?> cast) {
+            if (cast.getReferencedElement() instanceof Start || cast.getReferencedElement() instanceof Stop) {
+                return cast.getEntityNameOfScenarioBehaviour();
+            }
+            return cast.getReferencedElement()
+                    .getEntityName();
+        }
+        if (vertex instanceof CallingSEFFPCMVertex cast) {
+            return cast.getReferencedElement()
+                    .getEntityName();
+        }
+        if (vertex instanceof CallingUserPCMVertex cast) {
+            return cast.getReferencedElement()
+                    .getEntityName();
+        }
+        return vertex.getReferencedElement()
+                .getEntityName();
+    }
+
     private DataFlowDiagramAndDictionary processPalladio(FlowGraphCollection flowGraphCollection) {
         for (AbstractTransposeFlowGraph transposeFlowGraph : flowGraphCollection.getTransposeFlowGraphs()) {
             Node previousNode = null;
@@ -113,7 +193,7 @@ public class PCMConverter extends Converter {
                     .filter(f -> f.getEntityName()
                             .equals(flowName))
                     .findFirst()
-                    .orElse(createFlow(source, dest, flowName));
+                    .orElseGet(() -> createFlow(source, dest, flowName));
         }
     }
 
@@ -146,7 +226,7 @@ public class PCMConverter extends Converter {
                 .filter(p -> p.getEntityName()
                         .equals(parameters))
                 .findAny()
-                .orElse(createPin(source, parameters, false));
+                .orElseGet(() -> createPin(source, parameters, false));
     }
 
     // A pin is equivalent if the same parameters are passed
@@ -157,7 +237,7 @@ public class PCMConverter extends Converter {
                 .filter(p -> p.getEntityName()
                         .equals(parameters))
                 .findAny()
-                .orElse(createPin(dest, parameters, true));
+                .orElseGet(() -> createPin(dest, parameters, true));
     }
 
     private Pin createPin(Node node, String parameters, boolean isInPin) {
@@ -206,10 +286,11 @@ public class PCMConverter extends Converter {
         }
 
         Behaviour behaviour = datadictionaryFactory.eINSTANCE.createBehaviour();
-        node.setEntityName(pcmVertex.getReferencedElement()
-                .getEntityName());
+
+        node.setEntityName(computeCompleteName(pcmVertex));
         node.setId(pcmVertex.getReferencedElement()
                 .getId());
+
         node.setBehaviour(behaviour);
         dataDictionary.getBehaviour()
                 .add(behaviour);
@@ -235,14 +316,14 @@ public class PCMConverter extends Converter {
                 .filter(f -> f.getEntityName()
                         .equals(charValue.getTypeName()))
                 .findFirst()
-                .orElse(createLabelType(charValue));
+                .orElseGet(() -> createLabelType(charValue));
 
         Label label = type.getLabel()
                 .stream()
                 .filter(f -> f.getEntityName()
                         .equals(charValue.getValueName()))
                 .findFirst()
-                .orElse(createLabel(charValue, type));
+                .orElseGet(() -> createLabel(charValue, type));
 
         return label;
     }

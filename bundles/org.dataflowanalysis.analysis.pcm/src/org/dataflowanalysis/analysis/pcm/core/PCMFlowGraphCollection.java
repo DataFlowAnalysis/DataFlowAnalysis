@@ -16,11 +16,11 @@ public class PCMFlowGraphCollection extends FlowGraphCollection {
         super(resourceProvider);
     }
 
-    public PCMFlowGraphCollection(List<AbstractTransposeFlowGraph> transposeFlowGraphs, ResourceProvider resourceProvider) {
+    public PCMFlowGraphCollection(List<? extends AbstractTransposeFlowGraph> transposeFlowGraphs, ResourceProvider resourceProvider) {
         super(transposeFlowGraphs, resourceProvider);
     }
 
-    public List<AbstractTransposeFlowGraph> findTransposeFlowGraphs() {
+    public List<? extends AbstractTransposeFlowGraph> findTransposeFlowGraphs() {
         if (!(this.resourceProvider instanceof PCMResourceProvider pcmResourceProvider)) {
             logger.error("Cannot find transpose flow graphs from non-pcm resource provider");
             throw new IllegalArgumentException("Cannot find transpose flow graphs with non-pcm resource provider");

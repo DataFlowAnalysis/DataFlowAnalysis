@@ -8,7 +8,9 @@ import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
+import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
+import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 
@@ -16,11 +18,18 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
  * The DFDTransposeFlowGraphFinder determines all transpose flow graphs contained in a model
  */
 public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
+    private final DataDictionary dataDictionary;
+    private final DataFlowDiagram dataFlowDiagram;
 
-    private final DFDResourceProvider resourceProvider;
 
     public DFDTransposeFlowGraphFinder(DFDResourceProvider resourceProvider) {
-        this.resourceProvider = resourceProvider;
+        this.dataDictionary = resourceProvider.getDataDictionary();
+        this.dataFlowDiagram = resourceProvider.getDataFlowDiagram();
+    }
+
+    public DFDTransposeFlowGraphFinder(DataDictionary dataDictionary, DataFlowDiagram dataFlowDiagram) {
+        this.dataDictionary = dataDictionary;
+        this.dataFlowDiagram = dataFlowDiagram;
     }
 
     /**
@@ -29,13 +38,12 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
      */
     @Override
     public List<AbstractTransposeFlowGraph> findTransposeFlowGraphs() {
-        List<Node> endNodes = getEndNodes(this.resourceProvider.getDataFlowDiagram()
-                .getNodes());
+        List<Node> endNodes = getEndNodes(dataFlowDiagram.getNodes());
 
         List<AbstractTransposeFlowGraph> sequences = new ArrayList<>();
 
         for (var endNode : endNodes) {
-            for (var sink : determineSinks(new DFDVertex(endNode, new HashMap<>(), new HashMap<>()), this.resourceProvider.getDataFlowDiagram()
+            for (var sink : determineSinks(new DFDVertex(endNode, new HashMap<>(), new HashMap<>()), dataFlowDiagram
                     .getFlows(),
                     endNode.getBehaviour()
                             .getInPin())) {

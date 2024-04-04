@@ -22,10 +22,20 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
     }
 
     /**
+     * Creates a new instance of a dfd flow graph with the given resource provider and list of transpose flow graphs. Transpose flow graphs are determined via
+     * {@link DFDFlowGraphCollection#findTransposeFlowGraphs()}
+     * @param resourceProvider Resource provider that provides model files to the transpose flow graph finder
+     * @param transposeFlowGraphs Transpose flow graphs saved in the flow graph collection
+     */
+    public DFDFlowGraphCollection(DFDResourceProvider resourceProvider, List<? extends AbstractTransposeFlowGraph> transposeFlowGraphs) {
+        super(transposeFlowGraphs, resourceProvider);
+    }
+
+    /**
      * Find a list of transpose flow graphs that are contained in the model provided by the given resource provider
      * @return Returns a list of (unevaluated) transpose flow graphs
      */
-    public List<AbstractTransposeFlowGraph> findTransposeFlowGraphs() {
+    public List<? extends AbstractTransposeFlowGraph> findTransposeFlowGraphs() {
         if (!(this.resourceProvider instanceof DFDResourceProvider dfdResourceProvider)) {
             logger.error("Cannot find transpose flow graphs for non-dfd resource provider");
             throw new IllegalArgumentException();

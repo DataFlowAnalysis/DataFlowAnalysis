@@ -66,7 +66,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     }
 
     @Override
-    public List<? extends AbstractVertex<?>> getPreviousElements() {
+    public List<? extends AbstractPCMVertex<?>> getPreviousElements() {
         return this.previousElements;
     }
 
@@ -161,6 +161,14 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     public T getReferencedElement() {
         return referencedElement;
     }
+    
+    /**
+     * Return the stored resource provider
+     * @return Return the stored resource provider
+     */
+    public ResourceProvider getResourceProvider() {
+		return resourceProvider;
+	}
 
     /**
      * Returns the assembly contexts of the vertex

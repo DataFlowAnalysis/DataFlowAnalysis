@@ -39,9 +39,6 @@ public class IFStoexUtils {
 	private IFStoexUtils() {
 	}
 
-	// TODO Maybe filter duplicates here? Or additional method?
-	// TODO Maybe Variable is an sufficient abstraction for our use case?
-	// TODO Set as better abstraction than List?
 	/**
 	 * Returns a List of all Variables used in the given expression. The result may
 	 * contain duplicates. Expects a non-null expression.

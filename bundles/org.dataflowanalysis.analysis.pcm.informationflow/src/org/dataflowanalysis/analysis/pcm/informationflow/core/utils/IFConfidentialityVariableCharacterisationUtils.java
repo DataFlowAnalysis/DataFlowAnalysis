@@ -47,8 +47,6 @@ public class IFConfidentialityVariableCharacterisationUtils {
 	private IFConfidentialityVariableCharacterisationUtils() {
 	}
 
-	// TODO change usedReferences to Strings?
-
 	/**
 	 * Resolves wildcards for the {@link CharacteristicType} and {@link Literal} in
 	 * a {@link ConfidentialityVariableCharacterisation}. The resolving is achieved
@@ -374,8 +372,6 @@ public class IFConfidentialityVariableCharacterisationUtils {
 		return variable;
 	}
 
-	// TODO Maybe look into how EReferences in EMF work?
-	// TODO Still might not be as intended.
 	/*
 	 * VariableReferences need to be copied since they have a bidirectional
 	 * connection to their container. E.g.: If a new

@@ -18,15 +18,11 @@ public class ModelCreationTestUtils {
 		return createAnalysisFromModelName("BranchingCalls");
 	}
 
-	public static IFPCMDataFlowConfidentialityAnalysis createSwapAnalysis() {
-		return createAnalysisFromModelName("SwapTestModel");
-	}
-	
 	public static IFPCMDataFlowConfidentialityAnalysis createSwappedCallsAnalysis() {
 		return createAnalysisFromModelName("SwappedCallsModel");
 	}
 
-	private static IFPCMDataFlowConfidentialityAnalysis createAnalysisFromModelName(String modelName) {
+	public static IFPCMDataFlowConfidentialityAnalysis createAnalysisFromModelName(String modelName) {
 		final var usageModelPath = Paths.get("models", modelName, "default.usagemodel");
 		final var allocationPath = Paths.get("models", modelName, "default.allocation");
 		final var nodeCharacteristicsPath = Paths.get("models", modelName, "default.nodecharacteristics");

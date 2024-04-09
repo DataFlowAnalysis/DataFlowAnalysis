@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristicType;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Literal;
@@ -24,44 +24,44 @@ import org.dataflowanalysis.pcm.extension.model.confidentiality.expression.LhsEn
 import org.dataflowanalysis.pcm.extension.model.confidentiality.expression.NamedEnumCharacteristicReference;
 
 public class PCMDataCharacteristicsCalculator {
-    private final List<DataFlowVariable> currentVariables;
+    private final List<DataCharacteristic> currentVariables;
     private final ResourceProvider resourceLoader;
 
     /**
-     * Initialize Data characteristics Calculator with initial variables. In addition, the read-only container for node
-     * characteristics is created. See {@link PCMDataCharacteristicsCalculator#createNodeCharacteristicsContainer}
-     * @param initialVariables DataFlowVariables of the previous ActionSequence Element
-     * @param nodeCharacteristics Node Characteristics that might be referenced in the calculator
+     * Initialize Data characteristics Calculator with initial characteristics. In addition, the read-only container for
+     * node characteristics is created. See {@link PCMDataCharacteristicsCalculator#createNodeCharacteristicsContainer}
+     * @param initialCharacteristics Data characteristics of the previous vertex
+     * @param nodeCharacteristics Vertex characteristics that might be referenced in the calculator
      * @param resourceProvider Resource provider to resolve unknown characteristics in the dictionary
      */
-    public PCMDataCharacteristicsCalculator(List<DataFlowVariable> initialVariables, List<CharacteristicValue> nodeCharacteristics,
+    public PCMDataCharacteristicsCalculator(List<DataCharacteristic> initialCharacteristics, List<CharacteristicValue> nodeCharacteristics,
             ResourceProvider resourceProvider) {
-        this.currentVariables = new ArrayList<>(initialVariables);
+        this.currentVariables = new ArrayList<>(initialCharacteristics);
         this.resourceLoader = resourceProvider;
         createNodeCharacteristicsContainer(nodeCharacteristics);
     }
 
     /**
-     * Create the container for node characteristics. Each node characteristic is saved within the container
-     * DataFlowVariable with its characteristic type and value.
+     * Create the container for vertex characteristics. Each node characteristic is saved within the container data
+     * characteristics with its characteristic type and value.
      * <p>
-     * Furthermore, node characteristics cannot be modified by variable characterisations, so this variable is read-only.
-     * @param nodeCharacteristics Given list of node characteristics present at the current node
+     * Furthermore, vertex characteristics cannot be modified by variable characterisations, so this variable is read-only.
+     * @param vertexCharacteristics Given list of vertex characteristics present at the current node
      */
-    private void createNodeCharacteristicsContainer(List<CharacteristicValue> nodeCharacteristics) {
-        DataFlowVariable nodeCharacteristicContainer = new DataFlowVariable("container");
-        nodeCharacteristics.forEach(nodeCharacteristicContainer::addCharacteristic);
-        this.currentVariables.add(nodeCharacteristicContainer);
+    private void createNodeCharacteristicsContainer(List<CharacteristicValue> vertexCharacteristics) {
+        DataCharacteristic vertexCharacteristicsContainer = new DataCharacteristic("container");
+        vertexCharacteristics.forEach(vertexCharacteristicsContainer::addCharacteristic);
+        this.currentVariables.add(vertexCharacteristicsContainer);
     }
 
     /**
-     * Evaluate a Variable Characterization with the current Variables and update the internal state of the calculator. This
-     * method should be called for each Variable Characterization (e.g. Sto-ex)
+     * Evaluate a Variable Characterization with the current data characteristics and update the internal state of the
+     * calculator. This method should be called for each Variable Characterization (e.g. Sto-ex)
      * <p>
      * For easier use, the state of characteristics at a given sequence element, is managed and updated by calling this
-     * method. The final DataflowVariables for an element are accessed with
+     * method. The final data characteristics for an element are accessed with
      * {@link PCMDataCharacteristicsCalculator#getCalculatedCharacteristics()}.
-     * @param variableCharacterisation Variable Characterization at the Sequence Element
+     * @param variableCharacterisation Variable Characterization at the vertex
      */
     public void evaluate(ConfidentialityVariableCharacterisation variableCharacterisation) {
         var leftHandSide = (LhsEnumCharacteristicReference) variableCharacterisation.getLhs();
@@ -72,24 +72,24 @@ public class PCMDataCharacteristicsCalculator {
 
         AbstractNamedReference reference = variableCharacterisation.getVariableUsage_VariableCharacterisation()
                 .getNamedReference__VariableUsage();
-        DataFlowVariable existingVariable = this.getDataFlowVariableByReference(reference)
-                .orElse(new DataFlowVariable(reference.getReferenceName()));
+        DataCharacteristic existingCharacteristic = this.getDataCharacteristicByReference(reference)
+                .orElse(new DataCharacteristic(reference.getReferenceName()));
 
-        List<CharacteristicValue> modifiedCharacteristics = calculateModifiedCharacteristics(existingVariable, characteristicType,
+        List<CharacteristicValue> modifiedCharacteristics = calculateModifiedCharacteristics(existingCharacteristic, characteristicType,
                 characteristicValue);
 
-        DataFlowVariable modifiedVariable = createModifiedDataFlowVariable(existingVariable, modifiedCharacteristics, rightHandSide);
-        currentVariables.remove(existingVariable);
+        DataCharacteristic modifiedVariable = createModifiedDataCharacteristic(existingCharacteristic, modifiedCharacteristics, rightHandSide);
+        currentVariables.remove(existingCharacteristic);
         currentVariables.add(modifiedVariable);
     }
 
     /**
-     * Get a DataFlowVariable by a named reference
-     * @param reference Named reference, which contains the name of the data flow variable
-     * @return Returns an Optional containing the DataFlowVariable, if the variable can be found in the list of currently
-     * available DataFlowVariables
+     * Get a data characteristic by a named reference
+     * @param reference Named reference, which contains the name of the data characteristics
+     * @return Returns an Optional containing the data characteristic, if the variable can be found in the list of currently
+     * available data characteristics
      */
-    private Optional<DataFlowVariable> getDataFlowVariableByReference(AbstractNamedReference reference) {
+    private Optional<DataCharacteristic> getDataCharacteristicByReference(AbstractNamedReference reference) {
         String variableName = reference.getReferenceName();
         return this.currentVariables.stream()
                 .filter(it -> it.variableName()
@@ -98,18 +98,18 @@ public class PCMDataCharacteristicsCalculator {
     }
 
     /**
-     * Creates a modified DataFlowVariable according to the old characteristics of the existing variable and the modified
-     * characteristics.
-     * @param existingVariable Existing DataFlowVariable with the same name
-     * @param modifiedCharacteristics Characteristics of the DataFlowVariable that are modified
+     * Creates a modified data characteristic according to the old characteristics of the existing data characteristic and
+     * the modified characteristics.
+     * @param existingCharacteristic Existing data characteristic with the same name
+     * @param modifiedCharacteristics Characteristics of the data characteristic that are modified
      * @param rightHandSide Right hand side of the variable characterization, to indicate whether a characteristic is added
      * or not
-     * @return Returns a new DataFlowVariable with the updated characteristics
+     * @return Returns a new data characteristic with the updated characteristics
      */
-    private DataFlowVariable createModifiedDataFlowVariable(DataFlowVariable existingVariable, List<CharacteristicValue> modifiedCharacteristics,
-            Term rightHandSide) {
-        DataFlowVariable computedVariable = new DataFlowVariable(existingVariable.variableName());
-        var unmodifiedCharacteristics = existingVariable.getAllCharacteristics()
+    private DataCharacteristic createModifiedDataCharacteristic(DataCharacteristic existingCharacteristic,
+            List<CharacteristicValue> modifiedCharacteristics, Term rightHandSide) {
+        DataCharacteristic computedVariable = new DataCharacteristic(existingCharacteristic.variableName());
+        var unmodifiedCharacteristics = existingCharacteristic.getAllCharacteristics()
                 .stream()
                 .filter(it -> !modifiedCharacteristics.contains(it))
                 .toList();
@@ -138,19 +138,19 @@ public class PCMDataCharacteristicsCalculator {
 
     /**
      * Calculates the list of modified characteristics with the given characteristic types and values
-     * @param existingVariable DataFlowVariable which should be modified
+     * @param existingCharacteristic Data characteristic which should be modified
      * @param characteristicType Bound for the characteristic type. May be null to allow a wildcard
      * @param characteristicValue Bound for the characteristic value. May be null to allow a wildcard
      * @return Returns the list of all characteristics that are modified with the given bounds
      */
-    private List<CharacteristicValue> calculateModifiedCharacteristics(DataFlowVariable existingVariable, EnumCharacteristicType characteristicType,
-            Literal characteristicValue) {
+    private List<CharacteristicValue> calculateModifiedCharacteristics(DataCharacteristic existingCharacteristic,
+            EnumCharacteristicType characteristicType, Literal characteristicValue) {
         if (characteristicValue == null && characteristicType != null) {
-            return discoverNewVariables(existingVariable, Optional.of(characteristicType));
+            return discoverNewVariables(existingCharacteristic, Optional.of(characteristicType));
         } else if (characteristicValue == null) {
-            return discoverNewVariables(existingVariable, Optional.empty());
+            return discoverNewVariables(existingCharacteristic, Optional.empty());
         } else {
-            return List.of(existingVariable.getAllCharacteristics()
+            return List.of(existingCharacteristic.getAllCharacteristics()
                     .stream()
                     .filter(it -> it.getValueName()
                             .equals(characteristicValue.getName()))
@@ -191,11 +191,11 @@ public class PCMDataCharacteristicsCalculator {
      * @return Returns, whether the characteristic reference evaluates to true or false (or is undefined)
      */
     private boolean evaluateNamedReference(NamedEnumCharacteristicReference characteristicReference, CharacteristicValue characteristicValue) {
-        var optionalDataflowVariable = getDataFlowVariableByReference(characteristicReference.getNamedReference());
-        if (optionalDataflowVariable.isEmpty()) {
+        var optionalDataCharacteristic = getDataCharacteristicByReference(characteristicReference.getNamedReference());
+        if (optionalDataCharacteristic.isEmpty()) {
             return false;
         }
-        var dataflowVariable = optionalDataflowVariable.get();
+        var dataCharacteristic = optionalDataCharacteristic.get();
         var characteristicReferenceTypeName = characteristicReference.getCharacteristicType() != null
                 ? characteristicReference.getCharacteristicType()
                         .getName()
@@ -203,23 +203,23 @@ public class PCMDataCharacteristicsCalculator {
         var characteristicReferenceValueName = characteristicReference.getLiteral() != null ? characteristicReference.getLiteral()
                 .getName() : characteristicValue.getValueName();
 
-        var characteristic = dataflowVariable.getAllCharacteristics()
+        var characteristic = dataCharacteristic.getAllCharacteristics()
                 .stream()
                 .filter(it -> it.getTypeName()
                         .equals(characteristicReferenceTypeName))
                 .filter(it -> it.getValueName()
                         .equals(characteristicReferenceValueName))
                 .findAny();
-        return characteristic.isPresent() && dataflowVariable.hasCharacteristic(characteristic.get());
+        return characteristic.isPresent() && dataCharacteristic.hasCharacteristic(characteristic.get());
     }
 
     /**
-     * Discovers all possible characteristics of a variable with an optional bound for the characteristic type
-     * @param variable DataFlowVariable of which the characteristics should be discovered
+     * Discovers all possible characteristics of a characteristic with an optional bound for the characteristic type
+     * @param characteristic Data characteristic of which the characteristics should be discovered
      * @param characteristicType Optional bound for the discovered characteristics
-     * @return List of characteristics available for the given variable and satisfying the possible bound
+     * @return List of characteristics available for the given characteristic and satisfying the possible bound
      */
-    private List<CharacteristicValue> discoverNewVariables(DataFlowVariable variable, Optional<EnumCharacteristicType> characteristicType) {
+    private List<CharacteristicValue> discoverNewVariables(DataCharacteristic characteristic, Optional<EnumCharacteristicType> characteristicType) {
         List<CharacteristicValue> updatedCharacteristicValues = new ArrayList<>();
         var dataDictionaries = this.resourceLoader.lookupToplevelElement(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
                 .stream()
@@ -247,10 +247,10 @@ public class PCMDataCharacteristicsCalculator {
     }
 
     /**
-     * Returns the list of DataFlowVariables that were calculated according to the VariableCharacterizations provided
-     * @return List of DataFlowVariables after evaluating
+     * Returns the list of data characteristics that were calculated according to the VariableCharacterizations provided
+     * @return List of data characteristics after evaluating
      */
-    public List<DataFlowVariable> getCalculatedCharacteristics() {
+    public List<DataCharacteristic> getCalculatedCharacteristics() {
         return this.currentVariables.stream()
                 .filter(df -> !df.variableName()
                         .equals("container"))

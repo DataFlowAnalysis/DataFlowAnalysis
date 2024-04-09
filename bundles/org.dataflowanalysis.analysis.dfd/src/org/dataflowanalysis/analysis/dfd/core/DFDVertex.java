@@ -12,7 +12,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.dfd.datadictionary.AND;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Assignment;
@@ -50,7 +50,7 @@ public class DFDVertex extends AbstractVertex<Node> {
     }
 
     /**
-     * Evaluates the given vertex by determining incoming and outgoing data flow variables and node characteristics
+     * Evaluates the given vertex by determining incoming and outgoing data characteristics and node characteristics
      */
     @Override
     public void evaluateDataFlow() {
@@ -59,19 +59,19 @@ public class DFDVertex extends AbstractVertex<Node> {
         }
         evaluatePreviousVertices();
 
-        List<CharacteristicValue> nodeCharacteristics = determineNodeCharacteristics();
+        List<CharacteristicValue> vertexCharacteristics = determineNodeCharacteristics();
 
         Map<Pin, List<Label>> inputPinsIncomingLabelMap = new HashMap<>();
         this.getPinFlowMap()
                 .keySet()
                 .forEach(pin -> this.fillMapOfIncomingLabelsPerPin(pin, inputPinsIncomingLabelMap));
 
-        List<DataFlowVariable> dataFlowVariables = new ArrayList<>(this.createDataFlowVariablesFromLabels(inputPinsIncomingLabelMap));
+        List<DataCharacteristic> dataCharacteristics = new ArrayList<>(this.createDataCharacteristicsFromLabels(inputPinsIncomingLabelMap));
 
         Map<Pin, List<Label>> outputPinsOutgoingLabelMap = determineOutputPinOutgoingLabelMap(inputPinsIncomingLabelMap);
 
-        List<DataFlowVariable> outgoingDataFlowVariables = new ArrayList<>(this.createDataFlowVariablesFromLabels(outputPinsOutgoingLabelMap));
-        this.setPropagationResult(dataFlowVariables, outgoingDataFlowVariables, nodeCharacteristics);
+        List<DataCharacteristic> outgoingDataCharacteristics = new ArrayList<>(this.createDataCharacteristicsFromLabels(outputPinsOutgoingLabelMap));
+        this.setPropagationResult(dataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics);
     }
 
     /**
@@ -120,16 +120,16 @@ public class DFDVertex extends AbstractVertex<Node> {
     private void fillMapOfIncomingLabelsPerPin(Pin pin, Map<Pin, List<Label>> inputPinsIncomingLabelMap) {
         for (var previousVertex : this.getPinDFDVertexMap()
                 .values()) {
-            for (var dfv : previousVertex.getAllOutgoingDataFlowVariables()) {
-                if (dfv.variableName()
+            for (var dataFlowCharacteristics : previousVertex.getAllOutgoingDataCharacteristics()) {
+                if (dataFlowCharacteristics.getVariableName()
                         .equals(this.getPinFlowMap()
                                 .get(pin)
                                 .getSourcePin()
                                 .getId())) {
                     inputPinsIncomingLabelMap.putIfAbsent(pin, new ArrayList<>());
-                    for (var cv : dfv.getAllCharacteristics()) {
+                    for (var characteristicValue : dataFlowCharacteristics.getAllCharacteristics()) {
                         inputPinsIncomingLabelMap.get(pin)
-                                .add(((DFDCharacteristicValue) cv).getLabel());
+                                .add(((DFDCharacteristicValue) characteristicValue).getLabel());
                     }
                 }
             }
@@ -163,16 +163,16 @@ public class DFDVertex extends AbstractVertex<Node> {
     }
 
     /**
-     * Create Data Flow Variables from Map mapping Input/Output Pin to labels. Important: The name of the data flow variable
-     * is equal to the id of the pin. Any changes in the data flow variable naming scheme will require changes in the
-     * evaluation logic
+     * Create data characteristics from Map mapping Input/Output Pin to labels. Important: The name of the data
+     * characteristic is equal to the id of the pin. Any changes in the data characteristics naming scheme will require
+     * changes in the evaluation logic
      * @param pinToLabelMap Map mapping Input/Output Pin to labels
-     * @return List of created Data Flow Variables
+     * @return List of created data characteristics
      */
-    private List<DataFlowVariable> createDataFlowVariablesFromLabels(Map<Pin, List<Label>> pinToLabelMap) {
+    private List<DataCharacteristic> createDataCharacteristicsFromLabels(Map<Pin, List<Label>> pinToLabelMap) {
         return pinToLabelMap.keySet()
                 .stream()
-                .map(pin -> new DataFlowVariable(pin.getId(), this.getCharacteristicValuesForPin(pin, pinToLabelMap)))
+                .map(pin -> new DataCharacteristic(pin.getId(), this.getCharacteristicValuesForPin(pin, pinToLabelMap)))
                 .toList();
     }
 
@@ -270,7 +270,7 @@ public class DFDVertex extends AbstractVertex<Node> {
     }
 
     /**
-     * Creates a clone of the vertex without considering data flow variables nor characteristics
+     * Creates a clone of the vertex without considering data characteristics nor vertex characteristics
      */
     public DFDVertex clone() {
         Map<Pin, DFDVertex> copiedPinDFDVertexMap = new HashMap<>();

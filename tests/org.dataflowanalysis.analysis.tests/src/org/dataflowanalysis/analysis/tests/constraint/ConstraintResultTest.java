@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraphCollection;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintData;
@@ -27,11 +27,11 @@ public class ConstraintResultTest extends ConstraintTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean travelPlannerCondition(AbstractVertex<?> node) {
-        List<String> assignedRoles = node.getNodeCharacteristicsWithName("AssignedRoles")
+        List<String> assignedRoles = node.getVertexCharacteristics("AssignedRoles")
                 .stream()
                 .map(CharacteristicValue::getValueName)
                 .toList();
-        Collection<List<CharacteristicValue>> grantedRoles = node.getDataFlowCharacteristicsWithName("GrantedRoles")
+        Collection<List<CharacteristicValue>> grantedRoles = node.getDataCharacteristicMap("GrantedRoles")
                 .values();
 
         printNodeInformation(node);
@@ -53,11 +53,11 @@ public class ConstraintResultTest extends ConstraintTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean internationalOnlineShopCondition(AbstractVertex<?> node) {
-        List<String> serverLocation = node.getNodeCharacteristicsWithName("ServerLocation")
+        List<String> serverLocation = node.getVertexCharacteristics("ServerLocation")
                 .stream()
                 .map(CharacteristicValue::getValueName)
                 .toList();
-        List<String> dataSensitivity = node.getDataFlowCharacteristicsWithName("DataSensitivity")
+        List<String> dataSensitivity = node.getDataCharacteristicMap("DataSensitivity")
                 .values()
                 .stream()
                 .flatMap(Collection::stream)
@@ -77,11 +77,11 @@ public class ConstraintResultTest extends ConstraintTest {
      * @return Returns true, if the constraint is violated. Otherwise, the method returns false.
      */
     private boolean returnCondition(AbstractVertex<?> node) {
-        List<String> assignedNode = new ArrayList<>(node.getNodeCharacteristicsWithName("AssignedRole")
+        List<String> assignedNode = new ArrayList<>(node.getVertexCharacteristics("AssignedRole")
                 .stream()
                 .map(CharacteristicValue::getValueName)
                 .toList());
-        List<String> assignedVariables = node.getDataFlowCharacteristicsWithName("AssignedRole")
+        List<String> assignedVariables = node.getDataCharacteristicMap("AssignedRole")
                 .values()
                 .stream()
                 .flatMap(Collection::stream)
@@ -176,19 +176,19 @@ public class ConstraintResultTest extends ConstraintTest {
             }
 
             List<CharacteristicValue> nodeCharacteristics = violatingNode.get()
-                    .getAllNodeCharacteristics();
-            List<DataFlowVariable> dataFlowVariables = violatingNode.get()
-                    .getAllDataFlowVariables();
+                    .getAllVertexCharacteristics();
+            List<DataCharacteristic> dataCharacteristics = violatingNode.get()
+                    .getAllDataCharacteristics();
 
-            assertEquals(constraintNodeData.nodeCharacteristicsCount(), nodeCharacteristics.size());
-            assertEquals(constraintNodeData.dataFlowVariablesCount(), dataFlowVariables.size());
+            assertEquals(constraintNodeData.vertexCharacteristicsCount(), nodeCharacteristics.size());
+            assertEquals(constraintNodeData.dataCharacteristicsCount(), dataCharacteristics.size());
 
             for (CharacteristicValue characteristicValue : nodeCharacteristics) {
                 assertTrue(constraintNodeData.hasNodeCharacteristic(characteristicValue));
             }
 
-            for (DataFlowVariable dataFlowVariable : dataFlowVariables) {
-                assertTrue(constraintNodeData.hasDataFlowVariable(dataFlowVariable));
+            for (DataCharacteristic dataCharacteristic : dataCharacteristics) {
+                assertTrue(constraintNodeData.hasDataCharacteristics(dataCharacteristic));
             }
         }
     }

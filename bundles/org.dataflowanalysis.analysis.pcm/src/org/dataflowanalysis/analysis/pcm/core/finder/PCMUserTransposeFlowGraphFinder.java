@@ -88,8 +88,8 @@ public class PCMUserTransposeFlowGraphFinder {
                 .flatMap(Optional::stream)
                 .map(it -> {
                     Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping = new IdentityHashMap<>();
-                    PCMTransposeFlowGraph clonedSequence = this.currentTransposeFlowGraph.deepCopy(vertexMapping);
-                    return new PCMUserTransposeFlowGraphFinder(this.resourceProvider, clonedSequence).findSequencesForUserAction(it);
+                    PCMTransposeFlowGraph clonedTransposeFlowGraph = this.currentTransposeFlowGraph.copy(vertexMapping);
+                    return new PCMUserTransposeFlowGraphFinder(this.resourceProvider, clonedTransposeFlowGraph).findSequencesForUserAction(it);
                 })
                 .flatMap(List::stream)
                 .toList();

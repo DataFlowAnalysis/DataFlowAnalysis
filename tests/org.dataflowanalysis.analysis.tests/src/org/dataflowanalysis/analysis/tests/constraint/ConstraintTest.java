@@ -12,8 +12,8 @@ public class ConstraintTest extends BaseTest {
     private final Logger logger = Logger.getLogger(ConstraintTest.class);
 
     /**
-     * Prints a violation with detailed information about the node where it occurred with its data flow variables and
-     * characteristics. The information is printed using the logger's debug function.
+     * Prints a violation with detailed information about the node where it occurred with its data characteristics and
+     * vertex characteristics. The information is printed using the logger's debug function.
      * @param dataFlowQueryResult the result of a data flow query call, a (potentially empty) list of sequence elements
      */
     protected void printViolation(List<? extends AbstractVertex<?>> dataFlowQueryResult) {
@@ -21,8 +21,8 @@ public class ConstraintTest extends BaseTest {
     }
 
     /**
-     * Prints detailed information of a node with its data flow variables and characteristics. The information is printed
-     * using the logger's trace function.
+     * Prints detailed information of a node with its data and vertex characteristics. The information is printed using the
+     * logger's trace function.
      * @param node The sequence element whose information shall be printed
      */
     protected void printNodeInformation(AbstractVertex<?> node) {
@@ -30,15 +30,15 @@ public class ConstraintTest extends BaseTest {
     }
 
     /**
-     * Returns a string with detailed information about a node's characteristics, data flow variables and the variables'
-     * characteristics.
-     * @param node a sequence element after the label propagation happened
-     * @return a string with the node's string representation and a list of all related characteristics types and literals
+     * Returns a string with detailed information about a node's data and vertex characteristics.
+     * @param node Vertex after the label propagation happened
+     * @return Returns a String with the vertex's string representation and a list of all related characteristics types and
+     * literals
      */
     protected String createPrintableNodeInformation(AbstractVertex<?> node) {
         String template = "%s%s\tNode characteristics: %s%s\tData flow Variables:  %s%s";
-        String nodeCharacteristics = createPrintableCharacteristicsList(node.getAllNodeCharacteristics());
-        String dataCharacteristics = node.getAllDataFlowVariables()
+        String nodeCharacteristics = createPrintableCharacteristicsList(node.getAllVertexCharacteristics());
+        String dataCharacteristics = node.getAllDataCharacteristics()
                 .stream()
                 .map(e -> String.format("%s [%s]", e.variableName(), createPrintableCharacteristicsList(e.getAllCharacteristics())))
                 .collect(Collectors.joining(", "));

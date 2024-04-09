@@ -9,7 +9,7 @@ import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
@@ -180,9 +180,9 @@ public class PCMConverter extends Converter {
         if (source == null || dest == null) {
             return;
         }
-        List<DataFlowVariable> flowVariables = pcmVertex.getAllDataFlowVariables();
-        for (DataFlowVariable flowVariable : flowVariables) {
-            String flowName = flowVariable.variableName();
+        List<DataCharacteristic> dataCharacteristics = pcmVertex.getAllDataCharacteristics();
+        for (DataCharacteristic dataCharacteristic : dataCharacteristics) {
+            String flowName = dataCharacteristic.variableName();
 
             dataFlowDiagram.getFlows()
                     .stream()
@@ -262,7 +262,7 @@ public class PCMConverter extends Converter {
             dfdNode = createDFDNode(pcmVertex);
         }
 
-        addNodeCharacteristicsToNode(dfdNode, pcmVertex.getAllNodeCharacteristics());
+        addNodeCharacteristicsToNode(dfdNode, pcmVertex.getAllVertexCharacteristics());
 
         return dfdNode;
     }

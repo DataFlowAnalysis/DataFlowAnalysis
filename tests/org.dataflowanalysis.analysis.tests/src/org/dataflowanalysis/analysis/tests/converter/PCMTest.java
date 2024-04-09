@@ -18,7 +18,7 @@ import org.dataflowanalysis.analysis.converter.PCMConverter;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
@@ -124,8 +124,8 @@ public class PCMTest {
         List<String> flowNames = new ArrayList<>();
         for (AbstractTransposeFlowGraph as : flowGraph.getTransposeFlowGraphs()) {
             for (AbstractVertex<?> ase : as.getVertices()) {
-                List<DataFlowVariable> variables = ase.getAllDataFlowVariables();
-                for (DataFlowVariable variable : variables) {
+                List<DataCharacteristic> variables = ase.getAllDataCharacteristics();
+                for (DataCharacteristic variable : variables) {
                     flowNames.add(variable.variableName());
                 }
             }
@@ -149,7 +149,7 @@ public class PCMTest {
         Map<String, CharacteristicValue> chars = new HashMap<>();
         for (var pfg : flowGraph.getTransposeFlowGraphs()) {
             for (var vertex : pfg.getVertices()) {
-                for (var nodeChar : vertex.getAllNodeCharacteristics()) {
+                for (var nodeChar : vertex.getAllVertexCharacteristics()) {
                     chars.putIfAbsent(nodeChar.getValueId(), nodeChar);
                 }
             }

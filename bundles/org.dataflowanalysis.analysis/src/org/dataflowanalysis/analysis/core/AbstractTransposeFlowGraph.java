@@ -31,8 +31,15 @@ public abstract class AbstractTransposeFlowGraph {
     public abstract AbstractTransposeFlowGraph evaluate();
 
     /**
-     * Returns the sink that induces the transpose flow graph
-     * @return Returns the sink that induces the transpose flow graph
+     * Returns a copy of the partial flow graph, with all included vertices copied. The references of vertices to the model
+     * elements will remain identical
+     * @return Returns a copy of the partial flow graph
+     */
+    public abstract AbstractTransposeFlowGraph copy();
+
+    /**
+     * Returns the sink that induces the partial flow graph
+     * @return Returns the sink that induces the partial flow graph
      */
     public AbstractVertex<?> getSink() {
         return sink;

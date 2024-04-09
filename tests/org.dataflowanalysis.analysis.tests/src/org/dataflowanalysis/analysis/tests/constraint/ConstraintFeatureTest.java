@@ -35,10 +35,10 @@ public class ConstraintFeatureTest extends ConstraintTest {
                 .get(0), node -> {
                     printNodeInformation(node);
                     if (node instanceof UserPCMVertex<?>) {
-                        return node.getAllNodeCharacteristics()
+                        return node.getAllVertexCharacteristics()
                                 .size() != 1;
                     } else {
-                        return node.getAllNodeCharacteristics()
+                        return node.getAllVertexCharacteristics()
                                 .size() != 2;
                     }
                 });
@@ -65,10 +65,10 @@ public class ConstraintFeatureTest extends ConstraintTest {
                 .get(0), node -> {
                     printNodeInformation(node);
                     if (node instanceof UserPCMVertex<?>) {
-                        return node.getAllNodeCharacteristics()
+                        return node.getAllVertexCharacteristics()
                                 .size() != 1;
                     } else {
-                        return node.getAllNodeCharacteristics()
+                        return node.getAllVertexCharacteristics()
                                 .size() != 3;
                     }
                 });
@@ -95,7 +95,7 @@ public class ConstraintFeatureTest extends ConstraintTest {
                 .get(0), node -> {
                     printNodeInformation(node);
                     if (node instanceof CallingUserPCMVertex && ((CallingUserPCMVertex) node).isReturning()) {
-                        return !node.getAllDataFlowVariables()
+                        return !node.getAllDataCharacteristics()
                                 .isEmpty();
                     }
                     return false;

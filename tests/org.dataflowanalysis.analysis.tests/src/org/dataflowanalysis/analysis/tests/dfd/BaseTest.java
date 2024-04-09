@@ -50,14 +50,14 @@ public class BaseTest {
 
     @Test
     public void noVertexCharacteristics_returnsNoViolation() {
-        var results = this.getViolationsForConstraint(node -> node.getAllNodeCharacteristics()
+        var results = this.getViolationsForConstraint(node -> node.getAllVertexCharacteristics()
                 .isEmpty());
         assertTrue(results.isEmpty());
     }
 
     @Test
     public void noVertexCharacteristics_returnsViolations() {
-        var results = this.getViolationsForConstraint(node -> !node.getAllNodeCharacteristics()
+        var results = this.getViolationsForConstraint(node -> !node.getAllVertexCharacteristics()
                 .isEmpty());
         assertFalse(results.isEmpty());
     }
@@ -85,9 +85,9 @@ public class BaseTest {
 
         for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
             for (var vertex : transposeFlowGraph.getVertices()) {
-                assertTrue((!vertex.getAllIncomingDataFlowVariables()
+                assertTrue((!vertex.getAllIncomingDataCharacteristics()
                         .isEmpty())
-                        || (!vertex.getAllOutgoingDataFlowVariables()
+                        || (!vertex.getAllOutgoingDataCharacteristics()
                                 .isEmpty()));
             }
         }

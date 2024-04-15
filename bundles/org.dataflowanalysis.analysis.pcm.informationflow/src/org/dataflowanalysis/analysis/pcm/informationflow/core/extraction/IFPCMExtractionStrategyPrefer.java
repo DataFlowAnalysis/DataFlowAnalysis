@@ -40,8 +40,10 @@ public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrat
 			LhsEnumCharacteristicReference lhsDefinedChar = (LhsEnumCharacteristicReference) definedChar.getLhs();
 
 			Literal definedLiteral = lhsDefinedChar.getLiteral();
+			EnumCharacteristicType definedCharacteristicType = (EnumCharacteristicType) lhsDefinedChar
+					.getCharacteristicType();
 
-			if (definedLiteral == null) {
+			if (definedCharacteristicType == null) {
 				List<EnumCharacteristicType> nonLatticCharacteristicTypes = IFPCMDataDictionaryUtils
 						.getAllEnumCharacteristicTypesExceptLattice(getResourceProvider());
 				EnumCharacteristicType latticeCharacteristicType = IFPCMDataDictionaryUtils
@@ -53,6 +55,13 @@ public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrat
 				var resolvedLatticeChar = IFConfidentialityVariableCharacterisationUtils.resolveWildcards(definedChar,
 						List.of(latticeCharacteristicType));
 				definedLatticeChars.addAll(resolvedLatticeChar);
+			} else if (definedLiteral == null) {
+				var resolvedChars = IFConfidentialityVariableCharacterisationUtils.resolveLiteralWildcard(definedChar);
+				if (definedCharacteristicType.getType().equals(getLattice())) {
+					definedLatticeChars.addAll(resolvedChars);
+				} else {
+					definedNonLatticeChars.addAll(resolvedChars);
+				}
 			} else if (lhsDefinedChar.getLiteral().getEnum().equals(getLattice())) {
 				definedLatticeChars.add(definedChar);
 			} else {

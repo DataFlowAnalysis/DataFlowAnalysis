@@ -81,6 +81,11 @@ public class IFConfidentialityVariableCharacterisationUtils {
 		var enumCharacteristicType = (EnumCharacteristicType) getLhsEnumCharacteristicReference(characterisation)
 				.getCharacteristicType();
 		List<ConfidentialityVariableCharacterisation> resolvedCharacterisations = new ArrayList<>();
+		if (getLhsEnumCharacteristicReference(characterisation).getLiteral() != null) {
+			resolvedCharacterisations.add(copyConfidentialityVariableCharacterisation(characterisation));
+			return resolvedCharacterisations;
+		}
+
 		for (Literal level : enumCharacteristicType.getType().getLiterals()) {
 			var resolvedConfChar = copyConfidentialityVariableCharacterisation(characterisation);
 
@@ -110,6 +115,11 @@ public class IFConfidentialityVariableCharacterisationUtils {
 			List<EnumCharacteristicType> allCharacteristicTypes) {
 
 		List<ConfidentialityVariableCharacterisation> resolvedCharacterisations = new ArrayList<>();
+		if (getLhsEnumCharacteristicReference(characterisation).getCharacteristicType() != null) {
+			resolvedCharacterisations.add(copyConfidentialityVariableCharacterisation(characterisation));
+			return resolvedCharacterisations;
+		}
+
 		for (var characteristicType : allCharacteristicTypes) {
 			var resolvedConfChar = copyConfidentialityVariableCharacterisation(characterisation);
 

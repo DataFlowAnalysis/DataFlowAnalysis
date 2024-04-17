@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramConverter;
+import org.dataflowanalysis.analysis.converter.MicroSecEndConverter;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
@@ -142,6 +143,18 @@ public class MicroSecEndTest {
             System.out.println(model);
             var converter = new DataFlowDiagramConverter();
             var dfd = converter.webToDfd(Paths.get(location, model + ".json")
+                    .toString());
+            converter.storeDFD(dfd, Paths.get(location, model)
+                    .toString());
+        }
+    }
+    @Test
+    public void initialConvertAllToDFD() {
+        List<String> models = getModelNames(location);
+        var converter = new MicroSecEndConverter();
+        for (String model : models) {
+            System.out.println(model);
+            var dfd = converter.microToDfd(Paths.get(location, model + ".json")
                     .toString());
             converter.storeDFD(dfd, Paths.get(location, model)
                     .toString());

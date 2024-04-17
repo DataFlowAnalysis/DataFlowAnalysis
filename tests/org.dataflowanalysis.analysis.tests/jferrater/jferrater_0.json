@@ -1,266 +1,574 @@
 {
-    "services": [
-        {
-            "name": "discovery_service",
-            "stereotypes": [
-                "service_discovery",
-                "infrastructural"
-            ],
-            "tagged_values": {
-                "Service Discovery": "Eureka",
-                "Port": 8888
-            }
-        },
-        {
-            "name": "config_service",
-            "stereotypes": [
-                "configuration_server",
-                "infrastructural"
-            ],
-            "tagged_values": {
-                "Configuration Server": "Spring Cloud Config",
-                "Port": 8888
-            }
-        },
-        {
-            "name": "account_service",
-            "stereotypes": [
-                "internal"
-            ],
-            "tagged_values": {
-                "Port": 8000,
-                "Endpoints": [
-                    "/accounts"
-                ]
-            }
-        },
-        {
-            "name": "customer_service",
-            "stereotypes": [
-                "internal"
-            ],
-            "tagged_values": {
-                "Port": 8002,
-                "Endpoints": [
-                    "/customers"
-                ]
-            }
-        },
-        {
-            "name": "store_service",
-            "stereotypes": [
-                "internal"
-            ],
-            "tagged_values": {
-                "Port": 8003,
-                "Endpoints": [
-                    "/stores"
-                ]
-            }
-        },
-        {
-            "name": "item_service",
-            "stereotypes": [
-                "internal"
-            ],
-            "tagged_values": {
-                "Port": 8004,
-                "Endpoints": [
-                    "/items"
-                ]
-            }
-        },
-        {
-            "name": "price_service",
-            "stereotypes": [
-                "internal"
-            ],
-            "tagged_values": {
-                "Port": 8001,
-                "Endpoints": [
-                    "/prices"
-                ]
-            }
-        },
-        {
-            "name": "foodtray_service",
-            "stereotypes": [
-                "infrastructural",
-                "monitoring_dashboard",
-                "circuit_breaker"
-            ],
-            "tagged_values": {
-                "Monitoring Dashboard": "Hystrix",
-                "Circuit Breaker": "Hystrix",
-                "Port": 8005,
-                "Endpoints": [
-                    "/foodtrays",
-                    "/foodtrays/{itemCode}",
-                    "/foodtrays/price/{itemCode}",
-                    "/foodtrays/item/{itemCode}"
-                ]
-            }
-        }
-    ],
-    "external_entities": [
-        {
-            "name": "github_repository",
-            "stereotypes": [
-                "github_repository"
-            ],
-            "tagged_values": {
-                "URL": "https://github.com/jferrater/ConfigData"
-            }
-        }
-    ],
-    "information_flows": [
-        {
-            "sender": "github_repository",
-            "receiver": "config_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {
-                "Protocol": "HTTPS"
-            }
-        },
-        {
-            "sender": "config_service",
-            "receiver": "discovery_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "config_service",
-            "receiver": "account_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "account_service",
-            "receiver": "discovery_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "config_service",
-            "receiver": "customer_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "customer_service",
-            "receiver": "discovery_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "config_service",
-            "receiver": "store_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "store_service",
-            "receiver": "discovery_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "config_service",
-            "receiver": "item_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "item_service",
-            "receiver": "discovery_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "config_service",
-            "receiver": "price_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "price_service",
-            "receiver": "discovery_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "config_service",
-            "receiver": "foodtray_service",
-            "stereotypes": [
-                "restful_http",
-                "circuit_breaker_link"
-            ],
-            "tagged_values": {
-                "'Circuit Breaker'": "\"Hystrix\""
-            }
-        },
-        {
-            "sender": "foodtray_service",
-            "receiver": "discovery_service",
-            "stereotypes": [
-                "restful_http",
-                "circuit_breaker_link"
-            ],
-            "tagged_values": {
-                "'Circuit Breaker'": "\"Hystrix\""
-            }
-        },
-        {
-            "sender": "foodtray_service",
-            "receiver": "item_service",
-            "stereotypes": [
-                "restful_http",
-                "feign_connection",
-                "load_balanced_link",
-                "circuit_breaker_link"
-            ],
-            "tagged_values": {
-                "'Load Balancer'": "\"Ribbon\"",
-                " 'Circuit Breaker'": "\"Hystrix\""
-            }
-        },
-        {
-            "sender": "foodtray_service",
-            "receiver": "price_service",
-            "stereotypes": [
-                "restful_http",
-                "feign_connection",
-                "load_balanced_link",
-                "circuit_breaker_link"
-            ],
-            "tagged_values": {
-                "'Load Balancer'": "\"Ribbon\"",
-                " 'Circuit Breaker'": "\"Hystrix\""
-            }
-        }
-    ]
+  "model" : {
+    "type" : "graph",
+    "id" : "root",
+    "children" : [ {
+      "text" : "github_repository",
+      "id" : "_9zXDePyQEe6pg9hBk-Y4XQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_9zXqYfyQEe6pg9hBk-Y4XQ",
+      "targetId" : "_9zXqYPyQEe6pg9hBk-Y4XQ",
+      "children" : [ ]
+    }, {
+      "text" : "config_service",
+      "id" : "_9zXqZfyQEe6pg9hBk-Y4XQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_9zXqZ_yQEe6pg9hBk-Y4XQ",
+      "targetId" : "_9zXqZvyQEe6pg9hBk-Y4XQ",
+      "children" : [ ]
+    }, {
+      "text" : "config_service",
+      "id" : "_9zXqaPyQEe6pg9hBk-Y4XQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_9zXqavyQEe6pg9hBk-Y4XQ",
+      "targetId" : "_9zXqafyQEe6pg9hBk-Y4XQ",
+      "children" : [ ]
+    }, {
+      "text" : "account_service",
+      "id" : "_9zXqa_yQEe6pg9hBk-Y4XQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_9zXqbfyQEe6pg9hBk-Y4XQ",
+      "targetId" : "_9zXqbPyQEe6pg9hBk-Y4XQ",
+      "children" : [ ]
+    }, {
+      "text" : "config_service",
+      "id" : "_9zXqbvyQEe6pg9hBk-Y4XQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_9zXqcPyQEe6pg9hBk-Y4XQ",
+      "targetId" : "_9zXqb_yQEe6pg9hBk-Y4XQ",
+      "children" : [ ]
+    }, {
+      "text" : "customer_service",
+      "id" : "_9zXqcfyQEe6pg9hBk-Y4XQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_9zXqc_yQEe6pg9hBk-Y4XQ",
+      "targetId" : "_9zXqcvyQEe6pg9hBk-Y4XQ",
+      "children" : [ ]
+    }, {
+      "text" : "config_service",
+      "id" : "_9zXqdPyQEe6pg9hBk-Y4XQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_9zXqdvyQEe6pg9hBk-Y4XQ",
+      "targetId" : "_9zXqdfyQEe6pg9hBk-Y4XQ",
+      "children" : [ ]
+    }, {
+      "text" : "store_service",
+      "id" : "_9zXqd_yQEe6pg9hBk-Y4XQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_9zXqefyQEe6pg9hBk-Y4XQ",
+      "targetId" : "_9zXqePyQEe6pg9hBk-Y4XQ",
+      "children" : [ ]
+    }, {
+      "text" : "config_service",
+      "id" : "_9zXqevyQEe6pg9hBk-Y4XQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_9zXqfPyQEe6pg9hBk-Y4XQ",
+      "targetId" : "_9zXqe_yQEe6pg9hBk-Y4XQ",
+      "children" : [ ]
+    }, {
+      "text" : "item_service",
+      "id" : "_9zXqffyQEe6pg9hBk-Y4XQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_9zXqf_yQEe6pg9hBk-Y4XQ",
+      "targetId" : "_9zXqfvyQEe6pg9hBk-Y4XQ",
+      "children" : [ ]
+    }, {
+      "text" : "config_service",
+      "id" : "_9zXqgPyQEe6pg9hBk-Y4XQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_9zXqgvyQEe6pg9hBk-Y4XQ",
+      "targetId" : "_9zXqgfyQEe6pg9hBk-Y4XQ",
+      "children" : [ ]
+    }, {
+      "text" : "price_service",
+      "id" : "_9zXqg_yQEe6pg9hBk-Y4XQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_9zXqhfyQEe6pg9hBk-Y4XQ",
+      "targetId" : "_9zXqhPyQEe6pg9hBk-Y4XQ",
+      "children" : [ ]
+    }, {
+      "text" : "config_service",
+      "id" : "_9zXqhvyQEe6pg9hBk-Y4XQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_9zXqiPyQEe6pg9hBk-Y4XQ",
+      "targetId" : "_9zXqh_yQEe6pg9hBk-Y4XQ",
+      "children" : [ ]
+    }, {
+      "text" : "foodtray_service",
+      "id" : "_9zXqivyQEe6pg9hBk-Y4XQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_9zXqjPyQEe6pg9hBk-Y4XQ",
+      "targetId" : "_9zXqi_yQEe6pg9hBk-Y4XQ",
+      "children" : [ ]
+    }, {
+      "text" : "foodtray_service",
+      "id" : "_9zXqjfyQEe6pg9hBk-Y4XQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_9zXqj_yQEe6pg9hBk-Y4XQ",
+      "targetId" : "_9zXqjvyQEe6pg9hBk-Y4XQ",
+      "children" : [ ]
+    }, {
+      "text" : "foodtray_service",
+      "id" : "_9zXqlPyQEe6pg9hBk-Y4XQ",
+      "type" : "edge:arrow",
+      "sourceId" : "_9zYRcfyQEe6pg9hBk-Y4XQ",
+      "targetId" : "_9zYRcPyQEe6pg9hBk-Y4XQ",
+      "children" : [ ]
+    }, {
+      "text" : "github_repository",
+      "labels" : [ {
+        "labelTypeId" : "_9zV1OPyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDbPyQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zXDbfyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDbvyQEe6pg9hBk-Y4XQ"
+      } ],
+      "ports" : [ {
+        "behavior" : "set Stereotype.github_repository = TRUE\nset Stereotype.restfulhttp = TRUE\nset Protocol.HTTPS = TRUE",
+        "id" : "_9zXqYfyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_9zVOIfyQEe6pg9hBk-Y4XQ",
+      "type" : "node:input-output",
+      "children" : [ ]
+    }, {
+      "text" : "discovery_service",
+      "labels" : [ {
+        "labelTypeId" : "_9zV1OPyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zWcQfyQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zV1OPyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zWcQvyQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zWcQ_yQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zWcRPyQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zWcRfyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zWcRvyQEe6pg9hBk-Y4XQ"
+      } ],
+      "ports" : [ {
+        "id" : "_9zXqZvyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_9zXqbPyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_9zXqcvyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_9zXqePyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_9zXqfvyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_9zXqhPyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_9zXqi_yQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      } ],
+      "id" : "_9zV1MPyQEe6pg9hBk-Y4XQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "config_service",
+      "labels" : [ {
+        "labelTypeId" : "_9zV1OPyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDcfyQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zV1OPyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zWcQvyQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zWcQ_yQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zWcRPyQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zXDcvyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDc_yQEe6pg9hBk-Y4XQ"
+      } ],
+      "ports" : [ {
+        "id" : "_9zXqYPyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.configuration_server = TRUE\nset Stereotype.infrastructural = TRUE\nset Stereotype.restfulhttp = TRUE\nforward github_repository",
+        "id" : "_9zXqZ_yQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.configuration_server = TRUE\nset Stereotype.infrastructural = TRUE\nset Stereotype.restfulhttp = TRUE\nforward github_repository",
+        "id" : "_9zXqavyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.configuration_server = TRUE\nset Stereotype.infrastructural = TRUE\nset Stereotype.restfulhttp = TRUE\nforward github_repository",
+        "id" : "_9zXqcPyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.configuration_server = TRUE\nset Stereotype.infrastructural = TRUE\nset Stereotype.restfulhttp = TRUE\nforward github_repository",
+        "id" : "_9zXqdvyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.configuration_server = TRUE\nset Stereotype.infrastructural = TRUE\nset Stereotype.restfulhttp = TRUE\nforward github_repository",
+        "id" : "_9zXqfPyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.configuration_server = TRUE\nset Stereotype.infrastructural = TRUE\nset Stereotype.restfulhttp = TRUE\nforward github_repository",
+        "id" : "_9zXqgvyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.configuration_server = TRUE\nset Stereotype.infrastructural = TRUE\nset Stereotype.restfulhttp = TRUE\nset Stereotype.circuitbreakerlink = TRUE\nset CircuitBreaker.Hystrix = TRUE\nforward github_repository",
+        "id" : "_9zXqiPyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_9zV1MfyQEe6pg9hBk-Y4XQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "account_service",
+      "labels" : [ {
+        "labelTypeId" : "_9zV1OPyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zWcSfyQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zWcSvyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zWcS_yQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zWcQ_yQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDUPyQEe6pg9hBk-Y4XQ"
+      } ],
+      "ports" : [ {
+        "id" : "_9zXqafyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.internal = TRUE\nset Stereotype.restfulhttp = TRUE\nforward config_service",
+        "id" : "_9zXqbfyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_9zV1MvyQEe6pg9hBk-Y4XQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "customer_service",
+      "labels" : [ {
+        "labelTypeId" : "_9zV1OPyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zWcSfyQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zWcSvyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDV_yQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zWcQ_yQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDWPyQEe6pg9hBk-Y4XQ"
+      } ],
+      "ports" : [ {
+        "id" : "_9zXqb_yQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.internal = TRUE\nset Stereotype.restfulhttp = TRUE\nforward config_service",
+        "id" : "_9zXqc_yQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_9zV1M_yQEe6pg9hBk-Y4XQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "store_service",
+      "labels" : [ {
+        "labelTypeId" : "_9zV1OPyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zWcSfyQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zWcSvyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDdvyQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zWcQ_yQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDd_yQEe6pg9hBk-Y4XQ"
+      } ],
+      "ports" : [ {
+        "id" : "_9zXqdfyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.internal = TRUE\nset Stereotype.restfulhttp = TRUE\nforward config_service",
+        "id" : "_9zXqefyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_9zV1NPyQEe6pg9hBk-Y4XQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "item_service",
+      "labels" : [ {
+        "labelTypeId" : "_9zV1OPyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zWcSfyQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zWcSvyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDU_yQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zWcQ_yQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDVPyQEe6pg9hBk-Y4XQ"
+      } ],
+      "ports" : [ {
+        "id" : "_9zXqe_yQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_9zXqjvyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.internal = TRUE\nset Stereotype.restfulhttp = TRUE\nforward config_service\nforward foodtray_service",
+        "id" : "_9zXqf_yQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_9zV1NfyQEe6pg9hBk-Y4XQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "price_service",
+      "labels" : [ {
+        "labelTypeId" : "_9zV1OPyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zWcSfyQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zWcSvyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDW_yQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zWcQ_yQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDXPyQEe6pg9hBk-Y4XQ"
+      } ],
+      "ports" : [ {
+        "id" : "_9zXqgfyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_9zYRcPyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.internal = TRUE\nset Stereotype.restfulhttp = TRUE\nforward config_service\nforward foodtray_service",
+        "id" : "_9zXqhfyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_9zV1NvyQEe6pg9hBk-Y4XQ",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "foodtray_service",
+      "labels" : [ {
+        "labelTypeId" : "_9zV1OPyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zWcQvyQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zV1OPyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDX_yQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zV1OPyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDYPyQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zXDYfyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDYvyQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zWcSvyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDY_yQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zWcSvyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDZPyQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zWcSvyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDZfyQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zWcSvyQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDZvyQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zXDZ_yQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDaPyQEe6pg9hBk-Y4XQ"
+      }, {
+        "labelTypeId" : "_9zWcQ_yQEe6pg9hBk-Y4XQ",
+        "labelTypeValueId" : "_9zXDafyQEe6pg9hBk-Y4XQ"
+      } ],
+      "ports" : [ {
+        "id" : "_9zXqh_yQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.infrastructural = TRUE\nset Stereotype.monitoring_dashboard = TRUE\nset Stereotype.circuit_breaker = TRUE\nset Stereotype.restfulhttp = TRUE\nset Stereotype.circuitbreakerlink = TRUE\nset CircuitBreaker.Hystrix = TRUE\nforward config_service",
+        "id" : "_9zXqjPyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.infrastructural = TRUE\nset Stereotype.monitoring_dashboard = TRUE\nset Stereotype.circuit_breaker = TRUE\nset Stereotype.restfulhttp = TRUE\nset Stereotype.feignconnection = TRUE\nset Stereotype.loadbalancedlink = TRUE\nset Stereotype.circuitbreakerlink = TRUE\nset CircuitBreaker.Hystrix = TRUE\nset LoadBalancer.Ribbon = TRUE\nforward config_service",
+        "id" : "_9zXqj_yQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.infrastructural = TRUE\nset Stereotype.monitoring_dashboard = TRUE\nset Stereotype.circuit_breaker = TRUE\nset Stereotype.restfulhttp = TRUE\nset Stereotype.feignconnection = TRUE\nset Stereotype.loadbalancedlink = TRUE\nset Stereotype.circuitbreakerlink = TRUE\nset CircuitBreaker.Hystrix = TRUE\nset LoadBalancer.Ribbon = TRUE\nforward config_service",
+        "id" : "_9zYRcfyQEe6pg9hBk-Y4XQ",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_9zV1N_yQEe6pg9hBk-Y4XQ",
+      "type" : "node:function",
+      "children" : [ ]
+    } ]
+  },
+  "labelTypes" : [ {
+    "id" : "_9zV1OPyQEe6pg9hBk-Y4XQ",
+    "name" : "Stereotype",
+    "values" : [ {
+      "id" : "_9zWcQfyQEe6pg9hBk-Y4XQ",
+      "text" : "service_discovery"
+    }, {
+      "id" : "_9zWcQvyQEe6pg9hBk-Y4XQ",
+      "text" : "infrastructural"
+    }, {
+      "id" : "_9zWcSfyQEe6pg9hBk-Y4XQ",
+      "text" : "internal"
+    }, {
+      "id" : "_9zXDX_yQEe6pg9hBk-Y4XQ",
+      "text" : "monitoring_dashboard"
+    }, {
+      "id" : "_9zXDYPyQEe6pg9hBk-Y4XQ",
+      "text" : "circuit_breaker"
+    }, {
+      "id" : "_9zXDbPyQEe6pg9hBk-Y4XQ",
+      "text" : "github_repository"
+    }, {
+      "id" : "_9zXDcfyQEe6pg9hBk-Y4XQ",
+      "text" : "configuration_server"
+    }, {
+      "id" : "_9zXqYvyQEe6pg9hBk-Y4XQ",
+      "text" : "restfulhttp"
+    }, {
+      "id" : "_9zXqifyQEe6pg9hBk-Y4XQ",
+      "text" : "circuitbreakerlink"
+    }, {
+      "id" : "_9zXqkPyQEe6pg9hBk-Y4XQ",
+      "text" : "feignconnection"
+    }, {
+      "id" : "_9zXqkfyQEe6pg9hBk-Y4XQ",
+      "text" : "loadbalancedlink"
+    } ]
+  }, {
+    "id" : "_9zWcQ_yQEe6pg9hBk-Y4XQ",
+    "name" : "Port",
+    "values" : [ {
+      "id" : "_9zWcRPyQEe6pg9hBk-Y4XQ",
+      "text" : "8888"
+    }, {
+      "id" : "_9zXDUPyQEe6pg9hBk-Y4XQ",
+      "text" : "8000"
+    }, {
+      "id" : "_9zXDVPyQEe6pg9hBk-Y4XQ",
+      "text" : "8004"
+    }, {
+      "id" : "_9zXDWPyQEe6pg9hBk-Y4XQ",
+      "text" : "8002"
+    }, {
+      "id" : "_9zXDXPyQEe6pg9hBk-Y4XQ",
+      "text" : "8001"
+    }, {
+      "id" : "_9zXDafyQEe6pg9hBk-Y4XQ",
+      "text" : "8005"
+    }, {
+      "id" : "_9zXDd_yQEe6pg9hBk-Y4XQ",
+      "text" : "8003"
+    } ]
+  }, {
+    "id" : "_9zWcRfyQEe6pg9hBk-Y4XQ",
+    "name" : "ServiceDiscovery",
+    "values" : [ {
+      "id" : "_9zWcRvyQEe6pg9hBk-Y4XQ",
+      "text" : "Eureka"
+    } ]
+  }, {
+    "id" : "_9zWcSvyQEe6pg9hBk-Y4XQ",
+    "name" : "Endpoints",
+    "values" : [ {
+      "id" : "_9zWcS_yQEe6pg9hBk-Y4XQ",
+      "text" : "accounts"
+    }, {
+      "id" : "_9zXDU_yQEe6pg9hBk-Y4XQ",
+      "text" : "items"
+    }, {
+      "id" : "_9zXDV_yQEe6pg9hBk-Y4XQ",
+      "text" : "customers"
+    }, {
+      "id" : "_9zXDW_yQEe6pg9hBk-Y4XQ",
+      "text" : "prices"
+    }, {
+      "id" : "_9zXDY_yQEe6pg9hBk-Y4XQ",
+      "text" : "foodtrays"
+    }, {
+      "id" : "_9zXDZPyQEe6pg9hBk-Y4XQ",
+      "text" : "foodtraysitemCode"
+    }, {
+      "id" : "_9zXDZfyQEe6pg9hBk-Y4XQ",
+      "text" : "foodtrayspriceitemCode"
+    }, {
+      "id" : "_9zXDZvyQEe6pg9hBk-Y4XQ",
+      "text" : "foodtraysitemitemCode"
+    }, {
+      "id" : "_9zXDdvyQEe6pg9hBk-Y4XQ",
+      "text" : "stores"
+    } ]
+  }, {
+    "id" : "_9zXDYfyQEe6pg9hBk-Y4XQ",
+    "name" : "MonitoringDashboard",
+    "values" : [ {
+      "id" : "_9zXDYvyQEe6pg9hBk-Y4XQ",
+      "text" : "Hystrix"
+    } ]
+  }, {
+    "id" : "_9zXDZ_yQEe6pg9hBk-Y4XQ",
+    "name" : "CircuitBreaker",
+    "values" : [ {
+      "id" : "_9zXDaPyQEe6pg9hBk-Y4XQ",
+      "text" : "Hystrix"
+    } ]
+  }, {
+    "id" : "_9zXDbfyQEe6pg9hBk-Y4XQ",
+    "name" : "URL",
+    "values" : [ {
+      "id" : "_9zXDbvyQEe6pg9hBk-Y4XQ",
+      "text" : "httpsgithubcomjferraterConfigData"
+    } ]
+  }, {
+    "id" : "_9zXDcvyQEe6pg9hBk-Y4XQ",
+    "name" : "ConfigurationServer",
+    "values" : [ {
+      "id" : "_9zXDc_yQEe6pg9hBk-Y4XQ",
+      "text" : "SpringCloudConfig"
+    } ]
+  }, {
+    "id" : "_9zXqY_yQEe6pg9hBk-Y4XQ",
+    "name" : "Protocol",
+    "values" : [ {
+      "id" : "_9zXqZPyQEe6pg9hBk-Y4XQ",
+      "text" : "HTTPS"
+    } ]
+  }, {
+    "id" : "_9zXqkvyQEe6pg9hBk-Y4XQ",
+    "name" : "LoadBalancer",
+    "values" : [ {
+      "id" : "_9zXqk_yQEe6pg9hBk-Y4XQ",
+      "text" : "Ribbon"
+    } ]
+  } ]
 }

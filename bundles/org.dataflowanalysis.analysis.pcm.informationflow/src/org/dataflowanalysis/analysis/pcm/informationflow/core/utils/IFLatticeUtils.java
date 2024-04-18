@@ -65,4 +65,14 @@ public class IFLatticeUtils {
 		return firstIndex - secondIndex;
 	}
 
+	/**
+	 * Returns the lowest level of the given lattice.
+	 * 
+	 * @param lattice the given lattice
+	 * @return the lowest level
+	 */
+	public static Literal getLowestLevel(Enumeration lattice) {
+		return lattice.getLiterals().get(0);
+	}
+
 }

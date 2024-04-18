@@ -137,14 +137,12 @@ public class IFConfidentialityVariableCharacterisationUtils {
 	private static ConfidentialityVariableCharacterisation copyConfidentialityVariableCharacterisation(
 			ConfidentialityVariableCharacterisation confChar) {
 
-		var copiedConfChar = confFac.createConfidentialityVariableCharacterisation();
 		var lhs = getLhsEnumCharacteristicReference(confChar);
+		var characterisedVariable = confChar.getVariableUsage_VariableCharacterisation()
+				.getNamedReference__VariableUsage();
 
-		copiedConfChar.setLhs(createLhs(lhs.getCharacteristicType(), lhs.getLiteral()));
-		copiedConfChar.setRhs(copyTerm(confChar.getRhs()));
-		copiedConfChar.setVariableUsage_VariableCharacterisation(createVariableUsage(
-				confChar.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage()));
-		return copiedConfChar;
+		return createCharacterisation(characterisedVariable, lhs.getCharacteristicType(), lhs.getLiteral(),
+				copyTerm(confChar.getRhs()));
 	}
 
 	/**
@@ -221,14 +219,9 @@ public class IFConfidentialityVariableCharacterisationUtils {
 			}
 		}
 
-		var confChar = confFac.createConfidentialityVariableCharacterisation();
-
-		confChar.setLhs(createLhs(latticeCharacteristicType, level));
-		confChar.setRhs(createRhsForAdditionalHigherEqualConstraint(lowerDefinedTerms, levelTerm,
-				levelConstraintVariable, higherConstraintVariables));
-		confChar.setVariableUsage_VariableCharacterisation(createVariableUsage(characterizedVariable));
-
-		return confChar;
+		return createCharacterisation(constraint, latticeCharacteristicType, level,
+				createRhsForAdditionalHigherEqualConstraint(lowerDefinedTerms, levelTerm, levelConstraintVariable,
+						higherConstraintVariables));
 	}
 
 	private static Term createRhsForAdditionalHigherEqualConstraint(List<Term> lowerDefinedTerms, Term levelTerm,
@@ -260,6 +253,55 @@ public class IFConfidentialityVariableCharacterisationUtils {
 		}
 
 		return levelShouldBeSet;
+	}
+
+	/**
+	 * Creates a {@link ConfidentialityVariableCharacterisation} for each level of
+	 * the given lattice for the given latticeCharacteristicType. The behavior of
+	 * the resulting {@link ConfidentialityVariableCharacterisation} is to only set
+	 * the lowest level of the lattice.
+	 * 
+	 * @param characterisedVariable     the Reference for the Variable to be
+	 *                                  characterized
+	 * @param latticeCharacteristicType the used CharacterisationType
+	 * @param lattice                   the lattice for which the
+	 *                                  ConfidentialityVariableCharacterisations are
+	 *                                  created
+	 * @return the resulting ConfidentialityVariableCharacterisations for the
+	 *         lattice
+	 */
+	public static List<ConfidentialityVariableCharacterisation> createSetLowestLevelCharacterisationsForLattice(
+			AbstractNamedReference characterisedVariable, CharacteristicType latticeCharacteristicType,
+			Enumeration lattice) {
+
+		Literal lowestLevel = IFLatticeUtils.getLowestLevel(lattice);
+
+		List<ConfidentialityVariableCharacterisation> characterisations = new ArrayList<>();
+		for (Literal level : lattice.getLiterals()) {
+			if (level.equals(lowestLevel)) {
+				characterisations.add(createTrueCharacteristationForLevel(characterisedVariable,
+						latticeCharacteristicType, lowestLevel));
+			} else {
+				characterisations.add(createFalseCharacteristationForLevel(characterisedVariable,
+						latticeCharacteristicType, lowestLevel));
+			}
+		}
+		return characterisations;
+	}
+
+	private static ConfidentialityVariableCharacterisation createTrueCharacteristationForLevel(
+			AbstractNamedReference characterisedVariable, CharacteristicType latticeCharacteristicType, Literal level) {
+
+		Term trueTerm = expsFac.createTrue();
+
+		return createCharacterisation(characterisedVariable, latticeCharacteristicType, level, trueTerm);
+	}
+
+	private static ConfidentialityVariableCharacterisation createFalseCharacteristationForLevel(
+			AbstractNamedReference characterisedVariable, CharacteristicType latticeCharacteristicType, Literal level) {
+
+		Term falseTerm = expsFac.createFalse();
+		return createCharacterisation(characterisedVariable, latticeCharacteristicType, level, falseTerm);
 	}
 
 	/**
@@ -306,12 +348,8 @@ public class IFConfidentialityVariableCharacterisationUtils {
 			}
 		}
 
-		var confVar = confFac.createConfidentialityVariableCharacterisation();
-
-		confVar.setLhs(createLhs(latticeCharacteristicType, level));
-		confVar.setRhs(createRhs(levelDependencies, higherDependencies));
-		confVar.setVariableUsage_VariableCharacterisation(createVariableUsage(characterisedVariable));
-		return confVar;
+		return createCharacterisation(characterisedVariable, latticeCharacteristicType, level,
+				createRhs(levelDependencies, higherDependencies));
 	}
 
 	private static VariableCharacterizationLhs createLhs(CharacteristicType latticeCharacteristicType,
@@ -455,6 +493,16 @@ public class IFConfidentialityVariableCharacterisationUtils {
 	private static LhsEnumCharacteristicReference getLhsEnumCharacteristicReference(
 			ConfidentialityVariableCharacterisation confChar) {
 		return (LhsEnumCharacteristicReference) confChar.getLhs();
+	}
+
+	private static ConfidentialityVariableCharacterisation createCharacterisation(
+			AbstractNamedReference characterisedVariable, CharacteristicType characteristicType, Literal literal,
+			Term rhs) {
+		var confVar = confFac.createConfidentialityVariableCharacterisation();
+		confVar.setLhs(createLhs(characteristicType, literal));
+		confVar.setRhs(rhs);
+		confVar.setVariableUsage_VariableCharacterisation(createVariableUsage(characterisedVariable));
+		return confVar;
 	}
 
 }

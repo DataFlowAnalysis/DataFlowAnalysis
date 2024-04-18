@@ -17,6 +17,7 @@ import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionar
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Literal;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.expressions.ExpressionsFactory;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.expressions.False;
+import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.expressions.True;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityFactory;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.expression.ExpressionFactory;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.expression.LhsEnumCharacteristicReference;
@@ -86,18 +87,7 @@ class IFPCMExtractionStrategyTest {
 
 	@Test
 	void testCalculateEffectiveCvcWithoutCvcs() {
-		// Create VC with "x.VALUE = a.VALUE * b.VALUE + c.VALUE"
-		var variableRef = stoexFac.createVariableReference();
-		variableRef.setReferenceName("x");
-		var variableUsage = pcmParameterFac.createVariableUsage();
-		variableUsage.setNamedReference__VariableUsage(variableRef);
-		var randomVar = pcmCoreFac.createPCMRandomVariable();
-		randomVar.setSpecification("a.VALUE * b.VALUE + c.VALUE");
-		var varChar = pcmParameterFac.createVariableCharacterisation();
-		varChar.setSpecification_VariableCharacterisation(randomVar);
-		varChar.setType(VariableCharacterisationType.VALUE);
-		varChar.setVariableUsage_VariableCharacterisation(variableUsage);
-		var varChars = List.of(varChar);
+		var varChars = List.of(createVariableCharacterisationForX("a.VALUE * b.VALUE + c.VALUE"));
 
 		var result = extractionStrategy.calculateEffectiveConfidentialityVariableCharacterisation(varChars);
 
@@ -129,6 +119,37 @@ class IFPCMExtractionStrategyTest {
 		varToLevel.put("c", "High");
 		assertTrue(CvcTestUtils.evaluateCvcLatticeMapping(result, lhs.getLiteral().getEnum(), varToLevel, "High"),
 				"Should forward 'Low' for a=Low, b=Low, c=High");
+	}
+
+	@Test
+	void testCalculateEffectiveCVCWithConstantDefinition() {
+		var varChars = List.of(createVariableCharacterisationForX("5 + 3 * 2"));
+
+		var result = extractionStrategy.calculateEffectiveConfidentialityVariableCharacterisation(varChars);
+
+		assertEquals(2, result.size(), "Cvcs should be created for each level in the lattice.");
+
+		assertTrue(result.get(0).getRhs() instanceof True, "Lowest level should be set");
+		assertTrue(result.get(1).getRhs() instanceof False, "Only lowest level should not be set");
+	}
+
+	/*
+	 * Help Methods
+	 */
+
+	private VariableCharacterisation createVariableCharacterisationForX(String specification) {
+		var variableRef = stoexFac.createVariableReference();
+		variableRef.setReferenceName("x");
+		var variableUsage = pcmParameterFac.createVariableUsage();
+		variableUsage.setNamedReference__VariableUsage(variableRef);
+		var randomVar = pcmCoreFac.createPCMRandomVariable();
+		randomVar.setSpecification(specification);
+		var varChar = pcmParameterFac.createVariableCharacterisation();
+		varChar.setSpecification_VariableCharacterisation(randomVar);
+		varChar.setType(VariableCharacterisationType.VALUE);
+		varChar.setVariableUsage_VariableCharacterisation(variableUsage);
+
+		return varChar;
 	}
 
 }

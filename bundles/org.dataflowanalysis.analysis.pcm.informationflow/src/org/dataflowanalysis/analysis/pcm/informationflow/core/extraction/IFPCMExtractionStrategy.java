@@ -251,6 +251,12 @@ public abstract class IFPCMExtractionStrategy {
 	private List<ConfidentialityVariableCharacterisation> calculateConfidentialityVariableCharacteristationsFromReferences(
 			List<AbstractNamedReference> references, AbstractNamedReference characterisedVariable) {
 
+		// Set the lowest level if the VariableCharacterisation contains no variables
+		if (references.size() <= 0) {
+			return IFConfidentialityVariableCharacterisationUtils.createSetLowestLevelCharacterisationsForLattice(
+					characterisedVariable, getLatticeCharacteristicType(), getLattice());
+		}
+
 		return IFConfidentialityVariableCharacterisationUtils.createMaximumJoinCharacterisationsForLattice(
 				characterisedVariable, references, getLatticeCharacteristicType(), getLattice());
 	}

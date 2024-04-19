@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ASCII"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="_dtu3oP4lEe6J-YLFiy5uPw" entityName="New Repository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_hF40UP4nEe6J-YLFiy5uPw" entityName="ProcessingCompontent">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_2_IYgP4nEe6J-YLFiy5uPw" entityName="ProcessingCompontent.provided.Processing" providedInterface__OperationProvidedRole="_Pn7vsP4nEe6J-YLFiy5uPw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_BxNbAP4oEe6J-YLFiy5uPw" entityName="ProcessingCompontent.required.UntrustedReceiver" requiredInterface__OperationRequiredRole="_lSXb0P4nEe6J-YLFiy5uPw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_2_1jIP4nEe6J-YLFiy5uPw" describedService__SEFF="_RBKzgP4nEe6J-YLFiy5uPw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_2_1jIf4nEe6J-YLFiy5uPw" successor_AbstractAction="_IApjUP4pEe6J-YLFiy5uPw"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_2_1jIv4nEe6J-YLFiy5uPw" predecessor_AbstractAction="_b9YXgP4pEe6J-YLFiy5uPw"/>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_IApjUP4pEe6J-YLFiy5uPw" entityName="processing.calculate.firstSum" predecessor_AbstractAction="_2_1jIf4nEe6J-YLFiy5uPw" successor_AbstractAction="_9QkJQP5GEe6J-YLFiy5uPw">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="nonConfidential.VALUE + confidential.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="firstSum"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_b9YXgP4pEe6J-YLFiy5uPw" entityName="Transmit" predecessor_AbstractAction="_WVSK8P5HEe6J-YLFiy5uPw" successor_AbstractAction="_2_1jIv4nEe6J-YLFiy5uPw" calledService_ExternalService="_oJNGEP4nEe6J-YLFiy5uPw" role_ExternalService="_BxNbAP4oEe6J-YLFiy5uPw">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="result.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="data"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_9QkJQP5GEe6J-YLFiy5uPw" entityName="processing.calculate.secondSum" predecessor_AbstractAction="_IApjUP4pEe6J-YLFiy5uPw" successor_AbstractAction="_WVSK8P5HEe6J-YLFiy5uPw">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="nonConfidential.VALUE + nonConfidentialSecond.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="secondSum"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_WVSK8P5HEe6J-YLFiy5uPw" entityName="processing.calculate.result" predecessor_AbstractAction="_9QkJQP5GEe6J-YLFiy5uPw" successor_AbstractAction="_b9YXgP4pEe6J-YLFiy5uPw">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="firstSum.VALUE * secondSum.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="result"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_xT5UAP4nEe6J-YLFiy5uPw" entityName="UntrustedReceiverComponent">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_5wAvQP4oEe6J-YLFiy5uPw" entityName="UntrustedReceiverComponent.provided.UntrustedReceiver" providedInterface__OperationProvidedRole="_lSXb0P4nEe6J-YLFiy5uPw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_5wEZoP4oEe6J-YLFiy5uPw" describedService__SEFF="_oJNGEP4nEe6J-YLFiy5uPw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_5wFAsP4oEe6J-YLFiy5uPw" successor_AbstractAction="_5wFnwP4oEe6J-YLFiy5uPw"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_5wFnwP4oEe6J-YLFiy5uPw" predecessor_AbstractAction="_5wFAsP4oEe6J-YLFiy5uPw"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_Pn7vsP4nEe6J-YLFiy5uPw" entityName="Processing">
+    <signatures__OperationInterface id="_RBKzgP4nEe6J-YLFiy5uPw" entityName="process">
+      <parameters__OperationSignature parameterName="confidential">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+      </parameters__OperationSignature>
+      <parameters__OperationSignature parameterName="nonConfidential">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+      </parameters__OperationSignature>
+      <parameters__OperationSignature parameterName="nonConfidentialSecond">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+      </parameters__OperationSignature>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_lSXb0P4nEe6J-YLFiy5uPw" entityName="UntrustedReceiver">
+    <signatures__OperationInterface id="_oJNGEP4nEe6J-YLFiy5uPw" entityName="receive">
+      <parameters__OperationSignature parameterName="data">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+      </parameters__OperationSignature>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+</repository:Repository>

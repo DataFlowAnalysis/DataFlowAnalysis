@@ -18,7 +18,6 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
     private final DataDictionary dataDictionary;
     private final DataFlowDiagram dataFlowDiagram;
-    private final List<DFDVertex> verticesWithSource = new ArrayList<>();
 
 
     public DFDTransposeFlowGraphFinder(DFDResourceProvider resourceProvider) {
@@ -39,6 +38,11 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
     public List<? extends AbstractTransposeFlowGraph> findTransposeFlowGraphs() {
         return this.findTransposeFlowGraphs(getEndNodes(dataFlowDiagram.getNodes()), List.of());
     }
+    
+    @Override
+    public List<? extends AbstractTransposeFlowGraph> findTransposeFlowGraphs(List<?> sourceNodes) {
+        return this.findTransposeFlowGraphs(getEndNodes(dataFlowDiagram.getNodes()), sourceNodes);
+    }
 
     @Override
     public List<? extends AbstractTransposeFlowGraph> findTransposeFlowGraphs(List<?> sinkNodes, List<?> sourceNodes) {
@@ -57,7 +61,9 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
                     endNode.getBehaviour().getInPin(), sources);
             if (!sourceNodes.isEmpty()) {
                 sinks = sinks.stream()
-                        .filter(this.verticesWithSource::contains)
+                        .filter(it -> new DFDTransposeFlowGraph(it).getVertices().stream().anyMatch(vertex -> {
+                        	return sources.contains(vertex.getReferencedElement());
+                        }))
                         .toList();
             }
             sinks.forEach(sink -> sink.unify(new HashSet<>()));
@@ -79,7 +85,6 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
         vertices.add(sink);
 
         if (sourceNodes.contains(sink.getReferencedElement())) {
-            this.verticesWithSource.add(sink);
             return vertices;
         }
 
@@ -92,9 +97,6 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
             vertices = incomingFlowsToPin.stream()
                             .flatMap(flow -> handleIncomingFlow(flow, inputPin, finalVertices, sourceNodes).stream())
                             .toList();
-        }
-        if (vertices.stream().anyMatch(this.verticesWithSource::contains)) {
-            this.verticesWithSource.add(sink);
         }
         return vertices;
     }
@@ -109,7 +111,7 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
             result.addAll(cloneVertexForMultipleFlowGraphs(vertex, inputPin, incomingFlow, previousNodeVertices));
         }
         return result;
-    }
+    } 
 
     /**
      * Calculate all input pins required on the previous node that will be needed to satisfy the assignments to reach the

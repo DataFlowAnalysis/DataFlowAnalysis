@@ -14,4 +14,6 @@ public interface TransposeFlowGraphFinder {
      * @return
      */
     List<? extends AbstractTransposeFlowGraph> findTransposeFlowGraphs(List<?> sinkNodes, List<?> sourceNodes);
+    
+    List<? extends AbstractTransposeFlowGraph> findTransposeFlowGraphs(List<?> sourceNodes);
 }

@@ -2,7 +2,9 @@ package org.dataflowanalysis.analysis.pcm.core;
 
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
@@ -50,7 +52,13 @@ public class PCMVertexCharacteristicsCalculator {
     }
 
     public List<CharacteristicValue> getNodeCharacteristics(Entity node, Deque<AssemblyContext> context) {
+        return this.getNodeCharacteristics(node, context, new IdentityHashMap<>());
+    }
+
+    public List<CharacteristicValue> getNodeCharacteristics(Entity node, Deque<AssemblyContext> context, Map<AbstractAssignee, AbstractAssignee> replacements) {
         Assignments assignments = this.resolveAssignments();
+        replacements.keySet().forEach(assignee -> assignments.getAssignee().remove(assignee));
+        replacements.values().forEach(assignee -> assignments.getAssignee().add(assignee));
         List<AbstractAssignee> assignees;
         if (node instanceof AbstractUserAction) {
             assignees = this.getUsageNodeAssignments(node, assignments);

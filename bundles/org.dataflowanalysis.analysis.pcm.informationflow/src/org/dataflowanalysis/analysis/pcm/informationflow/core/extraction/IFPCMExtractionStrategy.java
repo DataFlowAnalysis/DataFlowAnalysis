@@ -183,14 +183,11 @@ public abstract class IFPCMExtractionStrategy {
 
 		List<ConfidentialityVariableCharacterisation> allResultingCvcs = new ArrayList<>();
 		for (String characterisedVariableName : characterisedVariableNames) {
-			var normalCharsForVariable = variableNameToNormalChars.get(characterisedVariableName);
-			if (normalCharsForVariable == null) {
-				normalCharsForVariable = new ArrayList<>();
-			}
-			var confCharsForVariable = variableNameToConfChars.get(characterisedVariableName);
-			if (confCharsForVariable == null) {
-				confCharsForVariable = new ArrayList<>();
-			}
+			var normalCharsForVariable = variableNameToNormalChars.getOrDefault(characterisedVariableName,
+					new ArrayList<>());
+
+			var confCharsForVariable = variableNameToConfChars.getOrDefault(characterisedVariableName,
+					new ArrayList<>());
 
 			var resultingCvcs = calculateEffectiveCvcForVariable(confCharsForVariable, normalCharsForVariable,
 					optionalSecurityContext);
@@ -228,11 +225,10 @@ public abstract class IFPCMExtractionStrategy {
 		for (var varChar : varChars) {
 			String variableName = varChar.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage()
 					.getReferenceName();
-			var mappedVarChars = variableNameToVarChars.get(variableName);
 
-			if (mappedVarChars == null) {
-				mappedVarChars = new ArrayList<>();
-			}
+			var mappedVarChars = variableNameToVarChars.getOrDefault(variableName, new ArrayList<>());
+			variableNameToVarChars.get(variableName);
+
 			mappedVarChars.add(varChar);
 			variableNameToVarChars.put(variableName, mappedVarChars);
 		}
@@ -248,10 +244,19 @@ public abstract class IFPCMExtractionStrategy {
 				.toList();
 	}
 
+	/**
+	 * Calculates {@code ConfidentialityVariableCharacterisation}s for the given
+	 * characterisedVariable. The resulting characterizations represent the logical
+	 * behavior of setting the highest level of all references. Should there be no
+	 * references, the lowest level is set.
+	 * 
+	 * @param references            the references
+	 * @param characterisedVariable the variable to be characterized
+	 * @return the resulting characterizations
+	 */
 	private List<ConfidentialityVariableCharacterisation> calculateConfidentialityVariableCharacteristationsFromReferences(
 			List<AbstractNamedReference> references, AbstractNamedReference characterisedVariable) {
 
-		// Set the lowest level if the VariableCharacterisation contains no variables
 		if (references.size() <= 0) {
 			return IFConfidentialityVariableCharacterisationUtils.createSetLowestLevelCharacterisationsForLattice(
 					characterisedVariable, getLatticeCharacteristicType(), getLattice());

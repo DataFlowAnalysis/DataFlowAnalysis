@@ -19,11 +19,11 @@ import org.dataflowanalysis.pcm.extension.model.confidentiality.expression.Named
 
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
 
-public class CvcTestUtils {
+public class ConfidentialityVariableCharacterisationTestUtils {
 
-	private static final Logger logger = Logger.getLogger(CvcTestUtils.class);
+	private static final Logger logger = Logger.getLogger(ConfidentialityVariableCharacterisationTestUtils.class);
 
-	private CvcTestUtils() {
+	private ConfidentialityVariableCharacterisationTestUtils() {
 	}
 
 	public static boolean evaluateCvcLatticeMapping(List<ConfidentialityVariableCharacterisation> cvcs,

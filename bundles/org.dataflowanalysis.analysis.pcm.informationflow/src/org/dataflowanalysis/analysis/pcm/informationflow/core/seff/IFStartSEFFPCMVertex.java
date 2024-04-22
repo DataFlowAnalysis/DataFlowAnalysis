@@ -113,9 +113,9 @@ public class IFStartSEFFPCMVertex extends AbstractIFSEFFPCMVertex<StartAction> {
 	private List<DataFlowVariable> evaluateOutgoingDataFlowVariablesOfBranchTransition(
 			List<DataFlowVariable> incomingVariables) {
 		var supposedGuardedBranchTransition = getReferencedElement().eContainer().eContainer();
-		if (supposedGuardedBranchTransition instanceof GuardedBranchTransition bT) {
+		if (supposedGuardedBranchTransition instanceof GuardedBranchTransition branchTransition) {
 
-			List<ConfidentialityVariableCharacterisation> confChars = extractCvcsOfGuardedBranchTransition(bT);
+			List<ConfidentialityVariableCharacterisation> confChars = extractCvcsOfGuardedBranchTransition(branchTransition);
 			List<DataFlowVariable> outgoingVariables = getDataFlowVariables(getVertexCharacteristics(), confChars,
 					incomingVariables);
 			return outgoingVariables;
@@ -124,10 +124,10 @@ public class IFStartSEFFPCMVertex extends AbstractIFSEFFPCMVertex<StartAction> {
 	}
 
 	private List<ConfidentialityVariableCharacterisation> extractCvcsOfGuardedBranchTransition(
-			GuardedBranchTransition bT) {
+			GuardedBranchTransition branchTransition) {
 		var incomingVariables = getIncomingDataFlowVariables();
 
-		Expression condition = bT.getBranchCondition_GuardedBranchTransition().getExpression();
+		Expression condition = branchTransition.getBranchCondition_GuardedBranchTransition().getExpression();
 		var oldSecurityContext = IFSecurityContextUtils.getActiveSecurityContext(incomingVariables);
 		String nextSecurityContextName = IFSecurityContextUtils.getNameNextSecurityContextLayer(incomingVariables);
 

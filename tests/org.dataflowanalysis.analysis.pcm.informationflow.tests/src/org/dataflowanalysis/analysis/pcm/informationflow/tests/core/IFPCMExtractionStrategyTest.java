@@ -99,25 +99,25 @@ class IFPCMExtractionStrategyTest {
 		varToLevel.put("a", "Low");
 		varToLevel.put("b", "Low");
 		varToLevel.put("c", "Low");
-		assertTrue(CvcTestUtils.evaluateCvcLatticeMapping(result, lhs.getLiteral().getEnum(), varToLevel, "Low"),
+		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(result, lhs.getLiteral().getEnum(), varToLevel, "Low"),
 				"Should forward 'Low' for a=Low, b=Low, c=Low");
 
 		varToLevel.put("a", "High");
 		varToLevel.put("b", "Low");
 		varToLevel.put("c", "Low");
-		assertTrue(CvcTestUtils.evaluateCvcLatticeMapping(result, lhs.getLiteral().getEnum(), varToLevel, "High"),
+		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(result, lhs.getLiteral().getEnum(), varToLevel, "High"),
 				"Should forward 'Low' for a=High, b=Low, c=Low");
 
 		varToLevel.put("a", "Low");
 		varToLevel.put("b", "High");
 		varToLevel.put("c", "Low");
-		assertTrue(CvcTestUtils.evaluateCvcLatticeMapping(result, lhs.getLiteral().getEnum(), varToLevel, "High"),
+		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(result, lhs.getLiteral().getEnum(), varToLevel, "High"),
 				"Should forward 'Low' for a=Low, b=High, c=Low");
 
 		varToLevel.put("a", "Low");
 		varToLevel.put("b", "Low");
 		varToLevel.put("c", "High");
-		assertTrue(CvcTestUtils.evaluateCvcLatticeMapping(result, lhs.getLiteral().getEnum(), varToLevel, "High"),
+		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(result, lhs.getLiteral().getEnum(), varToLevel, "High"),
 				"Should forward 'Low' for a=Low, b=Low, c=High");
 	}
 

@@ -37,39 +37,86 @@ public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrat
 		List<ConfidentialityVariableCharacterisation> definedLatticeChars = new ArrayList<>();
 		List<ConfidentialityVariableCharacterisation> definedNonLatticeChars = new ArrayList<>();
 		for (var definedChar : definedCharacterisations) {
-			LhsEnumCharacteristicReference lhsDefinedChar = (LhsEnumCharacteristicReference) definedChar.getLhs();
-
-			Literal definedLiteral = lhsDefinedChar.getLiteral();
-			EnumCharacteristicType definedCharacteristicType = (EnumCharacteristicType) lhsDefinedChar
-					.getCharacteristicType();
-
-			if (definedCharacteristicType == null) {
-				List<EnumCharacteristicType> nonLatticCharacteristicTypes = IFPCMDataDictionaryUtils
-						.getAllEnumCharacteristicTypesExceptLattice(getResourceProvider());
-				EnumCharacteristicType latticeCharacteristicType = IFPCMDataDictionaryUtils
-						.getLatticeCharacteristicType(getResourceProvider());
-
-				var resolvedNonLatticeConfChars = IFConfidentialityVariableCharacterisationUtils
-						.resolveCharacteristicTypeWildcard(definedChar, nonLatticCharacteristicTypes);
-				definedNonLatticeChars.addAll(resolvedNonLatticeConfChars);
-				var resolvedLatticeChar = IFConfidentialityVariableCharacterisationUtils.resolveWildcards(definedChar,
-						List.of(latticeCharacteristicType));
-				definedLatticeChars.addAll(resolvedLatticeChar);
-			} else if (definedLiteral == null) {
-				var resolvedChars = IFConfidentialityVariableCharacterisationUtils.resolveLiteralWildcard(definedChar);
-				if (definedCharacteristicType.getType().equals(getLattice())) {
-					definedLatticeChars.addAll(resolvedChars);
-				} else {
-					definedNonLatticeChars.addAll(resolvedChars);
-				}
-			} else if (lhsDefinedChar.getLiteral().getEnum().equals(getLattice())) {
-				definedLatticeChars.add(definedChar);
-			} else {
-				definedNonLatticeChars.add(definedChar);
-			}
+			categorizeCharacterisation(definedChar, definedLatticeChars, definedNonLatticeChars);
 		}
 
 		checkOnlyOneCvcForEachLevel(definedLatticeChars);
+
+		return calculateResultingCvcsForCategorizedCharacterisations(calculatedCharacterisations,
+				definedCharacterisations, definedLatticeChars, definedNonLatticeChars, optionalSecurityContext);
+	}
+
+	/**
+	 * Categorizes a given characterization into lattice and non lattice
+	 * characterizations. The characterization is added to the corresponding given
+	 * List. Should wildcards be present in the characterization, the wildcards are
+	 * resolved and the resulting characterizations categorized.
+	 * 
+	 * @param characterisation           the given characterization
+	 * @param latticeCharactisation      the corresponding List for lattice
+	 *                                   characterizations
+	 * @param nonLatticeCharacterisation the corresponding List for non lattice
+	 *                                   characterizations
+	 */
+	private void categorizeCharacterisation(ConfidentialityVariableCharacterisation characterisation,
+			List<ConfidentialityVariableCharacterisation> latticeCharactisation,
+			List<ConfidentialityVariableCharacterisation> nonLatticeCharacterisation) {
+
+		LhsEnumCharacteristicReference lhsCharacterisation = (LhsEnumCharacteristicReference) characterisation.getLhs();
+
+		Literal definedLiteral = lhsCharacterisation.getLiteral();
+		EnumCharacteristicType definedCharacteristicType = (EnumCharacteristicType) lhsCharacterisation
+				.getCharacteristicType();
+
+		if (definedCharacteristicType == null) {
+			List<EnumCharacteristicType> nonLatticCharacteristicTypes = IFPCMDataDictionaryUtils
+					.getAllEnumCharacteristicTypesExceptLattice(getResourceProvider());
+			EnumCharacteristicType latticeCharacteristicType = IFPCMDataDictionaryUtils
+					.getLatticeCharacteristicType(getResourceProvider());
+
+			var resolvedNonLatticeConfChars = IFConfidentialityVariableCharacterisationUtils
+					.resolveCharacteristicTypeWildcard(characterisation, nonLatticCharacteristicTypes);
+			nonLatticeCharacterisation.addAll(resolvedNonLatticeConfChars);
+			var resolvedLatticeChar = IFConfidentialityVariableCharacterisationUtils.resolveWildcards(characterisation,
+					List.of(latticeCharacteristicType));
+			latticeCharactisation.addAll(resolvedLatticeChar);
+		} else if (definedLiteral == null) {
+			var resolvedChars = IFConfidentialityVariableCharacterisationUtils.resolveLiteralWildcard(characterisation);
+			if (definedCharacteristicType.getType().equals(getLattice())) {
+				latticeCharactisation.addAll(resolvedChars);
+			} else {
+				nonLatticeCharacterisation.addAll(resolvedChars);
+			}
+		} else if (lhsCharacterisation.getLiteral().getEnum().equals(getLattice())) {
+			latticeCharactisation.add(characterisation);
+		} else {
+			nonLatticeCharacterisation.add(characterisation);
+		}
+	}
+
+	/**
+	 * Calculates the resulting {@link ConfidentialityVariableCharacterisation}s for
+	 * the given defined and calculated characterizations. The defined
+	 * characterizations should be further split into lattice and non-lattice
+	 * characterizations. The resulting characterizations contain the defined non
+	 * lattice characterizations and prefer defined lattice characterizations over
+	 * calculated characterizations. The handling of the security context in defined
+	 * lattice characterizations is handled by
+	 * {@link #modifyResultingCvcsWithSecurityContext(List, DataFlowVariable)}.
+	 * 
+	 * @param calculatedCharacterisations the calculated characterizations
+	 * @param definedCharacterisations    all defined characterizations
+	 * @param definedLatticeChars         the defined lattice characterizations
+	 * @param definedNonLatticeChars      the defined non lattice characterizations
+	 * @param optionalSecurityContext     the optional security context
+	 * @return the resulting {@code ConfidentialityVariableCharacterisation}s
+	 */
+	private List<ConfidentialityVariableCharacterisation> calculateResultingCvcsForCategorizedCharacterisations(
+			List<ConfidentialityVariableCharacterisation> calculatedCharacterisations,
+			List<ConfidentialityVariableCharacterisation> definedCharacterisations,
+			List<ConfidentialityVariableCharacterisation> definedLatticeChars,
+			List<ConfidentialityVariableCharacterisation> definedNonLatticeChars,
+			Optional<DataFlowVariable> optionalSecurityContext) {
 
 		List<ConfidentialityVariableCharacterisation> resultingCharacterisations = new ArrayList<>(
 				definedNonLatticeChars);
@@ -82,7 +129,6 @@ public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrat
 			resultingCharacterisations.addAll(
 					modifyResultingCvcsWithSecurityContext(definedCharacterisations, optionalSecurityContext.get()));
 		}
-
 		return resultingCharacterisations;
 	}
 

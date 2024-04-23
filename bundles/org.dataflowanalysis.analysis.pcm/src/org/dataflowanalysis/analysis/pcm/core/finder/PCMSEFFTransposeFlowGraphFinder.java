@@ -15,6 +15,7 @@ import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.dataflowanalysis.analysis.pcm.utils.SEFFWithContext;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
+import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.seff.AbstractAction;
@@ -31,16 +32,21 @@ public class PCMSEFFTransposeFlowGraphFinder {
 
     private final ResourceProvider resourceProvider;
     private final SEFFFinderContext context;
+    private final List<Entity> sinks;
     private PCMTransposeFlowGraph currentTransposeFlowGraph;
 
     public PCMSEFFTransposeFlowGraphFinder(ResourceProvider resourceProvider, SEFFFinderContext context,
-            PCMTransposeFlowGraph currentTransposeFlowGraph) {
+                                           List<Entity> sinks, PCMTransposeFlowGraph currentTransposeFlowGraph) {
         this.resourceProvider = resourceProvider;
         this.context = context;
+        this.sinks = sinks;
         this.currentTransposeFlowGraph = currentTransposeFlowGraph;
     }
 
     public List<PCMTransposeFlowGraph> findSequencesForSEFFAction(AbstractAction currentAction) {
+        if (this.sinks.contains(currentAction)) {
+            return List.of(currentTransposeFlowGraph);
+        }
 
         if (currentAction instanceof StartAction) {
             return findSequencesForSEFFStartAction((StartAction) currentAction);
@@ -141,7 +147,7 @@ public class PCMSEFFTransposeFlowGraphFinder {
                     PCMTransposeFlowGraph clonedTransposeFlowGraph = this.currentTransposeFlowGraph.copy(vertexMapping);
                     SEFFFinderContext clonedContext = new SEFFFinderContext(context);
                     clonedContext.replaceCallers(vertexMapping);
-                    return new PCMSEFFTransposeFlowGraphFinder(resourceProvider, clonedContext, clonedTransposeFlowGraph)
+                    return new PCMSEFFTransposeFlowGraphFinder(resourceProvider, clonedContext, sinks, clonedTransposeFlowGraph)
                             .findSequencesForSEFFAction(it);
                 })
                 .flatMap(List::stream)
@@ -176,7 +182,7 @@ public class PCMSEFFTransposeFlowGraphFinder {
             logger.error("SEFF Action wanted to return without a matching calling user sequence element");
             throw new IllegalStateException();
         } else {
-            return new PCMUserTransposeFlowGraphFinder(resourceProvider, this.currentTransposeFlowGraph)
+            return new PCMUserTransposeFlowGraphFinder(resourceProvider, this.currentTransposeFlowGraph, this.sinks)
                     .findSequencesForUserActionReturning(caller.getReferencedElement(), caller);
         }
     }

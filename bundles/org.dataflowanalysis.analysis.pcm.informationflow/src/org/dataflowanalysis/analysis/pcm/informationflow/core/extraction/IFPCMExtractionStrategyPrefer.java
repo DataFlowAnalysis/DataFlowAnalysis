@@ -34,16 +34,18 @@ public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrat
 			List<ConfidentialityVariableCharacterisation> definedCharacterisations,
 			Optional<DataFlowVariable> optionalSecurityContext) {
 
-		List<ConfidentialityVariableCharacterisation> definedLatticeChars = new ArrayList<>();
-		List<ConfidentialityVariableCharacterisation> definedNonLatticeChars = new ArrayList<>();
-		for (var definedChar : definedCharacterisations) {
-			categorizeCharacterisation(definedChar, definedLatticeChars, definedNonLatticeChars);
+		List<ConfidentialityVariableCharacterisation> definedLatticeCharacterisations = new ArrayList<>();
+		List<ConfidentialityVariableCharacterisation> definedNonLatticeCharacterisations = new ArrayList<>();
+		for (var definedCharacterisation : definedCharacterisations) {
+			categorizeCharacterisation(definedCharacterisation, definedLatticeCharacterisations,
+					definedNonLatticeCharacterisations);
 		}
 
-		checkOnlyOneCvcForEachLevel(definedLatticeChars);
+		checkOnlyOneCvcForEachLevel(definedLatticeCharacterisations);
 
 		return calculateResultingCvcsForCategorizedCharacterisations(calculatedCharacterisations,
-				definedCharacterisations, definedLatticeChars, definedNonLatticeChars, optionalSecurityContext);
+				definedCharacterisations, definedLatticeCharacterisations, definedNonLatticeCharacterisations,
+				optionalSecurityContext);
 	}
 
 	/**
@@ -74,18 +76,19 @@ public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrat
 			EnumCharacteristicType latticeCharacteristicType = IFPCMDataDictionaryUtils
 					.getLatticeCharacteristicType(getResourceProvider());
 
-			var resolvedNonLatticeConfChars = IFConfidentialityVariableCharacterisationUtils
+			var resolvedNonLatticeConfidentialityCharacterisations = IFConfidentialityVariableCharacterisationUtils
 					.resolveCharacteristicTypeWildcard(characterisation, nonLatticCharacteristicTypes);
-			nonLatticeCharacterisation.addAll(resolvedNonLatticeConfChars);
-			var resolvedLatticeChar = IFConfidentialityVariableCharacterisationUtils.resolveWildcards(characterisation,
-					List.of(latticeCharacteristicType));
-			latticeCharactisation.addAll(resolvedLatticeChar);
+			nonLatticeCharacterisation.addAll(resolvedNonLatticeConfidentialityCharacterisations);
+			var resolvedLatticeCharacterisation = IFConfidentialityVariableCharacterisationUtils
+					.resolveWildcards(characterisation, List.of(latticeCharacteristicType));
+			latticeCharactisation.addAll(resolvedLatticeCharacterisation);
 		} else if (definedLiteral == null) {
-			var resolvedChars = IFConfidentialityVariableCharacterisationUtils.resolveLiteralWildcard(characterisation);
+			var resolvedCharacterisations = IFConfidentialityVariableCharacterisationUtils
+					.resolveLiteralWildcard(characterisation);
 			if (definedCharacteristicType.getType().equals(getLattice())) {
-				latticeCharactisation.addAll(resolvedChars);
+				latticeCharactisation.addAll(resolvedCharacterisations);
 			} else {
-				nonLatticeCharacterisation.addAll(resolvedChars);
+				nonLatticeCharacterisation.addAll(resolvedCharacterisations);
 			}
 		} else if (lhsCharacterisation.getLiteral().getEnum().equals(getLattice())) {
 			latticeCharactisation.add(characterisation);
@@ -132,18 +135,19 @@ public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrat
 		return resultingCharacterisations;
 	}
 
-	private void checkOnlyOneCvcForEachLevel(List<ConfidentialityVariableCharacterisation> latticeConfChars) {
+	private void checkOnlyOneCvcForEachLevel(List<ConfidentialityVariableCharacterisation> latticeCharacterisations) {
 		for (Literal level : getLattice().getLiterals()) {
-			long confCharsForLevel = latticeConfChars.stream().map(confChar -> confChar.getLhs())
+			long characterisationsForLevel = latticeCharacterisations.stream()
+					.map(characterisation -> characterisation.getLhs())
 					.filter(LhsEnumCharacteristicReference.class::isInstance)
 					.map(LhsEnumCharacteristicReference.class::cast)
-					.filter(confCharLhs -> confCharLhs.getCharacteristicType().equals(getLatticeCharacteristicType()))
-					.filter(confCharLhs -> confCharLhs.getLiteral().equals(level)).count();
-			if (confCharsForLevel > 1) {
-				String errorMsg = "For the level '" + level.getName()
+					.filter(lhs -> lhs.getCharacteristicType().equals(getLatticeCharacteristicType()))
+					.filter(latticeLhs -> latticeLhs.getLiteral().equals(level)).count();
+			if (characterisationsForLevel > 1) {
+				String errorMessage = "For the level '" + level.getName()
 						+ "' of the lattice there are multiple definitions in one element.";
-				logger.error(errorMsg);
-				throw new IllegalStateException(errorMsg);
+				logger.error(errorMessage);
+				throw new IllegalStateException(errorMessage);
 			}
 		}
 	}

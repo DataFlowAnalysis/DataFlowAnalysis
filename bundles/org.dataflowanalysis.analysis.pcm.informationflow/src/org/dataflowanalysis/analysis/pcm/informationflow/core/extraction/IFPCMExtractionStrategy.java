@@ -143,19 +143,19 @@ public abstract class IFPCMExtractionStrategy {
 	public List<ConfidentialityVariableCharacterisation> calculateEffectiveConfidentialityVariableCharacterisation(
 			List<VariableCharacterisation> allCharacterisations, Optional<DataFlowVariable> optionalSecurityContext) {
 
-		List<ConfidentialityVariableCharacterisation> confChars = new ArrayList<ConfidentialityVariableCharacterisation>();
-		List<VariableCharacterisation> normalChars = new ArrayList<VariableCharacterisation>();
+		List<ConfidentialityVariableCharacterisation> confidentialityCharacterisations = new ArrayList<ConfidentialityVariableCharacterisation>();
+		List<VariableCharacterisation> normalCharacterisations = new ArrayList<VariableCharacterisation>();
 
 		for (VariableCharacterisation characterisation : allCharacterisations) {
 			if (characterisation instanceof ConfidentialityVariableCharacterisation) {
-				confChars.add((ConfidentialityVariableCharacterisation) characterisation);
+				confidentialityCharacterisations.add((ConfidentialityVariableCharacterisation) characterisation);
 			} else {
-				normalChars.add(characterisation);
+				normalCharacterisations.add(characterisation);
 			}
 		}
 
-		return calculateEffectiveConfidentialityVariableCharacterisation(confChars, normalChars,
-				optionalSecurityContext);
+		return calculateEffectiveConfidentialityVariableCharacterisation(confidentialityCharacterisations,
+				normalCharacterisations, optionalSecurityContext);
 	}
 
 	/**
@@ -175,22 +175,23 @@ public abstract class IFPCMExtractionStrategy {
 			List<VariableCharacterisation> normalCharacterisations,
 			Optional<DataFlowVariable> optionalSecurityContext) {
 
-		var variableNameToNormalChars = mapVariableNameToVarChar(normalCharacterisations);
-		var variableNameToConfChars = mapVariableNameToVarChar(confidentialityCharacterisations);
+		var variableNameToNormalCharacterisations = mapVariableNameToVariableCharacterisation(normalCharacterisations);
+		var variableNameToConfidentialityCharacterisations = mapVariableNameToVariableCharacterisation(
+				confidentialityCharacterisations);
 
-		Set<String> characterisedVariableNames = new HashSet<>(variableNameToNormalChars.keySet());
-		characterisedVariableNames.addAll(variableNameToConfChars.keySet());
+		Set<String> characterisedVariableNames = new HashSet<>(variableNameToNormalCharacterisations.keySet());
+		characterisedVariableNames.addAll(variableNameToConfidentialityCharacterisations.keySet());
 
 		List<ConfidentialityVariableCharacterisation> allResultingCvcs = new ArrayList<>();
 		for (String characterisedVariableName : characterisedVariableNames) {
-			var normalCharsForVariable = variableNameToNormalChars.getOrDefault(characterisedVariableName,
-					new ArrayList<>());
+			var normalCharacterisationsForVariable = variableNameToNormalCharacterisations
+					.getOrDefault(characterisedVariableName, new ArrayList<>());
 
-			var confCharsForVariable = variableNameToConfChars.getOrDefault(characterisedVariableName,
-					new ArrayList<>());
+			var confidentialityCharacterisationsForVariable = variableNameToConfidentialityCharacterisations
+					.getOrDefault(characterisedVariableName, new ArrayList<>());
 
-			var resultingCvcs = calculateEffectiveCvcForVariable(confCharsForVariable, normalCharsForVariable,
-					optionalSecurityContext);
+			var resultingCvcs = calculateEffectiveCvcForVariable(confidentialityCharacterisationsForVariable,
+					normalCharacterisationsForVariable, optionalSecurityContext);
 			allResultingCvcs.addAll(resultingCvcs);
 		}
 		return allResultingCvcs;
@@ -203,45 +204,48 @@ public abstract class IFPCMExtractionStrategy {
 			Optional<DataFlowVariable> optionalSecurityContext) {
 
 		List<ConfidentialityVariableCharacterisation> calculatedCharacterisations = new ArrayList<>();
-		if (normalCharacterisations.size() > 0) {
-			AbstractNamedReference characterisedVariable = normalCharacterisations.get(0)
-					.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage();
-			var dependencies = extractVariableDependencies(normalCharacterisations);
-			if (optionalSecurityContext.isPresent()) {
-				String securityContextName = optionalSecurityContext.get().getVariableName();
-				dependencies.add(IFStoexUtils.createReferenceFromName(securityContextName));
-			}
-
-			calculatedCharacterisations = calculateConfidentialityVariableCharacteristationsFromReferences(dependencies,
-					characterisedVariable);
+		if (normalCharacterisations.isEmpty()) {
+			return calculateResultingConfidentialityVaraibleCharacterisations(calculatedCharacterisations,
+					confidentialityCharacterisations, optionalSecurityContext);
 		}
+
+		AbstractNamedReference characterisedVariable = normalCharacterisations.get(0)
+				.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage();
+		var dependencies = extractVariableDependencies(normalCharacterisations);
+		if (optionalSecurityContext.isPresent()) {
+			String securityContextName = optionalSecurityContext.get().getVariableName();
+			dependencies.add(IFStoexUtils.createReferenceFromName(securityContextName));
+		}
+
+		calculatedCharacterisations = calculateConfidentialityVariableCharacteristationsFromReferences(dependencies,
+				characterisedVariable);
 
 		return calculateResultingConfidentialityVaraibleCharacterisations(calculatedCharacterisations,
 				confidentialityCharacterisations, optionalSecurityContext);
 	}
 
-	private <T extends VariableCharacterisation> Map<String, List<T>> mapVariableNameToVarChar(List<T> varChars) {
-		Map<String, List<T>> variableNameToVarChars = new HashMap<>();
-		for (var varChar : varChars) {
-			String variableName = varChar.getVariableUsage_VariableCharacterisation().getNamedReference__VariableUsage()
-					.getReferenceName();
+	private <T extends VariableCharacterisation> Map<String, List<T>> mapVariableNameToVariableCharacterisation(
+			List<T> variableCharacterisations) {
+		Map<String, List<T>> variableNameToVariableCharacterisations = new HashMap<>();
+		for (var variableCharacterisation : variableCharacterisations) {
+			String variableName = variableCharacterisation.getVariableUsage_VariableCharacterisation()
+					.getNamedReference__VariableUsage().getReferenceName();
 
-			var mappedVarChars = variableNameToVarChars.getOrDefault(variableName, new ArrayList<>());
-			variableNameToVarChars.get(variableName);
+			var mappedVariableCharacterisations = variableNameToVariableCharacterisations.getOrDefault(variableName,
+					new ArrayList<>());
+			variableNameToVariableCharacterisations.get(variableName);
 
-			mappedVarChars.add(varChar);
-			variableNameToVarChars.put(variableName, mappedVarChars);
+			mappedVariableCharacterisations.add(variableCharacterisation);
+			variableNameToVariableCharacterisations.put(variableName, mappedVariableCharacterisations);
 		}
-		return variableNameToVarChars;
+		return variableNameToVariableCharacterisations;
 	}
 
 	private List<AbstractNamedReference> extractVariableDependencies(
 			List<VariableCharacterisation> variableCharacterisations) {
-		return variableCharacterisations.stream()
-				.flatMap(varChar -> IFStoexUtils
-						.findVariablesInExpression(varChar.getSpecification_VariableCharacterisation().getExpression())
-						.stream().map(dependency -> dependency.getId_Variable()))
-				.toList();
+		return variableCharacterisations.stream().flatMap(characterisation -> IFStoexUtils
+				.findVariablesInExpression(characterisation.getSpecification_VariableCharacterisation().getExpression())
+				.stream().map(dependency -> dependency.getId_Variable())).toList();
 	}
 
 	/**

@@ -152,14 +152,25 @@ public class MicroSecEndTest {
     @Test
     public void initialConvertAllToDFD() {
         List<String> models = getModelNames(location);
-        var converter = new MicroSecEndConverter();
         for (String model : models) {
             System.out.println(model);
+            var converter = new MicroSecEndConverter();
             var dfd = converter.microToDfd(Paths.get(location, model + ".json")
                     .toString());
             converter.storeDFD(dfd, Paths.get(location, model)
                     .toString());
         }
+    }
+    
+    @Test
+    public void initializeConvertion() {
+        initialConvertAllToDFD();
+        try {
+            convertAllToWeb();
+        }catch(Exception e) {
+            return;
+        }
+        convertAllToDFD();
     }
 
     private List<String> getModelNames(String location) {

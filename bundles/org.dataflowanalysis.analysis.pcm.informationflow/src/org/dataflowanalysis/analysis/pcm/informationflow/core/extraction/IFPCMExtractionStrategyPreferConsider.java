@@ -23,13 +23,13 @@ public class IFPCMExtractionStrategyPreferConsider extends IFPCMExtractionStrate
 	}
 
 	@Override
-	protected List<ConfidentialityVariableCharacterisation> modifyResultingCvcsWithSecurityContext(
+	protected List<ConfidentialityVariableCharacterisation> modifyResultingConfidentialityCharacterisationsWithSecurityContext(
 			List<ConfidentialityVariableCharacterisation> definedCharacterisations, DataFlowVariable securityContext) {
 
-		var constraintRef = IFStoexUtils.createReferenceFromName(securityContext.getVariableName());
+		var constraintReference = IFStoexUtils.createReferenceFromName(securityContext.getVariableName());
 		return IFConfidentialityVariableCharacterisationUtils
 				.createModifiedCharacterisationsForAdditionalHigherEqualConstraint(definedCharacterisations,
-						constraintRef, getLatticeCharacteristicType(), getLattice());
+						constraintReference, getLatticeCharacteristicType(), getLattice());
 	}
 
 }

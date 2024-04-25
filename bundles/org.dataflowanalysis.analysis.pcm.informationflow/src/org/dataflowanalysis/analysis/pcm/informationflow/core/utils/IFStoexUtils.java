@@ -32,9 +32,9 @@ import de.uka.ipd.sdq.stoex.VariableReference;
  */
 public class IFStoexUtils {
 
-	private static Logger logger = Logger.getLogger(IFStoexUtils.class);
+	private static final Logger logger = Logger.getLogger(IFStoexUtils.class);
 
-	private static final StoexFactory stoexFac = StoexFactory.eINSTANCE;
+	private static final StoexFactory stoexFactory = StoexFactory.eINSTANCE;
 
 	private IFStoexUtils() {
 	}
@@ -80,9 +80,9 @@ public class IFStoexUtils {
 		} else if (expression instanceof NumericLiteral) { // Interface for IntLiteral and DoubleLiteral
 			return findVariableInNotVariableAtom((NumericLiteral) expression);
 		} else {
-			String errorMsg = "Unexpected element in stoex Expression: " + expression;
-			logger.error(errorMsg);
-			throw new IllegalArgumentException(errorMsg);
+			String errorMessage = "Unexpected element in stoex Expression: " + expression;
+			logger.error(errorMessage);
+			throw new IllegalArgumentException(errorMessage);
 		}
 	}
 
@@ -94,9 +94,9 @@ public class IFStoexUtils {
 			return vars;
 
 		} else {
-			String errorMsg = "Unexpected Variable element in stoex Expression:" + variable;
-			logger.error(errorMsg);
-			throw new IllegalArgumentException(errorMsg);
+			String errorMessage = "Unexpected Variable element in stoex Expression:" + variable;
+			logger.error(errorMessage);
+			throw new IllegalArgumentException(errorMessage);
 		}
 	}
 
@@ -106,40 +106,40 @@ public class IFStoexUtils {
 
 	private static List<CharacterisedVariable> findVariablesInBooleanOperatorExpression(
 			BooleanOperatorExpression expression) {
-		var vars = findVariablesInExpression(expression.getLeft());
-		vars.addAll(findVariablesInExpression(expression.getRight()));
-		return vars;
+		var variables = findVariablesInExpression(expression.getLeft());
+		variables.addAll(findVariablesInExpression(expression.getRight()));
+		return variables;
 	}
 
 	private static List<CharacterisedVariable> findVariablesInIfElseExpression(IfElseExpression expression) {
-		var vars = findVariablesInExpression(expression.getConditionExpression());
-		vars.addAll(findVariablesInExpression(expression.getIfExpression()));
-		vars.addAll(findVariablesInExpression(expression.getElseExpression()));
-		return vars;
+		var variables = findVariablesInExpression(expression.getConditionExpression());
+		variables.addAll(findVariablesInExpression(expression.getIfExpression()));
+		variables.addAll(findVariablesInExpression(expression.getElseExpression()));
+		return variables;
 	}
 
 	private static List<CharacterisedVariable> findVariablesInCompareExpression(CompareExpression expression) {
-		var vars = findVariablesInExpression(expression.getLeft());
-		vars.addAll(findVariablesInExpression(expression.getRight()));
-		return vars;
+		var variables = findVariablesInExpression(expression.getLeft());
+		variables.addAll(findVariablesInExpression(expression.getRight()));
+		return variables;
 	}
 
 	private static List<CharacterisedVariable> findVariablesInTermExpression(TermExpression expression) {
-		var vars = findVariablesInExpression(expression.getLeft());
-		vars.addAll(findVariablesInExpression(expression.getRight()));
-		return vars;
+		var variables = findVariablesInExpression(expression.getLeft());
+		variables.addAll(findVariablesInExpression(expression.getRight()));
+		return variables;
 	}
 
 	private static List<CharacterisedVariable> findVariablesInProductExpression(ProductExpression expression) {
-		var vars = findVariablesInExpression(expression.getLeft());
-		vars.addAll(findVariablesInExpression(expression.getRight()));
-		return vars;
+		var variables = findVariablesInExpression(expression.getLeft());
+		variables.addAll(findVariablesInExpression(expression.getRight()));
+		return variables;
 	}
 
 	private static List<CharacterisedVariable> findVariablesInPowerExpression(PowerExpression expression) {
-		var vars = findVariablesInExpression(expression.getBase());
-		vars.addAll(findVariablesInExpression(expression.getExponent()));
-		return vars;
+		var variables = findVariablesInExpression(expression.getBase());
+		variables.addAll(findVariablesInExpression(expression.getExponent()));
+		return variables;
 	}
 
 	private static List<CharacterisedVariable> findVariablesInNegativeExpression(NegativeExpression expression) {
@@ -161,9 +161,9 @@ public class IFStoexUtils {
 	 * @return the created reference
 	 */
 	public static VariableReference createReferenceFromName(String name) {
-		var variableRef = stoexFac.createVariableReference();
-		variableRef.setReferenceName("x");
-		return variableRef;
+		var variableReference = stoexFactory.createVariableReference();
+		variableReference.setReferenceName(name);
+		return variableReference;
 	}
 
 }

@@ -29,7 +29,7 @@ public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrat
 	}
 
 	@Override
-	protected List<ConfidentialityVariableCharacterisation> calculateResultingConfidentialityVaraibleCharacterisations(
+	protected List<ConfidentialityVariableCharacterisation> calculateResultingConfidentialityVariableCharacterisations(
 			List<ConfidentialityVariableCharacterisation> calculatedCharacterisations,
 			List<ConfidentialityVariableCharacterisation> definedCharacterisations,
 			Optional<DataFlowVariable> optionalSecurityContext) {
@@ -41,11 +41,11 @@ public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrat
 					definedNonLatticeCharacterisations);
 		}
 
-		checkOnlyOneCvcForEachLevel(definedLatticeCharacterisations);
+		checkOnlyOneConfidentialityCharacterisationForEachLevel(definedLatticeCharacterisations);
 
-		return calculateResultingCvcsForCategorizedCharacterisations(calculatedCharacterisations,
-				definedCharacterisations, definedLatticeCharacterisations, definedNonLatticeCharacterisations,
-				optionalSecurityContext);
+		return calculateResultingConfidentialityCharacterisationsForCategorizedCharacterisations(
+				calculatedCharacterisations, definedCharacterisations, definedLatticeCharacterisations,
+				definedNonLatticeCharacterisations, optionalSecurityContext);
 	}
 
 	/**
@@ -105,7 +105,7 @@ public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrat
 	 * lattice characterizations and prefer defined lattice characterizations over
 	 * calculated characterizations. The handling of the security context in defined
 	 * lattice characterizations is handled by
-	 * {@link #modifyResultingCvcsWithSecurityContext(List, DataFlowVariable)}.
+	 * {@link #modifyResultingConfidentialityCharacterisationsWithSecurityContext(List, DataFlowVariable)}.
 	 * 
 	 * @param calculatedCharacterisations the calculated characterizations
 	 * @param definedCharacterisations    all defined characterizations
@@ -114,7 +114,7 @@ public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrat
 	 * @param optionalSecurityContext     the optional security context
 	 * @return the resulting {@code ConfidentialityVariableCharacterisation}s
 	 */
-	private List<ConfidentialityVariableCharacterisation> calculateResultingCvcsForCategorizedCharacterisations(
+	private List<ConfidentialityVariableCharacterisation> calculateResultingConfidentialityCharacterisationsForCategorizedCharacterisations(
 			List<ConfidentialityVariableCharacterisation> calculatedCharacterisations,
 			List<ConfidentialityVariableCharacterisation> definedCharacterisations,
 			List<ConfidentialityVariableCharacterisation> definedLatticeChars,
@@ -129,16 +129,17 @@ public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrat
 		} else if (optionalSecurityContext.isEmpty()) {
 			resultingCharacterisations.addAll(definedCharacterisations);
 		} else {
-			resultingCharacterisations.addAll(
-					modifyResultingCvcsWithSecurityContext(definedCharacterisations, optionalSecurityContext.get()));
+			resultingCharacterisations.addAll(modifyResultingConfidentialityCharacterisationsWithSecurityContext(
+					definedCharacterisations, optionalSecurityContext.get()));
 		}
 		return resultingCharacterisations;
 	}
 
-	private void checkOnlyOneCvcForEachLevel(List<ConfidentialityVariableCharacterisation> latticeCharacterisations) {
+	private void checkOnlyOneConfidentialityCharacterisationForEachLevel(
+			List<ConfidentialityVariableCharacterisation> latticeCharacterisations) {
 		for (Literal level : getLattice().getLiterals()) {
 			long characterisationsForLevel = latticeCharacterisations.stream()
-					.map(characterisation -> characterisation.getLhs())
+					.map(ConfidentialityVariableCharacterisation::getLhs)
 					.filter(LhsEnumCharacteristicReference.class::isInstance)
 					.map(LhsEnumCharacteristicReference.class::cast)
 					.filter(lhs -> lhs.getCharacteristicType().equals(getLatticeCharacteristicType()))
@@ -160,7 +161,7 @@ public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrat
 	 * @param securityContext          the security context for the implicit flow
 	 * @return the resulting characterizations
 	 */
-	protected abstract List<ConfidentialityVariableCharacterisation> modifyResultingCvcsWithSecurityContext(
+	protected abstract List<ConfidentialityVariableCharacterisation> modifyResultingConfidentialityCharacterisationsWithSecurityContext(
 			List<ConfidentialityVariableCharacterisation> definedCharacterisations, DataFlowVariable securityContext);
 
 }

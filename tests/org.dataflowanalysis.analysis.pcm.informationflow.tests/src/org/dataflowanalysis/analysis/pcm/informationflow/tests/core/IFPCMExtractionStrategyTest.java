@@ -34,13 +34,13 @@ class IFPCMExtractionStrategyTest {
 
 	private IFPCMExtractionStrategy extractionStrategy;
 
-	private final DataDictionaryCharacterizedFactory ddcFac = DataDictionaryCharacterizedFactory.eINSTANCE;
-	private final StoexFactory stoexFac = StoexFactory.eINSTANCE;
-	private final ExpressionsFactory expsFac = ExpressionsFactory.eINSTANCE;
-	private final ConfidentialityFactory confFac = ConfidentialityFactory.eINSTANCE;
-	private final ExpressionFactory expFac = ExpressionFactory.eINSTANCE;
-	private final CoreFactory pcmCoreFac = CoreFactory.eINSTANCE;
-	private final ParameterFactory pcmParameterFac = ParameterFactory.eINSTANCE;
+	private final DataDictionaryCharacterizedFactory ddcFactory = DataDictionaryCharacterizedFactory.eINSTANCE;
+	private final StoexFactory stoexFactory = StoexFactory.eINSTANCE;
+	private final ExpressionsFactory expressionsFactory = ExpressionsFactory.eINSTANCE;
+	private final ConfidentialityFactory confidentialityFactory = ConfidentialityFactory.eINSTANCE;
+	private final ExpressionFactory expressionFactory = ExpressionFactory.eINSTANCE;
+	private final CoreFactory pcmCoreFactory = CoreFactory.eINSTANCE;
+	private final ParameterFactory pcmParameterFactory = ParameterFactory.eINSTANCE;
 
 	@BeforeEach
 	void prepareStrategy() {
@@ -56,29 +56,30 @@ class IFPCMExtractionStrategyTest {
 
 	@Test
 	void testCalculateEffectiveCvcWithoutNormalVcs() {
-		var term = expsFac.createFalse();
-		Enumeration enumeration = ddcFac.createEnumeration();
+		var term = expressionsFactory.createFalse();
+		Enumeration enumeration = ddcFactory.createEnumeration();
 		enumeration.setName("OtherEnumeration");
-		Literal literal = ddcFac.createLiteral();
+		Literal literal = ddcFactory.createLiteral();
 		literal.setEnum(enumeration);
 		literal.setName("SomeLabel");
-		EnumCharacteristicType latticeCharacteristicType = ddcFac.createEnumCharacteristicType();
+		EnumCharacteristicType latticeCharacteristicType = ddcFactory.createEnumCharacteristicType();
 		latticeCharacteristicType.setType(enumeration);
 		latticeCharacteristicType.setName("OtherEnumertaionCT");
-		var lhs = expFac.createLhsEnumCharacteristicReference();
+		var lhs = expressionFactory.createLhsEnumCharacteristicReference();
 		lhs.setLiteral(literal);
-		var variableRef = stoexFac.createVariableReference();
+		var variableRef = stoexFactory.createVariableReference();
 		variableRef.setReferenceName("x");
-		var variableUsage = pcmParameterFac.createVariableUsage();
+		var variableUsage = pcmParameterFactory.createVariableUsage();
 		variableUsage.setNamedReference__VariableUsage(variableRef);
-		var cvc = confFac.createConfidentialityVariableCharacterisation();
+		var cvc = confidentialityFactory.createConfidentialityVariableCharacterisation();
 		cvc.setLhs(lhs);
 		cvc.setRhs(term);
 		cvc.setVariableUsage_VariableCharacterisation(variableUsage);
 
-		List<VariableCharacterisation> cvcs = List.of(cvc);
+		List<VariableCharacterisation> confidentialityCharacterisations = List.of(cvc);
 
-		var result = extractionStrategy.calculateEffectiveConfidentialityVariableCharacterisation(cvcs);
+		var result = extractionStrategy
+				.calculateEffectiveConfidentialityVariableCharacterisation(confidentialityCharacterisations);
 
 		assertEquals(1, result.size(), "There should be the same number of CVCs when no normal VCs exist.");
 		assertInstanceOf(False.class, result.get(0).getRhs(),
@@ -87,45 +88,55 @@ class IFPCMExtractionStrategyTest {
 
 	@Test
 	void testCalculateEffectiveCvcWithoutCvcs() {
-		var varChars = List.of(createVariableCharacterisationForX("a.VALUE * b.VALUE + c.VALUE"));
+		var normalCharacterisations = List.of(createVariableCharacterisationForX("a.VALUE * b.VALUE + c.VALUE"));
 
-		var result = extractionStrategy.calculateEffectiveConfidentialityVariableCharacterisation(varChars);
+		var result = extractionStrategy
+				.calculateEffectiveConfidentialityVariableCharacterisation(normalCharacterisations);
 
 		assertEquals(2, result.size(), "Cvcs should be created for each level in the lattice.");
 
 		var lhs = (LhsEnumCharacteristicReference) result.get(0).getLhs();
-		Map<String, String> varToLevel = new HashMap<>();
+		Map<String, String> variableToLevel = new HashMap<>();
 
-		varToLevel.put("a", "Low");
-		varToLevel.put("b", "Low");
-		varToLevel.put("c", "Low");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(result, lhs.getLiteral().getEnum(), varToLevel, "Low"),
+		variableToLevel.put("a", "Low");
+		variableToLevel.put("b", "Low");
+		variableToLevel.put("c", "Low");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						result, lhs.getLiteral().getEnum(), variableToLevel, "Low"),
 				"Should forward 'Low' for a=Low, b=Low, c=Low");
 
-		varToLevel.put("a", "High");
-		varToLevel.put("b", "Low");
-		varToLevel.put("c", "Low");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(result, lhs.getLiteral().getEnum(), varToLevel, "High"),
+		variableToLevel.put("a", "High");
+		variableToLevel.put("b", "Low");
+		variableToLevel.put("c", "Low");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						result, lhs.getLiteral().getEnum(), variableToLevel, "High"),
 				"Should forward 'Low' for a=High, b=Low, c=Low");
 
-		varToLevel.put("a", "Low");
-		varToLevel.put("b", "High");
-		varToLevel.put("c", "Low");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(result, lhs.getLiteral().getEnum(), varToLevel, "High"),
+		variableToLevel.put("a", "Low");
+		variableToLevel.put("b", "High");
+		variableToLevel.put("c", "Low");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						result, lhs.getLiteral().getEnum(), variableToLevel, "High"),
 				"Should forward 'Low' for a=Low, b=High, c=Low");
 
-		varToLevel.put("a", "Low");
-		varToLevel.put("b", "Low");
-		varToLevel.put("c", "High");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(result, lhs.getLiteral().getEnum(), varToLevel, "High"),
+		variableToLevel.put("a", "Low");
+		variableToLevel.put("b", "Low");
+		variableToLevel.put("c", "High");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						result, lhs.getLiteral().getEnum(), variableToLevel, "High"),
 				"Should forward 'Low' for a=Low, b=Low, c=High");
 	}
 
 	@Test
 	void testCalculateEffectiveCVCWithConstantDefinition() {
-		var varChars = List.of(createVariableCharacterisationForX("5 + 3 * 2"));
+		var normalCharacterisations = List.of(createVariableCharacterisationForX("5 + 3 * 2"));
 
-		var result = extractionStrategy.calculateEffectiveConfidentialityVariableCharacterisation(varChars);
+		var result = extractionStrategy
+				.calculateEffectiveConfidentialityVariableCharacterisation(normalCharacterisations);
 
 		assertEquals(2, result.size(), "Cvcs should be created for each level in the lattice.");
 
@@ -138,18 +149,18 @@ class IFPCMExtractionStrategyTest {
 	 */
 
 	private VariableCharacterisation createVariableCharacterisationForX(String specification) {
-		var variableRef = stoexFac.createVariableReference();
-		variableRef.setReferenceName("x");
-		var variableUsage = pcmParameterFac.createVariableUsage();
-		variableUsage.setNamedReference__VariableUsage(variableRef);
-		var randomVar = pcmCoreFac.createPCMRandomVariable();
-		randomVar.setSpecification(specification);
-		var varChar = pcmParameterFac.createVariableCharacterisation();
-		varChar.setSpecification_VariableCharacterisation(randomVar);
-		varChar.setType(VariableCharacterisationType.VALUE);
-		varChar.setVariableUsage_VariableCharacterisation(variableUsage);
+		var variableReference = stoexFactory.createVariableReference();
+		variableReference.setReferenceName("x");
+		var variableUsage = pcmParameterFactory.createVariableUsage();
+		variableUsage.setNamedReference__VariableUsage(variableReference);
+		var randomVariable = pcmCoreFactory.createPCMRandomVariable();
+		randomVariable.setSpecification(specification);
+		var normalCharacterisation = pcmParameterFactory.createVariableCharacterisation();
+		normalCharacterisation.setSpecification_VariableCharacterisation(randomVariable);
+		normalCharacterisation.setType(VariableCharacterisationType.VALUE);
+		normalCharacterisation.setVariableUsage_VariableCharacterisation(variableUsage);
 
-		return varChar;
+		return normalCharacterisation;
 	}
 
 }

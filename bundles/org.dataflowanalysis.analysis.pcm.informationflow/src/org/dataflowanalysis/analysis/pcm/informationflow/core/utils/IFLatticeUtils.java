@@ -55,9 +55,9 @@ public class IFLatticeUtils {
 	public static int compareLevels(Literal first, Literal second) {
 		Enumeration enumeration = first.getEnum();
 		if (!enumeration.equals(second.getEnum())) {
-			String errorMsg = "The given Literals are not of the same Enumeration";
-			logger.error(errorMsg);
-			throw new IllegalArgumentException(errorMsg);
+			String errorMessage = "The given Literals are not of the same Enumeration";
+			logger.error(errorMessage);
+			throw new IllegalArgumentException(errorMessage);
 		}
 
 		int firstIndex = enumeration.getLiterals().indexOf(first);

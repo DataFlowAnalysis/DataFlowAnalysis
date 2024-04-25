@@ -21,7 +21,7 @@ public class IFPCMExtractionStrategyPreferUnmodified extends IFPCMExtractionStra
 	}
 
 	@Override
-	protected List<ConfidentialityVariableCharacterisation> modifyResultingCvcsWithSecurityContext(
+	protected List<ConfidentialityVariableCharacterisation> modifyResultingConfidentialityCharacterisationsWithSecurityContext(
 			List<ConfidentialityVariableCharacterisation> definedCharacterisations, DataFlowVariable securityContext) {
 		return definedCharacterisations;
 	}

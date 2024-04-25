@@ -38,11 +38,11 @@ public class IFConfidentialityVariableCharacterisationUtils {
 
 	private static final Logger logger = Logger.getLogger(IFConfidentialityVariableCharacterisationUtils.class);
 
-	private final static StoexFactory stoexFac = StoexFactory.eINSTANCE;
-	private final static ConfidentialityFactory confFac = ConfidentialityFactory.eINSTANCE;
-	private final static ExpressionsFactory expsFac = ExpressionsFactory.eINSTANCE;
-	private final static ExpressionFactory expFac = ExpressionFactory.eINSTANCE;
-	private final static ParameterFactory paramFac = ParameterFactory.eINSTANCE;
+	private final static StoexFactory stoexFactory = StoexFactory.eINSTANCE;
+	private final static ConfidentialityFactory confidentialityFactory = ConfidentialityFactory.eINSTANCE;
+	private final static ExpressionsFactory expressionsFactory = ExpressionsFactory.eINSTANCE;
+	private final static ExpressionFactory expressionFactory = ExpressionFactory.eINSTANCE;
+	private final static ParameterFactory parameterFactory = ParameterFactory.eINSTANCE;
 
 	private IFConfidentialityVariableCharacterisationUtils() {
 	}
@@ -60,8 +60,9 @@ public class IFConfidentialityVariableCharacterisationUtils {
 	public static List<ConfidentialityVariableCharacterisation> resolveWildcards(
 			ConfidentialityVariableCharacterisation characterisation,
 			List<EnumCharacteristicType> allCharacteristicTypes) {
-		return resolveCharacteristicTypeWildcard(characterisation, allCharacteristicTypes).stream()
-				.flatMap(cvc -> resolveLiteralWildcard(cvc).stream()).toList();
+		return resolveCharacteristicTypeWildcard(characterisation, allCharacteristicTypes).stream().flatMap(
+				confidentialityCharacterisation -> resolveLiteralWildcard(confidentialityCharacterisation).stream())
+				.toList();
 	}
 
 	/**
@@ -92,8 +93,9 @@ public class IFConfidentialityVariableCharacterisationUtils {
 			var lhs = getLhsEnumCharacteristicReference(resolvedCharacterisation);
 			lhs.setLiteral(level);
 
-			List<NamedEnumCharacteristicReference> varsInRhs = extractAllVariables(resolvedCharacterisation.getRhs());
-			varsInRhs.stream().forEach(variable -> variable.setLiteral(level));
+			List<NamedEnumCharacteristicReference> variablesInRhs = extractAllVariables(
+					resolvedCharacterisation.getRhs());
+			variablesInRhs.stream().forEach(variable -> variable.setLiteral(level));
 
 			resolvedCharacterisations.add(resolvedCharacterisation);
 		}
@@ -135,14 +137,14 @@ public class IFConfidentialityVariableCharacterisationUtils {
 	}
 
 	private static ConfidentialityVariableCharacterisation copyConfidentialityVariableCharacterisation(
-			ConfidentialityVariableCharacterisation confChar) {
+			ConfidentialityVariableCharacterisation confidentialityCharacterisation) {
 
-		var lhs = getLhsEnumCharacteristicReference(confChar);
-		var characterisedVariable = confChar.getVariableUsage_VariableCharacterisation()
+		var lhs = getLhsEnumCharacteristicReference(confidentialityCharacterisation);
+		var characterisedVariable = confidentialityCharacterisation.getVariableUsage_VariableCharacterisation()
 				.getNamedReference__VariableUsage();
 
 		return createCharacterisation(characterisedVariable, lhs.getCharacteristicType(), lhs.getLiteral(),
-				copyTerm(confChar.getRhs()));
+				copyTerm(confidentialityCharacterisation.getRhs()));
 	}
 
 	/**
@@ -166,7 +168,7 @@ public class IFConfidentialityVariableCharacterisationUtils {
 			List<ConfidentialityVariableCharacterisation> characterisations, AbstractNamedReference constraint,
 			CharacteristicType latticeCharacteristicType, Enumeration lattice) {
 
-		if (characterisations.size() <= 0) {
+		if (characterisations.isEmpty()) {
 			String errorMessage = "At least one characterization has to be given.";
 			logger.error(errorMessage);
 			throw new IllegalArgumentException(errorMessage);
@@ -183,15 +185,15 @@ public class IFConfidentialityVariableCharacterisationUtils {
 
 		List<ConfidentialityVariableCharacterisation> modifiedCharacterisations = new ArrayList<>();
 		for (Literal latticeLevel : lattice.getLiterals()) {
-			modifiedCharacterisations.add(
-					createModifiedCvcForLevel(characterizedVariable, literalToDefinedConfidentialityCharacterisation,
-							constraint, latticeLevel, latticeCharacteristicType, lattice));
+			modifiedCharacterisations.add(createModifiedCharacterisationForLevel(characterizedVariable,
+					literalToDefinedConfidentialityCharacterisation, constraint, latticeLevel,
+					latticeCharacteristicType, lattice));
 		}
 
 		return modifiedCharacterisations;
 	}
 
-	private static ConfidentialityVariableCharacterisation createModifiedCvcForLevel(
+	private static ConfidentialityVariableCharacterisation createModifiedCharacterisationForLevel(
 			AbstractNamedReference characterizedVariable,
 			Map<Literal, ConfidentialityVariableCharacterisation> literalToDefinedConfidentialityCharacterisation,
 			AbstractNamedReference constraint, Literal level, CharacteristicType latticeCharacteristicType,
@@ -230,14 +232,14 @@ public class IFConfidentialityVariableCharacterisationUtils {
 	private static Term createRhsForAdditionalHigherEqualConstraint(List<Term> lowerDefinedTerms, Term levelTerm,
 			Term levelConstraintVariable, List<Term> higherConstraintVariables) {
 
-		Term levelShouldBeSet = expsFac.createFalse();
+		Term levelShouldBeSet = expressionsFactory.createFalse();
 		if (levelTerm != null) {
 			levelShouldBeSet = levelTerm;
 		}
 
 		if (!higherConstraintVariables.isEmpty()) {
 			Term notHigherConstraintsORed = createNot(createOrTerm(higherConstraintVariables));
-			And isApplyableAndConfirmsSecurityContext = expsFac.createAnd();
+			And isApplyableAndConfirmsSecurityContext = expressionsFactory.createAnd();
 			isApplyableAndConfirmsSecurityContext.setLeft(levelShouldBeSet);
 			isApplyableAndConfirmsSecurityContext.setRight(notHigherConstraintsORed);
 			levelShouldBeSet = isApplyableAndConfirmsSecurityContext;
@@ -245,11 +247,11 @@ public class IFConfidentialityVariableCharacterisationUtils {
 
 		if (!lowerDefinedTerms.isEmpty()) {
 			Term lowerDefinedTermsORed = createOrTerm(lowerDefinedTerms);
-			And oneLowerTermTrueAndIsExactlyConstraint = expsFac.createAnd();
+			And oneLowerTermTrueAndIsExactlyConstraint = expressionsFactory.createAnd();
 			oneLowerTermTrueAndIsExactlyConstraint.setLeft(lowerDefinedTermsORed);
 			oneLowerTermTrueAndIsExactlyConstraint.setRight(levelConstraintVariable);
 
-			Or levelConfirmsWithConstraintOrConstraintWhenLowerTrue = expsFac.createOr();
+			Or levelConfirmsWithConstraintOrConstraintWhenLowerTrue = expressionsFactory.createOr();
 			levelConfirmsWithConstraintOrConstraintWhenLowerTrue.setLeft(levelShouldBeSet);
 			levelConfirmsWithConstraintOrConstraintWhenLowerTrue.setRight(oneLowerTermTrueAndIsExactlyConstraint);
 			levelShouldBeSet = levelConfirmsWithConstraintOrConstraintWhenLowerTrue;
@@ -295,7 +297,7 @@ public class IFConfidentialityVariableCharacterisationUtils {
 	private static ConfidentialityVariableCharacterisation createTrueCharacteristationForLevel(
 			AbstractNamedReference characterisedVariable, CharacteristicType latticeCharacteristicType, Literal level) {
 
-		Term trueTerm = expsFac.createTrue();
+		Term trueTerm = expressionsFactory.createTrue();
 
 		return createCharacterisation(characterisedVariable, latticeCharacteristicType, level, trueTerm);
 	}
@@ -303,7 +305,7 @@ public class IFConfidentialityVariableCharacterisationUtils {
 	private static ConfidentialityVariableCharacterisation createFalseCharacteristationForLevel(
 			AbstractNamedReference characterisedVariable, CharacteristicType latticeCharacteristicType, Literal level) {
 
-		Term falseTerm = expsFac.createFalse();
+		Term falseTerm = expressionsFactory.createFalse();
 		return createCharacterisation(characterisedVariable, latticeCharacteristicType, level, falseTerm);
 	}
 
@@ -358,7 +360,7 @@ public class IFConfidentialityVariableCharacterisationUtils {
 	private static VariableCharacterizationLhs createLhs(CharacteristicType latticeCharacteristicType,
 			Literal literal) {
 		// DataCharacteristicCalculator assumes lhs is a LhsEnumCharacteristicReference
-		LhsEnumCharacteristicReference lhs = expFac.createLhsEnumCharacteristicReference();
+		LhsEnumCharacteristicReference lhs = expressionFactory.createLhsEnumCharacteristicReference();
 
 		lhs.setCharacteristicType(latticeCharacteristicType);
 		lhs.setLiteral(literal);
@@ -373,14 +375,14 @@ public class IFConfidentialityVariableCharacterisationUtils {
 		}
 		Term negatedTerm = createNot(createOrTerm(higherVariables));
 
-		And andTerm = expsFac.createAnd();
+		And andTerm = expressionsFactory.createAnd();
 		andTerm.setLeft(positiveTerm);
 		andTerm.setRight(negatedTerm);
 		return andTerm;
 	}
 
 	private static Term createOrTerm(List<Term> variables) {
-		if (variables.size() < 1) {
+		if (variables.isEmpty()) {
 			String errorMessage = "The creation of a ConfidentialityVariableCharacterisation without Variable dependencies is undefined.";
 			logger.error(errorMessage);
 			throw new IllegalArgumentException(errorMessage);
@@ -388,7 +390,7 @@ public class IFConfidentialityVariableCharacterisationUtils {
 
 		Term term = variables.get(0);
 		for (int i = 1; i < variables.size(); i++) {
-			Or orTerm = expsFac.createOr();
+			Or orTerm = expressionsFactory.createOr();
 			orTerm.setLeft(term);
 			orTerm.setRight(variables.get(i));
 			term = orTerm;
@@ -398,14 +400,14 @@ public class IFConfidentialityVariableCharacterisationUtils {
 	}
 
 	private static VariableUsage createVariableUsage(AbstractNamedReference characterisedVariable) {
-		VariableUsage variableUsage = paramFac.createVariableUsage();
+		VariableUsage variableUsage = parameterFactory.createVariableUsage();
 
 		variableUsage.setNamedReference__VariableUsage(createCopiedReference(characterisedVariable));
 		return variableUsage;
 	}
 
 	private static Not createNot(Term term) {
-		Not negatedTerm = expsFac.createNot();
+		Not negatedTerm = expressionsFactory.createNot();
 		negatedTerm.setTerm(term);
 		return negatedTerm;
 	}
@@ -414,7 +416,7 @@ public class IFConfidentialityVariableCharacterisationUtils {
 			AbstractNamedReference reference, CharacteristicType laticeCharacteristicType, Literal literal) {
 
 		// PCMDataCharacteristicsCalculator expects NamedEnumCharacteristicReferences
-		NamedEnumCharacteristicReference variable = expFac.createNamedEnumCharacteristicReference();
+		NamedEnumCharacteristicReference variable = expressionFactory.createNamedEnumCharacteristicReference();
 
 		variable.setCharacteristicType(laticeCharacteristicType);
 		variable.setLiteral(literal);
@@ -430,7 +432,7 @@ public class IFConfidentialityVariableCharacterisationUtils {
 	 * is lost in the old NamedEnumCharacteristicReference.
 	 */
 	private static AbstractNamedReference createCopiedReference(AbstractNamedReference reference) {
-		VariableReference copiedReference = stoexFac.createVariableReference();
+		VariableReference copiedReference = stoexFactory.createVariableReference();
 		copiedReference.setReferenceName(reference.getReferenceName());
 		return copiedReference;
 	}
@@ -440,30 +442,30 @@ public class IFConfidentialityVariableCharacterisationUtils {
 	 */
 	private static Term copyTerm(Term term) {
 		if (term instanceof True) {
-			return expsFac.createTrue();
+			return expressionsFactory.createTrue();
 		} else if (term instanceof False) {
-			return expsFac.createFalse();
-		} else if (term instanceof NamedEnumCharacteristicReference namedRef) {
-			return createNamedEnumCharacteristicReference(namedRef.getNamedReference(),
-					namedRef.getCharacteristicType(), namedRef.getLiteral());
+			return expressionsFactory.createFalse();
+		} else if (term instanceof NamedEnumCharacteristicReference namedReference) {
+			return createNamedEnumCharacteristicReference(namedReference.getNamedReference(),
+					namedReference.getCharacteristicType(), namedReference.getLiteral());
 		} else if (term instanceof And andTerm) {
-			And andCopied = expsFac.createAnd();
+			And andCopied = expressionsFactory.createAnd();
 			andCopied.setLeft(copyTerm(andTerm.getLeft()));
 			andCopied.setRight(copyTerm(andTerm.getRight()));
 			return andCopied;
 		} else if (term instanceof Or orTerm) {
-			Or orCopied = expsFac.createOr();
+			Or orCopied = expressionsFactory.createOr();
 			orCopied.setLeft(copyTerm(orTerm.getLeft()));
 			orCopied.setRight(copyTerm(orTerm.getRight()));
 			return orCopied;
 		} else if (term instanceof Not notTerm) {
-			Not notCopied = expsFac.createNot();
+			Not notCopied = expressionsFactory.createNot();
 			notCopied.setTerm(copyTerm(notTerm.getTerm()));
 			return notCopied;
 		} else {
-			String errorMsg = "Tried to copy unknown term element: " + term;
-			logger.error(errorMsg);
-			throw new IllegalArgumentException(errorMsg);
+			String errorMessage = "Tried to copy unknown term element: " + term;
+			logger.error(errorMessage);
+			throw new IllegalArgumentException(errorMessage);
 		}
 	}
 
@@ -472,9 +474,9 @@ public class IFConfidentialityVariableCharacterisationUtils {
 			return new ArrayList<>();
 		} else if (term instanceof False) {
 			return new ArrayList<>();
-		} else if (term instanceof NamedEnumCharacteristicReference namedRef) {
+		} else if (term instanceof NamedEnumCharacteristicReference namedReference) {
 			List<NamedEnumCharacteristicReference> variableList = new ArrayList<>();
-			variableList.add(namedRef);
+			variableList.add(namedReference);
 			return variableList;
 		} else if (term instanceof And andTerm) {
 			var variables = extractAllVariables(andTerm.getLeft());
@@ -487,9 +489,9 @@ public class IFConfidentialityVariableCharacterisationUtils {
 		} else if (term instanceof Not notTerm) {
 			return extractAllVariables(notTerm.getTerm());
 		} else {
-			String errorMsg = "Tried to copy unknown term element: " + term;
-			logger.error(errorMsg);
-			throw new IllegalArgumentException(errorMsg);
+			String errorMessage = "Tried to copy unknown term element: " + term;
+			logger.error(errorMessage);
+			throw new IllegalArgumentException(errorMessage);
 		}
 	}
 
@@ -501,7 +503,7 @@ public class IFConfidentialityVariableCharacterisationUtils {
 	private static ConfidentialityVariableCharacterisation createCharacterisation(
 			AbstractNamedReference characterisedVariable, CharacteristicType characteristicType, Literal literal,
 			Term rhs) {
-		var characterisation = confFac.createConfidentialityVariableCharacterisation();
+		var characterisation = confidentialityFactory.createConfidentialityVariableCharacterisation();
 		characterisation.setLhs(createLhs(characteristicType, literal));
 		characterisation.setRhs(rhs);
 		characterisation.setVariableUsage_VariableCharacterisation(createVariableUsage(characterisedVariable));

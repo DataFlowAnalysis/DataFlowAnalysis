@@ -21,8 +21,8 @@ import org.eclipse.core.runtime.Plugin;
  */
 public class IFPCMDataFlowConfidentialityAnalysis extends PCMDataFlowConfidentialityAnalysis {
 
-	private boolean considerImplicitFlows;
-	private IFPCMExtractionStrategy extractionStrategy;
+	private final boolean considerImplicitFlows;
+	private final IFPCMExtractionStrategy extractionStrategy;
 
 	public static final String PLUGIN_PATH = "org.dataflowanalysis.analysis.pcm.informationflow";
 

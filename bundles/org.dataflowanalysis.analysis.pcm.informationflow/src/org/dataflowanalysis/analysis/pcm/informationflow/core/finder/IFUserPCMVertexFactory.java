@@ -21,8 +21,8 @@ import org.palladiosimulator.pcm.usagemodel.Stop;
  */
 public class IFUserPCMVertexFactory implements IUserPCMVertexFactory {
 
-	private boolean considerImplicitFlow;
-	private IFPCMExtractionStrategy extractionStrategy;
+	private final boolean considerImplicitFlow;
+	private final IFPCMExtractionStrategy extractionStrategy;
 
 	public IFUserPCMVertexFactory(boolean considerImplicitFlow, IFPCMExtractionStrategy extractionStrategy) {
 		this.considerImplicitFlow = considerImplicitFlow;

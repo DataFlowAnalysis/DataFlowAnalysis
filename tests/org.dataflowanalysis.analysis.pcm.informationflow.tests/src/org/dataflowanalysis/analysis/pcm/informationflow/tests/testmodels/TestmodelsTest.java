@@ -78,10 +78,10 @@ class TestmodelsTest {
 
 		List<AbstractVertex<?>> violations = new ArrayList<>();
 
-		for (AbstractPartialFlowGraph pfg : propagatedFlowGraph.getPartialFlowGraphs()) {
-			List<? extends AbstractVertex<?>> pfgViolations = analysis.queryDataFlow(pfg,
+		for (AbstractPartialFlowGraph partialFlowGraph : propagatedFlowGraph.getPartialFlowGraphs()) {
+			List<? extends AbstractVertex<?>> partialFlowGraphViolations = analysis.queryDataFlow(partialFlowGraph,
 					vertex -> vertexViolatesIncomingHigherThanNode(vertex, analysis.getResourceProvider()));
-			violations.addAll(pfgViolations);
+			violations.addAll(partialFlowGraphViolations);
 		}
 		return violations;
 	}

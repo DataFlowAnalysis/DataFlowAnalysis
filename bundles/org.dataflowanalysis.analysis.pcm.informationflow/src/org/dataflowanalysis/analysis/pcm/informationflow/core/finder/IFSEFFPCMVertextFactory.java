@@ -28,8 +28,8 @@ import org.palladiosimulator.pcm.seff.StopAction;
  */
 public class IFSEFFPCMVertextFactory implements ISEFFPCMVertexFactory {
 
-	private boolean considerImplicitFlow;
-	private IFPCMExtractionStrategy extractionStrategy;
+	private final boolean considerImplicitFlow;
+	private final IFPCMExtractionStrategy extractionStrategy;
 
 	public IFSEFFPCMVertextFactory(boolean considerImplicitFlow, IFPCMExtractionStrategy extractionStrategy) {
 		this.considerImplicitFlow = considerImplicitFlow;

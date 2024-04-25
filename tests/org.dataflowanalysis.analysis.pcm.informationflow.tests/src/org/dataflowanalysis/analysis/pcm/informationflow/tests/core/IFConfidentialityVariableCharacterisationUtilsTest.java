@@ -25,9 +25,9 @@ class IFConfidentialityVariableCharacterisationUtilsTest {
 
 //	private Logger logger = Logger.getLogger(IFConfidentialityVariableCharacterisationUtilsTest.class);
 
-	private final DataDictionaryCharacterizedFactory ddcFac = DataDictionaryCharacterizedFactory.eINSTANCE;
-	private final StoexFactory stoexFac = StoexFactory.eINSTANCE;;
-	private final ExpressionsFactory expsFac = ExpressionsFactory.eINSTANCE;
+	private final DataDictionaryCharacterizedFactory ddcFactory = DataDictionaryCharacterizedFactory.eINSTANCE;
+	private final StoexFactory stoexFactory = StoexFactory.eINSTANCE;;
+	private final ExpressionsFactory expressionsFactory = ExpressionsFactory.eINSTANCE;
 
 	@Test
 	void testCreateMaximumJoinOneLatticeOneReference() {
@@ -37,15 +37,18 @@ class IFConfidentialityVariableCharacterisationUtilsTest {
 		var characterisedVariable = createCharacterisedVariableX();
 		var dependencies = createDependencies("a");
 
-		var confVarChars = IFConfidentialityVariableCharacterisationUtils.createMaximumJoinCharacterisationsForLattice(
-				characterisedVariable, dependencies, characteristicType, enumeration);
+		var confidentialityCharacterisation = IFConfidentialityVariableCharacterisationUtils
+				.createMaximumJoinCharacterisationsForLattice(characterisedVariable, dependencies, characteristicType,
+						enumeration);
 
-		assertEquals(1, confVarChars.size(),
+		assertEquals(1, confidentialityCharacterisation.size(),
 				"For a one point lattice there should be 1 characterisation. One for each level.");
 
 		Map<String, String> varToLevel = new HashMap<>();
 		varToLevel.put("a", "One");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(confVarChars, enumeration, varToLevel, "One"),
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						confidentialityCharacterisation, enumeration, varToLevel, "One"),
 				"Should forward 'One'");
 	}
 
@@ -69,18 +72,26 @@ class IFConfidentialityVariableCharacterisationUtilsTest {
 		Map<String, Map<String, Boolean>> variableToLiteralToBoolean = new HashMap<>();
 		variableToLiteralToBoolean.put("a", literalToBoolean);
 
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcForBooleanMapping(confVarChars.get(0), variableToLiteralToBoolean),
+		assertTrue(ConfidentialityVariableCharacterisationTestUtils
+				.evaluateConfidentialityCharacterisationForBooleanMapping(confVarChars.get(0),
+						variableToLiteralToBoolean),
 				"Should forward Low");
-		assertFalse(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcForBooleanMapping(confVarChars.get(1), variableToLiteralToBoolean),
+		assertFalse(ConfidentialityVariableCharacterisationTestUtils
+				.evaluateConfidentialityCharacterisationForBooleanMapping(confVarChars.get(1),
+						variableToLiteralToBoolean),
 				"Should not set High, but forward Low");
 
 		literalToBoolean.put("Low", false);
 		literalToBoolean.put("High", true);
 		variableToLiteralToBoolean.put("a", literalToBoolean);
 
-		assertFalse(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcForBooleanMapping(confVarChars.get(0), variableToLiteralToBoolean),
+		assertFalse(ConfidentialityVariableCharacterisationTestUtils
+				.evaluateConfidentialityCharacterisationForBooleanMapping(confVarChars.get(0),
+						variableToLiteralToBoolean),
 				"Should not set Low, but forward High");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcForBooleanMapping(confVarChars.get(1), variableToLiteralToBoolean),
+		assertTrue(ConfidentialityVariableCharacterisationTestUtils
+				.evaluateConfidentialityCharacterisationForBooleanMapping(confVarChars.get(1),
+						variableToLiteralToBoolean),
 				"Should forward High");
 	}
 
@@ -90,57 +101,77 @@ class IFConfidentialityVariableCharacterisationUtilsTest {
 		Enumeration enumeration = characteristicType.getType();
 
 		var characterised = createCharacterisedVariableX();
-		var refs = createDependencies("a", "b");
+		var references = createDependencies("a", "b");
 
-		var confVarChars = IFConfidentialityVariableCharacterisationUtils
-				.createMaximumJoinCharacterisationsForLattice(characterised, refs, characteristicType, enumeration);
+		var confidentialityCharacterisations = IFConfidentialityVariableCharacterisationUtils
+				.createMaximumJoinCharacterisationsForLattice(characterised, references, characteristicType,
+						enumeration);
 
-		assertEquals(3, confVarChars.size(), "For Low, Mid and High each a ConfidentialityVariableCharacterisation");
+		assertEquals(3, confidentialityCharacterisations.size(),
+				"For Low, Mid and High each a ConfidentialityVariableCharacterisation");
 
-		Map<String, String> varToLevel = new HashMap<>();
-		varToLevel.put("a", "Low");
-		varToLevel.put("b", "Low");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(confVarChars, enumeration, varToLevel, "Low"),
+		Map<String, String> variableToLevel = new HashMap<>();
+		variableToLevel.put("a", "Low");
+		variableToLevel.put("b", "Low");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						confidentialityCharacterisations, enumeration, variableToLevel, "Low"),
 				"Should forward 'Low' for a=Low, b=Low");
 
-		varToLevel.put("a", "Low");
-		varToLevel.put("b", "Mid");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(confVarChars, enumeration, varToLevel, "Mid"),
+		variableToLevel.put("a", "Low");
+		variableToLevel.put("b", "Mid");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						confidentialityCharacterisations, enumeration, variableToLevel, "Mid"),
 				"Should forward 'Mid' for a=Low, b=Mid");
 
-		varToLevel.put("a", "Mid");
-		varToLevel.put("b", "Low");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(confVarChars, enumeration, varToLevel, "Mid"),
+		variableToLevel.put("a", "Mid");
+		variableToLevel.put("b", "Low");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						confidentialityCharacterisations, enumeration, variableToLevel, "Mid"),
 				"Should forward 'Mid' for a=Mid, b=Low");
 
-		varToLevel.put("a", "Mid");
-		varToLevel.put("b", "Mid");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(confVarChars, enumeration, varToLevel, "Mid"),
+		variableToLevel.put("a", "Mid");
+		variableToLevel.put("b", "Mid");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						confidentialityCharacterisations, enumeration, variableToLevel, "Mid"),
 				"Should forward 'Mid' for a=Mid, b=Mid");
 
-		varToLevel.put("a", "Low");
-		varToLevel.put("b", "High");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(confVarChars, enumeration, varToLevel, "High"),
+		variableToLevel.put("a", "Low");
+		variableToLevel.put("b", "High");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						confidentialityCharacterisations, enumeration, variableToLevel, "High"),
 				"Should forward 'High' for a=Low, b=High");
 
-		varToLevel.put("a", "Mid");
-		varToLevel.put("b", "High");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(confVarChars, enumeration, varToLevel, "High"),
+		variableToLevel.put("a", "Mid");
+		variableToLevel.put("b", "High");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						confidentialityCharacterisations, enumeration, variableToLevel, "High"),
 				"Should forward 'High' for a=Mid, b=High");
 
-		varToLevel.put("a", "High");
-		varToLevel.put("b", "Low");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(confVarChars, enumeration, varToLevel, "High"),
+		variableToLevel.put("a", "High");
+		variableToLevel.put("b", "Low");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						confidentialityCharacterisations, enumeration, variableToLevel, "High"),
 				"Should forward 'High' for a=High, b=Low");
 
-		varToLevel.put("a", "High");
-		varToLevel.put("b", "Mid");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(confVarChars, enumeration, varToLevel, "High"),
+		variableToLevel.put("a", "High");
+		variableToLevel.put("b", "Mid");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						confidentialityCharacterisations, enumeration, variableToLevel, "High"),
 				"Should forward 'High' for a=High, b=Mid");
 
-		varToLevel.put("a", "High");
-		varToLevel.put("b", "High");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(confVarChars, enumeration, varToLevel, "High"),
+		variableToLevel.put("a", "High");
+		variableToLevel.put("b", "High");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						confidentialityCharacterisations, enumeration, variableToLevel, "High"),
 				"Should forward 'High' for a=High, b=High");
 	}
 
@@ -153,65 +184,83 @@ class IFConfidentialityVariableCharacterisationUtilsTest {
 		var dependencies = createDependencies("a");
 
 		// Assumes createMaximumJoin to work
-		var initialConfChars = IFConfidentialityVariableCharacterisationUtils
+		var initialConfidentialityCharacterisations = IFConfidentialityVariableCharacterisationUtils
 				.createMaximumJoinCharacterisationsForLattice(characterisedVariable, dependencies, characteristicType,
 						enumeration);
 
 		var constraint = createDependencies("securityContext").get(0);
-		var modifiedConfChars = IFConfidentialityVariableCharacterisationUtils
-				.createModifiedCharacterisationsForAdditionalHigherEqualConstraint(initialConfChars, constraint,
-						characteristicType, enumeration);
+		var modifiedConfidentialityCharacterisations = IFConfidentialityVariableCharacterisationUtils
+				.createModifiedCharacterisationsForAdditionalHigherEqualConstraint(
+						initialConfidentialityCharacterisations, constraint, characteristicType, enumeration);
 
-		assertEquals(3, modifiedConfChars.size(),
+		assertEquals(3, modifiedConfidentialityCharacterisations.size(),
 				"For Low, Mid and High each a ConfidentialityVariableCharacterisation");
 
 		// TODO assertEquals initialConfChars with newlyGenerated initialConfChars?
 
-		Map<String, String> varToLevel = new HashMap<>();
+		Map<String, String> variableToLevel = new HashMap<>();
 
-		varToLevel.put("a", "Low");
-		varToLevel.put("securityContext", "Low");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "Low"),
+		variableToLevel.put("a", "Low");
+		variableToLevel.put("securityContext", "Low");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						modifiedConfidentialityCharacterisations, enumeration, variableToLevel, "Low"),
 				"Should set 'Low' for a=Low, securityContext=Low");
 
-		varToLevel.put("a", "Mid");
-		varToLevel.put("securityContext", "Low");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "Mid"),
+		variableToLevel.put("a", "Mid");
+		variableToLevel.put("securityContext", "Low");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						modifiedConfidentialityCharacterisations, enumeration, variableToLevel, "Mid"),
 				"Should set 'Mid' for a=Mid, securityContext=Low");
 
-		varToLevel.put("a", "High");
-		varToLevel.put("securityContext", "Low");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "High"),
+		variableToLevel.put("a", "High");
+		variableToLevel.put("securityContext", "Low");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						modifiedConfidentialityCharacterisations, enumeration, variableToLevel, "High"),
 				"Should set 'High' for a=High, securityContext=Low");
 
-		varToLevel.put("a", "Low");
-		varToLevel.put("securityContext", "Mid");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "Mid"),
+		variableToLevel.put("a", "Low");
+		variableToLevel.put("securityContext", "Mid");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						modifiedConfidentialityCharacterisations, enumeration, variableToLevel, "Mid"),
 				"Should set 'Mid' for a=Low, securityContext=Mid");
 
-		varToLevel.put("a", "Mid");
-		varToLevel.put("securityContext", "Mid");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "Mid"),
+		variableToLevel.put("a", "Mid");
+		variableToLevel.put("securityContext", "Mid");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						modifiedConfidentialityCharacterisations, enumeration, variableToLevel, "Mid"),
 				"Should set 'Mid' for a=Mid, securityContext=Mid");
 
-		varToLevel.put("a", "High");
-		varToLevel.put("securityContext", "Mid");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "High"),
+		variableToLevel.put("a", "High");
+		variableToLevel.put("securityContext", "Mid");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						modifiedConfidentialityCharacterisations, enumeration, variableToLevel, "High"),
 				"Should set 'High' for a=High, securityContext=Mid");
 
-		varToLevel.put("a", "Low");
-		varToLevel.put("securityContext", "High");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "High"),
+		variableToLevel.put("a", "Low");
+		variableToLevel.put("securityContext", "High");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						modifiedConfidentialityCharacterisations, enumeration, variableToLevel, "High"),
 				"Should set 'High' for a=Low, securityContext=High");
 
-		varToLevel.put("a", "Mid");
-		varToLevel.put("securityContext", "High");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "High"),
+		variableToLevel.put("a", "Mid");
+		variableToLevel.put("securityContext", "High");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						modifiedConfidentialityCharacterisations, enumeration, variableToLevel, "High"),
 				"Should set 'High' for a=Mid, securityContext=High");
 
-		varToLevel.put("a", "High");
-		varToLevel.put("securityContext", "High");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "High"),
+		variableToLevel.put("a", "High");
+		variableToLevel.put("securityContext", "High");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						modifiedConfidentialityCharacterisations, enumeration, variableToLevel, "High"),
 				"Should set 'High' for a=High, securityContext=High");
 	}
 
@@ -224,33 +273,39 @@ class IFConfidentialityVariableCharacterisationUtilsTest {
 		var dependencies = createDependencies("a");
 
 		// Assumes createMaximumJoin to work
-		var initialConfChars = IFConfidentialityVariableCharacterisationUtils
+		var initialConfidentialityCharacterisations = IFConfidentialityVariableCharacterisationUtils
 				.createMaximumJoinCharacterisationsForLattice(characterisedVariable, dependencies, characteristicType,
 						enumeration);
-		var midConfChar = initialConfChars.get(1);
-		midConfChar.setRhs(expsFac.createTrue());
-		initialConfChars = List.of(midConfChar);
+		var middleConfidentialityCharacterisation = initialConfidentialityCharacterisations.get(1);
+		middleConfidentialityCharacterisation.setRhs(expressionsFactory.createTrue());
+		initialConfidentialityCharacterisations = List.of(middleConfidentialityCharacterisation);
 
 		var constraint = createDependencies("securityContext").get(0);
-		var modifiedConfChars = IFConfidentialityVariableCharacterisationUtils
-				.createModifiedCharacterisationsForAdditionalHigherEqualConstraint(initialConfChars, constraint,
-						characteristicType, enumeration);
+		var modifiedConfidentialityCharacterisations = IFConfidentialityVariableCharacterisationUtils
+				.createModifiedCharacterisationsForAdditionalHigherEqualConstraint(
+						initialConfidentialityCharacterisations, constraint, characteristicType, enumeration);
 
-		assertEquals(3, modifiedConfChars.size(),
+		assertEquals(3, modifiedConfidentialityCharacterisations.size(),
 				"For Low, Mid and High each a ConfidentialityVariableCharacterisation");
 
-		Map<String, String> varToLevel = new HashMap<>();
+		Map<String, String> variableToLevel = new HashMap<>();
 
-		varToLevel.put("securityContext", "Low");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "Mid"),
+		variableToLevel.put("securityContext", "Low");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						modifiedConfidentialityCharacterisations, enumeration, variableToLevel, "Mid"),
 				"Should set 'Mid' for Litteral.Mid := true, securityContext=Low");
 
-		varToLevel.put("securityContext", "Mid");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "Mid"),
+		variableToLevel.put("securityContext", "Mid");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						modifiedConfidentialityCharacterisations, enumeration, variableToLevel, "Mid"),
 				"Should set 'Mid' for Litteral.Mid := true, securityContext=Mid");
 
-		varToLevel.put("securityContext", "High");
-		assertTrue(ConfidentialityVariableCharacterisationTestUtils.evaluateCvcLatticeMapping(modifiedConfChars, enumeration, varToLevel, "High"),
+		variableToLevel.put("securityContext", "High");
+		assertTrue(
+				ConfidentialityVariableCharacterisationTestUtils.evaluateConfidentialityCharacterisationLatticeMapping(
+						modifiedConfidentialityCharacterisations, enumeration, variableToLevel, "High"),
 				"Should set 'High' for Litteral.Mid := true, securityContext=High");
 	}
 
@@ -263,28 +318,28 @@ class IFConfidentialityVariableCharacterisationUtilsTest {
 	}
 
 	private EnumCharacteristicType createEnumCharacteristicType(String ctName, String... latticeNames) {
-		Enumeration lattice = ddcFac.createEnumeration();
+		Enumeration lattice = ddcFactory.createEnumeration();
 		lattice.setName(ctName);
 
 		for (String latticeName : latticeNames) {
 			addLiteral(latticeName, lattice);
 		}
 
-		EnumCharacteristicType latticeCharacteristicType = ddcFac.createEnumCharacteristicType();
+		EnumCharacteristicType latticeCharacteristicType = ddcFactory.createEnumCharacteristicType();
 		latticeCharacteristicType.setType(lattice);
 		latticeCharacteristicType.setName(ctName);
 		return latticeCharacteristicType;
 	}
 
 	private Literal addLiteral(String name, Enumeration lattice) {
-		Literal literal = ddcFac.createLiteral();
+		Literal literal = ddcFactory.createLiteral();
 		literal.setEnum(lattice);
 		literal.setName(name);
 		return literal;
 	}
 
 	private AbstractNamedReference createCharacterisedVariableX() {
-		VariableReference x = stoexFac.createVariableReference();
+		VariableReference x = stoexFactory.createVariableReference();
 		x.setReferenceName("x");
 		return x;
 	}
@@ -292,9 +347,9 @@ class IFConfidentialityVariableCharacterisationUtilsTest {
 	private List<AbstractNamedReference> createDependencies(String... names) {
 		List<AbstractNamedReference> dependencies = new ArrayList<>(names.length);
 		for (String name : names) {
-			VariableReference ref = stoexFac.createVariableReference();
-			ref.setReferenceName(name);
-			dependencies.add(ref);
+			VariableReference reference = stoexFactory.createVariableReference();
+			reference.setReferenceName(name);
+			dependencies.add(reference);
 		}
 		return dependencies;
 	}

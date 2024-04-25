@@ -77,10 +77,10 @@ public class IFPCMDataDictionaryUtils {
 		var latticeCharacteristicType = getAllEnumCharacteristicTypes(resourceProvider).stream()
 				.filter(it -> it.getName().equals(LATTICE_CHARACTERISTIC_TYPE_NAME)).findFirst();
 		if (latticeCharacteristicType.isEmpty()) {
-			String errorMsg = "Could not find an EnumCharacteristicType named '" + LATTICE_CHARACTERISTIC_TYPE_NAME
+			String errorMessage = "Could not find an EnumCharacteristicType named '" + LATTICE_CHARACTERISTIC_TYPE_NAME
 					+ "' in the resources.";
-			logger.error(errorMsg);
-			throw new IllegalStateException(errorMsg);
+			logger.error(errorMessage);
+			throw new IllegalStateException(errorMessage);
 		}
 		return latticeCharacteristicType.get();
 	}

@@ -101,9 +101,10 @@ public class IFStartSEFFPCMVertex extends AbstractIFSEFFPCMVertex<StartAction> {
                 .eContainer();
         if (supposedGuardedBranchTransition instanceof GuardedBranchTransition branchTransition) {
 
-            List<ConfidentialityVariableCharacterisation> confChars = extractConfidentialityCharacterisationsOfGuardedBranchTransition(
+            List<ConfidentialityVariableCharacterisation> confidentialityCharacterisations = extractConfidentialityCharacterisationsOfGuardedBranchTransition(
                     branchTransition);
-            List<DataFlowVariable> outgoingVariables = getDataFlowVariables(getVertexCharacteristics(), confChars, incomingVariables);
+            List<DataFlowVariable> outgoingVariables = getDataFlowVariables(getVertexCharacteristics(), confidentialityCharacterisations,
+                    incomingVariables);
             return outgoingVariables;
         }
         return incomingVariables;

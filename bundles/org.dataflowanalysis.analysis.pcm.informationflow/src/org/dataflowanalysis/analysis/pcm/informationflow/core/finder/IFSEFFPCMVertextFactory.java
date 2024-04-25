@@ -22,58 +22,48 @@ import org.palladiosimulator.pcm.seff.StartAction;
 import org.palladiosimulator.pcm.seff.StopAction;
 
 /**
- * A factory for creating {@link SEFFPCMVertex}. Uses the implementation for
- * informationflow.
- *
+ * A factory for creating {@link SEFFPCMVertex}. Uses the implementation for informationflow.
  */
 public class IFSEFFPCMVertextFactory implements ISEFFPCMVertexFactory {
 
-	private final boolean considerImplicitFlow;
-	private final IFPCMExtractionStrategy extractionStrategy;
+    private final boolean considerImplicitFlow;
+    private final IFPCMExtractionStrategy extractionStrategy;
 
-	public IFSEFFPCMVertextFactory(boolean considerImplicitFlow, IFPCMExtractionStrategy extractionStrategy) {
-		this.considerImplicitFlow = considerImplicitFlow;
-		this.extractionStrategy = extractionStrategy;
-	}
+    public IFSEFFPCMVertextFactory(boolean considerImplicitFlow, IFPCMExtractionStrategy extractionStrategy) {
+        this.considerImplicitFlow = considerImplicitFlow;
+        this.extractionStrategy = extractionStrategy;
+    }
 
-	@Override
-	public SEFFPCMVertex<StartAction> createStartElement(StartAction element,
-			List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
-			List<Parameter> parameter, ResourceProvider resourceProvider) {
-		return new IFStartSEFFPCMVertex(element, previousElements, context, parameter, resourceProvider,
-				considerImplicitFlow, extractionStrategy);
-	}
+    @Override
+    public SEFFPCMVertex<StartAction> createStartElement(StartAction element, List<? extends AbstractPCMVertex<?>> previousElements,
+            Deque<AssemblyContext> context, List<Parameter> parameter, ResourceProvider resourceProvider) {
+        return new IFStartSEFFPCMVertex(element, previousElements, context, parameter, resourceProvider, considerImplicitFlow, extractionStrategy);
+    }
 
-	@Override
-	public SEFFPCMVertex<StopAction> createStopElement(StopAction element,
-			List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
-			List<Parameter> parameter, ResourceProvider resourceProvider) {
-		return new IFStopSEFFPCMVertex(element, previousElements, context, parameter, resourceProvider,
-				considerImplicitFlow, extractionStrategy);
-	}
+    @Override
+    public SEFFPCMVertex<StopAction> createStopElement(StopAction element, List<? extends AbstractPCMVertex<?>> previousElements,
+            Deque<AssemblyContext> context, List<Parameter> parameter, ResourceProvider resourceProvider) {
+        return new IFStopSEFFPCMVertex(element, previousElements, context, parameter, resourceProvider, considerImplicitFlow, extractionStrategy);
+    }
 
-	@Override
-	public SEFFPCMVertex<SetVariableAction> createSetVariableElement(SetVariableAction element,
-			List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
-			List<Parameter> parameter, ResourceProvider resourceProvider) {
-		return new IFSetVariableSEFFPCMVertex(element, previousElements, context, parameter, resourceProvider,
-				considerImplicitFlow, extractionStrategy);
-	}
+    @Override
+    public SEFFPCMVertex<SetVariableAction> createSetVariableElement(SetVariableAction element, List<? extends AbstractPCMVertex<?>> previousElements,
+            Deque<AssemblyContext> context, List<Parameter> parameter, ResourceProvider resourceProvider) {
+        return new IFSetVariableSEFFPCMVertex(element, previousElements, context, parameter, resourceProvider, considerImplicitFlow,
+                extractionStrategy);
+    }
 
-	@Override
-	public CallingSEFFPCMVertex createCallingElement(ExternalCallAction element,
-			List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
-			List<Parameter> parameter, ResourceProvider resourceProvider) {
-		return new IFCallingSEFFPCMVertex(element, previousElements, context, parameter, resourceProvider,
-				considerImplicitFlow, extractionStrategy);
-	}
+    @Override
+    public CallingSEFFPCMVertex createCallingElement(ExternalCallAction element, List<? extends AbstractPCMVertex<?>> previousElements,
+            Deque<AssemblyContext> context, List<Parameter> parameter, ResourceProvider resourceProvider) {
+        return new IFCallingSEFFPCMVertex(element, previousElements, context, parameter, resourceProvider, considerImplicitFlow, extractionStrategy);
+    }
 
-	@Override
-	public CallingSEFFPCMVertex createReturningElement(ExternalCallAction element,
-			List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
-			List<Parameter> parameter, ResourceProvider resourceProvider) {
-		return new IFReturningSEFFPCMVertex(element, previousElements, context, parameter, resourceProvider,
-				considerImplicitFlow, extractionStrategy);
-	}
+    @Override
+    public CallingSEFFPCMVertex createReturningElement(ExternalCallAction element, List<? extends AbstractPCMVertex<?>> previousElements,
+            Deque<AssemblyContext> context, List<Parameter> parameter, ResourceProvider resourceProvider) {
+        return new IFReturningSEFFPCMVertex(element, previousElements, context, parameter, resourceProvider, considerImplicitFlow,
+                extractionStrategy);
+    }
 
 }

@@ -8,22 +8,20 @@ import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityV
 
 /**
  * An {@link IFPCMExtractionStrategyPrefer} which does not modify defined
- * {@link ConfidentialityVariableCharacterisation}s to consider implicit flows.
- * As specified in {@link IFPCMExtractionStrategyPrefer}, defined
- * {@link ConfidentialityVariableCharacterisation} are preferred to calculated
- * characterizations.
- *
+ * {@link ConfidentialityVariableCharacterisation}s to consider implicit flows. As specified in
+ * {@link IFPCMExtractionStrategyPrefer}, defined {@link ConfidentialityVariableCharacterisation} are preferred to
+ * calculated characterizations.
  */
 public class IFPCMExtractionStrategyPreferUnmodified extends IFPCMExtractionStrategyPrefer {
 
-	public IFPCMExtractionStrategyPreferUnmodified(ResourceProvider resourceProvider) {
-		super(resourceProvider);
-	}
+    public IFPCMExtractionStrategyPreferUnmodified(ResourceProvider resourceProvider) {
+        super(resourceProvider);
+    }
 
-	@Override
-	protected List<ConfidentialityVariableCharacterisation> modifyResultingConfidentialityCharacterisationsWithSecurityContext(
-			List<ConfidentialityVariableCharacterisation> definedCharacterisations, DataFlowVariable securityContext) {
-		return definedCharacterisations;
-	}
+    @Override
+    protected List<ConfidentialityVariableCharacterisation> modifyResultingConfidentialityCharacterisationsWithSecurityContext(
+            List<ConfidentialityVariableCharacterisation> definedCharacterisations, DataFlowVariable securityContext) {
+        return definedCharacterisations;
+    }
 
 }

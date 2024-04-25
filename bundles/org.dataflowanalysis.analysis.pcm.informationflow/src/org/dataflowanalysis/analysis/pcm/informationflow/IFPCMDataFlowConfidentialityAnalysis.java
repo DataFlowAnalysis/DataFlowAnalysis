@@ -14,46 +14,41 @@ import org.eclipse.core.runtime.Plugin;
 
 /**
  * A confidentiality analysis generated from PCM elements. In addition to the
- * {@link PCMDataFlowConfidentialityAnalysis}, this analysis also allows the
- * partial extraction of VariableConfidentialityCharacterisations from normal
- * VariableCharacteristations. Furthermore, implicit flows can be considered.
- *
+ * {@link PCMDataFlowConfidentialityAnalysis}, this analysis also allows the partial extraction of
+ * VariableConfidentialityCharacterisations from normal VariableCharacteristations. Furthermore, implicit flows can be
+ * considered.
  */
 public class IFPCMDataFlowConfidentialityAnalysis extends PCMDataFlowConfidentialityAnalysis {
 
-	private final boolean considerImplicitFlows;
-	private final IFPCMExtractionStrategy extractionStrategy;
+    private final boolean considerImplicitFlows;
+    private final IFPCMExtractionStrategy extractionStrategy;
 
-	public static final String PLUGIN_PATH = "org.dataflowanalysis.analysis.pcm.informationflow";
+    public static final String PLUGIN_PATH = "org.dataflowanalysis.analysis.pcm.informationflow";
 
-	/**
-	 * Creates an {@link IFPCMDataFlowConfidentialityAnalysis} with the given
-	 * parameters.
-	 * 
-	 * @param resourceProvider      the resourceProvider for the analysis
-	 * @param modelProjectName      the name of the modeled project
-	 * @param modelProjectActivator the plugin class of the analysis
-	 * @param considerImplicitFlows true, if the analysis should consider implicit
-	 *                              flows. False, otherwise.
-	 * @param extractionStrategy    the extraction strategy of the analysis
-	 */
-	public IFPCMDataFlowConfidentialityAnalysis(PCMResourceProvider resourceProvider, String modelProjectName,
-			Optional<Class<? extends Plugin>> modelProjectActivator, boolean considerImplicitFlows,
-			IFPCMExtractionStrategy extractionStrategy) {
+    /**
+     * Creates an {@link IFPCMDataFlowConfidentialityAnalysis} with the given parameters.
+     * @param resourceProvider the resourceProvider for the analysis
+     * @param modelProjectName the name of the modeled project
+     * @param modelProjectActivator the plugin class of the analysis
+     * @param considerImplicitFlows true, if the analysis should consider implicit flows. False, otherwise.
+     * @param extractionStrategy the extraction strategy of the analysis
+     */
+    public IFPCMDataFlowConfidentialityAnalysis(PCMResourceProvider resourceProvider, String modelProjectName,
+            Optional<Class<? extends Plugin>> modelProjectActivator, boolean considerImplicitFlows, IFPCMExtractionStrategy extractionStrategy) {
 
-		super(resourceProvider, modelProjectName, modelProjectActivator);
-		this.considerImplicitFlows = considerImplicitFlows;
-		this.extractionStrategy = extractionStrategy;
-	}
+        super(resourceProvider, modelProjectName, modelProjectActivator);
+        this.considerImplicitFlows = considerImplicitFlows;
+        this.extractionStrategy = extractionStrategy;
+    }
 
-	@Override
-	public PCMFlowGraph findFlowGraph() {
+    @Override
+    public PCMFlowGraph findFlowGraph() {
 
-		var userElementFactory = new IFUserPCMVertexFactory(considerImplicitFlows, extractionStrategy);
-		var seffElementFactory = new IFSEFFPCMVertextFactory(considerImplicitFlows, extractionStrategy);
-		var userFinder = new PCMUserFinder(userElementFactory, seffElementFactory);
-		var sequenceFinder = new PCMPartialFlowGraphFinder(resourceProvider, userFinder);
+        var userElementFactory = new IFUserPCMVertexFactory(considerImplicitFlows, extractionStrategy);
+        var seffElementFactory = new IFSEFFPCMVertextFactory(considerImplicitFlows, extractionStrategy);
+        var userFinder = new PCMUserFinder(userElementFactory, seffElementFactory);
+        var sequenceFinder = new PCMPartialFlowGraphFinder(resourceProvider, userFinder);
 
-		return new PCMFlowGraph(resourceProvider, sequenceFinder);
-	}
+        return new PCMFlowGraph(resourceProvider, sequenceFinder);
+    }
 }

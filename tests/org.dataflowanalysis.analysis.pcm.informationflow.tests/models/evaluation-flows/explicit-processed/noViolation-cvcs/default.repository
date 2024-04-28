@@ -149,25 +149,16 @@
         <localVariableUsages_SetVariableAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_Pl_7o_5fEe6J-YLFiy5uPw">
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_gSN-4AV-Ee-5C6doYp1KxQ">
               <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="dic.pddc#_uCPLcP4mEe6J-YLFiy5uPw-characteristicTypes@0"/>
               <literal href="dic.pddc#_uCPLcP4mEe6J-YLFiy5uPw-characteristicEnumerations@0.literals@0"/>
             </lhs>
-            <rhs xsi:type="expressions:And" id="_Pl_7pP5fEe6J-YLFiy5uPw">
-              <left xsi:type="expressions:Not" id="_Pl_7pf5fEe6J-YLFiy5uPw">
-                <term xsi:type="expression:NamedEnumCharacteristicReference" id="_Pl_7pv5fEe6J-YLFiy5uPw">
-                  <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="dic.pddc#_uCPLcP4mEe6J-YLFiy5uPw-characteristicTypes@0"/>
-                  <literal href="dic.pddc#_uCPLcP4mEe6J-YLFiy5uPw-characteristicEnumerations@0.literals@1"/>
-                  <namedReference xsi:type="stoex:VariableReference" referenceName="firstSum"/>
-                </term>
-              </left>
-              <right xsi:type="expressions:Not" id="_Pl_7p_5fEe6J-YLFiy5uPw">
-                <term xsi:type="expression:NamedEnumCharacteristicReference" id="_Pl_7qP5fEe6J-YLFiy5uPw">
-                  <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="dic.pddc#_uCPLcP4mEe6J-YLFiy5uPw-characteristicTypes@0"/>
-                  <literal href="dic.pddc#_uCPLcP4mEe6J-YLFiy5uPw-characteristicEnumerations@0.literals@1"/>
-                  <namedReference xsi:type="stoex:VariableReference" referenceName="secondSum"/>
-                </term>
-              </right>
+            <rhs xsi:type="expressions:Not" id="_gSN-4QV-Ee-5C6doYp1KxQ">
+              <term xsi:type="expression:NamedEnumCharacteristicReference" id="_gSN-4gV-Ee-5C6doYp1KxQ">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="dic.pddc#_uCPLcP4mEe6J-YLFiy5uPw-characteristicTypes@0"/>
+                <literal href="dic.pddc#_uCPLcP4mEe6J-YLFiy5uPw-characteristicEnumerations@0.literals@1"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="secondSum"/>
+              </term>
             </rhs>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="result"/>
@@ -175,21 +166,14 @@
         <localVariableUsages_SetVariableAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_Vxd_Vv5fEe6J-YLFiy5uPw">
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_iOLVQAV-Ee-5C6doYp1KxQ">
               <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="dic.pddc#_uCPLcP4mEe6J-YLFiy5uPw-characteristicTypes@0"/>
               <literal href="dic.pddc#_uCPLcP4mEe6J-YLFiy5uPw-characteristicEnumerations@0.literals@1"/>
             </lhs>
-            <rhs xsi:type="expressions:Or" id="_Vxd_V_5fEe6J-YLFiy5uPw">
-              <left xsi:type="expression:NamedEnumCharacteristicReference" id="_Vxd_WP5fEe6J-YLFiy5uPw">
-                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="dic.pddc#_uCPLcP4mEe6J-YLFiy5uPw-characteristicTypes@0"/>
-                <literal href="dic.pddc#_uCPLcP4mEe6J-YLFiy5uPw-characteristicEnumerations@0.literals@1"/>
-                <namedReference xsi:type="stoex:VariableReference" referenceName="firstSum"/>
-              </left>
-              <right xsi:type="expression:NamedEnumCharacteristicReference" id="_Vxd_Wf5fEe6J-YLFiy5uPw">
-                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="dic.pddc#_uCPLcP4mEe6J-YLFiy5uPw-characteristicTypes@0"/>
-                <literal href="dic.pddc#_uCPLcP4mEe6J-YLFiy5uPw-characteristicEnumerations@0.literals@1"/>
-                <namedReference xsi:type="stoex:VariableReference" referenceName="secondSum"/>
-              </right>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_iOLVQQV-Ee-5C6doYp1KxQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="dic.pddc#_uCPLcP4mEe6J-YLFiy5uPw-characteristicTypes@0"/>
+              <literal href="dic.pddc#_uCPLcP4mEe6J-YLFiy5uPw-characteristicEnumerations@0.literals@1"/>
+              <namedReference xsi:type="stoex:VariableReference" referenceName="secondSum"/>
             </rhs>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="result"/>

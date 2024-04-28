@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.utils.IFConfidentialityVariableCharacterisationUtils;
@@ -108,7 +109,7 @@ public abstract class IFPCMExtractionStrategy {
         var dependencies = IFStoexUtils.findVariablesInExpression(dependentExpression)
                 .stream()
                 .map(it -> it.getId_Variable())
-                .toList();
+                .collect(Collectors.toList());
         if (optionalSecurityContext.isPresent()) {
             String securityContextName = optionalSecurityContext.get()
                     .getVariableName();
@@ -224,7 +225,7 @@ public abstract class IFPCMExtractionStrategy {
                         .getExpression())
                         .stream()
                         .map(CharacterisedVariable::getId_Variable))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     /**

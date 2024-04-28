@@ -1,8 +1,7 @@
 package org.dataflowanalysis.analysis.pcm.informationflow;
 
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
-import org.dataflowanalysis.analysis.pcm.informationflow.core.extraction.IFPCMExtractionStrategy;
-import org.dataflowanalysis.analysis.pcm.informationflow.core.extraction.IFPCMExtractionStrategyPreferConsider;
+import org.dataflowanalysis.analysis.pcm.informationflow.core.extraction.IFPCMExtractionMode;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.eclipse.core.runtime.Plugin;
 
@@ -12,12 +11,12 @@ import org.eclipse.core.runtime.Plugin;
 public class IFPCMDataFlowConfidentialityAnalysisBuilder extends PCMDataFlowConfidentialityAnalysisBuilder {
 
     private boolean considerImplictFlows;
-    private IFPCMExtractionStrategy extractionStrategy;
+    private IFPCMExtractionMode extractionMode;
 
     public IFPCMDataFlowConfidentialityAnalysisBuilder() {
         super();
         considerImplictFlows = false;
-        extractionStrategy = null; // Default extractionStrategy is set in build()
+        extractionMode = IFPCMExtractionMode.PreferConsider;
     }
 
     /**
@@ -32,21 +31,19 @@ public class IFPCMDataFlowConfidentialityAnalysisBuilder extends PCMDataFlowConf
 
     /**
      * Sets the used extractionStrategy for the analysis.
-     * @param extractionStrategy the extractionStrategy
+     * @param extractionMode the extractionStrategy
      * @return the builder object of the analysis
      */
-    public IFPCMDataFlowConfidentialityAnalysisBuilder setExtractionStrategy(IFPCMExtractionStrategy extractionStrategy) {
-        this.extractionStrategy = extractionStrategy;
+    public IFPCMDataFlowConfidentialityAnalysisBuilder setExtractionMode(IFPCMExtractionMode extractionMode) {
+        this.extractionMode = extractionMode;
         return this;
     }
 
     @Override
     public IFPCMDataFlowConfidentialityAnalysis build() {
         var analysis = super.build();
+        var extractionStrategy = extractionMode.createExtractionStrategy(analysis.getResourceProvider());
 
-        if (extractionStrategy == null) {
-            extractionStrategy = new IFPCMExtractionStrategyPreferConsider(analysis.getResourceProvider());
-        }
         return new IFPCMDataFlowConfidentialityAnalysis(analysis.getResourceProvider(), modelProjectName, pluginActivator, considerImplictFlows,
                 extractionStrategy);
     }

@@ -123,7 +123,7 @@ public abstract class AbstractIFSEFFPCMVertex<T extends AbstractAction> extends 
             return false;
         }
 
-        return false;
+        return true;
     }
 
     /*

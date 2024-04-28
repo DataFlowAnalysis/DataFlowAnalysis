@@ -57,11 +57,11 @@
                     </localVariableUsages_SetVariableAction>
                   </steps_Behaviour>
                 </branchBehaviour_BranchTransition>
-                <branchCondition_GuardedBranchTransition specification="nonConfidential >= 18"/>
+                <branchCondition_GuardedBranchTransition specification="nonConfidential.VALUE >= 18"/>
               </branches_Branch>
             </steps_Behaviour>
           </branchBehaviour_BranchTransition>
-          <branchCondition_GuardedBranchTransition specification="confidential >= 18"/>
+          <branchCondition_GuardedBranchTransition specification="confidential.VALUE >= 18"/>
         </branches_Branch>
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:SetVariableAction" id="_TK4YwP55Ee6J-YLFiy5uPw" entityName="process.set.constant" predecessor_AbstractAction="_2_1jIf4nEe6J-YLFiy5uPw" successor_AbstractAction="_9JNt0P53Ee6J-YLFiy5uPw">

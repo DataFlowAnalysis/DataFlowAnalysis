@@ -52,7 +52,7 @@
               </localVariableUsages_SetVariableAction>
             </steps_Behaviour>
           </branchBehaviour_BranchTransition>
-          <branchCondition_GuardedBranchTransition specification="confidential >= 18"/>
+          <branchCondition_GuardedBranchTransition specification="confidential.VALUE >= 18"/>
         </branches_Branch>
         <branches_Branch xsi:type="seff:GuardedBranchTransition" id="_Rxb18P7vEe6J-YLFiy5uPw" entityName="GuardedBranchTransition2">
           <branchBehaviour_BranchTransition id="_Rxb18f7vEe6J-YLFiy5uPw">
@@ -78,7 +78,7 @@
               </localVariableUsages_SetVariableAction>
             </steps_Behaviour>
           </branchBehaviour_BranchTransition>
-          <branchCondition_GuardedBranchTransition specification="confidential &lt; 18"/>
+          <branchCondition_GuardedBranchTransition specification="confidential.VALUE &lt; 18"/>
         </branches_Branch>
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:SetVariableAction" id="_TK4YwP55Ee6J-YLFiy5uPw" entityName="process.set.constant" predecessor_AbstractAction="_2_1jIf4nEe6J-YLFiy5uPw" successor_AbstractAction="_9JNt0P53Ee6J-YLFiy5uPw">

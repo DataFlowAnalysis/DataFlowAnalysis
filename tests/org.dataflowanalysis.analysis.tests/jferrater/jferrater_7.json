@@ -100,15 +100,6 @@
                     "/foodtrays/item/{itemCode}"
                 ]
             }
-        },
-        {
-            "name": "authorization_server",
-            "stereotypes": [
-                "infrastructural",
-                "authorization_server",
-                "login_attempts_regulation"
-            ],
-            "tagged_values": {}
         }
     ],
     "external_entities": [
@@ -128,7 +119,8 @@
             "sender": "github_repository",
             "receiver": "config_service",
             "stereotypes": [
-                "restful_http"
+                "restful_http",
+                "encrypted_connection"
             ],
             "tagged_values": {}
         },
@@ -136,8 +128,7 @@
             "sender": "config_service",
             "receiver": "discovery_service",
             "stereotypes": [
-                "restful_http",
-                "authenticated_request"
+                "restful_http"
             ],
             "tagged_values": {}
         },
@@ -145,8 +136,7 @@
             "sender": "config_service",
             "receiver": "account_service",
             "stereotypes": [
-                "restful_http",
-                "authenticated_request"
+                "restful_http"
             ],
             "tagged_values": {}
         },
@@ -154,8 +144,7 @@
             "sender": "account_service",
             "receiver": "discovery_service",
             "stereotypes": [
-                "restful_http",
-                "authenticated_request"
+                "restful_http"
             ],
             "tagged_values": {}
         },
@@ -163,8 +152,7 @@
             "sender": "config_service",
             "receiver": "customer_service",
             "stereotypes": [
-                "restful_http",
-                "authenticated_request"
+                "restful_http"
             ],
             "tagged_values": {}
         },
@@ -172,8 +160,7 @@
             "sender": "customer_service",
             "receiver": "discovery_service",
             "stereotypes": [
-                "restful_http",
-                "authenticated_request"
+                "restful_http"
             ],
             "tagged_values": {}
         },
@@ -181,8 +168,7 @@
             "sender": "config_service",
             "receiver": "store_service",
             "stereotypes": [
-                "restful_http",
-                "authenticated_request"
+                "restful_http"
             ],
             "tagged_values": {}
         },
@@ -190,8 +176,7 @@
             "sender": "store_service",
             "receiver": "discovery_service",
             "stereotypes": [
-                "restful_http",
-                "authenticated_request"
+                "restful_http"
             ],
             "tagged_values": {}
         },
@@ -199,8 +184,7 @@
             "sender": "config_service",
             "receiver": "item_service",
             "stereotypes": [
-                "restful_http",
-                "authenticated_request"
+                "restful_http"
             ],
             "tagged_values": {}
         },
@@ -208,8 +192,7 @@
             "sender": "item_service",
             "receiver": "discovery_service",
             "stereotypes": [
-                "restful_http",
-                "authenticated_request"
+                "restful_http"
             ],
             "tagged_values": {}
         },
@@ -217,8 +200,7 @@
             "sender": "config_service",
             "receiver": "price_service",
             "stereotypes": [
-                "restful_http",
-                "authenticated_request"
+                "restful_http"
             ],
             "tagged_values": {}
         },
@@ -226,8 +208,7 @@
             "sender": "price_service",
             "receiver": "discovery_service",
             "stereotypes": [
-                "restful_http",
-                "authenticated_request"
+                "restful_http"
             ],
             "tagged_values": {}
         },
@@ -247,8 +228,7 @@
             "receiver": "discovery_service",
             "stereotypes": [
                 "restful_http",
-                "circuit_breaker_link",
-                "authenticated_request"
+                "circuit_breaker_link"
             ],
             "tagged_values": {
                 "'Circuit Breaker'": "Hystrix"
@@ -261,8 +241,7 @@
                 "restful_http",
                 "feign_connection",
                 "load_balanced_link",
-                "circuit_breaker_link",
-                "authenticated_request"
+                "circuit_breaker_link"
             ],
             "tagged_values": {
                 "'Load Balancer'": "Ribbon",
@@ -276,77 +255,12 @@
                 "restful_http",
                 "feign_connection",
                 "load_balanced_link",
-                "circuit_breaker_link",
-                "authenticated_request"
+                "circuit_breaker_link"
             ],
             "tagged_values": {
                 "'Load Balancer'": "Ribbon",
                 "'Circuit Breaker'": "Hystrix"
             }
-        },
-        {
-            "sender": "authorization_server",
-            "receiver": "discovery_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "authorization_server",
-            "receiver": "config_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "authorization_server",
-            "receiver": "account_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "authorization_server",
-            "receiver": "customer_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "authorization_server",
-            "receiver": "price_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "authorization_server",
-            "receiver": "foodtray_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "authorization_server",
-            "receiver": "store_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "authorization_server",
-            "receiver": "item_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
         }
     ]
 }

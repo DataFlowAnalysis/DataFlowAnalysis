@@ -100,15 +100,6 @@
                     "/foodtrays/item/{itemCode}"
                 ]
             }
-        },
-        {
-            "name": "authorization_server",
-            "stereotypes": [
-                "infrastructural",
-                "authorization_server",
-                "login_attempts_regulation"
-            ],
-            "tagged_values": {}
         }
     ],
     "external_entities": [
@@ -283,70 +274,6 @@
                 "'Load Balancer'": "Ribbon",
                 "'Circuit Breaker'": "Hystrix"
             }
-        },
-        {
-            "sender": "authorization_server",
-            "receiver": "discovery_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "authorization_server",
-            "receiver": "config_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "authorization_server",
-            "receiver": "account_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "authorization_server",
-            "receiver": "customer_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "authorization_server",
-            "receiver": "price_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "authorization_server",
-            "receiver": "foodtray_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "authorization_server",
-            "receiver": "store_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "authorization_server",
-            "receiver": "item_service",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
         }
     ]
 }

@@ -49,10 +49,10 @@ public class MicroSecEndTest {
     }
 
     public void runAnalysis(int variant) {
+        System.out.println(flowGraph.getTransposeFlowGraphs());
         for (var aTFG : flowGraph.getTransposeFlowGraphs()) {
             analysis.queryDataFlow(aTFG, node -> {
-                var violation = false;
-
+                var violation = false;  
                 if ((hasNodeCharacteristic(node, "Stereotype", "internal") && hasDataCharacteristic(node, "Stereotype", "entrypoint")
                         && !(hasDataCharacteristic(node, "Stereotype", "gateway")))
                         || (hasNodeCharacteristic(node, "Stereotype", "gateway") && hasDataCharacteristic(node, "Stereotype", "internal"))

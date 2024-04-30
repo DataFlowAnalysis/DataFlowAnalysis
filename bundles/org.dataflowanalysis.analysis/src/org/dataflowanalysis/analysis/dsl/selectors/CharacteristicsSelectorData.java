@@ -1,8 +1,9 @@
 package org.dataflowanalysis.analysis.dsl.selectors;
 
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
+import org.dataflowanalysis.analysis.dsl.ConstraintVariable;
 
-public record CharacteristicsSelectorData(String characteristicType, String characteristicValue) {
+public record CharacteristicsSelectorData(ConstraintVariable characteristicType, ConstraintVariable characteristicValue) {
 
     /**
      * Determines whether a characteristic matches the saved reference
@@ -11,7 +12,7 @@ public record CharacteristicsSelectorData(String characteristicType, String char
      * Otherwise, the method returns false.
      */
     public boolean matchesCharacteristic(CharacteristicValue characteristic) {
-        return characteristic.getTypeName().equals(this.characteristicType) &&
-                characteristic.getValueName().equals(this.characteristicValue);
+        return this.characteristicType.getPossibleValues().contains(characteristic.getTypeName()) &&
+                this.characteristicValue.getPossibleValues().contains(characteristic.getValueName());
     }
 }

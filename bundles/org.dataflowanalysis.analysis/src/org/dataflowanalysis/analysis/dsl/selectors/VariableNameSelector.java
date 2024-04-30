@@ -15,7 +15,7 @@ public class VariableNameSelector extends DataSelector {
 
     @Override
     public boolean matches(AbstractVertex<?> vertex) {
-        return vertex.getAllDataFlowVariables().stream()
+        return vertex.getAllDataCharacteristics().stream()
                 .anyMatch(it -> it.variableName().equals(this.variableName));
     }
 }

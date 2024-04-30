@@ -21,7 +21,7 @@ public class NodeCharacteristicsSelector extends DataSelector {
 
     @Override
     public boolean matches(AbstractVertex<?> vertex) {
-        List<CharacteristicValue> presentCharacteristics = vertex.getAllNodeCharacteristics();
+        List<CharacteristicValue> presentCharacteristics = vertex.getAllVertexCharacteristics();
         return this.inverted ?
                 presentCharacteristics.stream().noneMatch(this.nodeCharacteristic::matchesCharacteristic) :
                 presentCharacteristics.stream().anyMatch(this.nodeCharacteristic::matchesCharacteristic);

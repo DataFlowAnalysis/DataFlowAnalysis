@@ -12,7 +12,10 @@ public record CharacteristicsSelectorData(ConstraintVariable characteristicType,
      * Otherwise, the method returns false.
      */
     public boolean matchesCharacteristic(CharacteristicValue characteristic) {
-        return this.characteristicType.getPossibleValues().contains(characteristic.getTypeName()) &&
-                this.characteristicValue.getPossibleValues().contains(characteristic.getValueName());
+        if (this.characteristicType.getPossibleValues().isEmpty() || this.characteristicValue.getPossibleValues().isEmpty()) {
+            throw new IllegalStateException("Possible values of constraint variables are undefined");
+        }
+        return this.characteristicType.getPossibleValues().get().contains(characteristic.getTypeName()) &&
+                this.characteristicValue.getPossibleValues().get().contains(characteristic.getValueName());
     }
 }

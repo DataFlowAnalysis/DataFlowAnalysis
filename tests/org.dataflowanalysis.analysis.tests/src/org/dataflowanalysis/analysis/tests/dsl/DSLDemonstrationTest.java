@@ -27,7 +27,7 @@ public class DSLDemonstrationTest extends BaseTest {
     public void testDSL() {
         var constraint = new ConstraintDSL()
                 .ofData()
-                .withLabel("DataSensitivity", "Personal")
+                .withLabel("DataSensitivity", List.of("Personal", "Public"))
                 .ofNode()
                 .neverFlows()
                 .toVertex()

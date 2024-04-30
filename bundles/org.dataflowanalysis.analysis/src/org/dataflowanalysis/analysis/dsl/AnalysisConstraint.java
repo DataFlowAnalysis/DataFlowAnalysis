@@ -20,8 +20,7 @@ public class AnalysisConstraint {
         this.selectors = new ArrayList<>();
     }
 
-    // TODO: Can we look at partial flow graphs independently?
-    // TODO: This is a native implementation that does not account for variables
+    // TODO: Robust implementation of variables and evaluation; Return more user-friendly result
     public List<AbstractVertex<?>> matchPartialFlowGraph(AbstractTransposeFlowGraph transposeFlowGraph) {
         List<AbstractVertex<?>> results = new ArrayList<>();
         for (AbstractVertex<?> vertex : transposeFlowGraph.getVertices()) {

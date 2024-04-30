@@ -24,7 +24,10 @@ public class PCMTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
 
     @Override
     public List<? extends PCMTransposeFlowGraph> findTransposeFlowGraphs() {
-        PCMResourceProvider pcmResourceProvider = (PCMResourceProvider) this.resourceProvider;
+        if(!(this.resourceProvider instanceof PCMResourceProvider pcmResourceProvider)) {
+            logger.error("Resource provider of the transpose flow graph finder is not a pcm resource provider, please provide a correct one");
+            throw new IllegalStateException();
+        }
         return this.findTransposeFlowGraphs(List.of(), PCMQueryUtils.findStartActionsForUsageModel(pcmResourceProvider.getUsageModel()));
     }
     @Override
@@ -36,7 +39,9 @@ public class PCMTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
      * Determines the transpose flow graphs starting at the given list of source nodes and ending at the list of sink nodes.
      * <p/>
      * If the list of sink nodes is empty, every action sequence starting at the source nodes will be returned
-     * TODO: Currently only works from user nodes or within one SEFF (due to missing and required context information)
+     * <b>
+     * Only works from user nodes or within one SEFF due to missing and required context information (e.g. where a SEFF returns to)
+     * </b>
      * @param sinkNodes List of sink nodes the transpose flow graphs should end at
      * @param sourceNodes List of source nodes the transpose flow graphs should start at
      * @return Returns a list of all transpose flow graphs starting at the list of sources and ending at the list of sinks

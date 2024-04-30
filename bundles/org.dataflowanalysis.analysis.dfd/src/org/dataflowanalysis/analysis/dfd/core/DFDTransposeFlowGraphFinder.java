@@ -61,9 +61,10 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
                     endNode.getBehaviour().getInPin(), sources);
             if (!sourceNodes.isEmpty()) {
                 sinks = sinks.stream()
-                        .filter(it -> new DFDTransposeFlowGraph(it).getVertices().stream().anyMatch(vertex -> {
-                        	return sources.contains(vertex.getReferencedElement());
-                        }))
+                        .filter(it -> new DFDTransposeFlowGraph(it).getVertices().stream()
+                                .filter(DFDVertex.class::isInstance)
+                                .map(DFDVertex.class::cast)
+                                .anyMatch(vertex -> sources.contains(vertex.getReferencedElement())))
                         .toList();
             }
             sinks.forEach(sink -> sink.unify(new HashSet<>()));

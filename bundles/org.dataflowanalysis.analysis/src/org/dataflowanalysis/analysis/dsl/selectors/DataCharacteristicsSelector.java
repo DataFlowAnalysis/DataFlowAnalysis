@@ -22,7 +22,7 @@ public class DataCharacteristicsSelector extends DataSelector {
 
     @Override
     public boolean matches(AbstractVertex<?> vertex) {
-        List<CharacteristicValue> presentCharacteristics = vertex.getAllIncomingDataFlowVariables().stream()
+        List<CharacteristicValue> presentCharacteristics = vertex.getAllIncomingDataCharacteristics().stream()
                 .flatMap(it -> it.characteristics().stream())
                 .toList();
         return this.inverted ?

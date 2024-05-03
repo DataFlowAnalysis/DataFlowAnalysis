@@ -38,13 +38,6 @@
       "targetId" : "_7spU8QY3Ee-hkYDubr0f0g",
       "children" : [ ]
     }, {
-      "text" : "customer_service",
-      "id" : "_7spU8wY3Ee-hkYDubr0f0g",
-      "type" : "edge:arrow",
-      "sourceId" : "_7spU9QY3Ee-hkYDubr0f0g",
-      "targetId" : "_7spU9AY3Ee-hkYDubr0f0g",
-      "children" : [ ]
-    }, {
       "text" : "config_service",
       "id" : "_7spU9gY3Ee-hkYDubr0f0g",
       "type" : "edge:arrow",
@@ -115,13 +108,20 @@
       "targetId" : "_7spVFwY3Ee-hkYDubr0f0g",
       "children" : [ ]
     }, {
+      "text" : "customer_service",
+      "id" : "_7spU8wY3Ee-hkYDubr0f0g",
+      "type" : "edge:arrow",
+      "sourceId" : "_7spU9QY3Ee-hkYDubr0f0g",
+      "targetId" : "_7spU9AY3Ee-hkYDubr0f0g",
+      "children" : [ ]
+    }, {
       "text" : "github_repository",
       "labels" : [ {
         "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
-        "labelTypeValueId" : "_7spU1QY3Ee-hkYDubr0f0g"
+        "labelTypeValueId" : "_7spU1gY3Ee-hkYDubr0f0g"
       }, {
         "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
-        "labelTypeValueId" : "_7spU1gY3Ee-hkYDubr0f0g"
+        "labelTypeValueId" : "_7spU1QY3Ee-hkYDubr0f0g"
       }, {
         "labelTypeId" : "_7spU1wY3Ee-hkYDubr0f0g",
         "labelTypeValueId" : "_7spU2AY3Ee-hkYDubr0f0g"
@@ -138,17 +138,17 @@
     }, {
       "text" : "discovery_service",
       "labels" : [ {
-        "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
-        "labelTypeValueId" : "_7spUrgY3Ee-hkYDubr0f0g"
-      }, {
-        "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
-        "labelTypeValueId" : "_7spUrwY3Ee-hkYDubr0f0g"
-      }, {
         "labelTypeId" : "_7spUsAY3Ee-hkYDubr0f0g",
         "labelTypeValueId" : "_7spUsQY3Ee-hkYDubr0f0g"
       }, {
         "labelTypeId" : "_7spUsgY3Ee-hkYDubr0f0g",
         "labelTypeValueId" : "_7spUswY3Ee-hkYDubr0f0g"
+      }, {
+        "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
+        "labelTypeValueId" : "_7spUrwY3Ee-hkYDubr0f0g"
+      }, {
+        "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
+        "labelTypeValueId" : "_7spUrgY3Ee-hkYDubr0f0g"
       } ],
       "ports" : [ {
         "id" : "_7spU5wY3Ee-hkYDubr0f0g",
@@ -185,17 +185,17 @@
     }, {
       "text" : "config_service",
       "labels" : [ {
+        "labelTypeId" : "_7spU3AY3Ee-hkYDubr0f0g",
+        "labelTypeValueId" : "_7spU3QY3Ee-hkYDubr0f0g"
+      }, {
+        "labelTypeId" : "_7spUsAY3Ee-hkYDubr0f0g",
+        "labelTypeValueId" : "_7spUsQY3Ee-hkYDubr0f0g"
+      }, {
         "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
         "labelTypeValueId" : "_7spU2wY3Ee-hkYDubr0f0g"
       }, {
         "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
         "labelTypeValueId" : "_7spUrwY3Ee-hkYDubr0f0g"
-      }, {
-        "labelTypeId" : "_7spUsAY3Ee-hkYDubr0f0g",
-        "labelTypeValueId" : "_7spUsQY3Ee-hkYDubr0f0g"
-      }, {
-        "labelTypeId" : "_7spU3AY3Ee-hkYDubr0f0g",
-        "labelTypeValueId" : "_7spU3QY3Ee-hkYDubr0f0g"
       } ],
       "ports" : [ {
         "id" : "_7spU4wY3Ee-hkYDubr0f0g",
@@ -212,7 +212,7 @@
         "type" : "port:dfd-output",
         "children" : [ ]
       }, {
-        "behavior" : "set Stereotype.configuration_server = TRUE\nset Stereotype.infrastructural = TRUE\nset Stereotype.restful_http = TRUE\nset Stereotype.authenticated_request = TRUE\nforward github_repository",
+        "behavior" : "set Stereotype.configuration_server = TRUE\nset Stereotype.infrastructural = TRUE\nset Stereotype.restful_http = TRUE\nforward github_repository",
         "id" : "_7spU8gY3Ee-hkYDubr0f0g",
         "type" : "port:dfd-output",
         "children" : [ ]
@@ -243,14 +243,14 @@
     }, {
       "text" : "account_service",
       "labels" : [ {
-        "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
-        "labelTypeValueId" : "_7spUtgY3Ee-hkYDubr0f0g"
-      }, {
         "labelTypeId" : "_7spUtwY3Ee-hkYDubr0f0g",
         "labelTypeValueId" : "_7spUuAY3Ee-hkYDubr0f0g"
       }, {
         "labelTypeId" : "_7spUsAY3Ee-hkYDubr0f0g",
         "labelTypeValueId" : "_7spUuQY3Ee-hkYDubr0f0g"
+      }, {
+        "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
+        "labelTypeValueId" : "_7spUtgY3Ee-hkYDubr0f0g"
       } ],
       "ports" : [ {
         "id" : "_7spU6wY3Ee-hkYDubr0f0g",
@@ -268,21 +268,21 @@
     }, {
       "text" : "customer_service",
       "labels" : [ {
-        "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
-        "labelTypeValueId" : "_7spUtgY3Ee-hkYDubr0f0g"
-      }, {
         "labelTypeId" : "_7spUtwY3Ee-hkYDubr0f0g",
         "labelTypeValueId" : "_7spUwAY3Ee-hkYDubr0f0g"
       }, {
         "labelTypeId" : "_7spUsAY3Ee-hkYDubr0f0g",
         "labelTypeValueId" : "_7spUwQY3Ee-hkYDubr0f0g"
+      }, {
+        "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
+        "labelTypeValueId" : "_7spUtgY3Ee-hkYDubr0f0g"
       } ],
       "ports" : [ {
         "id" : "_7spU8QY3Ee-hkYDubr0f0g",
         "type" : "port:dfd-input",
         "children" : [ ]
       }, {
-        "behavior" : "set Stereotype.internal = TRUE\nset Stereotype.restful_http = TRUE\nset Stereotype.authenticated_request = TRUE\nforward config_service",
+        "behavior" : "set Stereotype.internal = TRUE\nset Stereotype.restful_http = TRUE\nforward config_service",
         "id" : "_7spU9QY3Ee-hkYDubr0f0g",
         "type" : "port:dfd-output",
         "children" : [ ]
@@ -293,14 +293,14 @@
     }, {
       "text" : "store_service",
       "labels" : [ {
-        "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
-        "labelTypeValueId" : "_7spUtgY3Ee-hkYDubr0f0g"
-      }, {
         "labelTypeId" : "_7spUtwY3Ee-hkYDubr0f0g",
         "labelTypeValueId" : "_7spU4AY3Ee-hkYDubr0f0g"
       }, {
         "labelTypeId" : "_7spUsAY3Ee-hkYDubr0f0g",
         "labelTypeValueId" : "_7spU4QY3Ee-hkYDubr0f0g"
+      }, {
+        "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
+        "labelTypeValueId" : "_7spUtgY3Ee-hkYDubr0f0g"
       } ],
       "ports" : [ {
         "id" : "_7spU9wY3Ee-hkYDubr0f0g",
@@ -318,14 +318,14 @@
     }, {
       "text" : "item_service",
       "labels" : [ {
-        "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
-        "labelTypeValueId" : "_7spUtgY3Ee-hkYDubr0f0g"
-      }, {
         "labelTypeId" : "_7spUtwY3Ee-hkYDubr0f0g",
         "labelTypeValueId" : "_7spUvAY3Ee-hkYDubr0f0g"
       }, {
         "labelTypeId" : "_7spUsAY3Ee-hkYDubr0f0g",
         "labelTypeValueId" : "_7spUvQY3Ee-hkYDubr0f0g"
+      }, {
+        "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
+        "labelTypeValueId" : "_7spUtgY3Ee-hkYDubr0f0g"
       } ],
       "ports" : [ {
         "id" : "_7spU_QY3Ee-hkYDubr0f0g",
@@ -347,14 +347,14 @@
     }, {
       "text" : "price_service",
       "labels" : [ {
-        "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
-        "labelTypeValueId" : "_7spUtgY3Ee-hkYDubr0f0g"
-      }, {
         "labelTypeId" : "_7spUtwY3Ee-hkYDubr0f0g",
         "labelTypeValueId" : "_7spUxAY3Ee-hkYDubr0f0g"
       }, {
         "labelTypeId" : "_7spUsAY3Ee-hkYDubr0f0g",
         "labelTypeValueId" : "_7spUxQY3Ee-hkYDubr0f0g"
+      }, {
+        "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
+        "labelTypeValueId" : "_7spUtgY3Ee-hkYDubr0f0g"
       } ],
       "ports" : [ {
         "id" : "_7spVAwY3Ee-hkYDubr0f0g",
@@ -376,17 +376,8 @@
     }, {
       "text" : "foodtray_service",
       "labels" : [ {
-        "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
-        "labelTypeValueId" : "_7spUrwY3Ee-hkYDubr0f0g"
-      }, {
-        "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
-        "labelTypeValueId" : "_7spUyAY3Ee-hkYDubr0f0g"
-      }, {
-        "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
-        "labelTypeValueId" : "_7spUyQY3Ee-hkYDubr0f0g"
-      }, {
-        "labelTypeId" : "_7spUygY3Ee-hkYDubr0f0g",
-        "labelTypeValueId" : "_7spUywY3Ee-hkYDubr0f0g"
+        "labelTypeId" : "_7spU0AY3Ee-hkYDubr0f0g",
+        "labelTypeValueId" : "_7spU0QY3Ee-hkYDubr0f0g"
       }, {
         "labelTypeId" : "_7spUtwY3Ee-hkYDubr0f0g",
         "labelTypeValueId" : "_7spUzAY3Ee-hkYDubr0f0g"
@@ -395,16 +386,25 @@
         "labelTypeValueId" : "_7spUzQY3Ee-hkYDubr0f0g"
       }, {
         "labelTypeId" : "_7spUtwY3Ee-hkYDubr0f0g",
-        "labelTypeValueId" : "_7spUzgY3Ee-hkYDubr0f0g"
-      }, {
-        "labelTypeId" : "_7spUtwY3Ee-hkYDubr0f0g",
         "labelTypeValueId" : "_7spUzwY3Ee-hkYDubr0f0g"
       }, {
-        "labelTypeId" : "_7spU0AY3Ee-hkYDubr0f0g",
-        "labelTypeValueId" : "_7spU0QY3Ee-hkYDubr0f0g"
+        "labelTypeId" : "_7spUtwY3Ee-hkYDubr0f0g",
+        "labelTypeValueId" : "_7spUzgY3Ee-hkYDubr0f0g"
+      }, {
+        "labelTypeId" : "_7spUygY3Ee-hkYDubr0f0g",
+        "labelTypeValueId" : "_7spUywY3Ee-hkYDubr0f0g"
       }, {
         "labelTypeId" : "_7spUsAY3Ee-hkYDubr0f0g",
         "labelTypeValueId" : "_7spU0gY3Ee-hkYDubr0f0g"
+      }, {
+        "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
+        "labelTypeValueId" : "_7spUyQY3Ee-hkYDubr0f0g"
+      }, {
+        "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
+        "labelTypeValueId" : "_7spUrwY3Ee-hkYDubr0f0g"
+      }, {
+        "labelTypeId" : "_7spUqwY3Ee-hkYDubr0f0g",
+        "labelTypeValueId" : "_7spUyAY3Ee-hkYDubr0f0g"
       } ],
       "ports" : [ {
         "id" : "_7spVCQY3Ee-hkYDubr0f0g",

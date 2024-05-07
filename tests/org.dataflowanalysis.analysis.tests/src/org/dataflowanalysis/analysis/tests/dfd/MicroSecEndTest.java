@@ -50,6 +50,12 @@ public class MicroSecEndTest {
 
     public void runAnalysis(int variant) {
         for (var aTFG : flowGraph.getTransposeFlowGraphs()) {
+            //rule 18 needs to check if Secret_manager is the sink --> needs to be done outside of query
+            if (!aTFG.getSink().toString().contains("secret_manager")) {
+                for (var node : aTFG.getVertices()) {
+                    addToMap(violationsMap, variant, 18, node);
+                }
+            }
             analysis.queryDataFlow(aTFG, node -> {
                 var violation = false;
                 if ((hasNodeCharacteristic(node, "Stereotype", "internal") && hasDataCharacteristic(node, "Stereotype", "entrypoint")
@@ -61,7 +67,8 @@ public class MicroSecEndTest {
                     violation = true;
                 }
 
-                if (hasNodeCharacteristic(node, "Stereotype", "internal") && !hasDataCharacteristic(node, "Stereotype", "authenticated_request")) {
+                if (hasNodeCharacteristic(node, "Stereotype", "internal") 
+                        && !hasDataCharacteristic(node, "Stereotype", "authenticated_request")) {
                     addToMap(violationsMap, variant, 2, node);
                     violation = true;
                 }
@@ -103,33 +110,28 @@ public class MicroSecEndTest {
                     violation = true;
                 }
 
-                // currently unclear to find a solution here
-                if (hasNodeCharacteristic(node, "Stereotype", "logging_server")) {
+                // currently unclear to find a solution here --> solution covered in 10
+                /*if (hasNodeCharacteristic(node, "Stereotype", "logging_server")) {
                     addToMap(violationsMap, variant, 9, node);
                     violation = true;
-                }
+                }*/
 
                 if (hasNodeCharacteristic(node, "Stereotype", "internal") && !hasNodeCharacteristic(node, "Stereotype", "local_logging")) {
                     addToMap(violationsMap, variant, 10, node);
                     violation = true;
                 }
-
-                if (hasNodeCharacteristic(node, "Stereotype", "local_logging") && !hasNodeCharacteristic(node, "Stereotype", "log_sanitization")) {
+                //add no local_logging
+                if ((hasNodeCharacteristic(node, "Stereotype", "local_logging") && !hasNodeCharacteristic(node, "Stereotype", "log_sanitization"))
+                        || (hasDataCharacteristic(node, "Stereotype", "internal")&&!hasNodeCharacteristic(node, "Stereotype", "local_logging"))) {
                     addToMap(violationsMap, variant, 11, node);
                     violation = true;
                 }
 
-                if (hasNodeCharacteristic(node, "Stereotype", "logging_server") && !hasDataCharacteristic(node, "Stereotype", "message_broker")) {
+                if ((hasNodeCharacteristic(node, "Stereotype", "logging_server") && !hasDataCharacteristic(node, "Stereotype", "message_broker"))
+                    || (hasDataCharacteristic(node, "Stereotype", "internal")&&!hasNodeCharacteristic(node, "Stereotype", "local_logging"))) {
                     addToMap(violationsMap, variant, 12, node);
                     violation = true;
                 }
-
-                // currently just negative check
-                if (hasNodeCharacteristic(node, "Stereotype", "secret_manager")) {
-                    addToMap(violationsMap, variant, 18, node);
-                    violation = true;
-                }
-
                 return violation;
             });
         }

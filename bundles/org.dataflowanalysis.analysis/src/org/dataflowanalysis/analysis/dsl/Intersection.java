@@ -1,6 +1,4 @@
-package org.dataflowanalysis.analysis.dsl.constraint;
-
-import org.dataflowanalysis.analysis.dsl.ConstraintVariable;
+package org.dataflowanalysis.analysis.dsl;
 
 public class Intersection {
     private final ConstraintVariable firstVariable;

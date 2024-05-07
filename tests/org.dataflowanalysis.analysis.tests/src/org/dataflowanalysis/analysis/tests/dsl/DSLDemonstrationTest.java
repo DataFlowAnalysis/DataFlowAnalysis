@@ -8,10 +8,10 @@ import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.ConstraintVariable;
 import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
-import org.dataflowanalysis.analysis.dsl.constraint.Intersection;
+import org.dataflowanalysis.analysis.dsl.Intersection;
 import org.dataflowanalysis.analysis.dsl.selectors.CharacteristicsSelectorData;
 import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.NodeCharacteristicsSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsSelector;
 import org.dataflowanalysis.analysis.tests.BaseTest;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintViolations;
 import org.junit.jupiter.api.Test;
@@ -56,7 +56,7 @@ public class DSLDemonstrationTest extends BaseTest {
     public void testDataObjects() {
         AnalysisConstraint constraint = new AnalysisConstraint();
         constraint.addFlowSource(new DataCharacteristicsSelector(new CharacteristicsSelectorData(new ConstraintVariable("constant", List.of("DataSensitivity")), new ConstraintVariable("constant", List.of("Personal")))));
-        constraint.addFlowDestination(new NodeCharacteristicsSelector(new CharacteristicsSelectorData(new ConstraintVariable("constant", List.of("ServerLocation")), new ConstraintVariable("constant", List.of("nonEU")))));
+        constraint.addFlowDestination(new VertexCharacteristicsSelector(new CharacteristicsSelectorData(new ConstraintVariable("constant", List.of("ServerLocation")), new ConstraintVariable("constant", List.of("nonEU")))));
 
         evaluateAnalysis(constraint, internationalOnlineShopAnalysis);
     }

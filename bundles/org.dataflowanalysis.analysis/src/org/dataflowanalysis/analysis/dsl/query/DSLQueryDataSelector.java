@@ -7,40 +7,40 @@ import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
 
 import java.util.List;
 
-public class DSLQueryDataSourceSelector {
+public class DSLQueryDataSelector {
     private final AnalysisQuery analysisQuery;
 
-    public DSLQueryDataSourceSelector(AnalysisQuery analysisQuery) {
+    public DSLQueryDataSelector(AnalysisQuery analysisQuery) {
         this.analysisQuery = analysisQuery;
     }
 
-    public DSLQueryDataSourceSelector withLabel(String characteristicType, String characteristicValue) {
+    public DSLQueryDataSelector withLabel(String characteristicType, String characteristicValue) {
         this.analysisQuery.addFlowSource(new DataCharacteristicsSelector(new CharacteristicsSelectorData(new ConstraintVariable("constant", List.of(characteristicType)), new ConstraintVariable("constant", List.of(characteristicValue)))));
         return this;
     }
 
-    public DSLQueryDataSourceSelector withLabel(String characteristicType, ConstraintVariable characteristicValueVariable) {
+    public DSLQueryDataSelector withLabel(String characteristicType, ConstraintVariable characteristicValueVariable) {
         this.analysisQuery.addFlowSource(new DataCharacteristicsSelector(new CharacteristicsSelectorData(new ConstraintVariable("constant", List.of(characteristicType)), characteristicValueVariable)));
         return this;
     }
 
-    public DSLQueryDataSourceSelector withLabel(String characteristicType, List<String> characteristicValues) {
+    public DSLQueryDataSelector withLabel(String characteristicType, List<String> characteristicValues) {
         characteristicValues.forEach(characteristicValue -> this.analysisQuery.addFlowSource(new DataCharacteristicsSelector(new CharacteristicsSelectorData(new ConstraintVariable("constant", List.of(characteristicType)), new ConstraintVariable("constant", List.of(characteristicValue))))));
         return this;
     }
 
-    public DSLQueryDataSourceSelector withoutLabel(String characteristicType, String characteristicValue) {
+    public DSLQueryDataSelector withoutLabel(String characteristicType, String characteristicValue) {
         this.analysisQuery.addFlowSource(new DataCharacteristicsSelector(new CharacteristicsSelectorData(new ConstraintVariable("constant", List.of(characteristicType)), new ConstraintVariable("constant", List.of(characteristicValue))), true));
         return this;
     }
 
-    public DSLQueryDataSourceSelector withoutLabel(String characteristicType, List<String> characteristicValues) {
+    public DSLQueryDataSelector withoutLabel(String characteristicType, List<String> characteristicValues) {
         characteristicValues.forEach(characteristicValue -> this.analysisQuery.addFlowSource(new DataCharacteristicsSelector(new CharacteristicsSelectorData(new ConstraintVariable("constant", List.of(characteristicType)), new ConstraintVariable("constant", List.of(characteristicValue))), true)));
         return this;
     }
 
-    public DSLQueryNodeSourceSelector ofNode() {
-        return new DSLQueryNodeSourceSelector(this.analysisQuery);
+    public DSLQueryNodeSelector ofNode() {
+        return new DSLQueryNodeSelector(this.analysisQuery);
     }
 
     public AnalysisQuery build() {

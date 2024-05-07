@@ -153,9 +153,9 @@ public class MicroSecEndTest {
             System.out.println("Violations: " + violationsMap.get(variant)
                     .keySet());
             System.out.println("");
-            // assertFalse(violationsMap.get(variant)
-            // .keySet()
-            // .contains(variant));
+            assertFalse(violationsMap.get(variant)
+            .keySet()
+            .contains(variant));
         }
     }
 

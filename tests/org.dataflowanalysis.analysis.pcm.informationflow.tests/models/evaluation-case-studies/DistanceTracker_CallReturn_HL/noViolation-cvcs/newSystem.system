@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ASCII"?>
+<system:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="_YR6YcDooEeujr6PSMKhjng" entityName="New System">
+  <assemblyContexts__ComposedStructure id="_aoqNYDooEeujr6PSMKhjng" entityName="Assembly_DistanceTracker">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:CompositeComponent" href="newRepository.repository#_PYuAoDocEeujr6PSMKhjng"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_bS-VsDooEeujr6PSMKhjng" entityName="Assembly_TrackingService">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:CompositeComponent" href="newRepository.repository#_QioPADocEeujr6PSMKhjng"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_cBxVYDooEeujr6PSMKhjng" entityName="Assembly_DistanceTracker.GPS">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="newRepository.repository#_pfPBEDodEeujr6PSMKhjng"/>
+  </assemblyContexts__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_gs95MDooEeujr6PSMKhjng" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_aoqNYDooEeujr6PSMKhjng" providingAssemblyContext_AssemblyConnector="_cBxVYDooEeujr6PSMKhjng">
+    <providedRole_AssemblyConnector href="newRepository.repository#_ugNnoDodEeujr6PSMKhjng"/>
+    <requiredRole_AssemblyConnector href="newRepository.repository#_jjyx0DonEeujr6PSMKhjng"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_hdmr8DooEeujr6PSMKhjng" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_aoqNYDooEeujr6PSMKhjng" providingAssemblyContext_AssemblyConnector="_bS-VsDooEeujr6PSMKhjng">
+    <providedRole_AssemblyConnector href="newRepository.repository#_XEk5EDocEeujr6PSMKhjng"/>
+    <requiredRole_AssemblyConnector href="newRepository.repository#_a67fkDocEeujr6PSMKhjng"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_mF8JADooEeujr6PSMKhjng" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_kZGMsDooEeujr6PSMKhjng" assemblyContext_ProvidedDelegationConnector="_aoqNYDooEeujr6PSMKhjng">
+    <innerProvidedRole_ProvidedDelegationConnector href="newRepository.repository#_S4XXUDocEeujr6PSMKhjng"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_mpMAADooEeujr6PSMKhjng" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_jiNoADooEeujr6PSMKhjng" assemblyContext_ProvidedDelegationConnector="_aoqNYDooEeujr6PSMKhjng">
+    <innerProvidedRole_ProvidedDelegationConnector href="newRepository.repository#_qH2DwDoeEeujr6PSMKhjng"/>
+  </connectors__ComposedStructure>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_jiNoADooEeujr6PSMKhjng" entityName="GPSPollerProvidedRole">
+    <providedInterface__OperationProvidedRole href="newRepository.repository#_U87lMDoeEeujr6PSMKhjng"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_kZGMsDooEeujr6PSMKhjng" entityName="DistanceTrackerProvidedRole">
+    <providedInterface__OperationProvidedRole href="newRepository.repository#_lQGD8DoZEeujr6PSMKhjng"/>
+  </providedRoles_InterfaceProvidingEntity>
+</system:System>

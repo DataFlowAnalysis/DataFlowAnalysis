@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="ASCII"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DataDictionaryCharacterized="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/1.0" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:confidentiality="http://dataflowanalysis.org/pcm/extension/model/0.1.0" xmlns:expression="http://dataflowanalysis.org/pcm/extension/model/0.1.0/expression" xmlns:expressions="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/expressions/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="_X7pyYDoZEeujr6PSMKhjng" entityName="New Repository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_NJgXEDocEeujr6PSMKhjng" entityName="DistanceTracker.Logic">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_U9nMkDocEeujr6PSMKhjng" entityName="DistanceTrackerLogic.provided.DistanceTracker" providedInterface__OperationProvidedRole="_lQGD8DoZEeujr6PSMKhjng"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_cU140DocEeujr6PSMKhjng" entityName="DistanceTrackerLogic.required.TrackingService" requiredInterface__OperationRequiredRole="_NKjVYDobEeujr6PSMKhjng"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_F9dKoDodEeujr6PSMKhjng" entityName="DistanceTracker.required.Logic.LocationStorage" requiredInterface__OperationRequiredRole="_0-kAkDocEeujr6PSMKhjng"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_U99x4DocEeujr6PSMKhjng" describedService__SEFF="_mv97QDoZEeujr6PSMKhjng">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_U99x4TocEeujr6PSMKhjng" successor_AbstractAction="_U9-Y8DocEeujr6PSMKhjng"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_U9-Y8DocEeujr6PSMKhjng" predecessor_AbstractAction="_U99x4TocEeujr6PSMKhjng"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_U_c_oDocEeujr6PSMKhjng" describedService__SEFF="_nh5HcDoZEeujr6PSMKhjng">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_U_c_oTocEeujr6PSMKhjng" successor_AbstractAction="_R4OsADpIEeujr6PSMKhjng"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_U_c_ojocEeujr6PSMKhjng" predecessor_AbstractAction="_Zk8gEDpIEeujr6PSMKhjng"/>
+      <steps_Behaviour xsi:type="seff:LoopAction" id="_R4OsADpIEeujr6PSMKhjng" entityName="LoopAction1" predecessor_AbstractAction="_U_c_oTocEeujr6PSMKhjng" successor_AbstractAction="_sSdIEDpIEeujr6PSMKhjng">
+        <bodyBehaviour_Loop id="_R4PTEDpIEeujr6PSMKhjng">
+          <steps_Behaviour xsi:type="seff:StartAction" id="_R4P6IDpIEeujr6PSMKhjng" successor_AbstractAction="_P2bzYDpIEeujr6PSMKhjng"/>
+          <steps_Behaviour xsi:type="seff:StopAction" id="_R4P6ITpIEeujr6PSMKhjng" predecessor_AbstractAction="_P2bzYDpIEeujr6PSMKhjng"/>
+          <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_P2bzYDpIEeujr6PSMKhjng" entityName="DistanceTrackerLogic.stopTracking.callDB" predecessor_AbstractAction="_R4P6IDpIEeujr6PSMKhjng" successor_AbstractAction="_R4P6ITpIEeujr6PSMKhjng" calledService_ExternalService="_3npisDocEeujr6PSMKhjng" role_ExternalService="_F9dKoDodEeujr6PSMKhjng">
+            <returnVariableUsage__CallReturnAction>
+              <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+                <specification_VariableCharacterisation specification="false"/>
+                <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_j7A8ADpIEeujr6PSMKhjng"/>
+                <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_k3iOozpIEeujr6PSMKhjng">
+                  <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+                </rhs>
+              </variableCharacterisation_VariableUsage>
+              <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="locations"/>
+            </returnVariableUsage__CallReturnAction>
+          </steps_Behaviour>
+        </bodyBehaviour_Loop>
+        <iterationCount_LoopAction specification="20"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_sSdIEDpIEeujr6PSMKhjng" entityName="DistanceTrackerLogic.stopTracking.calcDistance" predecessor_AbstractAction="_R4OsADpIEeujr6PSMKhjng" successor_AbstractAction="_Zk8gEDpIEeujr6PSMKhjng">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_zOkloDpIEeujr6PSMKhjng"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_zkSW8zpIEeujr6PSMKhjng">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="locations"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_cMgl8DpNEeujr6PSMKhjng">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_J8p7wAiXEe-5C6doYp1KxQ-characteristicTypes@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:False" id="_cxBoRzpNEeujr6PSMKhjng"/>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_1crb8DpIEeujr6PSMKhjng">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_J8p7wAiXEe-5C6doYp1KxQ-characteristicTypes@0"/>
+              <literal href="../dic.pddc#_J8p7wAiXEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_2G0lJjpIEeujr6PSMKhjng"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="distance"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_Zk8gEDpIEeujr6PSMKhjng" entityName="DistanceTrackerLogic.stopTracking.return" predecessor_AbstractAction="_sSdIEDpIEeujr6PSMKhjng" successor_AbstractAction="_U_c_ojocEeujr6PSMKhjng">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_n_MjIDpIEeujr6PSMKhjng"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_ogggczpIEeujr6PSMKhjng">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="distance"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_U_rpIDocEeujr6PSMKhjng" describedService__SEFF="_oLk9oDoZEeujr6PSMKhjng">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_U_rpITocEeujr6PSMKhjng" successor_AbstractAction="_GZp6cDpJEeujr6PSMKhjng"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_U_rpIjocEeujr6PSMKhjng" predecessor_AbstractAction="_GZp6cDpJEeujr6PSMKhjng"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_GZp6cDpJEeujr6PSMKhjng" entityName="DistanceTrackerLogic.uploadDistance.callTrackingService" predecessor_AbstractAction="_U_rpITocEeujr6PSMKhjng" successor_AbstractAction="_U_rpIjocEeujr6PSMKhjng" calledService_ExternalService="_5_GXsDobEeujr6PSMKhjng" role_ExternalService="_cU140DocEeujr6PSMKhjng">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_koZxADpJEeujr6PSMKhjng"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_lJr5IzpJEeujr6PSMKhjng">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="distance"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_hlAUoDpNEeujr6PSMKhjng">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_J8p7wAiXEe-5C6doYp1KxQ-characteristicTypes@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:False" id="_ievZBzpNEeujr6PSMKhjng"/>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_msqHwDpJEeujr6PSMKhjng">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_J8p7wAiXEe-5C6doYp1KxQ-characteristicTypes@0"/>
+              <literal href="../dic.pddc#_J8p7wAiXEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_nMCLZjpJEeujr6PSMKhjng"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="distance"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_OYLwsDocEeujr6PSMKhjng" entityName="TrackingService.Logic">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_Ym1WADocEeujr6PSMKhjng" entityName="TrackingServiceLogic.provided.TrackingService" providedInterface__OperationProvidedRole="_NKjVYDobEeujr6PSMKhjng"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_HuOksDodEeujr6PSMKhjng" entityName="TrackingService.required.Logic.DistanceStorage" requiredInterface__OperationRequiredRole="_fOJBMDocEeujr6PSMKhjng"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_YnCKUDocEeujr6PSMKhjng" describedService__SEFF="_5_GXsDobEeujr6PSMKhjng">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_YnCxYDocEeujr6PSMKhjng" successor_AbstractAction="_sh6D4DpJEeujr6PSMKhjng"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_YnCxYTocEeujr6PSMKhjng" predecessor_AbstractAction="_sh6D4DpJEeujr6PSMKhjng"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sh6D4DpJEeujr6PSMKhjng" entityName="TrackingServiceLogic.publishDistance.callDB" predecessor_AbstractAction="_YnCxYDocEeujr6PSMKhjng" successor_AbstractAction="_YnCxYTocEeujr6PSMKhjng" calledService_ExternalService="_gmukwDocEeujr6PSMKhjng" role_ExternalService="_HuOksDodEeujr6PSMKhjng">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_yXJY8DpJEeujr6PSMKhjng"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_y5WuIzpJEeujr6PSMKhjng">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="distance"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="distance"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:CompositeComponent" id="_PYuAoDocEeujr6PSMKhjng" entityName="DistanceTracker">
+    <assemblyContexts__ComposedStructure id="_TlIhQDodEeujr6PSMKhjng" entityName="Assembly_DistanceTracker.LocationDB" encapsulatedComponent__AssemblyContext="_tMEUrjocEeujr6PSMKhjng"/>
+    <assemblyContexts__ComposedStructure id="_WG-y8DodEeujr6PSMKhjng" entityName="Assembly_DistanceTracker.Logic" encapsulatedComponent__AssemblyContext="_NJgXEDocEeujr6PSMKhjng"/>
+    <assemblyContexts__ComposedStructure id="_cHkQ0DonEeujr6PSMKhjng" entityName="Assembly_DistanceTracker.GPSPoller" encapsulatedComponent__AssemblyContext="_Zyg0EDoeEeujr6PSMKhjng"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_aUi_kDodEeujr6PSMKhjng" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_U9nMkDocEeujr6PSMKhjng" outerProvidedRole_ProvidedDelegationConnector="_S4XXUDocEeujr6PSMKhjng" assemblyContext_ProvidedDelegationConnector="_WG-y8DodEeujr6PSMKhjng"/>
+    <connectors__ComposedStructure xsi:type="composition:RequiredDelegationConnector" id="_bn_kcDodEeujr6PSMKhjng" entityName="newRequiredDelegationConnector" innerRequiredRole_RequiredDelegationConnector="_cU140DocEeujr6PSMKhjng" outerRequiredRole_RequiredDelegationConnector="_a67fkDocEeujr6PSMKhjng" assemblyContext_RequiredDelegationConnector="_WG-y8DodEeujr6PSMKhjng"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_cIPKwDodEeujr6PSMKhjng" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_WG-y8DodEeujr6PSMKhjng" providingAssemblyContext_AssemblyConnector="_TlIhQDodEeujr6PSMKhjng" providedRole_AssemblyConnector="_AOIQUDodEeujr6PSMKhjng" requiredRole_AssemblyConnector="_F9dKoDodEeujr6PSMKhjng"/>
+    <connectors__ComposedStructure xsi:type="composition:RequiredDelegationConnector" id="_V2EoIDooEeujr6PSMKhjng" entityName="newRequiredDelegationConnector" innerRequiredRole_RequiredDelegationConnector="_yF-NYDodEeujr6PSMKhjng" outerRequiredRole_RequiredDelegationConnector="_jjyx0DonEeujr6PSMKhjng" assemblyContext_RequiredDelegationConnector="_cHkQ0DonEeujr6PSMKhjng"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_WLznkDooEeujr6PSMKhjng" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_oMLBQDoeEeujr6PSMKhjng" outerProvidedRole_ProvidedDelegationConnector="_qH2DwDoeEeujr6PSMKhjng" assemblyContext_ProvidedDelegationConnector="_cHkQ0DonEeujr6PSMKhjng"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_XD84EDpKEeujr6PSMKhjng" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_cHkQ0DonEeujr6PSMKhjng" providingAssemblyContext_AssemblyConnector="_TlIhQDodEeujr6PSMKhjng" providedRole_AssemblyConnector="_AOIQUDodEeujr6PSMKhjng" requiredRole_AssemblyConnector="_GJCPEDpKEeujr6PSMKhjng"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_S4XXUDocEeujr6PSMKhjng" entityName="DistanceTracker.provided.DistanceTracker" providedInterface__OperationProvidedRole="_lQGD8DoZEeujr6PSMKhjng"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_qH2DwDoeEeujr6PSMKhjng" entityName="DistanceTracker.provided.GPSPoller" providedInterface__OperationProvidedRole="_U87lMDoeEeujr6PSMKhjng"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_a67fkDocEeujr6PSMKhjng" entityName="DistanceTracker.required.TrackingService" requiredInterface__OperationRequiredRole="_NKjVYDobEeujr6PSMKhjng"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_jjyx0DonEeujr6PSMKhjng" entityName="DistanceTracker.required.GPS" requiredInterface__OperationRequiredRole="_rNU6kDodEeujr6PSMKhjng"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:CompositeComponent" id="_QioPADocEeujr6PSMKhjng" entityName="TrackingService">
+    <assemblyContexts__ComposedStructure id="_fHMPMDodEeujr6PSMKhjng" entityName="Assembly_TrackingService.Logic" encapsulatedComponent__AssemblyContext="_OYLwsDocEeujr6PSMKhjng"/>
+    <assemblyContexts__ComposedStructure id="_grbpIDodEeujr6PSMKhjng" entityName="Assembly_TrackingService.DistanceDB" encapsulatedComponent__AssemblyContext="_nAm3_jocEeujr6PSMKhjng"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_iZBzYDodEeujr6PSMKhjng" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_fHMPMDodEeujr6PSMKhjng" providingAssemblyContext_AssemblyConnector="_grbpIDodEeujr6PSMKhjng" providedRole_AssemblyConnector="_BxKwYDodEeujr6PSMKhjng" requiredRole_AssemblyConnector="_HuOksDodEeujr6PSMKhjng"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_kDme0DodEeujr6PSMKhjng" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_Ym1WADocEeujr6PSMKhjng" outerProvidedRole_ProvidedDelegationConnector="_XEk5EDocEeujr6PSMKhjng" assemblyContext_ProvidedDelegationConnector="_fHMPMDodEeujr6PSMKhjng"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_XEk5EDocEeujr6PSMKhjng" entityName="TrackingService.provided.TrackingService" providedInterface__OperationProvidedRole="_NKjVYDobEeujr6PSMKhjng"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_nAm3_jocEeujr6PSMKhjng" entityName="TrackingService.DistanceDB">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_BxKwYDodEeujr6PSMKhjng" entityName="TrackingService.provided.DistanceDB.DistanceStorage" providedInterface__OperationProvidedRole="_fOJBMDocEeujr6PSMKhjng"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_NgSC4DodEeujr6PSMKhjng" describedService__SEFF="_gmukwDocEeujr6PSMKhjng">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_NwLgEDodEeujr6PSMKhjng" successor_AbstractAction="_NwMHIDodEeujr6PSMKhjng"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_NwMHIDodEeujr6PSMKhjng" predecessor_AbstractAction="_NwLgEDodEeujr6PSMKhjng"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_OCszcDodEeujr6PSMKhjng" describedService__SEFF="_i56vYDocEeujr6PSMKhjng">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_ORh5oDodEeujr6PSMKhjng" successor_AbstractAction="_ORigsDodEeujr6PSMKhjng"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_ORigsDodEeujr6PSMKhjng" predecessor_AbstractAction="_ORh5oDodEeujr6PSMKhjng"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_tMEUrjocEeujr6PSMKhjng" entityName="DistanceTracker.LocationDB">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_AOIQUDodEeujr6PSMKhjng" entityName="DistanceTracker.provided.LocationDB.LocationStorage" providedInterface__OperationProvidedRole="_0-kAkDocEeujr6PSMKhjng"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_OmNJIDodEeujr6PSMKhjng" describedService__SEFF="_2Ru4oDocEeujr6PSMKhjng">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_O3fGYDodEeujr6PSMKhjng" successor_AbstractAction="_O3fGYTodEeujr6PSMKhjng"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_O3fGYTodEeujr6PSMKhjng" predecessor_AbstractAction="_O3fGYDodEeujr6PSMKhjng"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_PPRUQDodEeujr6PSMKhjng" describedService__SEFF="_3npisDocEeujr6PSMKhjng">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_PcbmgDodEeujr6PSMKhjng" successor_AbstractAction="_OQfyuwibEe-5C6doYp1KxQ"/>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_OQfyuwibEe-5C6doYp1KxQ" predecessor_AbstractAction="_PcbmgDodEeujr6PSMKhjng" successor_AbstractAction="_PcbmgTodEeujr6PSMKhjng">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_TLu9oAibEe-5C6doYp1KxQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_J8p7wAiXEe-5C6doYp1KxQ-characteristicTypes@0"/>
+              <literal href="../dic.pddc#_J8p7wAiXEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_UV8G9gibEe-5C6doYp1KxQ"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_PcbmgTodEeujr6PSMKhjng" predecessor_AbstractAction="_OQfyuwibEe-5C6doYp1KxQ"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_pfPBEDodEeujr6PSMKhjng" entityName="DistanceTracker.GPS">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_ugNnoDodEeujr6PSMKhjng" entityName="DistanceTrackerGPS.provided..GPS" providedInterface__OperationProvidedRole="_rNU6kDodEeujr6PSMKhjng"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_ugqTkDodEeujr6PSMKhjng" describedService__SEFF="_sWeT8DodEeujr6PSMKhjng">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_ugqTkTodEeujr6PSMKhjng" successor_AbstractAction="_3adh0DpJEeujr6PSMKhjng"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_ugqTkjodEeujr6PSMKhjng" predecessor_AbstractAction="_3adh0DpJEeujr6PSMKhjng"/>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_3adh0DpJEeujr6PSMKhjng" entityName="DistanceTracker.GPS.return" predecessor_AbstractAction="_ugqTkTodEeujr6PSMKhjng" successor_AbstractAction="_ugqTkjodEeujr6PSMKhjng">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_8UH_cDpJEeujr6PSMKhjng">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_J8p7wAiXEe-5C6doYp1KxQ-characteristicTypes@0"/>
+              <literal href="../dic.pddc#_J8p7wAiXEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@2"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_xXwjFjpKEeujr6PSMKhjng"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_Zyg0EDoeEeujr6PSMKhjng" entityName="DistanceTracker.GPSPoller">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_oMLBQDoeEeujr6PSMKhjng" entityName="DistanceTracker.GPSPoller.provided.GPSPoller" providedInterface__OperationProvidedRole="_U87lMDoeEeujr6PSMKhjng"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_yF-NYDodEeujr6PSMKhjng" entityName="DistanceTracker.Logic.required.GPS" requiredInterface__OperationRequiredRole="_rNU6kDodEeujr6PSMKhjng"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_GJCPEDpKEeujr6PSMKhjng" entityName="DistanceTracker.GPSPoller.required.LocationStorage" requiredInterface__OperationRequiredRole="_0-kAkDocEeujr6PSMKhjng"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_a5qpYDoeEeujr6PSMKhjng" describedService__SEFF="_WoZogDoeEeujr6PSMKhjng">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_a5qpYToeEeujr6PSMKhjng" successor_AbstractAction="_Ag9MQDpKEeujr6PSMKhjng"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_a5qpYjoeEeujr6PSMKhjng" predecessor_AbstractAction="_eJCEYDpKEeujr6PSMKhjng"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_Ag9MQDpKEeujr6PSMKhjng" entityName="GPSPoller.pollLocation.callGPS" predecessor_AbstractAction="_a5qpYToeEeujr6PSMKhjng" successor_AbstractAction="_eJCEYDpKEeujr6PSMKhjng" calledService_ExternalService="_sWeT8DodEeujr6PSMKhjng" role_ExternalService="_yF-NYDodEeujr6PSMKhjng">
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_nASY8DpKEeujr6PSMKhjng"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_nYSpQzpKEeujr6PSMKhjng">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="location"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_eJCEYDpKEeujr6PSMKhjng" entityName="GPSPoller.pollLocation.callDB" predecessor_AbstractAction="_Ag9MQDpKEeujr6PSMKhjng" successor_AbstractAction="_a5qpYjoeEeujr6PSMKhjng" calledService_ExternalService="_2Ru4oDocEeujr6PSMKhjng" role_ExternalService="_GJCPEDpKEeujr6PSMKhjng">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_qpO1kDpKEeujr6PSMKhjng"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_rPT-IzpKEeujr6PSMKhjng">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="location"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="location"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_lQGD8DoZEeujr6PSMKhjng" entityName="DistanceTracker">
+    <signatures__OperationInterface id="_mv97QDoZEeujr6PSMKhjng" entityName="startTracking"/>
+    <signatures__OperationInterface id="_nh5HcDoZEeujr6PSMKhjng" entityName="stopTracking" returnType__OperationSignature="_owd98DoaEeujr6PSMKhjng"/>
+    <signatures__OperationInterface id="_oLk9oDoZEeujr6PSMKhjng" entityName="uploadDistance">
+      <parameters__OperationSignature dataType__Parameter="_owd98DoaEeujr6PSMKhjng" parameterName="distance"/>
+      <parameters__OperationSignature dataType__Parameter="_AmMc8DobEeujr6PSMKhjng" parameterName="consent"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_NKjVYDobEeujr6PSMKhjng" entityName="TrackingService">
+    <signatures__OperationInterface id="_5_GXsDobEeujr6PSMKhjng" entityName="publishDistance">
+      <parameters__OperationSignature dataType__Parameter="_owd98DoaEeujr6PSMKhjng" parameterName="distance"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_fOJBMDocEeujr6PSMKhjng" entityName="DistanceStorage">
+    <signatures__OperationInterface id="_gmukwDocEeujr6PSMKhjng" entityName="addDistance">
+      <parameters__OperationSignature dataType__Parameter="_owd98DoaEeujr6PSMKhjng" parameterName="distance"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_i56vYDocEeujr6PSMKhjng" entityName="getDistance" returnType__OperationSignature="_owd98DoaEeujr6PSMKhjng"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_0-kAkDocEeujr6PSMKhjng" entityName="LocationStorage">
+    <signatures__OperationInterface id="_2Ru4oDocEeujr6PSMKhjng" entityName="addLocation">
+      <parameters__OperationSignature dataType__Parameter="_DZjVYDobEeujr6PSMKhjng" parameterName="location"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_3npisDocEeujr6PSMKhjng" entityName="getLocation" returnType__OperationSignature="_DZjVYDobEeujr6PSMKhjng"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_rNU6kDodEeujr6PSMKhjng" entityName="GPS">
+    <signatures__OperationInterface id="_sWeT8DodEeujr6PSMKhjng" entityName="getLocation" returnType__OperationSignature="_DZjVYDobEeujr6PSMKhjng"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_U87lMDoeEeujr6PSMKhjng" entityName="GPSPoller">
+    <signatures__OperationInterface id="_WoZogDoeEeujr6PSMKhjng" entityName="pollLocation"/>
+  </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_owd98DoaEeujr6PSMKhjng" entityName="Distance"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_AmMc8DobEeujr6PSMKhjng" entityName="Consent"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_DZjVYDobEeujr6PSMKhjng" entityName="Location"/>
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="_ELl2UDobEeujr6PSMKhjng" entityName="Locations" innerType_CollectionDataType="_DZjVYDobEeujr6PSMKhjng"/>
+</repository:Repository>

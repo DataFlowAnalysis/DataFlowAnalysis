@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="ASCII"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DataDictionaryCharacterized="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/1.0" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:confidentiality="http://dataflowanalysis.org/pcm/extension/model/0.1.0" xmlns:expression="http://dataflowanalysis.org/pcm/extension/model/0.1.0/expression" xmlns:expressions="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/expressions/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="_HAsVoIN6Eeyth_Kqe2ur6g" entityName="New Repository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_7zKQwIN6Eeyth_Kqe2ur6g" entityName="PatientsDB">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_9gnREIN6Eeyth_Kqe2ur6g" entityName="PatientsDB.provided.PatiensDB" providedInterface__OperationProvidedRole="_IjlEsIN6Eeyth_Kqe2ur6g"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="__cDDAIN6Eeyth_Kqe2ur6g" describedService__SEFF="_KFEFkIN6Eeyth_Kqe2ur6g">
+      <steps_Behaviour xsi:type="seff:StartAction" id="__r75IIN6Eeyth_Kqe2ur6g" successor_AbstractAction="__r75IYN6Eeyth_Kqe2ur6g"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="__r75IYN6Eeyth_Kqe2ur6g" predecessor_AbstractAction="__r75IIN6Eeyth_Kqe2ur6g"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="__8caUIN6Eeyth_Kqe2ur6g" describedService__SEFF="_KYwdoIN6Eeyth_Kqe2ur6g">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_ALUj0IN7Eeyth_Kqe2ur6g" successor_AbstractAction="_3vLcmwylEe-5C6doYp1KxQ"/>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_3vLcmwylEe-5C6doYp1KxQ" predecessor_AbstractAction="_ALUj0IN7Eeyth_Kqe2ur6g" successor_AbstractAction="_ALUj0YN7Eeyth_Kqe2ur6g">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_9jBqgAylEe-5C6doYp1KxQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@0"/>
+              <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_-TdB5gylEe-5C6doYp1KxQ"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_ALUj0YN7Eeyth_Kqe2ur6g" predecessor_AbstractAction="_3vLcmwylEe-5C6doYp1KxQ"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_Cwuf0IN7Eeyth_Kqe2ur6g" entityName="PatientsDBLogic">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_EdQTEIN7Eeyth_Kqe2ur6g" entityName="PatientsDBLogic.provided.PatiensDB" providedInterface__OperationProvidedRole="_IjlEsIN6Eeyth_Kqe2ur6g"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_FIu5AIN7Eeyth_Kqe2ur6g" entityName="PatientsDBLogic.required.PatiensDB" requiredInterface__OperationRequiredRole="_IjlEsIN6Eeyth_Kqe2ur6g"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_Edx3gIN7Eeyth_Kqe2ur6g" describedService__SEFF="_KFEFkIN6Eeyth_Kqe2ur6g">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_Edx3gYN7Eeyth_Kqe2ur6g" successor_AbstractAction="_ZnYHcIN7Eeyth_Kqe2ur6g"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_Edx3goN7Eeyth_Kqe2ur6g" predecessor_AbstractAction="_ZnYHcIN7Eeyth_Kqe2ur6g"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_ZnYHcIN7Eeyth_Kqe2ur6g" entityName="PatientsDBLogic.callDB" predecessor_AbstractAction="_Edx3gYN7Eeyth_Kqe2ur6g" successor_AbstractAction="_Edx3goN7Eeyth_Kqe2ur6g" calledService_ExternalService="_KFEFkIN6Eeyth_Kqe2ur6g" role_ExternalService="_FIu5AIN7Eeyth_Kqe2ur6g">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_iqNZ4IN7Eeyth_Kqe2ur6g"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_iqNZ4YN7Eeyth_Kqe2ur6g">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="patientList"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="patientList"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_EeC9QIN7Eeyth_Kqe2ur6g" describedService__SEFF="_KYwdoIN6Eeyth_Kqe2ur6g">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_EeC9QYN7Eeyth_Kqe2ur6g" successor_AbstractAction="_mwsuIIN7Eeyth_Kqe2ur6g"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_EeC9QoN7Eeyth_Kqe2ur6g" predecessor_AbstractAction="_ofz7UIN7Eeyth_Kqe2ur6g"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_mwsuIIN7Eeyth_Kqe2ur6g" entityName="PatientsDBLogic.get.callDB" predecessor_AbstractAction="_EeC9QYN7Eeyth_Kqe2ur6g" successor_AbstractAction="_ofz7UIN7Eeyth_Kqe2ur6g" calledService_ExternalService="_KYwdoIN6Eeyth_Kqe2ur6g" role_ExternalService="_FIu5AIN7Eeyth_Kqe2ur6g">
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_u9wPIIN7Eeyth_Kqe2ur6g"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_u9wPIYN7Eeyth_Kqe2ur6g">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="patientList"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_ofz7UIN7Eeyth_Kqe2ur6g" entityName="PatientsDBLogic.get.return" predecessor_AbstractAction="_mwsuIIN7Eeyth_Kqe2ur6g" successor_AbstractAction="_EeC9QoN7Eeyth_Kqe2ur6g">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_jAEfsIN8Eeyth_Kqe2ur6g"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_jAEfsYN8Eeyth_Kqe2ur6g">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="patientList"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:CompositeComponent" id="_Igxy4IN7Eeyth_Kqe2ur6g" entityName="PatientsStore">
+    <assemblyContexts__ComposedStructure id="_0Vpg4IN7Eeyth_Kqe2ur6g" entityName="Assembly_PatientsDBLogic" encapsulatedComponent__AssemblyContext="_Cwuf0IN7Eeyth_Kqe2ur6g"/>
+    <assemblyContexts__ComposedStructure id="_070wEIN7Eeyth_Kqe2ur6g" entityName="Assembly_PatientsDB" encapsulatedComponent__AssemblyContext="_7zKQwIN6Eeyth_Kqe2ur6g"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_31RCYIN7Eeyth_Kqe2ur6g" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_EdQTEIN7Eeyth_Kqe2ur6g" outerProvidedRole_ProvidedDelegationConnector="_KtlBoIN7Eeyth_Kqe2ur6g" assemblyContext_ProvidedDelegationConnector="_0Vpg4IN7Eeyth_Kqe2ur6g"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_4eF88IN7Eeyth_Kqe2ur6g" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_0Vpg4IN7Eeyth_Kqe2ur6g" providingAssemblyContext_AssemblyConnector="_070wEIN7Eeyth_Kqe2ur6g" providedRole_AssemblyConnector="_9gnREIN6Eeyth_Kqe2ur6g" requiredRole_AssemblyConnector="_FIu5AIN7Eeyth_Kqe2ur6g"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_KtlBoIN7Eeyth_Kqe2ur6g" entityName="PatientsStore.provided.PatiensDB" providedInterface__OperationProvidedRole="_IjlEsIN6Eeyth_Kqe2ur6g"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_CLBVQIN8Eeyth_Kqe2ur6g" entityName="HospitalApp">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_Dfi4MIN8Eeyth_Kqe2ur6g" entityName="HospitalApp.provided.Hospital" providedInterface__OperationProvidedRole="_HphQMIN6Eeyth_Kqe2ur6g"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_IcdeIIN8Eeyth_Kqe2ur6g" entityName="HospitalApp.required.PatiensDB" requiredInterface__OperationRequiredRole="_IjlEsIN6Eeyth_Kqe2ur6g"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_DfjfQIN8Eeyth_Kqe2ur6g" describedService__SEFF="_uQ1UMIN6Eeyth_Kqe2ur6g">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_DfkGUIN8Eeyth_Kqe2ur6g" successor_AbstractAction="_jaQ2cIN-Eeyth_Kqe2ur6g"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_DfkGUYN8Eeyth_Kqe2ur6g" predecessor_AbstractAction="_jaQ2cIN-Eeyth_Kqe2ur6g"/>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_jaQ2cIN-Eeyth_Kqe2ur6g" entityName="HospitalApp.authroize.return" predecessor_AbstractAction="_DfkGUIN8Eeyth_Kqe2ur6g" successor_AbstractAction="_DfkGUYN8Eeyth_Kqe2ur6g">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_oFLtcIN-Eeyth_Kqe2ur6g">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@0"/>
+              <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_oFLtcYN-Eeyth_Kqe2ur6g"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_DfvsgIN8Eeyth_Kqe2ur6g" describedService__SEFF="_2oVxsIN6Eeyth_Kqe2ur6g">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_DfvsgYN8Eeyth_Kqe2ur6g" successor_AbstractAction="_sjN_AIN-Eeyth_Kqe2ur6g"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_DfvsgoN8Eeyth_Kqe2ur6g" predecessor_AbstractAction="_sjN_AIN-Eeyth_Kqe2ur6g"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sjN_AIN-Eeyth_Kqe2ur6g" entityName="HospitalApp.modifyList.callDB" predecessor_AbstractAction="_DfvsgYN8Eeyth_Kqe2ur6g" successor_AbstractAction="_DfvsgoN8Eeyth_Kqe2ur6g" calledService_ExternalService="_KFEFkIN6Eeyth_Kqe2ur6g" role_ExternalService="_IcdeIIN8Eeyth_Kqe2ur6g">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_xsZfU4N-Eeyth_Kqe2ur6g"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_xsZfVIN-Eeyth_Kqe2ur6g">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="patientList"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="patientList"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_Df3BQIN8Eeyth_Kqe2ur6g" describedService__SEFF="_uSNNMIN6Eeyth_Kqe2ur6g">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_Df3oUIN8Eeyth_Kqe2ur6g" successor_AbstractAction="_2ByyQIN-Eeyth_Kqe2ur6g"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_Df3oUYN8Eeyth_Kqe2ur6g" predecessor_AbstractAction="_zUUC4IN_Eeyth_Kqe2ur6g"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_2ByyQIN-Eeyth_Kqe2ur6g" entityName="HospitalApp.requestList.callDB" predecessor_AbstractAction="_Df3oUIN8Eeyth_Kqe2ur6g" successor_AbstractAction="_zUUC4IN_Eeyth_Kqe2ur6g" calledService_ExternalService="_KYwdoIN6Eeyth_Kqe2ur6g" role_ExternalService="_IcdeIIN8Eeyth_Kqe2ur6g">
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_xG-BkYN_Eeyth_Kqe2ur6g"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_xG-BkoN_Eeyth_Kqe2ur6g">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="patientList"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_zUUC4IN_Eeyth_Kqe2ur6g" entityName="HospitalApp.requestList.return" predecessor_AbstractAction="_2ByyQIN-Eeyth_Kqe2ur6g" successor_AbstractAction="_Df3oUYN8Eeyth_Kqe2ur6g">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_H1ckoIOAEeyth_Kqe2ur6g">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@0"/>
+              <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:And" id="_H1ckoYOAEeyth_Kqe2ur6g">
+              <left xsi:type="expression:NamedEnumCharacteristicReference" id="_H1ckooOAEeyth_Kqe2ur6g">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="request"/>
+              </left>
+              <right xsi:type="expression:NamedEnumCharacteristicReference" id="_H1cko4OAEeyth_Kqe2ur6g">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="patientList"/>
+              </right>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_H1ckpIOAEeyth_Kqe2ur6g">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@0"/>
+              <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:Or" id="_H1ckpYOAEeyth_Kqe2ur6g">
+              <left xsi:type="expression:NamedEnumCharacteristicReference" id="_H1ckpoOAEeyth_Kqe2ur6g">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="request"/>
+              </left>
+              <right xsi:type="expression:NamedEnumCharacteristicReference" id="_H1ckp4OAEeyth_Kqe2ur6g">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="patientList"/>
+              </right>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_H1ckqIOAEeyth_Kqe2ur6g">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
+              <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:And" id="_H1ckqYOAEeyth_Kqe2ur6g">
+              <left xsi:type="expression:NamedEnumCharacteristicReference" id="_H1ckqoOAEeyth_Kqe2ur6g">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@0"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="request"/>
+              </left>
+              <right xsi:type="expression:NamedEnumCharacteristicReference" id="_H1ckq4OAEeyth_Kqe2ur6g">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@0"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="patientList"/>
+              </right>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_H1ckrIOAEeyth_Kqe2ur6g">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
+              <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:Or" id="_H1ckrYOAEeyth_Kqe2ur6g">
+              <left xsi:type="expression:NamedEnumCharacteristicReference" id="_H1dLsIOAEeyth_Kqe2ur6g">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@1"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="request"/>
+              </left>
+              <right xsi:type="expression:NamedEnumCharacteristicReference" id="_H1dLsYOAEeyth_Kqe2ur6g">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@1"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="patientList"/>
+              </right>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_HphQMIN6Eeyth_Kqe2ur6g" entityName="Hospital">
+    <signatures__OperationInterface id="_uQ1UMIN6Eeyth_Kqe2ur6g" entityName="authorize" returnType__OperationSignature="_OnkAYIN6Eeyth_Kqe2ur6g"/>
+    <signatures__OperationInterface id="_uSNNMIN6Eeyth_Kqe2ur6g" entityName="requestList" returnType__OperationSignature="_LyoaoIN6Eeyth_Kqe2ur6g">
+      <parameters__OperationSignature dataType__Parameter="_yUn5wIN6Eeyth_Kqe2ur6g" parameterName="request"/>
+      <parameters__OperationSignature dataType__Parameter="_OnkAYIN6Eeyth_Kqe2ur6g" parameterName="permissions"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_2oVxsIN6Eeyth_Kqe2ur6g" entityName="modifyList">
+      <parameters__OperationSignature dataType__Parameter="_LyoaoIN6Eeyth_Kqe2ur6g" parameterName="patientList"/>
+      <parameters__OperationSignature dataType__Parameter="_OnkAYIN6Eeyth_Kqe2ur6g" parameterName="permissions"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_IjlEsIN6Eeyth_Kqe2ur6g" entityName="PatiensDB">
+    <signatures__OperationInterface id="_KFEFkIN6Eeyth_Kqe2ur6g" entityName="add">
+      <parameters__OperationSignature dataType__Parameter="_LyoaoIN6Eeyth_Kqe2ur6g" parameterName="patientList"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_KYwdoIN6Eeyth_Kqe2ur6g" entityName="get" returnType__OperationSignature="_LyoaoIN6Eeyth_Kqe2ur6g"/>
+  </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_LKI3QIN6Eeyth_Kqe2ur6g" entityName="Patient"/>
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="_LyoaoIN6Eeyth_Kqe2ur6g" entityName="PatientList" innerType_CollectionDataType="_LKI3QIN6Eeyth_Kqe2ur6g"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_NncnMIN6Eeyth_Kqe2ur6g" entityName="Permission"/>
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="_OnkAYIN6Eeyth_Kqe2ur6g" entityName="Permissions" innerType_CollectionDataType="_NncnMIN6Eeyth_Kqe2ur6g"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_yUn5wIN6Eeyth_Kqe2ur6g" entityName="Request"/>
+</repository:Repository>

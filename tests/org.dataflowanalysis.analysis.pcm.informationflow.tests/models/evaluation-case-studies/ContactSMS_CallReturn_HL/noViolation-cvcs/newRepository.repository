@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="ASCII"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DataDictionaryCharacterized="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/1.0" xmlns:confidentiality="http://dataflowanalysis.org/pcm/extension/model/0.1.0" xmlns:expression="http://dataflowanalysis.org/pcm/extension/model/0.1.0/expression" xmlns:expressions="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/expressions/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="_yvfW0IM4EeydpeNEy1O9cA" entityName="New Repository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_0Qz4QIM7EeydpeNEy1O9cA" entityName="ContactDB">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_6Pe2IIM7EeydpeNEy1O9cA" entityName="ContactDB.provided.ContactDB" providedInterface__OperationProvidedRole="_1i05wIM7EeydpeNEy1O9cA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_cVnN8IM8EeydpeNEy1O9cA" describedService__SEFF="_2U2zoIM7EeydpeNEy1O9cA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_cnBHAIM8EeydpeNEy1O9cA" successor_AbstractAction="_cnBuEIM8EeydpeNEy1O9cA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_cnBuEIM8EeydpeNEy1O9cA" predecessor_AbstractAction="_cnBHAIM8EeydpeNEy1O9cA"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_c91EgIM8EeydpeNEy1O9cA" describedService__SEFF="_2WYdoIM7EeydpeNEy1O9cA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_dOiaAIM8EeydpeNEy1O9cA" successor_AbstractAction="_zeySewiUEe-5C6doYp1KxQ"/>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_zeySewiUEe-5C6doYp1KxQ" predecessor_AbstractAction="_dOiaAIM8EeydpeNEy1O9cA" successor_AbstractAction="_dOiaAYM8EeydpeNEy1O9cA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_S_0QQAiVEe-5C6doYp1KxQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_TIbFkAiIEe-5C6doYp1KxQ-characteristicTypes@0"/>
+              <literal href="../dic.pddc#_TIbFkAiIEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_ZYIdNgiVEe-5C6doYp1KxQ"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_dOiaAYM8EeydpeNEy1O9cA" predecessor_AbstractAction="_zeySewiUEe-5C6doYp1KxQ"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="__MHvQIM7EeydpeNEy1O9cA" entityName="SMSApp">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_F8wVkIM8EeydpeNEy1O9cA" entityName="SMSApp.provided.ContactManagement" providedInterface__OperationProvidedRole="_0hMlAIM4EeydpeNEy1O9cA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_IBi30IM8EeydpeNEy1O9cA" entityName="SMSApp.provided.SMSSending" providedInterface__OperationProvidedRole="_14Th4IM4EeydpeNEy1O9cA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_Z4dPAIM8EeydpeNEy1O9cA" entityName="SMSApp.required.ContactDB" requiredInterface__OperationRequiredRole="_1i05wIM7EeydpeNEy1O9cA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_KTvSAIM-EeydpeNEy1O9cA" entityName="SMSApp.required.SMSGateway" requiredInterface__OperationRequiredRole="_BcQl4IM8EeydpeNEy1O9cA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_F9TvMIM8EeydpeNEy1O9cA" describedService__SEFF="_tuQxQIM7EeydpeNEy1O9cA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_F9U9UIM8EeydpeNEy1O9cA" successor_AbstractAction="_mGYkcIM8EeydpeNEy1O9cA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_F9U9UYM8EeydpeNEy1O9cA" predecessor_AbstractAction="_oHFQ4IM8EeydpeNEy1O9cA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_mGYkcIM8EeydpeNEy1O9cA" entityName="SMSApp.getContacts.callDB" predecessor_AbstractAction="_F9U9UIM8EeydpeNEy1O9cA" successor_AbstractAction="_oHFQ4IM8EeydpeNEy1O9cA" calledService_ExternalService="_2WYdoIM7EeydpeNEy1O9cA" role_ExternalService="_Z4dPAIM8EeydpeNEy1O9cA">
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_I6IQMIM9EeydpeNEy1O9cA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_I6IQMYM9EeydpeNEy1O9cA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="contacts"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_oHFQ4IM8EeydpeNEy1O9cA" entityName="SMSApp.getContact.return" predecessor_AbstractAction="_mGYkcIM8EeydpeNEy1O9cA" successor_AbstractAction="_F9U9UYM8EeydpeNEy1O9cA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_MruSgIM9EeydpeNEy1O9cA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_MruSgYM9EeydpeNEy1O9cA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="contacts"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_F-YGMIM8EeydpeNEy1O9cA" describedService__SEFF="_DiZTUIM5EeydpeNEy1O9cA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_F-YGMYM8EeydpeNEy1O9cA" successor_AbstractAction="_F-YGMoM8EeydpeNEy1O9cA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_F-YGMoM8EeydpeNEy1O9cA" predecessor_AbstractAction="_F-YGMYM8EeydpeNEy1O9cA"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_F-jFUIM8EeydpeNEy1O9cA" describedService__SEFF="_A8ckwIM5EeydpeNEy1O9cA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_F-jFUYM8EeydpeNEy1O9cA" successor_AbstractAction="_54TaUIM9EeydpeNEy1O9cA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_F-jFUoM8EeydpeNEy1O9cA" predecessor_AbstractAction="_54TaUIM9EeydpeNEy1O9cA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_54TaUIM9EeydpeNEy1O9cA" entityName="SMSApp.addContact.callDB" predecessor_AbstractAction="_F-jFUYM8EeydpeNEy1O9cA" successor_AbstractAction="_F-jFUoM8EeydpeNEy1O9cA" calledService_ExternalService="_2U2zoIM7EeydpeNEy1O9cA" role_ExternalService="_Z4dPAIM8EeydpeNEy1O9cA">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_AQ8-cIM-EeydpeNEy1O9cA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_AQ8-cYM-EeydpeNEy1O9cA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="contact"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="contact"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_IBje4IM8EeydpeNEy1O9cA" describedService__SEFF="_5kuwUIM4EeydpeNEy1O9cA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_IBje4YM8EeydpeNEy1O9cA" successor_AbstractAction="_TZxCYIM-EeydpeNEy1O9cA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_IBje4oM8EeydpeNEy1O9cA" predecessor_AbstractAction="_TZxCYIM-EeydpeNEy1O9cA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_TZxCYIM-EeydpeNEy1O9cA" entityName="SMSApp.sendSMS.callGateway" predecessor_AbstractAction="_IBje4YM8EeydpeNEy1O9cA" successor_AbstractAction="_IBje4oM8EeydpeNEy1O9cA" calledService_ExternalService="_LCQ20IM8EeydpeNEy1O9cA" role_ExternalService="_KTvSAIM-EeydpeNEy1O9cA">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_dQUQwIM-EeydpeNEy1O9cA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_dQUQwYM-EeydpeNEy1O9cA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="message"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="message"/>
+        </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_JO07kINCEeydpeNEy1O9cA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_JO07kYNCEeydpeNEy1O9cA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="contact"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_JO07koNCEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_TIbFkAiIEe-5C6doYp1KxQ-characteristicTypes@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:False" id="_JO07k4NCEeydpeNEy1O9cA"/>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_JO07lINCEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_TIbFkAiIEe-5C6doYp1KxQ-characteristicTypes@0"/>
+              <literal href="../dic.pddc#_TIbFkAiIEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_JO07lYNCEeydpeNEy1O9cA"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="number"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_CzA9cIM8EeydpeNEy1O9cA" entityName="SMSGateway">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_Rdw6oIM8EeydpeNEy1O9cA" entityName="SMSGateway.provided.SMSGateway" providedInterface__OperationProvidedRole="_BcQl4IM8EeydpeNEy1O9cA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_Rd2aMIM8EeydpeNEy1O9cA" describedService__SEFF="_LCQ20IM8EeydpeNEy1O9cA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_Rd3BQIM8EeydpeNEy1O9cA" successor_AbstractAction="_Rd3BQYM8EeydpeNEy1O9cA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_Rd3BQYM8EeydpeNEy1O9cA" predecessor_AbstractAction="_Rd3BQIM8EeydpeNEy1O9cA"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_0hMlAIM4EeydpeNEy1O9cA" entityName="ContactManagement">
+    <signatures__OperationInterface id="_A8ckwIM5EeydpeNEy1O9cA" entityName="addContact">
+      <parameters__OperationSignature dataType__Parameter="_6bv34IM4EeydpeNEy1O9cA" parameterName="contact"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_DiZTUIM5EeydpeNEy1O9cA" entityName="deleteContact">
+      <parameters__OperationSignature dataType__Parameter="_6bv34IM4EeydpeNEy1O9cA" parameterName="contact"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_tuQxQIM7EeydpeNEy1O9cA" entityName="getContacts" returnType__OperationSignature="_8AH0sIM4EeydpeNEy1O9cA"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_14Th4IM4EeydpeNEy1O9cA" entityName="SMSSending">
+    <signatures__OperationInterface id="_5kuwUIM4EeydpeNEy1O9cA" entityName="sendSMS">
+      <parameters__OperationSignature dataType__Parameter="_6bv34IM4EeydpeNEy1O9cA" parameterName="contact"/>
+      <parameters__OperationSignature dataType__Parameter="_66cmEIM4EeydpeNEy1O9cA" parameterName="message"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_1i05wIM7EeydpeNEy1O9cA" entityName="ContactDB">
+    <signatures__OperationInterface id="_2U2zoIM7EeydpeNEy1O9cA" entityName="add">
+      <parameters__OperationSignature dataType__Parameter="_6bv34IM4EeydpeNEy1O9cA" parameterName="contact"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_2WYdoIM7EeydpeNEy1O9cA" entityName="get" returnType__OperationSignature="_6bv34IM4EeydpeNEy1O9cA"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_BcQl4IM8EeydpeNEy1O9cA" entityName="SMSGateway">
+    <signatures__OperationInterface id="_LCQ20IM8EeydpeNEy1O9cA" entityName="sendSMS">
+      <parameters__OperationSignature dataType__Parameter="_66cmEIM4EeydpeNEy1O9cA" parameterName="message"/>
+      <parameters__OperationSignature dataType__Parameter="_NI8PcIM8EeydpeNEy1O9cA" parameterName="number"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_6bv34IM4EeydpeNEy1O9cA" entityName="Contact"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_66cmEIM4EeydpeNEy1O9cA" entityName="Message"/>
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="_8AH0sIM4EeydpeNEy1O9cA" entityName="Contacts" innerType_CollectionDataType="_6bv34IM4EeydpeNEy1O9cA"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_NI8PcIM8EeydpeNEy1O9cA" entityName="Number"/>
+</repository:Repository>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="ASCII"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DataDictionaryCharacterized="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/1.0" xmlns:confidentiality="http://dataflowanalysis.org/pcm/extension/model/0.1.0" xmlns:expression="http://dataflowanalysis.org/pcm/extension/model/0.1.0/expression" xmlns:expressions="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/expressions/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="_2zc_4INWEeydpeNEy1O9cA" entityName="New Repository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_te-48INYEeydpeNEy1O9cA" entityName="LocationStore">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_y8VScINYEeydpeNEy1O9cA" entityName="LocationStore.provided.LocationStore" providedInterface__OperationProvidedRole="_uzcKcINYEeydpeNEy1O9cA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_ptzBIINqEeydpeNEy1O9cA" describedService__SEFF="_wK5soINYEeydpeNEy1O9cA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_qAlaQINqEeydpeNEy1O9cA" successor_AbstractAction="_qAmBUINqEeydpeNEy1O9cA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_qAmBUINqEeydpeNEy1O9cA" predecessor_AbstractAction="_qAlaQINqEeydpeNEy1O9cA"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_qUo-sINqEeydpeNEy1O9cA" describedService__SEFF="_wOJN4INYEeydpeNEy1O9cA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_qlXiUINqEeydpeNEy1O9cA" successor_AbstractAction="_YGKFmwyTEe-5C6doYp1KxQ"/>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_YGKFmwyTEe-5C6doYp1KxQ" predecessor_AbstractAction="_qlXiUINqEeydpeNEy1O9cA" successor_AbstractAction="_qlXiUYNqEeydpeNEy1O9cA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_c-tI4AyTEe-5C6doYp1KxQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@0"/>
+              <literal href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_dnUBBgyTEe-5C6doYp1KxQ"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_qlXiUYNqEeydpeNEy1O9cA" predecessor_AbstractAction="_YGKFmwyTEe-5C6doYp1KxQ"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_3E_w8INYEeydpeNEy1O9cA" entityName="SocialNetwork">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_4Q3uMINYEeydpeNEy1O9cA" entityName="SocialNetwork.provided.SocialNetwork" providedInterface__OperationProvidedRole="_JlF58INXEeydpeNEy1O9cA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_-7xf8INYEeydpeNEy1O9cA" entityName="SocialNetwork.required.LocationStore" requiredInterface__OperationRequiredRole="_uzcKcINYEeydpeNEy1O9cA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_4RXdcINYEeydpeNEy1O9cA" describedService__SEFF="_1-_AkINXEeydpeNEy1O9cA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_4RYEgINYEeydpeNEy1O9cA" successor_AbstractAction="_u6UC8INiEeydpeNEy1O9cA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_4RYEgYNYEeydpeNEy1O9cA" predecessor_AbstractAction="_w1_FcINiEeydpeNEy1O9cA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_u6UC8INiEeydpeNEy1O9cA" entityName="SocialNetwork.getFriendLocations.callDB" predecessor_AbstractAction="_4RYEgINYEeydpeNEy1O9cA" successor_AbstractAction="_w1_FcINiEeydpeNEy1O9cA" calledService_ExternalService="_wOJN4INYEeydpeNEy1O9cA" role_ExternalService="_-7xf8INYEeydpeNEy1O9cA">
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_1RrNoINiEeydpeNEy1O9cA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_1RrNoYNiEeydpeNEy1O9cA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="contacts"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_w1_FcINiEeydpeNEy1O9cA" entityName="SocialNetwork.getFriendLocations.return" predecessor_AbstractAction="_u6UC8INiEeydpeNEy1O9cA" successor_AbstractAction="_4RYEgYNYEeydpeNEy1O9cA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_37Zo8INiEeydpeNEy1O9cA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_37Zo8YNiEeydpeNEy1O9cA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="contacts"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_4TlD8INYEeydpeNEy1O9cA" describedService__SEFF="_Ih47EINYEeydpeNEy1O9cA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_4TlrAINYEeydpeNEy1O9cA" successor_AbstractAction="_4TlrAYNYEeydpeNEy1O9cA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_4TlrAYNYEeydpeNEy1O9cA" predecessor_AbstractAction="_4TlrAINYEeydpeNEy1O9cA"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_4Tu08INYEeydpeNEy1O9cA" describedService__SEFF="_ldtKIINYEeydpeNEy1O9cA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_4Tu08YNYEeydpeNEy1O9cA" successor_AbstractAction="_nuqUkINiEeydpeNEy1O9cA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_4Tu08oNYEeydpeNEy1O9cA" predecessor_AbstractAction="_nuqUkINiEeydpeNEy1O9cA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_nuqUkINiEeydpeNEy1O9cA" entityName="SocialNetwork.addLocation.callDB" predecessor_AbstractAction="_4Tu08YNYEeydpeNEy1O9cA" successor_AbstractAction="_4Tu08oNYEeydpeNEy1O9cA" calledService_ExternalService="_wK5soINYEeydpeNEy1O9cA" role_ExternalService="_-7xf8INYEeydpeNEy1O9cA">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_s2aRgINiEeydpeNEy1O9cA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_s2aRgYNiEeydpeNEy1O9cA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="location"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="location"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_9oGtEINiEeydpeNEy1O9cA" entityName="FriendMapApp">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="__jdmgINiEeydpeNEy1O9cA" entityName="FriendMapApp.provided.FriendMap" providedInterface__OperationProvidedRole="_4cCR0INXEeydpeNEy1O9cA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_Dd40sINjEeydpeNEy1O9cA" entityName="FriendMapApp.required.MapProvider" requiredInterface__OperationRequiredRole="_AhOQQINYEeydpeNEy1O9cA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_F6Ua4INjEeydpeNEy1O9cA" entityName="FriendMapApp.required.Google" requiredInterface__OperationRequiredRole="_EXpIMINYEeydpeNEy1O9cA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="__js3EINiEeydpeNEy1O9cA" describedService__SEFF="_5SUZkINXEeydpeNEy1O9cA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="__js3EYNiEeydpeNEy1O9cA" successor_AbstractAction="_ffKuIINjEeydpeNEy1O9cA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="__js3EoNiEeydpeNEy1O9cA" predecessor_AbstractAction="_pJvWAINjEeydpeNEy1O9cA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_ffKuIINjEeydpeNEy1O9cA" entityName="FriendMapApp.createMap.callMapProvider" predecessor_AbstractAction="__js3EYNiEeydpeNEy1O9cA" successor_AbstractAction="_lHr10INjEeydpeNEy1O9cA" calledService_ExternalService="_Bdlx4INYEeydpeNEy1O9cA" role_ExternalService="_Dd40sINjEeydpeNEy1O9cA">
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_xoY9UINjEeydpeNEy1O9cA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_xoY9UYNjEeydpeNEy1O9cA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="mapCode"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_h1QbwINjEeydpeNEy1O9cA" entityName="FriendMapApp.createMap.callGoogle" predecessor_AbstractAction="_lHr10INjEeydpeNEy1O9cA" successor_AbstractAction="_nXQEsINjEeydpeNEy1O9cA" calledService_ExternalService="_FF3gIINYEeydpeNEy1O9cA" role_ExternalService="_F6Ua4INjEeydpeNEy1O9cA">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_A-pVoINkEeydpeNEy1O9cA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_A-pVoYNkEeydpeNEy1O9cA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="locations"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="locations"/>
+        </inputVariableUsages__CallAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_E9ZqMINkEeydpeNEy1O9cA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_E9ZqMYNkEeydpeNEy1O9cA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="map"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_lHr10INjEeydpeNEy1O9cA" entityName="FriendMapApp.createMap.encryptLocations" predecessor_AbstractAction="_ffKuIINjEeydpeNEy1O9cA" successor_AbstractAction="_h1QbwINjEeydpeNEy1O9cA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_9sirsINjEeydpeNEy1O9cA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_9sirsYNjEeydpeNEy1O9cA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="locations"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_9sirsoNjEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@2"/>
+            </lhs>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_9sirs4NjEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@0"/>
+              <namedReference xsi:type="stoex:VariableReference" referenceName="locations"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_9sirtINjEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:False" id="_9sirtYNjEeydpeNEy1O9cA"/>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_9sirtoNjEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@0"/>
+              <literal href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_9sirt4NjEeydpeNEy1O9cA"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="encryptedLocations"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_nXQEsINjEeydpeNEy1O9cA" entityName="FriendMapApp.createMap.decryptMap" predecessor_AbstractAction="_h1QbwINjEeydpeNEy1O9cA" successor_AbstractAction="_pJvWAINjEeydpeNEy1O9cA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_LvPKYINkEeydpeNEy1O9cA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_LvPKYYNkEeydpeNEy1O9cA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="map"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_LvPxcINkEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@0"/>
+            </lhs>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_LvPxcYNkEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@2"/>
+              <namedReference xsi:type="stoex:VariableReference" referenceName="map"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_LvPxcoNkEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@2"/>
+            </lhs>
+            <rhs xsi:type="expressions:False" id="_LvPxc4NkEeydpeNEy1O9cA"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="decryptedMap"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_pJvWAINjEeydpeNEy1O9cA" entityName="FriendMapApp.createMap.return" predecessor_AbstractAction="_nXQEsINjEeydpeNEy1O9cA" successor_AbstractAction="__js3EoNiEeydpeNEy1O9cA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_PL8h0INkEeydpeNEy1O9cA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_PL8h0YNkEeydpeNEy1O9cA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="decryptedMap"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_drQrEINkEeydpeNEy1O9cA" entityName="MapProvider">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_h2NBgINkEeydpeNEy1O9cA" entityName="MapProvider.provided.MapProvider" providedInterface__OperationProvidedRole="_AhOQQINYEeydpeNEy1O9cA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_epGMUINkEeydpeNEy1O9cA" describedService__SEFF="_Bdlx4INYEeydpeNEy1O9cA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_epGzYINkEeydpeNEy1O9cA" successor_AbstractAction="_m30r0INlEeydpeNEy1O9cA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_epGzYYNkEeydpeNEy1O9cA" predecessor_AbstractAction="_m30r0INlEeydpeNEy1O9cA"/>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_m30r0INlEeydpeNEy1O9cA" entityName="MapProvider.getMapCode.return" predecessor_AbstractAction="_epGzYINkEeydpeNEy1O9cA" successor_AbstractAction="_epGzYYNkEeydpeNEy1O9cA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_s0rEwINlEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@0"/>
+              <literal href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_s0rEwYNlEeydpeNEy1O9cA"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_g5ZbAINkEeydpeNEy1O9cA" entityName="Google">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_j1O6AINkEeydpeNEy1O9cA" entityName="Google.provided.Google" providedInterface__OperationProvidedRole="_EXpIMINYEeydpeNEy1O9cA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_j1QIIINkEeydpeNEy1O9cA" describedService__SEFF="_FF3gIINYEeydpeNEy1O9cA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_j1QIIYNkEeydpeNEy1O9cA" successor_AbstractAction="_vO32UINlEeydpeNEy1O9cA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_j1QIIoNkEeydpeNEy1O9cA" predecessor_AbstractAction="_vO32UINlEeydpeNEy1O9cA"/>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_vO32UINlEeydpeNEy1O9cA" entityName="Google.createMap.return" predecessor_AbstractAction="_j1QIIYNkEeydpeNEy1O9cA" successor_AbstractAction="_j1QIIoNkEeydpeNEy1O9cA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_zVlNAINlEeydpeNEy1O9cA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_zVlNAYNlEeydpeNEy1O9cA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="locations"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_JlF58INXEeydpeNEy1O9cA" entityName="SocialNetwork">
+    <signatures__OperationInterface id="_1-_AkINXEeydpeNEy1O9cA" entityName="getFriendLocations" returnType__OperationSignature="_NMzngINXEeydpeNEy1O9cA"/>
+    <signatures__OperationInterface id="_Ih47EINYEeydpeNEy1O9cA" entityName="postFriendMap">
+      <parameters__OperationSignature dataType__Parameter="_76tYIINXEeydpeNEy1O9cA" parameterName="map"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_ldtKIINYEeydpeNEy1O9cA" entityName="addLocation">
+      <parameters__OperationSignature dataType__Parameter="_KfS4YINXEeydpeNEy1O9cA" parameterName="location"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_4cCR0INXEeydpeNEy1O9cA" entityName="FriendMap">
+    <signatures__OperationInterface id="_5SUZkINXEeydpeNEy1O9cA" entityName="createMap" returnType__OperationSignature="_76tYIINXEeydpeNEy1O9cA">
+      <parameters__OperationSignature dataType__Parameter="_NMzngINXEeydpeNEy1O9cA" parameterName="locations"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_AhOQQINYEeydpeNEy1O9cA" entityName="MapProvider">
+    <signatures__OperationInterface id="_Bdlx4INYEeydpeNEy1O9cA" entityName="getMapCode" returnType__OperationSignature="__wEgIINXEeydpeNEy1O9cA"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_EXpIMINYEeydpeNEy1O9cA" entityName="Google">
+    <signatures__OperationInterface id="_FF3gIINYEeydpeNEy1O9cA" entityName="createMap" returnType__OperationSignature="_76tYIINXEeydpeNEy1O9cA">
+      <parameters__OperationSignature dataType__Parameter="_NMzngINXEeydpeNEy1O9cA" parameterName="locations"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_uzcKcINYEeydpeNEy1O9cA" entityName="LocationStore">
+    <signatures__OperationInterface id="_wK5soINYEeydpeNEy1O9cA" entityName="add">
+      <parameters__OperationSignature dataType__Parameter="_KfS4YINXEeydpeNEy1O9cA" parameterName="location"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_wOJN4INYEeydpeNEy1O9cA" entityName="get" returnType__OperationSignature="_KfS4YINXEeydpeNEy1O9cA"/>
+  </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_KfS4YINXEeydpeNEy1O9cA" entityName="Location"/>
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="_NMzngINXEeydpeNEy1O9cA" entityName="Locations" innerType_CollectionDataType="_KfS4YINXEeydpeNEy1O9cA"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_76tYIINXEeydpeNEy1O9cA" entityName="Map"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="__wEgIINXEeydpeNEy1O9cA" entityName="Code"/>
+</repository:Repository>

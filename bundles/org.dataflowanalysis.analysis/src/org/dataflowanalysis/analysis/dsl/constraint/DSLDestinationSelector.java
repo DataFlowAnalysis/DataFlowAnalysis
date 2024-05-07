@@ -2,14 +2,14 @@ package org.dataflowanalysis.analysis.dsl.constraint;
 
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 
-public class DSLSinkSelector {
+public class DSLDestinationSelector {
     private final AnalysisConstraint analysisConstraint;
 
-    public DSLSinkSelector(AnalysisConstraint analysisConstraint) {
+    public DSLDestinationSelector(AnalysisConstraint analysisConstraint) {
         this.analysisConstraint = analysisConstraint;
     }
 
-    public DSLNodeSinkSelector toVertex() {
-        return new DSLNodeSinkSelector(this.analysisConstraint);
+    public DSLNodeDestinationSelector toVertex() {
+        return new DSLNodeDestinationSelector(this.analysisConstraint);
     }
 }

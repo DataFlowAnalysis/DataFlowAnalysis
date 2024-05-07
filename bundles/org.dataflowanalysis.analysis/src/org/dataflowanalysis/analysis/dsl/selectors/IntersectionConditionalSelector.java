@@ -1,6 +1,6 @@
 package org.dataflowanalysis.analysis.dsl.selectors;
 
-import org.dataflowanalysis.analysis.dsl.constraint.Intersection;
+import org.dataflowanalysis.analysis.dsl.Intersection;
 
 public class IntersectionConditionalSelector implements ConditionalSelector {
     private final Intersection intersection;

@@ -1,6 +1,5 @@
 package org.dataflowanalysis.analysis.dsl.query;
 
-import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.AnalysisQuery;
 
 public class QueryDSL {
@@ -10,11 +9,11 @@ public class QueryDSL {
         this.analysisQuery = new AnalysisQuery();
     }
 
-    public DSLQueryNodeSourceSelector ofNode() {
-        return new DSLQueryNodeSourceSelector(analysisQuery);
+    public DSLQueryNodeSelector ofNode() {
+        return new DSLQueryNodeSelector(analysisQuery);
     }
 
-    public DSLQueryDataSourceSelector ofData() {
-        return new DSLQueryDataSourceSelector(analysisQuery);
+    public DSLQueryDataSelector ofData() {
+        return new DSLQueryDataSelector(analysisQuery);
     }
 }

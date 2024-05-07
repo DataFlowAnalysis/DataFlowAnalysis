@@ -43,7 +43,7 @@ public class DSLDataSourceSelector {
         return new DSLNodeSourceSelector(this.analysisConstraint);
     }
 
-    public DSLSinkSelector neverFlows() {
-        return new DSLSinkSelector(this.analysisConstraint);
+    public DSLDestinationSelector neverFlows() {
+        return new DSLDestinationSelector(this.analysisConstraint);
     }
 }

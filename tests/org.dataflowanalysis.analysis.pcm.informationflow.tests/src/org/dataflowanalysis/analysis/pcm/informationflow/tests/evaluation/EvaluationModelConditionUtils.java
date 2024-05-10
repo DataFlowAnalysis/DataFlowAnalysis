@@ -1,6 +1,7 @@
 package org.dataflowanalysis.analysis.pcm.informationflow.tests.evaluation;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
@@ -15,21 +16,27 @@ public class EvaluationModelConditionUtils {
         return flowsTo(vertex, "High", "Low");
     }
 
-    public static boolean highFlowsToUntrusted(AbstractVertex<?> vertex) {
-        return flowsTo(vertex, "High", "Untrusted");
+    public static boolean flowsTo(AbstractVertex<?> vertex, String dataName, String nodeName) {
+        return flowsTo(vertex, Optional.empty(), dataName, Optional.empty(), nodeName);
     }
 
-    private static boolean flowsTo(AbstractVertex<?> vertex, String dataName, String nodeName) {
+    public static boolean flowsTo(AbstractVertex<?> vertex, String dataCharacteristicType, String dataName, String nodeCharacterisiticType,
+            String nodeName) {
+        return flowsTo(vertex, Optional.of(dataCharacteristicType), dataName, Optional.of(nodeCharacterisiticType), nodeName);
+    }
+
+    private static boolean flowsTo(AbstractVertex<?> vertex, Optional<String> dataCharacteristicType, String dataName,
+            Optional<String> nodeCharacterisiticType, String nodeName) {
         var dataFlowVariables = vertex.getAllDataFlowVariables();
         var nodeCharacteristics = vertex.getAllNodeCharacteristics();
 
-        boolean isUntrustedNode = containsCharacteristicValueWithName(nodeName, nodeCharacteristics);
+        boolean isUntrustedNode = containsCharacteristicValue(nodeCharacterisiticType, nodeName, nodeCharacteristics);
         if (!isUntrustedNode) {
             return false;
         }
 
         for (DataFlowVariable dataFlowVariable : dataFlowVariables) {
-            if (containsCharacteristicValueWithName(dataName, dataFlowVariable.getAllCharacteristics())) {
+            if (containsCharacteristicValue(dataCharacteristicType, dataName, dataFlowVariable.getAllCharacteristics())) {
                 return true;
             }
         }
@@ -37,13 +44,32 @@ public class EvaluationModelConditionUtils {
         return false;
     }
 
-    private static boolean containsCharacteristicValueWithName(String untrusted, List<CharacteristicValue> nodeCharacteristics) {
+    public static boolean flowsToLower(AbstractVertex<?> vertex, String... latticeNames) {
+        for (int level = 1; level < latticeNames.length; level++) {
+            for (int lowerLevel = 0; lowerLevel < level; lowerLevel++) {
+                if (flowsTo(vertex, latticeNames[level], latticeNames[lowerLevel])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean containsCharacteristicValue(Optional<String> untrustedTypeName, String untrustedValueName,
+            List<CharacteristicValue> nodeCharacteristics) {
         boolean isUntrustedNode = false;
         for (CharacteristicValue nodeCharacteristic : nodeCharacteristics) {
-            String nodeCharacteristicName = nodeCharacteristic.getValueName();
-            if (nodeCharacteristicName.equals(untrusted)) {
-                isUntrustedNode = true;
+            String nodeCharacteristicValueName = nodeCharacteristic.getValueName();
+            String nodeCharacteristicTypeName = nodeCharacteristic.getTypeName();
+
+            if (!nodeCharacteristicValueName.equals(untrustedValueName)) {
+                continue;
             }
+
+            if (untrustedTypeName.isPresent() && !nodeCharacteristicTypeName.equals(untrustedTypeName.get())) {
+                continue;
+            }
+            isUntrustedNode = true;
         }
         return isUntrustedNode;
     }

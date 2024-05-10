@@ -5,13 +5,17 @@ import java.util.List;
 
 public class EvaluationModels {
 
+    // folder names
     private static final String models = "models";
     private static final String evaluation_flows = "evaluation-flows";
+    private static final String evaluation_case_studies = "evaluation-case-studies";
 
+    // flow models - default naming
     private static final String defaultUsage = "default.usagemodel";
     private static final String defaultAllocation = "default.allocation";
     private static final String defaultNodecharacteristics = "default.nodecharacteristics";
 
+    // flow models - model names + folder
     private static final String explicit_direct = "explicit-direct";
     private static final String explicit_processed = "explicit-processed";
     private static final String explicit_surrounded = "explicit-surrounded";
@@ -19,6 +23,19 @@ public class EvaluationModels {
     private static final String implicit_nested = "implicit-nested";
     private static final String implicit_surrounded = "implicit-surrounded";
     private static final String implicit_else = "implicit-else";
+
+    // case study models - model names
+    private static final String contactSMS = "ContactSMS";
+    private static final String distanceTracker = "DistanceTracker";
+    private static final String friendMap = "FriendMap";
+    private static final String hospital = "Hospital";
+    // private static final String JPMail = "JPMail"; //
+    private static final String travelPlanner = "TravelPlanner";
+    // private static final String webRTC = "WebRTC";
+
+    /*
+     * ------------ Flow models ------------
+     */
 
     /*
      * explicit-direct
@@ -173,7 +190,7 @@ public class EvaluationModels {
             List.of(implicitElseNoViolationManuallySpecified, implicitElseViolationManuallySpecified), EvaluationModelConditionUtils::highFlowsToLow);
 
     /*
-     * Helper methods
+     * Helper methods - flow models
      */
 
     private static EvaluationModelInstanceData createEvaluationModelDataForFlowModel(String flowModel, String flowModelling,
@@ -182,5 +199,188 @@ public class EvaluationModels {
                 Path.of(models, evaluation_flows, flowModel, flowModelling, defaultAllocation),
                 Path.of(models, evaluation_flows, flowModel, flowModelling, defaultNodecharacteristics), specificationType, containsViolation);
     }
+
+    /*
+     * ------------ Case study models ------------
+     */
+
+    /*
+     * ContactSMS
+     */
+
+    public static final EvaluationModelInstanceData contactSMSNoViolation = new EvaluationModelInstanceData(
+            Path.of(models, evaluation_case_studies, "ContactSMS_CallReturn_HL", "noViolation", "newUsageModel.usagemodel"),
+            Path.of(models, evaluation_case_studies, "ContactSMS_CallReturn_HL", "noViolation", "newAllocation.allocation"),
+            Path.of(models, evaluation_case_studies, "ContactSMS_CallReturn_HL", "noViolation", "default.nodecharacteristics"),
+            EvaluationSpecificationType.NeededConfidentialityCharacterisations, false);
+    public static final EvaluationModelInstanceData contactSMSViolation = new EvaluationModelInstanceData(
+            Path.of(models, evaluation_case_studies, "ContactSMS_CallReturn_HL", "violation", "newUsageModel_withIssue.usagemodel"),
+            Path.of(models, evaluation_case_studies, "ContactSMS_CallReturn_HL", "violation", "newAllocation_withIssue.allocation"),
+            Path.of(models, evaluation_case_studies, "ContactSMS_CallReturn_HL", "violation", "default.nodecharacteristics"),
+            EvaluationSpecificationType.NeededConfidentialityCharacterisations, true);
+
+    public static final EvaluationModelData contactSMSModel = new EvaluationModelData(contactSMS, List.of(contactSMSNoViolation, contactSMSViolation),
+            (vertex) -> EvaluationModelConditionUtils.flowsTo(vertex, "User", "UserAndReceiver"));
+
+    public static final EvaluationModelInstanceData contactSMSNoViolationManuallySpecified = new EvaluationModelInstanceData(
+            Path.of(models, evaluation_case_studies, "ContactSMS_CallReturn_HL", "noViolation-cvcs", "newUsageModel.usagemodel"),
+            Path.of(models, evaluation_case_studies, "ContactSMS_CallReturn_HL", "noViolation-cvcs", "newAllocation.allocation"),
+            Path.of(models, evaluation_case_studies, "ContactSMS_CallReturn_HL", "noViolation-cvcs", "default.nodecharacteristics"),
+            EvaluationSpecificationType.AllConfidentialityCharacterisations, false);
+    public static final EvaluationModelInstanceData contactSMSViolationManuallySpecified = new EvaluationModelInstanceData(
+            Path.of(models, evaluation_case_studies, "ContactSMS_CallReturn_HL", "violation-cvcs", "newUsageModel_withIssue.usagemodel"),
+            Path.of(models, evaluation_case_studies, "ContactSMS_CallReturn_HL", "violation-cvcs", "newAllocation_withIssue.allocation"),
+            Path.of(models, evaluation_case_studies, "ContactSMS_CallReturn_HL", "violation-cvcs", "default.nodecharacteristics"),
+            EvaluationSpecificationType.AllConfidentialityCharacterisations, true);
+
+    public static final EvaluationModelData contactSMSModelManuallySpecified = new EvaluationModelData(contactSMS,
+            List.of(contactSMSNoViolationManuallySpecified, contactSMSViolationManuallySpecified),
+            (vertex) -> EvaluationModelConditionUtils.flowsTo(vertex, "User", "UserAndReceiver"));
+
+    /*
+     * DistanceTracker
+     */
+
+    public static final EvaluationModelInstanceData distanceTrackerNoViolation = new EvaluationModelInstanceData(
+            Path.of(models, evaluation_case_studies, "DistanceTracker_CallReturn_HL", "noViolation", "newUsageModel.usagemodel"),
+            Path.of(models, evaluation_case_studies, "DistanceTracker_CallReturn_HL", "noViolation", "newAllocation.allocation"),
+            Path.of(models, evaluation_case_studies, "DistanceTracker_CallReturn_HL", "noViolation", "default.nodecharacteristics"),
+            EvaluationSpecificationType.NeededConfidentialityCharacterisations, false);
+    public static final EvaluationModelInstanceData distanceTrackerViolation = new EvaluationModelInstanceData(
+            Path.of(models, evaluation_case_studies, "DistanceTracker_CallReturn_HL", "violation", "newUsageModel_withIssue.usagemodel"),
+            Path.of(models, evaluation_case_studies, "DistanceTracker_CallReturn_HL", "violation", "newAllocation_withIssue.allocation"),
+            Path.of(models, evaluation_case_studies, "DistanceTracker_CallReturn_HL", "violation", "default.nodecharacteristics"),
+            EvaluationSpecificationType.NeededConfidentialityCharacterisations, true);
+
+    public static final EvaluationModelData distanceTrackerModel = new EvaluationModelData(distanceTracker,
+            List.of(distanceTrackerNoViolation, distanceTrackerViolation),
+            (vertex) -> EvaluationModelConditionUtils.flowsToLower(vertex, "OnlyDistance", "UserAndDistanceTracker", "User"));
+
+    public static final EvaluationModelInstanceData distanceTrackerNoViolationManuallySpecified = new EvaluationModelInstanceData(
+            Path.of(models, evaluation_case_studies, "DistanceTracker_CallReturn_HL", "noViolation-cvcs", "newUsageModel.usagemodel"),
+            Path.of(models, evaluation_case_studies, "DistanceTracker_CallReturn_HL", "noViolation-cvcs", "newAllocation.allocation"),
+            Path.of(models, evaluation_case_studies, "DistanceTracker_CallReturn_HL", "noViolation-cvcs", "default.nodecharacteristics"),
+            EvaluationSpecificationType.AllConfidentialityCharacterisations, false);
+    public static final EvaluationModelInstanceData distanceTrackerViolationManuallySpecified = new EvaluationModelInstanceData(
+            Path.of(models, evaluation_case_studies, "DistanceTracker_CallReturn_HL", "violation-cvcs", "newUsageModel_withIssue.usagemodel"),
+            Path.of(models, evaluation_case_studies, "DistanceTracker_CallReturn_HL", "violation-cvcs", "newAllocation_withIssue.allocation"),
+            Path.of(models, evaluation_case_studies, "DistanceTracker_CallReturn_HL", "violation-cvcs", "default.nodecharacteristics"),
+            EvaluationSpecificationType.AllConfidentialityCharacterisations, true);
+
+    public static final EvaluationModelData distanceTrackerModelManuallySpecified = new EvaluationModelData(distanceTracker,
+            List.of(distanceTrackerNoViolationManuallySpecified, distanceTrackerViolationManuallySpecified),
+            (vertex) -> EvaluationModelConditionUtils.flowsToLower(vertex, "OnlyDistance", "UserAndDistanceTracker", "User"));
+
+    /*
+     * FriendMap
+     */
+
+    public static final EvaluationModelInstanceData friendMapNoViolation = new EvaluationModelInstanceData(
+            Path.of("models", "evaluation-case-studies", "FriendMap_CallReturn_HL", "noViolation", "newUsageModel.usagemodel"),
+            Path.of("models", "evaluation-case-studies", "FriendMap_CallReturn_HL", "noViolation", "newAllocation.allocation"),
+            Path.of("models", "evaluation-case-studies", "FriendMap_CallReturn_HL", "noViolation", "default.nodecharacteristics"),
+            EvaluationSpecificationType.NeededConfidentialityCharacterisations, false);
+    public static final EvaluationModelInstanceData friendMapViolation = new EvaluationModelInstanceData(
+            Path.of("models", "evaluation-case-studies", "FriendMap_CallReturn_HL", "violation", "newUsageModel_withIssue.usagemodel"),
+            Path.of("models", "evaluation-case-studies", "FriendMap_CallReturn_HL", "violation", "newAllocation_withIssue.allocation"),
+            Path.of("models", "evaluation-case-studies", "FriendMap_CallReturn_HL", "violation", "default.nodecharacteristics"),
+            EvaluationSpecificationType.NeededConfidentialityCharacterisations, true);
+
+    public static final EvaluationModelData friendMapModel = new EvaluationModelData(friendMap, List.of(friendMapNoViolation, friendMapViolation),
+            (vertex) -> EvaluationModelConditionUtils.flowsTo(vertex, "Lattice", "High", "NodeClearance", "Attack"));
+
+    public static final EvaluationModelInstanceData friendMapNoViolationManuallySpecified = new EvaluationModelInstanceData(
+            Path.of("models", "evaluation-case-studies", "FriendMap_CallReturn_HL", "noViolation-cvcs", "newUsageModel.usagemodel"),
+            Path.of("models", "evaluation-case-studies", "FriendMap_CallReturn_HL", "noViolation-cvcs", "newAllocation.allocation"),
+            Path.of("models", "evaluation-case-studies", "FriendMap_CallReturn_HL", "noViolation-cvcs", "default.nodecharacteristics"),
+            EvaluationSpecificationType.AllConfidentialityCharacterisations, false);
+    public static final EvaluationModelInstanceData friendMapViolationManuallySpecified = new EvaluationModelInstanceData(
+            Path.of("models", "evaluation-case-studies", "FriendMap_CallReturn_HL", "violation-cvcs", "newUsageModel_withIssue.usagemodel"),
+            Path.of("models", "evaluation-case-studies", "FriendMap_CallReturn_HL", "violation-cvcs", "newAllocation_withIssue.allocation"),
+            Path.of("models", "evaluation-case-studies", "FriendMap_CallReturn_HL", "violation-cvcs", "default.nodecharacteristics"),
+            EvaluationSpecificationType.AllConfidentialityCharacterisations, true);
+
+    public static final EvaluationModelData friendMapModelManuallySpecified = new EvaluationModelData(friendMap,
+            List.of(friendMapNoViolationManuallySpecified, friendMapViolationManuallySpecified),
+            (vertex) -> EvaluationModelConditionUtils.flowsTo(vertex, "Lattice", "High", "NodeClearance", "Attack"));
+
+    /*
+     * Hospital
+     */
+
+    public static final EvaluationModelInstanceData hospitalNoViolation = new EvaluationModelInstanceData(
+            Path.of("models", "evaluation-case-studies", "Hospital_CallReturn_HL", "noViolation", "newUsageModel.usagemodel"),
+            Path.of("models", "evaluation-case-studies", "Hospital_CallReturn_HL", "noViolation", "newAllocation.allocation"),
+            Path.of("models", "evaluation-case-studies", "Hospital_CallReturn_HL", "noViolation", "default.nodecharacteristics"),
+            EvaluationSpecificationType.NeededConfidentialityCharacterisations, false);
+    public static final EvaluationModelInstanceData hospitalViolation = new EvaluationModelInstanceData(
+            Path.of("models", "evaluation-case-studies", "Hospital_CallReturn_HL", "violation", "newUsageModel_withIssue.usagemodel"),
+            Path.of("models", "evaluation-case-studies", "Hospital_CallReturn_HL", "violation", "newAllocation_withIssue.allocation"),
+            Path.of("models", "evaluation-case-studies", "Hospital_CallReturn_HL", "violation", "default.nodecharacteristics"),
+            EvaluationSpecificationType.NeededConfidentialityCharacterisations, true);
+
+    public static final EvaluationModelData hospitalModel = new EvaluationModelData(hospital, List.of(hospitalNoViolation, hospitalViolation),
+            (vertex) -> EvaluationModelConditionUtils.flowsTo(vertex, "Lattice", "High", "NodeClearance", "Attack"));
+
+    public static final EvaluationModelInstanceData hospitalNoViolationManuallySpecified = new EvaluationModelInstanceData(
+            Path.of("models", "evaluation-case-studies", "Hospital_CallReturn_HL", "noViolation-cvcs", "newUsageModel.usagemodel"),
+            Path.of("models", "evaluation-case-studies", "Hospital_CallReturn_HL", "noViolation-cvcs", "newAllocation.allocation"),
+            Path.of("models", "evaluation-case-studies", "Hospital_CallReturn_HL", "noViolation-cvcs", "default.nodecharacteristics"),
+            EvaluationSpecificationType.AllConfidentialityCharacterisations, false);
+    public static final EvaluationModelInstanceData hospitalViolationManuallySpecified = new EvaluationModelInstanceData(
+            Path.of("models", "evaluation-case-studies", "Hospital_CallReturn_HL", "violation-cvcs", "newUsageModel_withIssue.usagemodel"),
+            Path.of("models", "evaluation-case-studies", "Hospital_CallReturn_HL", "violation-cvcs", "newAllocation_withIssue.allocation"),
+            Path.of("models", "evaluation-case-studies", "Hospital_CallReturn_HL", "violation-cvcs", "default.nodecharacteristics"),
+            EvaluationSpecificationType.AllConfidentialityCharacterisations, true);
+
+    public static final EvaluationModelData hospitalModelManuallySpecified = new EvaluationModelData(hospital,
+            List.of(hospitalNoViolationManuallySpecified, hospitalViolationManuallySpecified),
+            (vertex) -> EvaluationModelConditionUtils.flowsTo(vertex, "Lattice", "High", "NodeClearance", "Attack"));
+
+    /*
+     * JPMail
+     */
+
+    // Uses data channel elements
+
+    /*
+     * TravelPlanner
+     */
+
+    public static final EvaluationModelInstanceData travelPlannerNoViolation = new EvaluationModelInstanceData(
+            Path.of("models", "evaluation-case-studies", "TravelPlanner_CallReturn_HL", "noViolation", "newUsageModel.usagemodel"),
+            Path.of("models", "evaluation-case-studies", "TravelPlanner_CallReturn_HL", "noViolation", "newAllocation.allocation"),
+            Path.of("models", "evaluation-case-studies", "TravelPlanner_CallReturn_HL", "noViolation", "default.nodecharacteristics"),
+            EvaluationSpecificationType.NeededConfidentialityCharacterisations, false);
+    public static final EvaluationModelInstanceData travelPlannerViolation = new EvaluationModelInstanceData(
+            Path.of("models", "evaluation-case-studies", "TravelPlanner_CallReturn_HL", "violation", "newUsageModel_withIssue.usagemodel"),
+            Path.of("models", "evaluation-case-studies", "TravelPlanner_CallReturn_HL", "violation", "newAllocation.allocation"),
+            Path.of("models", "evaluation-case-studies", "TravelPlanner_CallReturn_HL", "violation", "default.nodecharacteristics"),
+            EvaluationSpecificationType.NeededConfidentialityCharacterisations, true);
+
+    public static final EvaluationModelData travelPlannerModel = new EvaluationModelData(travelPlanner,
+            List.of(travelPlannerNoViolation, travelPlannerViolation),
+            (vertex) -> EvaluationModelConditionUtils.flowsToLower(vertex, "UserAndAirlineAndTravelAgency", "UserAndAirline", "User"));
+
+    public static final EvaluationModelInstanceData travelPlannerNoViolationManuallySpecified = new EvaluationModelInstanceData(
+            Path.of("models", "evaluation-case-studies", "TravelPlanner_CallReturn_HL", "noViolation-cvcs", "newUsageModel.usagemodel"),
+            Path.of("models", "evaluation-case-studies", "TravelPlanner_CallReturn_HL", "noViolation-cvcs", "newAllocation.allocation"),
+            Path.of("models", "evaluation-case-studies", "TravelPlanner_CallReturn_HL", "noViolation-cvcs", "default.nodecharacteristics"),
+            EvaluationSpecificationType.AllConfidentialityCharacterisations, false);
+    public static final EvaluationModelInstanceData travelPlannerViolationManuallySpecified = new EvaluationModelInstanceData(
+            Path.of("models", "evaluation-case-studies", "TravelPlanner_CallReturn_HL", "violation-cvcs", "newUsageModel_withIssue.usagemodel"),
+            Path.of("models", "evaluation-case-studies", "TravelPlanner_CallReturn_HL", "violation-cvcs", "newAllocation.allocation"),
+            Path.of("models", "evaluation-case-studies", "TravelPlanner_CallReturn_HL", "violation-cvcs", "default.nodecharacteristics"),
+            EvaluationSpecificationType.AllConfidentialityCharacterisations, true);
+
+    public static final EvaluationModelData travelPlannerModelManuallySpecified = new EvaluationModelData(travelPlanner,
+            List.of(travelPlannerNoViolationManuallySpecified, travelPlannerViolationManuallySpecified),
+            (vertex) -> EvaluationModelConditionUtils.flowsToLower(vertex, "UserAndAirlineAndTravelAgency", "UserAndAirline", "User"));
+
+    /*
+     * WebRTC
+     */
+
+    // Uses data channel elements
 
 }

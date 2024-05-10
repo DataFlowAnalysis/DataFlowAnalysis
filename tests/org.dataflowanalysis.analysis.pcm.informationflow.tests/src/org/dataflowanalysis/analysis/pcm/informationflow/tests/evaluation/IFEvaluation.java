@@ -14,6 +14,7 @@ public class IFEvaluation {
 
     public static void main(String[] args) {
 
+        resultStrings.add("----### structural models ###----");
         resultStrings.add("---- generated ----");
 
         evaluateModel(EvaluationModels.explicitDirectModel);
@@ -35,6 +36,27 @@ public class IFEvaluation {
         evaluateModel(EvaluationModels.implicitNestedModelManuallySpecified);
         evaluateModel(EvaluationModels.implicitSurroundedModelManuallySpecified);
         evaluateModel(EvaluationModels.implicitElseModelManuallySpecified);
+
+        resultStrings.add("----### case study models ###----");
+        resultStrings.add("---- generated ----");
+
+        evaluateModel(EvaluationModels.contactSMSModel);
+        evaluateModel(EvaluationModels.distanceTrackerModel);
+        evaluateModel(EvaluationModels.friendMapModel);
+        evaluateModel(EvaluationModels.hospitalModel);
+        // evaluateModel(EvaluationModels.JPMailModel); //Contains Connectors for DataChannels
+        evaluateModel(EvaluationModels.travelPlannerModel);
+        // evaluateModel(EvaluationModels.webRTCModel); //Contains Connectors for DataChannels
+
+        resultStrings.add("---- manually specified ----");
+
+        evaluateModel(EvaluationModels.contactSMSModelManuallySpecified);
+        evaluateModel(EvaluationModels.distanceTrackerModelManuallySpecified);
+        evaluateModel(EvaluationModels.friendMapModelManuallySpecified);
+        evaluateModel(EvaluationModels.hospitalModelManuallySpecified);
+        // evaluateModel(EvaluationModels.JPMailModelManuallySpecified); //Contains Connectors for DataChannels
+        evaluateModel(EvaluationModels.travelPlannerModelManuallySpecified);
+        // evaluateModel(EvaluationModels.webRTCModelManuallySpecified); //Contains Connectors for DataChannels
 
         printResults();
     }

@@ -41,6 +41,12 @@
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="patientList"/>
         </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="patientList.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="patientList"/>
+        </inputVariableUsages__CallAction>
       </steps_Behaviour>
     </serviceEffectSpecifications__BasicComponent>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_EeC9QIN7Eeyth_Kqe2ur6g" describedService__SEFF="_KYwdoIN6Eeyth_Kqe2ur6g">
@@ -57,6 +63,12 @@
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="patientList"/>
         </returnVariableUsage__CallReturnAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="RETURN.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="patientList"/>
+        </returnVariableUsage__CallReturnAction>
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:SetVariableAction" id="_ofz7UIN7Eeyth_Kqe2ur6g" entityName="PatientsDBLogic.get.return" predecessor_AbstractAction="_mwsuIIN7Eeyth_Kqe2ur6g" successor_AbstractAction="_EeC9QoN7Eeyth_Kqe2ur6g">
         <localVariableUsages_SetVariableAction>
@@ -66,6 +78,12 @@
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_jAEfsYN8Eeyth_Kqe2ur6g">
               <namedReference xsi:type="stoex:VariableReference" referenceName="patientList"/>
             </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="patientList.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
         </localVariableUsages_SetVariableAction>
@@ -113,6 +131,12 @@
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="patientList"/>
         </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="patientList.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="patientList"/>
+        </inputVariableUsages__CallAction>
       </steps_Behaviour>
     </serviceEffectSpecifications__BasicComponent>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_Df3BQIN8Eeyth_Kqe2ur6g" describedService__SEFF="_uSNNMIN6Eeyth_Kqe2ur6g">
@@ -126,6 +150,12 @@
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_xG-BkoN_Eeyth_Kqe2ur6g">
               <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
             </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="patientList"/>
+        </returnVariableUsage__CallReturnAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="RETURN.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="patientList"/>
         </returnVariableUsage__CallReturnAction>
@@ -174,17 +204,17 @@
             <specification_VariableCharacterisation specification="false"/>
             <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_H1ckqIOAEeyth_Kqe2ur6g">
               <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
-              <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@0"/>
+              <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
             </lhs>
             <rhs xsi:type="expressions:And" id="_H1ckqYOAEeyth_Kqe2ur6g">
               <left xsi:type="expression:NamedEnumCharacteristicReference" id="_H1ckqoOAEeyth_Kqe2ur6g">
                 <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
-                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@0"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
                 <namedReference xsi:type="stoex:VariableReference" referenceName="request"/>
               </left>
               <right xsi:type="expression:NamedEnumCharacteristicReference" id="_H1ckq4OAEeyth_Kqe2ur6g">
                 <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
-                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@0"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
                 <namedReference xsi:type="stoex:VariableReference" referenceName="patientList"/>
               </right>
             </rhs>
@@ -193,17 +223,17 @@
             <specification_VariableCharacterisation specification="false"/>
             <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_H1ckrIOAEeyth_Kqe2ur6g">
               <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
-              <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@1"/>
+              <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
             </lhs>
             <rhs xsi:type="expressions:Or" id="_H1ckrYOAEeyth_Kqe2ur6g">
               <left xsi:type="expression:NamedEnumCharacteristicReference" id="_H1dLsIOAEeyth_Kqe2ur6g">
                 <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
-                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@1"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
                 <namedReference xsi:type="stoex:VariableReference" referenceName="request"/>
               </left>
               <right xsi:type="expression:NamedEnumCharacteristicReference" id="_H1dLsYOAEeyth_Kqe2ur6g">
                 <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
-                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@1"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
                 <namedReference xsi:type="stoex:VariableReference" referenceName="patientList"/>
               </right>
             </rhs>

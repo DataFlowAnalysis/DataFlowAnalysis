@@ -1,0 +1,14 @@
+dictionary id "_4lCgkA00Ee-5C6doYp1KxQ"
+
+enum Lattice {
+	UserAndAirlineAndTravelAgency
+	UserAndAirline
+	User
+}
+enum Actors {
+	FlightPlanner
+	User
+}
+enumCharacteristicType Lattice using Lattice
+enumCharacteristicType NodeClearance using Lattice
+enumCharacteristicType CorrespondingActor using Actors

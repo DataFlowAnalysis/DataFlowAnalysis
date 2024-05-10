@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="ASCII"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DataDictionaryCharacterized="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/1.0" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:confidentiality="http://dataflowanalysis.org/pcm/extension/model/0.1.0" xmlns:expression="http://dataflowanalysis.org/pcm/extension/model/0.1.0/expression" xmlns:expressions="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/expressions/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="_uAqqUDlsEeunY9-OetIYyA" entityName="New Repository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_N-cZEDluEeunY9-OetIYyA" entityName="FlightDB">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_TOSiEDluEeunY9-OetIYyA" entityName="FlightDB.provided.FlightStorage" providedInterface__OperationProvidedRole="_NJE3UDluEeunY9-OetIYyA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_TOvOADluEeunY9-OetIYyA" describedService__SEFF="_O5GqgDluEeunY9-OetIYyA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_TOvOATluEeunY9-OetIYyA" successor_AbstractAction="_QQ4G-w05Ee-5C6doYp1KxQ"/>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_QQ4G-w05Ee-5C6doYp1KxQ" predecessor_AbstractAction="_TOvOATluEeunY9-OetIYyA" successor_AbstractAction="_TOvOAjluEeunY9-OetIYyA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_WvskgA05Ee-5C6doYp1KxQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicTypes@0"/>
+              <literal href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_XxOS9g05Ee-5C6doYp1KxQ"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_TOvOAjluEeunY9-OetIYyA" predecessor_AbstractAction="_QQ4G-w05Ee-5C6doYp1KxQ"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_TP8H4DluEeunY9-OetIYyA" describedService__SEFF="_PgYs8DluEeunY9-OetIYyA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_TP8u8DluEeunY9-OetIYyA" successor_AbstractAction="_TP8u8TluEeunY9-OetIYyA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_TP8u8TluEeunY9-OetIYyA" predecessor_AbstractAction="_TP8u8DluEeunY9-OetIYyA"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_X72dYDluEeunY9-OetIYyA" entityName="AirlineLogic">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_nVGfUDluEeunY9-OetIYyA" entityName="AirlineLogic.provided.FlightPlanner" providedInterface__OperationProvidedRole="_crZLIDltEeunY9-OetIYyA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_PxWrsDlvEeunY9-OetIYyA" entityName="AirlineLogic.provided.FlightBooking" providedInterface__OperationProvidedRole="_4RsjUDluEeunY9-OetIYyA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_UfM64DlvEeunY9-OetIYyA" entityName="AirlineLogic.provided.FindflightsByQuery" providedInterface__OperationProvidedRole="_FNymUDlvEeunY9-OetIYyA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_lW8wkDluEeunY9-OetIYyA" entityName="AirlineLogic.requires.FlightStorage" requiredInterface__OperationRequiredRole="_NJE3UDluEeunY9-OetIYyA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_dxCdMDlwEeunY9-OetIYyA" entityName="AirlineLogic.required.ComissionReceiver" requiredInterface__OperationRequiredRole="_cpv6cDlvEeunY9-OetIYyA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_4xnDYDl3EeunY9-OetIYyA" entityName="AirlineLogic.required.BookingStorage" requiredInterface__OperationRequiredRole="_i__KIDl3EeunY9-OetIYyA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_nVI7kDluEeunY9-OetIYyA" describedService__SEFF="_wxyRoDltEeunY9-OetIYyA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_nVKJsDluEeunY9-OetIYyA" successor_AbstractAction="_bZxmsDl3EeunY9-OetIYyA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_nVKJsTluEeunY9-OetIYyA" predecessor_AbstractAction="_bZxmsDl3EeunY9-OetIYyA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_bZxmsDl3EeunY9-OetIYyA" entityName="AirlineLogic.addFlight.call" predecessor_AbstractAction="_nVKJsDluEeunY9-OetIYyA" successor_AbstractAction="_nVKJsTluEeunY9-OetIYyA" calledService_ExternalService="_PgYs8DluEeunY9-OetIYyA" role_ExternalService="_lW8wkDluEeunY9-OetIYyA">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_o_s0YDl4EeunY9-OetIYyA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_pnHZszl4EeunY9-OetIYyA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="flight"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="flight"/>
+        </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="flight.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="flight"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_Pxw7YDlvEeunY9-OetIYyA" describedService__SEFF="_5073sDluEeunY9-OetIYyA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_PxxicDlvEeunY9-OetIYyA" successor_AbstractAction="_DXPlUDl4EeunY9-OetIYyA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_PxxicTlvEeunY9-OetIYyA" predecessor_AbstractAction="_Jq2RYDl4EeunY9-OetIYyA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_DXPlUDl4EeunY9-OetIYyA" entityName="AirlineLogic.bookFlight.callDB" predecessor_AbstractAction="_PxxicDlvEeunY9-OetIYyA" successor_AbstractAction="_Gw0JMDl4EeunY9-OetIYyA" calledService_ExternalService="_paPQwDl3EeunY9-OetIYyA" role_ExternalService="_4xnDYDl3EeunY9-OetIYyA">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_kn7AMDmWEeunY9-OetIYyA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicTypes@0"/>
+              <literal href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicEnumerations@0.literals@2"/>
+            </lhs>
+            <rhs xsi:type="expressions:Or" id="_o41byjmWEeunY9-OetIYyA">
+              <left xsi:type="expression:NamedEnumCharacteristicReference" id="_puiUwTmWEeunY9-OetIYyA">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicEnumerations@0.literals@2"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="ccd"/>
+              </left>
+              <right xsi:type="expression:NamedEnumCharacteristicReference" id="_rix5lTmWEeunY9-OetIYyA">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicEnumerations@0.literals@2"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="flight"/>
+              </right>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_0oBmwDmWEeunY9-OetIYyA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicTypes@0"/>
+              <literal href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:And" id="_2BkzqTmWEeunY9-OetIYyA">
+              <left xsi:type="expression:NamedEnumCharacteristicReference" id="_2hC98TmWEeunY9-OetIYyA">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="ccd"/>
+              </left>
+              <right xsi:type="expression:NamedEnumCharacteristicReference" id="_3b9uFTmWEeunY9-OetIYyA">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="flight"/>
+              </right>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_9FJkEDmWEeunY9-OetIYyA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicTypes@0"/>
+              <literal href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:Or" id="__HRz6jmWEeunY9-OetIYyA">
+              <left xsi:type="expressions:And" id="_AOM_szmXEeunY9-OetIYyA">
+                <left xsi:type="expression:NamedEnumCharacteristicReference" id="_ITUswTmXEeunY9-OetIYyA">
+                  <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicTypes@0"/>
+                  <literal href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+                  <namedReference xsi:type="stoex:VariableReference" referenceName="ccd"/>
+                </left>
+                <right xsi:type="expressions:Or" id="_K-WvnDmXEeunY9-OetIYyA">
+                  <left xsi:type="expression:NamedEnumCharacteristicReference" id="_LUjCETmXEeunY9-OetIYyA">
+                    <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicTypes@0"/>
+                    <literal href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+                    <namedReference xsi:type="stoex:VariableReference" referenceName="flight"/>
+                  </left>
+                  <right xsi:type="expression:NamedEnumCharacteristicReference" id="_MAilZTmXEeunY9-OetIYyA">
+                    <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicTypes@0"/>
+                    <literal href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+                    <namedReference xsi:type="stoex:VariableReference" referenceName="flight"/>
+                  </right>
+                </right>
+              </left>
+              <right xsi:type="expressions:And" id="_A4ZzSzmXEeunY9-OetIYyA">
+                <left xsi:type="expression:NamedEnumCharacteristicReference" id="_SQoqcTmXEeunY9-OetIYyA">
+                  <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicTypes@0"/>
+                  <literal href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+                  <namedReference xsi:type="stoex:VariableReference" referenceName="flight"/>
+                </left>
+                <right xsi:type="expressions:Or" id="_T6XoXDmXEeunY9-OetIYyA">
+                  <left xsi:type="expression:NamedEnumCharacteristicReference" id="_UNOS8TmXEeunY9-OetIYyA">
+                    <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicTypes@0"/>
+                    <literal href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+                    <namedReference xsi:type="stoex:VariableReference" referenceName="ccd"/>
+                  </left>
+                  <right xsi:type="expression:NamedEnumCharacteristicReference" id="_U2VhZTmXEeunY9-OetIYyA">
+                    <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicTypes@0"/>
+                    <literal href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+                    <namedReference xsi:type="stoex:VariableReference" referenceName="ccd"/>
+                  </right>
+                </right>
+              </right>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="booking"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_Gw0JMDl4EeunY9-OetIYyA" entityName="AirlineLogic.bookFlight.callTA" predecessor_AbstractAction="_DXPlUDl4EeunY9-OetIYyA" successor_AbstractAction="_Jq2RYDl4EeunY9-OetIYyA" calledService_ExternalService="_d5cAsDlvEeunY9-OetIYyA" role_ExternalService="_dxCdMDlwEeunY9-OetIYyA">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_zRZ4QDl5EeunY9-OetIYyA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicTypes@0"/>
+              <literal href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_0kssJjl5EeunY9-OetIYyA"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="commission"/>
+        </inputVariableUsages__CallAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_4dOc4Dl5EeunY9-OetIYyA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_4-RUczl5EeunY9-OetIYyA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="confirmation"/>
+        </returnVariableUsage__CallReturnAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="RETURN.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="confirmation"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_Jq2RYDl4EeunY9-OetIYyA" entityName="AirlineLogic.bookFlight.return" predecessor_AbstractAction="_Gw0JMDl4EeunY9-OetIYyA" successor_AbstractAction="_PxxicTlvEeunY9-OetIYyA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_-EPvwDl5EeunY9-OetIYyA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicTypes@0"/>
+              <literal href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="__e6W9jl5EeunY9-OetIYyA"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_UfOJADlvEeunY9-OetIYyA" describedService__SEFF="_HIexYDlvEeunY9-OetIYyA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_UfOJATlvEeunY9-OetIYyA" successor_AbstractAction="_RzM4kDl4EeunY9-OetIYyA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_UfOJAjlvEeunY9-OetIYyA" predecessor_AbstractAction="_UwnE4Dl4EeunY9-OetIYyA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_RzM4kDl4EeunY9-OetIYyA" entityName="AirlineLogic.findFlights.callDB" predecessor_AbstractAction="_UfOJATlvEeunY9-OetIYyA" successor_AbstractAction="_UwnE4Dl4EeunY9-OetIYyA" calledService_ExternalService="_O5GqgDluEeunY9-OetIYyA" role_ExternalService="_lW8wkDluEeunY9-OetIYyA">
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_MVW6YDl5EeunY9-OetIYyA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_NHdFszl5EeunY9-OetIYyA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="flights"/>
+        </returnVariableUsage__CallReturnAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="RETURN.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="flights"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_UwnE4Dl4EeunY9-OetIYyA" entityName="AirlineLogic.findFlights.return" predecessor_AbstractAction="_RzM4kDl4EeunY9-OetIYyA" successor_AbstractAction="_UfOJAjlvEeunY9-OetIYyA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_Q0VAEDl5EeunY9-OetIYyA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_RkJ6gzl5EeunY9-OetIYyA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="flights"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="flights.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:CompositeComponent" id="_Y7_EsDluEeunY9-OetIYyA" entityName="Airline">
+    <assemblyContexts__ComposedStructure id="_iaNnwDlwEeunY9-OetIYyA" entityName="Assembly_AirlineLogic" encapsulatedComponent__AssemblyContext="_X72dYDluEeunY9-OetIYyA"/>
+    <assemblyContexts__ComposedStructure id="_i4nbADlwEeunY9-OetIYyA" entityName="Assembly_FlightDB" encapsulatedComponent__AssemblyContext="_N-cZEDluEeunY9-OetIYyA"/>
+    <assemblyContexts__ComposedStructure id="_dJCvcDl4EeunY9-OetIYyA" entityName="Assembly_BookingStorage" encapsulatedComponent__AssemblyContext="_t5tFvjl3EeunY9-OetIYyA"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_ncdZoDlwEeunY9-OetIYyA" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_nVGfUDluEeunY9-OetIYyA" outerProvidedRole_ProvidedDelegationConnector="_uJgLUDluEeunY9-OetIYyA" assemblyContext_ProvidedDelegationConnector="_iaNnwDlwEeunY9-OetIYyA"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_n2RAwDlwEeunY9-OetIYyA" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_UfM64DlvEeunY9-OetIYyA" outerProvidedRole_ProvidedDelegationConnector="_SyPCwDlvEeunY9-OetIYyA" assemblyContext_ProvidedDelegationConnector="_iaNnwDlwEeunY9-OetIYyA"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_oQllQDlwEeunY9-OetIYyA" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_PxWrsDlvEeunY9-OetIYyA" outerProvidedRole_ProvidedDelegationConnector="_OSCOADlvEeunY9-OetIYyA" assemblyContext_ProvidedDelegationConnector="_iaNnwDlwEeunY9-OetIYyA"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_p9d90DlwEeunY9-OetIYyA" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_iaNnwDlwEeunY9-OetIYyA" providingAssemblyContext_AssemblyConnector="_i4nbADlwEeunY9-OetIYyA" providedRole_AssemblyConnector="_TOSiEDluEeunY9-OetIYyA" requiredRole_AssemblyConnector="_lW8wkDluEeunY9-OetIYyA"/>
+    <connectors__ComposedStructure xsi:type="composition:RequiredDelegationConnector" id="_qbAOYDlwEeunY9-OetIYyA" entityName="newRequiredDelegationConnector" innerRequiredRole_RequiredDelegationConnector="_dxCdMDlwEeunY9-OetIYyA" outerRequiredRole_RequiredDelegationConnector="_dNo1MDlwEeunY9-OetIYyA" assemblyContext_RequiredDelegationConnector="_iaNnwDlwEeunY9-OetIYyA"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_e1o0IDl4EeunY9-OetIYyA" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_iaNnwDlwEeunY9-OetIYyA" providingAssemblyContext_AssemblyConnector="_dJCvcDl4EeunY9-OetIYyA" providedRole_AssemblyConnector="_9wyTIDl3EeunY9-OetIYyA" requiredRole_AssemblyConnector="_4xnDYDl3EeunY9-OetIYyA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_uJgLUDluEeunY9-OetIYyA" entityName="Airline.provided.FlightPlanner" providedInterface__OperationProvidedRole="_crZLIDltEeunY9-OetIYyA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_OSCOADlvEeunY9-OetIYyA" entityName="Airline.provided.FlightBooking" providedInterface__OperationProvidedRole="_4RsjUDluEeunY9-OetIYyA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_SyPCwDlvEeunY9-OetIYyA" entityName="Airline.provided.FindflightsByQuery" providedInterface__OperationProvidedRole="_FNymUDlvEeunY9-OetIYyA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_dNo1MDlwEeunY9-OetIYyA" entityName="Airline.required.ComissionReceiver" requiredInterface__OperationRequiredRole="_cpv6cDlvEeunY9-OetIYyA"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_idTNcDlvEeunY9-OetIYyA" entityName="CommissionDB">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_3DX5kDlvEeunY9-OetIYyA" entityName="CommissionDB.provided.ComissionStore" providedInterface__OperationProvidedRole="_wrubADlvEeunY9-OetIYyA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_3DZHsDlvEeunY9-OetIYyA" describedService__SEFF="_xs91kDlvEeunY9-OetIYyA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_3DZHsTlvEeunY9-OetIYyA" successor_AbstractAction="_3DZHsjlvEeunY9-OetIYyA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_3DZHsjlvEeunY9-OetIYyA" predecessor_AbstractAction="_3DZHsTlvEeunY9-OetIYyA"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_3DmjEDlvEeunY9-OetIYyA" describedService__SEFF="_0NtUADlvEeunY9-OetIYyA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_3DmjETlvEeunY9-OetIYyA" successor_AbstractAction="_3DmjEjlvEeunY9-OetIYyA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_3DmjEjlvEeunY9-OetIYyA" predecessor_AbstractAction="_3DmjETlvEeunY9-OetIYyA"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_6nFQ4DlvEeunY9-OetIYyA" entityName="TravelAgencyLogic">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_-RDoQDlvEeunY9-OetIYyA" entityName="TravelAgencyLogic.provided.ComissionReceiver" providedInterface__OperationProvidedRole="_cpv6cDlvEeunY9-OetIYyA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_CrIm4DlwEeunY9-OetIYyA" entityName="TravelAgencyLogic.provided.FindFlightsByCriteria" providedInterface__OperationProvidedRole="__aE7QDluEeunY9-OetIYyA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_GpBYwDlwEeunY9-OetIYyA" entityName="TravelAgencyLogic.required.ComissionStore" requiredInterface__OperationRequiredRole="_wrubADlvEeunY9-OetIYyA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_NaSRMDlwEeunY9-OetIYyA" entityName="TravelAgencyLogic.required.FindflightsByQuery" requiredInterface__OperationRequiredRole="_FNymUDlvEeunY9-OetIYyA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_-REPUDlvEeunY9-OetIYyA" describedService__SEFF="_d5cAsDlvEeunY9-OetIYyA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_-RE2YDlvEeunY9-OetIYyA" successor_AbstractAction="_GlZY0Dl3EeunY9-OetIYyA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_-RE2YTlvEeunY9-OetIYyA" predecessor_AbstractAction="_JZG2kDl3EeunY9-OetIYyA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_GlZY0Dl3EeunY9-OetIYyA" entityName="TravelAgencyLogic.receiveCommission.call" predecessor_AbstractAction="_-RE2YDlvEeunY9-OetIYyA" successor_AbstractAction="_JZG2kDl3EeunY9-OetIYyA" calledService_ExternalService="_xs91kDlvEeunY9-OetIYyA" role_ExternalService="_GpBYwDlwEeunY9-OetIYyA">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_Fb9uwDl7EeunY9-OetIYyA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_GgtwUjl7EeunY9-OetIYyA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="commission"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="commission"/>
+        </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="commission.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="commission"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_JZG2kDl3EeunY9-OetIYyA" entityName="TravelAgencyLogic.receiveCommission.return" predecessor_AbstractAction="_GlZY0Dl3EeunY9-OetIYyA" successor_AbstractAction="_-RE2YTlvEeunY9-OetIYyA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_ORuOgDl7EeunY9-OetIYyA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicTypes@0"/>
+              <literal href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_OzJgljl7EeunY9-OetIYyA"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_CrLDIDlwEeunY9-OetIYyA" describedService__SEFF="_BmXMoDlvEeunY9-OetIYyA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_CrLqMDlwEeunY9-OetIYyA" successor_AbstractAction="_Rgf0cDl3EeunY9-OetIYyA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_CrLqMTlwEeunY9-OetIYyA" predecessor_AbstractAction="_UCq2QDl3EeunY9-OetIYyA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_Rgf0cDl3EeunY9-OetIYyA" entityName="TravelAgencyLogic.findFlights.call" predecessor_AbstractAction="_CrLqMDlwEeunY9-OetIYyA" successor_AbstractAction="_UCq2QDl3EeunY9-OetIYyA" calledService_ExternalService="_HIexYDlvEeunY9-OetIYyA" role_ExternalService="_NaSRMDlwEeunY9-OetIYyA">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_Td5_gDl7EeunY9-OetIYyA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_UIvFMzl7EeunY9-OetIYyA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="criteria"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="query"/>
+        </inputVariableUsages__CallAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_ZIdukDl7EeunY9-OetIYyA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_Zta1wzl7EeunY9-OetIYyA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="flights"/>
+        </returnVariableUsage__CallReturnAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="RETURN.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="flights"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_UCq2QDl3EeunY9-OetIYyA" entityName="TravelAgencyLogic.findFlights.return" predecessor_AbstractAction="_Rgf0cDl3EeunY9-OetIYyA" successor_AbstractAction="_CrLqMTlwEeunY9-OetIYyA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_dyxhkDl7EeunY9-OetIYyA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_ebZAwzl7EeunY9-OetIYyA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="flights"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="flights.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:CompositeComponent" id="_7uRicDlvEeunY9-OetIYyA" entityName="TravelAgency">
+    <assemblyContexts__ComposedStructure id="_Q1HZUDlwEeunY9-OetIYyA" entityName="Assembly_TravelAgencyLogic" encapsulatedComponent__AssemblyContext="_6nFQ4DlvEeunY9-OetIYyA"/>
+    <assemblyContexts__ComposedStructure id="_RcoFQDlwEeunY9-OetIYyA" entityName="Assembly_CommissionDB" encapsulatedComponent__AssemblyContext="_idTNcDlvEeunY9-OetIYyA"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_X5dl0DlwEeunY9-OetIYyA" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_CrIm4DlwEeunY9-OetIYyA" outerProvidedRole_ProvidedDelegationConnector="_DFmVUDlwEeunY9-OetIYyA" assemblyContext_ProvidedDelegationConnector="_Q1HZUDlwEeunY9-OetIYyA"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_YYRBsDlwEeunY9-OetIYyA" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_-RDoQDlvEeunY9-OetIYyA" outerProvidedRole_ProvidedDelegationConnector="_-0zOgDlvEeunY9-OetIYyA" assemblyContext_ProvidedDelegationConnector="_Q1HZUDlwEeunY9-OetIYyA"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_Y4G_YDlwEeunY9-OetIYyA" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_Q1HZUDlwEeunY9-OetIYyA" providingAssemblyContext_AssemblyConnector="_RcoFQDlwEeunY9-OetIYyA" providedRole_AssemblyConnector="_3DX5kDlvEeunY9-OetIYyA" requiredRole_AssemblyConnector="_GpBYwDlwEeunY9-OetIYyA"/>
+    <connectors__ComposedStructure xsi:type="composition:RequiredDelegationConnector" id="_ZZAtADlwEeunY9-OetIYyA" entityName="newRequiredDelegationConnector" innerRequiredRole_RequiredDelegationConnector="_NaSRMDlwEeunY9-OetIYyA" outerRequiredRole_RequiredDelegationConnector="_OEtuQDlwEeunY9-OetIYyA" assemblyContext_RequiredDelegationConnector="_Q1HZUDlwEeunY9-OetIYyA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_-0zOgDlvEeunY9-OetIYyA" entityName="TravelAgency.provided.ComissionReceiver" providedInterface__OperationProvidedRole="_cpv6cDlvEeunY9-OetIYyA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_DFmVUDlwEeunY9-OetIYyA" entityName="TravelAgency.provided.FindFlightsByCriteria" providedInterface__OperationProvidedRole="__aE7QDluEeunY9-OetIYyA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_OEtuQDlwEeunY9-OetIYyA" entityName="TravelAgency.required.FindflightsByQuery" requiredInterface__OperationRequiredRole="_FNymUDlvEeunY9-OetIYyA"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_7dUf4DlwEeunY9-OetIYyA" entityName="TravelPlannerLogic">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_Ay6EgDlxEeunY9-OetIYyA" entityName="TravelPlannerLogic.provided.FindFlightsByCriteria" providedInterface__OperationProvidedRole="__aE7QDluEeunY9-OetIYyA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_FMR4gDlxEeunY9-OetIYyA" entityName="TravelPlannerLogic.provided.FlightBooking" providedInterface__OperationProvidedRole="_4RsjUDluEeunY9-OetIYyA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_JVdUYDlxEeunY9-OetIYyA" entityName="TravelPlannerLogic.required.FindFlightsByCriteria" requiredInterface__OperationRequiredRole="__aE7QDluEeunY9-OetIYyA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_MpB98DlxEeunY9-OetIYyA" entityName="TravelPlannerLogic.required.FlightBooking" requiredInterface__OperationRequiredRole="_4RsjUDluEeunY9-OetIYyA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_AzViUDlxEeunY9-OetIYyA" describedService__SEFF="_BmXMoDlvEeunY9-OetIYyA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_AzViUTlxEeunY9-OetIYyA" successor_AbstractAction="_rsgDwDl2EeunY9-OetIYyA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_AzViUjlxEeunY9-OetIYyA" predecessor_AbstractAction="_zSwqgDl2EeunY9-OetIYyA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_rsgDwDl2EeunY9-OetIYyA" entityName="TravelPlannerLogic.findFlights.call" predecessor_AbstractAction="_AzViUTlxEeunY9-OetIYyA" successor_AbstractAction="_zSwqgDl2EeunY9-OetIYyA" calledService_ExternalService="_BmXMoDlvEeunY9-OetIYyA" role_ExternalService="_JVdUYDlxEeunY9-OetIYyA">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_HeaSMDl8EeunY9-OetIYyA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_H9ZUQzl8EeunY9-OetIYyA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="criteria"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="criteria"/>
+        </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="criteria.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="criteria"/>
+        </inputVariableUsages__CallAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_MQUiADl8EeunY9-OetIYyA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_NORYAzl8EeunY9-OetIYyA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="flights"/>
+        </returnVariableUsage__CallReturnAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="RETURN.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="flights"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_zSwqgDl2EeunY9-OetIYyA" entityName="TravelPlannerLogic.findFlights.return" predecessor_AbstractAction="_rsgDwDl2EeunY9-OetIYyA" successor_AbstractAction="_AzViUjlxEeunY9-OetIYyA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_P18k4Dl8EeunY9-OetIYyA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_Qp4jQzl8EeunY9-OetIYyA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="flights"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="flights.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_FMSfkDlxEeunY9-OetIYyA" describedService__SEFF="_5073sDluEeunY9-OetIYyA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_FMSfkTlxEeunY9-OetIYyA" successor_AbstractAction="_7IXU0Dl2EeunY9-OetIYyA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_FMSfkjlxEeunY9-OetIYyA" predecessor_AbstractAction="_-J5zMDl2EeunY9-OetIYyA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_7IXU0Dl2EeunY9-OetIYyA" entityName="TravelPlannerLogic.bookFlight.call" predecessor_AbstractAction="_FMSfkTlxEeunY9-OetIYyA" successor_AbstractAction="_-J5zMDl2EeunY9-OetIYyA" calledService_ExternalService="_5073sDluEeunY9-OetIYyA" role_ExternalService="_MpB98DlxEeunY9-OetIYyA">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_YoyTgDl8EeunY9-OetIYyA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_Y-W64zl8EeunY9-OetIYyA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="ccd"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="ccd"/>
+        </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_WykYwDl8EeunY9-OetIYyA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_XMKkgzl8EeunY9-OetIYyA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="flight"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="flight"/>
+        </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="ccd.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="ccd"/>
+        </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="flight.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="flight"/>
+        </inputVariableUsages__CallAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_cnBDoDl8EeunY9-OetIYyA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_dWYrEzl8EeunY9-OetIYyA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="confirmation"/>
+        </returnVariableUsage__CallReturnAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="RETURN.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="confirmation"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_-J5zMDl2EeunY9-OetIYyA" entityName="TravelPlannerLogic.bookFlight.return" predecessor_AbstractAction="_7IXU0Dl2EeunY9-OetIYyA" successor_AbstractAction="_FMSfkjlxEeunY9-OetIYyA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_gG1ZcDl8EeunY9-OetIYyA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_glRB4zl8EeunY9-OetIYyA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="confirmation"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="confirmation.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:CompositeComponent" id="_8vLJUDlwEeunY9-OetIYyA" entityName="TravelPlanner">
+    <assemblyContexts__ComposedStructure id="_gQnBgDlxEeunY9-OetIYyA" entityName="Assembly_TravelPlannerLogic" encapsulatedComponent__AssemblyContext="_7dUf4DlwEeunY9-OetIYyA"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_j5ksQDlxEeunY9-OetIYyA" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_Ay6EgDlxEeunY9-OetIYyA" outerProvidedRole_ProvidedDelegationConnector="__FhVoDlwEeunY9-OetIYyA" assemblyContext_ProvidedDelegationConnector="_gQnBgDlxEeunY9-OetIYyA"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_kS_44DlxEeunY9-OetIYyA" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_FMR4gDlxEeunY9-OetIYyA" outerProvidedRole_ProvidedDelegationConnector="_DpZwgDlxEeunY9-OetIYyA" assemblyContext_ProvidedDelegationConnector="_gQnBgDlxEeunY9-OetIYyA"/>
+    <connectors__ComposedStructure xsi:type="composition:RequiredDelegationConnector" id="_kwGEkDlxEeunY9-OetIYyA" entityName="newRequiredDelegationConnector" innerRequiredRole_RequiredDelegationConnector="_JVdUYDlxEeunY9-OetIYyA" outerRequiredRole_RequiredDelegationConnector="_HyJukDlxEeunY9-OetIYyA" assemblyContext_RequiredDelegationConnector="_gQnBgDlxEeunY9-OetIYyA"/>
+    <connectors__ComposedStructure xsi:type="composition:RequiredDelegationConnector" id="_lMN_4DlxEeunY9-OetIYyA" entityName="newRequiredDelegationConnector" innerRequiredRole_RequiredDelegationConnector="_MpB98DlxEeunY9-OetIYyA" outerRequiredRole_RequiredDelegationConnector="_LO5iQDlxEeunY9-OetIYyA" assemblyContext_RequiredDelegationConnector="_gQnBgDlxEeunY9-OetIYyA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="__FhVoDlwEeunY9-OetIYyA" entityName="TravelPlanner.provided.FindFlightsByCriteria" providedInterface__OperationProvidedRole="__aE7QDluEeunY9-OetIYyA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_DpZwgDlxEeunY9-OetIYyA" entityName="TravelPlanner.provided.FlightBooking" providedInterface__OperationProvidedRole="_4RsjUDluEeunY9-OetIYyA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_HyJukDlxEeunY9-OetIYyA" entityName="TravelPlanner.required.FindFlightsByCriteria" requiredInterface__OperationRequiredRole="__aE7QDluEeunY9-OetIYyA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_LO5iQDlxEeunY9-OetIYyA" entityName="TravelPlanner.required.FlightBooking" requiredInterface__OperationRequiredRole="_4RsjUDluEeunY9-OetIYyA"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_n2qM4DlxEeunY9-OetIYyA" entityName="CreditCardCenter">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_1oK08DlxEeunY9-OetIYyA" entityName="CreditCardCenter.provided.CreditCardCenter" providedInterface__OperationProvidedRole="_y9slADlsEeunY9-OetIYyA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_bA4W0Dl9EeunY9-OetIYyA" describedService__SEFF="_fJvc4DltEeunY9-OetIYyA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_bX5vsDl9EeunY9-OetIYyA" successor_AbstractAction="_bX5vsTl9EeunY9-OetIYyA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_bX5vsTl9EeunY9-OetIYyA" predecessor_AbstractAction="_bX5vsDl9EeunY9-OetIYyA"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_bvH84Dl9EeunY9-OetIYyA" describedService__SEFF="_hZ_BMDltEeunY9-OetIYyA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_b90gMDl9EeunY9-OetIYyA" successor_AbstractAction="_0kPAyw04Ee-5C6doYp1KxQ"/>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_0kPAyw04Ee-5C6doYp1KxQ" predecessor_AbstractAction="_b90gMDl9EeunY9-OetIYyA" successor_AbstractAction="_b90gMTl9EeunY9-OetIYyA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_7DJk8A04Ee-5C6doYp1KxQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicTypes@0"/>
+              <literal href="../dic.pddc#_4lCgkA00Ee-5C6doYp1KxQ-characteristicEnumerations@0.literals@2"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_8CDdNg04Ee-5C6doYp1KxQ"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_b90gMTl9EeunY9-OetIYyA" predecessor_AbstractAction="_0kPAyw04Ee-5C6doYp1KxQ"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_t5tFvjl3EeunY9-OetIYyA" entityName="BookingStorage">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_9wyTIDl3EeunY9-OetIYyA" entityName="BookingStorage.provided.BookingStorage" providedInterface__OperationProvidedRole="_i__KIDl3EeunY9-OetIYyA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="__jEwIDl3EeunY9-OetIYyA" describedService__SEFF="_paPQwDl3EeunY9-OetIYyA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="__z7PkDl3EeunY9-OetIYyA" successor_AbstractAction="__z7PkTl3EeunY9-OetIYyA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="__z7PkTl3EeunY9-OetIYyA" predecessor_AbstractAction="__z7PkDl3EeunY9-OetIYyA"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_AHiIEDl4EeunY9-OetIYyA" describedService__SEFF="_kAgL8Dl3EeunY9-OetIYyA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_AXjhEDl4EeunY9-OetIYyA" successor_AbstractAction="_AXjhETl4EeunY9-OetIYyA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_AXjhETl4EeunY9-OetIYyA" predecessor_AbstractAction="_AXjhEDl4EeunY9-OetIYyA"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_y9slADlsEeunY9-OetIYyA" entityName="CreditCardCenter">
+    <signatures__OperationInterface id="_fJvc4DltEeunY9-OetIYyA" entityName="addCCD">
+      <parameters__OperationSignature dataType__Parameter="_Tbo3ADltEeunY9-OetIYyA" parameterName="ccd"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_hZ_BMDltEeunY9-OetIYyA" entityName="getCCD" returnType__OperationSignature="_Tbo3ADltEeunY9-OetIYyA"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_crZLIDltEeunY9-OetIYyA" entityName="FlightPlanner">
+    <signatures__OperationInterface id="_wxyRoDltEeunY9-OetIYyA" entityName="addFlight">
+      <parameters__OperationSignature dataType__Parameter="_2UceYDlsEeunY9-OetIYyA" parameterName="flight"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_NJE3UDluEeunY9-OetIYyA" entityName="FlightStorage">
+    <signatures__OperationInterface id="_O5GqgDluEeunY9-OetIYyA" entityName="getFlight" returnType__OperationSignature="_2UceYDlsEeunY9-OetIYyA"/>
+    <signatures__OperationInterface id="_PgYs8DluEeunY9-OetIYyA" entityName="addFlight">
+      <parameters__OperationSignature dataType__Parameter="_2UceYDlsEeunY9-OetIYyA" parameterName="flight"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_4RsjUDluEeunY9-OetIYyA" entityName="FlightBooking">
+    <signatures__OperationInterface id="_5073sDluEeunY9-OetIYyA" entityName="bookFlight" returnType__OperationSignature="_-Qf5gDltEeunY9-OetIYyA">
+      <parameters__OperationSignature dataType__Parameter="_2UceYDlsEeunY9-OetIYyA" parameterName="flight"/>
+      <parameters__OperationSignature dataType__Parameter="_Tbo3ADltEeunY9-OetIYyA" parameterName="ccd"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="__aE7QDluEeunY9-OetIYyA" entityName="FindFlightsByCriteria">
+    <signatures__OperationInterface id="_BmXMoDlvEeunY9-OetIYyA" entityName="findFlights" returnType__OperationSignature="_7xlcgDlsEeunY9-OetIYyA">
+      <parameters__OperationSignature dataType__Parameter="_-_cfoDlsEeunY9-OetIYyA" parameterName="criteria"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_FNymUDlvEeunY9-OetIYyA" entityName="FindflightsByQuery">
+    <signatures__OperationInterface id="_HIexYDlvEeunY9-OetIYyA" entityName="findFlights" returnType__OperationSignature="_7xlcgDlsEeunY9-OetIYyA">
+      <parameters__OperationSignature dataType__Parameter="_-OPsMDlsEeunY9-OetIYyA" parameterName="query"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_cpv6cDlvEeunY9-OetIYyA" entityName="ComissionReceiver">
+    <signatures__OperationInterface id="_d5cAsDlvEeunY9-OetIYyA" entityName="receiveCommission" returnType__OperationSignature="_-Qf5gDltEeunY9-OetIYyA">
+      <parameters__OperationSignature dataType__Parameter="_C71nQDluEeunY9-OetIYyA" parameterName="commission"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_wrubADlvEeunY9-OetIYyA" entityName="ComissionStore">
+    <signatures__OperationInterface id="_xs91kDlvEeunY9-OetIYyA" entityName="addCommission">
+      <parameters__OperationSignature dataType__Parameter="_C71nQDluEeunY9-OetIYyA" parameterName="commission"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_0NtUADlvEeunY9-OetIYyA" entityName="getCommission" returnType__OperationSignature="_C71nQDluEeunY9-OetIYyA"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_i__KIDl3EeunY9-OetIYyA" entityName="BookingStorage">
+    <signatures__OperationInterface id="_kAgL8Dl3EeunY9-OetIYyA" entityName="getBooking" returnType__OperationSignature="_mHmbUDl3EeunY9-OetIYyA"/>
+    <signatures__OperationInterface id="_paPQwDl3EeunY9-OetIYyA" entityName="addBooking">
+      <parameters__OperationSignature dataType__Parameter="_mHmbUDl3EeunY9-OetIYyA" parameterName="booking"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_2UceYDlsEeunY9-OetIYyA" entityName="Flight"/>
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="_7xlcgDlsEeunY9-OetIYyA" entityName="Flights" innerType_CollectionDataType="_2UceYDlsEeunY9-OetIYyA"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_-OPsMDlsEeunY9-OetIYyA" entityName="Query"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_-_cfoDlsEeunY9-OetIYyA" entityName="Criteria"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_Tbo3ADltEeunY9-OetIYyA" entityName="CreditCardDetails"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_-Qf5gDltEeunY9-OetIYyA" entityName="Confirmation"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_C71nQDluEeunY9-OetIYyA" entityName="Commission"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_mHmbUDl3EeunY9-OetIYyA" entityName="Booking"/>
+</repository:Repository>

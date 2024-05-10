@@ -41,6 +41,12 @@
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="contacts"/>
         </returnVariableUsage__CallReturnAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="RETURN.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="contacts"/>
+        </returnVariableUsage__CallReturnAction>
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:SetVariableAction" id="_w1_FcINiEeydpeNEy1O9cA" entityName="SocialNetwork.getFriendLocations.return" predecessor_AbstractAction="_u6UC8INiEeydpeNEy1O9cA" successor_AbstractAction="_4RYEgYNYEeydpeNEy1O9cA">
         <localVariableUsages_SetVariableAction>
@@ -50,6 +56,12 @@
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_37Zo8YNiEeydpeNEy1O9cA">
               <namedReference xsi:type="stoex:VariableReference" referenceName="contacts"/>
             </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="contacts.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
         </localVariableUsages_SetVariableAction>
@@ -70,6 +82,12 @@
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_s2aRgYNiEeydpeNEy1O9cA">
               <namedReference xsi:type="stoex:VariableReference" referenceName="location"/>
             </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="location"/>
+        </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="location.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="location"/>
         </inputVariableUsages__CallAction>
@@ -94,6 +112,12 @@
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="mapCode"/>
         </returnVariableUsage__CallReturnAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="RETURN.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="mapCode"/>
+        </returnVariableUsage__CallReturnAction>
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_h1QbwINjEeydpeNEy1O9cA" entityName="FriendMapApp.createMap.callGoogle" predecessor_AbstractAction="_lHr10INjEeydpeNEy1O9cA" successor_AbstractAction="_nXQEsINjEeydpeNEy1O9cA" calledService_ExternalService="_FF3gIINYEeydpeNEy1O9cA" role_ExternalService="_F6Ua4INjEeydpeNEy1O9cA">
         <inputVariableUsages__CallAction>
@@ -106,6 +130,12 @@
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="locations"/>
         </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="encryptedLocations.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="locations"/>
+        </inputVariableUsages__CallAction>
         <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -113,6 +143,12 @@
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_E9ZqMYNkEeydpeNEy1O9cA">
               <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
             </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="map"/>
+        </returnVariableUsage__CallReturnAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="RETURN.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="map"/>
         </returnVariableUsage__CallReturnAction>
@@ -191,6 +227,12 @@
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_PL8h0YNkEeydpeNEy1O9cA">
               <namedReference xsi:type="stoex:VariableReference" referenceName="decryptedMap"/>
             </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="decryptedMap.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
         </localVariableUsages_SetVariableAction>

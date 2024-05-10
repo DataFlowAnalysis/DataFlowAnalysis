@@ -26,6 +26,12 @@
               </variableCharacterisation_VariableUsage>
               <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="locations"/>
             </returnVariableUsage__CallReturnAction>
+            <returnVariableUsage__CallReturnAction>
+              <variableCharacterisation_VariableUsage type="VALUE">
+                <specification_VariableCharacterisation specification="RETURN.VALUE"/>
+              </variableCharacterisation_VariableUsage>
+              <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="locations"/>
+            </returnVariableUsage__CallReturnAction>
           </steps_Behaviour>
         </bodyBehaviour_Loop>
         <iterationCount_LoopAction specification="20"/>
@@ -65,6 +71,12 @@
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_ogggczpIEeujr6PSMKhjng">
               <namedReference xsi:type="stoex:VariableReference" referenceName="distance"/>
             </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="distance.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
         </localVariableUsages_SetVariableAction>
@@ -116,6 +128,12 @@
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_y5WuIzpJEeujr6PSMKhjng">
               <namedReference xsi:type="stoex:VariableReference" referenceName="distance"/>
             </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="distance"/>
+        </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="distance.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="distance"/>
         </inputVariableUsages__CallAction>
@@ -217,6 +235,12 @@
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="location"/>
         </returnVariableUsage__CallReturnAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="RETURN.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="location"/>
+        </returnVariableUsage__CallReturnAction>
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_eJCEYDpKEeujr6PSMKhjng" entityName="GPSPoller.pollLocation.callDB" predecessor_AbstractAction="_Ag9MQDpKEeujr6PSMKhjng" successor_AbstractAction="_a5qpYjoeEeujr6PSMKhjng" calledService_ExternalService="_2Ru4oDocEeujr6PSMKhjng" role_ExternalService="_GJCPEDpKEeujr6PSMKhjng">
         <inputVariableUsages__CallAction>
@@ -226,6 +250,12 @@
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_rPT-IzpKEeujr6PSMKhjng">
               <namedReference xsi:type="stoex:VariableReference" referenceName="location"/>
             </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="location"/>
+        </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="location.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="location"/>
         </inputVariableUsages__CallAction>

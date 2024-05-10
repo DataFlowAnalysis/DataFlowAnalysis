@@ -43,6 +43,12 @@
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="contacts"/>
         </returnVariableUsage__CallReturnAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="RETURN.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="contacts"/>
+        </returnVariableUsage__CallReturnAction>
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:SetVariableAction" id="_oHFQ4IM8EeydpeNEy1O9cA" entityName="SMSApp.getContact.return" predecessor_AbstractAction="_mGYkcIM8EeydpeNEy1O9cA" successor_AbstractAction="_F9U9UYM8EeydpeNEy1O9cA">
         <localVariableUsages_SetVariableAction>
@@ -52,6 +58,12 @@
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_MruSgYM9EeydpeNEy1O9cA">
               <namedReference xsi:type="stoex:VariableReference" referenceName="contacts"/>
             </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="contacts.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
         </localVariableUsages_SetVariableAction>
@@ -72,6 +84,12 @@
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_AQ8-cYM-EeydpeNEy1O9cA">
               <namedReference xsi:type="stoex:VariableReference" referenceName="contact"/>
             </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="contact"/>
+        </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="contact.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="contact"/>
         </inputVariableUsages__CallAction>
@@ -100,6 +118,12 @@
             </rhs>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="number"/>
+        </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage>
+            <specification_VariableCharacterisation specification="message.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="message"/>
         </inputVariableUsages__CallAction>
       </steps_Behaviour>
     </serviceEffectSpecifications__BasicComponent>

@@ -17,16 +17,6 @@
           <steps_Behaviour xsi:type="seff:StopAction" id="_R4P6ITpIEeujr6PSMKhjng" predecessor_AbstractAction="_P2bzYDpIEeujr6PSMKhjng"/>
           <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_P2bzYDpIEeujr6PSMKhjng" entityName="DistanceTrackerLogic.stopTracking.callDB" predecessor_AbstractAction="_R4P6IDpIEeujr6PSMKhjng" successor_AbstractAction="_R4P6ITpIEeujr6PSMKhjng" calledService_ExternalService="_3npisDocEeujr6PSMKhjng" role_ExternalService="_F9dKoDodEeujr6PSMKhjng">
             <returnVariableUsage__CallReturnAction>
-              <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
-                <specification_VariableCharacterisation specification="false"/>
-                <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_j7A8ADpIEeujr6PSMKhjng"/>
-                <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_k3iOozpIEeujr6PSMKhjng">
-                  <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
-                </rhs>
-              </variableCharacterisation_VariableUsage>
-              <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="locations"/>
-            </returnVariableUsage__CallReturnAction>
-            <returnVariableUsage__CallReturnAction>
               <variableCharacterisation_VariableUsage type="VALUE">
                 <specification_VariableCharacterisation specification="RETURN.VALUE"/>
               </variableCharacterisation_VariableUsage>
@@ -64,16 +54,6 @@
         </localVariableUsages_SetVariableAction>
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:SetVariableAction" id="_Zk8gEDpIEeujr6PSMKhjng" entityName="DistanceTrackerLogic.stopTracking.return" predecessor_AbstractAction="_sSdIEDpIEeujr6PSMKhjng" successor_AbstractAction="_U_c_ojocEeujr6PSMKhjng">
-        <localVariableUsages_SetVariableAction>
-          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
-            <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_n_MjIDpIEeujr6PSMKhjng"/>
-            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_ogggczpIEeujr6PSMKhjng">
-              <namedReference xsi:type="stoex:VariableReference" referenceName="distance"/>
-            </rhs>
-          </variableCharacterisation_VariableUsage>
-          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
-        </localVariableUsages_SetVariableAction>
         <localVariableUsages_SetVariableAction>
           <variableCharacterisation_VariableUsage type="VALUE">
             <specification_VariableCharacterisation specification="distance.VALUE"/>
@@ -121,16 +101,6 @@
       <steps_Behaviour xsi:type="seff:StartAction" id="_YnCxYDocEeujr6PSMKhjng" successor_AbstractAction="_sh6D4DpJEeujr6PSMKhjng"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_YnCxYTocEeujr6PSMKhjng" predecessor_AbstractAction="_sh6D4DpJEeujr6PSMKhjng"/>
       <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sh6D4DpJEeujr6PSMKhjng" entityName="TrackingServiceLogic.publishDistance.callDB" predecessor_AbstractAction="_YnCxYDocEeujr6PSMKhjng" successor_AbstractAction="_YnCxYTocEeujr6PSMKhjng" calledService_ExternalService="_gmukwDocEeujr6PSMKhjng" role_ExternalService="_HuOksDodEeujr6PSMKhjng">
-        <inputVariableUsages__CallAction>
-          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
-            <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_yXJY8DpJEeujr6PSMKhjng"/>
-            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_y5WuIzpJEeujr6PSMKhjng">
-              <namedReference xsi:type="stoex:VariableReference" referenceName="distance"/>
-            </rhs>
-          </variableCharacterisation_VariableUsage>
-          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="distance"/>
-        </inputVariableUsages__CallAction>
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage type="VALUE">
             <specification_VariableCharacterisation specification="distance.VALUE"/>
@@ -226,16 +196,6 @@
       <steps_Behaviour xsi:type="seff:StopAction" id="_a5qpYjoeEeujr6PSMKhjng" predecessor_AbstractAction="_eJCEYDpKEeujr6PSMKhjng"/>
       <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_Ag9MQDpKEeujr6PSMKhjng" entityName="GPSPoller.pollLocation.callGPS" predecessor_AbstractAction="_a5qpYToeEeujr6PSMKhjng" successor_AbstractAction="_eJCEYDpKEeujr6PSMKhjng" calledService_ExternalService="_sWeT8DodEeujr6PSMKhjng" role_ExternalService="_yF-NYDodEeujr6PSMKhjng">
         <returnVariableUsage__CallReturnAction>
-          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
-            <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_nASY8DpKEeujr6PSMKhjng"/>
-            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_nYSpQzpKEeujr6PSMKhjng">
-              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
-            </rhs>
-          </variableCharacterisation_VariableUsage>
-          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="location"/>
-        </returnVariableUsage__CallReturnAction>
-        <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage type="VALUE">
             <specification_VariableCharacterisation specification="RETURN.VALUE"/>
           </variableCharacterisation_VariableUsage>
@@ -243,16 +203,6 @@
         </returnVariableUsage__CallReturnAction>
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_eJCEYDpKEeujr6PSMKhjng" entityName="GPSPoller.pollLocation.callDB" predecessor_AbstractAction="_Ag9MQDpKEeujr6PSMKhjng" successor_AbstractAction="_a5qpYjoeEeujr6PSMKhjng" calledService_ExternalService="_2Ru4oDocEeujr6PSMKhjng" role_ExternalService="_GJCPEDpKEeujr6PSMKhjng">
-        <inputVariableUsages__CallAction>
-          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
-            <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_qpO1kDpKEeujr6PSMKhjng"/>
-            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_rPT-IzpKEeujr6PSMKhjng">
-              <namedReference xsi:type="stoex:VariableReference" referenceName="location"/>
-            </rhs>
-          </variableCharacterisation_VariableUsage>
-          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="location"/>
-        </inputVariableUsages__CallAction>
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage type="VALUE"/>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="location"/>

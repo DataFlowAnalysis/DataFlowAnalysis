@@ -7,21 +7,21 @@
       <steps_Behaviour xsi:type="seff:StopAction" id="__r75IYN6Eeyth_Kqe2ur6g" predecessor_AbstractAction="__r75IIN6Eeyth_Kqe2ur6g"/>
     </serviceEffectSpecifications__BasicComponent>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="__8caUIN6Eeyth_Kqe2ur6g" describedService__SEFF="_KYwdoIN6Eeyth_Kqe2ur6g">
-      <steps_Behaviour xsi:type="seff:StartAction" id="_ALUj0IN7Eeyth_Kqe2ur6g" successor_AbstractAction="_BPeHGwymEe-5C6doYp1KxQ"/>
-      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_BPeHGwymEe-5C6doYp1KxQ" predecessor_AbstractAction="_ALUj0IN7Eeyth_Kqe2ur6g" successor_AbstractAction="_ALUj0YN7Eeyth_Kqe2ur6g">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_ALUj0IN7Eeyth_Kqe2ur6g" successor_AbstractAction="_3vLcmwylEe-5C6doYp1KxQ"/>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_3vLcmwylEe-5C6doYp1KxQ" predecessor_AbstractAction="_ALUj0IN7Eeyth_Kqe2ur6g" successor_AbstractAction="_ALUj0YN7Eeyth_Kqe2ur6g">
         <localVariableUsages_SetVariableAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_GF64oAymEe-5C6doYp1KxQ">
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_9jBqgAylEe-5C6doYp1KxQ">
               <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@0"/>
               <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
             </lhs>
-            <rhs xsi:type="expressions:True" id="_Gz-4hgymEe-5C6doYp1KxQ"/>
+            <rhs xsi:type="expressions:True" id="_-TdB5gylEe-5C6doYp1KxQ"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
         </localVariableUsages_SetVariableAction>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_ALUj0YN7Eeyth_Kqe2ur6g" predecessor_AbstractAction="_BPeHGwymEe-5C6doYp1KxQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_ALUj0YN7Eeyth_Kqe2ur6g" predecessor_AbstractAction="_3vLcmwylEe-5C6doYp1KxQ"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_Cwuf0IN7Eeyth_Kqe2ur6g" entityName="PatientsDBLogic">
@@ -34,8 +34,11 @@
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_iqNZ4IN7Eeyth_Kqe2ur6g"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_iqNZ4IN7Eeyth_Kqe2ur6g">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
+            </lhs>
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_iqNZ4YN7Eeyth_Kqe2ur6g">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
               <namedReference xsi:type="stoex:VariableReference" referenceName="patientList"/>
             </rhs>
           </variableCharacterisation_VariableUsage>
@@ -52,12 +55,15 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_EeC9QIN7Eeyth_Kqe2ur6g" describedService__SEFF="_KYwdoIN6Eeyth_Kqe2ur6g">
       <steps_Behaviour xsi:type="seff:StartAction" id="_EeC9QYN7Eeyth_Kqe2ur6g" successor_AbstractAction="_mwsuIIN7Eeyth_Kqe2ur6g"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_EeC9QoN7Eeyth_Kqe2ur6g" predecessor_AbstractAction="_ofz7UIN7Eeyth_Kqe2ur6g"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_mwsuIIN7Eeyth_Kqe2ur6g" entityName="PatientsDBLogic.get.callDB" predecessor_AbstractAction="_EeC9QYN7Eeyth_Kqe2ur6g" successor_AbstractAction="_NoI40IN8Eeyth_Kqe2ur6g" calledService_ExternalService="_KYwdoIN6Eeyth_Kqe2ur6g" role_ExternalService="_FIu5AIN7Eeyth_Kqe2ur6g">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_mwsuIIN7Eeyth_Kqe2ur6g" entityName="PatientsDBLogic.get.callDB" predecessor_AbstractAction="_EeC9QYN7Eeyth_Kqe2ur6g" successor_AbstractAction="_ofz7UIN7Eeyth_Kqe2ur6g" calledService_ExternalService="_KYwdoIN6Eeyth_Kqe2ur6g" role_ExternalService="_FIu5AIN7Eeyth_Kqe2ur6g">
         <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_u9wPIIN7Eeyth_Kqe2ur6g"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_u9wPIIN7Eeyth_Kqe2ur6g">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
+            </lhs>
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_u9wPIYN7Eeyth_Kqe2ur6g">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
               <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
             </rhs>
           </variableCharacterisation_VariableUsage>
@@ -70,59 +76,25 @@
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="patientList"/>
         </returnVariableUsage__CallReturnAction>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_ofz7UIN7Eeyth_Kqe2ur6g" entityName="PatientsDBLogic.get.return" predecessor_AbstractAction="_NoI40IN8Eeyth_Kqe2ur6g" successor_AbstractAction="_EeC9QoN7Eeyth_Kqe2ur6g">
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_ofz7UIN7Eeyth_Kqe2ur6g" entityName="PatientsDBLogic.get.return" predecessor_AbstractAction="_mwsuIIN7Eeyth_Kqe2ur6g" successor_AbstractAction="_EeC9QoN7Eeyth_Kqe2ur6g">
         <localVariableUsages_SetVariableAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_jAEfsIN8Eeyth_Kqe2ur6g"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_jAEfsIN8Eeyth_Kqe2ur6g">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
+            </lhs>
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_jAEfsYN8Eeyth_Kqe2ur6g">
-              <namedReference xsi:type="stoex:VariableReference" referenceName="encryptedPatientList"/>
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
+              <namedReference xsi:type="stoex:VariableReference" referenceName="patientList"/>
             </rhs>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
         </localVariableUsages_SetVariableAction>
         <localVariableUsages_SetVariableAction>
           <variableCharacterisation_VariableUsage type="VALUE">
-            <specification_VariableCharacterisation specification="encryptedPatientList.VALUE"/>
+            <specification_VariableCharacterisation specification="patientList.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
-        </localVariableUsages_SetVariableAction>
-      </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_NoI40IN8Eeyth_Kqe2ur6g" entityName="PatientsDBLogic.get.encrypt" predecessor_AbstractAction="_mwsuIIN7Eeyth_Kqe2ur6g" successor_AbstractAction="_ofz7UIN7Eeyth_Kqe2ur6g">
-        <localVariableUsages_SetVariableAction>
-          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
-            <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_gfOTkIN8Eeyth_Kqe2ur6g"/>
-            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_gfOTkYN8Eeyth_Kqe2ur6g">
-              <namedReference xsi:type="stoex:VariableReference" referenceName="patientList"/>
-            </rhs>
-          </variableCharacterisation_VariableUsage>
-          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
-            <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_gfOTkoN8Eeyth_Kqe2ur6g">
-              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
-            </lhs>
-            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_gfOTk4N8Eeyth_Kqe2ur6g">
-              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@0"/>
-              <namedReference xsi:type="stoex:VariableReference" referenceName="patientList"/>
-            </rhs>
-          </variableCharacterisation_VariableUsage>
-          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
-            <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_gfOTlIN8Eeyth_Kqe2ur6g">
-              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@0"/>
-            </lhs>
-            <rhs xsi:type="expressions:False" id="_gfOTlYN8Eeyth_Kqe2ur6g"/>
-          </variableCharacterisation_VariableUsage>
-          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
-            <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_gfOTloN8Eeyth_Kqe2ur6g">
-              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@0"/>
-              <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
-            </lhs>
-            <rhs xsi:type="expressions:True" id="_gfOTl4N8Eeyth_Kqe2ur6g"/>
-          </variableCharacterisation_VariableUsage>
-          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="encryptedPatientList"/>
         </localVariableUsages_SetVariableAction>
       </steps_Behaviour>
     </serviceEffectSpecifications__BasicComponent>
@@ -161,8 +133,11 @@
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_xsZfU4N-Eeyth_Kqe2ur6g"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_xsZfU4N-Eeyth_Kqe2ur6g">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
+            </lhs>
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_xsZfVIN-Eeyth_Kqe2ur6g">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
               <namedReference xsi:type="stoex:VariableReference" referenceName="patientList"/>
             </rhs>
           </variableCharacterisation_VariableUsage>
@@ -183,8 +158,11 @@
         <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_xG-BkYN_Eeyth_Kqe2ur6g"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_xG-BkYN_Eeyth_Kqe2ur6g">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
+            </lhs>
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_xG-BkoN_Eeyth_Kqe2ur6g">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicTypes@2"/>
               <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
             </rhs>
           </variableCharacterisation_VariableUsage>

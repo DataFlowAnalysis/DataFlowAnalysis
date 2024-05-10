@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ASCII"?>
+<system:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="_n1HFMIM-EeydpeNEy1O9cA" entityName="New System">
+  <assemblyContexts__ComposedStructure id="_uQKdEIM-EeydpeNEy1O9cA" entityName="Assembly_ContactDB">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="newRepository.repository#_0Qz4QIM7EeydpeNEy1O9cA"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_u7uikIM-EeydpeNEy1O9cA" entityName="Assembly_SMSApp">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="newRepository.repository#__MHvQIM7EeydpeNEy1O9cA"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_vY8DAIM-EeydpeNEy1O9cA" entityName="Assembly_SMSGateway">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="newRepository.repository#_CzA9cIM8EeydpeNEy1O9cA"/>
+  </assemblyContexts__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_0JRlgIM-EeydpeNEy1O9cA" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_tUzoEIM-EeydpeNEy1O9cA" assemblyContext_ProvidedDelegationConnector="_u7uikIM-EeydpeNEy1O9cA">
+    <innerProvidedRole_ProvidedDelegationConnector href="newRepository.repository#_IBi30IM8EeydpeNEy1O9cA"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_0jbK4IM-EeydpeNEy1O9cA" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_sRCd8IM-EeydpeNEy1O9cA" assemblyContext_ProvidedDelegationConnector="_u7uikIM-EeydpeNEy1O9cA">
+    <innerProvidedRole_ProvidedDelegationConnector href="newRepository.repository#_F8wVkIM8EeydpeNEy1O9cA"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_1MbroIM-EeydpeNEy1O9cA" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_u7uikIM-EeydpeNEy1O9cA" providingAssemblyContext_AssemblyConnector="_vY8DAIM-EeydpeNEy1O9cA">
+    <providedRole_AssemblyConnector href="newRepository.repository#_Rdw6oIM8EeydpeNEy1O9cA"/>
+    <requiredRole_AssemblyConnector href="newRepository.repository#_KTvSAIM-EeydpeNEy1O9cA"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_1ZhFYIM-EeydpeNEy1O9cA" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_u7uikIM-EeydpeNEy1O9cA" providingAssemblyContext_AssemblyConnector="_uQKdEIM-EeydpeNEy1O9cA">
+    <providedRole_AssemblyConnector href="newRepository.repository#_6Pe2IIM7EeydpeNEy1O9cA"/>
+    <requiredRole_AssemblyConnector href="newRepository.repository#_Z4dPAIM8EeydpeNEy1O9cA"/>
+  </connectors__ComposedStructure>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sRCd8IM-EeydpeNEy1O9cA" entityName="ContactManagementProvidedRole">
+    <providedInterface__OperationProvidedRole href="newRepository.repository#_0hMlAIM4EeydpeNEy1O9cA"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_tUzoEIM-EeydpeNEy1O9cA" entityName="SMSSendingProvidedRole">
+    <providedInterface__OperationProvidedRole href="newRepository.repository#_14Th4IM4EeydpeNEy1O9cA"/>
+  </providedRoles_InterfaceProvidingEntity>
+</system:System>

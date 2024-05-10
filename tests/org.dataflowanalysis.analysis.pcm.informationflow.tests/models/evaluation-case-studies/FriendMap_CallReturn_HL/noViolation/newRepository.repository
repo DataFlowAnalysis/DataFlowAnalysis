@@ -7,21 +7,21 @@
       <steps_Behaviour xsi:type="seff:StopAction" id="_qAmBUINqEeydpeNEy1O9cA" predecessor_AbstractAction="_qAlaQINqEeydpeNEy1O9cA"/>
     </serviceEffectSpecifications__BasicComponent>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_qUo-sINqEeydpeNEy1O9cA" describedService__SEFF="_wOJN4INYEeydpeNEy1O9cA">
-      <steps_Behaviour xsi:type="seff:StartAction" id="_qlXiUINqEeydpeNEy1O9cA" successor_AbstractAction="_YGKFmwyTEe-5C6doYp1KxQ"/>
-      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_YGKFmwyTEe-5C6doYp1KxQ" predecessor_AbstractAction="_qlXiUINqEeydpeNEy1O9cA" successor_AbstractAction="_qlXiUYNqEeydpeNEy1O9cA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_qlXiUINqEeydpeNEy1O9cA" successor_AbstractAction="_K-coewyTEe-5C6doYp1KxQ"/>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_K-coewyTEe-5C6doYp1KxQ" predecessor_AbstractAction="_qlXiUINqEeydpeNEy1O9cA" successor_AbstractAction="_qlXiUYNqEeydpeNEy1O9cA">
         <localVariableUsages_SetVariableAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_c-tI4AyTEe-5C6doYp1KxQ">
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_SYuosAyTEe-5C6doYp1KxQ">
               <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@0"/>
               <literal href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
             </lhs>
-            <rhs xsi:type="expressions:True" id="_dnUBBgyTEe-5C6doYp1KxQ"/>
+            <rhs xsi:type="expressions:True" id="_TPfRlgyTEe-5C6doYp1KxQ"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
         </localVariableUsages_SetVariableAction>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_qlXiUYNqEeydpeNEy1O9cA" predecessor_AbstractAction="_YGKFmwyTEe-5C6doYp1KxQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_qlXiUYNqEeydpeNEy1O9cA" predecessor_AbstractAction="_K-coewyTEe-5C6doYp1KxQ"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_3E_w8INYEeydpeNEy1O9cA" entityName="SocialNetwork">
@@ -34,8 +34,11 @@
         <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_1RrNoINiEeydpeNEy1O9cA"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_1RrNoINiEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@2"/>
+            </lhs>
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_1RrNoYNiEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@2"/>
               <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
             </rhs>
           </variableCharacterisation_VariableUsage>
@@ -43,7 +46,7 @@
         </returnVariableUsage__CallReturnAction>
         <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage type="VALUE">
-            <specification_VariableCharacterisation specification="contacts.VALUE"/>
+            <specification_VariableCharacterisation specification="RETURN.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="contacts"/>
         </returnVariableUsage__CallReturnAction>
@@ -52,8 +55,11 @@
         <localVariableUsages_SetVariableAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_37Zo8INiEeydpeNEy1O9cA"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_37Zo8INiEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@2"/>
+            </lhs>
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_37Zo8YNiEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@2"/>
               <namedReference xsi:type="stoex:VariableReference" referenceName="contacts"/>
             </rhs>
           </variableCharacterisation_VariableUsage>
@@ -78,8 +84,11 @@
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_s2aRgINiEeydpeNEy1O9cA"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_s2aRgINiEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@2"/>
+            </lhs>
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_s2aRgYNiEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@2"/>
               <namedReference xsi:type="stoex:VariableReference" referenceName="location"/>
             </rhs>
           </variableCharacterisation_VariableUsage>
@@ -105,8 +114,11 @@
         <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_xoY9UINjEeydpeNEy1O9cA"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_xoY9UINjEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@2"/>
+            </lhs>
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_xoY9UYNjEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@2"/>
               <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
             </rhs>
           </variableCharacterisation_VariableUsage>
@@ -123,24 +135,30 @@
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_A-pVoINkEeydpeNEy1O9cA"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_A-pVoINkEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@2"/>
+            </lhs>
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_A-pVoYNkEeydpeNEy1O9cA">
-              <namedReference xsi:type="stoex:VariableReference" referenceName="locations"/>
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@2"/>
+              <namedReference xsi:type="stoex:VariableReference" referenceName="encryptedLocations"/>
             </rhs>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="locations"/>
         </inputVariableUsages__CallAction>
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage type="VALUE">
-            <specification_VariableCharacterisation specification="locations.VALUE"/>
+            <specification_VariableCharacterisation specification="encryptedLocations.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="locations"/>
         </inputVariableUsages__CallAction>
         <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_E9ZqMINkEeydpeNEy1O9cA"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_E9ZqMINkEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@2"/>
+            </lhs>
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_E9ZqMYNkEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@2"/>
               <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
             </rhs>
           </variableCharacterisation_VariableUsage>
@@ -223,8 +241,11 @@
         <localVariableUsages_SetVariableAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_PL8h0INkEeydpeNEy1O9cA"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_PL8h0INkEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@2"/>
+            </lhs>
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_PL8h0YNkEeydpeNEy1O9cA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_40ZaMAyPEe-5C6doYp1KxQ-characteristicTypes@2"/>
               <namedReference xsi:type="stoex:VariableReference" referenceName="decryptedMap"/>
             </rhs>
           </variableCharacterisation_VariableUsage>

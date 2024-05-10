@@ -7,21 +7,21 @@
       <steps_Behaviour xsi:type="seff:StopAction" id="_cnBuEIM8EeydpeNEy1O9cA" predecessor_AbstractAction="_cnBHAIM8EeydpeNEy1O9cA"/>
     </serviceEffectSpecifications__BasicComponent>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_c91EgIM8EeydpeNEy1O9cA" describedService__SEFF="_2WYdoIM7EeydpeNEy1O9cA">
-      <steps_Behaviour xsi:type="seff:StartAction" id="_dOiaAIM8EeydpeNEy1O9cA" successor_AbstractAction="_zeySewiUEe-5C6doYp1KxQ"/>
-      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_zeySewiUEe-5C6doYp1KxQ" predecessor_AbstractAction="_dOiaAIM8EeydpeNEy1O9cA" successor_AbstractAction="_dOiaAYM8EeydpeNEy1O9cA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_dOiaAIM8EeydpeNEy1O9cA" successor_AbstractAction="_s8cxawiVEe-5C6doYp1KxQ"/>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_s8cxawiVEe-5C6doYp1KxQ" predecessor_AbstractAction="_dOiaAIM8EeydpeNEy1O9cA" successor_AbstractAction="_dOiaAYM8EeydpeNEy1O9cA">
         <localVariableUsages_SetVariableAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_S_0QQAiVEe-5C6doYp1KxQ">
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_1GA5gAiVEe-5C6doYp1KxQ">
               <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_TIbFkAiIEe-5C6doYp1KxQ-characteristicTypes@0"/>
               <literal href="../dic.pddc#_TIbFkAiIEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
             </lhs>
-            <rhs xsi:type="expressions:True" id="_ZYIdNgiVEe-5C6doYp1KxQ"/>
+            <rhs xsi:type="expressions:True" id="_17fI9giVEe-5C6doYp1KxQ"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
         </localVariableUsages_SetVariableAction>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_dOiaAYM8EeydpeNEy1O9cA" predecessor_AbstractAction="_zeySewiUEe-5C6doYp1KxQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_dOiaAYM8EeydpeNEy1O9cA" predecessor_AbstractAction="_s8cxawiVEe-5C6doYp1KxQ"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="__MHvQIM7EeydpeNEy1O9cA" entityName="SMSApp">
@@ -34,16 +34,6 @@
       <steps_Behaviour xsi:type="seff:StopAction" id="_F9U9UYM8EeydpeNEy1O9cA" predecessor_AbstractAction="_oHFQ4IM8EeydpeNEy1O9cA"/>
       <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_mGYkcIM8EeydpeNEy1O9cA" entityName="SMSApp.getContacts.callDB" predecessor_AbstractAction="_F9U9UIM8EeydpeNEy1O9cA" successor_AbstractAction="_oHFQ4IM8EeydpeNEy1O9cA" calledService_ExternalService="_2WYdoIM7EeydpeNEy1O9cA" role_ExternalService="_Z4dPAIM8EeydpeNEy1O9cA">
         <returnVariableUsage__CallReturnAction>
-          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
-            <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_I6IQMIM9EeydpeNEy1O9cA"/>
-            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_I6IQMYM9EeydpeNEy1O9cA">
-              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
-            </rhs>
-          </variableCharacterisation_VariableUsage>
-          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="contacts"/>
-        </returnVariableUsage__CallReturnAction>
-        <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage type="VALUE">
             <specification_VariableCharacterisation specification="RETURN.VALUE"/>
           </variableCharacterisation_VariableUsage>
@@ -51,16 +41,6 @@
         </returnVariableUsage__CallReturnAction>
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:SetVariableAction" id="_oHFQ4IM8EeydpeNEy1O9cA" entityName="SMSApp.getContact.return" predecessor_AbstractAction="_mGYkcIM8EeydpeNEy1O9cA" successor_AbstractAction="_F9U9UYM8EeydpeNEy1O9cA">
-        <localVariableUsages_SetVariableAction>
-          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
-            <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_MruSgIM9EeydpeNEy1O9cA"/>
-            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_MruSgYM9EeydpeNEy1O9cA">
-              <namedReference xsi:type="stoex:VariableReference" referenceName="contacts"/>
-            </rhs>
-          </variableCharacterisation_VariableUsage>
-          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
-        </localVariableUsages_SetVariableAction>
         <localVariableUsages_SetVariableAction>
           <variableCharacterisation_VariableUsage type="VALUE">
             <specification_VariableCharacterisation specification="contacts.VALUE"/>
@@ -78,16 +58,6 @@
       <steps_Behaviour xsi:type="seff:StopAction" id="_F-jFUoM8EeydpeNEy1O9cA" predecessor_AbstractAction="_54TaUIM9EeydpeNEy1O9cA"/>
       <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_54TaUIM9EeydpeNEy1O9cA" entityName="SMSApp.addContact.callDB" predecessor_AbstractAction="_F-jFUYM8EeydpeNEy1O9cA" successor_AbstractAction="_F-jFUoM8EeydpeNEy1O9cA" calledService_ExternalService="_2U2zoIM7EeydpeNEy1O9cA" role_ExternalService="_Z4dPAIM8EeydpeNEy1O9cA">
         <inputVariableUsages__CallAction>
-          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
-            <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_AQ8-cIM-EeydpeNEy1O9cA"/>
-            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_AQ8-cYM-EeydpeNEy1O9cA">
-              <namedReference xsi:type="stoex:VariableReference" referenceName="contact"/>
-            </rhs>
-          </variableCharacterisation_VariableUsage>
-          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="contact"/>
-        </inputVariableUsages__CallAction>
-        <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage type="VALUE">
             <specification_VariableCharacterisation specification="contact.VALUE"/>
           </variableCharacterisation_VariableUsage>
@@ -102,40 +72,15 @@
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_dQUQwIM-EeydpeNEy1O9cA"/>
-            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_dQUQwYM-EeydpeNEy1O9cA">
-              <namedReference xsi:type="stoex:VariableReference" referenceName="message"/>
-            </rhs>
-          </variableCharacterisation_VariableUsage>
-          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="message"/>
-        </inputVariableUsages__CallAction>
-        <inputVariableUsages__CallAction>
-          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
-            <specification_VariableCharacterisation specification="false"/>
             <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_JO07kINCEeydpeNEy1O9cA"/>
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_JO07kYNCEeydpeNEy1O9cA">
               <namedReference xsi:type="stoex:VariableReference" referenceName="contact"/>
             </rhs>
           </variableCharacterisation_VariableUsage>
-          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
-            <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_JO07koNCEeydpeNEy1O9cA">
-              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_TIbFkAiIEe-5C6doYp1KxQ-characteristicTypes@0"/>
-            </lhs>
-            <rhs xsi:type="expressions:False" id="_JO07k4NCEeydpeNEy1O9cA"/>
-          </variableCharacterisation_VariableUsage>
-          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
-            <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_JO07lINCEeydpeNEy1O9cA">
-              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_TIbFkAiIEe-5C6doYp1KxQ-characteristicTypes@0"/>
-              <literal href="../dic.pddc#_TIbFkAiIEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
-            </lhs>
-            <rhs xsi:type="expressions:True" id="_JO07lYNCEeydpeNEy1O9cA"/>
-          </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="number"/>
         </inputVariableUsages__CallAction>
         <inputVariableUsages__CallAction>
-          <variableCharacterisation_VariableUsage type="VALUE">
+          <variableCharacterisation_VariableUsage>
             <specification_VariableCharacterisation specification="message.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="message"/>

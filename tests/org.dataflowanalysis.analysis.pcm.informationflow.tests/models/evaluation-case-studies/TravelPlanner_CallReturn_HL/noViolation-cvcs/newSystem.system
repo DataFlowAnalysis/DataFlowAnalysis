@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ASCII"?>
+<system:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="_4EGE0DlxEeunY9-OetIYyA" entityName="New System">
+  <assemblyContexts__ComposedStructure id="_-OApYDlxEeunY9-OetIYyA" entityName="Assembly_Airline">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:CompositeComponent" href="newRepository.repository#_Y7_EsDluEeunY9-OetIYyA"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_-uwmADlxEeunY9-OetIYyA" entityName="Assembly_TravelAgency">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:CompositeComponent" href="newRepository.repository#_7uRicDlvEeunY9-OetIYyA"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="__MayYDlxEeunY9-OetIYyA" entityName="Assembly_TravelPlanner">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:CompositeComponent" href="newRepository.repository#_8vLJUDlwEeunY9-OetIYyA"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="__zCGcDlxEeunY9-OetIYyA" entityName="Assembly_CreditCardCenter">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="newRepository.repository#_n2qM4DlxEeunY9-OetIYyA"/>
+  </assemblyContexts__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_HGhiMDlyEeunY9-OetIYyA" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_6OgG4DlxEeunY9-OetIYyA" assemblyContext_ProvidedDelegationConnector="__MayYDlxEeunY9-OetIYyA">
+    <innerProvidedRole_ProvidedDelegationConnector href="newRepository.repository#__FhVoDlwEeunY9-OetIYyA"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_Hcl40DlyEeunY9-OetIYyA" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_7RZHQDlxEeunY9-OetIYyA" assemblyContext_ProvidedDelegationConnector="__MayYDlxEeunY9-OetIYyA">
+    <innerProvidedRole_ProvidedDelegationConnector href="newRepository.repository#_DpZwgDlxEeunY9-OetIYyA"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_KZaPQDlyEeunY9-OetIYyA" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="__MayYDlxEeunY9-OetIYyA" providingAssemblyContext_AssemblyConnector="_-uwmADlxEeunY9-OetIYyA">
+    <providedRole_AssemblyConnector href="newRepository.repository#_DFmVUDlwEeunY9-OetIYyA"/>
+    <requiredRole_AssemblyConnector href="newRepository.repository#_HyJukDlxEeunY9-OetIYyA"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_LbIK8DlyEeunY9-OetIYyA" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="__MayYDlxEeunY9-OetIYyA" providingAssemblyContext_AssemblyConnector="_-OApYDlxEeunY9-OetIYyA">
+    <providedRole_AssemblyConnector href="newRepository.repository#_OSCOADlvEeunY9-OetIYyA"/>
+    <requiredRole_AssemblyConnector href="newRepository.repository#_LO5iQDlxEeunY9-OetIYyA"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_MyY40DlyEeunY9-OetIYyA" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_74j08DlxEeunY9-OetIYyA" assemblyContext_ProvidedDelegationConnector="_-OApYDlxEeunY9-OetIYyA">
+    <innerProvidedRole_ProvidedDelegationConnector href="newRepository.repository#_uJgLUDluEeunY9-OetIYyA"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_OtfTkDlyEeunY9-OetIYyA" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_8bp68DlxEeunY9-OetIYyA" assemblyContext_ProvidedDelegationConnector="__zCGcDlxEeunY9-OetIYyA">
+    <innerProvidedRole_ProvidedDelegationConnector href="newRepository.repository#_1oK08DlxEeunY9-OetIYyA"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_VEbAcDlyEeunY9-OetIYyA" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_-uwmADlxEeunY9-OetIYyA" providingAssemblyContext_AssemblyConnector="_-OApYDlxEeunY9-OetIYyA">
+    <providedRole_AssemblyConnector href="newRepository.repository#_SyPCwDlvEeunY9-OetIYyA"/>
+    <requiredRole_AssemblyConnector href="newRepository.repository#_OEtuQDlwEeunY9-OetIYyA"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_Ve1rkDlyEeunY9-OetIYyA" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_-OApYDlxEeunY9-OetIYyA" providingAssemblyContext_AssemblyConnector="_-uwmADlxEeunY9-OetIYyA">
+    <providedRole_AssemblyConnector href="newRepository.repository#_-0zOgDlvEeunY9-OetIYyA"/>
+    <requiredRole_AssemblyConnector href="newRepository.repository#_dNo1MDlwEeunY9-OetIYyA"/>
+  </connectors__ComposedStructure>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_6OgG4DlxEeunY9-OetIYyA" entityName="FindFlightsByCriteriaProvidedRole">
+    <providedInterface__OperationProvidedRole href="newRepository.repository#__aE7QDluEeunY9-OetIYyA"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_7RZHQDlxEeunY9-OetIYyA" entityName="FlightBookingProvidedRole">
+    <providedInterface__OperationProvidedRole href="newRepository.repository#_4RsjUDluEeunY9-OetIYyA"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_74j08DlxEeunY9-OetIYyA" entityName="FlightPlannerProvidedRole">
+    <providedInterface__OperationProvidedRole href="newRepository.repository#_crZLIDltEeunY9-OetIYyA"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_8bp68DlxEeunY9-OetIYyA" entityName="CreditCardCenterProvidedRole">
+    <providedInterface__OperationProvidedRole href="newRepository.repository#_y9slADlsEeunY9-OetIYyA"/>
+  </providedRoles_InterfaceProvidingEntity>
+</system:System>

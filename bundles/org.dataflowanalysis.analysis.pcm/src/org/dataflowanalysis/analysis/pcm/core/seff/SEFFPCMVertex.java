@@ -77,6 +77,10 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
 	 * @return the filtered incoming DataFlowVariables
 	 */
 	protected List<DataFlowVariable> filterCallParameters(List<DataFlowVariable> incomingDataFlowVariables) {
+	    if (isBranching()) {
+	        return incomingDataFlowVariables;
+	    }
+	    
 		List<String> variableNames = this.getParameter().stream().map(Parameter::getParameterName).toList();
 		return incomingDataFlowVariables.stream().filter(it -> variableNames.contains(it.variableName())).toList();
 	}
@@ -89,6 +93,10 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
 	 * @return the filtered outgoing DataFlowVariables
 	 */
 	protected List<DataFlowVariable> filterReturnParameter(List<DataFlowVariable> outgoingDataFlowVariables) {
+	    if (isBranching()) {
+	        return outgoingDataFlowVariables;
+	    }
+	    
 		return outgoingDataFlowVariables.parallelStream().filter(it -> it.getVariableName().equals("RETURN"))
 				.collect(Collectors.toList());
 	}

@@ -85,12 +85,12 @@ class TestmodelsTest {
     }
 
     private boolean vertexViolatesIncomingHigherThanNode(AbstractVertex<?> vertex, ResourceProvider resourceProvider) {
-        List<String> latticeLiteralIds = IFPCMDataDictionaryUtils.getLatticeEnumeration(resourceProvider)
+        List<String> latticeLiteralIds = IFPCMDataDictionaryUtils.getLatticeEnumeration(resourceProvider, "Lattice")
                 .getLiterals()
                 .stream()
                 .map(literal -> literal.getId())
                 .toList();
-        EnumCharacteristicType lattice = IFPCMDataDictionaryUtils.getLatticeCharacteristicType(resourceProvider);
+        EnumCharacteristicType lattice = IFPCMDataDictionaryUtils.getLatticeCharacteristicType(resourceProvider, "Lattice");
 
         List<String> vertexIncomingLatticeCharacteristicNames = vertex.getAllIncomingDataFlowVariables()
                 .stream()

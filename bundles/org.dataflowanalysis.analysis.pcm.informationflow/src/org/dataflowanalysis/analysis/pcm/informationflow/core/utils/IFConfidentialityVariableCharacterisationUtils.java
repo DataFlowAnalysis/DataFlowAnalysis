@@ -204,7 +204,7 @@ public class IFConfidentialityVariableCharacterisationUtils {
             }
         }
 
-        return createCharacterisation(constraint, latticeCharacteristicType, level,
+        return createCharacterisation(characterizedVariable, latticeCharacteristicType, level,
                 createRhsForAdditionalHigherEqualConstraint(lowerDefinedTerms, levelTerm, levelConstraintVariable, higherConstraintVariables));
     }
 

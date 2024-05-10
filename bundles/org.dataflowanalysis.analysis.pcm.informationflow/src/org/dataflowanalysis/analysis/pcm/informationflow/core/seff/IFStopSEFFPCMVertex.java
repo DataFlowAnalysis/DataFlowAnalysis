@@ -84,7 +84,7 @@ public class IFStopSEFFPCMVertex extends AbstractIFSEFFPCMVertex<StopAction> {
 
         // behavior of branch in case of branch stop
         if (isElementInGuardedBranchTransitionSEFF()) {
-            outgoingDataFlowVariables = modifyOutgoingDataFlowVariablesOfBranch(outgoingDataFlowVariables);
+            modifiedOutgoing = modifyOutgoingDataFlowVariablesOfBranch(outgoingDataFlowVariables);
         }
         return modifiedOutgoing;
     }

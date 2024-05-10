@@ -132,8 +132,7 @@ public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrat
                     .count();
             if (characterisationsForLevel > 1) {
                 String errorMessage = "For the level '" + level.getName() + "' of the lattice there are multiple definitions in one element.";
-                logger.error(errorMessage);
-                throw new IllegalStateException(errorMessage);
+                logger.warn(errorMessage);
             }
         }
     }

@@ -86,7 +86,7 @@ public class IFStopSEFFPCMVertex extends AbstractIFSEFFPCMVertex<StopAction> {
         if (isElementInGuardedBranchTransitionSEFF()) {
             outgoingDataFlowVariables = modifyOutgoingDataFlowVariablesOfBranch(outgoingDataFlowVariables);
         }
-        return outgoingDataFlowVariables;
+        return modifiedOutgoing;
     }
 
     private List<DataFlowVariable> modifyOutgoingDataFlowVariablesOfBranch(List<DataFlowVariable> incomingVariables) {

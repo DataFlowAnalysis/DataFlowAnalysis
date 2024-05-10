@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.utils.IFConfidentialityVariableCharacterisationUtils;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.utils.IFPCMDataDictionaryUtils;
@@ -30,18 +31,29 @@ import de.uka.ipd.sdq.stoex.Expression;
  */
 public abstract class IFPCMExtractionStrategy {
 
-    final private ResourceProvider resourceProvider;
-    private Enumeration lattice;
-    private CharacteristicType latticeCharacteristicType;
+    final private static Logger logger = Logger.getLogger(IFPCMExtractionStrategy.class);
+
+    final private String latticeName;
+    private ResourceProvider resourceProvider;
     private boolean initialized;
 
     /**
-     * Creates an IFPCMExtractionStrategy for the given resourceProvider
-     * @param resourceProvider the resourceProvider
+     * Creates an IFPCMExtractionStrategy for the given lattice. The Strategy should be initialized before used.
+     * @param latticeName the lattice name
+     * @see #initialize(ResourceProvider)
      */
-    public IFPCMExtractionStrategy(ResourceProvider resourceProvider) {
-        this.resourceProvider = resourceProvider;
+    public IFPCMExtractionStrategy(String latticeName) {
+        this.latticeName = latticeName;
         this.initialized = false;
+    }
+
+    /**
+     * Initialize the extraction strategy with the given ResourceProvider.
+     * @param resourceProvider the ResourceProvider
+     */
+    public void initialize(ResourceProvider resourceProvider) {
+        this.resourceProvider = resourceProvider;
+        this.initialized = true;
     }
 
     /**
@@ -265,10 +277,7 @@ public abstract class IFPCMExtractionStrategy {
      * @return the lattice used for the extraction
      */
     protected Enumeration getLattice() {
-        if (!initialized) {
-            initializeResources();
-        }
-        return lattice;
+        return IFPCMDataDictionaryUtils.getLatticeEnumeration(getResourceProvider(), latticeName);
     }
 
     /**
@@ -276,10 +285,7 @@ public abstract class IFPCMExtractionStrategy {
      * @return the CharacteristicType used for the extraction
      */
     protected CharacteristicType getLatticeCharacteristicType() {
-        if (!initialized) {
-            initializeResources();
-        }
-        return latticeCharacteristicType;
+        return IFPCMDataDictionaryUtils.getLatticeCharacteristicType(getResourceProvider(), latticeName);
     }
 
     /**
@@ -287,11 +293,20 @@ public abstract class IFPCMExtractionStrategy {
      * @return the ResourceProvider used for the extraction
      */
     protected ResourceProvider getResourceProvider() {
+        if (!initialized) {
+            String errorMessage = "An extraction strategy should only be used after initializing.";
+            logger.error(errorMessage);
+            throw new IllegalStateException(errorMessage);
+        }
+
         return resourceProvider;
     }
 
-    private void initializeResources() {
-        latticeCharacteristicType = IFPCMDataDictionaryUtils.getLatticeCharacteristicType(resourceProvider);
-        lattice = IFPCMDataDictionaryUtils.getLatticeEnumeration(resourceProvider);
+    /**
+     * Returns the name of the used lattice.
+     * @return the name of the used lattice
+     */
+    public String getLatticeName() {
+        return latticeName;
     }
 }

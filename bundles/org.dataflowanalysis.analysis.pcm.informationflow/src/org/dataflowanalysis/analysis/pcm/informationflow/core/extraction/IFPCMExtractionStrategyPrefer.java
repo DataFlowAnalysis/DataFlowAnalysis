@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.utils.IFConfidentialityVariableCharacterisationUtils;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.utils.IFPCMDataDictionaryUtils;
-import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristicType;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Literal;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
@@ -22,8 +21,8 @@ public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrat
 
     private final static Logger logger = Logger.getLogger(IFPCMExtractionStrategyPrefer.class);
 
-    public IFPCMExtractionStrategyPrefer(ResourceProvider resourceProvider) {
-        super(resourceProvider);
+    public IFPCMExtractionStrategyPrefer(String latticeName) {
+        super(latticeName);
     }
 
     @Override
@@ -62,8 +61,9 @@ public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrat
 
         if (definedCharacteristicType == null) {
             List<EnumCharacteristicType> nonLatticCharacteristicTypes = IFPCMDataDictionaryUtils
-                    .getAllEnumCharacteristicTypesExceptLattice(getResourceProvider());
-            EnumCharacteristicType latticeCharacteristicType = IFPCMDataDictionaryUtils.getLatticeCharacteristicType(getResourceProvider());
+                    .getAllEnumCharacteristicTypesExceptLattice(getResourceProvider(), getLatticeName());
+            EnumCharacteristicType latticeCharacteristicType = IFPCMDataDictionaryUtils.getLatticeCharacteristicType(getResourceProvider(),
+                    getLatticeName());
 
             var resolvedNonLatticeConfidentialityCharacterisations = IFConfidentialityVariableCharacterisationUtils
                     .resolveCharacteristicTypeWildcard(characterisation, nonLatticCharacteristicTypes);
@@ -73,8 +73,7 @@ public abstract class IFPCMExtractionStrategyPrefer extends IFPCMExtractionStrat
             latticeCharactisation.addAll(resolvedLatticeCharacterisation);
         } else if (definedLiteral == null) {
             var resolvedCharacterisations = IFConfidentialityVariableCharacterisationUtils.resolveLiteralWildcard(characterisation);
-            if (definedCharacteristicType.getType()
-                    .equals(getLattice())) {
+            if (definedCharacteristicType.equals(getLatticeCharacteristicType())) {
                 latticeCharactisation.addAll(resolvedCharacterisations);
             } else {
                 nonLatticeCharacterisation.addAll(resolvedCharacterisations);

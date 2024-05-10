@@ -5,7 +5,6 @@ import java.util.List;
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.utils.IFConfidentialityVariableCharacterisationUtils;
 import org.dataflowanalysis.analysis.pcm.informationflow.core.utils.IFStoexUtils;
-import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 
 /**
@@ -15,8 +14,8 @@ import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityV
  */
 public class IFPCMExtractionStrategyPreferConsider extends IFPCMExtractionStrategyPrefer {
 
-    public IFPCMExtractionStrategyPreferConsider(ResourceProvider resourceProvider) {
-        super(resourceProvider);
+    public IFPCMExtractionStrategyPreferConsider(String latticeName) {
+        super(latticeName);
     }
 
     @Override

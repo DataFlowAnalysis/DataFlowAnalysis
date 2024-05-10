@@ -3,7 +3,6 @@ package org.dataflowanalysis.analysis.pcm.informationflow.core.extraction;
 import java.util.List;
 
 import org.dataflowanalysis.analysis.core.DataFlowVariable;
-import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 
 /**
@@ -14,8 +13,8 @@ import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityV
  */
 public class IFPCMExtractionStrategyPreferUnmodified extends IFPCMExtractionStrategyPrefer {
 
-    public IFPCMExtractionStrategyPreferUnmodified(ResourceProvider resourceProvider) {
-        super(resourceProvider);
+    public IFPCMExtractionStrategyPreferUnmodified(String latticeName) {
+        super(latticeName);
     }
 
     @Override

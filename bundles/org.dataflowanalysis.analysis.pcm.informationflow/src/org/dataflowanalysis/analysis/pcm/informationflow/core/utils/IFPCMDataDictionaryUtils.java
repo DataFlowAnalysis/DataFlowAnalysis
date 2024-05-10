@@ -18,8 +18,6 @@ public class IFPCMDataDictionaryUtils {
 
     private final static Logger logger = Logger.getLogger(IFPCMDataDictionaryUtils.class);
 
-    private final static String LATTICE_CHARACTERISTIC_TYPE_NAME = "Lattice";
-
     private IFPCMDataDictionaryUtils() {
     }
 
@@ -56,9 +54,9 @@ public class IFPCMDataDictionaryUtils {
      * @param resourceProvider the ResourceProvider used for searching specifications
      * @return all specified EnumCharacteristicTypes except the used lattice
      */
-    public static List<EnumCharacteristicType> getAllEnumCharacteristicTypesExceptLattice(ResourceProvider resourceProvider) {
+    public static List<EnumCharacteristicType> getAllEnumCharacteristicTypesExceptLattice(ResourceProvider resourceProvider, String latticeName) {
         return getAllEnumCharacteristicTypes(resourceProvider).stream()
-                .filter(it -> !it.equals(getLatticeCharacteristicType(resourceProvider)))
+                .filter(it -> !it.equals(getLatticeCharacteristicType(resourceProvider, latticeName)))
                 .toList();
     }
 
@@ -67,13 +65,13 @@ public class IFPCMDataDictionaryUtils {
      * @param resourceProvider the ResourceProvider used for searching specifications
      * @return the EnumCharacteristicType which specifies the lattice
      */
-    public static EnumCharacteristicType getLatticeCharacteristicType(ResourceProvider resourceProvider) {
+    public static EnumCharacteristicType getLatticeCharacteristicType(ResourceProvider resourceProvider, String latticeName) {
         var latticeCharacteristicType = getAllEnumCharacteristicTypes(resourceProvider).stream()
                 .filter(it -> it.getName()
-                        .equals(LATTICE_CHARACTERISTIC_TYPE_NAME))
+                        .equals(latticeName))
                 .findFirst();
         if (latticeCharacteristicType.isEmpty()) {
-            String errorMessage = "Could not find an EnumCharacteristicType named '" + LATTICE_CHARACTERISTIC_TYPE_NAME + "' in the resources.";
+            String errorMessage = "Could not find an EnumCharacteristicType named '" + latticeName + "' in the resources.";
             logger.error(errorMessage);
             throw new IllegalStateException(errorMessage);
         }
@@ -85,8 +83,8 @@ public class IFPCMDataDictionaryUtils {
      * @param resourceProvider the ResourceProvider used for searching specifications
      * @return the Enumeration of the specified lattice
      */
-    public static Enumeration getLatticeEnumeration(ResourceProvider resourceProvider) {
-        return getLatticeCharacteristicType(resourceProvider).getType();
+    public static Enumeration getLatticeEnumeration(ResourceProvider resourceProvider, String latticeName) {
+        return getLatticeCharacteristicType(resourceProvider, latticeName).getType();
     }
 
 }

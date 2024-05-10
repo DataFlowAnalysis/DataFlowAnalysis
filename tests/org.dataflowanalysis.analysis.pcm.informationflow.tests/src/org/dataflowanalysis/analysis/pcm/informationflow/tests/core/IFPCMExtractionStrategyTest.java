@@ -45,7 +45,8 @@ class IFPCMExtractionStrategyTest {
     @BeforeEach
     void prepareStrategy() {
         var analysis = ModelCreationTestUtils.createSwappedCallsAnalysis();
-        extractionStrategy = new IFPCMExtractionStrategyPreferUnmodified(analysis.getResourceProvider());
+        extractionStrategy = new IFPCMExtractionStrategyPreferUnmodified("Lattice");
+        extractionStrategy.initialize(analysis.getResourceProvider());
     }
 
     @Test

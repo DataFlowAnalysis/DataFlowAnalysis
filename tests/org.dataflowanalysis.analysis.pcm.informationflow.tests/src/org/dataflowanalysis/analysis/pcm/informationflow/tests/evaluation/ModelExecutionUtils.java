@@ -4,16 +4,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.FlowGraph;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.informationflow.IFPCMDataFlowConfidentialityAnalysisBuilder;
-import org.dataflowanalysis.analysis.pcm.informationflow.core.extraction.IFPCMExtractionMode;
+import org.dataflowanalysis.analysis.pcm.informationflow.core.extraction.IFPCMExtractionStrategyPreferConsider;
 import org.dataflowanalysis.analysis.pcm.informationflow.tests.IFTestsActivator;
 import org.dataflowanalysis.analysis.pcm.informationflow.tests.ModelCreationTestUtils;
 
 public class ModelExecutionUtils {
+
+    private final static Logger logger = Logger.getLogger(ModelExecutionUtils.class);
 
     private ModelExecutionUtils() {
     }
@@ -70,7 +73,7 @@ public class ModelExecutionUtils {
                 .useNodeCharacteristicsModel(modelInstanceData.nodePath()
                         .toString())
                 .setConsiderImplicitFlow(true)
-                .setExtractionMode(IFPCMExtractionMode.PreferConsider)
+                .setExtractionStrategy(new IFPCMExtractionStrategyPreferConsider("Lattice"))
                 .build();
         return executeAnalysis(analysis, condition);
     }
@@ -79,6 +82,16 @@ public class ModelExecutionUtils {
         analysis.initializeAnalysis();
         FlowGraph flowGraph = analysis.findFlowGraph();
         FlowGraph propagatedFlowGraph = analysis.evaluateFlowGraph(flowGraph);
+
+        for (var pfg : propagatedFlowGraph.getPartialFlowGraphs()) {
+            logger.info(pfg);
+
+            for (var vertex : pfg.getVertices()) {
+                logger.info(vertex.createPrintableNodeInformation());
+                logger.info(vertex.createPrintableCharacteristicsList(vertex.getAllNodeCharacteristics()));
+            }
+
+        }
 
         boolean containsViolation = false;
         for (var parialFlowGraph : propagatedFlowGraph.getPartialFlowGraphs()) {

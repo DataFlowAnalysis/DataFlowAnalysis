@@ -32,6 +32,12 @@
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="locations"/>
         </outputParameterUsages_EntryLevelSystemCall>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="RETURN.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="locations"/>
+        </outputParameterUsages_EntryLevelSystemCall>
       </actions_ScenarioBehaviour>
       <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_vWPNIINmEeydpeNEy1O9cA" entityName="User.createFriendMap" successor="_xHehQINmEeydpeNEy1O9cA" predecessor="_r415MINmEeydpeNEy1O9cA">
         <providedRole_EntryLevelSystemCall href="newsystem.system#_50RuwINlEeydpeNEy1O9cA"/>
@@ -46,6 +52,12 @@
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="map"/>
         </outputParameterUsages_EntryLevelSystemCall>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="RETURN.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="map"/>
+        </outputParameterUsages_EntryLevelSystemCall>
         <inputParameterUsages_EntryLevelSystemCall>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -53,6 +65,12 @@
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_mAT4MYNpEeydpeNEy1O9cA">
               <namedReference xsi:type="stoex:VariableReference" referenceName="locations"/>
             </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="locations"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="locations.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="locations"/>
         </inputParameterUsages_EntryLevelSystemCall>
@@ -67,6 +85,12 @@
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_vZzXIYNpEeydpeNEy1O9cA">
               <namedReference xsi:type="stoex:VariableReference" referenceName="map"/>
             </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="map"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="map.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="map"/>
         </inputParameterUsages_EntryLevelSystemCall>

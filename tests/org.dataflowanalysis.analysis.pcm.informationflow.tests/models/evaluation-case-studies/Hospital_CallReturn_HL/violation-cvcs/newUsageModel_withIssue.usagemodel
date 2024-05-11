@@ -17,6 +17,12 @@
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="permissions"/>
         </outputParameterUsages_EntryLevelSystemCall>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="RETURN.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="permissions"/>
+        </outputParameterUsages_EntryLevelSystemCall>
       </actions_ScenarioBehaviour>
       <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_7pZMkIOBEeyth_Kqe2ur6g" entityName="User.requestList" successor="_I5Dr0IOCEeyth_Kqe2ur6g" predecessor="_c9op4IOBEeyth_Kqe2ur6g">
         <providedRole_EntryLevelSystemCall href="newSystem_withIssue.system#_MNnewIOAEeyth_Kqe2ur6g"/>
@@ -28,6 +34,12 @@
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_V-OLQYOCEeyth_Kqe2ur6g">
               <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
             </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="patientList"/>
+        </outputParameterUsages_EntryLevelSystemCall>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="RETURN.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="patientList"/>
         </outputParameterUsages_EntryLevelSystemCall>
@@ -52,6 +64,12 @@
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="permissions"/>
         </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="permissions.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="permissions"/>
+        </inputParameterUsages_EntryLevelSystemCall>
       </actions_ScenarioBehaviour>
       <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_I5Dr0IOCEeyth_Kqe2ur6g" entityName="User.addToDropbox" successor="_MFzUoIOCEeyth_Kqe2ur6g" predecessor="_7pZMkIOBEeyth_Kqe2ur6g">
         <providedRole_EntryLevelSystemCall href="newSystem_withIssue.system#_aglOEIOAEeyth_Kqe2ur6g"/>
@@ -66,6 +84,12 @@
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="patientList"/>
         </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="patientList.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="patientList"/>
+        </inputParameterUsages_EntryLevelSystemCall>
       </actions_ScenarioBehaviour>
       <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_MFzUoIOCEeyth_Kqe2ur6g" entityName="User.getFromDropbox" successor="_aPfzMIOCEeyth_Kqe2ur6g" predecessor="_I5Dr0IOCEeyth_Kqe2ur6g">
         <providedRole_EntryLevelSystemCall href="newSystem_withIssue.system#_aglOEIOAEeyth_Kqe2ur6g"/>
@@ -77,6 +101,12 @@
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_S6hwxIOCEeyth_Kqe2ur6g">
               <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
             </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="dropboxPatientList"/>
+        </outputParameterUsages_EntryLevelSystemCall>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="RETURN.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="dropboxPatientList"/>
         </outputParameterUsages_EntryLevelSystemCall>
@@ -104,6 +134,18 @@
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="permissions"/>
         </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="dropboxPatientList.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="patientList"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="permissions.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="permissions"/>
+        </inputParameterUsages_EntryLevelSystemCall>
       </actions_ScenarioBehaviour>
     </scenarioBehaviour_UsageScenario>
     <workload_UsageScenario xsi:type="usagemodel:ClosedWorkload" population="1">
@@ -124,6 +166,12 @@
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_RX1rdIOBEeyth_Kqe2ur6g">
               <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
             </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="patientList"/>
+        </outputParameterUsages_EntryLevelSystemCall>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="RETURN.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="patientList"/>
         </outputParameterUsages_EntryLevelSystemCall>

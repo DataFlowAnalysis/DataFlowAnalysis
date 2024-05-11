@@ -32,6 +32,12 @@
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="distance"/>
         </outputParameterUsages_EntryLevelSystemCall>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="RETURN.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="distance"/>
+        </outputParameterUsages_EntryLevelSystemCall>
       </actions_ScenarioBehaviour>
       <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_GJioYDopEeujr6PSMKhjng" entityName="User.uploadDistance" successor="_0fK4YTooEeujr6PSMKhjng" predecessor="_FXe5UDopEeujr6PSMKhjng">
         <providedRole_EntryLevelSystemCall href="newSystem.system#_kZGMsDooEeujr6PSMKhjng"/>
@@ -54,6 +60,12 @@
             <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_IptuAzpIEeujr6PSMKhjng">
               <namedReference xsi:type="stoex:VariableReference" referenceName="distance"/>
             </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="distance"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="distance.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="distance"/>
         </inputParameterUsages_EntryLevelSystemCall>

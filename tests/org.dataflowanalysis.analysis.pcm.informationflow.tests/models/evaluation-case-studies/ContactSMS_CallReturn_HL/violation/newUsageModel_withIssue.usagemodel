@@ -38,12 +38,8 @@
         <providedRole_EntryLevelSystemCall href="newSystem_withIssue.system#_sRCd8IM-EeydpeNEy1O9cA"/>
         <operationSignature__EntryLevelSystemCall href="newRepository_withIssue.repository#_tuQxQIM7EeydpeNEy1O9cA"/>
         <outputParameterUsages_EntryLevelSystemCall>
-          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
-            <specification_VariableCharacterisation specification="false"/>
-            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_Us4IsINBEeydpeNEy1O9cA"/>
-            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_Us4IsYNBEeydpeNEy1O9cA">
-              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
-            </rhs>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="RETURN.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="contacts"/>
         </outputParameterUsages_EntryLevelSystemCall>

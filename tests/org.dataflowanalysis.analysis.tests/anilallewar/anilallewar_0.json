@@ -1,421 +1,1020 @@
 {
-    "services": [
-        {
-            "name": "configserver",
-            "stereotypes": [
-                "infrastructural",
-                "configuration_server"
-            ],
-            "tagged_values": {
-                "Port": 8888,
-                "Configuration Server": "Spring Cloud Config"
-            }
-        },
-        {
-            "name": "webservice_registry",
-            "stereotypes": [
-                "infrastructural",
-                "service_discovery"
-            ],
-            "tagged_values": {
-                "Port": 8761,
-                "Service Discovery": "Eureka"
-            }
-        },
-        {
-            "name": "zipkin_tracing",
-            "stereotypes": [
-                "infrastructural",
-                "tracing_server"
-            ],
-            "tagged_values": {
-                "Port": 9411,
-                "Tracing Server": "Zipkin"
-            }
-        },
-        {
-            "name": "mysqldb",
-            "stereotypes": [
-                "database",
-                "plaintext_credentials"
-            ],
-            "tagged_values": {
-                "Port": 3306,
-                "Database": "MySQL",
-                "Password": "password"
-            }
-        },
-        {
-            "name": "auth_server",
-            "stereotypes": [
-                "infrastructural",
-                "authorization_server",
-                "resource_server",
-                "authentication_scope_all_requests",
-                "plaintext_credentials",
-                "authentication",
-                "entrypoint"
-            ],
-            "tagged_values": {
-                "Port": 8899,
-                "Authorization Server": "Spring OAuth2",
-                "Endpoints": [
-                    "/me"
-                ],
-                "Username": "user",
-                "Password": "password"
-            }
-        },
-        {
-            "name": "web_portal",
-            "stereotypes": [
-                "infrastructural",
-                "monitoring_dashboard",
-                "monitoring_server",
-                "authentication_scope_all_requests",
-                "local_logging"
-            ],
-            "tagged_values": {
-                "Port": 8090,
-                "Monitoring Server": "Turbine",
-                "Monitoring Dashboard": "Hystrix"
-            }
-        },
-        {
-            "name": "user_webservice",
-            "stereotypes": [
-                "internal",
-                "local_logging",
-                "resource_server",
-                "authentication_scope_all_requests"
-            ],
-            "tagged_values": {
-                "Port": 8091,
-                "Endpoints": [
-                    "/",
-                    "/{userName}"
-                ]
-            }
-        },
-        {
-            "name": "comments_webservice",
-            "stereotypes": [
-                "internal",
-                "local_logging",
-                "resource_server"
-            ],
-            "tagged_values": {
-                "Port": 8083,
-                "Endpoints": [
-                    "/comments",
-                    "/comments/{taskId}"
-                ]
-            }
-        },
-        {
-            "name": "task_webservice",
-            "stereotypes": [
-                "internal",
-                "local_logging",
-                "authentication_scope_all_requests",
-                "resource_server",
-                "circuit_breaker",
-                "load_balancer",
-                "authentication"
-            ],
-            "tagged_values": {
-                "Port": 8082,
-                "Circuit Breaker": "Hystrix",
-                "Endpoints": [
-                    "/",
-                    "/{taskId}",
-                    "/usertask/{userName}"
-                ],
-                "Load Balancer": "Spring Cloud"
-            }
-        },
-        {
-            "name": "api_gateway",
-            "stereotypes": [
-                "infrastructural",
-                "gateway",
-                "load_balancer",
-                "circuit_breaker",
-                "csrf_disabled",
-                "entrypoint"
-            ],
-            "tagged_values": {
-                "Port": 8765,
-                "Gateway": "Zuul",
-                "Load Balancer": "Ribbon",
-                "Circuit Breaker": "Hystrix"
-            }
-        }
-    ],
-    "external_entities": [
-        {
-            "name": "github_repository",
-            "stereotypes": [
-                "github_repository"
-            ],
-            "tagged_values": {
-                "URL": "https://github.com/anilallewar/microservices-basics-cloud-config"
-            }
-        },
-        {
-            "name": "user",
-            "stereotypes": [
-                "user_stereotype"
-            ],
-            "tagged_values": {}
-        }
-    ],
-    "information_flows": [
-        {
-            "sender": "github_repository",
-            "receiver": "configserver",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {
-                "Protocol": "HTTPS"
-            }
-        },
-        {
-            "sender": "configserver",
-            "receiver": "webservice_registry",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "configserver",
-            "receiver": "zipkin_tracing",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "configserver",
-            "receiver": "auth_server",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "mysqldb",
-            "receiver": "auth_server",
-            "stereotypes": [
-                "restful_http",
-                "plaintext_credentials_link"
-            ],
-            "tagged_values": {
-                "'Username'": "\"root\"",
-                " 'Password'": "\"password\""
-            }
-        },
-        {
-            "sender": "auth_server",
-            "receiver": "webservice_registry",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "web_portal",
-            "receiver": "webservice_registry",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "configserver",
-            "receiver": "web_portal",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "user_webservice",
-            "receiver": "zipkin_tracing",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "configserver",
-            "receiver": "user_webservice",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "user_webservice",
-            "receiver": "webservice_registry",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "auth_server",
-            "receiver": "user_webservice",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "comments_webservice",
-            "receiver": "zipkin_tracing",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "configserver",
-            "receiver": "comments_webservice",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "comments_webservice",
-            "receiver": "webservice_registry",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "task_webservice",
-            "receiver": "zipkin_tracing",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "configserver",
-            "receiver": "task_webservice",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "auth_server",
-            "receiver": "task_webservice",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "task_webservice",
-            "receiver": "webservice_registry",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "task_webservice",
-            "receiver": "web_portal",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "task_webservice",
-            "receiver": "comments_webservice",
-            "stereotypes": [
-                "restful_http",
-                "circuit_breaker_link",
-                "load_balanced_link"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "user",
-            "receiver": "api_gateway",
-            "stereotypes": [
-                "restful_http",
-                "authenticated_request"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "user",
-            "receiver": "auth_server",
-            "stereotypes": [
-                "restful_http",
-                "authenticated_request"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "configserver",
-            "receiver": "api_gateway",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "webservice_registry",
-            "receiver": "api_gateway",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "api_gateway",
-            "receiver": "zipkin_tracing",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "auth_server",
-            "receiver": "api_gateway",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "api_gateway",
-            "receiver": "user_webservice",
-            "stereotypes": [
-                "restful_http",
-                "load_balanced_link",
-                "circuit_breaker_link"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "api_gateway",
-            "receiver": "task_webservice",
-            "stereotypes": [
-                "restful_http",
-                "load_balanced_link",
-                "circuit_breaker_link"
-            ],
-            "tagged_values": {}
-        }
-    ]
+  "model" : {
+    "type" : "graph",
+    "id" : "root",
+    "children" : [ {
+      "text" : "github_repository",
+      "id" : "_NDBeABEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDBeAhEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDBeAREiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "configserver",
+      "id" : "_NDCFExEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDCFFREiEe-ut7OFEAmp2g",
+      "targetId" : "_NDCFFBEiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "configserver",
+      "id" : "_NDCFFhEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDCFGBEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDCFFxEiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "configserver",
+      "id" : "_NDCFGREiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDCFGxEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDCFGhEiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "mysqldb",
+      "id" : "_NDCFHBEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDCFHhEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDCFHREiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "auth_server",
+      "id" : "_NDCFIREiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDCFIxEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDCFIhEiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "web_portal",
+      "id" : "_NDCsIBEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDCsIhEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDCsIREiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "configserver",
+      "id" : "_NDCsIxEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDCsJREiEe-ut7OFEAmp2g",
+      "targetId" : "_NDCsJBEiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "user_webservice",
+      "id" : "_NDCsJhEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDCsKBEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDCsJxEiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "configserver",
+      "id" : "_NDCsKREiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDCsKxEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDCsKhEiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "user_webservice",
+      "id" : "_NDCsLBEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDCsLhEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDCsLREiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "auth_server",
+      "id" : "_NDCsLxEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDCsMREiEe-ut7OFEAmp2g",
+      "targetId" : "_NDCsMBEiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "comments_webservice",
+      "id" : "_NDCsMhEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDCsNBEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDCsMxEiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "configserver",
+      "id" : "_NDCsNREiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDCsNxEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDCsNhEiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "comments_webservice",
+      "id" : "_NDCsOBEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDCsOhEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDCsOREiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "task_webservice",
+      "id" : "_NDDTMBEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDDTMhEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDDTMREiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "configserver",
+      "id" : "_NDDTMxEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDDTNREiEe-ut7OFEAmp2g",
+      "targetId" : "_NDDTNBEiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "auth_server",
+      "id" : "_NDDTNhEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDDTOBEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDDTNxEiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "task_webservice",
+      "id" : "_NDDTOREiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDDTOxEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDDTOhEiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "task_webservice",
+      "id" : "_NDDTPBEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDDTPhEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDDTPREiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "task_webservice",
+      "id" : "_NDDTPxEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDDTQREiEe-ut7OFEAmp2g",
+      "targetId" : "_NDDTQBEiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "user",
+      "id" : "_NDDTRBEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDDTRhEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDDTRREiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "user",
+      "id" : "_NDD6QBEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDD6QhEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDD6QREiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "configserver",
+      "id" : "_NDD6QxEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDD6RREiEe-ut7OFEAmp2g",
+      "targetId" : "_NDD6RBEiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "webservice_registry",
+      "id" : "_NDD6RhEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDD6SBEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDD6RxEiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "api_gateway",
+      "id" : "_NDD6SREiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDD6SxEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDD6ShEiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "auth_server",
+      "id" : "_NDD6TBEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDD6ThEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDD6TREiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "api_gateway",
+      "id" : "_NDD6TxEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDD6UREiEe-ut7OFEAmp2g",
+      "targetId" : "_NDD6UBEiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "api_gateway",
+      "id" : "_NDD6UhEiEe-ut7OFEAmp2g",
+      "type" : "edge:arrow",
+      "sourceId" : "_NDD6VBEiEe-ut7OFEAmp2g",
+      "targetId" : "_NDD6UxEiEe-ut7OFEAmp2g",
+      "children" : [ ]
+    }, {
+      "text" : "github_repository",
+      "labels" : [ {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC_o5xEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC_o6BEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NDAP4BEiEe-ut7OFEAmp2g"
+      } ],
+      "ports" : [ {
+        "behavior" : "set Stereotype.github_repository = TRUE\nset Stereotype.restful_http = TRUE\nset Protocol.HTTPS = TRUE",
+        "id" : "_NDBeAhEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_NC2e4BEiEe-ut7OFEAmp2g",
+      "type" : "node:input-output",
+      "children" : [ ]
+    }, {
+      "text" : "user",
+      "labels" : [ {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NDAP4xEiEe-ut7OFEAmp2g"
+      } ],
+      "ports" : [ {
+        "behavior" : "set Stereotype.user_stereotype = TRUE\nset Stereotype.restful_http = TRUE\nset Stereotype.authenticated_request = TRUE",
+        "id" : "_NDDTRhEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.user_stereotype = TRUE\nset Stereotype.restful_http = TRUE\nset Stereotype.authenticated_request = TRUE",
+        "id" : "_NDD6QhEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_NC3tABEiEe-ut7OFEAmp2g",
+      "type" : "node:input-output",
+      "children" : [ ]
+    }, {
+      "text" : "configserver",
+      "labels" : [ {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC8lgBEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC-axxEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9MkhEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC_o0BEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC_o0REiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC_o0hEiEe-ut7OFEAmp2g"
+      } ],
+      "ports" : [ {
+        "id" : "_NDBeAREiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.infrastructural = TRUE\nset Stereotype.configuration_server = TRUE\nset Stereotype.restful_http = TRUE\nforward github_repository",
+        "id" : "_NDCFFREiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.infrastructural = TRUE\nset Stereotype.configuration_server = TRUE\nset Stereotype.restful_http = TRUE\nforward github_repository",
+        "id" : "_NDCFGBEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.infrastructural = TRUE\nset Stereotype.configuration_server = TRUE\nset Stereotype.restful_http = TRUE\nforward github_repository",
+        "id" : "_NDCFGxEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.infrastructural = TRUE\nset Stereotype.configuration_server = TRUE\nset Stereotype.restful_http = TRUE\nforward github_repository",
+        "id" : "_NDCsJREiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.infrastructural = TRUE\nset Stereotype.configuration_server = TRUE\nset Stereotype.restful_http = TRUE\nforward github_repository",
+        "id" : "_NDCsKxEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.infrastructural = TRUE\nset Stereotype.configuration_server = TRUE\nset Stereotype.restful_http = TRUE\nforward github_repository",
+        "id" : "_NDCsNxEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.infrastructural = TRUE\nset Stereotype.configuration_server = TRUE\nset Stereotype.restful_http = TRUE\nforward github_repository",
+        "id" : "_NDDTNREiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.infrastructural = TRUE\nset Stereotype.configuration_server = TRUE\nset Stereotype.restful_http = TRUE\nforward github_repository",
+        "id" : "_NDD6RREiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_NC4UEBEiEe-ut7OFEAmp2g",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "webservice_registry",
+      "labels" : [ {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC8lgBEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC-auBEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9MkhEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC-auREiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC-auhEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC-auxEiEe-ut7OFEAmp2g"
+      } ],
+      "ports" : [ {
+        "id" : "_NDCFFBEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_NDCFIhEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_NDCsIREiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_NDCsLREiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_NDCsOREiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_NDDTOhEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.infrastructural = TRUE\nset Stereotype.service_discovery = TRUE\nset Stereotype.restful_http = TRUE\nforward configserver\nforward auth_server\nforward web_portal\nforward user_webservice\nforward comments_webservice\nforward task_webservice",
+        "id" : "_NDD6SBEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_NC4UEREiEe-ut7OFEAmp2g",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "zipkin_tracing",
+      "labels" : [ {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC8lgBEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC-ashEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC-asxEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC-atBEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9MkhEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC-atREiEe-ut7OFEAmp2g"
+      } ],
+      "ports" : [ {
+        "id" : "_NDCFFxEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_NDCsJxEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_NDCsMxEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_NDDTMREiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_NDD6ShEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      } ],
+      "id" : "_NC4UEhEiEe-ut7OFEAmp2g",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "mysqldb",
+      "labels" : [ {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC_o1REiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC_o1hEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9MkhEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC_o1xEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC_o2BEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC_o2REiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC_o2hEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC_o2xEiEe-ut7OFEAmp2g"
+      } ],
+      "ports" : [ {
+        "behavior" : "set Stereotype.database = TRUE\nset Stereotype.plaintext_credentials = TRUE\nset Stereotype.restful_http = TRUE\nset Stereotype.plaintext_credentials_link = TRUE\nset Username.root = TRUE\nset Password.password = TRUE",
+        "id" : "_NDCFHhEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_NC4UExEiEe-ut7OFEAmp2g",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "auth_server",
+      "labels" : [ {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC8lgBEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NDAP5hEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9zoxEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC8lgxEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC_o1hEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9zphEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC_o4BEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9zpxEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NDAP5xEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NDAP6BEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NDAP6REiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NDAP6hEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NDAP6xEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9MkhEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NDAP7BEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC_o2hEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC_o2xEiEe-ut7OFEAmp2g"
+      } ],
+      "ports" : [ {
+        "id" : "_NDCFGhEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_NDCFHREiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_NDD6QREiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.infrastructural = TRUE\nset Stereotype.authorization_server = TRUE\nset Stereotype.resource_server = TRUE\nset Stereotype.authentication_scope_all_requests = TRUE\nset Stereotype.plaintext_credentials = TRUE\nset Stereotype.authentication = TRUE\nset Stereotype.entrypoint = TRUE\nset Stereotype.restful_http = TRUE\nforward configserver\nforward mysqldb\nforward user",
+        "id" : "_NDCFIxEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.infrastructural = TRUE\nset Stereotype.authorization_server = TRUE\nset Stereotype.resource_server = TRUE\nset Stereotype.authentication_scope_all_requests = TRUE\nset Stereotype.plaintext_credentials = TRUE\nset Stereotype.authentication = TRUE\nset Stereotype.entrypoint = TRUE\nset Stereotype.restful_http = TRUE\nforward configserver\nforward mysqldb\nforward user",
+        "id" : "_NDCsMREiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.infrastructural = TRUE\nset Stereotype.authorization_server = TRUE\nset Stereotype.resource_server = TRUE\nset Stereotype.authentication_scope_all_requests = TRUE\nset Stereotype.plaintext_credentials = TRUE\nset Stereotype.authentication = TRUE\nset Stereotype.entrypoint = TRUE\nset Stereotype.restful_http = TRUE\nforward configserver\nforward mysqldb\nforward user",
+        "id" : "_NDDTOBEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.infrastructural = TRUE\nset Stereotype.authorization_server = TRUE\nset Stereotype.resource_server = TRUE\nset Stereotype.authentication_scope_all_requests = TRUE\nset Stereotype.plaintext_credentials = TRUE\nset Stereotype.authentication = TRUE\nset Stereotype.entrypoint = TRUE\nset Stereotype.restful_http = TRUE\nforward configserver\nforward mysqldb\nforward user",
+        "id" : "_NDD6ThEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_NC4UFBEiEe-ut7OFEAmp2g",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "web_portal",
+      "labels" : [ {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC8lgBEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC8lgREiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC8lghEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC8lgxEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC8lhBEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9MkBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9MkREiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9MkhEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9MkxEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9MlBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9MlREiEe-ut7OFEAmp2g"
+      } ],
+      "ports" : [ {
+        "id" : "_NDCsJBEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_NDDTPREiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.infrastructural = TRUE\nset Stereotype.monitoring_dashboard = TRUE\nset Stereotype.monitoring_server = TRUE\nset Stereotype.authentication_scope_all_requests = TRUE\nset Stereotype.local_logging = TRUE\nset Stereotype.restful_http = TRUE\nforward configserver\nforward task_webservice",
+        "id" : "_NDCsIhEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_NC4UFREiEe-ut7OFEAmp2g",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "user_webservice",
+      "labels" : [ {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9zohEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC8lhBEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9zoxEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC8lgxEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9zpxEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC-avhEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9MkhEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC-avxEiEe-ut7OFEAmp2g"
+      } ],
+      "ports" : [ {
+        "id" : "_NDCsKhEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_NDCsMBEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_NDD6UBEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.internal = TRUE\nset Stereotype.local_logging = TRUE\nset Stereotype.resource_server = TRUE\nset Stereotype.authentication_scope_all_requests = TRUE\nset Stereotype.restful_http = TRUE\nforward configserver\nforward auth_server\nforward api_gateway",
+        "id" : "_NDCsKBEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.internal = TRUE\nset Stereotype.local_logging = TRUE\nset Stereotype.resource_server = TRUE\nset Stereotype.authentication_scope_all_requests = TRUE\nset Stereotype.restful_http = TRUE\nforward configserver\nforward auth_server\nforward api_gateway",
+        "id" : "_NDCsLhEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_NC4UFhEiEe-ut7OFEAmp2g",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "comments_webservice",
+      "labels" : [ {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9zohEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC8lhBEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9zoxEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9zpxEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC-awhEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9zpxEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC-awxEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9MkhEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC-axBEiEe-ut7OFEAmp2g"
+      } ],
+      "ports" : [ {
+        "id" : "_NDCsNhEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_NDDTQBEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.internal = TRUE\nset Stereotype.local_logging = TRUE\nset Stereotype.resource_server = TRUE\nset Stereotype.restful_http = TRUE\nforward configserver\nforward task_webservice",
+        "id" : "_NDCsNBEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.internal = TRUE\nset Stereotype.local_logging = TRUE\nset Stereotype.resource_server = TRUE\nset Stereotype.restful_http = TRUE\nforward configserver\nforward task_webservice",
+        "id" : "_NDCsOhEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_NC4UFxEiEe-ut7OFEAmp2g",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "task_webservice",
+      "labels" : [ {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9zohEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC8lhBEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC8lgxEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9zoxEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9zpBEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9zpREiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9zphEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9zpxEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9zqBEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9zpxEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9zqREiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9zqhEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9zqxEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9MkhEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9zrBEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9zrREiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9zrhEiEe-ut7OFEAmp2g"
+      } ],
+      "ports" : [ {
+        "id" : "_NDDTNBEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_NDDTNxEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_NDD6UxEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.internal = TRUE\nset Stereotype.local_logging = TRUE\nset Stereotype.authentication_scope_all_requests = TRUE\nset Stereotype.resource_server = TRUE\nset Stereotype.circuit_breaker = TRUE\nset Stereotype.load_balancer = TRUE\nset Stereotype.authentication = TRUE\nset Stereotype.restful_http = TRUE\nforward configserver\nforward auth_server\nforward api_gateway",
+        "id" : "_NDDTMhEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.internal = TRUE\nset Stereotype.local_logging = TRUE\nset Stereotype.authentication_scope_all_requests = TRUE\nset Stereotype.resource_server = TRUE\nset Stereotype.circuit_breaker = TRUE\nset Stereotype.load_balancer = TRUE\nset Stereotype.authentication = TRUE\nset Stereotype.restful_http = TRUE\nforward configserver\nforward auth_server\nforward api_gateway",
+        "id" : "_NDDTOxEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.internal = TRUE\nset Stereotype.local_logging = TRUE\nset Stereotype.authentication_scope_all_requests = TRUE\nset Stereotype.resource_server = TRUE\nset Stereotype.circuit_breaker = TRUE\nset Stereotype.load_balancer = TRUE\nset Stereotype.authentication = TRUE\nset Stereotype.restful_http = TRUE\nforward configserver\nforward auth_server\nforward api_gateway",
+        "id" : "_NDDTPhEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.internal = TRUE\nset Stereotype.local_logging = TRUE\nset Stereotype.authentication_scope_all_requests = TRUE\nset Stereotype.resource_server = TRUE\nset Stereotype.circuit_breaker = TRUE\nset Stereotype.load_balancer = TRUE\nset Stereotype.authentication = TRUE\nset Stereotype.restful_http = TRUE\nset Stereotype.circuit_breaker_link = TRUE\nset Stereotype.load_balanced_link = TRUE\nforward configserver\nforward auth_server\nforward api_gateway",
+        "id" : "_NDDTQREiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_NC4UGBEiEe-ut7OFEAmp2g",
+      "type" : "node:function",
+      "children" : [ ]
+    }, {
+      "text" : "api_gateway",
+      "labels" : [ {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC8lgBEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC_o3hEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9zpREiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9zpBEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC_o3xEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC47IBEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC_o4BEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9zqhEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC9zqxEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC_o4REiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC_o4hEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9MkhEiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC_o4xEiEe-ut7OFEAmp2g"
+      }, {
+        "labelTypeId" : "_NC9zrREiEe-ut7OFEAmp2g",
+        "labelTypeValueId" : "_NC_o5BEiEe-ut7OFEAmp2g"
+      } ],
+      "ports" : [ {
+        "id" : "_NDDTRREiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_NDD6RBEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_NDD6RxEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "_NDD6TREiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.infrastructural = TRUE\nset Stereotype.gateway = TRUE\nset Stereotype.load_balancer = TRUE\nset Stereotype.circuit_breaker = TRUE\nset Stereotype.csrf_disabled = TRUE\nset Stereotype.entrypoint = TRUE\nset Stereotype.restful_http = TRUE\nforward user\nforward configserver\nforward webservice_registry\nforward auth_server",
+        "id" : "_NDD6SxEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.infrastructural = TRUE\nset Stereotype.gateway = TRUE\nset Stereotype.load_balancer = TRUE\nset Stereotype.circuit_breaker = TRUE\nset Stereotype.csrf_disabled = TRUE\nset Stereotype.entrypoint = TRUE\nset Stereotype.restful_http = TRUE\nset Stereotype.load_balanced_link = TRUE\nset Stereotype.circuit_breaker_link = TRUE\nforward user\nforward configserver\nforward webservice_registry\nforward auth_server",
+        "id" : "_NDD6UREiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "behavior" : "set Stereotype.infrastructural = TRUE\nset Stereotype.gateway = TRUE\nset Stereotype.load_balancer = TRUE\nset Stereotype.circuit_breaker = TRUE\nset Stereotype.csrf_disabled = TRUE\nset Stereotype.entrypoint = TRUE\nset Stereotype.restful_http = TRUE\nset Stereotype.load_balanced_link = TRUE\nset Stereotype.circuit_breaker_link = TRUE\nforward user\nforward configserver\nforward webservice_registry\nforward auth_server",
+        "id" : "_NDD6VBEiEe-ut7OFEAmp2g",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
+      "id" : "_NC4UGREiEe-ut7OFEAmp2g",
+      "type" : "node:function",
+      "children" : [ ]
+    } ]
+  },
+  "labelTypes" : [ {
+    "id" : "_NC47IBEiEe-ut7OFEAmp2g",
+    "name" : "Stereotype",
+    "values" : [ {
+      "id" : "_NC8lgBEiEe-ut7OFEAmp2g",
+      "text" : "infrastructural"
+    }, {
+      "id" : "_NC8lgREiEe-ut7OFEAmp2g",
+      "text" : "monitoring_dashboard"
+    }, {
+      "id" : "_NC8lghEiEe-ut7OFEAmp2g",
+      "text" : "monitoring_server"
+    }, {
+      "id" : "_NC8lgxEiEe-ut7OFEAmp2g",
+      "text" : "authentication_scope_all_requests"
+    }, {
+      "id" : "_NC8lhBEiEe-ut7OFEAmp2g",
+      "text" : "local_logging"
+    }, {
+      "id" : "_NC9zohEiEe-ut7OFEAmp2g",
+      "text" : "internal"
+    }, {
+      "id" : "_NC9zoxEiEe-ut7OFEAmp2g",
+      "text" : "resource_server"
+    }, {
+      "id" : "_NC9zpBEiEe-ut7OFEAmp2g",
+      "text" : "circuit_breaker"
+    }, {
+      "id" : "_NC9zpREiEe-ut7OFEAmp2g",
+      "text" : "load_balancer"
+    }, {
+      "id" : "_NC9zphEiEe-ut7OFEAmp2g",
+      "text" : "authentication"
+    }, {
+      "id" : "_NC-ashEiEe-ut7OFEAmp2g",
+      "text" : "tracing_server"
+    }, {
+      "id" : "_NC-auBEiEe-ut7OFEAmp2g",
+      "text" : "service_discovery"
+    }, {
+      "id" : "_NC-axxEiEe-ut7OFEAmp2g",
+      "text" : "configuration_server"
+    }, {
+      "id" : "_NC_o1REiEe-ut7OFEAmp2g",
+      "text" : "database"
+    }, {
+      "id" : "_NC_o1hEiEe-ut7OFEAmp2g",
+      "text" : "plaintext_credentials"
+    }, {
+      "id" : "_NC_o3hEiEe-ut7OFEAmp2g",
+      "text" : "gateway"
+    }, {
+      "id" : "_NC_o3xEiEe-ut7OFEAmp2g",
+      "text" : "csrf_disabled"
+    }, {
+      "id" : "_NC_o4BEiEe-ut7OFEAmp2g",
+      "text" : "entrypoint"
+    }, {
+      "id" : "_NC_o5xEiEe-ut7OFEAmp2g",
+      "text" : "github_repository"
+    }, {
+      "id" : "_NDAP4xEiEe-ut7OFEAmp2g",
+      "text" : "user_stereotype"
+    }, {
+      "id" : "_NDAP5hEiEe-ut7OFEAmp2g",
+      "text" : "authorization_server"
+    }, {
+      "id" : "_NDCFEBEiEe-ut7OFEAmp2g",
+      "text" : "restful_http"
+    }, {
+      "id" : "_NDCFHxEiEe-ut7OFEAmp2g",
+      "text" : "plaintext_credentials_link"
+    }, {
+      "id" : "_NDDTQhEiEe-ut7OFEAmp2g",
+      "text" : "circuit_breaker_link"
+    }, {
+      "id" : "_NDDTQxEiEe-ut7OFEAmp2g",
+      "text" : "load_balanced_link"
+    }, {
+      "id" : "_NDDTRxEiEe-ut7OFEAmp2g",
+      "text" : "authenticated_request"
+    } ]
+  }, {
+    "id" : "_NC9MkBEiEe-ut7OFEAmp2g",
+    "name" : "MonitoringDashboard",
+    "values" : [ {
+      "id" : "_NC9MkREiEe-ut7OFEAmp2g",
+      "text" : "Hystrix"
+    } ]
+  }, {
+    "id" : "_NC9MkhEiEe-ut7OFEAmp2g",
+    "name" : "Port",
+    "values" : [ {
+      "id" : "_NC9MkxEiEe-ut7OFEAmp2g",
+      "text" : "8090"
+    }, {
+      "id" : "_NC9zrBEiEe-ut7OFEAmp2g",
+      "text" : "8082"
+    }, {
+      "id" : "_NC-atREiEe-ut7OFEAmp2g",
+      "text" : "9411"
+    }, {
+      "id" : "_NC-auREiEe-ut7OFEAmp2g",
+      "text" : "8761"
+    }, {
+      "id" : "_NC-avxEiEe-ut7OFEAmp2g",
+      "text" : "8091"
+    }, {
+      "id" : "_NC-axBEiEe-ut7OFEAmp2g",
+      "text" : "8083"
+    }, {
+      "id" : "_NC_o0BEiEe-ut7OFEAmp2g",
+      "text" : "8888"
+    }, {
+      "id" : "_NC_o1xEiEe-ut7OFEAmp2g",
+      "text" : "3306"
+    }, {
+      "id" : "_NC_o4xEiEe-ut7OFEAmp2g",
+      "text" : "8765"
+    }, {
+      "id" : "_NDAP7BEiEe-ut7OFEAmp2g",
+      "text" : "8899"
+    } ]
+  }, {
+    "id" : "_NC9MlBEiEe-ut7OFEAmp2g",
+    "name" : "MonitoringServer",
+    "values" : [ {
+      "id" : "_NC9MlREiEe-ut7OFEAmp2g",
+      "text" : "Turbine"
+    } ]
+  }, {
+    "id" : "_NC9zpxEiEe-ut7OFEAmp2g",
+    "name" : "Endpoints",
+    "values" : [ {
+      "id" : "_NC9zqBEiEe-ut7OFEAmp2g",
+      "text" : "taskId"
+    }, {
+      "id" : "_NC9zqREiEe-ut7OFEAmp2g",
+      "text" : "usertaskuserName"
+    }, {
+      "id" : "_NC-avhEiEe-ut7OFEAmp2g",
+      "text" : "userName"
+    }, {
+      "id" : "_NC-awhEiEe-ut7OFEAmp2g",
+      "text" : "comments"
+    }, {
+      "id" : "_NC-awxEiEe-ut7OFEAmp2g",
+      "text" : "commentstaskId"
+    }, {
+      "id" : "_NDAP5xEiEe-ut7OFEAmp2g",
+      "text" : "me"
+    } ]
+  }, {
+    "id" : "_NC9zqhEiEe-ut7OFEAmp2g",
+    "name" : "CircuitBreaker",
+    "values" : [ {
+      "id" : "_NC9zqxEiEe-ut7OFEAmp2g",
+      "text" : "Hystrix"
+    } ]
+  }, {
+    "id" : "_NC9zrREiEe-ut7OFEAmp2g",
+    "name" : "LoadBalancer",
+    "values" : [ {
+      "id" : "_NC9zrhEiEe-ut7OFEAmp2g",
+      "text" : "SpringCloud"
+    }, {
+      "id" : "_NC_o5BEiEe-ut7OFEAmp2g",
+      "text" : "Ribbon"
+    } ]
+  }, {
+    "id" : "_NC-asxEiEe-ut7OFEAmp2g",
+    "name" : "TracingServer",
+    "values" : [ {
+      "id" : "_NC-atBEiEe-ut7OFEAmp2g",
+      "text" : "Zipkin"
+    } ]
+  }, {
+    "id" : "_NC-auhEiEe-ut7OFEAmp2g",
+    "name" : "ServiceDiscovery",
+    "values" : [ {
+      "id" : "_NC-auxEiEe-ut7OFEAmp2g",
+      "text" : "Eureka"
+    } ]
+  }, {
+    "id" : "_NC_o0REiEe-ut7OFEAmp2g",
+    "name" : "ConfigurationServer",
+    "values" : [ {
+      "id" : "_NC_o0hEiEe-ut7OFEAmp2g",
+      "text" : "SpringCloudConfig"
+    } ]
+  }, {
+    "id" : "_NC_o2BEiEe-ut7OFEAmp2g",
+    "name" : "Database",
+    "values" : [ {
+      "id" : "_NC_o2REiEe-ut7OFEAmp2g",
+      "text" : "MySQL"
+    } ]
+  }, {
+    "id" : "_NC_o2hEiEe-ut7OFEAmp2g",
+    "name" : "Password",
+    "values" : [ {
+      "id" : "_NC_o2xEiEe-ut7OFEAmp2g",
+      "text" : "password"
+    } ]
+  }, {
+    "id" : "_NC_o4REiEe-ut7OFEAmp2g",
+    "name" : "Gateway",
+    "values" : [ {
+      "id" : "_NC_o4hEiEe-ut7OFEAmp2g",
+      "text" : "Zuul"
+    } ]
+  }, {
+    "id" : "_NC_o6BEiEe-ut7OFEAmp2g",
+    "name" : "URL",
+    "values" : [ {
+      "id" : "_NDAP4BEiEe-ut7OFEAmp2g",
+      "text" : "httpsgithubcomanilallewarmicroservicesbasicscloudconfig"
+    } ]
+  }, {
+    "id" : "_NDAP6BEiEe-ut7OFEAmp2g",
+    "name" : "AuthorizationServer",
+    "values" : [ {
+      "id" : "_NDAP6REiEe-ut7OFEAmp2g",
+      "text" : "SpringOAuth2"
+    } ]
+  }, {
+    "id" : "_NDAP6hEiEe-ut7OFEAmp2g",
+    "name" : "Username",
+    "values" : [ {
+      "id" : "_NDAP6xEiEe-ut7OFEAmp2g",
+      "text" : "user"
+    }, {
+      "id" : "_NDCFIBEiEe-ut7OFEAmp2g",
+      "text" : "root"
+    } ]
+  }, {
+    "id" : "_NDCFEREiEe-ut7OFEAmp2g",
+    "name" : "Protocol",
+    "values" : [ {
+      "id" : "_NDCFEhEiEe-ut7OFEAmp2g",
+      "text" : "HTTPS"
+    } ]
+  } ]
 }

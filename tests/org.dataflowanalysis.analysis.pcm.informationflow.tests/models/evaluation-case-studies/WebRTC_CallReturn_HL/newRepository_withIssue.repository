@@ -1,0 +1,1056 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DataDictionaryCharacterized="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/1.0" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:confidentiality="http://dataflowanalysis.org/pcm/extension/model/0.1.0" xmlns:expression="http://dataflowanalysis.org/pcm/extension/model/0.1.0/expression" xmlns:expressions="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/expressions/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2">
+  <repository:Repository id="_hQu_4IQHEeySUeZbAd56vg" entityName="New Repository">
+    <components__Repository xsi:type="repository:CompositeComponent" id="_YO8kYIQJEeySUeZbAd56vg" entityName="STUN">
+      <assemblyContexts__ComposedStructure id="_dFLpkITEEeytPNYcavwd4Q" entityName="Assembly_PortDelegator_BrowserToSTUN" encapsulatedComponent__AssemblyContext="_isK8sITDEeytPNYcavwd4Q"/>
+      <assemblyContexts__ComposedStructure id="_jEuKIITEEeytPNYcavwd4Q" entityName="Assembly_PortDelegator_STUNToBrowser" encapsulatedComponent__AssemblyContext="_isK8sITDEeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataSourceDelegationConnector" id="_w54NEIQJEeySUeZbAd56vg" entityName="newDataSourceDelegationConnector"/>
+      <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataSourceDelegationConnector" id="_xQYokIQJEeySUeZbAd56vg" entityName="newDataSourceDelegationConnector"/>
+      <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataSinkDelegationConnector" id="_x544kIQJEeySUeZbAd56vg" entityName="newDataSinkDelegationConnector"/>
+      <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataSinkDelegationConnector" id="_ySeXsIQJEeySUeZbAd56vg" entityName="newDataSinkDelegationConnector"/>
+      <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_lj9zwITEEeytPNYcavwd4Q" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_lXZM0ITDEeytPNYcavwd4Q" outerProvidedRole_ProvidedDelegationConnector="_JVDuAITEEeytPNYcavwd4Q" assemblyContext_ProvidedDelegationConnector="_dFLpkITEEeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_lzLUcITEEeytPNYcavwd4Q" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_lXZM0ITDEeytPNYcavwd4Q" outerProvidedRole_ProvidedDelegationConnector="_MSJxQITEEeytPNYcavwd4Q" assemblyContext_ProvidedDelegationConnector="_jEuKIITEEeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="composition:RequiredDelegationConnector" id="_mQ0SsITEEeytPNYcavwd4Q" entityName="newRequiredDelegationConnector" innerRequiredRole_RequiredDelegationConnector="_q1cw8ITDEeytPNYcavwd4Q" outerRequiredRole_RequiredDelegationConnector="_WVNKkITEEeytPNYcavwd4Q" assemblyContext_RequiredDelegationConnector="_jEuKIITEEeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="composition:RequiredDelegationConnector" id="_mf4CYITEEeytPNYcavwd4Q" entityName="newRequiredDelegationConnector" innerRequiredRole_RequiredDelegationConnector="_q1cw8ITDEeytPNYcavwd4Q" outerRequiredRole_RequiredDelegationConnector="_QbCSMITEEeytPNYcavwd4Q" assemblyContext_RequiredDelegationConnector="_dFLpkITEEeytPNYcavwd4Q"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_JVDuAITEEeytPNYcavwd4Q" entityName="STUN.provided.PortDelegator.fromBrowser" providedInterface__OperationProvidedRole="_XblZQITDEeytPNYcavwd4Q"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_MSJxQITEEeytPNYcavwd4Q" entityName="STUN.provided.PortDelegator.fromOtherSTUN" providedInterface__OperationProvidedRole="_XblZQITDEeytPNYcavwd4Q"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_QbCSMITEEeytPNYcavwd4Q" entityName="STUN.required.PortDelegator.toOtherSTUN" requiredInterface__OperationRequiredRole="_XblZQITDEeytPNYcavwd4Q"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_WVNKkITEEeytPNYcavwd4Q" entityName="STUN.required.PortDelegator.toBrowser" requiredInterface__OperationRequiredRole="_XblZQITDEeytPNYcavwd4Q"/>
+    </components__Repository>
+    <components__Repository xsi:type="repository:CompositeComponent" id="_Hp95sIQKEeySUeZbAd56vg" entityName="SignalingServer">
+      <assemblyContexts__ComposedStructure id="_tHcFEITsEeytPNYcavwd4Q" entityName="Assembly_Signaling_AToB" encapsulatedComponent__AssemblyContext="_Wm0v8ITNEeytPNYcavwd4Q"/>
+      <assemblyContexts__ComposedStructure id="_t3H1kITsEeytPNYcavwd4Q" entityName="Assembly_Signaling_BToA" encapsulatedComponent__AssemblyContext="_Wm0v8ITNEeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataSinkDelegationConnector" id="_ehrRQIQKEeySUeZbAd56vg" entityName="newDataSinkDelegationConnector"/>
+      <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataSinkDelegationConnector" id="_e0I6QIQKEeySUeZbAd56vg" entityName="newDataSinkDelegationConnector"/>
+      <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataSourceDelegationConnector" id="_fNP90IQKEeySUeZbAd56vg" entityName="newDataSourceDelegationConnector"/>
+      <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataSourceDelegationConnector" id="_fcX-8IQKEeySUeZbAd56vg" entityName="newDataSourceDelegationConnector"/>
+      <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_zubAIITsEeytPNYcavwd4Q" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_XrIsoITNEeytPNYcavwd4Q" outerProvidedRole_ProvidedDelegationConnector="_fjuocITsEeytPNYcavwd4Q" assemblyContext_ProvidedDelegationConnector="_tHcFEITsEeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_0JcIMITsEeytPNYcavwd4Q" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_XrIsoITNEeytPNYcavwd4Q" outerProvidedRole_ProvidedDelegationConnector="_l_i1UITsEeytPNYcavwd4Q" assemblyContext_ProvidedDelegationConnector="_t3H1kITsEeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="composition:RequiredDelegationConnector" id="_1YmC8ITsEeytPNYcavwd4Q" entityName="newRequiredDelegationConnector" innerRequiredRole_RequiredDelegationConnector="_eu2nAITNEeytPNYcavwd4Q" outerRequiredRole_RequiredDelegationConnector="_p_n_kITsEeytPNYcavwd4Q" assemblyContext_RequiredDelegationConnector="_t3H1kITsEeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="composition:RequiredDelegationConnector" id="_1lqOkITsEeytPNYcavwd4Q" entityName="newRequiredDelegationConnector" innerRequiredRole_RequiredDelegationConnector="_eu2nAITNEeytPNYcavwd4Q" outerRequiredRole_RequiredDelegationConnector="_j8hNoITsEeytPNYcavwd4Q" assemblyContext_RequiredDelegationConnector="_tHcFEITsEeytPNYcavwd4Q"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_fjuocITsEeytPNYcavwd4Q" entityName="SignalingServer.provided.Signaling.browserAToSignaling" providedInterface__OperationProvidedRole="_Qu1o4ITNEeytPNYcavwd4Q"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_l_i1UITsEeytPNYcavwd4Q" entityName="SignalingServer.provided.Signaling.BrowserBToSignaling" providedInterface__OperationProvidedRole="_Qu1o4ITNEeytPNYcavwd4Q"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_j8hNoITsEeytPNYcavwd4Q" entityName="SignalingServer.required.Signaling.SignalingToBrowserB" requiredInterface__OperationRequiredRole="_Qu1o4ITNEeytPNYcavwd4Q"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_p_n_kITsEeytPNYcavwd4Q" entityName="SignalingServer.required.Signaling.SignalingToBrowserA" requiredInterface__OperationRequiredRole="_Qu1o4ITNEeytPNYcavwd4Q"/>
+    </components__Repository>
+    <components__Repository xsi:type="repository:CompositeComponent" id="_IDy5gIQLEeySUeZbAd56vg" entityName="IDP">
+      <assemblyContexts__ComposedStructure id="_Ct2aYITNEeytPNYcavwd4Q" entityName="Assembly_BrowserIDStore_Own" encapsulatedComponent__AssemblyContext="_qsPrsIRBEeySUeZbAd56vg"/>
+      <assemblyContexts__ComposedStructure id="_EN0YUITNEeytPNYcavwd4Q" entityName="Assembly_BrowserIDStore_Other" encapsulatedComponent__AssemblyContext="_qsPrsIRBEeySUeZbAd56vg"/>
+      <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataSinkDelegationConnector" id="_hbycgIQLEeySUeZbAd56vg" entityName="newDataSinkDelegationConnector"/>
+      <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataSinkDelegationConnector" id="_ilZI4IQLEeySUeZbAd56vg" entityName="newDataSinkDelegationConnector"/>
+      <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_jYZTIIQLEeySUeZbAd56vg" entityName="newAssemblyDataConnector"/>
+      <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataSourceDelegationConnector" id="_kkGRQIQLEeySUeZbAd56vg" entityName="newDataSourceDelegationConnector"/>
+      <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataSourceDelegationConnector" id="_nSSV0IQLEeySUeZbAd56vg" entityName="newDataSourceDelegationConnector"/>
+      <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_HLQZ0ITNEeytPNYcavwd4Q" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_s0lRMIRBEeySUeZbAd56vg" outerProvidedRole_ProvidedDelegationConnector="_97VGkITMEeytPNYcavwd4Q" assemblyContext_ProvidedDelegationConnector="_Ct2aYITNEeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_HVf68ITNEeytPNYcavwd4Q" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_s0lRMIRBEeySUeZbAd56vg" outerProvidedRole_ProvidedDelegationConnector="__uwzEITMEeytPNYcavwd4Q" assemblyContext_ProvidedDelegationConnector="_EN0YUITNEeytPNYcavwd4Q"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_97VGkITMEeytPNYcavwd4Q" entityName="IDP.provided.BrowserIDStore.own" providedInterface__OperationProvidedRole="_rrydIIRBEeySUeZbAd56vg"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="__uwzEITMEeytPNYcavwd4Q" entityName="IDP.provided.BrowserIDStore.other" providedInterface__OperationProvidedRole="_rrydIIRBEeySUeZbAd56vg"/>
+    </components__Repository>
+    <components__Repository xsi:type="repository:BasicComponent" id="_qsPrsIRBEeySUeZbAd56vg" entityName="BrowserIDStore">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_s0lRMIRBEeySUeZbAd56vg" entityName="BrowserIDStore.provided.BrowserIDStore" providedInterface__OperationProvidedRole="_rrydIIRBEeySUeZbAd56vg"/>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_x1V1UIRBEeySUeZbAd56vg" describedService__SEFF="_uPP4YIRBEeySUeZbAd56vg">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_yCSsMIRBEeySUeZbAd56vg" successor_AbstractAction="_yCSsMYRBEeySUeZbAd56vg"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_yCSsMYRBEeySUeZbAd56vg" predecessor_AbstractAction="_yCSsMIRBEeySUeZbAd56vg"/>
+      </serviceEffectSpecifications__BasicComponent>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_yVoe8IRBEeySUeZbAd56vg" describedService__SEFF="_urXzsIRBEeySUeZbAd56vg">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_ylGeUIRBEeySUeZbAd56vg" successor_AbstractAction="_ylHFYIRBEeySUeZbAd56vg"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_ylHFYIRBEeySUeZbAd56vg" predecessor_AbstractAction="_ylGeUIRBEeySUeZbAd56vg"/>
+      </serviceEffectSpecifications__BasicComponent>
+    </components__Repository>
+    <components__Repository xsi:type="repository:BasicComponent" id="_isK8sITDEeytPNYcavwd4Q" entityName="PortExchange">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_lXZM0ITDEeytPNYcavwd4Q" entityName="STUN.provided.PortAnnouncement" providedInterface__OperationProvidedRole="_XblZQITDEeytPNYcavwd4Q"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_q1cw8ITDEeytPNYcavwd4Q" entityName="PortDelegator.required.PortDelegator" requiredInterface__OperationRequiredRole="_XblZQITDEeytPNYcavwd4Q"/>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_lYFwYITDEeytPNYcavwd4Q" describedService__SEFF="_YwsyEITDEeytPNYcavwd4Q">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_lYFwYYTDEeytPNYcavwd4Q" successor_AbstractAction="_p40UIITEEeytPNYcavwd4Q"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_lYFwYoTDEeytPNYcavwd4Q" predecessor_AbstractAction="_tl1iAITQEeytPNYcavwd4Q"/>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_p40UIITEEeytPNYcavwd4Q" entityName="PortExchange.exchangePort.call" predecessor_AbstractAction="_lYFwYYTDEeytPNYcavwd4Q" successor_AbstractAction="_tl1iAITQEeytPNYcavwd4Q" calledService_ExternalService="_YwsyEITDEeytPNYcavwd4Q" role_ExternalService="_q1cw8ITDEeytPNYcavwd4Q">
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_uU-WYITEEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_uU-WYYTEEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="port"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="port"/>
+          </inputVariableUsages__CallAction>
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_suGow4TQEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_suGoxITQEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="otherPort"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:SetVariableAction" id="_tl1iAITQEeytPNYcavwd4Q" entityName="PortExchange.exchangePort.return" predecessor_AbstractAction="_p40UIITEEeytPNYcavwd4Q" successor_AbstractAction="_lYFwYoTDEeytPNYcavwd4Q">
+          <localVariableUsages_SetVariableAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_7xoSU4TQEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_7xoSVITQEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="otherPort"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+          </localVariableUsages_SetVariableAction>
+        </steps_Behaviour>
+      </serviceEffectSpecifications__BasicComponent>
+    </components__Repository>
+    <components__Repository xsi:type="repository:BasicComponent" id="_tGw9MITMEeytPNYcavwd4Q" entityName="BrowserLogic">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_uJWbkITMEeytPNYcavwd4Q" entityName="BrowserLogic.provided.Browser" providedInterface__OperationProvidedRole="_lKfqMITMEeytPNYcavwd4Q"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_xlmDgITNEeytPNYcavwd4Q" entityName="BrowserLogic.provided.Signaling" providedInterface__OperationProvidedRole="_Qu1o4ITNEeytPNYcavwd4Q"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="__9q08ITQEeytPNYcavwd4Q" entityName="BrowserLogic.provided.PortExchange" providedInterface__OperationProvidedRole="_XblZQITDEeytPNYcavwd4Q"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_DpVcIITWEeytPNYcavwd4Q" entityName="BrowserLogic.provided.MediaExchangeResponder" providedInterface__OperationProvidedRole="_8e6c0ITVEeytPNYcavwd4Q"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_LmdZ0ITNEeytPNYcavwd4Q" entityName="BrowserLogic.required.BrowserIDStore.own" requiredInterface__OperationRequiredRole="_rrydIIRBEeySUeZbAd56vg"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_NgsR4ITNEeytPNYcavwd4Q" entityName="BrowserLogic.required.BrowserIDStore.other" requiredInterface__OperationRequiredRole="_rrydIIRBEeySUeZbAd56vg"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_wSdAoITNEeytPNYcavwd4Q" entityName="BrowserLogic.required.Signaling" requiredInterface__OperationRequiredRole="_Qu1o4ITNEeytPNYcavwd4Q"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_CTO-IITREeytPNYcavwd4Q" entityName="BrowserLogic.required.PortExchange" requiredInterface__OperationRequiredRole="_XblZQITDEeytPNYcavwd4Q"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_TMahwITREeytPNYcavwd4Q" entityName="BrowserLogic.required.PortStore.own" requiredInterface__OperationRequiredRole="_L2pOEITREeytPNYcavwd4Q"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_VLT3YITREeytPNYcavwd4Q" entityName="BrowserLogic.required.PortStore.other" requiredInterface__OperationRequiredRole="_L2pOEITREeytPNYcavwd4Q"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_CJYFQITWEeytPNYcavwd4Q" entityName="BrowserLogic.required.MediaExchangeResponder" requiredInterface__OperationRequiredRole="_8e6c0ITVEeytPNYcavwd4Q"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_qVDXoITZEeytPNYcavwd4Q" entityName="BrowserLogic.required.MediaCache.own" requiredInterface__OperationRequiredRole="_lVTgIITZEeytPNYcavwd4Q"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_ADvRoITaEeytPNYcavwd4Q" entityName="BrowserLogic.required.MediaCache.other" requiredInterface__OperationRequiredRole="_lVTgIITZEeytPNYcavwd4Q"/>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_uJm6QITMEeytPNYcavwd4Q" describedService__SEFF="_lrdCMITMEeytPNYcavwd4Q">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_uJm6QYTMEeytPNYcavwd4Q" successor_AbstractAction="_iNqlUITPEeytPNYcavwd4Q"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_uJm6QoTMEeytPNYcavwd4Q" predecessor_AbstractAction="_hLNX4ITREeytPNYcavwd4Q"/>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_iNqlUITPEeytPNYcavwd4Q" entityName="BrowserLogic.init.addOwnIDtoIDP" predecessor_AbstractAction="_uJm6QYTMEeytPNYcavwd4Q" successor_AbstractAction="_uG-VoITPEeytPNYcavwd4Q" calledService_ExternalService="_uPP4YIRBEeySUeZbAd56vg" role_ExternalService="_LmdZ0ITNEeytPNYcavwd4Q">
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_rLhRIITPEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_rLhRIYTPEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="browserID"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="browserID"/>
+          </inputVariableUsages__CallAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_uG-VoITPEeytPNYcavwd4Q" entityName="BrowserLogic.init.callSignaling" predecessor_AbstractAction="_iNqlUITPEeytPNYcavwd4Q" successor_AbstractAction="_y7nJUITPEeytPNYcavwd4Q" calledService_ExternalService="_ShvJ4ITNEeytPNYcavwd4Q" role_ExternalService="_wSdAoITNEeytPNYcavwd4Q">
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_MsgUgITQEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+              </lhs>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_MsgUgYTQEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="sessionData"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_MsgUgoTQEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+              </lhs>
+              <rhs xsi:type="expressions:False" id="_MsgUg4TQEeytPNYcavwd4Q"/>
+            </variableCharacterisation_VariableUsage>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_MsgUhITQEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_MsgUhYTQEeytPNYcavwd4Q"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="sessionData"/>
+          </inputVariableUsages__CallAction>
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_b6HuMITQEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+              </lhs>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_b6HuMYTQEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="otherSessionData"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_y7nJUITPEeytPNYcavwd4Q" entityName="BrowserLogic.init.addOtherIDtoIDP" predecessor_AbstractAction="_uG-VoITPEeytPNYcavwd4Q" successor_AbstractAction="_XxTCMITREeytPNYcavwd4Q" calledService_ExternalService="_uPP4YIRBEeySUeZbAd56vg" role_ExternalService="_NgsR4ITNEeytPNYcavwd4Q">
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_ESvNMITQEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_ESvNMYTQEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="otherSessionData"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="browserID"/>
+          </inputVariableUsages__CallAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_EvVNIITREeytPNYcavwd4Q" entityName="BrowserLogic.init.exchangePort" predecessor_AbstractAction="_amREMITREeytPNYcavwd4Q" successor_AbstractAction="_hLNX4ITREeytPNYcavwd4Q" calledService_ExternalService="_YwsyEITDEeytPNYcavwd4Q" role_ExternalService="_CTO-IITREeytPNYcavwd4Q">
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_wC2hkITREeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_wC2hkYTREeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="ownPort"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="port"/>
+          </inputVariableUsages__CallAction>
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_zKfn8YTREeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_zKfn8oTREeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="otherPort"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_XxTCMITREeytPNYcavwd4Q" entityName="BrowserLogic.init.addOwnPortToStore" predecessor_AbstractAction="_y7nJUITPEeytPNYcavwd4Q" successor_AbstractAction="_amREMITREeytPNYcavwd4Q" calledService_ExternalService="_M6oaoITREeytPNYcavwd4Q" role_ExternalService="_TMahwITREeytPNYcavwd4Q">
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_qaULwITREeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_qaULwYTREeytPNYcavwd4Q"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="port"/>
+          </inputVariableUsages__CallAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_amREMITREeytPNYcavwd4Q" entityName="BrowserLogic.init.readOwnPortFromStore" predecessor_AbstractAction="_XxTCMITREeytPNYcavwd4Q" successor_AbstractAction="_EvVNIITREeytPNYcavwd4Q" calledService_ExternalService="_M74X0ITREeytPNYcavwd4Q" role_ExternalService="_TMahwITREeytPNYcavwd4Q">
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_tEPbZYTREeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_tEPbZoTREeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="ownPort"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_hLNX4ITREeytPNYcavwd4Q" entityName="BrowserLogic.init.addOtherPortToStore" predecessor_AbstractAction="_EvVNIITREeytPNYcavwd4Q" successor_AbstractAction="_uJm6QoTMEeytPNYcavwd4Q" calledService_ExternalService="_M6oaoITREeytPNYcavwd4Q" role_ExternalService="_TMahwITREeytPNYcavwd4Q">
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_2EQqYITREeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_2EQqYYTREeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="otherPort"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="port"/>
+          </inputVariableUsages__CallAction>
+        </steps_Behaviour>
+      </serviceEffectSpecifications__BasicComponent>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_uJ0VoITMEeytPNYcavwd4Q" describedService__SEFF="_qGYVYITMEeytPNYcavwd4Q">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_uJ0VoYTMEeytPNYcavwd4Q" successor_AbstractAction="_XEjh4ITaEeytPNYcavwd4Q"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_uJ0VooTMEeytPNYcavwd4Q" predecessor_AbstractAction="_drLNYITWEeytPNYcavwd4Q"/>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_f3aGUITUEeytPNYcavwd4Q" entityName="BrowserLogic.exchangeMedia.loadOwnPort" predecessor_AbstractAction="_abxVUITaEeytPNYcavwd4Q" successor_AbstractAction="_iM8aUITUEeytPNYcavwd4Q" calledService_ExternalService="_M74X0ITREeytPNYcavwd4Q" role_ExternalService="_TMahwITREeytPNYcavwd4Q">
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_ifM9HoTWEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_ifM9H4TWEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="ownPort"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_iM8aUITUEeytPNYcavwd4Q" entityName="BrowserLogic.exchangeMedia.loadOtherPort" predecessor_AbstractAction="_f3aGUITUEeytPNYcavwd4Q" successor_AbstractAction="_lncyUITUEeytPNYcavwd4Q" calledService_ExternalService="_M74X0ITREeytPNYcavwd4Q" role_ExternalService="_VLT3YITREeytPNYcavwd4Q">
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_o723cITWEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_o723cYTWEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="otherPort"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_lncyUITUEeytPNYcavwd4Q" entityName="BrowserLogic.exchangeMedia.loadOwnBrowserID" predecessor_AbstractAction="_iM8aUITUEeytPNYcavwd4Q" successor_AbstractAction="_n_JCcITUEeytPNYcavwd4Q" calledService_ExternalService="_urXzsIRBEeySUeZbAd56vg" role_ExternalService="_LmdZ0ITNEeytPNYcavwd4Q">
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_sKwcYITWEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_sKwcYYTWEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="ownBrowserID"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_n_JCcITUEeytPNYcavwd4Q" entityName="BrowserLogic.exchangeMedia.loadOtherBrowserID" predecessor_AbstractAction="_lncyUITUEeytPNYcavwd4Q" successor_AbstractAction="_6X7-sITUEeytPNYcavwd4Q" calledService_ExternalService="_urXzsIRBEeySUeZbAd56vg" role_ExternalService="_NgsR4ITNEeytPNYcavwd4Q">
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_vO7YAITWEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_vO7YAYTWEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="otherBrowserID"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:SetVariableAction" id="_6X7-sITUEeytPNYcavwd4Q" entityName="BrowserLogic.exchangeMedia.createMediaPackage" predecessor_AbstractAction="_n_JCcITUEeytPNYcavwd4Q" successor_AbstractAction="_baztQITWEeytPNYcavwd4Q">
+          <localVariableUsages_SetVariableAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_rFVIkITaEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+              </lhs>
+              <rhs xsi:type="expressions:Or" id="_rFVIkYTaEeytPNYcavwd4Q">
+                <left xsi:type="expressions:Or" id="_rFVIkoTaEeytPNYcavwd4Q">
+                  <left xsi:type="expressions:Or" id="_rFVIk4TaEeytPNYcavwd4Q">
+                    <left xsi:type="expressions:Or" id="_rFVIlITaEeytPNYcavwd4Q">
+                      <left xsi:type="expression:NamedEnumCharacteristicReference" id="_rFVIlYTaEeytPNYcavwd4Q">
+                        <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                        <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+                        <namedReference xsi:type="stoex:VariableReference" referenceName="ownPort"/>
+                      </left>
+                      <right xsi:type="expression:NamedEnumCharacteristicReference" id="_rFVIloTaEeytPNYcavwd4Q">
+                        <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                        <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+                        <namedReference xsi:type="stoex:VariableReference" referenceName="otherPort"/>
+                      </right>
+                    </left>
+                    <right xsi:type="expression:NamedEnumCharacteristicReference" id="_rFVIl4TaEeytPNYcavwd4Q">
+                      <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                      <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+                      <namedReference xsi:type="stoex:VariableReference" referenceName="ownBrowserID"/>
+                    </right>
+                  </left>
+                  <right xsi:type="expression:NamedEnumCharacteristicReference" id="_rFVImITaEeytPNYcavwd4Q">
+                    <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                    <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+                    <namedReference xsi:type="stoex:VariableReference" referenceName="otherBrowserID"/>
+                  </right>
+                </left>
+                <right xsi:type="expression:NamedEnumCharacteristicReference" id="_rFVImYTaEeytPNYcavwd4Q">
+                  <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                  <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+                  <namedReference xsi:type="stoex:VariableReference" referenceName="ownMedia"/>
+                </right>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_rFVImoTaEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+              </lhs>
+              <rhs xsi:type="expressions:And" id="_rFVIm4TaEeytPNYcavwd4Q">
+                <left xsi:type="expressions:And" id="_rFVInITaEeytPNYcavwd4Q">
+                  <left xsi:type="expressions:And" id="_rFVInYTaEeytPNYcavwd4Q">
+                    <left xsi:type="expressions:And" id="_rFVInoTaEeytPNYcavwd4Q">
+                      <left xsi:type="expression:NamedEnumCharacteristicReference" id="_rFVIn4TaEeytPNYcavwd4Q">
+                        <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                        <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+                        <namedReference xsi:type="stoex:VariableReference" referenceName="ownPort"/>
+                      </left>
+                      <right xsi:type="expression:NamedEnumCharacteristicReference" id="_rFVIoITaEeytPNYcavwd4Q">
+                        <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                        <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+                        <namedReference xsi:type="stoex:VariableReference" referenceName="otherPort"/>
+                      </right>
+                    </left>
+                    <right xsi:type="expression:NamedEnumCharacteristicReference" id="_rFVIoYTaEeytPNYcavwd4Q">
+                      <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                      <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+                      <namedReference xsi:type="stoex:VariableReference" referenceName="ownBrowserID"/>
+                    </right>
+                  </left>
+                  <right xsi:type="expression:NamedEnumCharacteristicReference" id="_rFVIooTaEeytPNYcavwd4Q">
+                    <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                    <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+                    <namedReference xsi:type="stoex:VariableReference" referenceName="otherBrowserID"/>
+                  </right>
+                </left>
+                <right xsi:type="expression:NamedEnumCharacteristicReference" id="_rFVIo4TaEeytPNYcavwd4Q">
+                  <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                  <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+                  <namedReference xsi:type="stoex:VariableReference" referenceName="ownMedia"/>
+                </right>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_rFVIpITaEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@1"/>
+              </lhs>
+              <rhs xsi:type="expressions:Or" id="_rFVIpYTaEeytPNYcavwd4Q">
+                <left xsi:type="expressions:Or" id="_rFVIpoTaEeytPNYcavwd4Q">
+                  <left xsi:type="expressions:Or" id="_rFVIp4TaEeytPNYcavwd4Q">
+                    <left xsi:type="expressions:Or" id="_rFVIqITaEeytPNYcavwd4Q">
+                      <left xsi:type="expression:NamedEnumCharacteristicReference" id="_rFVIqYTaEeytPNYcavwd4Q">
+                        <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                        <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@1"/>
+                        <namedReference xsi:type="stoex:VariableReference" referenceName="ownPort"/>
+                      </left>
+                      <right xsi:type="expression:NamedEnumCharacteristicReference" id="_rFVIqoTaEeytPNYcavwd4Q">
+                        <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                        <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@1"/>
+                        <namedReference xsi:type="stoex:VariableReference" referenceName="otherPort"/>
+                      </right>
+                    </left>
+                    <right xsi:type="expression:NamedEnumCharacteristicReference" id="_rFVIq4TaEeytPNYcavwd4Q">
+                      <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                      <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@1"/>
+                      <namedReference xsi:type="stoex:VariableReference" referenceName="ownBrowserID"/>
+                    </right>
+                  </left>
+                  <right xsi:type="expression:NamedEnumCharacteristicReference" id="_rFVIrITaEeytPNYcavwd4Q">
+                    <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                    <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@1"/>
+                    <namedReference xsi:type="stoex:VariableReference" referenceName="otherBrowserID"/>
+                  </right>
+                </left>
+                <right xsi:type="expression:NamedEnumCharacteristicReference" id="_rFVIrYTaEeytPNYcavwd4Q">
+                  <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                  <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@1"/>
+                  <namedReference xsi:type="stoex:VariableReference" referenceName="ownMedia"/>
+                </right>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_rFVIroTaEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@0"/>
+              </lhs>
+              <rhs xsi:type="expressions:And" id="_rFVIr4TaEeytPNYcavwd4Q">
+                <left xsi:type="expressions:And" id="_rFVIsITaEeytPNYcavwd4Q">
+                  <left xsi:type="expressions:And" id="_rFVIsYTaEeytPNYcavwd4Q">
+                    <left xsi:type="expressions:And" id="_rFVIsoTaEeytPNYcavwd4Q">
+                      <left xsi:type="expression:NamedEnumCharacteristicReference" id="_rFVIs4TaEeytPNYcavwd4Q">
+                        <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                        <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@0"/>
+                        <namedReference xsi:type="stoex:VariableReference" referenceName="ownPort"/>
+                      </left>
+                      <right xsi:type="expression:NamedEnumCharacteristicReference" id="_rFVItITaEeytPNYcavwd4Q">
+                        <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                        <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@0"/>
+                        <namedReference xsi:type="stoex:VariableReference" referenceName="otherPort"/>
+                      </right>
+                    </left>
+                    <right xsi:type="expression:NamedEnumCharacteristicReference" id="_rFVItYTaEeytPNYcavwd4Q">
+                      <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                      <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@0"/>
+                      <namedReference xsi:type="stoex:VariableReference" referenceName="ownBrowserID"/>
+                    </right>
+                  </left>
+                  <right xsi:type="expression:NamedEnumCharacteristicReference" id="_rFVItoTaEeytPNYcavwd4Q">
+                    <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                    <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@0"/>
+                    <namedReference xsi:type="stoex:VariableReference" referenceName="otherBrowserID"/>
+                  </right>
+                </left>
+                <right xsi:type="expression:NamedEnumCharacteristicReference" id="_rFVIt4TaEeytPNYcavwd4Q">
+                  <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                  <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@0"/>
+                  <namedReference xsi:type="stoex:VariableReference" referenceName="ownMedia"/>
+                </right>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="ownMediaPackage"/>
+          </localVariableUsages_SetVariableAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_baztQITWEeytPNYcavwd4Q" entityName="BrowserLogic.exchangeMedia.sendMediaPackage" predecessor_AbstractAction="_6X7-sITUEeytPNYcavwd4Q" successor_AbstractAction="_drLNYITWEeytPNYcavwd4Q" calledService_ExternalService="_-xotYITVEeytPNYcavwd4Q" role_ExternalService="_CJYFQITWEeytPNYcavwd4Q">
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_syi_sITXEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+              </lhs>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_syi_sYTXEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="ownMediaPackage"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_syi_soTXEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_syi_s4TXEeytPNYcavwd4Q"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="mediaPackage"/>
+          </inputVariableUsages__CallAction>
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_06nTAITXEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+              </lhs>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_06nTAYTXEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="otherMediaPackage"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:SetVariableAction" id="_drLNYITWEeytPNYcavwd4Q" entityName="BrowserLogic.exchangeMedia.return" predecessor_AbstractAction="_baztQITWEeytPNYcavwd4Q" successor_AbstractAction="_uJ0VooTMEeytPNYcavwd4Q">
+          <localVariableUsages_SetVariableAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_503mjoTXEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_503mj4TXEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="otherMediaPackage"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+          </localVariableUsages_SetVariableAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_XEjh4ITaEeytPNYcavwd4Q" entityName="BrowserLogic.exchangeMedia.storeOwnMedia" predecessor_AbstractAction="_uJ0VoYTMEeytPNYcavwd4Q" successor_AbstractAction="_abxVUITaEeytPNYcavwd4Q" calledService_ExternalService="_mDn-sITZEeytPNYcavwd4Q" role_ExternalService="_qVDXoITZEeytPNYcavwd4Q">
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_l924eITaEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_l924eYTaEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="media"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="media"/>
+          </inputVariableUsages__CallAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_abxVUITaEeytPNYcavwd4Q" entityName="BrowserLogic.exchangeMedia.loadOwnMedia" predecessor_AbstractAction="_XEjh4ITaEeytPNYcavwd4Q" successor_AbstractAction="_f3aGUITUEeytPNYcavwd4Q" calledService_ExternalService="_mEvZAITZEeytPNYcavwd4Q" role_ExternalService="_qVDXoITZEeytPNYcavwd4Q">
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_eXIXo4TaEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_eXIXpITaEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="ownMedia"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+      </serviceEffectSpecifications__BasicComponent>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_xl0F8ITNEeytPNYcavwd4Q" describedService__SEFF="_ShvJ4ITNEeytPNYcavwd4Q">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_xl0F8YTNEeytPNYcavwd4Q" successor_AbstractAction="_LSh-8ITSEeytPNYcavwd4Q"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_xl0F8oTNEeytPNYcavwd4Q" predecessor_AbstractAction="_RD_nQITSEeytPNYcavwd4Q"/>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_LSh-8ITSEeytPNYcavwd4Q" entityName="BrowserLogic.exchangeSessionData.storeOtherID" predecessor_AbstractAction="_xl0F8YTNEeytPNYcavwd4Q" successor_AbstractAction="_SCYiIITSEeytPNYcavwd4Q" calledService_ExternalService="_uPP4YIRBEeySUeZbAd56vg" role_ExternalService="_NgsR4ITNEeytPNYcavwd4Q">
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_dnXoQITSEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+              </lhs>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_dnXoQYTSEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="sessionData"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="browserID"/>
+          </inputVariableUsages__CallAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:SetVariableAction" id="_RD_nQITSEeytPNYcavwd4Q" entityName="BrowserLogic.exchangeSessionData.return" predecessor_AbstractAction="_SCYiIITSEeytPNYcavwd4Q" successor_AbstractAction="_xl0F8oTNEeytPNYcavwd4Q">
+          <localVariableUsages_SetVariableAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_X8G7YIaPEey9lNVRurenFw"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_X8G7YYaPEey9lNVRurenFw">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="ownID"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+          </localVariableUsages_SetVariableAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_SCYiIITSEeytPNYcavwd4Q" entityName="BrowserLogic.exchangeSessionData.readOwnIDFromStore" predecessor_AbstractAction="_LSh-8ITSEeytPNYcavwd4Q" successor_AbstractAction="_RD_nQITSEeytPNYcavwd4Q" calledService_ExternalService="_urXzsIRBEeySUeZbAd56vg" role_ExternalService="_LmdZ0ITNEeytPNYcavwd4Q">
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_lPJR84TSEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_lPJR9ITSEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="ownID"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+      </serviceEffectSpecifications__BasicComponent>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="__95ecITQEeytPNYcavwd4Q" describedService__SEFF="_YwsyEITDEeytPNYcavwd4Q">
+        <steps_Behaviour xsi:type="seff:StartAction" id="__96FgITQEeytPNYcavwd4Q" successor_AbstractAction="_2h_SwITSEeytPNYcavwd4Q"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="__96FgYTQEeytPNYcavwd4Q" predecessor_AbstractAction="_5aUx0ITSEeytPNYcavwd4Q"/>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_2h_SwITSEeytPNYcavwd4Q" entityName="BrowserLogic.exchangePort.storeOtherPort" predecessor_AbstractAction="__96FgITQEeytPNYcavwd4Q" successor_AbstractAction="_3yi7sITSEeytPNYcavwd4Q" calledService_ExternalService="_M6oaoITREeytPNYcavwd4Q" role_ExternalService="_VLT3YITREeytPNYcavwd4Q">
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_FZw_UITTEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_FZw_UYTTEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="port"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="port"/>
+          </inputVariableUsages__CallAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_3yi7sITSEeytPNYcavwd4Q" entityName="BrowserLogic.exchangePort.loadOwnPort" predecessor_AbstractAction="_2h_SwITSEeytPNYcavwd4Q" successor_AbstractAction="_5aUx0ITSEeytPNYcavwd4Q" calledService_ExternalService="_M74X0ITREeytPNYcavwd4Q" role_ExternalService="_TMahwITREeytPNYcavwd4Q">
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_I0GYM4TTEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_I0GYNITTEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="ownPort"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:SetVariableAction" id="_5aUx0ITSEeytPNYcavwd4Q" entityName="BrowserLogic.exchangePort.return" predecessor_AbstractAction="_3yi7sITSEeytPNYcavwd4Q" successor_AbstractAction="__96FgYTQEeytPNYcavwd4Q">
+          <localVariableUsages_SetVariableAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_LxbsA4TTEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_LxbsBITTEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="ownPort"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+          </localVariableUsages_SetVariableAction>
+        </steps_Behaviour>
+      </serviceEffectSpecifications__BasicComponent>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_DpkFoITWEeytPNYcavwd4Q" describedService__SEFF="_-xotYITVEeytPNYcavwd4Q">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_DpkFoYTWEeytPNYcavwd4Q" successor_AbstractAction="_sFVpgITZEeytPNYcavwd4Q"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_DpkssITWEeytPNYcavwd4Q" predecessor_AbstractAction="_GmhCIITaEeytPNYcavwd4Q"/>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sFVpgITZEeytPNYcavwd4Q" entityName="BrowserLogic.respondToMedia.storeMediaInCache" predecessor_AbstractAction="_DpkFoYTWEeytPNYcavwd4Q" successor_AbstractAction="_0-L5gITZEeytPNYcavwd4Q" calledService_ExternalService="_mDn-sITZEeytPNYcavwd4Q" role_ExternalService="_ADvRoITaEeytPNYcavwd4Q">
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_wyeuEITZEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+              </lhs>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_wyeuEYTZEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="mediaPackage"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="media"/>
+          </inputVariableUsages__CallAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_0-L5gITZEeytPNYcavwd4Q" entityName="BrowserLogic.respondToMedia.loadOwnBrowserID" predecessor_AbstractAction="_sFVpgITZEeytPNYcavwd4Q" successor_AbstractAction="_1-lmkITZEeytPNYcavwd4Q" calledService_ExternalService="_urXzsIRBEeySUeZbAd56vg" role_ExternalService="_LmdZ0ITNEeytPNYcavwd4Q">
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_0w5O_oTaEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_0w5O_4TaEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="ownBrowserID"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_1-lmkITZEeytPNYcavwd4Q" entityName="BrowserLogic.respondToMedia.loadOtherBrowserID" predecessor_AbstractAction="_0-L5gITZEeytPNYcavwd4Q" successor_AbstractAction="_39pUQITZEeytPNYcavwd4Q" calledService_ExternalService="_urXzsIRBEeySUeZbAd56vg" role_ExternalService="_NgsR4ITNEeytPNYcavwd4Q">
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_3TP2_oTaEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_3TP2_4TaEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="otherBrowserID"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_39pUQITZEeytPNYcavwd4Q" entityName="BrowserLogic.respondToMedia.loadOwnPort" predecessor_AbstractAction="_1-lmkITZEeytPNYcavwd4Q" successor_AbstractAction="_5Pk2MITZEeytPNYcavwd4Q" calledService_ExternalService="_M74X0ITREeytPNYcavwd4Q" role_ExternalService="_TMahwITREeytPNYcavwd4Q">
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_6NxHU4TaEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_6NxuYITaEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="ownPort"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_5Pk2MITZEeytPNYcavwd4Q" entityName="BrowserLogic.respondToMedia.loadOtherPort" predecessor_AbstractAction="_39pUQITZEeytPNYcavwd4Q" successor_AbstractAction="_ERiHwITaEeytPNYcavwd4Q" calledService_ExternalService="_M74X0ITREeytPNYcavwd4Q" role_ExternalService="_VLT3YITREeytPNYcavwd4Q">
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="__bWmjoTaEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="__bWmj4TaEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="otherPort"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_ERiHwITaEeytPNYcavwd4Q" entityName="BrowserLogic.respondToMedia.loadOwnMedia" predecessor_AbstractAction="_5Pk2MITZEeytPNYcavwd4Q" successor_AbstractAction="_HT1bIITaEeytPNYcavwd4Q" calledService_ExternalService="_mEvZAITZEeytPNYcavwd4Q" role_ExternalService="_qVDXoITZEeytPNYcavwd4Q">
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_RfQ34ITbEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_RfQ34YTbEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="ownMedia"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:SetVariableAction" id="_GmhCIITaEeytPNYcavwd4Q" entityName="BrowserLogic.respondToMedia.return" predecessor_AbstractAction="_HT1bIITaEeytPNYcavwd4Q" successor_AbstractAction="_DpkssITWEeytPNYcavwd4Q">
+          <localVariableUsages_SetVariableAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_fMHCYITbEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+              </lhs>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_fMHCYYTbEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="ownMediaPackage"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_fMHCYoTbEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_fMHCY4TbEeytPNYcavwd4Q"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+          </localVariableUsages_SetVariableAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:SetVariableAction" id="_HT1bIITaEeytPNYcavwd4Q" entityName="BrowserLogic.respondToMedia.createMediaPackage" predecessor_AbstractAction="_ERiHwITaEeytPNYcavwd4Q" successor_AbstractAction="_GmhCIITaEeytPNYcavwd4Q">
+          <localVariableUsages_SetVariableAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_Yw6gkITbEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+              </lhs>
+              <rhs xsi:type="expressions:Or" id="_Yw6gkYTbEeytPNYcavwd4Q">
+                <left xsi:type="expressions:Or" id="_Yw6gkoTbEeytPNYcavwd4Q">
+                  <left xsi:type="expressions:Or" id="_Yw6gk4TbEeytPNYcavwd4Q">
+                    <left xsi:type="expressions:Or" id="_Yw6glITbEeytPNYcavwd4Q">
+                      <left xsi:type="expression:NamedEnumCharacteristicReference" id="_Yw6glYTbEeytPNYcavwd4Q">
+                        <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                        <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+                        <namedReference xsi:type="stoex:VariableReference" referenceName="ownPort"/>
+                      </left>
+                      <right xsi:type="expression:NamedEnumCharacteristicReference" id="_Yw6gloTbEeytPNYcavwd4Q">
+                        <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                        <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+                        <namedReference xsi:type="stoex:VariableReference" referenceName="otherPort"/>
+                      </right>
+                    </left>
+                    <right xsi:type="expression:NamedEnumCharacteristicReference" id="_Yw6gl4TbEeytPNYcavwd4Q">
+                      <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                      <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+                      <namedReference xsi:type="stoex:VariableReference" referenceName="ownBrowserID"/>
+                    </right>
+                  </left>
+                  <right xsi:type="expression:NamedEnumCharacteristicReference" id="_Yw6gmITbEeytPNYcavwd4Q">
+                    <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                    <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+                    <namedReference xsi:type="stoex:VariableReference" referenceName="otherBrowserID"/>
+                  </right>
+                </left>
+                <right xsi:type="expression:NamedEnumCharacteristicReference" id="_Yw6gmYTbEeytPNYcavwd4Q">
+                  <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                  <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+                  <namedReference xsi:type="stoex:VariableReference" referenceName="ownMedia"/>
+                </right>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_Yw6gmoTbEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+              </lhs>
+              <rhs xsi:type="expressions:And" id="_Yw6gm4TbEeytPNYcavwd4Q">
+                <left xsi:type="expressions:And" id="_Yw6gnITbEeytPNYcavwd4Q">
+                  <left xsi:type="expressions:And" id="_Yw6gnYTbEeytPNYcavwd4Q">
+                    <left xsi:type="expressions:And" id="_Yw6gnoTbEeytPNYcavwd4Q">
+                      <left xsi:type="expression:NamedEnumCharacteristicReference" id="_Yw6gn4TbEeytPNYcavwd4Q">
+                        <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                        <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+                        <namedReference xsi:type="stoex:VariableReference" referenceName="ownPort"/>
+                      </left>
+                      <right xsi:type="expression:NamedEnumCharacteristicReference" id="_Yw6goITbEeytPNYcavwd4Q">
+                        <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                        <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+                        <namedReference xsi:type="stoex:VariableReference" referenceName="otherPort"/>
+                      </right>
+                    </left>
+                    <right xsi:type="expression:NamedEnumCharacteristicReference" id="_Yw6goYTbEeytPNYcavwd4Q">
+                      <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                      <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+                      <namedReference xsi:type="stoex:VariableReference" referenceName="ownBrowserID"/>
+                    </right>
+                  </left>
+                  <right xsi:type="expression:NamedEnumCharacteristicReference" id="_Yw6gooTbEeytPNYcavwd4Q">
+                    <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                    <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+                    <namedReference xsi:type="stoex:VariableReference" referenceName="otherBrowserID"/>
+                  </right>
+                </left>
+                <right xsi:type="expression:NamedEnumCharacteristicReference" id="_Yw6go4TbEeytPNYcavwd4Q">
+                  <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                  <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+                  <namedReference xsi:type="stoex:VariableReference" referenceName="ownMedia"/>
+                </right>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_Yw6gpITbEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@1"/>
+              </lhs>
+              <rhs xsi:type="expressions:Or" id="_Yw6gpYTbEeytPNYcavwd4Q">
+                <left xsi:type="expressions:Or" id="_Yw6gpoTbEeytPNYcavwd4Q">
+                  <left xsi:type="expressions:Or" id="_Yw6gp4TbEeytPNYcavwd4Q">
+                    <left xsi:type="expressions:Or" id="_Yw6gqITbEeytPNYcavwd4Q">
+                      <left xsi:type="expression:NamedEnumCharacteristicReference" id="_Yw6gqYTbEeytPNYcavwd4Q">
+                        <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                        <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@1"/>
+                        <namedReference xsi:type="stoex:VariableReference" referenceName="ownPort"/>
+                      </left>
+                      <right xsi:type="expression:NamedEnumCharacteristicReference" id="_Yw6gqoTbEeytPNYcavwd4Q">
+                        <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                        <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@1"/>
+                        <namedReference xsi:type="stoex:VariableReference" referenceName="otherPort"/>
+                      </right>
+                    </left>
+                    <right xsi:type="expression:NamedEnumCharacteristicReference" id="_Yw6gq4TbEeytPNYcavwd4Q">
+                      <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                      <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@1"/>
+                      <namedReference xsi:type="stoex:VariableReference" referenceName="ownBrowserID"/>
+                    </right>
+                  </left>
+                  <right xsi:type="expression:NamedEnumCharacteristicReference" id="_Yw6grITbEeytPNYcavwd4Q">
+                    <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                    <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@1"/>
+                    <namedReference xsi:type="stoex:VariableReference" referenceName="otherBrowserID"/>
+                  </right>
+                </left>
+                <right xsi:type="expression:NamedEnumCharacteristicReference" id="_Yw6grYTbEeytPNYcavwd4Q">
+                  <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                  <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@1"/>
+                  <namedReference xsi:type="stoex:VariableReference" referenceName="ownMedia"/>
+                </right>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_Yw6groTbEeytPNYcavwd4Q">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@0"/>
+              </lhs>
+              <rhs xsi:type="expressions:And" id="_Yw6gr4TbEeytPNYcavwd4Q">
+                <left xsi:type="expressions:And" id="_Yw6gsITbEeytPNYcavwd4Q">
+                  <left xsi:type="expressions:And" id="_Yw6gsYTbEeytPNYcavwd4Q">
+                    <left xsi:type="expressions:And" id="_Yw6gsoTbEeytPNYcavwd4Q">
+                      <left xsi:type="expression:NamedEnumCharacteristicReference" id="_Yw6gs4TbEeytPNYcavwd4Q">
+                        <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                        <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@0"/>
+                        <namedReference xsi:type="stoex:VariableReference" referenceName="ownPort"/>
+                      </left>
+                      <right xsi:type="expression:NamedEnumCharacteristicReference" id="_Yw6gtITbEeytPNYcavwd4Q">
+                        <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                        <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@0"/>
+                        <namedReference xsi:type="stoex:VariableReference" referenceName="otherPort"/>
+                      </right>
+                    </left>
+                    <right xsi:type="expression:NamedEnumCharacteristicReference" id="_Yw6gtYTbEeytPNYcavwd4Q">
+                      <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                      <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@0"/>
+                      <namedReference xsi:type="stoex:VariableReference" referenceName="ownBrowserID"/>
+                    </right>
+                  </left>
+                  <right xsi:type="expression:NamedEnumCharacteristicReference" id="_Yw6gtoTbEeytPNYcavwd4Q">
+                    <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                    <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@0"/>
+                    <namedReference xsi:type="stoex:VariableReference" referenceName="otherBrowserID"/>
+                  </right>
+                </left>
+                <right xsi:type="expression:NamedEnumCharacteristicReference" id="_Yw6gt4TbEeytPNYcavwd4Q">
+                  <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_zLbgUA1wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                  <literal href="../dic.pddc#_yxIngAygEe-5C6doYp1KxQ-characteristicEnumerations@2.literals@0"/>
+                  <namedReference xsi:type="stoex:VariableReference" referenceName="ownMedia"/>
+                </right>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="ownMediaPackage"/>
+          </localVariableUsages_SetVariableAction>
+        </steps_Behaviour>
+      </serviceEffectSpecifications__BasicComponent>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_JOna4ITcEeytPNYcavwd4Q" describedService__SEFF="_HUc0QITcEeytPNYcavwd4Q">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_JkHJwITcEeytPNYcavwd4Q" successor_AbstractAction="_KdDj8ITcEeytPNYcavwd4Q"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_JkHJwYTcEeytPNYcavwd4Q" predecessor_AbstractAction="_LZpIAITcEeytPNYcavwd4Q"/>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_KdDj8ITcEeytPNYcavwd4Q" entityName="BrowserLogic.getMedia.loadMedia" predecessor_AbstractAction="_JkHJwITcEeytPNYcavwd4Q" successor_AbstractAction="_LZpIAITcEeytPNYcavwd4Q" calledService_ExternalService="_mEvZAITZEeytPNYcavwd4Q" role_ExternalService="_qVDXoITZEeytPNYcavwd4Q">
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_bGCIYITcEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_bGCIYYTcEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="media"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:SetVariableAction" id="_LZpIAITcEeytPNYcavwd4Q" entityName="BrowserLogic.getMedia.return" predecessor_AbstractAction="_KdDj8ITcEeytPNYcavwd4Q" successor_AbstractAction="_JkHJwYTcEeytPNYcavwd4Q">
+          <localVariableUsages_SetVariableAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_dDq5wITcEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_dDq5wYTcEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="media"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+          </localVariableUsages_SetVariableAction>
+        </steps_Behaviour>
+      </serviceEffectSpecifications__BasicComponent>
+    </components__Repository>
+    <components__Repository xsi:type="repository:BasicComponent" id="_Wm0v8ITNEeytPNYcavwd4Q" entityName="Signaling">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_XrIsoITNEeytPNYcavwd4Q" entityName="Signaling.provided.Signaling" providedInterface__OperationProvidedRole="_Qu1o4ITNEeytPNYcavwd4Q"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_eu2nAITNEeytPNYcavwd4Q" entityName="Signaling.required.Signaling" requiredInterface__OperationRequiredRole="_Qu1o4ITNEeytPNYcavwd4Q"/>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_XrlYkITNEeytPNYcavwd4Q" describedService__SEFF="_ShvJ4ITNEeytPNYcavwd4Q">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_XrlYkYTNEeytPNYcavwd4Q" successor_AbstractAction="_gdujoITNEeytPNYcavwd4Q"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_XrlYkoTNEeytPNYcavwd4Q" predecessor_AbstractAction="_hAbBAITNEeytPNYcavwd4Q"/>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_gdujoITNEeytPNYcavwd4Q" entityName="Signaling.exchangeSessionData.call" predecessor_AbstractAction="_XrlYkYTNEeytPNYcavwd4Q" successor_AbstractAction="_hAbBAITNEeytPNYcavwd4Q" calledService_ExternalService="_ShvJ4ITNEeytPNYcavwd4Q" role_ExternalService="_eu2nAITNEeytPNYcavwd4Q">
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_m8iaIITNEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_m8iaIYTNEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="sessionData"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="sessionData"/>
+          </inputVariableUsages__CallAction>
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_pSKNsITNEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_pSKNsYTNEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="otherSessionData"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:SetVariableAction" id="_hAbBAITNEeytPNYcavwd4Q" entityName="Signaling.exchangeSessionData.return" predecessor_AbstractAction="_gdujoITNEeytPNYcavwd4Q" successor_AbstractAction="_XrlYkoTNEeytPNYcavwd4Q">
+          <localVariableUsages_SetVariableAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_rlEEcITNEeytPNYcavwd4Q"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_rlEEcYTNEeytPNYcavwd4Q">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="otherSessionData"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+          </localVariableUsages_SetVariableAction>
+        </steps_Behaviour>
+      </serviceEffectSpecifications__BasicComponent>
+    </components__Repository>
+    <components__Repository xsi:type="repository:BasicComponent" id="_IxSmsITREeytPNYcavwd4Q" entityName="PortStore">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_PgnlcITREeytPNYcavwd4Q" entityName="PortStore.provided.PortStore" providedInterface__OperationProvidedRole="_L2pOEITREeytPNYcavwd4Q"/>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_P4RQcITREeytPNYcavwd4Q" describedService__SEFF="_M6oaoITREeytPNYcavwd4Q">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_QIVswITREeytPNYcavwd4Q" successor_AbstractAction="_QIVswYTREeytPNYcavwd4Q"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_QIVswYTREeytPNYcavwd4Q" predecessor_AbstractAction="_QIVswITREeytPNYcavwd4Q"/>
+      </serviceEffectSpecifications__BasicComponent>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_QY6fYITREeytPNYcavwd4Q" describedService__SEFF="_M74X0ITREeytPNYcavwd4Q">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_QnxawITREeytPNYcavwd4Q" successor_AbstractAction="_QnxawYTREeytPNYcavwd4Q"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_QnxawYTREeytPNYcavwd4Q" predecessor_AbstractAction="_QnxawITREeytPNYcavwd4Q"/>
+      </serviceEffectSpecifications__BasicComponent>
+    </components__Repository>
+    <components__Repository xsi:type="repository:BasicComponent" id="_kjPKAITZEeytPNYcavwd4Q" entityName="MediaCache">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_oeZYAITZEeytPNYcavwd4Q" entityName="MediaCache.provided.MediaCache" providedInterface__OperationProvidedRole="_lVTgIITZEeytPNYcavwd4Q"/>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_gefa0ITcEeytPNYcavwd4Q" describedService__SEFF="_mDn-sITZEeytPNYcavwd4Q">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_gskTEITcEeytPNYcavwd4Q" successor_AbstractAction="_gskTEYTcEeytPNYcavwd4Q"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_gskTEYTcEeytPNYcavwd4Q" predecessor_AbstractAction="_gskTEITcEeytPNYcavwd4Q"/>
+      </serviceEffectSpecifications__BasicComponent>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_hB_wgITcEeytPNYcavwd4Q" describedService__SEFF="_mEvZAITZEeytPNYcavwd4Q">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_hQ02sITcEeytPNYcavwd4Q" successor_AbstractAction="_hQ02sYTcEeytPNYcavwd4Q"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_hQ02sYTcEeytPNYcavwd4Q" predecessor_AbstractAction="_hQ02sITcEeytPNYcavwd4Q"/>
+      </serviceEffectSpecifications__BasicComponent>
+    </components__Repository>
+    <components__Repository xsi:type="repository:CompositeComponent" id="_h6GnwITdEeytPNYcavwd4Q" entityName="Browser">
+      <assemblyContexts__ComposedStructure id="_jyXw8ITdEeytPNYcavwd4Q" entityName="Assembly_BrowserLogic" encapsulatedComponent__AssemblyContext="_tGw9MITMEeytPNYcavwd4Q"/>
+      <assemblyContexts__ComposedStructure id="_qJo1AITdEeytPNYcavwd4Q" entityName="Assembly_MediaCache_Own" encapsulatedComponent__AssemblyContext="_kjPKAITZEeytPNYcavwd4Q"/>
+      <assemblyContexts__ComposedStructure id="_sRPasITdEeytPNYcavwd4Q" entityName="Assembly_MediaCache_Other" encapsulatedComponent__AssemblyContext="_kjPKAITZEeytPNYcavwd4Q"/>
+      <assemblyContexts__ComposedStructure id="_w3Tm4ITdEeytPNYcavwd4Q" entityName="Assembly_PortStore_Own" encapsulatedComponent__AssemblyContext="_IxSmsITREeytPNYcavwd4Q"/>
+      <assemblyContexts__ComposedStructure id="_yFmmAITdEeytPNYcavwd4Q" entityName="Assembly_PortStore_Other" encapsulatedComponent__AssemblyContext="_IxSmsITREeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_vVE_IITdEeytPNYcavwd4Q" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_jyXw8ITdEeytPNYcavwd4Q" providingAssemblyContext_AssemblyConnector="_sRPasITdEeytPNYcavwd4Q" providedRole_AssemblyConnector="_oeZYAITZEeytPNYcavwd4Q" requiredRole_AssemblyConnector="_ADvRoITaEeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_wYb5kITdEeytPNYcavwd4Q" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_jyXw8ITdEeytPNYcavwd4Q" providingAssemblyContext_AssemblyConnector="_qJo1AITdEeytPNYcavwd4Q" providedRole_AssemblyConnector="_oeZYAITZEeytPNYcavwd4Q" requiredRole_AssemblyConnector="_qVDXoITZEeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_0EAzcITdEeytPNYcavwd4Q" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_jyXw8ITdEeytPNYcavwd4Q" providingAssemblyContext_AssemblyConnector="_yFmmAITdEeytPNYcavwd4Q" providedRole_AssemblyConnector="_PgnlcITREeytPNYcavwd4Q" requiredRole_AssemblyConnector="_VLT3YITREeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_1g8rgITdEeytPNYcavwd4Q" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_jyXw8ITdEeytPNYcavwd4Q" providingAssemblyContext_AssemblyConnector="_w3Tm4ITdEeytPNYcavwd4Q" providedRole_AssemblyConnector="_PgnlcITREeytPNYcavwd4Q" requiredRole_AssemblyConnector="_TMahwITREeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="composition:RequiredDelegationConnector" id="_E57nsITeEeytPNYcavwd4Q" entityName="newRequiredDelegationConnector" innerRequiredRole_RequiredDelegationConnector="_LmdZ0ITNEeytPNYcavwd4Q" outerRequiredRole_RequiredDelegationConnector="_CgayoITeEeytPNYcavwd4Q" assemblyContext_RequiredDelegationConnector="_jyXw8ITdEeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="composition:RequiredDelegationConnector" id="_FZLvgITeEeytPNYcavwd4Q" entityName="newRequiredDelegationConnector" innerRequiredRole_RequiredDelegationConnector="_NgsR4ITNEeytPNYcavwd4Q" outerRequiredRole_RequiredDelegationConnector="_BcIEEITeEeytPNYcavwd4Q" assemblyContext_RequiredDelegationConnector="_jyXw8ITdEeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_VkvYIITeEeytPNYcavwd4Q" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_uJWbkITMEeytPNYcavwd4Q" outerProvidedRole_ProvidedDelegationConnector="_UgXxEITeEeytPNYcavwd4Q" assemblyContext_ProvidedDelegationConnector="_jyXw8ITdEeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_XQkn0ITeEeytPNYcavwd4Q" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="__9q08ITQEeytPNYcavwd4Q" outerProvidedRole_ProvidedDelegationConnector="_WJ_aQITeEeytPNYcavwd4Q" assemblyContext_ProvidedDelegationConnector="_jyXw8ITdEeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_Ygrk0ITeEeytPNYcavwd4Q" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_xlmDgITNEeytPNYcavwd4Q" outerProvidedRole_ProvidedDelegationConnector="_XxRhIITeEeytPNYcavwd4Q" assemblyContext_ProvidedDelegationConnector="_jyXw8ITdEeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="composition:RequiredDelegationConnector" id="_aexpMITeEeytPNYcavwd4Q" entityName="newRequiredDelegationConnector" innerRequiredRole_RequiredDelegationConnector="_wSdAoITNEeytPNYcavwd4Q" outerRequiredRole_RequiredDelegationConnector="_ZAIg8ITeEeytPNYcavwd4Q" assemblyContext_RequiredDelegationConnector="_jyXw8ITdEeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="composition:RequiredDelegationConnector" id="_dv_iUITeEeytPNYcavwd4Q" entityName="newRequiredDelegationConnector" innerRequiredRole_RequiredDelegationConnector="_CTO-IITREeytPNYcavwd4Q" outerRequiredRole_RequiredDelegationConnector="_clznIITeEeytPNYcavwd4Q" assemblyContext_RequiredDelegationConnector="_jyXw8ITdEeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="composition:RequiredDelegationConnector" id="_nh46MITeEeytPNYcavwd4Q" entityName="newRequiredDelegationConnector" innerRequiredRole_RequiredDelegationConnector="_CJYFQITWEeytPNYcavwd4Q" outerRequiredRole_RequiredDelegationConnector="_mAAQsITeEeytPNYcavwd4Q" assemblyContext_RequiredDelegationConnector="_jyXw8ITdEeytPNYcavwd4Q"/>
+      <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_qIODQITeEeytPNYcavwd4Q" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_DpVcIITWEeytPNYcavwd4Q" outerProvidedRole_ProvidedDelegationConnector="_owJdEITeEeytPNYcavwd4Q" assemblyContext_ProvidedDelegationConnector="_jyXw8ITdEeytPNYcavwd4Q"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_UgXxEITeEeytPNYcavwd4Q" entityName="Browser" providedInterface__OperationProvidedRole="_lKfqMITMEeytPNYcavwd4Q"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_WJ_aQITeEeytPNYcavwd4Q" entityName="PortExchange" providedInterface__OperationProvidedRole="_XblZQITDEeytPNYcavwd4Q"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_XxRhIITeEeytPNYcavwd4Q" entityName="Signaling" providedInterface__OperationProvidedRole="_Qu1o4ITNEeytPNYcavwd4Q"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_owJdEITeEeytPNYcavwd4Q" entityName="MediaExchangeResponder" providedInterface__OperationProvidedRole="_8e6c0ITVEeytPNYcavwd4Q"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_BcIEEITeEeytPNYcavwd4Q" entityName="BrowserIDStoreOther" requiredInterface__OperationRequiredRole="_rrydIIRBEeySUeZbAd56vg"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_CgayoITeEeytPNYcavwd4Q" entityName="BrowserIDStoreOwn" requiredInterface__OperationRequiredRole="_rrydIIRBEeySUeZbAd56vg"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_ZAIg8ITeEeytPNYcavwd4Q" entityName="Signaling" requiredInterface__OperationRequiredRole="_Qu1o4ITNEeytPNYcavwd4Q"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_clznIITeEeytPNYcavwd4Q" entityName="PortExchange" requiredInterface__OperationRequiredRole="_XblZQITDEeytPNYcavwd4Q"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_mAAQsITeEeytPNYcavwd4Q" entityName="MediaExchangeResponder" requiredInterface__OperationRequiredRole="_8e6c0ITVEeytPNYcavwd4Q"/>
+    </components__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="_rrydIIRBEeySUeZbAd56vg" entityName="BrowserIDStore">
+      <signatures__OperationInterface id="_uPP4YIRBEeySUeZbAd56vg" entityName="add">
+        <parameters__OperationSignature dataType__Parameter="_muUp8IQHEeySUeZbAd56vg" parameterName="browserID"/>
+      </signatures__OperationInterface>
+      <signatures__OperationInterface id="_urXzsIRBEeySUeZbAd56vg" entityName="get" returnType__OperationSignature="_muUp8IQHEeySUeZbAd56vg"/>
+    </interfaces__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="_XblZQITDEeytPNYcavwd4Q" entityName="PortExchange">
+      <signatures__OperationInterface id="_YwsyEITDEeytPNYcavwd4Q" entityName="exchangePort" returnType__OperationSignature="_qS0EYIQHEeySUeZbAd56vg">
+        <parameters__OperationSignature dataType__Parameter="_qS0EYIQHEeySUeZbAd56vg" parameterName="port"/>
+      </signatures__OperationInterface>
+    </interfaces__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="_lKfqMITMEeytPNYcavwd4Q" entityName="Browser">
+      <signatures__OperationInterface id="_lrdCMITMEeytPNYcavwd4Q" entityName="init">
+        <parameters__OperationSignature dataType__Parameter="_muUp8IQHEeySUeZbAd56vg" parameterName="browserID"/>
+        <parameters__OperationSignature dataType__Parameter="_k65kgIQHEeySUeZbAd56vg" parameterName="sessionData"/>
+      </signatures__OperationInterface>
+      <signatures__OperationInterface id="_qGYVYITMEeytPNYcavwd4Q" entityName="exchangeMedia" returnType__OperationSignature="_j40ccIQHEeySUeZbAd56vg">
+        <parameters__OperationSignature dataType__Parameter="_j40ccIQHEeySUeZbAd56vg" parameterName="media"/>
+      </signatures__OperationInterface>
+      <signatures__OperationInterface id="_HUc0QITcEeytPNYcavwd4Q" entityName="getMedia" returnType__OperationSignature="_j40ccIQHEeySUeZbAd56vg"/>
+    </interfaces__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="_Qu1o4ITNEeytPNYcavwd4Q" entityName="Signaling">
+      <signatures__OperationInterface id="_ShvJ4ITNEeytPNYcavwd4Q" entityName="exchangeSessionData" returnType__OperationSignature="_k65kgIQHEeySUeZbAd56vg">
+        <parameters__OperationSignature dataType__Parameter="_k65kgIQHEeySUeZbAd56vg" parameterName="sessionData"/>
+      </signatures__OperationInterface>
+    </interfaces__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="_L2pOEITREeytPNYcavwd4Q" entityName="PortStore">
+      <signatures__OperationInterface id="_M6oaoITREeytPNYcavwd4Q" entityName="add">
+        <parameters__OperationSignature dataType__Parameter="_qS0EYIQHEeySUeZbAd56vg" parameterName="port"/>
+      </signatures__OperationInterface>
+      <signatures__OperationInterface id="_M74X0ITREeytPNYcavwd4Q" entityName="get" returnType__OperationSignature="_qS0EYIQHEeySUeZbAd56vg"/>
+    </interfaces__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="_8e6c0ITVEeytPNYcavwd4Q" entityName="MediaExchangeResponder">
+      <signatures__OperationInterface id="_-xotYITVEeytPNYcavwd4Q" entityName="respondToMedia" returnType__OperationSignature="_qyfC8IQHEeySUeZbAd56vg">
+        <parameters__OperationSignature dataType__Parameter="_qyfC8IQHEeySUeZbAd56vg" parameterName="mediaPackage"/>
+      </signatures__OperationInterface>
+    </interfaces__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="_lVTgIITZEeytPNYcavwd4Q" entityName="MediaCache">
+      <signatures__OperationInterface id="_mDn-sITZEeytPNYcavwd4Q" entityName="add">
+        <parameters__OperationSignature dataType__Parameter="_j40ccIQHEeySUeZbAd56vg" parameterName="media"/>
+      </signatures__OperationInterface>
+      <signatures__OperationInterface id="_mEvZAITZEeytPNYcavwd4Q" entityName="get" returnType__OperationSignature="_j40ccIQHEeySUeZbAd56vg"/>
+    </interfaces__Repository>
+    <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_j40ccIQHEeySUeZbAd56vg" entityName="Media"/>
+    <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_k65kgIQHEeySUeZbAd56vg" entityName="SessionData"/>
+    <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_muUp8IQHEeySUeZbAd56vg" entityName="BrowserID"/>
+    <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_qS0EYIQHEeySUeZbAd56vg" entityName="Port"/>
+    <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_qyfC8IQHEeySUeZbAd56vg" entityName="MediaPackage"/>
+  </repository:Repository>
+</xmi:XMI>

@@ -1,0 +1,15 @@
+dictionary id "_WbpWMA0wEe-5C6doYp1KxQ"
+
+enum Lattice {
+	Low
+	High
+}
+enum Clearance {
+	Attack
+	Trusted
+}
+enumCharacteristicType Lattice using Lattice
+enumCharacteristicType NodeClearance using Clearance
+enumCharacteristicType EncryptedClassification using Lattice
+
+

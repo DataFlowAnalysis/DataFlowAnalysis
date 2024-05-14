@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DataDictionaryCharacterized="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/1.0" xmlns:confidentiality="http://dataflowanalysis.org/pcm/extension/model/0.1.0" xmlns:expression="http://dataflowanalysis.org/pcm/extension/model/0.1.0/expression" xmlns:expressions="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/expressions/1.0" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" xmlns:usagemodel="http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.2">
+  <usagemodel:UsageModel>
+    <usageScenario_UsageModel id="_32Zh0Dy4EeuXmedn0l6p7g" entityName="Alice">
+      <scenarioBehaviour_UsageScenario id="_5yn98Dy4EeuXmedn0l6p7g" entityName="ScenarioBehaviour">
+        <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_5yolADy4EeuXmedn0l6p7g" successor="_l0510Dy5EeuXmedn0l6p7g"/>
+        <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_5yolATy4EeuXmedn0l6p7g" predecessor="_8uBYEDy4EeuXmedn0l6p7g"/>
+        <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_8uBYEDy4EeuXmedn0l6p7g" entityName="Alice.sendMail" successor="_5yolATy4EeuXmedn0l6p7g" predecessor="_l0510Dy5EeuXmedn0l6p7g">
+          <providedRole_EntryLevelSystemCall href="newSystem.system#_sS80IDy1EeuXmedn0l6p7g"/>
+          <operationSignature__EntryLevelSystemCall href="newRepository.repository#_x1ujMDyUEeufcY0HJdw_SQ"/>
+          <inputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_cb538D0uEeurDcfsJ2WyKg">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_c0605j0uEeurDcfsJ2WyKg"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="email"/>
+          </inputParameterUsages_EntryLevelSystemCall>
+        </actions_ScenarioBehaviour>
+        <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_l0510Dy5EeuXmedn0l6p7g" entityName="Alice.addPublicKey" successor="_8uBYEDy4EeuXmedn0l6p7g" predecessor="_5yolADy4EeuXmedn0l6p7g">
+          <providedRole_EntryLevelSystemCall href="newSystem.system#_tEtBMDy1EeuXmedn0l6p7g"/>
+          <operationSignature__EntryLevelSystemCall href="newRepository.repository#_eZewcDyVEeufcY0HJdw_SQ"/>
+          <inputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_islL0D0uEeurDcfsJ2WyKg">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_kFLWdj0uEeurDcfsJ2WyKg"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="publicKey"/>
+          </inputParameterUsages_EntryLevelSystemCall>
+        </actions_ScenarioBehaviour>
+      </scenarioBehaviour_UsageScenario>
+      <workload_UsageScenario xsi:type="usagemodel:ClosedWorkload" population="1">
+        <thinkTime_ClosedWorkload specification="0.0"/>
+      </workload_UsageScenario>
+    </usageScenario_UsageModel>
+    <usageScenario_UsageModel id="_Eu1M0Dy5EeuXmedn0l6p7g" entityName="Bob">
+      <scenarioBehaviour_UsageScenario id="_GZ7csDy5EeuXmedn0l6p7g" entityName="ScenarioBehaviour">
+        <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_GZ7csTy5EeuXmedn0l6p7g" successor="_JFFbYDy5EeuXmedn0l6p7g"/>
+        <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_GZ7csjy5EeuXmedn0l6p7g" predecessor="_RC-fADy5EeuXmedn0l6p7g"/>
+        <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_JFFbYDy5EeuXmedn0l6p7g" entityName="Bob.addPrivateKey" successor="_RC-fADy5EeuXmedn0l6p7g" predecessor="_GZ7csTy5EeuXmedn0l6p7g">
+          <providedRole_EntryLevelSystemCall href="newSystem.system#_tdyPkDy1EeuXmedn0l6p7g"/>
+          <operationSignature__EntryLevelSystemCall href="newRepository.repository#_ZiOtoDyVEeufcY0HJdw_SQ"/>
+          <inputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_mxgZ0D0uEeurDcfsJ2WyKg">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_ovCdhj0uEeurDcfsJ2WyKg"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="privateKey"/>
+          </inputParameterUsages_EntryLevelSystemCall>
+        </actions_ScenarioBehaviour>
+        <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_RC-fADy5EeuXmedn0l6p7g" entityName="Bob.receiveMail" successor="_GZ7csjy5EeuXmedn0l6p7g" predecessor="_JFFbYDy5EeuXmedn0l6p7g">
+          <providedRole_EntryLevelSystemCall href="newSystem.system#_rlbm0Dy1EeuXmedn0l6p7g"/>
+          <operationSignature__EntryLevelSystemCall href="newRepository.repository#_PqX3sDyVEeufcY0HJdw_SQ"/>
+          <outputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_soc_ED0uEeurDcfsJ2WyKg"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_tI29cz0uEeurDcfsJ2WyKg">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="email"/>
+          </outputParameterUsages_EntryLevelSystemCall>
+        </actions_ScenarioBehaviour>
+      </scenarioBehaviour_UsageScenario>
+      <workload_UsageScenario xsi:type="usagemodel:ClosedWorkload" population="1">
+        <thinkTime_ClosedWorkload specification="0.0"/>
+      </workload_UsageScenario>
+    </usageScenario_UsageModel>
+    <usageScenario_UsageModel id="_a56H4Dy5EeuXmedn0l6p7g" entityName="PolicyInitializer">
+      <scenarioBehaviour_UsageScenario id="_chM10Dy5EeuXmedn0l6p7g" entityName="ScenarioBehaviour">
+        <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_chNc4Dy5EeuXmedn0l6p7g" successor="_e-McsDy5EeuXmedn0l6p7g"/>
+        <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_chNc4Ty5EeuXmedn0l6p7g" predecessor="_e-McsDy5EeuXmedn0l6p7g"/>
+        <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_e-McsDy5EeuXmedn0l6p7g" entityName="PolicyInitializer.addPolicy" successor="_chNc4Ty5EeuXmedn0l6p7g" predecessor="_chNc4Dy5EeuXmedn0l6p7g">
+          <providedRole_EntryLevelSystemCall href="newSystem.system#_tEtBMDy1EeuXmedn0l6p7g"/>
+          <operationSignature__EntryLevelSystemCall href="newRepository.repository#_gYOVEDyVEeufcY0HJdw_SQ"/>
+          <inputParameterUsages_EntryLevelSystemCall>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_xcnRoD0uEeurDcfsJ2WyKg">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_zTFEBj0uEeurDcfsJ2WyKg"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="policy"/>
+          </inputParameterUsages_EntryLevelSystemCall>
+        </actions_ScenarioBehaviour>
+      </scenarioBehaviour_UsageScenario>
+      <workload_UsageScenario xsi:type="usagemodel:ClosedWorkload" population="1">
+        <thinkTime_ClosedWorkload specification="0.0"/>
+      </workload_UsageScenario>
+    </usageScenario_UsageModel>
+  </usagemodel:UsageModel>
+</xmi:XMI>

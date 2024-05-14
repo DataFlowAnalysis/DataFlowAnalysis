@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DataDictionaryCharacterized="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/1.0" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:confidentiality="http://dataflowanalysis.org/pcm/extension/model/0.1.0" xmlns:expression="http://dataflowanalysis.org/pcm/extension/model/0.1.0/expression" xmlns:expressions="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/expressions/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2">
+  <repository:Repository id="_p0uhMDyUEeufcY0HJdw_SQ" entityName="New Repository">
+    <components__Repository xsi:type="repository:BasicComponent" id="_k4sPkDyVEeufcY0HJdw_SQ" entityName="MailSendingFacade">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_no-l4DyVEeufcY0HJdw_SQ" entityName="MailSendingFacade.MailSending.OperationProvidedRole1" providedInterface__OperationProvidedRole="_vl6csDyUEeufcY0HJdw_SQ"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_jRC24D1GEeurDcfsJ2WyKg" entityName="MailSendingFacade.EMailDispatchment.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_N1f7UD1GEeurDcfsJ2WyKg"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_TaHlAD1HEeurDcfsJ2WyKg" entityName="MailSendingFacade.PolicyStorageAccess.OperationRequiredRole2" requiredInterface__OperationRequiredRole="_AohHMD1HEeurDcfsJ2WyKg"/>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_npaDsDyVEeufcY0HJdw_SQ" describedService__SEFF="_x1ujMDyUEeufcY0HJdw_SQ">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_npb44DyVEeufcY0HJdw_SQ" successor_AbstractAction="_nPWqED1HEeurDcfsJ2WyKg"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_npcf8DyVEeufcY0HJdw_SQ" predecessor_AbstractAction="_zNnBQD1GEeurDcfsJ2WyKg"/>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_zNnBQD1GEeurDcfsJ2WyKg" entityName="MailSendingFacade.sendMail.dispatchMail" predecessor_AbstractAction="_sOwjUD1HEeurDcfsJ2WyKg" successor_AbstractAction="_npcf8DyVEeufcY0HJdw_SQ" calledService_ExternalService="_RMg6cD1GEeurDcfsJ2WyKg" role_ExternalService="_jRC24D1GEeurDcfsJ2WyKg">
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_arI0MD1KEeurDcfsJ2WyKg"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_bMOvEz1KEeurDcfsJ2WyKg">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="header"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="header"/>
+          </inputVariableUsages__CallAction>
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_dEZKkD1KEeurDcfsJ2WyKg"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_dojAgz1KEeurDcfsJ2WyKg">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="body"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="body"/>
+          </inputVariableUsages__CallAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_UDYkcD1HEeurDcfsJ2WyKg" entityName="MailSendingFacade.sendMail.getPolicy" predecessor_AbstractAction="_o31q0D1HEeurDcfsJ2WyKg" successor_AbstractAction="_sOwjUD1HEeurDcfsJ2WyKg" calledService_ExternalService="_Dm480D1HEeurDcfsJ2WyKg" role_ExternalService="_TaHlAD1HEeurDcfsJ2WyKg">
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_PMIaQD1KEeurDcfsJ2WyKg"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_P2zu8z1KEeurDcfsJ2WyKg">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="policy"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_Ukz2gD1HEeurDcfsJ2WyKg" entityName="MailSendingFacade.sendMail.getPublicKey" predecessor_AbstractAction="_nPWqED1HEeurDcfsJ2WyKg" successor_AbstractAction="_o31q0D1HEeurDcfsJ2WyKg" calledService_ExternalService="_Cib2MD1HEeurDcfsJ2WyKg" role_ExternalService="_TaHlAD1HEeurDcfsJ2WyKg">
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_UBHzQD1KEeurDcfsJ2WyKg"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_Uhf8cz1KEeurDcfsJ2WyKg">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="publicKey"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:SetVariableAction" id="_nPWqED1HEeurDcfsJ2WyKg" entityName="MailSendingFacade.sendMail.splitBody" predecessor_AbstractAction="_npb44DyVEeufcY0HJdw_SQ" successor_AbstractAction="_Ukz2gD1HEeurDcfsJ2WyKg">
+          <localVariableUsages_SetVariableAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_Lf2yQD1JEeurDcfsJ2WyKg"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_ML9qUz1JEeurDcfsJ2WyKg">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="email"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="body"/>
+          </localVariableUsages_SetVariableAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:SetVariableAction" id="_o31q0D1HEeurDcfsJ2WyKg" entityName="MailSendingFacade.sendMail.splitHeader" predecessor_AbstractAction="_Ukz2gD1HEeurDcfsJ2WyKg" successor_AbstractAction="_UDYkcD1HEeurDcfsJ2WyKg">
+          <localVariableUsages_SetVariableAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_RAz5YD1JEeurDcfsJ2WyKg"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_RnamYz1JEeurDcfsJ2WyKg">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="email"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="header"/>
+          </localVariableUsages_SetVariableAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:SetVariableAction" id="_sOwjUD1HEeurDcfsJ2WyKg" entityName="MailSendingFacade.sendMail.declassifyHeader" predecessor_AbstractAction="_UDYkcD1HEeurDcfsJ2WyKg" successor_AbstractAction="_zNnBQD1GEeurDcfsJ2WyKg">
+          <localVariableUsages_SetVariableAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_UulLoD1JEeurDcfsJ2WyKg"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_VObJUz1JEeurDcfsJ2WyKg">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="header"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_gW8V4D1JEeurDcfsJ2WyKg">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+              </lhs>
+              <rhs xsi:type="expressions:False" id="_n6Hzdz1JEeurDcfsJ2WyKg"/>
+            </variableCharacterisation_VariableUsage>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_oxYLkD1JEeurDcfsJ2WyKg">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+              </lhs>
+              <rhs xsi:type="expressions:True" id="_qhNKdj1JEeurDcfsJ2WyKg"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="header"/>
+          </localVariableUsages_SetVariableAction>
+        </steps_Behaviour>
+      </serviceEffectSpecifications__BasicComponent>
+    </components__Repository>
+    <components__Repository xsi:type="repository:CompositeComponent" id="_lvQrMDyVEeufcY0HJdw_SQ" entityName="MailSending">
+      <assemblyContexts__ComposedStructure id="_2baZQDyyEeufcY0HJdw_SQ" entityName="Assembly_MailSendingFacade" encapsulatedComponent__AssemblyContext="_k4sPkDyVEeufcY0HJdw_SQ"/>
+      <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_4idlUDyyEeufcY0HJdw_SQ" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_no-l4DyVEeufcY0HJdw_SQ" outerProvidedRole_ProvidedDelegationConnector="_qDv_MDyVEeufcY0HJdw_SQ" assemblyContext_ProvidedDelegationConnector="_2baZQDyyEeufcY0HJdw_SQ"/>
+      <connectors__ComposedStructure xsi:type="composition:RequiredDelegationConnector" id="_noTG1T1NEeuNWouTGsQ1xw" entityName="RequiredDelegation_Dispatch" innerRequiredRole_RequiredDelegationConnector="_jRC24D1GEeurDcfsJ2WyKg" outerRequiredRole_RequiredDelegationConnector="_hWfOsD1GEeurDcfsJ2WyKg" assemblyContext_RequiredDelegationConnector="_2baZQDyyEeufcY0HJdw_SQ"/>
+      <connectors__ComposedStructure xsi:type="composition:RequiredDelegationConnector" id="_yScVVT1NEeuNWouTGsQ1xw" entityName="RequiredDelegation_PolicyStorage" innerRequiredRole_RequiredDelegationConnector="_TaHlAD1HEeurDcfsJ2WyKg" outerRequiredRole_RequiredDelegationConnector="_TACRED1HEeurDcfsJ2WyKg" assemblyContext_RequiredDelegationConnector="_2baZQDyyEeufcY0HJdw_SQ"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_qDv_MDyVEeufcY0HJdw_SQ" entityName="MailSending.MailSending.OperationProvidedRole1" providedInterface__OperationProvidedRole="_vl6csDyUEeufcY0HJdw_SQ"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_hWfOsD1GEeurDcfsJ2WyKg" entityName="MailSending.EMailDispatchment.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_N1f7UD1GEeurDcfsJ2WyKg"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_TACRED1HEeurDcfsJ2WyKg" entityName="MailSending.PolicyStorageAccess.OperationRequiredRole2" requiredInterface__OperationRequiredRole="_AohHMD1HEeurDcfsJ2WyKg"/>
+    </components__Repository>
+    <components__Repository xsi:type="repository:BasicComponent" id="_taKhYDyVEeufcY0HJdw_SQ" entityName="MailReceivingFacade">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_xYFvgDyVEeufcY0HJdw_SQ" entityName="MailReceivingFacade.MailReceiving.OperationProvidedRole1" providedInterface__OperationProvidedRole="_Oz90IDyVEeufcY0HJdw_SQ"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_2iIygDyVEeufcY0HJdw_SQ" entityName="MailReceivingFacade.PrivateKeyStorage.OperationProvidedRole2" providedInterface__OperationProvidedRole="_YOfN0DyVEeufcY0HJdw_SQ"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_cVc9wD1GEeurDcfsJ2WyKg" entityName="MailReceivingFacade.EMailDispatchment.OperationProvidedRole3" providedInterface__OperationProvidedRole="_N1f7UD1GEeurDcfsJ2WyKg"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_NL9qkD1QEeuNWouTGsQ1xw" entityName="MailReceivingFacade.EMailStorage.OperationRequiredRole1" requiredInterface__OperationRequiredRole="__pKz8D1PEeuNWouTGsQ1xw"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_dWk4AD1QEeuNWouTGsQ1xw" entityName="MailReceivingFacade.PrivateKeyStore.OperationRequiredRole2" requiredInterface__OperationRequiredRole="_V0aHED1QEeuNWouTGsQ1xw"/>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_xYjCgDyVEeufcY0HJdw_SQ" describedService__SEFF="_PqX3sDyVEeufcY0HJdw_SQ">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_xYjpkDyVEeufcY0HJdw_SQ" successor_AbstractAction="_tZ7xcD1REeuNWouTGsQ1xw"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_xYjpkTyVEeufcY0HJdw_SQ" predecessor_AbstractAction="_uHok8D1REeuNWouTGsQ1xw"/>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_tZ7xcD1REeuNWouTGsQ1xw" entityName="MailReceivingFacade.receiveMail.callDB" predecessor_AbstractAction="_xYjpkDyVEeufcY0HJdw_SQ" successor_AbstractAction="_uHok8D1REeuNWouTGsQ1xw" calledService_ExternalService="_Anh5oD1QEeuNWouTGsQ1xw" role_ExternalService="_NL9qkD1QEeuNWouTGsQ1xw">
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_0zIMkD1REeuNWouTGsQ1xw"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_1UEWcz1REeuNWouTGsQ1xw">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="email"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:SetVariableAction" id="_uHok8D1REeuNWouTGsQ1xw" entityName="MailReceivingFacade.receiveMail.return" predecessor_AbstractAction="_tZ7xcD1REeuNWouTGsQ1xw" successor_AbstractAction="_xYjpkTyVEeufcY0HJdw_SQ">
+          <localVariableUsages_SetVariableAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_4JiHsD1REeuNWouTGsQ1xw"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_4nWFEz1REeuNWouTGsQ1xw">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="email"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+          </localVariableUsages_SetVariableAction>
+        </steps_Behaviour>
+      </serviceEffectSpecifications__BasicComponent>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_2iMc4DyVEeufcY0HJdw_SQ" describedService__SEFF="_ZiOtoDyVEeufcY0HJdw_SQ">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_2iND8DyVEeufcY0HJdw_SQ" successor_AbstractAction="_ecMcQD1QEeuNWouTGsQ1xw"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_2iNrADyVEeufcY0HJdw_SQ" predecessor_AbstractAction="_ecMcQD1QEeuNWouTGsQ1xw"/>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_ecMcQD1QEeuNWouTGsQ1xw" entityName="MailReceivingFacade.addPrivateKey.callDB" predecessor_AbstractAction="_2iND8DyVEeufcY0HJdw_SQ" successor_AbstractAction="_2iNrADyVEeufcY0HJdw_SQ" calledService_ExternalService="_X7NbgD1QEeuNWouTGsQ1xw" role_ExternalService="_dWk4AD1QEeuNWouTGsQ1xw">
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_kzptkD1QEeuNWouTGsQ1xw"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_lNw2sz1QEeuNWouTGsQ1xw">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="privateKey"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="privateKey"/>
+          </inputVariableUsages__CallAction>
+        </steps_Behaviour>
+      </serviceEffectSpecifications__BasicComponent>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_cV6QwD1GEeurDcfsJ2WyKg" describedService__SEFF="_RMg6cD1GEeurDcfsJ2WyKg">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_cV6QwT1GEeurDcfsJ2WyKg" successor_AbstractAction="_r-HJID1QEeuNWouTGsQ1xw"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_cV6Qwj1GEeurDcfsJ2WyKg" predecessor_AbstractAction="_3bxfQD1QEeuNWouTGsQ1xw"/>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_r-HJID1QEeuNWouTGsQ1xw" entityName="MailReceivingFacade.dispatchMail.getPrivateKey" predecessor_AbstractAction="_cV6QwT1GEeurDcfsJ2WyKg" successor_AbstractAction="_u3HWkD1QEeuNWouTGsQ1xw" calledService_ExternalService="_WvkHwD1QEeuNWouTGsQ1xw" role_ExternalService="_dWk4AD1QEeuNWouTGsQ1xw">
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_Bz6-0D1REeuNWouTGsQ1xw"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_CPPB0z1REeuNWouTGsQ1xw">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="privateKey"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:SetVariableAction" id="_u3HWkD1QEeuNWouTGsQ1xw" entityName="MailReceivingFacade.dispatchMail.decryptBody" predecessor_AbstractAction="_r-HJID1QEeuNWouTGsQ1xw" successor_AbstractAction="_zvHnUD1QEeuNWouTGsQ1xw">
+          <localVariableUsages_SetVariableAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_I98VgD1REeuNWouTGsQ1xw">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+              </lhs>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_J7Hvcz1REeuNWouTGsQ1xw">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="body"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_M4JhQD1REeuNWouTGsQ1xw">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicTypes@2"/>
+              </lhs>
+              <rhs xsi:type="expressions:False" id="_OLXcpz1REeuNWouTGsQ1xw"/>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="body"/>
+          </localVariableUsages_SetVariableAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:SetVariableAction" id="_zvHnUD1QEeuNWouTGsQ1xw" entityName="MailReceivingFacade.dispatchMail.createMail" predecessor_AbstractAction="_u3HWkD1QEeuNWouTGsQ1xw" successor_AbstractAction="_3bxfQD1QEeuNWouTGsQ1xw">
+          <localVariableUsages_SetVariableAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_TvTmUD1REeuNWouTGsQ1xw">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+              </lhs>
+              <rhs xsi:type="expressions:And" id="_XIKYiT1REeuNWouTGsQ1xw">
+                <left xsi:type="expression:NamedEnumCharacteristicReference" id="_XdGGwT1REeuNWouTGsQ1xw">
+                  <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                  <literal href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+                  <namedReference xsi:type="stoex:VariableReference" referenceName="header"/>
+                </left>
+                <right xsi:type="expression:NamedEnumCharacteristicReference" id="_YI4OtT1REeuNWouTGsQ1xw">
+                  <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                  <literal href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@0"/>
+                  <namedReference xsi:type="stoex:VariableReference" referenceName="body"/>
+                </right>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_bj91cD1REeuNWouTGsQ1xw">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                <literal href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+              </lhs>
+              <rhs xsi:type="expressions:Or" id="_cp0qSj1REeuNWouTGsQ1xw">
+                <left xsi:type="expression:NamedEnumCharacteristicReference" id="_dCZiYT1REeuNWouTGsQ1xw">
+                  <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                  <literal href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+                  <namedReference xsi:type="stoex:VariableReference" referenceName="header"/>
+                </left>
+                <right xsi:type="expression:NamedEnumCharacteristicReference" id="_dmREdT1REeuNWouTGsQ1xw">
+                  <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicTypes@0"/>
+                  <literal href="../dic.pddc#_WbpWMA0wEe-5C6doYp1KxQ-characteristicEnumerations@0.literals@1"/>
+                  <namedReference xsi:type="stoex:VariableReference" referenceName="body"/>
+                </right>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="email"/>
+          </localVariableUsages_SetVariableAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_3bxfQD1QEeuNWouTGsQ1xw" entityName="MailReceivingFacade.dispatchMail.storeMailInDB" predecessor_AbstractAction="_zvHnUD1QEeuNWouTGsQ1xw" successor_AbstractAction="_cV6Qwj1GEeurDcfsJ2WyKg" calledService_ExternalService="_IJ0mYD1QEeuNWouTGsQ1xw" role_ExternalService="_NL9qkD1QEeuNWouTGsQ1xw">
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_oiEqoD1REeuNWouTGsQ1xw"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_pQNjAz1REeuNWouTGsQ1xw">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="email"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="email"/>
+          </inputVariableUsages__CallAction>
+        </steps_Behaviour>
+      </serviceEffectSpecifications__BasicComponent>
+    </components__Repository>
+    <components__Repository xsi:type="repository:CompositeComponent" id="_vdIesDyVEeufcY0HJdw_SQ" entityName="MailReceiving">
+      <assemblyContexts__ComposedStructure id="_qcjqUDyhEeufcY0HJdw_SQ" entityName="Assembly_MailReceivingFacade" encapsulatedComponent__AssemblyContext="_taKhYDyVEeufcY0HJdw_SQ"/>
+      <assemblyContexts__ComposedStructure id="_FMC7wD1SEeuNWouTGsQ1xw" entityName="Assembly_Receiving.EMailStorage" encapsulatedComponent__AssemblyContext="_8vIEvj1PEeuNWouTGsQ1xw"/>
+      <assemblyContexts__ComposedStructure id="_GHkv4D1SEeuNWouTGsQ1xw" entityName="Assembly_Receiving.PrivateKeyStore" encapsulatedComponent__AssemblyContext="_RfIv_j1QEeuNWouTGsQ1xw"/>
+      <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_vKnU4DyhEeufcY0HJdw_SQ" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_xYFvgDyVEeufcY0HJdw_SQ" outerProvidedRole_ProvidedDelegationConnector="_w-_TADyVEeufcY0HJdw_SQ" assemblyContext_ProvidedDelegationConnector="_qcjqUDyhEeufcY0HJdw_SQ"/>
+      <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_v0gmcDyhEeufcY0HJdw_SQ" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_2iIygDyVEeufcY0HJdw_SQ" outerProvidedRole_ProvidedDelegationConnector="_z-RHkDyVEeufcY0HJdw_SQ" assemblyContext_ProvidedDelegationConnector="_qcjqUDyhEeufcY0HJdw_SQ"/>
+      <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="__LDpsD1REeuNWouTGsQ1xw" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_cVc9wD1GEeurDcfsJ2WyKg" outerProvidedRole_ProvidedDelegationConnector="_a_q2kD1GEeurDcfsJ2WyKg" assemblyContext_ProvidedDelegationConnector="_qcjqUDyhEeufcY0HJdw_SQ"/>
+      <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_HpxicD1SEeuNWouTGsQ1xw" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_qcjqUDyhEeufcY0HJdw_SQ" providingAssemblyContext_AssemblyConnector="_FMC7wD1SEeuNWouTGsQ1xw" providedRole_AssemblyConnector="_KY_MoD1QEeuNWouTGsQ1xw" requiredRole_AssemblyConnector="_NL9qkD1QEeuNWouTGsQ1xw"/>
+      <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_H-hqcD1SEeuNWouTGsQ1xw" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_qcjqUDyhEeufcY0HJdw_SQ" providingAssemblyContext_AssemblyConnector="_GHkv4D1SEeuNWouTGsQ1xw" providedRole_AssemblyConnector="_bzi_AD1QEeuNWouTGsQ1xw" requiredRole_AssemblyConnector="_dWk4AD1QEeuNWouTGsQ1xw"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_w-_TADyVEeufcY0HJdw_SQ" entityName="MailReceiving.MailReceiving.OperationProvidedRole1" providedInterface__OperationProvidedRole="_Oz90IDyVEeufcY0HJdw_SQ"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_z-RHkDyVEeufcY0HJdw_SQ" entityName="MailReceiving.PrivateKeyStorage.OperationProvidedRole2" providedInterface__OperationProvidedRole="_YOfN0DyVEeufcY0HJdw_SQ"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_a_q2kD1GEeurDcfsJ2WyKg" entityName="MailReceiving.EMailDispatchment.OperationProvidedRole3" providedInterface__OperationProvidedRole="_N1f7UD1GEeurDcfsJ2WyKg"/>
+    </components__Repository>
+    <components__Repository xsi:type="repository:BasicComponent" id="_3-5rcDyVEeufcY0HJdw_SQ" entityName="PolicyManagementFacade">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_9alRADyVEeufcY0HJdw_SQ" entityName="PolicyManagementFacade.PolicyStorage.OperationProvidedRole1" providedInterface__OperationProvidedRole="_dlNa4DyVEeufcY0HJdw_SQ"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_GFMyUD1HEeurDcfsJ2WyKg" entityName="PolicyManagementFacade.PolicyStorageAccess.OperationProvidedRole2" providedInterface__OperationProvidedRole="_AohHMD1HEeurDcfsJ2WyKg"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_BNNy4D1LEeurDcfsJ2WyKg" entityName="PolicyManagementFacade.PolicyStore.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_wcNT0D1KEeurDcfsJ2WyKg"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_ByUrED1LEeurDcfsJ2WyKg" entityName="PolicyManagementFacade.PublicKeyStore.OperationRequiredRole2" requiredInterface__OperationRequiredRole="_xsIDkD1KEeurDcfsJ2WyKg"/>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_9aoUUDyVEeufcY0HJdw_SQ" describedService__SEFF="_eZewcDyVEeufcY0HJdw_SQ">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_9ao7YDyVEeufcY0HJdw_SQ" successor_AbstractAction="_U3_UYD1LEeurDcfsJ2WyKg"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_9apicDyVEeufcY0HJdw_SQ" predecessor_AbstractAction="_U3_UYD1LEeurDcfsJ2WyKg"/>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_U3_UYD1LEeurDcfsJ2WyKg" entityName="PolicyManagementFacade.addPublicKey.callDB" predecessor_AbstractAction="_9ao7YDyVEeufcY0HJdw_SQ" successor_AbstractAction="_9apicDyVEeufcY0HJdw_SQ" calledService_ExternalService="_3w0J4D1KEeurDcfsJ2WyKg" role_ExternalService="_ByUrED1LEeurDcfsJ2WyKg">
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_Zg_jAD1PEeuNWouTGsQ1xw"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_Z6MtMz1PEeuNWouTGsQ1xw">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="publicKey"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="publicKey"/>
+          </inputVariableUsages__CallAction>
+        </steps_Behaviour>
+      </serviceEffectSpecifications__BasicComponent>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_9bBV4DyVEeufcY0HJdw_SQ" describedService__SEFF="_gYOVEDyVEeufcY0HJdw_SQ">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_9bBV4TyVEeufcY0HJdw_SQ" successor_AbstractAction="_a34aQD1LEeurDcfsJ2WyKg"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_9bB88DyVEeufcY0HJdw_SQ" predecessor_AbstractAction="_a34aQD1LEeurDcfsJ2WyKg"/>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_a34aQD1LEeurDcfsJ2WyKg" entityName="PolicyManagementFacade.addPolicy.callDB" predecessor_AbstractAction="_9bBV4TyVEeufcY0HJdw_SQ" successor_AbstractAction="_9bB88DyVEeufcY0HJdw_SQ" calledService_ExternalService="_0JgE8D1KEeurDcfsJ2WyKg" role_ExternalService="_BNNy4D1LEeurDcfsJ2WyKg">
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_d6n1sD1PEeuNWouTGsQ1xw"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_ek8lEz1PEeuNWouTGsQ1xw">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="policy"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="policy"/>
+          </inputVariableUsages__CallAction>
+        </steps_Behaviour>
+      </serviceEffectSpecifications__BasicComponent>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_GFqsYD1HEeurDcfsJ2WyKg" describedService__SEFF="_Cib2MD1HEeurDcfsJ2WyKg">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_GFqsYT1HEeurDcfsJ2WyKg" successor_AbstractAction="_gaFekD1LEeurDcfsJ2WyKg"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_GFqsYj1HEeurDcfsJ2WyKg" predecessor_AbstractAction="_jRiM0D1LEeurDcfsJ2WyKg"/>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_gaFekD1LEeurDcfsJ2WyKg" entityName="PolicyManagementFacade.getPublicKey.callDB" predecessor_AbstractAction="_GFqsYT1HEeurDcfsJ2WyKg" successor_AbstractAction="_jRiM0D1LEeurDcfsJ2WyKg" calledService_ExternalService="_6pBGED1KEeurDcfsJ2WyKg" role_ExternalService="_ByUrED1LEeurDcfsJ2WyKg">
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_imquED1PEeuNWouTGsQ1xw"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_jFQukz1PEeuNWouTGsQ1xw">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="publicKey"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:SetVariableAction" id="_jRiM0D1LEeurDcfsJ2WyKg" entityName="PolicyManagementFacade.getPublicKey.return" predecessor_AbstractAction="_gaFekD1LEeurDcfsJ2WyKg" successor_AbstractAction="_GFqsYj1HEeurDcfsJ2WyKg">
+          <localVariableUsages_SetVariableAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_nY5uAD1PEeuNWouTGsQ1xw"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_nxIn0z1PEeuNWouTGsQ1xw">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="publicKey"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+          </localVariableUsages_SetVariableAction>
+        </steps_Behaviour>
+      </serviceEffectSpecifications__BasicComponent>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_GF3gsD1HEeurDcfsJ2WyKg" describedService__SEFF="_Dm480D1HEeurDcfsJ2WyKg">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_GF4HwD1HEeurDcfsJ2WyKg" successor_AbstractAction="_oviGkD1LEeurDcfsJ2WyKg"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_GF4HwT1HEeurDcfsJ2WyKg" predecessor_AbstractAction="_rl_WUD1LEeurDcfsJ2WyKg"/>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_oviGkD1LEeurDcfsJ2WyKg" entityName="PolicyManagementFacade.getPolicy.callDB" predecessor_AbstractAction="_GF4HwD1HEeurDcfsJ2WyKg" successor_AbstractAction="_rl_WUD1LEeurDcfsJ2WyKg" calledService_ExternalService="_2PL_ED1KEeurDcfsJ2WyKg" role_ExternalService="_BNNy4D1LEeurDcfsJ2WyKg">
+          <returnVariableUsage__CallReturnAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_q52FMD1PEeuNWouTGsQ1xw"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_rbZ6Iz1PEeuNWouTGsQ1xw">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="policy"/>
+          </returnVariableUsage__CallReturnAction>
+        </steps_Behaviour>
+        <steps_Behaviour xsi:type="seff:SetVariableAction" id="_rl_WUD1LEeurDcfsJ2WyKg" entityName="PolicyManagementFacade.getPolicy.return" predecessor_AbstractAction="_oviGkD1LEeurDcfsJ2WyKg" successor_AbstractAction="_GF4HwT1HEeurDcfsJ2WyKg">
+          <localVariableUsages_SetVariableAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_vlQrcD1PEeuNWouTGsQ1xw"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_wB0Ekz1PEeuNWouTGsQ1xw">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="policy"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+          </localVariableUsages_SetVariableAction>
+        </steps_Behaviour>
+      </serviceEffectSpecifications__BasicComponent>
+    </components__Repository>
+    <components__Repository xsi:type="repository:CompositeComponent" id="_5NiBwDyVEeufcY0HJdw_SQ" entityName="PolicyManagement">
+      <assemblyContexts__ComposedStructure id="_IrREoDyiEeufcY0HJdw_SQ" entityName="Assembly_PolicyManagementFacade" encapsulatedComponent__AssemblyContext="_3-5rcDyVEeufcY0HJdw_SQ"/>
+      <assemblyContexts__ComposedStructure id="_0nKb4D1LEeurDcfsJ2WyKg" entityName="Assembly_PolicyManagement.PolicyStore" encapsulatedComponent__AssemblyContext="_oKkNwD1KEeurDcfsJ2WyKg"/>
+      <assemblyContexts__ComposedStructure id="_1Mv1MD1LEeurDcfsJ2WyKg" entityName="Assembly_PolicyManagement.PublicKeyStore" encapsulatedComponent__AssemblyContext="_p6n2OT1KEeurDcfsJ2WyKg"/>
+      <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_KUuVwDyiEeufcY0HJdw_SQ" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_9alRADyVEeufcY0HJdw_SQ" outerProvidedRole_ProvidedDelegationConnector="_92HWcDyVEeufcY0HJdw_SQ" assemblyContext_ProvidedDelegationConnector="_IrREoDyiEeufcY0HJdw_SQ"/>
+      <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_kSh7kDyiEeufcY0HJdw_SQ" entityName="newAssemblyDataConnector" sourceAssemblyContext="_IrREoDyiEeufcY0HJdw_SQ"/>
+      <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_k74akDyiEeufcY0HJdw_SQ" entityName="newAssemblyDataConnector" sourceAssemblyContext="_IrREoDyiEeufcY0HJdw_SQ"/>
+      <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataSourceDelegationConnector" id="_tcH9UDyiEeufcY0HJdw_SQ" entityName="newDataSourceDelegationConnector"/>
+      <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataSourceDelegationConnector" id="_t8QO4DyiEeufcY0HJdw_SQ" entityName="newDataSourceDelegationConnector"/>
+      <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_7Py8wD1LEeurDcfsJ2WyKg" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_IrREoDyiEeufcY0HJdw_SQ" providingAssemblyContext_AssemblyConnector="_1Mv1MD1LEeurDcfsJ2WyKg" providedRole_AssemblyConnector="_-MNgAD1KEeurDcfsJ2WyKg" requiredRole_AssemblyConnector="_ByUrED1LEeurDcfsJ2WyKg"/>
+      <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_72oTQD1LEeurDcfsJ2WyKg" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_IrREoDyiEeufcY0HJdw_SQ" providingAssemblyContext_AssemblyConnector="_0nKb4D1LEeurDcfsJ2WyKg" providedRole_AssemblyConnector="_9gC9kD1KEeurDcfsJ2WyKg" requiredRole_AssemblyConnector="_BNNy4D1LEeurDcfsJ2WyKg"/>
+      <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_8fiGUD1LEeurDcfsJ2WyKg" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_GFMyUD1HEeurDcfsJ2WyKg" outerProvidedRole_ProvidedDelegationConnector="_GbcIED1HEeurDcfsJ2WyKg" assemblyContext_ProvidedDelegationConnector="_IrREoDyiEeufcY0HJdw_SQ"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_92HWcDyVEeufcY0HJdw_SQ" entityName="PolicyManagement.PolicyStorage.OperationProvidedRole1" providedInterface__OperationProvidedRole="_dlNa4DyVEeufcY0HJdw_SQ"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_GbcIED1HEeurDcfsJ2WyKg" entityName="PolicyManagement.PolicyStorageAccess.OperationProvidedRole2" providedInterface__OperationProvidedRole="_AohHMD1HEeurDcfsJ2WyKg"/>
+    </components__Repository>
+    <components__Repository xsi:type="repository:BasicComponent" id="_Law-QD1GEeurDcfsJ2WyKg" entityName="SMTP">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_WnJ-MD1GEeurDcfsJ2WyKg" entityName="SMTP.EMailDispatchment.OperationProvidedRole1" providedInterface__OperationProvidedRole="_N1f7UD1GEeurDcfsJ2WyKg"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_e4TVAD1GEeurDcfsJ2WyKg" entityName="SMTP.EMailDispatchment.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_N1f7UD1GEeurDcfsJ2WyKg"/>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_WnmqID1GEeurDcfsJ2WyKg" describedService__SEFF="_RMg6cD1GEeurDcfsJ2WyKg">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_WnmqIT1GEeurDcfsJ2WyKg" successor_AbstractAction="_T0K_kD1OEeuNWouTGsQ1xw"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_WnmqIj1GEeurDcfsJ2WyKg" predecessor_AbstractAction="_T0K_kD1OEeuNWouTGsQ1xw"/>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_T0K_kD1OEeuNWouTGsQ1xw" entityName="SMTP.dispatchMail.callDispatch" predecessor_AbstractAction="_WnmqIT1GEeurDcfsJ2WyKg" successor_AbstractAction="_WnmqIj1GEeurDcfsJ2WyKg" calledService_ExternalService="_RMg6cD1GEeurDcfsJ2WyKg" role_ExternalService="_e4TVAD1GEeurDcfsJ2WyKg">
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_cledID1OEeuNWouTGsQ1xw"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_c4mNcz1OEeuNWouTGsQ1xw">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="header"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="header"/>
+          </inputVariableUsages__CallAction>
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_ektxAD1OEeuNWouTGsQ1xw"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_e74T0z1OEeuNWouTGsQ1xw">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="body"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="body"/>
+          </inputVariableUsages__CallAction>
+        </steps_Behaviour>
+      </serviceEffectSpecifications__BasicComponent>
+    </components__Repository>
+    <components__Repository xsi:type="repository:BasicComponent" id="_MLJSUD1GEeurDcfsJ2WyKg" entityName="POP3">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_XXkugD1GEeurDcfsJ2WyKg" entityName="POP3.EMailDispatchment.OperationProvidedRole1" providedInterface__OperationProvidedRole="_N1f7UD1GEeurDcfsJ2WyKg"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_FsxKkD1PEeuNWouTGsQ1xw" entityName="POP3.EMailDispatchment.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_N1f7UD1GEeurDcfsJ2WyKg"/>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_XXmjsD1GEeurDcfsJ2WyKg" describedService__SEFF="_RMg6cD1GEeurDcfsJ2WyKg">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_XXnKwD1GEeurDcfsJ2WyKg" successor_AbstractAction="_GHTxgD1PEeuNWouTGsQ1xw"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_XXnKwT1GEeurDcfsJ2WyKg" predecessor_AbstractAction="_GHTxgD1PEeuNWouTGsQ1xw"/>
+        <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_GHTxgD1PEeuNWouTGsQ1xw" entityName="POP3.dispatchMail.callDispatch" predecessor_AbstractAction="_XXnKwD1GEeurDcfsJ2WyKg" successor_AbstractAction="_XXnKwT1GEeurDcfsJ2WyKg" calledService_ExternalService="_RMg6cD1GEeurDcfsJ2WyKg" role_ExternalService="_FsxKkD1PEeuNWouTGsQ1xw">
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_QuLpkD1PEeuNWouTGsQ1xw"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_ROQQwz1PEeuNWouTGsQ1xw">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="header"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="header"/>
+          </inputVariableUsages__CallAction>
+          <inputVariableUsages__CallAction>
+            <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+              <specification_VariableCharacterisation specification="false"/>
+              <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_Sp5vYD1PEeuNWouTGsQ1xw"/>
+              <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_TAtF0z1PEeuNWouTGsQ1xw">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="body"/>
+              </rhs>
+            </variableCharacterisation_VariableUsage>
+            <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="body"/>
+          </inputVariableUsages__CallAction>
+        </steps_Behaviour>
+      </serviceEffectSpecifications__BasicComponent>
+    </components__Repository>
+    <components__Repository xsi:type="repository:BasicComponent" id="_oKkNwD1KEeurDcfsJ2WyKg" entityName="PolicyManagement.PolicyStore">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_9gC9kD1KEeurDcfsJ2WyKg" entityName="PolicyManagement.PolicyStore.PolicyStore.OperationProvidedRole1" providedInterface__OperationProvidedRole="_wcNT0D1KEeurDcfsJ2WyKg"/>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_JIYSoD1LEeurDcfsJ2WyKg" describedService__SEFF="_0JgE8D1KEeurDcfsJ2WyKg">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_JZ78sD1LEeurDcfsJ2WyKg" successor_AbstractAction="_JZ78sT1LEeurDcfsJ2WyKg"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_JZ78sT1LEeurDcfsJ2WyKg" predecessor_AbstractAction="_JZ78sD1LEeurDcfsJ2WyKg"/>
+      </serviceEffectSpecifications__BasicComponent>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_JoO3YD1LEeurDcfsJ2WyKg" describedService__SEFF="_2PL_ED1KEeurDcfsJ2WyKg">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_J3h3oD1LEeurDcfsJ2WyKg" successor_AbstractAction="_J3iesD1LEeurDcfsJ2WyKg"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_J3iesD1LEeurDcfsJ2WyKg" predecessor_AbstractAction="_J3h3oD1LEeurDcfsJ2WyKg"/>
+      </serviceEffectSpecifications__BasicComponent>
+    </components__Repository>
+    <components__Repository xsi:type="repository:BasicComponent" id="_p6n2OT1KEeurDcfsJ2WyKg" entityName="PolicyManagement.PublicKeyStore">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_-MNgAD1KEeurDcfsJ2WyKg" entityName="PolicyManagement.PublicKeyStore.PublicKeyStore.OperationProvidedRole1" providedInterface__OperationProvidedRole="_xsIDkD1KEeurDcfsJ2WyKg"/>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_KQ4LwD1LEeurDcfsJ2WyKg" describedService__SEFF="_3w0J4D1KEeurDcfsJ2WyKg">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_Kf100D1LEeurDcfsJ2WyKg" successor_AbstractAction="_Kf100T1LEeurDcfsJ2WyKg"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_Kf100T1LEeurDcfsJ2WyKg" predecessor_AbstractAction="_Kf100D1LEeurDcfsJ2WyKg"/>
+      </serviceEffectSpecifications__BasicComponent>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_Kxe-cD1LEeurDcfsJ2WyKg" describedService__SEFF="_6pBGED1KEeurDcfsJ2WyKg">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_LBUKMD1LEeurDcfsJ2WyKg" successor_AbstractAction="_LBUKMT1LEeurDcfsJ2WyKg"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_LBUKMT1LEeurDcfsJ2WyKg" predecessor_AbstractAction="_LBUKMD1LEeurDcfsJ2WyKg"/>
+      </serviceEffectSpecifications__BasicComponent>
+    </components__Repository>
+    <components__Repository xsi:type="repository:BasicComponent" id="_8vIEvj1PEeuNWouTGsQ1xw" entityName="Receiving.EMailStorage">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_KY_MoD1QEeuNWouTGsQ1xw" entityName="EMailStorage.EMailStorage.OperationProvidedRole1" providedInterface__OperationProvidedRole="__pKz8D1PEeuNWouTGsQ1xw"/>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_zqCoID1SEeuNWouTGsQ1xw" describedService__SEFF="_IJ0mYD1QEeuNWouTGsQ1xw">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_z6SqoD1SEeuNWouTGsQ1xw" successor_AbstractAction="_z6SqoT1SEeuNWouTGsQ1xw"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_z6SqoT1SEeuNWouTGsQ1xw" predecessor_AbstractAction="_z6SqoD1SEeuNWouTGsQ1xw"/>
+      </serviceEffectSpecifications__BasicComponent>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_0JOegD1SEeuNWouTGsQ1xw" describedService__SEFF="_Anh5oD1QEeuNWouTGsQ1xw">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_0aB6oD1SEeuNWouTGsQ1xw" successor_AbstractAction="_0aChsD1SEeuNWouTGsQ1xw"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_0aChsD1SEeuNWouTGsQ1xw" predecessor_AbstractAction="_0aB6oD1SEeuNWouTGsQ1xw"/>
+      </serviceEffectSpecifications__BasicComponent>
+    </components__Repository>
+    <components__Repository xsi:type="repository:BasicComponent" id="_RfIv_j1QEeuNWouTGsQ1xw" entityName="Receiving.PrivateKeyStore">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_bzi_AD1QEeuNWouTGsQ1xw" entityName="Receiving.PrivateKeyStore.PrivateKeyStore.OperationProvidedRole1" providedInterface__OperationProvidedRole="_V0aHED1QEeuNWouTGsQ1xw"/>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_0pPbUD1SEeuNWouTGsQ1xw" describedService__SEFF="_X7NbgD1QEeuNWouTGsQ1xw">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_02_jcD1SEeuNWouTGsQ1xw" successor_AbstractAction="_02_jcT1SEeuNWouTGsQ1xw"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_02_jcT1SEeuNWouTGsQ1xw" predecessor_AbstractAction="_02_jcD1SEeuNWouTGsQ1xw"/>
+      </serviceEffectSpecifications__BasicComponent>
+      <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_1LU0sD1SEeuNWouTGsQ1xw" describedService__SEFF="_WvkHwD1QEeuNWouTGsQ1xw">
+        <steps_Behaviour xsi:type="seff:StartAction" id="_1aX9UD1SEeuNWouTGsQ1xw" successor_AbstractAction="_1aX9UT1SEeuNWouTGsQ1xw"/>
+        <steps_Behaviour xsi:type="seff:StopAction" id="_1aX9UT1SEeuNWouTGsQ1xw" predecessor_AbstractAction="_1aX9UD1SEeuNWouTGsQ1xw"/>
+      </serviceEffectSpecifications__BasicComponent>
+    </components__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="_vl6csDyUEeufcY0HJdw_SQ" entityName="MailSending">
+      <signatures__OperationInterface id="_x1ujMDyUEeufcY0HJdw_SQ" entityName="sendMail">
+        <parameters__OperationSignature dataType__Parameter="_2goMEDyUEeufcY0HJdw_SQ" parameterName="email"/>
+      </signatures__OperationInterface>
+    </interfaces__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="_Oz90IDyVEeufcY0HJdw_SQ" entityName="MailReceiving">
+      <signatures__OperationInterface id="_PqX3sDyVEeufcY0HJdw_SQ" entityName="receiveMail" returnType__OperationSignature="_2goMEDyUEeufcY0HJdw_SQ"/>
+    </interfaces__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="_YOfN0DyVEeufcY0HJdw_SQ" entityName="PrivateKeyStorage">
+      <signatures__OperationInterface id="_ZiOtoDyVEeufcY0HJdw_SQ" entityName="addPrivateKey">
+        <parameters__OperationSignature dataType__Parameter="_EH56EDyVEeufcY0HJdw_SQ" parameterName="privateKey"/>
+      </signatures__OperationInterface>
+    </interfaces__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="_dlNa4DyVEeufcY0HJdw_SQ" entityName="PolicyStorage">
+      <signatures__OperationInterface id="_eZewcDyVEeufcY0HJdw_SQ" entityName="addPublicKey">
+        <parameters__OperationSignature dataType__Parameter="_DBfEkDyVEeufcY0HJdw_SQ" parameterName="publicKey"/>
+      </signatures__OperationInterface>
+      <signatures__OperationInterface id="_gYOVEDyVEeufcY0HJdw_SQ" entityName="addPolicy">
+        <parameters__OperationSignature dataType__Parameter="_HwrXkDyVEeufcY0HJdw_SQ" parameterName="policy"/>
+      </signatures__OperationInterface>
+    </interfaces__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="_N1f7UD1GEeurDcfsJ2WyKg" entityName="EMailDispatchment">
+      <signatures__OperationInterface id="_RMg6cD1GEeurDcfsJ2WyKg" entityName="dispatchMail">
+        <parameters__OperationSignature dataType__Parameter="_6hmHIDyUEeufcY0HJdw_SQ" parameterName="header"/>
+        <parameters__OperationSignature dataType__Parameter="_3r33MDyUEeufcY0HJdw_SQ" parameterName="body"/>
+      </signatures__OperationInterface>
+    </interfaces__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="_AohHMD1HEeurDcfsJ2WyKg" entityName="PolicyStorageAccess">
+      <signatures__OperationInterface id="_Cib2MD1HEeurDcfsJ2WyKg" entityName="getPublicKey" returnType__OperationSignature="_DBfEkDyVEeufcY0HJdw_SQ"/>
+      <signatures__OperationInterface id="_Dm480D1HEeurDcfsJ2WyKg" entityName="getPolicy" returnType__OperationSignature="_HwrXkDyVEeufcY0HJdw_SQ"/>
+    </interfaces__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="_wcNT0D1KEeurDcfsJ2WyKg" entityName="PolicyStore">
+      <signatures__OperationInterface id="_0JgE8D1KEeurDcfsJ2WyKg" entityName="addPolicy">
+        <parameters__OperationSignature dataType__Parameter="_HwrXkDyVEeufcY0HJdw_SQ" parameterName="policy"/>
+      </signatures__OperationInterface>
+      <signatures__OperationInterface id="_2PL_ED1KEeurDcfsJ2WyKg" entityName="getPolicy" returnType__OperationSignature="_HwrXkDyVEeufcY0HJdw_SQ"/>
+    </interfaces__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="_xsIDkD1KEeurDcfsJ2WyKg" entityName="PublicKeyStore">
+      <signatures__OperationInterface id="_3w0J4D1KEeurDcfsJ2WyKg" entityName="addPublicKey">
+        <parameters__OperationSignature dataType__Parameter="_DBfEkDyVEeufcY0HJdw_SQ" parameterName="publicKey"/>
+      </signatures__OperationInterface>
+      <signatures__OperationInterface id="_6pBGED1KEeurDcfsJ2WyKg" entityName="getPublicKey" returnType__OperationSignature="_DBfEkDyVEeufcY0HJdw_SQ"/>
+    </interfaces__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="__pKz8D1PEeuNWouTGsQ1xw" entityName="EMailStorage">
+      <signatures__OperationInterface id="_Anh5oD1QEeuNWouTGsQ1xw" entityName="getEMail" returnType__OperationSignature="_2goMEDyUEeufcY0HJdw_SQ"/>
+      <signatures__OperationInterface id="_IJ0mYD1QEeuNWouTGsQ1xw" entityName="addEMail">
+        <parameters__OperationSignature dataType__Parameter="_2goMEDyUEeufcY0HJdw_SQ" parameterName="email"/>
+      </signatures__OperationInterface>
+    </interfaces__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="_V0aHED1QEeuNWouTGsQ1xw" entityName="PrivateKeyStore">
+      <signatures__OperationInterface id="_WvkHwD1QEeuNWouTGsQ1xw" entityName="getPrivateKey" returnType__OperationSignature="_EH56EDyVEeufcY0HJdw_SQ"/>
+      <signatures__OperationInterface id="_X7NbgD1QEeuNWouTGsQ1xw" entityName="addPrivateKey">
+        <parameters__OperationSignature dataType__Parameter="_EH56EDyVEeufcY0HJdw_SQ" parameterName="privateKey"/>
+      </signatures__OperationInterface>
+    </interfaces__Repository>
+    <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_2goMEDyUEeufcY0HJdw_SQ" entityName="EMail">
+      <innerDeclaration_CompositeDataType entityName="header" datatype_InnerDeclaration="_6hmHIDyUEeufcY0HJdw_SQ"/>
+      <innerDeclaration_CompositeDataType entityName="body" datatype_InnerDeclaration="_3r33MDyUEeufcY0HJdw_SQ"/>
+    </dataTypes__Repository>
+    <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_3r33MDyUEeufcY0HJdw_SQ" entityName="EMailBody"/>
+    <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_6hmHIDyUEeufcY0HJdw_SQ" entityName="EMailHeader"/>
+    <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_DBfEkDyVEeufcY0HJdw_SQ" entityName="PublicKey"/>
+    <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_EH56EDyVEeufcY0HJdw_SQ" entityName="PrivateKey"/>
+    <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_HwrXkDyVEeufcY0HJdw_SQ" entityName="Policy"/>
+  </repository:Repository>
+</xmi:XMI>

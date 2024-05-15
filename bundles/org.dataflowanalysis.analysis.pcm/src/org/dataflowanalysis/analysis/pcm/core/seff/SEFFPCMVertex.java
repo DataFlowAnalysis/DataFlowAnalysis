@@ -44,8 +44,8 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
 
     @Override
     public void evaluateDataFlow() {
-        List<DataCharacteristic> incomingDataCharacteristics = super.getIncomingDataCharacteristics();
-        List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
+        List<DataCharacteristic> incomingDataCharacteristics = this.getIncomingDataCharacteristics();
+        List<CharacteristicValue> nodeCharacteristics = this.getVertexCharacteristics();
 
         if (this.getReferencedElement() instanceof StartAction) {
             List<String> variableNames = this.getParameter()
@@ -80,7 +80,7 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
                 .map(ConfidentialityVariableCharacterisation.class::cast)
                 .toList();
 
-        List<DataCharacteristic> outgoingDataCharacteristics = super.getDataCharacteristics(nodeCharacteristics, variableCharacterisations,
+        List<DataCharacteristic> outgoingDataCharacteristics = this.getDataCharacteristics(nodeCharacteristics, variableCharacterisations,
                 incomingDataCharacteristics);
         this.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, nodeCharacteristics);
     }

@@ -152,9 +152,6 @@ public class MicroSecEndConverter extends Converter {
             process.setEntityName(service.name());
             process.setId(Integer.toString(idCounter++));
 
-            System.out.println(process.getEntityName());
-            System.out.println(process.getId());
-
             dfd.getNodes()
                     .add(process);
             nodesMap.put(service.name(), process);

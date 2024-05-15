@@ -48,6 +48,17 @@ public class MicroSecEndTest extends ConverterTest {
     }
 
     @Test
+    @DisplayName("Check if ids are not random")
+    public void checkIdForRandomness() {
+        var dfdConverter = new DataFlowDiagramConverter();
+
+        var webDfdOne = dfdConverter.dfdToWeb(converter.microToDfd(ANILALLEWAR));
+        var webDfdTwo = dfdConverter.dfdToWeb(converter.microToDfd(ANILALLEWAR));
+
+        assertEquals(webDfdOne, webDfdTwo);
+    }
+
+    @Test
     @DisplayName("Test JSON -> Plant -> JSON")
     public void jsonToPlantToJson() throws StreamReadException, DatabindException, IOException {
         converter.runPythonScript(ANILALLEWAR, TXT, TO_PLANT);

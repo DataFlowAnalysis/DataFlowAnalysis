@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.lang.Process;
+
 import org.dataflowanalysis.analysis.converter.microsecend.*;
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
@@ -21,23 +22,19 @@ public class MicroSecEndConverter extends Converter {
     private final dataflowdiagramFactory dfdFactory;
     private final datadictionaryFactory ddFactory;
 
-    private final Map<String, Node> nodesMap;
-    private final Map<Node, List<String>> nodeToLabelNamesMap;
-    private final Map<Node, Map<String, List<String>>> nodeToLabelTypeNamesMap;
-    private final Map<String, Map<String, Label>> labelMap;
-    private final Map<String, LabelType> labelTypeMap;
+    private Map<String, Node> nodesMap;
+    private Map<Node, List<String>> nodeToLabelNamesMap;
+    private Map<Node, Map<String, List<String>>> nodeToLabelTypeNamesMap;
+    private Map<String, Map<String, Label>> labelMap;
+    private Map<String, LabelType> labelTypeMap;
     private Map<Pin, List<Label>> outpinToFlowLabelMap;
+
+    private int idCounter;
 
     public MicroSecEndConverter() {
         dfdFactory = dataflowdiagramFactory.eINSTANCE;
         ddFactory = datadictionaryFactory.eINSTANCE;
 
-        nodesMap = new HashMap<>();
-        nodeToLabelNamesMap = new HashMap<>();
-        labelMap = new HashMap<>();
-        labelTypeMap = new HashMap<>();
-        nodeToLabelTypeNamesMap = new HashMap<>();
-        outpinToFlowLabelMap = new HashMap<>();
     }
 
     /**
@@ -114,6 +111,15 @@ public class MicroSecEndConverter extends Converter {
     }
 
     private DataFlowDiagramAndDictionary processMicro(MicroSecEnd micro) {
+        nodesMap = new HashMap<>();
+        nodeToLabelNamesMap = new HashMap<>();
+        labelMap = new HashMap<>();
+        labelTypeMap = new HashMap<>();
+        nodeToLabelTypeNamesMap = new HashMap<>();
+        outpinToFlowLabelMap = new HashMap<>();
+
+        idCounter = 0;
+
         DataFlowDiagram dfd = dfdFactory.createDataFlowDiagram();
         DataDictionary dd = ddFactory.createDataDictionary();
 
@@ -123,6 +129,7 @@ public class MicroSecEndConverter extends Converter {
 
         LabelType stereotype = ddFactory.createLabelType();
         stereotype.setEntityName("Stereotype");
+        stereotype.setId(Integer.toString(idCounter++));
         dd.getLabelTypes()
                 .add(stereotype);
         labelTypeMap.put(stereotype.getEntityName(), stereotype);
@@ -143,6 +150,10 @@ public class MicroSecEndConverter extends Converter {
         for (Service service : micro.services()) {
             var process = dfdFactory.createProcess();
             process.setEntityName(service.name());
+            process.setId(Integer.toString(idCounter++));
+
+            System.out.println(process.getEntityName());
+            System.out.println(process.getId());
 
             dfd.getNodes()
                     .add(process);
@@ -156,6 +167,7 @@ public class MicroSecEndConverter extends Converter {
         for (ExternalEntity ee : micro.externalEntities()) {
             var external = dfdFactory.createExternal();
             external.setEntityName(ee.name());
+            external.setId(Integer.toString(idCounter++));
 
             dfd.getNodes()
                     .add(external);
@@ -168,9 +180,11 @@ public class MicroSecEndConverter extends Converter {
     private void createBehavior(DataDictionary dd, LabelType stereotype) {
         for (Node node : nodesMap.values()) {
             var behaviour = ddFactory.createBehaviour();
+            behaviour.setId(Integer.toString(idCounter++));
             node.setBehaviour(behaviour);
 
             var assignment = ddFactory.createAssignment();
+            assignment.setId(Integer.toString(idCounter++));
 
             assignment.getOutputLabels()
                     .addAll(createLabels(nodeToLabelNamesMap.get(node), dd, stereotype));
@@ -200,16 +214,20 @@ public class MicroSecEndConverter extends Converter {
             flow.setEntityName(iflow.sender());
 
             var inPin = ddFactory.createPin();
-            var outPin = ddFactory.createPin();
-            source.getBehaviour()
-                    .getOutPin()
-                    .add(outPin);
+            inPin.setId(Integer.toString(idCounter++));
             dest.getBehaviour()
                     .getInPin()
                     .add(inPin);
 
+            var outPin = ddFactory.createPin();
+            outPin.setId(Integer.toString(idCounter++));
+            source.getBehaviour()
+                    .getOutPin()
+                    .add(outPin);
+
             flow.setDestinationPin(inPin);
             flow.setSourcePin(outPin);
+            flow.setId(Integer.toString(idCounter++));
             dfd.getFlows()
                     .add(flow);
 
@@ -229,6 +247,7 @@ public class MicroSecEndConverter extends Converter {
                     .isEmpty()) {
                 for (Pin outPin : behaviour.getOutPin()) {
                     Assignment assignment = ddFactory.createAssignment();
+                    assignment.setId(Integer.toString(idCounter++));
 
                     assignment.getInputPins()
                             .addAll(behaviour.getInPin());
@@ -238,7 +257,9 @@ public class MicroSecEndConverter extends Converter {
                             .addAll(template.getOutputLabels());
                     assignment.getOutputLabels()
                             .addAll(outpinToFlowLabelMap.get(outPin));
-                    assignment.setTerm(ddFactory.createTRUE());
+                    var ddTrue = ddFactory.createTRUE();
+                    ddTrue.setId(Integer.toString(idCounter++));
+                    assignment.setTerm(ddTrue);
 
                     behaviour.getAssignment()
                             .add(assignment);
@@ -255,6 +276,7 @@ public class MicroSecEndConverter extends Converter {
             var behaviour = node.getBehaviour();
             for (Pin pin : behaviour.getOutPin()) {
                 var assignment = ddFactory.createForwardingAssignment();
+                assignment.setId(Integer.toString(idCounter++));
                 assignment.setOutputPin(pin);
                 assignment.getInputPins()
                         .addAll(behaviour.getInPin());
@@ -275,6 +297,7 @@ public class MicroSecEndConverter extends Converter {
             } else {
                 Label label = ddFactory.createLabel();
                 label.setEntityName(labelName);
+                label.setId(Integer.toString(idCounter++));
                 labelType.getLabel()
                         .add(label);
                 labels.add(label);
@@ -295,6 +318,7 @@ public class MicroSecEndConverter extends Converter {
             } else {
                 labelType = ddFactory.createLabelType();
                 labelType.setEntityName(labelTypeName);
+                labelType.setId(Integer.toString(idCounter++));
                 dd.getLabelTypes()
                         .add(labelType);
                 labelTypeMap.put(labelTypeName, labelType);

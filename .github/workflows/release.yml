@@ -1,0 +1,26 @@
+name: Trigger release in product repo
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: 'self-hosted'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: DataFlowAnalysis/product
+          ref: 'master'
+          token: ${{ secrets.PRODUCT_RELEASE_KEY }}
+      - name: Setup git config 
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+      - name: Create tagged commit
+        run: |
+          git tag -a ${{ github.event.release.tag_name }}
+          git push origin master
+
+
+

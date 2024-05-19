@@ -1,5 +1,6 @@
 package org.dataflowanalysis.analysis.pcm.core;
 
+import java.util.IdentityHashMap;
 import java.util.Map;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
@@ -34,11 +35,15 @@ public class PCMTransposeFlowGraph extends AbstractTransposeFlowGraph {
     public AbstractPCMVertex<?> getSink() {
         return (AbstractPCMVertex<?>) this.sink;
     }
-
-    public PCMTransposeFlowGraph deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
+    
+    @Override
+    public PCMTransposeFlowGraph copy() {
+        return this.copy(new IdentityHashMap<>());
+    }
+    
+    public PCMTransposeFlowGraph copy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
         AbstractPCMVertex<?> pcmSink = (AbstractPCMVertex<?>) this.sink;
-
-        AbstractPCMVertex<?> clonedSink = pcmSink.deepCopy(vertexMapping);
+        AbstractPCMVertex<?> clonedSink = pcmSink.copy(vertexMapping);
 
         return new PCMTransposeFlowGraph(clonedSink);
     }

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.core.DataFlowVariable;
+import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
@@ -36,11 +36,11 @@ public class UserPCMVertex<T extends AbstractUserAction> extends AbstractPCMVert
 
     @Override
     public void evaluateDataFlow() {
-        List<DataFlowVariable> incomingDataFlowVariables = super.getIncomingDataFlowVariables();
+        List<DataCharacteristic> incomingDataCharacteristics = super.getIncomingDataCharacteristics();
         List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
 
         if (this.getReferencedElement() instanceof Start || this.getReferencedElement() instanceof Stop) {
-            this.setPropagationResult(incomingDataFlowVariables, incomingDataFlowVariables, nodeCharacteristics);
+            this.setPropagationResult(incomingDataCharacteristics, incomingDataCharacteristics, nodeCharacteristics);
             return;
         }
         logger.error("Found unexpected sequence element of unknown PCM type " + this.getReferencedElement()
@@ -89,7 +89,7 @@ public class UserPCMVertex<T extends AbstractUserAction> extends AbstractPCMVert
     }
 
     @Override
-    public AbstractPCMVertex<?> deepCopy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
+    public AbstractPCMVertex<?> copy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
         if (vertexMapping.get(this) != null) {
             return vertexMapping.get(this);
         }

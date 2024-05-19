@@ -30,4 +30,10 @@ public class DFDTransposeFlowGraph extends AbstractTransposeFlowGraph {
         return new DFDTransposeFlowGraph(newSink);
     }
 
+    @Override
+    public AbstractTransposeFlowGraph copy() {
+        DFDVertex copiedSink = ((DFDVertex) sink).clone();
+        copiedSink.unify(new HashSet<>());
+        return new DFDTransposeFlowGraph(copiedSink);
+    }
 }

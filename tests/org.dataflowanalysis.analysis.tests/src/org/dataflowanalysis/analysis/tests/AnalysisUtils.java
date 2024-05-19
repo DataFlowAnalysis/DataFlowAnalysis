@@ -135,17 +135,17 @@ public class AnalysisUtils {
             String characteristicValue) {
         var sequenceElement = sequence.getVertices()
                 .get(index);
-        var dataflowVariable = sequenceElement.getAllDataFlowVariables()
+        var dataCharacteristic = sequenceElement.getAllDataCharacteristics()
                 .stream()
                 .filter(it -> it.variableName()
                         .equals(variableName))
                 .findAny();
 
-        if (dataflowVariable.isEmpty()) {
+        if (dataCharacteristic.isEmpty()) {
             fail(String.format("Did not find dataflow variable with name %s at sequence element %s", variableName, sequenceElement));
         }
 
-        var result = dataflowVariable.get()
+        var result = dataCharacteristic.get()
                 .characteristics()
                 .stream()
                 .filter(it -> it.getTypeName()
@@ -181,15 +181,15 @@ public class AnalysisUtils {
         }
         var sequenceElement = sequence.getVertices()
                 .get(index);
-        var dataflowVariable = sequenceElement.getAllDataFlowVariables()
+        var dataCharacteristic = sequenceElement.getAllDataCharacteristics()
                 .stream()
                 .filter(it -> it.variableName()
                         .equals(variableName))
                 .findAny();
-        if (dataflowVariable.isEmpty()) {
+        if (dataCharacteristic.isEmpty()) {
             return;
         }
-        assertTrue(dataflowVariable.get()
+        assertTrue(dataCharacteristic.get()
                 .characteristics()
                 .stream()
                 .filter(it -> it.getTypeName()

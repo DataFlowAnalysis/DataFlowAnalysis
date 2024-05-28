@@ -96,7 +96,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      */
     protected List<CharacteristicValue> getVertexCharacteristics() {
         PCMVertexCharacteristicsCalculator vertexCharacteristicsCalculator = new PCMVertexCharacteristicsCalculator(this.resourceProvider);
-        return vertexCharacteristicsCalculator.getNodeCharacteristics(this.referencedElement, this.context);
+        return vertexCharacteristicsCalculator.getVertexCharacteristics(this.referencedElement, this.context);
     }
 
     /**

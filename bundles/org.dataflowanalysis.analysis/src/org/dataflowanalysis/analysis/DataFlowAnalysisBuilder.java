@@ -37,7 +37,7 @@ public abstract class DataFlowAnalysisBuilder {
 
     /**
      * Sets the model project name of the analysis that is used to resolve paths to the files of the model. Example: For
-     * models contained in the org.dataflowanalysis.analysis.testmodels project/bundle the modelProjectName would be equal
+     * models contained in the {@code org.dataflowanalysis.analysis.testmodels} project/bundle the modelProjectName would be equal
      * to that name.
      * @return Builder of the analysis
      */

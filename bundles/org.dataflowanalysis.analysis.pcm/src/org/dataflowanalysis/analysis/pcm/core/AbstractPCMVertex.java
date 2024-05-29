@@ -3,6 +3,7 @@ package org.dataflowanalysis.analysis.pcm.core;
 import java.util.Deque;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
@@ -95,7 +96,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      */
     protected List<CharacteristicValue> getVertexCharacteristics() {
         PCMVertexCharacteristicsCalculator vertexCharacteristicsCalculator = new PCMVertexCharacteristicsCalculator(this.resourceProvider);
-        return vertexCharacteristicsCalculator.getNodeCharacteristics(this.referencedElement, this.context);
+        return vertexCharacteristicsCalculator.getVertexCharacteristics(this.referencedElement, this.context);
     }
 
     /**
@@ -187,5 +188,10 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
                 .getId()
                 .equals(otherVertex.getReferencedElement()
                         .getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getReferencedElement().getId());
     }
 }

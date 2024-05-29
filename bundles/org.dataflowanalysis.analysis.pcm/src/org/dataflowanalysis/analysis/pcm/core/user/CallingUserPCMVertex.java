@@ -35,16 +35,16 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
 
     @Override
     public void evaluateDataFlow() {
-        List<DataCharacteristic> incomingDataCharacteristics = super.getIncomingDataCharacteristics();
-        List<CharacteristicValue> nodeCharacteristics = super.getVertexCharacteristics();
+        List<DataCharacteristic> incomingDataCharacteristics = this.getIncomingDataCharacteristics();
+        List<CharacteristicValue> nodeCharacteristics = this.getVertexCharacteristics();
 
         List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.getVariableCharacterizations();
 
         if (this.isCalling()) {
-            super.checkCallParameter(super.getReferencedElement().getOperationSignature__EntryLevelSystemCall(), variableCharacterisations);
+            this.checkCallParameter(this.getReferencedElement().getOperationSignature__EntryLevelSystemCall(), variableCharacterisations);
         }
 
-        List<DataCharacteristic> outgoingDataCharacteristics = super.getDataCharacteristics(nodeCharacteristics, variableCharacterisations,
+        List<DataCharacteristic> outgoingDataCharacteristics = this.getDataCharacteristics(nodeCharacteristics, variableCharacterisations,
                 incomingDataCharacteristics);
         if (this.isReturning()) {
             outgoingDataCharacteristics = outgoingDataCharacteristics.stream()

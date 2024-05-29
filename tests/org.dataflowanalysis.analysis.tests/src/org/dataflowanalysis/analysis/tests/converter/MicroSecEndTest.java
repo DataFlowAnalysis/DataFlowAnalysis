@@ -19,6 +19,7 @@ import org.dataflowanalysis.analysis.converter.microsecend.InformationFlow;
 import org.dataflowanalysis.analysis.converter.microsecend.MicroSecEnd;
 import org.dataflowanalysis.analysis.converter.microsecend.MicroSecEndProcess;
 import org.dataflowanalysis.analysis.converter.microsecend.Service;
+import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Assignment;
 import org.dataflowanalysis.dfd.datadictionary.Label;
 import org.dataflowanalysis.dfd.datadictionary.LabelType;
@@ -45,6 +46,48 @@ public class MicroSecEndTest extends ConverterTest {
     @BeforeEach
     public void setup() {
         converter = new MicroSecEndConverter();
+    }
+
+    @Test
+    @DisplayName("Check amout of pins, assigments and flows")
+    public void checkPinsAssigmentsAndFlows() {
+        var micro = converter.loadMicro(ANILALLEWAR)
+                .get();
+        var dfd = converter.microToDfd(micro);
+
+        List<AbstractAssignment> assignments = dfd.dataDictionary()
+                .getBehaviour()
+                .stream()
+                .flatMap(behavior -> behavior.getAssignment()
+                        .stream())
+                .collect(Collectors.toList());
+
+        List<Pin> outPins = dfd.dataDictionary()
+                .getBehaviour()
+                .stream()
+                .flatMap(behavior -> behavior.getOutPin()
+                        .stream())
+                .collect(Collectors.toList());
+
+        List<Pin> inPins = dfd.dataDictionary()
+                .getBehaviour()
+                .stream()
+                .flatMap(behavior -> behavior.getInPin()
+                        .stream())
+                .collect(Collectors.toList());
+
+     // One Node assignment and one Forwarding assignment per flow
+        assertEquals(micro.informationFlows()
+                .size() * 2, assignments.size());
+        assertEquals(micro.informationFlows()
+                .size(), outPins.size());
+        assertEquals(outPins.size(), inPins.size());
+
+        //Double Check for Assignments without a output pin
+        assignments.forEach(a -> {
+    		assert(a.getOutputPin() != null);
+    	});
+
     }
 
     @Test

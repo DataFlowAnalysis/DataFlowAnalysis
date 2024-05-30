@@ -2,6 +2,7 @@ package org.dataflowanalysis.analysis.pcm.core.finder;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
@@ -9,6 +10,7 @@ import org.dataflowanalysis.analysis.pcm.core.PCMTransposeFlowGraph;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
@@ -17,9 +19,16 @@ public class PCMTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
     private final Logger logger = Logger.getLogger(PCMTransposeFlowGraphFinder.class);
 
     private final ResourceProvider resourceProvider;
+    private final Collection<AssemblyContext> contexts;
 
     public PCMTransposeFlowGraphFinder(ResourceProvider resourceProvider) {
         this.resourceProvider = resourceProvider;
+        this.contexts = List.of();
+    }
+    
+    public PCMTransposeFlowGraphFinder(ResourceProvider resourceProvider, Collection<AssemblyContext> contexts) {
+        this.resourceProvider = resourceProvider;
+        this.contexts = contexts;
     }
 
     @Override
@@ -76,7 +85,7 @@ public class PCMTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
     }
 
     private List<PCMTransposeFlowGraph> findTransposeFlowGraphsForSEFFActions(List<AbstractAction> seffActions, List<Entity> sinks) {
-        SEFFFinderContext context = new SEFFFinderContext(new ArrayDeque<>(), new ArrayDeque<>(), new ArrayList<>());
+        SEFFFinderContext context = new SEFFFinderContext(new ArrayDeque<>(contexts), new ArrayDeque<>(), new ArrayList<>());
         return seffActions.stream()
                 .map(it -> new PCMSEFFTransposeFlowGraphFinder(this.resourceProvider, context, sinks, new PCMTransposeFlowGraph()).findSequencesForSEFFAction(it))
                 .flatMap(List::stream)

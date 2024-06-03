@@ -13,7 +13,6 @@ public class ANSIConsoleLogger extends ConsoleAppender {
     private static final int FOREGROUND_YELLOW = 33;
     private static final int FOREGROUND_BLUE = 34;
     private static final int FOREGROUND_CYAN = 36;
-    private static final int FOREGROUND_WHITE = 37; 
  
     private static final String PREFIX = "\u001b[";
     private static final String SUFFIX = "m";
@@ -23,7 +22,8 @@ public class ANSIConsoleLogger extends ConsoleAppender {
     private static final String FATAL_COLOR = PREFIX + BRIGHT + SEPARATOR + FOREGROUND_RED + SUFFIX;
     private static final String ERROR_COLOR = PREFIX + NORMAL + SEPARATOR + FOREGROUND_RED + SUFFIX;
     private static final String WARN_COLOR = PREFIX + NORMAL + SEPARATOR + FOREGROUND_YELLOW + SUFFIX;
-    private static final String INFO_COLOR = PREFIX + NORMAL+ SEPARATOR + FOREGROUND_WHITE + SUFFIX;
+    // Info messages should have normal foreground color
+    private static final String INFO_COLOR = PREFIX + SUFFIX;
     private static final String DEBUG_COLOR = PREFIX + NORMAL + SEPARATOR + FOREGROUND_CYAN + SUFFIX;
     private static final String TRACE_COLOR = PREFIX + NORMAL + SEPARATOR + FOREGROUND_BLUE + SUFFIX;   
     

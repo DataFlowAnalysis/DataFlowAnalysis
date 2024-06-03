@@ -12,6 +12,7 @@ import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
+import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 
@@ -20,15 +21,18 @@ public class PCMTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
 
     private final ResourceProvider resourceProvider;
     private final Collection<AssemblyContext> contexts;
+    private final Collection<Parameter> parameter;
 
     public PCMTransposeFlowGraphFinder(ResourceProvider resourceProvider) {
         this.resourceProvider = resourceProvider;
         this.contexts = List.of();
+        this.parameter = List.of();
     }
     
-    public PCMTransposeFlowGraphFinder(ResourceProvider resourceProvider, Collection<AssemblyContext> contexts) {
+    public PCMTransposeFlowGraphFinder(ResourceProvider resourceProvider, Collection<AssemblyContext> contexts, Collection<Parameter> parameter) {
         this.resourceProvider = resourceProvider;
         this.contexts = contexts;
+        this.parameter = parameter;
     }
 
     @Override
@@ -85,7 +89,7 @@ public class PCMTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
     }
 
     private List<PCMTransposeFlowGraph> findTransposeFlowGraphsForSEFFActions(List<AbstractAction> seffActions, List<Entity> sinks) {
-        SEFFFinderContext context = new SEFFFinderContext(new ArrayDeque<>(contexts), new ArrayDeque<>(), new ArrayList<>());
+        SEFFFinderContext context = new SEFFFinderContext(new ArrayDeque<>(contexts), new ArrayDeque<>(), new ArrayList<>(parameter));
         return seffActions.stream()
                 .map(it -> new PCMSEFFTransposeFlowGraphFinder(this.resourceProvider, context, sinks, new PCMTransposeFlowGraph()).findSequencesForSEFFAction(it))
                 .flatMap(List::stream)

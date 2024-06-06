@@ -71,16 +71,16 @@ public class MicroSecEndTest extends ConverterTest {
                         .stream())
                 .collect(Collectors.toList());
 
-     // One Node assignment and one Forwarding assignment per flow
+        // One Node assignment and one Forwarding assignment per flow
         assertEquals(micro.informationFlows()
                 .size() * 2, assignments.size());
         assertEquals(micro.informationFlows()
                 .size(), outPins.size());
         assertEquals(outPins.size(), inPins.size());
 
-        //Double Check for Assignments without a output pin
+        // Double Check for Assignments without a output pin
         assignments.forEach(a -> {
-            assert(a.getOutputPin() != null);
+            assert (a.getOutputPin() != null);
         });
 
     }

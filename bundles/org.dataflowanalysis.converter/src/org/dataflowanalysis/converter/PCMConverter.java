@@ -38,11 +38,12 @@ import org.palladiosimulator.pcm.seff.StartAction;
 import org.palladiosimulator.pcm.seff.StopAction;
 import org.palladiosimulator.pcm.usagemodel.Start;
 import org.palladiosimulator.pcm.usagemodel.Stop;
+
 /**
  * Converts Palladio models to the data flow diagram and dictionary representation. Inherits from {@link Converter} to
  * utilize shared conversion logic while providing specific functionality for handling Palladio models.
  */
-public class PCMConverter extends Converter{
+public class PCMConverter extends Converter {
 
     private final Map<Entity, Node> dfdNodeMap = new HashMap<>();
     private final DataDictionary dataDictionary = datadictionaryFactory.eINSTANCE.createDataDictionary();

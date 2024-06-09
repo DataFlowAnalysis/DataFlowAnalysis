@@ -33,8 +33,8 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
  * This class represents a vertex references a node in the dfd model. Multiple dfd vertices may reference the same node
  */
 public class DFDVertex extends AbstractVertex<Node> {
-    private final Map<Pin, DFDVertex> pinDFDVertexMap;
-    private final Map<Pin, Flow> pinFlowMap;
+    protected final Map<Pin, DFDVertex> pinDFDVertexMap;
+    protected final Map<Pin, Flow> pinFlowMap;
 
     /**
      * Creates a new vertex with the given referenced node and pin mappings

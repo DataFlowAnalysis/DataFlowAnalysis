@@ -26,7 +26,7 @@ public class MicroSecEndTest {
     private DFDFlowGraphCollection flowGraph;
     private DFDConfidentialityAnalysis analysis;
     private Map<Integer, Map<Integer, List<AbstractVertex<?>>>> violationsMap;
-    private String location = "anilallewar";
+    private String location = "test";
 
     public DFDConfidentialityAnalysis buildAnalysis(String name) {
         var DataFlowDiagramPath = Paths.get(name + ".dataflowdiagram");
@@ -49,6 +49,7 @@ public class MicroSecEndTest {
     }
 
     public void runAnalysis(int variant) {
+        System.out.println(flowGraph.getTransposeFlowGraphs());
         for (var aTFG : flowGraph.getTransposeFlowGraphs()) {
             //rule 18 needs to check if Secret_manager is the sink --> needs to be done outside of query
             if (!aTFG.getSink().toString().contains("secret_manager")) {

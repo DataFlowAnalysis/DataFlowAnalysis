@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
@@ -17,17 +19,17 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 /**
  * The DFDTransposeFlowGraphFinder determines all transpose flow graphs contained in a model
  */
-public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
+public class DFDCyclicTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
     private final DataDictionary dataDictionary;
     private final DataFlowDiagram dataFlowDiagram;
 
 
-    public DFDTransposeFlowGraphFinder(DFDResourceProvider resourceProvider) {
+    public DFDCyclicTransposeFlowGraphFinder(DFDResourceProvider resourceProvider) {
         this.dataDictionary = resourceProvider.getDataDictionary();
         this.dataFlowDiagram = resourceProvider.getDataFlowDiagram();
     }
 
-    public DFDTransposeFlowGraphFinder(DataDictionary dataDictionary, DataFlowDiagram dataFlowDiagram) {
+    public DFDCyclicTransposeFlowGraphFinder(DataDictionary dataDictionary, DataFlowDiagram dataFlowDiagram) {
         this.dataDictionary = dataDictionary;
         this.dataFlowDiagram = dataFlowDiagram;
     }
@@ -39,9 +41,10 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
     @Override
     public List<AbstractTransposeFlowGraph> findTransposeFlowGraphs() {
         List<Node> endNodes = getEndNodes(dataFlowDiagram.getNodes());
-
         List<AbstractTransposeFlowGraph> sequences = new ArrayList<>();
-
+        if(endNodes.isEmpty()) {
+           //what do we do?
+        }
         for (var endNode : endNodes) {
             for (var sink : determineSinks(new DFDVertex(endNode, new HashMap<>(), new HashMap<>()), dataFlowDiagram
                     .getFlows(),
@@ -66,28 +69,62 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
     private List<DFDVertex> determineSinks(DFDVertex sink, List<Flow> flows, List<Pin> inputPins) {
         List<DFDVertex> vertices = new ArrayList<>();
         vertices.add(sink);
+        
         for (var inputPin : inputPins) {
             List<DFDVertex> newVertices = new ArrayList<>();
-            var flow = getFlow(inputPin, flows);
-                    for (var vertex : vertices) {
-                        Node previousNode = flow.getSourceNode();
-                        List<Pin> previousNodeInputPins = getAllPreviousNodeInputPins(previousNode, flow);
-                        List<DFDVertex> previousNodeVertices = determineSinks(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()), flows,
-                                previousNodeInputPins);
-                        newVertices.addAll(cloneVertexForMultipleFlowGraphs(vertex, inputPin, flow, previousNodeVertices));
-                    }
-                
+            var flow = getFlow( inputPin, flows);
+            for (var vertex : vertices) {      
+                Node previousNode = flow.getSourceNode();
+                List<Node> previousNodesInTransposeFlow = new ArrayList<>();
+                previousNodesInTransposeFlow.add(flow.getDestinationNode());
+                previousNodesInTransposeFlow.add(previousNode);
+                List<Pin> previousNodeInputPins = getAllPreviousNodeInputPins(previousNode, flow);
+                List<DFDVertex> previousNodeVertices = determineSinks(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()), flows,
+                        previousNodeInputPins,previousNodesInTransposeFlow);
+                newVertices.addAll(cloneVertexForMultipleFlowGraphs(vertex, inputPin, flow, previousNodeVertices));
+            }
+            
             vertices = newVertices;
         }
         return vertices;
     }
     
-    private Flow getFlow(Pin inputPin, List<Flow> flows) {
-        return flows.stream()
-                .filter(flow -> flow.getDestinationPin().equals(inputPin)).findFirst()
-                .orElse(null);
+    private List<DFDVertex> determineSinks(DFDVertex sink, List<Flow> flows, List<Pin> inputPins, List<Node> previousNodesInTransposeFlow) {
+        List<DFDVertex> vertices = new ArrayList<>();
+        vertices.add(sink);
+        for (var inputPin : inputPins) {
+            List<DFDVertex> newVertices = new ArrayList<>();
+            var flow =  getFlow(inputPin, flows);
+            for (var vertex : vertices) {      
+                Node previousNode = flow.getSourceNode();
+                if(!LoopCheck(previousNodesInTransposeFlow, previousNode)) {
+                    return vertices;
+                }
+                
+                var CopyPreviousNodesInTransposeFlow = new ArrayList<>(previousNodesInTransposeFlow);
+                CopyPreviousNodesInTransposeFlow.add(previousNode);
+                List<Pin> previousNodeInputPins = getAllPreviousNodeInputPins(previousNode, flow);
+                List<DFDVertex> previousNodeVertices = determineSinks(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()), flows,
+                        previousNodeInputPins, CopyPreviousNodesInTransposeFlow);
+                newVertices.addAll(cloneVertexForMultipleFlowGraphs(vertex, inputPin, flow, previousNodeVertices));
+            }
+            vertices = newVertices;
+        }
+        return vertices;
     }
-
+    
+   private Flow getFlow(Pin inputPin, List<Flow> flows) {
+       return flows.stream()
+               .filter(flow -> flow.getDestinationPin().equals(inputPin)).findFirst()
+               .orElse(null);
+   }
+    
+    private Boolean LoopCheck(List<Node> list, Node element) {
+        long count = list.stream()
+                .filter(item -> item.equals(element))
+                .count();
+        return count <= 2;
+    }
     /**
      * Calculate all input pins required on the previous node that will be needed to satisfy the assignments to reach the
      * present node
@@ -155,3 +192,4 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
         return endNodes;
     }
 }
+

@@ -260,8 +260,8 @@ public class MicroSecEndConverter extends Converter {
 
                     behaviour.getAssignment()
                             .add(assignment);
-                }
-            }
+                }                
+            } 
             behaviour.getAssignment().remove(template);
         }
     }

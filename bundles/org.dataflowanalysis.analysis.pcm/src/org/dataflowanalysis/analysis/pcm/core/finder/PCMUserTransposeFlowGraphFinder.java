@@ -9,6 +9,7 @@ import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.dataflowanalysis.analysis.pcm.utils.SEFFWithContext;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
+import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.seff.StartAction;
@@ -24,18 +25,25 @@ public class PCMUserTransposeFlowGraphFinder {
 
     private final ResourceProvider resourceProvider;
     private PCMTransposeFlowGraph currentTransposeFlowGraph;
+    private final List<Entity> sinks;
 
-    public PCMUserTransposeFlowGraphFinder(ResourceProvider resourceProvider) {
+    public PCMUserTransposeFlowGraphFinder(ResourceProvider resourceProvider, List<Entity> sinks) {
         this.resourceProvider = resourceProvider;
         this.currentTransposeFlowGraph = new PCMTransposeFlowGraph();
+        this.sinks = sinks;
     }
 
-    public PCMUserTransposeFlowGraphFinder(ResourceProvider resourceProvider, PCMTransposeFlowGraph currentTransposeFlowGraph) {
+    public PCMUserTransposeFlowGraphFinder(ResourceProvider resourceProvider, PCMTransposeFlowGraph currentTransposeFlowGraph, List<Entity> sinks) {
         this.resourceProvider = resourceProvider;
         this.currentTransposeFlowGraph = currentTransposeFlowGraph;
+        this.sinks = sinks;
     }
 
     public List<PCMTransposeFlowGraph> findSequencesForUserAction(AbstractUserAction initialAction) {
+        if (this.sinks.contains(initialAction)) {
+            return List.of(currentTransposeFlowGraph);
+        }
+
         if (initialAction instanceof Start) {
             return findSequencesForUserStartAction((Start) initialAction);
 
@@ -89,7 +97,7 @@ public class PCMUserTransposeFlowGraphFinder {
                 .map(it -> {
                     Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping = new IdentityHashMap<>();
                     PCMTransposeFlowGraph clonedTransposeFlowGraph = this.currentTransposeFlowGraph.copy(vertexMapping);
-                    return new PCMUserTransposeFlowGraphFinder(this.resourceProvider, clonedTransposeFlowGraph).findSequencesForUserAction(it);
+                    return new PCMUserTransposeFlowGraphFinder(this.resourceProvider, clonedTransposeFlowGraph, this.sinks).findSequencesForUserAction(it);
                 })
                 .flatMap(List::stream)
                 .toList();
@@ -119,7 +127,7 @@ public class PCMUserTransposeFlowGraphFinder {
 
                 SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get()
                         .context(), callers, calledSignature.getParameters__OperationSignature());
-                return new PCMSEFFTransposeFlowGraphFinder(resourceProvider, finderContext, this.currentTransposeFlowGraph)
+                return new PCMSEFFTransposeFlowGraphFinder(resourceProvider, finderContext, sinks, this.currentTransposeFlowGraph)
                         .findSequencesForSEFFAction(SEFFStartAction.get());
             }
         }

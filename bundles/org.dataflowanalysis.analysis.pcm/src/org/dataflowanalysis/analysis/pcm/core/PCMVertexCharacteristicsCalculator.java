@@ -2,7 +2,9 @@ package org.dataflowanalysis.analysis.pcm.core;
 
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
@@ -49,8 +51,29 @@ public class PCMVertexCharacteristicsCalculator {
         this.resourceLoader = resourceProvider;
     }
 
-    public List<CharacteristicValue> getNodeCharacteristics(Entity node, Deque<AssemblyContext> context) {
+    /**
+     * Determines the node characteristics at a given node in the given stack of assembly contexts
+     * @param node Node of which the data characteristics should be calculated
+     * @param context Assembly context in which the node is contained
+     * @return Returns a list of vertex characteristics that are applied to the given vertex
+     */
+    public List<CharacteristicValue> getVertexCharacteristics(Entity node, Deque<AssemblyContext> context) {
+        return this.getVertexCharacteristics(node, context, new IdentityHashMap<>());
+    }
+
+    /**
+     * Determines the vertex characteristics at a given node in the given stack of assembly contexts.
+     * <p/>
+     *  Furthermore, assignments in the model will be replaced according to the given map of replacements
+     * @param node Node of which the data characteristics should be calculated
+     * @param context Assembly context in which the node is contained
+     * @param replacements Map of replacements that replaces possible assignments in the model
+     * @return Returns a list of vertex characteristics that are applied to the given vertex
+     */
+    public List<CharacteristicValue> getVertexCharacteristics(Entity node, Deque<AssemblyContext> context, Map<AbstractAssignee, AbstractAssignee> replacements) {
         Assignments assignments = this.resolveAssignments();
+        replacements.keySet().forEach(assignee -> assignments.getAssignee().remove(assignee));
+        replacements.values().forEach(assignee -> assignments.getAssignee().add(assignee));
         List<AbstractAssignee> assignees;
         if (node instanceof AbstractUserAction) {
             assignees = this.getUsageNodeAssignments(node, assignments);

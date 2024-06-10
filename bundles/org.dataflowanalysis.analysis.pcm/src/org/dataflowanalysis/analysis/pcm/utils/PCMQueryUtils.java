@@ -21,6 +21,7 @@ import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.seff.StartAction;
+import org.palladiosimulator.pcm.seff.StopAction;
 import org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour;
 import org.palladiosimulator.pcm.usagemodel.Start;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
@@ -63,6 +64,18 @@ public class PCMQueryUtils {
         return actionList.stream()
                 .filter(StartAction.class::isInstance)
                 .map(StartAction.class::cast)
+                .findFirst();
+    }
+
+    /**
+     * Returns the first stop action in the list of actions
+     * @param actionList Given list of actions
+     * @return Returns the first found stop action
+     */
+    public static Optional<StopAction> getFirstStopActionInActionList(List<AbstractAction> actionList) {
+        return actionList.stream()
+                .filter(StopAction.class::isInstance)
+                .map(StopAction.class::cast)
                 .findFirst();
     }
 

@@ -15,6 +15,7 @@ import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.dataflowanalysis.analysis.pcm.utils.SEFFWithContext;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
+import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.seff.AbstractAction;
@@ -31,12 +32,14 @@ public class PCMSEFFTransposeFlowGraphFinder {
 
     private final ResourceProvider resourceProvider;
     private final SEFFFinderContext context;
+    private final List<Entity> sinks;
     private PCMTransposeFlowGraph currentTransposeFlowGraph;
 
     public PCMSEFFTransposeFlowGraphFinder(ResourceProvider resourceProvider, SEFFFinderContext context,
-            PCMTransposeFlowGraph currentTransposeFlowGraph) {
+                                           List<Entity> sinks, PCMTransposeFlowGraph currentTransposeFlowGraph) {
         this.resourceProvider = resourceProvider;
         this.context = context;
+        this.sinks = sinks;
         this.currentTransposeFlowGraph = currentTransposeFlowGraph;
     }
 
@@ -66,9 +69,18 @@ public class PCMSEFFTransposeFlowGraphFinder {
     }
 
     protected List<PCMTransposeFlowGraph> findSequencesForSEFFStartAction(StartAction currentAction) {
-        var startElement = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), context.getContext(),
-                context.getParameter(), resourceProvider);
+    	SEFFPCMVertex<?> startElement;
+    	if (this.currentTransposeFlowGraph.getSink() == null) {
+            startElement = new SEFFPCMVertex<>(currentAction, List.of(), context.getContext(),
+                    context.getParameter(), resourceProvider);
+    	} else {
+            startElement = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), context.getContext(),
+                    context.getParameter(), resourceProvider);
+    	}
         this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(startElement);
+        if (this.sinks.contains(currentAction)) {
+            return List.of(currentTransposeFlowGraph);
+        }
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction());
     }
 
@@ -76,6 +88,9 @@ public class PCMSEFFTransposeFlowGraphFinder {
         var stopElement = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), context.getContext(),
                 context.getParameter(), resourceProvider);
         this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(stopElement);
+        if (this.sinks.contains(currentAction)) {
+            return List.of(currentTransposeFlowGraph);
+        }
 
         Optional<AbstractAction> parentAction = PCMQueryUtils.findParentOfType(currentAction, AbstractAction.class, false);
         if (parentAction.isPresent()) {
@@ -94,6 +109,9 @@ public class PCMSEFFTransposeFlowGraphFinder {
         var callingEntity = new CallingSEFFPCMVertex(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), context.getContext(),
                 context.getParameter(), true, resourceProvider);
         this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(callingEntity);
+        if (this.sinks.contains(currentAction)) {
+            return List.of(currentTransposeFlowGraph);
+        }
 
         OperationRequiredRole calledRole = currentAction.getRole_ExternalService();
         OperationSignature calledSignature = currentAction.getCalledService_ExternalService();
@@ -125,6 +143,9 @@ public class PCMSEFFTransposeFlowGraphFinder {
         var newEntity = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), context.getContext(),
                 context.getParameter(), resourceProvider);
         this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(newEntity);
+        if (this.sinks.contains(currentAction)) {
+            return List.of(currentTransposeFlowGraph);
+        }
 
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction());
     }
@@ -141,7 +162,7 @@ public class PCMSEFFTransposeFlowGraphFinder {
                     PCMTransposeFlowGraph clonedTransposeFlowGraph = this.currentTransposeFlowGraph.copy(vertexMapping);
                     SEFFFinderContext clonedContext = new SEFFFinderContext(context);
                     clonedContext.replaceCallers(vertexMapping);
-                    return new PCMSEFFTransposeFlowGraphFinder(resourceProvider, clonedContext, clonedTransposeFlowGraph)
+                    return new PCMSEFFTransposeFlowGraphFinder(resourceProvider, clonedContext, sinks, clonedTransposeFlowGraph)
                             .findSequencesForSEFFAction(it);
                 })
                 .flatMap(List::stream)
@@ -154,6 +175,9 @@ public class PCMSEFFTransposeFlowGraphFinder {
         previousVertices.add(this.currentTransposeFlowGraph.getSink());
         this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(
                 new CallingSEFFPCMVertex(currentAction, previousVertices, context.getContext(), context.getParameter(), false, resourceProvider));
+        if (this.sinks.contains(currentAction)) {
+            return List.of(currentTransposeFlowGraph);
+        }
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction());
     }
 
@@ -176,7 +200,7 @@ public class PCMSEFFTransposeFlowGraphFinder {
             logger.error("SEFF Action wanted to return without a matching calling user sequence element");
             throw new IllegalStateException();
         } else {
-            return new PCMUserTransposeFlowGraphFinder(resourceProvider, this.currentTransposeFlowGraph)
+            return new PCMUserTransposeFlowGraphFinder(resourceProvider, this.currentTransposeFlowGraph, this.sinks)
                     .findSequencesForUserActionReturning(caller.getReferencedElement(), caller);
         }
     }

@@ -272,11 +272,10 @@ public class DFDVertex extends AbstractVertex<Node> {
     /**
      * Creates a clone of the vertex without considering data characteristics nor vertex characteristics
      */
-    public DFDVertex clone() {
+    public DFDVertex copy(Map<DFDVertex, DFDVertex> mapping) {
         Map<Pin, DFDVertex> copiedPinDFDVertexMap = new HashMap<>();
         this.pinDFDVertexMap.keySet()
-                .forEach(key -> copiedPinDFDVertexMap.put(key, this.pinDFDVertexMap.get(key)
-                        .clone()));
+                .forEach(key -> copiedPinDFDVertexMap.put(key, mapping.getOrDefault(this.pinDFDVertexMap.get(key), this.pinDFDVertexMap.get(key).copy(mapping))));
         return new DFDVertex(this.referencedElement, copiedPinDFDVertexMap, new HashMap<>(this.pinFlowMap));
     }
 

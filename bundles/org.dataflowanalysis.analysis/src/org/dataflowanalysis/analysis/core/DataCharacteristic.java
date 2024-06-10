@@ -42,7 +42,7 @@ public record DataCharacteristic(String variableName, List<CharacteristicValue> 
 
     /**
      * Returns a list of all characteristic values that are applied at the data characteristic
-     * @return Returns a list of all characteristic values present at the data characterstic
+     * @return Returns a list of all characteristic values present at the data characteristic
      */
     public List<CharacteristicValue> getAllCharacteristics() {
         return this.characteristics;

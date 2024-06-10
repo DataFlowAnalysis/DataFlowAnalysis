@@ -1,9 +1,7 @@
 package org.dataflowanalysis.analysis.dfd.core;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
+
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
@@ -37,21 +35,42 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
      * @return Returns a list of all transpose flow graphs
      */
     @Override
-    public List<AbstractTransposeFlowGraph> findTransposeFlowGraphs() {
-        List<Node> endNodes = getEndNodes(dataFlowDiagram.getNodes());
+    public List<? extends AbstractTransposeFlowGraph> findTransposeFlowGraphs() {
+        return this.findTransposeFlowGraphs(getEndNodes(dataFlowDiagram.getNodes()), List.of());
+    }
+    
+    @Override
+    public List<? extends AbstractTransposeFlowGraph> findTransposeFlowGraphs(List<?> sourceNodes) {
+        return this.findTransposeFlowGraphs(getEndNodes(dataFlowDiagram.getNodes()), sourceNodes);
+    }
 
-        List<AbstractTransposeFlowGraph> sequences = new ArrayList<>();
+    @Override
+    public List<? extends AbstractTransposeFlowGraph> findTransposeFlowGraphs(List<?> sinkNodes, List<?> sourceNodes) {
+        List<Node> potentialSinks = sinkNodes.stream()
+                .filter(Node.class::isInstance)
+                .map(Node.class::cast)
+                .toList();
+        List<Node> sources = sourceNodes.stream()
+                .filter(Node.class::isInstance)
+                .map(Node.class::cast)
+                .toList();
+        List<DFDTransposeFlowGraph> transposeFlowGraphs = new ArrayList<>();
 
-        for (var endNode : endNodes) {
-            for (var sink : determineSinks(new DFDVertex(endNode, new HashMap<>(), new HashMap<>()), dataFlowDiagram
-                    .getFlows(),
-                    endNode.getBehaviour()
-                            .getInPin())) {
-                sink.unify(new HashSet<>());
-                sequences.add(new DFDTransposeFlowGraph(sink));
+        for (Node endNode : potentialSinks) {
+            List<DFDVertex> sinks = determineSinks(new DFDVertex(endNode, new HashMap<>(), new HashMap<>()),
+                    endNode.getBehaviour().getInPin(), sources);
+            if (!sourceNodes.isEmpty()) {
+                sinks = sinks.stream()
+                        .filter(it -> new DFDTransposeFlowGraph(it).getVertices().stream()
+                                .filter(DFDVertex.class::isInstance)
+                                .map(DFDVertex.class::cast)
+                                .anyMatch(vertex -> sources.contains(vertex.getReferencedElement())))
+                        .toList();
             }
+            sinks.forEach(sink -> sink.unify(new HashSet<>()));
+            sinks.forEach(sink -> transposeFlowGraphs.add(new DFDTransposeFlowGraph(sink)));
         }
-        return sequences;
+        return transposeFlowGraphs;
     }
 
     /**
@@ -59,34 +78,41 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
      * <p/>
      * This method preforms the determination of sinks recursively
      * @param sink Single sink vertex without previous vertices calculated
-     * @param flows All flows in the data flow diagram
-     * @param inputPins Relevant input pins on the given vertex vertex
+     * @param inputPins Relevant input pins on the given vertex
      * @return List of sinks created from the initial sink with previous vertices calculated
      */
-    private List<DFDVertex> determineSinks(DFDVertex sink, List<Flow> flows, List<Pin> inputPins) {
+    private List<DFDVertex> determineSinks(DFDVertex sink, List<Pin> inputPins, List<Node> sourceNodes) {
         List<DFDVertex> vertices = new ArrayList<>();
         vertices.add(sink);
-        for (var inputPin : inputPins) {
-            List<DFDVertex> newVertices = new ArrayList<>();
-            var flow = getFlow(inputPin, flows);
-                    for (var vertex : vertices) {
-                        Node previousNode = flow.getSourceNode();
-                        List<Pin> previousNodeInputPins = getAllPreviousNodeInputPins(previousNode, flow);
-                        List<DFDVertex> previousNodeVertices = determineSinks(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()), flows,
-                                previousNodeInputPins);
-                        newVertices.addAll(cloneVertexForMultipleFlowGraphs(vertex, inputPin, flow, previousNodeVertices));
-                    }
-                
-            vertices = newVertices;
+
+        if (sourceNodes.contains(sink.getReferencedElement())) {
+            return vertices;
+        }
+
+        for (Pin inputPin : inputPins) {
+            List<Flow> incomingFlowsToPin = dataFlowDiagram.getFlows().stream()
+                    .filter(flow -> flow.getDestinationPin().equals(inputPin))
+                    .toList();
+
+            List<DFDVertex> finalVertices = vertices;
+            vertices = incomingFlowsToPin.stream()
+                            .flatMap(flow -> handleIncomingFlow(flow, inputPin, finalVertices, sourceNodes).stream())
+                            .toList();
         }
         return vertices;
     }
-    
-    private Flow getFlow(Pin inputPin, List<Flow> flows) {
-        return flows.stream()
-                .filter(flow -> flow.getDestinationPin().equals(inputPin)).findFirst()
-                .orElse(null);
-    }
+
+    public List<DFDVertex> handleIncomingFlow(Flow incomingFlow, Pin inputPin, List<DFDVertex> vertices, List<Node> sourceNodes) {
+        List<DFDVertex> result = new ArrayList<>();
+        for (DFDVertex vertex : vertices) {
+            Node previousNode = incomingFlow.getSourceNode();
+            List<Pin> previousNodeInputPins = getAllPreviousNodeInputPins(previousNode, incomingFlow);
+            List<DFDVertex> previousNodeVertices = determineSinks(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()),
+                    previousNodeInputPins, sourceNodes);
+            result.addAll(cloneVertexForMultipleFlowGraphs(vertex, inputPin, incomingFlow, previousNodeVertices));
+        }
+        return result;
+    } 
 
     /**
      * Calculate all input pins required on the previous node that will be needed to satisfy the assignments to reach the
@@ -118,7 +144,7 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
     private List<DFDVertex> cloneVertexForMultipleFlowGraphs(DFDVertex vertex, Pin inputPin, Flow flow, List<DFDVertex> previousNodeVertices) {
         List<DFDVertex> newVertices = new ArrayList<>();
         for (var previousVertex : previousNodeVertices) {
-            DFDVertex newVertex = vertex.clone();
+            DFDVertex newVertex = vertex.copy(new IdentityHashMap<>());
             newVertex.getPinDFDVertexMap()
                     .put(inputPin, previousVertex);
             newVertex.getPinFlowMap()

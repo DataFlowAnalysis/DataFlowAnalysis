@@ -155,7 +155,7 @@ public class DFDCyclicTransposeFlowGraphFinder implements TransposeFlowGraphFind
         
         List<Pin> previousNodeInputPins = getAllPreviousNodeInputPins(previousNode, incomingFlow);
        
-        
+        //Das new DFDVertex & Flow Copy um Problem zu behandeln. --> von implements to extends core copy
         List<DFDVertex> previousNodeVertices = determineSinks(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()),
                 previousNodeInputPins, sourceNodes, new ArrayList<>(previousNodesInTransposeFlow));
         

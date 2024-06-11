@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.dataflowanalysis.converter.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.converter.DataFlowDiagramConverter;
+import org.dataflowanalysis.converter.testmodels.Activator;
 import org.dataflowanalysis.converter.webdfd.WebEditorDfd;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
@@ -29,7 +30,7 @@ public class WebEditorTest extends ConverterTest {
     private final String minimalWebDFD = Paths.get(packagePath, "minimal.json")
             .toString();
     private final String tempWebDFD = "test.json";
-    private final String TEST_MODELS = "org.dataflowanalysis.analysis.testmodels";
+    private final String TEST_MODELS = "org.dataflowanalysis.converter.testmodels";
     private final String TESTS = "org.dataflowanalysis.converter.tests";
 
     @BeforeEach
@@ -115,7 +116,7 @@ public class WebEditorTest extends ConverterTest {
         String datadictionary = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary")
                 .toString();
         DataFlowDiagramAndDictionary manualDFD = converter.loadDFD(TEST_MODELS, dataflowdiagram, datadictionary,
-                org.dataflowanalysis.analysis.testmodels.Activator.class);
+                Activator.class);
 
         DataFlowDiagramAndDictionary convertedDFD = converter.webToDfd(minimalWebDFD);
 

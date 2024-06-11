@@ -15,6 +15,7 @@ import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.converter.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.converter.DataFlowDiagramConverter;
 import org.dataflowanalysis.converter.PCMConverter;
+import org.dataflowanalysis.converter.testmodels.Activator;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
@@ -22,7 +23,6 @@ import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
-import org.dataflowanalysis.analysis.testmodels.Activator;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.ForwardingAssignment;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
@@ -37,7 +37,7 @@ public class PCMTest {
     @Test
     @DisplayName("Test Palladio to DFD")
     public void palladioToDfd() {
-        String modelLocation = "org.dataflowanalysis.analysis.testmodels";
+        String modelLocation = "org.dataflowanalysis.converter.testmodels";
 
         testSpecificModel("TravelPlanner", "travelPlanner", modelLocation, null, null);
     }
@@ -46,7 +46,7 @@ public class PCMTest {
     @Disabled("There is currently no manually converted pcm model")
     @DisplayName("Test manual Palladio to DFD")
     public void manualPCMToDfd() throws StandaloneInitializationException {
-        String modelLocation = "org.dataflowanalysis.analysis.testmodels";
+        String modelLocation = "org.dataflowanalysis.converter.testmodels";
 
         String inputModel = "InternationalOnlineShop";
         String inputFile = "default";

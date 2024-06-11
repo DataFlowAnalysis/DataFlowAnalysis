@@ -3,6 +3,7 @@ package org.dataflowanalysis.analysis.dsl.selectors;
 
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
+import org.dataflowanalysis.analysis.dsl.DSLContext;
 
 import java.util.List;
 
@@ -10,23 +11,26 @@ public class DataCharacteristicsSelector extends DataSelector {
     private final CharacteristicsSelectorData dataCharacteristic;
     private final boolean inverted;
 
-    public DataCharacteristicsSelector(CharacteristicsSelectorData dataCharacteristic) {
+    public DataCharacteristicsSelector(DSLContext context, CharacteristicsSelectorData dataCharacteristic) {
+        super(context);
         this.dataCharacteristic = dataCharacteristic;
         this.inverted = false;
     }
 
-    public DataCharacteristicsSelector(CharacteristicsSelectorData dataCharacteristic, boolean inverted) {
+    public DataCharacteristicsSelector(DSLContext context, CharacteristicsSelectorData dataCharacteristic, boolean inverted) {
+        super(context);
         this.dataCharacteristic = dataCharacteristic;
         this.inverted = inverted;
     }
 
+    // Intersection does not work with multiple characteristics (as they are checked as single entities)
     @Override
     public boolean matches(AbstractVertex<?> vertex) {
         List<CharacteristicValue> presentCharacteristics = vertex.getAllIncomingDataCharacteristics().stream()
                 .flatMap(it -> it.characteristics().stream())
                 .toList();
         return this.inverted ?
-                presentCharacteristics.stream().noneMatch(this.dataCharacteristic::matchesCharacteristic) :
-                presentCharacteristics.stream().anyMatch(this.dataCharacteristic::matchesCharacteristic);
+                presentCharacteristics.stream().noneMatch(it -> this.dataCharacteristic.matchesCharacteristic(context, vertex, it)) :
+                presentCharacteristics.stream().anyMatch(it -> this.dataCharacteristic.matchesCharacteristic(context, vertex, it));
     }
 }

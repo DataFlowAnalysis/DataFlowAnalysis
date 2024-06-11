@@ -1,6 +1,7 @@
 package org.dataflowanalysis.analysis.dsl.selectors;
 
 import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.dsl.DSLContext;
 
 public class VariableNameSelector extends DataSelector {
     private final String variableName;
@@ -9,7 +10,8 @@ public class VariableNameSelector extends DataSelector {
      * Constructs a new instance of a {@link VariableNameSelector} with the given variable name
      * @param variableName Variable name the {@link DataSelector} should match
      */
-    public VariableNameSelector(String variableName) {
+    public VariableNameSelector(DSLContext context, String variableName) {
+        super(context);
         this.variableName = variableName;
     }
 

@@ -1,5 +1,7 @@
 package org.dataflowanalysis.analysis.dsl.selectors;
 
+import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.dsl.DSLContext;
 import org.dataflowanalysis.analysis.dsl.Intersection;
 
 public class IntersectionConditionalSelector implements ConditionalSelector {
@@ -10,7 +12,7 @@ public class IntersectionConditionalSelector implements ConditionalSelector {
     }
 
     @Override
-    public boolean matchesSelector() {
-        return false;
+    public boolean matchesSelector(AbstractVertex<?> vertex, DSLContext context) {
+        return intersection.match(vertex, context).isEmpty();
     }
 }

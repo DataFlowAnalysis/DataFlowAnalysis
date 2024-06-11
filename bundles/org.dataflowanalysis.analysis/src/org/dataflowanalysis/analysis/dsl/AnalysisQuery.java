@@ -11,10 +11,12 @@ import java.util.List;
 public class AnalysisQuery {
     private final List<AbstractSelector> flowSource;
     private final List<ConditionalSelector> selectors;
+    private final DSLContext context;
 
     public AnalysisQuery() {
         this.flowSource = new ArrayList<>();
         this.selectors = new ArrayList<>();
+        this.context = new DSLContext();
     }
 
 
@@ -35,5 +37,9 @@ public class AnalysisQuery {
 
     public void addConditionalSelector(ConditionalSelector selector) {
         this.selectors.add(selector);
+    }
+
+    public DSLContext getContext() {
+        return context;
     }
 }

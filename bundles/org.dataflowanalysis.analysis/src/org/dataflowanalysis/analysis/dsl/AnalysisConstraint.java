@@ -13,11 +13,13 @@ public class AnalysisConstraint {
     private final List<AbstractSelector> flowSource;
     private final List<AbstractSelector> flowDestination;
     private final List<ConditionalSelector> selectors;
+    private final DSLContext context;
 
     public AnalysisConstraint() {
         this.flowSource = new ArrayList<>();
         this.flowDestination = new ArrayList<>();
         this.selectors = new ArrayList<>();
+        this.context = new DSLContext();
     }
 
     // TODO: Robust implementation of variables and evaluation; Return more user-friendly result
@@ -26,7 +28,10 @@ public class AnalysisConstraint {
         for (AbstractVertex<?> vertex : transposeFlowGraph.getVertices()) {
             if (Stream.concat(flowSource.parallelStream(), flowDestination.parallelStream())
                     .allMatch(it -> it.matches(vertex))) {
-                results.add(vertex);
+            	System.out.println("Matched vertex (without intersection): " + vertex);
+                if (selectors.stream().allMatch(it -> it.matchesSelector(vertex, context))) {
+                    results.add(vertex);
+                }
             }
         }
         return results;
@@ -42,5 +47,9 @@ public class AnalysisConstraint {
 
     public void addConditionalSelector(ConditionalSelector selector) {
         this.selectors.add(selector);
+    }
+
+    public DSLContext getContext() {
+        return context;
     }
 }

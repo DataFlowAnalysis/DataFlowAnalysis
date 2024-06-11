@@ -103,9 +103,9 @@ public class DFDCyclicTransposeFlowGraphFinder implements TransposeFlowGraphFind
         if (sourceNodes.contains(sink.getReferencedElement())) {
             return vertices;
         }
-        if(inputPins.isEmpty()) System.out.println("Source" + sink.getName());
+        
         for (Pin inputPin : inputPins) {
-            if(inputPins.isEmpty()) System.out.println("Source ???" + sink.getName());
+            
             List<Flow> incomingFlowsToPin = dataFlowDiagram.getFlows().stream()
                     .filter(flow -> flow.getDestinationPin().equals(inputPin))
                     .toList();
@@ -129,9 +129,8 @@ public class DFDCyclicTransposeFlowGraphFinder implements TransposeFlowGraphFind
         if (sourceNodes.contains(sink.getReferencedElement())) {
             return vertices;
         }
-        if(inputPins.isEmpty()) System.out.println("Source" + sink.getName());
+
         for (Pin inputPin : inputPins) {
-            if(inputPins.isEmpty()) System.out.println("Source" + sink.getName());
             List<Flow> incomingFlowsToPin = dataFlowDiagram.getFlows().stream()
                     .filter(flow -> flow.getDestinationPin().equals(inputPin))
                     .toList();
@@ -176,62 +175,6 @@ public class DFDCyclicTransposeFlowGraphFinder implements TransposeFlowGraphFind
                 .count();
         return count <= 2;
     }
-    
-    
- /*   private List<DFDVertex> determineSinks(DFDVertex sink, List<Flow> flows, List<Pin> inputPins) {
-        List<DFDVertex> vertices = new ArrayList<>();
-        vertices.add(sink);
-        
-        for (var inputPin : inputPins) {
-            List<DFDVertex> newVertices = new ArrayList<>();
-            var flow = getFlow( inputPin, flows);
-            Node previousNode = flow.getSourceNode();
-            List<Node> previousNodesInTransposeFlow = new ArrayList<>();
-            previousNodesInTransposeFlow.add(flow.getDestinationNode());
-            previousNodesInTransposeFlow.add(previousNode);
-            List<Pin> previousNodeInputPins = getAllPreviousNodeInputPins(previousNode, flow);
-            List<DFDVertex> previousNodeVertices = determineSinks(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()), flows,
-                    previousNodeInputPins,previousNodesInTransposeFlow);
-            
-            
-            newVertices.addAll(cloneVertexForMultipleFlowGraphs(sink, inputPin, flow, previousNodeVertices));
-            
-            
-            vertices.addAll(newVertices);
-        }
-        return vertices;
-    }
-    
-    private List<DFDVertex> determineSinks(DFDVertex sink, List<Flow> flows, List<Pin> inputPins, List<Node> previousNodesInTransposeFlow) {
-        List<DFDVertex> vertices = new ArrayList<>();
-        vertices.add(sink);
-        for (var inputPin : inputPins) {
-            List<DFDVertex> newVertices = new ArrayList<>();
-            var flow =  getFlow(inputPin, flows);
-            Node previousNode = flow.getSourceNode();
-            if(!LoopCheck(previousNodesInTransposeFlow, previousNode)) {
-                return vertices;
-            }
-            
-            var CopyPreviousNodesInTransposeFlow = new ArrayList<>(previousNodesInTransposeFlow);
-            CopyPreviousNodesInTransposeFlow.add(previousNode);
-            List<Pin> previousNodeInputPins = getAllPreviousNodeInputPins(previousNode, flow);
-            List<DFDVertex> previousNodeVertices = determineSinks(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()), flows,
-                    previousNodeInputPins, CopyPreviousNodesInTransposeFlow);
-            
-         
-            newVertices.addAll(cloneVertexForMultipleFlowGraphs(sink, inputPin, flow, previousNodeVertices));
-            
-            vertices.addAll(newVertices);;
-        }
-        return vertices;
-    }
-    
-   private Flow getFlow(Pin inputPin, List<Flow> flows) {
-       return flows.stream()
-               .filter(flow -> flow.getDestinationPin().equals(inputPin)).findFirst()
-               .orElse(null);
-   }*/
     
 
     /**

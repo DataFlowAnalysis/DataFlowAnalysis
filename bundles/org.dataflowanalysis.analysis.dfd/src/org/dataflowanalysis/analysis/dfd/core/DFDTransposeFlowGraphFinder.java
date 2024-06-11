@@ -104,11 +104,13 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
 
     public List<DFDVertex> handleIncomingFlow(Flow incomingFlow, Pin inputPin, List<DFDVertex> vertices, List<Node> sourceNodes) {
         List<DFDVertex> result = new ArrayList<>();
+        
+        Node previousNode = incomingFlow.getSourceNode();
+        List<Pin> previousNodeInputPins = getAllPreviousNodeInputPins(previousNode, incomingFlow);
+        List<DFDVertex> previousNodeVertices = determineSinks(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()),
+                previousNodeInputPins, sourceNodes);
+        
         for (DFDVertex vertex : vertices) {
-            Node previousNode = incomingFlow.getSourceNode();
-            List<Pin> previousNodeInputPins = getAllPreviousNodeInputPins(previousNode, incomingFlow);
-            List<DFDVertex> previousNodeVertices = determineSinks(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()),
-                    previousNodeInputPins, sourceNodes);
             result.addAll(cloneVertexForMultipleFlowGraphs(vertex, inputPin, incomingFlow, previousNodeVertices));
         }
         return result;

@@ -112,6 +112,7 @@ public class DFDCyclicTransposeFlowGraphFinder implements TransposeFlowGraphFind
             
             List<String> previousNodesInTransposeFlow = new ArrayList<>();
             previousNodesInTransposeFlow.add(incomingFlowsToPin.get(0).getDestinationNode().getEntityName());
+            previousNodesInTransposeFlow.add(incomingFlowsToPin.get(0).getSourceNode().getEntityName());
             
             List<DFDVertex> finalVertices = vertices;
             vertices = (incomingFlowsToPin.stream()
@@ -134,7 +135,11 @@ public class DFDCyclicTransposeFlowGraphFinder implements TransposeFlowGraphFind
             List<Flow> incomingFlowsToPin = dataFlowDiagram.getFlows().stream()
                     .filter(flow -> flow.getDestinationPin().equals(inputPin))
                     .toList();
-                        
+            
+            if(!LoopCheck(previousNodesInTransposeFlow, incomingFlowsToPin.get(0).getSourceNode().getEntityName())) continue;
+            
+            previousNodesInTransposeFlow.add(incomingFlowsToPin.get(0).getSourceNode().getEntityName());
+            
             List<DFDVertex> finalVertices = vertices;
             vertices = (incomingFlowsToPin.stream()
                             .flatMap(flow -> handleIncomingFlow(flow, inputPin, finalVertices, sourceNodes,previousNodesInTransposeFlow).stream())
@@ -148,20 +153,11 @@ public class DFDCyclicTransposeFlowGraphFinder implements TransposeFlowGraphFind
         
         Node previousNode = incomingFlow.getSourceNode();
         
-        if(!LoopCheck(previousNodesInTransposeFlow, previousNode.getEntityName())) {
-            result.addAll(cloneVertexForMultipleFlowGraphs(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()), inputPin, incomingFlow, new ArrayList<DFDVertex>()));
-            System.out.println("Loop" + previousNode);
-            return result;
-        }
-        
-        List<String> CopyPreviousNodesInTransposeFlow = new ArrayList<>(previousNodesInTransposeFlow);
-        CopyPreviousNodesInTransposeFlow.add(previousNode.getEntityName());
-        
         List<Pin> previousNodeInputPins = getAllPreviousNodeInputPins(previousNode, incomingFlow);
        
         
         List<DFDVertex> previousNodeVertices = determineSinks(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()),
-                previousNodeInputPins, sourceNodes, CopyPreviousNodesInTransposeFlow);
+                previousNodeInputPins, sourceNodes, new ArrayList<>(previousNodesInTransposeFlow));
         
         for (DFDVertex vertex : vertices) {
             result.addAll(cloneVertexForMultipleFlowGraphs(vertex, inputPin, incomingFlow, previousNodeVertices));

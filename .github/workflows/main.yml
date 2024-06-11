@@ -35,7 +35,7 @@ jobs:
         with:
           deploy_key: ${{ secrets.UPDATE_SITE_DEPLOY_KEY }}
           external_repository: DataFlowAnalysis/updatesite
-          destination_dir: nightly/dataflowanalysis/
+          destination_dir: nightly/converter/
           publish_dir: releng/org.dataflowanalysis.converter.updatesite/target/repository
           publish_branch: main
       - name: Publish Release Update Site
@@ -44,7 +44,7 @@ jobs:
         with:
           deploy_key: ${{ secrets.UPDATE_SITE_DEPLOY_KEY }}
           external_repository: DataFlowAnalysis/updatesite
-          destination_dir: release/dataflowanalysis/${{ github.event.release.tag_name }}
+          destination_dir: release/converter/${{ github.event.release.tag_name }}
           publish_dir: releng/org.dataflowanalysis.converter.updatesite/target/repository
           publish_branch: main
           

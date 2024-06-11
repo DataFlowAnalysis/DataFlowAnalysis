@@ -7,15 +7,15 @@ Export-Package:
  org.dataflowanalysis.converter,
  org.dataflowanalysis.converter.microsecend,
  org.dataflowanalysis.converter.webdfd
-Require-Bundle: org.dataflowanalysis.dfd.datadictionary;visibility:=reexport,
- org.dataflowanalysis.dfd.dataflowdiagram;visibility:=reexport,
- com.fasterxml.jackson.core.jackson-annotations;visibility:=reexport,
- com.fasterxml.jackson.core.jackson-core;visibility:=reexport,
- com.fasterxml.jackson.core.jackson-databind;visibility:=reexport,
+Require-Bundle: org.dataflowanalysis.dfd.datadictionary,
+ org.dataflowanalysis.dfd.dataflowdiagram,
+ com.fasterxml.jackson.core.jackson-annotations;bundle-version="2.13.2";visibility:=reexport,
+ com.fasterxml.jackson.core.jackson-core;bundle-version="2.13.2";visibility:=reexport,
+ com.fasterxml.jackson.core.jackson-databind;bundle-version="2.13.2";visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
  org.apache.log4j;visibility:=reexport,
- org.dataflowanalysis.analysis;visibility:=reexport,
- org.dataflowanalysis.analysis.pcm;visibility:=reexport,
- org.dataflowanalysis.analysis.dfd;visibility:=reexport
+ org.dataflowanalysis.analysis,
+ org.dataflowanalysis.analysis.pcm,
+ org.dataflowanalysis.analysis.dfd
 Automatic-Module-Name: org.dataflowanalysis.converter
 Bundle-RequiredExecutionEnvironment: JavaSE-17

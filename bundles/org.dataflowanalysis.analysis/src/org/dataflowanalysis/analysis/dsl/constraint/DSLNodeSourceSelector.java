@@ -1,11 +1,12 @@
 package org.dataflowanalysis.analysis.dsl.constraint;
 
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
-import org.dataflowanalysis.analysis.dsl.ConstraintVariable;
+import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariable;
 import org.dataflowanalysis.analysis.dsl.selectors.CharacteristicsSelectorData;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexType;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexTypeSelector;
+import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
 
 import java.util.List;
 
@@ -17,42 +18,42 @@ public class DSLNodeSourceSelector {
     }
 
     public DSLNodeSourceSelector withCharacteristic(String characteristicType, String characteristicValue) {
-        this.analysisConstraint.addFlowSource(new VertexCharacteristicsSelector(new CharacteristicsSelectorData(new ConstraintVariable("constant", List.of(characteristicType)), new ConstraintVariable("constant", List.of(characteristicValue)))));
+        this.analysisConstraint.addFlowSource(new VertexCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), ConstraintVariableReference.ofConstant(List.of(characteristicValue)))));
         return this;
     }
 
-    public DSLNodeSourceSelector withCharacteristic(String characteristicType, ConstraintVariable characteristicValueVariable) {
-        this.analysisConstraint.addFlowSource(new VertexCharacteristicsSelector(new CharacteristicsSelectorData(new ConstraintVariable("constant", List.of(characteristicType)), characteristicValueVariable)));
+    public DSLNodeSourceSelector withCharacteristic(String characteristicType, ConstraintVariableReference characteristicValueVariable) {
+        this.analysisConstraint.addFlowSource(new VertexCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), characteristicValueVariable)));
         return this;
     }
 
     public DSLNodeSourceSelector withCharacteristic(String characteristicType, List<String> characteristicValues) {
-        characteristicValues.forEach(characteristicValue -> this.analysisConstraint.addFlowSource(new VertexCharacteristicsSelector(new CharacteristicsSelectorData(new ConstraintVariable("constant", List.of(characteristicType)), new ConstraintVariable("constant", List.of(characteristicValue))))));
+        characteristicValues.forEach(characteristicValue -> this.analysisConstraint.addFlowSource(new VertexCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), ConstraintVariableReference.ofConstant( List.of(characteristicValue))))));
         return this;
     }
 
     public DSLNodeSourceSelector withoutCharacteristic(String characteristicType, String characteristicValue) {
-        this.analysisConstraint.addFlowSource(new VertexCharacteristicsSelector(new CharacteristicsSelectorData(new ConstraintVariable("constant", List.of(characteristicType)), new ConstraintVariable("constant", List.of(characteristicValue))), true));
+        this.analysisConstraint.addFlowSource(new VertexCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), ConstraintVariableReference.ofConstant(List.of(characteristicValue))), true));
         return this;
     }
 
-    public DSLNodeSourceSelector withoutCharacteristic(String characteristicType, ConstraintVariable characteristicValueVariable) {
-        this.analysisConstraint.addFlowSource(new VertexCharacteristicsSelector(new CharacteristicsSelectorData(new ConstraintVariable("constant", List.of(characteristicType)), characteristicValueVariable)));
+    public DSLNodeSourceSelector withoutCharacteristic(String characteristicType, ConstraintVariableReference characteristicValueVariable) {
+        this.analysisConstraint.addFlowSource(new VertexCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), characteristicValueVariable)));
         return this;
     }
 
     public DSLNodeSourceSelector withoutCharacteristic(String characteristicType, List<String> characteristicValues) {
-        characteristicValues.forEach(characteristicValue -> this.analysisConstraint.addFlowSource(new VertexCharacteristicsSelector(new CharacteristicsSelectorData(new ConstraintVariable("constant", List.of(characteristicType)), new ConstraintVariable("constant", List.of(characteristicValue))), true)));
+        characteristicValues.forEach(characteristicValue -> this.analysisConstraint.addFlowSource(new VertexCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), ConstraintVariableReference.ofConstant(List.of(characteristicValue))), true)));
         return this;
     }
 
     public DSLNodeSourceSelector withType(VertexType vertexType) {
-        this.analysisConstraint.addFlowSource(new VertexTypeSelector(vertexType));
+        this.analysisConstraint.addFlowSource(new VertexTypeSelector(analysisConstraint.getContext(), vertexType));
         return this;
     }
 
     public DSLNodeSourceSelector withoutType(VertexType vertexType) {
-        this.analysisConstraint.addFlowSource(new VertexTypeSelector(vertexType, true));
+        this.analysisConstraint.addFlowSource(new VertexTypeSelector(analysisConstraint.getContext(), vertexType, true));
         return this;
     }
 

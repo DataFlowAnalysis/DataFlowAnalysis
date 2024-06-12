@@ -23,14 +23,14 @@ public class DataCharacteristicsSelector extends DataSelector {
         this.inverted = inverted;
     }
 
-    // Intersection does not work with multiple characteristics (as they are checked as single entities)
+    // TODO: Intersection does not work with multiple characteristics (as they are checked as single entities)
     @Override
     public boolean matches(AbstractVertex<?> vertex) {
         List<CharacteristicValue> presentCharacteristics = vertex.getAllIncomingDataCharacteristics().stream()
                 .flatMap(it -> it.characteristics().stream())
                 .toList();
         return this.inverted ?
-                presentCharacteristics.stream().noneMatch(it -> this.dataCharacteristic.matchesCharacteristic(context, vertex, it)) :
-                presentCharacteristics.stream().anyMatch(it -> this.dataCharacteristic.matchesCharacteristic(context, vertex, it));
+                presentCharacteristics.stream().map(it -> this.dataCharacteristic.matchesCharacteristic(context, vertex, it)).noneMatch(it -> it) :
+                presentCharacteristics.stream().map(it -> this.dataCharacteristic.matchesCharacteristic(context, vertex, it)).anyMatch(it -> it);
     }
 }

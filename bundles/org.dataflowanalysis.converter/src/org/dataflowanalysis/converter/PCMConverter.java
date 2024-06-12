@@ -159,7 +159,7 @@ public class PCMConverter extends Converter {
     private DataFlowDiagramAndDictionary processPalladio(FlowGraphCollection flowGraphCollection) {
         for (AbstractTransposeFlowGraph transposeFlowGraph : flowGraphCollection.getTransposeFlowGraphs()) {
             Node previousNode = null;
-            for (AbstractVertex<?> abstractVertex : transposeFlowGraph.getVertices()) {
+            for (AbstractVertex<?> abstractVertex : transposeFlowGraph.getVertices()) {            	
                 if (abstractVertex instanceof AbstractPCMVertex) {
                     previousNode = processAbstractPCMVertex((AbstractPCMVertex<?>) abstractVertex, previousNode);
                 }
@@ -181,6 +181,7 @@ public class PCMConverter extends Converter {
             return;
         }
         List<DataCharacteristic> dataCharacteristics = pcmVertex.getAllDataCharacteristics();
+        if (dataCharacteristics.size() == 0) dataFlowDiagram.getFlows().add(createFlow(source, dest, ""));
         for (DataCharacteristic dataCharacteristic : dataCharacteristics) {
             String flowName = dataCharacteristic.variableName();
 

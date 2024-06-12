@@ -125,6 +125,7 @@ public class PCMTest {
         for (AbstractTransposeFlowGraph as : flowGraph.getTransposeFlowGraphs()) {
             for (AbstractVertex<?> ase : as.getVertices()) {
                 List<DataCharacteristic> variables = ase.getAllDataCharacteristics();
+                if (variables.isEmpty() && !ase.getPreviousElements().isEmpty()) flowNames.add("");
                 for (DataCharacteristic variable : variables) {
                     flowNames.add(variable.variableName());
                 }

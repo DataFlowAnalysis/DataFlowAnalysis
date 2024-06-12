@@ -48,6 +48,8 @@ public class DSLDemonstrationTest extends BaseTest {
                 .toVertex()
                 .withCharacteristic("AssignedRoles", ConstraintVariable.of("assignedRoles"))
                 .where()
+                .isNotEmpty(ConstraintVariable.of("grantedRoles"))
+                .isNotEmpty(ConstraintVariable.of("assignedRoles"))
                 .isEmpty(Intersection.of(ConstraintVariable.of("grantedRoles"), ConstraintVariable.of("assignedRoles")))
                 .create();
 

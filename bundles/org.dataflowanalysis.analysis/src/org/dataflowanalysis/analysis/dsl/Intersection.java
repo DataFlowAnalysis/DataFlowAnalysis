@@ -23,7 +23,7 @@ public class Intersection {
         var second = context.getMapping(vertex, secondVariable);
 
         if (!first.hasValues() || !second.hasValues()) {
-            return List.of("Empty");
+            return List.of();
         }
 
         return first.getPossibleValues().get().stream()

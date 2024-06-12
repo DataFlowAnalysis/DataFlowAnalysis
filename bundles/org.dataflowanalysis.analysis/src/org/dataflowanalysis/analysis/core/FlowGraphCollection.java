@@ -9,8 +9,24 @@ import org.dataflowanalysis.analysis.resource.ResourceProvider;
  * specific implementation of the flow graph
  */
 public abstract class FlowGraphCollection {
-    protected final ResourceProvider resourceProvider;
+    protected ResourceProvider resourceProvider;
     private List<? extends AbstractTransposeFlowGraph> transposeFlowGraphs;
+
+    /**
+     * Creates a new collection of flow graphs.
+     * {@link FlowGraphCollection#initialize(ResourceProvider)} should be called before this class is used
+     */
+    public FlowGraphCollection() {
+    }
+
+    /**
+     * Initializes the flow graph collection with the given resource provider
+     * @param resourceProvider Resource provider used to find transpose flow graphs
+     */
+    public void initialize(ResourceProvider resourceProvider) {
+        this.resourceProvider = resourceProvider;
+        this.transposeFlowGraphs = this.findTransposeFlowGraphs();
+    }
 
     /**
      * Creates a new collection of flow graphs with the given resource provider. Furthermore, the list of transpose flow

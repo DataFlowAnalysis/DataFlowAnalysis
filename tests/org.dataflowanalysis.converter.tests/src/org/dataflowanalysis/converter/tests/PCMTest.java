@@ -92,9 +92,6 @@ public class PCMTest {
         if (complete == null) {
             complete = new PCMConverter().pcmToDFD(modelLocation, usageModelPath, allocationPath, nodeCharPath, Activator.class);
         }
-        
-        final DataFlowDiagram test = complete.dataFlowDiagram();
-        
 
         if (webTarget != null) {
             var dfdConverter = new DataFlowDiagramConverter();

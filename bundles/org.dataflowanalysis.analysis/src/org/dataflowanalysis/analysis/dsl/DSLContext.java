@@ -27,7 +27,7 @@ public class DSLContext {
     }
 
     public ConstraintVariable getMapping(DSLContextKey key, ConstraintVariableReference reference) {
-        if (reference.name().equals("constant")) {
+        if (reference.name().equals(ConstraintVariable.CONSTANT_NAME)) {
             return new ConstraintVariable(reference.name(), new ArrayList<>(reference.values().get()));
         }
         if (!this.context.containsKey(key)) {

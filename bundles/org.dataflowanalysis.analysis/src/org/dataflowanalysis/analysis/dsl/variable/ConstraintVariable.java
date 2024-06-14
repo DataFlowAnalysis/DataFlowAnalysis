@@ -1,6 +1,7 @@
 package org.dataflowanalysis.analysis.dsl.variable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,5 +53,10 @@ public class ConstraintVariable {
 
     public Optional<List<String>> getPossibleValues() {
         return possibleValues;
+    }
+
+    @Override
+    public String toString() {
+        return this.name + " = {" + this.possibleValues.orElse(List.of("undefined")) + "}";
     }
 }

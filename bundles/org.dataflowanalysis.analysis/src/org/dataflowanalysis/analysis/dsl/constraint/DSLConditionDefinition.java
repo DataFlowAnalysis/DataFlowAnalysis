@@ -14,12 +14,12 @@ public class DSLConditionDefinition {
     }
 
     public DSLConditionDefinition isEmpty(ConstraintVariableReference constraintVariable) {
-        this.analysisConstraint.addConditionalSelector(new VariableConditionalSelector(constraintVariable));
+        this.analysisConstraint.addConditionalSelector(new VariableConditionalSelector(constraintVariable, true));
         return this;
     }
 
     public DSLConditionDefinition isNotEmpty(ConstraintVariableReference constraintVariable) {
-        this.analysisConstraint.addConditionalSelector(new VariableConditionalSelector(constraintVariable, true));
+        this.analysisConstraint.addConditionalSelector(new VariableConditionalSelector(constraintVariable, false));
         return this;
     }
 

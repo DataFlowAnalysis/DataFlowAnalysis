@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.Map;
 
 public class DSLContext {
-    private final Map<AbstractVertex<?>, List<ConstraintVariable>> context;
+    private final Map<DSLContextKey, List<ConstraintVariable>> context;
 
     public DSLContext() {
         this.context = new HashMap<>();
     }
 
-    public void addMapping(AbstractVertex<?> key, ConstraintVariable value) {
+    public void addMapping(DSLContextKey key, ConstraintVariable value) {
         if (this.context.containsKey(key)) {
             this.context.get(key).add(value);
         } else {
@@ -26,7 +26,7 @@ public class DSLContext {
         }
     }
 
-    public ConstraintVariable getMapping(AbstractVertex<?> key, ConstraintVariableReference reference) {
+    public ConstraintVariable getMapping(DSLContextKey key, ConstraintVariableReference reference) {
         if (reference.name().equals("constant")) {
             return new ConstraintVariable(reference.name(), new ArrayList<>(reference.values().get()));
         }
@@ -42,5 +42,13 @@ public class DSLContext {
                     this.addMapping(key, variable);
                     return variable;
                 });
+    }
+
+    public List<ConstraintVariable> getMappings(AbstractVertex<?> vertex) {
+        return this.context.entrySet().stream()
+                .filter(it -> it.getKey().vertex().equals(vertex))
+                .map(Map.Entry::getValue)
+                .flatMap(List::stream)
+                .toList();
     }
 }

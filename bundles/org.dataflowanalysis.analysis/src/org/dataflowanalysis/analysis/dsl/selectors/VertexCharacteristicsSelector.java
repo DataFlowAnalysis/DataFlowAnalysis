@@ -2,8 +2,10 @@ package org.dataflowanalysis.analysis.dsl.selectors;
 
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
+import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.dsl.DSLContext;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VertexCharacteristicsSelector extends DataSelector {
@@ -24,9 +26,25 @@ public class VertexCharacteristicsSelector extends DataSelector {
 
     @Override
     public boolean matches(AbstractVertex<?> vertex) {
-        List<CharacteristicValue> presentCharacteristics = vertex.getAllVertexCharacteristics();
-        return this.inverted ?
-                presentCharacteristics.stream().noneMatch(it -> this.vertexCharacteristics.matchesCharacteristic(context, vertex, it)) :
-                presentCharacteristics.stream().anyMatch(it -> this.vertexCharacteristics.matchesCharacteristic(context, vertex, it));
+        List<String> variableNames = vertex.getAllIncomingDataCharacteristics().stream()
+                .map(DataCharacteristic::variableName)
+                .toList();
+        if(variableNames.isEmpty()) {
+        	return false;
+        }
+        boolean result = true;
+        for (String variableName : variableNames) {
+            List<CharacteristicValue> presentCharacteristics = vertex.getAllVertexCharacteristics();
+            List<String> characteristicTypes = new ArrayList<>();
+            List<String> characteristicValues = new ArrayList<>();
+            List<Boolean> matches = presentCharacteristics.stream().map(it -> this.vertexCharacteristics.matchesCharacteristic(context, vertex, it, variableName, characteristicTypes, characteristicValues)).toList();
+            this.vertexCharacteristics.applyResults(context, vertex, variableName, characteristicTypes, characteristicValues);
+            if (result) {
+                result = this.inverted ?
+                        matches.stream().noneMatch(it -> it) :
+                        matches.stream().anyMatch(it -> it);
+            }
+        }
+        return result;
     }
 }

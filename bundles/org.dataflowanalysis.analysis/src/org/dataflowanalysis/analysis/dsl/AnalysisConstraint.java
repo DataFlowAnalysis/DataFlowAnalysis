@@ -3,11 +3,14 @@ package org.dataflowanalysis.analysis.dsl;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.core.FlowGraphCollection;
+import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
+import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
-import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -25,14 +28,31 @@ public class AnalysisConstraint {
         this.context = new DSLContext();
     }
 
-    public List<AbstractVertex<?>> matchPartialFlowGraph(AbstractTransposeFlowGraph transposeFlowGraph) {
-        List<AbstractVertex<?>> results = new ArrayList<>();
-        for (AbstractVertex<?> vertex : transposeFlowGraph.getVertices()) {
-            if (Stream.concat(flowSource.stream(), flowDestination.stream())
-                    .allMatch(it -> it.matches(vertex))) {
-                if (selectors.stream().allMatch(it -> it.matchesSelector(vertex, context))) {
-                    results.add(vertex);
+    public List<DSLResult> findViolations(FlowGraphCollection flowGraphCollection) {
+        List<DSLResult> results = new ArrayList<>();
+        for(AbstractTransposeFlowGraph transposeFlowGraph : flowGraphCollection.getTransposeFlowGraphs()) {
+            DSLConstraintTrace constraintTrace = new DSLConstraintTrace();
+            List<AbstractVertex<?>> violations = new ArrayList<>();
+            for (AbstractVertex<?> vertex : transposeFlowGraph.getVertices()) {
+                boolean matched = true;
+                for (AbstractSelector selector : Stream.concat(flowSource.stream(), flowDestination.stream()).toList()) {
+                    if (!selector.matches(vertex)) {
+                        matched = false;
+                        constraintTrace.addMissingSelector(vertex, selector);
+                    }
                 }
+                for (ConditionalSelector selector : selectors) {
+                    if (!selector.matchesSelector(vertex, context)) {
+                        matched = false;
+                        constraintTrace.addMissingConditionalSelector(vertex, selector);
+                    }
+                }
+                if (matched) {
+                    violations.add(vertex);
+                }
+            }
+            if (!violations.isEmpty()) {
+                results.add(new DSLResult(transposeFlowGraph, violations, constraintTrace));
             }
         }
         return results;

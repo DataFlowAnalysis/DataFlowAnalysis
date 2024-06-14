@@ -2,6 +2,9 @@ package org.dataflowanalysis.analysis.dsl;
 
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.core.FlowGraphCollection;
+import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
+import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
 
@@ -20,12 +23,19 @@ public class AnalysisQuery {
     }
 
 
-    public List<AbstractVertex<?>> matchPartialFlowGraph(AbstractTransposeFlowGraph transposeFlowGraph) {
-        List<AbstractVertex<?>> results = new ArrayList<>();
-        for (AbstractVertex<?> vertex : transposeFlowGraph.getVertices()) {
-            if (flowSource.parallelStream().allMatch(it -> it.matches(vertex))) {
-                results.add(vertex);
+    public List<DSLResult> query(FlowGraphCollection flowGraphCollection) {
+        List<DSLResult> results = new ArrayList<>();
+        for(AbstractTransposeFlowGraph transposeFlowGraph : flowGraphCollection.getTransposeFlowGraphs()) {
+            DSLConstraintTrace constraintTrace = new DSLConstraintTrace();
+            List<AbstractVertex<?>> violations = new ArrayList<>();
+            for (AbstractVertex<?> vertex : transposeFlowGraph.getVertices()) {
+                if (flowSource.stream().allMatch(it -> it.matches(vertex))) {
+                    if (selectors.stream().allMatch(it -> it.matchesSelector(vertex, context))) {
+                        violations.add(vertex);
+                    }
+                }
             }
+            results.add(new DSLResult(transposeFlowGraph, violations, constraintTrace));
         }
         return results;
     }

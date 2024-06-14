@@ -6,6 +6,7 @@ import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
+import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariable;
 import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
 import org.dataflowanalysis.analysis.dsl.Intersection;
@@ -68,11 +69,13 @@ public class DSLDemonstrationTest extends BaseTest {
     private void evaluateAnalysis(AnalysisConstraint constraint, DataFlowConfidentialityAnalysis analysis, List<ConstraintData> expectedResults) {
         FlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
-        List<AbstractVertex<?>> results = flowGraph.getTransposeFlowGraphs().stream()
-                .flatMap(tfg -> constraint.matchPartialFlowGraph(tfg).stream())
+        List<DSLResult> result = constraint.findViolations(flowGraph);
+        List<? extends AbstractVertex<?>> violations = result.stream()
+                .map(DSLResult::getViolatingVertices)
+                .flatMap(List::stream)
                 .toList();
         logger.setLevel(Level.TRACE);
-        results.forEach(vertex -> logger.trace(vertex.createPrintableNodeInformation()));
-        assertEquals(expectedResults.size(), results.size());
+        violations.forEach(vertex -> logger.trace(vertex.createPrintableNodeInformation()));
+        assertEquals(expectedResults.size(), violations.size());
     }
 }

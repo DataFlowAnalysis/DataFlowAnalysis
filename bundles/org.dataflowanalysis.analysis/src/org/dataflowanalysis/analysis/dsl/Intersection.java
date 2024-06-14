@@ -1,6 +1,7 @@
 package org.dataflowanalysis.analysis.dsl;
 
 import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
 
 import java.util.List;
@@ -18,9 +19,9 @@ public class Intersection {
         return new Intersection(firstVariable, secondVariable);
     }
 
-    public List<String> match(AbstractVertex<?> vertex, DSLContext context) {
-        var first = context.getMapping(vertex, firstVariable);
-        var second = context.getMapping(vertex, secondVariable);
+    public List<String> match(AbstractVertex<?> vertex, String variableName, DSLContext context) {
+        var first = context.getMapping(DSLContextKey.of(variableName, vertex), firstVariable);
+        var second = context.getMapping(DSLContextKey.of(variableName, vertex), secondVariable);
 
         if (!first.hasValues() || !second.hasValues()) {
             return List.of();

@@ -20,7 +20,6 @@ public class AnalysisQuery {
     }
 
 
-    // TODO: Robust implementation of variables and evaluation; Return more user-friendly result
     public List<AbstractVertex<?>> matchPartialFlowGraph(AbstractTransposeFlowGraph transposeFlowGraph) {
         List<AbstractVertex<?>> results = new ArrayList<>();
         for (AbstractVertex<?> vertex : transposeFlowGraph.getVertices()) {

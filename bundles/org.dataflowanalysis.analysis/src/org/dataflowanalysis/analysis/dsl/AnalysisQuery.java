@@ -29,13 +29,26 @@ public class AnalysisQuery {
             DSLConstraintTrace constraintTrace = new DSLConstraintTrace();
             List<AbstractVertex<?>> violations = new ArrayList<>();
             for (AbstractVertex<?> vertex : transposeFlowGraph.getVertices()) {
-                if (flowSource.stream().allMatch(it -> it.matches(vertex))) {
-                    if (selectors.stream().allMatch(it -> it.matchesSelector(vertex, context))) {
-                        violations.add(vertex);
+                boolean matched = true;
+                for (AbstractSelector selector : this.flowSource) {
+                    if (!selector.matches(vertex)) {
+                        matched = false;
+                        constraintTrace.addMissingSelector(vertex, selector);
                     }
                 }
+                for(ConditionalSelector selector : this.selectors) {
+                    if(!selector.matchesSelector(vertex, context)) {
+                        matched = false;
+                        constraintTrace.addMissingConditionalSelector(vertex, selector);
+                    }
+                }
+                if (matched) {
+                    violations.add(vertex);
+                }
             }
-            results.add(new DSLResult(transposeFlowGraph, violations, constraintTrace));
+            if (!violations.isEmpty()) {
+                results.add(new DSLResult(transposeFlowGraph, violations, constraintTrace));
+            }
         }
         return results;
     }

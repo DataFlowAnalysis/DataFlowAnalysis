@@ -1,0 +1,36 @@
+dictionary id "_ZSNvMLHIEe2fRLFFhL_FWA"
+
+enum Actor {
+	EndUser
+	Laboratory
+	HealthAuthority
+}
+
+enum Location {
+	MobilePhone
+	Laboratory
+	OpenTelekomCloud
+	ContentDeliveryNetwork
+	ProtectedArea
+	FederationGatewayService
+	SwissCloud
+	CovPassServer
+}
+
+enum Status {
+	Validated
+	Protected
+	Hashed
+	Encrypted
+	Sensitive
+}
+
+enum Statistics {
+	Detailed
+	General
+}
+
+enumCharacteristicType Actor using Actor
+enumCharacteristicType Location using Location
+enumCharacteristicType Status using Status
+enumCharacteristicType Statistics using Statistics

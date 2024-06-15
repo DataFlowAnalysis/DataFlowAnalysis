@@ -41,6 +41,7 @@ public class PCMTest {
 
         testSpecificModel("TravelPlanner", "travelPlanner", modelLocation, null, null);
         testSpecificModel("MaaS_Ticket_System_base", "MaaS", modelLocation, "maas.json", null);
+        testSpecificModel("CoronaWarnApp", "default", modelLocation, "cwa.json", null);
     }
 
     @Test

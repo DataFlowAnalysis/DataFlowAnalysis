@@ -40,6 +40,7 @@ public class PCMTest {
         String modelLocation = "org.dataflowanalysis.converter.testmodels";
 
         testSpecificModel("TravelPlanner", "travelPlanner", modelLocation, null, null);
+        testSpecificModel("MaaS_Ticket_System_base", "MaaS", modelLocation, "maas.json", null);
     }
 
     @Test
@@ -59,28 +60,6 @@ public class PCMTest {
 
     }
     
-    @Test
-    @DisplayName("Test MaaS Palladio to DFD")
-    public void maasSystemTest() throws StandaloneInitializationException {
-        String modelLocation = "org.dataflowanalysis.converter.testmodels";
-
-        String inputModel = "MaaS_Ticket_System_base";
-        
-        final var usageModelPath = Paths.get("models", inputModel, "MaaS" + ".usagemodel")
-                .toString();
-        final var allocationPath = Paths.get("models", inputModel, "MaaS" + ".allocation")
-                .toString();
-        final var nodeCharPath = Paths.get("models", inputModel, "MaaS" + ".nodecharacteristics")
-                .toString();
-
-        var dfdTuple = new PCMConverter().pcmToDFD(modelLocation, usageModelPath, allocationPath, nodeCharPath, Activator.class);
-        
-        var dfdConverter = new DataFlowDiagramConverter();
-        var web = dfdConverter.dfdToWeb(dfdTuple);
-        //dfdConverter.storeWeb(web, ""); <-- add path here :D
-
-    }
-
     private void testSpecificModel(String inputModel, String inputFile, String modelLocation, String webTarget,
             DataFlowDiagramAndDictionary complete) {
         final var usageModelPath = Paths.get("models", inputModel, inputFile + ".usagemodel")

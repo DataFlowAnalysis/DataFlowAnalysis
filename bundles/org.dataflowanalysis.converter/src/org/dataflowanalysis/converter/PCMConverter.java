@@ -46,8 +46,8 @@ import org.palladiosimulator.pcm.usagemodel.Stop;
 public class PCMConverter extends Converter {
 
     private final Map<Entity, Node> dfdNodeMap = new HashMap<>();
-    private final DataDictionary dataDictionary = datadictionaryFactory.eINSTANCE.createDataDictionary();
-    private final DataFlowDiagram dataFlowDiagram = dataflowdiagramFactory.eINSTANCE.createDataFlowDiagram();
+    private DataDictionary dataDictionary;
+    private DataFlowDiagram dataFlowDiagram;
 
     /**
      * Converts a PCM model into a DataFlowDiagramAndDictionary object.
@@ -157,6 +157,8 @@ public class PCMConverter extends Converter {
     }
 
     private DataFlowDiagramAndDictionary processPalladio(FlowGraphCollection flowGraphCollection) {
+        dataDictionary = datadictionaryFactory.eINSTANCE.createDataDictionary();
+        dataFlowDiagram = dataflowdiagramFactory.eINSTANCE.createDataFlowDiagram();
         for (AbstractTransposeFlowGraph transposeFlowGraph : flowGraphCollection.getTransposeFlowGraphs()) {
             Node previousNode = null;
             for (AbstractVertex<?> abstractVertex : transposeFlowGraph.getVertices()) {            	

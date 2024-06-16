@@ -32,7 +32,7 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder
  */
 public class DataFlowDiagramConverter extends Converter {
 
-    private final Map<Pin, String> inputPinToFlowNameMap = new HashMap<>();
+    private Map<Pin, String> inputPinToFlowNameMap;
     private final dataflowdiagramFactory dfdFactory;
     private final datadictionaryFactory ddFactory;
     private Map<String, Node> idToNodeMap;
@@ -44,8 +44,6 @@ public class DataFlowDiagramConverter extends Converter {
     public DataFlowDiagramConverter() {
         dfdFactory = dataflowdiagramFactory.eINSTANCE;
         ddFactory = datadictionaryFactory.eINSTANCE;
-
-        idToNodeMap = new HashMap<>();
     }
 
     /**
@@ -318,6 +316,7 @@ public class DataFlowDiagramConverter extends Converter {
     }
 
     private WebEditorDfd processDfd(DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary) {
+        inputPinToFlowNameMap = new HashMap<>();
         List<Child> children = new ArrayList<>();
         List<WebEditorLabelType> labelTypes = new ArrayList<>();
 

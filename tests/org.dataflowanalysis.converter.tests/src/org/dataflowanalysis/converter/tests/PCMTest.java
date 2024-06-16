@@ -127,15 +127,19 @@ public class PCMTest {
         for (AbstractTransposeFlowGraph as : flowGraph.getTransposeFlowGraphs()) {
             for (AbstractVertex<?> ase : as.getVertices()) {
                 List<DataCharacteristic> variables = ase.getAllDataCharacteristics();
-                if (variables.isEmpty() && !ase.getPreviousElements().isEmpty()) flowNames.add("");
-                for (DataCharacteristic variable : variables) {
-                    flowNames.add(variable.variableName());
-                }
+                if(!ase.getPreviousElements().isEmpty()) {
+                    if (variables.isEmpty()) flowNames.add("");
+                    for (DataCharacteristic variable : variables) {
+                        flowNames.add(variable.variableName());
+                    } 
+                }         
             }
         }
 
         assertEquals(flowNames.size(), dfd.getFlows()
                 .size());
+                
+        
 
         // When transforming PCM to DFD, we represent all outputs through forwarding assignments.
         // This approach omits certain behaviors and labels that are not essential for visual representation.

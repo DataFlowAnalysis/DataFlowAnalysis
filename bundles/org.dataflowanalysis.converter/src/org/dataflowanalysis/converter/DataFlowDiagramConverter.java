@@ -415,9 +415,12 @@ public class DataFlowDiagramConverter extends Converter {
         for (AbstractAssignment abstractAssignment : abstractAssignments) {
             if (abstractAssignment instanceof ForwardingAssignment) {
                 for (Pin inPin : abstractAssignment.getInputPins()) {
-                    builder.append("forward ")
-                            .append(inputPinToFlowNameMap.get(inPin))
-                            .append("\n");
+                	var pinName = inputPinToFlowNameMap.get(inPin);
+                	if(!pinName.equals("")) {
+                		builder.append("forward ")
+                        .append(inputPinToFlowNameMap.get(inPin))
+                        .append("\n");
+                	}       
                 }
             } else {
                 Assignment assignment = (Assignment) abstractAssignment;

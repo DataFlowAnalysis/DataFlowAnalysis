@@ -167,6 +167,7 @@ public class PCMConverter extends Converter {
                 }
             }
         }
+        createForwardingAssignments();
         return new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary);
     }
 
@@ -212,15 +213,23 @@ public class PCMConverter extends Converter {
         newFlow.setSourcePin(sourceOutPin);
         newFlow.setDestinationPin(destInPin);
 
-        ForwardingAssignment forwarding = datadictionaryFactory.eINSTANCE.createForwardingAssignment();
-        forwarding.setOutputPin(sourceOutPin);
-        source.getBehaviour()
-                .getAssignment()
-                .add(forwarding);
-
         this.dataFlowDiagram.getFlows()
                 .add(newFlow);
         return newFlow;
+    }
+    
+    private void createForwardingAssignments() {
+        for (Node node : dataFlowDiagram.getNodes()) {
+            var behaviour = node.getBehaviour();
+            for (Pin pin : behaviour.getOutPin()) {
+                var assignment = datadictionaryFactory.eINSTANCE.createForwardingAssignment();
+                assignment.setOutputPin(pin);
+                assignment.getInputPins()
+                        .addAll(behaviour.getInPin());
+                behaviour.getAssignment()
+                        .add(assignment);
+            }
+        }
     }
 
     // A pin is equivalent if the same parameters are passed

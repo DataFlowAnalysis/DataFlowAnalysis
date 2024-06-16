@@ -9,6 +9,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
@@ -123,16 +125,18 @@ public class PCMTest {
             assertEquals(node.getEntityName(), assIdToName.get(node.getId()));
         }
 
-        List<String> flowNames = new ArrayList<>();
+        Set<String> flowNames = new HashSet<>();
         for (AbstractTransposeFlowGraph as : flowGraph.getTransposeFlowGraphs()) {
+            AbstractVertex<?> previousAse = null;
             for (AbstractVertex<?> ase : as.getVertices()) {
-                List<DataCharacteristic> variables = ase.getAllDataCharacteristics();
                 if(!ase.getPreviousElements().isEmpty()) {
-                    if (variables.isEmpty()) flowNames.add("");
+                    List<DataCharacteristic> variables = ase.getAllDataCharacteristics();
+                    if (variables.isEmpty()) flowNames.add(previousAse.hashCode()+ase.hashCode()+"");
                     for (DataCharacteristic variable : variables) {
-                        flowNames.add(variable.variableName());
+                        flowNames.add(previousAse.hashCode()+ase.hashCode()+variable.variableName());
                     } 
-                }         
+                }
+                previousAse=ase;
             }
         }
 

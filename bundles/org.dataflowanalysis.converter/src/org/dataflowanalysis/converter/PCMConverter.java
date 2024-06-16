@@ -160,8 +160,8 @@ public class PCMConverter extends Converter {
         for (AbstractTransposeFlowGraph transposeFlowGraph : flowGraphCollection.getTransposeFlowGraphs()) {
             Node previousNode = null;
             for (AbstractVertex<?> abstractVertex : transposeFlowGraph.getVertices()) {            	
-                if (abstractVertex instanceof AbstractPCMVertex) {
-                    previousNode = processAbstractPCMVertex((AbstractPCMVertex<?>) abstractVertex, previousNode);
+                if (abstractVertex instanceof AbstractPCMVertex<?> abstractPCMVertex) {
+                    previousNode = processAbstractPCMVertex(abstractPCMVertex, previousNode);
                 }
             }
         }
@@ -181,21 +181,23 @@ public class PCMConverter extends Converter {
             return;
         }
         List<DataCharacteristic> dataCharacteristics = pcmVertex.getAllDataCharacteristics();
-        if (dataCharacteristics.size() == 0) dataFlowDiagram.getFlows().add(createFlow(source, dest, ""));
+        if (dataCharacteristics.size() == 0) findOrCreateFlow(source, dest, "");
         for (DataCharacteristic dataCharacteristic : dataCharacteristics) {
-            String flowName = dataCharacteristic.variableName();
+            findOrCreateFlow(source, dest, dataCharacteristic.variableName());
+        }   
+    }
 
-            dataFlowDiagram.getFlows()
-                    .stream()
-                    .filter(f -> f.getSourceNode()
-                            .equals(source))
-                    .filter(f -> f.getDestinationNode()
-                            .equals(dest))
-                    .filter(f -> f.getEntityName()
-                            .equals(flowName))
-                    .findFirst()
-                    .orElseGet(() -> createFlow(source, dest, flowName));
-        }
+    private void findOrCreateFlow(Node source, Node dest, String flowName) {
+        dataFlowDiagram.getFlows()
+                .stream()
+                .filter(f -> f.getSourceNode()
+                        .equals(source))
+                .filter(f -> f.getDestinationNode()
+                        .equals(dest))
+                .filter(f -> f.getEntityName()
+                        .equals(flowName))
+                .findFirst()
+                .orElseGet(() -> createFlow(source, dest, flowName));
     }
 
     private Flow createFlow(Node source, Node dest, String flowName) {

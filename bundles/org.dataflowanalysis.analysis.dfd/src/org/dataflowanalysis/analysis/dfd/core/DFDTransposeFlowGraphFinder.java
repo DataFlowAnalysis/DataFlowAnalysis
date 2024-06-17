@@ -17,7 +17,7 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
  */
 public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
     private final DataDictionary dataDictionary;
-    private final DataFlowDiagram dataFlowDiagram;
+    protected final DataFlowDiagram dataFlowDiagram;
 
 
     public DFDTransposeFlowGraphFinder(DFDResourceProvider resourceProvider) {
@@ -123,7 +123,7 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
      * @param flow Flow from previous into present node
      * @return List of all required pins
      */
-    private List<Pin> getAllPreviousNodeInputPins(Node previousNode, Flow flow) {
+    protected List<Pin> getAllPreviousNodeInputPins(Node previousNode, Flow flow) {
         List<Pin> previousNodeInputPins = new ArrayList<>();
         for (var assignment : previousNode.getBehaviour()
                 .getAssignment()) {
@@ -143,7 +143,7 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
      * @param previousNodeVertices List of previous vertices
      * @return Returns a list of cloned vertices required for usage in multiple flow graphs
      */
-    private List<DFDVertex> cloneVertexForMultipleFlowGraphs(DFDVertex vertex, Pin inputPin, Flow flow, List<DFDVertex> previousNodeVertices) {
+    protected List<DFDVertex> cloneVertexForMultipleFlowGraphs(DFDVertex vertex, Pin inputPin, Flow flow, List<DFDVertex> previousNodeVertices) {
         List<DFDVertex> newVertices = new ArrayList<>();
         for (var previousVertex : previousNodeVertices) {
             DFDVertex newVertex = vertex.copy(new IdentityHashMap<>());
@@ -161,7 +161,7 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
      * @param nodes A list of all nodes of which the sinks should be determined
      * @return List of sink nodes reachable by the given list of nodes
      */
-    private List<Node> getEndNodes(List<Node> nodes) {
+    protected List<Node> getEndNodes(List<Node> nodes) {
         List<Node> endNodes = new ArrayList<>(nodes);
         for (Node node : nodes) {
             if (node.getBehaviour()

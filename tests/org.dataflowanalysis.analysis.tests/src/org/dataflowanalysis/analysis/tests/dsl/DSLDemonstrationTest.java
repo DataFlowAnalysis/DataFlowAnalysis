@@ -6,6 +6,8 @@ import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
+import org.dataflowanalysis.analysis.dsl.AnalysisQuery;
+import org.dataflowanalysis.analysis.dsl.query.QueryDSL;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariable;
 import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
@@ -14,12 +16,15 @@ import org.dataflowanalysis.analysis.dsl.selectors.CharacteristicsSelectorData;
 import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsSelector;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
+import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
+import org.dataflowanalysis.analysis.pcm.dsl.PCMVertexType;
 import org.dataflowanalysis.analysis.tests.BaseTest;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintData;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintViolations;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -55,6 +60,24 @@ public class DSLDemonstrationTest extends BaseTest {
                 .create();
 
         evaluateAnalysis(constraint, travelPlannerAnalysis, ConstraintViolations.travelPlannerViolations);
+    }
+
+    @Test
+    public void testQueryDSL() {
+        AnalysisQuery query = new QueryDSL()
+                .ofNode()
+                .withType(PCMVertexType.USER)
+                .build();
+        FlowGraphCollection flowGraphCollection = this.travelPlannerAnalysis.findFlowGraphs();
+        List<DSLResult> results = query.query(flowGraphCollection);
+        List<? extends AbstractVertex<?>> queriedVertices = results.stream()
+                .map(DSLResult::getViolatingVertices)
+                .flatMap(List::stream)
+                .toList();
+        assertEquals(14, queriedVertices.size(), "Flight planner contains 14 usage vertices");
+        assertTrue(queriedVertices.get(0) instanceof UserPCMVertex<?>);
+        var userPCMVertex = (UserPCMVertex<?>) queriedVertices.get(0);
+		assertEquals("User", userPCMVertex.getReferencedElement().getScenarioBehaviour_AbstractUserAction().getUsageScenario_SenarioBehaviour().getEntityName());
     }
 
     @Test

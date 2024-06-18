@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<usagemodel:UsageModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DataDictionaryCharacterized="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/1.0" xmlns:confidentiality="http://dataflowanalysis.org/pcm/extension/model/0.1.0" xmlns:expression="http://dataflowanalysis.org/pcm/extension/model/0.1.0/expression" xmlns:expressions="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/expressions/1.0" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" xmlns:usagemodel="http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.2">
+  <usageScenario_UsageModel id="_tyGHQLOKEe2o46d27a6tVQ" entityName="HotlineRetrieveTeleTAN">
+    <scenarioBehaviour_UsageScenario id="_ztknMLOKEe2o46d27a6tVQ" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_ztknMbOKEe2o46d27a6tVQ" successor="_CarY8LRIEe25KMRnMCaMfw"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_ztknMrOKEe2o46d27a6tVQ" predecessor="_CarY8LRIEe25KMRnMCaMfw"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_CarY8LRIEe25KMRnMCaMfw" entityName="RequestTeleTAN" successor="_ztknMrOKEe2o46d27a6tVQ" predecessor="_ztknMbOKEe2o46d27a6tVQ">
+        <providedRole_EntryLevelSystemCall href="default.system#_MBK1ILNjEe2o46d27a6tVQ"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_uE1QILNVEe2o46d27a6tVQ"/>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_hUBr0bRIEe25KMRnMCaMfw"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_hUBr0rRIEe25KMRnMCaMfw">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="teleTAN"/>
+        </outputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_oJ2UALRIEe25KMRnMCaMfw" entityName="LabRetrievesStatistics">
+    <scenarioBehaviour_UsageScenario id="_tfJkwLRIEe25KMRnMCaMfw" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_tfKL0LRIEe25KMRnMCaMfw" successor="_u0tCcLRIEe25KMRnMCaMfw"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_tfKL0bRIEe25KMRnMCaMfw" predecessor="_u0tCcLRIEe25KMRnMCaMfw"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_u0tCcLRIEe25KMRnMCaMfw" entityName="RequestLabStatistics" successor="_tfKL0bRIEe25KMRnMCaMfw" predecessor="_tfKL0LRIEe25KMRnMCaMfw">
+        <providedRole_EntryLevelSystemCall href="default.system#_Jz-k0LNjEe2o46d27a6tVQ"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_6p1W4LNXEe2o46d27a6tVQ"/>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_5igpD7RIEe25KMRnMCaMfw"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_5igpELRIEe25KMRnMCaMfw">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="displayStatistics"/>
+        </outputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_FsTsULRJEe25KMRnMCaMfw" entityName="LabEntersTestResults">
+    <scenarioBehaviour_UsageScenario id="_KiLPELRJEe25KMRnMCaMfw" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_KiL2ILRJEe25KMRnMCaMfw" successor="_Ldj5QLRJEe25KMRnMCaMfw"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_KiL2IbRJEe25KMRnMCaMfw" predecessor="_Ldj5QLRJEe25KMRnMCaMfw"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_Ldj5QLRJEe25KMRnMCaMfw" entityName="EnterTestResults" successor="_KiL2IbRJEe25KMRnMCaMfw" predecessor="_KiL2ILRJEe25KMRnMCaMfw">
+        <providedRole_EntryLevelSystemCall href="default.system#_aJ2AALNjEe2o46d27a6tVQ"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_VGcf8LNVEe2o46d27a6tVQ"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_uSepsLRJEe25KMRnMCaMfw">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="cwa.pddc#_ZSNvMLHIEe2fRLFFhL_FWA-characteristicTypes@2"/>
+              <literal href="cwa.pddc#_ZSNvMLHIEe2fRLFFhL_FWA-characteristicEnumerations@2.literals@4"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_uSepsbRJEe25KMRnMCaMfw"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="testResult"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_5zBIwLZ6Ee2xLZp9hElpuA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="cwa.pddc#_ZSNvMLHIEe2fRLFFhL_FWA-characteristicTypes@2"/>
+              <literal href="cwa.pddc#_ZSNvMLHIEe2fRLFFhL_FWA-characteristicEnumerations@2.literals@4"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_5zBIwbZ6Ee2xLZp9hElpuA"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="guid"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_tCK-YLZ4Ee2xLZp9hElpuA" entityName="UserAllowsDataCollection">
+    <scenarioBehaviour_UsageScenario id="_y9kl0LZ4Ee2xLZp9hElpuA" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_y9kl0bZ4Ee2xLZp9hElpuA" successor="_3gL1YLZ4Ee2xLZp9hElpuA"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_y9kl0rZ4Ee2xLZp9hElpuA" predecessor="_3gL1YLZ4Ee2xLZp9hElpuA"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_3gL1YLZ4Ee2xLZp9hElpuA" entityName="AllowSharingOfPrivacyPreservingAnalytics" successor="_y9kl0rZ4Ee2xLZp9hElpuA" predecessor="_y9kl0bZ4Ee2xLZp9hElpuA">
+        <providedRole_EntryLevelSystemCall href="default.system#_HRCG8LNjEe2o46d27a6tVQ"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_eLmLALKvEe2Y1pKtbIeM6Q"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_j6OF8LZ5Ee2xLZp9hElpuA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="cwa.pddc#_ZSNvMLHIEe2fRLFFhL_FWA-characteristicTypes@2"/>
+              <literal href="cwa.pddc#_ZSNvMLHIEe2fRLFFhL_FWA-characteristicEnumerations@2.literals@4"/>
+            </lhs>
+            <rhs xsi:type="expressions:False" id="_j6OF8bZ5Ee2xLZp9hElpuA"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="analyticData"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_KL5GkLZ5Ee2xLZp9hElpuA" entityName="UserUpdatesJournal">
+    <scenarioBehaviour_UsageScenario id="_STijILZ5Ee2xLZp9hElpuA" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_STijIbZ5Ee2xLZp9hElpuA" successor="_UbqtQLZ5Ee2xLZp9hElpuA"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_STijIrZ5Ee2xLZp9hElpuA" predecessor="_UbqtQLZ5Ee2xLZp9hElpuA"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_UbqtQLZ5Ee2xLZp9hElpuA" entityName="EnterNewJournalEntry" successor="_STijIrZ5Ee2xLZp9hElpuA" predecessor="_STijIbZ5Ee2xLZp9hElpuA">
+        <providedRole_EntryLevelSystemCall href="default.system#_HRCG8LNjEe2o46d27a6tVQ"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_gPc5ILKvEe2Y1pKtbIeM6Q"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_3tk7srZ5Ee2xLZp9hElpuA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="cwa.pddc#_ZSNvMLHIEe2fRLFFhL_FWA-characteristicTypes@2"/>
+              <literal href="cwa.pddc#_ZSNvMLHIEe2fRLFFhL_FWA-characteristicEnumerations@2.literals@4"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_3tk7s7Z5Ee2xLZp9hElpuA"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="journalEntry"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_L3WtYLZ6Ee2xLZp9hElpuA" entityName="UserScansVaccinationCertificate">
+    <scenarioBehaviour_UsageScenario id="_mLBOcLZ6Ee2xLZp9hElpuA" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_mLBOcbZ6Ee2xLZp9hElpuA" successor="_oJMyYLZ6Ee2xLZp9hElpuA"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_mLBOcrZ6Ee2xLZp9hElpuA" predecessor="_oJMyYLZ6Ee2xLZp9hElpuA"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_oJMyYLZ6Ee2xLZp9hElpuA" entityName="ScanCertificate" successor="_mLBOcrZ6Ee2xLZp9hElpuA" predecessor="_mLBOcbZ6Ee2xLZp9hElpuA">
+        <providedRole_EntryLevelSystemCall href="default.system#_HRCG8LNjEe2o46d27a6tVQ"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_ltcL0LKvEe2Y1pKtbIeM6Q"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="__p6DoLZ6Ee2xLZp9hElpuA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="cwa.pddc#_ZSNvMLHIEe2fRLFFhL_FWA-characteristicTypes@2"/>
+              <literal href="cwa.pddc#_ZSNvMLHIEe2fRLFFhL_FWA-characteristicEnumerations@2.literals@4"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="__p6DobZ6Ee2xLZp9hElpuA"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="certificateData"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_TcJfELZ7Ee2xLZp9hElpuA" entityName="UserUpdatesStatusAndStatistics">
+    <scenarioBehaviour_UsageScenario id="_Zqf3sLZ7Ee2xLZp9hElpuA" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_Zqf3sbZ7Ee2xLZp9hElpuA" successor="_b_q_ULZ7Ee2xLZp9hElpuA"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_Zqf3srZ7Ee2xLZp9hElpuA" predecessor="_jd7goLZ7Ee2xLZp9hElpuA"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_b_q_ULZ7Ee2xLZp9hElpuA" entityName="UpdateStatistics" successor="_jd7goLZ7Ee2xLZp9hElpuA" predecessor="_Zqf3sbZ7Ee2xLZp9hElpuA">
+        <providedRole_EntryLevelSystemCall href="default.system#_HRCG8LNjEe2o46d27a6tVQ"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_pv_l0LKwEe2Y1pKtbIeM6Q"/>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_sDVQULZ7Ee2xLZp9hElpuA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_sDVQUbZ7Ee2xLZp9hElpuA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="shownStatistics"/>
+        </outputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_jd7goLZ7Ee2xLZp9hElpuA" entityName="UpdateStatus" successor="_Zqf3srZ7Ee2xLZp9hElpuA" predecessor="_b_q_ULZ7Ee2xLZp9hElpuA">
+        <providedRole_EntryLevelSystemCall href="default.system#_HRCG8LNjEe2o46d27a6tVQ"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_Z993gLKwEe2Y1pKtbIeM6Q"/>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_wjuSMLZ7Ee2xLZp9hElpuA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_wjuSMbZ7Ee2xLZp9hElpuA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="status"/>
+        </outputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_mA1FwLZ8Ee2xLZp9hElpuA" entityName="UserUploadsKeysWithTeleTAN">
+    <scenarioBehaviour_UsageScenario id="_wRKGELZ8Ee2xLZp9hElpuA" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_wRKGEbZ8Ee2xLZp9hElpuA" successor="_x9uVkLZ8Ee2xLZp9hElpuA"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_wRKGErZ8Ee2xLZp9hElpuA" predecessor="_x9uVkLZ8Ee2xLZp9hElpuA"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_x9uVkLZ8Ee2xLZp9hElpuA" entityName="EnterTeleTANandUploadKeys" successor="_wRKGErZ8Ee2xLZp9hElpuA" predecessor="_wRKGEbZ8Ee2xLZp9hElpuA">
+        <providedRole_EntryLevelSystemCall href="default.system#_HRCG8LNjEe2o46d27a6tVQ"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_0P3TcLKvEe2Y1pKtbIeM6Q"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_Tc2-0LZ9Ee2xLZp9hElpuA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="cwa.pddc#_ZSNvMLHIEe2fRLFFhL_FWA-characteristicTypes@2"/>
+              <literal href="cwa.pddc#_ZSNvMLHIEe2fRLFFhL_FWA-characteristicEnumerations@2.literals@4"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_Tc2-0bZ9Ee2xLZp9hElpuA"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="teleTAN"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_K0XpkLZ-Ee2xLZp9hElpuA" entityName="UserScansTestQRCode">
+    <scenarioBehaviour_UsageScenario id="_gmqRMLZ-Ee2xLZp9hElpuA" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_gmqRMbZ-Ee2xLZp9hElpuA" successor="_idM8ELZ-Ee2xLZp9hElpuA"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_gmqRMrZ-Ee2xLZp9hElpuA" predecessor="_Gc42gLZ_Ee2xLZp9hElpuA"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_idM8ELZ-Ee2xLZp9hElpuA" entityName="ScanQRCode" successor="_Gc42gLZ_Ee2xLZp9hElpuA" predecessor="_gmqRMbZ-Ee2xLZp9hElpuA">
+        <providedRole_EntryLevelSystemCall href="default.system#_HRCG8LNjEe2o46d27a6tVQ"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_qj16ELKvEe2Y1pKtbIeM6Q"/>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_BCH29bZ_Ee2xLZp9hElpuA"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_BCH29rZ_Ee2xLZp9hElpuA">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="shownResult"/>
+        </outputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_30LgsLZ-Ee2xLZp9hElpuA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="cwa.pddc#_ZSNvMLHIEe2fRLFFhL_FWA-characteristicTypes@2"/>
+              <literal href="cwa.pddc#_ZSNvMLHIEe2fRLFFhL_FWA-characteristicEnumerations@2.literals@4"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_30LgsbZ-Ee2xLZp9hElpuA"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="guid"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Branch" id="_Gc42gLZ_Ee2xLZp9hElpuA" entityName="UserUploadDecision" successor="_gmqRMrZ-Ee2xLZp9hElpuA" predecessor="_idM8ELZ-Ee2xLZp9hElpuA">
+        <branchTransitions_Branch branchProbability="0.7">
+          <branchedBehaviour_BranchTransition id="_LKRysLZ_Ee2xLZp9hElpuA">
+            <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_LKSZwLZ_Ee2xLZp9hElpuA" successor="_gmXg0LZ_Ee2xLZp9hElpuA"/>
+            <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_LKSZwbZ_Ee2xLZp9hElpuA" predecessor="_gmXg0LZ_Ee2xLZp9hElpuA"/>
+            <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_gmXg0LZ_Ee2xLZp9hElpuA" entityName="UploadKeys" successor="_LKSZwbZ_Ee2xLZp9hElpuA" predecessor="_LKSZwLZ_Ee2xLZp9hElpuA">
+              <providedRole_EntryLevelSystemCall href="default.system#_HRCG8LNjEe2o46d27a6tVQ"/>
+              <operationSignature__EntryLevelSystemCall href="default.repository#_lQqXoLZ9Ee2xLZp9hElpuA"/>
+              <inputParameterUsages_EntryLevelSystemCall>
+                <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+                  <specification_VariableCharacterisation specification="false"/>
+                  <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_nVUsILZ_Ee2xLZp9hElpuA">
+                    <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="cwa.pddc#_ZSNvMLHIEe2fRLFFhL_FWA-characteristicTypes@2"/>
+                    <literal href="cwa.pddc#_ZSNvMLHIEe2fRLFFhL_FWA-characteristicEnumerations@2.literals@4"/>
+                  </lhs>
+                  <rhs xsi:type="expressions:True" id="_nVUsIbZ_Ee2xLZp9hElpuA"/>
+                </variableCharacterisation_VariableUsage>
+                <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="guid"/>
+              </inputParameterUsages_EntryLevelSystemCall>
+            </actions_ScenarioBehaviour>
+          </branchedBehaviour_BranchTransition>
+        </branchTransitions_Branch>
+        <branchTransitions_Branch branchProbability="0.3">
+          <branchedBehaviour_BranchTransition id="_RNZLsLZ_Ee2xLZp9hElpuA">
+            <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_RNZLsbZ_Ee2xLZp9hElpuA" successor="_RNZLsrZ_Ee2xLZp9hElpuA"/>
+            <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_RNZLsrZ_Ee2xLZp9hElpuA" predecessor="_RNZLsbZ_Ee2xLZp9hElpuA"/>
+          </branchedBehaviour_BranchTransition>
+        </branchTransitions_Branch>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+</usagemodel:UsageModel>

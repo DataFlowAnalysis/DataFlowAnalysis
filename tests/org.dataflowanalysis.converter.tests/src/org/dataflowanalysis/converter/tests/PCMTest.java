@@ -37,12 +37,26 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializationExce
 
 public class PCMTest {
     @Test
-    @DisplayName("Test Palladio to DFD")
-    public void palladioToDfd() {
-        String modelLocation = "org.dataflowanalysis.converter.testmodels";
+    @DisplayName("Test PCM2DFD TravelPlanner")
+    public void travelToDfd() {
+        String modelLocation = "org.dataflowanalysis.examplemodels";
 
         testSpecificModel("TravelPlanner", "travelPlanner", modelLocation, null, null);
+    }
+	
+	@Test
+    @DisplayName("Test PCM2DFD MaaS")
+    public void maasToDfd() {
+        String modelLocation = "org.dataflowanalysis.examplemodels";
+
         testSpecificModel("MaaS_Ticket_System_base", "MaaS", modelLocation, "maas.json", null);
+    }
+	
+	@Test
+    @DisplayName("Test PCM2DFD CWA")
+    public void cwaToDfd() {
+        String modelLocation = "org.dataflowanalysis.examplemodels";
+
         testSpecificModel("CoronaWarnApp", "default", modelLocation, "cwa.json", null);
     }
 

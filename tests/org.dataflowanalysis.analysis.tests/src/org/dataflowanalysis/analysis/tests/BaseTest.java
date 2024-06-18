@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
-import org.dataflowanalysis.analysis.testmodels.Activator;
+import org.dataflowanalysis.examplemodels.Activator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;

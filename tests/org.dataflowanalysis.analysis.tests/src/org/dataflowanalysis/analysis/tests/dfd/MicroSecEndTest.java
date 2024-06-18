@@ -26,7 +26,7 @@ public class MicroSecEndTest {
     private DFDFlowGraphCollection flowGraph;
     private DFDConfidentialityAnalysis analysis;
     private Map<Integer, Map<Integer, List<AbstractVertex<?>>>> violationsMap;
-    private String location = "anilallewar";
+    private String location = "test";
 
     public DFDConfidentialityAnalysis buildAnalysis(String name) {
         var DataFlowDiagramPath = Paths.get(name + ".dataflowdiagram");
@@ -50,12 +50,20 @@ public class MicroSecEndTest {
 
     public void runAnalysis(int variant) {
         for (var aTFG : flowGraph.getTransposeFlowGraphs()) {
+            
             //rule 18 needs to check if Secret_manager is the sink --> needs to be done outside of query
             if (!aTFG.getSink().toString().contains("secret_manager")) {
                 for (var node : aTFG.getVertices()) {
                     addToMap(violationsMap, variant, 18, node);
                 }
             }
+            //add explanations redo needed
+            /*if (!aTFG.getSink().toString().contains("logging_server")) {
+                for (var node : aTFG.getVertices()) {
+                    addToMap(violationsMap, variant, 9, node);
+                    addToMap(violationsMap, variant, 12, node);
+                }
+            }*/
             
             analysis.queryDataFlow(aTFG, node -> {
                 var violation = false;
@@ -71,14 +79,14 @@ public class MicroSecEndTest {
                 if (hasNodeCharacteristic(node, "Stereotype", "internal") 
                         && !hasDataCharacteristic(node, "Stereotype", "authenticated_request")) {
                     addToMap(violationsMap, variant, 2, node);
+                    addToMap(violationsMap, variant, 3, node);
                     violation = true;
                 }
 
-                if ((hasNodeCharacteristic(node, "Stereotype", "authorization_server")
-                        && hasNodeCharacteristic(node, "Stereotype", "authenticated_request"))
-                        || (!hasDataCharacteristic(node, "Stereotype", "authorization_server")
-                                && hasDataCharacteristic(node, "Stereotype", "internal"))) {
+                if (!hasDataCharacteristic(node, "Stereotype", "authorization_server")
+                                && hasDataCharacteristic(node, "Stereotype", "internal")) {
                     addToMap(violationsMap, variant, 3, node);
+                    addToMap(violationsMap, variant, 6, node);
                     violation = true;
                 }
 
@@ -93,10 +101,8 @@ public class MicroSecEndTest {
                     violation = true;
                 }
 
-                if ((hasNodeCharacteristic(node, "Stereotype", "authorization_server")
-                        && !hasNodeCharacteristic(node, "Stereotype", "login_attempts_regulation"))
-                        || (!hasDataCharacteristic(node, "Stereotype", "authorization_server")
-                                && hasDataCharacteristic(node, "Stereotype", "internal"))) {
+                if (hasNodeCharacteristic(node, "Stereotype", "authorization_server")
+                        && !hasNodeCharacteristic(node, "Stereotype", "login_attempts_regulation")) {
                     addToMap(violationsMap, variant, 6, node);
                     violation = true;
                 }
@@ -110,26 +116,21 @@ public class MicroSecEndTest {
                     addToMap(violationsMap, variant, 8, node);
                     violation = true;
                 }
-
-                // currently unclear to find a solution here --> solution covered in 10
-                /*if (hasNodeCharacteristic(node, "Stereotype", "logging_server")) {
-                    addToMap(violationsMap, variant, 9, node);
-                    violation = true;
-                }*/
+                
 
                 if (hasNodeCharacteristic(node, "Stereotype", "internal") && !hasNodeCharacteristic(node, "Stereotype", "local_logging")) {
                     addToMap(violationsMap, variant, 10, node);
+                    addToMap(violationsMap, variant, 11, node);
+                    addToMap(violationsMap, variant, 12, node);
                     violation = true;
                 }
                 //add no local_logging
-                if ((hasNodeCharacteristic(node, "Stereotype", "local_logging") && !hasNodeCharacteristic(node, "Stereotype", "log_sanitization"))
-                        || (hasDataCharacteristic(node, "Stereotype", "internal")&&!hasNodeCharacteristic(node, "Stereotype", "local_logging"))) {
+                if (hasNodeCharacteristic(node, "Stereotype", "local_logging") && !hasNodeCharacteristic(node, "Stereotype", "log_sanitization")) {
                     addToMap(violationsMap, variant, 11, node);
                     violation = true;
                 }
 
-                if ((hasNodeCharacteristic(node, "Stereotype", "logging_server") && !hasDataCharacteristic(node, "Stereotype", "message_broker"))
-                    || (hasDataCharacteristic(node, "Stereotype", "internal")&&!hasNodeCharacteristic(node, "Stereotype", "local_logging"))) {
+                if (hasNodeCharacteristic(node, "Stereotype", "logging_server") && !hasDataCharacteristic(node, "Stereotype", "message_broker")) {
                     addToMap(violationsMap, variant, 12, node);
                     violation = true;
                 }
@@ -153,11 +154,10 @@ public class MicroSecEndTest {
             System.out.println("Variant: " + variant);
             System.out.println("Violations: " + violationsMap.get(variant)
                     .keySet());
-            System.out.println(violationsMap.get(variant));
             System.out.println("");
-            /*assertFalse(violationsMap.get(variant)
+            assertFalse(violationsMap.get(variant)
             .keySet()
-            .contains(variant));*/
+            .contains(variant));
         }
     }
 

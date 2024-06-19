@@ -17,7 +17,7 @@ import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.converter.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.converter.DataFlowDiagramConverter;
 import org.dataflowanalysis.converter.PCMConverter;
-import org.dataflowanalysis.converter.testmodels.Activator;
+import org.dataflowanalysis.examplemodels.Activator;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;

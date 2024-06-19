@@ -30,7 +30,6 @@ public class WebEditorTest extends ConverterTest {
     private final String minimalWebDFD = Paths.get(TEST_JSONS, "minimal.json")
             .toString();
     private final String tempWebDFD = "test.json";
-    private final String TEST_MODELS = "org.dataflowanalysis.examplemodels";
     private final String TESTS = "org.dataflowanalysis.converter.tests";
 
     @BeforeEach

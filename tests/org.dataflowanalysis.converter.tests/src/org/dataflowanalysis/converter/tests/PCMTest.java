@@ -35,45 +35,37 @@ import org.junit.jupiter.api.Test;
 
 import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
 
-public class PCMTest {
+public class PCMTest extends ConverterTest{
     @Test
     @DisplayName("Test PCM2DFD TravelPlanner")
     public void travelToDfd() {
-        String modelLocation = "org.dataflowanalysis.examplemodels";
-
-        testSpecificModel("TravelPlanner", "travelPlanner", modelLocation, null, null);
+        testSpecificModel("TravelPlanner", "travelPlanner", TEST_MODELS, null, null);
     }
 	
 	@Test
     @DisplayName("Test PCM2DFD MaaS")
     public void maasToDfd() {
-        String modelLocation = "org.dataflowanalysis.examplemodels";
-
-        testSpecificModel("MaaS_Ticket_System_base", "MaaS", modelLocation, "maas.json", null);
+        testSpecificModel("MaaS_Ticket_System_base", "MaaS", TEST_MODELS, "maas.json", null);
     }
 	
 	@Test
     @DisplayName("Test PCM2DFD CWA")
     public void cwaToDfd() {
-        String modelLocation = "org.dataflowanalysis.examplemodels";
-
-        testSpecificModel("CoronaWarnApp", "default", modelLocation, "cwa.json", null);
+        testSpecificModel("CoronaWarnApp", "default", TEST_MODELS, "cwa.json", null);
     }
 
     @Test
     @Disabled("There is currently no manually converted pcm model")
     @DisplayName("Test manual Palladio to DFD")
     public void manualPCMToDfd() throws StandaloneInitializationException {
-        String modelLocation = "org.dataflowanalysis.converter.testmodels";
-
         String inputModel = "InternationalOnlineShop";
         String inputFile = "default";
         String dataflowdiagram = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram")
                 .toString();
         String datadictionary = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary")
                 .toString();
-        testSpecificModel(inputModel, inputFile, modelLocation, null,
-                new DataFlowDiagramConverter().loadDFD(modelLocation, dataflowdiagram, datadictionary, Activator.class));
+        testSpecificModel(inputModel, inputFile, TEST_MODELS, null,
+                new DataFlowDiagramConverter().loadDFD(TEST_MODELS, dataflowdiagram, datadictionary, Activator.class));
 
     }
     

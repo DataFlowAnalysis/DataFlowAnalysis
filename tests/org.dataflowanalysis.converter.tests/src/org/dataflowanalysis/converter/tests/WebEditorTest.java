@@ -27,7 +27,7 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializationExce
 public class WebEditorTest extends ConverterTest {
     private DataFlowDiagramConverter converter;
 
-    private final String minimalWebDFD = Paths.get(packagePath, "minimal.json")
+    private final String minimalWebDFD = Paths.get(TEST_JSONS, "minimal.json")
             .toString();
     private final String tempWebDFD = "test.json";
     private final String TEST_MODELS = "org.dataflowanalysis.examplemodels";

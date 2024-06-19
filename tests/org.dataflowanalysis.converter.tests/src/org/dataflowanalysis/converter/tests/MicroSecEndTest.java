@@ -29,11 +29,11 @@ import org.junit.jupiter.api.Test;
 public class MicroSecEndTest extends ConverterTest {
     private MicroSecEndConverter converter;
 
-    private final String ANILALLEWAR = Paths.get(packagePath, "anilallewar.json")
+    private final String ANILALLEWAR = Paths.get(TEST_JSONS, "anilallewar.json")
             .toString();
-    private final String TO_PLANT = Paths.get(packagePath, "toPlant.txt")
+    private final String TO_PLANT = Paths.get(TEST_JSONS, "toPlant.txt")
             .toString();
-    private final String FROM_PLANT = Paths.get(packagePath, "fromPlant.json")
+    private final String FROM_PLANT = Paths.get(TEST_JSONS, "fromPlant.json")
             .toString();
     private final String JSON = "json";
     private final String TXT = "txt";

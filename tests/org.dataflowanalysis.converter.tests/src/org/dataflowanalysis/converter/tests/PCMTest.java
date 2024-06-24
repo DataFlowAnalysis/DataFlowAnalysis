@@ -35,7 +35,7 @@ public class PCMTest extends ConverterTest{
     @Test
     @DisplayName("Test PCM2DFD TravelPlanner")
     public void travelToDfd() {
-        testSpecificModel("TravelPlanner", "travelPlanner", TEST_MODELS, null);
+        testSpecificModel("TravelPlanner", "travelPlanner", TEST_MODELS, "tp.json");
     }
 	
 	@Test
@@ -82,13 +82,11 @@ public class PCMTest extends ConverterTest{
         
         var complete = new PCMConverter().pcmToDFD(modelLocation, usageModelPath, allocationPath, nodeCharPath, Activator.class);
 
-        if (webTarget != null) {
-            var dfdConverter = new DataFlowDiagramConverter();
-            var web = dfdConverter.dfdToWeb(complete);
-            dfdConverter.storeWeb(web, webTarget);
-        }
+        var dfdConverter = new DataFlowDiagramConverter();
+        var web = dfdConverter.dfdToWeb(complete);
+        dfdConverter.storeWeb(web, webTarget);
 
-        DataFlowDiagram dfd = complete.dataFlowDiagram();
+        var dfd = complete.dataFlowDiagram();
         var dd = complete.dataDictionary();
 
         assertEquals(dfd.getNodes()

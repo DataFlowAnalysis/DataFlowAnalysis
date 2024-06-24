@@ -4,32 +4,60 @@ import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Constraint trace that contains missing selectors and conditional selectors of all vertices
+ */
 public class DSLConstraintTrace {
-    private final Map<AbstractVertex<?>, AbstractSelector> missingSelectors;
-    private final Map<AbstractVertex<?>, ConditionalSelector> missingConditionalSelectors;
+    private final Map<AbstractVertex<?>, List<AbstractSelector>> missingSelectors;
+    private final Map<AbstractVertex<?>, List<ConditionalSelector>> missingConditionalSelectors;
 
+    /**
+     * Create a new empty dsl constraint trace
+     */
     public DSLConstraintTrace() {
         this.missingSelectors = new HashMap<>();
         this.missingConditionalSelectors = new HashMap<>();
     }
 
+    /**
+     * Adds a missing selector at a given vertex
+     * @param key Vertex that has a missing selector
+     * @param missingSelector Selector that has not been fulfilled by the vertex
+     */
     public void addMissingSelector(AbstractVertex<?> key, AbstractSelector missingSelector) {
-        this.missingSelectors.put(key, missingSelector);
+        this.missingSelectors.getOrDefault(key, new ArrayList<>()).add(missingSelector);
     }
 
+    /**
+     * Adds a missing conditional selector at a given vertex
+     * @param key Vertex that has a missing conditional selector
+     * @param missingSelector Selector that has not been fulfilled by the vertex
+     */
     public void addMissingConditionalSelector(AbstractVertex<?> key, ConditionalSelector missingSelector) {
-        this.missingConditionalSelectors.put(key, missingSelector);
+        this.missingConditionalSelectors.getOrDefault(key, new ArrayList<>()).add(missingSelector);
     }
 
-    public Optional<AbstractSelector> getMissingSelectors(AbstractVertex<?> vertex) {
+    /**
+     * Returns a list of missing selectors of a vertex
+     * @param vertex Given vertex
+     * @return Returns the missing selectors of a vertex
+     */
+    public Optional<List<AbstractSelector>> getMissingSelectors(AbstractVertex<?> vertex) {
         return Optional.ofNullable(this.missingSelectors.get(vertex));
     }
 
-    public Optional<ConditionalSelector> getMissingConditionalSelectors(AbstractVertex<?> vertex) {
+    /**
+     * Returns a list of missing conditional selectors of a vertex
+     * @param vertex Given vertex
+     * @return Returns the missing conditional selectors of a vertex
+     */
+    public Optional<List<ConditionalSelector>> getMissingConditionalSelectors(AbstractVertex<?> vertex) {
         return Optional.ofNullable(this.missingConditionalSelectors.get(vertex));
     }
 }

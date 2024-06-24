@@ -16,6 +16,7 @@ import org.dataflowanalysis.converter.*;
 import org.dataflowanalysis.converter.microsecend.*;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Assignment;
+import org.dataflowanalysis.dfd.datadictionary.ForwardingAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Label;
 import org.dataflowanalysis.dfd.datadictionary.LabelType;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
@@ -71,9 +72,27 @@ public class MicroSecEndTest extends ConverterTest {
                         .stream())
                 .collect(Collectors.toList());
 
-        // One Node assignment and one Forwarding assignment per flow
-        assertEquals(micro.informationFlows()
-                .size() * 2, assignments.size());
+
+        var nodes = dfd.dataFlowDiagram().getNodes();
+        for (Node node : nodes) {
+            var behaviour = node.getBehaviour();
+            
+            var forwardCount = behaviour.getAssignment().stream()
+                    .filter(assignment -> assignment instanceof ForwardingAssignment)
+                    .count();
+            if (!behaviour.getInPin().isEmpty()) {
+                assertEquals(forwardCount, behaviour.getOutPin().size());
+            }
+            else {
+                assertEquals(forwardCount,0);
+            }
+
+            var assignmentCount = behaviour.getAssignment().stream()
+                .filter(assignment -> assignment instanceof Assignment)
+                .count();
+            assertEquals(assignmentCount, behaviour.getOutPin().size());
+        }
+        
         assertEquals(micro.informationFlows()
                 .size(), outPins.size());
         assertEquals(outPins.size(), inPins.size());

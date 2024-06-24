@@ -14,7 +14,6 @@ import java.util.HashSet;
 import java.util.stream.Collectors;
 
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.converter.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.converter.DataFlowDiagramConverter;
 import org.dataflowanalysis.converter.PCMConverter;
 import org.dataflowanalysis.examplemodels.Activator;
@@ -29,48 +28,29 @@ import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.ForwardingAssignment;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
 
 public class PCMTest extends ConverterTest{
     @Test
     @DisplayName("Test PCM2DFD TravelPlanner")
     public void travelToDfd() {
-        testSpecificModel("TravelPlanner", "travelPlanner", TEST_MODELS, null, null);
+        testSpecificModel("TravelPlanner", "travelPlanner", TEST_MODELS, null);
     }
 	
 	@Test
     @DisplayName("Test PCM2DFD MaaS")
     public void maasToDfd() {
-        testSpecificModel("MaaS_Ticket_System_base", "MaaS", TEST_MODELS, "maas.json", null);
+        testSpecificModel("MaaS_Ticket_System_base", "MaaS", TEST_MODELS, "maas.json");
     }
 	
 	@Test
     @DisplayName("Test PCM2DFD CWA")
     public void cwaToDfd() {
-        testSpecificModel("CoronaWarnApp", "default", TEST_MODELS, "cwa.json", null);
-    }
-
-    @Test
-    @Disabled("There is currently no manually converted pcm model")
-    @DisplayName("Test manual Palladio to DFD")
-    public void manualPCMToDfd() throws StandaloneInitializationException {
-        String inputModel = "InternationalOnlineShop";
-        String inputFile = "default";
-        String dataflowdiagram = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram")
-                .toString();
-        String datadictionary = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary")
-                .toString();
-        testSpecificModel(inputModel, inputFile, TEST_MODELS, null,
-                new DataFlowDiagramConverter().loadDFD(TEST_MODELS, dataflowdiagram, datadictionary, Activator.class));
-
+        testSpecificModel("CoronaWarnApp", "default", TEST_MODELS, "cwa.json");
     }
     
-    private void testSpecificModel(String inputModel, String inputFile, String modelLocation, String webTarget,
-            DataFlowDiagramAndDictionary complete) {
+    private void testSpecificModel(String inputModel, String inputFile, String modelLocation, String webTarget) {
         final var usageModelPath = Paths.get("models", inputModel, inputFile + ".usagemodel")
                 .toString();
         final var allocationPath = Paths.get("models", inputModel, inputFile + ".allocation")
@@ -99,9 +79,8 @@ public class PCMTest extends ConverterTest{
             }
         }
 
-        if (complete == null) {
-            complete = new PCMConverter().pcmToDFD(modelLocation, usageModelPath, allocationPath, nodeCharPath, Activator.class);
-        }
+        
+        var complete = new PCMConverter().pcmToDFD(modelLocation, usageModelPath, allocationPath, nodeCharPath, Activator.class);
 
         if (webTarget != null) {
             var dfdConverter = new DataFlowDiagramConverter();

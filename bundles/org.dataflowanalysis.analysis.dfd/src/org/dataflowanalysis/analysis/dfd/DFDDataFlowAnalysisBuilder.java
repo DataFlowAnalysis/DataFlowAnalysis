@@ -4,7 +4,6 @@ import java.util.Optional;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
-import org.dataflowanalysis.analysis.dfd.core.DFDCyclicTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.dataflowanalysis.analysis.dfd.resource.DFDURIResourceProvider;
 import org.dataflowanalysis.analysis.utils.ResourceUtils;
@@ -100,14 +99,6 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
                 .orElse(new DFDURIResourceProvider(ResourceUtils.createRelativePluginURI(this.dataFlowDiagramPath, this.modelProjectName),
                         ResourceUtils.createRelativePluginURI(this.dataDictionaryPath, this.modelProjectName)));
     }
-    
-    /**
-     * Determines the effective resource provider that should be used by the analysis
-     */
-    private TransposeFlowGraphFinder getEffectiveTransposeFlowGraphFinder(DFDResourceProvider ressourceProvider) {
-        return this.customTransposeFlowGraphFinder
-                .orElse(new DFDCyclicTransposeFlowGraphFinder(ressourceProvider));
-    }
 
     /**
      * Validates the stored data
@@ -130,8 +121,7 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
     public DFDConfidentialityAnalysis build() {
         this.validate();
         DFDResourceProvider ressourceProvider = this.getEffectiveResourceProvider();
-        TransposeFlowGraphFinder transposeFlowGraphFinder = this.getEffectiveTransposeFlowGraphFinder(ressourceProvider);
         
-        return new DFDConfidentialityAnalysis(ressourceProvider, this.pluginActivator, this.modelProjectName, transposeFlowGraphFinder);
+        return new DFDConfidentialityAnalysis(ressourceProvider, this.pluginActivator, this.modelProjectName, customTransposeFlowGraphFinder);
     }
 }

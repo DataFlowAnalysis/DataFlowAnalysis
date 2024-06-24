@@ -2,8 +2,8 @@ package org.dataflowanalysis.analysis.dsl.selectors;
 
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.dsl.DSLContext;
-import org.dataflowanalysis.analysis.dsl.DSLContextKey;
+import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.dsl.context.DSLContextKey;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
 
 import java.util.List;

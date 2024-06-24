@@ -3,8 +3,7 @@ package org.dataflowanalysis.analysis.dsl.selectors;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
-import org.dataflowanalysis.analysis.dsl.DSLContext;
-import org.dataflowanalysis.analysis.dsl.Intersection;
+import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 
 import java.util.List;
 

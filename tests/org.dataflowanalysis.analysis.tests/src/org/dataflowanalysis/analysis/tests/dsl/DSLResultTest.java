@@ -28,8 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-public class DSLDemonstrationTest extends BaseTest {
-    private static final Logger logger = Logger.getLogger(DSLDemonstrationTest.class);
+public class DSLResultTest extends BaseTest {
+    private static final Logger logger = Logger.getLogger(DSLResultTest.class);
 
     @Test
     public void testDSL() {

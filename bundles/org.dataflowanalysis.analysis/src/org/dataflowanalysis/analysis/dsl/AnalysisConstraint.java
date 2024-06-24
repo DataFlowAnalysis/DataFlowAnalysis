@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+/**
+ * Represents an analysis constraint created by the DSL
+ */
 public class AnalysisConstraint {
     private final Logger logger = Logger.getLogger(AnalysisConstraint.class);
     private final List<AbstractSelector> flowSource;
@@ -21,6 +24,9 @@ public class AnalysisConstraint {
     private final List<ConditionalSelector> selectors;
     private final DSLContext context;
 
+    /**
+     * Create a new analysis constraint with no constraints
+     */
     public AnalysisConstraint() {
         this.flowSource = new ArrayList<>();
         this.flowDestination = new ArrayList<>();
@@ -28,6 +34,11 @@ public class AnalysisConstraint {
         this.context = new DSLContext();
     }
 
+    /**
+     * Find violations of the constraint in the given flow graph collection
+     * @param flowGraphCollection Given flow graph collection in which the constraint is evaluated
+     * @return Returns a list of dsl results for each <b>violating</b> transpose flow graph
+     */
     public List<DSLResult> findViolations(FlowGraphCollection flowGraphCollection) {
         List<DSLResult> results = new ArrayList<>();
         for(AbstractTransposeFlowGraph transposeFlowGraph : flowGraphCollection.getTransposeFlowGraphs()) {
@@ -58,18 +69,34 @@ public class AnalysisConstraint {
         return results;
     }
 
+    /**
+     * Adds a flow source selector to the constraint
+     * @param selector Flow source selector that is added to the constraint
+     */
     public void addFlowSource(AbstractSelector selector) {
         this.flowSource.add(selector);
     }
 
+    /**
+     * Adds a flow destination selector to the constraint
+     * @param selector Flow destination selector that is added to the constraint
+     */
     public void addFlowDestination(AbstractSelector selector) {
         this.flowDestination.add(selector);
     }
 
+    /**
+     * Adds a conditional selector to the constraint
+     * @param selector Conditional selector that is added to the constraint
+     */
     public void addConditionalSelector(ConditionalSelector selector) {
         this.selectors.add(selector);
     }
 
+    /**
+     * Returns the context of constraint variables of the constraint
+     * @return Constraint variable context of the constraint
+     */
     public DSLContext getContext() {
         return context;
     }

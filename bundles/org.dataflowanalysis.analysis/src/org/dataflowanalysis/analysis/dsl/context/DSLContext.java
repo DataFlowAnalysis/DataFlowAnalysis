@@ -9,13 +9,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Represents the constraint variable context of one constraint
+ */
 public class DSLContext {
     private final Map<DSLContextKey, List<ConstraintVariable>> context;
 
+    /**
+     * Create a new empty dsl context
+     */
     public DSLContext() {
         this.context = new HashMap<>();
     }
 
+    /**
+     * Add the given constraint variable with the given key
+     * @param key DSL Context key of the given constraint variable value
+     * @param value Constraint variable value of the context key
+     */
     public void addMapping(DSLContextKey key, ConstraintVariable value) {
         if (this.context.containsKey(key)) {
             this.context.get(key).add(value);
@@ -26,6 +37,12 @@ public class DSLContext {
         }
     }
 
+    /**
+     * Get the constraint variable in a given context with a reference
+     * @param key Given context of the constraint variable reference
+     * @param reference Given constraint variable reference
+     * @return Returns the constraint variable value of the reference in the given context
+     */
     public ConstraintVariable getMapping(DSLContextKey key, ConstraintVariableReference reference) {
         if (reference.name().equals(ConstraintVariable.CONSTANT_NAME)) {
             return new ConstraintVariable(reference.name(), new ArrayList<>(reference.values().get()));
@@ -44,6 +61,11 @@ public class DSLContext {
                 });
     }
 
+    /**
+     * Returns the constraint variables of a given vertex
+     * @param vertex Given vertex of which the constraint variables are calculated
+     * @return Returns a list of all constraint variables of a given vertex
+     */
     public List<ConstraintVariable> getMappings(AbstractVertex<?> vertex) {
         return this.context.entrySet().stream()
                 .filter(it -> it.getKey().vertex().equals(vertex))

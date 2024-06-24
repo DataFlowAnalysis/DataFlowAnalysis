@@ -26,7 +26,6 @@ import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuild
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.ForwardingAssignment;
-import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

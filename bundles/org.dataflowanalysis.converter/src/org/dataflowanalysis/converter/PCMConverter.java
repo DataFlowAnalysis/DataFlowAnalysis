@@ -178,37 +178,37 @@ public class PCMConverter extends Converter {
         return dfdNode;
     }
 
-    private void createFlowBetweenPreviousAndCurrentNode(Node source, Node dest, AbstractPCMVertex<? extends Entity> pcmVertex) {
-        if (source == null || dest == null) {
+    private void createFlowBetweenPreviousAndCurrentNode(Node source, Node destination, AbstractPCMVertex<? extends Entity> pcmVertex) {
+        if (source == null || destination == null) {
             return;
         }
         List<DataCharacteristic> dataCharacteristics = pcmVertex.getAllDataCharacteristics();
-        if (dataCharacteristics.size() == 0) findOrCreateFlow(source, dest, "");
+        if (dataCharacteristics.size() == 0) findOrCreateFlow(source, destination, "");
         for (DataCharacteristic dataCharacteristic : dataCharacteristics) {
-            findOrCreateFlow(source, dest, dataCharacteristic.variableName());
+            findOrCreateFlow(source, destination, dataCharacteristic.variableName());
         }   
     }
 
-    private void findOrCreateFlow(Node source, Node dest, String flowName) {
+    private void findOrCreateFlow(Node source, Node destination, String flowName) {
         dataFlowDiagram.getFlows()
                 .stream()
                 .filter(f -> f.getSourceNode()
                         .equals(source))
                 .filter(f -> f.getDestinationNode()
-                        .equals(dest))
+                        .equals(destination))
                 .filter(f -> f.getEntityName()
                         .equals(flowName))
                 .findFirst()
-                .orElseGet(() -> createFlow(source, dest, flowName));
+                .orElseGet(() -> createFlow(source, destination, flowName));
     }
 
-    private Flow createFlow(Node source, Node dest, String flowName) {
+    private Flow createFlow(Node source, Node destination, String flowName) {
         Flow newFlow = dataflowdiagramFactory.eINSTANCE.createFlow();
         newFlow.setSourceNode(source);
-        newFlow.setDestinationNode(dest);
+        newFlow.setDestinationNode(destination);
         newFlow.setEntityName(flowName);
         Pin sourceOutPin = findOutputPin(source, flowName);
-        Pin destInPin = findInputPin(dest, flowName);
+        Pin destInPin = findInputPin(destination, flowName);
         newFlow.setSourcePin(sourceOutPin);
         newFlow.setDestinationPin(destInPin);
 
@@ -245,14 +245,14 @@ public class PCMConverter extends Converter {
     }
 
     // A pin is equivalent if the same parameters are passed
-    private Pin findInputPin(Node dest, String parameters) {
-        return dest.getBehaviour()
+    private Pin findInputPin(Node destination, String parameters) {
+        return destination.getBehaviour()
                 .getInPin()
                 .stream()
                 .filter(p -> p.getEntityName()
                         .equals(parameters))
                 .findAny()
-                .orElseGet(() -> createPin(dest, parameters, true));
+                .orElseGet(() -> createPin(destination, parameters, true));
     }
 
     private Pin createPin(Node node, String parameters, boolean isInPin) {

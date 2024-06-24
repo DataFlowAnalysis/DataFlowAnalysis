@@ -132,9 +132,9 @@ public class PCMTest extends ConverterTest{
         }
 
         Set<String> flowNames = new HashSet<>();
-        for (AbstractTransposeFlowGraph as : flowGraph.getTransposeFlowGraphs()) {
+        for (AbstractTransposeFlowGraph abstractTransposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
             AbstractVertex<?> previousAse = null;
-            for (AbstractVertex<?> ase : as.getVertices()) {
+            for (AbstractVertex<?> ase : abstractTransposeFlowGraph.getVertices()) {
                 if(!ase.getPreviousElements().isEmpty()) {
                     List<DataCharacteristic> variables = ase.getAllDataCharacteristics();
                     if (variables.isEmpty()) flowNames.add(previousAse.hashCode()+ase.hashCode()+"");

@@ -236,7 +236,7 @@ public class MicroSecEndTest {
         
         for (String model : models) {
             var converter = new MicroSecEndConverter();
-            converter.plantToDFD(model,"\"D:\\gitProjects\\DataFlowAnalysis\\tests\\org.dataflowanalysis.analysis.tests\\archive\"").toString();
+            converter.plantToDFD(model,"D:\\gitProjects\\DataFlowAnalysis\\tests\\org.dataflowanalysis.analysis.tests\\archive").toString();
         }
     }
 

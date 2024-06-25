@@ -89,7 +89,7 @@ public class MicroSecEndConverter extends Converter {
         }
         var suffix = "_" + index;
         
-        String out = OutputFile+ "\\" + name + "\\"+ name + suffix + ".json";
+        String out = OutputFile+ "\\" + name + suffix + ".json";
         System.out.println(out);
         int exitCode = runPythonScript(inputFile, "json", out);
         if (exitCode == 0) {

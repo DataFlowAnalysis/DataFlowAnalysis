@@ -9,13 +9,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
-import org.dataflowanalysis.converter.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.converter.DataFlowDiagramConverter;
 import org.dataflowanalysis.converter.PCMConverter;
-import org.dataflowanalysis.converter.testmodels.Activator;
+import org.dataflowanalysis.examplemodels.Activator;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
@@ -25,42 +26,30 @@ import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuild
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.ForwardingAssignment;
-import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
-
-public class PCMTest {
+public class PCMTest extends ConverterTest{
     @Test
-    @DisplayName("Test Palladio to DFD")
-    public void palladioToDfd() {
-        String modelLocation = "org.dataflowanalysis.converter.testmodels";
-
-        testSpecificModel("TravelPlanner", "travelPlanner", modelLocation, null, null);
+    @DisplayName("Test PCM2DFD TravelPlanner")
+    public void travelToDfd() {
+        testSpecificModel("TravelPlanner", "travelPlanner", TEST_MODELS, "tp.json");
     }
-
-    @Test
-    @Disabled("There is currently no manually converted pcm model")
-    @DisplayName("Test manual Palladio to DFD")
-    public void manualPCMToDfd() throws StandaloneInitializationException {
-        String modelLocation = "org.dataflowanalysis.converter.testmodels";
-
-        String inputModel = "InternationalOnlineShop";
-        String inputFile = "default";
-        String dataflowdiagram = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram")
-                .toString();
-        String datadictionary = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary")
-                .toString();
-        testSpecificModel(inputModel, inputFile, modelLocation, null,
-                new DataFlowDiagramConverter().loadDFD(modelLocation, dataflowdiagram, datadictionary, Activator.class));
-
+	
+	@Test
+    @DisplayName("Test PCM2DFD MaaS")
+    public void maasToDfd() {
+        testSpecificModel("MaaS_Ticket_System_base", "MaaS", TEST_MODELS, "maas.json");
     }
-
-    private void testSpecificModel(String inputModel, String inputFile, String modelLocation, String webTarget,
-            DataFlowDiagramAndDictionary complete) {
+	
+	@Test
+    @DisplayName("Test PCM2DFD CWA")
+    public void cwaToDfd() {
+        testSpecificModel("CoronaWarnApp", "default", TEST_MODELS, "cwa.json");
+    }
+    
+    private void testSpecificModel(String inputModel, String inputFile, String modelLocation, String webTarget) {
         final var usageModelPath = Paths.get("models", inputModel, inputFile + ".usagemodel")
                 .toString();
         final var allocationPath = Paths.get("models", inputModel, inputFile + ".allocation")
@@ -89,17 +78,14 @@ public class PCMTest {
             }
         }
 
-        if (complete == null) {
-            complete = new PCMConverter().pcmToDFD(modelLocation, usageModelPath, allocationPath, nodeCharPath, Activator.class);
-        }
+        
+        var complete = new PCMConverter().pcmToDFD(modelLocation, usageModelPath, allocationPath, nodeCharPath, Activator.class);
 
-        if (webTarget != null) {
-            var dfdConverter = new DataFlowDiagramConverter();
-            var web = dfdConverter.dfdToWeb(complete);
-            dfdConverter.storeWeb(web, webTarget);
-        }
+        var dfdConverter = new DataFlowDiagramConverter();
+        var web = dfdConverter.dfdToWeb(complete);
+        dfdConverter.storeWeb(web, webTarget);
 
-        DataFlowDiagram dfd = complete.dataFlowDiagram();
+        var dfd = complete.dataFlowDiagram();
         var dd = complete.dataDictionary();
 
         assertEquals(dfd.getNodes()
@@ -121,19 +107,25 @@ public class PCMTest {
             assertEquals(node.getEntityName(), assIdToName.get(node.getId()));
         }
 
-        List<String> flowNames = new ArrayList<>();
-        for (AbstractTransposeFlowGraph as : flowGraph.getTransposeFlowGraphs()) {
-            for (AbstractVertex<?> ase : as.getVertices()) {
-                List<DataCharacteristic> variables = ase.getAllDataCharacteristics();
-                if (variables.isEmpty() && !ase.getPreviousElements().isEmpty()) flowNames.add("");
-                for (DataCharacteristic variable : variables) {
-                    flowNames.add(variable.variableName());
+        Set<String> flowNames = new HashSet<>();
+        for (AbstractTransposeFlowGraph abstractTransposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
+            AbstractVertex<?> previousAse = null;
+            for (AbstractVertex<?> ase : abstractTransposeFlowGraph.getVertices()) {
+                if(!ase.getPreviousElements().isEmpty()) {
+                    List<DataCharacteristic> variables = ase.getAllDataCharacteristics();
+                    if (variables.isEmpty()) flowNames.add(previousAse.hashCode()+ase.hashCode()+"");
+                    for (DataCharacteristic variable : variables) {
+                        flowNames.add(previousAse.hashCode()+ase.hashCode()+variable.variableName());
+                    } 
                 }
+                previousAse=ase;
             }
         }
 
         assertEquals(flowNames.size(), dfd.getFlows()
                 .size());
+                
+        
 
         // When transforming PCM to DFD, we represent all outputs through forwarding assignments.
         // This approach omits certain behaviors and labels that are not essential for visual representation.

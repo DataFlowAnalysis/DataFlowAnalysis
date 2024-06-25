@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.dataflowanalysis.converter.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.converter.DataFlowDiagramConverter;
-import org.dataflowanalysis.converter.testmodels.Activator;
+import org.dataflowanalysis.examplemodels.Activator;
 import org.dataflowanalysis.converter.webdfd.WebEditorDfd;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
@@ -27,10 +27,9 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializationExce
 public class WebEditorTest extends ConverterTest {
     private DataFlowDiagramConverter converter;
 
-    private final String minimalWebDFD = Paths.get(packagePath, "minimal.json")
+    private final String minimalWebDFD = Paths.get(TEST_JSONS, "minimal.json")
             .toString();
     private final String tempWebDFD = "test.json";
-    private final String TEST_MODELS = "org.dataflowanalysis.converter.testmodels";
     private final String TESTS = "org.dataflowanalysis.converter.tests";
 
     @BeforeEach

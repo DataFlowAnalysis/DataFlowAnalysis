@@ -20,7 +20,6 @@ import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.dataflowanalysis.dfd.datadictionary.Behaviour;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
-import org.dataflowanalysis.dfd.datadictionary.ForwardingAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Label;
 import org.dataflowanalysis.dfd.datadictionary.LabelType;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
@@ -46,8 +45,8 @@ import org.palladiosimulator.pcm.usagemodel.Stop;
 public class PCMConverter extends Converter {
 
     private final Map<Entity, Node> dfdNodeMap = new HashMap<>();
-    private final DataDictionary dataDictionary = datadictionaryFactory.eINSTANCE.createDataDictionary();
-    private final DataFlowDiagram dataFlowDiagram = dataflowdiagramFactory.eINSTANCE.createDataFlowDiagram();
+    private DataDictionary dataDictionary;
+    private DataFlowDiagram dataFlowDiagram;
 
     /**
      * Converts a PCM model into a DataFlowDiagramAndDictionary object.
@@ -157,14 +156,17 @@ public class PCMConverter extends Converter {
     }
 
     private DataFlowDiagramAndDictionary processPalladio(FlowGraphCollection flowGraphCollection) {
+        dataDictionary = datadictionaryFactory.eINSTANCE.createDataDictionary();
+        dataFlowDiagram = dataflowdiagramFactory.eINSTANCE.createDataFlowDiagram();
         for (AbstractTransposeFlowGraph transposeFlowGraph : flowGraphCollection.getTransposeFlowGraphs()) {
             Node previousNode = null;
             for (AbstractVertex<?> abstractVertex : transposeFlowGraph.getVertices()) {            	
-                if (abstractVertex instanceof AbstractPCMVertex) {
-                    previousNode = processAbstractPCMVertex((AbstractPCMVertex<?>) abstractVertex, previousNode);
+                if (abstractVertex instanceof AbstractPCMVertex<?> abstractPCMVertex) {
+                    previousNode = processAbstractPCMVertex(abstractPCMVertex, previousNode);
                 }
             }
         }
+        createForwardingAssignments();
         return new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary);
     }
 
@@ -176,47 +178,59 @@ public class PCMConverter extends Converter {
         return dfdNode;
     }
 
-    private void createFlowBetweenPreviousAndCurrentNode(Node source, Node dest, AbstractPCMVertex<? extends Entity> pcmVertex) {
-        if (source == null || dest == null) {
+    private void createFlowBetweenPreviousAndCurrentNode(Node source, Node destination, AbstractPCMVertex<? extends Entity> pcmVertex) {
+        if (source == null || destination == null) {
             return;
         }
         List<DataCharacteristic> dataCharacteristics = pcmVertex.getAllDataCharacteristics();
-        if (dataCharacteristics.size() == 0) dataFlowDiagram.getFlows().add(createFlow(source, dest, ""));
+        if (dataCharacteristics.size() == 0) findOrCreateFlow(source, destination, "");
         for (DataCharacteristic dataCharacteristic : dataCharacteristics) {
-            String flowName = dataCharacteristic.variableName();
-
-            dataFlowDiagram.getFlows()
-                    .stream()
-                    .filter(f -> f.getSourceNode()
-                            .equals(source))
-                    .filter(f -> f.getDestinationNode()
-                            .equals(dest))
-                    .filter(f -> f.getEntityName()
-                            .equals(flowName))
-                    .findFirst()
-                    .orElseGet(() -> createFlow(source, dest, flowName));
-        }
+            findOrCreateFlow(source, destination, dataCharacteristic.variableName());
+        }   
     }
 
-    private Flow createFlow(Node source, Node dest, String flowName) {
+    private void findOrCreateFlow(Node source, Node destination, String flowName) {
+        dataFlowDiagram.getFlows()
+                .stream()
+                .filter(f -> f.getSourceNode()
+                        .equals(source))
+                .filter(f -> f.getDestinationNode()
+                        .equals(destination))
+                .filter(f -> f.getEntityName()
+                        .equals(flowName))
+                .findFirst()
+                .orElseGet(() -> createFlow(source, destination, flowName));
+    }
+
+    private Flow createFlow(Node source, Node destination, String flowName) {
         Flow newFlow = dataflowdiagramFactory.eINSTANCE.createFlow();
         newFlow.setSourceNode(source);
-        newFlow.setDestinationNode(dest);
+        newFlow.setDestinationNode(destination);
         newFlow.setEntityName(flowName);
         Pin sourceOutPin = findOutputPin(source, flowName);
-        Pin destInPin = findInputPin(dest, flowName);
+        Pin destInPin = findInputPin(destination, flowName);
         newFlow.setSourcePin(sourceOutPin);
         newFlow.setDestinationPin(destInPin);
-
-        ForwardingAssignment forwarding = datadictionaryFactory.eINSTANCE.createForwardingAssignment();
-        forwarding.setOutputPin(sourceOutPin);
-        source.getBehaviour()
-                .getAssignment()
-                .add(forwarding);
 
         this.dataFlowDiagram.getFlows()
                 .add(newFlow);
         return newFlow;
+    }
+    
+    private void createForwardingAssignments() {
+        for (Node node : dataFlowDiagram.getNodes()) {
+            var behaviour = node.getBehaviour();
+            if (!behaviour.getInPin().isEmpty()) {
+                for (Pin pin : behaviour.getOutPin()) {
+                    var assignment = datadictionaryFactory.eINSTANCE.createForwardingAssignment();
+                    assignment.setOutputPin(pin);
+                    assignment.getInputPins()
+                            .addAll(behaviour.getInPin());
+                    behaviour.getAssignment()
+                            .add(assignment);
+                }
+            }
+        }
     }
 
     // A pin is equivalent if the same parameters are passed
@@ -231,14 +245,14 @@ public class PCMConverter extends Converter {
     }
 
     // A pin is equivalent if the same parameters are passed
-    private Pin findInputPin(Node dest, String parameters) {
-        return dest.getBehaviour()
+    private Pin findInputPin(Node destination, String parameters) {
+        return destination.getBehaviour()
                 .getInPin()
                 .stream()
                 .filter(p -> p.getEntityName()
                         .equals(parameters))
                 .findAny()
-                .orElseGet(() -> createPin(dest, parameters, true));
+                .orElseGet(() -> createPin(destination, parameters, true));
     }
 
     private Pin createPin(Node node, String parameters, boolean isInPin) {

@@ -81,7 +81,7 @@ public class MicroSecEndConverter extends Converter {
         String name = inputFile.split("\\.")[0];
         int exitCode = runPythonScript(inputFile, "json", name + ".json");
         if (exitCode == 0) {
-            return Optional.ofNullable(microToDfd(name + ".json"));
+            return Optional.empty();//return Optional.ofNullable(microToDfd(name + ".json"));
         } else {
             return Optional.empty();
         }

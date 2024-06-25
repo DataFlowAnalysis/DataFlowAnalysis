@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import org.dataflowanalysis.analysis.converter.DataFlowDiagramConverter;
 import org.dataflowanalysis.analysis.converter.MicroSecEndConverter;
@@ -21,12 +22,16 @@ import org.junit.jupiter.api.Test;
 
 import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
 
+import java.io.IOException;
+import java.nio.file.*;
+import java.util.stream.Collectors;
+
 public class MicroSecEndTest {
     public static String PROJECT_NAME = "org.dataflowanalysis.analysis.tests";
     private DFDFlowGraphCollection flowGraph;
     private DFDConfidentialityAnalysis analysis;
     private Map<Integer, Map<Integer, List<AbstractVertex<?>>>> violationsMap;
-    private String location = "anilallewar";
+    private String location = "models/" + "anilallewar";
 
     public DFDConfidentialityAnalysis buildAnalysis(String name) {
         var DataFlowDiagramPath = Paths.get(name + ".dataflowdiagram");
@@ -212,6 +217,28 @@ public class MicroSecEndTest {
             return;
         }
         convertAllToDFD();
+    }
+    
+    @Test
+    public void convertAllPlantToDFD() {
+        List<String> models = new ArrayList<>();
+        
+        Path startDir = Paths.get("models"); // replace with your start directory
+        try (Stream<Path> paths = Files.walk(startDir)) {
+            models = paths
+                    .filter(Files::isRegularFile)
+                    .filter(path -> path.toString().endsWith(".txt"))
+                    .map(Path::toString)
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        for (String model : models) {
+            System.out.println(model);
+            var converter = new MicroSecEndConverter();
+            converter.plantToDFD(model).toString();
+        }
     }
 
     private List<String> getModelNames(String location) {

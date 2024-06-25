@@ -70,8 +70,7 @@
                 "infrastructural",
                 "monitoring_dashboard",
                 "monitoring_server",
-                "authentication_scope_all_requests",
-                "local_logging"
+                "authentication_scope_all_requests"
             ],
             "tagged_values": {
                 "Port": 8090,
@@ -146,6 +145,14 @@
                 "Load Balancer": "Ribbon",
                 "Circuit Breaker": "Hystrix"
             }
+        },
+        {
+            "name": "secret_manager",
+            "stereotypes": [
+                "infrastructural",
+                "secret_manager"
+            ],
+            "tagged_values": {}
         }
     ],
     "external_entities": [
@@ -156,7 +163,7 @@
                 "entrypoint"
             ],
             "tagged_values": {
-                "URL": "https"
+                "URL": "https://github.com/anilallewar/microservices-basics-cloud-config"
             }
         },
         {
@@ -176,9 +183,7 @@
             "stereotypes": [
                 "restful_http"
             ],
-            "tagged_values": {
-                "Protocol": "HTTPS"
-            }
+            "tagged_values": {}
         },
         {
             "sender": "configserver",
@@ -411,6 +416,78 @@
                 "restful_http",
                 "load_balanced_link",
                 "circuit_breaker_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "secret_manager",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "configserver",
+            "receiver": "secret_manager",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "webservice_registry",
+            "receiver": "secret_manager",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "zipkin_tracing",
+            "receiver": "secret_manager",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "secret_manager",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "web_portal",
+            "receiver": "secret_manager",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user_webservice",
+            "receiver": "secret_manager",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "comments_webservice",
+            "receiver": "secret_manager",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "task_webservice",
+            "receiver": "secret_manager",
+            "stereotypes": [
+                "restful_http"
             ],
             "tagged_values": {}
         }

@@ -220,7 +220,7 @@ public class MicroSecEndTest {
     }
     
     @Test
-    public void convertAllPlantToDFD() {
+    public void convertAllPlantToJSON() {
         List<String> models = new ArrayList<>();
         
         Path startDir = Paths.get("TUHH-models"); // replace with your start directory
@@ -237,6 +237,7 @@ public class MicroSecEndTest {
         for (String model : models) {
             var converter = new MicroSecEndConverter();
             converter.plantToDFD(model,"D:\\gitProjects\\DataFlowAnalysis\\tests\\org.dataflowanalysis.analysis.tests\\archive").toString();
+            
         }
     }
 

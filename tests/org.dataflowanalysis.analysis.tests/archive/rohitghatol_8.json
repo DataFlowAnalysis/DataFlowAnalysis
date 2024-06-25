@@ -3,92 +3,65 @@
         {
             "name": "configserver",
             "stereotypes": [
-                "infrastructural",
-                "configuration_server"
+                "configuration_server",
+                "infrastructural"
             ],
             "tagged_values": {
-                "Port": 8888,
-                "Configuration Server": "Spring Cloud Config"
+                "Configuration Server": "Spring Cloud Config",
+                "Port": 8888
             }
         },
         {
             "name": "webservice_registry",
             "stereotypes": [
-                "infrastructural",
-                "service_discovery"
+                "service_discovery",
+                "infrastructural"
             ],
             "tagged_values": {
-                "Port": 8761,
-                "Service Discovery": "Eureka"
-            }
-        },
-        {
-            "name": "zipkin_tracing",
-            "stereotypes": [
-                "infrastructural",
-                "tracing_server"
-            ],
-            "tagged_values": {
-                "Port": 9411,
-                "Tracing Server": "Zipkin"
-            }
-        },
-        {
-            "name": "mysqldb",
-            "stereotypes": [
-                "database",
-                "plaintext_credentials"
-            ],
-            "tagged_values": {
-                "Port": 3306,
-                "Database": "MySQL",
-                "Password": "password"
+                "Service Discovery": "Eureka",
+                "Port": 8761
             }
         },
         {
             "name": "auth_server",
             "stereotypes": [
-                "infrastructural",
                 "authorization_server",
+                "infrastructural",
+                "encryption",
+                "tokenstore",
+                "plaintext_credentials",
                 "resource_server",
-                "authentication_scope_all_requests",
-                "plaintext_credentials"
+                "authorization_scope_all_requests"
             ],
             "tagged_values": {
-                "Port": 8899,
                 "Authorization Server": "Spring OAuth2",
+                "Port": 8899,
                 "Endpoints": [
-                    "/me"
+                    "/me",
+                    "/"
                 ],
-                "Username": "user",
-                "Password": "password"
+                "Username": "dave",
+                "Password": "secret"
             }
         },
         {
             "name": "web_portal",
             "stereotypes": [
-                "infrastructural",
-                "monitoring_dashboard",
-                "monitoring_server",
-                "authentication_scope_all_requests",
-                "local_logging"
+                "internal"
             ],
             "tagged_values": {
-                "Port": 8090,
-                "Monitoring Server": "Turbine",
-                "Monitoring Dashboard": "Hystrix"
+                "Port": 8080
             }
         },
         {
             "name": "user_webservice",
             "stereotypes": [
                 "internal",
-                "local_logging",
                 "resource_server",
                 "authentication_scope_all_requests"
             ],
             "tagged_values": {
-                "Port": 8091,
+                "Port": 8080,
                 "Endpoints": [
                     "/",
                     "/{userName}"
@@ -99,11 +72,11 @@
             "name": "comments_webservice",
             "stereotypes": [
                 "internal",
-                "local_logging",
-                "resource_server"
+                "resource_server",
+                "authentication_scope_all_requests"
             ],
             "tagged_values": {
-                "Port": 8083,
+                "Port": 8080,
                 "Endpoints": [
                     "/comments",
                     "/comments/{taskId}"
@@ -114,37 +87,31 @@
             "name": "task_webservice",
             "stereotypes": [
                 "internal",
-                "local_logging",
-                "authentication_scope_all_requests",
-                "resource_server",
                 "circuit_breaker",
-                "load_balancer"
+                "resource_server",
+                "authentication_scope_all_requests"
             ],
             "tagged_values": {
-                "Port": 8082,
-                "Circuit Breaker": "Hystrix",
+                "Port": 8080,
                 "Endpoints": [
                     "/",
                     "/{taskId}",
                     "/usertask/{userName}"
-                ],
-                "Load Balancer": "Spring Cloud"
+                ]
             }
         },
         {
             "name": "api_gateway",
             "stereotypes": [
-                "infrastructural",
                 "gateway",
-                "load_balancer",
-                "circuit_breaker",
-                "csrf_disabled"
+                "infrastructural",
+                "authentication_scope_all_requests",
+                "load_balancer"
             ],
             "tagged_values": {
-                "Port": 8765,
                 "Gateway": "Zuul",
-                "Load Balancer": "Ribbon",
-                "Circuit Breaker": "Hystrix"
+                "Port": 8080,
+                "Load Balancer": "Ribbon"
             }
         }
     ],
@@ -156,7 +123,22 @@
                 "entrypoint"
             ],
             "tagged_values": {
-                "URL": "https"
+                "URL": "https://github.com/anilallewar/sample-config"
+            }
+        },
+        {
+            "name": "database_auth_server",
+            "stereotypes": [
+                "external_database",
+                "plaintext_credentials",
+                "entrypoint",
+                "exitpoint"
+            ],
+            "tagged_values": {
+                "Database": "MySQL",
+                "Port": 3306,
+                "Username": "root",
+                "Password": "password"
             }
         },
         {
@@ -176,39 +158,22 @@
             "stereotypes": [
                 "restful_http"
             ],
-            "tagged_values": {
-                "Protocol": "HTTPS"
-            }
+            "tagged_values": {}
         },
         {
             "sender": "configserver",
             "receiver": "webservice_registry",
             "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "configserver",
-            "receiver": "zipkin_tracing",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "configserver",
-            "receiver": "auth_server",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "mysqldb",
-            "receiver": "auth_server",
-            "stereotypes": [
                 "restful_http",
+                "encrypted_connection"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "database_auth_server",
+            "receiver": "auth_server",
+            "stereotypes": [
+                "jdbc",
                 "plaintext_credentials_link"
             ],
             "tagged_values": {
@@ -217,10 +182,30 @@
             }
         },
         {
+            "sender": "configserver",
+            "receiver": "auth_server",
+            "stereotypes": [
+                "restful_http",
+                "encrypted_connection"
+            ],
+            "tagged_values": {}
+        },
+        {
             "sender": "auth_server",
             "receiver": "webservice_registry",
             "stereotypes": [
-                "restful_http"
+                "restful_http",
+                "auth_provider",
+                "encrypted_connection"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "configserver",
+            "receiver": "web_portal",
+            "stereotypes": [
+                "restful_http",
+                "encrypted_connection"
             ],
             "tagged_values": {}
         },
@@ -228,23 +213,8 @@
             "sender": "web_portal",
             "receiver": "webservice_registry",
             "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "configserver",
-            "receiver": "web_portal",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "user_webservice",
-            "receiver": "zipkin_tracing",
-            "stereotypes": [
-                "restful_http"
+                "restful_http",
+                "encrypted_connection"
             ],
             "tagged_values": {}
         },
@@ -252,7 +222,8 @@
             "sender": "configserver",
             "receiver": "user_webservice",
             "stereotypes": [
-                "restful_http"
+                "restful_http",
+                "encrypted_connection"
             ],
             "tagged_values": {}
         },
@@ -260,7 +231,8 @@
             "sender": "user_webservice",
             "receiver": "webservice_registry",
             "stereotypes": [
-                "restful_http"
+                "restful_http",
+                "encrypted_connection"
             ],
             "tagged_values": {}
         },
@@ -268,15 +240,9 @@
             "sender": "auth_server",
             "receiver": "user_webservice",
             "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "comments_webservice",
-            "receiver": "zipkin_tracing",
-            "stereotypes": [
-                "restful_http"
+                "restful_http",
+                "auth_provider",
+                "encrypted_connection"
             ],
             "tagged_values": {}
         },
@@ -284,7 +250,8 @@
             "sender": "configserver",
             "receiver": "comments_webservice",
             "stereotypes": [
-                "restful_http"
+                "restful_http",
+                "encrypted_connection"
             ],
             "tagged_values": {}
         },
@@ -292,31 +259,18 @@
             "sender": "comments_webservice",
             "receiver": "webservice_registry",
             "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "task_webservice",
-            "receiver": "zipkin_tracing",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "configserver",
-            "receiver": "task_webservice",
-            "stereotypes": [
-                "restful_http"
+                "restful_http",
+                "encrypted_connection"
             ],
             "tagged_values": {}
         },
         {
             "sender": "auth_server",
-            "receiver": "task_webservice",
+            "receiver": "comments_webservice",
             "stereotypes": [
-                "restful_http"
+                "restful_http",
+                "auth_provider",
+                "encrypted_connection"
             ],
             "tagged_values": {}
         },
@@ -324,15 +278,28 @@
             "sender": "task_webservice",
             "receiver": "webservice_registry",
             "stereotypes": [
-                "restful_http"
+                "restful_http",
+                "circuit_breaker_link",
+                "encrypted_connection"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "task_webservice",
-            "receiver": "web_portal",
+            "sender": "auth_server",
+            "receiver": "task_webservice",
             "stereotypes": [
-                "restful_http"
+                "restful_http",
+                "auth_provider",
+                "encrypted_connection"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "configserver",
+            "receiver": "task_webservice",
+            "stereotypes": [
+                "restful_http",
+                "encrypted_connection"
             ],
             "tagged_values": {}
         },
@@ -342,15 +309,7 @@
             "stereotypes": [
                 "restful_http",
                 "circuit_breaker_link",
-                "load_balanced_link"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "api_gateway",
-            "receiver": "user",
-            "stereotypes": [
-                "restful_http"
+                "encrypted_connection"
             ],
             "tagged_values": {}
         },
@@ -363,16 +322,8 @@
             "tagged_values": {}
         },
         {
-            "sender": "configserver",
-            "receiver": "api_gateway",
-            "stereotypes": [
-                "restful_http"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "webservice_registry",
-            "receiver": "api_gateway",
+            "sender": "api_gateway",
+            "receiver": "user",
             "stereotypes": [
                 "restful_http"
             ],
@@ -380,27 +331,32 @@
         },
         {
             "sender": "api_gateway",
-            "receiver": "zipkin_tracing",
+            "receiver": "auth_server",
             "stereotypes": [
-                "restful_http"
+                "restful_http",
+                "auth_provider",
+                "encrypted_connection"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "auth_server",
+            "sender": "database_auth_server",
             "receiver": "api_gateway",
             "stereotypes": [
-                "restful_http"
+                "jdbc",
+                "plaintext_credentials_link"
             ],
-            "tagged_values": {}
+            "tagged_values": {
+                "'Username'": "root",
+                "'Password'": "password"
+            }
         },
         {
             "sender": "api_gateway",
             "receiver": "user_webservice",
             "stereotypes": [
                 "restful_http",
-                "load_balanced_link",
-                "circuit_breaker_link"
+                "encrypted_connection"
             ],
             "tagged_values": {}
         },
@@ -409,8 +365,34 @@
             "receiver": "task_webservice",
             "stereotypes": [
                 "restful_http",
-                "load_balanced_link",
-                "circuit_breaker_link"
+                "encrypted_connection"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "web_portal",
+            "stereotypes": [
+                "restful_http",
+                "encrypted_connection"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "configserver",
+            "receiver": "api_gateway",
+            "stereotypes": [
+                "restful_http",
+                "encrypted_connection"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "webservice_registry",
+            "receiver": "api_gateway",
+            "stereotypes": [
+                "restful_http",
+                "encrypted_connection"
             ],
             "tagged_values": {}
         }

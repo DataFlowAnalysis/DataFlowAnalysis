@@ -70,8 +70,8 @@
                 "infrastructural",
                 "monitoring_dashboard",
                 "monitoring_server",
-                "authentication_scope_all_requests",
-                "local_logging"
+                "logging_server",
+                "authentication_scope_all_requests"
             ],
             "tagged_values": {
                 "Port": 8090,
@@ -146,6 +146,14 @@
                 "Load Balancer": "Ribbon",
                 "Circuit Breaker": "Hystrix"
             }
+        },
+        {
+            "name": "message_broker",
+            "stereotypes": [
+                "infrastructural",
+                "message_broker"
+            ],
+            "tagged_values": {}
         }
     ],
     "external_entities": [
@@ -156,7 +164,7 @@
                 "entrypoint"
             ],
             "tagged_values": {
-                "URL": "https"
+                "URL": "https://github.com/anilallewar/microservices-basics-cloud-config"
             }
         },
         {
@@ -176,9 +184,7 @@
             "stereotypes": [
                 "restful_http"
             ],
-            "tagged_values": {
-                "Protocol": "HTTPS"
-            }
+            "tagged_values": {}
         },
         {
             "sender": "configserver",
@@ -411,6 +417,38 @@
                 "restful_http",
                 "load_balanced_link",
                 "circuit_breaker_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "message_broker",
+            "receiver": "web_portal",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user_webservice",
+            "receiver": "message_broker",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "comments_webservice",
+            "receiver": "message_broker",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "task_webservice",
+            "receiver": "message_broker",
+            "stereotypes": [
+                "restful_http"
             ],
             "tagged_values": {}
         }

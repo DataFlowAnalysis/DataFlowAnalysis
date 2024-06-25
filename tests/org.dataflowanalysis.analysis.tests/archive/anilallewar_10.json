@@ -4,7 +4,8 @@
             "name": "configserver",
             "stereotypes": [
                 "infrastructural",
-                "configuration_server"
+                "configuration_server",
+                "local_logging"
             ],
             "tagged_values": {
                 "Port": 8888,
@@ -15,7 +16,8 @@
             "name": "webservice_registry",
             "stereotypes": [
                 "infrastructural",
-                "service_discovery"
+                "service_discovery",
+                "local_logging"
             ],
             "tagged_values": {
                 "Port": 8761,
@@ -26,7 +28,8 @@
             "name": "zipkin_tracing",
             "stereotypes": [
                 "infrastructural",
-                "tracing_server"
+                "tracing_server",
+                "local_logging"
             ],
             "tagged_values": {
                 "Port": 9411,
@@ -51,6 +54,7 @@
                 "infrastructural",
                 "authorization_server",
                 "resource_server",
+                "local_logging",
                 "authentication_scope_all_requests",
                 "plaintext_credentials"
             ],
@@ -70,8 +74,9 @@
                 "infrastructural",
                 "monitoring_dashboard",
                 "monitoring_server",
-                "authentication_scope_all_requests",
-                "local_logging"
+                "logging_server",
+                "local_logging",
+                "authentication_scope_all_requests"
             ],
             "tagged_values": {
                 "Port": 8090,
@@ -136,6 +141,7 @@
             "stereotypes": [
                 "infrastructural",
                 "gateway",
+                "local_logging",
                 "load_balancer",
                 "circuit_breaker",
                 "csrf_disabled"
@@ -156,7 +162,7 @@
                 "entrypoint"
             ],
             "tagged_values": {
-                "URL": "https"
+                "URL": "https://github.com/anilallewar/microservices-basics-cloud-config"
             }
         },
         {
@@ -176,9 +182,7 @@
             "stereotypes": [
                 "restful_http"
             ],
-            "tagged_values": {
-                "Protocol": "HTTPS"
-            }
+            "tagged_values": {}
         },
         {
             "sender": "configserver",
@@ -411,6 +415,54 @@
                 "restful_http",
                 "load_balanced_link",
                 "circuit_breaker_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "webservice_registry",
+            "receiver": "web_portal",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "zipkin_tracing",
+            "receiver": "web_portal",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "web_portal",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user_webservice",
+            "receiver": "web_portal",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "comments_webservice",
+            "receiver": "web_portal",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "web_portal",
+            "stereotypes": [
+                "restful_http"
             ],
             "tagged_values": {}
         }

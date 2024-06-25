@@ -1,0 +1,604 @@
+{
+    "services": [
+        {
+            "name": "elasticsearch",
+            "stereotypes": [
+                "infrastructural",
+                "search_engine"
+            ],
+            "tagged_values": {
+                "Port": 9200,
+                "Search Engine": "Elasticsearch"
+            }
+        },
+        {
+            "name": "kibana",
+            "stereotypes": [
+                "infrastructural",
+                "monitoring_dashboard"
+            ],
+            "tagged_values": {
+                "Port": 5601,
+                "Monitoring Dashboard": "Kibana"
+            }
+        },
+        {
+            "name": "logstash",
+            "stereotypes": [
+                "infrastructural",
+                "logging_server"
+            ],
+            "tagged_values": {
+                "Port": 25826,
+                "Logging Server": "Logstash"
+            }
+        },
+        {
+            "name": "rabbitmq",
+            "stereotypes": [
+                "infrastructural",
+                "message_broker"
+            ],
+            "tagged_values": {
+                "Port": 15672,
+                "Message Broker": "RabbitMQ"
+            }
+        },
+        {
+            "name": "discovery_server",
+            "stereotypes": [
+                "infrastructural",
+                "service_discovery",
+                "plaintext_credentials"
+            ],
+            "tagged_values": {
+                "Port": 8762,
+                "Service Discovery": "Eureka",
+                "Username": "user",
+                "Password": "password"
+            }
+        },
+        {
+            "name": "config_server",
+            "stereotypes": [
+                "infrastructural",
+                "configuration_server",
+                "local_logging"
+            ],
+            "tagged_values": {
+                "Port": 8888,
+                "Configuration Server": "Spring Cloud Config"
+            }
+        },
+        {
+            "name": "auth_server",
+            "stereotypes": [
+                "infrastructural",
+                "authorization_server",
+                "resource_server",
+                "local_logging",
+                "plaintext_credentials"
+            ],
+            "tagged_values": {
+                "Port": 9999,
+                "Authorization Server": "Spring OAuth2",
+                "Endpoints": [
+                    "/user"
+                ],
+                "Username": "acme",
+                "Password": "acmesecret"
+            }
+        },
+        {
+            "name": "monitor_dashboard",
+            "stereotypes": [
+                "infrastructural",
+                "monitoring_dashboard",
+                "local_logging"
+            ],
+            "tagged_values": {
+                "Port": 7979,
+                "Monitoring Dashboard": "Hystrix",
+                "Endpoints": [
+                    "/"
+                ]
+            }
+        },
+        {
+            "name": "turbine_server",
+            "stereotypes": [
+                "infrastructural",
+                "monitoring_server",
+                "local_logging"
+            ],
+            "tagged_values": {
+                "Port": 8989,
+                "Monitoring Server": "Turbine"
+            }
+        },
+        {
+            "name": "zipkin_server",
+            "stereotypes": [
+                "infrastructural",
+                "tracing_server"
+            ],
+            "tagged_values": {
+                "Port": 9411,
+                "Tracing Server": "Zipkin"
+            }
+        },
+        {
+            "name": "product_service",
+            "stereotypes": [
+                "internal",
+                "local_logging"
+            ],
+            "tagged_values": {
+                "Port": 8080,
+                "Endpoints": [
+                    "/product/{productId}",
+                    "/set-Serviceing-time"
+                ]
+            }
+        },
+        {
+            "name": "recommendation_service",
+            "stereotypes": [
+                "internal",
+                "local_logging"
+            ],
+            "tagged_values": {
+                "Port": 8080,
+                "Endpoints": [
+                    "/recommendation",
+                    "/set-Serviceing-time"
+                ]
+            }
+        },
+        {
+            "name": "review_service",
+            "stereotypes": [
+                "internal",
+                "local_logging"
+            ],
+            "tagged_values": {
+                "Port": 8080,
+                "Endpoints": [
+                    "/review",
+                    "/set-Serviceing-time"
+                ]
+            }
+        },
+        {
+            "name": "composite_service",
+            "stereotypes": [
+                "internal",
+                "local_logging",
+                "load_balancer",
+                "circuit_breaker",
+                "resource_server"
+            ],
+            "tagged_values": {
+                "Port": 8080,
+                "Endpoints": [
+                    "/",
+                    "/{productId}"
+                ],
+                "Load Balancer": "Spring Cloud"
+            }
+        },
+        {
+            "name": "edge_server",
+            "stereotypes": [
+                "infrastructural",
+                "gateway",
+                "resource_server",
+                "local_logging",
+                "circuit_breaker",
+                "load_balancer"
+            ],
+            "tagged_values": {
+                "Port": 8765,
+                "Gateway": "Zuul",
+                "Load Balancer": "Ribbon"
+            }
+        }
+    ],
+    "information_flows": [
+        {
+            "sender": "elasticsearch",
+            "receiver": "kibana",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "logstash",
+            "receiver": "elasticsearch",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "github_repository",
+            "receiver": "config_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {
+                "Protocol": "HTTPS\""
+            }
+        },
+        {
+            "sender": "config_server",
+            "receiver": "rabbitmq",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {
+                "Protocol": "HTTPS\""
+            }
+        },
+        {
+            "sender": "config_server",
+            "receiver": "auth_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {
+                "Protocol": "HTTPS\""
+            }
+        },
+        {
+            "sender": "config_server",
+            "receiver": "monitor_dashboard",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {
+                "Protocol": "HTTPS\""
+            }
+        },
+        {
+            "sender": "monitor_dashboard",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "rabbitmq",
+            "receiver": "turbine_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "turbine_server",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "turbine_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {
+                "Protocol": "HTTPS\""
+            }
+        },
+        {
+            "sender": "turbine_server",
+            "receiver": "monitor_dashboard",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "rabbitmq",
+            "receiver": "zipkin_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "product_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {
+                "Protocol": "HTTPS\""
+            }
+        },
+        {
+            "sender": "product_service",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "recommendation_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {
+                "Protocol": "HTTPS\""
+            }
+        },
+        {
+            "sender": "recommendation_service",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "review_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {
+                "Protocol": "HTTPS\""
+            }
+        },
+        {
+            "sender": "review_service",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "composite_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {
+                "Protocol": "HTTPS\""
+            }
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "composite_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {
+                "Protocol": "HTTPS\""
+            }
+        },
+        {
+            "sender": "composite_service",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http",
+                "circuit_breaker_link",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "composite_service",
+            "receiver": "rabbitmq",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "composite_service",
+            "receiver": "product_service",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "composite_service",
+            "receiver": "recommendation_service",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "composite_service",
+            "receiver": "review_service",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "edge_server",
+            "receiver": "user",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user",
+            "receiver": "edge_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "edge_server",
+            "receiver": "composite_service",
+            "stereotypes": [
+                "restful_http",
+                "circuit_breaker_link"
+            ],
+            "tagged_values": {
+                "Protocol": "HTTPS\""
+            }
+        },
+        {
+            "sender": "discovery_server",
+            "receiver": "edge_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "edge_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {
+                "Protocol": "HTTPS\""
+            }
+        },
+        {
+            "sender": "edge_server",
+            "receiver": "auth_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {
+                "Protocol": "HTTPS\""
+            }
+        },
+        {
+            "sender": "discovery_server",
+            "receiver": "logstash",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "logstash",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {
+                "Protocol": "HTTPS\""
+            }
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "logstash",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {
+                "Protocol": "HTTPS\""
+            }
+        },
+        {
+            "sender": "product_service",
+            "receiver": "logstash",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "recommendation_service",
+            "receiver": "logstash",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "review_service",
+            "receiver": "logstash",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "composite_service",
+            "receiver": "logstash",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "monitor_dashboard",
+            "receiver": "logstash",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "edge_server",
+            "receiver": "logstash",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {
+                "Protocol": "HTTPS\""
+            }
+        },
+        {
+            "sender": "zipkin_server",
+            "receiver": "logstash",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        }
+    ],
+    "external_entities": [
+        {
+            "name": "github_repository",
+            "stereotypes": [
+                "github_repository",
+                "entrypoint"
+            ],
+            "tagged_values": {
+                "URL": "https"
+            }
+        },
+        {
+            "name": "user",
+            "stereotypes": [
+                "user_stereotype",
+                "entrypoint",
+                "exitpoint"
+            ],
+            "tagged_values": {}
+        }
+    ]
+}

@@ -1,0 +1,333 @@
+{
+    "services": [
+        {
+            "name": "discovery_server",
+            "stereotypes": [
+                "service_discovery",
+                "infrastructural",
+                "local_logging"
+            ],
+            "tagged_values": {
+                "Service Discovery": "Eureka",
+                "Port": 8761
+            }
+        },
+        {
+            "name": "gateway_server",
+            "stereotypes": [
+                "gateway",
+                "in_memory_authentication",
+                "plaintext_credentials",
+                "infrastructural",
+                "authentication_scope_all_requests",
+                "load_balancer",
+                "local_logging"
+            ],
+            "tagged_values": {
+                "Gateway": "Zuul",
+                "Username": "root",
+                "Password": "password",
+                "Port": 8765,
+                "Load Balancer": "Ribbon"
+            }
+        },
+        {
+            "name": "auth_server",
+            "stereotypes": [
+                "authorization_server",
+                "encryption",
+                "infrastructural",
+                "resource_server",
+                "token_server",
+                "local_logging"
+            ],
+            "tagged_values": {
+                "Authorization Server": "Spring OAuth2",
+                "Port": 9999
+            }
+        },
+        {
+            "name": "account_service",
+            "stereotypes": [
+                "internal",
+                "pre_authorized_endpoints",
+                "resource_server",
+                "local_logging"
+            ],
+            "tagged_values": {
+                "Pre-authorized Endpoints": [
+                    "/{id}",
+                    "/"
+                ],
+                "Port": 8082
+            }
+        },
+        {
+            "name": "customer_service",
+            "stereotypes": [
+                "internal",
+                "pre_authorized_endpoints",
+                "resource_server",
+                "local_logging"
+            ],
+            "tagged_values": {
+                "Pre-authorized Endpoints": [
+                    "/{id}"
+                ],
+                "Port": 8083
+            }
+        },
+        {
+            "name": "monitoring_dashboard",
+            "stereotypes": [
+                "infrastructural",
+                "monitoring_dashboard",
+                "local_logging"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "name": "logging_server",
+            "stereotypes": [
+                "infrastructural",
+                "logging_server"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "name": "message_broker",
+            "stereotypes": [
+                "infrastructural",
+                "message_broker"
+            ],
+            "tagged_values": {}
+        }
+    ],
+    "information_flows": [
+        {
+            "sender": "discovery_server",
+            "receiver": "gateway_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "database_gateway_server",
+            "receiver": "gateway_server",
+            "stereotypes": [
+                "jdbc",
+                "plaintext_credentials_link"
+            ],
+            "tagged_values": {
+                "'Password'": "default",
+                "'Username'": "default"
+            }
+        },
+        {
+            "sender": "user",
+            "receiver": "gateway_server",
+            "stereotypes": [
+                "restful_http",
+                "authenticated_request"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "gateway_server",
+            "receiver": "user",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "database_auth_server",
+            "receiver": "auth_server",
+            "stereotypes": [
+                "jdbc",
+                "plaintext_credentials_link"
+            ],
+            "tagged_values": {
+                "Username": "oauth2",
+                "Password": "oauth2"
+            }
+        },
+        {
+            "sender": "gateway_server",
+            "receiver": "auth_server",
+            "stereotypes": [
+                "restful_http",
+                "auth_provider"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "account_service",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "account_service",
+            "stereotypes": [
+                "restful_http",
+                "auth_provider"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "gateway_server",
+            "receiver": "account_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "customer_service",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "customer_service",
+            "receiver": "account_service",
+            "stereotypes": [
+                "restful_http",
+                "authenticated_request",
+                "feign_connection",
+                "load_balanced_link"
+            ],
+            "tagged_values": {
+                "'Load Balancer'": "Ribbon"
+            }
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "customer_service",
+            "stereotypes": [
+                "restful_http",
+                "auth_provider"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "message_broker",
+            "receiver": "logging_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "logging_server",
+            "receiver": "monitoring_dashboard",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "discovery_server",
+            "receiver": "message_broker",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "gateway_server",
+            "receiver": "message_broker",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "message_broker",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "account_service",
+            "receiver": "message_broker",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "customer_service",
+            "receiver": "message_broker",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "monitoring_dashboard",
+            "receiver": "message_broker",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        }
+    ],
+    "external_entities": [
+        {
+            "name": "database_gateway_server",
+            "stereotypes": [
+                "external_database",
+                "entrypoint",
+                "exitpoint",
+                "plaintext_credentials"
+            ],
+            "tagged_values": {
+                "Database": "MySQL",
+                "Password": "default",
+                "Username": "default"
+            }
+        },
+        {
+            "name": "user",
+            "stereotypes": [
+                "user_stereotype",
+                "entrypoint",
+                "exitpoint"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "name": "database_auth_server",
+            "stereotypes": [
+                "external_database",
+                "entrypoint",
+                "exitpoint",
+                "plaintext_credentials",
+                "tokenstore"
+            ],
+            "tagged_values": {
+                "Database": "MySQL",
+                "Username": "oauth2",
+                "Password": "oauth2"
+            }
+        }
+    ]
+}

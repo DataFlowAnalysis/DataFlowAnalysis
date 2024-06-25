@@ -70,8 +70,7 @@
                 "infrastructural",
                 "monitoring_dashboard",
                 "monitoring_server",
-                "authentication_scope_all_requests",
-                "local_logging"
+                "authentication_scope_all_requests"
             ],
             "tagged_values": {
                 "Port": 8090,
@@ -156,7 +155,7 @@
                 "entrypoint"
             ],
             "tagged_values": {
-                "URL": "https"
+                "URL": "https://github.com/anilallewar/microservices-basics-cloud-config"
             }
         },
         {
@@ -174,11 +173,10 @@
             "sender": "github_repository",
             "receiver": "configserver",
             "stereotypes": [
-                "restful_http"
+                "restful_http",
+                "encrypted_connection"
             ],
-            "tagged_values": {
-                "Protocol": "HTTPS"
-            }
+            "tagged_values": {}
         },
         {
             "sender": "configserver",
@@ -350,7 +348,8 @@
             "sender": "api_gateway",
             "receiver": "user",
             "stereotypes": [
-                "restful_http"
+                "restful_http",
+                "encrypted_connection"
             ],
             "tagged_values": {}
         },
@@ -358,7 +357,8 @@
             "sender": "user",
             "receiver": "api_gateway",
             "stereotypes": [
-                "restful_http"
+                "restful_http",
+                "encrypted_connection"
             ],
             "tagged_values": {}
         },

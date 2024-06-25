@@ -52,7 +52,8 @@
                 "authorization_server",
                 "resource_server",
                 "authentication_scope_all_requests",
-                "plaintext_credentials"
+                "plaintext_credentials",
+                "login_attempts_regulation"
             ],
             "tagged_values": {
                 "Port": 8899,
@@ -70,8 +71,7 @@
                 "infrastructural",
                 "monitoring_dashboard",
                 "monitoring_server",
-                "authentication_scope_all_requests",
-                "local_logging"
+                "authentication_scope_all_requests"
             ],
             "tagged_values": {
                 "Port": 8090,
@@ -156,7 +156,7 @@
                 "entrypoint"
             ],
             "tagged_values": {
-                "URL": "https"
+                "URL": "https://github.com/anilallewar/microservices-basics-cloud-config"
             }
         },
         {
@@ -176,9 +176,7 @@
             "stereotypes": [
                 "restful_http"
             ],
-            "tagged_values": {
-                "Protocol": "HTTPS"
-            }
+            "tagged_values": {}
         },
         {
             "sender": "configserver",

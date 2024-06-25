@@ -78,10 +78,22 @@ public class MicroSecEndConverter extends Converter {
      * @return Optional of DataFlowDiagramAndDictionary if successful, otherwise empty.
      */
     public Optional<DataFlowDiagramAndDictionary> plantToDFD(String inputFile, String OutputFile) {
-        String name = inputFile.split("\\.")[1];
-        int exitCode = runPythonScript(inputFile, "json", OutputFile + name + ".json");
+        String[] elementsOfPath = inputFile.split("\\\\");
+        String name = elementsOfPath[1];
+        var index = elementsOfPath[elementsOfPath.length -1].split("\\.")[0];
+        
+        try {
+            Integer.parseInt(index);
+        } catch (NumberFormatException e) {
+            index = "0";
+        }
+        var suffix = "_" + index;
+        
+        String out = OutputFile+ "\\" + name + "\\"+ name + suffix + ".json";
+        System.out.println(out);
+        int exitCode = runPythonScript(inputFile, "json", out);
         if (exitCode == 0) {
-            return Optional.empty();//return Optional.ofNullable(microToDfd(name + ".json"));
+            return Optional.ofNullable(microToDfd(out));
         } else {
             return Optional.empty();
         }
@@ -98,6 +110,7 @@ public class MicroSecEndConverter extends Converter {
      */
     public int runPythonScript(String in, String format, String out) {
         String[] command = {"python3", "convert_model.py", in, format, "-op", out};
+        
 
         ProcessBuilder processBuilder = new ProcessBuilder(command);
         Process process;

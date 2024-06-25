@@ -89,7 +89,7 @@ def plantuml_to_json(file_as_lines: str) -> str:
     output_dict = dict()
 
     for line in file_as_lines:
-        if "Service" in line:
+        if "Process" in line:
             name, stereotypes, tagged_values = parse_node_plantuml(line)
             output_dict = add_service_json(output_dict, name, stereotypes, tagged_values)
 

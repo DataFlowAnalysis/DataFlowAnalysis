@@ -1,0 +1,258 @@
+{
+    "external_entities": [
+        {
+            "name": "github_repository",
+            "stereotypes": [
+                "github_repository",
+                "entrypoint"
+            ],
+            "tagged_values": {
+                "URL": "https"
+            }
+        },
+        {
+            "name": "user",
+            "stereotypes": [
+                "user_stereotype",
+                "entrypoint",
+                "exitpoint"
+            ],
+            "tagged_values": {}
+        }
+    ],
+    "information_flows": [
+        {
+            "sender": "github_repository",
+            "receiver": "config_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {
+                "Protocol": "HTTPS"
+            }
+        },
+        {
+            "sender": "config_server",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "tracing_server",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "tracing_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "admin_server",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "admin_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "prometheus_server",
+            "receiver": "grafana_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "customers_service",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "customers_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "customers_service",
+            "receiver": "tracing_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "customers_service",
+            "receiver": "prometheus_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "vets_service",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "vets_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "vets_service",
+            "receiver": "tracing_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "vets_service",
+            "receiver": "prometheus_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "visits_service",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "visits_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "visits_service",
+            "receiver": "tracing_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "visits_service",
+            "receiver": "prometheus_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "discovery_server",
+            "receiver": "api_gateway",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user",
+            "receiver": "api_gateway",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "user",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "api_gateway",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "prometheus_server",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "vets_service",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "visits_service",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "customers_service",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link",
+                "circuit_breaker_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "tracing_server",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        }
+    ]
+}

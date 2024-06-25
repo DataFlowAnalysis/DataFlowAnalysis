@@ -1,0 +1,61 @@
+
+@startuml
+skinparam monochrome true
+skinparam ClassBackgroundColor White
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+
+
+digraph dfd2{
+    node[shape=record]
+        configserver [label = "{Process: configserver | --configuration_server--\n--infrastructural--\n--local_logging--\n--log_sanitization--\nConfiguration Server: Spring Cloud Config\nPort: 8888\n}" shape = Mrecord];
+        github_repository [label = "{External Entity: github_repository | --github_repository--\n--entrypoint--\nURL: https://github.com/anilallewar/sample-config\n}"];
+        github_repository -> configserver [label = " --restful_http--\n"]
+        webservice_registry [label = "{Process: webservice_registry | --service_discovery--\n--infrastructural--\n--local_logging--\n--log_sanitization--\nService Discovery: Eureka\nPort: 8761\n}" shape = Mrecord];
+        configserver -> webservice_registry [label = " --restful_http--\n"]
+        auth_server [label = "{Process: auth_server | --authorization_server--\n--infrastructural--\n--encryption--\n--tokenstore--\n--plaintext_credentials--\n--resource_server--\n--authorization_scope_all_requests--\n--local_logging--\nAuthorization Server: Spring OAuth2\nPort: 8899\nEndpoints: ['/me', '/']\nUsername: dave\nPassword: secret\n}" shape = Mrecord];
+        database_auth_server [label = "{External Entity: database_auth_server | --external_database--\n--plaintext_credentials--\n--entrypoint--\n--exitpoint--\nDatabase: MySQL\nPort: 3306\nUsername: root\nPassword: password\n}"];
+        database_auth_server -> auth_server [label = " --jdbc--\n--plaintext_credentials_link--\n'Username': root\n 'Password': password\n"]
+        configserver -> auth_server [label = " --restful_http--\n"]
+        auth_server -> webservice_registry [label = " --restful_http--\n--auth_provider--\n"]
+        web_portal [label = "{Process: web_portal | --internal--\n--local_logging--\n--log_sanitization--\nPort: 8080\n}" shape = Mrecord];
+        configserver -> web_portal [label = " --restful_http--\n"]
+        web_portal -> webservice_registry [label = " --restful_http--\n"]
+        user_webservice [label = "{Process: user_webservice | --internal--\n--resource_server--\n--authentication_scope_all_requests--\n--local_logging--\n--log_sanitization--\nPort: 8080\nEndpoints: ['/', '/\{userName\}']\n}" shape = Mrecord];
+        configserver -> user_webservice [label = " --restful_http--\n"]
+        user_webservice -> webservice_registry [label = " --restful_http--\n"]
+        auth_server -> user_webservice [label = " --restful_http--\n--auth_provider--\n"]
+        comments_webservice [label = "{Process: comments_webservice | --internal--\n--resource_server--\n--authentication_scope_all_requests--\n--local_logging--\n--log_sanitization--\nPort: 8080\nEndpoints: ['/comments', '/comments/\{taskId\}']\n}" shape = Mrecord];
+        configserver -> comments_webservice [label = " --restful_http--\n"]
+        comments_webservice -> webservice_registry [label = " --restful_http--\n"]
+        auth_server -> comments_webservice [label = " --restful_http--\n--auth_provider--\n"]
+        task_webservice [label = "{Process: task_webservice | --internal--\n--circuit_breaker--\n--resource_server--\n--authentication_scope_all_requests--\n--local_logging--\n--log_sanitization--\nPort: 8080\nEndpoints: ['/', '/\{taskId\}', '/usertask/\{userName\}']\n}" shape = Mrecord];
+        task_webservice -> webservice_registry [label = " --restful_http--\n--circuit_breaker_link--\n"]
+        auth_server -> task_webservice [label = " --restful_http--\n--auth_provider--\n"]
+        configserver -> task_webservice [label = " --restful_http--\n"]
+        task_webservice -> comments_webservice [label = " --restful_http--\n--circuit_breaker_link--\n"]
+        api_gateway [label = "{Process: api_gateway | --gateway--\n--infrastructural--\n--authentication_scope_all_requests--\n--load_balancer--\n--local_logging--\n--log_sanitization--\nGateway: Zuul\nPort: 8080\nLoad Balancer: Ribbon\n}" shape = Mrecord];
+        user [label = "{External Entity: user | --user_stereotype--\n--entrypoint--\n--exitpoint--\n}"];
+        user -> api_gateway [label = " --restful_http--\n"]
+        api_gateway -> user [label = " --restful_http--\n"]
+        api_gateway -> auth_server [label = " --restful_http--\n--auth_provider--\n"]
+        database_auth_server -> api_gateway [label = " --jdbc--\n--plaintext_credentials_link--\n'Username': root\n 'Password': password\n"]
+        api_gateway -> user_webservice [label = " --restful_http--\n"]
+        api_gateway -> task_webservice [label = " --restful_http--\n"]
+        api_gateway -> web_portal [label = " --restful_http--\n"]
+        configserver -> api_gateway [label = " --restful_http--\n"]
+        webservice_registry -> api_gateway [label = " --restful_http--\n"]
+
+        logging_server [label = "{Process: logging_server | \n--infrastructural--\n--logging_server--\n--monitoring_dashboard--\n}" shape = Mrecord];
+        configserver -> logging_server [label = " --restful_http--\n"]
+        webservice_registry -> logging_server [label = " --restful_http--\n"]
+        auth_server -> logging_server [label = " --restful_http--\n"]
+        web_portal -> logging_server [label = " --restful_http--\n"]
+        user_webservice -> logging_server [label = " --restful_http--\n"]
+        comments_webservice -> logging_server [label = " --restful_http--\n"]
+        task_webservice -> logging_server [label = " --restful_http--\n"]
+        api_gateway -> logging_server [label = " --restful_http--\n"]
+
+
+}
+@enduml

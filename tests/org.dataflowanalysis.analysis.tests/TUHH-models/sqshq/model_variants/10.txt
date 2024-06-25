@@ -1,0 +1,75 @@
+
+@startuml
+skinparam monochrome true
+skinparam ClassBackgroundColor White
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+
+
+digraph dfd2{
+    node[shape=record]
+        config [label = "{Process: config | --configuration_server--\n--plaintext_credentials--\n--infrastructural--\n--csrf_disabled--\n--basic_authentication--\n--local_logging--\nPort: 8888\nConfiguration Server: Spring Cloud Config\nUsername: user\nPassword: password\n}" shape = Mrecord];
+        registry [label = "{Process: registry | --service_discovery--\n--plaintext_credentials--\n--infrastructural--\n--local_logging--\nService Discovery: Eureka\nPort: 8761\n}" shape = Mrecord];
+        config -> registry [label = " --restful_http--\n--plaintext_credentials_link--\n"]
+        monitoring [label = "{Process: monitoring | --monitoring_dashboard--\n--logging_server--\n--infrastructural--\n--local_logging--\nMonitoring Dashboard: Hystrix\nPort: 8080\n}" shape = Mrecord];
+        config -> monitoring [label = " --restful_http--\n--plaintext_credentials_link--\n"]
+        turbine_stream_service [label = "{Process: turbine_stream_service | --monitoring_server--\n--infrastructural--\n--local_logging--\nMonitoring Server: Turbine\nPort: 8989\n}" shape = Mrecord];
+        turbine_stream_service -> registry [label = " --restful_http--\n"]
+        config -> turbine_stream_service [label = " --restful_http--\n--plaintext_credentials_link--\n"]
+        turbine_stream_service -> monitoring [label = " --restful_http--\n"]
+        rabbitmq [label = "{Process: rabbitmq | --message_broker--\n--infrastructural--\n--local_logging--\nMessage Broker: RabbitMQ\nPort: 15672\n}" shape = Mrecord];
+        rabbitmq -> turbine_stream_service [label = " --restful_http--\n"]
+        auth_service [label = "{Process: auth_service | --authorization_server--\n--pre_authorized_endpoints--\n--infrastructural--\n--token_server--\n--encryption--\n--local_logging--\n--resource_server--\n--csrf_disabled--\n--authentication_scope_all_requests--\nAuthorization Server: Spring OAuth2\nPort: 5000\nPre-authorized Endpoints: ['/users']\nEndpoints: ['/users', '/users/current']\n}" shape = Mrecord];
+        auth_service -> registry [label = " --restful_http--\n"]
+        config -> auth_service [label = " --plaintext_credentials_link--\n--restful_http--\n"]
+        account_service [label = "{Process: account_service | --internal--\n--pre_authorized_endpoints--\n--local_logging--\n--resource_server--\n--circuit_breaker--\nPort: 6000\nPre-authorized Endpoints: ['/\{name\}']\nCircuit Breaker: Hystrix\nEndpoints: ['/\{name\}', '/', '/uaa/users', '/statistics/\{accountName\}', '/current']\n}" shape = Mrecord];
+        account_service -> registry [label = " --restful_http--\n--circuit_breaker_link--\n'Circuit Breaker': Hystrix\n"]
+        auth_service -> account_service [label = " --restful_http--\n--plaintext_credentials_link--\n--auth_provider--\n--authentication_with_plaintext_credentials--\n"]
+        account_service -> auth_service [label = " --restful_http--\n--feign_connection--\n--load_balanced_link--\n'Load Balancer': Ribbon\n"]
+        config -> account_service [label = " --plaintext_credentials_link--\n--restful_http--\n"]
+        account_service -> rabbitmq [label = " --restful_http--\n--circuit_breaker_link--\n"]
+        notification_service [label = "{Process: notification_service | --internal--\n--local_logging--\n--resource_server--\nPort: 8000\nEndpoints: ['/accounts/\{accountName\}', '/recipients/current', '/recipients']\n}" shape = Mrecord];
+        notification_service -> registry [label = " --restful_http--\n"]
+        auth_service -> notification_service [label = " --restful_http--\n--plaintext_credentials_link--\n--auth_provider--\n--authentication_with_plaintext_credentials--\n"]
+        config -> notification_service [label = " --plaintext_credentials_link--\n--restful_http--\n"]
+        notification_service -> rabbitmq [label = " --restful_http--\n"]
+        mail_server [label = "{External Entity: mail_server | --mail_server--\n--plaintext_credentials--\n--exitpoint--\n--entrypoint--\nMail Server: Gmail\nHost: smtp.gmail.com\nPort: 465\nUsername: dev-user\nPassword: dev-password\n}"];
+        notification_service -> mail_server [label = " --plaintext_credentials_link--\n--restful_http--\n"]
+        statistics_service [label = "{Process: statistics_service | --internal--\n--local_logging--\n--pre_authorized_endpoints--\n--resource_server--\nPort: 7000\nPre-authorized Endpoints: ['/\{accountName\}']\nEndpoints: ['/latest', '/current', '/\{accountName\}']\n}" shape = Mrecord];
+        statistics_service -> registry [label = " --restful_http--\n"]
+        auth_service -> statistics_service [label = " --restful_http--\n--plaintext_credentials_link--\n--auth_provider--\n--authentication_with_plaintext_credentials--\n"]
+        config -> statistics_service [label = " --plaintext_credentials_link--\n--restful_http--\n"]
+        statistics_service -> rabbitmq [label = " --restful_http--\n"]
+        external_website [label = "{External Entity: external_website | --external_website--\n--entrypoint--\n--exitpoint--\nURL: https://api.exchangeratesapi.io\n}"];
+        external_website -> statistics_service [label = " --restful_http--\n"]
+        account_service -> statistics_service [label = " --restful_http--\n--feign_connection--\n--circuit_breaker_link--\n--load_balanced_link--\n'Circuit Breaker': Hystrix\n 'Load Balancer': Ribbon\n"]
+        notification_service -> account_service [label = " --restful_http--\n--feign_connection--\n--load_balanced_link--\n'Load Balancer': Ribbon\n"]
+        auth_mongodb [label = "|{Process: auth_mongodb | --database--\n--plaintext_credentials--\nDatabase: MongoDB\nUsername: user\nPassword: password\n}"]
+        account_mongodb [label = "|{Process: account_mongodb | --database--\n--plaintext_credentials--\nDatabase: MongoDB\nUsername: user\nPassword: password\n}"]
+        statistics_mongodb [label = "|{Process: statistics_mongodb | --database--\n--plaintext_credentials--\nDatabase: MongoDB\nUsername: user\nPassword: password\n}"]
+        notification_mongodb [label = "|{Process: notification_mongodb | --database--\n--plaintext_credentials--\nDatabase: MongoDB\nUsername: user\nPassword: password\n}"]
+        account_mongodb -> account_service [label = " --jdbc--\n--plaintext_credentials_link--\n"]
+        notification_mongodb -> notification_service [label = " --jdbc--\n--plaintext_credentials_link--\n"]
+        statistics_mongodb -> statistics_service [label = " --jdbc--\n--plaintext_credentials_link--\n"]
+        auth_mongodb -> auth_service [label = " --jdbc--\n--plaintext_credentials_link--\n"]
+        gateway [label = "{Process: gateway | --gateway--\n--infrastructural--\n--load_balancer--\n--local_logging--\nGateway: Zuul\nPort: 4000\nLoad Balancer: Ribbon\n}" shape = Mrecord];
+        registry -> gateway [label = " --restful_http--\n"]
+        user [label = "{External Entity: user | --user_stereotype--\n--entrypoint--\n--exitpoint--\n}"];
+        user -> gateway [label = " --restful_http--\n"]
+        gateway -> user [label = " --restful_http--\n"]
+        config -> gateway [label = " --plaintext_credentials_link--\n--restful_http--\n"]
+        gateway -> account_service [label = " --restful_http--\n--circuit_breaker_link--\n--load_balanced_link--\n'Load Balancer': Ribbon\n 'Circuit Breaker': Hystrix\n"]
+        gateway -> statistics_service [label = " --restful_http--\n--circuit_breaker_link--\n--load_balanced_link--\n'Load Balancer': Ribbon\n 'Circuit Breaker': Hystrix\n"]
+        gateway -> notification_service [label = " --restful_http--\n--circuit_breaker_link--\n--load_balanced_link--\n'Load Balancer': Ribbon\n 'Circuit Breaker': Hystrix\n"]
+        gateway -> auth_service [label = " --restful_http--\n--circuit_breaker_link--\n--load_balanced_link--\n--auth_provider--\n'Load Balancer': Ribbon\n 'Circuit Breaker': Hystrix\n"]
+
+        registry -> monitoring [label = " --restful_http--"]
+        rabbitmq -> monitoring [label = " --restful_http--"]
+        account_service -> monitoring [label = " --restful_http--"]
+        auth_service -> monitoring [label = " --restful_http--"]
+        notification_service -> monitoring [label = " --restful_http--"]
+        statistics_service -> monitoring [label = " --restful_http--"]
+        gateway -> monitoring [label = " --restful_http--"]
+
+}
+@enduml

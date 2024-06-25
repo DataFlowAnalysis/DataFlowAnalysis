@@ -1,0 +1,410 @@
+{
+    "nodes": {
+        "config-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-config-server/src/main/java/org/springframework/samples/petclinic/config/ConfigServerApplication.java#L25",
+            "line": 25,
+            "span": "(0, 19)",
+            "sub_items": {
+                "configuration_server": {
+                    "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-config-server/src/main/java/org/springframework/samples/petclinic/config/ConfigServerApplication.java#L25",
+                    "line": 25,
+                    "span": "(0, 19)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype configuration_server",
+                    "line": "heuristic, based on stereotype configuration_server",
+                    "span": "heuristic, based on stereotype configuration_server"
+                }
+            }
+        },
+        "discovery-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-discovery-server/src/main/resources/application.yml#L3",
+            "line": 3,
+            "span": "(10:26)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/discovery-server.yml#L2",
+                    "line": 2,
+                    "span": "(8, 12)"
+                },
+                "service_discovery": {
+                    "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-discovery-server/src/main/java/org/springframework/samples/petclinic/discovery/DiscoveryServerApplication.java#L26",
+                    "line": "26",
+                    "span": "(0, 19)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype service_discovery",
+                    "line": "heuristic, based on stereotype service_discovery",
+                    "span": "heuristic, based on stereotype service_discovery"
+                }
+            }
+        },
+        "admin-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-admin-server/src/main/resources/application.yml#L3",
+            "line": 3,
+            "span": "(10:22)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/admin-server.yml#L2",
+                    "line": 2,
+                    "span": "(8, 12)"
+                },
+                "administration_server": {
+                    "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-admin-server/src/main/java/org/springframework/samples/petclinic/admin/SpringBootAdminApplication.java#L24",
+                    "line": "24",
+                    "span": "(0, 18)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype administration_server",
+                    "line": "heuristic, based on stereotype administration_server",
+                    "span": "heuristic, based on stereotype administration_server"
+                }
+            }
+        },
+        "vets-service": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-vets-service/src/main/resources/application.yml#L3",
+            "line": 3,
+            "span": "(10:22)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/vets-service.yml#L24",
+                    "line": 24,
+                    "span": "(8, 12)"
+                },
+                "in_memory_data_store": {
+                    "file": "https://github.com/spring-petclinic/spring-petclinic-microservices-config/blob/main/application.yml#L13",
+                    "line": "13",
+                    "span": "(15, 44)"
+                },
+                "internal": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        },
+        "api-gateway": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-api-gateway/src/main/resources/application.yml#L3",
+            "line": 3,
+            "span": "(10:21)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/api-gateway.yml#L11",
+                    "line": 11,
+                    "span": "(8, 12)"
+                },
+                "gateway": {
+                    "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-api-gateway/pom.xml#L72",
+                    "line": "72",
+                    "span": "(24, 52)"
+                },
+                "load_balancer": {
+                    "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-api-gateway/src/main/java/org/springframework/samples/petclinic/api/ApiGatewayApplication.java#L54",
+                    "line": "54",
+                    "span": "(4, 17)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype gateway",
+                    "line": "heuristic, based on stereotype gateway",
+                    "span": "heuristic, based on stereotype gateway"
+                }
+            }
+        },
+        "customers-service": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-customers-service/src/main/resources/application.yml#L3",
+            "line": 3,
+            "span": "(10:27)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/customers-service.yml#L16",
+                    "line": 16,
+                    "span": "(8, 12)"
+                },
+                "local_logging": {
+                    "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-customers-service/src/main/java/org/springframework/samples/petclinic/customers/web/OwnerResource.java#L20",
+                    "line": "20",
+                    "span": "(27, 32)"
+                },
+                "in_memory_data_store": {
+                    "file": "https://github.com/spring-petclinic/spring-petclinic-microservices-config/blob/main/application.yml#L13",
+                    "line": "13",
+                    "span": "(15, 44)"
+                },
+                "internal": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        },
+        "visits-service": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-visits-service/src/main/resources/application.yml#L3",
+            "line": 3,
+            "span": "(10:24)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/visits-service.yml#L16",
+                    "line": 16,
+                    "span": "(8, 12)"
+                },
+                "local_logging": {
+                    "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-visits-service/src/main/java/org/springframework/samples/petclinic/visits/web/VisitResource.java#L25",
+                    "line": "25",
+                    "span": "(27, 32)"
+                },
+                "in_memory_data_store": {
+                    "file": "https://github.com/spring-petclinic/spring-petclinic-microservices-config/blob/main/application.yml#L13",
+                    "line": "13",
+                    "span": "(15, 44)"
+                },
+                "internal": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        },
+        "tracing-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/docker-compose.yml#L65",
+            "line": 65,
+            "span": "[2:16]",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/tracing-server.yml#L2",
+                    "line": 2,
+                    "span": "(8, 12)"
+                },
+                "tracing_server": {
+                    "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/docker-compose.yml#L65",
+                    "line": 65,
+                    "span": "[2:16]"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype tracing_server",
+                    "line": "heuristic, based on stereotype tracing_server",
+                    "span": "heuristic, based on stereotype tracing_server"
+                }
+            }
+        },
+        "grafana-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/docker-compose.yml#L87",
+            "line": 87,
+            "span": "[2:16]",
+            "sub_items": {
+                "monitoring_dashboard": {
+                    "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/docker/grafana/Dockerfile#L1",
+                    "line": "1",
+                    "span": "(5, 20)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype monitoring_dashboard",
+                    "line": "heuristic, based on stereotype monitoring_dashboard",
+                    "span": "heuristic, based on stereotype monitoring_dashboard"
+                }
+            }
+        },
+        "prometheus-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/docker-compose.yml#L94",
+            "line": 94,
+            "span": "[2:19]",
+            "sub_items": {
+                "metrics_server": {
+                    "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/docker-compose.yml#L94",
+                    "line": 94,
+                    "span": "[2:19]"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype metrics_server",
+                    "line": "heuristic, based on stereotype metrics_server",
+                    "span": "heuristic, based on stereotype metrics_server"
+                }
+            }
+        },
+        "github-repository": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-config-server/src/main/resources/application.yml#L7",
+            "line": 7,
+            "span": "(16, 89)",
+            "sub_items": {
+                "github_repository": {
+                    "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-config-server/src/main/resources/application.yml#L7",
+                    "line": 7,
+                    "span": "(16, 89)"
+                },
+                "entrypoint": {
+                    "file": "implicit",
+                    "line": "implicit",
+                    "span": "implicit"
+                }
+            }
+        },
+        "user": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit",
+            "sub_items": {
+                "user_stereotype": {
+                    "file": "implicit",
+                    "line": "implicit",
+                    "span": "implicit"
+                },
+                "entrypoint": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                },
+                "exitpoint": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        }
+    },
+    "edges": {
+        "github-repository -> config-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-config-server/src/main/resources/application.yml#L7",
+            "line": 7,
+            "span": "(16, 89)"
+        },
+        "config-server -> discovery-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-discovery-server/src/main/resources/application.yml#L5",
+            "line": 5,
+            "span": "(13, 78)"
+        },
+        "config-server -> admin-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-admin-server/src/main/resources/application.yml#L5",
+            "line": 5,
+            "span": "span"
+        },
+        "config-server -> vets-service": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/vets-service.yml#L9",
+            "line": 9,
+            "span": "span"
+        },
+        "config-server -> api-gateway": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-api-gateway/src/main/resources/application.yml#L35",
+            "line": 35,
+            "span": "(13, 51)"
+        },
+        "config-server -> customers-service": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-customers-service/src/main/resources/application.yml#L11",
+            "line": 11,
+            "span": "span"
+        },
+        "config-server -> visits-service": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-visits-service/src/main/resources/application.yml#L11",
+            "line": 11,
+            "span": "span"
+        },
+        "config-server -> tracing-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/tracing-server.yml#L15",
+            "line": 15,
+            "span": "span"
+        },
+        "visits-service -> discovery-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-visits-service/src/main/java/org/springframework/samples/petclinic/visits/VisitsServiceApplication.java#L20",
+            "line": "20",
+            "span": "(50, 71)"
+        },
+        "customers-service -> discovery-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-customers-service/src/main/java/org/springframework/samples/petclinic/customers/CustomersServiceApplication.java#L20",
+            "line": "20",
+            "span": "(50, 71)"
+        },
+        "admin-server -> discovery-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/admin-server.yml#L12",
+            "line": 12,
+            "span": "(20, 56)"
+        },
+        "vets-service -> discovery-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-vets-service/pom.xml#L62",
+            "line": "62",
+            "span": "(24, 66)"
+        },
+        "tracing-server -> discovery-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/tracing-server.yml#L20",
+            "line": 20,
+            "span": "(20, 56)"
+        },
+        "discovery-server -> api-gateway": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-api-gateway/src/main/java/org/springframework/samples/petclinic/api/ApiGatewayApplication.java#L26",
+            "line": "26",
+            "span": "(50, 71)"
+        },
+        "user -> api-gateway": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit"
+        },
+        "api-gateway -> user": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit"
+        },
+        "api-gateway -> visits-service": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-api-gateway/src/main/resources/application.yml#L9",
+            "line": 9,
+            "span": "span"
+        },
+        "api-gateway -> customers-service": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-api-gateway/src/main/resources/application.yml#L9",
+            "line": 9,
+            "span": "span"
+        },
+        "api-gateway -> vets-service": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/spring-petclinic-api-gateway/src/main/resources/application.yml#L9",
+            "line": 9,
+            "span": "span"
+        },
+        "vets-service -> tracing-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/vets-service.yml#L22",
+            "line": 22,
+            "span": "(14, 40)"
+        },
+        "api-gateway -> tracing-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/api-gateway.yml#L26",
+            "line": 26,
+            "span": "(14, 40)"
+        },
+        "customers-service -> tracing-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/customers-service.yml#L14",
+            "line": 14,
+            "span": "(14, 40)"
+        },
+        "visits-service -> tracing-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/visits-service.yml#L14",
+            "line": 14,
+            "span": "(14, 40)"
+        },
+        "admin-server -> prometheus-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/docker/prometheus/Dockerfile#L11",
+            "line": 11,
+            "span": "span"
+        },
+        "prometheus-server -> grafana-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/docker/grafana/provisioning/datasources/all.yml#L10",
+            "line": 10,
+            "span": "(12, 41)"
+        },
+        "api-gateway -> prometheus-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/docker/prometheus/Dockerfile#L16",
+            "line": 16,
+            "span": "span"
+        },
+        "customers-service -> prometheus-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/docker/prometheus/Dockerfile#L21",
+            "line": 21,
+            "span": "span"
+        },
+        "visits-service -> prometheus-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/docker/prometheus/Dockerfile#L26",
+            "line": 26,
+            "span": "span"
+        },
+        "vets-service -> prometheus-server": {
+            "file": "https://github.com/spring-petclinic/spring-petclinic-microservices/blob/master/docker/prometheus/Dockerfile#L31",
+            "line": 31,
+            "span": "span"
+        }
+    }
+}

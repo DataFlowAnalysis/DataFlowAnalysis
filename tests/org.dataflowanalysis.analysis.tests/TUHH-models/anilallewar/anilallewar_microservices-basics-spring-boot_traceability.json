@@ -1,0 +1,472 @@
+{
+    "nodes": {
+        "web-portal": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/web-portal/src/main/resources/bootstrap.yml#L3",
+            "line": 3,
+            "span": "(10:20)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/web-portal.yml#L34",
+                    "line": 34,
+                    "span": "(8, 12)"
+                },
+                "monitoring_dashboard": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/web-portal/src/main/java/com/anilallewar/microservices/portal/PortalApplication.java#L31",
+                    "line": "31",
+                    "span": "(0, 23)"
+                },
+                "monitoring_server": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/web-portal/src/main/java/com/anilallewar/microservices/portal/PortalApplication.java#L32",
+                    "line": "32",
+                    "span": "(0, 14)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype monitoring_server",
+                    "line": "heuristic, based on stereotype monitoring_server",
+                    "span": "heuristic, based on stereotype monitoring_server"
+                },
+                "authentication_scope_all_requests": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/web-portal/src/main/java/com/anilallewar/microservices/portal/PortalApplication.java#L42",
+                    "line": "42",
+                    "span": "(129, 142)"
+                }
+            }
+        },
+        "user-webservice": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/user-webservice/src/main/resources/bootstrap.yml#L4",
+            "line": 4,
+            "span": "(10:25)",
+            "sub_items": {
+                "authentication_scope_all_requests": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/user-webservice/src/main/java/com/anilallewar/microservices/user/config/security/WebSecurityConfiguration.java#L6",
+                    "line": "6",
+                    "span": "(67, 79)"
+                },
+                "resource_server": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/user-webservice/src/main/java/com/anilallewar/microservices/user/UserApplication.java#L32",
+                    "line": "32",
+                    "span": "(0, 21)"
+                },
+                "internal": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                },
+                "local_logging": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/user-webservice/src/main/java/com/anilallewar/microservices/user/api/UserController.java#L58",
+                    "line": "58",
+                    "span": "(9, 20)"
+                }
+            }
+        },
+        "api-gateway": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/api-gateway/src/main/resources/bootstrap.yml#L3",
+            "line": 3,
+            "span": "(10:21)",
+            "sub_items": {
+                "csrf_disabled": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/api-gateway/src/main/java/com/anilallewar/microservices/gateway/security/WebSecurityConfiguration.java#L8",
+                    "line": "8",
+                    "span": "(67, 79)"
+                },
+                "gateway": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/api-gateway/src/main/java/com/anilallewar/microservices/gateway/GatewayApplication.java#L48",
+                    "line": "48",
+                    "span": "(0, 16)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype load_balancer",
+                    "line": "heuristic, based on stereotype load_balancer",
+                    "span": "heuristic, based on stereotype load_balancer"
+                },
+                "load_balancer": {
+                    "file": "https://github.com/anilallewar/microservices-basics-cloud-config/blob/master/api-gateway.yml#L114",
+                    "line": "114",
+                    "span": "(0, 7)"
+                },
+                "circuit_breaker": {
+                    "file": "https://github.com/anilallewar/microservices-basics-cloud-config/blob/master/api-gateway.yml#L106",
+                    "line": "106",
+                    "span": "(0, 8)"
+                }
+            }
+        },
+        "comments-webservice": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/comments-webservice/src/main/resources/bootstrap.yml#L5",
+            "line": 5,
+            "span": "(10:29)",
+            "sub_items": {
+                "resource_server": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/comments-webservice/src/main/java/com/anilallewar/microservices/comments/CommentsApplication.java#L30",
+                    "line": "30",
+                    "span": "(0, 21)"
+                },
+                "internal": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                },
+                "local_logging": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/comments-webservice/src/main/java/com/anilallewar/microservices/comments/apis/CommentsController.java#L65",
+                    "line": "65",
+                    "span": "(9, 20)"
+                }
+            }
+        },
+        "auth-server": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/auth-server/src/main/resources/bootstrap.yml#L3",
+            "line": 3,
+            "span": "(10:21)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/auth-server.yml#L4",
+                    "line": 4,
+                    "span": "(8, 12)"
+                },
+                "authorization_server": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/auth-server/src/main/java/com/anilallewar/microservices/auth/config/OAuthServerConfiguration.java#L52",
+                    "line": "52",
+                    "span": "(0, 26)"
+                },
+                "resource_server": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/auth-server/src/main/java/com/anilallewar/microservices/auth/AuthServerApplication.java#L22",
+                    "line": "22",
+                    "span": "(0, 21)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype resource_server",
+                    "line": "heuristic, based on stereotype resource_server",
+                    "span": "heuristic, based on stereotype resource_server"
+                },
+                "authentication_scope_all_requests": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/auth-server/src/main/java/com/anilallewar/microservices/auth/config/OAuthWebFormConfiguration.java",
+                    "line": "46",
+                    "span": "(17, 30)"
+                },
+                "plaintext_credentials": {
+                    "file": "https://github.com/anilallewar/microservices-basics-cloud-config/blob/master/auth-server.yml",
+                    "line": "14",
+                    "span": "(23, 31)"
+                }
+            }
+        },
+        "webservice-registry": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/webservice-registry/src/main/resources/bootstrap.yml#L3",
+            "line": 3,
+            "span": "(10:29)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/webservice-registry.yml#L2",
+                    "line": 2,
+                    "span": "(8, 12)"
+                },
+                "service_discovery": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/webservice-registry/src/main/java/com/anilallewar/microservices/registry/RegistryApplication.java#L19",
+                    "line": "19",
+                    "span": "(0, 19)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype service_discovery",
+                    "line": "heuristic, based on stereotype service_discovery",
+                    "span": "heuristic, based on stereotype service_discovery"
+                }
+            }
+        },
+        "task-webservice": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/task-webservice/src/main/resources/bootstrap.yml#L5",
+            "line": 5,
+            "span": "(10:25)",
+            "sub_items": {
+                "authentication_scope_all_requests": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/task-webservice/src/main/java/com/anilallewar/microservices/task/config/security/WebSecurityConfiguration.java#L6",
+                    "line": "6",
+                    "span": "(67, 79)"
+                },
+                "resource_server": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/task-webservice/src/main/java/com/anilallewar/microservices/task/TaskApplication.java#L41",
+                    "line": "41",
+                    "span": "(0, 21)"
+                },
+                "load_balancer": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/task-webservice/src/main/java/com/anilallewar/microservices/task/config/OAuthClientConfiguration.java#L30",
+                    "line": "30",
+                    "span": "(1, 14)"
+                },
+                "internal": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                },
+                "local_logging": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/task-webservice/src/main/java/com/anilallewar/microservices/task/apis/CommentsService.java#L91",
+                    "line": "91",
+                    "span": "(9, 20)"
+                },
+                "circuit_breaker": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/task-webservice/src/main/java/com/anilallewar/microservices/task/TaskApplication.java#L40",
+                    "line": "40",
+                    "span": "(0, 21)"
+                }
+            }
+        },
+        "configserver": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/config-server/src/main/resources/bootstrap.yml#L3",
+            "line": 3,
+            "span": "(10:22)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/config-server/src/main/resources/application.yml#L18",
+                    "line": 18,
+                    "span": "(8, 12)"
+                },
+                "configuration_server": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/config-server/src/main/java/com/anilallewar/microservices/config/ConfigApplication.java#L21",
+                    "line": "21",
+                    "span": "(0, 19)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype configuration_server",
+                    "line": "heuristic, based on stereotype configuration_server",
+                    "span": "heuristic, based on stereotype configuration_server"
+                }
+            }
+        },
+        "zipkin-tracing": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/zipkin-server/src/main/resources/bootstrap.yml#L3",
+            "line": 3,
+            "span": "(10:24)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/zipkin-tracing.yml#L2",
+                    "line": 2,
+                    "span": "(8, 12)"
+                },
+                "tracing_server": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/zipkin-server/src/main/java/com/anilallewar/microservices/tracing/ZipkinTracingApplication.java",
+                    "line": 15,
+                    "span": "(0, 19)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype tracing_server",
+                    "line": "heuristic, based on stereotype tracing_server",
+                    "span": "heuristic, based on stereotype tracing_server"
+                }
+            }
+        },
+        "mysqldb": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/docker-orchestration/rancher/docker-compose.yml#L3",
+            "line": 3,
+            "span": "[2:9]",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/docker-orchestration/docker-compose/docker-compose.yml",
+                    "line": 13,
+                    "span": "(6, 9)"
+                },
+                "database": {
+                    "file": "heuristic, based on image",
+                    "line": "heuristic, based on image",
+                    "span": "heuristic, based on image"
+                },
+                "plaintext_credentials": {
+                    "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/docker-orchestration/docker-compose/docker-compose.yml",
+                    "line": 15,
+                    "span": "(26, 34)"
+                }
+            }
+        },
+        "zipkinserver": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/docker-orchestration/rancher/docker-compose.yml#L136",
+            "line": 136,
+            "span": "[2:14]",
+            "sub_items": {
+                "internal": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        },
+        "github-repository": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/config-server/src/main/resources/application.yml#L6",
+            "line": 6,
+            "span": "(16, 80)"
+        },
+        "user": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit",
+            "sub_items": {
+                "user_stereotype": {
+                    "file": "implicit",
+                    "line": "implicit",
+                    "span": "implicit"
+                },
+                "entrypoint": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                },
+                "exitpoint": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        }
+    },
+    "edges": {
+        "github-repository -> configserver": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/config-server/src/main/resources/application.yml#L6",
+            "line": 6,
+            "span": "(16, 80)"
+        },
+        "configserver -> web-portal": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/web-portal/src/main/resources/bootstrap.yml#L6",
+            "line": 6,
+            "span": "(12, 33)"
+        },
+        "configserver -> user-webservice": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/user-webservice/src/main/resources/bootstrap.yml#L17",
+            "line": 17,
+            "span": "(14, 38)"
+        },
+        "auth-server -> user-webservice": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/user-webservice/src/main/java/com/anilallewar/microservices/user/UserApplication.java#L34",
+            "line": 34,
+            "span": "(0, 19)"
+        },
+        "configserver -> api-gateway": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/api-gateway/src/main/resources/bootstrap.yml#L14",
+            "line": 14,
+            "span": "(14, 38)"
+        },
+        "auth-server -> api-gateway": {
+            "file": "https://github.com/anilallewar/microservices-basics-cloud-config/blob/master/api-gateway.yml#L27",
+            "line": 27,
+            "span": "(0, 11)"
+        },
+        "configserver -> comments-webservice": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/comments-webservice/src/main/resources/bootstrap.yml#L11",
+            "line": 11,
+            "span": "(12, 33)"
+        },
+        "configserver -> auth-server": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/auth-server/src/main/resources/bootstrap.yml#L14",
+            "line": 14,
+            "span": "(14, 38)"
+        },
+        "mysqldb -> auth-server": {
+            "file": "https://github.com/anilallewar/microservices-basics-cloud-config/blob/master/auth-server.yml#L24",
+            "line": 24,
+            "span": "(18, 50)",
+            "sub_items": {
+                "plaintext_credentials": {
+                    "file": "https://github.com/anilallewar/microservices-basics-cloud-config/blob/master/auth-server.yml#L26",
+                    "line": 26,
+                    "span": "(23, 31)"
+                }
+            }
+        },
+        "configserver -> webservice-registry": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/webservice-registry/src/main/resources/bootstrap.yml#L6",
+            "line": 6,
+            "span": "(12, 33)"
+        },
+        "configserver -> task-webservice": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/task-webservice/src/main/resources/bootstrap.yml#L19",
+            "line": 19,
+            "span": "(14, 38)"
+        },
+        "auth-server -> task-webservice": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/task-webservice/src/main/java/com/anilallewar/microservices/task/TaskApplication.java#L42",
+            "line": 42,
+            "span": "(0, 20)"
+        },
+        "configserver -> zipkin-tracing": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/zipkin-server/src/main/resources/bootstrap.yml#L9",
+            "line": 9,
+            "span": "(12, 33)"
+        },
+        "task-webservice -> comments-webservice": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/task-webservice/src/main/java/com/anilallewar/microservices/task/apis/CommentsService.java#L93",
+            "line": "93",
+            "span": "(9, 34)"
+        },
+        "task-webservice -> webservice-registry": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/task-webservice/src/main/java/com/anilallewar/microservices/task/TaskApplication.java#L6",
+            "line": "6",
+            "span": "(48, 66)"
+        },
+        "task-webservice -> zipkin-tracing": {
+            "file": "https://github.com/anilallewar/microservices-basics-cloud-config/blob/master/task-webservice.yml#L12",
+            "line": "12",
+            "span": "(18, 40)"
+        },
+        "task-webservice -> web-portal": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/task-webservice/src/main/java/com/anilallewar/microservices/task/apis/CommentsService.java#L69",
+            "line": "69",
+            "span": "(0, 16)"
+        },
+        "web-portal -> webservice-registry": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/web-portal.yml#L30",
+            "line": 30,
+            "span": "(20, 54)"
+        },
+        "user-webservice -> webservice-registry": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/user-webservice/src/main/java/com/anilallewar/microservices/user/UserApplication.java#L5",
+            "line": "5",
+            "span": "(48, 66)"
+        },
+        "user-webservice -> zipkin_tracing": {
+            "file": "https://github.com/anilallewar/microservices-basics-cloud-config/blob/master/user-webservice.yml#L12",
+            "line": "12",
+            "span": "(18, 40)"
+        },
+        "auth-server -> webservice-registry": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/auth-server/src/main/java/com/anilallewar/microservices/auth/AuthServerApplication.java#L5",
+            "line": "5",
+            "span": "(48, 66)"
+        },
+        "comments-webservice -> webservice-registry": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/comments-webservice/src/main/java/com/anilallewar/microservices/comments/CommentsApplication.java#L5",
+            "line": "5",
+            "span": "(48, 66)"
+        },
+        "comments-webservice -> zipkin-tracing": {
+            "file": "https://github.com/anilallewar/microservices-basics-cloud-config/blob/master/comments-webservice.yml#L11",
+            "line": "11",
+            "span": "(18, 40)"
+        },
+        "webservice-registry -> api-gateway": {
+            "file": "https://github.com/anilallewar/microservices-basics-spring-boot/blob/master/api-gateway/src/main/java/com/anilallewar/microservices/gateway/GatewayApplication.java#L6",
+            "line": "6",
+            "span": "(48, 66)"
+        },
+        "user -> api-gateway": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit"
+        },
+        "api-gateway -> user": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit"
+        },
+        "api-gateway -> user-webservice": {
+            "file": "https://github.com/anilallewar/microservices-basics-cloud-config/blob/master/api-gateway.yml#L72",
+            "line": "72",
+            "span": "(0, 13)"
+        },
+        "api-gateway -> task-webservice": {
+            "file": "https://github.com/anilallewar/microservices-basics-cloud-config/blob/master/api-gateway.yml#L75",
+            "line": "75",
+            "span": "(0, 13)"
+        },
+        "api-gateway -> zipkin-tracing": {
+            "file": "https://github.com/anilallewar/microservices-basics-cloud-config/blob/master/api-gateway.yml#L11",
+            "line": "11",
+            "span": "(18, 40)"
+        }
+    }
+}

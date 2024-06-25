@@ -1,0 +1,401 @@
+{
+    "nodes": {
+        "service-a": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/service-a/src/main/resources/bootstrap.yml#L50",
+            "line": 50,
+            "span": "(10:19)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/service-a/src/main/resources/bootstrap.yml#L73",
+                    "line": 73,
+                    "span": "(10, 14)"
+                },
+                "csrf_disabled": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/service-a/src/main/java/net/devh/A1ServiceApplication.java#L11",
+                    "line": "11",
+                    "span": "(67, 79)"
+                },
+                "circuit_breaker": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/service-a/src/main/java/net/devh/A1ServiceApplication.java#L30",
+                    "line": "30",
+                    "span": "(0, 14)"
+                },
+                "internal": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        },
+        "eureka-server": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/eureka-server/src/main/resources/bootstrap.yml#L34",
+            "line": 34,
+            "span": "(10:23)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/eureka-server/src/main/resources/bootstrap.yml#L49",
+                    "line": 49,
+                    "span": "(46, 50)"
+                },
+                "csrf_disabled": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/eureka-server/src/main/java/net/devh/EurekaServeApplication.java#L7",
+                    "line": "7",
+                    "span": "(67, 79)"
+                },
+                "service_discovery": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/eureka-server/src/main/java/net/devh/EurekaServeApplication.java#L10",
+                    "line": "10",
+                    "span": "(0, 19)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype service_discovery",
+                    "line": "heuristic, based on stereotype service_discovery",
+                    "span": "heuristic, based on stereotype service_discovery"
+                }
+            }
+        },
+        "admin-dashboard": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/admin-dashboard/src/main/resources/bootstrap.yml#L30",
+            "line": 30,
+            "span": "(10:25)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/admin-dashboard/src/main/resources/bootstrap.yml#L33",
+                    "line": 33,
+                    "span": "(8, 12)"
+                },
+                "csrf_disabled": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/admin-dashboard/src/main/java/net/devh/AdminDashboardApplication.java#L7",
+                    "line": "7",
+                    "span": "(67, 79)"
+                },
+                "administration_server": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/admin-dashboard/src/main/java/net/devh/AdminDashboardApplication.java#L19",
+                    "line": "19",
+                    "span": "(0, 18)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype administration_server",
+                    "line": "heuristic, based on stereotype administration_server",
+                    "span": "heuristic, based on stereotype administration_server"
+                }
+            }
+        },
+        "hystrix-dashboard": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/hystrix-dashboard/src/main/resources/bootstrap.yml#L33",
+            "line": 33,
+            "span": "(10:27)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/hystrix-dashboard/src/main/resources/bootstrap.yml#L36",
+                    "line": 36,
+                    "span": "(8, 12)"
+                },
+                "csrf_disabled": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/hystrix-dashboard/src/main/java/net/devh/HystrixDashboardApplication.java#L9",
+                    "line": "9",
+                    "span": "(67, 79)"
+                },
+                "monitoring_dashboard": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/hystrix-dashboard/src/main/java/net/devh/HystrixDashboardApplication.java#L18",
+                    "line": "18",
+                    "span": "(0, 23)"
+                },
+                "monitoring_server": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/hystrix-dashboard/src/main/java/net/devh/HystrixDashboardApplication.java#L19",
+                    "line": "19",
+                    "span": "(0, 14)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype monitoring_server",
+                    "line": "heuristic, based on stereotype monitoring_server",
+                    "span": "heuristic, based on stereotype monitoring_server"
+                }
+            }
+        },
+        "service-b": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/service-b/src/main/resources/bootstrap.yml#L50",
+            "line": 50,
+            "span": "(10:19)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/service-b/src/main/resources/bootstrap.yml#L73",
+                    "line": 73,
+                    "span": "(8, 12)"
+                },
+                "csrf_disabled": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/service-b/src/main/java/net/devh/B1ServiceApplication.java#L9",
+                    "line": "9",
+                    "span": "(67, 79)"
+                },
+                "internal": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        },
+        "zuul": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/zuul/src/main/resources/bootstrap.yml#L55",
+            "line": 55,
+            "span": "(10:14)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/zuul/src/main/resources/bootstrap.yml#L64",
+                    "line": 64,
+                    "span": "(8, 12)"
+                },
+                "csrf_disabled": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/zuul/src/main/java/net/devh/ZuulApplication.java#L8",
+                    "line": "8",
+                    "span": "(67, 79)"
+                },
+                "gateway": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/zuul/src/main/java/net/devh/ZuulApplication.java#L17",
+                    "line": "17",
+                    "span": "(0, 16)"
+                },
+                "load_balancer": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/zuul/src/main/java/net/devh/ZuulApplication.java#L17",
+                    "line": "17",
+                    "span": "(0, 16)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype gateway",
+                    "line": "heuristic, based on stereotype gateway",
+                    "span": "heuristic, based on stereotype gateway"
+                }
+            }
+        },
+        "config-server": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/config-server/src/main/resources/bootstrap.yml#L39",
+            "line": 39,
+            "span": "(10:23)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/config-server/src/main/resources/bootstrap.yml#L49",
+                    "line": 49,
+                    "span": "(8, 12)"
+                },
+                "configuration_server": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/config-server/src/main/java/net/devh/ConfigServeApplication.java#L18",
+                    "line": "18",
+                    "span": "(0, 19)"
+                },
+                "csrf_disabled": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/config-server/src/main/java/net/devh/ConfigServeApplication.java#L9",
+                    "line": "9",
+                    "span": "(67, 79)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype configuration_server",
+                    "line": "heuristic, based on stereotype configuration_server",
+                    "span": "heuristic, based on stereotype configuration_server"
+                }
+            }
+        },
+        "zipkin": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/docker-compose.yml#L10",
+            "line": 10,
+            "span": "[0:6]",
+            "sub_items": {
+                "tracing_server": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/docker-compose.yml#L10",
+                    "line": 10,
+                    "span": "[0:6]"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype tracing_server",
+                    "line": "heuristic, based on stereotype tracing_server",
+                    "span": "heuristic, based on stereotype tracing_server"
+                }
+            }
+        },
+        "rabbitmq": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/docker-compose.yml#L1",
+            "line": 1,
+            "span": "[0:8]",
+            "sub_items": {
+                "message_broker": {
+                    "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/docker-compose.yml#L1",
+                    "line": 2,
+                    "span": "[16:37]"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype message_broker",
+                    "line": "heuristic, based on stereotype message_broker",
+                    "span": "heuristic, based on stereotype message_broker"
+                }
+            }
+        },
+        "user": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit",
+            "sub_items": {
+                "user_stereotype": {
+                    "file": "implicit",
+                    "line": "implicit",
+                    "span": "implicit"
+                },
+                "entrypoint": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                },
+                "exitpoint": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        }
+    },
+    "edges": {
+        "config-server -> service-a": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/service-a/src/main/resources/bootstrap.yml#L11",
+            "line": 11,
+            "span": "(21, 34)"
+        },
+        "config-server -> service-b": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/service-b/src/main/resources/bootstrap.yml#L14",
+            "line": 14,
+            "span": "(21, 34)"
+        },
+        "service-a -> service-b": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/service-a/src/main/java/net/devh/feign/ServiceBClient.java#L12",
+            "line": 12,
+            "span": "(0, 12)"
+        },
+        "hystrix-dashboard -> eureka-server": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/hystrix-dashboard/build.gradle#L2",
+            "line": "2",
+            "span": "(39, 81)"
+        },
+        "admin-dashboard -> hystrix-dashboard": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/hystrix-dashboard/build.gradle#L2",
+            "line": "23",
+            "span": "(26, 55)"
+        },
+        "admin-dashboard -> service-b": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/service-b/src/main/resources/bootstrap.yml#L39",
+            "line": "39",
+            "span": "(26, 55)"
+        },
+        "admin-dashboard -> eureka-server": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/admin-dashboard/src/main/resources/bootstrap.yml#L15",
+            "line": 15,
+            "span": "(26, 55)"
+        },
+        "admin-dashboard -> rabbitmq": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/docker-compose.yml#L54",
+            "line": 54,
+            "span": "(3, 13)"
+        },
+        "admin-dashboard -> zuul": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/docker-compose.yml#L58",
+            "line": 58,
+            "span": "(3, 9)"
+        },
+        "service-a -> eureka-server": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/service-a/src/main/resources/bootstrap.yml#L83",
+            "line": 83,
+            "span": "(26, 59)"
+        },
+        "service-a -> rabbitmq": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/service-a/src/main/resources/bootstrap.yml#L18",
+            "line": 18,
+            "span": "(0, 8)"
+        },
+        "service-b -> rabbitmq": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/service-b/src/main/resources/bootstrap.yml#L18",
+            "line": 18,
+            "span": "(0, 8)"
+        },
+        "service-a -> hystrix-dashboard": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/service-a/src/main/java/net/devh/hystrix/HystrixWrappedServiceBClient.java#L22",
+            "line": 22,
+            "span": "(0, 15)"
+        },
+        "config-server -> eureka-server": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/config-server/src/main/resources/bootstrap.yml#L24",
+            "line": 24,
+            "span": "(26, 55)"
+        },
+        "config-server -> rabbitmq": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/3b86bf0e20a7c7da8f4e3e7e2cb15bf4cd407743/config-server/src/main/resources/bootstrap.yml#L9",
+            "line": 9,
+            "span": "(0, 8)"
+        },
+        "admin-dashboarrd -> config-server": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/config-server/src/main/resources/bootstrap.yml#L29",
+            "line": 29,
+            "span": "(0, 7)"
+        },
+        "admin-dashboarrd -> service-a": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/service-a/src/main/resources/bootstrap.yml#L30",
+            "line": 30,
+            "span": "(0, 7)"
+        },
+        "service-b -> eureka-server": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/service-b/src/main/java/net/devh/B1ServiceApplication.java#L5",
+            "line": "5",
+            "span": "(50, 71)"
+        },
+        "eureka-server -> zuul": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/zuul/src/main/resources/bootstrap.yml#L20",
+            "line": 20,
+            "span": "(26, 55)"
+        },
+        "user -> zuul": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit"
+        },
+        "zuul -> user": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit"
+        },
+        "zuul -> service-a": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/zuul/src/main/resources/bootstrap.yml#L82",
+            "line": 82,
+            "span": "(17, 26)"
+        },
+        "zuul -> config-server": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/docker-compose.yml#L70",
+            "line": 70,
+            "span": "(3, 18)"
+        },
+        "zuul -> rabbitmq": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/docker-compose.yml#L69",
+            "line": 69,
+            "span": "(3, 13)"
+        },
+        "service-a -> zipkin": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/service-a/src/main/resources/bootstrap.yml#L68",
+            "line": 68,
+            "span": "(15, 34)"
+        },
+        "service-b -> zipkin": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/service-b/src/main/resources/bootstrap.yml#L55",
+            "line": 55,
+            "span": "(15, 34)"
+        },
+        "service-b -> hystrix-dashboard": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/docker-compose.yml#L34",
+            "line": 34,
+            "span": "(3, 20)"
+        },
+        "rabbitmq -> zipkin": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/service-a/build.gradle#L12",
+            "line": 12,
+            "span": "(40, 69)"
+        },
+        "zuul -> zipkin": {
+            "file": "https://github.com/yidongnan/spring-cloud-netflix-example/blob/master/zuul/src/main/resources/bootstrap.yml#L60",
+            "line": 60,
+            "span": "(15, 34)"
+        }
+    }
+}

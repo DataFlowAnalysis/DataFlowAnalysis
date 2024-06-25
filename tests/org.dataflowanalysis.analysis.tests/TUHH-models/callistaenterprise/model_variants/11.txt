@@ -1,0 +1,62 @@
+
+@startuml
+skinparam monochrome true
+skinparam ClassBackgroundColor White
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+
+
+digraph dfd2{
+    node[shape=record]
+        elasticsearch [label = "{Process: elasticsearch | --infrastructural--\n--search_engine--\nPort: 9200\nSearch Engine: Elasticsearch\n}" shape = Mrecord];
+        kibana [label = "{Process: kibana | --infrastructural--\n--monitoring_dashboard--\nPort: 5601\nMonitoring Dashboard: Kibana\n}" shape = Mrecord];
+        elasticsearch -> kibana [label = " --restful_http--\n"]
+        logstash [label = "{Process: logstash | --infrastructural--\n--logging_server--\nPort: 25826\nLogging Server: Logstash\n}" shape = Mrecord];
+        logstash -> elasticsearch [label = " --restful_http--\n"]
+        rabbitmq [label = "{Process: rabbitmq | --infrastructural--\n--message_broker--\nPort: 15672\nMessage Broker: RabbitMQ\n}" shape = Mrecord];
+        discovery_server [label = "{Process: discovery_server | --infrastructural--\n--service_discovery--\n--plaintext_credentials--\nPort: 8762\nService Discovery: Eureka\nUsername: user\nPassword: password\n}" shape = Mrecord];
+        config_server [label = "{Process: config_server | --infrastructural--\n--configuration_server--\n--local_logging--\n--log_sanitization--\nPort: 8888\nConfiguration Server: Spring Cloud Config\n}" shape = Mrecord];
+        github_repository [label = "{External Entity: github_repository | --github_repository--\n--entrypoint--\nURL: https://github.com/callistaenterprise/blog-microservices-config\n}"];
+        github_repository -> config_server [label = " --restful_http--\n"]
+        config_server -> discovery_server [label = " --restful_http--\n"]
+        config_server -> rabbitmq [label = " --restful_http--\n"]
+        auth_server [label = "{Process: auth_server | --infrastructural--\n--authorization_server--\n--resource_server--\n--local_logging--\n--log_sanitization--\n--plaintext_credentials--\nPort: 9999\nAuthorization Server: Spring OAuth2\nEndpoints: ['/user']\nUsername: acme\nPassword: acmesecret\n}" shape = Mrecord];
+        config_server -> auth_server [label = " --restful_http--\n"]
+        monitor_dashboard [label = "{Process: monitor_dashboard | --infrastructural--\n--monitoring_dashboard--\n--local_logging--\n--log_sanitization--\nPort: 7979\nMonitoring Dashboard: Hystrix\nEndpoints: ['/']\n}" shape = Mrecord];
+        config_server -> monitor_dashboard [label = " --restful_http--\n"]
+        monitor_dashboard -> discovery_server [label = " --restful_http--\n"]
+        turbine_server [label = "{Process: turbine_server | --infrastructural--\n--monitoring_server--\n--local_logging--\n--log_sanitization--\nPort: 8989\nMonitoring Server: Turbine\n}" shape = Mrecord];
+        rabbitmq -> turbine_server [label = " --restful_http--\n"]
+        turbine_server -> discovery_server [label = " --restful_http--\n"]
+        config_server -> turbine_server [label = " --restful_http--\n"]
+        turbine_server -> monitor_dashboard [label = " --restful_http--\n"]
+        zipkin_server [label = "{Process: zipkin_server | --infrastructural--\n--tracing_server--\nPort: 9411\nTracing Server: Zipkin\n}" shape = Mrecord];
+        rabbitmq -> zipkin_server [label = " --restful_http--\n"]
+        product_service [label = "{Process: product_service | --internal--\n--local_logging--\n--log_sanitization--\nPort: 8080\nEndpoints: ['/product/\{productId\}', '/set-processing-time']\n}" shape = Mrecord];
+        config_server -> product_service [label = " --restful_http--\n"]
+        product_service -> discovery_server [label = " --restful_http--\n"]
+        recommendation_service [label = "{Process: recommendation_service | --internal--\n--local_logging--\n--log_sanitization--\nPort: 8080\nEndpoints: ['/recommendation', '/set-processing-time']\n}" shape = Mrecord];
+        config_server -> recommendation_service [label = " --restful_http--\n"]
+        recommendation_service -> discovery_server [label = " --restful_http--\n"]
+        review_service [label = "{Process: review_service | --internal--\n--local_logging--\n--log_sanitization--\nPort: 8080\nEndpoints: ['/review', '/set-processing-time']\n}" shape = Mrecord];
+        config_server -> review_service [label = " --restful_http--\n"]
+        review_service -> discovery_server [label = " --restful_http--\n"]
+        composite_service [label = "{Process: composite_service | --internal--\n--local_logging--\n--log_sanitization--\n--load_balancer--\n--circuit_breaker--\n--resource_server--\nPort: 8080\nEndpoints: ['/', '/\{productId\}']\nLoad Balancer: Spring Cloud\n}" shape = Mrecord];
+        config_server -> composite_service [label = " --restful_http--\n"]
+        auth_server -> composite_service [label = " --restful_http--\n"]
+        composite_service -> discovery_server [label = " --restful_http--\n--circuit_breaker_link--\n--load_balanced_link--\n"]
+        composite_service -> rabbitmq [label = " --restful_http--\n"]
+        composite_service -> product_service [label = " --restful_http--\n--load_balanced_link--\n"]
+        composite_service -> recommendation_service [label = " --restful_http--\n--load_balanced_link--\n"]
+        composite_service -> review_service [label = " --restful_http--\n--load_balanced_link--\n"]
+        edge_server [label = "{Process: edge_server | --infrastructural--\n--gateway--\n--resource_server--\n--local_logging--\n--log_sanitization--\n--circuit_breaker--\n--load_balancer--\nPort: 8765\nGateway: Zuul\nLoad Balancer: Ribbon\n}" shape = Mrecord];
+        user [label = "{External Entity: user | --user_stereotype--\n--entrypoint--\n--exitpoint--\n}"];
+        edge_server -> user [label = " --restful_http--\n"]
+        user -> edge_server [label = " --restful_http--\n"]
+        edge_server -> composite_service [label = " --restful_http--\n--circuit_breaker_link--\n"]
+        discovery_server -> edge_server [label = " --restful_http--\n"]
+        config_server -> edge_server [label = " --restful_http--\n"]
+        edge_server -> auth_server [label = " --restful_http--\n"]
+
+}
+@enduml

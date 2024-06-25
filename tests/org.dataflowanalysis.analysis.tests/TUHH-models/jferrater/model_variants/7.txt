@@ -1,0 +1,38 @@
+
+@startuml
+skinparam monochrome true
+skinparam ClassBackgroundColor White
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+
+
+digraph dfd2{
+    node[shape=record]
+        discovery_service [label = "{Process: discovery_service | --service_discovery--\n--infrastructural--\nService Discovery: Eureka\nPort: 8888\n}" shape = Mrecord];
+        config_service [label = "{Process: config_service | --configuration_server--\n--infrastructural--\nConfiguration Server: Spring Cloud Config\nPort: 8888\n}" shape = Mrecord];
+        github_repository [label = "{External Entity: github_repository | --github_repository--\n--entrypoint--\nURL: https://github.com/jferrater/ConfigData\n}"];
+        github_repository -> config_service [label = " --restful_http--\n--encrypted_connection--"]
+        config_service -> discovery_service [label = " --restful_http--\n"]
+        account_service [label = "{Process: account_service | --internal--\nPort: 8000\nEndpoints: ['/accounts']\n}" shape = Mrecord];
+        config_service -> account_service [label = " --restful_http--\n"]
+        account_service -> discovery_service [label = " --restful_http--\n"]
+        customer_service [label = "{Process: customer_service | --internal--\nPort: 8002\nEndpoints: ['/customers']\n}" shape = Mrecord];
+        config_service -> customer_service [label = " --restful_http--\n"]
+        customer_service -> discovery_service [label = " --restful_http--\n"]
+        store_service [label = "{Process: store_service | --internal--\nPort: 8003\nEndpoints: ['/stores']\n}" shape = Mrecord];
+        config_service -> store_service [label = " --restful_http--\n"]
+        store_service -> discovery_service [label = " --restful_http--\n"]
+        item_service [label = "{Process: item_service | --internal--\nPort: 8004\nEndpoints: ['/items']\n}" shape = Mrecord];
+        config_service -> item_service [label = " --restful_http--\n"]
+        item_service -> discovery_service [label = " --restful_http--\n"]
+        price_service [label = "{Process: price_service | --internal--\nPort: 8001\nEndpoints: ['/prices']\n}" shape = Mrecord];
+        config_service -> price_service [label = " --restful_http--\n"]
+        price_service -> discovery_service [label = " --restful_http--\n"]
+        foodtray_service [label = "{Process: foodtray_service | --infrastructural--\n--monitoring_dashboard--\n--circuit_breaker--\nMonitoring Dashboard: Hystrix\nCircuit Breaker: Hystrix\nPort: 8005\nEndpoints: ['/foodtrays', '/foodtrays/\{itemCode\}', '/foodtrays/price/\{itemCode\}', '/foodtrays/item/\{itemCode\}']\n}" shape = Mrecord];
+        config_service -> foodtray_service [label = " --restful_http--\n--circuit_breaker_link--\n'Circuit Breaker': Hystrix\n"]
+        foodtray_service -> discovery_service [label = " --restful_http--\n--circuit_breaker_link--\n'Circuit Breaker': Hystrix\n"]
+        foodtray_service -> item_service [label = " --restful_http--\n--feign_connection--\n--load_balanced_link--\n--circuit_breaker_link--\n'Load Balancer': Ribbon\n 'Circuit Breaker': Hystrix\n"]
+        foodtray_service -> price_service [label = " --restful_http--\n--feign_connection--\n--load_balanced_link--\n--circuit_breaker_link--\n'Load Balancer': Ribbon\n 'Circuit Breaker': Hystrix\n"]
+
+}
+@enduml

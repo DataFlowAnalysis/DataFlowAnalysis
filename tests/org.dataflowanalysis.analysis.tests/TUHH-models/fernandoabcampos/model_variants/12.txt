@@ -1,0 +1,56 @@
+
+@startuml
+skinparam monochrome true
+skinparam ClassBackgroundColor White
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+
+
+digraph dfd2{
+    node[shape=record]
+        config_server [label = "{Process: config_server | --configuration_server--\n--infrastructural--\n--local_logging--\nConfiguration Server: Spring Cloud Config\nPort: 9090\n}" shape = Mrecord];
+        github_repository [label = "{External Entity: github_repository | --github_repository--\n--entrypoint--\nURL: https://github.com/fernandoabcampos/microservices-config.git\n}"];
+        github_repository -> config_server [label = " --restful_http--\n"]
+        discovery_service [label = "{Process: discovery_service | --service_discovery--\n--infrastructural--\n--local_logging--\nService Discovery: Eureka\nPort: 8761\n}" shape = Mrecord];
+        config_server -> discovery_service [label = " --restful_http--\n"]
+        rabbitmq [label = "{Process: rabbitmq | --message_broker--\n--infrastructural--\n--local_logging--\nMessage Broker: RabbitMQ\nPort: 5672\n}" shape = Mrecord];
+        monitor_dashboard [label = "{Process: monitor_dashboard | --monitoring_dashboard--\n--infrastructural--\n--local_logging--\n--logging_server--\nMonitoring Dashboard: Hystrix\nPort: 8179\n}" shape = Mrecord];
+        monitor_dashboard -> discovery_service [label = " --restful_http--\n"]
+        config_server -> monitor_dashboard [label = " --restful_http--\n"]
+        turbine [label = "{Process: turbine | --monitoring_server--\n--infrastructural--\n--local_logging--\nMonitoring Server: Turbine\nPort: 8989\n}" shape = Mrecord];
+        turbine -> discovery_service [label = " --restful_http--\n"]
+        rabbitmq -> turbine [label = " --restful_http--\n"]
+        config_server -> turbine [label = " --restful_http--\n"]
+        turbine -> monitor_dashboard [label = " --restful_http--\n"]
+        statement_service [label = "{Process: statement_service | --internal--\n--local_logging--\nPort: 8080\n}" shape = Mrecord];
+        statement_service -> discovery_service [label = " --restful_http--\n"]
+        config_server -> statement_service [label = " --restful_http--\n"]
+        card_service [label = "{Process: card_service | --internal--\n--local_logging--\nPort: 8080\n}" shape = Mrecord];
+        card_service -> discovery_service [label = " --restful_http--\n"]
+        config_server -> card_service [label = " --restful_http--\n"]
+        card_statement_composite [label = "{Process: card_statement_composite | --internal--\n--circuit_breaker--\n--local_logging--\nPort: 8080\nCircuit Breaker: Hystrix\n}" shape = Mrecord];
+        card_statement_composite -> discovery_service [label = " --restful_http--\n--circuit_breaker_link--\n"]
+        card_statement_composite -> card_service [label = " --restful_http--\n--circuit_breaker_link--\n--feign_connection--\n--load_balanced_link--\n'Circuit Breaker': Hystrix\n 'Load Balancer': Ribbon\n"]
+        card_statement_composite -> statement_service [label = " --restful_http--\n--circuit_breaker_link--\n--feign_connection--\n--load_balanced_link--\n'Circuit Breaker': Hystrix\n 'Load Balancer': Ribbon\n"]
+        config_server -> card_statement_composite [label = " --restful_http--\n"]
+        card_statement_composite -> rabbitmq [label = " --restful_http--\n"]
+        edge_server [label = "{Process: edge_server | --gateway--\n--infrastructural--\n--load_balancer--\n--local_logging--\nGateway: Zuul\nPort: 8765\nLoad Balancer: Ribbon\n}" shape = Mrecord];
+        discovery_service -> edge_server [label = " --restful_http--\n"]
+        user [label = "{External Entity: user | --user_stereotype--\n--entrypoint--\n--exitpoint--\n}"];
+        user -> edge_server [label = " --restful_http--\n"]
+        edge_server -> user [label = " --restful_http--\n"]
+        config_server -> edge_server [label = " --restful_http--\n"]
+        edge_server -> card_service [label = " --restful_http--\n"]
+        edge_server -> statement_service [label = " --restful_http--\n"]
+        edge_server -> card_statement_composite [label = " --restful_http--\n"]
+
+        edge_server -> rabbitmq [label = " --restful_http--\n"]
+        discovery_service -> rabbitmq [label = " --restful_http--\n"]
+        statement_service -> rabbitmq [label = " --restful_http--\n"]
+        card_service -> rabbitmq [label = " --restful_http--\n"]
+        config_server -> rabbitmq [label = " --restful_http--\n"]
+        monitor_dashboard -> rabbitmq [label = " --restful_http--\n"]
+        card_statement_composite -> rabbitmq [label = " --restful_http--\n"]
+
+}
+@enduml

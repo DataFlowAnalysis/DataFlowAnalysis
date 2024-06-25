@@ -1,0 +1,399 @@
+{
+    "information_flows": [
+        {
+            "sender": "config",
+            "receiver": "registry",
+            "stereotypes": [
+                "restful_http",
+                "plaintext_credentials_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config",
+            "receiver": "monitoring",
+            "stereotypes": [
+                "restful_http",
+                "plaintext_credentials_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "turbine_stream_service",
+            "receiver": "registry",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config",
+            "receiver": "turbine_stream_service",
+            "stereotypes": [
+                "restful_http",
+                "plaintext_credentials_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "turbine_stream_service",
+            "receiver": "monitoring",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "rabbitmq",
+            "receiver": "turbine_stream_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_service",
+            "receiver": "registry",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config",
+            "receiver": "auth_service",
+            "stereotypes": [
+                "plaintext_credentials_link",
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "account_service",
+            "receiver": "registry",
+            "stereotypes": [
+                "restful_http",
+                "circuit_breaker_link"
+            ],
+            "tagged_values": {
+                "'Circuit Breaker'": "Hystrix"
+            }
+        },
+        {
+            "sender": "auth_service",
+            "receiver": "account_service",
+            "stereotypes": [
+                "restful_http",
+                "plaintext_credentials_link",
+                "auth_provider",
+                "authentication_with_plaintext_credentials"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "account_service",
+            "receiver": "auth_service",
+            "stereotypes": [
+                "restful_http",
+                "feign_connection",
+                "load_balanced_link"
+            ],
+            "tagged_values": {
+                "'Load Balancer'": "Ribbon"
+            }
+        },
+        {
+            "sender": "config",
+            "receiver": "account_service",
+            "stereotypes": [
+                "plaintext_credentials_link",
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "account_service",
+            "receiver": "rabbitmq",
+            "stereotypes": [
+                "restful_http",
+                "circuit_breaker_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "notification_service",
+            "receiver": "registry",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_service",
+            "receiver": "notification_service",
+            "stereotypes": [
+                "restful_http",
+                "plaintext_credentials_link",
+                "auth_provider",
+                "authentication_with_plaintext_credentials"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config",
+            "receiver": "notification_service",
+            "stereotypes": [
+                "plaintext_credentials_link",
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "notification_service",
+            "receiver": "rabbitmq",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "notification_service",
+            "receiver": "mail_server",
+            "stereotypes": [
+                "plaintext_credentials_link",
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "statistics_service",
+            "receiver": "registry",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_service",
+            "receiver": "statistics_service",
+            "stereotypes": [
+                "restful_http",
+                "plaintext_credentials_link",
+                "auth_provider",
+                "authentication_with_plaintext_credentials"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config",
+            "receiver": "statistics_service",
+            "stereotypes": [
+                "plaintext_credentials_link",
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "statistics_service",
+            "receiver": "rabbitmq",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "external_website",
+            "receiver": "statistics_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "account_service",
+            "receiver": "statistics_service",
+            "stereotypes": [
+                "restful_http",
+                "feign_connection",
+                "circuit_breaker_link",
+                "load_balanced_link"
+            ],
+            "tagged_values": {
+                "'Circuit Breaker'": "Hystrix",
+                "'Load Balancer'": "Ribbon"
+            }
+        },
+        {
+            "sender": "notification_service",
+            "receiver": "account_service",
+            "stereotypes": [
+                "restful_http",
+                "feign_connection",
+                "load_balanced_link"
+            ],
+            "tagged_values": {
+                "'Load Balancer'": "Ribbon"
+            }
+        },
+        {
+            "sender": "account_mongodb",
+            "receiver": "account_service",
+            "stereotypes": [
+                "jdbc",
+                "plaintext_credentials_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "notification_mongodb",
+            "receiver": "notification_service",
+            "stereotypes": [
+                "jdbc",
+                "plaintext_credentials_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "statistics_mongodb",
+            "receiver": "statistics_service",
+            "stereotypes": [
+                "jdbc",
+                "plaintext_credentials_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_mongodb",
+            "receiver": "auth_service",
+            "stereotypes": [
+                "jdbc",
+                "plaintext_credentials_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "registry",
+            "receiver": "gateway",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user",
+            "receiver": "gateway",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "gateway",
+            "receiver": "user",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config",
+            "receiver": "gateway",
+            "stereotypes": [
+                "plaintext_credentials_link",
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "gateway",
+            "receiver": "account_service",
+            "stereotypes": [
+                "restful_http",
+                "circuit_breaker_link",
+                "load_balanced_link"
+            ],
+            "tagged_values": {
+                "'Load Balancer'": "Ribbon",
+                "'Circuit Breaker'": "Hystrix"
+            }
+        },
+        {
+            "sender": "gateway",
+            "receiver": "statistics_service",
+            "stereotypes": [
+                "restful_http",
+                "circuit_breaker_link",
+                "load_balanced_link"
+            ],
+            "tagged_values": {
+                "'Load Balancer'": "Ribbon",
+                "'Circuit Breaker'": "Hystrix"
+            }
+        },
+        {
+            "sender": "gateway",
+            "receiver": "notification_service",
+            "stereotypes": [
+                "restful_http",
+                "circuit_breaker_link",
+                "load_balanced_link"
+            ],
+            "tagged_values": {
+                "'Load Balancer'": "Ribbon",
+                "'Circuit Breaker'": "Hystrix"
+            }
+        },
+        {
+            "sender": "gateway",
+            "receiver": "auth_service",
+            "stereotypes": [
+                "restful_http",
+                "circuit_breaker_link",
+                "load_balanced_link",
+                "auth_provider"
+            ],
+            "tagged_values": {
+                "'Load Balancer'": "Ribbon",
+                "'Circuit Breaker'": "Hystrix"
+            }
+        }
+    ],
+    "external_entities": [
+        {
+            "name": "mail_server",
+            "stereotypes": [
+                "mail_server",
+                "plaintext_credentials",
+                "exitpoint",
+                "entrypoint"
+            ],
+            "tagged_values": {
+                "Mail Server": "Gmail",
+                "Host": "smtp.gmail.com",
+                "Port": 465,
+                "Username": "dev-user",
+                "Password": "dev-password"
+            }
+        },
+        {
+            "name": "external_website",
+            "stereotypes": [
+                "external_website",
+                "entrypoint",
+                "exitpoint"
+            ],
+            "tagged_values": {
+                "URL": "https"
+            }
+        },
+        {
+            "name": "user",
+            "stereotypes": [
+                "user_stereotype",
+                "entrypoint",
+                "exitpoint"
+            ],
+            "tagged_values": {}
+        }
+    ]
+}

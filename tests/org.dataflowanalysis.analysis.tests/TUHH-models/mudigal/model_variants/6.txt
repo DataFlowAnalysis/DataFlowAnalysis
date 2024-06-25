@@ -1,0 +1,76 @@
+
+@startuml
+skinparam monochrome true
+skinparam ClassBackgroundColor White
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+
+
+digraph dfd2{
+    node[shape=record]
+        consul [label = "{Process: consul | --service_discovery--\n--infrastructural--\nService Discovery: Consul\nPort: 8500\n}" shape = Mrecord];
+        consul2 [label = "{Process: consul2 | --service_discovery--\n--infrastructural--\nService Discovery: Consul\nPort: 8500\n}" shape = Mrecord];
+        consul3 [label = "{Process: consul3 | --service_discovery--\n--infrastructural--\nService Discovery: Consul\nPort: 8500\n}" shape = Mrecord];
+        consul2 -> consul [label = " --restful_http--\n"]
+        consul3 -> consul [label = " --restful_http--\n"]
+        consul3 -> consul2 [label = " --restful_http--\n"]
+        elasticsearch [label = "{Process: elasticsearch | --search_engine--\n--infrastructural--\nSearch Engine: Elasticsearch\nPort: 9200\n}" shape = Mrecord];
+        logstash [label = "{Process: logstash | --logging_server--\n--infrastructural--\nLogging Server: Logstash\nPort: 5000\n}" shape = Mrecord];
+        logstash -> elasticsearch [label = " --restful_http--\n"]
+        kibana [label = "{Process: kibana | --monitoring_dashboard--\n--infrastructural--\nMonitoring Dashboard: Kibana\nPort: 5601\n}" shape = Mrecord];
+        elasticsearch -> kibana [label = " --restful_http--\n"]
+        rabbit [label = "{Process: rabbit | --message_broker--\n--plaintext_credentials--\n--infrastructural--\nMessage Broker: RabbitMQ\nPort: 15672\nUsername: mudigal\nPassword: mudigal\n}" shape = Mrecord];
+        service_one [label = "{Process: service_one | --internal--\n--local_logging--\nPort: 8082\n}" shape = Mrecord];
+        consul -> service_one [label = " --restful_http--\n"]
+        service_one -> logstash [label = " --restful_http--\n"]
+        service_one -> rabbit [label = " --message_producer_rabbitmq--\n--plaintext_credentials_link--\n--restful_http--\n'Producer Exchange': com.mudigal.microservices-sample.services-exchange\n 'Routing Key': com.mudigal.microservices-sample.service-*\n"]
+        rabbit -> service_one [label = " --message_consumer_rabbitmq--\n--restful_http--\n'Queue': com.mudigal.microservices-sample.service-one\n"]
+        service_two [label = "{Process: service_two | --internal--\n--local_logging--\nPort: 8084\n}" shape = Mrecord];
+        consul -> service_two [label = " --restful_http--\n"]
+        service_two -> logstash [label = " --restful_http--\n"]
+        service_two -> rabbit [label = " --message_producer_rabbitmq--\n--restful_http--\n--plaintext_credentials_link--\n'Producer Exchange': com.mudigal.microservices-sample.services-exchange\n 'Routing Key': com.mudigal.microservices-sample.service-*\n"]
+        rabbit -> service_two [label = " --message_consumer_rabbitmq--\n--restful_http--\n'Queue': com.mudigal.microservices-sample.service-two\n"]
+        service_one_db [label = "|{Process: service_one_db | --database--\n--plaintext_credentials--\nDatabase: MongoDB\nUsername: service-one\nPassword: service-one\nPort: 27017\n}"]
+        service_one_db -> service_one [label = " --jdbc--\n"]
+        service_two_db [label = "|{Process: service_two_db | --database--\n--plaintext_credentials--\nDatabase: MySQL\nUsername: service-two\nPassword: service-two\nPort: 3310\n}"]
+        service_two_db -> service_two [label = " --jdbc--\n--plaintext_credentials_link--\n'Username': service-two\n 'Password': service-two\n"]
+        api_gateway [label = "{Process: api_gateway | --gateway--\n--infrastructural--\n--load_balancer--\nGateway: Zuul\nLoad Balancer: Ribbon\nPort: 8080\n}" shape = Mrecord];
+        api_gateway -> service_one [label = " --restful_http--\n"]
+        api_gateway -> service_two [label = " --restful_http--\n"]
+        consul -> api_gateway [label = " --restful_http--\n"]
+        web_application [label = "{Process: web_application | --web_application--\n--infrastructural--\nWeb Application: Nginx\nPort: 4200\n}" shape = Mrecord];
+        user [label = "{External Entity: user | --user_stereotype--\n--entrypoint--\n--exitpoint--\n}"];
+        user -> web_application [label = " --restful_http--\n"]
+        web_application -> user [label = " --restful_http--\n"]
+        web_application -> api_gateway [label = " --restful_http--\n"]
+        scope [label = "{Process: scope | --monitoring_dashboard--\n--infrastructural--\nMonitoring Dashboard: Weave Scope\nPort: 4040\n}" shape = Mrecord];
+        api_gateway -> scope [label = " --restful_http--\n"]
+        service_one -> scope [label = " --restful_http--\n"]
+        service_one_db -> scope [label = " --restful_http--\n"]
+        service_two -> scope [label = " --restful_http--\n"]
+        service_two_db -> scope [label = " --restful_http--\n"]
+        web_application -> scope [label = " --restful_http--\n"]
+        rabbit -> scope [label = " --restful_http--\n"]
+        consul -> scope [label = " --restful_http--\n"]
+        consul2 -> scope [label = " --restful_http--\n"]
+        consul3 -> scope [label = " --restful_http--\n"]
+        kibana -> scope [label = " --restful_http--\n"]
+        elasticsearch -> scope [label = " --restful_http--\n"]
+        logstash -> scope [label = " --restful_http--\n"]
+
+        authorization_server [label = "{Process: authorization_server | --infrastructural--\n--authorization_server--\n--login_attempts_regulation--\n}" shape = Mrecord];
+        consul -> authorization_server [label = " --restful_http--\n"]
+        consul2 -> authorization_server [label = " --restful_http--\n"]
+        consul3 -> authorization_server [label = " --restful_http--\n"]
+        elasticsearch -> authorization_server [label = " --restful_http--\n"]
+        logstash -> authorization_server [label = " --restful_http--\n"]
+        kibana -> authorization_server [label = " --restful_http--\n"]
+        rabbit -> authorization_server [label = " --restful_http--\n"]
+        service_one -> authorization_server [label = " --restful_http--\n"]
+        service_two -> authorization_server [label = " --restful_http--\n"]
+        api_gateway -> authorization_server [label = " --restful_http--\n"]
+        web_application -> authorization_server [label = " --restful_http--\n"]
+        scope -> authorization_server [label = " --restful_http--\n"]
+
+}
+@enduml

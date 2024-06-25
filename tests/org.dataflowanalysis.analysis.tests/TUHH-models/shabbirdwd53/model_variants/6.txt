@@ -1,0 +1,49 @@
+
+@startuml
+skinparam monochrome true
+skinparam ClassBackgroundColor White
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+
+
+digraph dfd2{
+    node[shape=record]
+        service_registry [label = "{Process: service_registry | --infrastructural--\n--service_discovery--\nPort: 8761\nService Discovery: Eureka\n}" shape = Mrecord];
+        config_server [label = "{Process: config_server | --infrastructural--\n--configuration_server--\nPort: 9296\nConfiguration Server: Spring Cloud Config\n}" shape = Mrecord];
+        github_repository [label = "{External Entity: github_repository | --github_repository--\n--entrypoint--\nURL: https://github.com/shabbirdwd53/config-server\n}"];
+        github_repository -> config_server [label = " --restful_http--\n"]
+        config_server -> service_registry [label = " --restful_http--\n"]
+        zipkin_server [label = "{Process: zipkin_server | --infrastructural--\n--tracing_server--\nPort: 9411\nTracing Server: Zipkin\n}" shape = Mrecord];
+        department_service [label = "{Process: department_service | --internal--\n--local_logging--\nPort: 9001\nEndpoints: ['/departments', '/departments/\{id\}']\nLogging Technology: Lombok\n}" shape = Mrecord];
+        department_service -> zipkin_server [label = " --restful_http--\n"]
+        config_server -> department_service [label = " --restful_http--\n"]
+        department_service -> service_registry [label = " --restful_http--\n"]
+        user_service [label = "{Process: user_service | --internal--\n--local_logging--\n--load_balancer--\nPort: 9002\nEndpoints: ['/users', '/users/\{id\}']\nLoad Balancer: Spring Cloud\nLogging Technology: Lombok\n}" shape = Mrecord];
+        user_service -> zipkin_server [label = " --restful_http--\n--load_balanced_link--\n"]
+        config_server -> user_service [label = " --restful_http--\n"]
+        user_service -> service_registry [label = " --restful_http--\n--load_balanced_link--\n"]
+        user_service -> department_service [label = " --restful_http--\n--load_balanced_link--\n"]
+        hystrix_dashboard [label = "{Process: hystrix_dashboard | --infrastructural--\n--monitoring_dashboard--\n--local_logging--\nPort: 9295\nMonitoring Dashboard: Hystrix\n}" shape = Mrecord];
+        config_server -> hystrix_dashboard [label = " --restful_http--\n"]
+        hystrix_dashboard -> service_registry [label = " --restful_http--\n"]
+        api_gateway [label = "{Process: api_gateway | --infrastructural--\n--gateway--\n--circuit_breaker--\nPort: 9191\nGateway: Spring Cloud Gateway\nCircuit Breaker: Hystrix\nEndpoints: ['/userServiceFallBack', '/departmentServiceFallBack']\n}" shape = Mrecord];
+        user [label = "{External Entity: user | --user_stereotype--\n--entrypoint--\n--exitpoint--\n}"];
+        api_gateway -> user [label = " --restful_http--\n"]
+        user -> api_gateway [label = " --restful_http--\n"]
+        service_registry -> api_gateway [label = " --restful_http--\n"]
+        config_server -> api_gateway [label = " --restful_http--\n"]
+        api_gateway -> user_service [label = " --restful_http--\n--circuit_breaker_link--\n"]
+        api_gateway -> department_service [label = " --restful_http--\n--circuit_breaker_link--\n"]
+        zipkin_server -> hystrix_dashboard [label = " --restful_http--\n"]
+
+        auth_server [label = "{Process: auth_server | --infrastructural--\n--authorization_server--\n--login_attempts_regulation--\n}" shape = Mrecord];
+        auth_server -> service_registry [label = " --restful_http--\n"]
+        auth_server -> config_server [label = " --restful_http--\n"]
+        auth_server -> zipkin_server [label = " --restful_http--\n"]
+        auth_server -> department_service [label = " --restful_http--\n"]
+        auth_server -> user_service [label = " --restful_http--\n"]
+        auth_server -> hystrix_dashboard [label = " --restful_http--\n"]
+        auth_server -> api_gateway [label = " --restful_http--\n"]
+
+}
+@enduml

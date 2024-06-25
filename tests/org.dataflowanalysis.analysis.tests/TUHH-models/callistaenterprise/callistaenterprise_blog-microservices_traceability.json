@@ -1,0 +1,602 @@
+{
+    "nodes": {
+        "recommendation-service": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/core/recommendation-service/src/main/resources/bootstrap.yml#L6",
+            "line": 6,
+            "span": "(10:32)",
+            "sub_items": {
+                "local_logging": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/core/recommendation-service/src/main/java/se/callista/microservices/core/recommendation/RecommendationServiceApplication.java#L4",
+                    "line": "4",
+                    "span": "(17, 30)"
+                },
+                "internal": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        },
+        "product-service": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/core/product-service/src/main/resources/bootstrap.yml#L6",
+            "line": 6,
+            "span": "(10:25)",
+            "sub_items": {
+                "local_logging": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/core/product-service/src/main/java/se/callista/microservices/core/product/service/ProductService.java#L4",
+                    "line": "4",
+                    "span": "(17, 30)"
+                },
+                "internal": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        },
+        "review-service": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/core/review-service/src/main/resources/bootstrap.yml#L6",
+            "line": 6,
+            "span": "(10:24)",
+            "sub_items": {
+                "local_logging": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/core/review-service/src/main/java/se/callista/microservices/core/review/ReviewServiceApplication.java#L5",
+                    "line": "5",
+                    "span": "(17, 30)"
+                },
+                "internal": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        },
+        "composite-service": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/composite/product-composite-service/src/main/resources/bootstrap.yml#L6",
+            "line": 6,
+            "span": "(10:27)",
+            "sub_items": {
+                "resource_server": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/composite/product-composite-service/src/main/java/se/callista/microservices/composite/product/ProductCompositeServiceApplication.java#L21",
+                    "line": "21",
+                    "span": "(0, 21)"
+                },
+                "local_logging": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/composite/product-composite-service/src/main/java/se/callista/microservices/composite/product/service/ProductCompositeService.java#L4",
+                    "line": "4",
+                    "span": "(17, 30)"
+                },
+                "load_balancer": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/composite/product-composite-service/src/main/java/se/callista/microservices/composite/product/ProductCompositeServiceApplication.java#L34",
+                    "line": "34",
+                    "span": "(4, 17)"
+                },
+                "circuit_breaker": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/composite/product-composite-service/src/main/java/se/callista/microservices/composite/product/ProductCompositeServiceApplication.java#L19",
+                    "line": "19",
+                    "span": "(0, 20)"
+                },
+                "internal": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        },
+        "monitor-dashboard": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/monitor-dashboard/src/main/resources/bootstrap.yml#L6",
+            "line": 6,
+            "span": "(10:27)",
+            "sub_items": {
+                "monitoring_dashboard": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/monitor-dashboard/src/main/java/se/callista/microservises/support/monitordashboard/HystrixDashboardApplication.java#L16",
+                    "line": "16",
+                    "span": "(0, 23)"
+                },
+                "local_logging": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/monitor-dashboard/src/main/java/se/callista/microservises/support/monitordashboard/HystrixDashboardApplication.java#L4",
+                    "line": "4",
+                    "span": "(17, 30)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype monitoring_dashboard",
+                    "line": "heuristic, based on stereotype monitoring_dashboard",
+                    "span": "heuristic, based on stereotype monitoring_dashboard"
+                }
+            }
+        },
+        "auth-server": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/auth-server/src/main/resources/bootstrap.yml#L6",
+            "line": 6,
+            "span": "(10:21)",
+            "sub_items": {
+                "authorization_server": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/auth-server/src/main/java/se/callista/microservises/support/oauth/AuthserverApplication.java#L17",
+                    "line": "17",
+                    "span": "(0, 26)"
+                },
+                "resource_server": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/auth-server/src/main/java/se/callista/microservises/support/oauth/AuthserverApplication.java#L16",
+                    "line": "16",
+                    "span": "(0, 21)"
+                },
+                "local_logging": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/auth-server/src/main/java/se/callista/microservises/support/oauth/AuthserverApplication.java#L4",
+                    "line": "4",
+                    "span": "(17, 30)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype local_logging",
+                    "line": "heuristic, based on stereotype local_logging",
+                    "span": "heuristic, based on stereotype local_logging"
+                },
+                "plaintext_credentials": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices-config/blob/master/auth-server.yml#L10",
+                    "line": "10",
+                    "span": "(29, 37)"
+                }
+            }
+        },
+        "config-server": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/config-server/src/main/resources/bootstrap.yml#L1",
+            "line": 1,
+            "span": "(25:38)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/config-server/src/main/resources/application.yml#L2",
+                    "line": 2,
+                    "span": "(8, 12)"
+                },
+                "configuration_server": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/config-server/src/main/java/se/callista/microservises/support/ConfigServerApplication.java#L15",
+                    "line": "15",
+                    "span": "(0, 19)"
+                },
+                "local_logging": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/config-server/src/main/java/se/callista/microservises/support/ConfigServerApplication.java#L4",
+                    "line": "4",
+                    "span": "(17, 30)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype local_logging",
+                    "line": "heuristic, based on stereotype local_logging",
+                    "span": "heuristic, based on stereotype local_logging"
+                }
+            }
+        },
+        "github-repository": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/config-server/src/main/resources/application.yml#L12",
+            "line": "12",
+            "span": "(0, 35)",
+            "sub_items": {
+                "github_repository": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/config-server/src/main/resources/application.yml#L12",
+                    "line": "12",
+                    "span": "(0, 35)"
+                },
+                "entrypoint": {
+                  "file": "implicit, based on stereotype github_repository",
+                  "line": "implicit, based on stereotype github_repository",
+                  "span": "implicit, based on stereotype github_repository"
+                }
+            }
+        },
+        "turbine-server": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/turbine/src/main/resources/bootstrap.yml#L3",
+            "line": 3,
+            "span": "(10:24)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/turbine/src/main/resources/application.yml#L2",
+                    "line": 2,
+                    "span": "(8, 12)"
+                },
+                "monitoring_server": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/turbine/src/main/java/se/callista/microservises/support/turbine/TurbineApplication.java#L11",
+                    "line": "11",
+                    "span": "(56, 75)"
+                },
+                "local_logging": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/turbine/src/main/java/se/callista/microservises/support/turbine/TurbineApplication.java#L4",
+                    "line": "4",
+                    "span": "(17, 30)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype monitoring_server",
+                    "line": "heuristic, based on stereotype monitoring_server",
+                    "span": "heuristic, based on stereotype monitoring_server"
+                }
+            }
+        },
+        "zipkin-server": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/zipkin-server/src/main/resources/bootstrap.yml#L3",
+            "line": 3,
+            "span": "(10:23)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/zipkin-server/src/main/resources/application.yml#L1",
+                    "line": 1,
+                    "span": "(13, 17)"
+                },
+                "tracing_server": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/zipkin-server/src/main/resources/bootstrap.yml#L3",
+                    "line": 3,
+                    "span": "(10:23)",
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype tracing_server",
+                    "line": "heuristic, based on stereotype tracing_server",
+                    "span": "heuristic, based on stereotype tracing_server"
+                }
+            }
+        },
+        "edge-server": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/edge-server/src/main/resources/bootstrap.yml#L6",
+            "line": 6,
+            "span": "(10:21)",
+            "sub_items": {
+                "gateway": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/edge-server/src/main/java/se/callista/microservises/support/edge/ZuulApplication.java#L18",
+                    "line": "18",
+                    "span": "(0, 16)"
+                },
+                "resource_server": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/edge-server/src/main/java/se/callista/microservises/support/edge/ZuulApplication.java#L19",
+                    "line": "19",
+                    "span": "(0, 21)"
+                },
+                "local_logging": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/edge-server/src/main/java/se/callista/microservises/support/edge/ZuulApplication.java#L4",
+                    "line": "4",
+                    "span": "(17, 30)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype gateway",
+                    "line": "heuristic, based on stereotype gateway",
+                    "span": "heuristic, based on stereotype gateway"
+                }
+            }
+        },
+        "discovery-server": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/discovery-server/src/main/resources/bootstrap.yml#L3",
+            "line": 3,
+            "span": "(10:26)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/discovery-server/src/main/resources/application.yml#L107",
+                    "line": 107,
+                    "span": "(60, 64)"
+                },
+                "service_discovery": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/discovery-server/src/main/java/se/callista/microservises/support/discovery/EurekaApplication.java#L9",
+                    "line": "9",
+                    "span": "(0, 19)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype service_discovery",
+                    "line": "heuristic, based on stereotype service_discovery",
+                    "span": "heuristic, based on stereotype service_discovery"
+                },
+                "plaintext_credentials": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/discovery-server/src/main/resources/application.yml#L6",
+                    "line": "6",
+                    "span": "(23, 41)"
+                }
+            }
+        },
+        "elasticsearch": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/docker-compose-with-elk.yml#L5",
+            "line": 5,
+            "span": "[2:15]",
+            "sub_items": {
+                "search_engine": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/docker-compose-with-elk.yml#L5",
+                    "line": 5,
+                    "span": "[2:15]",
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype search_engine",
+                    "line": "heuristic, based on stereotype search_engine",
+                    "span": "heuristic, based on stereotype search_engine"
+                }
+            }
+        },
+        "rabbitmq": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/docker-compose-with-elk.yml#L44",
+            "line": 44,
+            "span": "[2:10]",
+            "sub_items": {
+                "message_broker": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/docker-compose-with-elk.yml#L44",
+                    "line": 44,
+                    "span": "[2:10]",
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype message_broker",
+                    "line": "heuristic, based on stereotype message_broker",
+                    "span": "heuristic, based on stereotype message_broker"
+                }
+            }
+        },
+        "zipkin": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/docker-compose-with-elk.yml#L205",
+            "line": 205,
+            "span": "[2:8]",
+            "sub_items": {
+                "internal": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        },
+        "kibana": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/docker-compose-with-elk.yml#L18",
+            "line": 18,
+            "span": "[2:8]",
+            "sub_items": {
+                "monitoring_dashboard": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/docker-compose-with-elk.yml#L18",
+                    "line": 18,
+                    "span": "[2:8]",
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype monitoring_dashboard",
+                    "line": "heuristic, based on stereotype monitoring_dashboard",
+                    "span": "heuristic, based on stereotype monitoring_dashboard"
+                }
+            }
+        },
+        "logstash": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/docker-compose-with-elk.yml#L28",
+            "line": 28,
+            "span": "[2:10]",
+            "sub_items": {
+                "logging_server": {
+                    "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/docker-compose-with-elk.yml#L28",
+                    "line": 28,
+                    "span": "[2:10]",
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype logging_server",
+                    "line": "heuristic, based on stereotype logging_server",
+                    "span": "heuristic, based on stereotype logging_server"
+                }
+            }
+        },
+        "user": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit",
+            "sub_items": {
+                "user_stereotype": {
+                    "file": "implicit",
+                    "line": "implicit",
+                    "span": "implicit"
+                },
+                "entrypoint": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                },
+                "exitpoint": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        }
+    },
+    "edges": {
+        "config-server -> recommendation-service": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/core/recommendation-service/src/main/resources/bootstrap.yml#L30",
+            "line": 30,
+            "span": "(12, 66)"
+        },
+        "config-server -> product-service": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/core/product-service/src/main/resources/bootstrap.yml#L18",
+            "line": 18,
+            "span": "(12, 34)"
+        },
+        "config-server -> review-service": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/core/review-service/src/main/resources/bootstrap.yml#L18",
+            "line": 18,
+            "span": "(12, 34)"
+        },
+        "config-server -> composite-service": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/composite/product-composite-service/src/main/resources/bootstrap.yml#L30",
+            "line": 30,
+            "span": "(12, 66)"
+        },
+        "config-server -> monitor-dashboard": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/monitor-dashboard/src/main/resources/bootstrap.yml#L18",
+            "line": 18,
+            "span": "(12, 34)"
+        },
+        "config-server -> auth-server": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/auth-server/src/main/resources/bootstrap.yml#L18",
+            "line": 18,
+            "span": "(12, 34)"
+        },
+        "config-server -> turbine-server": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/turbine/src/main/resources/bootstrap.yml#L15",
+            "line": 15,
+            "span": "(12, 34)"
+        },
+        "rabbitmq -> turbine-server": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/turbine/src/main/resources/application.yml#L33",
+            "line": 33,
+            "span": "(0, 16)"
+        },
+        "rabbitmq -> zipkin-server": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/zipkin-server/src/main/resources/application.yml#L3",
+            "line": 4,
+            "span": "(27, 31)"
+        },
+        "config-server -> rabbitmq": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/config-server/src/main/resources/application.yml#L16",
+            "line": 16,
+            "span": "(0, 15)"
+        },
+        "config-server -> edge-server": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/edge-server/src/main/resources/bootstrap.yml#L18",
+            "line": 18,
+            "span": "(12, 34)"
+        },
+        "discovery-server -> edge-server": {
+            "file": "https://github.com/callistaenterprise/blog-microservices-config/blob/master/edge-server.yml#L105",
+            "line": 105,
+            "span": "(24, 53)"
+        },
+        "review-service -> discovery-server": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/core/review-service/src/main/java/se/callista/microservices/core/review/ReviewServiceApplication.java#L11",
+            "line": "11",
+            "span": "(50, 71)"
+        },
+        "recommendation-service -> discovery-server": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/core/recommendation-service/src/main/java/se/callista/microservices/core/recommendation/RecommendationServiceApplication.java#L7",
+            "line": "7",
+            "span": "(50, 71)"
+        },
+        "config-server -> discovery-server": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/config-server/src/main/java/se/callista/microservises/support/ConfigServerApplication.java#L10",
+            "line": "10",
+            "span": "(50, 71)"
+        },
+        "turbine-server -> discovery-server": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/turbine/src/main/resources/application.yml#L88",
+            "line": 88,
+            "span": "(20, 59)"
+        },
+        "composite-service -> discovery-server": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/composite/product-composite-service/src/main/java/se/callista/microservices/composite/product/ProductCompositeServiceApplication.java#L8",
+            "line": "8",
+            "span": "(50, 71)"
+        },
+        "composite-service -> rabbitmq": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/composite/product-composite-service/src/main/java/se/callista/microservices/composite/product/service/ProductCompositeIntegration.java#L45",
+            "line": "45",
+            "span": "(0, 15)"
+        },
+        "composite-service -> product-service": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/composite/product-composite-service/src/main/java/se/callista/microservices/composite/product/service/ProductCompositeIntegration.java#L50",
+            "line": "50",
+            "span": "(19, 50)"
+        },
+        "composite-service -> recommendation-service": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/composite/product-composite-service/src/main/java/se/callista/microservices/composite/product/service/ProductCompositeIntegration.java#L85",
+            "line": "85",
+            "span": "(19, 74)"
+        },
+        "composite-service -> review-service": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/composite/product-composite-service/src/main/java/se/callista/microservices/composite/product/service/ProductCompositeIntegration.java#L125",
+            "line": "125",
+            "span": "(19, 58)"
+        },
+        "auth-server -> composite-service": {
+            "file": "https://github.com/callistaenterprise/blog-microservices-config/blob/master/composite-service.yml#L15",
+            "line": "15",
+            "span": "(24, 31)"
+        },
+        "product-service -> discovery-server": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/core/product-service/src/main/java/se/callista/microservices/core/product/ProductServiceApplication.java#L8",
+            "line": "8",
+            "span": "(50, 71)"
+        },
+        "user -> edge-server": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit"
+        },
+        "edge-server -> user": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit"
+        },
+        "edge-server -> composite-service": {
+            "file": "https://github.com/callistaenterprise/blog-microservices-config/blob/master/edge-server.yml#L64",
+            "line": "64",
+            "span": "(28, 37)"
+        },
+        "edge-server -> auth-server": {
+            "file": "https://github.com/callistaenterprise/blog-microservices-config/blob/master/edge-server.yml#L18",
+            "line": "18",
+            "span": "(24, 55)"
+        },
+        "turbine-server -> monitor-dashboard": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/turbine/src/main/java/se/callista/microservises/support/turbine/TurbineApplication.java#L11",
+            "line": "11",
+            "span": "(56, 75)"
+        },
+        "monitor-dashboard -> discovery-server": {
+            "file": "https://github.com/callistaenterprise/blog-microservices-config/blob/master/monitor-dashboard.yml#L57",
+            "line": "57",
+            "span": "(24, 53)"
+        },
+        "github-repository -> config-server": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/master/microservices/support/config-server/src/main/resources/application.yml#L12",
+            "line": "12",
+            "span": "(0, 35)"
+        },
+        "elasticsearch -> kibana": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit"
+        },
+        "discovery-server -> logstash": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/1681bdb6b1b0c64147d059f2c2e04726bce8e2f4/docker-compose-with-elk.yml#L61",
+            "line": "61",
+            "span": "(26, 47)"
+        },
+        "config-server -> logstash": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/1681bdb6b1b0c64147d059f2c2e04726bce8e2f4/docker-compose-with-elk.yml#L84",
+            "line": "84",
+            "span": "(26, 47)"
+        },
+        "auth-server -> logstash": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/1681bdb6b1b0c64147d059f2c2e04726bce8e2f4/docker-compose-with-elk.yml#L101",
+            "line": "101",
+            "span": "(26, 47)"
+        },
+        "product-servive -> logstash": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/1681bdb6b1b0c64147d059f2c2e04726bce8e2f4/docker-compose-with-elk.yml#L121",
+            "line": "121",
+            "span": "(26, 47)"
+        },
+        "recommendation-service -> logstash": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/1681bdb6b1b0c64147d059f2c2e04726bce8e2f4/docker-compose-with-elk.yml#L136",
+            "line": "136",
+            "span": "(26, 47)"
+        },
+        "review-service -> logstash": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/1681bdb6b1b0c64147d059f2c2e04726bce8e2f4/docker-compose-with-elk.yml#L151",
+            "line": "151",
+            "span": "(26, 47)"
+        },
+        "composite-service -> logstash": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/1681bdb6b1b0c64147d059f2c2e04726bce8e2f4/docker-compose-with-elk.yml#L166",
+            "line": "166",
+            "span": "(26, 47)"
+        },
+        "monitor-dashboard -> logstash": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/1681bdb6b1b0c64147d059f2c2e04726bce8e2f4/docker-compose-with-elk.yml#L183",
+            "line": "183",
+            "span": "(26, 47)"
+        },
+        "edge-server -> logstash": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/1681bdb6b1b0c64147d059f2c2e04726bce8e2f4/docker-compose-with-elk.yml#L200",
+            "line": "200",
+            "span": "(26, 47)"
+        },
+        "zipkin-server -> logstash": {
+            "file": "https://github.com/callistaenterprise/blog-microservices/blob/1681bdb6b1b0c64147d059f2c2e04726bce8e2f4/docker-compose-with-elk.yml#L217",
+            "line": "217",
+            "span": "(26, 47)"
+        },
+        "logstash -> elasticsearch": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit"
+        }
+    }
+}

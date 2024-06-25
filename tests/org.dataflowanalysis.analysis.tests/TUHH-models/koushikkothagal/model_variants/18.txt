@@ -1,0 +1,30 @@
+
+@startuml
+skinparam monochrome true
+skinparam ClassBackgroundColor White
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+
+
+digraph dfd2{
+    node[shape=record]
+        discovery_server [label = "{Process: discovery_server | --infrastructural--\n--service_discovery--\nPort: 8761\nService Discovery: Eureka\n}" shape = Mrecord];
+        ratings_data_service [label = "{Process: ratings_data_service | --internal--\nPort: 8083\nEndpoints: ['/ratingsdata', '/ratingsdata/movies/\{movieId\}', '/ratingsdata/user/\{userId\}']\n}" shape = Mrecord];
+        ratings_data_service -> discovery_server [label = " --restful_http--\n"]
+        movie_info_service [label = "{Process: movie_info_service | --internal--\nPort: 8082\nEndpoints: ['/movies', '/movies/\{movieId\}']\n}" shape = Mrecord];
+        movie_info_service -> discovery_server [label = " --restful_http--\n"]
+        external_website [label = "{External Entity: external_website | --external_website--\nURL: https://api.themoviedb.org\n}"];
+        external_website -> movie_info_service [label = " --restful_http--\n"]
+        movie_catalog_service [label = "{Process: movie_catalog_service | --internal--\n--load_balancer--\nPort: 8081\nLoad Balancer: Spring Cloud\nEndpoints: ['/catalog', '/catalog/\{userId\}']\n}" shape = Mrecord];
+        movie_catalog_service -> discovery_server [label = " --restful_http--\n--load_balanced_link--\n"]
+        movie_catalog_service -> ratings_data_service [label = " --restful_http--\n--load_balanced_link--\n"]
+        movie_catalog_service -> movie_info_service [label = " --restful_http--\n--load_balanced_link--\n"]
+
+        secret_manager [label = "{Process: secret_manager | --infrastructural--\n--secret_manager--\n}" shape = Mrecord];
+        secret_manager -> discovery_server [label = " --restful_http--\n"]
+        secret_manager -> movie_info_service [label = " --restful_http--\n"]
+        secret_manager -> movie_catalog_service [label = " --restful_http--\n"]
+        secret_manager -> ratings_data_service [label = " --restful_http--\n"]
+
+}
+@enduml

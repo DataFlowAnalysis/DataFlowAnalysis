@@ -1,0 +1,64 @@
+
+@startuml
+skinparam monochrome true
+skinparam ClassBackgroundColor White
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+
+
+digraph dfd2{
+    node[shape=record]
+        configserver [label = "{Process: configserver | --infrastructural--\n--configuration_server--\nPort: 8888\nConfiguration Server: Spring Cloud Config\n}" shape = Mrecord];
+        github_repository [label = "{External Entity: github_repository | --github_repository--\n--entrypoint--\nURL: https://github.com/anilallewar/microservices-basics-cloud-config\n}"];
+        github_repository -> configserver [label = " --restful_http--\n"]
+        webservice_registry [label = "{Process: webservice_registry | --infrastructural--\n--service_discovery--\nPort: 8761\nService Discovery: Eureka\n}" shape = Mrecord];
+        configserver -> webservice_registry [label = " --restful_http--\n"]
+        zipkin_tracing [label = "{Process: zipkin_tracing | --infrastructural--\n--tracing_server--\nPort: 9411\nTracing Server: Zipkin\n}" shape = Mrecord];
+        configserver -> zipkin_tracing [label = " --restful_http--\n"]
+        mysqldb [label = "{Process: mysqldb | --database--\n--plaintext_credentials--\nPort: 3306\nDatabase: MySQL\nPassword: password\n}" shape = Mrecord];
+        auth_server [label = "{Process: auth_server | --infrastructural--\n--authorization_server--\n--resource_server--\n--authentication_scope_all_requests--\n--plaintext_credentials--\nPort: 8899\nAuthorization Server: Spring OAuth2\nEndpoints: ['/me']\nUsername: user\nPassword: password\n}" shape = Mrecord];
+        configserver -> auth_server [label = " --restful_http--\n"]
+        mysqldb -> auth_server [label = " --restful_http--\n--plaintext_credentials_link--\n'Username': root\n 'Password': password\n"]
+        auth_server -> webservice_registry [label = " --restful_http--\n"]
+        web_portal [label = "{Process: web_portal | --infrastructural--\n--monitoring_dashboard--\n--monitoring_server--\n--authentication_scope_all_requests--\nPort: 8090\nMonitoring Server: Turbine\nMonitoring Dashboard: Hystrix\n}" shape = Mrecord];
+        web_portal -> webservice_registry [label = " --restful_http--\n"]
+        configserver -> web_portal [label = " --restful_http--\n"]
+        user_webservice [label = "{Process: user_webservice | --internal--\n--local_logging--\n--resource_server--\n--authentication_scope_all_requests--\nPort: 8091\nEndpoints: ['/', '/\{userName\}']\n}" shape = Mrecord];
+        user_webservice -> zipkin_tracing [label = " --restful_http--\n"]
+        configserver -> user_webservice [label = " --restful_http--\n"]
+        user_webservice -> webservice_registry [label = " --restful_http--\n"]
+        auth_server -> user_webservice [label = " --restful_http--\n"]
+        comments_webservice [label = "{Process: comments_webservice | --internal--\n--local_logging--\n--resource_server--\nPort: 8083\nEndpoints: ['/comments', '/comments/\{taskId\}']\n}" shape = Mrecord];
+        comments_webservice -> zipkin_tracing [label = " --restful_http--\n"]
+        configserver -> comments_webservice [label = " --restful_http--\n"]
+        comments_webservice -> webservice_registry [label = " --restful_http--\n"]
+        task_webservice [label = "{Process: task_webservice | --internal--\n--local_logging--\n--authentication_scope_all_requests--\n--resource_server--\n--circuit_breaker--\n--load_balancer--\nPort: 8082\nCircuit Breaker: Hystrix\nEndpoints: ['/', '/\{taskId\}', '/usertask/\{userName\}']\nLoad Balancer: Spring Cloud\n}" shape = Mrecord];
+        task_webservice -> zipkin_tracing [label = " --restful_http--\n"]
+        configserver -> task_webservice [label = " --restful_http--\n"]
+        auth_server -> task_webservice [label = " --restful_http--\n"]
+        task_webservice -> webservice_registry [label = " --restful_http--\n"]
+        task_webservice -> web_portal [label = " --restful_http--\n"]
+        task_webservice -> comments_webservice [label = " --restful_http--\n--circuit_breaker_link--\n--load_balanced_link--\n"]
+        api_gateway [label = "{Process: api_gateway | --infrastructural--\n--gateway--\n--load_balancer--\n--circuit_breaker--\n--csrf_disabled--\nPort: 8765\nGateway: Zuul\nLoad Balancer: Ribbon\nCircuit Breaker: Hystrix\n}" shape = Mrecord];
+        user [label = "{External Entity: user | --user_stereotype--\n--entrypoint--\n--exitpoint--\n}"];
+        api_gateway -> user [label = " --restful_http--\n"]
+        user -> api_gateway [label = " --restful_http--\n"]
+        configserver -> api_gateway [label = " --restful_http--\n"]
+        webservice_registry -> api_gateway [label = " --restful_http--\n"]
+        api_gateway -> zipkin_tracing [label = " --restful_http--\n"]
+        auth_server -> api_gateway [label = " --restful_http--\n"]
+        api_gateway -> user_webservice [label = " --restful_http--\n--load_balanced_link--\n--circuit_breaker_link--\n"]
+        api_gateway -> task_webservice [label = " --restful_http--\n--load_balanced_link--\n--circuit_breaker_link--\n"]
+        secret_manager [label = "{Process: secret_manager | --infrastructural--\n--secret_manager--\n}" shape = Mrecord];
+        api_gateway -> secret_manager [label = " --restful_http--"]
+        configserver -> secret_manager [label = " --restful_http--"]
+        webservice_registry -> secret_manager [label = " --restful_http--"]
+        zipkin_tracing -> secret_manager [label = " --restful_http--"]
+        auth_server -> secret_manager [label = " --restful_http--"]
+        web_portal -> secret_manager [label = " --restful_http--"]
+        user_webservice -> secret_manager [label = " --restful_http--"]
+        comments_webservice -> secret_manager [label = " --restful_http--"]
+        task_webservice -> secret_manager [label = " --restful_http--"]
+
+}
+@enduml

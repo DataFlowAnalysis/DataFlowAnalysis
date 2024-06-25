@@ -1,0 +1,119 @@
+{
+    "information_flows": [
+        {
+            "sender": "eureka",
+            "receiver": "zuul",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user",
+            "receiver": "zuul",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "zuul",
+            "receiver": "user",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "turbine",
+            "receiver": "eureka",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "catalog",
+            "receiver": "eureka",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "customer",
+            "receiver": "eureka",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "order",
+            "receiver": "eureka",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "order",
+            "receiver": "catalog",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "order",
+            "receiver": "customer",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "order",
+            "receiver": "turbine",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "zuul",
+            "receiver": "customer",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "zuul",
+            "receiver": "catalog",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "zuul",
+            "receiver": "order",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        }
+    ],
+    "external_entities": [
+        {
+            "name": "user",
+            "stereotypes": [
+                "user_stereotype",
+                "entrypoint",
+                "exitpoint"
+            ],
+            "tagged_values": {}
+        }
+    ]
+}

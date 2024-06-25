@@ -1,0 +1,67 @@
+
+@startuml
+skinparam monochrome true
+skinparam ClassBackgroundColor White
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+
+
+digraph dfd2{
+    node[shape=record]
+        config_server [label = "{Process: config_server | --configuration_server--\n--infrastructural--\n--local_logging--\nConfiguration Server: Spring Cloud Config\nPort: 8888\n}" shape = Mrecord];
+        github_repository [label = "{External Entity: github_repository | --github_repository--\n--entrypoint--\nURL: https://github.com/spring-petclinic/spring-petclinic-microservices-config\n}"];
+        github_repository -> config_server [label = " --restful_http--\n"]
+        discovery_server [label = "{Process: discovery_server | --service_discovery--\n--infrastructural--\n--local_logging--\nService Discovery: Eureka\nPort: 8761\n}" shape = Mrecord];
+        config_server -> discovery_server [label = " --restful_http--\n"]
+        tracing_server [label = "{Process: tracing_server | --tracing_server--\n--infrastructural--\n--local_logging--\nTracing Server: Zipkin\nPort: 9411\n}" shape = Mrecord];
+        tracing_server -> discovery_server [label = " --restful_http--\n"]
+        config_server -> tracing_server [label = " --restful_http--\n"]
+        admin_server [label = "{Process: admin_server | --administration_server--\n--infrastructural--\n--local_logging--\nAdministration Server: Spring Boot Admin\nPort: 9090\n}" shape = Mrecord];
+        admin_server -> discovery_server [label = " --restful_http--\n"]
+        config_server -> admin_server [label = " --restful_http--\n"]
+        prometheus_server [label = "{Process: prometheus_server | --metrics_server--\n--infrastructural--\n--local_logging--\nMetrics Server: Prometheus\nPort: 9090\n}" shape = Mrecord];
+        grafana_server [label = "{Process: grafana_server | --monitoring_dashboard--\n--infrastructural--\n--local_logging--\nMonitoring Dashboard: Grafana\nPort: 3000\n}" shape = Mrecord];
+        prometheus_server -> grafana_server [label = " --restful_http--\n"]
+        customers_service [label = "{Process: customers_service | --in_memory_data_store--\n--local_logging--\n--internal--\nPort: 8081\nIn-Memory Data Store: HSQLDB\nLogging Technology: Lombok\nEndpoints: ['/owners', '/owners/\{ownerId\}']\n}" shape = Mrecord];
+        customers_service -> discovery_server [label = " --restful_http--\n"]
+        config_server -> customers_service [label = " --restful_http--\n"]
+        customers_service -> tracing_server [label = " --restful_http--\n"]
+        customers_service -> prometheus_server [label = " --restful_http--\n"]
+        vets_service [label = "{Process: vets_service | --in_memory_data_store--\n--internal--\n--local_logging--\nPort: 8083\nIn-Memory Data Store: HSQLDB\nEndpoints: ['/vets']\n}" shape = Mrecord];
+        vets_service -> discovery_server [label = " --restful_http--\n"]
+        config_server -> vets_service [label = " --restful_http--\n"]
+        vets_service -> tracing_server [label = " --restful_http--\n"]
+        vets_service -> prometheus_server [label = " --restful_http--\n"]
+        visits_service [label = "{Process: visits_service | --in_memory_data_store--\n--local_logging--\n--internal--\nPort: 8082\nIn-Memory Data Store: HSQLDB\nLogging Technology: Lombok\n}" shape = Mrecord];
+        visits_service -> discovery_server [label = " --restful_http--\n"]
+        config_server -> visits_service [label = " --restful_http--\n"]
+        visits_service -> tracing_server [label = " --restful_http--\n"]
+        visits_service -> prometheus_server [label = " --restful_http--\n"]
+        api_gateway [label = "{Process: api_gateway | --gateway--\n--infrastructural--\n--load_balancer--\n--local_logging--\nGateway: Spring Cloud Gateway\nPort: 8080\nLoad Balancer: Spring Cloud\nEndpoints: ['/api/gatewayowners/\{ownerId\}', '/api/gateway']\n}" shape = Mrecord];
+        discovery_server -> api_gateway [label = " --restful_http--\n"]
+        user [label = "{External Entity: user | --user_stereotype--\n--entrypoint--\n--exitpoint--\n}"];
+        user -> api_gateway [label = " --restful_http--\n"]
+        api_gateway -> user [label = " --restful_http--\n--load_balanced_link--\n"]
+        config_server -> api_gateway [label = " --restful_http--\n"]
+        api_gateway -> prometheus_server [label = " --restful_http--\n--load_balanced_link--\n"]
+        api_gateway -> vets_service [label = " --restful_http--\n--load_balanced_link--\n"]
+        api_gateway -> visits_service [label = " --restful_http--\n--load_balanced_link--\n"]
+        api_gateway -> customers_service [label = " --restful_http--\n--load_balanced_link--\n--circuit_breaker_link--\n"]
+        api_gateway -> tracing_server [label = " --restful_http--\n--load_balanced_link--\n"]
+
+        logging_server [label = "{Process: logging_server | --infrastructural--\n--logging_server--\n}" shape = Mrecord];
+        logging_server -> grafana_server [label = " --restful_http--\n"]
+        config_server -> logging_server [label = " --restful_http--\n"]
+        discovery_server -> logging_server [label = " --restful_http--\n"]
+        tracing_server -> logging_server [label = " --restful_http--\n"]
+        admin_server -> logging_server [label = " --restful_http--\n"]
+        prometheus_server -> logging_server [label = " --restful_http--\n"]
+        grafana_server -> logging_server [label = " --restful_http--\n"]
+        customers_service -> logging_server [label = " --restful_http--\n"]
+        vets_service -> logging_server [label = " --restful_http--\n"]
+        visits_service -> logging_server [label = " --restful_http--\n"]
+        api_gateway -> logging_server [label = " --restful_http--\n"]
+
+
+}
+@enduml

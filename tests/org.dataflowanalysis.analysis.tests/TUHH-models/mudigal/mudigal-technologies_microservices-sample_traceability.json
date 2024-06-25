@@ -1,0 +1,471 @@
+{
+    "nodes": {
+        "api-gateway": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/api-gateway/src/main/resources/application.yml#L4",
+            "line": 4,
+            "span": "(20:31)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/api-gateway/src/main/resources/application.yml#L19",
+                    "line": 19,
+                    "span": "(8, 12)"
+                },
+                "gateway": {
+                    "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/api-gateway/src/main/java/com/mudigal/ApiGatewayApplication.java#L17",
+                    "line": "17",
+                    "span": "(0, 16)"
+                },
+                "load_balancer": {
+                    "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/api-gateway/src/main/java/com/mudigal/ApiGatewayApplication.java#L17",
+                    "line": "17",
+                    "span": "(0, 16)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype gateway",
+                    "line": "heuristic, based on stereotype gateway",
+                    "span": "heuristic, based on stereotype gateway"
+                }
+            }
+        },
+        "service-one": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/service-one/src/main/resources/application.yml#L4",
+            "line": 4,
+            "span": "(20:31)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/service-one/src/main/resources/application.yml#L26",
+                    "line": 26,
+                    "span": "(8, 12)"
+                },
+                "local_logging": {
+                    "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/service-one/src/main/java/com/mudigal/one/service/impl/ServiceOneRabbitMessageProducer.java#L4",
+                    "line": "4",
+                    "span": "(17, 30)"
+                },
+                "internal": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        },
+        "service-two": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/service-two/src/main/resources/application.yml#L4",
+            "line": 4,
+            "span": "(20:31)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/service-two/src/main/resources/application.yml#L28",
+                    "line": 28,
+                    "span": "(8, 12)"
+                },
+                "local_logging": {
+                    "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/service-two/src/main/java/com/mudigal/two/service/impl/ServiceTwoRabbitMessageProducer.java#L8",
+                    "line": "8",
+                    "span": "(17, 30)"
+                },
+                "internal": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        },
+        "web-application": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L108",
+            "line": 108,
+            "span": "[2:17]",
+            "sub_items": {
+                "web_application": {
+                    "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L108",
+                    "line": 108,
+                    "span": "[2:17]"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype web_application",
+                    "line": "heuristic, based on stereotype web_application",
+                    "span": "heuristic, based on stereotype web_application"
+                }
+            }
+        },
+        "kibana": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L214",
+            "line": 214,
+            "span": "[2:8]",
+            "sub_items": {
+                "monitoring_dashboard": {
+                    "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L214",
+                    "line": 214,
+                    "span": "[2:8]"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype monitoring_dashboard",
+                    "line": "heuristic, based on stereotype monitoring_dashboard",
+                    "span": "heuristic, based on stereotype monitoring_dashboard"
+                }
+            }
+        },
+        "service-one-db": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L45",
+            "line": 45,
+            "span": "[2:16]",
+            "sub_items": {
+                "database": {
+                    "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L45",
+                    "line": 45,
+                    "span": "[2:16]"
+                },
+                "plaintext_credentials": {
+                    "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L52",
+                    "line": "52",
+                    "span": "(23, 34)"
+                }
+            }
+        },
+        "service-two-db": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L88",
+            "line": 88,
+            "span": "[2:16]",
+            "sub_items": {
+                "database": {
+                    "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L88",
+                    "line": 88,
+                    "span": "[2:16]"
+                },
+                "plaintext_credentials": {
+                    "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L97",
+                    "line": "97",
+                    "span": "(23, 34)"
+                }
+            }
+        },
+        "consul2": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L160",
+            "line": 160,
+            "span": "[2:9]",
+            "sub_items": {
+                "service_discovery": {
+                    "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L160",
+                    "line": 160,
+                    "span": "[2:9]"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype service_discovery",
+                    "line": "heuristic, based on stereotype service_discovery",
+                    "span": "heuristic, based on stereotype service_discovery"
+                }
+            }
+        },
+        "consul3": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L173",
+            "line": 173,
+            "span": "[2:9]",
+            "sub_items": {
+                "service_discovery": {
+                    "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L173",
+                    "line": 173,
+                    "span": "[2:9]"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype service_discovery",
+                    "line": "heuristic, based on stereotype service_discovery",
+                    "span": "heuristic, based on stereotype service_discovery"
+                }
+            }
+        },
+        "scope": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L191",
+            "line": 191,
+            "span": "[2:7]",
+            "sub_items": {
+                "monitoring_dashboard": {
+                    "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L191",
+                    "line": 191,
+                    "span": "[2:7]"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype monitoring_dashboard",
+                    "line": "heuristic, based on stereotype monitoring_dashboard",
+                    "span": "heuristic, based on stereotype monitoring_dashboard"
+                }
+            }
+        },
+        "rabbit": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L126",
+            "line": 126,
+            "span": "[2:8]",
+            "sub_items": {
+                "message_broker": {
+                    "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L126",
+                    "line": 126,
+                    "span": "[2:8]"
+                },
+                "plaintext_credentials": {
+                    "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L137",
+                    "line": "137",
+                    "span": "(31, 38)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype message_broker",
+                    "line": "heuristic, based on stereotype message_broker",
+                    "span": "heuristic, based on stereotype message_broker"
+                }
+            }
+        },
+        "logstash": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L261",
+            "line": 261,
+            "span": "[2:10]",
+            "sub_items": {
+                "logging_server": {
+                    "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L261",
+                    "line": 261,
+                    "span": "[2:10]"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype logging_server",
+                    "line": "heuristic, based on stereotype logging_server",
+                    "span": "heuristic, based on stereotype logging_server"
+                }
+            }
+        },
+        "elasticsearch": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L233",
+            "line": 233,
+            "span": "[2:15]",
+            "sub_items": {
+                "search_engine": {
+                    "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L233",
+                    "line": 233,
+                    "span": "[2:15]"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype search_engine",
+                    "line": "heuristic, based on stereotype search_engine",
+                    "span": "heuristic, based on stereotype search_engine"
+                }
+            }
+        },
+        "consul": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L149",
+            "line": 149,
+            "span": "[2:8]",
+            "sub_items": {
+                "service_discovery": {
+                    "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L149",
+                    "line": 149,
+                    "span": "[2:8]"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype service_discovery",
+                    "line": "heuristic, based on stereotype service_discovery",
+                    "span": "heuristic, based on stereotype service_discovery"
+                }
+            }
+        },
+        "user": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit",
+            "sub_items": {
+                "user_stereotype": {
+                    "file": "implicit",
+                    "line": "implicit",
+                    "span": "implicit"
+                },
+                "entrypoint": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                },
+                "exitpoint": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        }
+    },
+    "edges": {
+        "rabbit -> service-one": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/ServiceOneRabbitMessageConsumer.java#L36",
+            "line": 36,
+            "span": "<re.Match object; span=(1, 16), match='@RabbitListener'>"
+        },
+        "rabbit -> service-two": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/ServiceTwoRabbitMessageConsumer.java#L34",
+            "line": 34,
+            "span": "<re.Match object; span=(2, 17), match='@RabbitListener'>"
+        },
+        "service-one -> rabbit": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/ServiceOneRabbitMessageProducer.java#L34",
+            "line": 34,
+            "span": "<re.Match object; span=(8, 37), match='rabbitTemplate.convertAndSend'>"
+        },
+        "service-two -> rabbit": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/ServiceTwoRabbitMessageProducer.java#L36",
+            "line": 36,
+            "span": "<re.Match object; span=(11, 40), match='rabbitTemplate.convertAndSend'>"
+        },
+        "api-gateway -> scope": {
+            "file": "implicit for weavescope",
+            "line": "implicit for weavescope",
+            "span": "implicit for weavescope"
+        },
+        "service-one -> scope": {
+            "file": "implicit for weavescope",
+            "line": "implicit for weavescope",
+            "span": "implicit for weavescope"
+        },
+        "service-two -> scope": {
+            "file": "implicit for weavescope",
+            "line": "implicit for weavescope",
+            "span": "implicit for weavescope"
+        },
+        "web-application -> scope": {
+            "file": "implicit for weavescope",
+            "line": "implicit for weavescope",
+            "span": "implicit for weavescope"
+        },
+        "kibana -> scope": {
+            "file": "implicit for weavescope",
+            "line": "implicit for weavescope",
+            "span": "implicit for weavescope"
+        },
+        "service-one-db -> scope": {
+            "file": "implicit for weavescope",
+            "line": "implicit for weavescope",
+            "span": "implicit for weavescope"
+        },
+        "service-two-db -> scope": {
+            "file": "implicit for weavescope",
+            "line": "implicit for weavescope",
+            "span": "implicit for weavescope"
+        },
+        "consul2 -> scope": {
+            "file": "implicit for weavescope",
+            "line": "implicit for weavescope",
+            "span": "implicit for weavescope"
+        },
+        "consul3 -> scope": {
+            "file": "implicit for weavescope",
+            "line": "implicit for weavescope",
+            "span": "implicit for weavescope"
+        },
+        "rabbit -> scope": {
+            "file": "implicit for weavescope",
+            "line": "implicit for weavescope",
+            "span": "implicit for weavescope"
+        },
+        "logstash -> scope": {
+            "file": "implicit for weavescope",
+            "line": "implicit for weavescope",
+            "span": "implicit for weavescope"
+        },
+        "elasticsearch -> scope": {
+            "file": "implicit for weavescope",
+            "line": "implicit for weavescope",
+            "span": "implicit for weavescope"
+        },
+        "consul -> scope": {
+            "file": "implicit for weavescope",
+            "line": "implicit for weavescope",
+            "span": "implicit for weavescope"
+        },
+        "consul2 -> consul": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L170",
+            "line": "170",
+            "span": "(11, 19)"
+        },
+        "consul3 -> consul": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L183",
+            "line": "183",
+            "span": "(11, 19)"
+        },
+        "consul3 -> consul2": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/build/docker/docker-compose.yml#L184",
+            "line": "184",
+            "span": "(11, 19)"
+        },
+        "service-one-db -> service-one": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/service-one/src/main/resources/application.yml#L59",
+            "line": 59,
+            "span": "(18, 54)"
+        },
+        "service-two-db -> service-two": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/service-two/src/main/resources/application.yml#L43",
+            "line": 43,
+            "span": "(10, 33)"
+        },
+        "user -> api-gateway": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit"
+        },
+        "api-gateway -> user": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit"
+        },
+        "api-gateway -> service-two": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/api-gateway/src/main/resources/application.yml#L29",
+            "line": 29,
+            "span": "(17, 28)"
+        },
+        "api-gateway -> service-one": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/api-gateway/src/main/resources/application.yml#L26",
+            "line": 26,
+            "span": "(17, 28)"
+        },
+        "consul -> api-gateway": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/api-gateway/src/main/resources/application.yml#L40",
+            "line": 40,
+            "span": "(13, 19)"
+        },
+        "consul -> service-one": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/service-one/src/main/resources/application.yml#L51",
+            "line": 51,
+            "span": "(13, 19)"
+        },
+        "consul -> service-two": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/service-two/src/main/resources/application.yml#L62",
+            "line": 62,
+            "span": "(13, 19)"
+        },
+        "elasticsearch -> kibana": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit"
+        },
+        "logstash -> elasticsearch": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit"
+        },
+        "service-one -> logstash": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/service-one/src/main/resources/application.yml#L67",
+            "line": 67,
+            "span": "(19, 32)"
+        },
+        "service-two -> logstash": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/service-two/src/main/resources/application.yml#L89",
+            "line": 89,
+            "span": "(12, 25)"
+        },
+        "web-application -> user": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit"
+        },
+        "user -> web-application": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit"
+        },
+        "web-application -> api-gateway": {
+            "file": "https://github.com/mudigal-technologies/microservices-sample/blob/master/web-application/src/app/service/gateway/gateway.service.ts#L13",
+            "line": "13",
+            "span": "(27, 31)"
+        }
+    }
+}

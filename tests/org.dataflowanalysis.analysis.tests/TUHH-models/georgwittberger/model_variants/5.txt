@@ -1,0 +1,29 @@
+
+@startuml
+skinparam monochrome true
+skinparam ClassBackgroundColor White
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+
+
+digraph dfd2{
+    node[shape=record]
+        apache_server [label = "{Process: apache_server | --web_server--\n--gateway--\n--infrastructural--\n--token_validation--\nWeb Server: Apache httpd\n}" shape = Mrecord];
+        user [label = "{External Entity: user | --user_stereotype--\n--entrypoint--\n--exitpoint--\n}"];
+        user -> apache_server [label = " --restful_http--\n"]
+        apache_server -> user [label = " --restful_http--\n"]
+        content_service [label = "{Process: content_service | --internal--\n--token_validation--\nPort: 11080\n}" shape = Mrecord];
+        product_service [label = "{Process: product_service | --internal--\n--token_validation--\nPort: 11081\n}" shape = Mrecord];
+        cart_service [label = "{Process: cart_service | --internal--\n--token_validation--\nPort: 11082\n}" shape = Mrecord];
+        cart_service -> product_service [label = " --restful_http--\n"]
+        apache_server -> cart_service [label = " --restful_http--\n"]
+        apache_server -> product_service [label = " --restful_http--\n"]
+        apache_server -> content_service [label = " --restful_http--\n"]
+        auth_server [label = "{Process: auth_server | --infrastructural--\n--authorization_server--\n}" shape = Mrecord];
+        auth_server -> apache_server [label = " --restful_http--\n"]
+        auth_server -> content_service [label = " --restful_http--\n"]
+        auth_server -> product_service [label = " --restful_http--\n"]
+        auth_server -> cart_service [label = " --restful_http--\n"]
+
+}
+@enduml

@@ -1,0 +1,178 @@
+{
+    "external_entities": [
+        {
+            "name": "github_repository",
+            "stereotypes": [
+                "github_repository",
+                "entrypoint"
+            ],
+            "tagged_values": {
+                "URL": "https"
+            }
+        },
+        {
+            "name": "user",
+            "stereotypes": [
+                "user_stereotype",
+                "entrypoint",
+                "exitpoint"
+            ],
+            "tagged_values": {}
+        }
+    ],
+    "information_flows": [
+        {
+            "sender": "github_repository",
+            "receiver": "config_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {
+                "Protocol": "HTTPS"
+            }
+        },
+        {
+            "sender": "config_server",
+            "receiver": "service_registry",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "department_service",
+            "receiver": "zipkin_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "department_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "department_service",
+            "receiver": "service_registry",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user_service",
+            "receiver": "zipkin_server",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "user_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user_service",
+            "receiver": "service_registry",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user_service",
+            "receiver": "department_service",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "hystrix_dashboard",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "hystrix_dashboard",
+            "receiver": "service_registry",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "user",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user",
+            "receiver": "api_gateway",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "service_registry",
+            "receiver": "api_gateway",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "api_gateway",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "user_service",
+            "stereotypes": [
+                "restful_http",
+                "circuit_breaker_link",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "department_service",
+            "stereotypes": [
+                "restful_http",
+                "circuit_breaker_link",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "zipkin_server",
+            "receiver": "hystrix_dashboard",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        }
+    ]
+}

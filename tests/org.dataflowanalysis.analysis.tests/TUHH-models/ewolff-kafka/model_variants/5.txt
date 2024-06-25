@@ -1,0 +1,40 @@
+
+@startuml
+skinparam monochrome true
+skinparam ClassBackgroundColor White
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+
+
+digraph dfd2{
+    node[shape=record]
+        zookeeper [label = "{Process: zookeeper | --configuration_server--\n--infrastructural--\n--token_validation--\nConfiguration Server: ZooKeeper\n}" shape = Mrecord];
+        kafka [label = "{Process: kafka | --message_broker--\n--infrastructural--\n--token_validation--\nMessage Broker: Kafka\nPort: 9092\n}" shape = Mrecord];
+        zookeeper -> kafka [label = " --restful_http--\n"]
+        order [label = "{Process: order | --internal--\n--token_validation--\nPort: 8080\nEndpoints: ['/order']\n}" shape = Mrecord];
+        order -> kafka [label = " --restful_http--\n--message_producer_kafka--\n'Producer Topic': order\n"]
+        invoicing [label = "{Process: invoicing | --internal--\n--local_logging--\n--token_validation--\nPort: 8080\n}" shape = Mrecord];
+        kafka -> invoicing [label = " --restful_http--\n--message_consumer_kafka--\n'Consumer Topic': order\n"]
+        shipping [label = "{Process: shipping | --internal--\n--local_logging--\n--token_validation--\nPort: 8080\n}" shape = Mrecord];
+        kafka -> shipping [label = " --restful_http--\n--message_consumer_kafka--\n'Consumer Topic': order\n"]
+        apache [label = "{Process: apache | --web_server--\n--gateway--\n--infrastructural--\n--token_validation--\nWeb Server: Apache httpd\nPort: 80\n}" shape = Mrecord];
+        apache -> order [label = " --restful_http--\n"]
+        apache -> shipping [label = " --restful_http--\n"]
+        apache -> invoicing [label = " --restful_http--\n"]
+        user [label = "{External Entity: user | --user_stereotype--\n--entrypoint--\n--exitpoint--\n}"];
+        user -> apache [label = " --restful_http--\n"]
+        apache -> user [label = " --restful_http--\n"]
+        postgres [label = "|{Process: postgres | --database--\n--plaintext_credentials--\n--exitpoint--\nDatabase: PostgreSQL\nUsername: dbuser\nPassword: dbpass\n}"]
+        postgres -> order [label = " --jdbc--\n--plaintext_credentials_link--\n'Username': dbuser\n 'Password': dbpass\n"]
+        postgres -> shipping [label = " --jdbc--\n--plaintext_credentials_link--\n'Username': dbuser\n 'Password': dbpass\n"]
+        postgres -> invoicing [label = " --jdbc--\n--plaintext_credentials_link--\n'Username': dbuser\n 'Password': dbpass\n"]
+
+        authorization_server [label = "{Process: authorization_server | --infrastructural--\n--authorization_server--\n}" shape = Mrecord];
+        authorization_server -> zookeeper [label = " --restful_http--\n"]
+        authorization_server -> kafka [label = " --restful_http--\n"]
+        authorization_server -> order [label = " --restful_http--\n"]
+        authorization_server -> invoicing [label = " --restful_http--\n"]
+        authorization_server -> shipping [label = " --restful_http--\n"]
+        authorization_server -> apache [label = " --restful_http--\n"]
+}
+@enduml

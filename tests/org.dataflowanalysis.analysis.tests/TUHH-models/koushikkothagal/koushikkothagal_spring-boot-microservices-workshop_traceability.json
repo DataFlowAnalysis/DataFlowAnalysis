@@ -1,0 +1,126 @@
+{
+    "nodes": {
+        "movie-info-service": {
+            "file": "https://github.com/koushikkothagal/spring-boot-microservices-workshop/blob/master/master/movie-info-service/src/main/resources/application.properties#L1",
+            "line": 1,
+            "span": "(24:42)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/koushikkothagal/spring-boot-microservices-workshop/blob/master/master/movie-info-service/src/main/resources/application.properties#L1",
+                    "line": 1,
+                    "span": "(0, 11)"
+                },
+                "internal": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        },
+        "ratings-data-service": {
+            "file": "https://github.com/koushikkothagal/spring-boot-microservices-workshop/blob/master/master/ratings-data-service/src/main/resources/application.properties#L1",
+            "line": 1,
+            "span": "(24:44)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/koushikkothagal/spring-boot-microservices-workshop/blob/master/master/ratings-data-service/src/main/resources/application.properties#L1",
+                    "line": 1,
+                    "span": "(0, 11)"
+                },
+                "internal": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        },
+        "external-website": {
+            "file": "https://github.com/koushikkothagal/spring-boot-microservices-workshop/blob/master/movie-info-service/src/main/java/io/javabrains/movieinfoservice/resources/MovieResource.java#L24",
+            "line": "24",
+            "span": "(33, 59)",
+            "sub_items": {
+                "external_website": {
+                    "file": "https://github.com/koushikkothagal/spring-boot-microservices-workshop/blob/master/movie-info-service/src/main/java/io/javabrains/movieinfoservice/resources/MovieResource.java#L24",
+                    "line": "24",
+                    "span": "(33, 59)"
+                }
+            }
+        },
+        "movie-catalog-service": {
+            "file": "https://github.com/koushikkothagal/spring-boot-microservices-workshop/blob/master/master/movie-catalog-service/src/main/resources/application.properties#L1",
+            "line": 1,
+            "span": "(24:45)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/koushikkothagal/spring-boot-microservices-workshop/blob/master/master/movie-catalog-service/src/main/resources/application.properties#L1",
+                    "line": 1,
+                    "span": "(0, 11)"
+                },
+                "load_balancer": {
+                    "file": "https://github.com/koushikkothagal/spring-boot-microservices-workshop/blob/master/movie-catalog-service/src/main/java/io/javabrains/moviecatalogservice/MovieCatalogServiceApplication.java#L18",
+                    "line": "18",
+                    "span": "(1, 14)"
+                },
+                "internal": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        },
+        "discovery-server": {
+            "file": "https://github.com/koushikkothagal/spring-boot-microservices-workshop/blob/master/discovery-server/pom.xml#L12",
+            "line": 12,
+            "span": "[13:29]",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/koushikkothagal/spring-boot-microservices-workshop/blob/master/master/discovery-server/src/main/resources/application.properties#L0",
+                    "line": 0,
+                    "span": "(0, 11)"
+                },
+                "service_discovery": {
+                    "file": "https://github.com/koushikkothagal/spring-boot-microservices-workshop/blob/master/discovery-server/src/main/java/io/javabrains/discoveryserver/DiscoveryServerApplication.java#L8",
+                    "line": "8",
+                    "span": "(0, 19)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype service_discovery",
+                    "line": "heuristic, based on stereotype service_discovery",
+                    "span": "heuristic, based on stereotype service_discovery"
+                }
+            }
+        }
+    },
+    "edges": {
+        "movie-catalog-service -> ratings-data-service": {
+            "file": "https://github.com/koushikkothagal/spring-boot-microservices-workshop/blob/master/movie-catalog-service/src/main/java/io/javabrains/moviecatalogservice/resources/CatalogResource.java#L32",
+            "line": "32",
+            "span": "(32, 57)"
+        },
+        "movie-catalog-service -> movie-info-service": {
+            "file": "https://github.com/koushikkothagal/spring-boot-microservices-workshop/blob/master/movie-catalog-service/src/main/java/io/javabrains/moviecatalogservice/resources/CatalogResource.java#L32",
+            "line": "32",
+            "span": "(32, 57)"
+        },
+        "external_website -> movie-info-service": {
+            "file": "https://github.com/koushikkothagal/spring-boot-microservices-workshop/blob/master/movie-info-service/src/main/java/io/javabrains/movieinfoservice/resources/MovieResource.java#L24",
+            "line": "24",
+            "span": "(33, 59)"
+        },
+        "movie-catalog-service -> discovery-server": {
+            "file": "https://github.com/koushikkothagal/spring-boot-microservices-workshop/blob/master/movie-catalog-service/src/main/java/io/javabrains/moviecatalogservice/MovieCatalogServiceApplication.java#L6",
+            "line": "6",
+            "span": "(48, 66)"
+        },
+        "ratings-data-service -> discovery-server": {
+            "file": "https://github.com/koushikkothagal/spring-boot-microservices-workshop/blob/master/ratings-data-service/pom.xml#L29",
+            "line": "29",
+            "span": "(15, 57)"
+        },
+        "movie-info-service -> discovery-server": {
+            "file": "https://github.com/koushikkothagal/spring-boot-microservices-workshop/blob/master/movie-info-service/src/main/java/io/javabrains/movieinfoservice/MovieInfoServiceApplication.java#L5",
+            "line": "5",
+            "span": "(48, 66)"
+        }
+    }
+}

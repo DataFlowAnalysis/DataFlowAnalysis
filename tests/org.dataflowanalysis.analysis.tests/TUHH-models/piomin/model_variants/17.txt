@@ -1,0 +1,34 @@
+
+@startuml
+skinparam monochrome true
+skinparam ClassBackgroundColor White
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+
+
+digraph dfd2{
+    node[shape=record]
+        discovery_server [label = "{Process: discovery_server | --service_discovery--\n--infrastructural--\n--validate_registration--\nService Discovery: Eureka\nPort: 8761\n}" shape = Mrecord];
+        gateway_server [label = "{Process: gateway_server | --gateway--\n--in_memory_authentication--\n--plaintext_credentials--\n--infrastructural--\n--authentication_scope_all_requests--\n--load_balancer--\nGateway: Zuul\nUsername: root\nPassword: password\nPort: 8765\nLoad Balancer: Ribbon\n}" shape = Mrecord];
+        discovery_server -> gateway_server [label = " --restful_http--\n"]
+        database_gateway_server [label = "{External Entity: database_gateway_server | --external_database--\n--entrypoint--\n--exitpoint--\n--plaintext_credentials--\nDatabase: MySQL\nPassword: default\nUsername: default\n}"];
+        database_gateway_server -> gateway_server [label = " --jdbc--\n--plaintext_credentials_link--\n'Password': default\n 'Username': default\n"]
+        user [label = "{External Entity: user | --user_stereotype--\n--entrypoint--\n--exitpoint--\n}"];
+        user -> gateway_server [label = " --restful_http--\n--authenticated_request--\n"]
+        gateway_server -> user [label = " --restful_http--\n"]
+        auth_server [label = "{Process: auth_server | --authorization_server--\n--encryption--\n--infrastructural--\n--resource_server--\n--token_server--\n--local_logging--\nAuthorization Server: Spring OAuth2\nPort: 9999\n}" shape = Mrecord];
+        auth_server -> discovery_server [label = " --restful_http--\n"]
+        database_auth_server [label = "{External Entity: database_auth_server | --external_database--\n--entrypoint--\n--exitpoint--\n--plaintext_credentials--\n--tokenstore--\nDatabase: MySQL\nUsername: oauth2\nPassword: oauth2\n}"];
+        database_auth_server -> auth_server [label = " --jdbc--\n--plaintext_credentials_link--\nUsername: oauth2\n Password: oauth2\n"]
+        gateway_server -> auth_server [label = " --restful_http--\n--auth_provider--\n"]
+        account_service [label = "{Process: account_service | --internal--\n--pre_authorized_endpoints--\n--resource_server--\nPre-authorized Endpoints: ['/\{id\}', '/']\nPort: 8082\n}" shape = Mrecord];
+        account_service -> discovery_server [label = " --restful_http--\n"]
+        auth_server -> account_service [label = " --restful_http--\n--auth_provider--\n"]
+        gateway_server -> account_service [label = " --restful_http--\n"]
+        customer_service [label = "{Process: customer_service | --internal--\n--pre_authorized_endpoints--\n--resource_server--\nPre-authorized Endpoints: ['/\{id\}']\nPort: 8083\n}" shape = Mrecord];
+        customer_service -> discovery_server [label = " --restful_http--\n"]
+        customer_service -> account_service [label = " --restful_http--\n--authenticated_request--\n--feign_connection--\n--load_balanced_link--\n'Load Balancer': Ribbon\n"]
+        auth_server -> customer_service [label = " --restful_http--\n--auth_provider--\n"]
+
+}
+@enduml

@@ -77,9 +77,9 @@ public class MicroSecEndConverter extends Converter {
      * @param inputFile Path to PlantUML file.
      * @return Optional of DataFlowDiagramAndDictionary if successful, otherwise empty.
      */
-    public Optional<DataFlowDiagramAndDictionary> plantToDFD(String inputFile) {
-        String name = inputFile.split("\\.")[0];
-        int exitCode = runPythonScript(inputFile, "json", name + ".json");
+    public Optional<DataFlowDiagramAndDictionary> plantToDFD(String inputFile, String OutputFile) {
+        String name = inputFile.split("\\.")[1];
+        int exitCode = runPythonScript(inputFile, "json", OutputFile + name + ".json");
         if (exitCode == 0) {
             return Optional.empty();//return Optional.ofNullable(microToDfd(name + ".json"));
         } else {

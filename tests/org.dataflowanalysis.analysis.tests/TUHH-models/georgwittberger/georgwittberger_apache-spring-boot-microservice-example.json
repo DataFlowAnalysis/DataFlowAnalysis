@@ -1,0 +1,63 @@
+{
+    "external_entities": [
+        {
+            "name": "user",
+            "stereotypes": [
+                "user_stereotype",
+                "entrypoint",
+                "exitpoint"
+            ],
+            "tagged_values": {}
+        }
+    ],
+    "information_flows": [
+        {
+            "sender": "user",
+            "receiver": "apache_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "apache_server",
+            "receiver": "user",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "cart_service",
+            "receiver": "product_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "apache_server",
+            "receiver": "cart_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "apache_server",
+            "receiver": "product_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "apache_server",
+            "receiver": "content_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        }
+    ]
+}

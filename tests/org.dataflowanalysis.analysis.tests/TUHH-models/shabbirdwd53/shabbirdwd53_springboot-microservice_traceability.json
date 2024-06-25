@@ -1,0 +1,287 @@
+{
+    "nodes": {
+        "API-GATEWAY": {
+            "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/cloud-gateway/src/main/resources/application.yml#L6",
+            "line": 6,
+            "span": "(10:21)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/cloud-gateway/src/main/resources/application.yml#L2",
+                    "line": 2,
+                    "span": "(8, 12)"
+                },
+                "gateway": {
+                    "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/cloud-gateway/pom.xml#L29",
+                    "line": "29",
+                    "span": "(15, 43)"
+                },
+                "circuit_breaker": {
+                    "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/cloud-gateway/src/main/java/com/dailycodebuffer/cloud/gateway/CloudGatewayApplication.java#L10",
+                    "line": "10",
+                    "span": "(0, 14)"
+                },
+                "load_balancer": {
+                    "file": "https://github.com/shabbirdwd53/Springboot-Microservice/blob/main/cloud-gateway/src/main/resources/application.yml#L11",
+                    "line": "11",
+                    "span": "(10, 13)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype gateway",
+                    "line": "heuristic, based on stereotype gateway",
+                    "span": "heuristic, based on stereotype gateway"
+                }
+            }
+        },
+        "DEPARTMENT-SERVICE": {
+            "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/department-service/src/main/resources/application.yml#L6",
+            "line": 6,
+            "span": "(10:28)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/department-service/src/main/resources/application.yml#L2",
+                    "line": 2,
+                    "span": "(8, 12)"
+                },
+                "local_logging": {
+                    "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/department-service/src/main/java/com/dailycodebuffer/department/service/DepartmentService.java#L5",
+                    "line": "5",
+                    "span": "(27, 32)"
+                },
+                "internal": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        },
+        "CONFIG-SERVER": {
+            "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/cloud-config-server/src/main/resources/application.yml#L6",
+            "line": 6,
+            "span": "(10:23)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/cloud-config-server/src/main/resources/application.yml#L2",
+                    "line": 2,
+                    "span": "(8, 12)"
+                },
+                "configuration_server": {
+                    "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/cloud-config-server/src/main/java/com/dailycodebuffer/cloud/CloudConfigServerApplication.java#L10",
+                    "line": "10",
+                    "span": "(0, 19)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype configuration_server",
+                    "line": "heuristic, based on stereotype configuration_server",
+                    "span": "heuristic, based on stereotype configuration_server"
+                }
+            }
+        },
+        "HYSTRIX-DASHBOARD": {
+            "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/hystrix-dashboard/src/main/resources/application.yml#L6",
+            "line": 6,
+            "span": "(10:27)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/hystrix-dashboard/src/main/resources/application.yml#L2",
+                    "line": 2,
+                    "span": "(8, 12)"
+                },
+                "monitoring_dashboard": {
+                    "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/hystrix-dashboard/src/main/java/com/dailycodebuffer/hystrix/dashboard/HystrixDashboardApplication.java#L9",
+                    "line": "9",
+                    "span": "(0, 23)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype monitoring_dashboard",
+                    "line": "heuristic, based on stereotype monitoring_dashboard",
+                    "span": "heuristic, based on stereotype monitoring_dashboard"
+                }
+            }
+        },
+        "service-registry": {
+            "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/service-registry/pom.xml#L12",
+            "line": 12,
+            "span": "[13:29]",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/service-registry/src/main/resources/application.yml#L2",
+                    "line": 2,
+                    "span": "(8, 12)"
+                },
+                "service_discovery": {
+                    "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/service-registry/src/main/java/com/dailycodebuffer/service/registry/ServiceRegistryApplication.java#L8",
+                    "line": "8",
+                    "span": "(0, 19)"
+                },
+                "infrastructural": {
+                    "file": "heuristic, based on stereotype service_discovery",
+                    "line": "heuristic, based on stereotype service_discovery",
+                    "span": "heuristic, based on stereotype service_discovery"
+                }
+            }
+        },
+        "USER-SERVICE": {
+            "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/user-service/src/main/resources/application.yml#L6",
+            "line": 6,
+            "span": "(10:22)",
+            "sub_items": {
+                "Port": {
+                    "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/user-service/src/main/resources/application.yml#L2",
+                    "line": 2,
+                    "span": "(8, 12)"
+                },
+                "local_logging": {
+                    "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/user-service/src/main/java/com/dailycodebuffer/user/service/UserService.java#L7",
+                    "line": "7",
+                    "span": "(27, 32)"
+                },
+                "load_balancer": {
+                    "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/user-service/src/main/java/com/dailycodebuffer/user/UserServiceApplication.java#L19",
+                    "line": "19",
+                    "span": "(1, 14)"
+                },
+                "internal": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        },
+        "zipkin-server": {
+            "file": "https://github.com/shabbirdwd53/Springboot-Microservice/blob/main/user-service/pom.xml#L47",
+            "line": "47",
+            "span": "(0, 52)"
+        },
+        "github-repository": {
+            "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/cloud-config-server/src/main/resources/application.yml#L11",
+            "line": 11,
+            "span": "(16, 61)",
+            "sub_items": {
+                "github_repository": {
+                    "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/cloud-config-server/src/main/resources/application.yml#L11",
+                    "line": 11,
+                    "span": "(16, 61)"
+                },
+                "entrypoint": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        },
+        "user": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit",
+            "sub_items": {
+                "user_stereotype": {
+                    "file": "implicit",
+                    "line": "implicit",
+                    "span": "implicit"
+                },
+                "entrypoint": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                },
+                "exitpoint": {
+                    "file": "heuristic",
+                    "line": "heuristic",
+                    "span": "heuristic"
+                }
+            }
+        }
+    },
+    "edges": {
+        "github-repository -> CONFIG-SERVER": {
+            "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/cloud-config-server/src/main/resources/application.yml#L11",
+            "line": 11,
+            "span": "(16, 61)"
+        },
+        "CONFIG-SERVER -> API-GATEWAY": {
+            "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/cloud-gateway/src/main/resources/bootstrap.yml#L5",
+            "line": 5,
+            "span": "(12, 33)"
+        },
+        "CONFIG-SERVER -> DEPARTMENT-SERVICE": {
+            "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/department-service/src/main/resources/bootstrap.yml#L5",
+            "line": 5,
+            "span": "(12, 33)"
+        },
+        "CONFIG-SERVER -> HYSTRIX-DASHBOARD": {
+            "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/hystrix-dashboard/src/main/resources/bootstrap.yml#L5",
+            "line": 5,
+            "span": "(12, 33)"
+        },
+        "CONFIG-SERVER -> USER-SERVICE": {
+            "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/user-service/src/main/resources/bootstrap.yml#L5",
+            "line": 5,
+            "span": "(12, 33)"
+        },
+        "CONFIG-SERVER -> service-registry": {
+            "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/cloud-config-server/pom.xml#L29",
+            "line": "29",
+            "span": "(15, 57)"
+        },
+        "USER-SERVICE -> service-registry": {
+            "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/user-service/src/main/java/com/dailycodebuffer/user/UserServiceApplication.java#L6",
+            "line": "6",
+            "span": "(48, 66)"
+        },
+        "USER-SERVICE -> DEPARTMENT-SERVICE": {
+            "file": "https://github.com/shabbirdwd53/Springboot-Microservice/blob/main/user-service/src/main/java/com/dailycodebuffer/user/service/UserService.java#L33",
+            "line": "33",
+            "span": "(0, 26)"
+        },
+        "DEPARTMENT-SERVICE -> service-registry": {
+            "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/department-service/src/main/java/com/dailycodebuffer/department/DepartmentServiceApplication.java#L5",
+            "line": "5",
+            "span": "(48, 66)"
+        },
+        "HYSTRIX-DASHBOARD -> service-registry": {
+            "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/hystrix-dashboard/src/main/java/com/dailycodebuffer/hystrix/dashboard/HystrixDashboardApplication.java#L5",
+            "line": "5",
+            "span": "(48, 66)"
+        },
+        "service-registry -> API-GATEWAY": {
+            "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/cloud-gateway/pom.xml#L33",
+            "line": "33",
+            "span": "(15, 57)"
+        },
+        "user -> API-GATEWAY": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit"
+        },
+        "API-GATEWAY -> user": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit"
+        },
+        "API-GATEWAY -> DEPARTMENT-SERVICE": {
+            "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/cloud-gateway/src/main/resources/application.yml#L10",
+            "line": 10,
+            "span": "span"
+        },
+        "API-GATEWAY -> USER-SERVICE": {
+            "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/cloud-gateway/src/main/resources/application.yml#L10",
+            "line": 10,
+            "span": "span"
+        },
+        "DEPARTMENT-SERVICE -> zipkin-server": {
+            "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/department-service/src/main/resources/application.yml#L8",
+            "line": 8,
+            "span": "(15, 37)"
+        },
+        "USER-SERVICE -> zipkin-server": {
+            "file": "https://github.com/shabbirdwd53/springboot-microservice/blob/master/user-service/src/main/resources/application.yml#L8",
+            "line": 8,
+            "span": "(15, 37)"
+        },
+        "zipkin-server -> hystrix-dashboard": {
+            "file": "implicit",
+            "line": "implicit",
+            "span": "implicit"
+        }
+    }
+}

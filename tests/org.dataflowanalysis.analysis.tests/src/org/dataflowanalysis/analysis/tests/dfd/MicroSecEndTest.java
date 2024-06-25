@@ -223,7 +223,7 @@ public class MicroSecEndTest {
     public void convertAllPlantToDFD() {
         List<String> models = new ArrayList<>();
         
-        Path startDir = Paths.get("models"); // replace with your start directory
+        Path startDir = Paths.get("TUHH-models"); // replace with your start directory
         try (Stream<Path> paths = Files.walk(startDir)) {
             models = paths
                     .filter(Files::isRegularFile)
@@ -237,7 +237,7 @@ public class MicroSecEndTest {
         for (String model : models) {
             System.out.println(model);
             var converter = new MicroSecEndConverter();
-            converter.plantToDFD(model).toString();
+            converter.plantToDFD(model,"\"D:\\gitProjects\\DataFlowAnalysis\\tests\\org.dataflowanalysis.analysis.tests\\archive\"").toString();
         }
     }
 

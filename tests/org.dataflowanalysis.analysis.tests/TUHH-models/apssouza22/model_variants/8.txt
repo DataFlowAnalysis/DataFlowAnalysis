@@ -1,0 +1,62 @@
+
+@startuml
+skinparam monochrome true
+skinparam ClassBackgroundColor White
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+
+
+digraph dfd2{
+    node[shape=record]
+        config_server [label = "{Process: config_server | --configuration_server--\n--infrastructural--\nConfiguration Server: Spring Cloud Config\nPort: 8888\n}" shape = Mrecord];
+        admin [label = "{Process: admin | --administration_server--\n--infrastructural--\nAdministration Server: Spring Boot Admin\nPort: 8026\n}" shape = Mrecord];
+        admin -> config_server [label = " --restful_http--\n--encrypted_connection--"]
+        eureka_server [label = "{Process: eureka_server | --service_discovery--\n--infrastructural--\nService Discovery: Eureka\nPort: 8010\n}" shape = Mrecord];
+        config_server -> eureka_server [label = " --restful_http--\n--encrypted_connection--"]
+        eureka_server -> admin [label = " --restful_http--\n--encrypted_connection--"]
+        user_service [label = "{Process: user_service | --internal--\nPort: 8016\n}" shape = Mrecord];
+        admin -> user_service [label = " --restful_http--\n--encrypted_connection--"]
+        config_server -> user_service [label = " --restful_http--\n--encrypted_connection--"]
+        kafka [label = "{Process: kafka | --message_broker--\n--infrastructural--\nMessage Broker: Kafka\nPort: 9092\n}" shape = Mrecord];
+        mailer [label = "{Process: mailer | --internal--\n--local_logging--\nPort: 8020\n}" shape = Mrecord];
+        admin -> mailer [label = " --restful_http--\n--encrypted_connection--"]
+        config_server -> mailer [label = " --restful_http--\n--encrypted_connection--"]
+        mailer -> eureka_server [label = " --restful_http--\n--encrypted_connection--"]
+        kafka -> mailer [label = " --restful_http--\n--message_consumer_kafka--\n--encrypted_connection--\n'Consumer Topic': todo-mail\n"]
+        reminder [label = "{Process: reminder | --internal--\n--local_logging--\nPort: 8015\n}" shape = Mrecord];
+        reminder -> eureka_server [label = " --restful_http--\n--encrypted_connection--"]
+        admin -> reminder [label = " --restful_http--\n--encrypted_connection--"]
+        config_server -> reminder [label = " --restful_http--\n--encrypted_connection--"]
+        reminder -> kafka [label = " --restful_http--\n--message_producer_kafka--\n--encrypted_connection--\n'Producer Topic': todo-mail\n"]
+        api_gateway [label = "{Process: api_gateway | --gateway--\n--circuit_breaker--\n--resource_server--\n--infrastructural--\n--csrf_disabled--\nCircuit Breaker: Hystrix\nPort: 8018\n}" shape = Mrecord];
+        eureka_server -> api_gateway [label = " --restful_http--\n--encrypted_connection--"]
+        admin -> api_gateway [label = " --restful_http--\n--encrypted_connection--"]
+        config_server -> api_gateway [label = " --restful_http--\n--encrypted_connection--"]
+        api_gateway -> user_service [label = " --restful_http--\n--load_balanced_link--\n--feign_connection--\n--encrypted_connection--\n'Load Balancer': Ribbon\n"]
+        oauth [label = "{Process: oauth | --authorization_server--\n--tokenstore--\n--infrastructural--\n--circuit_breaker--\nAuthorization Server: Spring OAuth2\nPort: 8017\nCircuit Breaker: Hystrix\n}" shape = Mrecord];
+        config_server -> oauth [label = " --restful_http--\n--encrypted_connection--"]
+        oauth -> user_service [label = " --restful_http--\n--auth_provider--\n--load_balanced_link--\n--feign_connection--\n--encrypted_connection--\n'Load Balancer': Ribbon\n"]
+        oauth -> eureka_server [label = " --restful_http--\n--encrypted_connection--"]
+        admin -> oauth [label = " --restful_http--\n--encrypted_connection--"]
+        proxy [label = "{Process: proxy | --web_application--\n--infrastructural--\nWeb Application: Nginx\nPort: 80\n}" shape = Mrecord];
+        user [label = "{External Entity: user | --user_stereotype--\n--entrypoint--\n--exitpoint--\n}"];
+        user -> proxy [label = " --restful_http--\n"]
+        proxy -> user [label = " --restful_http--\n"]
+        proxy -> api_gateway [label = " --restful_http--\n--encrypted_connection--"]
+        zookeeper [label = "{Process: zookeeper | --configuration_server--\n--infrastructural--\nConfiguration Server: ZooKeeper\nPort: 2181\n}" shape = Mrecord];
+        zookeeper -> kafka [label = " --restful_http--\n--encrypted_connection--"]
+        logstash [label = "{External Entity: logstash | --logging_server--\n--exitpoint--\nLogging Server: Logstash\nPort: 5044\n}"];
+        proxy -> logstash [label = " --restful_http--\n"]
+        user_service -> logstash [label = " --restful_http--\n"]
+        reminder -> logstash [label = " --restful_http--\n"]
+        eureka_server -> logstash [label = " --restful_http--\n"]
+        api_gateway -> logstash [label = " --restful_http--\n"]
+        oauth -> logstash [label = " --restful_http--\n"]
+        admin -> logstash [label = " --restful_http--\n"]
+        config_server -> logstash [label = " --restful_http--\n"]
+        mailer -> logstash [label = " --restful_http--\n"]
+        jmx_monitoring [label = "{Process: jmx_monitoring | --internal--\n}" shape = Mrecord];
+        todo_infra [label = "{Process: todo_infra | --internal--\n}" shape = Mrecord];
+
+}
+@enduml

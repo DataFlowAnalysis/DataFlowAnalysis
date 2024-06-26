@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://www.example.org/dataflowdiagram" id="_UPMrEDLzEe--95Dk3daD3w">
+  <flows id="142" entityName="config" sourceNode="3" destinationNode="4">
+    <destinationPin href="sqshq_0.datadictionary#140"/>
+    <sourcePin href="sqshq_0.datadictionary#141"/>
+  </flows>
+  <flows id="147" entityName="config" sourceNode="3" destinationNode="5">
+    <destinationPin href="sqshq_0.datadictionary#145"/>
+    <sourcePin href="sqshq_0.datadictionary#146"/>
+  </flows>
+  <flows id="150" entityName="turbine_stream_service" sourceNode="6" destinationNode="4">
+    <destinationPin href="sqshq_0.datadictionary#148"/>
+    <sourcePin href="sqshq_0.datadictionary#149"/>
+  </flows>
+  <flows id="153" entityName="config" sourceNode="3" destinationNode="6">
+    <destinationPin href="sqshq_0.datadictionary#151"/>
+    <sourcePin href="sqshq_0.datadictionary#152"/>
+  </flows>
+  <flows id="156" entityName="turbine_stream_service" sourceNode="6" destinationNode="5">
+    <destinationPin href="sqshq_0.datadictionary#154"/>
+    <sourcePin href="sqshq_0.datadictionary#155"/>
+  </flows>
+  <flows id="159" entityName="rabbitmq" sourceNode="7" destinationNode="6">
+    <destinationPin href="sqshq_0.datadictionary#157"/>
+    <sourcePin href="sqshq_0.datadictionary#158"/>
+  </flows>
+  <flows id="162" entityName="auth_service" sourceNode="8" destinationNode="4">
+    <destinationPin href="sqshq_0.datadictionary#160"/>
+    <sourcePin href="sqshq_0.datadictionary#161"/>
+  </flows>
+  <flows id="165" entityName="config" sourceNode="3" destinationNode="8">
+    <destinationPin href="sqshq_0.datadictionary#163"/>
+    <sourcePin href="sqshq_0.datadictionary#164"/>
+  </flows>
+  <flows id="168" entityName="account_service" sourceNode="9" destinationNode="4">
+    <destinationPin href="sqshq_0.datadictionary#166"/>
+    <sourcePin href="sqshq_0.datadictionary#167"/>
+  </flows>
+  <flows id="172" entityName="auth_service" sourceNode="8" destinationNode="9">
+    <destinationPin href="sqshq_0.datadictionary#170"/>
+    <sourcePin href="sqshq_0.datadictionary#171"/>
+  </flows>
+  <flows id="177" entityName="account_service" sourceNode="9" destinationNode="8">
+    <destinationPin href="sqshq_0.datadictionary#175"/>
+    <sourcePin href="sqshq_0.datadictionary#176"/>
+  </flows>
+  <flows id="182" entityName="config" sourceNode="3" destinationNode="9">
+    <destinationPin href="sqshq_0.datadictionary#180"/>
+    <sourcePin href="sqshq_0.datadictionary#181"/>
+  </flows>
+  <flows id="185" entityName="account_service" sourceNode="9" destinationNode="7">
+    <destinationPin href="sqshq_0.datadictionary#183"/>
+    <sourcePin href="sqshq_0.datadictionary#184"/>
+  </flows>
+  <flows id="188" entityName="notification_service" sourceNode="10" destinationNode="4">
+    <destinationPin href="sqshq_0.datadictionary#186"/>
+    <sourcePin href="sqshq_0.datadictionary#187"/>
+  </flows>
+  <flows id="191" entityName="auth_service" sourceNode="8" destinationNode="10">
+    <destinationPin href="sqshq_0.datadictionary#189"/>
+    <sourcePin href="sqshq_0.datadictionary#190"/>
+  </flows>
+  <flows id="194" entityName="config" sourceNode="3" destinationNode="10">
+    <destinationPin href="sqshq_0.datadictionary#192"/>
+    <sourcePin href="sqshq_0.datadictionary#193"/>
+  </flows>
+  <flows id="197" entityName="notification_service" sourceNode="10" destinationNode="7">
+    <destinationPin href="sqshq_0.datadictionary#195"/>
+    <sourcePin href="sqshq_0.datadictionary#196"/>
+  </flows>
+  <flows id="200" entityName="notification_service" sourceNode="10" destinationNode="0">
+    <destinationPin href="sqshq_0.datadictionary#198"/>
+    <sourcePin href="sqshq_0.datadictionary#199"/>
+  </flows>
+  <flows id="203" entityName="statistics_service" sourceNode="11" destinationNode="4">
+    <destinationPin href="sqshq_0.datadictionary#201"/>
+    <sourcePin href="sqshq_0.datadictionary#202"/>
+  </flows>
+  <flows id="206" entityName="auth_service" sourceNode="8" destinationNode="11">
+    <destinationPin href="sqshq_0.datadictionary#204"/>
+    <sourcePin href="sqshq_0.datadictionary#205"/>
+  </flows>
+  <flows id="209" entityName="config" sourceNode="3" destinationNode="11">
+    <destinationPin href="sqshq_0.datadictionary#207"/>
+    <sourcePin href="sqshq_0.datadictionary#208"/>
+  </flows>
+  <flows id="212" entityName="statistics_service" sourceNode="11" destinationNode="7">
+    <destinationPin href="sqshq_0.datadictionary#210"/>
+    <sourcePin href="sqshq_0.datadictionary#211"/>
+  </flows>
+  <flows id="215" entityName="external_website" sourceNode="1" destinationNode="11">
+    <destinationPin href="sqshq_0.datadictionary#213"/>
+    <sourcePin href="sqshq_0.datadictionary#214"/>
+  </flows>
+  <flows id="218" entityName="account_service" sourceNode="9" destinationNode="11">
+    <destinationPin href="sqshq_0.datadictionary#216"/>
+    <sourcePin href="sqshq_0.datadictionary#217"/>
+  </flows>
+  <flows id="221" entityName="notification_service" sourceNode="10" destinationNode="9">
+    <destinationPin href="sqshq_0.datadictionary#219"/>
+    <sourcePin href="sqshq_0.datadictionary#220"/>
+  </flows>
+  <flows id="224" entityName="account_mongodb" sourceNode="13" destinationNode="9">
+    <destinationPin href="sqshq_0.datadictionary#222"/>
+    <sourcePin href="sqshq_0.datadictionary#223"/>
+  </flows>
+  <flows id="228" entityName="notification_mongodb" sourceNode="15" destinationNode="10">
+    <destinationPin href="sqshq_0.datadictionary#226"/>
+    <sourcePin href="sqshq_0.datadictionary#227"/>
+  </flows>
+  <flows id="231" entityName="statistics_mongodb" sourceNode="14" destinationNode="11">
+    <destinationPin href="sqshq_0.datadictionary#229"/>
+    <sourcePin href="sqshq_0.datadictionary#230"/>
+  </flows>
+  <flows id="234" entityName="auth_mongodb" sourceNode="12" destinationNode="8">
+    <destinationPin href="sqshq_0.datadictionary#232"/>
+    <sourcePin href="sqshq_0.datadictionary#233"/>
+  </flows>
+  <flows id="237" entityName="registry" sourceNode="4" destinationNode="16">
+    <destinationPin href="sqshq_0.datadictionary#235"/>
+    <sourcePin href="sqshq_0.datadictionary#236"/>
+  </flows>
+  <flows id="240" entityName="user" sourceNode="2" destinationNode="16">
+    <destinationPin href="sqshq_0.datadictionary#238"/>
+    <sourcePin href="sqshq_0.datadictionary#239"/>
+  </flows>
+  <flows id="243" entityName="gateway" sourceNode="16" destinationNode="2">
+    <destinationPin href="sqshq_0.datadictionary#241"/>
+    <sourcePin href="sqshq_0.datadictionary#242"/>
+  </flows>
+  <flows id="246" entityName="config" sourceNode="3" destinationNode="16">
+    <destinationPin href="sqshq_0.datadictionary#244"/>
+    <sourcePin href="sqshq_0.datadictionary#245"/>
+  </flows>
+  <flows id="249" entityName="gateway" sourceNode="16" destinationNode="9">
+    <destinationPin href="sqshq_0.datadictionary#247"/>
+    <sourcePin href="sqshq_0.datadictionary#248"/>
+  </flows>
+  <flows id="252" entityName="gateway" sourceNode="16" destinationNode="11">
+    <destinationPin href="sqshq_0.datadictionary#250"/>
+    <sourcePin href="sqshq_0.datadictionary#251"/>
+  </flows>
+  <flows id="255" entityName="gateway" sourceNode="16" destinationNode="10">
+    <destinationPin href="sqshq_0.datadictionary#253"/>
+    <sourcePin href="sqshq_0.datadictionary#254"/>
+  </flows>
+  <flows id="258" entityName="gateway" sourceNode="16" destinationNode="8">
+    <destinationPin href="sqshq_0.datadictionary#256"/>
+    <sourcePin href="sqshq_0.datadictionary#257"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:External" id="0" entityName="mail_server">
+    <behaviour href="sqshq_0.datadictionary#98"/>
+    <properties href="sqshq_0.datadictionary#100"/>
+    <properties href="sqshq_0.datadictionary#25"/>
+    <properties href="sqshq_0.datadictionary#89"/>
+    <properties href="sqshq_0.datadictionary#88"/>
+    <properties href="sqshq_0.datadictionary#102"/>
+    <properties href="sqshq_0.datadictionary#104"/>
+    <properties href="sqshq_0.datadictionary#105"/>
+    <properties href="sqshq_0.datadictionary#107"/>
+    <properties href="sqshq_0.datadictionary#109"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="1" entityName="external_website">
+    <behaviour href="sqshq_0.datadictionary#85"/>
+    <properties href="sqshq_0.datadictionary#87"/>
+    <properties href="sqshq_0.datadictionary#88"/>
+    <properties href="sqshq_0.datadictionary#89"/>
+    <properties href="sqshq_0.datadictionary#91"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="2" entityName="user">
+    <behaviour href="sqshq_0.datadictionary#110"/>
+    <properties href="sqshq_0.datadictionary#112"/>
+    <properties href="sqshq_0.datadictionary#88"/>
+    <properties href="sqshq_0.datadictionary#89"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="3" entityName="config">
+    <behaviour href="sqshq_0.datadictionary#113"/>
+    <properties href="sqshq_0.datadictionary#115"/>
+    <properties href="sqshq_0.datadictionary#25"/>
+    <properties href="sqshq_0.datadictionary#26"/>
+    <properties href="sqshq_0.datadictionary#39"/>
+    <properties href="sqshq_0.datadictionary#116"/>
+    <properties href="sqshq_0.datadictionary#117"/>
+    <properties href="sqshq_0.datadictionary#118"/>
+    <properties href="sqshq_0.datadictionary#120"/>
+    <properties href="sqshq_0.datadictionary#121"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="4" entityName="registry">
+    <behaviour href="sqshq_0.datadictionary#22"/>
+    <properties href="sqshq_0.datadictionary#24"/>
+    <properties href="sqshq_0.datadictionary#25"/>
+    <properties href="sqshq_0.datadictionary#26"/>
+    <properties href="sqshq_0.datadictionary#28"/>
+    <properties href="sqshq_0.datadictionary#30"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="5" entityName="monitoring">
+    <behaviour href="sqshq_0.datadictionary#61"/>
+    <properties href="sqshq_0.datadictionary#63"/>
+    <properties href="sqshq_0.datadictionary#26"/>
+    <properties href="sqshq_0.datadictionary#65"/>
+    <properties href="sqshq_0.datadictionary#66"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="6" entityName="turbine_stream_service">
+    <behaviour href="sqshq_0.datadictionary#125"/>
+    <properties href="sqshq_0.datadictionary#127"/>
+    <properties href="sqshq_0.datadictionary#26"/>
+    <properties href="sqshq_0.datadictionary#128"/>
+    <properties href="sqshq_0.datadictionary#130"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="7" entityName="rabbitmq">
+    <behaviour href="sqshq_0.datadictionary#67"/>
+    <properties href="sqshq_0.datadictionary#69"/>
+    <properties href="sqshq_0.datadictionary#26"/>
+    <properties href="sqshq_0.datadictionary#71"/>
+    <properties href="sqshq_0.datadictionary#72"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="8" entityName="auth_service">
+    <behaviour href="sqshq_0.datadictionary#31"/>
+    <properties href="sqshq_0.datadictionary#33"/>
+    <properties href="sqshq_0.datadictionary#34"/>
+    <properties href="sqshq_0.datadictionary#26"/>
+    <properties href="sqshq_0.datadictionary#35"/>
+    <properties href="sqshq_0.datadictionary#36"/>
+    <properties href="sqshq_0.datadictionary#37"/>
+    <properties href="sqshq_0.datadictionary#38"/>
+    <properties href="sqshq_0.datadictionary#39"/>
+    <properties href="sqshq_0.datadictionary#40"/>
+    <properties href="sqshq_0.datadictionary#42"/>
+    <properties href="sqshq_0.datadictionary#43"/>
+    <properties href="sqshq_0.datadictionary#45"/>
+    <properties href="sqshq_0.datadictionary#46"/>
+    <properties href="sqshq_0.datadictionary#48"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="9" entityName="account_service">
+    <behaviour href="sqshq_0.datadictionary#49"/>
+    <properties href="sqshq_0.datadictionary#51"/>
+    <properties href="sqshq_0.datadictionary#34"/>
+    <properties href="sqshq_0.datadictionary#37"/>
+    <properties href="sqshq_0.datadictionary#38"/>
+    <properties href="sqshq_0.datadictionary#52"/>
+    <properties href="sqshq_0.datadictionary#53"/>
+    <properties href="sqshq_0.datadictionary#54"/>
+    <properties href="sqshq_0.datadictionary#55"/>
+    <properties href="sqshq_0.datadictionary#56"/>
+    <properties href="sqshq_0.datadictionary#58"/>
+    <properties href="sqshq_0.datadictionary#59"/>
+    <properties href="sqshq_0.datadictionary#60"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="10" entityName="notification_service">
+    <behaviour href="sqshq_0.datadictionary#92"/>
+    <properties href="sqshq_0.datadictionary#51"/>
+    <properties href="sqshq_0.datadictionary#37"/>
+    <properties href="sqshq_0.datadictionary#38"/>
+    <properties href="sqshq_0.datadictionary#94"/>
+    <properties href="sqshq_0.datadictionary#95"/>
+    <properties href="sqshq_0.datadictionary#96"/>
+    <properties href="sqshq_0.datadictionary#97"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="11" entityName="statistics_service">
+    <behaviour href="sqshq_0.datadictionary#79"/>
+    <properties href="sqshq_0.datadictionary#51"/>
+    <properties href="sqshq_0.datadictionary#37"/>
+    <properties href="sqshq_0.datadictionary#34"/>
+    <properties href="sqshq_0.datadictionary#38"/>
+    <properties href="sqshq_0.datadictionary#81"/>
+    <properties href="sqshq_0.datadictionary#56"/>
+    <properties href="sqshq_0.datadictionary#82"/>
+    <properties href="sqshq_0.datadictionary#83"/>
+    <properties href="sqshq_0.datadictionary#84"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="12" entityName="auth_mongodb">
+    <behaviour href="sqshq_0.datadictionary#76"/>
+    <properties href="sqshq_0.datadictionary#78"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="13" entityName="account_mongodb">
+    <behaviour href="sqshq_0.datadictionary#73"/>
+    <properties href="sqshq_0.datadictionary#75"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="14" entityName="statistics_mongodb">
+    <behaviour href="sqshq_0.datadictionary#18"/>
+    <properties href="sqshq_0.datadictionary#21"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="15" entityName="notification_mongodb">
+    <behaviour href="sqshq_0.datadictionary#122"/>
+    <properties href="sqshq_0.datadictionary#124"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="16" entityName="gateway">
+    <behaviour href="sqshq_0.datadictionary#131"/>
+    <properties href="sqshq_0.datadictionary#133"/>
+    <properties href="sqshq_0.datadictionary#26"/>
+    <properties href="sqshq_0.datadictionary#134"/>
+    <properties href="sqshq_0.datadictionary#136"/>
+    <properties href="sqshq_0.datadictionary#137"/>
+    <properties href="sqshq_0.datadictionary#139"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

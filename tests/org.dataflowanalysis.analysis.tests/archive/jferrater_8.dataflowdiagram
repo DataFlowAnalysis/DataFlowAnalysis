@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://www.example.org/dataflowdiagram" id="_T7ZlUDLzEe--95Dk3daD3w">
+  <flows id="66" entityName="github_repository" sourceNode="0" destinationNode="2">
+    <destinationPin href="jferrater_8.datadictionary#64"/>
+    <sourcePin href="jferrater_8.datadictionary#65"/>
+  </flows>
+  <flows id="70" entityName="config_service" sourceNode="2" destinationNode="1">
+    <destinationPin href="jferrater_8.datadictionary#68"/>
+    <sourcePin href="jferrater_8.datadictionary#69"/>
+  </flows>
+  <flows id="74" entityName="config_service" sourceNode="2" destinationNode="3">
+    <destinationPin href="jferrater_8.datadictionary#72"/>
+    <sourcePin href="jferrater_8.datadictionary#73"/>
+  </flows>
+  <flows id="77" entityName="account_service" sourceNode="3" destinationNode="1">
+    <destinationPin href="jferrater_8.datadictionary#75"/>
+    <sourcePin href="jferrater_8.datadictionary#76"/>
+  </flows>
+  <flows id="80" entityName="config_service" sourceNode="2" destinationNode="4">
+    <destinationPin href="jferrater_8.datadictionary#78"/>
+    <sourcePin href="jferrater_8.datadictionary#79"/>
+  </flows>
+  <flows id="83" entityName="customer_service" sourceNode="4" destinationNode="1">
+    <destinationPin href="jferrater_8.datadictionary#81"/>
+    <sourcePin href="jferrater_8.datadictionary#82"/>
+  </flows>
+  <flows id="86" entityName="config_service" sourceNode="2" destinationNode="5">
+    <destinationPin href="jferrater_8.datadictionary#84"/>
+    <sourcePin href="jferrater_8.datadictionary#85"/>
+  </flows>
+  <flows id="89" entityName="store_service" sourceNode="5" destinationNode="1">
+    <destinationPin href="jferrater_8.datadictionary#87"/>
+    <sourcePin href="jferrater_8.datadictionary#88"/>
+  </flows>
+  <flows id="92" entityName="config_service" sourceNode="2" destinationNode="6">
+    <destinationPin href="jferrater_8.datadictionary#90"/>
+    <sourcePin href="jferrater_8.datadictionary#91"/>
+  </flows>
+  <flows id="95" entityName="item_service" sourceNode="6" destinationNode="1">
+    <destinationPin href="jferrater_8.datadictionary#93"/>
+    <sourcePin href="jferrater_8.datadictionary#94"/>
+  </flows>
+  <flows id="98" entityName="config_service" sourceNode="2" destinationNode="7">
+    <destinationPin href="jferrater_8.datadictionary#96"/>
+    <sourcePin href="jferrater_8.datadictionary#97"/>
+  </flows>
+  <flows id="101" entityName="price_service" sourceNode="7" destinationNode="1">
+    <destinationPin href="jferrater_8.datadictionary#99"/>
+    <sourcePin href="jferrater_8.datadictionary#100"/>
+  </flows>
+  <flows id="104" entityName="config_service" sourceNode="2" destinationNode="8">
+    <destinationPin href="jferrater_8.datadictionary#102"/>
+    <sourcePin href="jferrater_8.datadictionary#103"/>
+  </flows>
+  <flows id="108" entityName="foodtray_service" sourceNode="8" destinationNode="1">
+    <destinationPin href="jferrater_8.datadictionary#106"/>
+    <sourcePin href="jferrater_8.datadictionary#107"/>
+  </flows>
+  <flows id="111" entityName="foodtray_service" sourceNode="8" destinationNode="6">
+    <destinationPin href="jferrater_8.datadictionary#109"/>
+    <sourcePin href="jferrater_8.datadictionary#110"/>
+  </flows>
+  <flows id="118" entityName="foodtray_service" sourceNode="8" destinationNode="7">
+    <destinationPin href="jferrater_8.datadictionary#116"/>
+    <sourcePin href="jferrater_8.datadictionary#117"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:External" id="0" entityName="github_repository">
+    <behaviour href="jferrater_8.datadictionary#49"/>
+    <properties href="jferrater_8.datadictionary#51"/>
+    <properties href="jferrater_8.datadictionary#52"/>
+    <properties href="jferrater_8.datadictionary#54"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="1" entityName="discovery_service">
+    <behaviour href="jferrater_8.datadictionary#10"/>
+    <properties href="jferrater_8.datadictionary#12"/>
+    <properties href="jferrater_8.datadictionary#13"/>
+    <properties href="jferrater_8.datadictionary#15"/>
+    <properties href="jferrater_8.datadictionary#17"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="2" entityName="config_service">
+    <behaviour href="jferrater_8.datadictionary#55"/>
+    <properties href="jferrater_8.datadictionary#57"/>
+    <properties href="jferrater_8.datadictionary#13"/>
+    <properties href="jferrater_8.datadictionary#15"/>
+    <properties href="jferrater_8.datadictionary#59"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="3" entityName="account_service">
+    <behaviour href="jferrater_8.datadictionary#18"/>
+    <properties href="jferrater_8.datadictionary#20"/>
+    <properties href="jferrater_8.datadictionary#22"/>
+    <properties href="jferrater_8.datadictionary#23"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="4" entityName="customer_service">
+    <behaviour href="jferrater_8.datadictionary#28"/>
+    <properties href="jferrater_8.datadictionary#20"/>
+    <properties href="jferrater_8.datadictionary#30"/>
+    <properties href="jferrater_8.datadictionary#31"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="5" entityName="store_service">
+    <behaviour href="jferrater_8.datadictionary#60"/>
+    <properties href="jferrater_8.datadictionary#20"/>
+    <properties href="jferrater_8.datadictionary#62"/>
+    <properties href="jferrater_8.datadictionary#63"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="6" entityName="item_service">
+    <behaviour href="jferrater_8.datadictionary#24"/>
+    <properties href="jferrater_8.datadictionary#20"/>
+    <properties href="jferrater_8.datadictionary#26"/>
+    <properties href="jferrater_8.datadictionary#27"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="7" entityName="price_service">
+    <behaviour href="jferrater_8.datadictionary#32"/>
+    <properties href="jferrater_8.datadictionary#20"/>
+    <properties href="jferrater_8.datadictionary#34"/>
+    <properties href="jferrater_8.datadictionary#35"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="8" entityName="foodtray_service">
+    <behaviour href="jferrater_8.datadictionary#36"/>
+    <properties href="jferrater_8.datadictionary#13"/>
+    <properties href="jferrater_8.datadictionary#38"/>
+    <properties href="jferrater_8.datadictionary#39"/>
+    <properties href="jferrater_8.datadictionary#41"/>
+    <properties href="jferrater_8.datadictionary#42"/>
+    <properties href="jferrater_8.datadictionary#43"/>
+    <properties href="jferrater_8.datadictionary#44"/>
+    <properties href="jferrater_8.datadictionary#45"/>
+    <properties href="jferrater_8.datadictionary#47"/>
+    <properties href="jferrater_8.datadictionary#48"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

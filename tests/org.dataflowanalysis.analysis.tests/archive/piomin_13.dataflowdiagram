@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://www.example.org/dataflowdiagram" id="_UFA0UDLzEe--95Dk3daD3w">
+  <flows id="73" entityName="discovery_server" sourceNode="3" destinationNode="4">
+    <destinationPin href="piomin_13.datadictionary#71"/>
+    <sourcePin href="piomin_13.datadictionary#72"/>
+  </flows>
+  <flows id="77" entityName="database_gateway_server" sourceNode="0" destinationNode="4">
+    <destinationPin href="piomin_13.datadictionary#75"/>
+    <sourcePin href="piomin_13.datadictionary#76"/>
+  </flows>
+  <flows id="82" entityName="user" sourceNode="1" destinationNode="4">
+    <destinationPin href="piomin_13.datadictionary#80"/>
+    <sourcePin href="piomin_13.datadictionary#81"/>
+  </flows>
+  <flows id="86" entityName="gateway_server" sourceNode="4" destinationNode="1">
+    <destinationPin href="piomin_13.datadictionary#84"/>
+    <sourcePin href="piomin_13.datadictionary#85"/>
+  </flows>
+  <flows id="89" entityName="auth_server" sourceNode="5" destinationNode="3">
+    <destinationPin href="piomin_13.datadictionary#87"/>
+    <sourcePin href="piomin_13.datadictionary#88"/>
+  </flows>
+  <flows id="92" entityName="database_auth_server" sourceNode="2" destinationNode="5">
+    <destinationPin href="piomin_13.datadictionary#90"/>
+    <sourcePin href="piomin_13.datadictionary#91"/>
+  </flows>
+  <flows id="95" entityName="gateway_server" sourceNode="4" destinationNode="5">
+    <destinationPin href="piomin_13.datadictionary#93"/>
+    <sourcePin href="piomin_13.datadictionary#94"/>
+  </flows>
+  <flows id="99" entityName="account_service" sourceNode="6" destinationNode="3">
+    <destinationPin href="piomin_13.datadictionary#97"/>
+    <sourcePin href="piomin_13.datadictionary#98"/>
+  </flows>
+  <flows id="102" entityName="auth_server" sourceNode="5" destinationNode="6">
+    <destinationPin href="piomin_13.datadictionary#100"/>
+    <sourcePin href="piomin_13.datadictionary#101"/>
+  </flows>
+  <flows id="105" entityName="gateway_server" sourceNode="4" destinationNode="6">
+    <destinationPin href="piomin_13.datadictionary#103"/>
+    <sourcePin href="piomin_13.datadictionary#104"/>
+  </flows>
+  <flows id="108" entityName="customer_service" sourceNode="7" destinationNode="3">
+    <destinationPin href="piomin_13.datadictionary#106"/>
+    <sourcePin href="piomin_13.datadictionary#107"/>
+  </flows>
+  <flows id="111" entityName="customer_service" sourceNode="7" destinationNode="6">
+    <destinationPin href="piomin_13.datadictionary#109"/>
+    <sourcePin href="piomin_13.datadictionary#110"/>
+  </flows>
+  <flows id="116" entityName="auth_server" sourceNode="5" destinationNode="7">
+    <destinationPin href="piomin_13.datadictionary#114"/>
+    <sourcePin href="piomin_13.datadictionary#115"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:External" id="0" entityName="database_gateway_server">
+    <behaviour href="piomin_13.datadictionary#9"/>
+    <properties href="piomin_13.datadictionary#11"/>
+    <properties href="piomin_13.datadictionary#12"/>
+    <properties href="piomin_13.datadictionary#13"/>
+    <properties href="piomin_13.datadictionary#14"/>
+    <properties href="piomin_13.datadictionary#16"/>
+    <properties href="piomin_13.datadictionary#18"/>
+    <properties href="piomin_13.datadictionary#20"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="1" entityName="user">
+    <behaviour href="piomin_13.datadictionary#59"/>
+    <properties href="piomin_13.datadictionary#61"/>
+    <properties href="piomin_13.datadictionary#12"/>
+    <properties href="piomin_13.datadictionary#13"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="2" entityName="database_auth_server">
+    <behaviour href="piomin_13.datadictionary#51"/>
+    <properties href="piomin_13.datadictionary#11"/>
+    <properties href="piomin_13.datadictionary#12"/>
+    <properties href="piomin_13.datadictionary#13"/>
+    <properties href="piomin_13.datadictionary#14"/>
+    <properties href="piomin_13.datadictionary#53"/>
+    <properties href="piomin_13.datadictionary#54"/>
+    <properties href="piomin_13.datadictionary#18"/>
+    <properties href="piomin_13.datadictionary#55"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="3" entityName="discovery_server">
+    <behaviour href="piomin_13.datadictionary#45"/>
+    <properties href="piomin_13.datadictionary#47"/>
+    <properties href="piomin_13.datadictionary#25"/>
+    <properties href="piomin_13.datadictionary#48"/>
+    <properties href="piomin_13.datadictionary#50"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="4" entityName="gateway_server">
+    <behaviour href="piomin_13.datadictionary#21"/>
+    <properties href="piomin_13.datadictionary#23"/>
+    <properties href="piomin_13.datadictionary#24"/>
+    <properties href="piomin_13.datadictionary#14"/>
+    <properties href="piomin_13.datadictionary#25"/>
+    <properties href="piomin_13.datadictionary#26"/>
+    <properties href="piomin_13.datadictionary#27"/>
+    <properties href="piomin_13.datadictionary#28"/>
+    <properties href="piomin_13.datadictionary#29"/>
+    <properties href="piomin_13.datadictionary#31"/>
+    <properties href="piomin_13.datadictionary#33"/>
+    <properties href="piomin_13.datadictionary#35"/>
+    <properties href="piomin_13.datadictionary#36"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="5" entityName="auth_server">
+    <behaviour href="piomin_13.datadictionary#62"/>
+    <properties href="piomin_13.datadictionary#64"/>
+    <properties href="piomin_13.datadictionary#65"/>
+    <properties href="piomin_13.datadictionary#25"/>
+    <properties href="piomin_13.datadictionary#41"/>
+    <properties href="piomin_13.datadictionary#66"/>
+    <properties href="piomin_13.datadictionary#67"/>
+    <properties href="piomin_13.datadictionary#69"/>
+    <properties href="piomin_13.datadictionary#70"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="6" entityName="account_service">
+    <behaviour href="piomin_13.datadictionary#37"/>
+    <properties href="piomin_13.datadictionary#39"/>
+    <properties href="piomin_13.datadictionary#40"/>
+    <properties href="piomin_13.datadictionary#41"/>
+    <properties href="piomin_13.datadictionary#42"/>
+    <properties href="piomin_13.datadictionary#44"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="7" entityName="customer_service">
+    <behaviour href="piomin_13.datadictionary#56"/>
+    <properties href="piomin_13.datadictionary#39"/>
+    <properties href="piomin_13.datadictionary#40"/>
+    <properties href="piomin_13.datadictionary#41"/>
+    <properties href="piomin_13.datadictionary#58"/>
+    <properties href="piomin_13.datadictionary#44"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

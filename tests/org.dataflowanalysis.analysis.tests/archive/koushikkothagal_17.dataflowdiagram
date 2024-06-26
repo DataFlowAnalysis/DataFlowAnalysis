@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://www.example.org/dataflowdiagram" id="_T9f3EDLzEe--95Dk3daD3w">
+  <flows id="43" entityName="ratings_data_service" sourceNode="2" destinationNode="1">
+    <destinationPin href="koushikkothagal_17.datadictionary#41"/>
+    <sourcePin href="koushikkothagal_17.datadictionary#42"/>
+  </flows>
+  <flows id="47" entityName="movie_info_service" sourceNode="3" destinationNode="1">
+    <destinationPin href="koushikkothagal_17.datadictionary#45"/>
+    <sourcePin href="koushikkothagal_17.datadictionary#46"/>
+  </flows>
+  <flows id="50" entityName="external_website" sourceNode="0" destinationNode="3">
+    <destinationPin href="koushikkothagal_17.datadictionary#48"/>
+    <sourcePin href="koushikkothagal_17.datadictionary#49"/>
+  </flows>
+  <flows id="53" entityName="movie_catalog_service" sourceNode="4" destinationNode="1">
+    <destinationPin href="koushikkothagal_17.datadictionary#51"/>
+    <sourcePin href="koushikkothagal_17.datadictionary#52"/>
+  </flows>
+  <flows id="57" entityName="movie_catalog_service" sourceNode="4" destinationNode="2">
+    <destinationPin href="koushikkothagal_17.datadictionary#55"/>
+    <sourcePin href="koushikkothagal_17.datadictionary#56"/>
+  </flows>
+  <flows id="60" entityName="movie_catalog_service" sourceNode="4" destinationNode="3">
+    <destinationPin href="koushikkothagal_17.datadictionary#58"/>
+    <sourcePin href="koushikkothagal_17.datadictionary#59"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:External" id="0" entityName="external_website">
+    <behaviour href="koushikkothagal_17.datadictionary#22"/>
+    <properties href="koushikkothagal_17.datadictionary#24"/>
+    <properties href="koushikkothagal_17.datadictionary#26"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="1" entityName="discovery_server">
+    <behaviour href="koushikkothagal_17.datadictionary#27"/>
+    <properties href="koushikkothagal_17.datadictionary#29"/>
+    <properties href="koushikkothagal_17.datadictionary#30"/>
+    <properties href="koushikkothagal_17.datadictionary#31"/>
+    <properties href="koushikkothagal_17.datadictionary#32"/>
+    <properties href="koushikkothagal_17.datadictionary#34"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="2" entityName="ratings_data_service">
+    <behaviour href="koushikkothagal_17.datadictionary#35"/>
+    <properties href="koushikkothagal_17.datadictionary#8"/>
+    <properties href="koushikkothagal_17.datadictionary#37"/>
+    <properties href="koushikkothagal_17.datadictionary#38"/>
+    <properties href="koushikkothagal_17.datadictionary#39"/>
+    <properties href="koushikkothagal_17.datadictionary#40"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="3" entityName="movie_info_service">
+    <behaviour href="koushikkothagal_17.datadictionary#6"/>
+    <properties href="koushikkothagal_17.datadictionary#8"/>
+    <properties href="koushikkothagal_17.datadictionary#10"/>
+    <properties href="koushikkothagal_17.datadictionary#11"/>
+    <properties href="koushikkothagal_17.datadictionary#13"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="4" entityName="movie_catalog_service">
+    <behaviour href="koushikkothagal_17.datadictionary#14"/>
+    <properties href="koushikkothagal_17.datadictionary#8"/>
+    <properties href="koushikkothagal_17.datadictionary#16"/>
+    <properties href="koushikkothagal_17.datadictionary#17"/>
+    <properties href="koushikkothagal_17.datadictionary#18"/>
+    <properties href="koushikkothagal_17.datadictionary#19"/>
+    <properties href="koushikkothagal_17.datadictionary#21"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

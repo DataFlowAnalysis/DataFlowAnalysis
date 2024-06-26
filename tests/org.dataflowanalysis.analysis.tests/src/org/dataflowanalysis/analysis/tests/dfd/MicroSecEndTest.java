@@ -31,7 +31,7 @@ public class MicroSecEndTest {
     private DFDFlowGraphCollection flowGraph;
     private DFDConfidentialityAnalysis analysis;
     private Map<Integer, Map<Integer, List<AbstractVertex<?>>>> violationsMap;
-    private String location = "models/" + "anilallewar";
+    private String location = "ana";
 
     public DFDConfidentialityAnalysis buildAnalysis(String name) {
         var DataFlowDiagramPath = Paths.get(name + ".dataflowdiagram");
@@ -129,7 +129,7 @@ public class MicroSecEndTest {
                     addToMap(violationsMap, variant, 12, node);
                     violation = true;
                 }
-                //add no local_logging
+                
                 if (hasNodeCharacteristic(node, "Stereotype", "local_logging") && !hasNodeCharacteristic(node, "Stereotype", "log_sanitization")) {
                     addToMap(violationsMap, variant, 11, node);
                     violation = true;

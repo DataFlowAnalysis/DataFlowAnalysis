@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://www.example.org/datadictionary" id="_T8XOoTLzEe--95Dk3daD3w">
+  <labelTypes id="7" entityName="Stereotype">
+    <label id="10" entityName="internal"/>
+    <label id="11" entityName="local_logging"/>
+    <label id="19" entityName="load_balancer"/>
+    <label id="27" entityName="infrastructural"/>
+    <label id="28" entityName="logging_server"/>
+    <label id="31" entityName="external_website"/>
+    <label id="36" entityName="service_discovery"/>
+    <label id="42" entityName="monitoring_dashboard"/>
+    <label id="52" entityName="restful_http"/>
+    <label id="62" entityName="load_balanced_link"/>
+  </labelTypes>
+  <labelTypes id="12" entityName="Endpoints">
+    <label id="13" entityName="movies"/>
+    <label id="14" entityName="moviesmovieId"/>
+    <label id="20" entityName="catalog"/>
+    <label id="21" entityName="cataloguserId"/>
+    <label id="45" entityName="ratingsdata"/>
+    <label id="46" entityName="ratingsdatamoviesmovieId"/>
+    <label id="47" entityName="ratingsdatauseruserId"/>
+  </labelTypes>
+  <labelTypes id="15" entityName="Port">
+    <label id="16" entityName="8082"/>
+    <label id="22" entityName="8081"/>
+    <label id="37" entityName="8761"/>
+    <label id="48" entityName="8083"/>
+  </labelTypes>
+  <labelTypes id="23" entityName="LoadBalancer">
+    <label id="24" entityName="SpringCloud"/>
+  </labelTypes>
+  <labelTypes id="32" entityName="URL">
+    <label id="33" entityName="httpsapithemoviedborg"/>
+  </labelTypes>
+  <labelTypes id="38" entityName="ServiceDiscovery">
+    <label id="39" entityName="Eureka"/>
+  </labelTypes>
+  <behaviour id="8">
+    <inPin id="56"/>
+    <inPin id="66"/>
+    <outPin id="54"/>
+    <outPin id="79"/>
+    <assignment xsi:type="datadictionary:Assignment" id="84" inputPins="56 66" outputPin="54" outputLabels="10 11 52">
+      <term xsi:type="datadictionary:TRUE" id="85"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="86" inputPins="56 66" outputPin="79" outputLabels="10 11 52">
+      <term xsi:type="datadictionary:TRUE" id="87"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="106" inputPins="56 66" outputPin="54"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="107" inputPins="56 66" outputPin="79"/>
+  </behaviour>
+  <behaviour id="17">
+    <outPin id="60"/>
+    <outPin id="64"/>
+    <outPin id="67"/>
+    <outPin id="82"/>
+    <assignment xsi:type="datadictionary:Assignment" id="88" outputPin="60" outputLabels="10 19 11 52 62">
+      <term xsi:type="datadictionary:TRUE" id="89"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="90" outputPin="64" outputLabels="10 19 11 52 62">
+      <term xsi:type="datadictionary:TRUE" id="91"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="92" outputPin="67" outputLabels="10 19 11 52 62">
+      <term xsi:type="datadictionary:TRUE" id="93"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="94" outputPin="82" outputLabels="10 19 11 52">
+      <term xsi:type="datadictionary:TRUE" id="95"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="108" outputPin="60"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="109" outputPin="64"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="110" outputPin="67"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="111" outputPin="82"/>
+  </behaviour>
+  <behaviour id="25">
+    <inPin id="72"/>
+    <inPin id="75"/>
+    <inPin id="78"/>
+    <inPin id="81"/>
+    <outPin id="70"/>
+    <assignment xsi:type="datadictionary:Assignment" id="96" inputPins="72 75 78 81" outputPin="70" outputLabels="27 28 52">
+      <term xsi:type="datadictionary:TRUE" id="97"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="112" inputPins="72 75 78 81" outputPin="70"/>
+  </behaviour>
+  <behaviour id="29">
+    <outPin id="57"/>
+    <assignment xsi:type="datadictionary:Assignment" id="98" outputPin="57" outputLabels="31 52">
+      <term xsi:type="datadictionary:TRUE" id="99"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="113" outputPin="57"/>
+  </behaviour>
+  <behaviour id="34">
+    <inPin id="49"/>
+    <inPin id="53"/>
+    <inPin id="59"/>
+    <outPin id="73"/>
+    <assignment xsi:type="datadictionary:Assignment" id="100" inputPins="49 53 59" outputPin="73" outputLabels="27 36 11 52">
+      <term xsi:type="datadictionary:TRUE" id="101"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="114" inputPins="49 53 59" outputPin="73"/>
+  </behaviour>
+  <behaviour id="40">
+    <inPin id="69"/>
+  </behaviour>
+  <behaviour id="43">
+    <inPin id="63"/>
+    <outPin id="50"/>
+    <outPin id="76"/>
+    <assignment xsi:type="datadictionary:Assignment" id="102" inputPins="63" outputPin="50" outputLabels="10 11 52">
+      <term xsi:type="datadictionary:TRUE" id="103"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="104" inputPins="63" outputPin="76" outputLabels="10 11 52">
+      <term xsi:type="datadictionary:TRUE" id="105"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="115" inputPins="63" outputPin="50"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="116" inputPins="63" outputPin="76"/>
+  </behaviour>
+</datadictionary:DataDictionary>

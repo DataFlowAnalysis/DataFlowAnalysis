@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://www.example.org/datadictionary" id="_T3OP8TLzEe--95Dk3daD3w">
+  <labelTypes id="5" entityName="Stereotype">
+    <label id="8" entityName="internal"/>
+    <label id="16" entityName="web_server"/>
+    <label id="17" entityName="gateway"/>
+    <label id="18" entityName="infrastructural"/>
+    <label id="23" entityName="user_stereotype"/>
+    <label id="24" entityName="entrypoint"/>
+    <label id="25" entityName="exitpoint"/>
+    <label id="32" entityName="restful_http"/>
+    <label id="39" entityName="encrypted_connection"/>
+  </labelTypes>
+  <labelTypes id="9" entityName="Port">
+    <label id="10" entityName="11080"/>
+    <label id="13" entityName="11082"/>
+    <label id="28" entityName="11081"/>
+  </labelTypes>
+  <labelTypes id="19" entityName="WebServer">
+    <label id="20" entityName="Apachehttpd"/>
+  </labelTypes>
+  <behaviour id="6">
+    <inPin id="46"/>
+  </behaviour>
+  <behaviour id="11">
+    <inPin id="40"/>
+    <outPin id="37"/>
+    <assignment xsi:type="datadictionary:Assignment" id="49" inputPins="40" outputPin="37" outputLabels="8 32 39">
+      <term xsi:type="datadictionary:TRUE" id="50"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="61" inputPins="40" outputPin="37"/>
+  </behaviour>
+  <behaviour id="14">
+    <inPin id="29"/>
+    <outPin id="34"/>
+    <outPin id="41"/>
+    <outPin id="44"/>
+    <outPin id="47"/>
+    <assignment xsi:type="datadictionary:Assignment" id="51" inputPins="29" outputPin="34" outputLabels="16 17 18 32">
+      <term xsi:type="datadictionary:TRUE" id="52"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="53" inputPins="29" outputPin="41" outputLabels="16 17 18 32 39">
+      <term xsi:type="datadictionary:TRUE" id="54"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="55" inputPins="29" outputPin="44" outputLabels="16 17 18 32 39">
+      <term xsi:type="datadictionary:TRUE" id="56"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="57" inputPins="29" outputPin="47" outputLabels="16 17 18 32 39">
+      <term xsi:type="datadictionary:TRUE" id="58"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="62" inputPins="29" outputPin="34"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="63" inputPins="29" outputPin="41"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="64" inputPins="29" outputPin="44"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="65" inputPins="29" outputPin="47"/>
+  </behaviour>
+  <behaviour id="21">
+    <inPin id="33"/>
+    <outPin id="30"/>
+    <assignment xsi:type="datadictionary:Assignment" id="59" inputPins="33" outputPin="30" outputLabels="23 24 25 32">
+      <term xsi:type="datadictionary:TRUE" id="60"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="66" inputPins="33" outputPin="30"/>
+  </behaviour>
+  <behaviour id="26">
+    <inPin id="36"/>
+    <inPin id="43"/>
+  </behaviour>
+</datadictionary:DataDictionary>

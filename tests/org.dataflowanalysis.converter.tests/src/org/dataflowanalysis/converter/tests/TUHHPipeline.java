@@ -28,10 +28,8 @@ public class TUHHPipeline {
     @Test
     public void runPipeline() throws IOException {
         assertTrue(Files.isDirectory(Paths.get(TUHH_REPO)));
-        
-        var replacerRepo=Paths.get(TUHH_REPO,"dataset","error_replacer.py");
+                
         var converterRepo=Paths.get(TUHH_REPO,"convert_model.py");
-        assertTrue(Files.isReadable(replacerRepo));
         assertTrue(Files.isReadable(converterRepo));
         
         Path datasetRepo = Paths.get(TUHH_REPO,"dataset");
@@ -46,13 +44,7 @@ public class TUHHPipeline {
         removeAndCreateDir(tuhh);
         
         converter=tuhh.resolve(converterRepo.getFileName());
-        var replacer=tuhh.resolve(replacerRepo.getFileName());
         Files.copy(converterRepo, converter, StandardCopyOption.REPLACE_EXISTING);
-        Files.copy(replacerRepo, replacer, StandardCopyOption.REPLACE_EXISTING);
-        
-        String oldRoot="root_dir = Path(r'put\\your\\root\\dir\\here') #set root dir";
-        String newRoot="root_dir = \".\"";
-        replaceStringInFile(replacer, oldRoot, newRoot);
         
         List<Path> datasets = new ArrayList<>();
         for (var dataset:datasetsRepo) {
@@ -78,7 +70,6 @@ public class TUHHPipeline {
         }
         
         Files.delete(converter);
-        Files.delete(replacer);
     }
 
     private void convertJsonToDFD(Path dataset) throws IOException {
@@ -146,19 +137,6 @@ public class TUHHPipeline {
             });
         }        
         Files.createDirectories(dir);
-    }
-
-    private void replaceStringInFile(Path file, String oldString, String newString) throws IOException {
-        List<String> lines = Files.readAllLines(file);
-        
-        for (int i = 0; i < lines.size(); i++) {
-            String line = lines.get(i);
-            if (line.contains(oldString)) {
-                lines.set(i, line.replace(oldString, newString));
-            }
-        }
-        
-        Files.write(file, lines);
     }
     
     private void copyDir(String sourceDirectoryLocation, String destinationDirectoryLocation) 

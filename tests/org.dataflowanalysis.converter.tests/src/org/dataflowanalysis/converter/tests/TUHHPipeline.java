@@ -16,12 +16,13 @@ import java.util.List;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.converter.MicroSecEndConverter;
 
 public class TUHHPipeline {
 
     public static Path converter;
+    private final Logger logger = Logger.getLogger(TUHHPipeline.class);
 
     @Disabled
     @Test
@@ -64,6 +65,7 @@ public class TUHHPipeline {
         }
 
         for (var dataset : datasets) {
+            assertTrue(Files.isDirectory(dataset.resolve("model_variants")));
             cleanTopLevelOfDataset(dataset);
             renameTxtVariants(dataset.resolve("model_variants"));
             moveTxtVariantsUp(dataset.resolve("model_variants"));
@@ -80,7 +82,7 @@ public class TUHHPipeline {
                 .forEach(path -> {
                     if (Files.isRegularFile(path) && path.toString()
                             .endsWith(".json")) {
-                        System.out.println(path);
+                        logger.info(path);
                         var complete = microConverter.microToDfd(path.toString());
                         microConverter.storeDFD(complete, path.toString());
                     }
@@ -93,7 +95,7 @@ public class TUHHPipeline {
                     if (Files.isRegularFile(path)) {
                         if (path.toString()
                                 .endsWith(".txt")) {
-                            System.out.println(path);
+                            logger.info(path);
                             try {
                                 runPythonScript(converter.toString(), path.toString(), "json", path.toString()
                                         .replace(".txt", ".json"));

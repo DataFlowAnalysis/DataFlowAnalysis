@@ -9,10 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
-import org.dataflowanalysis.analysis.converter.DataFlowDiagramConverter;
-import org.dataflowanalysis.analysis.converter.MicroSecEndConverter;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
@@ -20,11 +17,6 @@ import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraphCollection;
 import org.dataflowanalysis.analysis.tests.Activator;
 import org.junit.jupiter.api.Test;
 
-import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
-
-import java.io.IOException;
-import java.nio.file.*;
-import java.util.stream.Collectors;
 
 public class MicroSecEndTest {
     public static String PROJECT_NAME = "org.dataflowanalysis.analysis.tests";
@@ -165,81 +157,6 @@ public class MicroSecEndTest {
             /*assertFalse(violationsMap.get(variant)
             .keySet()
             .contains(variant));*/
-        }
-    }
-
-    @Test
-    public void convertAllToWeb() throws StandaloneInitializationException {
-        List<String> models = getModelNames(location);
-        for (String model : models) {
-            System.out.println(model);
-            var converter = new DataFlowDiagramConverter();
-            var web = converter.dfdToWeb(PROJECT_NAME, Paths.get(location, model + ".dataflowdiagram")
-                    .toString(),
-                    Paths.get(location, model + ".datadictionary")
-                            .toString(),
-                    Activator.class);
-            converter.storeWeb(web, Paths.get(location, model + ".json")
-                    .toString());
-        }
-    }
-
-    @Test
-    public void convertAllToDFD() {
-        List<String> models = getModelNames(location);
-        for (String model : models) {
-            System.out.println(model);
-            var converter = new DataFlowDiagramConverter();
-            var dfd = converter.webToDfd(Paths.get(location, model + ".json")
-                    .toString());
-            converter.storeDFD(dfd, Paths.get(location, model)
-                    .toString());
-        }
-    }
-
-    @Test
-    public void initialConvertAllToDFD() {
-        List<String> models = getModelNames(location);
-        for (String model : models) {
-            System.out.println(model);
-            var converter = new MicroSecEndConverter();
-            var dfd = converter.microToDfd(Paths.get(location, model + ".json")
-                    .toString());
-            converter.storeDFD(dfd, Paths.get(location, model)
-                    .toString());
-        }
-    }
-
-    @Test
-    public void initializeConvertion() {
-        initialConvertAllToDFD();
-        try {
-            convertAllToWeb();
-        } catch (Exception e) {
-            return;
-        }
-        convertAllToDFD();
-    }
-    
-    @Test
-    public void convertAllPlantToJSON() {
-        List<String> models = new ArrayList<>();
-        
-        Path startDir = Paths.get("TUHH-models"); // replace with your start directory
-        try (Stream<Path> paths = Files.walk(startDir)) {
-            models = paths
-                    .filter(Files::isRegularFile)
-                    .filter(path -> path.toString().endsWith(".txt"))
-                    .map(Path::toString)
-                    .collect(Collectors.toList());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        for (String model : models) {
-            var converter = new MicroSecEndConverter();
-            converter.plantToDFD(model,"D:\\gitProjects\\DataFlowAnalysis\\tests\\org.dataflowanalysis.analysis.tests\\archive").toString();
-            
         }
     }
 

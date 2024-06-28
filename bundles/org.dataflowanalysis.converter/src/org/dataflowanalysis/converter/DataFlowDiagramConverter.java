@@ -470,7 +470,7 @@ public class DataFlowDiagramConverter extends Converter {
                 Matcher matcher = pattern.matcher(behaviorString);
                 if (!matcher.find() || matcher.groupCount() != 2) {
                     logger.error("Invalid behavior string:");
-                    logger.error(behaviorStrings);
+                    logger.error(behaviorString);
                     continue;
                 }
                 String variable = matcher.group(1);

@@ -12,6 +12,15 @@ import org.dataflowanalysis.analysis.resource.ResourceProvider;
 public class PCMFlowGraphCollection extends FlowGraphCollection {
     private static final Logger logger = Logger.getLogger(PCMFlowGraphCollection.class);
 
+    public PCMFlowGraphCollection() {
+
+    }
+
+    @Override
+    public void initialize(ResourceProvider resourceProvider) {
+        super.initialize(resourceProvider);
+    }
+
     public PCMFlowGraphCollection(PCMResourceProvider resourceProvider) {
         super(resourceProvider);
     }

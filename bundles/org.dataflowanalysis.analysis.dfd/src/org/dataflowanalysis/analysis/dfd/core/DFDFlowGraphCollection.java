@@ -6,12 +6,29 @@ import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
+import org.dataflowanalysis.analysis.resource.ResourceProvider;
 
 /**
  * This class represents a flow graph in a dfd model
  */
 public class DFDFlowGraphCollection extends FlowGraphCollection {
     private final Logger logger = Logger.getLogger(DFDFlowGraphCollection.class);
+    /**
+     * Creates a new collection of flow graphs.
+     * {@link DFDFlowGraphCollection#initialize(ResourceProvider)} should be called before this class is used
+     */
+    public DFDFlowGraphCollection() {
+        super();
+    }
+
+    /**
+     * Initializes the flow graph collection with the given resource provider
+     * @param resourceProvider Resource provider used to find transpose flow graphs
+     */
+    public void initialize(ResourceProvider resourceProvider) {
+        super.initialize(resourceProvider);
+    }
+
     /**
      * Creates a new instance of a dfd flow graph with the given resource provider. Transpose flow graphs are determined via
      * {@link DFDFlowGraphCollection#findTransposeFlowGraphs()}

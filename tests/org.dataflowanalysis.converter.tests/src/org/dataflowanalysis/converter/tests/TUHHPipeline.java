@@ -54,7 +54,7 @@ public class TUHHPipeline {
             .put("yidongnan", List.of(10, 11, 12))
             .build();
 
-    @Disabled
+    //@Disabled
     @Test
     public void runPipeline() throws IOException {
         var tuhhRepo = "microSecEnD-main";

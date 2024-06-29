@@ -122,6 +122,8 @@ public class MicroSecEndConverter extends Converter {
 
         DataFlowDiagram dfd = dfdFactory.createDataFlowDiagram();
         DataDictionary dd = ddFactory.createDataDictionary();
+        dfd.setId(Integer.toString(idCounter++));
+        dd.setId(Integer.toString(idCounter++));
 
         createExternalEntities(micro, dfd);
 

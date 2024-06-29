@@ -23,7 +23,7 @@ public abstract class MicroSecEndProcess {
         this.name = name;
         this.stereotypes = stereotypes.stream()
                 .map(stereotype -> stereotype.trim()
-                        .replaceAll("[^a-zA-Z0-9]", ""))
+                        .replaceAll("[^a-zA-Z0-9_]", ""))
                 .collect(Collectors.toList());
         this.taggedValues = taggedValues;
     }

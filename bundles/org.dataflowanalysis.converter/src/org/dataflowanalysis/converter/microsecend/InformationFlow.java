@@ -25,7 +25,7 @@ public record InformationFlow(String sender,
     public InformationFlow {
         stereotypes = stereotypes.stream()
                 .map(stereotype -> stereotype.trim()
-                        .replaceAll("[^a-zA-Z0-9_]", ""))
+                        .replaceAll("[^a-zA-Z0-9]", ""))
                 .collect(Collectors.toList());
     }
 }

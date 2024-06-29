@@ -13,9 +13,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import com.google.common.collect.ImmutableMap;
+
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.converter.MicroSecEndConverter;
 
@@ -23,6 +29,30 @@ public class TUHHPipeline {
 
     public static Path converter;
     private final Logger logger = Logger.getLogger(TUHHPipeline.class);
+
+    public static final List<Integer> OUT_OF_SCOPE_VARIANTS = List.of(13, 14, 15, 16, 17);
+
+    public static final Map<String, List<Integer>> FAULTY_VARIANTS = ImmutableMap.<String, List<Integer>>builder()
+            .put("anilallewar", List.of(6))
+            .put("ewolff", List.of(3, 6))
+            .put("fernandoabcampos", List.of(3, 6))
+            .put("mdeket", List.of(3, 6))
+            .put("mudigal-technologies", List.of(3, 6))
+            .put("rohitghatol", List.of(11))
+            .put("sqshq", List.of(6))
+            .build();
+
+    public static final Map<String, List<Integer>> CYCLIC_SINK_VARIANTS = ImmutableMap.<String, List<Integer>>builder()
+            .put("anilallewar", List.of(10))
+            .put("ewolff-kafka", List.of(12))
+            .put("mdeket", List.of(0, 2, 4, 7, 8, 9, 10, 11, 12))
+            .put("mudigal-technologies", List.of(10, 12))
+            .put("piomin", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 17, 18))
+            .put("rohitghatol", List.of(0, 6, 7, 8, 9))
+            .put("shabbirdwd53", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 17, 18))
+            .put("spring-petclinic", List.of(10, 11, 12))
+            .put("yidongnan", List.of(10, 11, 12))
+            .build();
 
     @Disabled
     @Test
@@ -64,6 +94,19 @@ public class TUHHPipeline {
             datasets.add(newDataset);
         }
 
+        assertTrue(FAULTY_VARIANTS.keySet()
+                .stream()
+                .allMatch(key -> datasets.stream()
+                        .anyMatch(path -> path.getFileName()
+                                .toString()
+                                .equals(key))));
+        assertTrue(CYCLIC_SINK_VARIANTS.keySet()
+                .stream()
+                .allMatch(key -> datasets.stream()
+                        .anyMatch(path -> path.getFileName()
+                                .toString()
+                                .equals(key))));
+
         for (var dataset : datasets) {
             assertTrue(Files.isDirectory(dataset.resolve("model_variants")));
             cleanTopLevelOfDataset(dataset);
@@ -71,9 +114,43 @@ public class TUHHPipeline {
             moveTxtVariantsUp(dataset.resolve("model_variants"));
             convertTxtToJson(dataset);
             convertJsonToDFD(dataset);
+            filter(dataset);
         }
 
         Files.delete(converter);
+    }
+
+    private void filter(Path dataset) throws IOException {
+        Set<Integer> variants = new HashSet<>(OUT_OF_SCOPE_VARIANTS);
+        var datasetName = dataset.getFileName()
+                .toString();
+        if (FAULTY_VARIANTS.containsKey(datasetName)) {
+            variants.addAll(FAULTY_VARIANTS.get(datasetName));
+        }
+        if (CYCLIC_SINK_VARIANTS.containsKey(datasetName)) {
+            variants.addAll(CYCLIC_SINK_VARIANTS.get(datasetName));
+        }
+
+        Files.list(dataset)
+                .forEach(path -> {
+                    if (Files.isRegularFile(path)) {
+                        for (var variant : variants) {
+                            if (path.getFileName()
+                                    .toString()
+                                    .contains("_" + variant + ".")) {
+                                try {
+                                    Files.delete(path);
+                                } catch (IOException e) {
+                                }
+                            }
+                        }
+                    }
+                });
+
+        if (Files.list(dataset)
+                .count() == 0) {
+            Files.delete(dataset);
+        }
     }
 
     private void convertJsonToDFD(Path dataset) throws IOException {

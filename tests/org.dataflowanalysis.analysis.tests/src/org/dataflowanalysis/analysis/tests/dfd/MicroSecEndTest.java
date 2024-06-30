@@ -61,6 +61,12 @@ public class MicroSecEndTest {
     }
 
     public void runAnalysis(int variant) {
+    	if (flowGraph.getTransposeFlowGraphs().isEmpty()) {
+        	assertFalse(flowGraph.getTransposeFlowGraphs().isEmpty());
+            return;
+        }
+    	
+    	
         var hasSecretManager = false;
         var hasLoggingServer = false;
         for (var aTFG : flowGraph.getTransposeFlowGraphs()) {

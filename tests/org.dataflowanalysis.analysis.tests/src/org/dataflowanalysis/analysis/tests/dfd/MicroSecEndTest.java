@@ -61,11 +61,7 @@ public class MicroSecEndTest {
     }
 
     public void runAnalysis(int variant) {
-    	if (flowGraph.getTransposeFlowGraphs().isEmpty()) {
-        	assertFalse(flowGraph.getTransposeFlowGraphs().isEmpty());
-            return;
-        }
-    	
+        assertFalse(flowGraph.getTransposeFlowGraphs().isEmpty());
     	
         var hasSecretManager = false;
         var hasLoggingServer = false;
@@ -87,7 +83,6 @@ public class MicroSecEndTest {
                       
             analysis.queryDataFlow(aTFG, node -> {
                 var violation = false;
-                //inkonsistent modeling i think (deleted (|| (hasNodeCharacteristic(node, "Stereotype", "configuration_server") && hasDataCharacteristic(node, "Stereotype", "internal")
                 if ((hasNodeCharacteristic(node, "Stereotype", "internal") && hasDataCharacteristic(node, "Stereotype", "entrypoint")
                         && !(hasDataCharacteristic(node, "Stereotype", "gateway")))
                         || (hasNodeCharacteristic(node, "Stereotype", "gateway") && hasNodeCharacteristic(node, "Stereotype", "internal"))) {
@@ -282,27 +277,10 @@ public class MicroSecEndTest {
                 "sqshq/sqshq_18",
                 "sqshq/sqshq_0",
                 "ewolff/ewolff_5",
-                "ewolff/ewolff_11",
                 "ewolff/ewolff_10",
-                "ewolff/ewolff_8",
-                "ewolff/ewolff_4",
-                "ewolff/ewolff_2",
-                "ewolff/ewolff_0",
                 "ewolff/ewolff_18",
-                "ewolff/ewolff_7",
                 "ewolff/ewolff_12",
-                "fernandoabcampos/fernandoabcampos_2",
                 "fernandoabcampos/fernandoabcampos_18",
-                "fernandoabcampos/fernandoabcampos_4",
-                "fernandoabcampos/fernandoabcampos_8",
-                "fernandoabcampos/fernandoabcampos_12",
-                "fernandoabcampos/fernandoabcampos_9",
-                "fernandoabcampos/fernandoabcampos_5",
-                "fernandoabcampos/fernandoabcampos_10",
-                "fernandoabcampos/fernandoabcampos_11",
-                "fernandoabcampos/fernandoabcampos_7",
-                "fernandoabcampos/fernandoabcampos_0",
-                "fernandoabcampos/fernandoabcampos_1",
                 "rohitghatol/rohitghatol_10",
                 "rohitghatol/rohitghatol_12",
                 "rohitghatol/rohitghatol_18",
@@ -347,12 +325,9 @@ public class MicroSecEndTest {
                 "jferrater/jferrater_8",
                 "jferrater/jferrater_4",
                 "jferrater/jferrater_3",
-                "jferrater/jferrater_11",
-                "jferrater/jferrater_10",
                 "jferrater/jferrater_2",
                 "jferrater/jferrater_1",
                 "jferrater/jferrater_0",
-                "jferrater/jferrater_12",
                 "jferrater/jferrater_7",
                 "jferrater/jferrater_18",
                 "jferrater/jferrater_6",
@@ -369,7 +344,6 @@ public class MicroSecEndTest {
                 "georgwittberger/georgwittberger_7",
                 "georgwittberger/georgwittberger_4",
                 "georgwittberger/georgwittberger_8",
-                "georgwittberger/georgwittberger_9",
                 "georgwittberger/georgwittberger_18",
                 "georgwittberger/georgwittberger_5",
                 "georgwittberger/georgwittberger_2",
@@ -379,9 +353,7 @@ public class MicroSecEndTest {
                 "ewolff-kafka/ewolff-kafka_18",
                 "ewolff-kafka/ewolff-kafka_7",
                 "ewolff-kafka/ewolff-kafka_0",
-                "ewolff-kafka/ewolff-kafka_10",
                 "ewolff-kafka/ewolff-kafka_3",
-                "ewolff-kafka/ewolff-kafka_11",
                 "ewolff-kafka/ewolff-kafka_4",
                 "ewolff-kafka/ewolff-kafka_8",
                 "ewolff-kafka/ewolff-kafka_9",

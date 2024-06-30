@@ -47,6 +47,7 @@ public class TUHHPipeline {
             .put("anilallewar", List.of(10))
             .put("ewolff", List.of(0, 2, 4, 7, 8, 11))
             .put("ewolff-kafka", List.of(10, 11, 12))
+            .put("jferrater", List.of(10, 11, 12))
             .put("mdeket", List.of(0, 2, 4, 7, 8, 9, 10, 11, 12))
             .put("mudigal-technologies", List.of(10, 12))
             .put("piomin", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 17, 18))

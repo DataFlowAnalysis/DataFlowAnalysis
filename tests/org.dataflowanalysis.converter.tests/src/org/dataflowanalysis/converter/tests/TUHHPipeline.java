@@ -40,11 +40,13 @@ public class TUHHPipeline {
             .put("mudigal-technologies", List.of(3, 6))
             .put("rohitghatol", List.of(11))
             .put("sqshq", List.of(6))
+            .put("georgwitterberg", List.of(9))
             .build();
 
     public static final Map<String, List<Integer>> CYCLIC_SINK_VARIANTS = ImmutableMap.<String, List<Integer>>builder()
             .put("anilallewar", List.of(10))
-            .put("ewolff-kafka", List.of(12))
+            .put("ewolff", List.of(0,2,4,7,8,11))
+            .put("ewolff-kafka", List.of(10,11,12))
             .put("mdeket", List.of(0, 2, 4, 7, 8, 9, 10, 11, 12))
             .put("mudigal-technologies", List.of(10, 12))
             .put("piomin", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 17, 18))
@@ -52,6 +54,7 @@ public class TUHHPipeline {
             .put("shabbirdwd53", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 17, 18))
             .put("spring-petclinic", List.of(10, 11, 12))
             .put("yidongnan", List.of(10, 11, 12))
+            .put("fernandoabcampos", List.of(0,1,2,4,5,7,8,9,10,11,12))
             .build();
 
     @Disabled

@@ -11,22 +11,18 @@ import java.util.Map;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
-import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraphCollection;
 import org.dataflowanalysis.examplemodels.Activator;
 import org.junit.jupiter.api.Test;
 
 import com.google.common.collect.ImmutableMap;
 
 public class MicroSecEndTest {
-    public static String PROJECT_NAME = "org.dataflowanalysis.examplemodels";
-    private DFDFlowGraphCollection flowGraph;
-    private DFDConfidentialityAnalysis analysis;
-    private Map<Integer, Map<Integer, List<AbstractVertex<?>>>> violationsMap;
-    private String location = Paths.get("casestudies", "TUHH-Models")
+    public static final String PROJECT_NAME = "org.dataflowanalysis.examplemodels";
+    public static final String location = Paths.get("casestudies", "TUHH-Models")
             .toString();
 
     public static final Map<String, List<Integer>> TUHH_MODELS = ImmutableMap.<String, List<Integer>>builder()
-            /*.put("anilallewar", List.of(0, 7, 8, 9, 11, 12, 18))
+            .put("anilallewar", List.of(0, 7, 8, 9, 11, 12, 18))
             .put("apssouza22", List.of(0, 2, 4, 6, 7, 8, 12, 18))
             .put("callistaenterprise", List.of(0, 2, 4, 6, 11, 18))
             .put("ewolff", List.of(5, 10, 12, 18))
@@ -39,7 +35,7 @@ public class MicroSecEndTest {
             .put("mudigal-technologies", List.of(0, 2, 4, 5, 7, 8, 11, 18))
             .put("rohitghatol", List.of(10, 12, 18))
             .put("spring-petclinic", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 18))
-            .put("sqshq", List.of(0, 7, 8, 9, 10, 11, 12, 18))*/
+            //.put("sqshq", List.of(0, 7, 8, 9, 10, 11, 12, 18))
             .put("yidongnan", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 18))
             .build();
 
@@ -55,15 +51,14 @@ public class MicroSecEndTest {
                 .build();
     }
 
-    public void initAnalysis(String model) {
-        analysis = buildAnalysis(model);
+
+    public void analysis(String model,int variant,Map<Integer, Map<Integer, List<AbstractVertex<?>>>> violationsMap) {
+        var analysis = buildAnalysis(model);
         analysis.initializeAnalysis();
         System.out.println(analysis.toString());
-        flowGraph = analysis.findFlowGraphs();
+        var flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
-    }
-
-    public void runAnalysis(int variant) {
+        
         assertFalse(flowGraph.getTransposeFlowGraphs()
                 .isEmpty());
 
@@ -159,13 +154,12 @@ public class MicroSecEndTest {
     @Test
     public void testConstraints() {
         for (var model : TUHH_MODELS.keySet()) {
-            violationsMap = new HashMap<>();
+            Map<Integer, Map<Integer, List<AbstractVertex<?>>>> violationsMap = new HashMap<>();
             for (int variant : TUHH_MODELS.get(model)) {
                 String variationName = model + "_" + variant;
                 System.out.println(variationName);
-                initAnalysis(Paths.get(location, model, variationName)
-                        .toString());
-                runAnalysis(variant);
+                analysis(Paths.get(location, model, variationName)
+                        .toString(),variant,violationsMap);
             }
             for (int variant : violationsMap.keySet()) {
                 System.out.println("Variant: " + variant);

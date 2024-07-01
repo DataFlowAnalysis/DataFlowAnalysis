@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://dataflowanalysis.org/dfd/dataflowdiagram" id="0">
+  <flows id="57" entityName="zookeeper" sourceNode="3" destinationNode="4">
+    <destinationPin href="ewolff-kafka_0.datadictionary#55"/>
+    <sourcePin href="ewolff-kafka_0.datadictionary#56"/>
+  </flows>
+  <flows id="61" entityName="order" sourceNode="5" destinationNode="4">
+    <destinationPin href="ewolff-kafka_0.datadictionary#59"/>
+    <sourcePin href="ewolff-kafka_0.datadictionary#60"/>
+  </flows>
+  <flows id="67" entityName="kafka" sourceNode="4" destinationNode="6">
+    <destinationPin href="ewolff-kafka_0.datadictionary#65"/>
+    <sourcePin href="ewolff-kafka_0.datadictionary#66"/>
+  </flows>
+  <flows id="73" entityName="kafka" sourceNode="4" destinationNode="7">
+    <destinationPin href="ewolff-kafka_0.datadictionary#71"/>
+    <sourcePin href="ewolff-kafka_0.datadictionary#72"/>
+  </flows>
+  <flows id="76" entityName="apache" sourceNode="8" destinationNode="5">
+    <destinationPin href="ewolff-kafka_0.datadictionary#74"/>
+    <sourcePin href="ewolff-kafka_0.datadictionary#75"/>
+  </flows>
+  <flows id="79" entityName="apache" sourceNode="8" destinationNode="7">
+    <destinationPin href="ewolff-kafka_0.datadictionary#77"/>
+    <sourcePin href="ewolff-kafka_0.datadictionary#78"/>
+  </flows>
+  <flows id="82" entityName="apache" sourceNode="8" destinationNode="6">
+    <destinationPin href="ewolff-kafka_0.datadictionary#80"/>
+    <sourcePin href="ewolff-kafka_0.datadictionary#81"/>
+  </flows>
+  <flows id="85" entityName="user" sourceNode="2" destinationNode="8">
+    <destinationPin href="ewolff-kafka_0.datadictionary#83"/>
+    <sourcePin href="ewolff-kafka_0.datadictionary#84"/>
+  </flows>
+  <flows id="88" entityName="postgres" sourceNode="9" destinationNode="5">
+    <destinationPin href="ewolff-kafka_0.datadictionary#86"/>
+    <sourcePin href="ewolff-kafka_0.datadictionary#87"/>
+  </flows>
+  <flows id="93" entityName="postgres" sourceNode="9" destinationNode="7">
+    <destinationPin href="ewolff-kafka_0.datadictionary#91"/>
+    <sourcePin href="ewolff-kafka_0.datadictionary#92"/>
+  </flows>
+  <flows id="96" entityName="postgres" sourceNode="9" destinationNode="6">
+    <destinationPin href="ewolff-kafka_0.datadictionary#94"/>
+    <sourcePin href="ewolff-kafka_0.datadictionary#95"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:External" id="2" entityName="user">
+    <behaviour href="ewolff-kafka_0.datadictionary#38"/>
+    <properties href="ewolff-kafka_0.datadictionary#40"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="3" entityName="zookeeper">
+    <behaviour href="ewolff-kafka_0.datadictionary#20"/>
+    <properties href="ewolff-kafka_0.datadictionary#22"/>
+    <properties href="ewolff-kafka_0.datadictionary#14"/>
+    <properties href="ewolff-kafka_0.datadictionary#24"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="4" entityName="kafka">
+    <behaviour href="ewolff-kafka_0.datadictionary#30"/>
+    <properties href="ewolff-kafka_0.datadictionary#32"/>
+    <properties href="ewolff-kafka_0.datadictionary#14"/>
+    <properties href="ewolff-kafka_0.datadictionary#34"/>
+    <properties href="ewolff-kafka_0.datadictionary#35"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="5" entityName="order">
+    <behaviour href="ewolff-kafka_0.datadictionary#51"/>
+    <properties href="ewolff-kafka_0.datadictionary#27"/>
+    <properties href="ewolff-kafka_0.datadictionary#54"/>
+    <properties href="ewolff-kafka_0.datadictionary#29"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="6" entityName="invoicing">
+    <behaviour href="ewolff-kafka_0.datadictionary#36"/>
+    <properties href="ewolff-kafka_0.datadictionary#27"/>
+    <properties href="ewolff-kafka_0.datadictionary#28"/>
+    <properties href="ewolff-kafka_0.datadictionary#29"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="7" entityName="shipping">
+    <behaviour href="ewolff-kafka_0.datadictionary#25"/>
+    <properties href="ewolff-kafka_0.datadictionary#27"/>
+    <properties href="ewolff-kafka_0.datadictionary#28"/>
+    <properties href="ewolff-kafka_0.datadictionary#29"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="8" entityName="apache">
+    <behaviour href="ewolff-kafka_0.datadictionary#11"/>
+    <properties href="ewolff-kafka_0.datadictionary#13"/>
+    <properties href="ewolff-kafka_0.datadictionary#14"/>
+    <properties href="ewolff-kafka_0.datadictionary#15"/>
+    <properties href="ewolff-kafka_0.datadictionary#17"/>
+    <properties href="ewolff-kafka_0.datadictionary#19"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="9" entityName="postgres">
+    <behaviour href="ewolff-kafka_0.datadictionary#41"/>
+    <properties href="ewolff-kafka_0.datadictionary#43"/>
+    <properties href="ewolff-kafka_0.datadictionary#44"/>
+    <properties href="ewolff-kafka_0.datadictionary#46"/>
+    <properties href="ewolff-kafka_0.datadictionary#48"/>
+    <properties href="ewolff-kafka_0.datadictionary#50"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

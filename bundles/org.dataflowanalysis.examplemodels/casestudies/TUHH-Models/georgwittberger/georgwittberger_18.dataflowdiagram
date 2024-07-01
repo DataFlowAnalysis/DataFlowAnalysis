@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://dataflowanalysis.org/dfd/dataflowdiagram" id="0">
+  <flows id="37" entityName="user" sourceNode="2" destinationNode="3">
+    <destinationPin href="georgwittberger_18.datadictionary#35"/>
+    <sourcePin href="georgwittberger_18.datadictionary#36"/>
+  </flows>
+  <flows id="41" entityName="apache_server" sourceNode="3" destinationNode="2">
+    <destinationPin href="georgwittberger_18.datadictionary#39"/>
+    <sourcePin href="georgwittberger_18.datadictionary#40"/>
+  </flows>
+  <flows id="44" entityName="cart_service" sourceNode="6" destinationNode="5">
+    <destinationPin href="georgwittberger_18.datadictionary#42"/>
+    <sourcePin href="georgwittberger_18.datadictionary#43"/>
+  </flows>
+  <flows id="47" entityName="apache_server" sourceNode="3" destinationNode="6">
+    <destinationPin href="georgwittberger_18.datadictionary#45"/>
+    <sourcePin href="georgwittberger_18.datadictionary#46"/>
+  </flows>
+  <flows id="50" entityName="apache_server" sourceNode="3" destinationNode="5">
+    <destinationPin href="georgwittberger_18.datadictionary#48"/>
+    <sourcePin href="georgwittberger_18.datadictionary#49"/>
+  </flows>
+  <flows id="53" entityName="apache_server" sourceNode="3" destinationNode="4">
+    <destinationPin href="georgwittberger_18.datadictionary#51"/>
+    <sourcePin href="georgwittberger_18.datadictionary#52"/>
+  </flows>
+  <flows id="56" entityName="apache_server" sourceNode="3" destinationNode="7">
+    <destinationPin href="georgwittberger_18.datadictionary#54"/>
+    <sourcePin href="georgwittberger_18.datadictionary#55"/>
+  </flows>
+  <flows id="59" entityName="content_service" sourceNode="4" destinationNode="7">
+    <destinationPin href="georgwittberger_18.datadictionary#57"/>
+    <sourcePin href="georgwittberger_18.datadictionary#58"/>
+  </flows>
+  <flows id="62" entityName="product_service" sourceNode="5" destinationNode="7">
+    <destinationPin href="georgwittberger_18.datadictionary#60"/>
+    <sourcePin href="georgwittberger_18.datadictionary#61"/>
+  </flows>
+  <flows id="65" entityName="cart_service" sourceNode="6" destinationNode="7">
+    <destinationPin href="georgwittberger_18.datadictionary#63"/>
+    <sourcePin href="georgwittberger_18.datadictionary#64"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:External" id="2" entityName="user">
+    <behaviour href="georgwittberger_18.datadictionary#27"/>
+    <properties href="georgwittberger_18.datadictionary#29"/>
+    <properties href="georgwittberger_18.datadictionary#30"/>
+    <properties href="georgwittberger_18.datadictionary#31"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="3" entityName="apache_server">
+    <behaviour href="georgwittberger_18.datadictionary#17"/>
+    <properties href="georgwittberger_18.datadictionary#19"/>
+    <properties href="georgwittberger_18.datadictionary#20"/>
+    <properties href="georgwittberger_18.datadictionary#21"/>
+    <properties href="georgwittberger_18.datadictionary#23"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="4" entityName="content_service">
+    <behaviour href="georgwittberger_18.datadictionary#9"/>
+    <properties href="georgwittberger_18.datadictionary#11"/>
+    <properties href="georgwittberger_18.datadictionary#13"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="5" entityName="product_service">
+    <behaviour href="georgwittberger_18.datadictionary#32"/>
+    <properties href="georgwittberger_18.datadictionary#11"/>
+    <properties href="georgwittberger_18.datadictionary#34"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="6" entityName="cart_service">
+    <behaviour href="georgwittberger_18.datadictionary#14"/>
+    <properties href="georgwittberger_18.datadictionary#11"/>
+    <properties href="georgwittberger_18.datadictionary#16"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="7" entityName="secret_manager">
+    <behaviour href="georgwittberger_18.datadictionary#24"/>
+    <properties href="georgwittberger_18.datadictionary#21"/>
+    <properties href="georgwittberger_18.datadictionary#26"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

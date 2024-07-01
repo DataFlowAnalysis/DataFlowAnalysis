@@ -158,7 +158,7 @@ public class MicroSecEndTest {
         }
     }
     
-    @ParameterizedTest(name = "{0}")
+    @ParameterizedTest
     @MethodSource("provideTUHHModels")
     void testConstraints(String model, List<Integer> variants) {
         Map<Integer, Map<Integer, List<AbstractVertex<?>>>> violationsMap = new HashMap<>();

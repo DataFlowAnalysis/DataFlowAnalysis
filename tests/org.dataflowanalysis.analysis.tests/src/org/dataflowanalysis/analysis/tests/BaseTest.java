@@ -42,9 +42,9 @@ public class BaseTest {
 
     @BeforeAll
     public void initializeTravelPlannerAnalysis() {
-        final var usageModelPath = Paths.get("models", "TravelPlanner", "travelPlanner.usagemodel");
-        final var allocationPath = Paths.get("models", "TravelPlanner", "travelPlanner.allocation");
-        final var nodeCharacteristicsPath = Paths.get("models", "TravelPlanner", "travelPlanner.nodecharacteristics");
+        final var usageModelPath = Paths.get("casestudies", "TravelPlanner", "travelPlanner.usagemodel");
+        final var allocationPath = Paths.get("casestudies", "TravelPlanner", "travelPlanner.allocation");
+        final var nodeCharacteristicsPath = Paths.get("casestudies", "TravelPlanner", "travelPlanner.nodecharacteristics");
 
         travelPlannerAnalysis = this.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
         travelPlannerAnalysis.initializeAnalysis();

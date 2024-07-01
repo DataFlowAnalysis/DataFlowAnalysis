@@ -15,6 +15,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.HashSet;
 
 import org.junit.jupiter.api.Disabled;
@@ -60,7 +61,7 @@ public class TUHHPipeline {
 
     @Disabled
     @Test
-    public void runPipeline() throws IOException {
+    public void runPipeline() throws IOException, InterruptedException {
         var tuhhRepo = "microSecEnD-main";
         assertTrue(Files.isDirectory(Paths.get(tuhhRepo)));
 
@@ -135,21 +136,17 @@ public class TUHHPipeline {
             variants.addAll(CYCLIC_SINK_VARIANTS.get(datasetName));
         }
 
-        Files.list(dataset)
-                .forEach(path -> {
-                    if (Files.isRegularFile(path)) {
-                        for (var variant : variants) {
-                            if (path.getFileName()
-                                    .toString()
-                                    .contains("_" + variant + ".")) {
-                                try {
-                                    Files.delete(path);
-                                } catch (IOException e) {
-                                }
-                            }
-                        }
+        for (var path : Files.newDirectoryStream(dataset)) {
+            if (Files.isRegularFile(path)) {
+                for (var variant : variants) {
+                    if (path.getFileName()
+                            .toString()
+                            .contains("_" + variant + ".")) {
+                        Files.delete(path);
                     }
-                });
+                }
+            }
+        }
 
         if (Files.list(dataset)
                 .count() == 0) {
@@ -170,103 +167,77 @@ public class TUHHPipeline {
                 });
     }
 
-    private void convertTxtToJson(Path dataset) throws IOException {
-        Files.list(dataset)
-                .forEach(path -> {
-                    if (Files.isRegularFile(path)) {
-                        if (path.toString()
-                                .endsWith(".txt")) {
-                            logger.info(path);
-                            try {
-                                runPythonScript(converter.toString(), path.toString(), "json", path.toString()
-                                        .replace(".txt", ".json"));
-                                Files.delete(path);
-                            } catch (InterruptedException | IOException e) {
-                            }
-                        }
-                    }
-                });
+    private void convertTxtToJson(Path dataset) throws IOException, InterruptedException {
+        for (var path : Files.newDirectoryStream(dataset)) {
+            if (Files.isRegularFile(path)) {
+                if (path.toString()
+                        .endsWith(".txt")) {
+                    logger.info(path);
+                    runPythonScript(converter.toString(), path.toString(), "json", path.toString()
+                            .replace(".txt", ".json"));
+                    Files.delete(path);
+
+                }
+            }
+        }
     }
 
     private void moveTxtVariantsUp(Path dir) throws IOException {
         Path parentDir = dir.getParent();
-
-        Files.list(dir)
-                .forEach(path -> {
-                    if (Files.isRegularFile(path)) {
-                        Path targetPath = parentDir.resolve(path.getFileName());
-                        try {
-                            Files.move(path, targetPath, StandardCopyOption.REPLACE_EXISTING);
-                        } catch (IOException e) {
-                        }
-                    }
-                });
-
+        for (var path : Files.newDirectoryStream(dir)) {
+            if (Files.isRegularFile(path)) {
+                Path targetPath = parentDir.resolve(path.getFileName());
+                Files.move(path, targetPath, StandardCopyOption.REPLACE_EXISTING);
+            }
+        }
         Files.delete(dir);
     }
 
     private void cleanTopLevelOfDataset(Path dataset) throws IOException {
-        Files.list(dataset)
-                .forEach(path -> {
-                    if (Files.isRegularFile(path)) {
-                        if (!path.toString()
-                                .endsWith(".json") || path.toString()
-                                        .endsWith("traceability.json")) {
-                            try {
-                                Files.delete(path);
-                            } catch (IOException e) {
-                            }
-                        } else {
-                            var renamedBaseModel = dataset.resolve(dataset.getFileName() + "_0.json");
-                            try {
-                                Files.move(path, renamedBaseModel, StandardCopyOption.REPLACE_EXISTING);
-                            } catch (IOException e) {
-                            }
-                        }
-                    }
-                });
+        for (var path : Files.newDirectoryStream(dataset)) {
+            if (Files.isRegularFile(path)) {
+                if (!path.toString()
+                        .endsWith(".json") || path.toString()
+                                .endsWith("traceability.json")) {
+                    Files.delete(path);
+                } else {
+                    var renamedBaseModel = dataset.resolve(dataset.getFileName() + "_0.json");
+                    Files.move(path, renamedBaseModel, StandardCopyOption.REPLACE_EXISTING);
+                }
+            }
+        }
     }
 
     private void removeAndCreateDir(Path dir) throws IOException {
         if (Files.exists(dir)) {
-            Files.walk(dir)
+            for (Path path : Files.walk(dir)
                     .sorted(Comparator.reverseOrder())
-                    .forEach(path -> {
-                        try {
-                            Files.delete(path);
-                        } catch (IOException e) {
-                        }
-                    });
+                    .collect(Collectors.toList())) {
+                Files.delete(path);
+            }
         }
         Files.createDirectories(dir);
     }
 
     private void copyDir(String sourceDirectoryLocation, String destinationDirectoryLocation) throws IOException {
-        Files.walk(Paths.get(sourceDirectoryLocation))
-                .forEach(source -> {
-                    Path destination = Paths.get(destinationDirectoryLocation, source.toString()
-                            .substring(sourceDirectoryLocation.length()));
-                    try {
-                        Files.copy(source, destination);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
+        for (var source : Files.walk(Paths.get(sourceDirectoryLocation))
+                .collect(Collectors.toList())) {
+            Path destination = Paths.get(destinationDirectoryLocation, source.toString()
+                    .substring(sourceDirectoryLocation.length()));
+            Files.copy(source, destination);
+
+        }
     }
 
     private void renameTxtVariants(Path variants) throws IOException {
         var modelName = variants.getParent()
                 .getFileName();
-        Files.list(variants)
-                .forEach(path -> {
-                    if (Files.isRegularFile(path)) {
-                        var renamedModel = variants.resolve(modelName + "_" + path.getFileName());
-                        try {
-                            Files.move(path, renamedModel, StandardCopyOption.REPLACE_EXISTING);
-                        } catch (IOException e) {
-                        }
-                    }
-                });
+        for (var path : Files.newDirectoryStream(variants)) {
+            if (Files.isRegularFile(path)) {
+                var renamedModel = variants.resolve(modelName + "_" + path.getFileName());
+                Files.move(path, renamedModel, StandardCopyOption.REPLACE_EXISTING);
+            }
+        }
     }
 
     private int runPythonScript(String script, String in, String format, String out) throws InterruptedException, IOException {

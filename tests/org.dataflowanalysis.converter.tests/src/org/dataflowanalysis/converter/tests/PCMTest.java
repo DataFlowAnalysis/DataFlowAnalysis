@@ -50,11 +50,11 @@ public class PCMTest extends ConverterTest{
     }
     
     private void testSpecificModel(String inputModel, String inputFile, String modelLocation, String webTarget) {
-        final var usageModelPath = Paths.get("models", inputModel, inputFile + ".usagemodel")
+        final var usageModelPath = Paths.get("casestudies", inputModel, inputFile + ".usagemodel")
                 .toString();
-        final var allocationPath = Paths.get("models", inputModel, inputFile + ".allocation")
+        final var allocationPath = Paths.get("casestudies", inputModel, inputFile + ".allocation")
                 .toString();
-        final var nodeCharPath = Paths.get("models", inputModel, inputFile + ".nodecharacteristics")
+        final var nodeCharPath = Paths.get("casestudies", inputModel, inputFile + ".nodecharacteristics")
                 .toString();
 
         DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()

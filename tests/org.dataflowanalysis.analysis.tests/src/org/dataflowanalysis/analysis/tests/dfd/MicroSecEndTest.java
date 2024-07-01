@@ -7,15 +7,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.examplemodels.Activator;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -42,9 +40,6 @@ public class MicroSecEndTest {
             .put("yidongnan", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 18))
             .build();
     
-    public static Stream<Arguments> provideTUHHModels() {
-        return TUHH_MODELS.entrySet().stream().map(entry -> Arguments.of(entry.getKey(), entry.getValue()));
-    }
 
     public DFDConfidentialityAnalysis buildAnalysis(String name) {
         var DataFlowDiagramPath = name + ".dataflowdiagram";
@@ -158,11 +153,28 @@ public class MicroSecEndTest {
         }
     }
     
+
     @ParameterizedTest
-    @MethodSource("provideTUHHModels")
-    void testConstraints(String model, List<Integer> variants) {
+    @ValueSource(strings = {
+        "anilallewar",
+        "apssouza22",
+        "callistaenterprise",
+        "ewolff",
+        "ewolff-kafka",
+        "fernandoabcampos",
+        "georgwittberger",
+        "jferrater",
+        "koushikkothagal",
+        "mdeket",
+        "mudigal-technologies",
+        "rohitghatol",
+        "spring-petclinic",
+        "sqshq",
+        "yidongnan"
+    })
+    void testConstraints(String model) {
         Map<Integer, Map<Integer, List<AbstractVertex<?>>>> violationsMap = new HashMap<>();
-        for (int variant : variants) {
+        for (int variant : TUHH_MODELS.get(model)) {
             String variationName = model + "_" + variant;
             System.out.println(variationName);
             analysis(Paths.get(location, model, variationName)

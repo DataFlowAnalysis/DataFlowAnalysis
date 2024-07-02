@@ -4,6 +4,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
+import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 
@@ -12,7 +13,6 @@ import org.dataflowanalysis.analysis.resource.ResourceProvider;
  */
 public class DFDFlowGraphCollection extends FlowGraphCollection {
     private final Logger logger = Logger.getLogger(DFDFlowGraphCollection.class);
-
     /**
      * Creates a new collection of flow graphs.
      * {@link DFDFlowGraphCollection#initialize(ResourceProvider)} should be called before this class is used
@@ -34,8 +34,8 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
      * {@link DFDFlowGraphCollection#findTransposeFlowGraphs()}
      * @param resourceProvider Resource provider that provides model files to the transpose flow graph finder
      */
-    public DFDFlowGraphCollection(DFDResourceProvider resourceProvider) {
-        super(resourceProvider);
+    public DFDFlowGraphCollection(DFDResourceProvider resourceProvider, TransposeFlowGraphFinder transposeFlowGraphFinder) {
+        super(resourceProvider, transposeFlowGraphFinder);
     }
 
     /**
@@ -44,7 +44,7 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
      * @param resourceProvider Resource provider that provides model files to the transpose flow graph finder
      * @param transposeFlowGraphs Transpose flow graphs saved in the flow graph collection
      */
-    public DFDFlowGraphCollection(DFDResourceProvider resourceProvider, List<? extends AbstractTransposeFlowGraph> transposeFlowGraphs) {
+    public DFDFlowGraphCollection(DFDResourceProvider resourceProvider, List<? extends AbstractTransposeFlowGraph> transposeFlowGraphs, TransposeFlowGraphFinder transposeFlowGraphFinder) {
         super(transposeFlowGraphs, resourceProvider);
     }
 
@@ -57,6 +57,7 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
             logger.error("Cannot find transpose flow graphs for non-dfd resource provider");
             throw new IllegalArgumentException();
         }
-        return new DFDTransposeFlowGraphFinder(dfdResourceProvider).findTransposeFlowGraphs();
+        
+        return transposeFlowGraphFinder.findTransposeFlowGraphs();
     }
 }

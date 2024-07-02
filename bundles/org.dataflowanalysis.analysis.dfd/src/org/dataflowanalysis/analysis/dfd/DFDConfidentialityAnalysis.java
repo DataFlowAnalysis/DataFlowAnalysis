@@ -4,6 +4,8 @@ import java.util.Optional;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
+import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
+import org.dataflowanalysis.analysis.dfd.core.DFDCyclicTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.eclipse.core.runtime.Plugin;
@@ -22,12 +24,14 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
     protected final DFDResourceProvider resourceProvider;
     protected final Optional<Class<? extends Plugin>> modelProjectActivator;
     protected final String modelProjectName;
+    protected final Optional<TransposeFlowGraphFinder> customTransposeFlowGraphFinder;
 
     public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider, Optional<Class<? extends Plugin>> modelProjectActivator,
-            String modelProjectName) {
+            String modelProjectName, Optional<TransposeFlowGraphFinder> transposeFlowGraphFinder) {
         this.resourceProvider = resourceProvider;
         this.modelProjectActivator = modelProjectActivator;
         this.modelProjectName = modelProjectName;
+        this.customTransposeFlowGraphFinder = transposeFlowGraphFinder;
     }
 
     @Override
@@ -62,10 +66,19 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
             throw new IllegalStateException("Could not initialize analysis");
         }
     }
-
+    
+    
+    /**
+     * Determines the effective resource provider that should be used by the analysis
+     */
+    private TransposeFlowGraphFinder getEffectiveTransposeFlowGraphFinder(DFDResourceProvider ressourceProvider) {
+        return this.customTransposeFlowGraphFinder
+                .orElse(new DFDCyclicTransposeFlowGraphFinder(ressourceProvider));
+    }
+    
     @Override
     public DFDFlowGraphCollection findFlowGraphs() {
-        return new DFDFlowGraphCollection(this.resourceProvider);
+        return new DFDFlowGraphCollection(this.resourceProvider, getEffectiveTransposeFlowGraphFinder(this.resourceProvider));
     }
 
     @Override

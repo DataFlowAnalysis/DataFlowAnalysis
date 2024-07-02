@@ -9,6 +9,7 @@ import org.dataflowanalysis.analysis.resource.ResourceProvider;
  * specific implementation of the flow graph
  */
 public abstract class FlowGraphCollection {
+    protected TransposeFlowGraphFinder transposeFlowGraphFinder;
     protected ResourceProvider resourceProvider;
     private List<? extends AbstractTransposeFlowGraph> transposeFlowGraphs;
 
@@ -37,6 +38,11 @@ public abstract class FlowGraphCollection {
         this.resourceProvider = resourceProvider;
         this.transposeFlowGraphs = this.findTransposeFlowGraphs();
     }
+    public FlowGraphCollection(ResourceProvider resourceProvider, TransposeFlowGraphFinder transposeFlowGraphFinder) {
+        this.resourceProvider = resourceProvider;
+        this.transposeFlowGraphFinder = transposeFlowGraphFinder;
+        this.transposeFlowGraphs = this.findTransposeFlowGraphs();
+    }
 
     /**
      * Initializes a new collection of flow graphs with the given transpose flow graphs
@@ -46,6 +52,13 @@ public abstract class FlowGraphCollection {
     public FlowGraphCollection(List<? extends AbstractTransposeFlowGraph> transposeFlowGraphs, ResourceProvider resourceProvider) {
         this.transposeFlowGraphs = transposeFlowGraphs;
         this.resourceProvider = resourceProvider;
+    }
+    
+    /**
+     * 
+     */
+    public void setTransposeFlowGraphs(List<? extends AbstractTransposeFlowGraph> transposeFlowGraphs) {
+        this.transposeFlowGraphs = transposeFlowGraphs;
     }
 
     /**

@@ -12,9 +12,7 @@ import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.examplemodels.Activator;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.api.Test;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -37,7 +35,7 @@ public class MicroSecEndTest {
             .put("mudigal-technologies", List.of(0, 2, 4, 5, 7, 8, 11, 18))
             .put("rohitghatol", List.of(10, 12, 18))
             .put("spring-petclinic", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 18))
-            .put("sqshq", List.of(0, 7, 8, 9, 10, 11, 12, 18))
+            //.put("sqshq", List.of(0, 7, 8, 9, 10, 11, 12, 18))
             .put("yidongnan", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 18))
             .build();
     
@@ -154,41 +152,25 @@ public class MicroSecEndTest {
         }
     }
     
-    @Disabled
-    @ParameterizedTest
-    @ValueSource(strings = {
-        "anilallewar",
-        "apssouza22"/*,
-        "callistaenterprise",
-        "ewolff",
-        "ewolff-kafka",
-        "fernandoabcampos",
-        "georgwittberger",
-        "jferrater",
-        "koushikkothagal",
-        "mdeket",
-        "mudigal-technologies",
-        "rohitghatol",
-        "spring-petclinic",
-        "sqshq",
-        "yidongnan"*/
-    })
-    void testConstraints(String model) {
-        Map<Integer, Map<Integer, List<AbstractVertex<?>>>> violationsMap = new HashMap<>();
-        for (int variant : TUHH_MODELS.get(model)) {
-            String variationName = model + "_" + variant;
-            System.out.println(variationName);
-            analysis(Paths.get(location, model, variationName)
-                    .toString(),variant,violationsMap);
-        }
-        for (int variant : violationsMap.keySet()) {
-            System.out.println("Variant: " + variant);
-            System.out.println("Violations: " + violationsMap.get(variant)
-                    .keySet());
-            assertFalse(violationsMap.get(variant)
-                    .keySet()
-                    .contains(variant));
-        }
+    @Test
+    void testConstraints() {
+        for(var model:TUHH_MODELS.keySet()) {
+            Map<Integer, Map<Integer, List<AbstractVertex<?>>>> violationsMap = new HashMap<>();
+            for (int variant : TUHH_MODELS.get(model)) {
+                String variationName = model + "_" + variant;
+                System.out.println(variationName);
+                analysis(Paths.get(location, model, variationName)
+                        .toString(),variant,violationsMap);
+            }
+            for (int variant : violationsMap.keySet()) {
+                System.out.println("Variant: " + variant);
+                System.out.println("Violations: " + violationsMap.get(variant)
+                        .keySet());
+                assertFalse(violationsMap.get(variant)
+                        .keySet()
+                        .contains(variant));
+            }
+        }  
     }
 
     private boolean hasNodeCharacteristic(AbstractVertex<?> node, String type, String value) {

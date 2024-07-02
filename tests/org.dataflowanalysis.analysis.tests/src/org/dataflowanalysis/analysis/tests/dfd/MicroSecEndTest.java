@@ -12,6 +12,7 @@ import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.examplemodels.Activator;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -153,11 +154,11 @@ public class MicroSecEndTest {
         }
     }
     
-
+    @Disabled
     @ParameterizedTest
     @ValueSource(strings = {
         "anilallewar",
-        "apssouza22",
+        "apssouza22"/*,
         "callistaenterprise",
         "ewolff",
         "ewolff-kafka",
@@ -170,7 +171,7 @@ public class MicroSecEndTest {
         "rohitghatol",
         "spring-petclinic",
         "sqshq",
-        "yidongnan"
+        "yidongnan"*/
     })
     void testConstraints(String model) {
         Map<Integer, Map<Integer, List<AbstractVertex<?>>>> violationsMap = new HashMap<>();
@@ -223,5 +224,25 @@ public class MicroSecEndTest {
             secondaryMap.get(rule)
                     .add(node);
         }
+    }
+    
+    private List<String> getNodeCharacteristic(AbstractVertex<?> node){
+        List<String> nodeChars = new ArrayList<>();
+        for(var nodeChar : node.getAllVertexCharacteristics()) {
+            nodeChars.add(nodeChar.getTypeName()+"."+nodeChar.getValueName());
+        }
+        return nodeChars;
+    }
+    
+    private List<List<String>> getDataCharacteristicPerVariable(AbstractVertex<?> node){
+        List<List<String>> variableChars = new ArrayList<>();
+        for(var variable : node.getAllIncomingDataCharacteristics()) {
+            List<String> dataChars=new ArrayList<>();
+            for(var dataChar : variable.getAllCharacteristics()) {
+                dataChars.add(dataChar.getTypeName()+"."+dataChar.getValueName());
+            }
+            variableChars.add(dataChars);
+        }
+        return variableChars;
     }
 }

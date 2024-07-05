@@ -18,6 +18,10 @@ import java.util.stream.Stream;
  * Represents an analysis constraint created by the DSL
  */
 public class AnalysisConstraint {
+	private static final String FAILED_MATCHING_MESSAGE = "Vertex %s failed to match selector %s";
+	private static final String SUCEEDED_MATCHING_MESSAGE = "Vertex %s matched all selectors";
+	private static final String OMMITED_TRANSPOSE_FLOW_GRAPH = "Transpose flow graph %s did not contain any violations. Omitting!";
+	
     private final Logger logger = Logger.getLogger(AnalysisConstraint.class);
     private final List<AbstractSelector> flowSource;
     private final List<AbstractSelector> flowDestination;
@@ -48,22 +52,27 @@ public class AnalysisConstraint {
                 boolean matched = true;
                 for (AbstractSelector selector : Stream.concat(flowSource.stream(), flowDestination.stream()).toList()) {
                     if (!selector.matches(vertex)) {
+                    	logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, selector));
                         matched = false;
                         constraintTrace.addMissingSelector(vertex, selector);
                     }
                 }
                 for (ConditionalSelector selector : selectors) {
                     if (!selector.matchesSelector(vertex, context)) {
+                    	logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, selector));
                         matched = false;
                         constraintTrace.addMissingConditionalSelector(vertex, selector);
                     }
                 }
                 if (matched) {
+                	logger.debug(String.format(SUCEEDED_MATCHING_MESSAGE, vertex));
                     violations.add(vertex);
                 }
             }
             if (!violations.isEmpty()) {
                 results.add(new DSLResult(transposeFlowGraph, violations, constraintTrace));
+            } else {
+            	logger.debug(String.format(OMMITED_TRANSPOSE_FLOW_GRAPH, transposeFlowGraph));
             }
         }
         return results;

@@ -7,7 +7,7 @@ import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
 
 import java.util.List;
 
-public class Intersection {
+public class Intersection implements SetOperation {
     private final ConstraintVariableReference firstVariable;
     private final ConstraintVariableReference secondVariable;
 
@@ -20,6 +20,7 @@ public class Intersection {
         return new Intersection(firstVariable, secondVariable);
     }
 
+    @Override
     public List<String> match(AbstractVertex<?> vertex, String variableName, DSLContext context) {
         var first = context.getMapping(DSLContextKey.of(variableName, vertex), firstVariable);
         var second = context.getMapping(DSLContextKey.of(variableName, vertex), secondVariable);

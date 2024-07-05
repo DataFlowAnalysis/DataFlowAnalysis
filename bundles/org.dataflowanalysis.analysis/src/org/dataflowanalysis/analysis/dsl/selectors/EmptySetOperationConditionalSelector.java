@@ -1,18 +1,16 @@
 package org.dataflowanalysis.analysis.dsl.selectors;
 
-import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 
 import java.util.List;
 
-public class IntersectionConditionalSelector implements ConditionalSelector {
-    private final Logger logger = Logger.getLogger(IntersectionConditionalSelector.class);
-    private final Intersection intersection;
+public class EmptySetOperationConditionalSelector implements ConditionalSelector {
+    private final SetOperation setOperation;
 
-    public IntersectionConditionalSelector(Intersection intersection) {
-        this.intersection = intersection;
+    public EmptySetOperationConditionalSelector(SetOperation setOperation) {
+        this.setOperation = setOperation;
     }
 
     @Override
@@ -23,7 +21,7 @@ public class IntersectionConditionalSelector implements ConditionalSelector {
         boolean result = true;
         for(String variableName : variableNames) {
             if(result) {
-                result = !intersection.match(vertex,  variableName, context).isEmpty();
+                result = !setOperation.match(vertex,  variableName, context).isEmpty();
             }
         }
         return !result;

@@ -2,7 +2,7 @@ package org.dataflowanalysis.analysis.dsl.constraint;
 
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.selectors.Intersection;
-import org.dataflowanalysis.analysis.dsl.selectors.IntersectionConditionalSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.EmptySetOperationConditionalSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VariableConditionalSelector;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
 
@@ -46,7 +46,7 @@ public class DSLConditionDefinition {
      * @return Return Condition DSL type for more definitions
      */
     public DSLConditionDefinition isEmpty(Intersection intersection) {
-        this.analysisConstraint.addConditionalSelector(new IntersectionConditionalSelector(intersection));
+        this.analysisConstraint.addConditionalSelector(new EmptySetOperationConditionalSelector(intersection));
         return this;
     }
 

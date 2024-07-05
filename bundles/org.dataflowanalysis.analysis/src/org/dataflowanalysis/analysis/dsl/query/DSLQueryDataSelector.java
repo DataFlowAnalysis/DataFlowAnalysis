@@ -1,7 +1,6 @@
 package org.dataflowanalysis.analysis.dsl.query;
 
 import org.dataflowanalysis.analysis.dsl.AnalysisQuery;
-import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariable;
 import org.dataflowanalysis.analysis.dsl.selectors.CharacteristicsSelectorData;
 import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;

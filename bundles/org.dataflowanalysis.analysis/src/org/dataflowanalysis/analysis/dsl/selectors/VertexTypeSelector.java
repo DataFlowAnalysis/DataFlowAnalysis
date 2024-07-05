@@ -21,6 +21,7 @@ public class VertexTypeSelector extends VertexSelector {
 
     @Override
     public boolean matches(AbstractVertex<?> vertex) {
-        return this.vertexType.matches(vertex);
+        return this.inverted ? !this.vertexType.matches(vertex) 
+        		: this.vertexType.matches(vertex);
     }
 }

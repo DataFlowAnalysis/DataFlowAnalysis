@@ -1,7 +1,6 @@
 package org.dataflowanalysis.analysis.dsl.variable;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 

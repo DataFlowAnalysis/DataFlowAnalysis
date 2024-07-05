@@ -71,7 +71,7 @@ public class DSLResultTest extends BaseTest {
         FlowGraphCollection flowGraphCollection = this.travelPlannerAnalysis.findFlowGraphs();
         List<DSLResult> results = query.query(flowGraphCollection);
         List<? extends AbstractVertex<?>> queriedVertices = results.stream()
-                .map(DSLResult::getViolatingVertices)
+                .map(DSLResult::getMatchedVertices)
                 .flatMap(List::stream)
                 .toList();
         assertEquals(14, queriedVertices.size(), "Flight planner contains 14 usage vertices");
@@ -94,7 +94,7 @@ public class DSLResultTest extends BaseTest {
         flowGraph.evaluate();
         List<DSLResult> result = constraint.findViolations(flowGraph);
         List<? extends AbstractVertex<?>> violations = result.stream()
-                .map(DSLResult::getViolatingVertices)
+                .map(DSLResult::getMatchedVertices)
                 .flatMap(List::stream)
                 .toList();
         logger.setLevel(Level.TRACE);

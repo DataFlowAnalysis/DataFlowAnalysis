@@ -10,18 +10,18 @@ import java.util.List;
  */
 public final class DSLResult {
     private final AbstractTransposeFlowGraph transposeFlowGraph;
-    private final List<? extends AbstractVertex<?>> violatingVertices;
+    private final List<? extends AbstractVertex<?>> matchingVertices;
     private final DSLConstraintTrace constraintTrace;
 
     /**
      * Create a new dsl result with the given transpose flow graph, violating vertices and constraint trace
      * @param transposeFlowGraph Given transpose flow graph
-     * @param violatingVertices Given list of violating vertices of the transpose flow graph
+     * @param matchingVertices Given list of matched vertices of the transpose flow graph
      * @param constraintTrace Given constraint trace of the transpose flow graph
      */
-    public DSLResult(AbstractTransposeFlowGraph transposeFlowGraph, List<? extends AbstractVertex<?>> violatingVertices, DSLConstraintTrace constraintTrace) {
+    public DSLResult(AbstractTransposeFlowGraph transposeFlowGraph, List<? extends AbstractVertex<?>> matchingVertices, DSLConstraintTrace constraintTrace) {
         this.transposeFlowGraph = transposeFlowGraph;
-        this.violatingVertices = violatingVertices;
+        this.matchingVertices = matchingVertices;
         this.constraintTrace = constraintTrace;
     }
 
@@ -34,11 +34,11 @@ public final class DSLResult {
     }
 
     /**
-     * Returns the violating vertices of the transpose flow graph
-     * @return Returns the violating vertices of the transpose flow graph
+     * Returns the matched vertices of the transpose flow graph
+     * @return Returns the matched vertices of the transpose flow graph
      */
-    public List<? extends AbstractVertex<?>> getViolatingVertices() {
-        return violatingVertices;
+    public List<? extends AbstractVertex<?>> getMatchedVertices() {
+        return matchingVertices;
     }
 
     /**

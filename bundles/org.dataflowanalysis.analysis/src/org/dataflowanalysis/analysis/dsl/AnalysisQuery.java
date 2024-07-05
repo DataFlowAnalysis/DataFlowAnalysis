@@ -1,5 +1,6 @@
 package org.dataflowanalysis.analysis.dsl;
 
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
@@ -16,6 +17,11 @@ import java.util.List;
  * Represents an analysis query created by the DSL
  */
 public class AnalysisQuery {
+	private static final String FAILED_MATCHING_MESSAGE = "Vertex %s failed to match selector %s";
+	private static final String SUCEEDED_MATCHING_MESSAGE = "Vertex %s matched all selectors";
+	private static final String OMMITED_TRANSPOSE_FLOW_GRAPH = "Transpose flow graph %s did not contain any queried vertices. Omitting!";
+	
+	private final Logger logger = Logger.getLogger(AnalysisQuery.class);
     private final List<AbstractSelector> flowSource;
     private final List<ConditionalSelector> selectors;
     private final DSLContext context;
@@ -39,27 +45,32 @@ public class AnalysisQuery {
         List<DSLResult> results = new ArrayList<>();
         for(AbstractTransposeFlowGraph transposeFlowGraph : flowGraphCollection.getTransposeFlowGraphs()) {
             DSLConstraintTrace constraintTrace = new DSLConstraintTrace();
-            List<AbstractVertex<?>> violations = new ArrayList<>();
+            List<AbstractVertex<?>> matchedVertices = new ArrayList<>();
             for (AbstractVertex<?> vertex : transposeFlowGraph.getVertices()) {
                 boolean matched = true;
                 for (AbstractSelector selector : this.flowSource) {
                     if (!selector.matches(vertex)) {
+                    	logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, selector));
                         matched = false;
                         constraintTrace.addMissingSelector(vertex, selector);
                     }
                 }
                 for(ConditionalSelector selector : this.selectors) {
                     if(!selector.matchesSelector(vertex, context)) {
+                    	logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, selector));
                         matched = false;
                         constraintTrace.addMissingConditionalSelector(vertex, selector);
                     }
                 }
                 if (matched) {
-                    violations.add(vertex);
+                	logger.debug(String.format(SUCEEDED_MATCHING_MESSAGE, vertex));
+                    matchedVertices.add(vertex);
                 }
             }
-            if (!violations.isEmpty()) {
-                results.add(new DSLResult(transposeFlowGraph, violations, constraintTrace));
+            if (!matchedVertices.isEmpty()) {
+                results.add(new DSLResult(transposeFlowGraph, matchedVertices, constraintTrace));
+            } else {
+            	logger.debug(String.format(OMMITED_TRANSPOSE_FLOW_GRAPH, transposeFlowGraph));
             }
         }
         return results;

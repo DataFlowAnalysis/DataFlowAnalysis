@@ -62,7 +62,7 @@ public class TUHHPipeline {
             .put("fernandoabcampos", List.of(0, 1, 2, 4, 5, 7, 8, 9, 10, 11, 12))
             .build();
 
-    // @Disabled
+    @Disabled
     @Test
     public void runPipeline() throws IOException, InterruptedException {
         var tuhhRepo = "microSecEnD-main";

@@ -1,6 +1,7 @@
 package org.dataflowanalysis.analysis.tests.dfd;
 
 import static org.dataflowanalysis.analysis.tests.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
@@ -122,6 +123,12 @@ public class OnlineShopDFDCyclicTest {
             assertEquals(0, violations.size());
         }
     }
+    @Test
+    public void testIsNotCyclic() {
+        var flowGraph = analysis.findFlowGraphs();
+        assertFalse(flowGraph.wasCyclic());
+    }
+    
 
     private List<String> retrieveNodeLabels(AbstractVertex<?> vertex) {
         return vertex.getAllVertexCharacteristics()

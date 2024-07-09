@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  */
 public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFinder {
     private final Logger logger = Logger.getLogger(DFDCyclicTransposeFlowGraphFinder.class);
-    private Boolean isCyclic = false;
+    private Boolean hasCycles = false;
 
     public DFDCyclicTransposeFlowGraphFinder(DFDResourceProvider resourceProvider) {
         super(resourceProvider);
@@ -65,6 +65,10 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
         }
         return transposeFlowGraphs;
     }
+    
+    public Boolean hasCycles() {
+        return hasCycles;
+    }
 
     /**
      * Builds a list of sink vertices with previous vertices for the creation of transpose flow graphs.
@@ -90,11 +94,11 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
                     .toList();
 
             List<String> previousNodesInTransposeFlow = new ArrayList<>();
-            
+
             previousNodesInTransposeFlow.add(incomingFlowsToPin.get(0)
                     .getDestinationNode()
                     .getEntityName());
-            
+
             previousNodesInTransposeFlow.add(incomingFlowsToPin.get(0)
                     .getSourceNode()
                     .getEntityName());
@@ -117,7 +121,7 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
 
         for (Pin inputPin : inputPins) {
             var copyPreviousNodesInTransposeFlow = new ArrayList<>(previousNodesInTransposeFlow);
-            
+
             List<Flow> incomingFlowsToPin = dataFlowDiagram.getFlows()
                     .stream()
                     .filter(flow -> flow.getDestinationPin()
@@ -127,13 +131,13 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
             if (!loopCheck(previousNodesInTransposeFlow, incomingFlowsToPin.get(0)
                     .getSourceNode()
                     .getEntityName())) {
-                //better solution needed because to many prints
-                if (!isCyclic) {
+                // better solution needed because to many prints
+                if (!hasCycles) {
                     logger.warn("Resolving cycles: Stoping cyclic behavior for analysis, may cause unwanted behavior");
-                    isCyclic = true;
+                    hasCycles = true;
                 }
                 continue;
-            }                
+            }
 
             copyPreviousNodesInTransposeFlow.add(incomingFlowsToPin.get(0)
                     .getSourceNode()
@@ -152,22 +156,20 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
         List<DFDVertex> result = new ArrayList<>();
 
         Node previousNode = incomingFlow.getSourceNode();
-        
-        
+
         List<Pin> previousNodeInputPins = getAllPreviousNodeInputPins(previousNode, incomingFlow);
-            
+
         List<DFDVertex> previousNodeVertices = determineSinks(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()), previousNodeInputPins,
-                    sourceNodes, previousNodesInTransposeFlow);
-        
-        //can we optimize this?
+                sourceNodes, previousNodesInTransposeFlow);
+
+        // can we optimize this?
         for (DFDVertex vertex : finalVertices) {
             result.addAll(cloneFlowandVertexForMultipleFlowGraphs(vertex, inputPin, incomingFlow, previousNodeVertices));
         }
         return result;
     }
-    
-    
-    //checks if the source of incoming flow is part of a loop (We allow first iteration of loop)
+
+    // checks if the source of incoming flow is part of a loop (We allow first iteration of loop)
     private Boolean loopCheck(List<String> previousNodesInTransposeFlow, String sourceNode) {
         long count = previousNodesInTransposeFlow.stream()
                 .filter(item -> item.equals(sourceNode))

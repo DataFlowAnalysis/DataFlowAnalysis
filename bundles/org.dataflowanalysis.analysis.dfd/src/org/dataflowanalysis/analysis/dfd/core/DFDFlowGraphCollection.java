@@ -13,6 +13,7 @@ import org.dataflowanalysis.analysis.resource.ResourceProvider;
  */
 public class DFDFlowGraphCollection extends FlowGraphCollection {
     private final Logger logger = Logger.getLogger(DFDFlowGraphCollection.class);
+    private Boolean wasCyclic = false;
     /**
      * Creates a new collection of flow graphs.
      * {@link DFDFlowGraphCollection#initialize(ResourceProvider)} should be called before this class is used
@@ -58,6 +59,16 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
             throw new IllegalArgumentException();
         }
         
-        return transposeFlowGraphFinder.findTransposeFlowGraphs();
+        var transposeFlowGraph = transposeFlowGraphFinder.findTransposeFlowGraphs();
+        
+        if (transposeFlowGraphFinder instanceof DFDCyclicTransposeFlowGraphFinder cyclicTransposeFlowGraphFinder) {
+            wasCyclic = cyclicTransposeFlowGraphFinder.hasCycles();
+        }
+        
+        return transposeFlowGraph;
+    }
+
+    public boolean wasCyclic() {
+        return wasCyclic;
     }
 }

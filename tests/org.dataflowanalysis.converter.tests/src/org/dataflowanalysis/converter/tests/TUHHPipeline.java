@@ -35,11 +35,14 @@ public class TUHHPipeline {
 
     public static final Map<String, List<Integer>> FAULTY_VARIANTS = ImmutableMap.<String, List<Integer>>builder()
             .put("anilallewar", List.of(6))
+            .put("callistaenterprise", List.of(4, 6))
             .put("ewolff", List.of(3, 6))
             .put("fernandoabcampos", List.of(3, 6))
+            .put("jferrater", List.of(1, 4))
             .put("mdeket", List.of(3, 6))
             .put("mudigal-technologies", List.of(3, 6))
             .put("rohitghatol", List.of(11))
+            .put("spring-petclinic", List.of(4))
             .put("sqshq", List.of(6))
             .put("georgwittberger", List.of(9))
             .build();
@@ -59,7 +62,7 @@ public class TUHHPipeline {
             .put("fernandoabcampos", List.of(0, 1, 2, 4, 5, 7, 8, 9, 10, 11, 12))
             .build();
 
-    @Disabled
+    // @Disabled
     @Test
     public void runPipeline() throws IOException, InterruptedException {
         var tuhhRepo = "microSecEnD-main";

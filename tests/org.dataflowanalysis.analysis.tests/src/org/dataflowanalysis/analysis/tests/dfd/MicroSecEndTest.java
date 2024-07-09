@@ -24,24 +24,24 @@ public class MicroSecEndTest {
             .toString();
 
     public static final Map<String, List<Integer>> TUHH_MODELS = ImmutableMap.<String, List<Integer>>builder()
-            /*.put("anilallewar", List.of(0, 7, 8, 9, 11, 12, 18))
+            .put("anilallewar", List.of(0, 7, 8, 9, 11, 12, 18))
             .put("apssouza22", List.of(0, 2, 4, 6, 7, 8, 12, 18))
             .put("callistaenterprise", List.of(0, 2, 11, 18)) // 4,6 Faulty multiple flows from entrypoint to internal without
-                                                              // transformed_identity/auth_server
+            //                                                  // transformed_identity/auth_server
             .put("ewolff", List.of(5, 10, 12, 18))
             .put("ewolff-kafka", List.of(0, 3, 4, 5, 6, 7, 8, 9, 18))
             .put("fernandoabcampos", List.of(18))
             .put("georgwittberger", List.of(0, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 18))
             .put("jferrater", List.of(0, 2, 3, 5, 6, 7, 8, 9, 18)) // 1,4 Faulty due to direct flow from entrypoint to internal without
-                                                                   // gateway/transformed_identity
+            //                                                       // gateway/transformed_identity
             .put("koushikkothagal", List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 18))
             .put("mdeket", List.of(5))
             .put("mudigal-technologies", List.of(0, 2, 4, 5, 7, 8, 11, 18))
             .put("rohitghatol", List.of(10, 12, 18))
             .put("spring-petclinic", List.of(0, 2, 3, 5, 6, 7, 8, 9, 18)) // 4 Faulty direct flow from entrypoint to internal without
-                                                                          // transformed_identity*/
+                                                                          // transformed_identity
             .put("sqshq", List.of(0, 7, 8, 9, 10, 11, 12, 18))
-            //.put("yidongnan", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 18))
+            .put("yidongnan", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 18))
             .build();
 
     public DFDConfidentialityAnalysis buildAnalysis(String name) {

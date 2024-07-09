@@ -129,8 +129,7 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
                 //better solution needed because to many prints
                 //logger.warn("Resolving cycles: Stoping cyclic behavior for analysis, may cause unwanted behavior");
                 continue;
-            }
-                
+            }                
 
             copyPreviousNodesInTransposeFlow.add(incomingFlowsToPin.get(0)
                     .getSourceNode()
@@ -144,30 +143,32 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
         return vertices;
     }
 
-    private List<DFDVertex> handleIncomingFlow(Flow incomingFlow, Pin inputPin, List<DFDVertex> vertices, List<Node> sourceNodes,
+    private List<DFDVertex> handleIncomingFlow(Flow incomingFlow, Pin inputPin, List<DFDVertex> finalVertices, List<Node> sourceNodes,
             List<String> previousNodesInTransposeFlow) {
         List<DFDVertex> result = new ArrayList<>();
 
         Node previousNode = incomingFlow.getSourceNode();
-
-        List<Pin> previousNodeInputPins = getAllPreviousNodeInputPins(previousNode, incomingFlow);
-
         
+        
+        List<Pin> previousNodeInputPins = getAllPreviousNodeInputPins(previousNode, incomingFlow);
+            
         List<DFDVertex> previousNodeVertices = determineSinks(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()), previousNodeInputPins,
-                sourceNodes, previousNodesInTransposeFlow);
-
-        for (DFDVertex vertex : vertices) {
+                    sourceNodes, previousNodesInTransposeFlow);
+        
+        //can we optimize this?
+        for (DFDVertex vertex : finalVertices) {
             result.addAll(cloneFlowandVertexForMultipleFlowGraphs(vertex, inputPin, incomingFlow, previousNodeVertices));
         }
         return result;
     }
+    
     
     //checks if the source of incoming flow is part of a loop (We allow first iteration of loop)
     private Boolean loopCheck(List<String> previousNodesInTransposeFlow, String sourceNode) {
         long count = previousNodesInTransposeFlow.stream()
                 .filter(item -> item.equals(sourceNode))
                 .count();
-        return count <= 1;
+        return count < 1;
     }
 
     /**

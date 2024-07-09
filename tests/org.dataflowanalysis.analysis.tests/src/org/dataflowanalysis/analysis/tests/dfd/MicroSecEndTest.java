@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
@@ -23,6 +24,7 @@ public class MicroSecEndTest {
     public static final String PROJECT_NAME = "org.dataflowanalysis.examplemodels";
     public static final String location = Paths.get("casestudies", "TUHH-Models")
             .toString();
+    private final Logger logger = Logger.getLogger(MicroSecEndTest.class);
 
     public static final Map<String, List<Integer>> TUHH_MODELS = ImmutableMap.<String, List<Integer>>builder()
             .put("anilallewar", List.of(0, 7, 8, 9, 11, 12, 18))
@@ -126,9 +128,9 @@ public class MicroSecEndTest {
                 String variationName = model + "_" + variant;
                 performAnalysis(Paths.get(location, model, variationName)
                         .toString(), variant, violationList);
-                System.out.println("Variant: " + variationName);
+                logger.info("Variant: " + variationName);
                 Collections.sort(violationList);
-                System.out.println("Violations: " + violationList);
+                logger.info("Violations: " + violationList);
                 assertFalse(violationList.contains(variant));
 
             }

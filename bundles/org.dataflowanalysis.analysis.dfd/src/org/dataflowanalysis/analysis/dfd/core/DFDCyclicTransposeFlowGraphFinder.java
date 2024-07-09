@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  */
 public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFinder {
     private final Logger logger = Logger.getLogger(DFDCyclicTransposeFlowGraphFinder.class);
+    private Boolean isCyclic = false;
 
     public DFDCyclicTransposeFlowGraphFinder(DFDResourceProvider resourceProvider) {
         super(resourceProvider);
@@ -127,7 +128,10 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
                     .getSourceNode()
                     .getEntityName())) {
                 //better solution needed because to many prints
-                //logger.warn("Resolving cycles: Stoping cyclic behavior for analysis, may cause unwanted behavior");
+                if (!isCyclic) {
+                    logger.warn("Resolving cycles: Stoping cyclic behavior for analysis, may cause unwanted behavior");
+                    isCyclic = true;
+                }
                 continue;
             }                
 

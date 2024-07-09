@@ -115,7 +115,6 @@ public class MicroSecEndTest {
 
     @Test
     void testConstraints() {
-        var faultyModels = new ArrayList<String>();
         for (var model : TUHH_MODELS.keySet()) {
             for (int variant : TUHH_MODELS.get(model)) {
                 List<Integer> violationList = new ArrayList<Integer>();
@@ -125,13 +124,10 @@ public class MicroSecEndTest {
                 System.out.println("Variant: " + variationName);
                 Collections.sort(violationList);
                 System.out.println("Violations: " + violationList);
-                if (violationList.contains(variant))
-                    faultyModels.add(model + "_" + variant);
-                // assertFalse(violationList.contains(variant));
+                assertFalse(violationList.contains(variant));
 
             }
         }
-        System.out.println(faultyModels);
     }
 
     private boolean hasNodeWithCharacteristic(AbstractTransposeFlowGraph aTFG, String constraintRuleType, String constraintRule) {

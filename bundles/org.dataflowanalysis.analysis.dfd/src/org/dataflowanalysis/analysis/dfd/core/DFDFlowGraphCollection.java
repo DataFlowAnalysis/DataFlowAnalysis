@@ -58,10 +58,8 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
             logger.error("Cannot find transpose flow graphs for non-dfd resource provider");
             throw new IllegalArgumentException();
         }
-        
-        var transposeFlowGraph = transposeFlowGraphFinder.findTransposeFlowGraphs();
-                
-        return transposeFlowGraph;
+                        
+        return transposeFlowGraphFinder.findTransposeFlowGraphs();
     }
 
     public boolean wasCyclic() {

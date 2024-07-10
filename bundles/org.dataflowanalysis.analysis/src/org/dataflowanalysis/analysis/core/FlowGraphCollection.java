@@ -53,13 +53,6 @@ public abstract class FlowGraphCollection {
         this.transposeFlowGraphs = transposeFlowGraphs;
         this.resourceProvider = resourceProvider;
     }
-    
-    /**
-     * 
-     */
-    public void setTransposeFlowGraphs(List<? extends AbstractTransposeFlowGraph> transposeFlowGraphs) {
-        this.transposeFlowGraphs = transposeFlowGraphs;
-    }
 
     /**
      * Determines the transpose flow graphs present in the model pointed to by {@link FlowGraphCollection#resourceProvider}

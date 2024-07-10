@@ -11,17 +11,27 @@ import java.util.List;
 public class VertexCharacteristicsSelector extends DataSelector {
     private final CharacteristicsSelectorData vertexCharacteristics;
     private final boolean inverted;
+    private final boolean recursive;
 
     public VertexCharacteristicsSelector(DSLContext context, CharacteristicsSelectorData vertexCharacteristics) {
         super(context);
         this.vertexCharacteristics = vertexCharacteristics;
         this.inverted = false;
+        this.recursive = false;
     }
 
     public VertexCharacteristicsSelector(DSLContext context, CharacteristicsSelectorData vertexCharacteristics, boolean inverted) {
         super(context);
         this.vertexCharacteristics = vertexCharacteristics;
         this.inverted = inverted;
+        this.recursive = false;
+    }
+
+    public VertexCharacteristicsSelector(DSLContext context, CharacteristicsSelectorData vertexCharacteristics, boolean inverted, boolean recursive) {
+        super(context);
+        this.vertexCharacteristics = vertexCharacteristics;
+        this.inverted = inverted;
+        this.recursive = recursive;
     }
 
     @Override
@@ -29,10 +39,7 @@ public class VertexCharacteristicsSelector extends DataSelector {
         List<String> variableNames = vertex.getAllIncomingDataCharacteristics().stream()
                 .map(DataCharacteristic::variableName)
                 .toList();
-        if(variableNames.isEmpty()) {
-        	return false;
-        }
-        boolean result = true;
+        boolean result = !variableNames.isEmpty();
         for (String variableName : variableNames) {
             List<CharacteristicValue> presentCharacteristics = vertex.getAllVertexCharacteristics();
             List<String> characteristicTypes = new ArrayList<>();
@@ -44,6 +51,9 @@ public class VertexCharacteristicsSelector extends DataSelector {
                         matches.stream().noneMatch(it -> it) :
                         matches.stream().anyMatch(it -> it);
             }
+        }
+        if (this.recursive) {
+            return result || vertex.getPreviousElements().stream().anyMatch(this::matches);
         }
         return result;
     }

@@ -36,7 +36,7 @@ public class DSLResultTest extends BaseTest {
         var constraint = new ConstraintDSL()
                 .ofData()
                 .withLabel("DataSensitivity", List.of("Personal"))
-                .ofNode()
+                .fromNode()
                 .neverFlows()
                 .toVertex()
                 .withCharacteristic("ServerLocation", "nonEU")

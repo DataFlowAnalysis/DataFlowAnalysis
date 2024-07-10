@@ -19,7 +19,7 @@ public class ConstraintDSL {
      * Add constraint on originating node
      * @return Returns DSL type to specify node constraints
      */
-    public DSLNodeSourceSelector ofNode() {
+    public DSLNodeSourceSelector fromNode() {
         return new DSLNodeSourceSelector(analysisConstraint);
     }
 

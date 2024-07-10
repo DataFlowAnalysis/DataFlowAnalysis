@@ -88,7 +88,7 @@ public class DSLDataSourceSelector {
      * Returns a DSL node source selector to add constraints on attributes of the source vertices
      * @return Returns DSL node source selector object
      */
-    public DSLNodeSourceSelector ofNode() {
+    public DSLNodeSourceSelector fromNode() {
         return new DSLNodeSourceSelector(this.analysisConstraint);
     }
 

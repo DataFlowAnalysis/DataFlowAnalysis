@@ -155,7 +155,7 @@ public class MicroSecEndTest {
                 .anyMatch(node -> hasNodeCharacteristic(node, constraintRuleType, constraintRule));
     }
 
-    private boolean dataCharacteristicImplicationCheck(AbstractVertex<?> node, String constraintPrequisiteType, String constraintPrequisite,
+    private boolean checkDataCharacteristicImplication(AbstractVertex<?> node, String constraintPrequisiteType, String constraintPrequisite,
             String constraintRuleType, String constraintRule) {
         var dataCharecteristicsByVariableOfPrequisitType = node.getDataCharacteristicNamesMap(constraintPrequisiteType);
         var dataCharecteristicsByVariableOfRuleType = node.getDataCharacteristicMap(constraintRuleType);
@@ -185,7 +185,7 @@ public class MicroSecEndTest {
      
     private void hasGateway(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
         if ((hasNodeCharacteristic(node, "Stereotype", "internal")
-                && dataCharacteristicImplicationCheck(node, "Stereotype", "entrypoint", "Stereotype", "gateway"))
+                && checkDataCharacteristicImplication(node, "Stereotype", "entrypoint", "Stereotype", "gateway"))
                 || (hasNodeCharacteristic(node, "Stereotype", "gateway") && hasNodeCharacteristic(node, "Stereotype", "internal"))) {
             violationsSet.add(1);
 
@@ -199,7 +199,7 @@ public class MicroSecEndTest {
      * @param node
      */
     private void hasAuthenticatedRerquest(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
-        if (dataCharacteristicImplicationCheck(node, "Stereotype", "internal", "Stereotype", "authenticated_request")) {
+        if (checkDataCharacteristicImplication(node, "Stereotype", "internal", "Stereotype", "authenticated_request")) {
             violationsSet.add(2);
         }
     }
@@ -212,7 +212,7 @@ public class MicroSecEndTest {
      */
     private void hasAuthorizedEntrypoint(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
         if (hasNodeCharacteristic(node, "Stereotype", "internal")
-                && dataCharacteristicImplicationCheck(node, "Stereotype", "entrypoint", "Stereotype", "authorization_server")) {
+                && checkDataCharacteristicImplication(node, "Stereotype", "entrypoint", "Stereotype", "authorization_server")) {
             violationsSet.add(3);
             violationsSet.add(6);
 
@@ -229,7 +229,7 @@ public class MicroSecEndTest {
      */
     private void hasTransformedEntryIdentity(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
         if (hasNodeCharacteristic(node, "Stereotype", "internal")
-                && dataCharacteristicImplicationCheck(node, "Stereotype", "entrypoint", "Stereotype", "transform_identity_representation")) {
+                && checkDataCharacteristicImplication(node, "Stereotype", "entrypoint", "Stereotype", "transform_identity_representation")) {
             violationsSet.add(4);
         }
     }
@@ -269,7 +269,7 @@ public class MicroSecEndTest {
      * @param node
      */
     private void hasEncryptedEntryConnection(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
-        if (dataCharacteristicImplicationCheck(node, "Stereotype", "entrypoint", "Stereotype", "encrypted_connection")) {
+        if (checkDataCharacteristicImplication(node, "Stereotype", "entrypoint", "Stereotype", "encrypted_connection")) {
             violationsSet.add(7);
         }
     }
@@ -281,7 +281,7 @@ public class MicroSecEndTest {
      * @param node
      */
     private void hasEncrytedInternalConnection(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
-        if (dataCharacteristicImplicationCheck(node, "Stereotype", "internal", "Stereotype", "encrypted_connection")) {
+        if (checkDataCharacteristicImplication(node, "Stereotype", "internal", "Stereotype", "encrypted_connection")) {
             violationsSet.add(8);
         }
     }

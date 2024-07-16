@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
@@ -105,5 +106,10 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
             return false;
         }
         return super.equals(otherVertex) && this.isCalling() == otherVertex.isCalling();
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getReferencedElement().getId(), this.isCalling);
     }
 }

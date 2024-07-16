@@ -29,6 +29,16 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
     public void initialize(ResourceProvider resourceProvider) {
         super.initialize(resourceProvider);
     }
+    
+    /**
+     * Initializes the flow graph collection with the given resource provider
+     * @param resourceProvider Resource provider used to find transpose flow graphs
+     * @param resourceProvider transposeFlowGraphFinder used to find transpose flow graphs
+     */
+    public void initialize(ResourceProvider resourceProvider, TransposeFlowGraphFinder transposeFlowGraphFinder) {
+        super.initialize(resourceProvider, transposeFlowGraphFinder);
+    }
+    
 
     /**
      * Creates a new instance of a dfd flow graph with the given resource provider. Transpose flow graphs are determined via
@@ -36,7 +46,8 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
      * @param resourceProvider Resource provider that provides model files to the transpose flow graph finder
      */
     public DFDFlowGraphCollection(DFDResourceProvider resourceProvider, TransposeFlowGraphFinder transposeFlowGraphFinder) {
-        super(resourceProvider, transposeFlowGraphFinder);
+        super();
+        super.initialize(resourceProvider, transposeFlowGraphFinder);
     }
 
     /**

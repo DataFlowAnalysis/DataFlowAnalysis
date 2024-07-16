@@ -79,16 +79,18 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
      * Registers a custom resource provider for the analysis
      * @param resourceProvider Custom resource provider of the analysis
      */
-    public void useCustomResourceProvider(DFDResourceProvider resourceProvider) {
+    public DFDDataFlowAnalysisBuilder useCustomResourceProvider(DFDResourceProvider resourceProvider) {
         this.customResourceProvider = Optional.of(resourceProvider);
+        return this;
     }
     
     /**
      * Registers a custom TransposeFlowGraphFinder for the analysis
      * @param transposeFlowGraphFinder Custom TransposeFlowGraphFinder of the analysis
      */
-    public void useTransposeFlowGraphFinder(TransposeFlowGraphFinder transposeFlowGraphFinder) {
+    public DFDDataFlowAnalysisBuilder useTransposeFlowGraphFinder(TransposeFlowGraphFinder transposeFlowGraphFinder) {
         this.customTransposeFlowGraphFinder = Optional.of(transposeFlowGraphFinder);
+        return this;
     }
 
     /**

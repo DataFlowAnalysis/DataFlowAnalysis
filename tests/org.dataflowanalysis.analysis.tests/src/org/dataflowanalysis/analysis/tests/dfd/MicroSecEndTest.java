@@ -178,9 +178,6 @@ public class MicroSecEndTest {
     /**
      * An API Gateway or similar facade should exist as a single entry point to the system and perform authorization
      * and authentication of external requests to avoid external entities directly accessing services.
-     * @param violationsSet
-     * @param variant
-     * @param node
      */
      
     private void hasGateway(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
@@ -194,9 +191,6 @@ public class MicroSecEndTest {
 
     /**
      *  Services should mutually authenticate and authorize requests from other services.
-     * @param violationsSet
-     * @param variant
-     * @param node
      */
     private void hasAuthenticatedRerquest(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
         if (checkDataCharacteristicImplication(node, "Stereotype", "internal", "Stereotype", "authenticated_request")) {
@@ -205,10 +199,9 @@ public class MicroSecEndTest {
     }
 
     /**
-     * Authorization and authentication processes should be decoupled from other services and should be implemented  at platform level to enable reuse by different services.
-     * @param violationsSet
-     * @param variant
-     * @param node
+     * Authorization and authentication processes should be decoupled from other services and should be implemented  at 
+     * platform level to enable reuse by different services. 
+     * Since 3 is parent of 6, we need to note the violation 6 as well
      */
     private void hasAuthorizedEntrypoint(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
         if (hasNodeCharacteristic(node, "Stereotype", "internal")
@@ -223,9 +216,6 @@ public class MicroSecEndTest {
      *  All the external entity identity representations should be transformed into an extendable internal identity
      *  representation. The internal identity representations should be secured with signatures and propagated but
      *	not exposed outside. They should be used for authentication and authorization at all levels.
-     * @param violationsSet
-     * @param variant
-     * @param node
      */
     private void hasTransformedEntryIdentity(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
         if (hasNodeCharacteristic(node, "Stereotype", "internal")
@@ -236,12 +226,9 @@ public class MicroSecEndTest {
 
     /**
      *  Authentication tokens should be validated
-     * @param violationsSet
-     * @param variant
-     * @param node
      */
     private void hasTokenValidation(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
-        if (hasDataCharacteristicAcrossVariables(node, "Stereotype", "entrypoint") && hasNodeCharacteristic(node, "Stereotype", "internal")
+        if (hasDataCharacteristicInAnyVariable(node, "Stereotype", "entrypoint") && hasNodeCharacteristic(node, "Stereotype", "internal")
                 && !hasNodeCharacteristic(node, "Stereotype", "token_validation")) {
             violationsSet.add(5);
         }
@@ -249,9 +236,6 @@ public class MicroSecEndTest {
 
     /**
      *  A limit for the maximum number of login attempts before preventive measures are taken should exist.
-     * @param violationsSet
-     * @param variant
-     * @param node
      */
     private void hasLoginAttemptsRegulation(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
         if (hasNodeCharacteristic(node, "Stereotype", "authorization_server")
@@ -264,9 +248,6 @@ public class MicroSecEndTest {
     /**
      *  All communication traffic from external users and entities should be encrypted using secure communication
      * protocols
-     * @param violationsSet
-     * @param variant
-     * @param node
      */
     private void hasEncryptedEntryConnection(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
         if (checkDataCharacteristicImplication(node, "Stereotype", "entrypoint", "Stereotype", "encrypted_connection")) {
@@ -276,9 +257,6 @@ public class MicroSecEndTest {
 
     /**
      *  All communication between the services should be encrypted using secure communication protocols.
-     * @param violationsSet
-     * @param variant
-     * @param node
      */
     private void hasEncrytedInternalConnection(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
         if (checkDataCharacteristicImplication(node, "Stereotype", "internal", "Stereotype", "encrypted_connection")) {
@@ -288,8 +266,6 @@ public class MicroSecEndTest {
 
     /**
      *  A central logging subsystem which includes a monitoring dashboard should exist.
-     * @param aTFG
-     * @param existenceViolations
      */
     private void hasLoggingServer(AbstractTransposeFlowGraph aTFG, Map<Integer, List<AbstractTransposeFlowGraph>> existenceViolations) {
         existenceViolations.putIfAbsent(9, new ArrayList<AbstractTransposeFlowGraph>());
@@ -303,9 +279,7 @@ public class MicroSecEndTest {
      * For all microservices, there should exist a local logging agent decoupled from the microservice but deployed
      * on the same host. Log data from microservices should not be send to the central logging system directly, but
      * collected by the logging agent, written to a local file, and eventually send to the central system by it.
-     * @param violationsSet
-     * @param variant
-     * @param node
+     * Since 10 is parent of 11, we need to note the violation 11 as well
      */
     private void hasLocalLogging(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
         if (hasNodeCharacteristic(node, "Stereotype", "internal") && !hasNodeCharacteristic(node, "Stereotype", "local_logging")) {
@@ -316,9 +290,6 @@ public class MicroSecEndTest {
 
     /**
      *  The local logging agent should sanitize the log data and remove any PII, passwords, API keys, etc.
-     * @param violationsSet
-     * @param variant
-     * @param node
      */
     private void hasLogSanitization(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
         if (hasNodeCharacteristic(node, "Stereotype", "local_logging") && !hasNodeCharacteristic(node, "Stereotype", "log_sanitization")) {
@@ -330,21 +301,16 @@ public class MicroSecEndTest {
      * A message broker should be used to realize the communication between local logging agent and central logging
      * system. These two should use mutual authentication and encrypt all transmitted data and availability should
      * be ensured by providing periodic health and status data.
-     * @param violationsSet
-     * @param variant
-     * @param node
      */
     private void hasMessageBroker(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
         if (hasNodeCharacteristic(node, "Stereotype", "logging_server")
-                && !hasDataCharacteristicAcrossVariables(node, "Stereotype", "message_broker")) {
+                && !hasDataCharacteristicInAnyVariable(node, "Stereotype", "message_broker")) {
             violationsSet.add(12);
         }
     }
 
     /**
      *  Secrets should be managed centrally following the Secret as a Service principle.
-     * @param aTFG
-     * @param violatingTransposeFlowGraphs
      */
     private void hasSecretManager(AbstractTransposeFlowGraph transposeFlowGraph, Map<Integer, List<AbstractTransposeFlowGraph>> violatingTransposeFlowGraphs) {
         violatingTransposeFlowGraphs.putIfAbsent(18, new ArrayList<AbstractTransposeFlowGraph>());
@@ -362,8 +328,10 @@ public class MicroSecEndTest {
                         && n.getValueName()
                                 .equals(value));
     }
-
-    private boolean hasDataCharacteristicAcrossVariables(AbstractVertex<?> node, String type, String value) {
+    /**
+     * checks if a node as a data Characteristic in any of the variables 
+     */
+    private boolean hasDataCharacteristicInAnyVariable(AbstractVertex<?> node, String type, String value) {
     	return node.getAllDataCharacteristics()
                 .stream()
                 .anyMatch(v -> v.getAllCharacteristics()

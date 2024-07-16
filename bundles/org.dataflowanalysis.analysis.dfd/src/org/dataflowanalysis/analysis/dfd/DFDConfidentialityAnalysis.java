@@ -24,14 +24,30 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
     protected final DFDResourceProvider resourceProvider;
     protected final Optional<Class<? extends Plugin>> modelProjectActivator;
     protected final String modelProjectName;
-    protected final Optional<TransposeFlowGraphFinder> customTransposeFlowGraphFinder;
+    protected final TransposeFlowGraphFinder transposeFlowGraphFinder;
 
+    public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider, Optional<Class<? extends Plugin>> modelProjectActivator,
+            String modelProjectName, TransposeFlowGraphFinder transposeFlowGraphFinder) {
+        this.resourceProvider = resourceProvider;
+        this.modelProjectActivator = modelProjectActivator;
+        this.modelProjectName = modelProjectName;
+        this.transposeFlowGraphFinder = transposeFlowGraphFinder;
+    }
+    
     public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider, Optional<Class<? extends Plugin>> modelProjectActivator,
             String modelProjectName, Optional<TransposeFlowGraphFinder> transposeFlowGraphFinder) {
         this.resourceProvider = resourceProvider;
         this.modelProjectActivator = modelProjectActivator;
         this.modelProjectName = modelProjectName;
-        this.customTransposeFlowGraphFinder = transposeFlowGraphFinder;
+        this.transposeFlowGraphFinder = transposeFlowGraphFinder.orElse(new DFDCyclicTransposeFlowGraphFinder(resourceProvider));
+    }
+    
+    public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider, Optional<Class<? extends Plugin>> modelProjectActivator,
+            String modelProjectName) {
+        this.resourceProvider = resourceProvider;
+        this.modelProjectActivator = modelProjectActivator;
+        this.modelProjectName = modelProjectName;
+        this.transposeFlowGraphFinder = new DFDCyclicTransposeFlowGraphFinder(resourceProvider);
     }
 
     @Override
@@ -67,18 +83,9 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
         }
     }
     
-    
-    /**
-     * Determines the effective resource provider that should be used by the analysis
-     */
-    private TransposeFlowGraphFinder getEffectiveTransposeFlowGraphFinder(DFDResourceProvider ressourceProvider) {
-        return this.customTransposeFlowGraphFinder
-                .orElse(new DFDCyclicTransposeFlowGraphFinder(ressourceProvider));
-    }
-    
     @Override
-    public DFDFlowGraphCollection findFlowGraphs() {
-        return new DFDFlowGraphCollection(this.resourceProvider, getEffectiveTransposeFlowGraphFinder(this.resourceProvider));
+    public DFDFlowGraphCollection findFlowGraphs() {      
+        return new DFDFlowGraphCollection(this.resourceProvider, this.transposeFlowGraphFinder);
     }
 
     @Override

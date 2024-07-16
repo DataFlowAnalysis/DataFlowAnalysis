@@ -2,6 +2,7 @@ package org.dataflowanalysis.analysis.pcm.core.user;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
@@ -99,5 +100,10 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
             return false;
         }
         return super.equals(otherVertex) && this.isCalling() == otherVertex.isCalling();
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getReferencedElement().getId(), this.isCalling);
     }
 }

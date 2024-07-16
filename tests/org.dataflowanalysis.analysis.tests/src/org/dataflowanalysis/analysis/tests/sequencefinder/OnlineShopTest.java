@@ -16,18 +16,9 @@ import org.dataflowanalysis.analysis.dfd.core.DFDCyclicTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.core.DFDTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.core.DFDVertex;
-import org.dataflowanalysis.analysis.dfd.resource.DFDURIResourceProvider;
-import org.dataflowanalysis.analysis.utils.ResourceUtils;
 import org.dataflowanalysis.examplemodels.Activator;
-import org.eclipse.core.runtime.Plugin;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
-import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder;
 
 public class OnlineShopTest {
 
@@ -35,62 +26,30 @@ public class OnlineShopTest {
     private DFDConfidentialityAnalysis acyclicAnalysis;
     
     
-    private DFDCyclicTransposeFlowGraphFinder dfdCyclicTransposeFlowGraphFinder;
-    private DFDTransposeFlowGraphFinder dfdTransposeFlowGraphFinder;
 
     @BeforeEach
     public void initAnalysis() {
         final var dataFlowDiagramPath = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram").toString();
         final var dataDictionaryPath = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary").toString();
         
-        var resourceProvider = new DFDURIResourceProvider(ResourceUtils.createRelativePluginURI(dataFlowDiagramPath, TEST_MODEL_PROJECT_NAME),
-                ResourceUtils.createRelativePluginURI(dataDictionaryPath, TEST_MODEL_PROJECT_NAME));
-        
-        Class<? extends Plugin> modelProjectActivator = Activator.class;
-        
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap()
-        .put("dataflowdiagram", new XMIResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap()
-        .put("datadictionary", new XMIResourceFactoryImpl());
-
-        EcorePlugin.ExtensionProcessor.process(null);
-
-        try {
-            var initializationBuilder = StandaloneInitializerBuilder.builder()
-                    .registerProjectURI(DFDConfidentialityAnalysis.class, DFDConfidentialityAnalysis.PLUGIN_PATH);
-        
-            initializationBuilder.registerProjectURI(modelProjectActivator, TEST_MODEL_PROJECT_NAME);
-        
-            initializationBuilder.build()
-                    .init();
-        
-        
-        } catch (StandaloneInitializationException e) {
-            throw new IllegalStateException("Could not initialize analysis");
-        }
-        resourceProvider.loadRequiredResources();
-        if (!resourceProvider.sufficientResourcesLoaded()) {
-            throw new IllegalStateException("Could not initialize analysis");
-        }
-        
-        dfdCyclicTransposeFlowGraphFinder = new DFDCyclicTransposeFlowGraphFinder(resourceProvider);
-        dfdTransposeFlowGraphFinder = new DFDTransposeFlowGraphFinder(resourceProvider);
         
         
         this.cyclicAnalysis = new DFDDataFlowAnalysisBuilder()
         		.standalone()
         		.modelProjectName(TEST_MODEL_PROJECT_NAME)
                 .usePluginActivator(Activator.class)
-                .useCustomResourceProvider(resourceProvider)
-                .useTransposeFlowGraphFinder(dfdCyclicTransposeFlowGraphFinder)
+                .useDataFlowDiagram(dataFlowDiagramPath)
+                .useDataDictionary(dataDictionaryPath)
+                .useTransposeFlowGraphFinder(DFDCyclicTransposeFlowGraphFinder.class)
                 .build();
         
         this.acyclicAnalysis = new DFDDataFlowAnalysisBuilder()
         		.standalone()
         		.modelProjectName(TEST_MODEL_PROJECT_NAME)
                 .usePluginActivator(Activator.class)
-                .useCustomResourceProvider(resourceProvider)
-                .useTransposeFlowGraphFinder(dfdTransposeFlowGraphFinder)
+                .useDataFlowDiagram(dataFlowDiagramPath)
+                .useDataDictionary(dataDictionaryPath)
+                .useTransposeFlowGraphFinder(DFDTransposeFlowGraphFinder.class)
                 .build();
 
         this.cyclicAnalysis.initializeAnalysis();
@@ -99,27 +58,46 @@ public class OnlineShopTest {
 
     @Test
     public void numberOfTransposeFlowGraphs_equalsThree() {
-        DFDFlowGraphCollection flowGraph = cyclicAnalysis.findFlowGraphs();
-        assertEquals(flowGraph.getTransposeFlowGraphs().size(), 3);
+        DFDFlowGraphCollection cyclicFlowGraph = cyclicAnalysis.findFlowGraphs();
+        DFDFlowGraphCollection acyclicFlowGraph = acyclicAnalysis.findFlowGraphs();
+        assertEquals(acyclicFlowGraph.getTransposeFlowGraphs().size(), 3);
+        assertEquals(cyclicFlowGraph.getTransposeFlowGraphs().size(), acyclicFlowGraph.getTransposeFlowGraphs().size());
     }
 
     @Test
     public void checkSinks() {
-        var flowGraph = cyclicAnalysis.findFlowGraphs();
+        var flowGraph = acyclicAnalysis.findFlowGraphs();
+        var cyclicFlowGraph = cyclicAnalysis.findFlowGraphs();
+        
         var entityNames = flowGraph.getTransposeFlowGraphs()
+                .stream()
+                .map(it -> ((DFDVertex) it.getSink()).getName())
+                .toList();
+        
+        
+        var cyclicentityNames = cyclicFlowGraph.getTransposeFlowGraphs()
                 .stream()
                 .map(it -> ((DFDVertex) it.getSink()).getName())
                 .toList();
 
         var expectedNames = List.of("User", "Database", "Database");
         assertIterableEquals(expectedNames, entityNames);
+        assertIterableEquals(expectedNames, cyclicentityNames);
     }
 
     @Test
     public void testNodeLabels() {
-        var flowGraph = analysis.findFlowGraphs();
+        var flowGraph = acyclicAnalysis.findFlowGraphs();
+        var cyclicFlowGraph = cyclicAnalysis.findFlowGraphs();
+        
         flowGraph.evaluate();
-
+        cyclicFlowGraph.evaluate();
+        
+        checkNodeLabel(flowGraph);
+        checkNodeLabel(cyclicFlowGraph);
+        
+    }
+    public void checkNodeLabel(DFDFlowGraphCollection flowGraph){
         for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
             for (var vertex : transposeFlowGraph.getVertices()) {
                 if (((DFDVertex) vertex).getName().equals("User")) {
@@ -134,8 +112,17 @@ public class OnlineShopTest {
 
     @Test
     public void testDataLabelPropagation() {
-        var flowGraph = analysis.findFlowGraphs();
+        var flowGraph = acyclicAnalysis.findFlowGraphs();
+        var cyclicFlowGraph = cyclicAnalysis.findFlowGraphs();
+        
         flowGraph.evaluate();
+        cyclicFlowGraph.evaluate();
+        
+        DataLabelPropagation(flowGraph);
+        DataLabelPropagation(cyclicFlowGraph);
+    }
+    
+    public void DataLabelPropagation(DFDFlowGraphCollection flowGraph){
         for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
             var sink = transposeFlowGraph.getSink();
             if (((DFDVertex) sink).getName().equals("User")) {
@@ -146,17 +133,19 @@ public class OnlineShopTest {
             }
         }
     }
-
+    
+    
+    //cyclic tested by microsecnd test
     @Test
     public void testRealisticConstraints() {
-        var flowGraph = analysis.findFlowGraphs();
+        var flowGraph = acyclicAnalysis.findFlowGraphs();
         flowGraph.evaluate();
 
         // Constraint 1: Personal data flowing to a node that is deployed outside the EU
         // Should find 1 violation
         int violationsFound = 0;
         for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
-            var violations = analysis.queryDataFlow(transposeFlowGraph, it -> {
+            var violations = acyclicAnalysis.queryDataFlow(transposeFlowGraph, it -> {
                 var nodeLabels = retrieveNodeLabels(it);
                 var dataLabels = retrieveDataLabels(it);
 
@@ -170,7 +159,7 @@ public class OnlineShopTest {
         // Constraint 2: Personal data in a node deployed outside the EU w/o encryption
         // Should find 0 violations
         for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
-            var violations = analysis.queryDataFlow(transposeFlowGraph, it -> {
+            var violations = acyclicAnalysis.queryDataFlow(transposeFlowGraph, it -> {
                 var nodeLabels = retrieveNodeLabels(it);
                 var dataLabels = retrieveDataLabels(it);
 
@@ -184,7 +173,7 @@ public class OnlineShopTest {
 
     @Test
     public void testIsNotCyclic() {
-        var flowGraph = analysis.findFlowGraphs();
+        var flowGraph = cyclicAnalysis.findFlowGraphs();
         assertFalse(flowGraph.wasCyclic());
     }
 

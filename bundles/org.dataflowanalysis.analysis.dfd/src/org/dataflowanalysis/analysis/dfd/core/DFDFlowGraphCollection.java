@@ -35,7 +35,7 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
      * @param resourceProvider Resource provider used to find transpose flow graphs
      * @param resourceProvider transposeFlowGraphFinder used to find transpose flow graphs
      */
-    public void initialize(ResourceProvider resourceProvider, TransposeFlowGraphFinder transposeFlowGraphFinder) {
+    public void initialize(ResourceProvider resourceProvider, Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinder) {
         super.initialize(resourceProvider, transposeFlowGraphFinder);
     }
     
@@ -45,7 +45,7 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
      * {@link DFDFlowGraphCollection#findTransposeFlowGraphs()}
      * @param resourceProvider Resource provider that provides model files to the transpose flow graph finder
      */
-    public DFDFlowGraphCollection(DFDResourceProvider resourceProvider, TransposeFlowGraphFinder transposeFlowGraphFinder) {
+    public DFDFlowGraphCollection(DFDResourceProvider resourceProvider, Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinder) {
         super();
         super.initialize(resourceProvider, transposeFlowGraphFinder);
     }
@@ -69,7 +69,12 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
             logger.error("Cannot find transpose flow graphs for non-dfd resource provider");
             throw new IllegalArgumentException();
         }
-                        
+        
+        if (transposeFlowGraphFinderClass.equals(DFDTransposeFlowGraphFinder.class))
+            this.transposeFlowGraphFinder = new DFDTransposeFlowGraphFinder(dfdResourceProvider);
+        else
+            this.transposeFlowGraphFinder = new DFDCyclicTransposeFlowGraphFinder(dfdResourceProvider);        
+        
         return transposeFlowGraphFinder.findTransposeFlowGraphs();
     }
 

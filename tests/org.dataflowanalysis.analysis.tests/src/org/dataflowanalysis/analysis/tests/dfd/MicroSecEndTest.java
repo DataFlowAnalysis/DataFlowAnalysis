@@ -17,6 +17,7 @@ import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
+import org.dataflowanalysis.analysis.dfd.core.DFDCyclicTransposeFlowGraphFinder;
 import org.dataflowanalysis.examplemodels.Activator;
 import org.junit.jupiter.api.Test;
 
@@ -55,6 +56,7 @@ public class MicroSecEndTest {
                 .usePluginActivator(Activator.class)
                 .useDataFlowDiagram(DataFlowDiagramPath)
                 .useDataDictionary(DataDictionaryPath)
+                .useTransposeFlowGraphFinder(DFDCyclicTransposeFlowGraphFinder.class)
                 .build();
     }
 

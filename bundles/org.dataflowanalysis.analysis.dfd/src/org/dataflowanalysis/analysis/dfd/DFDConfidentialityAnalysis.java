@@ -24,10 +24,10 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
     protected final DFDResourceProvider resourceProvider;
     protected final Optional<Class<? extends Plugin>> modelProjectActivator;
     protected final String modelProjectName;
-    protected final TransposeFlowGraphFinder transposeFlowGraphFinder;
+    protected final Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinder;
 
     public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider, Optional<Class<? extends Plugin>> modelProjectActivator,
-            String modelProjectName, TransposeFlowGraphFinder transposeFlowGraphFinder) {
+            String modelProjectName, Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinder) {
         this.resourceProvider = resourceProvider;
         this.modelProjectActivator = modelProjectActivator;
         this.modelProjectName = modelProjectName;
@@ -39,7 +39,7 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
         this.resourceProvider = resourceProvider;
         this.modelProjectActivator = modelProjectActivator;
         this.modelProjectName = modelProjectName;
-        this.transposeFlowGraphFinder = new DFDCyclicTransposeFlowGraphFinder(resourceProvider);
+        this.transposeFlowGraphFinder = DFDCyclicTransposeFlowGraphFinder.class;
     }
 
     @Override
@@ -76,7 +76,8 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
     }
     
     @Override
-    public DFDFlowGraphCollection findFlowGraphs() {      
+    public DFDFlowGraphCollection findFlowGraphs() {   
+        
         return new DFDFlowGraphCollection(this.resourceProvider, this.transposeFlowGraphFinder);
     }
 

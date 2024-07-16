@@ -19,7 +19,7 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
     protected String dataFlowDiagramPath;
     protected String dataDictionaryPath;
     protected Optional<DFDResourceProvider> customResourceProvider;
-    protected TransposeFlowGraphFinder customTransposeFlowGraphFinder;
+    protected Class<? extends TransposeFlowGraphFinder > customTransposeFlowGraphFinder;
 
     /**
      * Constructs a dfd analysis builder with empty values
@@ -88,7 +88,7 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
      * Registers a custom TransposeFlowGraphFinder for the analysis
      * @param transposeFlowGraphFinder Custom TransposeFlowGraphFinder of the analysis
      */
-    public DFDDataFlowAnalysisBuilder useTransposeFlowGraphFinder(TransposeFlowGraphFinder transposeFlowGraphFinder) {
+    public DFDDataFlowAnalysisBuilder useTransposeFlowGraphFinder(Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinder) {
         this.customTransposeFlowGraphFinder = transposeFlowGraphFinder;
         return this;
     }

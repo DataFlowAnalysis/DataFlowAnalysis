@@ -35,14 +35,6 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
     }
     
     public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider, Optional<Class<? extends Plugin>> modelProjectActivator,
-            String modelProjectName, Optional<TransposeFlowGraphFinder> transposeFlowGraphFinder) {
-        this.resourceProvider = resourceProvider;
-        this.modelProjectActivator = modelProjectActivator;
-        this.modelProjectName = modelProjectName;
-        this.transposeFlowGraphFinder = transposeFlowGraphFinder.orElse(new DFDCyclicTransposeFlowGraphFinder(resourceProvider));
-    }
-    
-    public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider, Optional<Class<? extends Plugin>> modelProjectActivator,
             String modelProjectName) {
         this.resourceProvider = resourceProvider;
         this.modelProjectActivator = modelProjectActivator;

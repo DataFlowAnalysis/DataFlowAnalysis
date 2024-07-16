@@ -97,9 +97,11 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
      * Determines the effective resource provider that should be used by the analysis
      */
     private DFDResourceProvider getEffectiveResourceProvider() {
-        return this.customResourceProvider
-                .orElse(new DFDURIResourceProvider(ResourceUtils.createRelativePluginURI(this.dataFlowDiagramPath, this.modelProjectName),
-                        ResourceUtils.createRelativePluginURI(this.dataDictionaryPath, this.modelProjectName)));
+    	if (this.customResourceProvider.isEmpty()) {
+    		return new DFDURIResourceProvider(ResourceUtils.createRelativePluginURI(this.dataFlowDiagramPath, this.modelProjectName),
+                    ResourceUtils.createRelativePluginURI(this.dataDictionaryPath, this.modelProjectName));
+    	}
+    	return this.customResourceProvider.get();
     }
 
     /**
@@ -107,11 +109,11 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
      */
     protected void validate() {
         super.validate();
-        if (this.dataDictionaryPath == null || this.dataDictionaryPath.isEmpty()) {
+        if (this.customResourceProvider.isEmpty() && (this.dataDictionaryPath == null || this.dataDictionaryPath.isEmpty())) {
             logger.error("A data dictionary is required to run the data flow analysis",
                     new IllegalStateException("The DFD analysis requires a data dictionary"));
         }
-        if (this.dataFlowDiagramPath == null || this.dataFlowDiagramPath.isEmpty()) {
+        if (this.customResourceProvider.isEmpty() && (this.dataFlowDiagramPath == null || this.dataFlowDiagramPath.isEmpty())) {
             logger.error("A data flow diagram is required to run the data flow analysis",
                     new IllegalStateException("The DFD analysis requires a data flow diagram"));
         }

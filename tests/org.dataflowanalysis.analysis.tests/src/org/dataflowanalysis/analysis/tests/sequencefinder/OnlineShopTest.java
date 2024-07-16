@@ -46,7 +46,7 @@ public class OnlineShopTest {
         var resourceProvider = new DFDURIResourceProvider(ResourceUtils.createRelativePluginURI(dataFlowDiagramPath, TEST_MODEL_PROJECT_NAME),
                 ResourceUtils.createRelativePluginURI(dataDictionaryPath, TEST_MODEL_PROJECT_NAME));
         
-        //Class<? extends Plugin> modelProjectActivator = Activator.class;
+        Class<? extends Plugin> modelProjectActivator = Activator.class;
         
         Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap()
         .put("dataflowdiagram", new XMIResourceFactoryImpl());
@@ -59,7 +59,7 @@ public class OnlineShopTest {
             var initializationBuilder = StandaloneInitializerBuilder.builder()
                     .registerProjectURI(DFDConfidentialityAnalysis.class, DFDConfidentialityAnalysis.PLUGIN_PATH);
         
-            //modelProjectActivator.ifPresent(projectActivator -> initializationBuilder.registerProjectURI(projectActivator, this.modelProjectName));
+            initializationBuilder.registerProjectURI(modelProjectActivator, TEST_MODEL_PROJECT_NAME);
         
             initializationBuilder.build()
                     .init();
@@ -69,7 +69,7 @@ public class OnlineShopTest {
             throw new IllegalStateException("Could not initialize analysis");
         }
         resourceProvider.loadRequiredResources();
-        if (resourceProvider.sufficientResourcesLoaded()) {
+        if (!resourceProvider.sufficientResourcesLoaded()) {
             throw new IllegalStateException("Could not initialize analysis");
         }
         
@@ -77,15 +77,24 @@ public class OnlineShopTest {
         dfdTransposeFlowGraphFinder = new DFDTransposeFlowGraphFinder(resourceProvider);
         
         
-        this.cyclicAnalysis = new DFDDataFlowAnalysisBuilder().standalone().modelProjectName(TEST_MODEL_PROJECT_NAME)
-                .usePluginActivator(Activator.class).useCustomResourceProvider(resourceProvider)
-                .useTransposeFlowGraphFinder(dfdCyclicTransposeFlowGraphFinder).build();
+        this.cyclicAnalysis = new DFDDataFlowAnalysisBuilder()
+        		.standalone()
+        		.modelProjectName(TEST_MODEL_PROJECT_NAME)
+                .usePluginActivator(Activator.class)
+                .useCustomResourceProvider(resourceProvider)
+                .useTransposeFlowGraphFinder(dfdCyclicTransposeFlowGraphFinder)
+                .build();
         
-        this.acyclicAnalysis = new DFDDataFlowAnalysisBuilder().standalone().modelProjectName(TEST_MODEL_PROJECT_NAME)
-                .usePluginActivator(Activator.class).useCustomResourceProvider(resourceProvider)
-                .useTransposeFlowGraphFinder(dfdTransposeFlowGraphFinder).build();
+        this.acyclicAnalysis = new DFDDataFlowAnalysisBuilder()
+        		.standalone()
+        		.modelProjectName(TEST_MODEL_PROJECT_NAME)
+                .usePluginActivator(Activator.class)
+                .useCustomResourceProvider(resourceProvider)
+                .useTransposeFlowGraphFinder(dfdTransposeFlowGraphFinder)
+                .build();
 
-        //this.analysis.initializeAnalysis();
+        this.cyclicAnalysis.initializeAnalysis();
+        this.acyclicAnalysis.initializeAnalysis();
     }
 
     @Test

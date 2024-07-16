@@ -40,7 +40,7 @@
           <branchBehaviour_BranchTransition id="_JsoF8D1AEe-ei87DqNT5AA">
             <steps_Behaviour xsi:type="seff:StartAction" id="_JsoF8T1AEe-ei87DqNT5AA" successor_AbstractAction="_OLT3wD1AEe-ei87DqNT5AA"/>
             <steps_Behaviour xsi:type="seff:StopAction" id="_JsoF8j1AEe-ei87DqNT5AA" predecessor_AbstractAction="_AP0X0D1BEe-ei87DqNT5AA"/>
-            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_OLT3wD1AEe-ei87DqNT5AA" entityName="ExternalCallAction1" predecessor_AbstractAction="_JsoF8T1AEe-ei87DqNT5AA" successor_AbstractAction="_AP0X0D1BEe-ei87DqNT5AA" calledService_ExternalService="_flkTwDeQEe-Zh_B5eAtwMg" role_ExternalService="_Cl_rcDejEe-Zh_B5eAtwMg">
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_OLT3wD1AEe-ei87DqNT5AA" entityName="call online search" predecessor_AbstractAction="_JsoF8T1AEe-ei87DqNT5AA" successor_AbstractAction="_AP0X0D1BEe-ei87DqNT5AA" calledService_ExternalService="_flkTwDeQEe-Zh_B5eAtwMg" role_ExternalService="_Cl_rcDejEe-Zh_B5eAtwMg">
               <inputVariableUsages__CallAction>
                 <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
                   <specification_VariableCharacterisation specification="false"/>
@@ -100,12 +100,12 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_CK1kADekEe-Zh_B5eAtwMg" describedService__SEFF="_CtUEIDeSEe-Zh_B5eAtwMg">
       <steps_Behaviour xsi:type="seff:StartAction" id="_CK1kATekEe-Zh_B5eAtwMg" successor_AbstractAction="_SgNjEDe8Ee-Zh_B5eAtwMg"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_CK1kAjekEe-Zh_B5eAtwMg" predecessor_AbstractAction="_SgNjEDe8Ee-Zh_B5eAtwMg"/>
-      <steps_Behaviour xsi:type="seff:BranchAction" id="_SgNjEDe8Ee-Zh_B5eAtwMg" entityName="BranchAction1" predecessor_AbstractAction="_CK1kATekEe-Zh_B5eAtwMg" successor_AbstractAction="_CK1kAjekEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:BranchAction" id="_SgNjEDe8Ee-Zh_B5eAtwMg" entityName="internetConnectionAvailable" predecessor_AbstractAction="_CK1kATekEe-Zh_B5eAtwMg" successor_AbstractAction="_CK1kAjekEe-Zh_B5eAtwMg">
         <branches_Branch xsi:type="seff:ProbabilisticBranchTransition" id="_R9c3MD1BEe-ei87DqNT5AA" entityName="ProbabilisticBranchTransition1">
           <branchBehaviour_BranchTransition id="_R9c3MT1BEe-ei87DqNT5AA">
             <steps_Behaviour xsi:type="seff:StartAction" id="_R9c3Mj1BEe-ei87DqNT5AA" successor_AbstractAction="_kBp44D4EEe-NZ5yl-1hYNw"/>
             <steps_Behaviour xsi:type="seff:StopAction" id="_R9c3Mz1BEe-ei87DqNT5AA" predecessor_AbstractAction="_bQ0gAD1BEe-ei87DqNT5AA"/>
-            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_Z8-5kD1BEe-ei87DqNT5AA" entityName="ExternalCallAction1" predecessor_AbstractAction="_kBp44D4EEe-NZ5yl-1hYNw" successor_AbstractAction="_bQ0gAD1BEe-ei87DqNT5AA" calledService_ExternalService="_CtUEIDeSEe-Zh_B5eAtwMg" role_ExternalService="_DHD7sDekEe-Zh_B5eAtwMg">
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_Z8-5kD1BEe-ei87DqNT5AA" entityName="call online location based serach" predecessor_AbstractAction="_kBp44D4EEe-NZ5yl-1hYNw" successor_AbstractAction="_bQ0gAD1BEe-ei87DqNT5AA" calledService_ExternalService="_CtUEIDeSEe-Zh_B5eAtwMg" role_ExternalService="_DHD7sDekEe-Zh_B5eAtwMg">
               <inputVariableUsages__CallAction>
                 <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
                   <specification_VariableCharacterisation specification="false"/>
@@ -149,7 +149,7 @@
                 <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
               </localVariableUsages_SetVariableAction>
             </steps_Behaviour>
-            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_kBp44D4EEe-NZ5yl-1hYNw" entityName="ExternalCallAction2" predecessor_AbstractAction="_R9c3Mj1BEe-ei87DqNT5AA" successor_AbstractAction="_Z8-5kD1BEe-ei87DqNT5AA" calledService_ExternalService="_Y_O8EDhYEe-TWfVuLMhuaw" role_ExternalService="_MC130Dn9Ee-uRP4Svlg0-Q">
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_kBp44D4EEe-NZ5yl-1hYNw" entityName="get vehicle position" predecessor_AbstractAction="_R9c3Mj1BEe-ei87DqNT5AA" successor_AbstractAction="_Z8-5kD1BEe-ei87DqNT5AA" calledService_ExternalService="_Y_O8EDhYEe-TWfVuLMhuaw" role_ExternalService="_MC130Dn9Ee-uRP4Svlg0-Q">
               <returnVariableUsage__CallReturnAction>
                 <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
                   <specification_VariableCharacterisation specification="false"/>
@@ -180,7 +180,7 @@
                 <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
               </localVariableUsages_SetVariableAction>
             </steps_Behaviour>
-            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_6AGGID4EEe-NZ5yl-1hYNw" entityName="ExternalCallAction1" predecessor_AbstractAction="_S482Ij1BEe-ei87DqNT5AA" successor_AbstractAction="_UVRDID1BEe-ei87DqNT5AA" calledService_ExternalService="_Y_O8EDhYEe-TWfVuLMhuaw" role_ExternalService="_MC130Dn9Ee-uRP4Svlg0-Q">
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_6AGGID4EEe-NZ5yl-1hYNw" entityName="get vehicle position" predecessor_AbstractAction="_S482Ij1BEe-ei87DqNT5AA" successor_AbstractAction="_UVRDID1BEe-ei87DqNT5AA" calledService_ExternalService="_Y_O8EDhYEe-TWfVuLMhuaw" role_ExternalService="_MC130Dn9Ee-uRP4Svlg0-Q">
               <returnVariableUsage__CallReturnAction>
                 <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
                   <specification_VariableCharacterisation specification="false"/>
@@ -206,7 +206,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_8G0qgDhQEe-TWfVuLMhuaw" describedService__SEFF="_urOoEDhQEe-TWfVuLMhuaw">
       <steps_Behaviour xsi:type="seff:StartAction" id="_8G0qgThQEe-TWfVuLMhuaw" successor_AbstractAction="_k4iGID0KEe-hSesFjA3W0w"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_8G0qgjhQEe-TWfVuLMhuaw" predecessor_AbstractAction="_oAG7ED0KEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_k4iGID0KEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_8G0qgThQEe-TWfVuLMhuaw" successor_AbstractAction="_oAG7ED0KEe-hSesFjA3W0w" calledService_ExternalService="_YuOzEDeREe-Zh_B5eAtwMg" role_ExternalService="_7etNwDekEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_k4iGID0KEe-hSesFjA3W0w" entityName="provide car2x data" predecessor_AbstractAction="_8G0qgThQEe-TWfVuLMhuaw" successor_AbstractAction="_oAG7ED0KEe-hSesFjA3W0w" calledService_ExternalService="_YuOzEDeREe-Zh_B5eAtwMg" role_ExternalService="_7etNwDekEe-Zh_B5eAtwMg">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -244,7 +244,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_8HNsEDhQEe-TWfVuLMhuaw" describedService__SEFF="_n-qpcDhQEe-TWfVuLMhuaw">
       <steps_Behaviour xsi:type="seff:StartAction" id="_8HNsEThQEe-TWfVuLMhuaw" successor_AbstractAction="_AqixgD0sEe-hSesFjA3W0w"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_8HNsEjhQEe-TWfVuLMhuaw" predecessor_AbstractAction="_wcyzgD0KEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_wcyzgD0KEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_JKjDsD0sEe-hSesFjA3W0w" successor_AbstractAction="_8HNsEjhQEe-TWfVuLMhuaw" calledService_ExternalService="_mDMCADeREe-Zh_B5eAtwMg" role_ExternalService="_7-04QDekEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_wcyzgD0KEe-hSesFjA3W0w" entityName="submit car2x data" predecessor_AbstractAction="_JKjDsD0sEe-hSesFjA3W0w" successor_AbstractAction="_8HNsEjhQEe-TWfVuLMhuaw" calledService_ExternalService="_mDMCADeREe-Zh_B5eAtwMg" role_ExternalService="_7-04QDekEe-Zh_B5eAtwMg">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -261,7 +261,7 @@
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="data"/>
         </inputVariableUsages__CallAction>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_AqixgD0sEe-hSesFjA3W0w" entityName="ExternalCallAction2" predecessor_AbstractAction="_8HNsEThQEe-TWfVuLMhuaw" successor_AbstractAction="_JKjDsD0sEe-hSesFjA3W0w" calledService_ExternalService="_jqIHoDeLEe-Zh_B5eAtwMg" role_ExternalService="__DFEcD0rEe-hSesFjA3W0w">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_AqixgD0sEe-hSesFjA3W0w" entityName="get environment from zFAS" predecessor_AbstractAction="_8HNsEThQEe-TWfVuLMhuaw" successor_AbstractAction="_JKjDsD0sEe-hSesFjA3W0w" calledService_ExternalService="_jqIHoDeLEe-Zh_B5eAtwMg" role_ExternalService="__DFEcD0rEe-hSesFjA3W0w">
         <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -273,7 +273,7 @@
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="ambientSensorInfo"/>
         </returnVariableUsage__CallReturnAction>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_JKjDsD0sEe-hSesFjA3W0w" entityName="ExternalCallAction3" predecessor_AbstractAction="_AqixgD0sEe-hSesFjA3W0w" successor_AbstractAction="_wcyzgD0KEe-hSesFjA3W0w" calledService_ExternalService="_Y_O8EDhYEe-TWfVuLMhuaw" role_ExternalService="_GQxaMD0sEe-hSesFjA3W0w">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_JKjDsD0sEe-hSesFjA3W0w" entityName="get vehicle position" predecessor_AbstractAction="_AqixgD0sEe-hSesFjA3W0w" successor_AbstractAction="_wcyzgD0KEe-hSesFjA3W0w" calledService_ExternalService="_Y_O8EDhYEe-TWfVuLMhuaw" role_ExternalService="_GQxaMD0sEe-hSesFjA3W0w">
         <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -314,7 +314,7 @@
           <branchBehaviour_BranchTransition id="_2fkigD4AEe-NZ5yl-1hYNw">
             <steps_Behaviour xsi:type="seff:StartAction" id="_2fkigT4AEe-NZ5yl-1hYNw" successor_AbstractAction="_4zyA0D4AEe-NZ5yl-1hYNw"/>
             <steps_Behaviour xsi:type="seff:StopAction" id="_2fkigj4AEe-NZ5yl-1hYNw" predecessor_AbstractAction="_4zyA0D4AEe-NZ5yl-1hYNw"/>
-            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_4zyA0D4AEe-NZ5yl-1hYNw" entityName="ExternalCallAction1" predecessor_AbstractAction="_2fkigT4AEe-NZ5yl-1hYNw" successor_AbstractAction="_2fkigj4AEe-NZ5yl-1hYNw" calledService_ExternalService="_nhuz4DeiEe-Zh_B5eAtwMg" role_ExternalService="_y3-TYDeiEe-Zh_B5eAtwMg"/>
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_4zyA0D4AEe-NZ5yl-1hYNw" entityName="trigger central locking" predecessor_AbstractAction="_2fkigT4AEe-NZ5yl-1hYNw" successor_AbstractAction="_2fkigj4AEe-NZ5yl-1hYNw" calledService_ExternalService="_nhuz4DeiEe-Zh_B5eAtwMg" role_ExternalService="_y3-TYDeiEe-Zh_B5eAtwMg"/>
           </branchBehaviour_BranchTransition>
         </branches_Branch>
         <branches_Branch xsi:type="seff:ProbabilisticBranchTransition" id="_8dzbgD4AEe-NZ5yl-1hYNw" entityName="ProbabilisticBranchTransition2">
@@ -328,7 +328,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_GmROcDhdEe-TWfVuLMhuaw" describedService__SEFF="_BwlHUDhcEe-TWfVuLMhuaw">
       <steps_Behaviour xsi:type="seff:StartAction" id="_GmROcThdEe-TWfVuLMhuaw" successor_AbstractAction="_Bm8xYD0WEe-hSesFjA3W0w"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_GmROcjhdEe-TWfVuLMhuaw" predecessor_AbstractAction="_Bm8xYD0WEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_Bm8xYD0WEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_GmROcThdEe-TWfVuLMhuaw" successor_AbstractAction="_GmROcjhdEe-TWfVuLMhuaw" calledService_ExternalService="_zlwmcDeiEe-Zh_B5eAtwMg" role_ExternalService="_6cJPcDeiEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_Bm8xYD0WEe-hSesFjA3W0w" entityName="set heated seats" predecessor_AbstractAction="_GmROcThdEe-TWfVuLMhuaw" successor_AbstractAction="_GmROcjhdEe-TWfVuLMhuaw" calledService_ExternalService="_zlwmcDeiEe-Zh_B5eAtwMg" role_ExternalService="_6cJPcDeiEe-Zh_B5eAtwMg"/>
     </serviceEffectSpecifications__BasicComponent>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_GmX8IDhdEe-TWfVuLMhuaw" describedService__SEFF="_UWkLADhcEe-TWfVuLMhuaw">
       <steps_Behaviour xsi:type="seff:StartAction" id="_GmX8IThdEe-TWfVuLMhuaw" successor_AbstractAction="_Bzg78D4BEe-NZ5yl-1hYNw"/>
@@ -350,7 +350,7 @@
           <branchBehaviour_BranchTransition id="_JcopcT4BEe-NZ5yl-1hYNw">
             <steps_Behaviour xsi:type="seff:StartAction" id="_Jcopcj4BEe-NZ5yl-1hYNw" successor_AbstractAction="_LXS_UD4BEe-NZ5yl-1hYNw"/>
             <steps_Behaviour xsi:type="seff:StopAction" id="_Jcopcz4BEe-NZ5yl-1hYNw" predecessor_AbstractAction="_POWwcD4BEe-NZ5yl-1hYNw"/>
-            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_LXS_UD4BEe-NZ5yl-1hYNw" entityName="ExternalCallAction1" predecessor_AbstractAction="_Jcopcj4BEe-NZ5yl-1hYNw" successor_AbstractAction="_POWwcD4BEe-NZ5yl-1hYNw" calledService_ExternalService="_Y_O8EDhYEe-TWfVuLMhuaw" role_ExternalService="_POgzcDhZEe-TWfVuLMhuaw">
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_LXS_UD4BEe-NZ5yl-1hYNw" entityName="get vehicle position" predecessor_AbstractAction="_Jcopcj4BEe-NZ5yl-1hYNw" successor_AbstractAction="_POWwcD4BEe-NZ5yl-1hYNw" calledService_ExternalService="_Y_O8EDhYEe-TWfVuLMhuaw" role_ExternalService="_POgzcDhZEe-TWfVuLMhuaw">
               <returnVariableUsage__CallReturnAction>
                 <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
                   <specification_VariableCharacterisation specification="false"/>
@@ -387,7 +387,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_GmeCwDhdEe-TWfVuLMhuaw" describedService__SEFF="_GYdRYDhcEe-TWfVuLMhuaw">
       <steps_Behaviour xsi:type="seff:StartAction" id="_GmeCwThdEe-TWfVuLMhuaw" successor_AbstractAction="_umgfED4BEe-NZ5yl-1hYNw"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_GmeCwjhdEe-TWfVuLMhuaw" predecessor_AbstractAction="_5OYj8D0VEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_5OYj8D0VEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_umgfED4BEe-NZ5yl-1hYNw" successor_AbstractAction="_GmeCwjhdEe-TWfVuLMhuaw" calledService_ExternalService="_kH8sEDn8Ee-uRP4Svlg0-Q" role_ExternalService="_0vSicD0VEe-hSesFjA3W0w">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_5OYj8D0VEe-hSesFjA3W0w" entityName="initiate navigation for destination" predecessor_AbstractAction="_umgfED4BEe-NZ5yl-1hYNw" successor_AbstractAction="_GmeCwjhdEe-TWfVuLMhuaw" calledService_ExternalService="_kH8sEDn8Ee-uRP4Svlg0-Q" role_ExternalService="_0vSicD0VEe-hSesFjA3W0w">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -423,7 +423,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_GmkJYDhdEe-TWfVuLMhuaw" describedService__SEFF="_YApQEDhcEe-TWfVuLMhuaw">
       <steps_Behaviour xsi:type="seff:StartAction" id="_GmkJYThdEe-TWfVuLMhuaw" successor_AbstractAction="_2BdU8D0VEe-hSesFjA3W0w"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_GmkJYjhdEe-TWfVuLMhuaw" predecessor_AbstractAction="_2BdU8D0VEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_2BdU8D0VEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_GmkJYThdEe-TWfVuLMhuaw" successor_AbstractAction="_GmkJYjhdEe-TWfVuLMhuaw" calledService_ExternalService="_kH8sEDn8Ee-uRP4Svlg0-Q" role_ExternalService="_0vSicD0VEe-hSesFjA3W0w">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_2BdU8D0VEe-hSesFjA3W0w" entityName="initiate navigation for destination" predecessor_AbstractAction="_GmkJYThdEe-TWfVuLMhuaw" successor_AbstractAction="_GmkJYjhdEe-TWfVuLMhuaw" calledService_ExternalService="_kH8sEDn8Ee-uRP4Svlg0-Q" role_ExternalService="_0vSicD0VEe-hSesFjA3W0w">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -439,7 +439,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_GmqQADhdEe-TWfVuLMhuaw" describedService__SEFF="_EmDfoDhcEe-TWfVuLMhuaw">
       <steps_Behaviour xsi:type="seff:StartAction" id="_GmqQAThdEe-TWfVuLMhuaw" successor_AbstractAction="_gplYcD0VEe-hSesFjA3W0w"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_GmqQAjhdEe-TWfVuLMhuaw" predecessor_AbstractAction="_gplYcD0VEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_gplYcD0VEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_GmqQAThdEe-TWfVuLMhuaw" successor_AbstractAction="_GmqQAjhdEe-TWfVuLMhuaw" calledService_ExternalService="_UjMOYD0VEe-hSesFjA3W0w" role_ExternalService="_fPex8D0VEe-hSesFjA3W0w"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_gplYcD0VEe-hSesFjA3W0w" entityName="trigger auxiliary heating" predecessor_AbstractAction="_GmqQAThdEe-TWfVuLMhuaw" successor_AbstractAction="_GmqQAjhdEe-TWfVuLMhuaw" calledService_ExternalService="_UjMOYD0VEe-hSesFjA3W0w" role_ExternalService="_fPex8D0VEe-hSesFjA3W0w"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_6E3XsDd9Ee-Zh_B5eAtwMg" entityName="VoiceControl">
@@ -448,7 +448,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_ZX2IETeiEe-Zh_B5eAtwMg" describedService__SEFF="_x7rvcDeQEe-Zh_B5eAtwMg">
       <steps_Behaviour xsi:type="seff:StartAction" id="_ZX2IEjeiEe-Zh_B5eAtwMg" successor_AbstractAction="_NByMED0NEe-hSesFjA3W0w"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_ZX2IEzeiEe-Zh_B5eAtwMg" predecessor_AbstractAction="_N4P6AD0NEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_NByMED0NEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_ZX2IEjeiEe-Zh_B5eAtwMg" successor_AbstractAction="_N4P6AD0NEe-hSesFjA3W0w" calledService_ExternalService="_x7rvcDeQEe-Zh_B5eAtwMg" role_ExternalService="_cAtAsDeiEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_NByMED0NEe-hSesFjA3W0w" entityName="process speach snippet" predecessor_AbstractAction="_ZX2IEjeiEe-Zh_B5eAtwMg" successor_AbstractAction="_N4P6AD0NEe-hSesFjA3W0w" calledService_ExternalService="_x7rvcDeQEe-Zh_B5eAtwMg" role_ExternalService="_cAtAsDeiEe-Zh_B5eAtwMg">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -492,7 +492,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_20kyMDeqEe-Zh_B5eAtwMg" describedService__SEFF="_EOQu8DeREe-Zh_B5eAtwMg">
       <steps_Behaviour xsi:type="seff:StartAction" id="_20kyMTeqEe-Zh_B5eAtwMg" successor_AbstractAction="_7ldfID0MEe-hSesFjA3W0w"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_20kyMjeqEe-Zh_B5eAtwMg" predecessor_AbstractAction="_HqO4kD0NEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_7ldfID0MEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_20kyMTeqEe-Zh_B5eAtwMg" successor_AbstractAction="_9iTmUD0MEe-hSesFjA3W0w" calledService_ExternalService="_Y_O8EDhYEe-TWfVuLMhuaw" role_ExternalService="_JpSmgDn9Ee-uRP4Svlg0-Q">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_7ldfID0MEe-hSesFjA3W0w" entityName="get vehicle position" predecessor_AbstractAction="_20kyMTeqEe-Zh_B5eAtwMg" successor_AbstractAction="_9iTmUD0MEe-hSesFjA3W0w" calledService_ExternalService="_Y_O8EDhYEe-TWfVuLMhuaw" role_ExternalService="_JpSmgDn9Ee-uRP4Svlg0-Q">
         <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -504,7 +504,7 @@
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="position"/>
         </returnVariableUsage__CallReturnAction>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_9iTmUD0MEe-hSesFjA3W0w" entityName="ExternalCallAction2" predecessor_AbstractAction="_7ldfID0MEe-hSesFjA3W0w" successor_AbstractAction="__hSbgD0MEe-hSesFjA3W0w" calledService_ExternalService="_EOQu8DeREe-Zh_B5eAtwMg" role_ExternalService="_sbmMMDeqEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_9iTmUD0MEe-hSesFjA3W0w" entityName="calculate route for destination" predecessor_AbstractAction="_7ldfID0MEe-hSesFjA3W0w" successor_AbstractAction="__hSbgD0MEe-hSesFjA3W0w" calledService_ExternalService="_EOQu8DeREe-Zh_B5eAtwMg" role_ExternalService="_sbmMMDeqEe-Zh_B5eAtwMg">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -531,7 +531,7 @@
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="route"/>
         </returnVariableUsage__CallReturnAction>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="__hSbgD0MEe-hSesFjA3W0w" entityName="ExternalCallAction3" predecessor_AbstractAction="_9iTmUD0MEe-hSesFjA3W0w" successor_AbstractAction="_HqO4kD0NEe-hSesFjA3W0w" calledService_ExternalService="_k9QKIDeQEe-Zh_B5eAtwMg" role_ExternalService="_XW-i4DeqEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="__hSbgD0MEe-hSesFjA3W0w" entityName="get map visualization for route" predecessor_AbstractAction="_9iTmUD0MEe-hSesFjA3W0w" successor_AbstractAction="_HqO4kD0NEe-hSesFjA3W0w" calledService_ExternalService="_k9QKIDeQEe-Zh_B5eAtwMg" role_ExternalService="_XW-i4DeqEe-Zh_B5eAtwMg">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -586,7 +586,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_rpPoID0OEe-hSesFjA3W0w" describedService__SEFF="_kCU6ED0OEe-hSesFjA3W0w">
       <steps_Behaviour xsi:type="seff:StartAction" id="_rpPoIT0OEe-hSesFjA3W0w" successor_AbstractAction="_h6enUD0PEe-hSesFjA3W0w"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_rpPoIj0OEe-hSesFjA3W0w" predecessor_AbstractAction="_oXNaMD0PEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_h6enUD0PEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_rpPoIT0OEe-hSesFjA3W0w" successor_AbstractAction="_j8zrcD0PEe-hSesFjA3W0w" calledService_ExternalService="_Y_O8EDhYEe-TWfVuLMhuaw" role_ExternalService="_KVBEEDn9Ee-uRP4Svlg0-Q">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_h6enUD0PEe-hSesFjA3W0w" entityName="get vehicle position" predecessor_AbstractAction="_rpPoIT0OEe-hSesFjA3W0w" successor_AbstractAction="_j8zrcD0PEe-hSesFjA3W0w" calledService_ExternalService="_Y_O8EDhYEe-TWfVuLMhuaw" role_ExternalService="_KVBEEDn9Ee-uRP4Svlg0-Q">
         <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -598,7 +598,7 @@
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="position"/>
         </returnVariableUsage__CallReturnAction>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_j8zrcD0PEe-hSesFjA3W0w" entityName="ExternalCallAction2" predecessor_AbstractAction="_h6enUD0PEe-hSesFjA3W0w" successor_AbstractAction="_oXNaMD0PEe-hSesFjA3W0w" calledService_ExternalService="_JnSwQD0PEe-hSesFjA3W0w" role_ExternalService="_XTrAsD0PEe-hSesFjA3W0w">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_j8zrcD0PEe-hSesFjA3W0w" entityName="get traffic load for position" predecessor_AbstractAction="_h6enUD0PEe-hSesFjA3W0w" successor_AbstractAction="_oXNaMD0PEe-hSesFjA3W0w" calledService_ExternalService="_JnSwQD0PEe-hSesFjA3W0w" role_ExternalService="_XTrAsD0PEe-hSesFjA3W0w">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -645,7 +645,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_aivIQD0QEe-hSesFjA3W0w" describedService__SEFF="_EOQu8DeREe-Zh_B5eAtwMg">
       <steps_Behaviour xsi:type="seff:StartAction" id="_aivvUD0QEe-hSesFjA3W0w" successor_AbstractAction="_dhG94D0QEe-hSesFjA3W0w"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_aivvUT0QEe-hSesFjA3W0w" predecessor_AbstractAction="_edkmID0QEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_dhG94D0QEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_aivvUD0QEe-hSesFjA3W0w" successor_AbstractAction="_edkmID0QEe-hSesFjA3W0w" calledService_ExternalService="_EOQu8DeREe-Zh_B5eAtwMg" role_ExternalService="_cCIecD0QEe-hSesFjA3W0w">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_dhG94D0QEe-hSesFjA3W0w" entityName="calculate route for destination" predecessor_AbstractAction="_aivvUD0QEe-hSesFjA3W0w" successor_AbstractAction="_edkmID0QEe-hSesFjA3W0w" calledService_ExternalService="_EOQu8DeREe-Zh_B5eAtwMg" role_ExternalService="_cCIecD0QEe-hSesFjA3W0w">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -725,7 +725,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_uGUZsDeLEe-Zh_B5eAtwMg" describedService__SEFF="_jqIHoDeLEe-Zh_B5eAtwMg">
       <steps_Behaviour xsi:type="seff:StartAction" id="_uGWO4DeLEe-Zh_B5eAtwMg" successor_AbstractAction="_O9QroDe6Ee-Zh_B5eAtwMg"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_uGW18DeLEe-Zh_B5eAtwMg" predecessor_AbstractAction="_hWDK8D0XEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_O9QroDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_uGWO4DeLEe-Zh_B5eAtwMg" successor_AbstractAction="_QW_esDe6Ee-Zh_B5eAtwMg" calledService_ExternalService="__FCkoDeLEe-Zh_B5eAtwMg" role_ExternalService="_0oc_EDeNEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_O9QroDe6Ee-Zh_B5eAtwMg" entityName="get ambient camera images" predecessor_AbstractAction="_uGWO4DeLEe-Zh_B5eAtwMg" successor_AbstractAction="_QW_esDe6Ee-Zh_B5eAtwMg" calledService_ExternalService="__FCkoDeLEe-Zh_B5eAtwMg" role_ExternalService="_0oc_EDeNEe-Zh_B5eAtwMg">
         <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -737,7 +737,7 @@
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="ambientCamera"/>
         </returnVariableUsage__CallReturnAction>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_QW_esDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction2" predecessor_AbstractAction="_O9QroDe6Ee-Zh_B5eAtwMg" successor_AbstractAction="_SL05YDe6Ee-Zh_B5eAtwMg" calledService_ExternalService="_cscR4DeNEe-Zh_B5eAtwMg" role_ExternalService="_0KURkDeNEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_QW_esDe6Ee-Zh_B5eAtwMg" entityName="get front camera image" predecessor_AbstractAction="_O9QroDe6Ee-Zh_B5eAtwMg" successor_AbstractAction="_SL05YDe6Ee-Zh_B5eAtwMg" calledService_ExternalService="_cscR4DeNEe-Zh_B5eAtwMg" role_ExternalService="_0KURkDeNEe-Zh_B5eAtwMg">
         <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -749,7 +749,7 @@
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="frontCamera"/>
         </returnVariableUsage__CallReturnAction>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_SL05YDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction3" predecessor_AbstractAction="_QW_esDe6Ee-Zh_B5eAtwMg" successor_AbstractAction="_TQ98gDe6Ee-Zh_B5eAtwMg" calledService_ExternalService="_hX2tkDeMEe-Zh_B5eAtwMg" role_ExternalService="_zeMLYDeNEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_SL05YDe6Ee-Zh_B5eAtwMg" entityName="get laser scanner map" predecessor_AbstractAction="_QW_esDe6Ee-Zh_B5eAtwMg" successor_AbstractAction="_TQ98gDe6Ee-Zh_B5eAtwMg" calledService_ExternalService="_hX2tkDeMEe-Zh_B5eAtwMg" role_ExternalService="_zeMLYDeNEe-Zh_B5eAtwMg">
         <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -761,7 +761,7 @@
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="laserScanner"/>
         </returnVariableUsage__CallReturnAction>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_TQ98gDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction4" predecessor_AbstractAction="_SL05YDe6Ee-Zh_B5eAtwMg" successor_AbstractAction="_VI9_8De6Ee-Zh_B5eAtwMg" calledService_ExternalService="_Q4dtgDeNEe-Zh_B5eAtwMg" role_ExternalService="_xaRL0DeNEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_TQ98gDe6Ee-Zh_B5eAtwMg" entityName="get long range radar map" predecessor_AbstractAction="_SL05YDe6Ee-Zh_B5eAtwMg" successor_AbstractAction="_VI9_8De6Ee-Zh_B5eAtwMg" calledService_ExternalService="_Q4dtgDeNEe-Zh_B5eAtwMg" role_ExternalService="_xaRL0DeNEe-Zh_B5eAtwMg">
         <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -773,7 +773,7 @@
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="longRangeRadar"/>
         </returnVariableUsage__CallReturnAction>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_VI9_8De6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction5" predecessor_AbstractAction="_TQ98gDe6Ee-Zh_B5eAtwMg" successor_AbstractAction="_WGbtwDe6Ee-Zh_B5eAtwMg" calledService_ExternalService="_cShygDeMEe-Zh_B5eAtwMg" role_ExternalService="_1H5UIDeNEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_VI9_8De6Ee-Zh_B5eAtwMg" entityName="get mid range radar maps" predecessor_AbstractAction="_TQ98gDe6Ee-Zh_B5eAtwMg" successor_AbstractAction="_WGbtwDe6Ee-Zh_B5eAtwMg" calledService_ExternalService="_cShygDeMEe-Zh_B5eAtwMg" role_ExternalService="_1H5UIDeNEe-Zh_B5eAtwMg">
         <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -785,7 +785,7 @@
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="midRangeRadar"/>
         </returnVariableUsage__CallReturnAction>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_WGbtwDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction6" predecessor_AbstractAction="_VI9_8De6Ee-Zh_B5eAtwMg" successor_AbstractAction="_hWDK8D0XEe-hSesFjA3W0w" calledService_ExternalService="_GZ7SEDeNEe-Zh_B5eAtwMg" role_ExternalService="_yEGzADeNEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_WGbtwDe6Ee-Zh_B5eAtwMg" entityName="get ultrasonic sensor values" predecessor_AbstractAction="_VI9_8De6Ee-Zh_B5eAtwMg" successor_AbstractAction="_hWDK8D0XEe-hSesFjA3W0w" calledService_ExternalService="_GZ7SEDeNEe-Zh_B5eAtwMg" role_ExternalService="_yEGzADeNEe-Zh_B5eAtwMg">
         <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -902,7 +902,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_TVA2MDeSEe-Zh_B5eAtwMg" describedService__SEFF="_flkTwDeQEe-Zh_B5eAtwMg">
       <steps_Behaviour xsi:type="seff:StartAction" id="_TVA2MTeSEe-Zh_B5eAtwMg" successor_AbstractAction="_j0O6gDe6Ee-Zh_B5eAtwMg"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_TVA2MjeSEe-Zh_B5eAtwMg" predecessor_AbstractAction="_rYZQED0LEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_j0O6gDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_TVA2MTeSEe-Zh_B5eAtwMg" successor_AbstractAction="_rYZQED0LEe-hSesFjA3W0w" calledService_ExternalService="_flkTwDeQEe-Zh_B5eAtwMg" role_ExternalService="_SsxKcDeSEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_j0O6gDe6Ee-Zh_B5eAtwMg" entityName="forward search" predecessor_AbstractAction="_TVA2MTeSEe-Zh_B5eAtwMg" successor_AbstractAction="_rYZQED0LEe-hSesFjA3W0w" calledService_ExternalService="_flkTwDeQEe-Zh_B5eAtwMg" role_ExternalService="_SsxKcDeSEe-Zh_B5eAtwMg">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -956,7 +956,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_UT2dATeSEe-Zh_B5eAtwMg" describedService__SEFF="_k9QKIDeQEe-Zh_B5eAtwMg">
       <steps_Behaviour xsi:type="seff:StartAction" id="_UT3EEDeSEe-Zh_B5eAtwMg" successor_AbstractAction="_pOx3oDe6Ee-Zh_B5eAtwMg"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_UT3EETeSEe-Zh_B5eAtwMg" predecessor_AbstractAction="_on7TkD0LEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_pOx3oDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_UT3EEDeSEe-Zh_B5eAtwMg" successor_AbstractAction="_on7TkD0LEe-hSesFjA3W0w" calledService_ExternalService="_k9QKIDeQEe-Zh_B5eAtwMg" role_ExternalService="_TzBn4DeSEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_pOx3oDe6Ee-Zh_B5eAtwMg" entityName="forward get map" predecessor_AbstractAction="_UT3EEDeSEe-Zh_B5eAtwMg" successor_AbstractAction="_on7TkD0LEe-hSesFjA3W0w" calledService_ExternalService="_k9QKIDeQEe-Zh_B5eAtwMg" role_ExternalService="_TzBn4DeSEe-Zh_B5eAtwMg">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -1010,7 +1010,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_VZVeYTeSEe-Zh_B5eAtwMg" describedService__SEFF="_x7rvcDeQEe-Zh_B5eAtwMg">
       <steps_Behaviour xsi:type="seff:StartAction" id="_VZVeYjeSEe-Zh_B5eAtwMg" successor_AbstractAction="_tCk5YDe6Ee-Zh_B5eAtwMg"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_VZVeYzeSEe-Zh_B5eAtwMg" predecessor_AbstractAction="_lYrwYD0LEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_tCk5YDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_VZVeYjeSEe-Zh_B5eAtwMg" successor_AbstractAction="_lYrwYD0LEe-hSesFjA3W0w" calledService_ExternalService="_x7rvcDeQEe-Zh_B5eAtwMg" role_ExternalService="_Uwt_MDeSEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_tCk5YDe6Ee-Zh_B5eAtwMg" entityName="forward speach processing" predecessor_AbstractAction="_VZVeYjeSEe-Zh_B5eAtwMg" successor_AbstractAction="_lYrwYD0LEe-hSesFjA3W0w" calledService_ExternalService="_x7rvcDeQEe-Zh_B5eAtwMg" role_ExternalService="_Uwt_MDeSEe-Zh_B5eAtwMg">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -1064,7 +1064,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_XclvkDeSEe-Zh_B5eAtwMg" describedService__SEFF="_EOQu8DeREe-Zh_B5eAtwMg">
       <steps_Behaviour xsi:type="seff:StartAction" id="_XclvkTeSEe-Zh_B5eAtwMg" successor_AbstractAction="_xD1vYDe6Ee-Zh_B5eAtwMg"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_XclvkjeSEe-Zh_B5eAtwMg" predecessor_AbstractAction="_h8mEAD0LEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_xD1vYDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_XclvkTeSEe-Zh_B5eAtwMg" successor_AbstractAction="_h8mEAD0LEe-hSesFjA3W0w" calledService_ExternalService="_EOQu8DeREe-Zh_B5eAtwMg" role_ExternalService="_WXER8DeSEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_xD1vYDe6Ee-Zh_B5eAtwMg" entityName="forward route calculation" predecessor_AbstractAction="_XclvkTeSEe-Zh_B5eAtwMg" successor_AbstractAction="_h8mEAD0LEe-hSesFjA3W0w" calledService_ExternalService="_EOQu8DeREe-Zh_B5eAtwMg" role_ExternalService="_WXER8DeSEe-Zh_B5eAtwMg">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -1118,7 +1118,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_ZMKPwDeSEe-Zh_B5eAtwMg" describedService__SEFF="_CtUEIDeSEe-Zh_B5eAtwMg">
       <steps_Behaviour xsi:type="seff:StartAction" id="_ZMKPwTeSEe-Zh_B5eAtwMg" successor_AbstractAction="_3cONwDe6Ee-Zh_B5eAtwMg"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_ZMKPwjeSEe-Zh_B5eAtwMg" predecessor_AbstractAction="_es08YD0LEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_3cONwDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_ZMKPwTeSEe-Zh_B5eAtwMg" successor_AbstractAction="_es08YD0LEe-hSesFjA3W0w" calledService_ExternalService="_CtUEIDeSEe-Zh_B5eAtwMg" role_ExternalService="_YKBdUDeSEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_3cONwDe6Ee-Zh_B5eAtwMg" entityName="forward location search" predecessor_AbstractAction="_ZMKPwTeSEe-Zh_B5eAtwMg" successor_AbstractAction="_es08YD0LEe-hSesFjA3W0w" calledService_ExternalService="_CtUEIDeSEe-Zh_B5eAtwMg" role_ExternalService="_YKBdUDeSEe-Zh_B5eAtwMg">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -1172,7 +1172,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_dTYj0DeSEe-Zh_B5eAtwMg" describedService__SEFF="_YuOzEDeREe-Zh_B5eAtwMg">
       <steps_Behaviour xsi:type="seff:StartAction" id="_dTYj0TeSEe-Zh_B5eAtwMg" successor_AbstractAction="_6WdxUDe6Ee-Zh_B5eAtwMg"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_dTYj0jeSEe-Zh_B5eAtwMg" predecessor_AbstractAction="_bY6UkD0LEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_6WdxUDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_dTYj0TeSEe-Zh_B5eAtwMg" successor_AbstractAction="_bY6UkD0LEe-hSesFjA3W0w" calledService_ExternalService="_YuOzEDeREe-Zh_B5eAtwMg" role_ExternalService="_b-AsUDeSEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_6WdxUDe6Ee-Zh_B5eAtwMg" entityName="forward car2x provide data" predecessor_AbstractAction="_dTYj0TeSEe-Zh_B5eAtwMg" successor_AbstractAction="_bY6UkD0LEe-hSesFjA3W0w" calledService_ExternalService="_YuOzEDeREe-Zh_B5eAtwMg" role_ExternalService="_b-AsUDeSEe-Zh_B5eAtwMg">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -1226,7 +1226,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_e3y84DeSEe-Zh_B5eAtwMg" describedService__SEFF="_mDMCADeREe-Zh_B5eAtwMg">
       <steps_Behaviour xsi:type="seff:StartAction" id="_e3y84TeSEe-Zh_B5eAtwMg" successor_AbstractAction="_9ehucDe6Ee-Zh_B5eAtwMg"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_e3y84jeSEe-Zh_B5eAtwMg" predecessor_AbstractAction="_Xw5sED0LEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_9ehucDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_e3y84TeSEe-Zh_B5eAtwMg" successor_AbstractAction="_Xw5sED0LEe-hSesFjA3W0w" calledService_ExternalService="_mDMCADeREe-Zh_B5eAtwMg" role_ExternalService="_d-NpgDeSEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_9ehucDe6Ee-Zh_B5eAtwMg" entityName="forward car2x submit data" predecessor_AbstractAction="_e3y84TeSEe-Zh_B5eAtwMg" successor_AbstractAction="_Xw5sED0LEe-hSesFjA3W0w" calledService_ExternalService="_mDMCADeREe-Zh_B5eAtwMg" role_ExternalService="_d-NpgDeSEe-Zh_B5eAtwMg">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -1251,12 +1251,12 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_XVb8sDeoEe-Zh_B5eAtwMg" describedService__SEFF="_kO2mgDelEe-Zh_B5eAtwMg">
       <steps_Behaviour xsi:type="seff:StartAction" id="_XVb8sTeoEe-Zh_B5eAtwMg" successor_AbstractAction="_WF-lUDe7Ee-Zh_B5eAtwMg"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_XVb8sjeoEe-Zh_B5eAtwMg" predecessor_AbstractAction="_WF-lUDe7Ee-Zh_B5eAtwMg"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_WF-lUDe7Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_XVb8sTeoEe-Zh_B5eAtwMg" successor_AbstractAction="_XVb8sjeoEe-Zh_B5eAtwMg" calledService_ExternalService="_kO2mgDelEe-Zh_B5eAtwMg" role_ExternalService="_BMMNoDeoEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_WF-lUDe7Ee-Zh_B5eAtwMg" entityName="forward unlock signal" predecessor_AbstractAction="_XVb8sTeoEe-Zh_B5eAtwMg" successor_AbstractAction="_XVb8sjeoEe-Zh_B5eAtwMg" calledService_ExternalService="_kO2mgDelEe-Zh_B5eAtwMg" role_ExternalService="_BMMNoDeoEe-Zh_B5eAtwMg"/>
     </serviceEffectSpecifications__BasicComponent>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_QxtHsDhdEe-TWfVuLMhuaw" describedService__SEFF="_wOcQ0DhcEe-TWfVuLMhuaw">
       <steps_Behaviour xsi:type="seff:StartAction" id="_QxtHsThdEe-TWfVuLMhuaw" successor_AbstractAction="_ksvsIDoFEe-uRP4Svlg0-Q"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_QxtHsjhdEe-TWfVuLMhuaw" predecessor_AbstractAction="_ksvsIDoFEe-uRP4Svlg0-Q"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_ksvsIDoFEe-uRP4Svlg0-Q" entityName="ExternalCallAction1" predecessor_AbstractAction="_QxtHsThdEe-TWfVuLMhuaw" successor_AbstractAction="_QxtHsjhdEe-TWfVuLMhuaw" calledService_ExternalService="_wOcQ0DhcEe-TWfVuLMhuaw" role_ExternalService="_SYvW8DhdEe-TWfVuLMhuaw">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_ksvsIDoFEe-uRP4Svlg0-Q" entityName="forward lock car signal" predecessor_AbstractAction="_QxtHsThdEe-TWfVuLMhuaw" successor_AbstractAction="_QxtHsjhdEe-TWfVuLMhuaw" calledService_ExternalService="_wOcQ0DhcEe-TWfVuLMhuaw" role_ExternalService="_SYvW8DhdEe-TWfVuLMhuaw">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -1280,7 +1280,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_Qx2RoDhdEe-TWfVuLMhuaw" describedService__SEFF="_BwlHUDhcEe-TWfVuLMhuaw">
       <steps_Behaviour xsi:type="seff:StartAction" id="_Qx2RoThdEe-TWfVuLMhuaw" successor_AbstractAction="_qgaT4DoFEe-uRP4Svlg0-Q"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_Qx2RojhdEe-TWfVuLMhuaw" predecessor_AbstractAction="_ONwh4D0LEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_qgaT4DoFEe-uRP4Svlg0-Q" entityName="ExternalCallAction1" predecessor_AbstractAction="_Qx2RoThdEe-TWfVuLMhuaw" successor_AbstractAction="_ONwh4D0LEe-hSesFjA3W0w" calledService_ExternalService="_BwlHUDhcEe-TWfVuLMhuaw" role_ExternalService="_SYvW8DhdEe-TWfVuLMhuaw">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_qgaT4DoFEe-uRP4Svlg0-Q" entityName="forward trigger heated seats" predecessor_AbstractAction="_Qx2RoThdEe-TWfVuLMhuaw" successor_AbstractAction="_ONwh4D0LEe-hSesFjA3W0w" calledService_ExternalService="_BwlHUDhcEe-TWfVuLMhuaw" role_ExternalService="_SYvW8DhdEe-TWfVuLMhuaw">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -1305,7 +1305,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_Qx_bkDhdEe-TWfVuLMhuaw" describedService__SEFF="_UWkLADhcEe-TWfVuLMhuaw">
       <steps_Behaviour xsi:type="seff:StartAction" id="_Qx_bkThdEe-TWfVuLMhuaw" successor_AbstractAction="_vEzFEDoFEe-uRP4Svlg0-Q"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_Qx_bkjhdEe-TWfVuLMhuaw" predecessor_AbstractAction="_LTP4kD0LEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_vEzFEDoFEe-uRP4Svlg0-Q" entityName="ExternalCallAction1" predecessor_AbstractAction="_Qx_bkThdEe-TWfVuLMhuaw" successor_AbstractAction="_LTP4kD0LEe-hSesFjA3W0w" calledService_ExternalService="_UWkLADhcEe-TWfVuLMhuaw" role_ExternalService="_SYvW8DhdEe-TWfVuLMhuaw">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_vEzFEDoFEe-uRP4Svlg0-Q" entityName="forward find car" predecessor_AbstractAction="_Qx_bkThdEe-TWfVuLMhuaw" successor_AbstractAction="_LTP4kD0LEe-hSesFjA3W0w" calledService_ExternalService="_UWkLADhcEe-TWfVuLMhuaw" role_ExternalService="_SYvW8DhdEe-TWfVuLMhuaw">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -1359,7 +1359,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_QyGwUDhdEe-TWfVuLMhuaw" describedService__SEFF="_GYdRYDhcEe-TWfVuLMhuaw">
       <steps_Behaviour xsi:type="seff:StartAction" id="_QyGwUThdEe-TWfVuLMhuaw" successor_AbstractAction="_zfwNcDoFEe-uRP4Svlg0-Q"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_QyGwUjhdEe-TWfVuLMhuaw" predecessor_AbstractAction="_GOaFsD0LEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_zfwNcDoFEe-uRP4Svlg0-Q" entityName="ExternalCallAction1" predecessor_AbstractAction="_QyGwUThdEe-TWfVuLMhuaw" successor_AbstractAction="_GOaFsD0LEe-hSesFjA3W0w" calledService_ExternalService="_GYdRYDhcEe-TWfVuLMhuaw" role_ExternalService="_SYvW8DhdEe-TWfVuLMhuaw">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_zfwNcDoFEe-uRP4Svlg0-Q" entityName="forward import calender" predecessor_AbstractAction="_QyGwUThdEe-TWfVuLMhuaw" successor_AbstractAction="_GOaFsD0LEe-hSesFjA3W0w" calledService_ExternalService="_GYdRYDhcEe-TWfVuLMhuaw" role_ExternalService="_SYvW8DhdEe-TWfVuLMhuaw">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -1384,7 +1384,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_QyOsIDhdEe-TWfVuLMhuaw" describedService__SEFF="_YApQEDhcEe-TWfVuLMhuaw">
       <steps_Behaviour xsi:type="seff:StartAction" id="_QyOsIThdEe-TWfVuLMhuaw" successor_AbstractAction="_49QX8DoFEe-uRP4Svlg0-Q"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_QyOsIjhdEe-TWfVuLMhuaw" predecessor_AbstractAction="_C3X4cD0LEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_49QX8DoFEe-uRP4Svlg0-Q" entityName="ExternalCallAction1" predecessor_AbstractAction="_QyOsIThdEe-TWfVuLMhuaw" successor_AbstractAction="_C3X4cD0LEe-hSesFjA3W0w" calledService_ExternalService="_YApQEDhcEe-TWfVuLMhuaw" role_ExternalService="_SYvW8DhdEe-TWfVuLMhuaw">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_49QX8DoFEe-uRP4Svlg0-Q" entityName="forward import current dest" predecessor_AbstractAction="_QyOsIThdEe-TWfVuLMhuaw" successor_AbstractAction="_C3X4cD0LEe-hSesFjA3W0w" calledService_ExternalService="_YApQEDhcEe-TWfVuLMhuaw" role_ExternalService="_SYvW8DhdEe-TWfVuLMhuaw">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -1409,12 +1409,12 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_QyWn8DhdEe-TWfVuLMhuaw" describedService__SEFF="_EmDfoDhcEe-TWfVuLMhuaw">
       <steps_Behaviour xsi:type="seff:StartAction" id="_QyWn8ThdEe-TWfVuLMhuaw" successor_AbstractAction="_-G81oDoFEe-uRP4Svlg0-Q"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_QyWn8jhdEe-TWfVuLMhuaw" predecessor_AbstractAction="_-G81oDoFEe-uRP4Svlg0-Q"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_-G81oDoFEe-uRP4Svlg0-Q" entityName="ExternalCallAction1" predecessor_AbstractAction="_QyWn8ThdEe-TWfVuLMhuaw" successor_AbstractAction="_QyWn8jhdEe-TWfVuLMhuaw" calledService_ExternalService="_EmDfoDhcEe-TWfVuLMhuaw" role_ExternalService="_SYvW8DhdEe-TWfVuLMhuaw"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_-G81oDoFEe-uRP4Svlg0-Q" entityName="forward trigger auxiliary heating" predecessor_AbstractAction="_QyWn8ThdEe-TWfVuLMhuaw" successor_AbstractAction="_QyWn8jhdEe-TWfVuLMhuaw" calledService_ExternalService="_EmDfoDhcEe-TWfVuLMhuaw" role_ExternalService="_SYvW8DhdEe-TWfVuLMhuaw"/>
     </serviceEffectSpecifications__BasicComponent>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_bJmJYD0PEe-hSesFjA3W0w" describedService__SEFF="_JnSwQD0PEe-hSesFjA3W0w">
       <steps_Behaviour xsi:type="seff:StartAction" id="_bJmJYT0PEe-hSesFjA3W0w" successor_AbstractAction="_cX3TUD0PEe-hSesFjA3W0w"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_bJmJYj0PEe-hSesFjA3W0w" predecessor_AbstractAction="_elGm8D0PEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_cX3TUD0PEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_bJmJYT0PEe-hSesFjA3W0w" successor_AbstractAction="_elGm8D0PEe-hSesFjA3W0w" calledService_ExternalService="_JnSwQD0PEe-hSesFjA3W0w" role_ExternalService="_aDkVcD0PEe-hSesFjA3W0w">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_cX3TUD0PEe-hSesFjA3W0w" entityName="forward get traffic load" predecessor_AbstractAction="_bJmJYT0PEe-hSesFjA3W0w" successor_AbstractAction="_elGm8D0PEe-hSesFjA3W0w" calledService_ExternalService="_JnSwQD0PEe-hSesFjA3W0w" role_ExternalService="_aDkVcD0PEe-hSesFjA3W0w">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -1472,7 +1472,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_BbdrYDg6Ee-TWfVuLMhuaw" describedService__SEFF="_y2wEwDg5Ee-TWfVuLMhuaw">
       <steps_Behaviour xsi:type="seff:StartAction" id="_BbdrYTg6Ee-TWfVuLMhuaw" successor_AbstractAction="_XjH4UD0XEe-hSesFjA3W0w"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_BbdrYjg6Ee-TWfVuLMhuaw" predecessor_AbstractAction="_YyCigD0XEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_XjH4UD0XEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_BbdrYTg6Ee-TWfVuLMhuaw" successor_AbstractAction="_YyCigD0XEe-hSesFjA3W0w" calledService_ExternalService="_jqIHoDeLEe-Zh_B5eAtwMg" role_ExternalService="_bCuK8DehEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_XjH4UD0XEe-hSesFjA3W0w" entityName="get environment from zFAS" predecessor_AbstractAction="_BbdrYTg6Ee-TWfVuLMhuaw" successor_AbstractAction="_YyCigD0XEe-hSesFjA3W0w" calledService_ExternalService="_jqIHoDeLEe-Zh_B5eAtwMg" role_ExternalService="_bCuK8DehEe-Zh_B5eAtwMg">
         <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -1509,7 +1509,7 @@
         <bodyBehaviour_Loop id="_VhFkkD0WEe-hSesFjA3W0w">
           <steps_Behaviour xsi:type="seff:StartAction" id="_VhFkkT0WEe-hSesFjA3W0w" successor_AbstractAction="_aGAhQD0WEe-hSesFjA3W0w"/>
           <steps_Behaviour xsi:type="seff:StopAction" id="_VhFkkj0WEe-hSesFjA3W0w" predecessor_AbstractAction="_lV_AsD0WEe-hSesFjA3W0w"/>
-          <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_aGAhQD0WEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_VhFkkT0WEe-hSesFjA3W0w" successor_AbstractAction="_3vZA8D0WEe-hSesFjA3W0w" calledService_ExternalService="_jqIHoDeLEe-Zh_B5eAtwMg" role_ExternalService="_hGV6QDehEe-Zh_B5eAtwMg">
+          <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_aGAhQD0WEe-hSesFjA3W0w" entityName="get environment from zFAS" predecessor_AbstractAction="_VhFkkT0WEe-hSesFjA3W0w" successor_AbstractAction="_3vZA8D0WEe-hSesFjA3W0w" calledService_ExternalService="_jqIHoDeLEe-Zh_B5eAtwMg" role_ExternalService="_hGV6QDehEe-Zh_B5eAtwMg">
             <returnVariableUsage__CallReturnAction>
               <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
                 <specification_VariableCharacterisation specification="false"/>
@@ -1526,7 +1526,7 @@
               <branchBehaviour_BranchTransition id="_mqXZsT0WEe-hSesFjA3W0w">
                 <steps_Behaviour xsi:type="seff:StartAction" id="_mqXZsj0WEe-hSesFjA3W0w" successor_AbstractAction="_oSzXID0WEe-hSesFjA3W0w"/>
                 <steps_Behaviour xsi:type="seff:StopAction" id="_mqXZsz0WEe-hSesFjA3W0w" predecessor_AbstractAction="_oSzXID0WEe-hSesFjA3W0w"/>
-                <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_oSzXID0WEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_mqXZsj0WEe-hSesFjA3W0w" successor_AbstractAction="_mqXZsz0WEe-hSesFjA3W0w" calledService_ExternalService="_NYgsMDg6Ee-TWfVuLMhuaw" role_ExternalService="_hEqtwDg6Ee-TWfVuLMhuaw">
+                <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_oSzXID0WEe-hSesFjA3W0w" entityName="change steering" predecessor_AbstractAction="_mqXZsj0WEe-hSesFjA3W0w" successor_AbstractAction="_mqXZsz0WEe-hSesFjA3W0w" calledService_ExternalService="_NYgsMDg6Ee-TWfVuLMhuaw" role_ExternalService="_hEqtwDg6Ee-TWfVuLMhuaw">
                   <inputVariableUsages__CallAction>
                     <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
                       <specification_VariableCharacterisation specification="false"/>
@@ -1545,7 +1545,7 @@
               <branchBehaviour_BranchTransition id="_rpci0T0WEe-hSesFjA3W0w">
                 <steps_Behaviour xsi:type="seff:StartAction" id="_rpci0j0WEe-hSesFjA3W0w" successor_AbstractAction="_syiR0D0WEe-hSesFjA3W0w"/>
                 <steps_Behaviour xsi:type="seff:StopAction" id="_rpdJ4D0WEe-hSesFjA3W0w" predecessor_AbstractAction="_syiR0D0WEe-hSesFjA3W0w"/>
-                <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_syiR0D0WEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_rpci0j0WEe-hSesFjA3W0w" successor_AbstractAction="_rpdJ4D0WEe-hSesFjA3W0w" calledService_ExternalService="_P9qJgDg6Ee-TWfVuLMhuaw" role_ExternalService="_hEqtwDg6Ee-TWfVuLMhuaw">
+                <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_syiR0D0WEe-hSesFjA3W0w" entityName="change throttle" predecessor_AbstractAction="_rpci0j0WEe-hSesFjA3W0w" successor_AbstractAction="_rpdJ4D0WEe-hSesFjA3W0w" calledService_ExternalService="_P9qJgDg6Ee-TWfVuLMhuaw" role_ExternalService="_hEqtwDg6Ee-TWfVuLMhuaw">
                   <inputVariableUsages__CallAction>
                     <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
                       <specification_VariableCharacterisation specification="false"/>
@@ -1570,7 +1570,7 @@
               <branchBehaviour_BranchTransition id="_-ODGcT0WEe-hSesFjA3W0w">
                 <steps_Behaviour xsi:type="seff:StartAction" id="_-ODGcj0WEe-hSesFjA3W0w" successor_AbstractAction="_EReBcD0XEe-hSesFjA3W0w"/>
                 <steps_Behaviour xsi:type="seff:StopAction" id="_-ODGcz0WEe-hSesFjA3W0w" predecessor_AbstractAction="_FCfOsD0XEe-hSesFjA3W0w"/>
-                <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_EReBcD0XEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_-ODGcj0WEe-hSesFjA3W0w" successor_AbstractAction="_FCfOsD0XEe-hSesFjA3W0w" calledService_ExternalService="_NYgsMDg6Ee-TWfVuLMhuaw" role_ExternalService="_hEqtwDg6Ee-TWfVuLMhuaw">
+                <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_EReBcD0XEe-hSesFjA3W0w" entityName="change steering" predecessor_AbstractAction="_-ODGcj0WEe-hSesFjA3W0w" successor_AbstractAction="_FCfOsD0XEe-hSesFjA3W0w" calledService_ExternalService="_NYgsMDg6Ee-TWfVuLMhuaw" role_ExternalService="_hEqtwDg6Ee-TWfVuLMhuaw">
                   <inputVariableUsages__CallAction>
                     <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
                       <specification_VariableCharacterisation specification="false"/>
@@ -1583,7 +1583,7 @@
                     <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="controlInput"/>
                   </inputVariableUsages__CallAction>
                 </steps_Behaviour>
-                <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_FCfOsD0XEe-hSesFjA3W0w" entityName="ExternalCallAction2" predecessor_AbstractAction="_EReBcD0XEe-hSesFjA3W0w" successor_AbstractAction="_-ODGcz0WEe-hSesFjA3W0w" calledService_ExternalService="_P9qJgDg6Ee-TWfVuLMhuaw" role_ExternalService="_hEqtwDg6Ee-TWfVuLMhuaw">
+                <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_FCfOsD0XEe-hSesFjA3W0w" entityName="change throttle" predecessor_AbstractAction="_EReBcD0XEe-hSesFjA3W0w" successor_AbstractAction="_-ODGcz0WEe-hSesFjA3W0w" calledService_ExternalService="_P9qJgDg6Ee-TWfVuLMhuaw" role_ExternalService="_hEqtwDg6Ee-TWfVuLMhuaw">
                   <inputVariableUsages__CallAction>
                     <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
                       <specification_VariableCharacterisation specification="false"/>
@@ -1618,7 +1618,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_CMIXoD3-Ee-NZ5yl-1hYNw" describedService__SEFF="_qEtrsD39Ee-NZ5yl-1hYNw">
       <steps_Behaviour xsi:type="seff:StartAction" id="_CMI-sD3-Ee-NZ5yl-1hYNw" successor_AbstractAction="_D9IbMD3-Ee-NZ5yl-1hYNw"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_CMI-sT3-Ee-NZ5yl-1hYNw" predecessor_AbstractAction="_2XX6sD3-Ee-NZ5yl-1hYNw"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_D9IbMD3-Ee-NZ5yl-1hYNw" entityName="ExternalCallAction1" predecessor_AbstractAction="_CMI-sD3-Ee-NZ5yl-1hYNw" successor_AbstractAction="_LXR4kD3-Ee-NZ5yl-1hYNw" calledService_ExternalService="_jqIHoDeLEe-Zh_B5eAtwMg" role_ExternalService="_hGV6QDehEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_D9IbMD3-Ee-NZ5yl-1hYNw" entityName="get environment from zFAS" predecessor_AbstractAction="_CMI-sD3-Ee-NZ5yl-1hYNw" successor_AbstractAction="_LXR4kD3-Ee-NZ5yl-1hYNw" calledService_ExternalService="_jqIHoDeLEe-Zh_B5eAtwMg" role_ExternalService="_hGV6QDehEe-Zh_B5eAtwMg">
         <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -1655,7 +1655,7 @@
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="controlInput"/>
         </localVariableUsages_SetVariableAction>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_2XX6sD3-Ee-NZ5yl-1hYNw" entityName="ExternalCallAction2" predecessor_AbstractAction="_LXR4kD3-Ee-NZ5yl-1hYNw" successor_AbstractAction="_CMI-sT3-Ee-NZ5yl-1hYNw" calledService_ExternalService="_P9qJgDg6Ee-TWfVuLMhuaw" role_ExternalService="_hEqtwDg6Ee-TWfVuLMhuaw">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_2XX6sD3-Ee-NZ5yl-1hYNw" entityName="modify throttle" predecessor_AbstractAction="_LXR4kD3-Ee-NZ5yl-1hYNw" successor_AbstractAction="_CMI-sT3-Ee-NZ5yl-1hYNw" calledService_ExternalService="_P9qJgDg6Ee-TWfVuLMhuaw" role_ExternalService="_hEqtwDg6Ee-TWfVuLMhuaw">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -1679,15 +1679,15 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_dHf6UD0sEe-hSesFjA3W0w" describedService__SEFF="_cCLRAD0sEe-hSesFjA3W0w">
       <steps_Behaviour xsi:type="seff:StartAction" id="_dHf6UT0sEe-hSesFjA3W0w" successor_AbstractAction="_lhSPwD0sEe-hSesFjA3W0w"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_dHf6Uj0sEe-hSesFjA3W0w" predecessor_AbstractAction="_wQ83cD0sEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_fuLosD0sEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_nUWv4D0sEe-hSesFjA3W0w" successor_AbstractAction="_xubiED0sEe-hSesFjA3W0w" calledService_ExternalService="_urOoEDhQEe-TWfVuLMhuaw" role_ExternalService="_wlCWQDg4Ee-TWfVuLMhuaw"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_lhSPwD0sEe-hSesFjA3W0w" entityName="ExternalCallAction2" predecessor_AbstractAction="_dHf6UT0sEe-hSesFjA3W0w" successor_AbstractAction="_nUWv4D0sEe-hSesFjA3W0w" calledService_ExternalService="_Y_O8EDhYEe-TWfVuLMhuaw" role_ExternalService="_kIl-gD0sEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_nUWv4D0sEe-hSesFjA3W0w" entityName="ExternalCallAction3" predecessor_AbstractAction="_lhSPwD0sEe-hSesFjA3W0w" successor_AbstractAction="_fuLosD0sEe-hSesFjA3W0w" calledService_ExternalService="_pbw9wD0rEe-hSesFjA3W0w" role_ExternalService="_4QfWUD0rEe-hSesFjA3W0w"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_fuLosD0sEe-hSesFjA3W0w" entityName="get car2x data" predecessor_AbstractAction="_nUWv4D0sEe-hSesFjA3W0w" successor_AbstractAction="_xubiED0sEe-hSesFjA3W0w" calledService_ExternalService="_urOoEDhQEe-TWfVuLMhuaw" role_ExternalService="_wlCWQDg4Ee-TWfVuLMhuaw"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_lhSPwD0sEe-hSesFjA3W0w" entityName="get current position" predecessor_AbstractAction="_dHf6UT0sEe-hSesFjA3W0w" successor_AbstractAction="_nUWv4D0sEe-hSesFjA3W0w" calledService_ExternalService="_Y_O8EDhYEe-TWfVuLMhuaw" role_ExternalService="_kIl-gD0sEe-hSesFjA3W0w"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_nUWv4D0sEe-hSesFjA3W0w" entityName="get current route from navigation" predecessor_AbstractAction="_lhSPwD0sEe-hSesFjA3W0w" successor_AbstractAction="_fuLosD0sEe-hSesFjA3W0w" calledService_ExternalService="_pbw9wD0rEe-hSesFjA3W0w" role_ExternalService="_4QfWUD0rEe-hSesFjA3W0w"/>
       <steps_Behaviour xsi:type="seff:BranchAction" id="_wQ83cD0sEe-hSesFjA3W0w" entityName="is adaptive drive  assist on" predecessor_AbstractAction="_xubiED0sEe-hSesFjA3W0w" successor_AbstractAction="_dHf6Uj0sEe-hSesFjA3W0w">
         <branches_Branch xsi:type="seff:ProbabilisticBranchTransition" id="_7BNVAD0sEe-hSesFjA3W0w" entityName="ADA on">
           <branchBehaviour_BranchTransition id="_7BNVAT0sEe-hSesFjA3W0w">
             <steps_Behaviour xsi:type="seff:StartAction" id="_7BNVAj0sEe-hSesFjA3W0w" successor_AbstractAction="__JKo4D0sEe-hSesFjA3W0w"/>
             <steps_Behaviour xsi:type="seff:StopAction" id="_7BNVAz0sEe-hSesFjA3W0w" predecessor_AbstractAction="__JKo4D0sEe-hSesFjA3W0w"/>
-            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="__JKo4D0sEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_7BNVAj0sEe-hSesFjA3W0w" successor_AbstractAction="_7BNVAz0sEe-hSesFjA3W0w" calledService_ExternalService="_QZMrcDg5Ee-TWfVuLMhuaw" role_ExternalService="_NXGMYDg5Ee-TWfVuLMhuaw"/>
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="__JKo4D0sEe-hSesFjA3W0w" entityName="control vehicle with efficient behavior" predecessor_AbstractAction="_7BNVAj0sEe-hSesFjA3W0w" successor_AbstractAction="_7BNVAz0sEe-hSesFjA3W0w" calledService_ExternalService="_QZMrcDg5Ee-TWfVuLMhuaw" role_ExternalService="_NXGMYDg5Ee-TWfVuLMhuaw"/>
           </branchBehaviour_BranchTransition>
         </branches_Branch>
         <branches_Branch xsi:type="seff:ProbabilisticBranchTransition" id="_E6o4QD0tEe-hSesFjA3W0w" entityName="ADA off">
@@ -1833,7 +1833,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_p1w5wDenEe-Zh_B5eAtwMg" describedService__SEFF="_yoVYEDemEe-Zh_B5eAtwMg">
       <steps_Behaviour xsi:type="seff:StartAction" id="_p1w5wTenEe-Zh_B5eAtwMg" successor_AbstractAction="_ShWdQDoGEe-uRP4Svlg0-Q"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_p1w5wjenEe-Zh_B5eAtwMg" predecessor_AbstractAction="_VRx9gDoGEe-uRP4Svlg0-Q"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_ShWdQDoGEe-uRP4Svlg0-Q" entityName="ExternalCallAction1" predecessor_AbstractAction="_p1w5wTenEe-Zh_B5eAtwMg" successor_AbstractAction="_VRx9gDoGEe-uRP4Svlg0-Q" calledService_ExternalService="_UWkLADhcEe-TWfVuLMhuaw" role_ExternalService="_Z-sbsDhdEe-TWfVuLMhuaw">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_ShWdQDoGEe-uRP4Svlg0-Q" entityName="get vehicle position" predecessor_AbstractAction="_p1w5wTenEe-Zh_B5eAtwMg" successor_AbstractAction="_VRx9gDoGEe-uRP4Svlg0-Q" calledService_ExternalService="_UWkLADhcEe-TWfVuLMhuaw" role_ExternalService="_Z-sbsDhdEe-TWfVuLMhuaw">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -1872,7 +1872,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_p16qwDenEe-Zh_B5eAtwMg" describedService__SEFF="_0AIRcDemEe-Zh_B5eAtwMg">
       <steps_Behaviour xsi:type="seff:StartAction" id="_p16qwTenEe-Zh_B5eAtwMg" successor_AbstractAction="_ay1yUDoGEe-uRP4Svlg0-Q"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_p16qwjenEe-Zh_B5eAtwMg" predecessor_AbstractAction="_eGG54DoGEe-uRP4Svlg0-Q"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_ay1yUDoGEe-uRP4Svlg0-Q" entityName="ExternalCallAction1" predecessor_AbstractAction="_p16qwTenEe-Zh_B5eAtwMg" successor_AbstractAction="_eGG54DoGEe-uRP4Svlg0-Q" calledService_ExternalService="_YApQEDhcEe-TWfVuLMhuaw" role_ExternalService="_Z-sbsDhdEe-TWfVuLMhuaw">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_ay1yUDoGEe-uRP4Svlg0-Q" entityName="import phone navigation destination" predecessor_AbstractAction="_p16qwTenEe-Zh_B5eAtwMg" successor_AbstractAction="_eGG54DoGEe-uRP4Svlg0-Q" calledService_ExternalService="_YApQEDhcEe-TWfVuLMhuaw" role_ExternalService="_Z-sbsDhdEe-TWfVuLMhuaw">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -1898,7 +1898,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_sUlFkDenEe-Zh_B5eAtwMg" describedService__SEFF="_YjA1ADemEe-Zh_B5eAtwMg">
       <steps_Behaviour xsi:type="seff:StartAction" id="_sUlFkTenEe-Zh_B5eAtwMg" successor_AbstractAction="_r8qaADoGEe-uRP4Svlg0-Q"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_sUlFkjenEe-Zh_B5eAtwMg" predecessor_AbstractAction="_v9OscDoGEe-uRP4Svlg0-Q"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_r8qaADoGEe-uRP4Svlg0-Q" entityName="ExternalCallAction1" predecessor_AbstractAction="_sUlFkTenEe-Zh_B5eAtwMg" successor_AbstractAction="_v9OscDoGEe-uRP4Svlg0-Q" calledService_ExternalService="_GYdRYDhcEe-TWfVuLMhuaw" role_ExternalService="_Z-sbsDhdEe-TWfVuLMhuaw">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_r8qaADoGEe-uRP4Svlg0-Q" entityName="import phone calender" predecessor_AbstractAction="_sUlFkTenEe-Zh_B5eAtwMg" successor_AbstractAction="_v9OscDoGEe-uRP4Svlg0-Q" calledService_ExternalService="_GYdRYDhcEe-TWfVuLMhuaw" role_ExternalService="_Z-sbsDhdEe-TWfVuLMhuaw">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -1924,19 +1924,19 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_tF7C8DenEe-Zh_B5eAtwMg" describedService__SEFF="_Pu9a4DelEe-Zh_B5eAtwMg">
       <steps_Behaviour xsi:type="seff:StartAction" id="_tF7C8TenEe-Zh_B5eAtwMg" successor_AbstractAction="_05WoMDoGEe-uRP4Svlg0-Q"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_tF7C8jenEe-Zh_B5eAtwMg" predecessor_AbstractAction="_2Y-n4DoGEe-uRP4Svlg0-Q"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_05WoMDoGEe-uRP4Svlg0-Q" entityName="ExternalCallAction1" predecessor_AbstractAction="_tF7C8TenEe-Zh_B5eAtwMg" successor_AbstractAction="_2Y-n4DoGEe-uRP4Svlg0-Q" calledService_ExternalService="_BwlHUDhcEe-TWfVuLMhuaw" role_ExternalService="_Z-sbsDhdEe-TWfVuLMhuaw"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_05WoMDoGEe-uRP4Svlg0-Q" entityName="trigger heated seats from phone" predecessor_AbstractAction="_tF7C8TenEe-Zh_B5eAtwMg" successor_AbstractAction="_2Y-n4DoGEe-uRP4Svlg0-Q" calledService_ExternalService="_BwlHUDhcEe-TWfVuLMhuaw" role_ExternalService="_Z-sbsDhdEe-TWfVuLMhuaw"/>
       <steps_Behaviour xsi:type="seff:SetVariableAction" id="_2Y-n4DoGEe-uRP4Svlg0-Q" entityName="return heated seats result" predecessor_AbstractAction="_05WoMDoGEe-uRP4Svlg0-Q" successor_AbstractAction="_tF7C8jenEe-Zh_B5eAtwMg"/>
     </serviceEffectSpecifications__BasicComponent>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_tF_7cDenEe-Zh_B5eAtwMg" describedService__SEFF="_SDYUkDelEe-Zh_B5eAtwMg">
       <steps_Behaviour xsi:type="seff:StartAction" id="_tF_7cTenEe-Zh_B5eAtwMg" successor_AbstractAction="_7q2KIDoGEe-uRP4Svlg0-Q"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_tF_7cjenEe-Zh_B5eAtwMg" predecessor_AbstractAction="_-20W4DoGEe-uRP4Svlg0-Q"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_7q2KIDoGEe-uRP4Svlg0-Q" entityName="ExternalCallAction1" predecessor_AbstractAction="_tF_7cTenEe-Zh_B5eAtwMg" successor_AbstractAction="_-20W4DoGEe-uRP4Svlg0-Q" calledService_ExternalService="_EmDfoDhcEe-TWfVuLMhuaw" role_ExternalService="_Z-sbsDhdEe-TWfVuLMhuaw"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_7q2KIDoGEe-uRP4Svlg0-Q" entityName="trigger auxiliary heating from phone" predecessor_AbstractAction="_tF_7cTenEe-Zh_B5eAtwMg" successor_AbstractAction="_-20W4DoGEe-uRP4Svlg0-Q" calledService_ExternalService="_EmDfoDhcEe-TWfVuLMhuaw" role_ExternalService="_Z-sbsDhdEe-TWfVuLMhuaw"/>
       <steps_Behaviour xsi:type="seff:SetVariableAction" id="_-20W4DoGEe-uRP4Svlg0-Q" entityName="return trigger auxiliary heating result" predecessor_AbstractAction="_7q2KIDoGEe-uRP4Svlg0-Q" successor_AbstractAction="_tF_7cjenEe-Zh_B5eAtwMg"/>
     </serviceEffectSpecifications__BasicComponent>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_tGEz8DenEe-Zh_B5eAtwMg" describedService__SEFF="_FZABwDenEe-Zh_B5eAtwMg">
       <steps_Behaviour xsi:type="seff:StartAction" id="_tGEz8TenEe-Zh_B5eAtwMg" successor_AbstractAction="_G4MzYDoHEe-uRP4Svlg0-Q"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_tGEz8jenEe-Zh_B5eAtwMg" predecessor_AbstractAction="_G4MzYDoHEe-uRP4Svlg0-Q"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_G4MzYDoHEe-uRP4Svlg0-Q" entityName="ExternalCallAction1" predecessor_AbstractAction="_tGEz8TenEe-Zh_B5eAtwMg" successor_AbstractAction="_tGEz8jenEe-Zh_B5eAtwMg" calledService_ExternalService="_wOcQ0DhcEe-TWfVuLMhuaw" role_ExternalService="_Z-sbsDhdEe-TWfVuLMhuaw">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_G4MzYDoHEe-uRP4Svlg0-Q" entityName="send locking signal" predecessor_AbstractAction="_tGEz8TenEe-Zh_B5eAtwMg" successor_AbstractAction="_tGEz8jenEe-Zh_B5eAtwMg" calledService_ExternalService="_wOcQ0DhcEe-TWfVuLMhuaw" role_ExternalService="_Z-sbsDhdEe-TWfVuLMhuaw">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -2032,21 +2032,21 @@
           <branchBehaviour_BranchTransition id="_La0mkD0TEe-hSesFjA3W0w">
             <steps_Behaviour xsi:type="seff:StartAction" id="_La0mkT0TEe-hSesFjA3W0w" successor_AbstractAction="_cJ-rgD0TEe-hSesFjA3W0w"/>
             <steps_Behaviour xsi:type="seff:StopAction" id="_La0mkj0TEe-hSesFjA3W0w" predecessor_AbstractAction="_cJ-rgD0TEe-hSesFjA3W0w"/>
-            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_cJ-rgD0TEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_La0mkT0TEe-hSesFjA3W0w" successor_AbstractAction="_La0mkj0TEe-hSesFjA3W0w" calledService_ExternalService="_dT2soDn9Ee-uRP4Svlg0-Q" role_ExternalService="_aWCosD0TEe-hSesFjA3W0w"/>
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_cJ-rgD0TEe-hSesFjA3W0w" entityName="trigger drive assist" predecessor_AbstractAction="_La0mkT0TEe-hSesFjA3W0w" successor_AbstractAction="_La0mkj0TEe-hSesFjA3W0w" calledService_ExternalService="_dT2soDn9Ee-uRP4Svlg0-Q" role_ExternalService="_aWCosD0TEe-hSesFjA3W0w"/>
           </branchBehaviour_BranchTransition>
         </branches_Branch>
         <branches_Branch xsi:type="seff:ProbabilisticBranchTransition" id="_Tmb9ID0TEe-hSesFjA3W0w" entityName="trigger junction assist" branchProbability="0.2">
           <branchBehaviour_BranchTransition id="_Tmb9IT0TEe-hSesFjA3W0w">
             <steps_Behaviour xsi:type="seff:StartAction" id="_Tmb9Ij0TEe-hSesFjA3W0w" successor_AbstractAction="_d3eIED0TEe-hSesFjA3W0w"/>
             <steps_Behaviour xsi:type="seff:StopAction" id="_Tmb9Iz0TEe-hSesFjA3W0w" predecessor_AbstractAction="_d3eIED0TEe-hSesFjA3W0w"/>
-            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_d3eIED0TEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_Tmb9Ij0TEe-hSesFjA3W0w" successor_AbstractAction="_Tmb9Iz0TEe-hSesFjA3W0w" calledService_ExternalService="_msFnUDn9Ee-uRP4Svlg0-Q" role_ExternalService="_aWCosD0TEe-hSesFjA3W0w"/>
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_d3eIED0TEe-hSesFjA3W0w" entityName="trigger junction assist" predecessor_AbstractAction="_Tmb9Ij0TEe-hSesFjA3W0w" successor_AbstractAction="_Tmb9Iz0TEe-hSesFjA3W0w" calledService_ExternalService="_msFnUDn9Ee-uRP4Svlg0-Q" role_ExternalService="_aWCosD0TEe-hSesFjA3W0w"/>
           </branchBehaviour_BranchTransition>
         </branches_Branch>
         <branches_Branch xsi:type="seff:ProbabilisticBranchTransition" id="_h_wMED0TEe-hSesFjA3W0w" entityName="initiate navigation with destination" branchProbability="0.2">
           <branchBehaviour_BranchTransition id="_h_wMET0TEe-hSesFjA3W0w">
             <steps_Behaviour xsi:type="seff:StartAction" id="_h_wMEj0TEe-hSesFjA3W0w" successor_AbstractAction="_i-kkwD0TEe-hSesFjA3W0w"/>
             <steps_Behaviour xsi:type="seff:StopAction" id="_h_wMEz0TEe-hSesFjA3W0w" predecessor_AbstractAction="_nTGuMD6WEe-jc7eH6da2TA"/>
-            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_i-kkwD0TEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_h_wMEj0TEe-hSesFjA3W0w" successor_AbstractAction="_nTGuMD6WEe-jc7eH6da2TA" calledService_ExternalService="_kH8sEDn8Ee-uRP4Svlg0-Q" role_ExternalService="_aWCosD0TEe-hSesFjA3W0w">
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_i-kkwD0TEe-hSesFjA3W0w" entityName="initiate navigation for destination" predecessor_AbstractAction="_h_wMEj0TEe-hSesFjA3W0w" successor_AbstractAction="_nTGuMD6WEe-jc7eH6da2TA" calledService_ExternalService="_kH8sEDn8Ee-uRP4Svlg0-Q" role_ExternalService="_aWCosD0TEe-hSesFjA3W0w">
               <inputVariableUsages__CallAction>
                 <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
                   <specification_VariableCharacterisation specification="false"/>
@@ -2077,7 +2077,7 @@
                 <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="route"/>
               </returnVariableUsage__CallReturnAction>
             </steps_Behaviour>
-            <steps_Behaviour xsi:type="seff:SetVariableAction" id="_nTGuMD6WEe-jc7eH6da2TA" entityName="SetVariableAction1" predecessor_AbstractAction="_i-kkwD0TEe-hSesFjA3W0w" successor_AbstractAction="_h_wMEz0TEe-hSesFjA3W0w">
+            <steps_Behaviour xsi:type="seff:SetVariableAction" id="_nTGuMD6WEe-jc7eH6da2TA" entityName="visualize route" predecessor_AbstractAction="_i-kkwD0TEe-hSesFjA3W0w" successor_AbstractAction="_h_wMEz0TEe-hSesFjA3W0w">
               <localVariableUsages_SetVariableAction>
                 <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
                   <specification_VariableCharacterisation specification="false"/>
@@ -2095,14 +2095,14 @@
           <branchBehaviour_BranchTransition id="_omAHUT0TEe-hSesFjA3W0w">
             <steps_Behaviour xsi:type="seff:StartAction" id="_omAHUj0TEe-hSesFjA3W0w" successor_AbstractAction="_pvKu0D0TEe-hSesFjA3W0w"/>
             <steps_Behaviour xsi:type="seff:StopAction" id="_omAHUz0TEe-hSesFjA3W0w" predecessor_AbstractAction="_pvKu0D0TEe-hSesFjA3W0w"/>
-            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_pvKu0D0TEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_omAHUj0TEe-hSesFjA3W0w" successor_AbstractAction="_omAHUz0TEe-hSesFjA3W0w" calledService_ExternalService="_ITWmsD0QEe-hSesFjA3W0w" role_ExternalService="_aWCosD0TEe-hSesFjA3W0w"/>
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_pvKu0D0TEe-hSesFjA3W0w" entityName="initiate navigation search" predecessor_AbstractAction="_omAHUj0TEe-hSesFjA3W0w" successor_AbstractAction="_omAHUz0TEe-hSesFjA3W0w" calledService_ExternalService="_ITWmsD0QEe-hSesFjA3W0w" role_ExternalService="_aWCosD0TEe-hSesFjA3W0w"/>
           </branchBehaviour_BranchTransition>
         </branches_Branch>
         <branches_Branch xsi:type="seff:ProbabilisticBranchTransition" id="_vnfNED0TEe-hSesFjA3W0w" entityName="search" branchProbability="0.2">
           <branchBehaviour_BranchTransition id="_vnfNET0TEe-hSesFjA3W0w">
             <steps_Behaviour xsi:type="seff:StartAction" id="_vnf0ID0TEe-hSesFjA3W0w" successor_AbstractAction="_xNStQD0TEe-hSesFjA3W0w"/>
             <steps_Behaviour xsi:type="seff:StopAction" id="_vnf0IT0TEe-hSesFjA3W0w" predecessor_AbstractAction="_5YhqMD6QEe-jc7eH6da2TA"/>
-            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_xNStQD0TEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_vnf0ID0TEe-hSesFjA3W0w" successor_AbstractAction="_5YhqMD6QEe-jc7eH6da2TA" calledService_ExternalService="_jIPikDn8Ee-uRP4Svlg0-Q" role_ExternalService="_aWCosD0TEe-hSesFjA3W0w">
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_xNStQD0TEe-hSesFjA3W0w" entityName="search for term" predecessor_AbstractAction="_vnf0ID0TEe-hSesFjA3W0w" successor_AbstractAction="_5YhqMD6QEe-jc7eH6da2TA" calledService_ExternalService="_jIPikDn8Ee-uRP4Svlg0-Q" role_ExternalService="_aWCosD0TEe-hSesFjA3W0w">
               <inputVariableUsages__CallAction>
                 <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="searchTerm"/>
               </inputVariableUsages__CallAction>
@@ -2117,7 +2117,7 @@
                 <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="result"/>
               </returnVariableUsage__CallReturnAction>
             </steps_Behaviour>
-            <steps_Behaviour xsi:type="seff:SetVariableAction" id="_5YhqMD6QEe-jc7eH6da2TA" entityName="SetVariableAction1" predecessor_AbstractAction="_xNStQD0TEe-hSesFjA3W0w" successor_AbstractAction="_vnf0IT0TEe-hSesFjA3W0w">
+            <steps_Behaviour xsi:type="seff:SetVariableAction" id="_5YhqMD6QEe-jc7eH6da2TA" entityName="show search results" predecessor_AbstractAction="_xNStQD0TEe-hSesFjA3W0w" successor_AbstractAction="_vnf0IT0TEe-hSesFjA3W0w">
               <localVariableUsages_SetVariableAction>
                 <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
                   <specification_VariableCharacterisation specification="false"/>
@@ -2132,7 +2132,7 @@
           </branchBehaviour_BranchTransition>
         </branches_Branch>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_C45o0D0TEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_v70tUTn9Ee-uRP4Svlg0-Q" successor_AbstractAction="_Ahd3YD0TEe-hSesFjA3W0w" calledService_ExternalService="_x7rvcDeQEe-Zh_B5eAtwMg" role_ExternalService="_-SQc0Dn8Ee-uRP4Svlg0-Q">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_C45o0D0TEe-hSesFjA3W0w" entityName="process spoken command" predecessor_AbstractAction="_v70tUTn9Ee-uRP4Svlg0-Q" successor_AbstractAction="_Ahd3YD0TEe-hSesFjA3W0w" calledService_ExternalService="_x7rvcDeQEe-Zh_B5eAtwMg" role_ExternalService="_-SQc0Dn8Ee-uRP4Svlg0-Q">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -2158,7 +2158,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_v76z8Dn9Ee-uRP4Svlg0-Q" describedService__SEFF="_kH8sEDn8Ee-uRP4Svlg0-Q">
       <steps_Behaviour xsi:type="seff:StartAction" id="_v76z8Tn9Ee-uRP4Svlg0-Q" successor_AbstractAction="_4zgtMD0SEe-hSesFjA3W0w"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_v76z8jn9Ee-uRP4Svlg0-Q" predecessor_AbstractAction="_7caCED0SEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_4zgtMD0SEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_v76z8Tn9Ee-uRP4Svlg0-Q" successor_AbstractAction="_7caCED0SEe-hSesFjA3W0w" calledService_ExternalService="_EOQu8DeREe-Zh_B5eAtwMg" role_ExternalService="__IsVkDn8Ee-uRP4Svlg0-Q">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_4zgtMD0SEe-hSesFjA3W0w" entityName="start calculating route" predecessor_AbstractAction="_v76z8Tn9Ee-uRP4Svlg0-Q" successor_AbstractAction="_7caCED0SEe-hSesFjA3W0w" calledService_ExternalService="_EOQu8DeREe-Zh_B5eAtwMg" role_ExternalService="__IsVkDn8Ee-uRP4Svlg0-Q">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -2201,7 +2201,7 @@
           <branchBehaviour_BranchTransition id="_T98wIT0REe-hSesFjA3W0w">
             <steps_Behaviour xsi:type="seff:StartAction" id="_T98wIj0REe-hSesFjA3W0w" successor_AbstractAction="_phRusD0REe-hSesFjA3W0w"/>
             <steps_Behaviour xsi:type="seff:StopAction" id="_T98wIz0REe-hSesFjA3W0w" predecessor_AbstractAction="_lhFaQD0SEe-hSesFjA3W0w"/>
-            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_phRusD0REe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_T98wIj0REe-hSesFjA3W0w" successor_AbstractAction="_lhFaQD0SEe-hSesFjA3W0w" calledService_ExternalService="_flkTwDeQEe-Zh_B5eAtwMg" role_ExternalService="_ADvBgDn9Ee-uRP4Svlg0-Q">
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_phRusD0REe-hSesFjA3W0w" entityName="initiate normal search" predecessor_AbstractAction="_T98wIj0REe-hSesFjA3W0w" successor_AbstractAction="_lhFaQD0SEe-hSesFjA3W0w" calledService_ExternalService="_flkTwDeQEe-Zh_B5eAtwMg" role_ExternalService="_ADvBgDn9Ee-uRP4Svlg0-Q">
               <inputVariableUsages__CallAction>
                 <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
                   <specification_VariableCharacterisation specification="false"/>
@@ -2241,7 +2241,7 @@
           <branchBehaviour_BranchTransition id="_ve3HcT0REe-hSesFjA3W0w">
             <steps_Behaviour xsi:type="seff:StartAction" id="_ve3Hcj0REe-hSesFjA3W0w" successor_AbstractAction="_xJSo8D0REe-hSesFjA3W0w"/>
             <steps_Behaviour xsi:type="seff:StopAction" id="_ve3Hcz0REe-hSesFjA3W0w" predecessor_AbstractAction="_mpRxYD0SEe-hSesFjA3W0w"/>
-            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_xJSo8D0REe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_ve3Hcj0REe-hSesFjA3W0w" successor_AbstractAction="_mpRxYD0SEe-hSesFjA3W0w" calledService_ExternalService="_CtUEIDeSEe-Zh_B5eAtwMg" role_ExternalService="_A-vRMDn9Ee-uRP4Svlg0-Q">
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_xJSo8D0REe-hSesFjA3W0w" entityName="initiate location based search" predecessor_AbstractAction="_ve3Hcj0REe-hSesFjA3W0w" successor_AbstractAction="_mpRxYD0SEe-hSesFjA3W0w" calledService_ExternalService="_CtUEIDeSEe-Zh_B5eAtwMg" role_ExternalService="_A-vRMDn9Ee-uRP4Svlg0-Q">
               <inputVariableUsages__CallAction>
                 <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
                   <specification_VariableCharacterisation specification="false"/>
@@ -2282,12 +2282,12 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_v8FMADn9Ee-uRP4Svlg0-Q" describedService__SEFF="_dT2soDn9Ee-uRP4Svlg0-Q">
       <steps_Behaviour xsi:type="seff:StartAction" id="_v8FMATn9Ee-uRP4Svlg0-Q" successor_AbstractAction="_KLPf8D0REe-hSesFjA3W0w"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_v8FMAjn9Ee-uRP4Svlg0-Q" predecessor_AbstractAction="_KLPf8D0REe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_KLPf8D0REe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_v8FMATn9Ee-uRP4Svlg0-Q" successor_AbstractAction="_v8FMAjn9Ee-uRP4Svlg0-Q" calledService_ExternalService="_QZMrcDg5Ee-TWfVuLMhuaw" role_ExternalService="_ENynIDn9Ee-uRP4Svlg0-Q"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_KLPf8D0REe-hSesFjA3W0w" entityName="control vehicle" predecessor_AbstractAction="_v8FMATn9Ee-uRP4Svlg0-Q" successor_AbstractAction="_v8FMAjn9Ee-uRP4Svlg0-Q" calledService_ExternalService="_QZMrcDg5Ee-TWfVuLMhuaw" role_ExternalService="_ENynIDn9Ee-uRP4Svlg0-Q"/>
     </serviceEffectSpecifications__BasicComponent>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_v8JdcDn9Ee-uRP4Svlg0-Q" describedService__SEFF="_msFnUDn9Ee-uRP4Svlg0-Q">
       <steps_Behaviour xsi:type="seff:StartAction" id="_v8JdcTn9Ee-uRP4Svlg0-Q" successor_AbstractAction="_BNrvED0REe-hSesFjA3W0w"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_v8KEgDn9Ee-uRP4Svlg0-Q" predecessor_AbstractAction="_Gw_moD0REe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_BNrvED0REe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_v8JdcTn9Ee-uRP4Svlg0-Q" successor_AbstractAction="_Gw_moD0REe-hSesFjA3W0w" calledService_ExternalService="_y2wEwDg5Ee-TWfVuLMhuaw" role_ExternalService="_GFTiYDn9Ee-uRP4Svlg0-Q">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_BNrvED0REe-hSesFjA3W0w" entityName="initiate junction assist" predecessor_AbstractAction="_v8JdcTn9Ee-uRP4Svlg0-Q" successor_AbstractAction="_Gw_moD0REe-hSesFjA3W0w" calledService_ExternalService="_y2wEwDg5Ee-TWfVuLMhuaw" role_ExternalService="_GFTiYDn9Ee-uRP4Svlg0-Q">
         <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -2315,7 +2315,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_nMI4wD0QEe-hSesFjA3W0w" describedService__SEFF="_ITWmsD0QEe-hSesFjA3W0w">
       <steps_Behaviour xsi:type="seff:StartAction" id="_nMI4wT0QEe-hSesFjA3W0w" successor_AbstractAction="_tcI3MD0QEe-hSesFjA3W0w"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_nMJf0D0QEe-hSesFjA3W0w" predecessor_AbstractAction="_0h_fkD0QEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_tcI3MD0QEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_nMI4wT0QEe-hSesFjA3W0w" successor_AbstractAction="_0h_fkD0QEe-hSesFjA3W0w" calledService_ExternalService="_kCU6ED0OEe-hSesFjA3W0w" role_ExternalService="_GjLCgD0QEe-hSesFjA3W0w">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_tcI3MD0QEe-hSesFjA3W0w" entityName="initialize navigation destination search" predecessor_AbstractAction="_nMI4wT0QEe-hSesFjA3W0w" successor_AbstractAction="_0h_fkD0QEe-hSesFjA3W0w" calledService_ExternalService="_kCU6ED0OEe-hSesFjA3W0w" role_ExternalService="_GjLCgD0QEe-hSesFjA3W0w">
         <returnVariableUsage__CallReturnAction>
           <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
             <specification_VariableCharacterisation specification="false"/>
@@ -2343,7 +2343,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_VNHBMD0tEe-hSesFjA3W0w" describedService__SEFF="_R1eXAD0tEe-hSesFjA3W0w">
       <steps_Behaviour xsi:type="seff:StartAction" id="_VNHBMT0tEe-hSesFjA3W0w" successor_AbstractAction="_pdJL4D0tEe-hSesFjA3W0w"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_VNHBMj0tEe-hSesFjA3W0w" predecessor_AbstractAction="_pdJL4D0tEe-hSesFjA3W0w"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_pdJL4D0tEe-hSesFjA3W0w" entityName="ExternalCallAction1" predecessor_AbstractAction="_VNHBMT0tEe-hSesFjA3W0w" successor_AbstractAction="_VNHBMj0tEe-hSesFjA3W0w" calledService_ExternalService="_cCLRAD0sEe-hSesFjA3W0w" role_ExternalService="_ocK3ED0tEe-hSesFjA3W0w"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_pdJL4D0tEe-hSesFjA3W0w" entityName="trigger efficient behavior calculation" predecessor_AbstractAction="_VNHBMT0tEe-hSesFjA3W0w" successor_AbstractAction="_VNHBMj0tEe-hSesFjA3W0w" calledService_ExternalService="_cCLRAD0sEe-hSesFjA3W0w" role_ExternalService="_ocK3ED0tEe-hSesFjA3W0w"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_yQqBAD0OEe-hSesFjA3W0w" entityName="HERETrafficLoadCalculation">

@@ -33,7 +33,7 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
         this.modelProjectName = modelProjectName;
         this.transposeFlowGraphFinder = transposeFlowGraphFinder;
     }
-    
+
     public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider, Optional<Class<? extends Plugin>> modelProjectActivator,
             String modelProjectName) {
         this.resourceProvider = resourceProvider;
@@ -74,10 +74,10 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
             throw new IllegalStateException("Could not initialize analysis");
         }
     }
-    
+
     @Override
-    public DFDFlowGraphCollection findFlowGraphs() {   
-        
+    public DFDFlowGraphCollection findFlowGraphs() {
+
         return new DFDFlowGraphCollection(this.resourceProvider, this.transposeFlowGraphFinder);
     }
 

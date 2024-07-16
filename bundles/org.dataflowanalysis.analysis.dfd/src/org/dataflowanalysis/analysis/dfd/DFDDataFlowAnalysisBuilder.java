@@ -19,7 +19,7 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
     protected String dataFlowDiagramPath;
     protected String dataDictionaryPath;
     protected Optional<DFDResourceProvider> customResourceProvider;
-    protected Class<? extends TransposeFlowGraphFinder > customTransposeFlowGraphFinder;
+    protected Class<? extends TransposeFlowGraphFinder> customTransposeFlowGraphFinder;
 
     /**
      * Constructs a dfd analysis builder with empty values
@@ -83,7 +83,7 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
         this.customResourceProvider = Optional.of(resourceProvider);
         return this;
     }
-    
+
     /**
      * Registers a custom TransposeFlowGraphFinder for the analysis
      * @param transposeFlowGraphFinder Custom TransposeFlowGraphFinder of the analysis
@@ -97,13 +97,12 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
      * Determines the effective resource provider that should be used by the analysis
      */
     private DFDResourceProvider getEffectiveResourceProvider() {
-    	if (this.customResourceProvider.isEmpty()) {
-    		return new DFDURIResourceProvider(ResourceUtils.createRelativePluginURI(this.dataFlowDiagramPath, this.modelProjectName),
+        if (this.customResourceProvider.isEmpty()) {
+            return new DFDURIResourceProvider(ResourceUtils.createRelativePluginURI(this.dataFlowDiagramPath, this.modelProjectName),
                     ResourceUtils.createRelativePluginURI(this.dataDictionaryPath, this.modelProjectName));
-    	}
-    	return this.customResourceProvider.get();
+        }
+        return this.customResourceProvider.get();
     }
-    
 
     /**
      * Validates the stored data
@@ -126,10 +125,11 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
     public DFDConfidentialityAnalysis build() {
         this.validate();
         DFDResourceProvider ressourceProvider = this.getEffectiveResourceProvider();
-        
-        if(customTransposeFlowGraphFinder == null) 
-            return new DFDConfidentialityAnalysis(ressourceProvider,this.pluginActivator, this.modelProjectName);            
+
+        if (customTransposeFlowGraphFinder == null)
+            return new DFDConfidentialityAnalysis(ressourceProvider, this.pluginActivator, this.modelProjectName);
         else
-            return new DFDConfidentialityAnalysis(ressourceProvider, this.pluginActivator, this.modelProjectName, this.customTransposeFlowGraphFinder);
+            return new DFDConfidentialityAnalysis(ressourceProvider, this.pluginActivator, this.modelProjectName,
+                    this.customTransposeFlowGraphFinder);
     }
 }

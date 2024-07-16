@@ -29,6 +29,7 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
     public DFDCyclicTransposeFlowGraphFinder(DFDResourceProvider resourceProvider) {
         super(resourceProvider);
     }
+
     /***
      * The DFDTransposeFlowGraphFinder determines all transpose flow graphs contained in a model, allowing cycles
      * @param dataDictionary
@@ -72,7 +73,7 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
         }
         return transposeFlowGraphs;
     }
-    
+
     public Boolean hasCycles() {
         return hasCycles;
     }
@@ -156,6 +157,7 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
         }
         return vertices;
     }
+
     /**
      * Handles flow to determine sink
      * @param incomingFlow
@@ -177,7 +179,6 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
         List<DFDVertex> previousNodeVertices = determineSinks(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()), previousNodeInputPins,
                 sourceNodes, previousNodesInTransposeFlow);
 
-        
         for (DFDVertex vertex : finalVertices) {
             result.addAll(cloneFlowandVertexForMultipleFlowGraphs(vertex, inputPin, incomingFlow, previousNodeVertices));
         }

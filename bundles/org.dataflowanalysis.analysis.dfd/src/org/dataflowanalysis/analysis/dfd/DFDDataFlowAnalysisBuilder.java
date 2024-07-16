@@ -19,14 +19,14 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
     protected String dataFlowDiagramPath;
     protected String dataDictionaryPath;
     protected Optional<DFDResourceProvider> customResourceProvider;
-    protected Class<? extends TransposeFlowGraphFinder> customTransposeFlowGraphFinder;
+    protected Class<? extends TransposeFlowGraphFinder> customTransposeFlowGraphFinderClass;
 
     /**
      * Constructs a dfd analysis builder with empty values
      */
     public DFDDataFlowAnalysisBuilder() {
         this.customResourceProvider = Optional.empty();
-        this.customTransposeFlowGraphFinder = null;
+        this.customTransposeFlowGraphFinderClass = null;
     }
 
     /**
@@ -88,8 +88,8 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
      * Registers a custom TransposeFlowGraphFinder for the analysis
      * @param transposeFlowGraphFinder Custom TransposeFlowGraphFinder of the analysis
      */
-    public DFDDataFlowAnalysisBuilder useTransposeFlowGraphFinder(Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinder) {
-        this.customTransposeFlowGraphFinder = transposeFlowGraphFinder;
+    public DFDDataFlowAnalysisBuilder useTransposeFlowGraphFinder(Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinderClass) {
+        this.customTransposeFlowGraphFinderClass = transposeFlowGraphFinderClass;
         return this;
     }
 
@@ -126,10 +126,10 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
         this.validate();
         DFDResourceProvider ressourceProvider = this.getEffectiveResourceProvider();
 
-        if (customTransposeFlowGraphFinder == null)
+        if (customTransposeFlowGraphFinderClass == null)
             return new DFDConfidentialityAnalysis(ressourceProvider, this.pluginActivator, this.modelProjectName);
         else
             return new DFDConfidentialityAnalysis(ressourceProvider, this.pluginActivator, this.modelProjectName,
-                    this.customTransposeFlowGraphFinder);
+                    this.customTransposeFlowGraphFinderClass);
     }
 }

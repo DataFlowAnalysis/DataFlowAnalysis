@@ -24,14 +24,14 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
     protected final DFDResourceProvider resourceProvider;
     protected final Optional<Class<? extends Plugin>> modelProjectActivator;
     protected final String modelProjectName;
-    protected final Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinder;
+    protected final Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinderClass;
 
     public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider, Optional<Class<? extends Plugin>> modelProjectActivator,
-            String modelProjectName, Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinder) {
+            String modelProjectName, Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinderClass) {
         this.resourceProvider = resourceProvider;
         this.modelProjectActivator = modelProjectActivator;
         this.modelProjectName = modelProjectName;
-        this.transposeFlowGraphFinder = transposeFlowGraphFinder;
+        this.transposeFlowGraphFinderClass = transposeFlowGraphFinderClass;
     }
 
     public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider, Optional<Class<? extends Plugin>> modelProjectActivator,
@@ -39,7 +39,7 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
         this.resourceProvider = resourceProvider;
         this.modelProjectActivator = modelProjectActivator;
         this.modelProjectName = modelProjectName;
-        this.transposeFlowGraphFinder = DFDCyclicTransposeFlowGraphFinder.class;
+        this.transposeFlowGraphFinderClass = DFDCyclicTransposeFlowGraphFinder.class;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
     @Override
     public DFDFlowGraphCollection findFlowGraphs() {
 
-        return new DFDFlowGraphCollection(this.resourceProvider, this.transposeFlowGraphFinder);
+        return new DFDFlowGraphCollection(this.resourceProvider, this.transposeFlowGraphFinderClass);
     }
 
     @Override

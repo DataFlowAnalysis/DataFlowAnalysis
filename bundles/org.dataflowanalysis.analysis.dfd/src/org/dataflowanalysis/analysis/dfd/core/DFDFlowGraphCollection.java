@@ -35,8 +35,8 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
      * @param resourceProvider Resource provider used to find transpose flow graphs
      * @param resourceProvider transposeFlowGraphFinder used to find transpose flow graphs
      */
-    public void initialize(ResourceProvider resourceProvider, Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinder) {
-        super.initialize(resourceProvider, transposeFlowGraphFinder);
+    public void initialize(ResourceProvider resourceProvider, Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinderClass) {
+        super.initialize(resourceProvider, transposeFlowGraphFinderClass);
     }
 
     /**
@@ -44,9 +44,9 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
      * {@link DFDFlowGraphCollection#findTransposeFlowGraphs()}
      * @param resourceProvider Resource provider that provides model files to the transpose flow graph finder
      */
-    public DFDFlowGraphCollection(DFDResourceProvider resourceProvider, Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinder) {
+    public DFDFlowGraphCollection(DFDResourceProvider resourceProvider, Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinderClass) {
         super();
-        super.initialize(resourceProvider, transposeFlowGraphFinder);
+        super.initialize(resourceProvider, transposeFlowGraphFinderClass);
     }
 
     /**
@@ -55,8 +55,7 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
      * @param resourceProvider Resource provider that provides model files to the transpose flow graph finder
      * @param transposeFlowGraphs Transpose flow graphs saved in the flow graph collection
      */
-    public DFDFlowGraphCollection(DFDResourceProvider resourceProvider, List<? extends AbstractTransposeFlowGraph> transposeFlowGraphs,
-            TransposeFlowGraphFinder transposeFlowGraphFinder) {
+    public DFDFlowGraphCollection(DFDResourceProvider resourceProvider, List<? extends AbstractTransposeFlowGraph> transposeFlowGraphs) {
         super(transposeFlowGraphs, resourceProvider);
     }
 

@@ -17,16 +17,16 @@ import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.core.DFDTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.core.DFDVertex;
 import org.dataflowanalysis.examplemodels.Activator;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class OnlineShopDFDTest {
 
-    private static DFDConfidentialityAnalysis cylcicAnalysis;
-    private static DFDConfidentialityAnalysis linearAnalysis;
+    private DFDConfidentialityAnalysis cylcicAnalysis;
+    private DFDConfidentialityAnalysis linearAnalysis;
 
-    @BeforeAll
-    public static void initAnalysis() {
+    @BeforeEach
+    public void initAnalysis() {
         final var dataFlowDiagramPath = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram")
                 .toString();
         final var dataDictionaryPath = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary")

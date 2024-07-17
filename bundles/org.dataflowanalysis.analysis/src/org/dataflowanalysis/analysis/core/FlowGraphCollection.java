@@ -50,11 +50,7 @@ public abstract class FlowGraphCollection {
         this.resourceProvider = resourceProvider;
         this.transposeFlowGraphs = this.findTransposeFlowGraphs();
     }
-    /*public FlowGraphCollection(ResourceProvider resourceProvider, TransposeFlowGraphFinder transposeFlowGraphFinder) {
-        this.resourceProvider = resourceProvider;
-        this.transposeFlowGraphFinder = transposeFlowGraphFinder;
-        this.transposeFlowGraphs = this.findTransposeFlowGraphs();
-    }*/
+    
 
     /**
      * Initializes a new collection of flow graphs with the given transpose flow graphs

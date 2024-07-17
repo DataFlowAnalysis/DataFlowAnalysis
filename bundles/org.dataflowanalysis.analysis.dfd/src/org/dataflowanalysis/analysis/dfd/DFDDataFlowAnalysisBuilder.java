@@ -124,12 +124,12 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
      */
     public DFDConfidentialityAnalysis build() {
         this.validate();
-        DFDResourceProvider ressourceProvider = this.getEffectiveResourceProvider();
+        DFDResourceProvider resourceProvider = this.getEffectiveResourceProvider();
 
         if (customTransposeFlowGraphFinderClass == null)
-            return new DFDConfidentialityAnalysis(ressourceProvider, this.pluginActivator, this.modelProjectName);
+            return new DFDConfidentialityAnalysis(resourceProvider, this.pluginActivator, this.modelProjectName);
         else
-            return new DFDConfidentialityAnalysis(ressourceProvider, this.pluginActivator, this.modelProjectName,
+            return new DFDConfidentialityAnalysis(resourceProvider, this.pluginActivator, this.modelProjectName,
                     this.customTransposeFlowGraphFinderClass);
     }
 }

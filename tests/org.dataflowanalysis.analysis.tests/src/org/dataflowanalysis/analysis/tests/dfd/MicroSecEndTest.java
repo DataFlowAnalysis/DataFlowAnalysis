@@ -135,20 +135,26 @@ public class MicroSecEndTest {
         assertTrue(flowGraph.wasCyclic());
 
     }
-
+    /**
+     * If all TransposeFlowGraphs violate the constraint, the violation is valid
+     * --> if one TransposeFlowGraph has a logging server constraint is not triggered
+     * 
+     * If all TransposeFlowGraphs violate the constraint, the violation is valid
+     * --> if one TransposeFlowGraph has a secret manager constraint is not triggered
+     * @param flowGraph
+     * @param violatingTransposeFlowGraphs
+     * @param violationsSet
+     */
     private void checkCrossTransposeFlowGraphViolations(FlowGraphCollection flowGraph,
             Map<Integer, List<AbstractTransposeFlowGraph>> violatingTransposeFlowGraphs, Set<Integer> violationsSet) {
         var numOfTransposeFlowGraphs = flowGraph.getTransposeFlowGraphs()
                 .size();
-        // If all TransposeFlowGraphs violate the constraint, the violation is valid
-        // --> if one TransposeFlowGraph has a logging server constraint is not triggered
         if (violatingTransposeFlowGraphs.get(9)
                 .size() >= numOfTransposeFlowGraphs) {
             violationsSet.add(9);
             violationsSet.add(12);
         }
-        // If all TransposeFlowGraphs violate the constraint, the violation is valid
-        // --> if one TransposeFlowGraph has a secret manager constraint is not triggered
+        
         if (violatingTransposeFlowGraphs.get(18)
                 .size() >= numOfTransposeFlowGraphs) {
             violationsSet.add(18);
@@ -184,7 +190,6 @@ public class MicroSecEndTest {
      * An API Gateway or similar facade should exist as a single entry point to the system and perform authorization and
      * authentication of external requests to avoid external entities directly accessing services.
      */
-
     private void hasGateway(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
         if ((hasNodeCharacteristic(node, "Stereotype", "internal")
                 && checkDataCharacteristicImplication(node, "Stereotype", "entrypoint", "Stereotype", "gateway"))

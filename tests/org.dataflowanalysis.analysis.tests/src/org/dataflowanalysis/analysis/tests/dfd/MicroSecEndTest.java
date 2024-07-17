@@ -141,9 +141,6 @@ public class MicroSecEndTest {
      * 
      * If all TransposeFlowGraphs violate the constraint, the violation is valid
      * --> if one TransposeFlowGraph has a secret manager constraint is not triggered
-     * @param flowGraph
-     * @param violatingTransposeFlowGraphs
-     * @param violationsSet
      */
     private void checkCrossTransposeFlowGraphViolations(FlowGraphCollection flowGraph,
             Map<Integer, List<AbstractTransposeFlowGraph>> violatingTransposeFlowGraphs, Set<Integer> violationsSet) {

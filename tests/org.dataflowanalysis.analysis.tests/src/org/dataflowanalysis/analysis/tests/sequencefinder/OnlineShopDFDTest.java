@@ -20,7 +20,7 @@ import org.dataflowanalysis.examplemodels.Activator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class OnlineShopTestDFD {
+public class OnlineShopDFDTest {
 
     private static DFDConfidentialityAnalysis cylcicAnalysis;
     private static DFDConfidentialityAnalysis linearAnalysis;

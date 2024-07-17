@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 public class OnlineShopDFDTest {
 
-    private DFDConfidentialityAnalysis cylcicAnalysis;
+    private DFDConfidentialityAnalysis cyclicAnalysis;
     private DFDConfidentialityAnalysis linearAnalysis;
 
     @BeforeEach
@@ -32,7 +32,7 @@ public class OnlineShopDFDTest {
         final var dataDictionaryPath = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary")
                 .toString();
 
-        cylcicAnalysis = new DFDDataFlowAnalysisBuilder().standalone()
+        cyclicAnalysis = new DFDDataFlowAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)
                 .usePluginActivator(Activator.class)
                 .useDataFlowDiagram(dataFlowDiagramPath)
@@ -48,13 +48,13 @@ public class OnlineShopDFDTest {
                 .useTransposeFlowGraphFinder(DFDTransposeFlowGraphFinder.class)
                 .build();
 
-        cylcicAnalysis.initializeAnalysis();
+        cyclicAnalysis.initializeAnalysis();
         linearAnalysis.initializeAnalysis();
     }
 
     @Test
     public void testCyclicAnalysis() {
-        runAllChecksForAnalysis(cylcicAnalysis);
+        runAllChecksForAnalysis(cyclicAnalysis);
     }
 
     @Test
@@ -63,22 +63,22 @@ public class OnlineShopDFDTest {
     }
 
     private void runAllChecksForAnalysis(DFDConfidentialityAnalysis analysis) {
-        checkNumberOfTransposeFlowGraphs(analysis, 3);
-        checkSinks(analysis, List.of("User", "Database", "Database"));
-        checkNodeLabels(analysis, "User", List.of("EU"));
-        checkDataLabelPropagation(analysis, "User", List.of("Public"));
-        checkRealisticConstraints(analysis, 1, 0);
-        checkIsNotCyclic(analysis);
+        var flowGraph = analysis.findFlowGraphs();
+        flowGraph.evaluate();
+        checkNumberOfTransposeFlowGraphs(flowGraph, 3);
+        checkSinks(flowGraph, List.of("User", "Database", "Database"));
+        checkNodeLabels(flowGraph, "User", List.of("EU"));
+        checkDataLabelPropagation(flowGraph, "User", List.of("Public"));
+        checkRealisticConstraints(analysis,flowGraph, 1, 0);
+        checkIsNotCyclic(flowGraph);
     }
 
-    private void checkNumberOfTransposeFlowGraphs(DFDConfidentialityAnalysis analysis, int expectedNumber) {
-        DFDFlowGraphCollection flowGraph = analysis.findFlowGraphs();
+    private void checkNumberOfTransposeFlowGraphs(DFDFlowGraphCollection flowGraph, int expectedNumber) {
         assertEquals(flowGraph.getTransposeFlowGraphs()
                 .size(), expectedNumber);
     }
 
-    private void checkSinks(DFDConfidentialityAnalysis analysis, List<String> expectedNames) {
-        var flowGraph = analysis.findFlowGraphs();
+    private void checkSinks(DFDFlowGraphCollection flowGraph, List<String> expectedNames) {
         var entityNames = flowGraph.getTransposeFlowGraphs()
                 .stream()
                 .map(it -> ((DFDVertex) it.getSink()).getName())
@@ -87,10 +87,7 @@ public class OnlineShopDFDTest {
         assertIterableEquals(expectedNames, entityNames);
     }
 
-    private void checkNodeLabels(DFDConfidentialityAnalysis analysis, String vertexName, List<String> expectedLabels) {
-        var flowGraph = analysis.findFlowGraphs();
-        flowGraph.evaluate();
-
+    private void checkNodeLabels(DFDFlowGraphCollection flowGraph, String vertexName, List<String> expectedLabels) {
         for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
             for (var vertex : transposeFlowGraph.getVertices()) {
                 if (((DFDVertex) vertex).getName()
@@ -103,9 +100,7 @@ public class OnlineShopDFDTest {
         }
     }
 
-    private void checkDataLabelPropagation(DFDConfidentialityAnalysis analysis, String vertexName, List<String> expectedPropagatedLabels) {
-        var flowGraph = analysis.findFlowGraphs();
-        flowGraph.evaluate();
+    private void checkDataLabelPropagation(DFDFlowGraphCollection flowGraph, String vertexName, List<String> expectedPropagatedLabels) {
         for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
             var sink = transposeFlowGraph.getSink();
             if (((DFDVertex) sink).getName()
@@ -117,11 +112,8 @@ public class OnlineShopDFDTest {
         }
     }
 
-    private void checkRealisticConstraints(DFDConfidentialityAnalysis analysis, int expectedViolationsFirstContraint,
+    private void checkRealisticConstraints(DFDConfidentialityAnalysis analysis, DFDFlowGraphCollection flowGraph, int expectedViolationsFirstContraint,
             int expectedViolationsSecondContraint) {
-        var flowGraph = analysis.findFlowGraphs();
-        flowGraph.evaluate();
-
         // Constraint 1: Personal data flowing to a node that is deployed outside the EU
         // Should find 1 violation
         int violationsFound = 0;
@@ -151,8 +143,7 @@ public class OnlineShopDFDTest {
         }
     }
 
-    private void checkIsNotCyclic(DFDConfidentialityAnalysis analysis) {
-        var flowGraph = analysis.findFlowGraphs();
+    private void checkIsNotCyclic(DFDFlowGraphCollection flowGraph) {
         assertFalse(flowGraph.wasCyclic());
     }
 

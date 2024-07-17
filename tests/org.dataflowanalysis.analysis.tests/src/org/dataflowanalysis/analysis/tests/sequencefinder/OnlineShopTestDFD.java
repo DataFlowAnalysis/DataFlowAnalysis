@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 public class OnlineShopTestDFD {
 
     private static DFDConfidentialityAnalysis cylcicAnalysis;
-    private static DFDConfidentialityAnalysis acyclicAnalysis;
+    private static DFDConfidentialityAnalysis linearAnalysis;
 
     @BeforeAll
     public static void initAnalysis() {
@@ -40,7 +40,7 @@ public class OnlineShopTestDFD {
                 .useTransposeFlowGraphFinder(DFDCyclicTransposeFlowGraphFinder.class)
                 .build();
 
-        acyclicAnalysis = new DFDDataFlowAnalysisBuilder().standalone()
+        linearAnalysis = new DFDDataFlowAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)
                 .usePluginActivator(Activator.class)
                 .useDataFlowDiagram(dataFlowDiagramPath)
@@ -49,7 +49,7 @@ public class OnlineShopTestDFD {
                 .build();
 
         cylcicAnalysis.initializeAnalysis();
-        acyclicAnalysis.initializeAnalysis();
+        linearAnalysis.initializeAnalysis();
     }
 
     @Test
@@ -58,8 +58,8 @@ public class OnlineShopTestDFD {
     }
 
     @Test
-    public void testAcyclicAnalysis() {
-        runAllChecksForAnalysis(acyclicAnalysis);
+    public void testLinearAnalysis() {
+        runAllChecksForAnalysis(linearAnalysis);
     }
 
     private void runAllChecksForAnalysis(DFDConfidentialityAnalysis analysis) {
@@ -68,7 +68,7 @@ public class OnlineShopTestDFD {
         checkNodeLabels(analysis, "User", List.of("EU"));
         checkDataLabelPropagation(analysis, "User", List.of("Public"));
         checkRealisticConstraints(analysis, 1, 0);
-        testIsNotCyclic(analysis);
+        checkIsNotCyclic(analysis);
     }
 
     private void checkNumberOfTransposeFlowGraphs(DFDConfidentialityAnalysis analysis, int expectedNumber) {
@@ -151,7 +151,7 @@ public class OnlineShopTestDFD {
         }
     }
 
-    private void testIsNotCyclic(DFDConfidentialityAnalysis analysis) {
+    private void checkIsNotCyclic(DFDConfidentialityAnalysis analysis) {
         var flowGraph = analysis.findFlowGraphs();
         assertFalse(flowGraph.wasCyclic());
     }

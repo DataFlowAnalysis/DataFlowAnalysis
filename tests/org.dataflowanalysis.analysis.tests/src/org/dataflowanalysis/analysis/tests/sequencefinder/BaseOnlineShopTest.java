@@ -1,98 +1,79 @@
 package org.dataflowanalysis.analysis.tests.sequencefinder;
 
 import static org.dataflowanalysis.analysis.tests.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 import java.nio.file.Paths;
 import java.util.List;
+
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
+import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.dfd.core.DFDCharacteristicValue;
-import org.dataflowanalysis.analysis.dfd.core.DFDCyclicTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraphCollection;
-import org.dataflowanalysis.analysis.dfd.core.DFDTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.core.DFDVertex;
 import org.dataflowanalysis.examplemodels.Activator;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
-public class OnlineShopDFDTest {
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+public abstract class BaseOnlineShopTest {
 
-    private DFDConfidentialityAnalysis cyclicAnalysis;
-    private DFDConfidentialityAnalysis linearAnalysis;
+    private DFDConfidentialityAnalysis analysis;
+    private DFDFlowGraphCollection flowGraph;
 
-    @BeforeEach
+    @BeforeAll
     public void initAnalysis() {
-        final var dataFlowDiagramPath = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram")
-                .toString();
-        final var dataDictionaryPath = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary")
-                .toString();
+        final var dataFlowDiagramPath = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram");
+        final var dataDictionaryPath = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary");
 
-        cyclicAnalysis = new DFDDataFlowAnalysisBuilder().standalone()
+        analysis = new DFDDataFlowAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)
                 .usePluginActivator(Activator.class)
-                .useDataFlowDiagram(dataFlowDiagramPath)
-                .useDataDictionary(dataDictionaryPath)
-                .useTransposeFlowGraphFinder(DFDCyclicTransposeFlowGraphFinder.class)
+                .useDataFlowDiagram(dataFlowDiagramPath.toString())
+                .useDataDictionary(dataDictionaryPath.toString())
+                .useTransposeFlowGraphFinder(getTransposeFlowGraphFinder())
                 .build();
 
-        linearAnalysis = new DFDDataFlowAnalysisBuilder().standalone()
-                .modelProjectName(TEST_MODEL_PROJECT_NAME)
-                .usePluginActivator(Activator.class)
-                .useDataFlowDiagram(dataFlowDiagramPath)
-                .useDataDictionary(dataDictionaryPath)
-                .useTransposeFlowGraphFinder(DFDTransposeFlowGraphFinder.class)
-                .build();
-
-        cyclicAnalysis.initializeAnalysis();
-        linearAnalysis.initializeAnalysis();
-    }
-
-    @Test
-    public void testCyclicAnalysis() {
-        runAllChecksForAnalysis(cyclicAnalysis);
-    }
-
-    @Test
-    public void testLinearAnalysis() {
-        runAllChecksForAnalysis(linearAnalysis);
-    }
-
-    private void runAllChecksForAnalysis(DFDConfidentialityAnalysis analysis) {
-        var flowGraph = analysis.findFlowGraphs();
+        analysis.initializeAnalysis();
+        
+        flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
-        checkNumberOfTransposeFlowGraphs(flowGraph, 3);
-        checkSinks(flowGraph, List.of("User", "Database", "Database"));
-        checkNodeLabels(flowGraph, "User", List.of("EU"));
-        checkDataLabelPropagation(flowGraph, "User", List.of("Public"));
-        checkRealisticConstraints(analysis,flowGraph, 1, 0);
-        checkIsNotCyclic(flowGraph);
     }
+    
+    protected abstract Class<? extends TransposeFlowGraphFinder> getTransposeFlowGraphFinder();
 
-    private void checkNumberOfTransposeFlowGraphs(DFDFlowGraphCollection flowGraph, int expectedNumber) {
+    @Test
+    public void numberOfTransposeFlowGraphs_equalsThree() {
+        DFDFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         assertEquals(flowGraph.getTransposeFlowGraphs()
-                .size(), expectedNumber);
+                .size(), 3);
     }
 
-    private void checkSinks(DFDFlowGraphCollection flowGraph, List<String> expectedNames) {
+    @Test
+    public void checkSinks() {
         var entityNames = flowGraph.getTransposeFlowGraphs()
                 .stream()
                 .map(it -> ((DFDVertex) it.getSink()).getName())
                 .toList();
 
+        var expectedNames = List.of("User", "Database", "Database");
         assertIterableEquals(expectedNames, entityNames);
     }
 
-    private void checkNodeLabels(DFDFlowGraphCollection flowGraph, String vertexName, List<String> expectedLabels) {
+    @Test
+    public void testNodeLabels() {
         for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
             for (var vertex : transposeFlowGraph.getVertices()) {
                 if (((DFDVertex) vertex).getName()
-                        .equals(vertexName)) {
+                        .equals("User")) {
                     var userVertexLabels = retrieveNodeLabels(vertex);
+                    var expectedLabels = List.of("EU");
                     assertIterableEquals(expectedLabels, userVertexLabels);
                     return;
                 }
@@ -100,20 +81,22 @@ public class OnlineShopDFDTest {
         }
     }
 
-    private void checkDataLabelPropagation(DFDFlowGraphCollection flowGraph, String vertexName, List<String> expectedPropagatedLabels) {
+    @Test
+    public void testDataLabelPropagation() {
         for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
             var sink = transposeFlowGraph.getSink();
             if (((DFDVertex) sink).getName()
-                    .equals(vertexName)) {
+                    .equals("User")) {
                 var propagatedLabels = retrieveDataLabels(sink);
+                var expectedPropagatedLabels = List.of("Public");
                 assertIterableEquals(expectedPropagatedLabels, propagatedLabels);
                 return;
             }
         }
     }
 
-    private void checkRealisticConstraints(DFDConfidentialityAnalysis analysis, DFDFlowGraphCollection flowGraph, int expectedViolationsFirstContraint,
-            int expectedViolationsSecondContraint) {
+    @Test
+    public void testRealisticConstraints() {
         // Constraint 1: Personal data flowing to a node that is deployed outside the EU
         // Should find 1 violation
         int violationsFound = 0;
@@ -127,7 +110,7 @@ public class OnlineShopDFDTest {
 
             violationsFound += violations.size();
         }
-        assertEquals(expectedViolationsFirstContraint, violationsFound);
+        assertEquals(1, violationsFound);
 
         // Constraint 2: Personal data in a node deployed outside the EU w/o encryption
         // Should find 0 violations
@@ -139,11 +122,12 @@ public class OnlineShopDFDTest {
                 return nodeLabels.contains("nonEU") && dataLabels.contains("Personal") && !dataLabels.contains("Encrypted");
             });
 
-            assertEquals(expectedViolationsSecondContraint, violations.size());
+            assertEquals(0, violations.size());
         }
     }
-
-    private void checkIsNotCyclic(DFDFlowGraphCollection flowGraph) {
+    
+    @Test
+    public void checkIsNotCyclic() {
         assertFalse(flowGraph.wasCyclic());
     }
 

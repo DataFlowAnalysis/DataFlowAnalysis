@@ -76,7 +76,9 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
 
         return transposeFlowGraphFinder.findTransposeFlowGraphs();
     }
-
+    /**
+     * @return whether the provided DFD had cyclic behavior or not, since resolving Cycles can lead to unexpected behavior
+     */
     public boolean wasCyclic() {
         if (transposeFlowGraphFinder instanceof DFDCyclicTransposeFlowGraphFinder cyclicTransposeFlowGraphFinder) {
             return cyclicTransposeFlowGraphFinder.hasCycles();

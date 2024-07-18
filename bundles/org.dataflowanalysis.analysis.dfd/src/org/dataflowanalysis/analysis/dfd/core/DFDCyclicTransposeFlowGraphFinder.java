@@ -32,8 +32,6 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
 
     /***
      * The DFDTransposeFlowGraphFinder determines all transpose flow graphs contained in a model, allowing cycles
-     * @param dataDictionary
-     * @param dataFlowDiagram
      */
     public DFDCyclicTransposeFlowGraphFinder(DataDictionary dataDictionary, DataFlowDiagram dataFlowDiagram) {
         super(dataDictionary, dataFlowDiagram);
@@ -167,7 +165,6 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
      * @param finalVertices
      * @param sourceNodes 
      * @param previousNodesInTransposeFlow List of all Nodes part of the current transpose Flow
-     * @return
      */
     private List<DFDVertex> handleIncomingFlow(Flow incomingFlow, Pin inputPin, List<DFDVertex> finalVertices, List<Node> sourceNodes,
             List<String> previousNodesInTransposeFlow) {
@@ -190,7 +187,6 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
      * checks if the source of incoming flow is part of a loop (We allow first iteration of loop)
      * @param previousNodesInTransposeFlow List of all Nodes part of the current transpose Flow
      * @param sourceNode
-     * @return
      */
     private boolean loopCheck(List<String> previousNodesInTransposeFlow, String sourceNode) {
         long count = previousNodesInTransposeFlow.stream()

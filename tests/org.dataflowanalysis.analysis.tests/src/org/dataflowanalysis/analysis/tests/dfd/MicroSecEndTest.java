@@ -1,11 +1,13 @@
 package org.dataflowanalysis.analysis.tests.dfd;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -124,7 +126,7 @@ public class MicroSecEndTest {
 
     @Test
     void testDetectCycles() {
-        var model = Paths.get(location, "sqshq", "sqshq_11")
+        var model = Paths.get(location, "anilallewar", "anilallewar_0")
                 .toString();
 
         var analysis = buildAnalysis(model);
@@ -135,28 +137,67 @@ public class MicroSecEndTest {
         assertTrue(flowGraph.wasCyclic());
 
     }
-    /**
-     * If all TransposeFlowGraphs violate the constraint, the violation is valid
-     * --> if one TransposeFlowGraph has a logging server constraint is not triggered
-     * 
-     * If all TransposeFlowGraphs violate the constraint, the violation is valid
-     * --> if one TransposeFlowGraph has a secret manager constraint is not triggered
-     */
+    
+    @Test
+    void testRamCopyIssue() {
+        var model = Paths.get(location, "sqshq", "sqshq_18")
+                .toString();
+        Set<Integer> numbers = new HashSet<>();
+        
+        for(int i = 0; i < 10000; i++) {
+            var analysis = buildAnalysis(model);
+            analysis.initializeAnalysis();
+            var flowGraph = analysis.findFlowGraphs();
+            flowGraph.evaluate();
+            var numVertex = 0;
+            for(var tfg: flowGraph.getTransposeFlowGraphs()) {
+                numVertex+=tfg.getVertices().size(); 
+                System.out.println(numVertex);
+            } 
+            numbers.add(numVertex);
+
+
+            System.out.println(numbers);
+
+            assertEquals(numbers.size(),1);
+        }
+    }
+    
     private void checkCrossTransposeFlowGraphViolations(FlowGraphCollection flowGraph,
             Map<Integer, List<AbstractTransposeFlowGraph>> violatingTransposeFlowGraphs, Set<Integer> violationsSet) {
         var numOfTransposeFlowGraphs = flowGraph.getTransposeFlowGraphs()
                 .size();
-        if (violatingTransposeFlowGraphs.get(9)
-                .size() >= numOfTransposeFlowGraphs) {
-            violationsSet.add(9);
-            violationsSet.add(12);
-        }
+        missingLoggingServer(violatingTransposeFlowGraphs, violationsSet, numOfTransposeFlowGraphs);
         
+        missingSecretManager(violatingTransposeFlowGraphs, violationsSet, numOfTransposeFlowGraphs);
+    }
+    
+    /**
+     *  If all TransposeFlowGraphs violate the constraint, the violation is valid
+     * --> if one TransposeFlowGraph has a secret manager constraint is not triggered
+     */
+    private void missingSecretManager(Map<Integer, List<AbstractTransposeFlowGraph>> violatingTransposeFlowGraphs, Set<Integer> violationsSet,
+            int numOfTransposeFlowGraphs) {
         if (violatingTransposeFlowGraphs.get(18)
                 .size() >= numOfTransposeFlowGraphs) {
             violationsSet.add(18);
         }
     }
+    
+    /**
+     * If all TransposeFlowGraphs violate the constraint, the violation is valid
+     * --> if one TransposeFlowGraph has a logging server constraint is not triggered
+     */
+    private void missingLoggingServer(Map<Integer, List<AbstractTransposeFlowGraph>> violatingTransposeFlowGraphs, Set<Integer> violationsSet,
+            int numOfTransposeFlowGraphs) {
+        if (violatingTransposeFlowGraphs.get(9)
+                .size() >= numOfTransposeFlowGraphs) {
+            violationsSet.add(9);
+            violationsSet.add(12);
+        }
+    }
+    
+    
 
     private boolean hasNodeWithCharacteristic(AbstractTransposeFlowGraph transposeFlowGraph, String constraintRuleType, String constraintRule) {
         return transposeFlowGraph.stream()

@@ -33,7 +33,7 @@ public abstract class FlowGraphCollection {
     /**
      * Initializes the flow graph collection with the given resource provider
      * @param resourceProvider Resource provider used to find transpose flow graphs
-     * @param resourceProvider transposeFlowGraphFinder used to find transpose flow graphs
+     * @param transposeFlowGraphFinder transposeFlowGraphFinder used to find transpose flow graphs
      */
     public void initialize(ResourceProvider resourceProvider, Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinder) {
         this.resourceProvider = resourceProvider;

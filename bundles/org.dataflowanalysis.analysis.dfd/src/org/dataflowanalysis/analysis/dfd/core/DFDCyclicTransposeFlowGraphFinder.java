@@ -33,8 +33,6 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
 
     /***
      * The DFDTransposeFlowGraphFinder determines all transpose flow graphs contained in a model, allowing cycles
-     * @param dataDictionary
-     * @param dataFlowDiagram
      */
     public DFDCyclicTransposeFlowGraphFinder(DataDictionary dataDictionary, DataFlowDiagram dataFlowDiagram) {
         super(dataDictionary, dataFlowDiagram);
@@ -75,8 +73,10 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
         System.out.println("Copies: " + numOfCopies);
         return transposeFlowGraphs;
     }
-
-    public Boolean hasCycles() {
+    /**
+     * @return whether the provided DFD has cyclic behavior or not, since resolving Cycles can lead to unexpected behavior
+     */
+    public boolean hasCycles() {
         return hasCycles;
     }
 
@@ -162,14 +162,12 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
 
     /**
      * Handles flow to determine sink
-     * @param incomingFlow
-     * @param inputPin
+     * @param incomingFlow relevant flow
+     * @param inputPin Relevant input pin on the given vertex
      * @param finalVertices
-     * @param sourceNodes
-     * @param previousNodesInTransposeFlow
-     * @return
+     * @param sourceNodes 
+     * @param previousNodesInTransposeFlow List of all Nodes part of the current transpose Flow
      */
-
     private List<DFDVertex> handleIncomingFlow(Flow incomingFlow, Pin inputPin, List<DFDVertex> finalVertices, List<Node> sourceNodes,
             List<String> previousNodesInTransposeFlow) {
         List<DFDVertex> result = new ArrayList<>();
@@ -189,11 +187,10 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
 
     /**
      * checks if the source of incoming flow is part of a loop (We allow first iteration of loop)
-     * @param previousNodesInTransposeFlow
+     * @param previousNodesInTransposeFlow List of all Nodes part of the current transpose Flow
      * @param sourceNode
-     * @return
      */
-    private Boolean loopCheck(List<String> previousNodesInTransposeFlow, String sourceNode) {
+    private boolean loopCheck(List<String> previousNodesInTransposeFlow, String sourceNode) {
         long count = previousNodesInTransposeFlow.stream()
                 .filter(item -> item.equals(sourceNode))
                 .count();

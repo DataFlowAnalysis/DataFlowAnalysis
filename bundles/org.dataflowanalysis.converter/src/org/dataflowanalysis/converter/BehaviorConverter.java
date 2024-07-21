@@ -20,7 +20,7 @@ import org.dataflowanalysis.dfd.datadictionary.datadictionaryFactory;
  * Supports logical operations AND, OR, and NOT.
  */
 public class BehaviorConverter {
-    private final datadictionaryFactory ddFactory;
+    private final datadictionaryFactory ddFactory = datadictionaryFactory.eINSTANCE;
     private DataDictionary dataDictionary;
 
     private final Logger logger = Logger.getLogger(BehaviorConverter.class);
@@ -30,12 +30,10 @@ public class BehaviorConverter {
     private final String LOGICAL_NOT = "!";
 
     public BehaviorConverter() {
-        ddFactory = datadictionaryFactory.eINSTANCE;
-        dataDictionary = null;
+        this(null);
     }
 
     public BehaviorConverter(DataDictionary dataDictionary) {
-        this();
         this.dataDictionary = dataDictionary;
     }
 

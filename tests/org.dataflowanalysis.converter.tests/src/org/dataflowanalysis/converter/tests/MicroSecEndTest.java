@@ -65,37 +65,42 @@ public class MicroSecEndTest extends ConverterTest {
                         .stream())
                 .collect(Collectors.toList());
 
-        List<Pin> inPins = dfd.dataDictionary()
-                .getBehaviour()
-                .stream()
-                .flatMap(behavior -> behavior.getInPin()
-                        .stream())
-                .collect(Collectors.toList());
-
-
-        var nodes = dfd.dataFlowDiagram().getNodes();
+        var nodes = dfd.dataFlowDiagram()
+                .getNodes();
         for (Node node : nodes) {
             var behaviour = node.getBehaviour();
-            
-            var forwardCount = behaviour.getAssignment().stream()
+
+            var forwardCount = behaviour.getAssignment()
+                    .stream()
                     .filter(assignment -> assignment instanceof ForwardingAssignment)
                     .count();
-            if (!behaviour.getInPin().isEmpty()) {
-                assertEquals(forwardCount, behaviour.getOutPin().size());
-            }
-            else {
-                assertEquals(forwardCount,0);
+            if (!behaviour.getInPin()
+                    .isEmpty()) {
+                assertEquals(forwardCount, behaviour.getOutPin()
+                        .size());
+            } else {
+                assertEquals(forwardCount, 0);
             }
 
-            var assignmentCount = behaviour.getAssignment().stream()
-                .filter(assignment -> assignment instanceof Assignment)
-                .count();
-            assertEquals(assignmentCount, behaviour.getOutPin().size());
+            var assignmentCount = behaviour.getAssignment()
+                    .stream()
+                    .filter(assignment -> assignment instanceof Assignment)
+                    .count();
+            assertEquals(assignmentCount, behaviour.getOutPin()
+                    .size());
+
+            var expectedInPins = micro.informationFlows()
+                    .stream()
+                    .map(iflow -> iflow.receiver())
+                    .toList()
+                    .contains(node.getEntityName()) ? 1 : 0;
+            assertEquals(node.getBehaviour()
+                    .getInPin()
+                    .size(), expectedInPins);
         }
-        
+
         assertEquals(micro.informationFlows()
                 .size(), outPins.size());
-        assertEquals(outPins.size(), inPins.size());
 
         // Double Check for Assignments without a output pin
         assignments.forEach(a -> {

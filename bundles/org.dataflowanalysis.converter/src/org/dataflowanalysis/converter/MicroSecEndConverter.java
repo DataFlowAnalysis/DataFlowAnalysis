@@ -212,11 +212,11 @@ public class MicroSecEndConverter extends Converter {
             flow.setDestinationNode(dest);
             flow.setEntityName(iflow.sender());
 
-            var inPin = ddFactory.createPin();
-            inPin.setId(Integer.toString(idCounter++));
-            dest.getBehaviour()
+            var inPin = dest.getBehaviour()
                     .getInPin()
-                    .add(inPin);
+                    .stream()
+                    .findFirst()
+                    .orElseGet(() -> createInPin(dest));
 
             var outPin = ddFactory.createPin();
             outPin.setId(Integer.toString(idCounter++));
@@ -235,6 +235,15 @@ public class MicroSecEndConverter extends Converter {
             flowLabels.addAll(createTaggedValueLabels(iflow.taggedValues(), dd));
             outpinToFlowLabelMap.put(outPin, flowLabels);
         }
+    }
+
+    private Pin createInPin(Node dest) {
+        var inPin = ddFactory.createPin();
+        inPin.setId(Integer.toString(idCounter++));
+        dest.getBehaviour()
+                .getInPin()
+                .add(inPin);
+        return inPin;
     }
 
     private void createNodeAssignments() {
@@ -272,7 +281,8 @@ public class MicroSecEndConverter extends Converter {
     private void createForwardingAssignments() {
         for (Node node : nodesMap.values()) {
             var behaviour = node.getBehaviour();
-            if (!behaviour.getInPin().isEmpty()) {
+            if (!behaviour.getInPin()
+                    .isEmpty()) {
                 for (Pin pin : behaviour.getOutPin()) {
                     var assignment = ddFactory.createForwardingAssignment();
                     assignment.setId(Integer.toString(idCounter++));

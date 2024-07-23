@@ -212,7 +212,11 @@ public class MicroSecEndConverter extends Converter {
             flow.setDestinationNode(dest);
             flow.setEntityName(iflow.sender());
 
-            var inPin = dest.getBehaviour().getInPin().stream().findFirst().orElseGet(()->createInPin(dest));
+            var inPin = dest.getBehaviour()
+                    .getInPin()
+                    .stream()
+                    .findFirst()
+                    .orElseGet(() -> createInPin(dest));
 
             var outPin = ddFactory.createPin();
             outPin.setId(Integer.toString(idCounter++));
@@ -277,7 +281,8 @@ public class MicroSecEndConverter extends Converter {
     private void createForwardingAssignments() {
         for (Node node : nodesMap.values()) {
             var behaviour = node.getBehaviour();
-            if (!behaviour.getInPin().isEmpty()) {
+            if (!behaviour.getInPin()
+                    .isEmpty()) {
                 for (Pin pin : behaviour.getOutPin()) {
                     var assignment = ddFactory.createForwardingAssignment();
                     assignment.setId(Integer.toString(idCounter++));

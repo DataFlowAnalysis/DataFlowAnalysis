@@ -47,7 +47,7 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
         List<DataCharacteristic> incomingDataCharacteristics = this.getIncomingDataCharacteristics();
         List<CharacteristicValue> nodeCharacteristics = this.getVertexCharacteristics();
 
-        if (this.getReferencedElement() instanceof StartAction) {
+        if (this.getReferencedElement() instanceof StartAction && !this.isBranching()) {
             List<String> variableNames = this.getParameter()
                     .stream()
                     .map(Parameter::getParameterName)
@@ -57,13 +57,19 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
                     .toList();
             this.setPropagationResult(incomingDataCharacteristics, incomingDataCharacteristics, nodeCharacteristics);
             return;
-        } else if (this.getReferencedElement() instanceof StopAction) {
+        } else if (this.getReferencedElement() instanceof StartAction) {
+        	this.setPropagationResult(incomingDataCharacteristics, incomingDataCharacteristics, nodeCharacteristics);
+        	return;
+        } else if (this.getReferencedElement() instanceof StopAction && !this.isBranching()) {
             List<DataCharacteristic> outgoingDataCharacteristics = incomingDataCharacteristics.parallelStream()
                     .filter(it -> it.getVariableName()
                             .equals("RETURN"))
                     .collect(Collectors.toList());
             this.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, nodeCharacteristics);
             return;
+        } else if (this.getReferencedElement() instanceof StopAction) {
+        	this.setPropagationResult(incomingDataCharacteristics, incomingDataCharacteristics, nodeCharacteristics);
+        	return;
         } else if (!(this.getReferencedElement() instanceof SetVariableAction)) {
             logger.error("Found unexpected sequence element of unknown PCM type " + this.getReferencedElement()
                     .getClass()

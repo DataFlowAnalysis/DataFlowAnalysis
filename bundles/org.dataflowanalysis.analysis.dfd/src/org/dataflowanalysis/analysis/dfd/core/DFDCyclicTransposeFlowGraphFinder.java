@@ -23,7 +23,7 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
     private final Logger logger = Logger.getLogger(DFDCyclicTransposeFlowGraphFinder.class);
     private boolean hasCycles = false;
     private int numOfCopies = 0;
-    private static final int ITERATIONS_OF_LOOP = 1 ;
+    private static final int ITERATIONS_OF_LOOP = 1;
     /***
      * The DFDTransposeFlowGraphFinder determines all transpose flow graphs contained in a model, allowing cycles
      */
@@ -56,8 +56,12 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
         List<DFDTransposeFlowGraph> transposeFlowGraphs = new ArrayList<>();
 
         for (Node endNode : potentialSinks) {
+            List<String> previousNodesInTransposeFlow = new ArrayList<>();
+
+            previousNodesInTransposeFlow.add(endNode.getEntityName());
+            
             List<DFDVertex> sinks = determineSinks(new DFDVertex(endNode, new HashMap<>(), new HashMap<>()), endNode.getBehaviour()
-                    .getInPin(), sources);
+                    .getInPin(), sources, previousNodesInTransposeFlow);
             if (!sourceNodes.isEmpty()) {
                 sinks = sinks.stream()
                         .filter(it -> new DFDTransposeFlowGraph(it).getVertices()
@@ -70,7 +74,6 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
             sinks.forEach(sink -> sink.unify(new HashSet<>()));
             sinks.forEach(sink -> transposeFlowGraphs.add(new DFDTransposeFlowGraph(sink)));
         }
-        System.out.println("Copies: " + numOfCopies);
         return transposeFlowGraphs;
     }
     /**
@@ -88,39 +91,6 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
      * @param inputPins Relevant input pins on the given vertex
      * @return List of sinks created from the initial sink with previous vertices calculated
      */
-    private List<DFDVertex> determineSinks(DFDVertex sink, List<Pin> inputPins, List<Node> sourceNodes) {
-        List<DFDVertex> vertices = new ArrayList<>();
-        vertices.add(sink);
-
-        if (sourceNodes.contains(sink.getReferencedElement())) {
-            return vertices;
-        }
-
-        for (Pin inputPin : inputPins) {
-            List<Flow> incomingFlowsToPin = dataFlowDiagram.getFlows()
-                    .stream()
-                    .filter(flow -> flow.getDestinationPin()
-                            .equals(inputPin))
-                    .toList();
-
-            List<String> previousNodesInTransposeFlow = new ArrayList<>();
-
-            previousNodesInTransposeFlow.add(incomingFlowsToPin.get(0)
-                    .getDestinationNode()
-                    .getEntityName());
-
-            previousNodesInTransposeFlow.add(incomingFlowsToPin.get(0)
-                    .getSourceNode()
-                    .getEntityName());
-
-            List<DFDVertex> finalVertices = vertices;
-            vertices = (incomingFlowsToPin.stream()
-                    .flatMap(flow -> handleIncomingFlow(flow, inputPin, finalVertices, sourceNodes, previousNodesInTransposeFlow).stream())
-                    .toList());
-        }
-        return vertices;
-    }
-
     private List<DFDVertex> determineSinks(DFDVertex sink, List<Pin> inputPins, List<Node> sourceNodes, List<String> previousNodesInTransposeFlow) {
         List<DFDVertex> vertices = new ArrayList<>();
         vertices.add(sink);
@@ -131,26 +101,12 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
 
         for (Pin inputPin : inputPins) {
             var copyPreviousNodesInTransposeFlow = new ArrayList<>(previousNodesInTransposeFlow);
-
             List<Flow> incomingFlowsToPin = dataFlowDiagram.getFlows()
                     .stream()
                     .filter(flow -> flow.getDestinationPin()
                             .equals(inputPin))
                     .toList();
-
-            if (!loopCheck(previousNodesInTransposeFlow, incomingFlowsToPin.get(0)
-                    .getSourceNode()
-                    .getEntityName())) {
-                if (!hasCycles) {
-                    logger.warn("Resolving cycles: Stoping cyclic behavior for analysis, may cause unwanted behavior");
-                    hasCycles = true;
-                }
-                continue;
-            }
-
-            copyPreviousNodesInTransposeFlow.add(incomingFlowsToPin.get(0)
-                    .getSourceNode()
-                    .getEntityName());
+           
 
             List<DFDVertex> finalVertices = vertices;
             vertices = incomingFlowsToPin.stream()
@@ -169,15 +125,32 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
      * @param previousNodesInTransposeFlow List of all Nodes part of the current transpose Flow
      */
     private List<DFDVertex> handleIncomingFlow(Flow incomingFlow, Pin inputPin, List<DFDVertex> finalVertices, List<Node> sourceNodes,
-            List<String> previousNodesInTransposeFlow) {
+            List<String> previousNodesInTransposeFlow) {        
+        
         List<DFDVertex> result = new ArrayList<>();
 
         Node previousNode = incomingFlow.getSourceNode();
 
         List<Pin> previousNodeInputPins = getAllPreviousNodeInputPins(previousNode, incomingFlow);
-
-        List<DFDVertex> previousNodeVertices = determineSinks(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()), previousNodeInputPins,
-                sourceNodes, previousNodesInTransposeFlow);
+        
+        List<DFDVertex> previousNodeVertices = new ArrayList<>();
+        
+        if (!loopCheck(previousNodesInTransposeFlow, previousNode
+                .getEntityName())) {
+                previousNodeVertices.add(new DFDVertex(previousNode, new HashMap<Pin, DFDVertex>(), new HashMap<Pin, Flow>()));
+            if (!hasCycles) {
+                logger.warn("Resolving cycles: Stoping cyclic behavior for analysis, may cause unwanted behavior");
+                hasCycles = true;
+            }
+        }
+        else {
+            previousNodesInTransposeFlow.add(previousNode.getEntityName());
+            previousNodeVertices = determineSinks(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()), previousNodeInputPins,
+                    sourceNodes, previousNodesInTransposeFlow);
+        }
+        
+        
+        
 
         for (DFDVertex vertex : finalVertices) {
             result.addAll(cloneFlowandVertexForMultipleFlowGraphs(vertex, inputPin, incomingFlow, previousNodeVertices));

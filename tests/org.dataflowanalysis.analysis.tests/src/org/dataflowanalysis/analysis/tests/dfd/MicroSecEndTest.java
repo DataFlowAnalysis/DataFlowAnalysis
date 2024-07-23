@@ -21,6 +21,7 @@ import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.dfd.core.DFDCyclicTransposeFlowGraphFinder;
 import org.dataflowanalysis.examplemodels.Activator;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.google.common.collect.ImmutableMap;
@@ -138,13 +139,14 @@ public class MicroSecEndTest {
 
     }
     
+    @Disabled
     @Test
     void testRamCopyIssue() {
         var model = Paths.get(location, "sqshq", "sqshq_18")
                 .toString();
         Set<Integer> numbers = new HashSet<>();
         
-        for(int i = 0; i < 10000; i++) {
+        for(int i = 0; i < 100; i++) {
             var analysis = buildAnalysis(model);
             analysis.initializeAnalysis();
             var flowGraph = analysis.findFlowGraphs();

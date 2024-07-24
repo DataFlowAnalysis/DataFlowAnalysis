@@ -179,8 +179,15 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
         return context;
     }
 
-    @Override
-    public boolean equals(Object otherVertexObject) {
+    /**
+     * Determines whether a vertex is equivalent to another vertex in the context of the PCM model
+     * <p/>
+     * A vertex is equivalent in the PCM context, when the id of the referenced PCM elements is equal 
+     * and the <i>direction<i/> (e.g. calling, returning) is equal
+     * @param otherVertexObject Other vertex object that is used in the comparison
+     * @return Returns true, when vertices are equivalent in the context of PCM elements
+     */
+    public boolean isEquivalentInContext(Object otherVertexObject) {
         if (!(otherVertexObject instanceof AbstractPCMVertex<?> otherVertex)) {
             return false;
         }

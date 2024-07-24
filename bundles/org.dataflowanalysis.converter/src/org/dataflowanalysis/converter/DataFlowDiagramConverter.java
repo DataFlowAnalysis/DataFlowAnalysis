@@ -147,7 +147,6 @@ public class DataFlowDiagramConverter extends Converter {
 
     private DataFlowDiagramAndDictionary processWeb(WebEditorDfd webdfd) {
         idToNodeMap = new HashMap<>();
-        inputPinToFlowNamesMap = new HashMap<>();
         Map<String, Node> pinToNodeMap = new HashMap<>();
         Map<String, Pin> idToPinMap = new HashMap<>();
         Map<String, Label> idToLabelMap = new HashMap<>();
@@ -379,7 +378,7 @@ public class DataFlowDiagramConverter extends Converter {
 
     private void createFlows(DataFlowDiagram dataFlowDiagram, List<Child> children) {
         for (Flow flow : dataFlowDiagram.getFlows()) {
-            fillPinToFlowNamesMap(flow);
+            fillPinToFlowNamesMap(inputPinToFlowNamesMap,flow);
             children.add(createWebFlow(flow));
         }
     }
@@ -463,13 +462,14 @@ public class DataFlowDiagramConverter extends Converter {
                         .filter(flow -> flow.getDestinationNode() == node)
                         .toList();
                 
+                Map<Pin,List<String>>pinToFlowNames = new HashMap<>();
                 for (var flow : flowsToNode) {
-                    fillPinToFlowNamesMap(flow);  
+                    fillPinToFlowNamesMap(pinToFlowNames,flow);  
                 }
                 
                 Pin inpin=null;
-                for (var currentInpin:inputPinToFlowNamesMap.keySet()) {
-                    var names=inputPinToFlowNamesMap.get(currentInpin);
+                for (var currentInpin:pinToFlowNames.keySet()) {
+                    var names=pinToFlowNames.get(currentInpin);
                     Collections.sort(names);
                     if (names.equals(packets)) {
                         inpin = currentInpin;
@@ -526,15 +526,15 @@ public class DataFlowDiagramConverter extends Converter {
         }
     }
 
-    private void fillPinToFlowNamesMap(Flow flow) {
+    private void fillPinToFlowNamesMap(Map<Pin,List<String>> map,Flow flow) {
         if(!flow.getEntityName().equals("")) {
-            if (inputPinToFlowNamesMap.containsKey(flow.getDestinationPin())) {
-                inputPinToFlowNamesMap.get(flow.getDestinationPin())
+            if (map.containsKey(flow.getDestinationPin())) {
+                map.get(flow.getDestinationPin())
                         .add(flow.getEntityName());
             } else {
                 List<String> flowNames = new ArrayList<>();
                 flowNames.add(flow.getEntityName());
-                inputPinToFlowNamesMap.put(flow.getDestinationPin(), flowNames);
+                map.put(flow.getDestinationPin(), flowNames);
             }
         }
     }

@@ -3,11 +3,14 @@ package org.dataflowanalysis.converter.webdfd;
 import java.util.Comparator;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Represents a web editor data flow diagram
  * @param model The model containing the nodes and flows
  * @param labelTypes A list of {@link WebEditorLabelType}
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public record WebEditorDfd(Model model, List<WebEditorLabelType> labelTypes) {
 
     /**

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder
  */
 public class DataFlowDiagramConverter extends Converter {
 
-    private Map<Pin, String> inputPinToFlowNameMap;
+    private Map<Pin, List<String>> inputPinToFlowNamesMap;
     private final dataflowdiagramFactory dfdFactory;
     private final datadictionaryFactory ddFactory;
     private Map<String, Node> idToNodeMap;
@@ -316,7 +317,7 @@ public class DataFlowDiagramConverter extends Converter {
     }
 
     private WebEditorDfd processDfd(DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary) {
-        inputPinToFlowNameMap = new HashMap<>();
+        inputPinToFlowNamesMap = new HashMap<>();
         List<Child> children = new ArrayList<>();
         List<WebEditorLabelType> labelTypes = new ArrayList<>();
 
@@ -374,7 +375,15 @@ public class DataFlowDiagramConverter extends Converter {
 
     private void createFlows(DataFlowDiagram dataFlowDiagram, List<Child> children) {
         for (Flow flow : dataFlowDiagram.getFlows()) {
-            inputPinToFlowNameMap.put(flow.getDestinationPin(), flow.getEntityName());
+            if (inputPinToFlowNamesMap.containsKey(flow.getDestinationPin())) {
+                inputPinToFlowNamesMap.get(flow.getDestinationPin())
+                        .add(flow.getEntityName());
+            } else {
+                List<String> flowNames = new ArrayList<>();
+                flowNames.add(flow.getEntityName());
+                inputPinToFlowNamesMap.put(flow.getDestinationPin(), flowNames);
+            }
+
             children.add(createWebFlow(flow));
         }
     }
@@ -415,12 +424,17 @@ public class DataFlowDiagramConverter extends Converter {
         for (AbstractAssignment abstractAssignment : abstractAssignments) {
             if (abstractAssignment instanceof ForwardingAssignment) {
                 for (Pin inPin : abstractAssignment.getInputPins()) {
-                	var flowName = inputPinToFlowNameMap.get(inPin);
-                	if(!flowName.equals("")) {
-                		builder.append("forward ")
-                        .append(flowName)
-                        .append("\n");
-                	}       
+                    var flowNames = inputPinToFlowNamesMap.get(inPin)
+                            .stream()
+                            .sorted()
+                            .toList();
+                    var flowName = String.join("_", flowNames);
+                    // Dont forward if name is empty or only underscores
+                    if (!flowName.matches("^$|^_+$")) {
+                        builder.append("forward ")
+                                .append(flowName)
+                                .append("\n");
+                    }
                 }
             } else {
                 Assignment assignment = (Assignment) abstractAssignment;

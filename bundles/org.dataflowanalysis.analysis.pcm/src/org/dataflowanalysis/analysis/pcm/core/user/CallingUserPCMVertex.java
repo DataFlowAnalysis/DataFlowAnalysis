@@ -95,7 +95,7 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
     }
 
     @Override
-    public boolean equals(Object otherVertexObject) {
+    public boolean equivalentInContext(Object otherVertexObject) {
         if (!(otherVertexObject instanceof CallingUserPCMVertex otherVertex)) {
             return false;
         }

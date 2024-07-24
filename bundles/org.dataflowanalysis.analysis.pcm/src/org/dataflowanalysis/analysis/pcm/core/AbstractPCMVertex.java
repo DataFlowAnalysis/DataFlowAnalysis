@@ -179,8 +179,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
         return context;
     }
 
-    @Override
-    public boolean equals(Object otherVertexObject) {
+    public boolean equivalentInContext(Object otherVertexObject) {
         if (!(otherVertexObject instanceof AbstractPCMVertex<?> otherVertex)) {
             return false;
         }

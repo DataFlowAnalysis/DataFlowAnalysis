@@ -101,7 +101,7 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
     }
 
     @Override
-    public boolean equals(Object otherVertexObject) {
+    public boolean equivalentInContext(Object otherVertexObject) {
         if (!(otherVertexObject instanceof CallingSEFFPCMVertex otherVertex)) {
             return false;
         }

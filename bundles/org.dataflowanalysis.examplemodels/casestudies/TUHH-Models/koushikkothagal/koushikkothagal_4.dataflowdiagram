@@ -4,37 +4,37 @@
     <destinationPin href="koushikkothagal_4.datadictionary#47"/>
     <sourcePin href="koushikkothagal_4.datadictionary#48"/>
   </flows>
-  <flows id="53" entityName="movie_info_service" sourceNode="5" destinationNode="3">
-    <destinationPin href="koushikkothagal_4.datadictionary#51"/>
-    <sourcePin href="koushikkothagal_4.datadictionary#52"/>
+  <flows id="52" entityName="movie_info_service" sourceNode="5" destinationNode="3">
+    <destinationPin href="koushikkothagal_4.datadictionary#47"/>
+    <sourcePin href="koushikkothagal_4.datadictionary#51"/>
   </flows>
-  <flows id="56" entityName="external_website" sourceNode="2" destinationNode="5">
-    <destinationPin href="koushikkothagal_4.datadictionary#54"/>
-    <sourcePin href="koushikkothagal_4.datadictionary#55"/>
+  <flows id="55" entityName="external_website" sourceNode="2" destinationNode="5">
+    <destinationPin href="koushikkothagal_4.datadictionary#53"/>
+    <sourcePin href="koushikkothagal_4.datadictionary#54"/>
   </flows>
-  <flows id="59" entityName="movie_catalog_service" sourceNode="6" destinationNode="3">
-    <destinationPin href="koushikkothagal_4.datadictionary#57"/>
-    <sourcePin href="koushikkothagal_4.datadictionary#58"/>
+  <flows id="57" entityName="movie_catalog_service" sourceNode="6" destinationNode="3">
+    <destinationPin href="koushikkothagal_4.datadictionary#47"/>
+    <sourcePin href="koushikkothagal_4.datadictionary#56"/>
   </flows>
-  <flows id="63" entityName="movie_catalog_service" sourceNode="6" destinationNode="4">
-    <destinationPin href="koushikkothagal_4.datadictionary#61"/>
+  <flows id="61" entityName="movie_catalog_service" sourceNode="6" destinationNode="4">
+    <destinationPin href="koushikkothagal_4.datadictionary#59"/>
+    <sourcePin href="koushikkothagal_4.datadictionary#60"/>
+  </flows>
+  <flows id="63" entityName="movie_catalog_service" sourceNode="6" destinationNode="5">
+    <destinationPin href="koushikkothagal_4.datadictionary#53"/>
     <sourcePin href="koushikkothagal_4.datadictionary#62"/>
   </flows>
-  <flows id="66" entityName="movie_catalog_service" sourceNode="6" destinationNode="5">
-    <destinationPin href="koushikkothagal_4.datadictionary#64"/>
-    <sourcePin href="koushikkothagal_4.datadictionary#65"/>
+  <flows id="65" entityName="gateway" sourceNode="7" destinationNode="5">
+    <destinationPin href="koushikkothagal_4.datadictionary#53"/>
+    <sourcePin href="koushikkothagal_4.datadictionary#64"/>
   </flows>
-  <flows id="69" entityName="gateway" sourceNode="7" destinationNode="5">
-    <destinationPin href="koushikkothagal_4.datadictionary#67"/>
-    <sourcePin href="koushikkothagal_4.datadictionary#68"/>
+  <flows id="67" entityName="gateway" sourceNode="7" destinationNode="4">
+    <destinationPin href="koushikkothagal_4.datadictionary#59"/>
+    <sourcePin href="koushikkothagal_4.datadictionary#66"/>
   </flows>
-  <flows id="72" entityName="gateway" sourceNode="7" destinationNode="4">
-    <destinationPin href="koushikkothagal_4.datadictionary#70"/>
-    <sourcePin href="koushikkothagal_4.datadictionary#71"/>
-  </flows>
-  <flows id="75" entityName="gateway" sourceNode="7" destinationNode="6">
-    <destinationPin href="koushikkothagal_4.datadictionary#73"/>
-    <sourcePin href="koushikkothagal_4.datadictionary#74"/>
+  <flows id="70" entityName="gateway" sourceNode="7" destinationNode="6">
+    <destinationPin href="koushikkothagal_4.datadictionary#68"/>
+    <sourcePin href="koushikkothagal_4.datadictionary#69"/>
   </flows>
   <nodes xsi:type="dataflowdiagram:External" id="2" entityName="external_website">
     <behaviour href="koushikkothagal_4.datadictionary#25"/>

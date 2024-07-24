@@ -9,7 +9,7 @@
     <label id="45" entityName="gateway"/>
     <label id="46" entityName="transform_identity_representation&quot; shape = Mrecord"/>
     <label id="50" entityName="restful_http"/>
-    <label id="60" entityName="load_balanced_link"/>
+    <label id="58" entityName="load_balanced_link"/>
   </labelTypes>
   <labelTypes id="12" entityName="Endpoints">
     <label id="13" entityName="movies"/>
@@ -36,65 +36,60 @@
     <label id="36" entityName="Eureka"/>
   </labelTypes>
   <behaviour id="9">
-    <inPin id="54"/>
-    <inPin id="64"/>
-    <inPin id="67"/>
-    <outPin id="52"/>
-    <assignment xsi:type="datadictionary:Assignment" id="76" inputPins="54 64 67" outputPin="52" outputLabels="11 50">
-      <term xsi:type="datadictionary:TRUE" id="77"/>
+    <inPin id="53"/>
+    <outPin id="51"/>
+    <assignment xsi:type="datadictionary:Assignment" id="71" inputPins="53" outputPin="51" outputLabels="11 50">
+      <term xsi:type="datadictionary:TRUE" id="72"/>
     </assignment>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="94" inputPins="54 64 67" outputPin="52"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="89" inputPins="53" outputPin="51"/>
   </behaviour>
   <behaviour id="17">
-    <inPin id="73"/>
-    <outPin id="58"/>
+    <inPin id="68"/>
+    <outPin id="56"/>
+    <outPin id="60"/>
     <outPin id="62"/>
-    <outPin id="65"/>
-    <assignment xsi:type="datadictionary:Assignment" id="78" inputPins="73" outputPin="58" outputLabels="11 19 50 60">
-      <term xsi:type="datadictionary:TRUE" id="79"/>
+    <assignment xsi:type="datadictionary:Assignment" id="73" inputPins="68" outputPin="56" outputLabels="11 19 50 58">
+      <term xsi:type="datadictionary:TRUE" id="74"/>
     </assignment>
-    <assignment xsi:type="datadictionary:Assignment" id="80" inputPins="73" outputPin="62" outputLabels="11 19 50 60">
-      <term xsi:type="datadictionary:TRUE" id="81"/>
+    <assignment xsi:type="datadictionary:Assignment" id="75" inputPins="68" outputPin="60" outputLabels="11 19 50 58">
+      <term xsi:type="datadictionary:TRUE" id="76"/>
     </assignment>
-    <assignment xsi:type="datadictionary:Assignment" id="82" inputPins="73" outputPin="65" outputLabels="11 19 50 60">
-      <term xsi:type="datadictionary:TRUE" id="83"/>
+    <assignment xsi:type="datadictionary:Assignment" id="77" inputPins="68" outputPin="62" outputLabels="11 19 50 58">
+      <term xsi:type="datadictionary:TRUE" id="78"/>
     </assignment>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="95" inputPins="73" outputPin="58"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="96" inputPins="73" outputPin="62"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="97" inputPins="73" outputPin="65"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="90" inputPins="68" outputPin="56"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="91" inputPins="68" outputPin="60"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="92" inputPins="68" outputPin="62"/>
   </behaviour>
   <behaviour id="25">
-    <outPin id="55"/>
-    <assignment xsi:type="datadictionary:Assignment" id="84" outputPin="55" outputLabels="27 50">
-      <term xsi:type="datadictionary:TRUE" id="85"/>
+    <outPin id="54"/>
+    <assignment xsi:type="datadictionary:Assignment" id="79" outputPin="54" outputLabels="27 50">
+      <term xsi:type="datadictionary:TRUE" id="80"/>
     </assignment>
   </behaviour>
   <behaviour id="30">
     <inPin id="47"/>
-    <inPin id="51"/>
-    <inPin id="57"/>
   </behaviour>
   <behaviour id="37">
-    <inPin id="61"/>
-    <inPin id="70"/>
+    <inPin id="59"/>
     <outPin id="48"/>
-    <assignment xsi:type="datadictionary:Assignment" id="86" inputPins="61 70" outputPin="48" outputLabels="11 50">
-      <term xsi:type="datadictionary:TRUE" id="87"/>
+    <assignment xsi:type="datadictionary:Assignment" id="81" inputPins="59" outputPin="48" outputLabels="11 50">
+      <term xsi:type="datadictionary:TRUE" id="82"/>
     </assignment>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="98" inputPins="61 70" outputPin="48"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="93" inputPins="59" outputPin="48"/>
   </behaviour>
   <behaviour id="43">
-    <outPin id="68"/>
-    <outPin id="71"/>
-    <outPin id="74"/>
-    <assignment xsi:type="datadictionary:Assignment" id="88" outputPin="68" outputLabels="32 45 46 50">
-      <term xsi:type="datadictionary:TRUE" id="89"/>
+    <outPin id="64"/>
+    <outPin id="66"/>
+    <outPin id="69"/>
+    <assignment xsi:type="datadictionary:Assignment" id="83" outputPin="64" outputLabels="32 45 46 50">
+      <term xsi:type="datadictionary:TRUE" id="84"/>
     </assignment>
-    <assignment xsi:type="datadictionary:Assignment" id="90" outputPin="71" outputLabels="32 45 46 50">
-      <term xsi:type="datadictionary:TRUE" id="91"/>
+    <assignment xsi:type="datadictionary:Assignment" id="85" outputPin="66" outputLabels="32 45 46 50">
+      <term xsi:type="datadictionary:TRUE" id="86"/>
     </assignment>
-    <assignment xsi:type="datadictionary:Assignment" id="92" outputPin="74" outputLabels="32 45 46 50">
-      <term xsi:type="datadictionary:TRUE" id="93"/>
+    <assignment xsi:type="datadictionary:Assignment" id="87" outputPin="69" outputLabels="32 45 46 50">
+      <term xsi:type="datadictionary:TRUE" id="88"/>
     </assignment>
   </behaviour>
 </datadictionary:DataDictionary>

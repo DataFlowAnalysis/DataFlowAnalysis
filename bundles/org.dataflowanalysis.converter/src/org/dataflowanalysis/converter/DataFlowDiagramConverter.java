@@ -527,15 +527,13 @@ public class DataFlowDiagramConverter extends Converter {
     }
 
     private void fillPinToFlowNamesMap(Map<Pin,List<String>> map,Flow flow) {
-        if(!flow.getEntityName().equals("")) {
-            if (map.containsKey(flow.getDestinationPin())) {
-                map.get(flow.getDestinationPin())
-                        .add(flow.getEntityName());
-            } else {
-                List<String> flowNames = new ArrayList<>();
-                flowNames.add(flow.getEntityName());
-                map.put(flow.getDestinationPin(), flowNames);
-            }
+        if (map.containsKey(flow.getDestinationPin())) {
+            map.get(flow.getDestinationPin())
+                    .add(flow.getEntityName());
+        } else {
+            List<String> flowNames = new ArrayList<>();
+            flowNames.add(flow.getEntityName());
+            map.put(flow.getDestinationPin(), flowNames);
         }
     }
 

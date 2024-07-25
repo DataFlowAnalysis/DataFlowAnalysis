@@ -115,7 +115,6 @@ public class MicroSecEndTest extends ConverterTest {
         var dfdConverter = new DataFlowDiagramConverter();
 
         var webDfdOne = dfdConverter.dfdToWeb(converter.microToDfd(ANILALLEWAR));
-        dfdConverter.storeWeb(webDfdOne, "anitest.json");
         var webDfdTwo = dfdConverter.dfdToWeb(converter.microToDfd(ANILALLEWAR));
 
         assertEquals(webDfdOne, webDfdTwo);

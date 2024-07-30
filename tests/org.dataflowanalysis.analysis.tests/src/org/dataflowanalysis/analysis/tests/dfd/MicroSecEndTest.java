@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
@@ -71,7 +72,7 @@ public class MicroSecEndTest {
 
         assertFalse(flowGraph.getTransposeFlowGraphs()
                 .isEmpty());
-
+        
         Map<Integer, List<AbstractTransposeFlowGraph>> violatingTransposeFlowGraphs = new HashMap<>();
         for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
 
@@ -80,12 +81,11 @@ public class MicroSecEndTest {
             hasSecretManager(transposeFlowGraph, violatingTransposeFlowGraphs);
 
             for (var vertex : transposeFlowGraph.getVertices()) {
-
                 hasGateway(violationsSet, variant, vertex);
 
                 hasAuthenticatedRerquest(violationsSet, variant, vertex);
 
-                hasAuthorizedEntrypoint(violationsSet, variant, vertex);
+                hasOptionalAuthorizedEntrypoint(violationsSet, variant, vertex, flowGraph.getTransposeFlowGraphs());
 
                 hasTransformedEntryIdentity(violationsSet, variant, vertex);
 
@@ -101,11 +101,10 @@ public class MicroSecEndTest {
 
                 hasLogSanitization(violationsSet, variant, vertex);
 
-                hasMessageBroker(violationsSet, variant, vertex);
+                hasOptionalMessageBroker(violationsSet, variant, vertex, flowGraph.getTransposeFlowGraphs());
 
             }
         }
-
         checkCrossTransposeFlowGraphViolations(flowGraph, violatingTransposeFlowGraphs, violationsSet);
 
     }
@@ -139,7 +138,7 @@ public class MicroSecEndTest {
 
     }
     
-    @Disabled
+    
     @Test
     void testRamCopyIssue() {
         var model = Paths.get(location, "sqshq", "sqshq_18")
@@ -154,12 +153,11 @@ public class MicroSecEndTest {
             var numVertex = 0;
             for(var tfg: flowGraph.getTransposeFlowGraphs()) {
                 numVertex+=tfg.getVertices().size(); 
-                System.out.println(numVertex);
             } 
             numbers.add(numVertex);
 
 
-            System.out.println(numbers);
+            logger.info("Num TFGS: " + flowGraph.getTransposeFlowGraphs().size()+ " resulting in numVertex:"+ numbers);
 
             assertEquals(numbers.size(),1);
         }
@@ -252,9 +250,18 @@ public class MicroSecEndTest {
      * Authorization and authentication processes should be decoupled from other services and should be implemented at
      * platform level to enable reuse by different services. Since 3 is parent of 6, we need to note the violation 6 as well
      */
-    private void hasAuthorizedEntrypoint(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
+    private void hasOptionalAuthorizedEntrypoint(Set<Integer> violationsSet, int variant, AbstractVertex<?> node, List<? extends AbstractTransposeFlowGraph> list) {
         if (hasNodeCharacteristic(node, "Stereotype", "internal")
                 && checkDataCharacteristicImplication(node, "Stereotype", "entrypoint", "Stereotype", "authorization_server")) {
+            
+            var filteredTFGS = list.stream()
+                    .filter(tfg -> tfg.getVertices().stream()
+                            .anyMatch(vertex -> vertex.getReferencedElement().equals(node.getReferencedElement())))
+                            .collect(Collectors.toList());
+            if( filteredTFGS.stream().anyMatch(tfg -> tfg.getVertices().stream().anyMatch(vertex -> hasDataCharacteristicInAnyVariable(vertex, "Stereotype", "authorization_server")))) {
+                return;
+            }
+            
             violationsSet.add(3);
             violationsSet.add(6);
 
@@ -350,9 +357,17 @@ public class MicroSecEndTest {
      * These two should use mutual authentication and encrypt all transmitted data and availability should be ensured by
      * providing periodic health and status data.
      */
-    private void hasMessageBroker(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
+    private void hasOptionalMessageBroker(Set<Integer> violationsSet, int variant, AbstractVertex<?> node, List<? extends AbstractTransposeFlowGraph> list) {
         if (hasNodeCharacteristic(node, "Stereotype", "logging_server")
                 && !hasDataCharacteristicInAnyVariable(node, "Stereotype", "message_broker")) {
+            
+            var filteredTFGS = list.stream()
+                    .filter(tfg -> tfg.getVertices().stream()
+                            .anyMatch(vertex -> vertex.getReferencedElement().equals(node.getReferencedElement())))
+                            .collect(Collectors.toList());
+            if( filteredTFGS.stream().anyMatch(tfg -> tfg.getVertices().stream().anyMatch(vertex -> hasDataCharacteristicInAnyVariable(vertex, "Stereotype", "message_broker")))) {
+                return;
+            }
             violationsSet.add(12);
         }
     }

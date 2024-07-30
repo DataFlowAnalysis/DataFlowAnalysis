@@ -126,7 +126,7 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
      * @return List of all required pins
      */
     protected List<Pin> getAllPreviousNodeInputPins(Node previousNode, Flow flow) {
-        List<Pin> previousNodeInputPins = new ArrayList<>();
+        Set<Pin> previousNodeInputPins = new HashSet<>();
         for (var assignment : previousNode.getBehaviour()
                 .getAssignment()) {
             if (assignment.getOutputPin()
@@ -134,7 +134,8 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
                 previousNodeInputPins.addAll(assignment.getInputPins());
             }
         }
-        return previousNodeInputPins;
+        
+        return new ArrayList<Pin>(previousNodeInputPins);
     }
 
     /**

@@ -42,7 +42,6 @@ public class TUHHPipeline {
             .put("mudigal-technologies", List.of(3, 6))
             .put("rohitghatol", List.of(11))
             .put("spring-petclinic", List.of(4))
-            .put("sqshq", List.of(6))
             .put("georgwittberger", List.of(9))
             .build();
 

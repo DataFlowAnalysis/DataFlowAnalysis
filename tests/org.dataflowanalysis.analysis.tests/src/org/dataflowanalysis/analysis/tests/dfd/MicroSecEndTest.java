@@ -24,7 +24,6 @@ import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.dfd.core.DFDCyclicTransposeFlowGraphFinder;
 import org.dataflowanalysis.examplemodels.Activator;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.google.common.collect.ImmutableMap;
@@ -113,7 +112,6 @@ public class MicroSecEndTest {
 
     @Test
     void testConstraints() {
-        var list = new ArrayList<>();
         for (var model : TUHH_MODELS.keySet()) {
             for (int variant : TUHH_MODELS.get(model)) {
                 Set<Integer> violationSet = new TreeSet<Integer>();
@@ -122,13 +120,9 @@ public class MicroSecEndTest {
                         .toString(), variant, violationSet);
                 logger.info("Variant: " + variationName);
                 logger.info("Violations: " + violationSet);
-                //assertFalse(violationSet.contains(variant));
-                if(violationSet.contains(variant)) {
-                    list.add(variationName);
-                }
+                assertFalse(violationSet.contains(variant));
             }
         }
-        System.out.println(list);
     }
 
     @Test
@@ -189,7 +183,6 @@ public class MicroSecEndTest {
             }
             list.add(innerList);
         }
-        System.out.println(list);
         List<List<String>> compareList = new ArrayList<>();
         
         compareList.add(new ArrayList<>(Arrays.asList("A", "B", "C")));

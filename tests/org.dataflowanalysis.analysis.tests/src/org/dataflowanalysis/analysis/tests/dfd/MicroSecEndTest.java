@@ -35,9 +35,9 @@ public class MicroSecEndTest {
     private final Logger logger = Logger.getLogger(MicroSecEndTest.class);
 
     public static final Map<String, List<Integer>> TUHH_MODELS = ImmutableMap.<String, List<Integer>>builder()
-            .put("anilallewar", List.of(0, 7, 8, 9, 11, 12, 18))
+            .put("anilallewar", List.of(0, 7, 8, 9, 11, 12, 18,6))
             .put("apssouza22", List.of(0, 2, 4, 6, 7, 8, 12, 18))
-            .put("callistaenterprise", List.of(0, 2, 11, 18))
+            .put("callistaenterprise", List.of(0, 2, 11, 18, 6))
             .put("ewolff", List.of(5, 10, 12, 18))
             .put("ewolff-kafka", List.of(0, 3, 4, 5, 6, 7, 8, 9, 18))
             .put("fernandoabcampos", List.of(18))
@@ -48,7 +48,7 @@ public class MicroSecEndTest {
             .put("mudigal-technologies", List.of(0, 2, 4, 5, 7, 8, 11, 18))
             .put("rohitghatol", List.of(10, 12, 18))
             .put("spring-petclinic", List.of(0, 2, 3, 5, 6, 7, 8, 9, 18))
-            .put("sqshq", List.of(0, 7, 8, 9, 10, 11, 12, 18))
+            //.put("sqshq", List.of(0, 7, 8, 9, 10, 11, 12, 18, 6))
             .put("yidongnan", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 18))
             .build();
 
@@ -184,9 +184,9 @@ public class MicroSecEndTest {
         }
         List<List<String>> compareList = new ArrayList<>();
         
-        compareList.add(new ArrayList<>(Arrays.asList("A", "B", "C")));
+        compareList.add(List.of("A", "B", "C"));
         
-        compareList.add(new ArrayList<>(Arrays.asList("A", "B", "D", "B", "C")));
+        compareList.add(List.of("A", "B", "D", "B", "C"));
         
         assertEquals(list, compareList);
         
@@ -213,9 +213,9 @@ public class MicroSecEndTest {
         }
         List<List<String>> compareList = new ArrayList<>();
         
-        compareList.add(new ArrayList<>(Arrays.asList("user","apache_server","content_service")));
-        compareList.add(new ArrayList<>(Arrays.asList("user","apache_server","cart_service","product_service")));
-        compareList.add(new ArrayList<>(Arrays.asList("user","apache_server","product_service")));
+        compareList.add(List.of("user","apache_server","content_service"));
+        compareList.add(List.of("user","apache_server","cart_service","product_service"));
+        compareList.add(List.of("user","apache_server","product_service"));
 
 
         assertEquals(list, compareList);

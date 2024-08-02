@@ -73,7 +73,6 @@ public class MicroSecEndTest {
 
         assertFalse(flowGraph.getTransposeFlowGraphs()
                 .isEmpty());
-        
         Map<Integer, List<AbstractTransposeFlowGraph>> violatingTransposeFlowGraphs = new HashMap<>();
         for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
 
@@ -146,7 +145,7 @@ public class MicroSecEndTest {
                 .toString();
         Set<Integer> numbers = new HashSet<>();
         
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < 50; i++) {
             var analysis = buildAnalysis(model);
             analysis.initializeAnalysis();
             var flowGraph = analysis.findFlowGraphs();
@@ -191,6 +190,35 @@ public class MicroSecEndTest {
         
         assertEquals(list, compareList);
         
+    }
+    
+    @Test
+    public void caseStudyConsistencyCheck() {
+    	var model = Paths.get(location, "georgwittberger", "georgwittberger_2")
+                .toString();
+    	
+    	var analysis = buildAnalysis(model);
+        analysis.initializeAnalysis();
+        var flowGraph = analysis.findFlowGraphs();
+        List<List<String>> list = new ArrayList<>();
+        
+        for(var tfg : flowGraph.getTransposeFlowGraphs()) {
+            var innerList = new ArrayList<String>();
+            for(var vertex : tfg.getVertices()) {
+                var dfdVertex = (DFDVertex) vertex;
+                innerList.add(dfdVertex.getName());
+                
+            }
+            list.add(innerList);
+        }
+        List<List<String>> compareList = new ArrayList<>();
+        
+        compareList.add(new ArrayList<>(Arrays.asList("user","apache_server","content_service")));
+        compareList.add(new ArrayList<>(Arrays.asList("user","apache_server","cart_service","product_service")));
+        compareList.add(new ArrayList<>(Arrays.asList("user","apache_server","product_service")));
+
+
+        assertEquals(list, compareList);
     }
     
     

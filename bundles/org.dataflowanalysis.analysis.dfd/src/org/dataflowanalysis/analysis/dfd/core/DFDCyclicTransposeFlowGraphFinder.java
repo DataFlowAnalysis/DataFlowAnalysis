@@ -24,7 +24,6 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
     private final Logger logger = Logger.getLogger(DFDCyclicTransposeFlowGraphFinder.class);
     private static final int ITERATIONS_OF_LOOP = 1;
     private boolean hasCycles;
-    private int numOfCopies;
 
     /***
      * The DFDTransposeFlowGraphFinder determines all transpose flow graphs contained in a model, allowing cycles
@@ -32,7 +31,6 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
     public DFDCyclicTransposeFlowGraphFinder(DFDResourceProvider resourceProvider) {
         super(resourceProvider);
         hasCycles = false;
-        numOfCopies = 0;
     }
 
     /***
@@ -41,7 +39,6 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
     public DFDCyclicTransposeFlowGraphFinder(DataDictionary dataDictionary, DataFlowDiagram dataFlowDiagram) {
         super(dataDictionary, dataFlowDiagram);
         hasCycles = false;
-        numOfCopies = 0;
     }
 
     /**
@@ -178,7 +175,7 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
 
         if (!loopCheck(copyPreviousNodesInTransposeFlow, previousNode.getEntityName())) {
             if (!hasCycles) {
-                logger.warn("Resolving cycles: Stoping cyclic behavior for analysis, may cause unwanted behavior");
+                logger.warn("Resolving cycles: Stopping cyclic behavior for analysis, may cause unwanted behavior");
                 hasCycles = true;
             }
             copyPreviousNodesInTransposeFlow.add(previousNode.getEntityName());
@@ -224,7 +221,6 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
         Flow newFlow = ITERATIONS_OF_LOOP > 1 ? EcoreUtil.copy(flow) : flow;
 
         for (var previousVertex : previousNodeVertices) {
-            numOfCopies++;
             DFDVertex newVertex = vertex.copy(new IdentityHashMap<>());
             newVertex.getPinDFDVertexMap()
                     .put(inputPin, previousVertex);

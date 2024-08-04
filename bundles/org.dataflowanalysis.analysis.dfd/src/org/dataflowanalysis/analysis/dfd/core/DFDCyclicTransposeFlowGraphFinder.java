@@ -22,15 +22,17 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  */
 public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFinder {
     private final Logger logger = Logger.getLogger(DFDCyclicTransposeFlowGraphFinder.class);
-    private boolean hasCycles = false;
-    private int numOfCopies = 0;
     private static final int ITERATIONS_OF_LOOP = 1;
+    private boolean hasCycles;
+    private int numOfCopies;
 
     /***
      * The DFDTransposeFlowGraphFinder determines all transpose flow graphs contained in a model, allowing cycles
      */
     public DFDCyclicTransposeFlowGraphFinder(DFDResourceProvider resourceProvider) {
         super(resourceProvider);
+        hasCycles = false;
+        numOfCopies = 0;
     }
 
     /***
@@ -38,6 +40,8 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
      */
     public DFDCyclicTransposeFlowGraphFinder(DataDictionary dataDictionary, DataFlowDiagram dataFlowDiagram) {
         super(dataDictionary, dataFlowDiagram);
+        hasCycles = false;
+        numOfCopies = 0;
     }
 
     /**
@@ -216,7 +220,7 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
     private List<DFDVertex> cloneFlowAndVertexForMultipleFlowGraphs(DFDVertex vertex, Pin inputPin, Flow flow, List<DFDVertex> previousNodeVertices) {
         List<DFDVertex> newVertices = new ArrayList<>();
 
-        // If we run loop more then once, we may also need to copy flow, for the analysis
+        // If we run loop more than once, we may also need to copy the flow, for the analysis
         Flow newFlow = ITERATIONS_OF_LOOP > 1 ? EcoreUtil.copy(flow) : flow;
 
         for (var previousVertex : previousNodeVertices) {

@@ -1,6 +1,7 @@
 package org.dataflowanalysis.analysis.tests.dfd;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -14,46 +15,58 @@ import org.dataflowanalysis.examplemodels.Activator;
 import org.junit.jupiter.api.Test;
 
 public class CyclicFinderTest {
-    
+    private static final String PROJECT_NAME = "org.dataflowanalysis.examplemodels";
+
     @Test
     void simpleLoopCheck() {
-        String locationLoop = Paths.get("models", "simpleLoopDFD").toString();
-        var model = Paths.get(locationLoop, "loopDFD").toString();
-        
+        String locationLoop = Paths.get("models", "simpleLoopDFD")
+                .toString();
+        var model = Paths.get(locationLoop, "loopDFD")
+                .toString();
+
         var analysis = buildAnalysis(model);
         analysis.initializeAnalysis();
         var flowGraph = analysis.findFlowGraphs();
-        List<List<String>> list = new ArrayList<>();
-        
-        for(var tfg : flowGraph.getTransposeFlowGraphs()) {
-            var innerList = new ArrayList<String>();
-            for(var vertex : tfg.getVertices()) {
+        List<List<String>> flowGraphVertexNames = new ArrayList<>();
+
+        for (var tfg : flowGraph.getTransposeFlowGraphs()) {
+            var vertexNames = new ArrayList<String>();
+            for (var vertex : tfg.getVertices()) {
                 var dfdVertex = (DFDVertex) vertex;
-                innerList.add(dfdVertex.getName());
-                
+                vertexNames.add(dfdVertex.getName());
+
             }
-            list.add(innerList);
+            flowGraphVertexNames.add(vertexNames);
         }
-        List<List<String>> compareList = new ArrayList<>();
-        
-        compareList.add(List.of("A", "B", "C"));
-        
-        compareList.add(List.of("A", "B", "D", "B", "C"));
-        
-        assertEquals(list, compareList);
-        
+        List<List<String>> expectedVertexNames = List.of((List.of("A", "B", "C")), (List.of("A", "B", "D", "B", "C")));
+
+        assertEquals(flowGraphVertexNames, expectedVertexNames);
+
     }
-    
-    
-    public DFDConfidentialityAnalysis buildAnalysis(String name) {
-        var DataFlowDiagramPath = name + ".dataflowdiagram";
-        var DataDictionaryPath = name + ".datadictionary";
+
+    @Test
+    public void checkIsCyclic() {
+        String locationLoop = Paths.get("models", "simpleLoopDFD")
+                .toString();
+        var model = Paths.get(locationLoop, "loopDFD")
+                .toString();
+
+        var analysis = buildAnalysis(model);
+        analysis.initializeAnalysis();
+        var flowGraph = analysis.findFlowGraphs();
+
+        assertTrue(flowGraph.wasCyclic());
+    }
+
+    private DFDConfidentialityAnalysis buildAnalysis(String name) {
+        var dataFlowDiagramPath = name + ".dataflowdiagram";
+        var dataDictionaryPath = name + ".datadictionary";
 
         return new DFDDataFlowAnalysisBuilder().standalone()
-                .modelProjectName("org.dataflowanalysis.examplemodels")
+                .modelProjectName(PROJECT_NAME)
                 .usePluginActivator(Activator.class)
-                .useDataFlowDiagram(DataFlowDiagramPath)
-                .useDataDictionary(DataDictionaryPath)
+                .useDataFlowDiagram(dataFlowDiagramPath)
+                .useDataDictionary(dataDictionaryPath)
                 .useTransposeFlowGraphFinder(DFDCyclicTransposeFlowGraphFinder.class)
                 .build();
     }

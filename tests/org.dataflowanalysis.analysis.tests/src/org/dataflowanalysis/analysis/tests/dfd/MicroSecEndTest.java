@@ -33,7 +33,7 @@ public class MicroSecEndTest {
             .toString();
     private final Logger logger = Logger.getLogger(MicroSecEndTest.class);
 
-    public static final Map<String, List<Integer>> TUHH_MODELS = ImmutableMap.<String, List<Integer>>builder()
+    private static final Map<String, List<Integer>> TUHH_MODELS = ImmutableMap.<String, List<Integer>>builder()
             .put("anilallewar", List.of(0, 6, 7, 8, 9, 11, 12, 18))
             .put("apssouza22", List.of(0, 2, 4, 6, 7, 8, 12, 18))
             .put("callistaenterprise", List.of(0, 2, 6, 11, 18))
@@ -51,20 +51,20 @@ public class MicroSecEndTest {
             .put("yidongnan", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 18))
             .build();
 
-    public DFDConfidentialityAnalysis buildAnalysis(String name) {
-        var DataFlowDiagramPath = name + ".dataflowdiagram";
-        var DataDictionaryPath = name + ".datadictionary";
+    private DFDConfidentialityAnalysis buildAnalysis(String name) {
+        var dataFlowDiagramPath = name + ".dataflowdiagram";
+        var dataDictionaryPath = name + ".datadictionary";
 
         return new DFDDataFlowAnalysisBuilder().standalone()
                 .modelProjectName(PROJECT_NAME)
                 .usePluginActivator(Activator.class)
-                .useDataFlowDiagram(DataFlowDiagramPath)
-                .useDataDictionary(DataDictionaryPath)
+                .useDataFlowDiagram(dataFlowDiagramPath)
+                .useDataDictionary(dataDictionaryPath)
                 .useTransposeFlowGraphFinder(DFDCyclicTransposeFlowGraphFinder.class)
                 .build();
     }
 
-    public void performAnalysis(String model, int variant, Set<Integer> violationsSet) {
+    private void performAnalysis(String model, int variant, Set<Integer> violationsSet) {
         var analysis = buildAnalysis(model);
         analysis.initializeAnalysis();
         var flowGraph = analysis.findFlowGraphs();
@@ -113,8 +113,10 @@ public class MicroSecEndTest {
         for (var model : TUHH_MODELS.keySet()) {
             for (int variant : TUHH_MODELS.get(model)) {
                 // Skip largest models to make build pipeline faster
-                if (model.equals("sqshq") && Set.of(10,11,12,18).contains(variant)) continue;
-                
+                if (model.equals("sqshq") && Set.of(10, 11, 12, 18)
+                        .contains(variant))
+                    continue;
+
                 Set<Integer> violationSet = new TreeSet<Integer>();
                 String variationName = model + "_" + variant;
                 performAnalysis(Paths.get(location, model, variationName)
@@ -139,74 +141,69 @@ public class MicroSecEndTest {
         assertTrue(flowGraph.wasCyclic());
 
     }
-    
-    
+
     @Test
     void testRamCopyIssue() {
         var model = Paths.get(location, "sqshq", "sqshq_18")
                 .toString();
         Set<Integer> numbers = new HashSet<>();
-        
-        for(int i = 0; i < 15; i++) {
+
+        for (int i = 0; i < 15; i++) {
             var analysis = buildAnalysis(model);
             analysis.initializeAnalysis();
             var flowGraph = analysis.findFlowGraphs();
             flowGraph.evaluate();
             var numVertex = 0;
-            for(var tfg: flowGraph.getTransposeFlowGraphs()) {
-                numVertex+=tfg.getVertices().size(); 
-            } 
+            for (var tfg : flowGraph.getTransposeFlowGraphs()) {
+                numVertex += tfg.getVertices()
+                        .size();
+            }
             numbers.add(numVertex);
 
+            logger.info("Num TFGS: " + flowGraph.getTransposeFlowGraphs()
+                    .size() + " resulting in numVertex:" + numbers);
 
-            logger.info("Num TFGS: " + flowGraph.getTransposeFlowGraphs().size()+ " resulting in numVertex:"+ numbers);
-
-            assertEquals(numbers.size(),1);
+            assertEquals(numbers.size(), 1);
         }
     }
-    
+
     @Test
-    public void caseStudyConsistencyCheck() {
-    	var model = Paths.get(location, "georgwittberger", "georgwittberger_2")
+    void caseStudyConsistencyCheck() {
+        var model = Paths.get(location, "georgwittberger", "georgwittberger_2")
                 .toString();
-    	
-    	var analysis = buildAnalysis(model);
+
+        var analysis = buildAnalysis(model);
         analysis.initializeAnalysis();
         var flowGraph = analysis.findFlowGraphs();
         List<List<String>> list = new ArrayList<>();
-        
-        for(var tfg : flowGraph.getTransposeFlowGraphs()) {
+
+        for (var tfg : flowGraph.getTransposeFlowGraphs()) {
             var innerList = new ArrayList<String>();
-            for(var vertex : tfg.getVertices()) {
+            for (var vertex : tfg.getVertices()) {
                 var dfdVertex = (DFDVertex) vertex;
                 innerList.add(dfdVertex.getName());
-                
+
             }
             list.add(innerList);
         }
-        List<List<String>> compareList = new ArrayList<>();
-        
-        compareList.add(List.of("user","apache_server","content_service"));
-        compareList.add(List.of("user","apache_server","cart_service","product_service"));
-        compareList.add(List.of("user","apache_server","product_service"));
-
+        List<List<String>> compareList = List.of(List.of("user", "apache_server", "content_service"),
+                List.of("user", "apache_server", "cart_service", "product_service"), List.of("user", "apache_server", "product_service"));
 
         assertEquals(list, compareList);
     }
-    
-    
+
     private void checkCrossTransposeFlowGraphViolations(FlowGraphCollection flowGraph,
             Map<Integer, List<AbstractTransposeFlowGraph>> violatingTransposeFlowGraphs, Set<Integer> violationsSet) {
         var numOfTransposeFlowGraphs = flowGraph.getTransposeFlowGraphs()
                 .size();
         missingLoggingServer(violatingTransposeFlowGraphs, violationsSet, numOfTransposeFlowGraphs);
-        
+
         missingSecretManager(violatingTransposeFlowGraphs, violationsSet, numOfTransposeFlowGraphs);
     }
-    
+
     /**
-     *  If all TransposeFlowGraphs violate the constraint, the violation is valid
-     * --> if one TransposeFlowGraph has a secret manager constraint is not triggered
+     * If all TransposeFlowGraphs violate the constraint, the violation is valid --> if one TransposeFlowGraph has a secret
+     * manager constraint is not triggered
      */
     private void missingSecretManager(Map<Integer, List<AbstractTransposeFlowGraph>> violatingTransposeFlowGraphs, Set<Integer> violationsSet,
             int numOfTransposeFlowGraphs) {
@@ -215,10 +212,10 @@ public class MicroSecEndTest {
             violationsSet.add(18);
         }
     }
-    
+
     /**
-     * If all TransposeFlowGraphs violate the constraint, the violation is valid
-     * --> if one TransposeFlowGraph has a logging server constraint is not triggered
+     * If all TransposeFlowGraphs violate the constraint, the violation is valid --> if one TransposeFlowGraph has a logging
+     * server constraint is not triggered
      */
     private void missingLoggingServer(Map<Integer, List<AbstractTransposeFlowGraph>> violatingTransposeFlowGraphs, Set<Integer> violationsSet,
             int numOfTransposeFlowGraphs) {
@@ -228,8 +225,6 @@ public class MicroSecEndTest {
             violationsSet.add(12);
         }
     }
-    
-    
 
     private boolean hasNodeWithCharacteristic(AbstractTransposeFlowGraph transposeFlowGraph, String constraintRuleType, String constraintRule) {
         return transposeFlowGraph.stream()
@@ -282,18 +277,24 @@ public class MicroSecEndTest {
      * Authorization and authentication processes should be decoupled from other services and should be implemented at
      * platform level to enable reuse by different services. Since 3 is parent of 6, we need to note the violation 6 as well
      */
-    private void hasOptionalAuthorizedEntrypoint(Set<Integer> violationsSet, int variant, AbstractVertex<?> node, List<? extends AbstractTransposeFlowGraph> list) {
+    private void hasOptionalAuthorizedEntrypoint(Set<Integer> violationsSet, int variant, AbstractVertex<?> node,
+            List<? extends AbstractTransposeFlowGraph> list) {
         if (hasNodeCharacteristic(node, "Stereotype", "internal")
                 && checkDataCharacteristicImplication(node, "Stereotype", "entrypoint", "Stereotype", "authorization_server")) {
-            
+
             var filteredTFGS = list.stream()
-                    .filter(tfg -> tfg.getVertices().stream()
-                            .anyMatch(vertex -> vertex.getReferencedElement().equals(node.getReferencedElement())))
-                            .collect(Collectors.toList());
-            if( filteredTFGS.stream().anyMatch(tfg -> tfg.getVertices().stream().anyMatch(vertex -> hasDataCharacteristicInAnyVariable(vertex, "Stereotype", "authorization_server")))) {
+                    .filter(tfg -> tfg.getVertices()
+                            .stream()
+                            .anyMatch(vertex -> vertex.getReferencedElement()
+                                    .equals(node.getReferencedElement())))
+                    .collect(Collectors.toList());
+            if (filteredTFGS.stream()
+                    .anyMatch(tfg -> tfg.getVertices()
+                            .stream()
+                            .anyMatch(vertex -> hasDataCharacteristicInAnyVariable(vertex, "Stereotype", "authorization_server")))) {
                 return;
             }
-            
+
             violationsSet.add(3);
             violationsSet.add(6);
 
@@ -389,15 +390,21 @@ public class MicroSecEndTest {
      * These two should use mutual authentication and encrypt all transmitted data and availability should be ensured by
      * providing periodic health and status data.
      */
-    private void hasOptionalMessageBroker(Set<Integer> violationsSet, int variant, AbstractVertex<?> node, List<? extends AbstractTransposeFlowGraph> list) {
+    private void hasOptionalMessageBroker(Set<Integer> violationsSet, int variant, AbstractVertex<?> node,
+            List<? extends AbstractTransposeFlowGraph> list) {
         if (hasNodeCharacteristic(node, "Stereotype", "logging_server")
                 && !hasDataCharacteristicInAnyVariable(node, "Stereotype", "message_broker")) {
-            
+
             var filteredTFGS = list.stream()
-                    .filter(tfg -> tfg.getVertices().stream()
-                            .anyMatch(vertex -> vertex.getReferencedElement().equals(node.getReferencedElement())))
-                            .collect(Collectors.toList());
-            if( filteredTFGS.stream().anyMatch(tfg -> tfg.getVertices().stream().anyMatch(vertex -> hasDataCharacteristicInAnyVariable(vertex, "Stereotype", "message_broker")))) {
+                    .filter(tfg -> tfg.getVertices()
+                            .stream()
+                            .anyMatch(vertex -> vertex.getReferencedElement()
+                                    .equals(node.getReferencedElement())))
+                    .collect(Collectors.toList());
+            if (filteredTFGS.stream()
+                    .anyMatch(tfg -> tfg.getVertices()
+                            .stream()
+                            .anyMatch(vertex -> hasDataCharacteristicInAnyVariable(vertex, "Stereotype", "message_broker")))) {
                 return;
             }
             violationsSet.add(12);

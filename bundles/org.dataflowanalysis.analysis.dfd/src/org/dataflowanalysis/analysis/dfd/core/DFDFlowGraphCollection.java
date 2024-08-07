@@ -4,6 +4,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
+import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 
@@ -14,8 +15,8 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
     private final Logger logger = Logger.getLogger(DFDFlowGraphCollection.class);
 
     /**
-     * Creates a new collection of flow graphs.
-     * {@link DFDFlowGraphCollection#initialize(ResourceProvider)} should be called before this class is used
+     * Creates a new collection of flow graphs. {@link DFDFlowGraphCollection#initialize(ResourceProvider)} should be called
+     * before this class is used
      */
     public DFDFlowGraphCollection() {
         super();
@@ -30,17 +31,27 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
     }
 
     /**
+     * Initializes the flow graph collection with the given resource provider
+     * @param resourceProvider Resource provider used to find transpose flow graphs
+     * @param resourceProvider transposeFlowGraphFinder used to find transpose flow graphs
+     */
+    public void initialize(ResourceProvider resourceProvider, Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinderClass) {
+        super.initialize(resourceProvider, transposeFlowGraphFinderClass);
+    }
+
+    /**
      * Creates a new instance of a dfd flow graph with the given resource provider. Transpose flow graphs are determined via
      * {@link DFDFlowGraphCollection#findTransposeFlowGraphs()}
      * @param resourceProvider Resource provider that provides model files to the transpose flow graph finder
      */
-    public DFDFlowGraphCollection(DFDResourceProvider resourceProvider) {
-        super(resourceProvider);
+    public DFDFlowGraphCollection(DFDResourceProvider resourceProvider, Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinderClass) {
+        super();
+        super.initialize(resourceProvider, transposeFlowGraphFinderClass);
     }
 
     /**
-     * Creates a new instance of a dfd flow graph with the given resource provider and list of transpose flow graphs. Transpose flow graphs are determined via
-     * {@link DFDFlowGraphCollection#findTransposeFlowGraphs()}
+     * Creates a new instance of a dfd flow graph with the given resource provider and list of transpose flow graphs.
+     * Transpose flow graphs are determined via {@link DFDFlowGraphCollection#findTransposeFlowGraphs()}
      * @param resourceProvider Resource provider that provides model files to the transpose flow graph finder
      * @param transposeFlowGraphs Transpose flow graphs saved in the flow graph collection
      */
@@ -57,6 +68,21 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
             logger.error("Cannot find transpose flow graphs for non-dfd resource provider");
             throw new IllegalArgumentException();
         }
-        return new DFDTransposeFlowGraphFinder(dfdResourceProvider).findTransposeFlowGraphs();
+
+        if (transposeFlowGraphFinderClass.equals(DFDTransposeFlowGraphFinder.class))
+            this.transposeFlowGraphFinder = new DFDTransposeFlowGraphFinder(dfdResourceProvider);
+        else
+            this.transposeFlowGraphFinder = new DFDCyclicTransposeFlowGraphFinder(dfdResourceProvider);
+
+        return transposeFlowGraphFinder.findTransposeFlowGraphs();
+    }
+    /**
+     * @return whether the provided DFD had cyclic behavior or not, since resolving Cycles can lead to unexpected behavior
+     */
+    public boolean wasCyclic() {
+        if (transposeFlowGraphFinder instanceof DFDCyclicTransposeFlowGraphFinder cyclicTransposeFlowGraphFinder) {
+            return cyclicTransposeFlowGraphFinder.hasCycles();
+        }
+        return false;
     }
 }

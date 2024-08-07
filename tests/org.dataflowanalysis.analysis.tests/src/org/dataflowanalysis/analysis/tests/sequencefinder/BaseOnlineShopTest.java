@@ -1,40 +1,52 @@
-package org.dataflowanalysis.analysis.tests.dfd;
+package org.dataflowanalysis.analysis.tests.sequencefinder;
 
 import static org.dataflowanalysis.analysis.tests.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 import java.nio.file.Paths;
 import java.util.List;
+
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
+import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.dfd.core.DFDCharacteristicValue;
 import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.core.DFDVertex;
 import org.dataflowanalysis.examplemodels.Activator;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
-public class OnlineShopDFDTest {
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+public abstract class BaseOnlineShopTest {
 
     private DFDConfidentialityAnalysis analysis;
+    private DFDFlowGraphCollection flowGraph;
 
-    @BeforeEach
+    @BeforeAll
     public void initAnalysis() {
         final var dataFlowDiagramPath = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram");
         final var dataDictionaryPath = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary");
 
-        this.analysis = new DFDDataFlowAnalysisBuilder().standalone()
+        analysis = new DFDDataFlowAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)
                 .usePluginActivator(Activator.class)
                 .useDataFlowDiagram(dataFlowDiagramPath.toString())
                 .useDataDictionary(dataDictionaryPath.toString())
+                .useTransposeFlowGraphFinder(getTransposeFlowGraphFinder())
                 .build();
 
-        this.analysis.initializeAnalysis();
+        analysis.initializeAnalysis();
+        
+        flowGraph = analysis.findFlowGraphs();
+        flowGraph.evaluate();
     }
+    
+    protected abstract Class<? extends TransposeFlowGraphFinder> getTransposeFlowGraphFinder();
 
     @Test
     public void numberOfTransposeFlowGraphs_equalsThree() {
@@ -45,7 +57,6 @@ public class OnlineShopDFDTest {
 
     @Test
     public void checkSinks() {
-        var flowGraph = analysis.findFlowGraphs();
         var entityNames = flowGraph.getTransposeFlowGraphs()
                 .stream()
                 .map(it -> ((DFDVertex) it.getSink()).getName())
@@ -57,9 +68,6 @@ public class OnlineShopDFDTest {
 
     @Test
     public void testNodeLabels() {
-        var flowGraph = analysis.findFlowGraphs();
-        flowGraph.evaluate();
-
         for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
             for (var vertex : transposeFlowGraph.getVertices()) {
                 if (((DFDVertex) vertex).getName()
@@ -75,8 +83,6 @@ public class OnlineShopDFDTest {
 
     @Test
     public void testDataLabelPropagation() {
-        var flowGraph = analysis.findFlowGraphs();
-        flowGraph.evaluate();
         for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
             var sink = transposeFlowGraph.getSink();
             if (((DFDVertex) sink).getName()
@@ -91,9 +97,6 @@ public class OnlineShopDFDTest {
 
     @Test
     public void testRealisticConstraints() {
-        var flowGraph = analysis.findFlowGraphs();
-        flowGraph.evaluate();
-
         // Constraint 1: Personal data flowing to a node that is deployed outside the EU
         // Should find 1 violation
         int violationsFound = 0;
@@ -121,6 +124,11 @@ public class OnlineShopDFDTest {
 
             assertEquals(0, violations.size());
         }
+    }
+    
+    @Test
+    public void checkIsNotCyclic() {
+        assertFalse(flowGraph.wasCyclic());
     }
 
     private List<String> retrieveNodeLabels(AbstractVertex<?> vertex) {

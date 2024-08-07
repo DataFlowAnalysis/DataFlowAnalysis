@@ -4,6 +4,8 @@ import java.util.Optional;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
+import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
+import org.dataflowanalysis.analysis.dfd.core.DFDCyclicTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.eclipse.core.runtime.Plugin;
@@ -22,12 +24,22 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
     protected final DFDResourceProvider resourceProvider;
     protected final Optional<Class<? extends Plugin>> modelProjectActivator;
     protected final String modelProjectName;
+    protected final Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinderClass;
+
+    public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider, Optional<Class<? extends Plugin>> modelProjectActivator,
+            String modelProjectName, Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinderClass) {
+        this.resourceProvider = resourceProvider;
+        this.modelProjectActivator = modelProjectActivator;
+        this.modelProjectName = modelProjectName;
+        this.transposeFlowGraphFinderClass = transposeFlowGraphFinderClass;
+    }
 
     public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider, Optional<Class<? extends Plugin>> modelProjectActivator,
             String modelProjectName) {
         this.resourceProvider = resourceProvider;
         this.modelProjectActivator = modelProjectActivator;
         this.modelProjectName = modelProjectName;
+        this.transposeFlowGraphFinderClass = DFDCyclicTransposeFlowGraphFinder.class;
     }
 
     @Override
@@ -65,7 +77,8 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
 
     @Override
     public DFDFlowGraphCollection findFlowGraphs() {
-        return new DFDFlowGraphCollection(this.resourceProvider);
+
+        return new DFDFlowGraphCollection(this.resourceProvider, this.transposeFlowGraphFinderClass);
     }
 
     @Override

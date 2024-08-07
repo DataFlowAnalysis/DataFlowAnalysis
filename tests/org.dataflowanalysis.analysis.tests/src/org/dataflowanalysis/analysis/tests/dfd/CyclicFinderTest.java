@@ -38,7 +38,7 @@ public class CyclicFinderTest {
             }
             flowGraphVertexNames.add(vertexNames);
         }
-        List<List<String>> expectedVertexNames = List.of((List.of("A", "B", "C")), (List.of("A", "B", "D", "B", "C")));
+        var expectedVertexNames = List.of((List.of("A", "B", "C")), (List.of("A", "B", "D", "B", "C")));
 
         assertEquals(flowGraphVertexNames, expectedVertexNames);
 

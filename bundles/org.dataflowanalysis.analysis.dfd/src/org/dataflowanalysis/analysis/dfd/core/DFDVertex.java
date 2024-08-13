@@ -2,6 +2,7 @@ package org.dataflowanalysis.analysis.dfd.core;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -251,7 +252,7 @@ public class DFDVertex extends AbstractVertex<Node> {
      * Goes through the previous vertices and replaces equal vertices by the same vertex
      * @param vertices Set of unique vertices that are used to replace equal vertices
      */
-    public void unify(Set<DFDVertex> vertices) {
+    public void unify(Set<DFDVertex> vertices) {    	
         for (var key : this.getPinDFDVertexMap()
                 .keySet()) {
             for (var vertex : vertices) {
@@ -264,9 +265,8 @@ public class DFDVertex extends AbstractVertex<Node> {
             vertices.add(this.getPinDFDVertexMap()
                     .get(key));
         }
-        this.getPinDFDVertexMap()
-                .values()
-                .forEach(vertex -> vertex.unify(vertices));
+        this.getPreviousElements()
+        .forEach(vertex -> ((DFDVertex)vertex).unify(vertices));
     }
 
     /**
@@ -275,7 +275,12 @@ public class DFDVertex extends AbstractVertex<Node> {
     public DFDVertex copy(Map<DFDVertex, DFDVertex> mapping) {
         Map<Pin, DFDVertex> copiedPinDFDVertexMap = new HashMap<>();
         this.pinDFDVertexMap.keySet()
-                .forEach(key -> copiedPinDFDVertexMap.put(key, mapping.getOrDefault(this.pinDFDVertexMap.get(key), this.pinDFDVertexMap.get(key).copy(mapping))));
+                .forEach(key -> {
+                	var oldVertex = this.pinDFDVertexMap.get(key);
+                	var newVertice =  mapping.getOrDefault(oldVertex, this.pinDFDVertexMap.get(key).copy(mapping));
+                	copiedPinDFDVertexMap.put(key, newVertice);
+                	mapping.putIfAbsent(oldVertex, newVertice);
+                	});
         return new DFDVertex(this.referencedElement, copiedPinDFDVertexMap, new HashMap<>(this.pinFlowMap));
     }
 
@@ -286,6 +291,7 @@ public class DFDVertex extends AbstractVertex<Node> {
 
     @Override
     public boolean equals(Object other) {
+    	if (super.equals(other)) return true;
         if (!(other instanceof DFDVertex vertex))
             return false;
         if (!this.referencedElement.equals(vertex.getReferencedElement()))
@@ -302,8 +308,8 @@ public class DFDVertex extends AbstractVertex<Node> {
     }
 
     @Override
-    public List<AbstractVertex<?>> getPreviousElements() {
-        return new ArrayList<>(this.pinDFDVertexMap.values());
+    public List<AbstractVertex<?>> getPreviousElements() {    	
+        return (new HashSet<AbstractVertex<?>>(this.pinDFDVertexMap.values())).stream().toList();
     }
 
     /**

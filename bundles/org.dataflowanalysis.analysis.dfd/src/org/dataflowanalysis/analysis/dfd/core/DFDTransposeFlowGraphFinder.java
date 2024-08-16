@@ -86,7 +86,6 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
      * @return List of sinks created from the initial sink with previous vertices calculated
      */
     private List<DFDVertex> determineSinks(DFDVertex sink, List<Pin> pins, List<Node> sourceNodes) {
-    	System.out.println(sink.getReferencedElement().getEntityName());
         List<DFDVertex> vertices = new ArrayList<>();
         vertices.add(sink);
 
@@ -143,6 +142,7 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
                     .toList();
         }
        
+        if (vertices.size() > 1) System.out.println(vertices.get(1));
         
         return vertices;
     }
@@ -169,7 +169,7 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
         	mapOutPinToExistingVertex.put(outPin, previousNodeVertices.get(0));
         }
 
-        if (vertices.size() == 1 && previousNodeVertices.size() == 1) {
+        if (vertices.size() == 1 && previousNodeVertices.size() == 1 && vertices.get(0).getPinDFDVertexMap().isEmpty()) {
         	 	var vertex = vertices.get(0);
         	 	vertex.getPinDFDVertexMap()
                          .put(inputPin, previousNodeVertices.get(0));
@@ -238,6 +238,8 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
         }
         return newVertices;
     }
+    
+    
 
     /**
      * Gets a list of nodes that are sinks of the given list of nodes

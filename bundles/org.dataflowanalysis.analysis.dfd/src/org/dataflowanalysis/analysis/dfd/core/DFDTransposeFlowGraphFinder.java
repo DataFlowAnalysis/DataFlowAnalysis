@@ -141,8 +141,6 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
                     .flatMap(flow -> handleIncomingFlow(flow, inputPin, finalVertices, sourceNodes, mapInPinToEqualInPin.getOrDefault(inputPin, new ArrayList<>())).stream())
                     .toList();
         }
-       
-        if (vertices.size() > 1) System.out.println(vertices.get(1));
         
         return vertices;
     }
@@ -193,7 +191,6 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
     }
 
     /**
-     * Calculate all input pins required on the previous node that will be needed to satisfy the assignments to reach the
      * present node
      * @param previousNode Previous node
      * @param flow Flow from previous into present node

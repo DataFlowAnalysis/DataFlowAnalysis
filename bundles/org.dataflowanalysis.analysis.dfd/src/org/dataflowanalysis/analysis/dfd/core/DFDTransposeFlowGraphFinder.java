@@ -96,21 +96,19 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
         var inputPins = new ArrayList<>(pins);
         
         Map<Pin, List<Pin>> inToPreviousNodeInPinsMap = new HashMap<>();
-        inputPins.forEach(pin -> {
+        for (var pin : inputPins) {
         	Set<Pin> outputPins = new HashSet<>();
         	inToPreviousNodeInPinsMap.put(pin, new ArrayList<>());
         	dataFlowDiagram.getFlows()
-            .stream()
-            .filter(flow -> flow.getDestinationPin()
-                    .equals(pin))
-            .forEach(flow -> {
-            	outputPins.add(flow.getSourcePin());
-            });
+	            .stream()
+	            .filter(flow -> flow.getDestinationPin().equals(pin))
+	            .forEach(flow -> outputPins.add(flow.getSourcePin()));
+        	
         	outputPins.stream().forEach(outPin -> {
         		Behaviour behaviour = (Behaviour) outPin.eContainer();
         		behaviour.getAssignment().stream().filter(it -> it.getOutputPin().equals(outPin)).forEach(it -> inToPreviousNodeInPinsMap.get(pin).addAll(it.getInputPins()));
         	});
-        });
+        }
                 
         Map<Pin, List<Pin>> mapInPinToEqualInPin = new HashMap<>();
         var keyList = inToPreviousNodeInPinsMap.keySet().stream().toList();

@@ -113,7 +113,7 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
             List<DFDVertex> finalVertices = vertices;
             
             vertices = incomingFlowsToPin.stream()
-                    .flatMap(flow -> handleIncomingFlow(flow, inputPin, finalVertices, sourceNodes, previousNodesInTransposeFlow).stream())
+                    .flatMap(flow -> handleIncomingFlowCyclic(flow, inputPin, finalVertices, sourceNodes, previousNodesInTransposeFlow).stream())
                     .toList();
         }
         return vertices;
@@ -141,7 +141,7 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
                //Skipping flows that cause cycles
                if(previousNodesInTransposeFlow.contains(flow.getSourceNode().getEntityName())) continue;
                
-               List<DFDVertex> result = handleIncomingFlow(flow, inputPin, finalVertices, sourceNodes, previousNodesInTransposeFlow);
+               List<DFDVertex> result = handleIncomingFlowCyclic(flow, inputPin, finalVertices, sourceNodes, previousNodesInTransposeFlow);
                
                uniqueVertices.addAll(result);
            }
@@ -160,7 +160,7 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
      * @param sourceNodes
      * @param previousNodesInTransposeFlow List of all Nodes part of the current transpose Flow
      */
-    private List<DFDVertex> handleIncomingFlow(Flow incomingFlow, Pin inputPin, List<DFDVertex> finalVertices, List<Node> sourceNodes,
+    private List<DFDVertex> handleIncomingFlowCyclic(Flow incomingFlow, Pin inputPin, List<DFDVertex> finalVertices, List<Node> sourceNodes,
             List<String> previousNodesInTransposeFlow) {
 
         var copyPreviousNodesInTransposeFlow = new ArrayList<>(previousNodesInTransposeFlow);

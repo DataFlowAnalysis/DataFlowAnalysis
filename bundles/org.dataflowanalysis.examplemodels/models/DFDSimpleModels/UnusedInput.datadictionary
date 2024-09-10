@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datadictionary:DataDictionary xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_YbDkkG9ZEe-tyf2ezWC1bw">
+  <labelTypes id="_esIroG9aEe-tyf2ezWC1bw" entityName="Role">
+    <label id="_gBkNgG9aEe-tyf2ezWC1bw" entityName="Student"/>
+    <label id="_gYF3IG9aEe-tyf2ezWC1bw" entityName="Teacher"/>
+  </labelTypes>
+  <behaviour id="_H01jwW9aEe-tyf2ezWC1bw" entityName="UnUsed">
+    <outPin id="_OUGtQW9aEe-tyf2ezWC1bw" entityName="UnUsed"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_XIrhQm9aEe-tyf2ezWC1bw" outputPin="_OUGtQW9aEe-tyf2ezWC1bw" outputLabels="_gBkNgG9aEe-tyf2ezWC1bw">
+      <term xsi:type="datadictionary:TRUE" id="_926soG9aEe-tyf2ezWC1bw"/>
+    </assignment>
+  </behaviour>
+  <behaviour id="_JgiQkW9aEe-tyf2ezWC1bw" entityName="Used">
+    <outPin id="_OooLwW9aEe-tyf2ezWC1bw" entityName="Used"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_c02Z4m9aEe-tyf2ezWC1bw" outputPin="_OooLwW9aEe-tyf2ezWC1bw" outputLabels="_gYF3IG9aEe-tyf2ezWC1bw">
+      <term xsi:type="datadictionary:TRUE" id="_-zuTIG9aEe-tyf2ezWC1bw"/>
+    </assignment>
+  </behaviour>
+  <behaviour id="_Jz0Y8W9aEe-tyf2ezWC1bw" entityName="Middle">
+    <inPin id="_O7nZMG9aEe-tyf2ezWC1bw" entityName="MiddleIN"/>
+    <inPin id="_QQjL0G9aEe-tyf2ezWC1bw" entityName="MiddleInUnUsed"/>
+    <outPin id="_RogdQW9aEe-tyf2ezWC1bw" entityName="MiddleOut"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_T0Ye829aEe-tyf2ezWC1bw" inputPins="_O7nZMG9aEe-tyf2ezWC1bw" outputPin="_RogdQW9aEe-tyf2ezWC1bw"/>
+  </behaviour>
+  <behaviour id="_KHxPsW9aEe-tyf2ezWC1bw" entityName="End">
+    <inPin id="_SomoUG9aEe-tyf2ezWC1bw" entityName="End"/>
+  </behaviour>
+</datadictionary:DataDictionary>

@@ -6,6 +6,7 @@ import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
+import org.dataflowanalysis.analysis.dfd.simple.DFDSimpleTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 
 /**
@@ -71,6 +72,8 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
 
         if (transposeFlowGraphFinderClass.equals(DFDTransposeFlowGraphFinder.class))
             this.transposeFlowGraphFinder = new DFDTransposeFlowGraphFinder(dfdResourceProvider);
+        else if (transposeFlowGraphFinderClass.equals(DFDSimpleTransposeFlowGraphFinder.class))
+        	this.transposeFlowGraphFinder = new DFDSimpleTransposeFlowGraphFinder(dfdResourceProvider);
         else
             this.transposeFlowGraphFinder = new DFDCyclicTransposeFlowGraphFinder(dfdResourceProvider);
 

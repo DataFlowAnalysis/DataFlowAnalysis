@@ -57,9 +57,11 @@ public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFind
                 .map(Node.class::cast)
                 .toList();
         List<DFDSimpleTransposeFlowGraph> transposeFlowGraphs = new ArrayList<>();
+        
+        System.out.println(dataFlowDiagram.getNodes());
 
         
-        for (Node endNode : potentialSinks) {
+        for (Node endNode : getEndNodes(dataFlowDiagram.getNodes())) {
             DFDSimpleVertex sink = determineSinks(endNode);
             sink.unify(new HashSet<>());
             transposeFlowGraphs.add(new DFDSimpleTransposeFlowGraph(sink));
@@ -77,6 +79,8 @@ public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFind
      */
     private DFDSimpleVertex determineSinks(Node node) {
     	if (mapNodeToExistingVertex.get(node) != null) return mapNodeToExistingVertex.get(node);
+    	
+    	if (!verifySimplicity(node)) throw new IllegalArgumentException("DFD not simple: outPin not requiring all InPins");
     	
     	Map<Pin, Flow> pinToFlowMap = new HashMap<>();
     	Set<DFDSimpleVertex> previousVertices = new HashSet<>();
@@ -106,12 +110,9 @@ public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFind
     }
     
     //Assumption!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    private boolean verifySimplicity(Node node) {
-    	for (var assignment : node.getBehaviour().getAssignment()) {
-    		if (!assignment.getInputPins().equals(node.getBehaviour().getInPin())) return false;    		
-    	}
-    	
-    	return true;
+    private boolean verifySimplicity(Node node) {		
+    	return node.getBehaviour().getAssignment().stream().anyMatch(it -> it.getInputPins().equals(node.getBehaviour().getInPin()))
+    			|| node.getBehaviour().getOutPin().size() == 0;    	
     }
     
     

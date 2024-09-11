@@ -28,7 +28,6 @@ import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.core.DFDTransposeFlowGraphFinder;
-import org.dataflowanalysis.analysis.dfd.simple.DFDSimpleTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.dfd.datadictionary.AND;
@@ -46,7 +45,7 @@ public class PCMTest extends ConverterTest{
     @Test
     @DisplayName("Test PCM2DFD TravelPlanner")
     public void travelToDfd() {
-        testSpecificModel("TravelPlanner", "travelPlanner", TEST_MODELS, "C:\\Users\\Huell\\Desktop\\Newfolder\\tp.json", this::travelPlannerCondition);
+        testSpecificModel("TravelPlanner", "travelPlanner", TEST_MODELS, "tp.json", this::travelPlannerCondition);
     }
 	
 	@Test
@@ -159,8 +158,8 @@ public class PCMTest extends ConverterTest{
 
         var dfdConverter = new DataFlowDiagramConverter();
         List<Predicate<? super AbstractVertex<?>>> constraints = new ArrayList<>();
-        constraint.and(constraint);
-        var web = dfdConverter.dfdToWebAndAnalyzeAndAnnotateWithCustomTFGFinder(complete, constraints, DFDSimpleTransposeFlowGraphFinder.class);
+        constraints.add(constraint);
+        var web = dfdConverter.dfdToWebAndAnalyzeAndAnnotateWithCustomTFGFinder(complete, constraints, DFDTransposeFlowGraphFinder.class); //Replace null with simpleFinder once Analysis PR merged
         dfdConverter.storeWeb(web, webTarget);
 
         var dfd = complete.dataFlowDiagram();

@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,11 +23,8 @@ import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.dfd.core.DFDCyclicTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.core.DFDTransposeFlowGraphFinder;
-import org.dataflowanalysis.analysis.dfd.core.DFDVertex;
-import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.dataflowanalysis.analysis.dfd.resource.DFDURIResourceProvider;
 import org.dataflowanalysis.analysis.dfd.simple.DFDSimpleTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.utils.ResourceUtils;
@@ -80,7 +77,7 @@ public class DataFlowDiagramConverter extends Converter {
     }
 
     /**
-     * Converts Data Flow Diagram and Data Dictionary provided via paths into a WebEditorDfd object.
+     * Converts Data Flow Diagram and Data Dictionary provided via paths into a WebEditorDfd object, analyzes it and annotates the propagated labels in the WebDFD.
      * @param inputDataFlowDiagram The path of the data flow diagram.
      * @param inputDataDictionary The path of the data dictionary.
      * @return WebEditorDfd object representing the web editor version of the data flow diagram.
@@ -89,20 +86,20 @@ public class DataFlowDiagramConverter extends Converter {
     public WebEditorDfd dfdToWeb(String project, String inputDataFlowDiagram, String inputDataDictionary, Class<?> activator)
             throws StandaloneInitializationException {
         DataFlowDiagramAndDictionary complete = loadDFD(project, inputDataFlowDiagram, inputDataDictionary, activator);
-        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), null);
+        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, null, null));
     }
 
     /**
-     * Converts a DataFlowDiagramAndDictionary object into a WebEditorDfd object.
+     * Converts a DataFlowDiagramAndDictionary object into a WebEditorDfd object, analyzes it and annotates the propagated labels in the WebDFD.
      * @param complete The DataFlowDiagramAndDictionary object to convert.
      * @return WebEditorDfd object representing the web editor version of the data flow diagram.
      */
     public WebEditorDfd dfdToWeb(DataFlowDiagramAndDictionary complete) {
-        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), null);
+        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, null, null));
     }
     
     /**
-     * Converts Data Flow Diagram and Data Dictionary provided via paths into a WebEditorDfd object.
+     * Converts Data Flow Diagram and Data Dictionary provided via paths into a WebEditorDfd object, analyzes it, checks for the constraints and annotates the WebDFD.
      * @param inputDataFlowDiagram The path of the data flow diagram.
      * @param inputDataDictionary The path of the data dictionary.
      * @return WebEditorDfd object representing the web editor version of the data flow diagram.
@@ -116,7 +113,7 @@ public class DataFlowDiagramConverter extends Converter {
     }
 
     /**
-     * Converts a DataFlowDiagramAndDictionary object into a WebEditorDfd object.
+     * Converts a DataFlowDiagramAndDictionary object into a WebEditorDfd object, analyzes it, checks for the constraints and annotates the WebDFD.
      * @param complete The DataFlowDiagramAndDictionary object to convert.
      * @return WebEditorDfd object representing the web editor version of the data flow diagram.
      */
@@ -125,13 +122,13 @@ public class DataFlowDiagramConverter extends Converter {
     }
     
     /**
-     * Converts Data Flow Diagram and Data Dictionary provided via paths into a WebEditorDfd object.
+     * Converts Data Flow Diagram and Data Dictionary provided via paths into a WebEditorDfd object, analyzes it with a custom Finder, checks for the constraints and annotates the WebDFD.
      * @param inputDataFlowDiagram The path of the data flow diagram.
      * @param inputDataDictionary The path of the data dictionary.
      * @return WebEditorDfd object representing the web editor version of the data flow diagram.
      * @throws StandaloneInitializationException
      */
-    public WebEditorDfd dfdToWebAndAnalyzeAndAnnotateWithCustomTFGFinder(String project, String inputDataFlowDiagram, String inputDataDictionary, Class<?> activator, List<Predicate<? super AbstractVertex<?>>> conditions, Class finderClass)
+    public WebEditorDfd dfdToWebAndAnalyzeAndAnnotateWithCustomTFGFinder(String project, String inputDataFlowDiagram, String inputDataDictionary, Class<?> activator, List<Predicate<? super AbstractVertex<?>>> conditions, Class<? extends TransposeFlowGraphFinder> finderClass)
             throws StandaloneInitializationException {
         DataFlowDiagramAndDictionary complete = loadDFD(project, inputDataFlowDiagram, inputDataDictionary, activator);       
         
@@ -139,63 +136,17 @@ public class DataFlowDiagramConverter extends Converter {
     }
 
     /**
-     * Converts a DataFlowDiagramAndDictionary object into a WebEditorDfd object.
+     * Converts a DataFlowDiagramAndDictionary object into a WebEditorDfd object, analyzes it with a custom Finder, checks for the constraints and annotates the WebDFD.
      * @param complete The DataFlowDiagramAndDictionary object to convert.
+     * @param conditions List of constraints
+     * @param finderClass Custom TFG Finder
      * @return WebEditorDfd object representing the web editor version of the data flow diagram.
      */
-    public WebEditorDfd dfdToWebAndAnalyzeAndAnnotateWithCustomTFGFinder(DataFlowDiagramAndDictionary complete, List<Predicate<? super AbstractVertex<?>>> conditions, Class finderClass) {
+    public WebEditorDfd dfdToWebAndAnalyzeAndAnnotateWithCustomTFGFinder(DataFlowDiagramAndDictionary complete, List<Predicate<? super AbstractVertex<?>>> conditions, Class<? extends TransposeFlowGraphFinder> finderClass) {
         return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, conditions, finderClass));
     }
     
-    private Map<Node, Annotation> createNodeAnnotationMap (DataFlowDiagramAndDictionary complete, List<Predicate<? super AbstractVertex<?>>> conditions, Class finderClass) {
-    	TransposeFlowGraphFinder finder;
-    	if (finderClass == null) finder = new DFDCyclicTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
-    	else {
-    		if (finderClass.equals(DFDTransposeFlowGraphFinder.class))
-                finder = new DFDTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
-            else if (finderClass.equals(DFDSimpleTransposeFlowGraphFinder.class))
-            	finder = new DFDSimpleTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
-            else
-                finder = new DFDCyclicTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
-    			 
-    	}
-         var collection = finder.findTransposeFlowGraphs();
-         collection = collection.stream().map(AbstractTransposeFlowGraph::evaluate).toList();
-         
-         Map<Node, Annotation> mapNodeToAnnotations = new HashMap<>();
-         collection.stream().forEach(tfg -> tfg.getVertices().forEach(vertex -> {
-         	Node node = (Node) vertex.getReferencedElement();        	
-         	
-         	StringBuilder builder = new StringBuilder();
-         	if (mapNodeToAnnotations.get(node) != null) builder.append(mapNodeToAnnotations.get(node).message());
-         	else builder.append("PropagatedLabels");
-         	
-         	vertex.getAllOutgoingDataCharacteristics().forEach(characteristic -> characteristic.getAllCharacteristics().forEach(value -> {
-         		builder.append(value.getTypeName())
-         		.append(".")
-         		.append(value.getValueName())
-         		.append("\n");
-         	}));
-         	
-         	mapNodeToAnnotations.put(node, new Annotation(builder.toString(), "tag", "#FFFFFF"));
-         }));
-         
-         DFDConfidentialityAnalysis analysis = new DFDConfidentialityAnalysis(null, null, null);
-         for (int i = 0; i < conditions.size(); i++) {
-         	var condition = conditions.get(i);
-         	for (var tfg : collection) {     
-         		var violations = analysis.queryDataFlow(tfg, condition);
-         		for (var vertex : violations) {
-         			Node node = ((DFDVertex)vertex).getReferencedElement();   	
-                 	StringBuilder builder = new StringBuilder();
-                 	if (mapNodeToAnnotations.get(node) != null) builder.append(mapNodeToAnnotations.get(node).message()).append("\n");
-                 	builder.append("Violation: Constraint ").append(i).append(" violated.").append("\n");
-                 	mapNodeToAnnotations.put(node, new Annotation(builder.toString(), "bolt", "#ff0000"));
-         		}
-         	}
-         }
-         return mapNodeToAnnotations;
-    }
+    
 
     /**
      * Stores a WebEditorDfd object into a specified output file.
@@ -251,6 +202,69 @@ public class DataFlowDiagramConverter extends Converter {
         var provider = new DFDURIResourceProvider(dfdURI, ddURI);
         provider.loadRequiredResources();
         return new DataFlowDiagramAndDictionary(provider.getDataFlowDiagram(), provider.getDataDictionary());
+    }
+    
+    /**
+     * Creates the node annotations by analyzing the DFD
+     * @param complete DFD / DD combination
+     * @param conditions List of constraints (optional)
+     * @param finderClass Custom TFG Finder (optional)
+     * @return
+     */
+    private Map<Node, Annotation> createNodeAnnotationMap (DataFlowDiagramAndDictionary complete, List<Predicate<? super AbstractVertex<?>>> conditions, Class<? extends TransposeFlowGraphFinder> finderClass) {
+    	TransposeFlowGraphFinder finder;
+    	if (finderClass == null) finder = new DFDCyclicTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
+    	else {
+    		if (finderClass.equals(DFDTransposeFlowGraphFinder.class))
+                finder = new DFDTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
+            else if (finderClass.equals(DFDSimpleTransposeFlowGraphFinder.class))
+            	finder = new DFDSimpleTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
+            else
+                finder = new DFDCyclicTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
+    			 
+    	}
+         var collection = finder.findTransposeFlowGraphs();
+         collection = collection.stream().map(AbstractTransposeFlowGraph::evaluate).toList();
+         
+         Map<Node, Annotation> mapNodeToAnnotations = new HashMap<>();
+         Map<Node, Set<String>> mapNodeToPropagatedLabels = new HashMap<>();
+         collection.stream().forEach(tfg -> tfg.getVertices().forEach(vertex -> {
+         	Node node = (Node) vertex.getReferencedElement();        	
+         	mapNodeToPropagatedLabels.putIfAbsent(node, new HashSet<>());
+         	var label = mapNodeToPropagatedLabels.get(node);
+         	vertex.getAllOutgoingDataCharacteristics().forEach(characteristic -> characteristic.getAllCharacteristics().forEach(value -> {
+         		label.add(value.getTypeName() + "." + value.getValueName());
+         	}));         	
+         }));
+         
+         mapNodeToPropagatedLabels.keySet().forEach(key -> {
+        	StringBuilder builder = new StringBuilder();
+	      	builder.append("PropagatedLabels:").append("\n");
+	      	
+	      	mapNodeToPropagatedLabels.get(key).forEach(value -> {
+	      		builder.append(value).append("\n");
+	      	});
+	      	mapNodeToAnnotations.put(key, new Annotation(builder.toString(), "tag", "#FFFFFF"));
+        });
+        
+         
+         if (conditions == null) return mapNodeToAnnotations;
+         
+         DFDConfidentialityAnalysis analysis = new DFDConfidentialityAnalysis(null, null, null);
+         for (int i = 0; i < conditions.size(); i++) {
+         	var condition = conditions.get(i);
+         	for (var tfg : collection) {     
+         		var violations = analysis.queryDataFlow(tfg, condition);
+         		for (var vertex : violations) {
+         			Node node = (Node)vertex.getReferencedElement();   	
+                 	StringBuilder builder = new StringBuilder();
+                 	if (mapNodeToAnnotations.get(node) != null) builder.append(mapNodeToAnnotations.get(node).message()).append("\n");
+                 	builder.append("Violation: Constraint ").append(i).append(" violated.").append("\n");
+                 	mapNodeToAnnotations.put(node, new Annotation(builder.toString(), "bolt", "#ff0000"));
+         		}
+         	}
+         }
+         return mapNodeToAnnotations;
     }
 
     private DataFlowDiagramAndDictionary processWeb(WebEditorDfd webdfd) {
@@ -480,9 +494,9 @@ public class DataFlowDiagramConverter extends Converter {
                     .forEach(pin -> ports
                             .add(new Port(createBehaviourString(mapPinToAssignments.get(pin)), pin.getId(), "port:dfd-output", new ArrayList<>())));
             if (mapNodeToAnnotation == null)
-            	children.add(new Child(text, labels, ports, id, type, null, null, new ArrayList<>()));
+            	children.add(new Child(text, labels, ports, id, type, null, null, null, new ArrayList<>()));
             else 
-            	children.add(new Child(text, labels, ports, id, type, null, null, children));
+            	children.add(new Child(text, labels, ports, id, type, null, null, mapNodeToAnnotation.get(node), new ArrayList<>()));
         }
     }
 
@@ -501,7 +515,7 @@ public class DataFlowDiagramConverter extends Converter {
         String targetId = flow.getDestinationPin()
                 .getId();
         String text = flow.getEntityName();
-        return new Child(text, null, null, id, type, sourceId, targetId, new ArrayList<>());
+        return new Child(text, null, null, id, type, sourceId, targetId, null, new ArrayList<>());
     }
 
     private Map<Pin, List<AbstractAssignment>> mapping(Node node) {

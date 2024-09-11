@@ -6,7 +6,6 @@ import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
-import org.dataflowanalysis.dfd.datadictionary.Behaviour;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;

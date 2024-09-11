@@ -40,8 +40,8 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
     /**
      * Creates a new vertex with the given referenced node and pin mappings
      * @param node Node that is referenced by the vertex
-     * @param pinDFDVertexMap Map containing relationships between the pins of the vertex and previous vertices
-     * @param pinFlowMap Map containing relationships between the pins of the vertex and the flows connecting the node to
+     * @param previousVertices list of previous vertices
+     * @param mapPinToOutgoingFlow Map containing relationships between the pins of the vertex and the flows connecting the node to
      * other vertices
      */
     public DFDSimpleVertex(Node node, Set<DFDSimpleVertex> previousVertices, Map<Pin, Flow> mapPinToOutgoingFlow) {
@@ -74,7 +74,7 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
     }
 
     /**
-     * Determine node characteristics of the dfd vertex
+     * Determine node characteristics of the vertex
      * @return Returns a list of all node characteristics that are applied at the vertex
      */
     private List<CharacteristicValue> determineNodeCharacteristics() {
@@ -91,8 +91,8 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
     /**
      * Calculates outgoing labels for assignment and adds them into mapOutputPinToOutgoingLabels
      * @param assignment Assignment to be evaluated
-     * @param inputPinsIncomingLabelMap Maps Input Pins to Incoming Labels
-     * @param outputPinsOutgoingLabelMap Maps Output Pins to Outgoing Labels, to be filled by method
+     * @param incomingDataCharacteristics incoming characteristics as list
+     * @param outgoingLabelPerPin Maps Output Pins to Outgoing Labels, to be filled by method
      */
     private void handleOutgoingAssignments(AbstractAssignment assignment, List<DataCharacteristic> incomingDataCharacteristics, Map<Pin, Set<Label>> outgoingLabelPerPin) {
     	// Takes the labels of all incoming Characteristics whos names match the flows arriving on all input pins of the assignment
@@ -120,8 +120,7 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
 
     /**
      * Create data characteristics from Map mapping Input/Output Pin to labels. Important: The name of the data
-     * characteristic is equal to the id of the pin. Any changes in the data characteristics naming scheme will require
-     * changes in the evaluation logic
+     * characteristic is equal to the name of the flow. 
      * @param pinToLabelMap Map mapping Input/Output Pin to labels
      * @return List of created data characteristics
      */

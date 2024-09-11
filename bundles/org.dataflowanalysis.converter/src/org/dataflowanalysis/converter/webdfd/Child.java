@@ -17,7 +17,7 @@ import java.util.List;
 
 // The WebEditor is susceptible to changes, and to accommodate new fields, we disregard any unseen fields
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record Child(String text, List<WebEditorLabel> labels, List<Port> ports, String id, String type, String sourceId, String targetId,
+public record Child(String text, List<WebEditorLabel> labels, List<Port> ports, String id, String type, String sourceId, String targetId, 
         List<Child> children) {
 
     /**

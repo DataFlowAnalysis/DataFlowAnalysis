@@ -1,131 +1,150 @@
 {
     "services": [
         {
-            "name": "config_server",
+            "name": "configserver",
             "stereotypes": [
-                "configuration_server",
-                "infrastructural"
+                "infrastructural",
+                "configuration_server"
             ],
             "tagged_values": {
-                "Configuration Server": "Spring Cloud Config",
-                "Port": 8888
+                "Port": 8888,
+                "Configuration Server": "Spring Cloud Config"
             }
         },
         {
-            "name": "discovery_server",
+            "name": "webservice_registry",
             "stereotypes": [
-                "service_discovery",
-                "infrastructural"
+                "infrastructural",
+                "service_discovery"
             ],
             "tagged_values": {
-                "Service Discovery": "Eureka",
-                "Port": 8761
+                "Port": 8761,
+                "Service Discovery": "Eureka"
             }
         },
         {
-            "name": "tracing_server",
+            "name": "zipkin_tracing",
             "stereotypes": [
-                "tracing_server",
-                "infrastructural"
+                "infrastructural",
+                "tracing_server"
             ],
             "tagged_values": {
-                "Tracing Server": "Zipkin",
-                "Port": 9411
+                "Port": 9411,
+                "Tracing Server": "Zipkin"
             }
         },
         {
-            "name": "admin_server",
+            "name": "mysqldb",
             "stereotypes": [
-                "administration_server",
-                "infrastructural"
+                "database",
+                "plaintext_credentials"
             ],
             "tagged_values": {
-                "Administration Server": "Spring Boot Admin",
-                "Port": 9090
+                "Port": 3306,
+                "Database": "MySQL",
+                "Password": "password"
             }
         },
         {
-            "name": "prometheus_server",
+            "name": "auth_server",
             "stereotypes": [
-                "metrics_server",
-                "infrastructural"
+                "infrastructural",
+                "authorization_server",
+                "resource_server",
+                "authentication_scope_all_requests",
+                "plaintext_credentials",
+                "login_attempts_regulation"
             ],
             "tagged_values": {
-                "Metrics Server": "Prometheus",
-                "Port": 9090
-            }
-        },
-        {
-            "name": "grafana_server",
-            "stereotypes": [
-                "monitoring_dashboard",
-                "infrastructural"
-            ],
-            "tagged_values": {
-                "Monitoring Dashboard": "Grafana",
-                "Port": 3000
-            }
-        },
-        {
-            "name": "customers_service",
-            "stereotypes": [
-                "in_memory_data_store",
-                "local_logging",
-                "internal"
-            ],
-            "tagged_values": {
-                "Port": 8081,
-                "In-Memory Data Store": "HSQLDB",
-                "Logging Technology": "Lombok",
+                "Port": 8899,
+                "Authorization Server": "Spring OAuth2",
                 "Endpoints": [
-                    "/owners",
-                    "/owners/{ownerId}"
+                    "/me"
+                ],
+                "Username": "user",
+                "Password": "password"
+            }
+        },
+        {
+            "name": "web_portal",
+            "stereotypes": [
+                "infrastructural",
+                "monitoring_dashboard",
+                "monitoring_server",
+                "authentication_scope_all_requests"
+            ],
+            "tagged_values": {
+                "Port": 8090,
+                "Monitoring Server": "Turbine",
+                "Monitoring Dashboard": "Hystrix"
+            }
+        },
+        {
+            "name": "user_webservice",
+            "stereotypes": [
+                "internal",
+                "local_logging",
+                "resource_server",
+                "authentication_scope_all_requests"
+            ],
+            "tagged_values": {
+                "Port": 8091,
+                "Endpoints": [
+                    "/",
+                    "/{userName}"
                 ]
             }
         },
         {
-            "name": "vets_service",
+            "name": "comments_webservice",
             "stereotypes": [
-                "in_memory_data_store",
-                "internal"
+                "internal",
+                "local_logging",
+                "resource_server"
             ],
             "tagged_values": {
                 "Port": 8083,
-                "In-Memory Data Store": "HSQLDB",
                 "Endpoints": [
-                    "/vets"
+                    "/comments",
+                    "/comments/{taskId}"
                 ]
             }
         },
         {
-            "name": "visits_service",
+            "name": "task_webservice",
             "stereotypes": [
-                "in_memory_data_store",
+                "internal",
                 "local_logging",
-                "internal"
+                "authentication_scope_all_requests",
+                "resource_server",
+                "circuit_breaker",
+                "load_balancer"
             ],
             "tagged_values": {
                 "Port": 8082,
-                "In-Memory Data Store": "HSQLDB",
-                "Logging Technology": "Lombok"
+                "Circuit Breaker": "Hystrix",
+                "Endpoints": [
+                    "/",
+                    "/{taskId}",
+                    "/usertask/{userName}"
+                ],
+                "Load Balancer": "Spring Cloud"
             }
         },
         {
             "name": "api_gateway",
             "stereotypes": [
-                "gateway",
                 "infrastructural",
+                "gateway",
                 "load_balancer",
-                "transform_identity_representation"
+                "circuit_breaker",
+                "csrf_disabled"
             ],
             "tagged_values": {
-                "Gateway": "Spring Cloud Gateway",
-                "Port": 8080,
-                "Load Balancer": "Spring Cloud",
-                "Endpoints": [
-                    "/api/gatewayowners/{ownerId}",
-                    "/api/gateway"
-                ]
+                "Port": 8765,
+                "Gateway": "Zuul",
+                "Load Balancer": "Ribbon",
+                "Circuit Breaker": "Hystrix"
             }
         }
     ],
@@ -137,7 +156,7 @@
                 "entrypoint"
             ],
             "tagged_values": {
-                "URL": "https://github.com/spring-petclinic/spring-petclinic-microservices-config"
+                "URL": "https://github.com/anilallewar/microservices-basics-cloud-config"
             }
         },
         {
@@ -153,159 +172,181 @@
     "information_flows": [
         {
             "sender": "github_repository",
-            "receiver": "config_server",
+            "receiver": "configserver",
             "stereotypes": [
                 "restful_http"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "config_server",
-            "receiver": "discovery_server",
+            "sender": "configserver",
+            "receiver": "webservice_registry",
             "stereotypes": [
                 "restful_http"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "tracing_server",
-            "receiver": "discovery_server",
+            "sender": "configserver",
+            "receiver": "zipkin_tracing",
             "stereotypes": [
                 "restful_http"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "config_server",
-            "receiver": "tracing_server",
+            "sender": "configserver",
+            "receiver": "auth_server",
             "stereotypes": [
                 "restful_http"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "admin_server",
-            "receiver": "discovery_server",
+            "sender": "mysqldb",
+            "receiver": "auth_server",
+            "stereotypes": [
+                "restful_http",
+                "plaintext_credentials_link"
+            ],
+            "tagged_values": {
+                "'Username'": "root",
+                "'Password'": "password"
+            }
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "webservice_registry",
             "stereotypes": [
                 "restful_http"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "config_server",
-            "receiver": "admin_server",
+            "sender": "web_portal",
+            "receiver": "webservice_registry",
             "stereotypes": [
                 "restful_http"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "prometheus_server",
-            "receiver": "grafana_server",
+            "sender": "configserver",
+            "receiver": "web_portal",
             "stereotypes": [
                 "restful_http"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "customers_service",
-            "receiver": "discovery_server",
+            "sender": "user_webservice",
+            "receiver": "zipkin_tracing",
             "stereotypes": [
                 "restful_http"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "config_server",
-            "receiver": "customers_service",
+            "sender": "configserver",
+            "receiver": "user_webservice",
             "stereotypes": [
                 "restful_http"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "customers_service",
-            "receiver": "tracing_server",
+            "sender": "user_webservice",
+            "receiver": "webservice_registry",
             "stereotypes": [
                 "restful_http"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "customers_service",
-            "receiver": "prometheus_server",
+            "sender": "auth_server",
+            "receiver": "user_webservice",
             "stereotypes": [
                 "restful_http"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "vets_service",
-            "receiver": "discovery_server",
+            "sender": "comments_webservice",
+            "receiver": "zipkin_tracing",
             "stereotypes": [
                 "restful_http"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "config_server",
-            "receiver": "vets_service",
+            "sender": "configserver",
+            "receiver": "comments_webservice",
             "stereotypes": [
                 "restful_http"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "vets_service",
-            "receiver": "tracing_server",
+            "sender": "comments_webservice",
+            "receiver": "webservice_registry",
             "stereotypes": [
                 "restful_http"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "vets_service",
-            "receiver": "prometheus_server",
+            "sender": "task_webservice",
+            "receiver": "zipkin_tracing",
             "stereotypes": [
                 "restful_http"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "visits_service",
-            "receiver": "discovery_server",
+            "sender": "configserver",
+            "receiver": "task_webservice",
             "stereotypes": [
                 "restful_http"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "config_server",
-            "receiver": "visits_service",
+            "sender": "auth_server",
+            "receiver": "task_webservice",
             "stereotypes": [
                 "restful_http"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "visits_service",
-            "receiver": "tracing_server",
+            "sender": "task_webservice",
+            "receiver": "webservice_registry",
             "stereotypes": [
                 "restful_http"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "visits_service",
-            "receiver": "prometheus_server",
+            "sender": "task_webservice",
+            "receiver": "web_portal",
             "stereotypes": [
                 "restful_http"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "discovery_server",
-            "receiver": "api_gateway",
+            "sender": "task_webservice",
+            "receiver": "comments_webservice",
+            "stereotypes": [
+                "restful_http",
+                "circuit_breaker_link",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "user",
             "stereotypes": [
                 "restful_http"
             ],
@@ -320,16 +361,15 @@
             "tagged_values": {}
         },
         {
-            "sender": "api_gateway",
-            "receiver": "user",
+            "sender": "configserver",
+            "receiver": "api_gateway",
             "stereotypes": [
-                "restful_http",
-                "load_balanced_link"
+                "restful_http"
             ],
             "tagged_values": {}
         },
         {
-            "sender": "config_server",
+            "sender": "webservice_registry",
             "receiver": "api_gateway",
             "stereotypes": [
                 "restful_http"
@@ -338,34 +378,23 @@
         },
         {
             "sender": "api_gateway",
-            "receiver": "prometheus_server",
+            "receiver": "zipkin_tracing",
             "stereotypes": [
-                "restful_http",
-                "load_balanced_link"
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "api_gateway",
+            "stereotypes": [
+                "restful_http"
             ],
             "tagged_values": {}
         },
         {
             "sender": "api_gateway",
-            "receiver": "vets_service",
-            "stereotypes": [
-                "restful_http",
-                "load_balanced_link"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "api_gateway",
-            "receiver": "visits_service",
-            "stereotypes": [
-                "restful_http",
-                "load_balanced_link"
-            ],
-            "tagged_values": {}
-        },
-        {
-            "sender": "api_gateway",
-            "receiver": "customers_service",
+            "receiver": "user_webservice",
             "stereotypes": [
                 "restful_http",
                 "load_balanced_link",
@@ -375,10 +404,11 @@
         },
         {
             "sender": "api_gateway",
-            "receiver": "tracing_server",
+            "receiver": "task_webservice",
             "stereotypes": [
                 "restful_http",
-                "load_balanced_link"
+                "load_balanced_link",
+                "circuit_breaker_link"
             ],
             "tagged_values": {}
         }

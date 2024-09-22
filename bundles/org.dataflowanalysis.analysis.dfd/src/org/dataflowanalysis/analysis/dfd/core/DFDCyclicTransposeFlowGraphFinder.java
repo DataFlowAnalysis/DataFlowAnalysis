@@ -59,12 +59,10 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
         List<DFDTransposeFlowGraph> transposeFlowGraphs = new ArrayList<>();
 
         for (Node endNode : potentialSinks) {
-            List<String> previousNodesInTransposeFlow = new ArrayList<>();
 
-            previousNodesInTransposeFlow.add(endNode.getEntityName());
 
             List<DFDVertex> sinks = determineSinks(new DFDVertex(endNode, new HashMap<>(), new HashMap<>()), endNode.getBehaviour()
-                    .getInPin(), sources, previousNodesInTransposeFlow);
+                    .getInPin(), sources, new ArrayList<>());
             if (!sourceNodes.isEmpty()) {
                 sinks = sinks.stream()
                         .filter(it -> new DFDTransposeFlowGraph(it).getVertices()
@@ -95,7 +93,7 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
      * @param inputPins Relevant input pins on the given vertex
      * @return List of sinks created from the initial sink with previous vertices calculated
      */
-    private List<DFDVertex> determineSinks(DFDVertex sink, List<Pin> inputPins, List<Node> sourceNodes, List<String> previousNodesInTransposeFlow) {
+    private List<DFDVertex> determineSinks(DFDVertex sink, List<Pin> inputPins, List<Node> sourceNodes, List<Pin> previousPinsInTransposeFlow) {
         List<DFDVertex> vertices = new ArrayList<>();
         vertices.add(sink);
 
@@ -113,13 +111,13 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
             List<DFDVertex> finalVertices = vertices;
             
             vertices = incomingFlowsToPin.stream()
-                    .flatMap(flow -> handleIncomingFlowCyclic(flow, inputPin, finalVertices, sourceNodes, previousNodesInTransposeFlow).stream())
+                    .flatMap(flow -> handleIncomingFlowCyclic(flow, inputPin, finalVertices, sourceNodes, previousPinsInTransposeFlow).stream())
                     .toList();
         }
         return vertices;
     }
     
-    private List<DFDVertex> loopAwareDetermineSinks(DFDVertex sink, List<Pin> inputPins, List<Node> sourceNodes, List<String> previousNodesInTransposeFlow) {
+    private List<DFDVertex> loopAwareDetermineSinks(DFDVertex sink, List<Pin> inputPins, List<Node> sourceNodes, List<Pin> previousPinsInTransposeFlow) {
         List<DFDVertex> vertices = new ArrayList<>();
         vertices.add(sink);
 
@@ -139,9 +137,9 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
            
            for (var flow : incomingFlowsToPin) {
                //Skipping flows that cause cycles
-               if(previousNodesInTransposeFlow.contains(flow.getSourceNode().getEntityName())) continue;
+               if(previousPinsInTransposeFlow.contains(flow.getSourcePin())) continue;
                
-               List<DFDVertex> result = handleIncomingFlowCyclic(flow, inputPin, finalVertices, sourceNodes, previousNodesInTransposeFlow);
+               List<DFDVertex> result = handleIncomingFlowCyclic(flow, inputPin, finalVertices, sourceNodes, previousPinsInTransposeFlow);
                
                uniqueVertices.addAll(result);
            }
@@ -161,9 +159,9 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
      * @param previousNodesInTransposeFlow List of all Nodes part of the current transpose Flow
      */
     private List<DFDVertex> handleIncomingFlowCyclic(Flow incomingFlow, Pin inputPin, List<DFDVertex> finalVertices, List<Node> sourceNodes,
-            List<String> previousNodesInTransposeFlow) {
+            List<Pin> previousPinsInTransposeFlow) {
 
-        var copyPreviousNodesInTransposeFlow = new ArrayList<>(previousNodesInTransposeFlow);
+        var copyPreviousPinsInTransposeFlow = new ArrayList<>(previousPinsInTransposeFlow);
 
         List<DFDVertex> result = new ArrayList<>();
 
@@ -173,19 +171,19 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
 
         List<DFDVertex> previousNodeVertices = new ArrayList<>();
 
-        if (!loopCheck(copyPreviousNodesInTransposeFlow, previousNode.getEntityName())) {
+        if (!loopCheck(copyPreviousPinsInTransposeFlow, incomingFlow.getSourcePin())) {
             if (!hasCycles) {
                 logger.warn("Resolving cycles: Stopping cyclic behavior for analysis, may cause unwanted behavior");
                 hasCycles = true;
             }
-            copyPreviousNodesInTransposeFlow.add(previousNode.getEntityName());
+            copyPreviousPinsInTransposeFlow.add(incomingFlow.getSourcePin());
             previousNodeVertices = loopAwareDetermineSinks(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()), previousNodeInputPins, sourceNodes,
-                    copyPreviousNodesInTransposeFlow);
+            		copyPreviousPinsInTransposeFlow);
             
         } else {
-            copyPreviousNodesInTransposeFlow.add(previousNode.getEntityName());
+        	copyPreviousPinsInTransposeFlow.add(incomingFlow.getSourcePin());
             previousNodeVertices = determineSinks(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()), previousNodeInputPins, sourceNodes,
-                    copyPreviousNodesInTransposeFlow);
+            		copyPreviousPinsInTransposeFlow);
         }
         
         for (DFDVertex vertex : finalVertices) {
@@ -199,9 +197,9 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
      * @param previousNodesInTransposeFlow List of all Nodes part of the current transpose Flow
      * @param sourceNode
      */
-    private boolean loopCheck(List<String> previousNodesInTransposeFlow, String sourceNode) {
-        long count = previousNodesInTransposeFlow.stream()
-                .filter(item -> item.equals(sourceNode))
+    private boolean loopCheck(List<Pin> previousPinsInTransposeFlow, Pin outPin) {
+        long count = previousPinsInTransposeFlow.stream()
+                .filter(item -> item.equals(outPin))
                 .count();
         return count < ITERATIONS_OF_LOOP;
     }

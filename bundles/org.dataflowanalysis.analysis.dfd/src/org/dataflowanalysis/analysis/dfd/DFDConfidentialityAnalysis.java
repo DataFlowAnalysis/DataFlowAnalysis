@@ -5,7 +5,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
-import org.dataflowanalysis.analysis.dfd.core.DFDCyclicTransposeFlowGraphFinder;
+import org.dataflowanalysis.analysis.dfd.core.DFDTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.eclipse.core.runtime.Plugin;
@@ -39,7 +39,7 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
         this.resourceProvider = resourceProvider;
         this.modelProjectActivator = modelProjectActivator;
         this.modelProjectName = modelProjectName;
-        this.transposeFlowGraphFinderClass = DFDCyclicTransposeFlowGraphFinder.class;
+        this.transposeFlowGraphFinderClass = DFDTransposeFlowGraphFinder.class;
     }
 
     @Override

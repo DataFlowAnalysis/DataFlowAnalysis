@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
-import org.dataflowanalysis.analysis.dfd.core.DFDCyclicTransposeFlowGraphFinder;
+import org.dataflowanalysis.analysis.dfd.core.DFDTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.core.DFDVertex;
 import org.dataflowanalysis.examplemodels.Activator;
 import org.junit.jupiter.api.Test;
@@ -81,7 +81,7 @@ public class CyclicFinderTest {
                 .usePluginActivator(Activator.class)
                 .useDataFlowDiagram(dataFlowDiagramPath)
                 .useDataDictionary(dataDictionaryPath)
-                .useTransposeFlowGraphFinder(DFDCyclicTransposeFlowGraphFinder.class)
+                .useTransposeFlowGraphFinder(DFDTransposeFlowGraphFinder.class)
                 .build();
     }
 }

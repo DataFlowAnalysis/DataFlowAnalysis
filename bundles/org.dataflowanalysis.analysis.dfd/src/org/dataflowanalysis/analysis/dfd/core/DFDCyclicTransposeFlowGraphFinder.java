@@ -110,45 +110,24 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
 
             List<DFDVertex> finalVertices = vertices;
             
-            vertices = incomingFlowsToPin.stream()
+            if (!incomingFlowsToPin.stream().filter(it -> previousPinsInTransposeFlow.contains(it.getSourcePin())).toList().isEmpty()) {
+            	if (!hasCycles) {
+                    logger.warn("Resolving cycles: Stopping cyclic behavior for analysis, may cause unwanted behavior");
+                    hasCycles = true;
+                }
+            }
+            
+            vertices = incomingFlowsToPin.stream().filter(it -> !previousPinsInTransposeFlow.contains(it.getSourcePin()))
                     .flatMap(flow -> handleIncomingFlowCyclic(flow, inputPin, finalVertices, sourceNodes, previousPinsInTransposeFlow).stream())
                     .toList();
+            
+        }
+        if (vertices == null || vertices.isEmpty()) {
+        	vertices = new ArrayList<>();
+        	vertices.add(sink);
         }
         return vertices;
-    }
-    
-    private List<DFDVertex> loopAwareDetermineSinks(DFDVertex sink, List<Pin> inputPins, List<Node> sourceNodes, List<Pin> previousPinsInTransposeFlow) {
-        List<DFDVertex> vertices = new ArrayList<>();
-        vertices.add(sink);
-
-        if (sourceNodes.contains(sink.getReferencedElement())) {
-            return vertices;
-        }
-        for (Pin inputPin : inputPins) {
-            List<Flow> incomingFlowsToPin = dataFlowDiagram.getFlows()
-                    .stream()
-                    .filter(flow -> flow.getDestinationPin()
-                            .equals(inputPin))
-                    .toList();
-           List<DFDVertex> finalVertices = vertices;
-           
-           
-           Set<DFDVertex> uniqueVertices = new HashSet<>();
-           
-           for (var flow : incomingFlowsToPin) {
-               //Skipping flows that cause cycles
-               if(previousPinsInTransposeFlow.contains(flow.getSourcePin())) continue;
-               
-               List<DFDVertex> result = handleIncomingFlowCyclic(flow, inputPin, finalVertices, sourceNodes, previousPinsInTransposeFlow);
-               
-               uniqueVertices.addAll(result);
-           }
-           //If we skip every flow due to cyclic behavior we need to create a new sink
-           if (!uniqueVertices.isEmpty())
-        	   vertices = new ArrayList<>(uniqueVertices);
-        }
-        return vertices;
-    }
+    }    
 
     /**
      * Handles flow to determine sink
@@ -171,37 +150,16 @@ public class DFDCyclicTransposeFlowGraphFinder extends DFDTransposeFlowGraphFind
 
         List<DFDVertex> previousNodeVertices = new ArrayList<>();
 
-        if (!loopCheck(copyPreviousPinsInTransposeFlow, incomingFlow.getSourcePin())) {
-            if (!hasCycles) {
-                logger.warn("Resolving cycles: Stopping cyclic behavior for analysis, may cause unwanted behavior");
-                hasCycles = true;
-            }
-            copyPreviousPinsInTransposeFlow.add(incomingFlow.getSourcePin());
-            previousNodeVertices = loopAwareDetermineSinks(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()), previousNodeInputPins, sourceNodes,
-            		copyPreviousPinsInTransposeFlow);
-            
-        } else {
+        
         	copyPreviousPinsInTransposeFlow.add(incomingFlow.getSourcePin());
             previousNodeVertices = determineSinks(new DFDVertex(previousNode, new HashMap<>(), new HashMap<>()), previousNodeInputPins, sourceNodes,
             		copyPreviousPinsInTransposeFlow);
-        }
+        
         
         for (DFDVertex vertex : finalVertices) {
             result.addAll(cloneFlowAndVertexForMultipleFlowGraphs(vertex, inputPin, incomingFlow, previousNodeVertices));
         }
         return result;
-    }
-
-    /**
-     * checks if the source of incoming flow is part of a loop (We allow first iteration of loop)
-     * @param previousNodesInTransposeFlow List of all Nodes part of the current transpose Flow
-     * @param sourceNode
-     */
-    private boolean loopCheck(List<Pin> previousPinsInTransposeFlow, Pin outPin) {
-        long count = previousPinsInTransposeFlow.stream()
-                .filter(item -> item.equals(outPin))
-                .count();
-        return count < ITERATIONS_OF_LOOP;
     }
 
     /**

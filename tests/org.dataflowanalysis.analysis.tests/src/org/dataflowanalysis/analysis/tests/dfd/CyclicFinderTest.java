@@ -43,6 +43,20 @@ public class CyclicFinderTest {
         assertEquals(flowGraphVertexNames, expectedVertexNames);
 
     }
+    
+    @Test
+    public void checkPseudoLoopNotDetected() {
+    	 String locationLoop = Paths.get("models", "DFDTestModels")
+                 .toString();
+         var model = Paths.get(locationLoop, "complexPseudoCycle")
+                 .toString();
+
+         var analysis = buildAnalysis(model);
+         analysis.initializeAnalysis();
+         var flowGraph = analysis.findFlowGraphs();
+
+         assertTrue(!flowGraph.wasCyclic());
+    }
 
     @Test
     public void checkIsCyclic() {

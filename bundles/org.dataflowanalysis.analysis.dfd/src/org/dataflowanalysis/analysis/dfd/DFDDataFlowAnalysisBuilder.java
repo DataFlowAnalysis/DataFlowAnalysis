@@ -4,6 +4,7 @@ import java.util.Optional;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
+import org.dataflowanalysis.analysis.dfd.resource.DFDModelResourceProvider;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.dataflowanalysis.analysis.dfd.resource.DFDURIResourceProvider;
 import org.dataflowanalysis.analysis.utils.ResourceUtils;
@@ -81,6 +82,7 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
      */
     public DFDDataFlowAnalysisBuilder useCustomResourceProvider(DFDResourceProvider resourceProvider) {
         this.customResourceProvider = Optional.of(resourceProvider);
+        if (resourceProvider instanceof DFDModelResourceProvider) customResourceProviderIsLoaded = true;
         return this;
     }
 

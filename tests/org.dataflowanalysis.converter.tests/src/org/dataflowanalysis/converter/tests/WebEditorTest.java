@@ -49,7 +49,7 @@ public class WebEditorTest extends ConverterTest {
 
         webBefore.sort();
         webAfter.sort();
-
+        
         assertEquals(webBefore, webAfter);
 
         checkBehaviorAndPinNames(dfdBefore);

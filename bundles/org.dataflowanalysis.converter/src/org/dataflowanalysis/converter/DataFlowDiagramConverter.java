@@ -250,7 +250,8 @@ public class DataFlowDiagramConverter extends Converter {
          DFDConfidentialityAnalysis analysis = new DFDConfidentialityAnalysis(null, null, null);
          for (int i = 0; i < conditions.size(); i++) {
          	var condition = conditions.get(i);
-         	for (var tfg : collection) {     
+         	if (condition == null) continue;
+         	for (var tfg : collection) {         		
          		var violations = analysis.queryDataFlow(tfg, condition);
          		for (var vertex : violations) {
          			Node node = (Node)vertex.getReferencedElement();   	

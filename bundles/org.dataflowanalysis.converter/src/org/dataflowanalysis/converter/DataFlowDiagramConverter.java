@@ -23,7 +23,6 @@ import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.dfd.core.DFDCyclicTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.core.DFDTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDURIResourceProvider;
 import org.dataflowanalysis.analysis.dfd.simple.DFDSimpleTransposeFlowGraphFinder;
@@ -213,14 +212,12 @@ public class DataFlowDiagramConverter extends Converter {
      */
     private Map<Node, Annotation> createNodeAnnotationMap (DataFlowDiagramAndDictionary complete, List<Predicate<? super AbstractVertex<?>>> conditions, Class<? extends TransposeFlowGraphFinder> finderClass) {
     	TransposeFlowGraphFinder finder;
-    	if (finderClass == null) finder = new DFDCyclicTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
+    	if (finderClass == null) finder = new DFDTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
     	else {
-    		if (finderClass.equals(DFDTransposeFlowGraphFinder.class))
-                finder = new DFDTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
-            else if (finderClass.equals(DFDSimpleTransposeFlowGraphFinder.class))
+    		if (finderClass.equals(DFDSimpleTransposeFlowGraphFinder.class))
             	finder = new DFDSimpleTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
             else
-                finder = new DFDCyclicTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
+                finder = new DFDTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
     			 
     	}
          var collection = finder.findTransposeFlowGraphs();

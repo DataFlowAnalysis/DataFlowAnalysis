@@ -241,7 +241,7 @@ public class DataFlowDiagramConverter extends Converter {
 	      	mapNodeToPropagatedLabels.get(key).forEach(value -> {
 	      		builder.append(value).append("\n");
 	      	});
-	      	mapNodeToAnnotations.put(key, new Annotation(builder.toString(), "tag", "#FFFFFF"));
+	      	if (!mapNodeToPropagatedLabels.get(key).isEmpty())mapNodeToAnnotations.put(key, new Annotation(builder.toString(), "tag", "#FFFFFF"));
         });
         
          

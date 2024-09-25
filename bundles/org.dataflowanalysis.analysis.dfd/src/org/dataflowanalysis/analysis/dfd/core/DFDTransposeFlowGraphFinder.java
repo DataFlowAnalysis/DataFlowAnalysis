@@ -276,6 +276,7 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
                 }
             }
         }
+        if (endNodes.isEmpty() && !nodes.isEmpty()) endNodes.add(nodes.get(0)); 
         return endNodes;
     }
     

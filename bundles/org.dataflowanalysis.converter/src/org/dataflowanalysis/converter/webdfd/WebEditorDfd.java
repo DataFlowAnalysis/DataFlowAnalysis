@@ -8,7 +8,7 @@ import java.util.List;
  * @param model The model containing the nodes and flows
  * @param labelTypes A list of {@link WebEditorLabelType}
  */
-public record WebEditorDfd(Model model, List<WebEditorLabelType> labelTypes) {
+public record WebEditorDfd(Model model, List<WebEditorLabelType> labelTypes, String editorMode) {
 
     /**
      * Sorts the data flow diagram based on the id's of the contents

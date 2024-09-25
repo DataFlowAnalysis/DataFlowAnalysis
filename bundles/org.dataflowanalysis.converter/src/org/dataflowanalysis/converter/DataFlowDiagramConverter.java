@@ -452,7 +452,7 @@ public class DataFlowDiagramConverter extends Converter {
 
         createNodes(dataFlowDiagram, children, mapNodeToAnnotation);
 
-        return new WebEditorDfd(new Model("graph", "root", children), labelTypes);
+        return new WebEditorDfd(new Model("graph", "root", children), labelTypes, "edit");
     }
 
     private void createNodes(DataFlowDiagram dataFlowDiagram, List<Child> children, Map<Node, Annotation> mapNodeToAnnotation) {

@@ -7,8 +7,10 @@ import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
+import org.dataflowanalysis.dfd.datadictionary.Assignment;
 import org.dataflowanalysis.dfd.datadictionary.Behaviour;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
+import org.dataflowanalysis.dfd.datadictionary.ForwardingAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
@@ -276,11 +278,14 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
                 }
             }
         }
-        if (endNodes.isEmpty() && !nodes.isEmpty()) endNodes.add(nodes.get(0)); 
+        if (endNodes.isEmpty() && !nodes.isEmpty()) {
+        	throw new IllegalArgumentException("DFD terminates in a cycle, no sink can be identified.");
+        }
         return endNodes;
     }
     
     public boolean hasCycles() {
     	return hasCycles;
     }
+    
 }

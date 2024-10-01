@@ -21,7 +21,7 @@ import org.dataflowanalysis.analysis.dfd.core.DFDVertex;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
-import org.dataflowanalysis.analysis.dfd.core.DFDCyclicTransposeFlowGraphFinder;
+import org.dataflowanalysis.analysis.dfd.core.DFDTransposeFlowGraphFinder;
 import org.dataflowanalysis.examplemodels.Activator;
 import org.junit.jupiter.api.Test;
 
@@ -60,7 +60,7 @@ public class MicroSecEndTest {
                 .usePluginActivator(Activator.class)
                 .useDataFlowDiagram(dataFlowDiagramPath)
                 .useDataDictionary(dataDictionaryPath)
-                .useTransposeFlowGraphFinder(DFDCyclicTransposeFlowGraphFinder.class)
+                .useTransposeFlowGraphFinder(DFDTransposeFlowGraphFinder.class)
                 .build();
     }
 
@@ -112,10 +112,7 @@ public class MicroSecEndTest {
     void testConstraints() {
         for (var model : TUHH_MODELS.keySet()) {
             for (int variant : TUHH_MODELS.get(model)) {
-                // Skip largest models to make build pipeline faster
-                if (model.equals("sqshq") && Set.of(10, 11, 12, 18)
-                        .contains(variant))
-                    continue;
+                
 
                 Set<Integer> violationSet = new TreeSet<Integer>();
                 String variationName = model + "_" + variant;

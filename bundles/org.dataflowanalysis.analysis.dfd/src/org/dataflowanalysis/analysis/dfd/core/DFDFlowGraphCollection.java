@@ -70,12 +70,10 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
             throw new IllegalArgumentException();
         }
 
-        if (transposeFlowGraphFinderClass.equals(DFDTransposeFlowGraphFinder.class))
-            this.transposeFlowGraphFinder = new DFDTransposeFlowGraphFinder(dfdResourceProvider);
-        else if (transposeFlowGraphFinderClass.equals(DFDSimpleTransposeFlowGraphFinder.class))
+        if (transposeFlowGraphFinderClass.equals(DFDSimpleTransposeFlowGraphFinder.class))
         	this.transposeFlowGraphFinder = new DFDSimpleTransposeFlowGraphFinder(dfdResourceProvider);
         else
-            this.transposeFlowGraphFinder = new DFDCyclicTransposeFlowGraphFinder(dfdResourceProvider);
+            this.transposeFlowGraphFinder = new DFDTransposeFlowGraphFinder(dfdResourceProvider);
 
         return transposeFlowGraphFinder.findTransposeFlowGraphs();
     }
@@ -83,8 +81,8 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
      * @return whether the provided DFD had cyclic behavior or not, since resolving Cycles can lead to unexpected behavior
      */
     public boolean wasCyclic() {
-        if (transposeFlowGraphFinder instanceof DFDCyclicTransposeFlowGraphFinder cyclicTransposeFlowGraphFinder) {
-            return cyclicTransposeFlowGraphFinder.hasCycles();
+        if (transposeFlowGraphFinder instanceof DFDTransposeFlowGraphFinder transposeFlowGraphFinder) {
+            return transposeFlowGraphFinder.hasCycles();
         }
         return false;
     }

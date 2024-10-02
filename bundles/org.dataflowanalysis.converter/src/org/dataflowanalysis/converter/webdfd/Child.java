@@ -23,7 +23,9 @@ public record Child(String text, List<WebEditorLabel> labels, List<Port> ports, 
     /**
      * Overrides equals method to support child type specific equality checks.
      */
-    public boolean equals(Child other) {
+	@Override
+    public boolean equals(Object otherObject) {
+		if (!(otherObject instanceof Child other)) return false;
         if (!this.type.equals(other.type)) {
             return false;
         } else if (this.type.split(":")[0].equals("node")) {

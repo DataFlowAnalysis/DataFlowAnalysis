@@ -51,7 +51,8 @@ public class DataFlowDiagramConverter extends Converter {
     private Map<String, Node> idToNodeMap;
 
     private final Logger logger = Logger.getLogger(DataFlowDiagramConverter.class);
-    private final static String DELIMITER = ";";
+    protected final static String DELIMITER_PIN_NAME = "\\|";
+    protected final static String DELIMITER_MULTI_PIN = ",";
 
     private BehaviorConverter behaviorConverter;
 
@@ -548,9 +549,9 @@ public class DataFlowDiagramConverter extends Converter {
                             .stream()
                             .sorted()
                             .toList();
-                    var flowName = String.join(DELIMITER, flowNames);
+                    var flowName = String.join(DELIMITER_PIN_NAME, flowNames);
                     // Dont forward if name is empty or only delimiters
-                    if (!flowName.matches(String.format("^$|^%s+$", DELIMITER))) {
+                    if (!flowName.matches(String.format("^$|^%s+$", DELIMITER_PIN_NAME))) {
                         builder.append("forward ")
                                 .append(flowName)
                                 .append("\n");
@@ -585,7 +586,10 @@ public class DataFlowDiagramConverter extends Converter {
         var behavior = node.getBehaviour();
         for (String behaviorString : behaviorStrings) {
             if (behaviorString.contains("forward ")) {
-            	 List<String> packets = Arrays.asList(behaviorString.split(" ")[1].split(DELIMITER));
+            	 var assignment = ddFactory.createForwardingAssignment();
+            	 assignment.setOutputPin(outpin);
+            	 
+            	 List<String> pinNames = Arrays.asList(behaviorString.split(" ")[1].split(DELIMITER_MULTI_PIN));
 
                  List<Flow> flowsToNode = dfd.getFlows()
                          .stream()
@@ -596,21 +600,14 @@ public class DataFlowDiagramConverter extends Converter {
                  for (var flow : flowsToNode) {
                      fillPinToFlowNamesMap(pinToFlowNames,flow);  
                  }
-
-                 Pin inpin=null;
-                 for (var currentInpin:pinToFlowNames.keySet()) {
-                     var names=pinToFlowNames.get(currentInpin);
-                     Collections.sort(names);
-                     if (names.equals(packets)) {
-                         inpin = currentInpin;
-                         break;
-                     }  
-                 }      
-
-                var assignment = ddFactory.createForwardingAssignment();
-                assignment.setOutputPin(outpin);
-                assignment.getInputPins()
-                        .add(inpin);
+                 
+                 pinNames.forEach(pinName -> {
+                	 List<String> incomingFlowNames = Arrays.asList(pinName.split(DELIMITER_PIN_NAME));
+                	 pinToFlowNames.keySet().forEach(key -> {
+                		if (pinToFlowNames.get(key).containsAll(incomingFlowNames)) assignment.getInputPins().add(key);
+                	 });
+                 });    
+               
                 behavior.getAssignment()
                         .add(assignment);
             } else if (behaviorString.contains("set ")) {

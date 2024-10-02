@@ -84,8 +84,8 @@ public class BehaviorConverter {
                 if (matcher.matches()) {
                     String flowToken = matcher.group(1);
                     List<String> flowNames = new ArrayList<>();
-                    if (flowToken.contains(";")) {
-                    	for (String s : flowToken.split(";")) {
+                    if (flowToken.contains(DataFlowDiagramConverter.DELIMITER_PIN_NAME)) {
+                    	for (String s : flowToken.split(DataFlowDiagramConverter.DELIMITER_PIN_NAME)) {
                     		flowNames.add(s);
                     	}
                     } else {
@@ -207,7 +207,7 @@ public class BehaviorConverter {
         if (term instanceof LabelReference labelReference) {
         	StringBuilder builder = new StringBuilder();
         	for (int i = 0; i < flowNames.size(); i++) {
-        		if (i != 0) builder.append("_");
+        		if (i != 0) builder.append(DataFlowDiagramConverter.DELIMITER_PIN_NAME);
         		builder.append(flowNames.get(i));
         	}
         	

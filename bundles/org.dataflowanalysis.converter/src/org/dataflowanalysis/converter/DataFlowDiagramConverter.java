@@ -51,7 +51,7 @@ public class DataFlowDiagramConverter extends Converter {
     private Map<String, Node> idToNodeMap;
 
     private final Logger logger = Logger.getLogger(DataFlowDiagramConverter.class);
-    protected final static String DELIMITER_PIN_NAME = "\\|";
+    protected final static String DELIMITER_PIN_NAME = "|";
     protected final static String DELIMITER_MULTI_PIN = ",";
 
     private BehaviorConverter behaviorConverter;
@@ -551,7 +551,7 @@ public class DataFlowDiagramConverter extends Converter {
                             .toList();
                     var flowName = String.join(DELIMITER_PIN_NAME, flowNames);
                     // Dont forward if name is empty or only delimiters
-                    if (!flowName.matches(String.format("^$|^%s+$", DELIMITER_PIN_NAME))) {
+                    if (!flowName.matches(String.format("^$|^%s+$", Pattern.quote(DELIMITER_PIN_NAME)))) {
                         builder.append("forward ")
                                 .append(flowName)
                                 .append("\n");
@@ -602,7 +602,7 @@ public class DataFlowDiagramConverter extends Converter {
                  }
                  
                  pinNames.forEach(pinName -> {
-                	 List<String> incomingFlowNames = Arrays.asList(pinName.split(DELIMITER_PIN_NAME));
+                	 List<String> incomingFlowNames = Arrays.asList(pinName.split(Pattern.quote(DELIMITER_PIN_NAME)));
                 	 pinToFlowNames.keySet().forEach(key -> {
                 		if (pinToFlowNames.get(key).containsAll(incomingFlowNames)) assignment.getInputPins().add(key);
                 	 });

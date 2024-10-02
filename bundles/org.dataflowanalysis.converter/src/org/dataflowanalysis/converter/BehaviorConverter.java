@@ -254,7 +254,7 @@ public class BehaviorConverter {
                     token.setLength(0); // Reset the token builder
                 }
                 tokens.add(Character.toString(current));
-            } else if (current == '&' || current == '|' || current == '!') {
+            } else if (current == '&' || (current == '|' && i + 1 < expression.length() && expression.charAt(i + 1) == current) || current == '!') {
                 // Handle logical operators
                 if (token.length() > 0) {
                     tokens.add(token.toString());

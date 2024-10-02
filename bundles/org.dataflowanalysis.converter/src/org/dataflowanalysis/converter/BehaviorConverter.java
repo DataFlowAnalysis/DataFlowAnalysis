@@ -53,7 +53,7 @@ public class BehaviorConverter {
      * @param expression the logical expression to convert
      * @return the {@link Term} representation of the expression
      */
-    public Assignment stringToAssignmentWithTerm(String expression, Map<Pin, String> inputPinToFlowNameMap, List<Pin> listOfValidInputPins) {
+    public Assignment stringToAssignmentWithTerm(String expression, Map<Pin, List<String>> inputPinToFlowNamesMap, List<Pin> listOfValidInputPins) {
         List<String> tokens = tokenize(expression);
 
         Stack<Term> operands = new Stack<>();
@@ -84,8 +84,8 @@ public class BehaviorConverter {
                 if (matcher.matches()) {
                     String flowToken = matcher.group(1);
                     List<String> flowNames = new ArrayList<>();
-                    if (flowToken.contains("_")) {
-                    	for (String s : flowToken.split("_")) {
+                    if (flowToken.contains(";")) {
+                    	for (String s : flowToken.split(";")) {
                     		flowNames.add(s);
                     	}
                     } else {
@@ -93,7 +93,7 @@ public class BehaviorConverter {
 					}
                     flowNames.forEach(it -> {
                     	listOfValidInputPins.forEach(pin -> {
-                    		if (inputPinToFlowNameMap.get(pin).equals(it)) requiredInputPins.add(pin);
+                    		if (inputPinToFlowNamesMap.get(pin).stream().anyMatch(it::equals)) requiredInputPins.add(pin);
                     	});
                     });
                 }

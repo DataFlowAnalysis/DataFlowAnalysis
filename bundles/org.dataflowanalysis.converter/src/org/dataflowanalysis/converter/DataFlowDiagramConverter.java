@@ -550,7 +550,12 @@ public class DataFlowDiagramConverter extends Converter {
                 }
             } else {
                 Assignment assignment = (Assignment) abstractAssignment;
-                String value = behaviorConverter.termToString(assignment.getTerm());
+                List<String> flowNames = new ArrayList<>();
+                assignment.getInputPins().forEach(pin -> {
+                	flowNames.add(inputPinToFlowNameMap.get(pin));
+                });
+                
+                String value = behaviorConverter.termToString(assignment.getTerm(), flowNames);
 
                 for (Label label : assignment.getOutputLabels()) {
                     builder.append("set ")
@@ -614,20 +619,13 @@ public class DataFlowDiagramConverter extends Converter {
                         .findAny()
                         .orElse(null);
 
-                Assignment assignment = ddFactory.createAssignment();
-
-                assignment.getInputPins()
-                        .addAll(behavior.getInPin());
+                Assignment assignment = behaviorConverter.stringToAssignmentWithTerm(matcher.group(2), inputPinToFlowNameMap, behavior.getInPin());
                 assignment.setOutputPin(outpin);
                 assignment.getOutputLabels()
                         .add(value);
 
                 behavior.getAssignment()
                         .add(assignment);
-
-                Term term = behaviorConverter.stringToTerm(matcher.group(2));
-
-                assignment.setTerm(term);
             }
         }
     }

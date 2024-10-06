@@ -129,7 +129,8 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
         	for (int j = i + 1; j < keyList.size(); j++) {
         		var key2 = keyList.get(j);
         		var inPin2 = inToPreviousNodeInPinsMap.get(key2);
-        		if (inPins.containsAll(inPin2) && inPin2.containsAll(inPins) && incomingFlowsToPins.getOrDefault(key2, new ArrayList<>()).size() < 2) {
+        		if (inPins.containsAll(inPin2) && inPin2.containsAll(inPins) && incomingFlowsToPins.getOrDefault(key2, new ArrayList<>()).size() < 2
+        				&& incomingFlowsToPins.get(key).stream().map(Flow::getSourceNode).toList().equals(incomingFlowsToPins.get(key2).stream().map(Flow::getSourceNode).toList())) {
         			if (mapInPinToEqualInPin.getOrDefault(key, null) == null) mapInPinToEqualInPin.put(key, new ArrayList<>());
         			mapInPinToEqualInPin.get(key).add(key2);
         		};

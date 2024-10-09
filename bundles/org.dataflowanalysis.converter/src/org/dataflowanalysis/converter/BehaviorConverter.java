@@ -30,10 +30,6 @@ public class BehaviorConverter {
     private final String LOGICAL_OR = "||";
     private final String LOGICAL_NOT = "!";
 
-    public BehaviorConverter() {
-        this(null);
-    }
-
     public BehaviorConverter(DataDictionary dataDictionary) {
         this.dataDictionary = dataDictionary;
     }

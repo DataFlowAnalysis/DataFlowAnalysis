@@ -544,107 +544,112 @@ public class DataFlowDiagramConverter extends Converter {
         StringBuilder builder = new StringBuilder();
         for (AbstractAssignment abstractAssignment : abstractAssignments) {
             if (abstractAssignment instanceof ForwardingAssignment) {
-                for (Pin inPin : abstractAssignment.getInputPins()) {
-                	var flowNames = inputPinToFlowNamesMap.get(inPin)
-                            .stream()
-                            .sorted()
-                            .toList();
-                    var flowName = String.join(DELIMITER_PIN_NAME, flowNames);
-                    // Dont forward if name is empty or only delimiters
-                    if (!flowName.matches(String.format("^$|^%s+$", Pattern.quote(DELIMITER_PIN_NAME)))) {
-                        builder.append("forward ")
-                                .append(flowName)
-                                .append("\n");
-                    }  
-                }
+                builder.append("Forwarding({");                
+                builder.append(getStringFromInputPins(abstractAssignment.getInputPins()));
+                builder.append("})");
             } else {
                 Assignment assignment = (Assignment) abstractAssignment;
-                List<String> flowNames = new ArrayList<>();
-                assignment.getInputPins().forEach(pin -> {
-                	flowNames.addAll(inputPinToFlowNamesMap.get(pin));
-                });
                 
-                String value = behaviorConverter.termToString(assignment.getTerm(), flowNames);
-
-                for (Label label : assignment.getOutputLabels()) {
-                    builder.append("set ")
-                            .append(((LabelType) label.eContainer()).getEntityName())
-                            .append(".")
-                            .append(label.getEntityName())
-                            .append(" = ")
-                            .append(value)
-                            .append("\n");
-                }
+                builder.append("Assignment({");
+                builder.append(getStringFromInputPins(assignment.getInputPins()));
+                builder.append("};");
+                builder.append(behaviorConverter.termToString(assignment.getTerm()));
+                builder.append(";{");
+                
+                List<String> outLabelAsString = new ArrayList<>();
+                assignment.getOutputLabels().forEach(label -> {
+                	outLabelAsString.add(((LabelType)label.eContainer()).getEntityName() + "." + label.getEntityName());
+                });
+                builder.append(String.join(DELIMITER_MULTI_PIN, outLabelAsString));
+                
+                builder.append("})");                
             }
+            builder.append("\n");
         }
         return builder.toString()
                 .trim();
+    }
+    
+    private String getStringFromInputPins (List<Pin> inputPins) {
+    	List<String> pinNamesAsString = new ArrayList<>();
+        
+    	inputPins.forEach(pin -> {
+        	var flowNames = inputPinToFlowNamesMap.get(pin)
+                    .stream()
+                    .sorted()
+                    .toList();
+            var pinName = String.join(DELIMITER_PIN_NAME, flowNames);
+            pinNamesAsString.add(pinName);
+        });
+        return String.join(DELIMITER_MULTI_PIN, pinNamesAsString);
     }
 
     private void parseBehavior(Node node, Pin outpin, String lines, DataFlowDiagram dfd, DataDictionary dd) {
         String[] behaviorStrings = lines.split("\n");
         var behavior = node.getBehaviour();
         for (String behaviorString : behaviorStrings) {
-            if (behaviorString.contains("forward ")) {
+        	behaviorString = behaviorString.replace(" ", "");
+            if (behaviorString.contains("Forwarding")) {
             	 var assignment = ddFactory.createForwardingAssignment();
             	 assignment.setOutputPin(outpin);
             	 
-            	 List<String> pinNames = Arrays.asList(behaviorString.split(" ")[1].split(DELIMITER_MULTI_PIN));
-
-                 List<Flow> flowsToNode = dfd.getFlows()
-                         .stream()
-                         .filter(flow -> flow.getDestinationNode() == node)
-                         .toList();
-
-                 Map<Pin,List<String>>pinToFlowNames = new HashMap<>();
-                 for (var flow : flowsToNode) {
-                     fillPinToFlowNamesMap(pinToFlowNames,flow);  
-                 }
+            	 String regex = "^Forwarding\\(\\{([^}]*)\\}\\)$";
+                 Pattern pattern = Pattern.compile(regex);
+                 Matcher matcher = pattern.matcher(behaviorString);
+                 if (!matcher.matches()) { 
+                	 logger.error("Invalid behavior string:");
+                     logger.error(behaviorString);
+                     continue;
+                 }        	  
                  
-                 pinNames.forEach(pinName -> {
-                	 List<String> incomingFlowNames = Arrays.asList(pinName.split(Pattern.quote(DELIMITER_PIN_NAME)));
-                	 pinToFlowNames.keySet().forEach(key -> {
-                		if (pinToFlowNames.get(key).containsAll(incomingFlowNames)) assignment.getInputPins().add(key);
-                	 });
-                 });    
+                 assignment.getInputPins().addAll(getInPinsFromString(matcher.group(1), node, dfd));
                
                 behavior.getAssignment()
                         .add(assignment);
-            } else if (behaviorString.contains("set ")) {
-                String regex = "\\bset\\s+(\\S+)\\s+=\\s+(.+)\\b";
-
+            } else if (behaviorString.contains("Assignment")) {            	
+            	String regex = "^Assignment\\(\\{([^}]*)\\};([^;]+);\\{([^}]*)\\}\\)$";
                 Pattern pattern = Pattern.compile(regex);
                 Matcher matcher = pattern.matcher(behaviorString);
-                if (!matcher.find() || matcher.groupCount() != 2) {
+                if (!matcher.matches()) {
                     logger.error("Invalid behavior string:");
                     logger.error(behaviorString);
                     continue;
-                }
-                String variable = matcher.group(1);
-                String typeName = variable.split("\\.")[0];
-                String valueName = variable.split("\\.")[1];
-
-                Label value = dd.getLabelTypes()
-                        .stream()
-                        .filter(labelType -> labelType.getEntityName()
-                                .equals(typeName))
-                        .flatMap(labelType -> labelType.getLabel()
-                                .stream())
-                        .filter(label -> label.getEntityName()
-                                .equals(valueName))
-                        .findAny()
-                        .orElse(null);
-
-                Assignment assignment = behaviorConverter.stringToAssignmentWithTerm(matcher.group(2), inputPinToFlowNamesMap, behavior.getInPin());
+                }              
+                
+                String inPinsAsString = matcher.group(1);
+                String term = matcher.group(2); 
+                String outLabelsAsString = matcher.group(3);
+                
+                Assignment assignment = ddFactory.createAssignment();
                 assignment.setOutputPin(outpin);
-                assignment.getOutputLabels()
-                        .add(value);
-
+                assignment.setTerm(behaviorConverter.stringToTerm(term));
+                assignment.getInputPins().addAll(getInPinsFromString(inPinsAsString, node, dfd));
+                
+                Arrays.asList(outLabelsAsString.split(",")).forEach(typeValuePair -> {
+                	 String typeName = typeValuePair.split("\\.")[0];
+                     String valueName = typeValuePair.split("\\.")[1];
+                     
+                     Label value = dd.getLabelTypes()
+                             .stream()
+                             .filter(labelType -> labelType.getEntityName()
+                                     .equals(typeName))
+                             .flatMap(labelType -> labelType.getLabel()
+                                     .stream())
+                             .filter(label -> label.getEntityName()
+                                     .equals(valueName))
+                             .findAny()
+                             .orElse(null);
+                     assignment.getOutputLabels()
+                     .add(value);
+                });
+              
                 behavior.getAssignment()
                         .add(assignment);
             }
         }
     }
+    
+    
     
     private void fillPinToFlowNamesMap(Map<Pin,List<String>> map,Flow flow) {
         if (map.containsKey(flow.getDestinationPin())) {
@@ -660,6 +665,30 @@ public class DataFlowDiagramConverter extends Converter {
     private void putValue(Map<Node, Map<Pin, String>> nestedHashMap, Node node, Pin pin, String value) {
         nestedHashMap.computeIfAbsent(node, k -> new HashMap<>())
                 .put(pin, value);
+    }
+    
+    private List<Pin> getInPinsFromString(String pinString, Node node, DataFlowDiagram dfd) {
+    	List<Pin> inPins = new ArrayList<>();
+    	 List<String> pinNames = Arrays.asList(pinString.split(DELIMITER_MULTI_PIN + "\\s*"));
+
+         List<Flow> flowsToNode = dfd.getFlows()
+                 .stream()
+                 .filter(flow -> flow.getDestinationNode() == node)
+                 .toList();
+
+         Map<Pin,List<String>>pinToFlowNames = new HashMap<>();
+         for (var flow : flowsToNode) {
+             fillPinToFlowNamesMap(pinToFlowNames,flow);  
+         }
+         
+         pinNames.forEach(pinName -> {
+        	 List<String> incomingFlowNames = Arrays.asList(pinName.split(Pattern.quote(DELIMITER_PIN_NAME)));
+        	 pinToFlowNames.keySet().forEach(key -> {
+        		if (pinToFlowNames.get(key).containsAll(incomingFlowNames)) inPins.add(key);
+        	 });
+         });    	
+    	
+    	return inPins;
     }
 
 }

@@ -2,27 +2,19 @@ package org.dataflowanalysis.converter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Stack;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.dfd.datadictionary.AND;
-import org.dataflowanalysis.dfd.datadictionary.Assignment;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.Label;
 import org.dataflowanalysis.dfd.datadictionary.LabelReference;
 import org.dataflowanalysis.dfd.datadictionary.LabelType;
 import org.dataflowanalysis.dfd.datadictionary.NOT;
 import org.dataflowanalysis.dfd.datadictionary.OR;
-import org.dataflowanalysis.dfd.datadictionary.Pin;
 import org.dataflowanalysis.dfd.datadictionary.TRUE;
 import org.dataflowanalysis.dfd.datadictionary.Term;
 import org.dataflowanalysis.dfd.datadictionary.datadictionaryFactory;
-import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
-import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 
 /**
  * Converts string expressions to {@link Term} instances and vice versa, based on a given {@link DataDictionary}.
@@ -31,7 +23,6 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 public class BehaviorConverter {
     private final datadictionaryFactory ddFactory = datadictionaryFactory.eINSTANCE;
     private DataDictionary dataDictionary;
-    
 
     private final Logger logger = Logger.getLogger(BehaviorConverter.class);
 
@@ -53,14 +44,12 @@ public class BehaviorConverter {
      * @param expression the logical expression to convert
      * @return the {@link Term} representation of the expression
      */
-    public Assignment stringToAssignmentWithTerm(String expression, Map<Pin, List<String>> inputPinToFlowNamesMap, List<Pin> listOfValidInputPins) {
+    public Term stringToTerm(String expression) {
         List<String> tokens = tokenize(expression);
 
         Stack<Term> operands = new Stack<>();
 
         Stack<String> operators = new Stack<>();
-        
-        List<Pin> requiredInputPins = new ArrayList<>();
 
         for (String token : tokens) {
             if (token.equals("(")) {
@@ -77,27 +66,6 @@ public class BehaviorConverter {
                 }
                 operators.push(token);
             } else {
-            	//Infer input pins
-            	String regex = "^(\\w+)\\.(\\w+)\\.(\\w+)$";
-                Pattern pattern = Pattern.compile(regex);
-                Matcher matcher = pattern.matcher(token);
-                if (matcher.matches()) {
-                    String flowToken = matcher.group(1);
-                    List<String> flowNames = new ArrayList<>();
-                    if (flowToken.contains(DataFlowDiagramConverter.DELIMITER_PIN_NAME)) {
-                    	for (String s : flowToken.split(DataFlowDiagramConverter.DELIMITER_PIN_NAME)) {
-                    		flowNames.add(s);
-                    	}
-                    } else {
-						flowNames.add(flowToken);
-					}
-                    flowNames.forEach(it -> {
-                    	listOfValidInputPins.forEach(pin -> {
-                    		if (inputPinToFlowNamesMap.get(pin).stream().anyMatch(it::equals)) requiredInputPins.add(pin);
-                    	});
-                    });
-                }
-                
                 operands.push(createTerm(token));
             }
         }
@@ -105,23 +73,17 @@ public class BehaviorConverter {
         while (!operators.isEmpty()) {
             performOperation(operands, operators.pop());
         }
-        
-        Assignment assignment = ddFactory.createAssignment();
-        assignment.getInputPins().addAll(requiredInputPins);
-        assignment.setTerm(operands.pop());
 
-        return assignment;
+        return operands.pop();
     }
-    
-    
 
     /**
      * Converts a {@link Term} instance back into its string representation.
      * @param term the {@link Term} instance to convert
      * @return the string representation of the term
      */
-    public String termToString(Term term, List<String> flowNames) {
-        return termToString(term, flowNames, false);
+    public String termToString(Term term) {
+        return termToString(term, false);
     }
 
     private boolean isOperator(String token) {
@@ -203,33 +165,28 @@ public class BehaviorConverter {
 
     }
 
-    private String termToString(Term term, List<String> flowNames, boolean isNested) {
+    private String termToString(Term term, boolean isNested) {
         if (term instanceof LabelReference labelReference) {
-        	StringBuilder builder = new StringBuilder();
-        	for (int i = 0; i < flowNames.size(); i++) {
-        		if (i != 0) builder.append(DataFlowDiagramConverter.DELIMITER_PIN_NAME);
-        		builder.append(flowNames.get(i));
-        	}
-        	
-            return builder.toString() + "." + ((LabelType) labelReference.getLabel().eContainer()).getEntityName() + "." + labelReference.getLabel().getEntityName();
+        	Label label = labelReference.getLabel();
+            return ((LabelType)label.eContainer()).getEntityName() + "." + label.getEntityName();
         } else if (term instanceof TRUE) {
             return "TRUE";
         } else if (term instanceof AND and) {
             List<Term> operands = and.getTerms();
-            String result = termToString(operands.get(0),flowNames, true) + " " + LOGICAL_AND + " " + termToString(operands.get(1), flowNames, true);
+            String result = termToString(operands.get(0), true) + " " + LOGICAL_AND + " " + termToString(operands.get(1), true);
             return isNested ? "(" + result + ")" : result;
         } else if (term instanceof OR or) {
             List<Term> operands = or.getTerms();
-            String result = termToString(operands.get(0),flowNames, true) + " " + LOGICAL_OR + " " + termToString(operands.get(1), flowNames, true);
+            String result = termToString(operands.get(0), true) + " " + LOGICAL_OR + " " + termToString(operands.get(1), true);
             return isNested ? "(" + result + ")" : result;
         } else if (term instanceof NOT not) {
             if (not.getNegatedTerm() instanceof TRUE) {
                 return "FALSE";
             }
             if (not.getNegatedTerm() instanceof LabelReference) {
-                return LOGICAL_NOT + termToString(not.getNegatedTerm(), flowNames, false);
+                return LOGICAL_NOT + termToString(not.getNegatedTerm(), false);
             }
-            return LOGICAL_NOT + termToString(not.getNegatedTerm(), flowNames, true);
+            return LOGICAL_NOT + termToString(not.getNegatedTerm(), true);
         } else {
             throw new IllegalArgumentException("Unknown term type");
         }
@@ -254,7 +211,7 @@ public class BehaviorConverter {
                     token.setLength(0); // Reset the token builder
                 }
                 tokens.add(Character.toString(current));
-            } else if (current == '&' || (current == '|' && i + 1 < expression.length() && expression.charAt(i + 1) == current) || current == '!') {
+            } else if (current == '&' || current == '|' || current == '!') {
                 // Handle logical operators
                 if (token.length() > 0) {
                     tokens.add(token.toString());

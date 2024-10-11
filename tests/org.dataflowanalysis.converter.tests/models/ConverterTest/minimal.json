@@ -6,7 +6,7 @@
       "text" : "view",
       "labels" : [ ],
       "ports" : [ {
-        "behavior" : "Assignment({request};Sensitivity.Personal;{Sensitivity.Personal})",
+        "behavior" : "Assignment({request};(Sensitivity.Personal || FALSE) && TRUE;{Sensitivity.Personal})",
         "id" : "bsqjm",
         "type" : "port:dfd-output",
         "children" : [ ]
@@ -64,7 +64,7 @@
       "id" : "4myuyr",
       "type" : "node:function",
       "annotation" : {
-        "message" : "PropagatedLabels:\nSensitivity.Public\nEncryption.Encrypted\nSensitivity.Personal\n",
+        "message" : "PropagatedLabels:\nSensitivity.Public\nEncryption.Encrypted\nViolation.Violation\nSensitivity.Personal\n",
         "icon" : "tag",
         "color" : "#FFFFFF"
       },
@@ -105,7 +105,7 @@
         "labelTypeValueId" : "5hnugm"
       } ],
       "ports" : [ {
-        "behavior" : "Forwarding({data|request,data2})",
+        "behavior" : "Forwarding({data|request,data2})\nAssignment({data2,data|request};Sensitivity.Personal && Sensitivity.Public;{Violation.Violation})",
         "id" : "1j7bn5",
         "type" : "port:dfd-output",
         "children" : [ ]
@@ -121,7 +121,7 @@
       "id" : "8j2r1g",
       "type" : "node:storage",
       "annotation" : {
-        "message" : "PropagatedLabels:\nSensitivity.Public\nEncryption.Encrypted\nSensitivity.Personal\n",
+        "message" : "PropagatedLabels:\nSensitivity.Public\nEncryption.Encrypted\nViolation.Violation\nSensitivity.Personal\n",
         "icon" : "tag",
         "color" : "#FFFFFF"
       },
@@ -249,6 +249,13 @@
     "values" : [ {
       "id" : "2r6xe6",
       "text" : "Encrypted"
+    } ]
+  }, {
+    "id" : "86d5fk",
+    "name" : "Violation",
+    "values" : [ {
+      "id" : "hnlcg",
+      "text" : "Violation"
     } ]
   }, {
     "id" : "gvia09",

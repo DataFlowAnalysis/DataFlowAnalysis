@@ -153,7 +153,7 @@ public abstract class ResourceProvider {
      * @return Returns true, if one element with the target type could be found in the resource. Otherwise, the method
      * returns false
      */
-    private boolean isTargetInResource(EClass targetType, Resource resource) {
+    public boolean isTargetInResource(EClass targetType, Resource resource) {
         if (resource != null) {
             for (EObject c : resource.getContents()) {
                 if (targetType.isSuperTypeOf(c.eClass())) {

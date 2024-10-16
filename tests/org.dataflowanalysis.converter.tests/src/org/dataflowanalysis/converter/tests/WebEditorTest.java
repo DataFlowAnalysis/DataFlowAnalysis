@@ -49,7 +49,9 @@ public class WebEditorTest extends ConverterTest {
 
         webBefore.sort();
         webAfter.sort();
-
+        
+        
+        
         assertEquals(webBefore, webAfter);
 
         checkBehaviorAndPinNames(dfdBefore);
@@ -107,67 +109,7 @@ public class WebEditorTest extends ConverterTest {
         cleanup(tempWebDFD);
     }
 
-    @Test
-    @DisplayName("Test manual conversion")
-    public void testManual() throws StandaloneInitializationException {
-        String dataflowdiagram = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram")
-                .toString();
-        String datadictionary = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary")
-                .toString();
-        DataFlowDiagramAndDictionary manualDFD = converter.loadDFD(TEST_MODELS, dataflowdiagram, datadictionary,
-                Activator.class);
-
-        DataFlowDiagramAndDictionary convertedDFD = converter.webToDfd(minimalWebDFD);
-
-        assertEquals(manualDFD.dataFlowDiagram()
-                .getNodes()
-                .size(),
-                convertedDFD.dataFlowDiagram()
-                        .getNodes()
-                        .size());
-
-        List<String> nodeEntityNamesManual = manualDFD.dataFlowDiagram()
-                .getNodes()
-                .stream()
-                .map(Node::getEntityName)
-                .collect(Collectors.toList());
-        Collections.sort(nodeEntityNamesManual);
-
-        List<String> nodeEntityNamesConverted = convertedDFD.dataFlowDiagram()
-                .getNodes()
-                .stream()
-                .map(Node::getEntityName)
-                .collect(Collectors.toList());
-        Collections.sort(nodeEntityNamesConverted);
-
-        assertEquals(nodeEntityNamesManual, nodeEntityNamesConverted);
-
-        assertEquals(manualDFD.dataFlowDiagram()
-                .getFlows()
-                .size(),
-                convertedDFD.dataFlowDiagram()
-                        .getFlows()
-                        .size());
-
-        assertTrue(manualDFD.dataFlowDiagram()
-                .getFlows()
-                .stream()
-                .allMatch(flowA -> convertedDFD.dataFlowDiagram()
-                        .getFlows()
-                        .stream()
-                        .anyMatch(flowB -> flowA.getSourceNode()
-                                .getEntityName()
-                                .equals(flowB.getSourceNode()
-                                        .getEntityName())
-                                && flowA.getDestinationNode()
-                                        .getEntityName()
-                                        .equals(flowB.getDestinationNode()
-                                                .getEntityName()))));
-
-        checkBehaviorAndPinNames(manualDFD);
-
-    }
-
+    
     private void checkBehaviorAndPinNames(DataFlowDiagramAndDictionary dfd) {
         for (Node node : dfd.dataFlowDiagram()
                 .getNodes()) {

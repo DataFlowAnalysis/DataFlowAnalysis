@@ -9,6 +9,7 @@ import org.dataflowanalysis.dfd.datadictionary.AND;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.Label;
 import org.dataflowanalysis.dfd.datadictionary.LabelReference;
+import org.dataflowanalysis.dfd.datadictionary.LabelType;
 import org.dataflowanalysis.dfd.datadictionary.NOT;
 import org.dataflowanalysis.dfd.datadictionary.OR;
 import org.dataflowanalysis.dfd.datadictionary.TRUE;
@@ -28,10 +29,6 @@ public class BehaviorConverter {
     private final String LOGICAL_AND = "&&";
     private final String LOGICAL_OR = "||";
     private final String LOGICAL_NOT = "!";
-
-    public BehaviorConverter() {
-        this(null);
-    }
 
     public BehaviorConverter(DataDictionary dataDictionary) {
         this.dataDictionary = dataDictionary;
@@ -166,8 +163,8 @@ public class BehaviorConverter {
 
     private String termToString(Term term, boolean isNested) {
         if (term instanceof LabelReference labelReference) {
-            return labelReference.getLabel()
-                    .getEntityName();
+        	Label label = labelReference.getLabel();
+            return ((LabelType)label.eContainer()).getEntityName() + "." + label.getEntityName();
         } else if (term instanceof TRUE) {
             return "TRUE";
         } else if (term instanceof AND and) {

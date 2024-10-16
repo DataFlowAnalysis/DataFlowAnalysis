@@ -28,6 +28,7 @@ import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.core.DFDTransposeFlowGraphFinder;
+import org.dataflowanalysis.analysis.dfd.simple.DFDSimpleTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.dfd.datadictionary.AND;
@@ -157,7 +158,9 @@ public class PCMTest extends ConverterTest{
         var complete = new PCMConverter().pcmToDFD(modelLocation, usageModelPath, allocationPath, nodeCharPath, Activator.class);
 
         var dfdConverter = new DataFlowDiagramConverter();
-        var web = dfdConverter.dfdToWeb(complete);
+        List<Predicate<? super AbstractVertex<?>>> constraints = new ArrayList<>();
+        constraints.add(constraint);
+        var web = dfdConverter.dfdToWebAndAnalyzeAndAnnotateWithCustomTFGFinder(complete, constraints, DFDSimpleTransposeFlowGraphFinder.class); //Replace null with simpleFinder once Analysis PR merged
         dfdConverter.storeWeb(web, webTarget);
 
         var dfd = complete.dataFlowDiagram();
@@ -167,7 +170,7 @@ public class PCMTest extends ConverterTest{
         assertEquals(dfd.getNodes().size(), vertices.size());
         
         if (constraint != null) {
-        	DFDTransposeFlowGraphFinder dfdTransposeFlowGraphFinder = new DFDTransposeFlowGraphFinder(dd, dfd);
+        	DFDSimpleTransposeFlowGraphFinder dfdTransposeFlowGraphFinder = new DFDSimpleTransposeFlowGraphFinder(dd, dfd);
             var dfdTFGCollection = dfdTransposeFlowGraphFinder.findTransposeFlowGraphs().
             		stream().map(it -> {return it.evaluate();}
             ).toList();

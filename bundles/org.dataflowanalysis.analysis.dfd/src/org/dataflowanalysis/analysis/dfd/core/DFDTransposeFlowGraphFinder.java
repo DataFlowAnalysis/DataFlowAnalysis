@@ -100,6 +100,12 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
         
         var inputPins = new ArrayList<>(pins);
         
+        Map<Pin, List<Flow>> incomingFlowsToPins = new HashMap<>();
+        inputPins.forEach(it -> {
+        	incomingFlowsToPins.putIfAbsent(it, new ArrayList<>());
+        	incomingFlowsToPins.get(it).addAll(dataFlowDiagram.getFlows().stream().filter(flow -> flow.getDestinationPin().equals(it)).toList());
+        });
+        
         Map<Pin, List<Pin>> inToPreviousNodeInPinsMap = new HashMap<>();
         for (var pin : inputPins) {
         	Set<Pin> outputPins = new HashSet<>();
@@ -123,7 +129,8 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
         	for (int j = i + 1; j < keyList.size(); j++) {
         		var key2 = keyList.get(j);
         		var inPin2 = inToPreviousNodeInPinsMap.get(key2);
-        		if (inPins.containsAll(inPin2) && inPin2.containsAll(inPins)) {
+        		if (inPins.containsAll(inPin2) && inPin2.containsAll(inPins) && incomingFlowsToPins.getOrDefault(key2, new ArrayList<>()).size() < 2
+        				&& incomingFlowsToPins.get(key).stream().map(Flow::getSourceNode).toList().equals(incomingFlowsToPins.get(key2).stream().map(Flow::getSourceNode).toList())) {
         			if (mapInPinToEqualInPin.getOrDefault(key, null) == null) mapInPinToEqualInPin.put(key, new ArrayList<>());
         			mapInPinToEqualInPin.get(key).add(key2);
         		};
@@ -133,11 +140,7 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
         mapInPinToEqualInPin.keySet().stream().map(mapInPinToEqualInPin::get).forEach(inputPins::removeAll);
 
         for (Pin inputPin : inputPins) {
-            List<Flow> incomingFlowsToPin = dataFlowDiagram.getFlows()
-                    .stream()
-                    .filter(flow -> flow.getDestinationPin()
-                            .equals(inputPin))
-                    .toList();
+            List<Flow> incomingFlowsToPin = incomingFlowsToPins.get(inputPin);
 
             List<DFDVertex> finalVertices = vertices;
             if (!incomingFlowsToPin.stream().filter(it -> previousPinsInTransposeFlow.contains(it.getSourcePin())).toList().isEmpty()) {

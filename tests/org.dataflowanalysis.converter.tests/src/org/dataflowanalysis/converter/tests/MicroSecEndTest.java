@@ -234,9 +234,10 @@ public class MicroSecEndTest extends ConverterTest {
     }
 
     private void ensureCorrectDFDConversion(DataFlowDiagramAndDictionary complete) {
-        var webConverter = new DataFlowDiagramConverter();
-        var webBefore = webConverter.dfdToWeb(complete);
-        var webAfter = webConverter.dfdToWeb(webConverter.webToDfd(webBefore));
+        var webConverter = new WebEditorConverter();
+        var dfdConverter = new DataFlowDiagramConverter();
+        var webBefore = dfdConverter.dfdToWeb(complete);
+        var webAfter = dfdConverter.dfdToWeb(webConverter.webToDfd(webBefore));
         assertEquals(webBefore, webAfter);
     }
 

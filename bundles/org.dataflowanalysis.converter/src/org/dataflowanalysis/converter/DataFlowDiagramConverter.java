@@ -19,16 +19,12 @@ import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.core.DFDTransposeFlowGraphFinder;
-import org.dataflowanalysis.analysis.dfd.resource.DFDURIResourceProvider;
 import org.dataflowanalysis.analysis.dfd.simple.DFDSimpleTransposeFlowGraphFinder;
-import org.dataflowanalysis.analysis.utils.ResourceUtils;
 import org.dataflowanalysis.converter.webdfd.*;
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.Process;
-import org.eclipse.emf.common.util.URI;
 import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
-import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder;
 
 /**
  * Converts data flow diagrams and dictionaries between web editor formats and the application's internal
@@ -133,27 +129,6 @@ public class DataFlowDiagramConverter extends Converter {
         }
     }   
 
-    /**
-     * Loads a data flow diagram and data dictionary from specified input files and returns them as a combined object.
-     * @param inputDataFlowDiagram The path of the input data flow diagram file.
-     * @param inputDataDictionary The path of the input data dictionary file.
-     * @return DataFlowDiagramAndDictionary object representing the loaded data flow diagram and dictionary.
-     */
-    public DataFlowDiagramAndDictionary loadDFD(String project, String inputDataFlowDiagram, String inputDataDictionary, Class<?> activator)
-            throws StandaloneInitializationException {
-        StandaloneInitializerBuilder.builder()
-                .registerProjectURI(activator, project)
-                .build()
-                .init();
-
-        URI dfdURI = ResourceUtils.createRelativePluginURI(inputDataFlowDiagram, project);
-        URI ddURI = ResourceUtils.createRelativePluginURI(inputDataDictionary, project);
-
-        var provider = new DFDURIResourceProvider(dfdURI, ddURI);
-        provider.loadRequiredResources();
-        return new DataFlowDiagramAndDictionary(provider.getDataFlowDiagram(), provider.getDataDictionary());
-    }
-    
     /**
      * Creates the node annotations by analyzing the DFD
      * @param complete DFD / DD combination

@@ -1,10 +1,16 @@
 package org.dataflowanalysis.converter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
+import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.dfd.resource.DFDURIResourceProvider;
+import org.dataflowanalysis.analysis.utils.ResourceUtils;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -20,6 +26,27 @@ public abstract class Converter {
 
     public Converter() {
         objectMapper = new ObjectMapper();
+    }
+    
+    /**
+     * Loads a data flow diagram and data dictionary from specified input files and returns them as a combined object.
+     * @param inputDataFlowDiagram The path of the input data flow diagram file.
+     * @param inputDataDictionary The path of the input data dictionary file.
+     * @return DataFlowDiagramAndDictionary object representing the loaded data flow diagram and dictionary.
+     */
+    public DataFlowDiagramAndDictionary loadDFD(String project, String inputDataFlowDiagram, String inputDataDictionary, Class<?> activator)
+            throws StandaloneInitializationException {
+        StandaloneInitializerBuilder.builder()
+                .registerProjectURI(activator, project)
+                .build()
+                .init();
+
+        URI dfdURI = ResourceUtils.createRelativePluginURI(inputDataFlowDiagram, project);
+        URI ddURI = ResourceUtils.createRelativePluginURI(inputDataDictionary, project);
+
+        var provider = new DFDURIResourceProvider(dfdURI, ddURI);
+        provider.loadRequiredResources();
+        return new DataFlowDiagramAndDictionary(provider.getDataFlowDiagram(), provider.getDataDictionary());
     }
 
     /**

@@ -27,6 +27,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
+          check-latest: true
       - name: Build and Verify
         run: mvn clean verify
       - name: Publish Nightly Update Site

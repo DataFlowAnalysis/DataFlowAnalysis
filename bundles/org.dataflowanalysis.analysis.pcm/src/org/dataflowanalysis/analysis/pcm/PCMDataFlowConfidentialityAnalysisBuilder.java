@@ -1,5 +1,7 @@
 package org.dataflowanalysis.analysis.pcm;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowAnalysisBuilder;
@@ -7,6 +9,7 @@ import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.pcm.resource.PCMURIResourceProvider;
 import org.dataflowanalysis.analysis.utils.ResourceUtils;
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.emf.common.util.URI;
 
 public class PCMDataFlowConfidentialityAnalysisBuilder extends DataFlowAnalysisBuilder {
     private final Logger logger = Logger.getLogger(PCMDataFlowConfidentialityAnalysisBuilder.class);
@@ -101,6 +104,14 @@ public class PCMDataFlowConfidentialityAnalysisBuilder extends DataFlowAnalysisB
      * @return New instance of a URI resource loader with the internally saved values
      */
     private PCMResourceProvider getURIResourceProvider() {
+    	Path usageModelPath = Paths.get(this.relativeUsageModelPath);
+    	Path allocationModelPath = Paths.get(this.relativeAllocationModelPath);
+    	Path nodeCharacteristicsPath = Paths.get(this.relativeNodeCharacteristicsPath);
+    	if (usageModelPath.isAbsolute() && allocationModelPath.isAbsolute() && nodeCharacteristicsPath.isAbsolute()) {
+    		return new PCMURIResourceProvider(URI.createFileURI(this.relativeUsageModelPath), URI.createFileURI(this.relativeAllocationModelPath), URI.createFileURI(this.relativeNodeCharacteristicsPath));
+    	}
+    	
+    	
         return new PCMURIResourceProvider(ResourceUtils.createRelativePluginURI(relativeUsageModelPath, modelProjectName),
                 ResourceUtils.createRelativePluginURI(relativeAllocationModelPath, modelProjectName),
                 ResourceUtils.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName));

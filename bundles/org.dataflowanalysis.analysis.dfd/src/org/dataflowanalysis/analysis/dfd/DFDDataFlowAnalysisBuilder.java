@@ -102,14 +102,13 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
      * Determines the effective resource provider that should be used by the analysis
      */
     private DFDResourceProvider getEffectiveResourceProvider() {
-    	Path ddPath = Paths.get(this.dataDictionaryPath);
-    	Path dfdPath = Paths.get(this.dataDictionaryPath);
-    	if (ddPath.isAbsolute() && dfdPath.isAbsolute()) {
-    		return new DFDURIResourceProvider( URI.createFileURI(this.dataFlowDiagramPath), URI.createFileURI(this.dataDictionaryPath));
-    	}
+    	URI dataDictionaryUri = Paths.get(this.dataDictionaryPath).isAbsolute() ? URI.createFileURI(this.dataDictionaryPath) 
+    			:  ResourceUtils.createRelativePluginURI(this.dataDictionaryPath, this.modelProjectName);
+    	URI dataFlowDiagramUri = Paths.get(this.dataFlowDiagramPath).isAbsolute() ? URI.createFileURI(this.dataFlowDiagramPath) 
+    			:  ResourceUtils.createRelativePluginURI(this.dataFlowDiagramPath, this.modelProjectName);
+    	
         if (this.customResourceProvider.isEmpty()) {
-            return new DFDURIResourceProvider(ResourceUtils.createRelativePluginURI(this.dataFlowDiagramPath, this.modelProjectName),
-                    ResourceUtils.createRelativePluginURI(this.dataDictionaryPath, this.modelProjectName));
+            return new DFDURIResourceProvider(dataFlowDiagramUri, dataDictionaryUri);
         }
         return this.customResourceProvider.get();
     }

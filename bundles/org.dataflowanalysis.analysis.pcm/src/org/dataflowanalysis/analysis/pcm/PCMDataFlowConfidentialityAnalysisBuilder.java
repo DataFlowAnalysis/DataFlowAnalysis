@@ -103,18 +103,17 @@ public class PCMDataFlowConfidentialityAnalysisBuilder extends DataFlowAnalysisB
      * Creates a new URI resource loader with the saved URIs
      * @return New instance of a URI resource loader with the internally saved values
      */
-    private PCMResourceProvider getURIResourceProvider() {
-    	Path usageModelPath = Paths.get(this.relativeUsageModelPath);
-    	Path allocationModelPath = Paths.get(this.relativeAllocationModelPath);
-    	Path nodeCharacteristicsPath = Paths.get(this.relativeNodeCharacteristicsPath);
-    	if (usageModelPath.isAbsolute() && allocationModelPath.isAbsolute() && nodeCharacteristicsPath.isAbsolute()) {
-    		return new PCMURIResourceProvider(URI.createFileURI(this.relativeUsageModelPath), URI.createFileURI(this.relativeAllocationModelPath), URI.createFileURI(this.relativeNodeCharacteristicsPath));
-    	}
+    private PCMResourceProvider getURIResourceProvider() {    	
+    	URI usageModelUri = Paths.get(this.relativeUsageModelPath).isAbsolute() ? URI.createFileURI(this.relativeUsageModelPath)
+    			: ResourceUtils.createRelativePluginURI(this.relativeUsageModelPath, modelProjectName);
+    	URI allocationModelUri = Paths.get(this.relativeAllocationModelPath).isAbsolute() ? URI.createFileURI(this.relativeAllocationModelPath)
+    			: ResourceUtils.createRelativePluginURI(this.relativeAllocationModelPath, modelProjectName);
+    	URI nodeCharacteristicsUri = Paths.get(this.relativeNodeCharacteristicsPath).isAbsolute() ? URI.createFileURI(this.relativeNodeCharacteristicsPath)
+    			: ResourceUtils.createRelativePluginURI(this.relativeNodeCharacteristicsPath, modelProjectName);
     	
     	
-        return new PCMURIResourceProvider(ResourceUtils.createRelativePluginURI(relativeUsageModelPath, modelProjectName),
-                ResourceUtils.createRelativePluginURI(relativeAllocationModelPath, modelProjectName),
-                ResourceUtils.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName));
+    	
+        return new PCMURIResourceProvider(usageModelUri, allocationModelUri, nodeCharacteristicsUri);
     }
 
     /**

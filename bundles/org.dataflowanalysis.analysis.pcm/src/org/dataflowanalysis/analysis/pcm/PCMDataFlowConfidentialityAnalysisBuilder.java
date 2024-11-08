@@ -1,5 +1,7 @@
 package org.dataflowanalysis.analysis.pcm;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowAnalysisBuilder;
@@ -7,6 +9,7 @@ import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.pcm.resource.PCMURIResourceProvider;
 import org.dataflowanalysis.analysis.utils.ResourceUtils;
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.emf.common.util.URI;
 
 public class PCMDataFlowConfidentialityAnalysisBuilder extends DataFlowAnalysisBuilder {
     private final Logger logger = Logger.getLogger(PCMDataFlowConfidentialityAnalysisBuilder.class);
@@ -100,10 +103,17 @@ public class PCMDataFlowConfidentialityAnalysisBuilder extends DataFlowAnalysisB
      * Creates a new URI resource loader with the saved URIs
      * @return New instance of a URI resource loader with the internally saved values
      */
-    private PCMResourceProvider getURIResourceProvider() {
-        return new PCMURIResourceProvider(ResourceUtils.createRelativePluginURI(relativeUsageModelPath, modelProjectName),
-                ResourceUtils.createRelativePluginURI(relativeAllocationModelPath, modelProjectName),
-                ResourceUtils.createRelativePluginURI(relativeNodeCharacteristicsPath, modelProjectName));
+    private PCMResourceProvider getURIResourceProvider() {    	
+    	URI usageModelUri = Paths.get(this.relativeUsageModelPath).isAbsolute() ? URI.createFileURI(this.relativeUsageModelPath)
+    			: ResourceUtils.createRelativePluginURI(this.relativeUsageModelPath, modelProjectName);
+    	URI allocationModelUri = Paths.get(this.relativeAllocationModelPath).isAbsolute() ? URI.createFileURI(this.relativeAllocationModelPath)
+    			: ResourceUtils.createRelativePluginURI(this.relativeAllocationModelPath, modelProjectName);
+    	URI nodeCharacteristicsUri = Paths.get(this.relativeNodeCharacteristicsPath).isAbsolute() ? URI.createFileURI(this.relativeNodeCharacteristicsPath)
+    			: ResourceUtils.createRelativePluginURI(this.relativeNodeCharacteristicsPath, modelProjectName);
+    	
+    	
+    	
+        return new PCMURIResourceProvider(usageModelUri, allocationModelUri, nodeCharacteristicsUri);
     }
 
     /**

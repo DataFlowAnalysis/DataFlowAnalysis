@@ -1,5 +1,7 @@
 package org.dataflowanalysis.analysis.dfd;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowAnalysisBuilder;
@@ -9,6 +11,7 @@ import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.dataflowanalysis.analysis.dfd.resource.DFDURIResourceProvider;
 import org.dataflowanalysis.analysis.utils.ResourceUtils;
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.emf.common.util.URI;
 
 /**
  * This class is used to build an instance of {@link DFDConfidentialityAnalysis}. The data contained in this class is
@@ -99,9 +102,13 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
      * Determines the effective resource provider that should be used by the analysis
      */
     private DFDResourceProvider getEffectiveResourceProvider() {
+    	URI dataDictionaryUri = Paths.get(this.dataDictionaryPath).isAbsolute() ? URI.createFileURI(this.dataDictionaryPath) 
+    			:  ResourceUtils.createRelativePluginURI(this.dataDictionaryPath, this.modelProjectName);
+    	URI dataFlowDiagramUri = Paths.get(this.dataFlowDiagramPath).isAbsolute() ? URI.createFileURI(this.dataFlowDiagramPath) 
+    			:  ResourceUtils.createRelativePluginURI(this.dataFlowDiagramPath, this.modelProjectName);
+    	
         if (this.customResourceProvider.isEmpty()) {
-            return new DFDURIResourceProvider(ResourceUtils.createRelativePluginURI(this.dataFlowDiagramPath, this.modelProjectName),
-                    ResourceUtils.createRelativePluginURI(this.dataDictionaryPath, this.modelProjectName));
+            return new DFDURIResourceProvider(dataFlowDiagramUri, dataDictionaryUri);
         }
         return this.customResourceProvider.get();
     }

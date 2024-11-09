@@ -8,6 +8,11 @@ import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
  * This abstract class represents the required model data that is required to run a dfd analysis
  */
 public abstract class DFDResourceProvider extends ResourceProvider {
+    @Override
+    public void setupResources() {
+
+    }
+
     /**
      * Returns the data flow diagram model that the resource loader has loaded
      * @return Data flow diagram model saved in the resources

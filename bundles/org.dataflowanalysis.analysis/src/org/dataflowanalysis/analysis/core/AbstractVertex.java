@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 
@@ -38,6 +39,8 @@ public abstract class AbstractVertex<T> {
      * outgoing data characteristics as well as vertex characteristics.
      */
     public abstract void evaluateDataFlow();
+
+    public abstract UUID getUniqueUUID();
 
     @Override
     public abstract String toString();

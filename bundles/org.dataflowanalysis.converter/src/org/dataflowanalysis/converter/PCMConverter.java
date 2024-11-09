@@ -21,6 +21,7 @@ import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.seff.SEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
+import org.dataflowanalysis.analysis.pcm.resource.PCMURIResourceProvider;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
@@ -45,6 +46,7 @@ import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityV
 import org.dataflowanalysis.pcm.extension.model.confidentiality.expression.LhsEnumCharacteristicReference;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.expression.NamedEnumCharacteristicReference;
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.emf.common.util.URI;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.seff.*;

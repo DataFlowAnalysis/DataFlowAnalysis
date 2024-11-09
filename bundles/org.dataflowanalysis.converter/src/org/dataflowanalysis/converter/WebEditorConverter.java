@@ -130,6 +130,10 @@ public class WebEditorConverter extends Converter {
                         yield Optional.empty();
                     }
                 };
+                if (nodeOptional.isEmpty()) {
+                    continue;
+                }
+
                 Node node = nodeOptional.get();
 
                 node.setEntityName(name);

@@ -129,6 +129,7 @@ public class PCMDataFlowConfidentialityAnalysisBuilder extends DataFlowAnalysisB
                     new IllegalStateException("The Analysis requires an allocation model"));
         }
         if (this.customResourceProvider.isPresent()) {
+            this.customResourceProvider.get().setupResources();
             this.customResourceProvider.get()
                     .loadRequiredResources();
             if (!this.customResourceProvider.get()

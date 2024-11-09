@@ -1,5 +1,6 @@
 package org.dataflowanalysis.analysis.dfd.core;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentHashMap.KeySetView;
 import java.util.function.Function;
@@ -302,6 +304,16 @@ public class DFDVertex extends AbstractVertex<Node> {
                     mapping.putIfAbsent(oldVertex, newVertice);
                 });
         return new DFDVertex(this.referencedElement, copiedPinDFDVertexMap, new HashMap<>(this.pinFlowMap));
+    }
+
+    @Override
+    public UUID getUniqueUUID() {
+        StringBuilder previousElements = new StringBuilder();
+        for (var previousElement : this.getPinDFDVertexMap().entrySet()) {
+            previousElements.append(previousElement.getKey().getEntityName()).append(previousElement.getValue().getUniqueUUID());
+        }
+        String identifier = this.referencedElement.getId() + previousElements;
+        return UUID.nameUUIDFromBytes(identifier.getBytes(StandardCharsets.UTF_8));
     }
 
     @Override

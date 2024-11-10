@@ -287,8 +287,8 @@ public class WebEditorConverter extends Converter{
                 assignment.setOutputPin(outpin);
                 assignment.setTerm(behaviorConverter.stringToTerm(term));
                 assignment.getInputPins().addAll(getInPinsFromString(inPinsAsString, node, dfd));
-                
                 Arrays.asList(outLabelsAsString.split(",")).forEach(typeValuePair -> {
+                	if (typeValuePair == null || typeValuePair.trim().equals("")) return;
                      String typeName = typeValuePair.split("\\.")[0];
                      String valueName = typeValuePair.split("\\.")[1];
                      

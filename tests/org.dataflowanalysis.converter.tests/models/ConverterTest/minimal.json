@@ -26,20 +26,24 @@
     }, {
       "text" : "encrypt",
       "labels" : [ ],
-      "ports" : [ {
-        "behavior" : "Forwarding({data})\nAssignment({};TRUE;{Encryption.Encrypted})",
-        "id" : "3wntc",
-        "type" : "port:dfd-output",
-        "children" : [ ]
-      }, {
-        "id" : "kqjy4g",
-        "type" : "port:dfd-input",
-        "children" : [ ]
-      }, {
-        "id" : "mvakn",
-        "type" : "port:dfd-output",
-        "children" : [ ]
-      } ],
+      "ports": [
+        {
+          "behavior": "Forwarding({data})\nAssignment({};TRUE;{Encryption.Encrypted})\nAssignment({};TRUE;{})",
+          "id": "3wntc",
+          "type": "port:dfd-output",
+          "children": []
+        },
+        {
+          "id": "kqjy4g",
+          "type": "port:dfd-input",
+          "children": []
+        },
+        {
+          "id": "mvakn",
+          "type": "port:dfd-output",
+          "children": []
+        }
+      ],
       "id" : "3n988k",
       "type" : "node:function",
       "annotation" : {

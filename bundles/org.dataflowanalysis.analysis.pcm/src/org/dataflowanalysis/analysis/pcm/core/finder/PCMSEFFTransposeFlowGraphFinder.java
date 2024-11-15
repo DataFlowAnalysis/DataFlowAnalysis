@@ -78,7 +78,7 @@ public class PCMSEFFTransposeFlowGraphFinder {
                     context.getParameter(), resourceProvider);
     	}
         this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(startElement);
-        if (this.sinks.contains(currentAction)) {
+        if (this.sinks.stream().anyMatch(it -> it.getId().equals(currentAction.getId()))) {
             return List.of(currentTransposeFlowGraph);
         }
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction());
@@ -88,7 +88,7 @@ public class PCMSEFFTransposeFlowGraphFinder {
         var stopElement = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), context.getContext(),
                 context.getParameter(), resourceProvider);
         this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(stopElement);
-        if (this.sinks.contains(currentAction)) {
+        if (this.sinks.stream().anyMatch(it -> it.getId().equals(currentAction.getId()))) {
             return List.of(currentTransposeFlowGraph);
         }
 
@@ -109,7 +109,7 @@ public class PCMSEFFTransposeFlowGraphFinder {
         var callingEntity = new CallingSEFFPCMVertex(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), context.getContext(),
                 context.getParameter(), true, resourceProvider);
         this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(callingEntity);
-        if (this.sinks.contains(currentAction)) {
+        if (this.sinks.stream().anyMatch(it -> it.getId().equals(currentAction.getId()))) {
             return List.of(currentTransposeFlowGraph);
         }
 
@@ -143,7 +143,7 @@ public class PCMSEFFTransposeFlowGraphFinder {
         var newEntity = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), context.getContext(),
                 context.getParameter(), resourceProvider);
         this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(newEntity);
-        if (this.sinks.contains(currentAction)) {
+        if (this.sinks.stream().anyMatch(it -> it.getId().equals(currentAction.getId()))) {
             return List.of(currentTransposeFlowGraph);
         }
 
@@ -175,7 +175,7 @@ public class PCMSEFFTransposeFlowGraphFinder {
         previousVertices.add(this.currentTransposeFlowGraph.getSink());
         this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(
                 new CallingSEFFPCMVertex(currentAction, previousVertices, context.getContext(), context.getParameter(), false, resourceProvider));
-        if (this.sinks.contains(currentAction)) {
+        if (this.sinks.stream().anyMatch(it -> it.getId().equals(currentAction.getId()))) {
             return List.of(currentTransposeFlowGraph);
         }
         return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction());

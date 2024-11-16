@@ -99,7 +99,7 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
         if (!(otherVertexObject instanceof CallingUserPCMVertex otherVertex)) {
             return false;
         }
-        return super.equals(otherVertex) && this.isCalling() == otherVertex.isCalling();
+        return super.isEquivalentInContext(otherVertex) && this.isCalling() == otherVertex.isCalling();
     }
     
     @Override

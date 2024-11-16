@@ -105,7 +105,7 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
         if (!(otherVertexObject instanceof CallingSEFFPCMVertex otherVertex)) {
             return false;
         }
-        return super.equals(otherVertex) && this.isCalling() == otherVertex.isCalling();
+        return super.isEquivalentInContext(otherVertex) && this.isCalling() == otherVertex.isCalling();
     }
     
     @Override

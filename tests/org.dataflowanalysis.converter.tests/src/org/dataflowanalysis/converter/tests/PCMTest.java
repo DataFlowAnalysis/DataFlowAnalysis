@@ -27,6 +27,7 @@ import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
+import org.dataflowanalysis.analysis.dfd.core.DFDTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.simple.DFDSimpleTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
@@ -98,7 +99,7 @@ public class PCMTest extends ConverterTest{
         var readFlightsFromDB = dfd.dataFlowDiagram().getNodes().stream()
         		.filter(it -> it.getId().equals("_x32bcPViEeuMKba1Qn68bg_1"))
         		.findAny().orElseThrow();
-        assertTrue(readFlightsFromDB.getBehaviour().getAssignment().stream()
+        assertTrue(readFlightsFromDB.getBehavior().getAssignment().stream()
         		.filter(ForwardingAssignment.class::isInstance)
         		.filter(it -> it.getInputPins().size() == 1)
         		.filter(it -> it.getInputPins().get(0).getEntityName().equals("RETURN"))
@@ -108,7 +109,7 @@ public class PCMTest extends ConverterTest{
         var selectFlightsBasedOnQuery = dfd.dataFlowDiagram().getNodes().stream()
         		.filter(it -> it.getId().equals("_2AAjoPViEeuMKba1Qn68bg"))
         		.findAny().orElseThrow();
-        assertEquals(2, selectFlightsBasedOnQuery.getBehaviour().getAssignment().stream()
+        assertEquals(2, selectFlightsBasedOnQuery.getBehavior().getAssignment().stream()
         		.filter(Assignment.class::isInstance)
         		.map(Assignment.class::cast)
         		.filter(it -> it.getOutputPin().getEntityName().equals("RETURN"))

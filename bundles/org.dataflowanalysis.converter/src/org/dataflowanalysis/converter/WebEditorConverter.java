@@ -137,10 +137,10 @@ public class WebEditorConverter extends Converter{
                 node.setEntityName(name);
                 node.setId(child.id());
 
-                var behaviour = ddFactory.createBehaviour();
+                var behaviour = ddFactory.createBehavior();
                 behaviour.setEntityName(name);
-                node.setBehaviour(behaviour);
-                dataDictionary.getBehaviour()
+                node.setBehavior(behaviour);
+                dataDictionary.getBehavior()
                         .add(behaviour);
 
                 createPins(pinToNodeMap, pinMap, nodeOutpinBehavior, child, node);
@@ -206,7 +206,7 @@ public class WebEditorConverter extends Converter{
         var outPin = ddFactory.createPin();
         outPin.setId(port.id());
         outPin.setEntityName(node.getEntityName() + "_out_");
-        node.getBehaviour()
+        node.getBehavior()
                 .getOutPin()
                 .add(outPin);
         if (port.behavior() != null) {
@@ -219,7 +219,7 @@ public class WebEditorConverter extends Converter{
         var inPin = ddFactory.createPin();
         inPin.setId(port.id());
         inPin.setEntityName(node.getEntityName() + "_in_");
-        node.getBehaviour()
+        node.getBehavior()
                 .getInPin()
                 .add(inPin);
         return inPin;
@@ -249,7 +249,7 @@ public class WebEditorConverter extends Converter{
     
     private void parseBehavior(Node node, Pin outpin, String lines, DataFlowDiagram dfd, DataDictionary dd) {
         String[] behaviorStrings = lines.split("\n");
-        var behavior = node.getBehaviour();
+        var behavior = node.getBehavior();
         for (String behaviorString : behaviorStrings) {
             behaviorString = behaviorString.replace(" ", "");
             if (behaviorString.contains("Forwarding")) {

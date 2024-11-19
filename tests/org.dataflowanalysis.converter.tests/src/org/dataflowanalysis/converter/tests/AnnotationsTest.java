@@ -15,7 +15,7 @@ import org.dataflowanalysis.converter.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.converter.DataFlowDiagramConverter;
 import org.dataflowanalysis.converter.webdfd.Annotation;
 import org.dataflowanalysis.dfd.datadictionary.Assignment;
-import org.dataflowanalysis.dfd.datadictionary.Behaviour;
+import org.dataflowanalysis.dfd.datadictionary.Behavior;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.ForwardingAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Label;
@@ -58,15 +58,15 @@ public class AnnotationsTest {
     	dataDictionary.getLabelTypes().add(type);
     	
     	Assignment assignment = ddFactory.createAssignment();
-    	assignment.setOutputPin(a.getBehaviour().getOutPin().get(0));
+    	assignment.setOutputPin(a.getBehavior().getOutPin().get(0));
     	assignment.setTerm(ddFactory.createTRUE());
     	assignment.getOutputLabels().add(label);
-    	a.getBehaviour().getAssignment().add(assignment);
+    	a.getBehavior().getAssignment().add(assignment);
     	
     	ForwardingAssignment forwardingAssignment = ddFactory.createForwardingAssignment();
-    	forwardingAssignment.getInputPins().addAll(b.getBehaviour().getInPin());
-    	forwardingAssignment.setOutputPin(b.getBehaviour().getOutPin().get(0));
-    	b.getBehaviour().getAssignment().add(forwardingAssignment);
+    	forwardingAssignment.getInputPins().addAll(b.getBehavior().getInPin());
+    	forwardingAssignment.setOutputPin(b.getBehavior().getOutPin().get(0));
+    	b.getBehavior().getAssignment().add(forwardingAssignment);
     }
 	
 	@Test
@@ -118,11 +118,11 @@ public class AnnotationsTest {
 	private Node createNode(String name) {
     	Node node = dfdFactory.createProcess();
     	node.setEntityName(name);
-    	Behaviour behaviour = ddFactory.createBehaviour();
+    	Behavior behaviour = ddFactory.createBehavior();
     	behaviour.setEntityName(name + "_behaviour");
-    	node.setBehaviour(behaviour);
+    	node.setBehavior(behaviour);
     	dataFlowDiagram.getNodes().add(node);
-    	dataDictionary.getBehaviour().add(behaviour);
+    	dataDictionary.getBehavior().add(behaviour);
     	return node;
     }
     
@@ -132,13 +132,13 @@ public class AnnotationsTest {
     	flow.setSourceNode(sourceNode);
     	if (sourcePin == null) {
     		sourcePin = ddFactory.createPin();
-    		sourcePin.setEntityName(sourceNode.getEntityName() + "_out_" + sourceNode.getBehaviour().getOutPin().size());
-    		sourceNode.getBehaviour().getOutPin().add(sourcePin);
+    		sourcePin.setEntityName(sourceNode.getEntityName() + "_out_" + sourceNode.getBehavior().getOutPin().size());
+    		sourceNode.getBehavior().getOutPin().add(sourcePin);
     	}
     	if (destinationPin == null) {
     		destinationPin = ddFactory.createPin();
-    		destinationPin.setEntityName(destinationNode.getEntityName() + "_in_" + destinationNode.getBehaviour().getInPin().size());
-    		destinationNode.getBehaviour().getInPin().add(destinationPin);
+    		destinationPin.setEntityName(destinationNode.getEntityName() + "_in_" + destinationNode.getBehavior().getInPin().size());
+    		destinationNode.getBehavior().getInPin().add(destinationPin);
     	}
     	flow.setDestinationPin(destinationPin);
     	flow.setSourcePin(sourcePin);

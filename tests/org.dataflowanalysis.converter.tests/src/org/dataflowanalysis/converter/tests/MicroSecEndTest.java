@@ -52,14 +52,14 @@ public class MicroSecEndTest extends ConverterTest {
         var dfd = converter.microToDfd(micro);
 
         List<AbstractAssignment> assignments = dfd.dataDictionary()
-                .getBehaviour()
+                .getBehavior()
                 .stream()
                 .flatMap(behavior -> behavior.getAssignment()
                         .stream())
                 .collect(Collectors.toList());
 
         List<Pin> outPins = dfd.dataDictionary()
-                .getBehaviour()
+                .getBehavior()
                 .stream()
                 .flatMap(behavior -> behavior.getOutPin()
                         .stream())
@@ -68,7 +68,7 @@ public class MicroSecEndTest extends ConverterTest {
         var nodes = dfd.dataFlowDiagram()
                 .getNodes();
         for (Node node : nodes) {
-            var behaviour = node.getBehaviour();
+            var behaviour = node.getBehavior();
 
             var forwardCount = behaviour.getAssignment()
                     .stream()
@@ -94,7 +94,7 @@ public class MicroSecEndTest extends ConverterTest {
                     .map(iflow -> iflow.receiver())
                     .toList()
                     .contains(node.getEntityName()) ? 1 : 0;
-            assertEquals(node.getBehaviour()
+            assertEquals(node.getBehavior()
                     .getInPin()
                     .size(), expectedInPins);
         }
@@ -181,11 +181,11 @@ public class MicroSecEndTest extends ConverterTest {
                                         .getEntityName())) {
                     Pin outpin = flow.getSourcePin();
                     List<Pin> outpins = flow.getSourceNode()
-                            .getBehaviour()
+                            .getBehavior()
                             .getOutPin();
                     assertTrue(outpins.contains(outpin));
                     Assignment assignment = (Assignment) flow.getSourceNode()
-                            .getBehaviour()
+                            .getBehavior()
                             .getAssignment()
                             .get(outpins.indexOf(outpin));
 

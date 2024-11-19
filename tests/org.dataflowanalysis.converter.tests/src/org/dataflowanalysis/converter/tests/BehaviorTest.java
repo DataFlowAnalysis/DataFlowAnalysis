@@ -11,7 +11,7 @@ import org.dataflowanalysis.converter.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.converter.DataFlowDiagramConverter;
 import org.dataflowanalysis.converter.webdfd.Child;
 import org.dataflowanalysis.converter.webdfd.WebEditorDfd;
-import org.dataflowanalysis.dfd.datadictionary.Behaviour;
+import org.dataflowanalysis.dfd.datadictionary.Behavior;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
 import org.dataflowanalysis.dfd.datadictionary.datadictionaryFactory;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
@@ -60,6 +60,7 @@ public class BehaviorTest {
         assertEquals(behavior, behaviourConverter.termToString(behaviourConverter.stringToTerm(behavior)));
     }
     
+    
     @Test
     void testAssignmentConversion() {
     	Node a = createNode("a");
@@ -68,8 +69,8 @@ public class BehaviorTest {
     	createFlow(a, b, null, null, "a2b");
     	createFlow(b, c, null, null, "b2c");
     	Assignment assignment = ddFactory.createAssignment();
-    	assignment.getInputPins().addAll(b.getBehaviour().getInPin());
-    	assignment.setOutputPin(b.getBehaviour().getOutPin().get(0));
+    	assignment.getInputPins().addAll(b.getBehavior().getInPin());
+    	assignment.setOutputPin(b.getBehavior().getOutPin().get(0));
     	NOT not = ddFactory.createNOT();
     	AND and = ddFactory.createAND();
     	TRUE trueTerm = ddFactory.createTRUE();
@@ -97,7 +98,7 @@ public class BehaviorTest {
     	assignment.getOutputLabels().add(label);
     	assignment.getOutputLabels().add(label2);
     	
-    	b.getBehaviour().getAssignment().add(assignment);
+    	b.getBehavior().getAssignment().add(assignment);
     	
     	var webDfd = dataFlowDiagramConverter.dfdToWeb(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
     	
@@ -112,15 +113,15 @@ public class BehaviorTest {
     	Node d = createNode("d");
     	
     	createFlow(a, c, null, null, "a2c");
-    	Pin destinationPin = c.getBehaviour().getInPin().get(0);
+    	Pin destinationPin = c.getBehavior().getInPin().get(0);
     	createFlow(b, c, null, destinationPin, "b2c");
     	
     	Pin c_out = ddFactory.createPin();
     	ForwardingAssignment assignment = ddFactory.createForwardingAssignment();
     	assignment.setOutputPin(c_out);
-    	assignment.getInputPins().add(c.getBehaviour().getInPin().get(0));
-    	c.getBehaviour().getOutPin().add(c_out);
-    	c.getBehaviour().getAssignment().add(assignment);
+    	assignment.getInputPins().add(c.getBehavior().getInPin().get(0));
+    	c.getBehavior().getOutPin().add(c_out);
+    	c.getBehavior().getAssignment().add(assignment);
     	
     	createFlow(c, d, c_out, null, "c2d");
     	
@@ -136,9 +137,9 @@ public class BehaviorTest {
     	Node y = createNode("y");
     	createFlow(y, z, null, null, "y2z");
     	ForwardingAssignment assignment2 = ddFactory.createForwardingAssignment();
-    	assignment2.setOutputPin(z.getBehaviour().getOutPin().get(0));
-    	assignment2.getInputPins().add(z.getBehaviour().getInPin().get(0));
-    	z.getBehaviour().getAssignment().add(assignment2);
+    	assignment2.setOutputPin(z.getBehavior().getOutPin().get(0));
+    	assignment2.getInputPins().add(z.getBehavior().getInPin().get(0));
+    	z.getBehavior().getAssignment().add(assignment2);
     	
     	webDfd = dataFlowDiagramConverter.dfdToWeb(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
     	
@@ -157,11 +158,11 @@ public class BehaviorTest {
     private Node createNode(String name) {
     	Node node = dfdFactory.createProcess();
     	node.setEntityName(name);
-    	Behaviour behaviour = ddFactory.createBehaviour();
+    	Behavior behaviour = ddFactory.createBehavior();
     	behaviour.setEntityName(name + "_behaviour");
-    	node.setBehaviour(behaviour);
+    	node.setBehavior(behaviour);
     	dataFlowDiagram.getNodes().add(node);
-    	dataDictionary.getBehaviour().add(behaviour);
+    	dataDictionary.getBehavior().add(behaviour);
     	return node;
     }
     
@@ -171,13 +172,13 @@ public class BehaviorTest {
     	flow.setSourceNode(sourceNode);
     	if (sourcePin == null) {
     		sourcePin = ddFactory.createPin();
-    		sourcePin.setEntityName(sourceNode.getEntityName() + "_out_" + sourceNode.getBehaviour().getOutPin().size());
-    		sourceNode.getBehaviour().getOutPin().add(sourcePin);
+    		sourcePin.setEntityName(sourceNode.getEntityName() + "_out_" + sourceNode.getBehavior().getOutPin().size());
+    		sourceNode.getBehavior().getOutPin().add(sourcePin);
     	}
     	if (destinationPin == null) {
     		destinationPin = ddFactory.createPin();
-    		destinationPin.setEntityName(destinationNode.getEntityName() + "_in_" + destinationNode.getBehaviour().getInPin().size());
-    		destinationNode.getBehaviour().getInPin().add(destinationPin);
+    		destinationPin.setEntityName(destinationNode.getEntityName() + "_in_" + destinationNode.getBehavior().getInPin().size());
+    		destinationNode.getBehavior().getInPin().add(destinationPin);
     	}
     	flow.setDestinationPin(destinationPin);
     	flow.setSourcePin(sourcePin);

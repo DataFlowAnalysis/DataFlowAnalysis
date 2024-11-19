@@ -24,7 +24,7 @@ import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Assignment;
-import org.dataflowanalysis.dfd.datadictionary.Behaviour;
+import org.dataflowanalysis.dfd.datadictionary.Behavior;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.Label;
 import org.dataflowanalysis.dfd.datadictionary.LabelType;
@@ -183,13 +183,13 @@ public class PCMConverter extends Converter {
 		}
 		for (AbstractTransposeFlowGraph transposeFlowGraph : flowGraphCollection.getTransposeFlowGraphs()) {
 			transposeFlowGraph.getVertices().stream().filter(it -> it instanceof AbstractPCMVertex<?>)
-					.map(it -> (AbstractPCMVertex<?>) it).forEach(it -> createBehaviour(it));
+					.map(it -> (AbstractPCMVertex<?>) it).forEach(it -> createBehavior(it));
 		}
 
 		flowGraphCollection.getTransposeFlowGraphs().stream().map(it -> it.getSink()).forEach(sink -> {
 			var node = dfdNodeMap.get(sink);
-			node.getBehaviour().getOutPin().clear();
-			node.getBehaviour().getAssignment().clear();
+			node.getBehavior().getOutPin().clear();
+			node.getBehavior().getAssignment().clear();
 		});
 
 		return new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary);
@@ -220,7 +220,7 @@ public class PCMConverter extends Converter {
 	 * 
 	 * @param pcmVertex PCMVertex whichs corresponding note is to be annotated
 	 */
-	private void createBehaviour(AbstractPCMVertex<? extends Entity> pcmVertex) {
+	private void createBehavior(AbstractPCMVertex<? extends Entity> pcmVertex) {
 		var node = getDFDNode(pcmVertex);
 		convertBehavior(pcmVertex, node, dataDictionary);
 	}
@@ -233,7 +233,7 @@ public class PCMConverter extends Converter {
 	 * @param pcmVertex holding the data characteristics
 	 */
 	private void createPinsFromVertex(Node node, AbstractPCMVertex<? extends Entity> pcmVertex) {
-		var behaviour = node.getBehaviour();
+		var behaviour = node.getBehavior();
 		pcmVertex.getAllIncomingDataCharacteristics().forEach(idc -> {
 			var pin = datadictionaryFactory.eINSTANCE.createPin();
 			pin.setEntityName(idc.getVariableName());
@@ -281,9 +281,9 @@ public class PCMConverter extends Converter {
 		var destinationNode = dfdNodeMap.get(destinationVertex);
 		for (var dataCharacteristic : intersectingDataCharacteristics) {
 			var flow = dataflowdiagramFactory.eINSTANCE.createFlow();
-			var inPin = destinationNode.getBehaviour().getInPin().stream()
+			var inPin = destinationNode.getBehavior().getInPin().stream()
 					.filter(pin -> pin.getEntityName().equals(dataCharacteristic)).toList().get(0);
-			var outPin = sourceNode.getBehaviour().getOutPin().stream()
+			var outPin = sourceNode.getBehavior().getOutPin().stream()
 					.filter(pin -> pin.getEntityName().equals(dataCharacteristic)).toList().get(0);
 
 			flow.setEntityName(dataCharacteristic);
@@ -322,8 +322,8 @@ public class PCMConverter extends Converter {
 		flow.setEntityName("");
 		dataFlowDiagram.getFlows().add(flow);
 
-		sourceNode.getBehaviour().getOutPin().add(outPin);
-		destinationNode.getBehaviour().getInPin().add(inPin);
+		sourceNode.getBehavior().getOutPin().add(outPin);
+		destinationNode.getBehavior().getInPin().add(inPin);
 
 		var assignment = datadictionaryFactory.eINSTANCE.createAssignment();
 		assignment.setTerm(datadictionaryFactory.eINSTANCE.createTRUE());
@@ -368,7 +368,7 @@ public class PCMConverter extends Converter {
 			return null;
 		}
 
-		Behaviour behaviour = datadictionaryFactory.eINSTANCE.createBehaviour();
+		Behavior behaviour = datadictionaryFactory.eINSTANCE.createBehavior();
 
 		node.setEntityName(computeCompleteName(pcmVertex));
 
@@ -381,8 +381,8 @@ public class PCMConverter extends Converter {
 
 		node.setId(id);
 		takenIds.add(id);
-		node.setBehaviour(behaviour);
-		dataDictionary.getBehaviour().add(behaviour);
+		node.setBehavior(behaviour);
+		dataDictionary.getBehavior().add(behaviour);
 		dataFlowDiagram.getNodes().add(node);
 		return node;
 	}
@@ -516,7 +516,7 @@ public class PCMConverter extends Converter {
 
 		if (vertex.getAllIncomingDataCharacteristics().isEmpty()) {
 			vertex.getAllOutgoingDataCharacteristics().forEach(it -> {
-				Pin outPin = node.getBehaviour().getOutPin().stream()
+				Pin outPin = node.getBehavior().getOutPin().stream()
 						.filter(pin -> pin.getEntityName().equals(it.getVariableName())).findAny().orElseThrow();
 				Assignment assignment = datadictionaryFactory.eINSTANCE.createAssignment();
 				assignment.setTerm(datadictionaryFactory.eINSTANCE.createTRUE());
@@ -557,14 +557,14 @@ public class PCMConverter extends Converter {
 	private AbstractAssignment forwardCharacteristic(Node node, AbstractPCMVertex<?> vertex,
 			DataCharacteristic dataCharacteristic) {
 		AbstractAssignment assignment = datadictionaryFactory.eINSTANCE.createForwardingAssignment();
-		Pin inPin = node.getBehaviour().getInPin().stream()
+		Pin inPin = node.getBehavior().getInPin().stream()
 				.filter(it -> it.getEntityName().equals(dataCharacteristic.getVariableName())).findAny()
 				.orElseThrow(() -> {
 					logger.error("Cannot find required in-pin " + dataCharacteristic.getVariableName()
 							+ " at vertex with name " + vertex);
 					return new NoSuchElementException();
 				});
-		Pin outPin = node.getBehaviour().getOutPin().stream()
+		Pin outPin = node.getBehavior().getOutPin().stream()
 				.filter(it -> it.getEntityName().equals(dataCharacteristic.getVariableName())).findAny()
 				.orElseThrow(() -> {
 					logger.error("Cannot find required out-pin " + dataCharacteristic.getVariableName()
@@ -588,12 +588,12 @@ public class PCMConverter extends Converter {
 	 */
 	private AbstractAssignment preserveControlFlow(Node node, AbstractPCMVertex<?> vertex) {
 		AbstractAssignment assignment = datadictionaryFactory.eINSTANCE.createForwardingAssignment();
-		Pin inPin = node.getBehaviour().getInPin().stream().filter(it -> it.getEntityName().equals("")).findAny()
+		Pin inPin = node.getBehavior().getInPin().stream().filter(it -> it.getEntityName().equals("")).findAny()
 				.orElseThrow(() -> {
 					logger.error("Cannot find required in-pin with empty name at vertex with name " + vertex);
 					return new NoSuchElementException();
 				});
-		Pin outPin = node.getBehaviour().getOutPin().stream().filter(it -> it.getEntityName().equals("")).findAny()
+		Pin outPin = node.getBehavior().getOutPin().stream().filter(it -> it.getEntityName().equals("")).findAny()
 				.orElseThrow(() -> {
 					logger.error("Cannot find required out-pin with empty name at vertex with name " + vertex);
 					return new NoSuchElementException();
@@ -615,7 +615,7 @@ public class PCMConverter extends Converter {
 	 *         behavior to reflect the PCM variable characterization
 	 */
 	private List<AbstractAssignment> processCharacterization(
-			ConfidentialityVariableCharacterisation variableCharacterisation, Behaviour behaviour, Node node,
+			ConfidentialityVariableCharacterisation variableCharacterisation, Behavior behaviour, Node node,
 			AbstractPCMVertex<?> vertex) {
 		var leftHandSide = (LhsEnumCharacteristicReference) variableCharacterisation.getLhs();
 
@@ -655,10 +655,10 @@ public class PCMConverter extends Converter {
 			return datadictionaryFactory.eINSTANCE.createForwardingAssignment();
 		}
 		ForwardingAssignment assignment = datadictionaryFactory.eINSTANCE.createForwardingAssignment();
-		Pin outPin = node.getBehaviour().getOutPin().stream()
+		Pin outPin = node.getBehavior().getOutPin().stream()
 				.filter(it -> it.getEntityName().equals(reference.getReferenceName())).findAny().orElseThrow();
 		assignment.setOutputPin(outPin);
-		Pin inPin = node.getBehaviour().getInPin().stream().filter(
+		Pin inPin = node.getBehavior().getInPin().stream().filter(
 				it -> it.getEntityName().equals(namedEnumCharacteristicReference.getNamedReference().getReferenceName())
 						|| it.getEntityName().equals(""))
 				.findAny().orElseThrow();
@@ -681,7 +681,7 @@ public class PCMConverter extends Converter {
 	 *         of all characteristic values of a given type
 	 */
 	private List<AbstractAssignment> processHalfForwardingAssignment(Node node, Term rightHandSide,
-			AbstractNamedReference reference, AbstractPCMVertex<?> vertex, Behaviour behaviour,
+			AbstractNamedReference reference, AbstractPCMVertex<?> vertex, Behavior behaviour,
 			EnumCharacteristicType characteristicType) {
 		List<AbstractAssignment> assignments = new ArrayList<>();
 		List<Literal> forwardedValues = characteristicType.getType().getLiterals();
@@ -691,14 +691,14 @@ public class PCMConverter extends Converter {
 			Label label = this.getOrCreateDFDLabel(value.getName(), labelType);
 			assignment.getOutputLabels().add(label);
 
-			Pin outPin = node.getBehaviour().getOutPin().stream()
+			Pin outPin = node.getBehavior().getOutPin().stream()
 					.filter(it -> it.getEntityName().equals(reference.getReferenceName())).findAny().orElseThrow();
 			assignment.setOutputPin(outPin);
 			org.dataflowanalysis.dfd.datadictionary.Term term = parseTerm(rightHandSide, dataDictionary, label);
 			
 			assignment.setTerm(term);
 			if (rightHandSide instanceof NamedEnumCharacteristicReference namedEnumCharacteristicReference) {
-				Pin inPin = node.getBehaviour().getInPin().stream()
+				Pin inPin = node.getBehavior().getInPin().stream()
 						.filter(it -> it.getEntityName()
 								.equals(namedEnumCharacteristicReference.getNamedReference().getReferenceName()))
 						.findAny().orElseThrow();
@@ -726,7 +726,7 @@ public class PCMConverter extends Converter {
 	 * @return Returns an assignment that models the PCM behavior at the given
 	 *         vertex
 	 */
-	private AbstractAssignment processAssignment(Node node, Term rightHandSide, Behaviour behaviour,
+	private AbstractAssignment processAssignment(Node node, Term rightHandSide, Behavior behaviour,
 			AbstractNamedReference reference, EnumCharacteristicType characteristicType, Literal characteristicValue) {
 		Assignment assignment = datadictionaryFactory.eINSTANCE.createAssignment();
 		LabelType labelType = getOrCreateLabelType(characteristicType.getName());
@@ -734,13 +734,13 @@ public class PCMConverter extends Converter {
 		Label label = getOrCreateDFDLabel(characteristicValue.getName(), labelType);
 		assignment.getOutputLabels().add(label);
 
-		Pin outPin = node.getBehaviour().getOutPin().stream()
+		Pin outPin = node.getBehavior().getOutPin().stream()
 				.filter(it -> it.getEntityName().equals(reference.getReferenceName())).findAny().orElseThrow();
 		assignment.setOutputPin(outPin);
 		org.dataflowanalysis.dfd.datadictionary.Term term = parseTerm(rightHandSide, dataDictionary);
 		assignment.setTerm(term);
 		if (rightHandSide instanceof NamedEnumCharacteristicReference namedEnumCharacteristicReference) {
-			Pin inPin = node.getBehaviour().getInPin().stream()
+			Pin inPin = node.getBehavior().getInPin().stream()
 					.filter(it -> it.getEntityName()
 							.equals(namedEnumCharacteristicReference.getNamedReference().getReferenceName()))
 					.findAny().orElseThrow();
@@ -762,7 +762,7 @@ public class PCMConverter extends Converter {
 		List<ConfidentialityVariableCharacterisation> variableCharacterisations = this
 				.getVariableCharacterizations(pcmVertex);
 
-		Behaviour behaviour = node.getBehaviour();
+		Behavior behaviour = node.getBehavior();
 		List<AbstractAssignment> assignments = this.getAssignments(pcmVertex, node);
 		for (ConfidentialityVariableCharacterisation variableCharacterization : variableCharacterisations) {
 			assignments.addAll(this.processCharacterization(variableCharacterization, behaviour, node, pcmVertex));

@@ -66,7 +66,7 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
         List<DataCharacteristic> incomingCharacteristics = previousVertices.stream().map(it -> it.getAllOutgoingDataCharacteristics()).flatMap(List::stream).collect(Collectors.toList());        
         
         Map<Pin, Set<Label>> outgoingLabelPerPin = new HashMap<>();
-        referencedElement.getBehaviour().getAssignment().forEach(it -> handleOutgoingAssignments(it, incomingCharacteristics, outgoingLabelPerPin));              
+        referencedElement.getBehavior().getAssignment().forEach(it -> handleOutgoingAssignments(it, incomingCharacteristics, outgoingLabelPerPin));              
  
         List<DataCharacteristic> outgoingDataCharacteristics = new ArrayList<>(this.createDataCharacteristicsFromLabels(outgoingLabelPerPin));
         

@@ -84,7 +84,7 @@ public class DFDVertex extends AbstractVertex<Node> {
     private Map<Pin, List<Label>> determineOutputPinOutgoingLabelMap(Map<Pin, List<Label>> inputPinsIncomingLabelMap) {
         Map<Pin, List<Label>> outputPinsOutgoingLabelMap = new HashMap<>();
         var assignments = this.getReferencedElement()
-                .getBehaviour()
+                .getBehavior()
                 .getAssignment();
         assignments.forEach(assignment -> outputPinsOutgoingLabelMap.putIfAbsent(assignment.getOutputPin(), new ArrayList<>()));
         assignments.forEach(assignment -> handleOutgoingAssignments(assignment, inputPinsIncomingLabelMap, outputPinsOutgoingLabelMap));

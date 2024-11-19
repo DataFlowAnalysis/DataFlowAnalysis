@@ -16,18 +16,15 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
  * The DFDTransposeFlowGraphFinder determines all transpose flow graphs contained in a model
  */
 public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
-    private final DataDictionary dataDictionary;
     protected final DataFlowDiagram dataFlowDiagram;
     
     private Map<Node, DFDSimpleVertex> mapNodeToExistingVertex = new HashMap<>();
 
     public DFDSimpleTransposeFlowGraphFinder(DFDResourceProvider resourceProvider) {
-        this.dataDictionary = resourceProvider.getDataDictionary();
         this.dataFlowDiagram = resourceProvider.getDataFlowDiagram();
     }
 
     public DFDSimpleTransposeFlowGraphFinder(DataDictionary dataDictionary, DataFlowDiagram dataFlowDiagram) {
-        this.dataDictionary = dataDictionary;
         this.dataFlowDiagram = dataFlowDiagram;
     }
 
@@ -47,14 +44,6 @@ public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFind
 
     @Override
     public List<? extends AbstractTransposeFlowGraph> findTransposeFlowGraphs(List<?> sinkNodes, List<?> sourceNodes) {
-        List<Node> potentialSinks = sinkNodes.stream()
-                .filter(Node.class::isInstance)
-                .map(Node.class::cast)
-                .toList();
-        List<Node> sources = sourceNodes.stream()
-                .filter(Node.class::isInstance)
-                .map(Node.class::cast)
-                .toList();
         List<DFDSimpleTransposeFlowGraph> transposeFlowGraphs = new ArrayList<>();
         
         System.out.println(dataFlowDiagram.getNodes());

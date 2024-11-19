@@ -7,10 +7,8 @@ import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
-import org.dataflowanalysis.dfd.datadictionary.Assignment;
 import org.dataflowanalysis.dfd.datadictionary.Behavior;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
-import org.dataflowanalysis.dfd.datadictionary.ForwardingAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
@@ -21,19 +19,16 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
  */
 public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
 	private final Logger logger = Logger.getLogger(TransposeFlowGraphFinder.class);
-    private final DataDictionary dataDictionary;
     protected final DataFlowDiagram dataFlowDiagram;
     private boolean hasCycles = false;
     
     private Map<Pin, DFDVertex> mapOutPinToExistingVertex = new HashMap<>();
 
     public DFDTransposeFlowGraphFinder(DFDResourceProvider resourceProvider) {
-        this.dataDictionary = resourceProvider.getDataDictionary();
         this.dataFlowDiagram = resourceProvider.getDataFlowDiagram();
     }
 
     public DFDTransposeFlowGraphFinder(DataDictionary dataDictionary, DataFlowDiagram dataFlowDiagram) {
-        this.dataDictionary = dataDictionary;
         this.dataFlowDiagram = dataFlowDiagram;
     }
 

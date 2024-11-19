@@ -25,8 +25,10 @@ import org.dataflowanalysis.dfd.datadictionary.LabelType;
 import org.dataflowanalysis.dfd.datadictionary.NOT;
 import org.dataflowanalysis.dfd.datadictionary.OR;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
+import org.dataflowanalysis.dfd.datadictionary.SetAssignment;
 import org.dataflowanalysis.dfd.datadictionary.TRUE;
 import org.dataflowanalysis.dfd.datadictionary.Term;
+import org.dataflowanalysis.dfd.datadictionary.UnsetAssignment;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 
@@ -139,28 +141,35 @@ public class DFDVertex extends AbstractVertex<Node> {
 
     /**
      * Calculates outgoing labels for assignment and adds them into mapOutputPinToOutgoingLabels
-     * @param assignment Assignment to be evaluated
+     * @param abstractAssignment Assignment to be evaluated
      * @param inputPinsIncomingLabelMap Maps Input Pins to Incoming Labels
      * @param outputPinsOutgoingLabelMap Maps Output Pins to Outgoing Labels, to be filled by method
      */
-    private void handleOutgoingAssignments(AbstractAssignment assignment, Map<Pin, List<Label>> inputPinsIncomingLabelMap,
+    private void handleOutgoingAssignments(AbstractAssignment abstractAssignment, Map<Pin, List<Label>> inputPinsIncomingLabelMap,
             Map<Pin, List<Label>> outputPinsOutgoingLabelMap) {
-        List<Label> incomingLabels = combineLabelsOnAllInputPins(assignment, inputPinsIncomingLabelMap);
+        List<Label> incomingLabels = combineLabelsOnAllInputPins(abstractAssignment, inputPinsIncomingLabelMap);
 
-        if (assignment instanceof ForwardingAssignment) {
-            outputPinsOutgoingLabelMap.get(assignment.getOutputPin())
+        if (abstractAssignment instanceof ForwardingAssignment forwardingAssignment) {
+            outputPinsOutgoingLabelMap.get(forwardingAssignment.getOutputPin())
                     .addAll(incomingLabels);
             return;
-        }
-
-        if (evaluateTerm(((Assignment) assignment).getTerm(), incomingLabels)) {
+        }else if (abstractAssignment instanceof SetAssignment setAssignment) {
+        	outputPinsOutgoingLabelMap.get(abstractAssignment.getOutputPin())
+            .addAll(setAssignment.getOutputLabels());
+        	return;
+        }else if (abstractAssignment instanceof UnsetAssignment unsetAssignment) {
+        	outputPinsOutgoingLabelMap.get(abstractAssignment.getOutputPin())
+            .removeAll(unsetAssignment.getOutputLabels());
+        	return;
+        } else if (abstractAssignment instanceof Assignment assignment) {
+        	if (evaluateTerm(assignment.getTerm(), incomingLabels)) {
             outputPinsOutgoingLabelMap.get(assignment.getOutputPin())
-                    .addAll(((Assignment) assignment).getOutputLabels());
-            return;
+                    .addAll(assignment.getOutputLabels());
+        	} else outputPinsOutgoingLabelMap.get(abstractAssignment.getOutputPin())
+            .removeAll(assignment.getOutputLabels());
         }
 
-        outputPinsOutgoingLabelMap.get(assignment.getOutputPin())
-                .removeAll(((Assignment) assignment).getOutputLabels());
+        
     }
 
     /**

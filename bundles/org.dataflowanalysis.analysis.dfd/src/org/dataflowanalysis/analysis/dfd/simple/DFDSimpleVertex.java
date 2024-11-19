@@ -26,8 +26,10 @@ import org.dataflowanalysis.dfd.datadictionary.LabelType;
 import org.dataflowanalysis.dfd.datadictionary.NOT;
 import org.dataflowanalysis.dfd.datadictionary.OR;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
+import org.dataflowanalysis.dfd.datadictionary.SetAssignment;
 import org.dataflowanalysis.dfd.datadictionary.TRUE;
 import org.dataflowanalysis.dfd.datadictionary.Term;
+import org.dataflowanalysis.dfd.datadictionary.UnsetAssignment;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 /**
@@ -94,28 +96,36 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
      * @param incomingDataCharacteristics incoming characteristics as list
      * @param outgoingLabelPerPin Maps Output Pins to Outgoing Labels, to be filled by method
      */
-    private void handleOutgoingAssignments(AbstractAssignment assignment, List<DataCharacteristic> incomingDataCharacteristics, Map<Pin, Set<Label>> outgoingLabelPerPin) {
+    private void handleOutgoingAssignments(AbstractAssignment abstractAssignment, List<DataCharacteristic> incomingDataCharacteristics, Map<Pin, Set<Label>> outgoingLabelPerPin) {
     	// Takes the labels of all incoming Characteristics whos names match the flows arriving on all input pins of the assignment
-    	var incomingLabel = incomingDataCharacteristics.stream().filter(it -> {
-    		return mapPinToOutgoingFlow.keySet().stream().filter(key -> assignment.getInputPins().contains(key)).map(key -> mapPinToOutgoingFlow.get(key).getEntityName()).toList().contains(it.getVariableName());
+    	var incomingLabels = incomingDataCharacteristics.stream().filter(it -> {
+    		return mapPinToOutgoingFlow.keySet().stream().filter(key -> abstractAssignment.getInputPins().contains(key)).map(key -> mapPinToOutgoingFlow.get(key).getEntityName()).toList().contains(it.getVariableName());
     	}).flatMap(it -> it.getAllCharacteristics().stream().map(value -> ((DFDCharacteristicValue)value).getLabel())).collect(Collectors.toSet());
     	
     	
-    	var outPin = assignment.getOutputPin();
+    	var outPin = abstractAssignment.getOutputPin();
     	if (outPin == null) return;
     	if (outgoingLabelPerPin.get(outPin) == null) outgoingLabelPerPin.put(outPin, new HashSet<>());
     	
-        if (assignment instanceof ForwardingAssignment) {
-        	outgoingLabelPerPin.get(assignment.getOutputPin()).addAll(incomingLabel);
+    	if (abstractAssignment instanceof ForwardingAssignment forwardingAssignment) {
+    		outgoingLabelPerPin.get(forwardingAssignment.getOutputPin())
+                    .addAll(incomingLabels);
+            return;
+        }else if (abstractAssignment instanceof SetAssignment setAssignment) {
+        	outgoingLabelPerPin.get(abstractAssignment.getOutputPin())
+            .addAll(setAssignment.getOutputLabels());
         	return;
-        }
-
-        if (evaluateTerm(((Assignment) assignment).getTerm(), incomingLabel)) {
-        	outgoingLabelPerPin.get(outPin).addAll(((Assignment) assignment).getOutputLabels());
+        }else if (abstractAssignment instanceof UnsetAssignment unsetAssignment) {
+        	outgoingLabelPerPin.get(abstractAssignment.getOutputPin())
+            .removeAll(unsetAssignment.getOutputLabels());
         	return;
+        } else if (abstractAssignment instanceof Assignment assignment) {
+        	if (evaluateTerm(assignment.getTerm(), incomingLabels)) {
+        		outgoingLabelPerPin.get(assignment.getOutputPin())
+                    .addAll(assignment.getOutputLabels());
+        	} else outgoingLabelPerPin.get(assignment.getOutputPin())
+            .removeAll(assignment.getOutputLabels());
         }
-
-        outgoingLabelPerPin.get(outPin).removeAll(((Assignment) assignment).getOutputLabels());
     }
 
     /**

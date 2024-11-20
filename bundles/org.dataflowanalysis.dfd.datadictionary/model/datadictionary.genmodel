@@ -19,12 +19,12 @@
       ecorePackage="datadictionary.ecore#/">
     <genClasses ecoreClass="datadictionary.ecore#//DataDictionary" labelFeature="../../tools.mdsd.modelingfoundations.identifier/model/identifier.genmodel#//identifier/NamedElement/entityName">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datadictionary.ecore#//DataDictionary/labelTypes"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datadictionary.ecore#//DataDictionary/behaviour"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datadictionary.ecore#//DataDictionary/behavior"/>
     </genClasses>
-    <genClasses ecoreClass="datadictionary.ecore#//Behaviour" labelFeature="../../tools.mdsd.modelingfoundations.identifier/model/identifier.genmodel#//identifier/NamedElement/entityName">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datadictionary.ecore#//Behaviour/inPin"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datadictionary.ecore#//Behaviour/outPin"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datadictionary.ecore#//Behaviour/assignment"/>
+    <genClasses ecoreClass="datadictionary.ecore#//Behavior" labelFeature="../../tools.mdsd.modelingfoundations.identifier/model/identifier.genmodel#//identifier/NamedElement/entityName">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datadictionary.ecore#//Behavior/inPin"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datadictionary.ecore#//Behavior/outPin"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datadictionary.ecore#//Behavior/assignment"/>
     </genClasses>
     <genClasses ecoreClass="datadictionary.ecore#//Pin" labelFeature="../../tools.mdsd.modelingfoundations.identifier/model/identifier.genmodel#//identifier/NamedElement/entityName"/>
     <genClasses image="false" ecoreClass="datadictionary.ecore#//AbstractAssignment">
@@ -52,6 +52,12 @@
     </genClasses>
     <genClasses ecoreClass="datadictionary.ecore#//LabelReference" labelFeature="../../tools.mdsd.modelingfoundations.identifier/model/identifier.genmodel#//identifier/NamedElement/entityName">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference datadictionary.ecore#//LabelReference/label"/>
+    </genClasses>
+    <genClasses ecoreClass="datadictionary.ecore#//SetAssignment">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference datadictionary.ecore#//SetAssignment/outputLabels"/>
+    </genClasses>
+    <genClasses ecoreClass="datadictionary.ecore#//UnsetAssignment">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference datadictionary.ecore#//UnsetAssignment/outputLabels"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

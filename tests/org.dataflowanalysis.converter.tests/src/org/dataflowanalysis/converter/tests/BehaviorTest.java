@@ -100,9 +100,20 @@ public class BehaviorTest {
     	
     	b.getBehavior().getAssignment().add(assignment);
     	
+    	var setAssignment = ddFactory.createSetAssignment();
+    	setAssignment.getOutputLabels().add(label);
+    	setAssignment.setOutputPin(b.getBehavior().getOutPin().get(0));
+    	b.getBehavior().getAssignment().add(setAssignment);
+    	
+    	var unsetAssignment = ddFactory.createUnsetAssignment();
+    	unsetAssignment.getOutputLabels().add(label2);
+    	unsetAssignment.setOutputPin(b.getBehavior().getOutPin().get(0));
+    	b.getBehavior().getAssignment().add(unsetAssignment);
+    	
     	var webDfd = dataFlowDiagramConverter.dfdToWeb(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
     	
-    	testAssignment(webDfd, "b", List.of("assign type.value,type.value2 if !(type.value && TRUE) from a2b"));    	
+    	testAssignment(webDfd, "b", List.of("assign type.value,type.value2 if !(type.value && TRUE) from a2b",
+    			"set type.value", "unset type.value2"));    	
     }
     
     @Test

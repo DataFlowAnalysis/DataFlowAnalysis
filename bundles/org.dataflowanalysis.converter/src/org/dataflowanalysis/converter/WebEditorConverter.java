@@ -265,7 +265,7 @@ public class WebEditorConverter extends Converter{
 	            } else if(behaviorString.startsWith("unset")) {
 	            	var assignment = ddFactory.createUnsetAssignment();
 	            	var outLabels = getLabelFromString(behaviorString.split(" ")[1], dd);
-		           	assignment.getOutputLabels().removeAll(outLabels);
+		           	assignment.getOutputLabels().addAll(outLabels);
 		            abstractAssignment = assignment;
 	           } else if (behaviorString.contains("assign")) {      
 	        	   var assignment = ddFactory.createAssignment();

@@ -39,6 +39,7 @@ public class DataFlowDiagramConverter extends Converter {
     private final Logger logger = Logger.getLogger(DataFlowDiagramConverter.class);
     protected final static String DELIMITER_PIN_NAME = "|";
     protected final static String DELIMITER_MULTI_PIN = ",";
+    protected final static String DELIMITER_MULTI_LABEL = ",";
     private final static String CONTROL_FLOW_NAME = "~";
 
     private BehaviorConverter behaviorConverter;
@@ -322,25 +323,23 @@ public class DataFlowDiagramConverter extends Converter {
         StringBuilder builder = new StringBuilder();
         for (AbstractAssignment abstractAssignment : abstractAssignments) {
             if (abstractAssignment instanceof ForwardingAssignment) {
-                builder.append("Forwarding({");                
+                builder.append("forward ");                
                 builder.append(getStringFromInputPins(abstractAssignment.getInputPins()));
-                builder.append("})");
-            } else {
-                Assignment assignment = (Assignment) abstractAssignment;
-                
-                builder.append("Assignment({");
-                builder.append(getStringFromInputPins(assignment.getInputPins()));
-                builder.append("};");
+            } else if (abstractAssignment instanceof SetAssignment setAssignment) {
+            	builder.append("set ");
+            	builder.append(getStringFromOutLabels(setAssignment.getOutputLabels()));
+            } else if (abstractAssignment instanceof UnsetAssignment unsetAssignment) {
+            	builder.append("unset ");
+            	builder.append(getStringFromOutLabels(unsetAssignment.getOutputLabels()));
+            } else if (abstractAssignment instanceof Assignment assignment) {                
+                builder.append("assign ");
+                builder.append(getStringFromOutLabels(assignment.getOutputLabels()));
+                builder.append(" if ");
                 builder.append(behaviorConverter.termToString(assignment.getTerm()));
-                builder.append(";{");
-                
-                List<String> outLabelAsString = new ArrayList<>();
-                assignment.getOutputLabels().forEach(label -> {
-                	outLabelAsString.add(((LabelType)label.eContainer()).getEntityName() + "." + label.getEntityName());
-                });
-                builder.append(String.join(DELIMITER_MULTI_PIN, outLabelAsString));
-                
-                builder.append("})");                
+                if (!assignment.getInputPins().isEmpty()) {
+                	builder.append(" from ");
+                	builder.append(getStringFromInputPins(assignment.getInputPins()));
+                }      
             }
             builder.append("\n");
         }
@@ -360,6 +359,16 @@ public class DataFlowDiagramConverter extends Converter {
             pinNamesAsString.add(pinName);
         });
         return String.join(DELIMITER_MULTI_PIN, pinNamesAsString);
+    }
+    
+    private String getStringFromOutLabels (List<Label> outLabels) {
+    	List<String> outLabelsAsStrings = new ArrayList<>();
+        
+    	outLabels.forEach(label -> {
+    		outLabelsAsStrings.add(((LabelType)label.eContainer()).getEntityName() + "." + label.getEntityName());
+        });
+    	
+        return String.join(DELIMITER_MULTI_LABEL, outLabelsAsStrings);
     }
 
     private void fillPinToFlowNamesMap(Map<Pin,List<String>> map,Flow flow,  HashMap<Flow, String> controlFlowNameMap) {

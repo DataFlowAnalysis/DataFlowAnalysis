@@ -5,16 +5,19 @@
     "children" : [ {
       "text" : "view",
       "labels" : [ ],
-      "ports" : [ {
-        "behavior" : "Assignment({request};(Sensitivity.Personal || FALSE) && TRUE;{Sensitivity.Personal})",
-        "id" : "bsqjm",
-        "type" : "port:dfd-output",
-        "children" : [ ]
-      }, {
-        "id" : "ti4ri7",
-        "type" : "port:dfd-input",
-        "children" : [ ]
-      } ],
+      "ports": [
+        {
+          "behavior": "assign Sensitivity.Personal if (Sensitivity.Personal || FALSE) && TRUE from request",
+          "id": "bsqjm",
+          "type": "port:dfd-output",
+          "children": []
+        },
+        {
+          "id": "ti4ri7",
+          "type": "port:dfd-input",
+          "children": []
+        }
+      ],
       "id" : "0bh7yh",
       "type" : "node:function",
       "annotation" : {
@@ -28,7 +31,7 @@
       "labels" : [ ],
       "ports": [
         {
-          "behavior": "Forwarding({data})\nAssignment({};TRUE;{Encryption.Encrypted})\nAssignment({};TRUE;{})",
+          "behavior": "forward data\nassign Encryption.Encrypted if TRUE\nassign  if TRUE",
           "id": "3wntc",
           "type": "port:dfd-output",
           "children": []
@@ -60,7 +63,7 @@
         "type" : "port:dfd-input",
         "children" : [ ]
       }, {
-        "behavior" : "Forwarding({items})",
+        "behavior" : "forward items",
         "id" : "y1p7qq",
         "type" : "port:dfd-output",
         "children" : [ ]
@@ -79,21 +82,25 @@
         "labelTypeId" : "gvia09",
         "labelTypeValueId" : "g10hr"
       } ],
-      "ports" : [ {
-        "behavior" : "Assignment({};TRUE;{Sensitivity.Personal,Sensitivity.Public})",
-        "id" : "4wbyft",
-        "type" : "port:dfd-output",
-        "children" : [ ]
-      }, {
-        "id" : "nhcrad",
-        "type" : "port:dfd-input",
-        "children" : [ ]
-      }, {
-        "behavior" : "Assignment({};TRUE || FALSE;{Sensitivity.Personal})",
-        "id" : "wksxi8",
-        "type" : "port:dfd-output",
-        "children" : [ ]
-      } ],
+      "ports": [
+        {
+          "behavior": "set Sensitivity.Personal,Sensitivity.Public",
+          "id": "4wbyft",
+          "type": "port:dfd-output",
+          "children": []
+        },
+        {
+          "id": "nhcrad",
+          "type": "port:dfd-input",
+          "children": []
+        },
+        {
+          "behavior": "assign Sensitivity.Personal if TRUE || FALSE",
+          "id": "wksxi8",
+          "type": "port:dfd-output",
+          "children": []
+        }
+      ],
       "id" : "7oii5l",
       "type" : "node:input-output",
       "annotation" : {
@@ -108,20 +115,24 @@
         "labelTypeId" : "gvia09",
         "labelTypeValueId" : "5hnugm"
       } ],
-      "ports" : [ {
-        "behavior" : "Forwarding({data|request,data2})\nAssignment({data2,data|request};Sensitivity.Personal && Sensitivity.Public;{Violation.Violation})",
-        "id" : "1j7bn5",
-        "type" : "port:dfd-output",
-        "children" : [ ]
-      }, {
-        "id" : "bxu9v",
-        "type" : "port:dfd-input",
-        "children" : [ ]
-      }, {
-        "id" : "scljwi",
-        "type" : "port:dfd-input",
-        "children" : [ ]
-      } ],
+      "ports": [
+        {
+          "behavior": "forward data|request,data2\nassign Violation.Violation if Sensitivity.Personal && Sensitivity.Public from data2,data|request",
+          "id": "1j7bn5",
+          "type": "port:dfd-output",
+          "children": []
+        },
+        {
+          "id": "bxu9v",
+          "type": "port:dfd-input",
+          "children": []
+        },
+        {
+          "id": "scljwi",
+          "type": "port:dfd-input",
+          "children": []
+        }
+      ],
       "id" : "8j2r1g",
       "type" : "node:storage",
       "annotation" : {
@@ -155,7 +166,7 @@
       "text" : "process",
       "labels" : [ ],
       "ports" : [ {
-        "behavior" : "Forwarding({data})",
+        "behavior" : "forward data",
         "id" : "eedb56",
         "type" : "port:dfd-output",
         "children" : [ ]
@@ -222,7 +233,7 @@
         "type" : "port:dfd-input",
         "children" : [ ]
       }, {
-        "behavior" : "Forwarding({data})",
+        "behavior" : "forward data",
         "id" : "vnkg73",
         "type" : "port:dfd-output",
         "children" : [ ]

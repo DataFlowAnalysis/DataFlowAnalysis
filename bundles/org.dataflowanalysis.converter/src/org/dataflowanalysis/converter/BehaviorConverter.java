@@ -1,7 +1,6 @@
 package org.dataflowanalysis.converter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.Stack;
@@ -16,7 +15,6 @@ import org.dataflowanalysis.dfd.datadictionary.OR;
 import org.dataflowanalysis.dfd.datadictionary.TRUE;
 import org.dataflowanalysis.dfd.datadictionary.Term;
 import org.dataflowanalysis.dfd.datadictionary.datadictionaryFactory;
-import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 
 /**
  * Converts string expressions to {@link Term} instances and vice versa, based on a given {@link DataDictionary}.
@@ -25,7 +23,6 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 public class BehaviorConverter {
     private final datadictionaryFactory ddFactory = datadictionaryFactory.eINSTANCE;
     private DataDictionary dataDictionary;
-    private HashMap<Flow, String> controlFlowNameMap;
 
     private final Logger logger = Logger.getLogger(BehaviorConverter.class);
 

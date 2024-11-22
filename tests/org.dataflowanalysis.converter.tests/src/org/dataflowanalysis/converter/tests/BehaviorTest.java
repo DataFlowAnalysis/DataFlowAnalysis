@@ -102,7 +102,7 @@ public class BehaviorTest {
     	
     	var webDfd = dataFlowDiagramConverter.dfdToWeb(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
     	
-    	testAssignment(webDfd, "b", List.of("Assignment({a2b};!(type.value && TRUE);{type.value,type.value2})"));    	
+    	testAssignment(webDfd, "b", List.of("assign type.value,type.value2 if !(type.value && TRUE) from a2b"));    	
     }
     
     @Test
@@ -127,7 +127,7 @@ public class BehaviorTest {
     	
     	var webDfd = dataFlowDiagramConverter.dfdToWeb(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
     	
-    	testAssignment(webDfd, "c", List.of("Forwarding({a2c|b2c})"));    	
+    	testAssignment(webDfd, "c", List.of("forward a2c|b2c"));    	
     	
     	Node z = createNode("z");
     	var newFlow = createFlow(z, c, null, null, "z2c");
@@ -143,7 +143,7 @@ public class BehaviorTest {
     	
     	webDfd = dataFlowDiagramConverter.dfdToWeb(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
     	
-    	testAssignment(webDfd, "c", List.of("Forwarding({a2c|b2c,z2c})"));    	
+    	testAssignment(webDfd, "c", List.of("forward a2c|b2c,z2c"));    	
     }
     
     private void testAssignment(WebEditorDfd webDFD, String nodeName, List<String> assignments) {

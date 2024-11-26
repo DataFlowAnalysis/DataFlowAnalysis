@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.tests.constraint.data;
+package org.dataflowanalysis.analysis.tests.integration.constraint.data;
 
 import de.uka.ipd.sdq.identifier.Identifier;
 import java.util.List;

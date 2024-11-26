@@ -19,7 +19,7 @@ public class CyclicFinderTest {
 
     @Test
     void simpleLoopCheck() {
-        String locationLoop = Paths.get("models", "dfd", "simpleLoopDFD")
+        String locationLoop = Paths.get("models", "dfd", "SimpleLoop")
                 .toString();
         var model = Paths.get(locationLoop, "loopDFD")
                 .toString();
@@ -46,7 +46,7 @@ public class CyclicFinderTest {
     
     @Test
     public void checkPseudoLoopNotDetected() {
-    	 String locationLoop = Paths.get("models", "dfd", "DFDTestModels")
+    	 String locationLoop = Paths.get("models", "dfd", "ComplexPseudoCycle")
                  .toString();
          var model = Paths.get(locationLoop, "complexPseudoCycle")
                  .toString();
@@ -60,7 +60,7 @@ public class CyclicFinderTest {
 
     @Test
     public void checkIsCyclic() {
-        String locationLoop = Paths.get("models", "dfd", "simpleLoopDFD")
+        String locationLoop = Paths.get("models", "dfd", "SimpleLoop")
                 .toString();
         var model = Paths.get(locationLoop, "loopDFD")
                 .toString();

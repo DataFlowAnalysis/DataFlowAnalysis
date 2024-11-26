@@ -1,8 +1,11 @@
 package org.dataflowanalysis.analysis.pcm.core.user;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;

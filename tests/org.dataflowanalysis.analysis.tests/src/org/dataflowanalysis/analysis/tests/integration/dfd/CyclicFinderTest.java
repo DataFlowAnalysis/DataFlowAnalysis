@@ -19,7 +19,7 @@ public class CyclicFinderTest {
 
     @Test
     void simpleLoopCheck() {
-        String locationLoop = Paths.get("models", "dfd", "simpleLoopDFD")
+        String locationLoop = Paths.get("models", "dfd", "SimpleLoop")
                 .toString();
         var model = Paths.get(locationLoop, "loopDFD")
                 .toString();
@@ -43,24 +43,24 @@ public class CyclicFinderTest {
         assertEquals(flowGraphVertexNames, expectedVertexNames);
 
     }
-
+    
     @Test
     public void checkPseudoLoopNotDetected() {
-        String locationLoop = Paths.get("models", "dfd", "DFDTestModels")
-                .toString();
-        var model = Paths.get(locationLoop, "complexPseudoCycle")
-                .toString();
+    	 String locationLoop = Paths.get("models", "dfd", "ComplexPseudoCycle")
+                 .toString();
+         var model = Paths.get(locationLoop, "complexPseudoCycle")
+                 .toString();
 
-        var analysis = buildAnalysis(model);
-        analysis.initializeAnalysis();
-        var flowGraph = analysis.findFlowGraphs();
+         var analysis = buildAnalysis(model);
+         analysis.initializeAnalysis();
+         var flowGraph = analysis.findFlowGraphs();
 
-        assertTrue(!flowGraph.wasCyclic());
+         assertTrue(!flowGraph.wasCyclic());
     }
 
     @Test
     public void checkIsCyclic() {
-        String locationLoop = Paths.get("models", "dfd", "simpleLoopDFD")
+        String locationLoop = Paths.get("models", "dfd", "SimpleLoop")
                 .toString();
         var model = Paths.get(locationLoop, "loopDFD")
                 .toString();

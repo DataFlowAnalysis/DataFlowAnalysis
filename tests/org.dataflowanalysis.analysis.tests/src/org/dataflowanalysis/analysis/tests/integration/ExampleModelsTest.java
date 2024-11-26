@@ -68,7 +68,7 @@ public class ExampleModelsTest {
                     .findAny();
             if (violatingVertex.isEmpty()) {
                 logger.error(String.format("Could not find vertex with id: %s", expectedViolation.getNodeID()));
-                fail(String.format("Could not find vertex with id: %s", expectedViolation.getNodeID()));
+                    fail(String.format("Could not find vertex with id: %s", expectedViolation.getNodeID()));
             }
 
             List<ExpectedCharacteristic> missingNodeCharacteristics = expectedViolation.hasNodeCharacteristic(violatingVertex.get().getAllVertexCharacteristics());

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.nio.file.Paths;
+
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.dfd.simple.DFDSimpleTransposeFlowGraphFinder;
@@ -16,10 +17,8 @@ public class DFDSimpleTest {
 
     @Test
     public void testForUnusedInPinDetection() {
-        String minimalDataFlowDiagramPath = Paths.get("models", "dfd", "DFDSimpleModels", "UnusedInput.dataflowdiagram")
-                .toString();
-        String minimalDataDictionaryPath = Paths.get("models", "dfd", "DFDSimpleModels", "UnusedInput.datadictionary")
-                .toString();
+        String minimalDataFlowDiagramPath = Paths.get("models", "dfd", "UnusedInput", "UnusedInput.dataflowdiagram").toString();
+        String minimalDataDictionaryPath = Paths.get("models", "dfd", "UnusedInput", "UnusedInput.datadictionary").toString();
         this.analysis = new DFDDataFlowAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)
                 .usePluginActivator(Activator.class)
@@ -36,10 +35,8 @@ public class DFDSimpleTest {
 
     @Test
     public void testForBranchingFlows() {
-        String minimalDataFlowDiagramPath = Paths.get("models", "DFDTestModels", "BranchingTest.dataflowdiagram")
-                .toString();
-        String minimalDataDictionaryPath = Paths.get("models", "DFDTestModels", "BranchingTest.datadictionary")
-                .toString();
+        String minimalDataFlowDiagramPath = Paths.get("models", "dfd", "Branching", "BranchingTest.dataflowdiagram").toString();
+        String minimalDataDictionaryPath = Paths.get("models", "dfd", "Branching", "BranchingTest.datadictionary").toString();
         this.analysis = new DFDDataFlowAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)
                 .usePluginActivator(Activator.class)
@@ -56,10 +53,8 @@ public class DFDSimpleTest {
 
     @Test
     public void testForDeadOutPin() {
-        String minimalDataFlowDiagramPath = Paths.get("models", "DFDSimpleModels", "DeadOutPin.dataflowdiagram")
-                .toString();
-        String minimalDataDictionaryPath = Paths.get("models", "DFDSimpleModels", "DeadOutPin.datadictionary")
-                .toString();
+        String minimalDataFlowDiagramPath = Paths.get("models", "dfd", "DeadOutPin", "DeadOutPin.dataflowdiagram").toString();
+        String minimalDataDictionaryPath = Paths.get("models", "dfd", "DeadOutPin", "DeadOutPin.datadictionary").toString();
         this.analysis = new DFDDataFlowAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)
                 .usePluginActivator(Activator.class)
@@ -76,10 +71,8 @@ public class DFDSimpleTest {
 
     @Test
     public void testForWrongFlowNames() {
-        String minimalDataFlowDiagramPath = Paths.get("models", "DFDSimpleModels", "WrongFlowName.dataflowdiagram")
-                .toString();
-        String minimalDataDictionaryPath = Paths.get("models", "DFDSimpleModels", "WrongFlowName.datadictionary")
-                .toString();
+        String minimalDataFlowDiagramPath = Paths.get("models", "dfd", "WrongFlowName", "WrongFlowName.dataflowdiagram").toString();
+        String minimalDataDictionaryPath = Paths.get("models", "dfd", "WrongFlowName", "WrongFlowName.datadictionary").toString();
         this.analysis = new DFDDataFlowAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)
                 .usePluginActivator(Activator.class)

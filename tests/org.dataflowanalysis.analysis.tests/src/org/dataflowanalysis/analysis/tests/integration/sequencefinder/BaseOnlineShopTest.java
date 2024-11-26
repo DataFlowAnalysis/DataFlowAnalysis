@@ -28,8 +28,8 @@ public abstract class BaseOnlineShopTest {
 
     @BeforeAll
     public void initAnalysis() {
-        final var dataFlowDiagramPath = Paths.get("models", "dfd", "OnlineShopDFD", "onlineshop.dataflowdiagram");
-        final var dataDictionaryPath = Paths.get("models", "dfd", "OnlineShopDFD", "onlineshop.datadictionary");
+        final var dataFlowDiagramPath = Paths.get("models", "dfd", "OnlineShop", "onlineshop.dataflowdiagram");
+        final var dataDictionaryPath = Paths.get("models", "dfd", "OnlineShop", "onlineshop.datadictionary");
 
         analysis = new DFDDataFlowAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)

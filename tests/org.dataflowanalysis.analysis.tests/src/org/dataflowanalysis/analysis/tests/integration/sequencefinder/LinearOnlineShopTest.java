@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.tests.sequencefinder;
+package org.dataflowanalysis.analysis.tests.integration.sequencefinder;
 
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.core.DFDTransposeFlowGraphFinder;

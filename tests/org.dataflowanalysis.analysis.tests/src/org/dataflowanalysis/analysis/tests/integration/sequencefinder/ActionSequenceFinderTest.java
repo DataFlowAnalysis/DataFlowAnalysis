@@ -1,15 +1,15 @@
-package org.dataflowanalysis.analysis.tests.sequencefinder;
+package org.dataflowanalysis.analysis.tests.integration.sequencefinder;
 
-import static org.dataflowanalysis.analysis.tests.AnalysisUtils.assertSEFFSequenceElementContent;
-import static org.dataflowanalysis.analysis.tests.AnalysisUtils.assertSequenceElements;
-import static org.dataflowanalysis.analysis.tests.AnalysisUtils.assertUserSequenceElementContent;
+import static org.dataflowanalysis.analysis.tests.integration.AnalysisUtils.assertSEFFSequenceElementContent;
+import static org.dataflowanalysis.analysis.tests.integration.AnalysisUtils.assertSequenceElements;
+import static org.dataflowanalysis.analysis.tests.integration.AnalysisUtils.assertUserSequenceElementContent;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraphCollection;
-import org.dataflowanalysis.analysis.tests.BaseTest;
+import org.dataflowanalysis.analysis.tests.integration.BaseTest;
 import org.junit.jupiter.api.Test;
 
 public class ActionSequenceFinderTest extends BaseTest {

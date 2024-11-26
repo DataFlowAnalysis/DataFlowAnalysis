@@ -7,8 +7,10 @@ import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
+import org.dataflowanalysis.dfd.datadictionary.Assignment;
 import org.dataflowanalysis.dfd.datadictionary.Behavior;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
+import org.dataflowanalysis.dfd.datadictionary.ForwardingAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
@@ -112,7 +114,8 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
         	
         	outputPins.stream().forEach(outPin -> {
         		Behavior behaviour = (Behavior) outPin.eContainer();
-        		behaviour.getAssignment().stream().filter(it -> it.getOutputPin().equals(outPin)).forEach(it -> inToPreviousNodeInPinsMap.get(pin).addAll(it.getInputPins()));
+        		behaviour.getAssignment().stream().filter(it -> it.getOutputPin().equals(outPin)).filter(ForwardingAssignment.class::isInstance).forEach(it -> inToPreviousNodeInPinsMap.get(pin).addAll(((ForwardingAssignment)it).getInputPins()));
+        		behaviour.getAssignment().stream().filter(it -> it.getOutputPin().equals(outPin)).filter(Assignment.class::isInstance).forEach(it -> inToPreviousNodeInPinsMap.get(pin).addAll(((Assignment)it).getInputPins()));
         	});
         }
                 
@@ -212,11 +215,15 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
      */
     protected List<Pin> getAllPreviousNodeInputPins(Node previousNode, Flow flow) {
         Set<Pin> previousNodeInputPins = new HashSet<>();
-        for (var assignment : previousNode.getBehavior()
+        for (var abstractAssignment : previousNode.getBehavior()
                 .getAssignment()) {
-            if (assignment.getOutputPin()
+            if (abstractAssignment.getOutputPin()
                     .equals(flow.getSourcePin())) {
-                previousNodeInputPins.addAll(assignment.getInputPins());
+            	if ((abstractAssignment instanceof ForwardingAssignment forwardingAssignment))
+            		previousNodeInputPins.addAll(forwardingAssignment.getInputPins());
+            	else if (abstractAssignment instanceof Assignment assignment) {
+            		previousNodeInputPins.addAll(assignment.getInputPins());
+            	}
             }
         }
         
@@ -266,13 +273,13 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
                 endNodes.remove(node);
             for (Pin inputPin : node.getBehavior()
                     .getInPin()) {
-                for (AbstractAssignment assignment : node.getBehavior()
+                for (AbstractAssignment abstractAssignment : node.getBehavior()
                         .getAssignment()) {
-                    if (assignment.getInputPins()
-                            .contains(inputPin)) {
-                        endNodes.remove(node);
-                        break;
-                    }
+                	if ((abstractAssignment instanceof ForwardingAssignment forwardingAssignment && forwardingAssignment.getInputPins().contains(inputPin)) ||
+                			(abstractAssignment instanceof Assignment assignment && assignment.getInputPins().contains(inputPin))) {
+	                        endNodes.remove(node);
+	                        break;
+                	}  
                 }
             }
         }

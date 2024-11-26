@@ -6,7 +6,9 @@ import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
+import org.dataflowanalysis.dfd.datadictionary.Assignment;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
+import org.dataflowanalysis.dfd.datadictionary.ForwardingAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
@@ -99,7 +101,8 @@ public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFind
     
     //Assumption!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private boolean verifySimplicity(Node node) {		
-    	return node.getBehavior().getAssignment().stream().anyMatch(it -> it.getInputPins().equals(node.getBehavior().getInPin()))
+    	return node.getBehavior().getAssignment().stream().filter(ForwardingAssignment.class::isInstance).anyMatch(it -> ((ForwardingAssignment)it).getInputPins().equals(node.getBehavior().getInPin()))
+    			|| node.getBehavior().getAssignment().stream().filter(Assignment.class::isInstance).anyMatch(it -> ((Assignment)it).getInputPins().equals(node.getBehavior().getInPin()))
     			|| node.getBehavior().getOutPin().size() == 0;    	
     }
     
@@ -119,10 +122,10 @@ public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFind
                 endNodes.remove(node);
             for (Pin inputPin : node.getBehavior()
                     .getInPin()) {
-                for (AbstractAssignment assignment : node.getBehavior()
+                for (AbstractAssignment abstractAssignment : node.getBehavior()
                         .getAssignment()) {
-                    if (assignment.getInputPins()
-                            .contains(inputPin)) {
+                	if ((abstractAssignment instanceof ForwardingAssignment forwardingAssignment && forwardingAssignment.getInputPins().contains(inputPin)) ||
+                			(abstractAssignment instanceof Assignment assignment && assignment.getInputPins().contains(inputPin))) {
                         endNodes.remove(node);
                         break;
                     }

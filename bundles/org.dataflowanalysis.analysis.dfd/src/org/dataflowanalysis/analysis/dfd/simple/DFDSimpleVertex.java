@@ -37,19 +37,19 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
  */
 public class DFDSimpleVertex extends AbstractVertex<Node> {
     private final Set<DFDSimpleVertex> previousVertices;
-    private final Map<Pin, Flow> mapPinToOutgoingFlow;
+    private final Map<Pin, Flow> mapPinToFlow;
 
     /**
      * Creates a new vertex with the given referenced node and pin mappings
      * @param node Node that is referenced by the vertex
      * @param previousVertices list of previous vertices
-     * @param mapPinToOutgoingFlow Map containing relationships between the pins of the vertex and the flows connecting the node to
+     * @param mapPinToFlow Map containing relationships between the pins of the vertex and the flows connecting the node to
      * other vertices
      */
-    public DFDSimpleVertex(Node node, Set<DFDSimpleVertex> previousVertices, Map<Pin, Flow> mapPinToOutgoingFlow) {
+    public DFDSimpleVertex(Node node, Set<DFDSimpleVertex> previousVertices, Map<Pin, Flow> mapPinToFlow) {
         super(node);
         this.previousVertices = previousVertices;
-        this.mapPinToOutgoingFlow = mapPinToOutgoingFlow;
+        this.mapPinToFlow = mapPinToFlow;
     }
 
     /**
@@ -99,7 +99,15 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
     private void handleOutgoingAssignments(AbstractAssignment abstractAssignment, List<DataCharacteristic> incomingDataCharacteristics, Map<Pin, Set<Label>> outgoingLabelPerPin) {
     	// Takes the labels of all incoming Characteristics whos names match the flows arriving on all input pins of the assignment
     	var incomingLabels = incomingDataCharacteristics.stream().filter(it -> {
-    		return mapPinToOutgoingFlow.keySet().stream().filter(key -> abstractAssignment.getInputPins().contains(key)).map(key -> mapPinToOutgoingFlow.get(key).getEntityName()).toList().contains(it.getVariableName());
+    		return mapPinToFlow.keySet().stream()
+				.filter(key -> {
+					if (abstractAssignment instanceof UnsetAssignment || abstractAssignment instanceof SetAssignment) return false;
+					if (abstractAssignment instanceof Assignment assignment) return assignment.getInputPins().contains(key);
+					else return abstractAssignment instanceof ForwardingAssignment forwardingAssignment && forwardingAssignment.getInputPins().contains(key);
+    			})
+				.map(key -> mapPinToFlow.get(key).getEntityName())
+				.toList()
+				.contains(it.getVariableName());
     	}).flatMap(it -> it.getAllCharacteristics().stream().map(value -> ((DFDCharacteristicValue)value).getLabel())).collect(Collectors.toSet());
     	
     	
@@ -137,7 +145,7 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
     private List<DataCharacteristic> createDataCharacteristicsFromLabels(Map<Pin, Set<Label>> pinToLabelMap) {
         return pinToLabelMap.keySet()
                 .stream()
-                .map(pin -> new DataCharacteristic(mapPinToOutgoingFlow.get(pin).getEntityName(), new ArrayList<CharacteristicValue>(this.getCharacteristicValuesForPin(pin, pinToLabelMap))))
+                .map(pin -> new DataCharacteristic(mapPinToFlow.get(pin).getEntityName(), new ArrayList<CharacteristicValue>(this.getCharacteristicValuesForPin(pin, pinToLabelMap))))
                 .filter(it -> it.getAllCharacteristics().size() > 0)
                 .toList();
     }
@@ -234,7 +242,7 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
                 	previousVerticesNew.add(newVertice);
                 	mapping.putIfAbsent(it, newVertice);
                 	});
-        return new DFDSimpleVertex(this.referencedElement, previousVerticesNew, new HashMap<>(this.mapPinToOutgoingFlow));
+        return new DFDSimpleVertex(this.referencedElement, previousVerticesNew, new HashMap<>(this.mapPinToFlow));
     }
 
     @Override
@@ -257,7 +265,7 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
      * @return Returns the mapping between pins and incoming flows
      */
     public Map<Pin, Flow> getPinFlowMap() {
-        return mapPinToOutgoingFlow;
+        return mapPinToFlow;
     }
 
     /**

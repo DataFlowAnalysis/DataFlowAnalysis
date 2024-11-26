@@ -206,11 +206,19 @@ public class DFDVertex extends AbstractVertex<Node> {
      * @param inputPinsIncomingLabelMap Maps all input pins to all incoming labels
      * @return List of relevant labels
      */
-    private static List<Label> combineLabelsOnAllInputPins(AbstractAssignment assignment, Map<Pin, List<Label>> inputPinsIncomingLabelMap) {
+    private static List<Label> combineLabelsOnAllInputPins(AbstractAssignment abstractAssignment, Map<Pin, List<Label>> inputPinsIncomingLabelMap) {
         List<Label> allLabel = new ArrayList<>();
-        for (var inputPin : assignment.getInputPins()) {
-            allLabel.addAll(inputPinsIncomingLabelMap.getOrDefault(inputPin, new ArrayList<>()));
+        if (abstractAssignment instanceof SetAssignment || abstractAssignment instanceof UnsetAssignment) return allLabel;
+        else if (abstractAssignment instanceof Assignment assignment) {
+        	for (var inputPin : assignment.getInputPins()) {
+        		allLabel.addAll(inputPinsIncomingLabelMap.getOrDefault(inputPin, new ArrayList<>()));
+        	}
+        } else if (abstractAssignment instanceof ForwardingAssignment forwardingAssignment) {
+        	for (var inputPin : forwardingAssignment.getInputPins()) {
+        		allLabel.addAll(inputPinsIncomingLabelMap.getOrDefault(inputPin, new ArrayList<>()));
+        	}
         }
+        
         return allLabel;
     }
 

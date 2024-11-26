@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.tests.constraint.data;
+package org.dataflowanalysis.analysis.tests.integration.constraint.data;
 
 public record CharacteristicValueData(String characteristicType, String characteristicLiteral) {
 }

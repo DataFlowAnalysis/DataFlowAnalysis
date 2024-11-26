@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.tests.dsl;
+package org.dataflowanalysis.analysis.tests.integration.dsl;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -18,9 +18,9 @@ import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsSelector
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
 import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.dsl.PCMVertexType;
-import org.dataflowanalysis.analysis.tests.BaseTest;
-import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintData;
-import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintViolations;
+import org.dataflowanalysis.analysis.tests.integration.BaseTest;
+import org.dataflowanalysis.analysis.tests.integration.constraint.data.ConstraintData;
+import org.dataflowanalysis.analysis.tests.integration.constraint.data.ConstraintViolations;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

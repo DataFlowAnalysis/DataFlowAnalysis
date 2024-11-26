@@ -101,8 +101,8 @@ public class PCMTest extends ConverterTest{
         		.findAny().orElseThrow();
         assertTrue(readFlightsFromDB.getBehavior().getAssignment().stream()
         		.filter(ForwardingAssignment.class::isInstance)
-        		.filter(it -> it.getInputPins().size() == 1)
-        		.filter(it -> it.getInputPins().get(0).getEntityName().equals("RETURN"))
+        		.filter(it -> ((ForwardingAssignment)it).getInputPins().size() == 1)
+        		.filter(it -> ((ForwardingAssignment)it).getInputPins().get(0).getEntityName().equals("RETURN"))
         		.anyMatch(it -> it.getOutputPin().getEntityName().equals("flights")));
         
         // Assignment: RETURN.GrantedRoles.* := query.GrantedRoles.* & flight.GrantedRoles.*

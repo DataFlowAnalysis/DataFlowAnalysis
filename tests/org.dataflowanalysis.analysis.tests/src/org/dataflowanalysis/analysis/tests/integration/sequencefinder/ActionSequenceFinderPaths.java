@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.tests.sequencefinder;
+package org.dataflowanalysis.analysis.tests.integration.sequencefinder;
 
 import java.util.List;
 import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFPCMVertex;

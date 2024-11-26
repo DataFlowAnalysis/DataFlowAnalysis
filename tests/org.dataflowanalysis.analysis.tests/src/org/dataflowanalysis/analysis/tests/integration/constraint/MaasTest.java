@@ -1,11 +1,11 @@
-package org.dataflowanalysis.analysis.tests.constraint;
+package org.dataflowanalysis.analysis.tests.integration.constraint;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.nio.file.Paths;
 import java.util.List;
 
-import static org.dataflowanalysis.analysis.tests.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
+import static org.dataflowanalysis.analysis.tests.integration.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
 
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
@@ -22,11 +22,11 @@ public class MaasTest {
 	
 	@Test
 	 public void testRealisticConstraints() {
-		 final var usageModelPath = Paths.get("casestudies", "MaaS_Ticket_System_base", "MaaS.usagemodel")
+		 final var usageModelPath = Paths.get("casestudies", "pcm", "MaaS_Ticket_System_base", "MaaS.usagemodel")
 	                .toString();
-        final var allocationPath = Paths.get("casestudies", "MaaS_Ticket_System_base", "MaaS.allocation")
+        final var allocationPath = Paths.get("casestudies", "pcm", "MaaS_Ticket_System_base", "MaaS.allocation")
                 .toString();
-        final var nodeCharPath = Paths.get("casestudies", "MaaS_Ticket_System_base", "MaaS.nodecharacteristics")
+        final var nodeCharPath = Paths.get("casestudies", "pcm", "MaaS_Ticket_System_base", "MaaS.nodecharacteristics")
 	                .toString();
         
         analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()

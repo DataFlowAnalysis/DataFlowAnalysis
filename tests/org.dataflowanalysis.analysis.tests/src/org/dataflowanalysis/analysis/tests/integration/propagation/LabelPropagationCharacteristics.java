@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.tests.propagation;
+package org.dataflowanalysis.analysis.tests.integration.propagation;
 
 import java.util.List;
 

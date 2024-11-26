@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.tests;
+package org.dataflowanalysis.analysis.tests.integration;
 
 import java.util.List;
 import org.apache.log4j.Level;

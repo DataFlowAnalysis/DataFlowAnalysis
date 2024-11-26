@@ -1,6 +1,6 @@
-package org.dataflowanalysis.analysis.tests.dfd.simple;
+package org.dataflowanalysis.analysis.tests.integration.dfd.simple;
 
-import static org.dataflowanalysis.analysis.tests.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
+import static org.dataflowanalysis.analysis.tests.integration.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -16,9 +16,9 @@ public class DFDSimpleTest {
 
     @Test
     public void testForUnusedInPinDetection() {
-        String minimalDataFlowDiagramPath = Paths.get("models", "DFDSimpleModels", "UnusedInput.dataflowdiagram")
+        String minimalDataFlowDiagramPath = Paths.get("models", "dfd", "DFDSimpleModels", "UnusedInput.dataflowdiagram")
                 .toString();
-        String minimalDataDictionaryPath = Paths.get("models", "DFDSimpleModels", "UnusedInput.datadictionary")
+        String minimalDataDictionaryPath = Paths.get("models", "dfd", "DFDSimpleModels", "UnusedInput.datadictionary")
                 .toString();
         this.analysis = new DFDDataFlowAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)

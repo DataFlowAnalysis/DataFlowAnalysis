@@ -1,8 +1,10 @@
 package org.dataflowanalysis.analysis.pcm.core.user;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
@@ -73,6 +75,12 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
                 .filter(ConfidentialityVariableCharacterisation.class::isInstance)
                 .map(ConfidentialityVariableCharacterisation.class::cast)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public UUID getUniqueIdentifier() {
+        String uuidString = this.getReferencedElement().getId() + this.isCalling;
+        return UUID.nameUUIDFromBytes(uuidString.getBytes(StandardCharsets.UTF_8));
     }
 
     @Override

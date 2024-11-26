@@ -1,6 +1,6 @@
-package org.dataflowanalysis.analysis.tests.dfd;
+package org.dataflowanalysis.analysis.tests.integration.dfd;
 
-import static org.dataflowanalysis.analysis.tests.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
+import static org.dataflowanalysis.analysis.tests.integration.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.nio.file.Paths;
@@ -20,8 +20,8 @@ public class BaseTest {
 
     @BeforeEach
     public void initAnalysis() {
-        final var minimalDataFlowDiagramPath = Paths.get("models", "DFDTestModels", "BranchingTest.dataflowdiagram");
-        final var minimalDataDictionaryPath = Paths.get("models", "DFDTestModels", "BranchingTest.datadictionary");
+        final var minimalDataFlowDiagramPath = Paths.get("models", "dfd", "DFDTestModels", "BranchingTest.dataflowdiagram");
+        final var minimalDataDictionaryPath = Paths.get("models", "dfd", "DFDTestModels", "BranchingTest.datadictionary");
 
         this.analysis = new DFDDataFlowAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)

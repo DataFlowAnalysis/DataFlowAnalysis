@@ -1,6 +1,6 @@
-package org.dataflowanalysis.analysis.tests;
+package org.dataflowanalysis.analysis.tests.integration;
 
-import static org.dataflowanalysis.analysis.tests.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
+import static org.dataflowanalysis.analysis.tests.integration.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,9 +20,9 @@ public class BaseTest {
 
     @BeforeAll
     public void initializeOnlineShopAnalysis() {
-        final var usageModelPath = Paths.get("models", "BranchingOnlineShop", "default.usagemodel");
-        final var allocationPath = Paths.get("models", "BranchingOnlineShop", "default.allocation");
-        final var nodeCharacteristicsPath = Paths.get("models", "BranchingOnlineShop", "default.nodecharacteristics");
+        final var usageModelPath = Paths.get("models", "pcm", "BranchingOnlineShop", "default.usagemodel");
+        final var allocationPath = Paths.get("models", "pcm", "BranchingOnlineShop", "default.allocation");
+        final var nodeCharacteristicsPath = Paths.get("models", "pcm", "BranchingOnlineShop", "default.nodecharacteristics");
 
         onlineShopAnalysis = this.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
         onlineShopAnalysis.initializeAnalysis();
@@ -31,9 +31,9 @@ public class BaseTest {
 
     @BeforeAll
     public void initializeInternationalOnlineShopAnalysis() {
-        final var usageModelPath = Paths.get("models", "InternationalOnlineShop", "default.usagemodel");
-        final var allocationPath = Paths.get("models", "InternationalOnlineShop", "default.allocation");
-        final var nodeCharacteristicsPath = Paths.get("models", "InternationalOnlineShop", "default.nodecharacteristics");
+        final var usageModelPath = Paths.get("models", "pcm", "InternationalOnlineShop", "default.usagemodel");
+        final var allocationPath = Paths.get("models", "pcm", "InternationalOnlineShop", "default.allocation");
+        final var nodeCharacteristicsPath = Paths.get("models", "pcm", "InternationalOnlineShop", "default.nodecharacteristics");
 
         internationalOnlineShopAnalysis = this.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
         internationalOnlineShopAnalysis.initializeAnalysis();
@@ -42,9 +42,9 @@ public class BaseTest {
 
     @BeforeAll
     public void initializeTravelPlannerAnalysis() {
-        final var usageModelPath = Paths.get("casestudies", "TravelPlanner", "travelPlanner.usagemodel");
-        final var allocationPath = Paths.get("casestudies", "TravelPlanner", "travelPlanner.allocation");
-        final var nodeCharacteristicsPath = Paths.get("casestudies", "TravelPlanner", "travelPlanner.nodecharacteristics");
+        final var usageModelPath = Paths.get("casestudies", "pcm", "TravelPlanner", "travelPlanner.usagemodel");
+        final var allocationPath = Paths.get("casestudies", "pcm", "TravelPlanner", "travelPlanner.allocation");
+        final var nodeCharacteristicsPath = Paths.get("casestudies", "pcm", "TravelPlanner", "travelPlanner.nodecharacteristics");
 
         travelPlannerAnalysis = this.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
         travelPlannerAnalysis.initializeAnalysis();

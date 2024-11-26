@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.tests;
+package org.dataflowanalysis.analysis.tests.integration;
 
 import org.eclipse.core.runtime.Plugin;
 

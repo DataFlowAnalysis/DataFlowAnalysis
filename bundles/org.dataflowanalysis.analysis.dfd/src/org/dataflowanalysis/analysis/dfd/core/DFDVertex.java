@@ -322,6 +322,16 @@ public class DFDVertex extends AbstractVertex<Node> {
     }
 
     @Override
+    public UUID getUniqueIdentifier() {
+        StringBuilder uuidString = new StringBuilder();
+        uuidString.append(this.getReferencedElement().getId());
+        for (var previousElement : this.getPreviousElements()) {
+            uuidString.append(previousElement.getUniqueIdentifier());
+        }
+        return UUID.nameUUIDFromBytes(uuidString.toString().getBytes(StandardCharsets.UTF_8));
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (super.equals(other))
             return true;

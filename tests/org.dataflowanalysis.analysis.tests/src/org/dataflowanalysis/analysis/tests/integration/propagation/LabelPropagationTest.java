@@ -1,13 +1,13 @@
-package org.dataflowanalysis.analysis.tests.propagation;
+package org.dataflowanalysis.analysis.tests.integration.propagation;
 
-import static org.dataflowanalysis.analysis.tests.AnalysisUtils.assertCharacteristicAbsent;
-import static org.dataflowanalysis.analysis.tests.AnalysisUtils.assertCharacteristicPresent;
+import static org.dataflowanalysis.analysis.tests.integration.AnalysisUtils.assertCharacteristicAbsent;
+import static org.dataflowanalysis.analysis.tests.integration.AnalysisUtils.assertCharacteristicPresent;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraphCollection;
-import org.dataflowanalysis.analysis.tests.BaseTest;
+import org.dataflowanalysis.analysis.tests.integration.BaseTest;
 import org.junit.jupiter.api.Test;
 
 public class LabelPropagationTest extends BaseTest {

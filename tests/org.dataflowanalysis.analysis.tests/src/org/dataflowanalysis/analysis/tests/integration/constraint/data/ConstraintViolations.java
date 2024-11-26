@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.tests.constraint.data;
+package org.dataflowanalysis.analysis.tests.integration.constraint.data;
 
 import java.util.List;
 import java.util.Map;

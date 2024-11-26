@@ -1,11 +1,11 @@
-package org.dataflowanalysis.analysis.tests.constraint;
+package org.dataflowanalysis.analysis.tests.integration.constraint;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.tests.BaseTest;
+import org.dataflowanalysis.analysis.tests.integration.BaseTest;
 
 public class ConstraintTest extends BaseTest {
 

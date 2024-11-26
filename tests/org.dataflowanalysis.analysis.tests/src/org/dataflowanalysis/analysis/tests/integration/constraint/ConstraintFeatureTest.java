@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.tests.constraint;
+package org.dataflowanalysis.analysis.tests.integration.constraint;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,9 +22,9 @@ public class ConstraintFeatureTest extends ConstraintTest {
     @Test
     @DisplayName("Test whether node characteristics works correctly")
     public void testNodeCharacteristics() {
-        var usageModelPath = Paths.get("models", "NodeCharacteristicsTest", "default.usagemodel");
-        var allocationPath = Paths.get("models", "NodeCharacteristicsTest", "default.allocation");
-        var nodeCharacteristicsPath = Paths.get("models", "NodeCharacteristicsTest", "default.nodecharacteristics");
+        var usageModelPath = Paths.get("models", "pcm", "NodeCharacteristicsTest", "default.usagemodel");
+        var allocationPath = Paths.get("models", "pcm", "NodeCharacteristicsTest", "default.allocation");
+        var nodeCharacteristicsPath = Paths.get("models", "pcm", "NodeCharacteristicsTest", "default.nodecharacteristics");
         PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
 
         PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
@@ -52,9 +52,9 @@ public class ConstraintFeatureTest extends ConstraintTest {
     @Test
     @DisplayName("Test whether node characteristics with composite components works correctly")
     public void testCompositeCharacteristics() {
-        var usageModelPath = Paths.get("models", "CompositeCharacteristicsTest", "default.usagemodel");
-        var allocationPath = Paths.get("models", "CompositeCharacteristicsTest", "default.allocation");
-        var nodeCharacteristicsPath = Paths.get("models", "CompositeCharacteristicsTest", "default.nodecharacteristics");
+        var usageModelPath = Paths.get("models", "pcm", "CompositeCharacteristicsTest", "default.usagemodel");
+        var allocationPath = Paths.get("models", "pcm", "CompositeCharacteristicsTest", "default.allocation");
+        var nodeCharacteristicsPath = Paths.get("models", "pcm", "CompositeCharacteristicsTest", "default.nodecharacteristics");
         PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
 
         PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
@@ -82,9 +82,9 @@ public class ConstraintFeatureTest extends ConstraintTest {
     @Test
     @DisplayName("Test whether unknown actions will not cause incorrect results")
     public void testUnknownSEFFActions() {
-        var usageModelPath = Paths.get("models", "IgnoredNodeTest", "default.usagemodel");
-        var allocationPath = Paths.get("models", "IgnoredNodeTest", "default.allocation");
-        var nodeCharacteristicsPath = Paths.get("models", "IgnoredNodeTest", "default.nodecharacteristics");
+        var usageModelPath = Paths.get("models", "pcm", "IgnoredNodeTest", "default.usagemodel");
+        var allocationPath = Paths.get("models", "pcm", "IgnoredNodeTest", "default.allocation");
+        var nodeCharacteristicsPath = Paths.get("models", "pcm", "IgnoredNodeTest", "default.nodecharacteristics");
         PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
 
         PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();

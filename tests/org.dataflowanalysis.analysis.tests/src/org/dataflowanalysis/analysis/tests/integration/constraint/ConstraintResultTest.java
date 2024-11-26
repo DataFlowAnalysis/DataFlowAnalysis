@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.tests.constraint;
+package org.dataflowanalysis.analysis.tests.integration.constraint;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,8 +16,8 @@ import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraphCollection;
-import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintData;
-import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintViolations;
+import org.dataflowanalysis.analysis.tests.integration.constraint.data.ConstraintData;
+import org.dataflowanalysis.analysis.tests.integration.constraint.data.ConstraintViolations;
 import org.junit.jupiter.api.Test;
 
 public class ConstraintResultTest extends ConstraintTest {
@@ -130,9 +130,9 @@ public class ConstraintResultTest extends ConstraintTest {
     @Test
     public void oneAssemblyMultipleResourceTestConstraintResults() {
         PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(
-                Paths.get("models", "OneAssemblyMultipleResourceContainerTest", "default.usagemodel"),
-                Paths.get("models", "OneAssemblyMultipleResourceContainerTest", "default.allocation"),
-                Paths.get("models", "OneAssemblyMultipleResourceContainerTest", "default.nodecharacteristics"));
+                Paths.get("models", "pcm", "MultipleDeployments", "default.usagemodel"),
+                Paths.get("models", "pcm", "MultipleDeployments", "default.allocation"),
+                Paths.get("models", "pcm", "MultipleDeployments", "default.nodecharacteristics"));
         analysis.setLoggerLevel(Level.TRACE);
         Predicate<AbstractVertex<?>> constraint = this::internationalOnlineShopCondition;
         List<ConstraintData> constraintData = ConstraintViolations.multipleResourcesViolations;
@@ -146,8 +146,8 @@ public class ConstraintResultTest extends ConstraintTest {
      */
     @Test
     public void returnTestConstraintResults() {
-        PCMDataFlowConfidentialityAnalysis returnAnalysis = super.initializeAnalysis(Paths.get("models", "ReturnTestModel", "default.usagemodel"),
-                Paths.get("models", "ReturnTestModel", "default.allocation"), Paths.get("models", "ReturnTestModel", "default.nodecharacteristics"));
+        PCMDataFlowConfidentialityAnalysis returnAnalysis = super.initializeAnalysis(Paths.get("models", "pcm", "VariableReturn", "default.usagemodel"),
+                Paths.get("models", "pcm", "VariableReturn", "default.allocation"), Paths.get("models", "pcm", "VariableReturn", "default.nodecharacteristics"));
         Predicate<AbstractVertex<?>> constraint = this::returnCondition;
         returnAnalysis.setLoggerLevel(Level.TRACE);
         List<ConstraintData> constraintData = ConstraintViolations.returnViolations;

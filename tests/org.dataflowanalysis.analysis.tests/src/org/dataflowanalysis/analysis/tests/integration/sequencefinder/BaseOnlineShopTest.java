@@ -1,6 +1,6 @@
-package org.dataflowanalysis.analysis.tests.sequencefinder;
+package org.dataflowanalysis.analysis.tests.integration.sequencefinder;
 
-import static org.dataflowanalysis.analysis.tests.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
+import static org.dataflowanalysis.analysis.tests.integration.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
@@ -28,8 +28,8 @@ public abstract class BaseOnlineShopTest {
 
     @BeforeAll
     public void initAnalysis() {
-        final var dataFlowDiagramPath = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram");
-        final var dataDictionaryPath = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary");
+        final var dataFlowDiagramPath = Paths.get("models", "dfd", "OnlineShopDFD", "onlineshop.dataflowdiagram");
+        final var dataDictionaryPath = Paths.get("models", "dfd", "OnlineShopDFD", "onlineshop.datadictionary");
 
         analysis = new DFDDataFlowAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)

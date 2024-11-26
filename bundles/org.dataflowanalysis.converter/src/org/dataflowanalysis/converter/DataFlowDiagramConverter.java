@@ -322,9 +322,9 @@ public class DataFlowDiagramConverter extends Converter {
         }
         StringBuilder builder = new StringBuilder();
         for (AbstractAssignment abstractAssignment : abstractAssignments) {
-            if (abstractAssignment instanceof ForwardingAssignment) {
+            if (abstractAssignment instanceof ForwardingAssignment forwardingAssignment) {
                 builder.append("forward ");                
-                builder.append(getStringFromInputPins(abstractAssignment.getInputPins()));
+                builder.append(getStringFromInputPins(forwardingAssignment.getInputPins()));
             } else if (abstractAssignment instanceof SetAssignment setAssignment) {
             	builder.append("set ");
             	builder.append(getStringFromOutLabels(setAssignment.getOutputLabels()));

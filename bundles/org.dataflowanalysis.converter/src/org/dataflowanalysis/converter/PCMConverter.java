@@ -556,7 +556,7 @@ public class PCMConverter extends Converter {
 	 */
 	private AbstractAssignment forwardCharacteristic(Node node, AbstractPCMVertex<?> vertex,
 			DataCharacteristic dataCharacteristic) {
-		AbstractAssignment assignment = datadictionaryFactory.eINSTANCE.createForwardingAssignment();
+		ForwardingAssignment assignment = datadictionaryFactory.eINSTANCE.createForwardingAssignment();
 		Pin inPin = node.getBehavior().getInPin().stream()
 				.filter(it -> it.getEntityName().equals(dataCharacteristic.getVariableName())).findAny()
 				.orElseThrow(() -> {
@@ -587,7 +587,7 @@ public class PCMConverter extends Converter {
 	 *         elements in the conversion
 	 */
 	private AbstractAssignment preserveControlFlow(Node node, AbstractPCMVertex<?> vertex) {
-		AbstractAssignment assignment = datadictionaryFactory.eINSTANCE.createForwardingAssignment();
+		ForwardingAssignment assignment = datadictionaryFactory.eINSTANCE.createForwardingAssignment();
 		Pin inPin = node.getBehavior().getInPin().stream().filter(it -> it.getEntityName().equals("")).findAny()
 				.orElseThrow(() -> {
 					logger.error("Cannot find required in-pin with empty name at vertex with name " + vertex);

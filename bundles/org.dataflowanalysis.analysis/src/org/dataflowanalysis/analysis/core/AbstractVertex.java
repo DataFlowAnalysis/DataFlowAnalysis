@@ -36,8 +36,6 @@ public abstract class AbstractVertex<T> {
      */
     public abstract void evaluateDataFlow();
 
-    public abstract UUID getUniqueUUID();
-
     @Override
     public abstract String toString();
 

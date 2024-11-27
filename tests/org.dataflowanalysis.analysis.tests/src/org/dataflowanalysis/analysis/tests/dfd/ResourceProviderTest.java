@@ -96,8 +96,6 @@ public class ResourceProviderTest {
         saveResource(dfdResource);
         saveResource(ddResource);
         
-        System.out.println(dfdFile.toString());
-        
         var analysis = new DFDDataFlowAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)
                 .usePluginActivator(Activator.class)

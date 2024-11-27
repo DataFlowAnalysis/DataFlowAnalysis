@@ -17,6 +17,7 @@ import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.examplemodels.Activator;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
@@ -113,22 +114,22 @@ public class ResourceProviderTest {
                 .size(), 4);
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	
 	private Resource createAndAddResource(String outputFile, String[] fileextensions, ResourceSet rs) {
 	     for (String fileext : fileextensions) {
 	        rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put(fileext, new XMLResourceFactoryImpl());
 	     }		
 	     URI uri = URI.createFileURI(outputFile);
 	     Resource resource = rs.createResource(uri);
-	     ((ResourceImpl)resource).setIntrinsicIDToEObjectMap(new HashMap());
+	     ((ResourceImpl)resource).setIntrinsicIDToEObjectMap(new HashMap<String, EObject>());
 	     return resource;
 	  }
 	
-	@SuppressWarnings({"unchecked", "rawtypes"})
+	
 	 private void saveResource(Resource resource) {
-	     Map saveOptions = ((XMLResource)resource).getDefaultSaveOptions();
+		 Map<Object, Object> saveOptions = ((XMLResource)resource).getDefaultSaveOptions();
 	     saveOptions.put(XMLResource.OPTION_CONFIGURATION_CACHE, Boolean.TRUE);
-	     saveOptions.put(XMLResource.OPTION_USE_CACHED_LOOKUP_TABLE, new ArrayList());
+	     saveOptions.put(XMLResource.OPTION_USE_CACHED_LOOKUP_TABLE, new ArrayList<Object>());
 	     try {
 	        resource.save(saveOptions);
 	     } catch (IOException e) {

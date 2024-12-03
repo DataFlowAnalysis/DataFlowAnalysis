@@ -1,6 +1,5 @@
 package org.dataflowanalysis.analysis.dfd;
 
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 import org.apache.log4j.Logger;

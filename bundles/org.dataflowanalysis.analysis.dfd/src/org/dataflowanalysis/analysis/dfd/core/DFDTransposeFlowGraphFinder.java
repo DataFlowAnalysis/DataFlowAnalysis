@@ -8,7 +8,7 @@ import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Assignment;
-import org.dataflowanalysis.dfd.datadictionary.Behaviour;
+import org.dataflowanalysis.dfd.datadictionary.Behavior;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.ForwardingAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
@@ -21,19 +21,16 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
  */
 public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
 	private final Logger logger = Logger.getLogger(TransposeFlowGraphFinder.class);
-    private final DataDictionary dataDictionary;
     protected final DataFlowDiagram dataFlowDiagram;
     private boolean hasCycles = false;
     
     private Map<Pin, DFDVertex> mapOutPinToExistingVertex = new HashMap<>();
 
     public DFDTransposeFlowGraphFinder(DFDResourceProvider resourceProvider) {
-        this.dataDictionary = resourceProvider.getDataDictionary();
         this.dataFlowDiagram = resourceProvider.getDataFlowDiagram();
     }
 
     public DFDTransposeFlowGraphFinder(DataDictionary dataDictionary, DataFlowDiagram dataFlowDiagram) {
-        this.dataDictionary = dataDictionary;
         this.dataFlowDiagram = dataFlowDiagram;
     }
 
@@ -65,7 +62,7 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
 
         
         for (Node endNode : potentialSinks) {
-            List<DFDVertex> sinks = determineSinks(new DFDVertex(endNode, new HashMap<>(), new HashMap<>()), endNode.getBehaviour()
+            List<DFDVertex> sinks = determineSinks(new DFDVertex(endNode, new HashMap<>(), new HashMap<>()), endNode.getBehavior()
                     .getInPin(), sources, new ArrayList<>());
             if (!sourceNodes.isEmpty()) {
                 sinks = sinks.stream()
@@ -116,8 +113,9 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
 	            .forEach(flow -> outputPins.add(flow.getSourcePin()));
         	
         	outputPins.stream().forEach(outPin -> {
-        		Behaviour behaviour = (Behaviour) outPin.eContainer();
-        		behaviour.getAssignment().stream().filter(it -> it.getOutputPin().equals(outPin)).forEach(it -> inToPreviousNodeInPinsMap.get(pin).addAll(it.getInputPins()));
+        		Behavior behaviour = (Behavior) outPin.eContainer();
+        		behaviour.getAssignment().stream().filter(it -> it.getOutputPin().equals(outPin)).filter(ForwardingAssignment.class::isInstance).forEach(it -> inToPreviousNodeInPinsMap.get(pin).addAll(((ForwardingAssignment)it).getInputPins()));
+        		behaviour.getAssignment().stream().filter(it -> it.getOutputPin().equals(outPin)).filter(Assignment.class::isInstance).forEach(it -> inToPreviousNodeInPinsMap.get(pin).addAll(((Assignment)it).getInputPins()));
         	});
         }
                 
@@ -217,11 +215,15 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
      */
     protected List<Pin> getAllPreviousNodeInputPins(Node previousNode, Flow flow) {
         Set<Pin> previousNodeInputPins = new HashSet<>();
-        for (var assignment : previousNode.getBehaviour()
+        for (var abstractAssignment : previousNode.getBehavior()
                 .getAssignment()) {
-            if (assignment.getOutputPin()
+            if (abstractAssignment.getOutputPin()
                     .equals(flow.getSourcePin())) {
-                previousNodeInputPins.addAll(assignment.getInputPins());
+            	if ((abstractAssignment instanceof ForwardingAssignment forwardingAssignment))
+            		previousNodeInputPins.addAll(forwardingAssignment.getInputPins());
+            	else if (abstractAssignment instanceof Assignment assignment) {
+            		previousNodeInputPins.addAll(assignment.getInputPins());
+            	}
             }
         }
         
@@ -265,19 +267,19 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
     protected List<Node> getEndNodes(List<Node> nodes) {
         List<Node> endNodes = new ArrayList<>(nodes);
         for (Node node : nodes) {
-            if (node.getBehaviour()
+            if (node.getBehavior()
                     .getInPin()
                     .isEmpty())
                 endNodes.remove(node);
-            for (Pin inputPin : node.getBehaviour()
+            for (Pin inputPin : node.getBehavior()
                     .getInPin()) {
-                for (AbstractAssignment assignment : node.getBehaviour()
+                for (AbstractAssignment abstractAssignment : node.getBehavior()
                         .getAssignment()) {
-                    if (assignment.getInputPins()
-                            .contains(inputPin)) {
-                        endNodes.remove(node);
-                        break;
-                    }
+                	if ((abstractAssignment instanceof ForwardingAssignment forwardingAssignment && forwardingAssignment.getInputPins().contains(inputPin)) ||
+                			(abstractAssignment instanceof Assignment assignment && assignment.getInputPins().contains(inputPin))) {
+	                        endNodes.remove(node);
+	                        break;
+                	}  
                 }
             }
         }

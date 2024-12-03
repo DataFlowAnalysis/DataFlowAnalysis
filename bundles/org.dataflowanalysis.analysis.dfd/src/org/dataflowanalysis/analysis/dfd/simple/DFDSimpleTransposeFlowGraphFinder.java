@@ -6,7 +6,9 @@ import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
+import org.dataflowanalysis.dfd.datadictionary.Assignment;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
+import org.dataflowanalysis.dfd.datadictionary.ForwardingAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
@@ -16,18 +18,15 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
  * The DFDTransposeFlowGraphFinder determines all transpose flow graphs contained in a model
  */
 public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
-    private final DataDictionary dataDictionary;
     protected final DataFlowDiagram dataFlowDiagram;
     
     private Map<Node, DFDSimpleVertex> mapNodeToExistingVertex = new HashMap<>();
 
     public DFDSimpleTransposeFlowGraphFinder(DFDResourceProvider resourceProvider) {
-        this.dataDictionary = resourceProvider.getDataDictionary();
         this.dataFlowDiagram = resourceProvider.getDataFlowDiagram();
     }
 
     public DFDSimpleTransposeFlowGraphFinder(DataDictionary dataDictionary, DataFlowDiagram dataFlowDiagram) {
-        this.dataDictionary = dataDictionary;
         this.dataFlowDiagram = dataFlowDiagram;
     }
 
@@ -47,14 +46,6 @@ public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFind
 
     @Override
     public List<? extends AbstractTransposeFlowGraph> findTransposeFlowGraphs(List<?> sinkNodes, List<?> sourceNodes) {
-        List<Node> potentialSinks = sinkNodes.stream()
-                .filter(Node.class::isInstance)
-                .map(Node.class::cast)
-                .toList();
-        List<Node> sources = sourceNodes.stream()
-                .filter(Node.class::isInstance)
-                .map(Node.class::cast)
-                .toList();
         List<DFDSimpleTransposeFlowGraph> transposeFlowGraphs = new ArrayList<>();
         
         System.out.println(dataFlowDiagram.getNodes());
@@ -84,7 +75,7 @@ public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFind
     	Map<Pin, Flow> pinToFlowMap = new HashMap<>();
     	Set<DFDSimpleVertex> previousVertices = new HashSet<>();
     	
-    	node.getBehaviour().getInPin().forEach(pin -> {
+    	node.getBehavior().getInPin().forEach(pin -> {
     		var incomingFlows = dataFlowDiagram.getFlows().stream().filter(flow -> flow.getDestinationPin().equals(pin)).toList();
     		if (incomingFlows.size() != 1) throw new IllegalArgumentException("DFD not simple: Number of flows to inpin not 1");
     		var incomingFlow = incomingFlows.get(0);
@@ -92,7 +83,7 @@ public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFind
     		previousVertices.add(determineSinks(incomingFlow.getSourceNode()));
     	});
     	
-    	node.getBehaviour().getOutPin().forEach(pin -> {
+    	node.getBehavior().getOutPin().forEach(pin -> {
     		var outgoingFlows = dataFlowDiagram.getFlows().stream().filter(flow -> flow.getSourcePin().equals(pin)).toList();
     		if (outgoingFlows.size() == 0) throw new IllegalArgumentException("DFD not simple: Dead output pin");
     		var flowname = outgoingFlows.get(0).getEntityName();
@@ -110,8 +101,9 @@ public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFind
     
     //Assumption!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private boolean verifySimplicity(Node node) {		
-    	return node.getBehaviour().getAssignment().stream().anyMatch(it -> it.getInputPins().equals(node.getBehaviour().getInPin()))
-    			|| node.getBehaviour().getOutPin().size() == 0;    	
+    	return node.getBehavior().getAssignment().stream().filter(ForwardingAssignment.class::isInstance).anyMatch(it -> ((ForwardingAssignment)it).getInputPins().equals(node.getBehavior().getInPin()))
+    			|| node.getBehavior().getAssignment().stream().filter(Assignment.class::isInstance).anyMatch(it -> ((Assignment)it).getInputPins().equals(node.getBehavior().getInPin()))
+    			|| node.getBehavior().getOutPin().size() == 0;    	
     }
     
     
@@ -124,16 +116,16 @@ public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFind
     protected List<Node> getEndNodes(List<Node> nodes) {
         List<Node> endNodes = new ArrayList<>(nodes);
         for (Node node : nodes) {
-            if (node.getBehaviour()
+            if (node.getBehavior()
                     .getInPin()
                     .isEmpty())
                 endNodes.remove(node);
-            for (Pin inputPin : node.getBehaviour()
+            for (Pin inputPin : node.getBehavior()
                     .getInPin()) {
-                for (AbstractAssignment assignment : node.getBehaviour()
+                for (AbstractAssignment abstractAssignment : node.getBehavior()
                         .getAssignment()) {
-                    if (assignment.getInputPins()
-                            .contains(inputPin)) {
+                	if ((abstractAssignment instanceof ForwardingAssignment forwardingAssignment && forwardingAssignment.getInputPins().contains(inputPin)) ||
+                			(abstractAssignment instanceof Assignment assignment && assignment.getInputPins().contains(inputPin))) {
                         endNodes.remove(node);
                         break;
                     }

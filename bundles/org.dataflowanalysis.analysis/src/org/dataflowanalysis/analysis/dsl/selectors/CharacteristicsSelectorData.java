@@ -49,4 +49,9 @@ public record CharacteristicsSelectorData(ConstraintVariableReference characteri
             characteristicValueVariable.addPossibleValues(characteristicValues);
         }
     }
+
+    @Override
+    public String toString() {
+        return this.characteristicType.toString() + "." + this.characteristicValue.toString();
+    }
 }

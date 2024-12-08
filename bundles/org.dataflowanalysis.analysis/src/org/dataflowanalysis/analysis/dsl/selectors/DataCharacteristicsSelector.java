@@ -54,4 +54,13 @@ public class DataCharacteristicsSelector extends DataSelector {
         }
         return result;
     }
+
+    @Override
+    public String toString() {
+        if (this.inverted) {
+            return "!" + dataCharacteristic.toString();
+        } else {
+            return dataCharacteristic.toString();
+        }
+    }
 }

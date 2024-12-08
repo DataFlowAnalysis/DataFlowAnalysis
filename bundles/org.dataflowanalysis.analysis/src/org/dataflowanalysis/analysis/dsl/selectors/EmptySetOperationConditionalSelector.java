@@ -7,6 +7,8 @@ import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import java.util.List;
 
 public class EmptySetOperationConditionalSelector implements ConditionalSelector {
+    private static final String DSL_KEYWORD = "empty";
+
     private final SetOperation setOperation;
 
     public EmptySetOperationConditionalSelector(SetOperation setOperation) {
@@ -25,5 +27,10 @@ public class EmptySetOperationConditionalSelector implements ConditionalSelector
             }
         }
         return !result;
+    }
+
+    @Override
+    public String toString() {
+        return DSL_KEYWORD + " " + setOperation.toString();
     }
 }

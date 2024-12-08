@@ -12,13 +12,14 @@ import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.stream.Stream;
 
 /**
  * Represents an analysis constraint created by the DSL
  */
 public class AnalysisConstraint {
-    private static final String DSL_CONNECTOR = "neverFlows";
+    private static final String DSL_KEYWORD= "neverFlows";
 
 	private static final String FAILED_MATCHING_MESSAGE = "Vertex %s failed to match selector %s";
 	private static final String SUCEEDED_MATCHING_MESSAGE = "Vertex %s matched all selectors";
@@ -124,12 +125,20 @@ public class AnalysisConstraint {
 
     @Override
     public String toString() {
-        StringBuilder dslString = new StringBuilder();
-        dslString.append(this.dataSourceSelectors.toString());
-        dslString.append(this.nodeSourceSelectors.toString());
-        dslString.append(DSL_CONNECTOR);
-        dslString.append(this.nodeDestinationSelectors.toString());
-        dslString.append(this.conditionalSelectors.toString());
+        StringJoiner dslString = new StringJoiner(" ");
+        if (!this.dataSourceSelectors.getSelectors().isEmpty()) {
+            dslString.add(this.dataSourceSelectors.toString());
+        }
+        if (!this.nodeSourceSelectors.getSelectors().isEmpty()) {
+            dslString.add(this.nodeSourceSelectors.toString());
+        }
+        dslString.add(DSL_KEYWORD);
+        if (!this.nodeDestinationSelectors.getSelectors().isEmpty()) {
+            dslString.add(this.nodeDestinationSelectors.toString());
+        }
+        if (!this.conditionalSelectors.getSelectors().isEmpty()) {
+            dslString.add(this.conditionalSelectors.toString());
+        }
         return dslString.toString();
     }
 

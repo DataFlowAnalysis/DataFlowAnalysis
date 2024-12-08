@@ -2,7 +2,10 @@ package org.dataflowanalysis.analysis.dfd.resource;
 
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
+import org.dataflowanalysis.dfd.datadictionary.datadictionaryPackage;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
+import org.dataflowanalysis.dfd.dataflowdiagram.dataflowdiagramPackage;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 /**
  * This abstract class represents the required model data that is required to run a dfd analysis
@@ -10,7 +13,10 @@ import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 public abstract class DFDResourceProvider extends ResourceProvider {
     @Override
     public void setupResources() {
-
+        this.resources.getPackageRegistry().put(dataflowdiagramPackage.eNS_URI, dataflowdiagramPackage.eINSTANCE);
+        this.resources.getResourceFactoryRegistry().getExtensionToFactoryMap().put(dataflowdiagramPackage.eNAME, new XMIResourceFactoryImpl());
+        this.resources.getPackageRegistry().put(datadictionaryPackage.eNS_URI, datadictionaryPackage.eINSTANCE);
+        this.resources.getResourceFactoryRegistry().getExtensionToFactoryMap().put(datadictionaryPackage.eNAME, new XMIResourceFactoryImpl());
     }
 
     /**

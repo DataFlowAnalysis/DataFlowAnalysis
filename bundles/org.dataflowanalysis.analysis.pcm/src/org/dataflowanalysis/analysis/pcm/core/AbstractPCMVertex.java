@@ -1,9 +1,7 @@
 package org.dataflowanalysis.analysis.pcm.core;
 
-import java.util.Deque;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
@@ -177,6 +175,12 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      */
     public Deque<AssemblyContext> getContext() {
         return context;
+    }
+
+
+    @Override
+    public UUID getUniqueIdentifier() {
+        return UUID.nameUUIDFromBytes(this.getReferencedElement().getId().getBytes(StandardCharsets.UTF_8));
     }
 
     /**

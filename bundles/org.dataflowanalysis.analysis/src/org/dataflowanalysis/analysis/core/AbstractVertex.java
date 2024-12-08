@@ -1,9 +1,6 @@
 package org.dataflowanalysis.analysis.core;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 
@@ -41,6 +38,8 @@ public abstract class AbstractVertex<T> {
 
     @Override
     public abstract String toString();
+
+    public abstract UUID getUniqueIdentifier();
 
     /**
      * Sets the propagation result of the Vertex to the given result. This method should only be called once on elements

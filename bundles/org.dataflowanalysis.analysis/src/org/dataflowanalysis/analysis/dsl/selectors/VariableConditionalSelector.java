@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class VariableConditionalSelector implements ConditionalSelector {
+	private static final String DSL_KEYWORD = "present";
+
 	private final ConstraintVariableReference constraintVariable;
 	private final boolean inverted;
 
@@ -37,4 +39,12 @@ public class VariableConditionalSelector implements ConditionalSelector {
 		return this.inverted == variable.get().getPossibleValues().get().isEmpty();
 	}
 
+	@Override
+	public String toString() {
+		if (this.inverted) {
+			return DSL_KEYWORD + " !" + this.constraintVariable.toString();
+		} else {
+			return DSL_KEYWORD + " " + this.constraintVariable.toString();
+		}
+	}
 }

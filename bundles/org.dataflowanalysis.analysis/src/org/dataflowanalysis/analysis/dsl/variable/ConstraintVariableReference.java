@@ -46,4 +46,13 @@ public record ConstraintVariableReference (String name, Optional<List<String>> v
     public boolean isConstant() {
         return this.name.equals(ConstraintVariable.CONSTANT_NAME);
     }
+
+    @Override
+    public String toString() {
+        if (this.isConstant() && this.values.isPresent()) {
+            return this.values.get().get(0);
+        } else {
+            return "$" + this.name;
+        }
+    }
 }

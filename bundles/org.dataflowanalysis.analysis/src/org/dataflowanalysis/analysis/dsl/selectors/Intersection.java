@@ -8,6 +8,11 @@ import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
 import java.util.List;
 
 public class Intersection implements SetOperation {
+    private static final String DSL_KEYWORD = "intersection";
+    private static final String DSL_PAREN_OPEN = "(";
+    private static final String DSL_DELIMITER = ",";
+    private static final String DSL_PAREN_CLOSE = ")";
+
     private final ConstraintVariableReference firstVariable;
     private final ConstraintVariableReference secondVariable;
 
@@ -33,5 +38,10 @@ public class Intersection implements SetOperation {
                 .distinct()
                 .filter(it -> second.getPossibleValues().get().contains(it))
                 .toList();
+    }
+
+    @Override
+    public String toString() {
+        return DSL_KEYWORD + DSL_PAREN_OPEN + firstVariable.toString() + DSL_DELIMITER + secondVariable.toString() + DSL_PAREN_CLOSE;
     }
 }

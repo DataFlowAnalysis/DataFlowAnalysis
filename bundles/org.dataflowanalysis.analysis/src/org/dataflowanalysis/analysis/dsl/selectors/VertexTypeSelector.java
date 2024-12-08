@@ -4,6 +4,8 @@ import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 
 public class VertexTypeSelector extends VertexSelector {
+    private static final String DSL_KEYWORD = "type";
+
     private final VertexType vertexType;
     private final boolean inverted;
     private final boolean recursive;
@@ -39,5 +41,14 @@ public class VertexTypeSelector extends VertexSelector {
         return this.inverted
                 ? !this.vertexType.matches(vertex)
                 : this.vertexType.matches(vertex);
+    }
+
+    @Override
+    public String toString() {
+        if (this.inverted) {
+            return DSL_KEYWORD + " !" + this.vertexType.toString();
+        } else {
+            return DSL_KEYWORD + " " + this.vertexType.toString();
+        }
     }
 }

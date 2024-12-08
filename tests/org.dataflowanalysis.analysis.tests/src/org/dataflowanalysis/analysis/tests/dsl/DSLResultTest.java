@@ -59,6 +59,7 @@ public class DSLResultTest extends BaseTest {
                 .isEmpty(Intersection.of(ConstraintVariable.of("grantedRoles"), ConstraintVariable.of("assignedRoles")))
                 .create();
 
+        logger.error(constraint.toString());
         evaluateAnalysis(constraint, travelPlannerAnalysis, ConstraintViolations.travelPlannerViolations);
     }
 

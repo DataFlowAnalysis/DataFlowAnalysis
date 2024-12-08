@@ -44,10 +44,7 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
 
     @Override
     public void initializeAnalysis() {
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap()
-                .put("dataflowdiagram", new XMIResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap()
-                .put("datadictionary", new XMIResourceFactoryImpl());
+        this.resourceProvider.setupResources();
 
         EcorePlugin.ExtensionProcessor.process(null);
 

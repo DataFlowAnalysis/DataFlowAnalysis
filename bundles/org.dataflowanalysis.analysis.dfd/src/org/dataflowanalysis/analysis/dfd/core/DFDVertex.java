@@ -301,8 +301,26 @@ public class DFDVertex extends AbstractVertex<Node> {
     public UUID getUniqueIdentifier() {
         StringBuilder uuidString = new StringBuilder();
         uuidString.append(this.getReferencedElement().getId());
-        for (var previousElement : this.getPreviousElements()) {
-            uuidString.append(previousElement.getUniqueIdentifier());
+        List<? extends DFDVertex> previousElements = this.getPreviousElements().stream()
+                .filter(DFDVertex.class::isInstance)
+                .map(DFDVertex.class::cast)
+                .toList();
+        for (var previousElement : previousElements) {
+            uuidString.append(previousElement.getUniqueIdentifier(this.getReferencedElement().getId()));
+        }
+        return UUID.nameUUIDFromBytes(uuidString.toString().getBytes(StandardCharsets.UTF_8));
+    }
+
+    public UUID getUniqueIdentifier(String followingIDs) {
+        StringBuilder uuidString = new StringBuilder();
+        uuidString.append(this.getReferencedElement().getId());
+        uuidString.append(followingIDs);
+        List<? extends DFDVertex> previousElements = this.getPreviousElements().stream()
+                .filter(DFDVertex.class::isInstance)
+                .map(DFDVertex.class::cast)
+                .toList();
+        for (var previousElement : previousElements) {
+            uuidString.append(previousElement.getUniqueIdentifier(followingIDs + this.getReferencedElement().getId()));
         }
         return UUID.nameUUIDFromBytes(uuidString.toString().getBytes(StandardCharsets.UTF_8));
     }

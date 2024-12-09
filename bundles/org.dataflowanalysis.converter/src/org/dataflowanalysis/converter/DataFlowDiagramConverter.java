@@ -39,6 +39,7 @@ public class DataFlowDiagramConverter extends Converter {
     private final Logger logger = Logger.getLogger(DataFlowDiagramConverter.class);
     protected final static String DELIMITER_PIN_NAME = "|";
     protected final static String DELIMITER_MULTI_PIN = ",";
+    private final static String CONTROL_FLOW_NAME = "~";
 
     private BehaviorConverter behaviorConverter;
 
@@ -263,21 +264,49 @@ public class DataFlowDiagramConverter extends Converter {
     }
 
     private void createFlows(DataFlowDiagram dataFlowDiagram, List<Child> children) {
+    	var controlFlowNameMap = createControlFlowNameMap(dataFlowDiagram);
         for (Flow flow : dataFlowDiagram.getFlows()) {
-        	fillPinToFlowNamesMap(inputPinToFlowNamesMap,flow);
-            children.add(createFlow(flow));
+        	fillPinToFlowNamesMap(inputPinToFlowNamesMap,flow, controlFlowNameMap);
+            children.add(createFlow(flow, controlFlowNameMap));
         }
     }
+    
+    private HashMap<Flow, String> createControlFlowNameMap(DataFlowDiagram dataFlowDiagram) {
+    	var controlFlowNameMap = new HashMap<Flow, String>();
+    	dataFlowDiagram.getNodes().forEach(node -> {
+    		var controlFlows = dataFlowDiagram.getFlows().stream()
+	    		.filter(flow -> flow.getDestinationNode().equals(node))
+	    		.filter(flow -> flow.getEntityName().equals("")).toList();
+    		
+    		String controlFlowName = CONTROL_FLOW_NAME;
+    		for (var flow : controlFlows) {
+    			controlFlowNameMap.put(flow, controlFlowName);
+    			controlFlowName += CONTROL_FLOW_NAME;
+    		}
+    	});
+    	return controlFlowNameMap;
+    }
 
-    private Child createFlow(Flow flow) {
+    private Child createFlow(Flow flow, HashMap<Flow, String> controlFlowNameMap) {
         String id = flow.getId();
         String type = "edge:arrow";
         String sourceId = flow.getSourcePin()
                 .getId();
         String targetId = flow.getDestinationPin()
-                .getId();
-        String text = flow.getEntityName();
+                .getId(); 
+        String text = controlFlowNameMap.getOrDefault(flow, flow.getEntityName());
         return new Child(text, null, null, id, type, sourceId, targetId, null, new ArrayList<>());
+    }
+    
+    private void fillPinToFlowNamesMap(Map<Pin,List<String>> map,Flow flow,  HashMap<Flow, String> controlFlowNameMap) {
+        if (map.containsKey(flow.getDestinationPin())) {
+            map.get(flow.getDestinationPin())
+                    .add(controlFlowNameMap.getOrDefault(flow, flow.getEntityName()));
+        } else {
+            List<String> flowNames = new ArrayList<>();
+            flowNames.add(controlFlowNameMap.getOrDefault(flow, flow.getEntityName()));
+            map.put(flow.getDestinationPin(), flowNames);
+        }
     }
 
     private Map<Pin, List<AbstractAssignment>> mapping(Node node) {
@@ -344,15 +373,5 @@ public class DataFlowDiagramConverter extends Converter {
         return String.join(DELIMITER_MULTI_PIN, pinNamesAsString);
     }
 
-    private void fillPinToFlowNamesMap(Map<Pin,List<String>> map,Flow flow) {
-        if (map.containsKey(flow.getDestinationPin())) {
-            map.get(flow.getDestinationPin())
-                    .add(flow.getEntityName());
-        } else {
-            List<String> flowNames = new ArrayList<>();
-            flowNames.add(flow.getEntityName());
-            map.put(flow.getDestinationPin(), flowNames);
-        }
-    }
 
 }

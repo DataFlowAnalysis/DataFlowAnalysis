@@ -1,11 +1,7 @@
 package org.dataflowanalysis.analysis.dfd.core;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentHashMap.KeySetView;
 import java.util.function.Function;
@@ -282,6 +278,40 @@ public class DFDVertex extends AbstractVertex<Node> {
                 	mapping.putIfAbsent(oldVertex, newVertice);
                 	});
         return new DFDVertex(this.referencedElement, copiedPinDFDVertexMap, new HashMap<>(this.pinFlowMap));
+    }
+
+    @Override
+    public UUID getUniqueIdentifier() {
+        StringBuilder uuidString = new StringBuilder();
+        uuidString.append(this.getReferencedElement().getId());
+        List<? extends DFDVertex> previousElements = this.getPreviousElements().stream()
+                .filter(DFDVertex.class::isInstance)
+                .map(DFDVertex.class::cast)
+                .toList();
+        for (var previousElement : previousElements) {
+            var outgoingPinString = previousElement.getPinDFDVertexMap().entrySet().stream()
+                    .filter(it -> it.getValue().equals(this))
+                    .toList();
+            uuidString.append(previousElement.getUniqueIdentifier(outgoingPinString + this.getReferencedElement().getId()));
+        }
+        return UUID.nameUUIDFromBytes(uuidString.toString().getBytes(StandardCharsets.UTF_8));
+    }
+
+    public UUID getUniqueIdentifier(String followingIDs) {
+        StringBuilder uuidString = new StringBuilder();
+        uuidString.append(this.getReferencedElement().getId());
+        uuidString.append(followingIDs);
+        List<? extends DFDVertex> previousElements = this.getPreviousElements().stream()
+                .filter(DFDVertex.class::isInstance)
+                .map(DFDVertex.class::cast)
+                .toList();
+        for (var previousElement : previousElements) {
+            var outgoingPinString = previousElement.getPinDFDVertexMap().entrySet().stream()
+                    .filter(it -> it.getValue().equals(this))
+                    .toList();
+            uuidString.append(previousElement.getUniqueIdentifier(followingIDs + outgoingPinString + this.getReferencedElement().getId()));
+        }
+        return UUID.nameUUIDFromBytes(uuidString.toString().getBytes(StandardCharsets.UTF_8));
     }
 
     @Override

@@ -306,7 +306,10 @@ public class DFDVertex extends AbstractVertex<Node> {
                 .map(DFDVertex.class::cast)
                 .toList();
         for (var previousElement : previousElements) {
-            uuidString.append(previousElement.getUniqueIdentifier(this.getReferencedElement().getId()));
+            var outgoingPinString = previousElement.getPinDFDVertexMap().entrySet().stream()
+                    .filter(it -> it.getValue().equals(this))
+                    .toList();
+            uuidString.append(previousElement.getUniqueIdentifier(outgoingPinString + this.getReferencedElement().getId()));
         }
         return UUID.nameUUIDFromBytes(uuidString.toString().getBytes(StandardCharsets.UTF_8));
     }
@@ -320,7 +323,10 @@ public class DFDVertex extends AbstractVertex<Node> {
                 .map(DFDVertex.class::cast)
                 .toList();
         for (var previousElement : previousElements) {
-            uuidString.append(previousElement.getUniqueIdentifier(followingIDs + this.getReferencedElement().getId()));
+            var outgoingPinString = previousElement.getPinDFDVertexMap().entrySet().stream()
+                    .filter(it -> it.getValue().equals(this))
+                    .toList();
+            uuidString.append(previousElement.getUniqueIdentifier(followingIDs + outgoingPinString + this.getReferencedElement().getId()));
         }
         return UUID.nameUUIDFromBytes(uuidString.toString().getBytes(StandardCharsets.UTF_8));
     }

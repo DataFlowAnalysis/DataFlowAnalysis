@@ -57,4 +57,13 @@ public class VertexCharacteristicsSelector extends DataSelector {
         }
         return result;
     }
+
+    @Override
+    public String toString() {
+        if (this.inverted) {
+            return "!" + this.vertexCharacteristics.toString();
+        } else {
+            return this.vertexCharacteristics.toString();
+        }
+    }
 }

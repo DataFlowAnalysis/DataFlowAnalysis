@@ -7,8 +7,11 @@ import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class DataCharacteristicListSelector extends DataSelector {
+    private static final String DSL_DELIMITER = ",";
+
     private final List<CharacteristicsSelectorData> dataCharacteristics;
     private final boolean inverted;
 
@@ -51,5 +54,16 @@ public class DataCharacteristicListSelector extends DataSelector {
             }
         }
         return result;
+    }
+
+    @Override
+    public String toString() {
+        StringJoiner dataCharacteristicsString = new StringJoiner(DSL_DELIMITER);
+        this.dataCharacteristics.forEach(it -> dataCharacteristicsString.add(it.toString()));
+        if (this.inverted) {
+            return "!" + dataCharacteristicsString;
+        } else {
+            return dataCharacteristicsString.toString();
+        }
     }
 }

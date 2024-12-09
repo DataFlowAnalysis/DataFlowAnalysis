@@ -48,6 +48,9 @@ public class NodeSourceSelectors {
     }
 
     public static ParseResult<NodeSourceSelectors> fromString(StringView string, DSLContext context) {
+        if (string.invalid()) {
+            return ParseResult.error("Unexpected end of input!");
+        }
         if (!string.getString().startsWith(DSL_KEYWORD)) {
             return ParseResult.error("String did not start with " + DSL_KEYWORD);
         }

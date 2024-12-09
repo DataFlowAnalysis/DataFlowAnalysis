@@ -52,6 +52,9 @@ public class ConditionalSelectors {
     }
 
     public static ParseResult<ConditionalSelectors> fromString(StringView string, DSLContext context) {
+        if (string.invalid()) {
+            return ParseResult.error("Unexpected end of input!");
+        }
         if (!string.startsWith(DSL_KEYWORD)) {
             return string.expect(DSL_KEYWORD);
         }

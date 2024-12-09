@@ -59,13 +59,6 @@ public class DSLResultTest extends BaseTest {
                 .isNotEmpty(ConstraintVariable.of("assignedRoles"))
                 .isEmpty(Intersection.of(ConstraintVariable.of("grantedRoles"), ConstraintVariable.of("assignedRoles")))
                 .create();
-
-        logger.info("DSL String: " + constraint.toString());
-        ParseResult<AnalysisConstraint> constraintParsed = AnalysisConstraint.fromString(new StringView(constraint.toString()));
-        if (constraintParsed.failed()) {
-            fail(System.lineSeparator() + constraintParsed.getError());
-        }
-        assertEquals(constraint.toString(), constraintParsed.getResult().toString());
         evaluateAnalysis(constraint, travelPlannerAnalysis, ConstraintViolations.travelPlannerViolations);
     }
 
@@ -105,6 +98,13 @@ public class DSLResultTest extends BaseTest {
     }
 
     private void evaluateAnalysis(AnalysisConstraint constraint, DataFlowConfidentialityAnalysis analysis, List<ConstraintData> expectedResults) {
+        logger.info("DSL String: " + constraint.toString());
+        ParseResult<AnalysisConstraint> constraintParsed = AnalysisConstraint.fromString(new StringView(constraint.toString()));
+        if (constraintParsed.failed()) {
+            fail(System.lineSeparator() + constraintParsed.getError());
+        }
+        assertEquals(constraint.toString(), constraintParsed.getResult().toString());
+
         FlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
         List<DSLResult> result = constraint.findViolations(flowGraph);

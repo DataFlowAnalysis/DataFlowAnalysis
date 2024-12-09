@@ -21,12 +21,13 @@ import org.dataflowanalysis.analysis.pcm.dsl.PCMVertexType;
 import org.dataflowanalysis.analysis.tests.BaseTest;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintData;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintViolations;
+import org.dataflowanalysis.analysis.utils.ParseResult;
+import org.dataflowanalysis.analysis.utils.StringView;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DSLResultTest extends BaseTest {
     private static final Logger logger = Logger.getLogger(DSLResultTest.class);
@@ -59,7 +60,12 @@ public class DSLResultTest extends BaseTest {
                 .isEmpty(Intersection.of(ConstraintVariable.of("grantedRoles"), ConstraintVariable.of("assignedRoles")))
                 .create();
 
-        logger.error(constraint.toString());
+        logger.info("DSL String: " + constraint.toString());
+        ParseResult<AnalysisConstraint> constraintParsed = AnalysisConstraint.fromString(new StringView(constraint.toString()));
+        if (constraintParsed.failed()) {
+            fail(System.lineSeparator() + constraintParsed.getError());
+        }
+        assertEquals(constraint.toString(), constraintParsed.getResult().toString());
         evaluateAnalysis(constraint, travelPlannerAnalysis, ConstraintViolations.travelPlannerViolations);
     }
 

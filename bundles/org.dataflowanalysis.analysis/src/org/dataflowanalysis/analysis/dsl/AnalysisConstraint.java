@@ -9,9 +9,15 @@ import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
+import org.dataflowanalysis.analysis.utils.ParseResult;
+import org.dataflowanalysis.analysis.utils.StringView;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.stream.Stream;
 
@@ -41,6 +47,16 @@ public class AnalysisConstraint {
         this.nodeDestinationSelectors = new NodeDestinationSelectors();
         this.conditionalSelectors = new ConditionalSelectors();
         this.context = new DSLContext();
+    }
+
+    public AnalysisConstraint(NodeSourceSelectors nodeSourceSelectors, DataSourceSelectors dataSourceSelectors,
+                              NodeDestinationSelectors nodeDestinationSelectors, ConditionalSelectors conditionalSelectors,
+                              DSLContext context) {
+        this.nodeSourceSelectors = nodeSourceSelectors;
+        this.dataSourceSelectors = dataSourceSelectors;
+        this.nodeDestinationSelectors = nodeDestinationSelectors;
+        this.conditionalSelectors = conditionalSelectors;
+        this.context = context;
     }
 
     /**
@@ -142,7 +158,55 @@ public class AnalysisConstraint {
         return dslString.toString();
     }
 
-    public static AnalysisConstraint fromString(String string) {
-        return new AnalysisConstraint();
+    public static ParseResult<AnalysisConstraint> fromString(StringView string) {
+        DSLContext context = new DSLContext();
+        var sourceSelectors = parseSourceSelector(string, context);
+        if (sourceSelectors.failed()) {
+            return ParseResult.error(sourceSelectors.getError());
+        }
+        DataSourceSelectors dataSourceSelectors = sourceSelectors.getResult().getDataSourceSelectors().orElse(new DataSourceSelectors());
+        NodeSourceSelectors nodeSourceSelectors = sourceSelectors.getResult().getNodeSourceSelectors().orElse(new NodeSourceSelectors());
+
+        if (!string.startsWith(DSL_KEYWORD)) {
+            return string.expect(DSL_KEYWORD);
+        }
+        string.advance(DSL_KEYWORD.length() + 1);
+
+        ParseResult<NodeDestinationSelectors> nodeDestinationSelectorsParseResult = NodeDestinationSelectors.fromString(string, context);
+        if (nodeDestinationSelectorsParseResult.failed()) {
+            return ParseResult.error(nodeDestinationSelectorsParseResult.getError());
+        }
+        NodeDestinationSelectors nodeDestinationSelectors = nodeDestinationSelectorsParseResult.getResult();
+
+        ParseResult<ConditionalSelectors> conditionalSelectorsParseResult = ConditionalSelectors.fromString(string, context);
+        ConditionalSelectors conditionalSelectors = conditionalSelectorsParseResult.or(new ConditionalSelectors());
+
+        if (!string.empty()) {
+            return ParseResult.error("Unexpected symbols: " + string.getString());
+        }
+
+        return ParseResult.ok(new AnalysisConstraint(nodeSourceSelectors, dataSourceSelectors, nodeDestinationSelectors, conditionalSelectors, context));
+    }
+
+    public static ParseResult<SourceSelectors> parseSourceSelector(StringView string, DSLContext context) {
+        ParseResult<DataSourceSelectors> dataSourceSelector = DataSourceSelectors.fromString(string, context);
+        ParseResult<NodeSourceSelectors> nodeSourceSelector;
+        if (dataSourceSelector.successful()) {
+            nodeSourceSelector = NodeSourceSelectors.fromString(string, context);
+        } else {
+            nodeSourceSelector = NodeSourceSelectors.fromString(string, context);
+            if (nodeSourceSelector.successful())
+                dataSourceSelector = DataSourceSelectors.fromString(string, context);
+        }
+
+        if (nodeSourceSelector.successful() && dataSourceSelector.successful()) {
+            return ParseResult.ok(new SourceSelectors(dataSourceSelector.getResult(), nodeSourceSelector.getResult()));
+        } else if(dataSourceSelector.successful()) {
+            return ParseResult.ok(new SourceSelectors(dataSourceSelector.getResult()));
+        } else if (nodeSourceSelector.successful()) {
+            return ParseResult.ok(new SourceSelectors(nodeSourceSelector.getResult()));
+        } else {
+            return ParseResult.error("Could not parse source selectors");
+        }
     }
 }

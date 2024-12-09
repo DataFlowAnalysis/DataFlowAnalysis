@@ -1,14 +1,19 @@
 package org.dataflowanalysis.analysis.dsl.selectors;
 
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.context.DSLContextKey;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
+import org.dataflowanalysis.analysis.utils.ParseResult;
+import org.dataflowanalysis.analysis.utils.StringView;
 
 import java.util.List;
 
 public record CharacteristicsSelectorData(ConstraintVariableReference characteristicType, ConstraintVariableReference characteristicValue) {
+    private static final String DSL_SEPARATOR = ".";
+    private static final Logger logger = Logger.getLogger(CharacteristicsSelectorData.class);
 
     /**
      * Determines whether a characteristic matches the saved reference
@@ -52,6 +57,25 @@ public record CharacteristicsSelectorData(ConstraintVariableReference characteri
 
     @Override
     public String toString() {
-        return this.characteristicType.toString() + "." + this.characteristicValue.toString();
+        return this.characteristicType.toString() + DSL_SEPARATOR + this.characteristicValue.toString();
+    }
+
+    public static ParseResult<CharacteristicsSelectorData> fromString(StringView string) {
+        logger.info("Parsing: " + string.getString());
+        ParseResult<ConstraintVariableReference> characteristicType = ConstraintVariableReference.fromString(string);
+        if (characteristicType.failed()) {
+            return ParseResult.error(characteristicType.getError());
+        }
+        if (!string.startsWith(DSL_SEPARATOR)) {
+            string.retreat(characteristicType.getResult().toString().length());
+            return string.expect(DSL_SEPARATOR);
+        }
+        string.advance(DSL_SEPARATOR.length());
+        ParseResult<ConstraintVariableReference> characteristicValue = ConstraintVariableReference.fromString(string);
+        if (characteristicValue.failed()) {
+            string.retreat(DSL_SEPARATOR.length() + characteristicType.getResult().toString().length());
+            return ParseResult.error(characteristicValue.getError());
+        }
+        return ParseResult.ok(new CharacteristicsSelectorData(characteristicType.getResult(), characteristicValue.getResult()));
     }
 }

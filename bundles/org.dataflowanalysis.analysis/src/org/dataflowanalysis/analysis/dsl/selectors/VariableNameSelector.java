@@ -4,7 +4,7 @@ import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 
 public class VariableNameSelector extends DataSelector {
-    private static final String DSL_KEYWORD = "data";
+    private static final String DSL_KEYWORD = "named";
 
     private final String variableName;
 

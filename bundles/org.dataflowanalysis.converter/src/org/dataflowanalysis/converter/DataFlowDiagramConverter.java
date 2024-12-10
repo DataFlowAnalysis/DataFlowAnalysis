@@ -298,6 +298,17 @@ public class DataFlowDiagramConverter extends Converter {
         String text = controlFlowNameMap.getOrDefault(flow, flow.getEntityName());
         return new Child(text, null, null, id, type, sourceId, targetId, null, new ArrayList<>());
     }
+    
+    private void fillPinToFlowNamesMap(Map<Pin,List<String>> map,Flow flow,  HashMap<Flow, String> controlFlowNameMap) {
+        if (map.containsKey(flow.getDestinationPin())) {
+            map.get(flow.getDestinationPin())
+                    .add(controlFlowNameMap.getOrDefault(flow, flow.getEntityName()));
+        } else {
+            List<String> flowNames = new ArrayList<>();
+            flowNames.add(controlFlowNameMap.getOrDefault(flow, flow.getEntityName()));
+            map.put(flow.getDestinationPin(), flowNames);
+        }
+    }
 
     private Map<Pin, List<AbstractAssignment>> mapping(Node node) {
         Map<Pin, List<AbstractAssignment>> mapPinToAssignments = new HashMap<>();

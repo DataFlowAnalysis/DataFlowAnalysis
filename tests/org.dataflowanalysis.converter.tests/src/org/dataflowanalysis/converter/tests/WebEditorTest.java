@@ -94,12 +94,12 @@ public class WebEditorTest extends ConverterTest {
             assertEquals(completeBefore.dataFlowDiagram()
                     .getNodes()
                     .get(i)
-                    .getBehaviour()
+                    .getBehavior()
                     .getEntityName(),
                     completeAfter.dataFlowDiagram()
                             .getNodes()
                             .get(i)
-                            .getBehaviour()
+                            .getBehavior()
                             .getEntityName());
         }
 
@@ -112,7 +112,7 @@ public class WebEditorTest extends ConverterTest {
     private void checkBehaviorAndPinNames(DataFlowDiagramAndDictionary dfd) {
         for (Node node : dfd.dataFlowDiagram()
                 .getNodes()) {
-            var behaviour = node.getBehaviour();
+            var behaviour = node.getBehavior();
             assertEquals(node.getEntityName(), behaviour.getEntityName());
 
             for (Pin inPin : behaviour.getInPin()) {

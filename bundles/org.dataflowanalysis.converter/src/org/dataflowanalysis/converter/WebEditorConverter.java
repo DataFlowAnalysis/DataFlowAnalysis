@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -18,7 +17,7 @@ import org.dataflowanalysis.converter.webdfd.Port;
 import org.dataflowanalysis.converter.webdfd.Value;
 import org.dataflowanalysis.converter.webdfd.WebEditorDfd;
 import org.dataflowanalysis.converter.webdfd.WebEditorLabelType;
-import org.dataflowanalysis.dfd.datadictionary.Assignment;
+import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.Label;
 import org.dataflowanalysis.dfd.datadictionary.LabelType;
@@ -137,10 +136,10 @@ public class WebEditorConverter extends Converter{
                 node.setEntityName(name);
                 node.setId(child.id());
 
-                var behaviour = ddFactory.createBehaviour();
+                var behaviour = ddFactory.createBehavior();
                 behaviour.setEntityName(name);
-                node.setBehaviour(behaviour);
-                dataDictionary.getBehaviour()
+                node.setBehavior(behaviour);
+                dataDictionary.getBehavior()
                         .add(behaviour);
 
                 createPins(pinToNodeMap, pinMap, nodeOutpinBehavior, child, node);
@@ -206,7 +205,7 @@ public class WebEditorConverter extends Converter{
         var outPin = ddFactory.createPin();
         outPin.setId(port.id());
         outPin.setEntityName(node.getEntityName() + "_out_");
-        node.getBehaviour()
+        node.getBehavior()
                 .getOutPin()
                 .add(outPin);
         if (port.behavior() != null) {
@@ -219,7 +218,7 @@ public class WebEditorConverter extends Converter{
         var inPin = ddFactory.createPin();
         inPin.setId(port.id());
         inPin.setEntityName(node.getEntityName() + "_in_");
-        node.getBehaviour()
+        node.getBehavior()
                 .getInPin()
                 .add(inPin);
         return inPin;
@@ -249,67 +248,71 @@ public class WebEditorConverter extends Converter{
     
     private void parseBehavior(Node node, Pin outpin, String lines, DataFlowDiagram dfd, DataDictionary dd) {
         String[] behaviorStrings = lines.split("\n");
-        var behavior = node.getBehaviour();
+        var behavior = node.getBehavior();       
         for (String behaviorString : behaviorStrings) {
-            behaviorString = behaviorString.replace(" ", "");
-            if (behaviorString.contains("Forwarding")) {
-                 var assignment = ddFactory.createForwardingAssignment();
-                 assignment.setOutputPin(outpin);
-                 
-                 String regex = "^Forwarding\\(\\{([^}]*)\\}\\)$";
-                 Pattern pattern = Pattern.compile(regex);
-                 Matcher matcher = pattern.matcher(behaviorString);
-                 if (!matcher.matches()) { 
-                     logger.error("Invalid behavior string:");
-                     logger.error(behaviorString);
-                     continue;
-                 }            
-                 
-                 assignment.getInputPins().addAll(getInPinsFromString(matcher.group(1), node, dfd));
-               
-                behavior.getAssignment()
-                        .add(assignment);
-            } else if (behaviorString.contains("Assignment")) {             
-                String regex = "^Assignment\\(\\{([^}]*)\\};([^;]+);\\{([^}]*)\\}\\)$";
-                Pattern pattern = Pattern.compile(regex);
-                Matcher matcher = pattern.matcher(behaviorString);
-                if (!matcher.matches()) {
-                    logger.error("Invalid behavior string:");
-                    logger.error(behaviorString);
-                    continue;
-                }              
-                
-                String inPinsAsString = matcher.group(1);
-                String term = matcher.group(2); 
-                String outLabelsAsString = matcher.group(3);
-                
-                Assignment assignment = ddFactory.createAssignment();
-                assignment.setOutputPin(outpin);
-                assignment.setTerm(behaviorConverter.stringToTerm(term));
-                assignment.getInputPins().addAll(getInPinsFromString(inPinsAsString, node, dfd));
-                Arrays.asList(outLabelsAsString.split(",")).forEach(typeValuePair -> {
-                	if (typeValuePair == null || typeValuePair.trim().equals("")) return;
-                     String typeName = typeValuePair.split("\\.")[0];
-                     String valueName = typeValuePair.split("\\.")[1];
-                     
-                     Label value = dd.getLabelTypes()
-                             .stream()
-                             .filter(labelType -> labelType.getEntityName()
-                                     .equals(typeName))
-                             .flatMap(labelType -> labelType.getLabel()
-                                     .stream())
-                             .filter(label -> label.getEntityName()
-                                     .equals(valueName))
-                             .findAny()
-                             .orElse(null);
-                     assignment.getOutputLabels()
-                     .add(value);
-                });
-              
-                behavior.getAssignment()
-                        .add(assignment);
-            }
-        }
+        	AbstractAssignment abstractAssignment;
+        	try {
+	            if (behaviorString.startsWith("forward")) {
+	                 var assignment = ddFactory.createForwardingAssignment();                 
+	                 var inPins = getInPinsFromString(behaviorString.split(" ")[1], node, dfd);     
+	                 assignment.getInputPins().addAll(inPins);
+	                 abstractAssignment = assignment;
+	            } else if(behaviorString.startsWith("set")) {
+	            	var assignment = ddFactory.createSetAssignment();
+	            	var outLabels = getLabelFromString(behaviorString.split(" ")[1], dd);
+	            	assignment.getOutputLabels().addAll(outLabels);
+		            abstractAssignment = assignment;
+	            } else if(behaviorString.startsWith("unset")) {
+	            	var assignment = ddFactory.createUnsetAssignment();
+	            	var outLabels = getLabelFromString(behaviorString.split(" ")[1], dd);
+		           	assignment.getOutputLabels().addAll(outLabels);
+		            abstractAssignment = assignment;
+	           } else if (behaviorString.contains("assign")) {      
+	        	   var assignment = ddFactory.createAssignment();
+	        	   var outLabels = getLabelFromString(behaviorString.replaceFirst("assign", "").split(" if ")[0].trim(), dd);
+	        	   var remainder = behaviorString.replaceFirst("assign", "").split(" if ")[1].trim();
+	        	   if (remainder.contains(" from ")) {
+	        		   var inputPins = getInPinsFromString(remainder.split(" from ")[1].trim(), node, dfd);
+	        		   assignment.getInputPins().addAll(inputPins);
+	        		   remainder = remainder.split(" from ")[0].trim();
+	        	   }
+	        	   var term = behaviorConverter.stringToTerm(remainder);
+	        	   assignment.setTerm(term);
+	        	   assignment.getOutputLabels().addAll(outLabels);
+	               abstractAssignment = assignment;
+	            } else {
+	            	logger.error("Unrecognized assignment: " + behaviorString);
+	            	continue;
+				}
+	            abstractAssignment.setOutputPin(outpin);
+	            behavior.getAssignment().add(abstractAssignment);
+        	} catch (ArrayIndexOutOfBoundsException e) {
+        		logger.error("Assignment string is invalid: " + behaviorString);
+			}
+        }   
+        
+    }
+    
+    private List<Label> getLabelFromString(String string, DataDictionary dd) {
+    	var labels = new ArrayList<Label>();
+    	Arrays.asList(string.split(",")).forEach(typeValuePair -> {
+        	if (typeValuePair == null || typeValuePair.trim().equals("")) return;
+             String typeName = typeValuePair.split("\\.")[0];
+             String valueName = typeValuePair.split("\\.")[1];
+             
+             Label value = dd.getLabelTypes()
+                     .stream()
+                     .filter(labelType -> labelType.getEntityName()
+                             .equals(typeName))
+                     .flatMap(labelType -> labelType.getLabel()
+                             .stream())
+                     .filter(label -> label.getEntityName()
+                             .equals(valueName))
+                     .findAny()
+                     .orElse(null);
+             labels.add(value);
+        });
+    	return labels;
     }
     
     private void putValue(Map<Node, Map<Pin, String>> nestedHashMap, Node node, Pin pin, String value) {

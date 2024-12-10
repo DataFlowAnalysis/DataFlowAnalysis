@@ -178,9 +178,9 @@ public class MicroSecEndConverter extends Converter {
 
     private void createBehavior(DataDictionary dd, LabelType stereotype) {
         for (Node node : nodesMap.values()) {
-            var behaviour = ddFactory.createBehaviour();
+            var behaviour = ddFactory.createBehavior();
             behaviour.setId(Integer.toString(idCounter++));
-            node.setBehaviour(behaviour);
+            node.setBehavior(behaviour);
 
             var assignment = ddFactory.createAssignment();
             assignment.setId(Integer.toString(idCounter++));
@@ -197,7 +197,7 @@ public class MicroSecEndConverter extends Converter {
             node.getProperties()
                     .addAll(createTaggedValueLabels(nodeToLabelTypeNamesMap.get(node), dd));
 
-            dd.getBehaviour()
+            dd.getBehavior()
                     .add(behaviour);
         }
     }
@@ -212,7 +212,7 @@ public class MicroSecEndConverter extends Converter {
             flow.setDestinationNode(dest);
             flow.setEntityName(iflow.sender());
 
-            var inPin = dest.getBehaviour()
+            var inPin = dest.getBehavior()
                     .getInPin()
                     .stream()
                     .findFirst()
@@ -220,7 +220,7 @@ public class MicroSecEndConverter extends Converter {
 
             var outPin = ddFactory.createPin();
             outPin.setId(Integer.toString(idCounter++));
-            source.getBehaviour()
+            source.getBehavior()
                     .getOutPin()
                     .add(outPin);
 
@@ -240,7 +240,7 @@ public class MicroSecEndConverter extends Converter {
     private Pin createInPin(Node dest) {
         var inPin = ddFactory.createPin();
         inPin.setId(Integer.toString(idCounter++));
-        dest.getBehaviour()
+        dest.getBehavior()
                 .getInPin()
                 .add(inPin);
         return inPin;
@@ -248,7 +248,7 @@ public class MicroSecEndConverter extends Converter {
 
     private void createNodeAssignments() {
         for (Node node : nodesMap.values()) {
-            var behaviour = node.getBehaviour();
+            var behaviour = node.getBehavior();
             Assignment template = (Assignment) behaviour.getAssignment()
                     .get(0);
             if (!behaviour.getOutPin()
@@ -280,7 +280,7 @@ public class MicroSecEndConverter extends Converter {
 
     private void createForwardingAssignments() {
         for (Node node : nodesMap.values()) {
-            var behaviour = node.getBehaviour();
+            var behaviour = node.getBehavior();
             if (!behaviour.getInPin()
                     .isEmpty()) {
                 for (Pin pin : behaviour.getOutPin()) {

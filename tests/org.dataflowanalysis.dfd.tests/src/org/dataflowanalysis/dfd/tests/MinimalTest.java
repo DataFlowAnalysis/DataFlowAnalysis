@@ -60,7 +60,7 @@ class MinimalTest {
 		});
 		System.out.println("Flows of type Entity");
 		
-		dd.getBehaviour().forEach(b -> {
+		dd.getBehavior().forEach(b -> {
 			assertTrue(b instanceof Entity);
 			b.getInPin().forEach(p -> {
 				assertTrue(p instanceof Entity);

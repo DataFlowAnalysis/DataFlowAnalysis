@@ -279,7 +279,7 @@ public class DataFlowDiagramConverter extends Converter {
 	    		.filter(flow -> flow.getDestinationNode().equals(node))
 	    		.filter(flow -> flow.getEntityName().equals("")).toList();
     		
-    		String controlFlowName = "" + CONTROL_FLOW_NAME;
+    		String controlFlowName = CONTROL_FLOW_NAME;
     		for (var flow : controlFlows) {
     			controlFlowNameMap.put(flow, controlFlowName);
     			controlFlowName += CONTROL_FLOW_NAME;

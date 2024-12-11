@@ -4,11 +4,15 @@ import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariable;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
+import org.dataflowanalysis.analysis.utils.ParseResult;
+import org.dataflowanalysis.analysis.utils.StringView;
 
 import java.util.List;
 import java.util.Optional;
 
 public class VariableConditionalSelector implements ConditionalSelector {
+	private static final String DSL_KEYWORD = "present";
+
 	private final ConstraintVariableReference constraintVariable;
 	private final boolean inverted;
 
@@ -37,4 +41,29 @@ public class VariableConditionalSelector implements ConditionalSelector {
 		return this.inverted == variable.get().getPossibleValues().get().isEmpty();
 	}
 
+	@Override
+	public String toString() {
+		if (this.inverted) {
+			return DSL_KEYWORD + " !" + this.constraintVariable.toString();
+		} else {
+			return DSL_KEYWORD + " " + this.constraintVariable.toString();
+		}
+	}
+
+	public static ParseResult<VariableConditionalSelector> fromString(StringView string) {
+		if (!string.startsWith(DSL_KEYWORD)) {
+			return string.expect(DSL_KEYWORD);
+		}
+		string.advance(DSL_KEYWORD.length() + 1);
+		boolean inverted = string.startsWith("!");
+		if (inverted) string.advance(1);
+		ParseResult<ConstraintVariableReference> constraintVariableReference = ConstraintVariableReference.fromString(string);
+		if (constraintVariableReference.failed()) {
+			string.retreat(DSL_KEYWORD.length() + 1);
+			if (inverted) string.retreat(1);
+			return ParseResult.error(constraintVariableReference.getError());
+		}
+		string.advance(1);
+		return ParseResult.ok(new VariableConditionalSelector(constraintVariableReference.getResult(), inverted));
+	}
 }

@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
+
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
@@ -26,6 +28,7 @@ import org.palladiosimulator.pcm.core.entity.Entity;
  * methods for working with loaded resources, like finding specific model elements.
  */
 public abstract class ResourceProvider {
+    private final Logger logger = Logger.getLogger(ResourceProvider.class);
     protected final ResourceSet resources = new ResourceSetImpl();
 
     /**
@@ -40,6 +43,8 @@ public abstract class ResourceProvider {
      * returns false
      */
     public abstract boolean sufficientResourcesLoaded();
+
+    public abstract void setupResources();
 
     /**
      * Looks up an ECore element with the given entity id
@@ -108,6 +113,8 @@ public abstract class ResourceProvider {
         } else if (resource.getContents()
                 .isEmpty()) {
             throw new IllegalArgumentException(String.format("Model with URI %s is empty", modelURI));
+        } else if (!resource.getErrors().isEmpty()) {
+            logger.error("Error loading resource: " + resource.getErrors());
         }
         return resource.getContents()
                 .get(0);

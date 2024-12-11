@@ -1,14 +1,19 @@
 package org.dataflowanalysis.analysis.dsl.selectors;
 
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.utils.ParseResult;
+import org.dataflowanalysis.analysis.utils.StringView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class VertexCharacteristicsSelector extends DataSelector {
+    private static final Logger logger = Logger.getLogger(VertexCharacteristicsSelector.class);
+
     private final CharacteristicsSelectorData vertexCharacteristics;
     private final boolean inverted;
     private final boolean recursive;
@@ -65,5 +70,17 @@ public class VertexCharacteristicsSelector extends DataSelector {
         } else {
             return this.vertexCharacteristics.toString();
         }
+    }
+
+    public static ParseResult<VertexCharacteristicsSelector> fromString(StringView string, DSLContext context) {
+        logger.info("Parsing: " + string.getString());
+        boolean inverted = string.getString().startsWith("!");
+        ParseResult<CharacteristicsSelectorData> selectorData = CharacteristicsSelectorData.fromString(string);
+        if (selectorData.failed()) {
+            return ParseResult.error(selectorData.getError());
+        }
+        if (inverted) string.advance(1);
+        string.advance(1);
+        return ParseResult.ok(new VertexCharacteristicsSelector(context, selectorData.getResult(), inverted));
     }
 }

@@ -38,6 +38,7 @@ public class PCMURIResourceProvider extends PCMResourceProvider {
             loadedResources.forEach(EcoreUtil::resolveAll);
         } while (loadedResources.size() != this.resources.getResources()
                 .size());
+        EcoreUtil.resolveAll(this.resources);
     }
 
     @Override

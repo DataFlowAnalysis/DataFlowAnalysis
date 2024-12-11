@@ -1,5 +1,9 @@
 package org.dataflowanalysis.analysis.dsl.variable;
 
+import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.utils.ParseResult;
+import org.dataflowanalysis.analysis.utils.StringView;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +13,8 @@ import java.util.Optional;
  * @param values Given possible values of the constraint variable reference
  */
 public record ConstraintVariableReference (String name, Optional<List<String>> values) {
+    private static final String DSL_VARIABLE_SIGN = "$";
+    private static final Logger logger = Logger.getLogger(ConstraintVariableReference.class);
 
     /**
      * Creates a constraint variable reference with the given name with no set values
@@ -45,5 +51,25 @@ public record ConstraintVariableReference (String name, Optional<List<String>> v
      */
     public boolean isConstant() {
         return this.name.equals(ConstraintVariable.CONSTANT_NAME);
+    }
+
+    @Override
+    public String toString() {
+        if (this.isConstant() && this.values.isPresent()) {
+            return this.values.get().get(0);
+        } else {
+            return DSL_VARIABLE_SIGN + this.name;
+        }
+    }
+
+    public static ParseResult<ConstraintVariableReference> fromString(StringView stringView) {
+        String string = stringView.getString().split("[ .,()]")[0];
+        logger.info("Parsing: " + string);
+        stringView.advance(string.length());
+        if (string.startsWith(DSL_VARIABLE_SIGN)) {
+            return ParseResult.ok(ConstraintVariableReference.of(string.substring(1)));
+        } else {
+            return ParseResult.ok(ConstraintVariableReference.ofConstant(List.of(string)));
+        }
     }
 }

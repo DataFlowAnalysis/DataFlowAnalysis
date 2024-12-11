@@ -21,12 +21,13 @@ import org.dataflowanalysis.analysis.pcm.dsl.PCMVertexType;
 import org.dataflowanalysis.analysis.tests.BaseTest;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintData;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintViolations;
+import org.dataflowanalysis.analysis.utils.ParseResult;
+import org.dataflowanalysis.analysis.utils.StringView;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DSLResultTest extends BaseTest {
     private static final Logger logger = Logger.getLogger(DSLResultTest.class);
@@ -58,7 +59,6 @@ public class DSLResultTest extends BaseTest {
                 .isNotEmpty(ConstraintVariable.of("assignedRoles"))
                 .isEmpty(Intersection.of(ConstraintVariable.of("grantedRoles"), ConstraintVariable.of("assignedRoles")))
                 .create();
-
         evaluateAnalysis(constraint, travelPlannerAnalysis, ConstraintViolations.travelPlannerViolations);
     }
 
@@ -83,13 +83,28 @@ public class DSLResultTest extends BaseTest {
     @Test
     public void testDataObjects() {
         AnalysisConstraint constraint = new AnalysisConstraint();
-        constraint.addFlowSource(new DataCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("DataSensitivity")), ConstraintVariableReference.ofConstant( List.of("Personal")))));
-        constraint.addFlowDestination(new VertexCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("ServerLocation")), ConstraintVariableReference.ofConstant(List.of("nonEU")))));
+        constraint.addDataSourceSelector(new DataCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("DataSensitivity")), ConstraintVariableReference.ofConstant( List.of("Personal")))));
+        constraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("ServerLocation")), ConstraintVariableReference.ofConstant(List.of("nonEU")))));
 
         evaluateAnalysis(constraint, internationalOnlineShopAnalysis, ConstraintViolations.internationalOnlineShopViolations);
     }
 
+    @Test
+    public void testStringify() {
+        AnalysisConstraint constraint = new AnalysisConstraint();
+        constraint.addDataSourceSelector(new DataCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("DataSensitivity")), ConstraintVariableReference.ofConstant( List.of("Personal")))));
+        constraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("ServerLocation")), ConstraintVariableReference.ofConstant(List.of("nonEU")))));
+        assertEquals("data DataSensitivity.Personal neverFlows node ServerLocation.nonEU", constraint.toString());
+    }
+
     private void evaluateAnalysis(AnalysisConstraint constraint, DataFlowConfidentialityAnalysis analysis, List<ConstraintData> expectedResults) {
+        logger.info("DSL String: " + constraint.toString());
+        ParseResult<AnalysisConstraint> constraintParsed = AnalysisConstraint.fromString(new StringView(constraint.toString()));
+        if (constraintParsed.failed()) {
+            fail(System.lineSeparator() + constraintParsed.getError());
+        }
+        assertEquals(constraint.toString(), constraintParsed.getResult().toString());
+
         FlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
         List<DSLResult> result = constraint.findViolations(flowGraph);

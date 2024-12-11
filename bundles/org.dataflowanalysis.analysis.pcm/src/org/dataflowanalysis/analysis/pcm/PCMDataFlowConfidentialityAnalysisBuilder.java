@@ -137,7 +137,7 @@ public class PCMDataFlowConfidentialityAnalysisBuilder extends DataFlowAnalysisB
                         new IllegalStateException("Could not load all required resources"));
             }
         }
-        if (this.relativeNodeCharacteristicsPath == null || this.relativeNodeCharacteristicsPath.isEmpty()) {
+        if (this.customResourceProvider.isEmpty() && (this.relativeNodeCharacteristicsPath == null || this.relativeNodeCharacteristicsPath.isEmpty())) {
             logger.warn(
                     "Using node characteristic model without specifying path to the assignment model. No node" + " characteristics will be applied!");
         }

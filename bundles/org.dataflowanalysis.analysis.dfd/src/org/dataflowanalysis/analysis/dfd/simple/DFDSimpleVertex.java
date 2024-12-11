@@ -1,11 +1,7 @@
 package org.dataflowanalysis.analysis.dfd.simple;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentHashMap.KeySetView;
 import java.util.function.Function;
@@ -73,6 +69,34 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
         List<DataCharacteristic> outgoingDataCharacteristics = new ArrayList<>(this.createDataCharacteristicsFromLabels(outgoingLabelPerPin));
         
         this.setPropagationResult(incomingCharacteristics, outgoingDataCharacteristics, vertexCharacteristics);
+    }
+
+    @Override
+    public UUID getUniqueIdentifier() {
+        StringBuilder uuidString = new StringBuilder();
+        uuidString.append(this.getReferencedElement().getId());
+        List<? extends DFDSimpleVertex> previousElements = this.getPreviousElements().stream()
+                .filter(DFDSimpleVertex.class::isInstance)
+                .map(DFDSimpleVertex.class::cast)
+                .toList();
+        for (var previousElement : previousElements) {
+            uuidString.append(previousElement.getUniqueIdentifier(this.getReferencedElement().getId()));
+        }
+        return UUID.nameUUIDFromBytes(uuidString.toString().getBytes(StandardCharsets.UTF_8));
+    }
+
+    public UUID getUniqueIdentifier(String followingIDs) {
+        StringBuilder uuidString = new StringBuilder();
+        uuidString.append(this.getReferencedElement().getId());
+        uuidString.append(followingIDs);
+        List<? extends DFDSimpleVertex> previousElements = this.getPreviousElements().stream()
+                .filter(DFDSimpleVertex.class::isInstance)
+                .map(DFDSimpleVertex.class::cast)
+                .toList();
+        for (var previousElement : previousElements) {
+            uuidString.append(previousElement.getUniqueIdentifier(followingIDs + this.getReferencedElement().getId()));
+        }
+        return UUID.nameUUIDFromBytes(uuidString.toString().getBytes(StandardCharsets.UTF_8));
     }
 
     /**

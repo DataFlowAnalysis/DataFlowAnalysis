@@ -27,6 +27,10 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
+      - name: Setup Maven
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: 3.9.6
       - name: Build and Verify
         run: mvn clean verify
       - name: Publish Nightly Update Site

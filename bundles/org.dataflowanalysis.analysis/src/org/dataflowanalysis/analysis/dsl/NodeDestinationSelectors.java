@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsSelector;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
@@ -59,7 +60,7 @@ public class NodeDestinationSelectors {
         logger.info("Parsing: " + string.getString());
         List<AbstractSelector> selectors = new ArrayList<>();
         while (!string.invalid()) {
-            var selector = DataCharacteristicsSelector.fromString(string, context);
+            var selector = VertexCharacteristicsSelector.fromString(string, context);
             if (selector.successful()) {
                 selectors.add(selector.getResult());
             } else {

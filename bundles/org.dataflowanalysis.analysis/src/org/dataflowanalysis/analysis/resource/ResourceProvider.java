@@ -28,7 +28,8 @@ import org.palladiosimulator.pcm.core.entity.Entity;
  * methods for working with loaded resources, like finding specific model elements.
  */
 public abstract class ResourceProvider {
-    private final Logger logger = Logger.getLogger(ResourceProvider.class);
+    private static final Logger logger = Logger.getLogger(ResourceProvider.class);
+
     protected final ResourceSet resources = new ResourceSetImpl();
 
     /**
@@ -115,6 +116,10 @@ public abstract class ResourceProvider {
             throw new IllegalArgumentException(String.format("Model with URI %s is empty", modelURI));
         } else if (!resource.getErrors().isEmpty()) {
             logger.error("Error loading resource: " + resource.getErrors());
+        }
+        if (!resource.getErrors().isEmpty()) {
+            logger.error("Errors occurred during loading a model:");
+            logger.error(resource.getErrors().stream().map(Resource.Diagnostic::getMessage).toList());
         }
         return resource.getContents()
                 .get(0);

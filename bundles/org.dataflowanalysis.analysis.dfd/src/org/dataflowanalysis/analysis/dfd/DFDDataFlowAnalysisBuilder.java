@@ -90,7 +90,7 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
 
     /**
      * Registers a custom TransposeFlowGraphFinder for the analysis
-     * @param transposeFlowGraphFinder Custom TransposeFlowGraphFinder of the analysis
+     * @param transposeFlowGraphFinderClass Custom TransposeFlowGraphFinder of the analysis
      */
     public DFDDataFlowAnalysisBuilder useTransposeFlowGraphFinder(Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinderClass) {
         this.customTransposeFlowGraphFinderClass = transposeFlowGraphFinderClass;
@@ -101,8 +101,6 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
      * Determines the effective resource provider that should be used by the analysis
      */
     private DFDResourceProvider getEffectiveResourceProvider() {
-    	
-    	
         if (this.customResourceProvider.isEmpty()) {
             URI dataDictionaryUri = Paths.get(this.dataDictionaryPath).isAbsolute() ? URI.createFileURI(this.dataDictionaryPath) 
                     :  ResourceUtils.createRelativePluginURI(this.dataDictionaryPath, this.modelProjectName);

@@ -30,7 +30,7 @@ public class DSLNodeSourceSelector {
      * @return Returns a dsl node source selector to add more constraints
      */
     public DSLNodeSourceSelector withCharacteristic(String characteristicType, String characteristicValue) {
-        this.analysisConstraint.addFlowSource(new VertexCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), ConstraintVariableReference.ofConstant(List.of(characteristicValue))), false, true));
+        this.analysisConstraint.addNodeSourceSelector(new VertexCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), ConstraintVariableReference.ofConstant(List.of(characteristicValue))), false, true));
         return this;
     }
 
@@ -41,7 +41,7 @@ public class DSLNodeSourceSelector {
      * @return Returns a dsl node source selector to add more constraints
      */
     public DSLNodeSourceSelector withCharacteristic(String characteristicType, ConstraintVariableReference characteristicValueVariable) {
-        this.analysisConstraint.addFlowSource(new VertexCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), characteristicValueVariable), false, true));
+        this.analysisConstraint.addNodeSourceSelector(new VertexCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), characteristicValueVariable), false, true));
         return this;
     }
 
@@ -54,7 +54,7 @@ public class DSLNodeSourceSelector {
      * @return Returns a dsl node source selector to add more constraints
      */
     public DSLNodeSourceSelector withCharacteristic(String characteristicType, List<String> characteristicValues) {
-        characteristicValues.forEach(characteristicValue -> this.analysisConstraint.addFlowSource(new VertexCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), ConstraintVariableReference.ofConstant( List.of(characteristicValue))), false, true)));
+        characteristicValues.forEach(characteristicValue -> this.analysisConstraint.addNodeSourceSelector(new VertexCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), ConstraintVariableReference.ofConstant( List.of(characteristicValue))), false, true)));
         return this;
     }
 
@@ -65,7 +65,7 @@ public class DSLNodeSourceSelector {
      * @return Returns a dsl node source selector to add more constraints
      */
     public DSLNodeSourceSelector withoutCharacteristic(String characteristicType, String characteristicValue) {
-        this.analysisConstraint.addFlowSource(new VertexCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), ConstraintVariableReference.ofConstant(List.of(characteristicValue))), true, true));
+        this.analysisConstraint.addNodeSourceSelector(new VertexCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), ConstraintVariableReference.ofConstant(List.of(characteristicValue))), true, true));
         return this;
     }
 
@@ -76,7 +76,7 @@ public class DSLNodeSourceSelector {
      * @return Returns a dsl node source selector to add more constraints
      */
     public DSLNodeSourceSelector withoutCharacteristic(String characteristicType, ConstraintVariableReference characteristicValueVariable) {
-        this.analysisConstraint.addFlowSource(new VertexCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), characteristicValueVariable), false, true));
+        this.analysisConstraint.addNodeSourceSelector(new VertexCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), characteristicValueVariable), false, true));
         return this;
     }
 
@@ -89,7 +89,7 @@ public class DSLNodeSourceSelector {
      * @return Returns a dsl node source selector to add more constraints
      */
     public DSLNodeSourceSelector withoutCharacteristic(String characteristicType, List<String> characteristicValues) {
-        characteristicValues.forEach(characteristicValue -> this.analysisConstraint.addFlowSource(new VertexCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), ConstraintVariableReference.ofConstant(List.of(characteristicValue))), true, true)));
+        characteristicValues.forEach(characteristicValue -> this.analysisConstraint.addNodeSourceSelector(new VertexCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), ConstraintVariableReference.ofConstant(List.of(characteristicValue))), true, true)));
         return this;
     }
 
@@ -99,7 +99,7 @@ public class DSLNodeSourceSelector {
      * @return Returns a dsl node source selector to add more constraints
      */
     public DSLNodeSourceSelector withType(VertexType vertexType) {
-        this.analysisConstraint.addFlowSource(new VertexTypeSelector(analysisConstraint.getContext(), vertexType, false, true));
+        this.analysisConstraint.addNodeSourceSelector(new VertexTypeSelector(analysisConstraint.getContext(), vertexType, false, true));
         return this;
     }
 
@@ -109,7 +109,7 @@ public class DSLNodeSourceSelector {
      * @return Returns a dsl node source selector to add more constraints
      */
     public DSLNodeSourceSelector withoutType(VertexType vertexType) {
-        this.analysisConstraint.addFlowSource(new VertexTypeSelector(analysisConstraint.getContext(), vertexType, true, true));
+        this.analysisConstraint.addNodeSourceSelector(new VertexTypeSelector(analysisConstraint.getContext(), vertexType, true, true));
         return this;
     }
 

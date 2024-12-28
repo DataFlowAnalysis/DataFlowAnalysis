@@ -1,9 +1,13 @@
 package org.dataflowanalysis.analysis.dsl.selectors;
 
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.utils.ParseResult;
+import org.dataflowanalysis.analysis.utils.StringView;
 
 public class VertexTypeSelector extends VertexSelector {
+    private static final Logger logger = Logger.getLogger(VertexTypeSelector.class);
     private static final String DSL_KEYWORD = "type";
 
     private final VertexType vertexType;
@@ -50,5 +54,19 @@ public class VertexTypeSelector extends VertexSelector {
         } else {
             return DSL_KEYWORD + " " + this.vertexType.toString();
         }
+    }
+
+    public static ParseResult<VertexTypeSelector> fromString(StringView string, DSLContext context) {
+        logger.info("Parsing: " + string.getString());
+        boolean inverted = string.getString().startsWith("!");
+        // TODO: How to deal with parsing vertex types (either PCM or DFD)
+        ParseResult<VertexType> vertexType = null;//VertexType.fromString(string);
+        if (vertexType.failed()) {
+            return ParseResult.error(vertexType.getError());
+        }
+        if (inverted) string.advance(1);
+        string.advance(1);
+        throw new RuntimeException("fromString() is not yet implemented for VertexTypeSelectors");
+        //return ParseResult.ok(new VertexTypeSelector(context, vertexType.getResult(), inverted));
     }
 }

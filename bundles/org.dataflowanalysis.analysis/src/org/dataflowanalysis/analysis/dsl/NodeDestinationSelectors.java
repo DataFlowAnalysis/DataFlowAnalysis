@@ -5,6 +5,7 @@ import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.VertexTypeSelector;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
@@ -63,9 +64,14 @@ public class NodeDestinationSelectors {
             var selector = VertexCharacteristicsSelector.fromString(string, context);
             if (selector.successful()) {
                 selectors.add(selector.getResult());
-            } else {
-                break;
+                continue;
             }
+            var typeSelector = VertexTypeSelector.fromString(string, context);
+            if (typeSelector.successful()) {
+                selectors.add(typeSelector.getResult());
+                continue;
+            }
+            break;
         }
         if (selectors.isEmpty()) {
             return ParseResult.error("Keyword " + DSL_KEYWORD + " is missing any selectors!");

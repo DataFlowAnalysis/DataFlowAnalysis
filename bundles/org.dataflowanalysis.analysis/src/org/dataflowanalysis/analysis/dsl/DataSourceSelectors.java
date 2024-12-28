@@ -3,6 +3,7 @@ package org.dataflowanalysis.analysis.dsl;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicListSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
@@ -63,9 +64,14 @@ public class DataSourceSelectors {
             var selector = DataCharacteristicsSelector.fromString(string, context);
             if (selector.successful()) {
                 selectors.add(selector.getResult());
-            } else {
-                break;
+                continue;
             }
+            var listSelector = DataCharacteristicListSelector.fromString(string, context);
+            if (listSelector.successful()) {
+                selectors.add(selector.getResult());
+                continue;
+            }
+            break;
         }
         if (selectors.isEmpty()) {
             return ParseResult.error("Keyword " + DSL_KEYWORD + " is missing any selectors!");

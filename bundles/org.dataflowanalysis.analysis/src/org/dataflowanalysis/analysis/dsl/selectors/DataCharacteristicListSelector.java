@@ -1,15 +1,19 @@
 package org.dataflowanalysis.analysis.dsl.selectors;
 
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.utils.ParseResult;
+import org.dataflowanalysis.analysis.utils.StringView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
 public class DataCharacteristicListSelector extends DataSelector {
+    private static final Logger logger = Logger.getLogger(DataCharacteristicListSelector.class);
     private static final String DSL_DELIMITER = ",";
 
     private final List<CharacteristicsSelectorData> dataCharacteristics;
@@ -65,5 +69,22 @@ public class DataCharacteristicListSelector extends DataSelector {
         } else {
             return dataCharacteristicsString.toString();
         }
+    }
+
+    public static ParseResult<DataCharacteristicListSelector> fromString(StringView string, DSLContext context) {
+        logger.info("Parsing: " + string.getString());
+        boolean inverted = string.getString().startsWith("!");
+        List<CharacteristicsSelectorData> selectors = new ArrayList<>();
+        ParseResult<CharacteristicsSelectorData> selectorData = CharacteristicsSelectorData.fromString(string);
+        while (selectorData.successful()) {
+            selectors.add(selectorData.getResult());
+            selectorData = CharacteristicsSelectorData.fromString(string);
+        }
+        if (selectors.isEmpty()) {
+            return ParseResult.error(selectorData.getError());
+        }
+        if (inverted) string.advance(1);
+        string.advance(1);
+        return ParseResult.ok(new DataCharacteristicListSelector(context, selectors, inverted));
     }
 }

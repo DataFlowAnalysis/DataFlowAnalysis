@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.StringJoiner;
 
 public class NodeSourceSelectors {
-    private static final String DSL_KEYWORD = "node";
+    private static final String DSL_KEYWORD = "vertex";
     private static final Logger logger = Logger.getLogger(NodeSourceSelectors.class);
 
     private final List<AbstractSelector> selectors;

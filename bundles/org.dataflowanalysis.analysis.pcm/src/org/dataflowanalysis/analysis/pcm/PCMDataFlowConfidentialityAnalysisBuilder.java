@@ -104,11 +104,11 @@ public class PCMDataFlowConfidentialityAnalysisBuilder extends DataFlowAnalysisB
      * @return New instance of a URI resource loader with the internally saved values
      */
     private PCMResourceProvider getURIResourceProvider() {    	
-    	URI usageModelUri = Paths.get(this.relativeUsageModelPath).isAbsolute() ? URI.createFileURI(this.relativeUsageModelPath)
+    	URI usageModelUri = this.modelProjectName.isEmpty() ? URI.createFileURI(Paths.get(this.relativeUsageModelPath).toAbsolutePath().toString())
     			: ResourceUtils.createRelativePluginURI(this.relativeUsageModelPath, modelProjectName);
-    	URI allocationModelUri = Paths.get(this.relativeAllocationModelPath).isAbsolute() ? URI.createFileURI(this.relativeAllocationModelPath)
+    	URI allocationModelUri = this.modelProjectName.isEmpty() ? URI.createFileURI(Paths.get(this.relativeAllocationModelPath).toAbsolutePath().toString())
     			: ResourceUtils.createRelativePluginURI(this.relativeAllocationModelPath, modelProjectName);
-    	URI nodeCharacteristicsUri = Paths.get(this.relativeNodeCharacteristicsPath).isAbsolute() ? URI.createFileURI(this.relativeNodeCharacteristicsPath)
+    	URI nodeCharacteristicsUri = this.modelProjectName.isEmpty() ? URI.createFileURI(Paths.get(this.relativeNodeCharacteristicsPath).toAbsolutePath().toString())
     			: ResourceUtils.createRelativePluginURI(this.relativeNodeCharacteristicsPath, modelProjectName);
     	
     	

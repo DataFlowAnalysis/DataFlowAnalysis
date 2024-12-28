@@ -8,18 +8,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Represents the constraint variable context of one constraint
  */
 public class DSLContext {
     private final Map<DSLContextKey, List<ConstraintVariable>> context;
+    private final Optional<DSLContextProvider> contextProvider;
 
     /**
      * Create a new empty dsl context
      */
     public DSLContext() {
         this.context = new HashMap<>();
+        this.contextProvider = Optional.empty();
+    }
+
+    public DSLContext(DSLContextProvider contextProvider) {
+        this.context = new HashMap<>();
+        this.contextProvider = Optional.of(contextProvider);
     }
 
     /**
@@ -72,5 +80,9 @@ public class DSLContext {
                 .map(Map.Entry::getValue)
                 .flatMap(List::stream)
                 .toList();
+    }
+
+    public DSLContextProvider getContextProvider() {
+        return contextProvider.orElseThrow();
     }
 }

@@ -59,14 +59,12 @@ public class VertexTypeSelector extends VertexSelector {
     public static ParseResult<VertexTypeSelector> fromString(StringView string, DSLContext context) {
         logger.info("Parsing: " + string.getString());
         boolean inverted = string.getString().startsWith("!");
-        // TODO: How to deal with parsing vertex types (either PCM or DFD)
-        ParseResult<VertexType> vertexType = null;//VertexType.fromString(string);
+        ParseResult<VertexType> vertexType = context.getContextProvider().vertexTypeFromString(string);
         if (vertexType.failed()) {
             return ParseResult.error(vertexType.getError());
         }
         if (inverted) string.advance(1);
         string.advance(1);
-        throw new RuntimeException("fromString() is not yet implemented for VertexTypeSelectors");
-        //return ParseResult.ok(new VertexTypeSelector(context, vertexType.getResult(), inverted));
+        return ParseResult.ok(new VertexTypeSelector(context, vertexType.getResult(), inverted));
     }
 }

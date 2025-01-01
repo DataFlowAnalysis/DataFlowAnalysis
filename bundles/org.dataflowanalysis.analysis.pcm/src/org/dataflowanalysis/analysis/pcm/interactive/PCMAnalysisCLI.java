@@ -2,8 +2,6 @@ package org.dataflowanalysis.analysis.pcm.interactive;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
-import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
-import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;

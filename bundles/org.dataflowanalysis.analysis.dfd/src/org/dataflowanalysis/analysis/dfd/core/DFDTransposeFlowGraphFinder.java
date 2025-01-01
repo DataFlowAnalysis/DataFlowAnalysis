@@ -152,6 +152,14 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
                     .flatMap(flow -> handleIncomingFlow(flow, inputPin, finalVertices, sourceNodes, mapInPinToEqualInPin.getOrDefault(inputPin, new ArrayList<>()), previousPinsInTransposeFlow).stream())
                     .toList();
         }
+        
+        if (inputPins.stream()
+        		.anyMatch(pin -> dataFlowDiagram.getFlows().stream()
+        				.noneMatch(flow -> flow.getDestinationPin().equals(pin)))) {
+        	logger.warn("TFG skipped since input pin has no incoming flow");
+        	return vertices;
+        }
+        
         if (vertices == null || vertices.isEmpty()) {
         	vertices = new ArrayList<>();
         	vertices.add(sink);

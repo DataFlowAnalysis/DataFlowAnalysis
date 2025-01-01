@@ -59,7 +59,10 @@ public class VertexTypeSelector extends VertexSelector {
     public static ParseResult<VertexTypeSelector> fromString(StringView string, DSLContext context) {
         logger.info("Parsing: " + string.getString());
         boolean inverted = string.getString().startsWith("!");
-        ParseResult<VertexType> vertexType = context.getContextProvider().vertexTypeFromString(string);
+        if (context.getContextProvider().isEmpty()) {
+        	return ParseResult.error("Cannot parse vertex types without context provider!");
+        }
+        ParseResult<VertexType> vertexType = context.getContextProvider().get().vertexTypeFromString(string);
         if (vertexType.failed()) {
             return ParseResult.error(vertexType.getError());
         }

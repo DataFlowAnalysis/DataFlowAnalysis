@@ -27,7 +27,7 @@ public class DSLContext {
 
     public DSLContext(DSLContextProvider contextProvider) {
         this.context = new HashMap<>();
-        this.contextProvider = Optional.of(contextProvider);
+        this.contextProvider = Optional.ofNullable(contextProvider);
     }
 
     /**
@@ -82,7 +82,7 @@ public class DSLContext {
                 .toList();
     }
 
-    public DSLContextProvider getContextProvider() {
-        return contextProvider.orElseThrow();
+    public Optional<DSLContextProvider> getContextProvider() {
+        return contextProvider;
     }
 }

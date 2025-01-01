@@ -5,6 +5,7 @@ import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.dsl.context.DSLContextProvider;
 import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
@@ -159,7 +160,11 @@ public class AnalysisConstraint {
     }
 
     public static ParseResult<AnalysisConstraint> fromString(StringView string) {
-        DSLContext context = new DSLContext();
+    	return AnalysisConstraint.fromString(string, null);
+    }
+    
+    public static ParseResult<AnalysisConstraint> fromString(StringView string, DSLContextProvider contextProvider) {
+        DSLContext context = new DSLContext(contextProvider);
         var sourceSelectors = parseSourceSelector(string, context);
         if (sourceSelectors.failed()) {
             return ParseResult.error(sourceSelectors.getError());

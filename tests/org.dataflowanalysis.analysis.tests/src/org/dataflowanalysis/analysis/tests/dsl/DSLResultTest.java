@@ -17,6 +17,7 @@ import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsSelector;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
 import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
+import org.dataflowanalysis.analysis.pcm.dsl.PCMDSLContextProvider;
 import org.dataflowanalysis.analysis.pcm.dsl.PCMVertexType;
 import org.dataflowanalysis.analysis.tests.BaseTest;
 import org.dataflowanalysis.analysis.tests.constraint.data.ConstraintData;
@@ -99,7 +100,7 @@ public class DSLResultTest extends BaseTest {
 
     private void evaluateAnalysis(AnalysisConstraint constraint, DataFlowConfidentialityAnalysis analysis, List<ConstraintData> expectedResults) {
         logger.info("DSL String: " + constraint.toString());
-        ParseResult<AnalysisConstraint> constraintParsed = AnalysisConstraint.fromString(new StringView(constraint.toString()));
+        ParseResult<AnalysisConstraint> constraintParsed = AnalysisConstraint.fromString(new StringView(constraint.toString()), new PCMDSLContextProvider());
         if (constraintParsed.failed()) {
             fail(System.lineSeparator() + constraintParsed.getError());
         }

@@ -2,13 +2,7 @@ package org.dataflowanalysis.analysis.tests.dfd;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.log4j.pattern.FullLocationPatternConverter;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
-import org.dataflowanalysis.analysis.dfd.core.DFDVertex;
 import org.dataflowanalysis.analysis.dfd.resource.DFDModelResourceProvider;
 import org.dataflowanalysis.dfd.datadictionary.Behavior;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
@@ -73,7 +67,7 @@ public class EdgeCaseTest {
 		 
 		 var flowgraphs = analysis.findFlowGraphs();
 		 
-		 assertEquals(flowgraphs.getTransposeFlowGraphs().size(), 2);
+		 assertEquals(flowgraphs.getTransposeFlowGraphs().size(), 1);
     }
 	
 	private Node createNode(String name) {

@@ -95,7 +95,7 @@ public class DSLResultTest extends BaseTest {
         AnalysisConstraint constraint = new AnalysisConstraint();
         constraint.addDataSourceSelector(new DataCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("DataSensitivity")), ConstraintVariableReference.ofConstant( List.of("Personal")))));
         constraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("ServerLocation")), ConstraintVariableReference.ofConstant(List.of("nonEU")))));
-        assertEquals("data DataSensitivity.Personal neverFlows node ServerLocation.nonEU", constraint.toString());
+        assertEquals("data DataSensitivity.Personal neverFlows vertex ServerLocation.nonEU", constraint.toString());
     }
 
     private void evaluateAnalysis(AnalysisConstraint constraint, DataFlowConfidentialityAnalysis analysis, List<ConstraintData> expectedResults) {

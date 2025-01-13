@@ -76,11 +76,12 @@ public class DataCharacteristicsSelector extends DataSelector {
     public static ParseResult<DataCharacteristicsSelector> fromString(StringView string, DSLContext context) {
         logger.info("Parsing: " + string.getString());
         boolean inverted = string.getString().startsWith("!");
+        if (inverted) string.advance(1);
         ParseResult<CharacteristicsSelectorData> selectorData = CharacteristicsSelectorData.fromString(string);
         if (selectorData.failed()) {
+            if (inverted) string.retreat(1);
             return ParseResult.error(selectorData.getError());
         }
-        if (inverted) string.advance(1);
         string.advance(1);
         return ParseResult.ok(new DataCharacteristicsSelector(context, selectorData.getResult(), inverted));
     }

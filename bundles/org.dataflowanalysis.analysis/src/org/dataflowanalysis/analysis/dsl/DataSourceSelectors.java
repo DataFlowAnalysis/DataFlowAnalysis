@@ -80,7 +80,7 @@ public class DataSourceSelectors {
                 selectors.add(nameSelector.getResult());
                 continue;
             }
-            return ParseResult.error("Could not parse vertex source selectors!");
+            break;
         }
         if (selectors.isEmpty()) {
             return ParseResult.error("Keyword " + DSL_KEYWORD + " is missing any selectors!");

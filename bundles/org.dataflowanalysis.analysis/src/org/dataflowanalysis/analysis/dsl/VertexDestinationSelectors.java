@@ -72,7 +72,7 @@ public class VertexDestinationSelectors {
                 selectors.add(typeSelector.getResult());
                 continue;
             }
-            return ParseResult.error("Could not parse vertex destination selectors!");
+            break;
         }
         if (selectors.isEmpty()) {
             return ParseResult.error("Keyword " + DSL_KEYWORD + " is missing any selectors!");

@@ -48,4 +48,12 @@ public final class DSLResult {
     public DSLConstraintTrace getConstraintTrace() {
         return constraintTrace;
     }
+
+    @Override
+    public String toString() {
+        return String.format("""
+                Violation in TFG: %s,
+                Violating vertices: %s
+                """, this.transposeFlowGraph, this.matchingVertices);
+    }
 }

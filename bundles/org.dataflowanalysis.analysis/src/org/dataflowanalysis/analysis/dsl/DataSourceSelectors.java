@@ -5,6 +5,7 @@ import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicListSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.VariableNameSelector;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
@@ -68,6 +69,11 @@ public class DataSourceSelectors {
             }
             var listSelector = DataCharacteristicListSelector.fromString(string, context);
             if (listSelector.successful()) {
+                selectors.add(selector.getResult());
+                continue;
+            }
+            var nameSelector = VariableNameSelector.fromString(string, context);
+            if (nameSelector.successful()) {
                 selectors.add(selector.getResult());
                 continue;
             }

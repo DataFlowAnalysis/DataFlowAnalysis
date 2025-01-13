@@ -3,7 +3,6 @@ package org.dataflowanalysis.analysis.dsl;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexTypeSelector;
 import org.dataflowanalysis.analysis.utils.ParseResult;
@@ -11,20 +10,19 @@ import org.dataflowanalysis.analysis.utils.StringView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.StringJoiner;
 
-public class NodeSourceSelectors {
+public class VertexSourceSelectors {
     private static final String DSL_KEYWORD = "vertex";
-    private static final Logger logger = Logger.getLogger(NodeSourceSelectors.class);
+    private static final Logger logger = Logger.getLogger(VertexSourceSelectors.class);
 
     private final List<AbstractSelector> selectors;
 
-    public NodeSourceSelectors() {
+    public VertexSourceSelectors() {
         selectors = new ArrayList<>();
     }
 
-    public NodeSourceSelectors(List<AbstractSelector> selectors) {
+    public VertexSourceSelectors(List<AbstractSelector> selectors) {
         this.selectors = selectors;
     }
 
@@ -49,7 +47,7 @@ public class NodeSourceSelectors {
         return dslString.toString();
     }
 
-    public static ParseResult<NodeSourceSelectors> fromString(StringView string, DSLContext context) {
+    public static ParseResult<VertexSourceSelectors> fromString(StringView string, DSLContext context) {
         if (string.invalid()) {
             return ParseResult.error("Unexpected end of input!");
         }
@@ -76,7 +74,7 @@ public class NodeSourceSelectors {
         if (selectors.isEmpty()) {
             return ParseResult.error("Keyword " + DSL_KEYWORD + " is missing any selectors!");
         }
-        NodeSourceSelectors nodeSourceSelectors = new NodeSourceSelectors(selectors);
-        return ParseResult.ok(nodeSourceSelectors);
+        VertexSourceSelectors vertexSourceSelectors = new VertexSourceSelectors(selectors);
+        return ParseResult.ok(vertexSourceSelectors);
     }
 }

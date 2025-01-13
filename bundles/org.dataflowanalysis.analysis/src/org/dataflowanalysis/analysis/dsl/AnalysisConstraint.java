@@ -10,15 +10,11 @@ import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.stream.Stream;
 
@@ -34,8 +30,8 @@ public class AnalysisConstraint {
 	
     private final Logger logger = Logger.getLogger(AnalysisConstraint.class);
     private final DataSourceSelectors dataSourceSelectors;
-    private final NodeSourceSelectors nodeSourceSelectors;
-    private final NodeDestinationSelectors nodeDestinationSelectors;
+    private final VertexSourceSelectors vertexSourceSelectors;
+    private final VertexDestinationSelectors vertexDestinationSelectors;
     private final ConditionalSelectors conditionalSelectors;
     private final DSLContext context;
 
@@ -43,19 +39,19 @@ public class AnalysisConstraint {
      * Create a new analysis constraint with no constraints
      */
     public AnalysisConstraint() {
-        this.nodeSourceSelectors = new NodeSourceSelectors();
+        this.vertexSourceSelectors = new VertexSourceSelectors();
         this.dataSourceSelectors = new DataSourceSelectors();
-        this.nodeDestinationSelectors = new NodeDestinationSelectors();
+        this.vertexDestinationSelectors = new VertexDestinationSelectors();
         this.conditionalSelectors = new ConditionalSelectors();
         this.context = new DSLContext();
     }
 
-    public AnalysisConstraint(NodeSourceSelectors nodeSourceSelectors, DataSourceSelectors dataSourceSelectors,
-                              NodeDestinationSelectors nodeDestinationSelectors, ConditionalSelectors conditionalSelectors,
+    public AnalysisConstraint(VertexSourceSelectors vertexSourceSelectors, DataSourceSelectors dataSourceSelectors,
+                              VertexDestinationSelectors vertexDestinationSelectors, ConditionalSelectors conditionalSelectors,
                               DSLContext context) {
-        this.nodeSourceSelectors = nodeSourceSelectors;
+        this.vertexSourceSelectors = vertexSourceSelectors;
         this.dataSourceSelectors = dataSourceSelectors;
-        this.nodeDestinationSelectors = nodeDestinationSelectors;
+        this.vertexDestinationSelectors = vertexDestinationSelectors;
         this.conditionalSelectors = conditionalSelectors;
         this.context = context;
     }
@@ -72,7 +68,7 @@ public class AnalysisConstraint {
             List<AbstractVertex<?>> violations = new ArrayList<>();
             for (AbstractVertex<?> vertex : transposeFlowGraph.getVertices()) {
                 boolean matched = true;
-                for (AbstractSelector selector : Stream.concat(Stream.concat(dataSourceSelectors.getSelectors().stream(), nodeSourceSelectors.getSelectors().stream()), nodeDestinationSelectors.getSelectors().stream()).toList()) {
+                for (AbstractSelector selector : Stream.concat(Stream.concat(dataSourceSelectors.getSelectors().stream(), vertexSourceSelectors.getSelectors().stream()), vertexDestinationSelectors.getSelectors().stream()).toList()) {
                     if (!selector.matches(vertex)) {
                     	logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, selector));
                         matched = false;
@@ -113,7 +109,7 @@ public class AnalysisConstraint {
      * @param selector Node source selector that is added to the constraint
      */
     public void addNodeSourceSelector(AbstractSelector selector) {
-        this.nodeSourceSelectors.addSelector(selector);
+        this.vertexSourceSelectors.addSelector(selector);
     }
 
     /**
@@ -121,7 +117,7 @@ public class AnalysisConstraint {
      * @param selector Flow destination selector that is added to the constraint
      */
     public void addNodeDestinationSelector(AbstractSelector selector) {
-        this.nodeDestinationSelectors.addSelector(selector);
+        this.vertexDestinationSelectors.addSelector(selector);
     }
 
     /**
@@ -146,12 +142,12 @@ public class AnalysisConstraint {
         if (!this.dataSourceSelectors.getSelectors().isEmpty()) {
             dslString.add(this.dataSourceSelectors.toString());
         }
-        if (!this.nodeSourceSelectors.getSelectors().isEmpty()) {
-            dslString.add(this.nodeSourceSelectors.toString());
+        if (!this.vertexSourceSelectors.getSelectors().isEmpty()) {
+            dslString.add(this.vertexSourceSelectors.toString());
         }
         dslString.add(DSL_KEYWORD);
-        if (!this.nodeDestinationSelectors.getSelectors().isEmpty()) {
-            dslString.add(this.nodeDestinationSelectors.toString());
+        if (!this.vertexDestinationSelectors.getSelectors().isEmpty()) {
+            dslString.add(this.vertexDestinationSelectors.toString());
         }
         if (!this.conditionalSelectors.getSelectors().isEmpty()) {
             dslString.add(this.conditionalSelectors.toString());
@@ -170,18 +166,18 @@ public class AnalysisConstraint {
             return ParseResult.error(sourceSelectors.getError());
         }
         DataSourceSelectors dataSourceSelectors = sourceSelectors.getResult().getDataSourceSelectors().orElse(new DataSourceSelectors());
-        NodeSourceSelectors nodeSourceSelectors = sourceSelectors.getResult().getNodeSourceSelectors().orElse(new NodeSourceSelectors());
+        VertexSourceSelectors vertexSourceSelectors = sourceSelectors.getResult().getNodeSourceSelectors().orElse(new VertexSourceSelectors());
 
         if (!string.startsWith(DSL_KEYWORD)) {
             return string.expect(DSL_KEYWORD);
         }
         string.advance(DSL_KEYWORD.length() + 1);
 
-        ParseResult<NodeDestinationSelectors> nodeDestinationSelectorsParseResult = NodeDestinationSelectors.fromString(string, context);
+        ParseResult<VertexDestinationSelectors> nodeDestinationSelectorsParseResult = VertexDestinationSelectors.fromString(string, context);
         if (nodeDestinationSelectorsParseResult.failed()) {
             return ParseResult.error(nodeDestinationSelectorsParseResult.getError());
         }
-        NodeDestinationSelectors nodeDestinationSelectors = nodeDestinationSelectorsParseResult.getResult();
+        VertexDestinationSelectors vertexDestinationSelectors = nodeDestinationSelectorsParseResult.getResult();
 
         ParseResult<ConditionalSelectors> conditionalSelectorsParseResult = ConditionalSelectors.fromString(string, context);
         ConditionalSelectors conditionalSelectors = conditionalSelectorsParseResult.or(new ConditionalSelectors());
@@ -190,16 +186,16 @@ public class AnalysisConstraint {
             return ParseResult.error("Unexpected symbols: " + string.getString());
         }
 
-        return ParseResult.ok(new AnalysisConstraint(nodeSourceSelectors, dataSourceSelectors, nodeDestinationSelectors, conditionalSelectors, context));
+        return ParseResult.ok(new AnalysisConstraint(vertexSourceSelectors, dataSourceSelectors, vertexDestinationSelectors, conditionalSelectors, context));
     }
 
     public static ParseResult<SourceSelectors> parseSourceSelector(StringView string, DSLContext context) {
         ParseResult<DataSourceSelectors> dataSourceSelector = DataSourceSelectors.fromString(string, context);
-        ParseResult<NodeSourceSelectors> nodeSourceSelector;
+        ParseResult<VertexSourceSelectors> nodeSourceSelector;
         if (dataSourceSelector.successful()) {
-            nodeSourceSelector = NodeSourceSelectors.fromString(string, context);
+            nodeSourceSelector = VertexSourceSelectors.fromString(string, context);
         } else {
-            nodeSourceSelector = NodeSourceSelectors.fromString(string, context);
+            nodeSourceSelector = VertexSourceSelectors.fromString(string, context);
             if (nodeSourceSelector.successful())
                 dataSourceSelector = DataSourceSelectors.fromString(string, context);
         }

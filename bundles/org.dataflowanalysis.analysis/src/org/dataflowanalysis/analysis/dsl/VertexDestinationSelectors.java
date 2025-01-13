@@ -3,7 +3,6 @@ package org.dataflowanalysis.analysis.dsl;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexTypeSelector;
 import org.dataflowanalysis.analysis.utils.ParseResult;
@@ -11,21 +10,20 @@ import org.dataflowanalysis.analysis.utils.StringView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.StringJoiner;
 
-public class NodeDestinationSelectors {
+public class VertexDestinationSelectors {
     private static final String DSL_KEYWORD = "node";
-    private static final Logger logger = Logger.getLogger(NodeDestinationSelectors.class);
+    private static final Logger logger = Logger.getLogger(VertexDestinationSelectors.class);
 
     private final List<AbstractSelector> selectors;
 
 
-    public NodeDestinationSelectors() {
+    public VertexDestinationSelectors() {
         selectors = new ArrayList<>();
     }
 
-    public NodeDestinationSelectors(List<AbstractSelector> selectors) {
+    public VertexDestinationSelectors(List<AbstractSelector> selectors) {
         this.selectors = selectors;
     }
 
@@ -50,7 +48,7 @@ public class NodeDestinationSelectors {
         return dslString.toString();
     }
 
-    public static ParseResult<NodeDestinationSelectors> fromString(StringView string, DSLContext context) {
+    public static ParseResult<VertexDestinationSelectors> fromString(StringView string, DSLContext context) {
         if (string.invalid()) {
             return ParseResult.error("Unexpected end of input!");
         }
@@ -76,8 +74,8 @@ public class NodeDestinationSelectors {
         if (selectors.isEmpty()) {
             return ParseResult.error("Keyword " + DSL_KEYWORD + " is missing any selectors!");
         }
-        NodeDestinationSelectors nodeDestinationSelectors = new NodeDestinationSelectors(selectors);
-        return ParseResult.ok(nodeDestinationSelectors);
+        VertexDestinationSelectors vertexDestinationSelectors = new VertexDestinationSelectors(selectors);
+        return ParseResult.ok(vertexDestinationSelectors);
     }
 }
 

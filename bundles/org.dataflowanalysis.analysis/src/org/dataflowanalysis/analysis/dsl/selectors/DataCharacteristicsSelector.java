@@ -5,14 +5,12 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
-import org.dataflowanalysis.analysis.dsl.NodeSourceSelectors;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class DataCharacteristicsSelector extends DataSelector {
     private static final Logger logger = Logger.getLogger(DataCharacteristicsSelector.class);

@@ -1,15 +1,14 @@
 package org.dataflowanalysis.analysis.dsl;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 public final class SourceSelectors {
     private final Optional<DataSourceSelectors> dataSourceSelectors;
-    private final Optional<NodeSourceSelectors> nodeSourceSelectors;
+    private final Optional<VertexSourceSelectors> nodeSourceSelectors;
 
-    public SourceSelectors(DataSourceSelectors dataSourceSelectors, NodeSourceSelectors nodeSourceSelectors) {
+    public SourceSelectors(DataSourceSelectors dataSourceSelectors, VertexSourceSelectors vertexSourceSelectors) {
         this.dataSourceSelectors = Optional.of(dataSourceSelectors);
-        this.nodeSourceSelectors = Optional.of(nodeSourceSelectors);
+        this.nodeSourceSelectors = Optional.of(vertexSourceSelectors);
     }
 
     public SourceSelectors(DataSourceSelectors dataSourceSelectors) {
@@ -17,9 +16,9 @@ public final class SourceSelectors {
         this.nodeSourceSelectors = Optional.empty();
     }
 
-    public SourceSelectors(NodeSourceSelectors nodeSourceSelectors) {
+    public SourceSelectors(VertexSourceSelectors vertexSourceSelectors) {
         this.dataSourceSelectors = Optional.empty();
-        this.nodeSourceSelectors = Optional.of(nodeSourceSelectors);
+        this.nodeSourceSelectors = Optional.of(vertexSourceSelectors);
     }
     
 
@@ -27,7 +26,7 @@ public final class SourceSelectors {
         return dataSourceSelectors;
     }
 
-    public Optional<NodeSourceSelectors> getNodeSourceSelectors() {
+    public Optional<VertexSourceSelectors> getNodeSourceSelectors() {
         return nodeSourceSelectors;
     }
 }

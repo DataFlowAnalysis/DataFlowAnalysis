@@ -25,6 +25,8 @@ import org.dataflowanalysis.analysis.pcm.dsl.PCMVertexType;
 import org.dataflowanalysis.analysis.tests.integration.BaseTest;
 import org.dataflowanalysis.analysis.tests.integration.constraint.data.ConstraintData;
 import org.dataflowanalysis.analysis.tests.integration.constraint.data.ConstraintViolations;
+import org.dataflowanalysis.analysis.utils.ParseResult;
+import org.dataflowanalysis.analysis.utils.StringView;
 import org.junit.jupiter.api.Test;
 
 public class DSLResultTest extends BaseTest {
@@ -120,3 +122,4 @@ public class DSLResultTest extends BaseTest {
         violations.forEach(vertex -> logger.trace(vertex.createPrintableNodeInformation()));
         assertEquals(expectedResults.size(), violations.size());
     }
+}

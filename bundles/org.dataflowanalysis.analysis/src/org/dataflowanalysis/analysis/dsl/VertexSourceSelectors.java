@@ -55,6 +55,9 @@ public class VertexSourceSelectors {
             return ParseResult.error("String did not start with " + DSL_KEYWORD);
         }
         string.advance(DSL_KEYWORD.length() + 1);
+        if (string.invalid()) {
+            return ParseResult.error("Unexpected end of input!");
+        }
         logger.info("Parsing: " + string.getString());
         List<AbstractSelector> selectors = new ArrayList<>();
         while (!string.invalid()) {
@@ -69,7 +72,7 @@ public class VertexSourceSelectors {
                 selectors.add(typeSelector.getResult());
                 continue;
             }
-            break;
+            return ParseResult.error("Could not parse vertex source selectors!");
         }
         if (selectors.isEmpty()) {
             return ParseResult.error("Keyword " + DSL_KEYWORD + " is missing any selectors!");

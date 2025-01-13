@@ -60,6 +60,10 @@ public class DataCharacteristicListSelector extends DataSelector {
         return result;
     }
 
+    public boolean isInverted() {
+        return inverted;
+    }
+
     @Override
     public String toString() {
         StringJoiner dataCharacteristicsString = new StringJoiner(DSL_DELIMITER);
@@ -74,16 +78,26 @@ public class DataCharacteristicListSelector extends DataSelector {
     public static ParseResult<DataCharacteristicListSelector> fromString(StringView string, DSLContext context) {
         logger.info("Parsing: " + string.getString());
         boolean inverted = string.getString().startsWith("!");
+        if (inverted) string.advance(1);
         List<CharacteristicsSelectorData> selectors = new ArrayList<>();
         ParseResult<CharacteristicsSelectorData> selectorData = CharacteristicsSelectorData.fromString(string);
-        while (selectorData.successful()) {
+        while (selectorData.successful() && !(string.startsWith(" ") || string.getString().isEmpty())) {
             selectors.add(selectorData.getResult());
+            if (!string.startsWith(DSL_DELIMITER)) {
+                string.retreat(1);
+                return string.expect(DSL_DELIMITER);
+            }
+            string.advance(DSL_DELIMITER.length());
             selectorData = CharacteristicsSelectorData.fromString(string);
         }
-        if (selectors.isEmpty()) {
+        if (selectorData.failed()) {
+            string.retreat(1);
             return ParseResult.error(selectorData.getError());
         }
-        if (inverted) string.advance(1);
+        if (selectors.isEmpty()) {
+            string.retreat(1);
+            return ParseResult.error("Cannot parse data characteristic list selector as the list is empty!");
+        }
         string.advance(1);
         return ParseResult.ok(new DataCharacteristicListSelector(context, selectors, inverted));
     }

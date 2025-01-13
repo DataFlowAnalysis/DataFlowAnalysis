@@ -62,6 +62,10 @@ public class DataCharacteristicsSelector extends DataSelector {
         return result;
     }
 
+    public boolean isInverted() {
+        return inverted;
+    }
+
     @Override
     public String toString() {
         if (this.inverted) {

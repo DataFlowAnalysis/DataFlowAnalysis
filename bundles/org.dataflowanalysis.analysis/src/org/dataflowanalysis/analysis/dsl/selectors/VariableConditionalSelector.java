@@ -41,6 +41,10 @@ public class VariableConditionalSelector implements ConditionalSelector {
 		return this.inverted == variable.get().getPossibleValues().get().isEmpty();
 	}
 
+	public ConstraintVariableReference getConstraintVariable() {
+		return constraintVariable;
+	}
+
 	@Override
 	public String toString() {
 		if (this.inverted) {
@@ -55,6 +59,9 @@ public class VariableConditionalSelector implements ConditionalSelector {
 			return string.expect(DSL_KEYWORD);
 		}
 		string.advance(DSL_KEYWORD.length() + 1);
+		if (string.invalid() || string.empty()) {
+			return ParseResult.error("Cannot parse variable conditional selector from empty/invalid string");
+		}
 		boolean inverted = string.startsWith("!");
 		if (inverted) string.advance(1);
 		ParseResult<ConstraintVariableReference> constraintVariableReference = ConstraintVariableReference.fromString(string);

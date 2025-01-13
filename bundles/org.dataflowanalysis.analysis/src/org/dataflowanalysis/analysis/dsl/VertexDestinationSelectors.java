@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.StringJoiner;
 
 public class VertexDestinationSelectors {
-    private static final String DSL_KEYWORD = "node";
+    private static final String DSL_KEYWORD = "vertex";
     private static final Logger logger = Logger.getLogger(VertexDestinationSelectors.class);
 
     private final List<AbstractSelector> selectors;
@@ -56,6 +56,9 @@ public class VertexDestinationSelectors {
             return ParseResult.error("String did not start with " + DSL_KEYWORD);
         }
         string.advance(DSL_KEYWORD.length() + 1);
+        if (string.invalid()) {
+            return ParseResult.error("Unexpected end of input!");
+        }
         logger.info("Parsing: " + string.getString());
         List<AbstractSelector> selectors = new ArrayList<>();
         while (!string.invalid()) {
@@ -69,7 +72,7 @@ public class VertexDestinationSelectors {
                 selectors.add(typeSelector.getResult());
                 continue;
             }
-            break;
+            return ParseResult.error("Could not parse vertex destination selectors!");
         }
         if (selectors.isEmpty()) {
             return ParseResult.error("Keyword " + DSL_KEYWORD + " is missing any selectors!");

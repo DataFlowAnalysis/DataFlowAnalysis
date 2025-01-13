@@ -22,6 +22,8 @@ import org.dataflowanalysis.analysis.pcm.dsl.PCMVertexType;
 import org.dataflowanalysis.analysis.tests.integration.BaseTest;
 import org.dataflowanalysis.analysis.tests.integration.constraint.data.ConstraintData;
 import org.dataflowanalysis.analysis.tests.integration.constraint.data.ConstraintViolations;
+import org.dataflowanalysis.analysis.utils.ParseResult;
+import org.dataflowanalysis.analysis.utils.StringView;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -76,13 +78,13 @@ public class DSLResultTest extends BaseTest {
         assertEquals(14, queriedVertices.size(), "Flight planner contains 14 usage vertices");
         assertTrue(queriedVertices.get(0) instanceof UserPCMVertex<?>);
         var userPCMVertex = (UserPCMVertex<?>) queriedVertices.get(0);
-		assertEquals("User", userPCMVertex.getReferencedElement().getScenarioBehaviour_AbstractUserAction().getUsageScenario_SenarioBehaviour().getEntityName());
+        assertEquals("User", userPCMVertex.getReferencedElement().getScenarioBehaviour_AbstractUserAction().getUsageScenario_SenarioBehaviour().getEntityName());
     }
 
     @Test
     public void testDataObjects() {
         AnalysisConstraint constraint = new AnalysisConstraint();
-        constraint.addDataSourceSelector(new DataCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("DataSensitivity")), ConstraintVariableReference.ofConstant( List.of("Personal")))));
+        constraint.addDataSourceSelector(new DataCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("DataSensitivity")), ConstraintVariableReference.ofConstant(List.of("Personal")))));
         constraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("ServerLocation")), ConstraintVariableReference.ofConstant(List.of("nonEU")))));
 
         evaluateAnalysis(constraint, internationalOnlineShopAnalysis, ConstraintViolations.internationalOnlineShopViolations);
@@ -91,7 +93,7 @@ public class DSLResultTest extends BaseTest {
     @Test
     public void testStringify() {
         AnalysisConstraint constraint = new AnalysisConstraint();
-        constraint.addDataSourceSelector(new DataCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("DataSensitivity")), ConstraintVariableReference.ofConstant( List.of("Personal")))));
+        constraint.addDataSourceSelector(new DataCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("DataSensitivity")), ConstraintVariableReference.ofConstant(List.of("Personal")))));
         constraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("ServerLocation")), ConstraintVariableReference.ofConstant(List.of("nonEU")))));
         assertEquals("data DataSensitivity.Personal neverFlows vertex ServerLocation.nonEU", constraint.toString());
     }
@@ -115,3 +117,4 @@ public class DSLResultTest extends BaseTest {
         violations.forEach(vertex -> logger.trace(vertex.createPrintableNodeInformation()));
         assertEquals(expectedResults.size(), violations.size());
     }
+}

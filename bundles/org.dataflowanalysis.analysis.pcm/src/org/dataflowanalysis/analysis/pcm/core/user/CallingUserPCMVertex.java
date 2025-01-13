@@ -78,12 +78,6 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
     }
 
     @Override
-    public UUID getUniqueIdentifier() {
-        String uuidString = this.getReferencedElement().getId() + this.isCalling;
-        return UUID.nameUUIDFromBytes(uuidString.getBytes(StandardCharsets.UTF_8));
-    }
-
-    @Override
     public String toString() {
         String calling = isCalling ? "calling" : "returning";
         return String.format("%s / %s (%s, %s))", this.getClass()

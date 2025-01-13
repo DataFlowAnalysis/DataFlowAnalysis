@@ -39,8 +39,6 @@ public abstract class AbstractVertex<T> {
     @Override
     public abstract String toString();
 
-    public abstract UUID getUniqueIdentifier();
-
     /**
      * Sets the propagation result of the Vertex to the given result. This method should only be called once on elements
      * that are not evaluated.

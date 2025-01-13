@@ -82,16 +82,6 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
         this.setPropagationResult(incomingCharacteristics, outgoingDataCharacteristics, vertexCharacteristics);
     }
 
-    @Override
-    public UUID getUniqueIdentifier() {
-        StringBuilder uuidString = new StringBuilder();
-        uuidString.append(this.getReferencedElement().getId());
-        for (var previousElement : this.getPreviousElements()) {
-            uuidString.append(previousElement.getUniqueIdentifier());
-        }
-        return UUID.nameUUIDFromBytes(uuidString.toString().getBytes(StandardCharsets.UTF_8));
-    }
-
     /**
      * Determine node characteristics of the vertex
      * @return Returns a list of all node characteristics that are applied at the vertex

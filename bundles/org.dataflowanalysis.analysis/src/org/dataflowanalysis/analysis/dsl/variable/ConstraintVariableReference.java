@@ -67,8 +67,14 @@ public record ConstraintVariableReference (String name, Optional<List<String>> v
         logger.info("Parsing: " + string);
         stringView.advance(string.length());
         if (string.startsWith(DSL_VARIABLE_SIGN)) {
+            if (string.substring(1).isEmpty()) {
+                return ParseResult.error("Empty variable name!");
+            }
             return ParseResult.ok(ConstraintVariableReference.of(string.substring(1)));
         } else {
+            if (string.isEmpty()) {
+                return ParseResult.error("Constant must be not be empty!");
+            }
             return ParseResult.ok(ConstraintVariableReference.ofConstant(List.of(string)));
         }
     }

@@ -63,7 +63,14 @@ public record ConstraintVariableReference (String name, Optional<List<String>> v
     }
 
     public static ParseResult<ConstraintVariableReference> fromString(StringView stringView) {
-        String string = stringView.getString().split("[ .,()]")[0];
+        if (stringView.invalid() || stringView.empty()) {
+            return ParseResult.error("Cannot create variable: Expected any string!");
+        }
+        String[] split = stringView.getString().split("[ .,()]");
+        if (split.length == 0) {
+            return ParseResult.error("Invalid variable: Expected any string!");
+        }
+        String string = split[0];
         logger.info("Parsing: " + string);
         stringView.advance(string.length());
         if (string.startsWith(DSL_VARIABLE_SIGN)) {

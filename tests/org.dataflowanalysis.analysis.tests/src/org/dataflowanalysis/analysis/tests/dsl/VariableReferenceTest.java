@@ -18,7 +18,7 @@ public class VariableReferenceTest {
     public void shouldParseCorrectly(String variableReference, String expectedVariableName) {
         ParseResult<ConstraintVariableReference> constraintVariableReference = ConstraintVariableReference.fromString(new StringView(variableReference));
         assertTrue(constraintVariableReference.successful());
-        assertEquals(constraintVariableReference.getResult().name(), expectedVariableName);
+        assertEquals(expectedVariableName, constraintVariableReference.getResult().name());
     }
 
     @ParameterizedTest

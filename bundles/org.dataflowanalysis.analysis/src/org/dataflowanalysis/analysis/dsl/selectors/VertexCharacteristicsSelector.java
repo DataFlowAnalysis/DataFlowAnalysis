@@ -83,4 +83,8 @@ public class VertexCharacteristicsSelector extends DataSelector {
         string.advance(1);
         return ParseResult.ok(new VertexCharacteristicsSelector(context, selectorData.getResult(), inverted));
     }
+
+    public boolean isInverted() {
+        return inverted;
+    }
 }

@@ -44,6 +44,14 @@ public class Intersection implements SetOperation {
                 .toList();
     }
 
+    public ConstraintVariableReference getFirstVariable() {
+        return firstVariable;
+    }
+
+    public ConstraintVariableReference getSecondVariable() {
+        return secondVariable;
+    }
+
     @Override
     public String toString() {
         return DSL_KEYWORD + DSL_PAREN_OPEN + firstVariable.toString() + DSL_DELIMITER + secondVariable.toString() + DSL_PAREN_CLOSE;
@@ -75,9 +83,9 @@ public class Intersection implements SetOperation {
         string.advance(DSL_DELIMITER.length());
 
         ParseResult<ConstraintVariableReference> secondConstraintVariableReference = ConstraintVariableReference.fromString(string);
-        if (firstConstraintVariableReference.failed()) {
+        if (secondConstraintVariableReference.failed()) {
             string.retreat(DSL_KEYWORD.length() + DSL_PAREN_OPEN.length() + firstConstraintVariableReference.getResult().toString().length() + DSL_DELIMITER.length());
-            return ParseResult.error(firstConstraintVariableReference.getError());
+            return ParseResult.error(secondConstraintVariableReference.getError());
         }
 
         if (!string.startsWith(DSL_PAREN_CLOSE)) {

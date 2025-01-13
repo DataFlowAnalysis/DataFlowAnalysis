@@ -43,7 +43,8 @@ public class VariableReferenceTest {
         return Stream.of(
                 Arguments.of("$ space"),
                 Arguments.of("$"),
-                Arguments.of("")
+                Arguments.of(""),
+                Arguments.of("!")
         );
     }
 }

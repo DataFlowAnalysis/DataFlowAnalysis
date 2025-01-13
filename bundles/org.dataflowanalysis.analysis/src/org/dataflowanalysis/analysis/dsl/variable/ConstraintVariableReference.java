@@ -82,6 +82,9 @@ public record ConstraintVariableReference (String name, Optional<List<String>> v
             if (string.isEmpty()) {
                 return ParseResult.error("Constant must be not be empty!");
             }
+            if (string.contains("!")) {
+                return ParseResult.error("Constants must not contain \"!\" in their name!");
+            }
             return ParseResult.ok(ConstraintVariableReference.ofConstant(List.of(string)));
         }
     }

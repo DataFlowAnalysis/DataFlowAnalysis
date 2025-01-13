@@ -33,6 +33,10 @@ public class EmptySetOperationConditionalSelector implements ConditionalSelector
         return !result;
     }
 
+    public SetOperation getSetOperation() {
+        return setOperation;
+    }
+
     @Override
     public String toString() {
         return DSL_KEYWORD + " " + setOperation.toString();

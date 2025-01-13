@@ -51,6 +51,7 @@ public class VariableNameSelector extends DataSelector {
             string.retreat(DSL_KEYWORD.length() + 1);
             return ParseResult.error("Invalid variable name in variable name selector!");
         }
+        string.advance(split[0].length());
         string.advance(1);
         return ParseResult.ok(new VariableNameSelector(context, split[0]));
     }

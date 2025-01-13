@@ -84,18 +84,18 @@ public class DataCharacteristicListSelector extends DataSelector {
         while (selectorData.successful() && !(string.startsWith(" ") || string.getString().isEmpty())) {
             selectors.add(selectorData.getResult());
             if (!string.startsWith(DSL_DELIMITER)) {
-                string.retreat(1);
+                if (inverted) string.retreat(1);
                 return string.expect(DSL_DELIMITER);
             }
             string.advance(DSL_DELIMITER.length());
             selectorData = CharacteristicsSelectorData.fromString(string);
         }
         if (selectorData.failed()) {
-            string.retreat(1);
+            if (inverted) string.retreat(1);
             return ParseResult.error(selectorData.getError());
         }
         if (selectors.isEmpty()) {
-            string.retreat(1);
+            if (inverted) string.retreat(1);
             return ParseResult.error("Cannot parse data characteristic list selector as the list is empty!");
         }
         string.advance(1);

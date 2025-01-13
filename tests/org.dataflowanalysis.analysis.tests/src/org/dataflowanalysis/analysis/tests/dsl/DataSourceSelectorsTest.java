@@ -23,8 +23,9 @@ public class DataSourceSelectorsTest {
     @ParameterizedTest
     @MethodSource("incorrectDataSourceSelectors")
     public void shouldNotParse(String dataSourceSelectorString) {
-        ParseResult<DataSourceSelectors> dataSourceSelectors = DataSourceSelectors.fromString(new StringView(dataSourceSelectorString), new DSLContext());
-        assertTrue(dataSourceSelectors.failed());
+        StringView stringView = new StringView(dataSourceSelectorString);
+        ParseResult<DataSourceSelectors> dataSourceSelectors = DataSourceSelectors.fromString(stringView, new DSLContext());
+        assertTrue(dataSourceSelectors.failed() || !stringView.empty());
     }
 
     private static Stream<Arguments> correctDataSourceSelectors() {

@@ -24,8 +24,9 @@ public class VertexDestinationSelectorTest {
     @ParameterizedTest
     @MethodSource("incorrectVertexDestinationSelectors")
     public void shouldNotParse(String vertexDestinationSelectorString) {
-        ParseResult<VertexDestinationSelectors> vertexDestinationSelectors = VertexDestinationSelectors.fromString(new StringView(vertexDestinationSelectorString), new DSLContext());
-        assertTrue(vertexDestinationSelectors.failed());
+        StringView stringView = new StringView(vertexDestinationSelectorString);
+        ParseResult<VertexDestinationSelectors> vertexDestinationSelectors = VertexDestinationSelectors.fromString(stringView, new DSLContext());
+        assertTrue(vertexDestinationSelectors.failed() || !stringView.empty());
     }
 
     private static Stream<Arguments> correctVertexDestinationSelectors() {

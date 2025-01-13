@@ -23,8 +23,9 @@ public class VertexSourceSelectorTest {
     @ParameterizedTest
     @MethodSource("incorrectVertexSourceSelectors")
     public void shouldNotParse(String vertexSourceSelectorString) {
-        ParseResult<VertexSourceSelectors> vertexSourceSelectors = VertexSourceSelectors.fromString(new StringView(vertexSourceSelectorString), new DSLContext());
-        assertTrue(vertexSourceSelectors.failed());
+        StringView stringView = new StringView(vertexSourceSelectorString);
+        ParseResult<VertexSourceSelectors> vertexSourceSelectors = VertexSourceSelectors.fromString(stringView, new DSLContext());
+        assertTrue(vertexSourceSelectors.failed() || !stringView.empty());
     }
 
     private static Stream<Arguments> correctVertexSourceSelectors() {

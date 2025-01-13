@@ -1,6 +1,6 @@
 package org.dataflowanalysis.analysis.tests.dfd;
 
-import static org.dataflowanalysis.analysis.tests.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
+import static org.dataflowanalysis.analysis.tests.integration.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
@@ -28,18 +28,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ResourceProviderTest {
-    DataDictionary dataDictionary;
-    DataFlowDiagram dataFlowDiagram;
-
-    @BeforeEach
-    public void setUp() {
-        final Path minimalDataFlowDiagramPath = Paths.get("models", "DFDTestModels", "BranchingTest.dataflowdiagram");
-        final Path minimalDataDictionaryPath = Paths.get("models", "DFDTestModels", "BranchingTest.datadictionary");
-        final var minimalDataFlowDiagramPathDirect = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "DFDTestModels", "BranchingTest.dataflowdiagram");
-        final var minimalDataDictionaryPathDirect = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "DFDTestModels", "BranchingTest.datadictionary");
-
-        var dfdUri = URI.createPlatformPluginURI(minimalDataFlowDiagramPathDirect.toString(), false);
-        var ddUri = URI.createPlatformPluginURI(minimalDataDictionaryPathDirect.toString(), false);
+     DataDictionary dataDictionary;
+     DataFlowDiagram dataFlowDiagram;
+     
+     @BeforeEach
+     public void setUp() {
+    	 final Path minimalDataFlowDiagramPath = Paths.get("models", "dfd", "Branching", "BranchingTest.dataflowdiagram");
+         final Path minimalDataDictionaryPath = Paths.get("models", "dfd", "Branching", "BranchingTest.datadictionary");
+         final var minimalDataFlowDiagramPathDirect = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "dfd", "Branching", "BranchingTest.dataflowdiagram");
+         final var minimalDataDictionaryPathDirect = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "dfd", "Branching", "BranchingTest.datadictionary");
+         
+         var dfdUri = URI.createPlatformPluginURI(minimalDataFlowDiagramPathDirect.toString(), false);
+         var ddUri = URI.createPlatformPluginURI(minimalDataDictionaryPathDirect.toString(), false);
 
         var dummyToLoadPlugin = new DFDDataFlowAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)

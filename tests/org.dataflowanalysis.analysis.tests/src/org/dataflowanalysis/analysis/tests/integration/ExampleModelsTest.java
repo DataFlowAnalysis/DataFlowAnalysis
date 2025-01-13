@@ -61,14 +61,18 @@ public class ExampleModelsTest {
             assertTrue(violatingVertices.isEmpty(), "Analysis found violating vertices, but none were expected");
         }
         for (ExpectedViolation expectedViolation : exampleModelResult.getExpectedViolations()) {
-            Optional<? extends AbstractVertex<?>> violatingVertex = violatingVertices.stream()
-                    .map(DSLResult::getMatchedVertices)
-                    .flatMap(List::stream)
-                    .filter(expectedViolation::references)
-                    .findAny();
+            Optional<? extends AbstractVertex<?>> violatingVertex = Optional.empty();
+            for (DSLResult violation : violatingVertices) {
+                int flowGraphIndex = flowGraphs.getTransposeFlowGraphs().indexOf(violation.getTransposeFlowGraph());
+                assertTrue(flowGraphIndex != -1);
+                violatingVertex = violation.getMatchedVertices().stream()
+                        .filter(it -> expectedViolation.references(it, flowGraphIndex))
+                        .findAny();
+            }
             if (violatingVertex.isEmpty()) {
-                logger.error(String.format("Could not find vertex with id: %s", expectedViolation.getNodeID()));
-                    fail(String.format("Could not find vertex with id: %s", expectedViolation.getNodeID()));
+                logger.error(String.format("Could not find vertex with id: %s", expectedViolation.getIdentifier()));
+                logger.error(String.format("Found the following violations: %s", violatingVertices));
+                fail(String.format("Could not find vertex with id: %s", expectedViolation.getIdentifier()));
             }
 
             List<ExpectedCharacteristic> missingNodeCharacteristics = expectedViolation.hasNodeCharacteristic(violatingVertex.get().getAllVertexCharacteristics());

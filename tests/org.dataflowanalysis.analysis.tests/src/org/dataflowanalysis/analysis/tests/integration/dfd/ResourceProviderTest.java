@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.tests.dfd;
+package org.dataflowanalysis.analysis.tests.integration.dfd;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.Map;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import static org.dataflowanalysis.analysis.tests.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
+import static org.dataflowanalysis.analysis.tests.integration.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
@@ -33,10 +33,10 @@ public class ResourceProviderTest {
      
      @BeforeEach
      public void setUp() {
-    	 final Path minimalDataFlowDiagramPath = Paths.get("models", "DFDTestModels", "BranchingTest.dataflowdiagram");
-         final Path minimalDataDictionaryPath = Paths.get("models", "DFDTestModels", "BranchingTest.datadictionary");
-         final var minimalDataFlowDiagramPathDirect = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "DFDTestModels", "BranchingTest.dataflowdiagram");
-         final var minimalDataDictionaryPathDirect = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "DFDTestModels", "BranchingTest.datadictionary");
+    	 final Path minimalDataFlowDiagramPath = Paths.get("models", "dfd", "Branching", "BranchingTest.dataflowdiagram");
+         final Path minimalDataDictionaryPath = Paths.get("models", "dfd", "Branching", "BranchingTest.datadictionary");
+         final var minimalDataFlowDiagramPathDirect = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "dfd", "Branching", "BranchingTest.dataflowdiagram");
+         final var minimalDataDictionaryPathDirect = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "dfd", "Branching", "BranchingTest.datadictionary");
          
          var dfdUri = URI.createPlatformPluginURI(minimalDataFlowDiagramPathDirect.toString(), false);
          var ddUri = URI.createPlatformPluginURI(minimalDataDictionaryPathDirect.toString(), false);

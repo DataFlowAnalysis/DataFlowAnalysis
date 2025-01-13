@@ -178,11 +178,6 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     }
 
 
-    @Override
-    public UUID getUniqueIdentifier() {
-        return UUID.nameUUIDFromBytes(this.getReferencedElement().getId().getBytes(StandardCharsets.UTF_8));
-    }
-
     /**
      * Determines whether a vertex is equivalent to another vertex in the context of the PCM model
      * <p/>

@@ -59,20 +59,23 @@ public class ConditionalSelectors {
             return string.expect(DSL_KEYWORD);
         }
         string.advance(DSL_KEYWORD.length() + 1);
+        if (string.invalid()) {
+            return ParseResult.error("Unexpected end of input!");
+        }
         logger.info("Parsing: " + string.getString());
         List<ConditionalSelector> selectors = new ArrayList<>();
         while (!string.invalid()) {
             var selector = VariableConditionalSelector.fromString(string);
             if (selector.successful()) {
                 selectors.add(selector.getResult());
-            } else {
-                var emptySetSelector = EmptySetOperationConditionalSelector.fromString(string);
-                if (emptySetSelector.successful()) {
-                    selectors.add(emptySetSelector.getResult());
-                } else {
-                    break;
-                }
+                continue;
             }
+            var emptySetSelector = EmptySetOperationConditionalSelector.fromString(string);
+            if (emptySetSelector.successful()) {
+                selectors.add(emptySetSelector.getResult());
+                continue;
+            }
+            return ParseResult.error("Could not parse statement into conditional selector!");
         }
         if (selectors.isEmpty()) {
             string.retreat(DSL_KEYWORD.length() + 1);

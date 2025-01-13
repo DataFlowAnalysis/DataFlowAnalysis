@@ -1,7 +1,6 @@
 package org.dataflowanalysis.analysis.tests.dsl;
 
 import org.dataflowanalysis.analysis.dsl.DataSourceSelectors;
-import org.dataflowanalysis.analysis.dsl.VertexSourceSelectors;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;

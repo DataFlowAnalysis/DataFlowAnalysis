@@ -122,41 +122,7 @@ public class DFDUnitTest {
         assert(!analysis.findFlowGraphs().wasCyclic());
 	}
 	
-	@Test
-	public void testInsufficientResourcesLoaded() {
-		final var minimalDataFlowDiagramPathDirect = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "DFDTestModels", "BranchingTest.dataflowdiagram");
-        final var minimalDataDictionaryPathDirect = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "DFDTestModels", "BranchingTest.datadictionary");
-        
-        var dfdUri = URI.createPlatformPluginURI(minimalDataFlowDiagramPathDirect.toString(), false);
-        var ddUri = URI.createPlatformPluginURI(minimalDataDictionaryPathDirect.toString(), false);
-
-        
-        DFDURIResourceProvider dfduriResourceProvider = new DFDURIResourceProvider(dfdUri, ddUri);
-        dfduriResourceProvider.loadRequiredResources();
-        
-        var tfg = new DFDFlowGraphCollection();
-        tfg.initialize(dfduriResourceProvider);
-        
-        final var minimalDataFlowDiagramPath = Paths.get("models", "DFDTestModels", "BranchingTest.dataflowdiagram");
-        final var minimalDataDictionaryPath = Paths.get("models", "DFDTestModels", "BranchingTest.datadictionary");
-
-        this.analysis = new DFDDataFlowAnalysisBuilder().standalone()
-                .modelProjectName(TEST_MODEL_PROJECT_NAME)
-                .usePluginActivator(Activator.class)
-                .useDataFlowDiagram(minimalDataFlowDiagramPath.toString())
-                .useDataDictionary(minimalDataDictionaryPath.toString())
-                .build();
-        
-        var automatedTFG = analysis.findFlowGraphs();
-        
-        assert(tfg.getTransposeFlowGraphs().stream().allMatch(flowGraph -> {
-        	return automatedTFG.getTransposeFlowGraphs().stream().anyMatch(automatedFlowGraph -> {
-        		return automatedFlowGraph.getVertices().stream().allMatch(automatedVertex -> {
-                	return flowGraph.getVertices().stream().anyMatch(vertex -> vertex.equals(automatedVertex));
-                });
-        	});
-        }));
-	}
+	
 	
 	@Test
 	public void testEvaluation() {

@@ -86,4 +86,6 @@ public class DFDSimpleTest {
             System.out.println(exception.getMessage());
             assertEquals("DFD not simple: All outgoing flows from one pin must have the same name", exception.getMessage());
         } 
+        
+        
 }

@@ -2,7 +2,7 @@ package org.dataflowanalysis.analysis.dfd.simple;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -113,7 +113,7 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
     	
     	var outPin = abstractAssignment.getOutputPin();
     	if (outPin == null) return;
-    	if (outgoingLabelPerPin.get(outPin) == null) outgoingLabelPerPin.put(outPin, new HashSet<>());
+    	if (outgoingLabelPerPin.get(outPin) == null) outgoingLabelPerPin.put(outPin, new LinkedHashSet<>());
     	
     	if (abstractAssignment instanceof ForwardingAssignment forwardingAssignment) {
     		outgoingLabelPerPin.get(forwardingAssignment.getOutputPin())
@@ -122,6 +122,7 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
         }else if (abstractAssignment instanceof SetAssignment setAssignment) {
         	outgoingLabelPerPin.get(abstractAssignment.getOutputPin())
             .addAll(setAssignment.getOutputLabels());
+        	System.out.println(setAssignment.getOutputLabels());
         	return;
         }else if (abstractAssignment instanceof UnsetAssignment unsetAssignment) {
         	outgoingLabelPerPin.get(abstractAssignment.getOutputPin())
@@ -130,7 +131,7 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
         } else if (abstractAssignment instanceof Assignment assignment) {
         	if (evaluateTerm(assignment.getTerm(), incomingLabels)) {
         		outgoingLabelPerPin.get(assignment.getOutputPin())
-                    .addAll(assignment.getOutputLabels());
+                    .addAll(assignment.getOutputLabels());        		
         	} else outgoingLabelPerPin.get(assignment.getOutputPin())
             .removeAll(assignment.getOutputLabels());
         }
@@ -145,7 +146,7 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
     private List<DataCharacteristic> createDataCharacteristicsFromLabels(Map<Pin, Set<Label>> pinToLabelMap) {
         return pinToLabelMap.keySet()
                 .stream()
-                .map(pin -> new DataCharacteristic(mapPinToFlow.get(pin).getEntityName(), new ArrayList<CharacteristicValue>(this.getCharacteristicValuesForPin(pin, pinToLabelMap))))
+                .map(pin -> new DataCharacteristic(mapPinToFlow.get(pin).getEntityName(), this.getCharacteristicValuesForPin(pin, pinToLabelMap)))
                 .filter(it -> it.getAllCharacteristics().size() > 0)
                 .toList();
     }
@@ -156,12 +157,12 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
      * @param pinToLabelMap Mapping of a pin to the assigned labels
      * @return Returns a list of characteristic values assigned to the given pin
      */
-    private Set<CharacteristicValue> getCharacteristicValuesForPin(Pin pin, Map<Pin, Set<Label>> pinToLabelMap) {
+    private List<CharacteristicValue> getCharacteristicValuesForPin(Pin pin, Map<Pin, Set<Label>> pinToLabelMap) {
         return pinToLabelMap.get(pin)
                 .stream()
                 .map(label -> new DFDCharacteristicValue((LabelType) label.eContainer(), label))
                 .filter(distinctByKey(CharacteristicValue::getValueId))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
     
 
@@ -208,34 +209,12 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
         return false;
     }
 
-    /**
-     * Goes through the previous vertices and replaces equal vertices by the same vertex
-     * @param vertices Set of unique vertices that are used to replace equal vertices
-     */
-    public void unify(Set<DFDSimpleVertex> vertices) {  
-    	List<DFDSimpleVertex> toRemove = new ArrayList<>();
-    	List<DFDSimpleVertex> toAdd = new ArrayList<>();
-    	previousVertices.forEach(it -> {
-    		for (var vertex : vertices) {
-    			if (it.equals(vertex)) {
-    				toRemove.add(it);
-    				toAdd.add(vertex);
-    			}
-    		}
-    	});
-    	previousVertices.removeAll(toRemove);
-    	previousVertices.addAll(toAdd);
-    	vertices.addAll(previousVertices);
-    	
-        this.getPreviousElements()
-        .forEach(vertex -> ((DFDSimpleVertex)vertex).unify(vertices));
-    }
 
     /**
      * Creates a clone of the vertex without considering data characteristics nor vertex characteristics
      */
     public DFDSimpleVertex copy(Map<DFDSimpleVertex, DFDSimpleVertex> mapping) {
-        Set<DFDSimpleVertex> previousVerticesNew = new HashSet<>();
+        Set<DFDSimpleVertex> previousVerticesNew = new LinkedHashSet<>();
         this.previousVertices
                 .forEach(it -> {
                 	var newVertice =  mapping.getOrDefault(it, it.copy(mapping));
@@ -255,6 +234,15 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
     @Override
     public List<AbstractVertex<Node>> getPreviousElements() {    	
        return previousVertices.stream().map(it -> (AbstractVertex<Node>)it).toList();
+    }
+    
+    public boolean equalsSemantically(DFDSimpleVertex other) {
+    	if (this.equals(other)) return true;
+    	if (!this.mapPinToFlow.equals(other.getPinFlowMap())) return false;
+    	if (this.previousVertices.size() == 0 && other.previousVertices.size() == 0) return true;
+    	return this.previousVertices.stream().allMatch(previousVertex -> {
+    		return other.getPreviousElements().stream().map(DFDSimpleVertex.class::cast).anyMatch(it -> it.equalsSemantically(previousVertex));
+    	});
     }
 
     

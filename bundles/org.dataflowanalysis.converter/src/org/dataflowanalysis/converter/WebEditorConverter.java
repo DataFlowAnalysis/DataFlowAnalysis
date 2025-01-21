@@ -123,15 +123,16 @@ public class WebEditorConverter extends Converter{
             String name = child.text();
 
             if (type[0].equals("node")) {
-                Node node = switch (type[1]) {
-                    case "function" -> dfdFactory.createProcess();
-                    case "storage" -> dfdFactory.createStore();
-                    case "input-output" -> dfdFactory.createExternal();
+                Optional<Node> nodeOptional = switch (type[1]) {
+                    case "function" -> Optional.of(dfdFactory.createProcess());
+                    case "storage" -> Optional.of(dfdFactory.createStore());
+                    case "input-output" -> Optional.of(dfdFactory.createExternal());
                     default -> {
                         logger.error("Unrecognized node type: " + type[1]);
-                        continue;
+                        yield Optional.empty();
                     }
                 };
+                Node node = nodeOptional.get();
 
                 node.setEntityName(name);
                 node.setId(child.id());

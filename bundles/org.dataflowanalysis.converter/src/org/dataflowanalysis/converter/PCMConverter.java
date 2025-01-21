@@ -17,6 +17,7 @@ import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
+import org.dataflowanalysis.analysis.pcm.core.PCMTransposeFlowGraph;
 import org.dataflowanalysis.analysis.pcm.core.seff.CallingSEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.seff.SEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
@@ -65,6 +66,7 @@ import org.palladiosimulator.pcm.seff.SetVariableAction;
 public class PCMConverter extends Converter {
 
 	private final Map<AbstractPCMVertex<?>, Node> dfdNodeMap = new HashMap<>();
+	private final Map<AbstractPCMVertex<?>, AbstractTransposeFlowGraph> pcmFlowMap = new HashMap<>();
 	private DataDictionary dataDictionary;
 	private DataFlowDiagram dataFlowDiagram;
 	private Set<String> takenIds = new HashSet<>();
@@ -120,6 +122,10 @@ public class PCMConverter extends Converter {
 		return processPalladio(flowGraph);
 	}
 
+	public DataFlowDiagramAndDictionary pcmToDFD(FlowGraphCollection flowGraph) {
+		return processPalladio(flowGraph);
+	}
+
 	/**
 	 * This method compute the complete name of a PCM vertex depending on its type
 	 * 
@@ -127,6 +133,20 @@ public class PCMConverter extends Converter {
 	 * @return String containing the complete name
 	 */
 	public static String computeCompleteName(AbstractPCMVertex<?> vertex) {
+		if (vertex instanceof CallingSEFFPCMVertex cast) {
+			if (cast.isCalling()) {
+				return "Calling " + cast.getReferencedElement().getEntityName();
+			} else {
+				return "Returning " + cast.getReferencedElement().getEntityName();
+			}
+		}
+		if (vertex instanceof CallingUserPCMVertex cast) {
+			if (cast.isCalling()) {
+				return "Calling " + cast.getReferencedElement().getEntityName();
+			} else {
+				return "Returning " + cast.getReferencedElement().getEntityName();
+			}
+		}
 		if (vertex instanceof SEFFPCMVertex<?> cast) {
 			String elementName = cast.getReferencedElement().getEntityName();
 			if (cast.getReferencedElement() instanceof StartAction) {
@@ -161,12 +181,6 @@ public class PCMConverter extends Converter {
 			}
 			return cast.getReferencedElement().getEntityName();
 		}
-		if (vertex instanceof CallingSEFFPCMVertex cast) {
-			return cast.getReferencedElement().getEntityName();
-		}
-		if (vertex instanceof CallingUserPCMVertex cast) {
-			return cast.getReferencedElement().getEntityName();
-		}
 		return vertex.getReferencedElement().getEntityName();
 	}
 
@@ -175,7 +189,7 @@ public class PCMConverter extends Converter {
 		dataFlowDiagram = dataflowdiagramFactory.eINSTANCE.createDataFlowDiagram();
 		for (AbstractTransposeFlowGraph transposeFlowGraph : flowGraphCollection.getTransposeFlowGraphs()) {
 			transposeFlowGraph.getVertices().stream().filter(it -> it instanceof AbstractPCMVertex<?>)
-					.map(it -> (AbstractPCMVertex<?>) it).forEach(it -> processVertex(it));
+					.map(it -> (AbstractPCMVertex<?>) it).forEach(it -> processVertex(it, transposeFlowGraph));
 		}
 		for (AbstractTransposeFlowGraph transposeFlowGraph : flowGraphCollection.getTransposeFlowGraphs()) {
 			transposeFlowGraph.getVertices().stream().filter(it -> it instanceof AbstractPCMVertex<?>)
@@ -201,7 +215,8 @@ public class PCMConverter extends Converter {
 	 * 
 	 * @param pcmVertex PCm Vertex to be converted
 	 */
-	private void processVertex(AbstractPCMVertex<? extends Entity> pcmVertex) {
+	private void processVertex(AbstractPCMVertex<? extends Entity> pcmVertex, AbstractTransposeFlowGraph transposeFlowGraph) {
+		this.pcmFlowMap.put(pcmVertex, transposeFlowGraph);
 		var node = getDFDNode(pcmVertex);
 		createPinsFromVertex(node, pcmVertex);
 	}
@@ -827,5 +842,13 @@ public class PCMConverter extends Converter {
 	 */
 	public org.dataflowanalysis.dfd.datadictionary.Term parseTerm(Term rightHandSide, DataDictionary dataDictionary) {
 		return this.parseTerm(rightHandSide, dataDictionary, null);
+	}
+
+	public Map<AbstractPCMVertex<?>, Node> getDfdNodeMap() {
+		return dfdNodeMap;
+	}
+
+	public Map<AbstractPCMVertex<?>, AbstractTransposeFlowGraph> getPcmFlowMap() {
+		return pcmFlowMap;
 	}
 }

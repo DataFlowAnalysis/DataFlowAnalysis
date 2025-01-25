@@ -189,7 +189,7 @@ public class AnalysisConstraint {
         return ParseResult.ok(new AnalysisConstraint(vertexSourceSelectors, dataSourceSelectors, vertexDestinationSelectors, conditionalSelectors, context));
     }
 
-    public static ParseResult<SourceSelectors> parseSourceSelector(StringView string, DSLContext context) {
+    private static ParseResult<SourceSelectors> parseSourceSelector(StringView string, DSLContext context) {
         ParseResult<DataSourceSelectors> dataSourceSelector = DataSourceSelectors.fromString(string, context);
         ParseResult<VertexSourceSelectors> nodeSourceSelector;
         if (dataSourceSelector.successful()) {

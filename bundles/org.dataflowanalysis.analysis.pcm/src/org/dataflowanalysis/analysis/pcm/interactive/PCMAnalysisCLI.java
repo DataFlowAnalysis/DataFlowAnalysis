@@ -15,9 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * This class is responsible for the interaction with the analysis via a command line interface (CLI)
+ */
 public class PCMAnalysisCLI {
     private static final Logger logger = Logger.getLogger(PCMAnalysisCLI.class);
+    private static final String INPUT_INDICATOR = "> ";
 
+    /**
+     * Main entry point of the pcm analysis command line interface
+     * @param args Arguments passed to the program via the command line call
+     */
     public static void main(String[] args) {
         if (args.length != 0 && args.length != 4) {
             logger.error("Please provide either no arguments, or a path to a .usagemodel, .allocation and .nodecharacteristics file and a constraint!");
@@ -66,16 +74,34 @@ public class PCMAnalysisCLI {
         System.exit(0);
     }
 
+    /**
+     * Create a confidentiality analysis using the provided scanner input
+     * @param scanner Scanner that provides the expected input file
+     * @return Returns a confidentiality analysis with the usage model, allocation model and node characteristics model provided by the scanner
+     */
     private static PCMDataFlowConfidentialityAnalysis createAnalysisInteractive(Scanner scanner) {
-        System.out.print("Please enter a path to a .usagemodel file: ");
+        System.out.println("Please enter a path to a .usagemodel file: ");
+        System.out.print(INPUT_INDICATOR);
         String usageModelPath = scanner.nextLine();
-        System.out.print("Please enter a path to a .allocation file: ");
+
+        System.out.println("Please enter a path to a .allocation file: ");
+        System.out.print(INPUT_INDICATOR);
         String allocationModelPath = scanner.nextLine();
-        System.out.print("Please enter a path to a .nodecharacteristics file: ");
+
+        System.out.println("Please enter a path to a .nodecharacteristics file: ");
+        System.out.print(INPUT_INDICATOR);
         String nodecharacteristicsModelPath = scanner.nextLine();
+
         return createAnalysis(usageModelPath, allocationModelPath, nodecharacteristicsModelPath);
     }
 
+    /**
+     * Creates a new confidentiality analysis using the provided paths
+     * @param usageModelPath Path to the usage model
+     * @param allocationModelPath Path to the allocation model
+     * @param nodecharacteristicsModelPath Path to the node characteristics model
+     * @return Returns a confidentiality analysis using the provided model paths
+     */
     private static PCMDataFlowConfidentialityAnalysis createAnalysis(String usageModelPath, String allocationModelPath, String nodecharacteristicsModelPath) {
         return new PCMDataFlowConfidentialityAnalysisBuilder()
                 .standalone()
@@ -85,18 +111,30 @@ public class PCMAnalysisCLI {
                 .build();
     }
 
+    /**
+     * Creates a list of constraints from the provided strings on the scanner
+     * @param scanner Scanner that provides constraints on each new line
+     * @return Returns a list containing at least one analysis constraint
+     */
     private static List<AnalysisConstraint> createConstraintInteractive(Scanner scanner) {
         List<AnalysisConstraint> constraints = new ArrayList<>();
-        System.out.print("Please enter constraints: ");
+        System.out.println("Please enter constraints: ");
+        System.out.print(INPUT_INDICATOR);
         String constraintString = scanner.nextLine();
         while (!constraintString.isEmpty()) {
             constraints.add(createConstraint(constraintString));
-            System.out.print("Please enter constraints (end with empty line): ");
+            System.out.println("Please enter constraints (end with empty line): ");
+            System.out.print(INPUT_INDICATOR);
             constraintString = scanner.nextLine();
         }
         return constraints;
     }
 
+    /**
+     * Creates a list of constraints from the provided file path
+     * @param fileName Path to the file containing analysis constraints
+     * @return Returns a list containing all constraints read from the provided input file
+     */
     private static List<AnalysisConstraint> createConstraintsFromFile(String fileName) {
         List<AnalysisConstraint> constraints = new ArrayList<>();
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
@@ -118,6 +156,11 @@ public class PCMAnalysisCLI {
         return constraints;
     }
 
+    /**
+     * Creates a constraint using the given constraint in string form
+     * @param constraintString Constraint in string form
+     * @return Returns an analysis constraint parsed from the given string
+     */
     private static AnalysisConstraint createConstraint(String constraintString) {
         var parseResult = AnalysisConstraint.fromString(new StringView(constraintString));
         if (parseResult.failed()) {

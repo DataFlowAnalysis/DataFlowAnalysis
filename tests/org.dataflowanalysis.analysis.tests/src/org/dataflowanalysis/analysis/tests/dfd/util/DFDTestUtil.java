@@ -1,0 +1,158 @@
+package org.dataflowanalysis.analysis.tests.dfd.util;
+
+import java.util.List;
+
+import org.dataflowanalysis.dfd.datadictionary.AND;
+import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
+import org.dataflowanalysis.dfd.datadictionary.Assignment;
+import org.dataflowanalysis.dfd.datadictionary.Behavior;
+import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
+import org.dataflowanalysis.dfd.datadictionary.ForwardingAssignment;
+import org.dataflowanalysis.dfd.datadictionary.Label;
+import org.dataflowanalysis.dfd.datadictionary.LabelReference;
+import org.dataflowanalysis.dfd.datadictionary.LabelType;
+import org.dataflowanalysis.dfd.datadictionary.NOT;
+import org.dataflowanalysis.dfd.datadictionary.OR;
+import org.dataflowanalysis.dfd.datadictionary.Pin;
+import org.dataflowanalysis.dfd.datadictionary.SetAssignment;
+import org.dataflowanalysis.dfd.datadictionary.TRUE;
+import org.dataflowanalysis.dfd.datadictionary.Term;
+import org.dataflowanalysis.dfd.datadictionary.UnsetAssignment;
+import org.dataflowanalysis.dfd.datadictionary.datadictionaryFactory;
+import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
+import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
+import org.dataflowanalysis.dfd.dataflowdiagram.Node;
+import org.dataflowanalysis.dfd.dataflowdiagram.dataflowdiagramFactory;
+
+public class DFDTestUtil {
+	private static final dataflowdiagramFactory dfdFactory = dataflowdiagramFactory.eINSTANCE;
+	private static final datadictionaryFactory ddFactory = datadictionaryFactory.eINSTANCE;
+	
+	public static DataFlowDiagram createDataFlowDiagram() {
+		return dfdFactory.createDataFlowDiagram();
+	}
+	
+	public static DataDictionary createDataDictionary() {
+		return ddFactory.createDataDictionary();
+	}
+		
+    
+    private static void createBasicDFDandDD(DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary) {  	
+    	Node a = createNode("a", dataFlowDiagram, dataDictionary);
+		Node b = createNode("b", dataFlowDiagram, dataDictionary);
+		Node c = createNode("c", dataFlowDiagram, dataDictionary);
+		Node d = createNode("d", dataFlowDiagram, dataDictionary);
+		Node e = createNode("e", dataFlowDiagram, dataDictionary);		
+		
+		createFlow(a, b, null, null, "a2b");
+		createFlow(b, c, null, null, "b2c");
+		createFlow(c, d, null, null, "c2d");
+		createFlow(d, e, null, null, "d2e");
+		
+		createAndAddLabelTypeAndLabel(dataDictionary, null, null);
+		createAndAddLabelTypeAndLabel(dataDictionary, null, null);
+		
+		Label label1 = dataDictionary.getLabelTypes().get(0).getLabel().get(0);
+		Label label2 = dataDictionary.getLabelTypes().get(1).getLabel().get(0);
+		
+		createAndAddAssignment(a, null, null, List.of(label1, label2), null, SetAssignment.class);
+		createAndAddAssignment(b, null, null, null, null, ForwardingAssignment.class);
+		createAndAddAssignment(b, null, null, List.of(label2), null, UnsetAssignment.class);
+		
+		AND term = ddFactory.createAND();
+		OR or = ddFactory.createOR();
+		TRUE trueTerm = ddFactory.createTRUE();
+		NOT not = ddFactory.createNOT();
+		
+		not.setNegatedTerm(ddFactory.createTRUE());
+		or.getTerms().add(trueTerm);
+		or.getTerms().add(not);
+		term.getTerms().add(or);
+		
+		LabelReference labelReference = ddFactory.createLabelReference();
+		labelReference.setLabel(label1);
+		
+		term.getTerms().add(labelReference);
+		
+		createAndAddAssignment(c, null, null, List.of(label2), term, Assignment.class);
+		
+		OR term2 = ddFactory.createOR();
+		NOT not2 = ddFactory.createNOT();
+		not2.setNegatedTerm(ddFactory.createTRUE());
+		term2.getTerms().add(not2);
+
+		LabelReference labelReference2 = ddFactory.createLabelReference();
+		labelReference2.setLabel(label1);
+		
+		term2.getTerms().add(labelReference2);
+		
+		createAndAddAssignment(d, null, null, List.of(label2), term2, Assignment.class);
+	}
+    
+    public static void createAndAddLabelTypeAndLabel(DataDictionary dataDictionary, String typeName, String valueName) {
+		LabelType type = ddFactory.createLabelType();
+		type.setEntityName(typeName == null ? "type" + dataDictionary.getLabelTypes().size() : typeName);
+		dataDictionary.getLabelTypes().add(type);
+		
+		Label label = ddFactory.createLabel();
+		label.setEntityName(valueName == null ? "value" + dataDictionary.getLabelTypes().size() : valueName);
+		type.getLabel().add(label);		
+	}
+    
+    public static void createAndAddAssignment(Node node, List<Pin> inPins, Pin outPin, List<Label> label, Term term, Class<? extends AbstractAssignment> assignmentType) {
+		AbstractAssignment assignment;
+		
+		if (assignmentType.equals(ForwardingAssignment.class)) {
+			assignment = ddFactory.createForwardingAssignment();
+			((ForwardingAssignment)assignment).getInputPins().addAll(inPins == null ? node.getBehavior().getInPin() : inPins);
+		} else if (assignmentType.equals(SetAssignment.class)) {
+			assignment = ddFactory.createSetAssignment();
+			((SetAssignment)assignment).getOutputLabels().addAll(label);
+		} else if (assignmentType.equals(UnsetAssignment.class)) {
+			assignment = ddFactory.createUnsetAssignment();
+			((UnsetAssignment)assignment).getOutputLabels().addAll(label);
+		} else if (assignmentType.equals(Assignment.class)) {
+			assignment = ddFactory.createAssignment();
+			((Assignment)assignment).getOutputLabels().addAll(label);
+			((Assignment)assignment).getInputPins().addAll(inPins == null ? node.getBehavior().getInPin() : inPins);
+			((Assignment)assignment).setTerm(term);
+		} else {
+			throw new IllegalArgumentException();
+		}
+		
+		assignment.setOutputPin(outPin == null ? node.getBehavior().getOutPin().get(0) : outPin);
+		node.getBehavior().getAssignment().add(assignment);
+	}
+	
+	public static Node createNode(String name, DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary) {
+    	Node node = dfdFactory.createProcess();
+    	node.setEntityName(name);
+    	Behavior behaviour = ddFactory.createBehavior();
+    	behaviour.setEntityName(name + "_behaviour");
+    	node.setBehavior(behaviour);
+    	dataFlowDiagram.getNodes().add(node);
+    	dataDictionary.getBehavior().add(behaviour);
+    	return node;
+	}
+	    
+    public static Flow createFlow(Node sourceNode, Node destinationNode, Pin sourcePin, Pin destinationPin, String name) {
+    	Flow flow = dfdFactory.createFlow();
+    	flow.setDestinationNode(destinationNode);
+    	flow.setSourceNode(sourceNode);
+    	if (sourcePin == null) {
+    		sourcePin = ddFactory.createPin();
+    		sourcePin.setEntityName(sourceNode.getEntityName() + "_out_" + sourceNode.getBehavior().getOutPin().size());
+    		sourceNode.getBehavior().getOutPin().add(sourcePin);
+    	}
+    	if (destinationPin == null) {
+    		destinationPin = ddFactory.createPin();
+    		destinationPin.setEntityName(destinationNode.getEntityName() + "_in_" + destinationNode.getBehavior().getInPin().size());
+    		destinationNode.getBehavior().getInPin().add(destinationPin);
+    	}
+    	flow.setDestinationPin(destinationPin);
+    	flow.setSourcePin(sourcePin);
+    	flow.setEntityName(name);
+    	((DataFlowDiagram)sourceNode.eContainer()).getFlows().add(flow);
+    	return flow;
+    }
+}

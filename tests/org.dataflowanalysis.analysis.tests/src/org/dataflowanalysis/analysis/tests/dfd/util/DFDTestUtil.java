@@ -1,7 +1,11 @@
 package org.dataflowanalysis.analysis.tests.dfd.util;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.dfd.core.DFDCharacteristicValue;
 import org.dataflowanalysis.dfd.datadictionary.AND;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Assignment;
@@ -23,6 +27,7 @@ import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.dataflowanalysis.dfd.dataflowdiagram.dataflowdiagramFactory;
+import tools.mdsd.modelingfoundations.identifier.Entity;
 
 public class DFDTestUtil {
 	private static final dataflowdiagramFactory dfdFactory = dataflowdiagramFactory.eINSTANCE;
@@ -37,20 +42,28 @@ public class DFDTestUtil {
 	}
 		
     
-    private static void createBasicDFDandDD(DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary) {  	
+    public static Map<String, Entity> createBasicDFDandDD(DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary) {  	
+    	Map<String, Entity> mapNameToEntity = new HashMap<>();
+    	
     	Node a = createNode("a", dataFlowDiagram, dataDictionary);
 		Node b = createNode("b", dataFlowDiagram, dataDictionary);
 		Node c = createNode("c", dataFlowDiagram, dataDictionary);
 		Node d = createNode("d", dataFlowDiagram, dataDictionary);
-		Node e = createNode("e", dataFlowDiagram, dataDictionary);		
+		Node e = createNode("e", dataFlowDiagram, dataDictionary);	
+		
+		dataFlowDiagram.getNodes().forEach(it -> mapNameToEntity.put(it.getEntityName(), it));
 		
 		createFlow(a, b, null, null, "a2b");
 		createFlow(b, c, null, null, "b2c");
 		createFlow(c, d, null, null, "c2d");
 		createFlow(d, e, null, null, "d2e");
 		
+		dataFlowDiagram.getFlows().forEach(it -> mapNameToEntity.put(it.getEntityName(), it));
+		
 		createAndAddLabelTypeAndLabel(dataDictionary, null, null);
 		createAndAddLabelTypeAndLabel(dataDictionary, null, null);
+		
+		dataDictionary.getLabelTypes().stream().flatMap(type -> type.getLabel().stream()).forEach(it -> mapNameToEntity.put(it.getEntityName(), it));
 		
 		Label label1 = dataDictionary.getLabelTypes().get(0).getLabel().get(0);
 		Label label2 = dataDictionary.getLabelTypes().get(1).getLabel().get(0);
@@ -87,6 +100,7 @@ public class DFDTestUtil {
 		term2.getTerms().add(labelReference2);
 		
 		createAndAddAssignment(d, null, null, List.of(label2), term2, Assignment.class);
+		return mapNameToEntity;
 	}
     
     public static void createAndAddLabelTypeAndLabel(DataDictionary dataDictionary, String typeName, String valueName) {
@@ -95,7 +109,7 @@ public class DFDTestUtil {
 		dataDictionary.getLabelTypes().add(type);
 		
 		Label label = ddFactory.createLabel();
-		label.setEntityName(valueName == null ? "value" + dataDictionary.getLabelTypes().size() : valueName);
+		label.setEntityName(valueName == null ? "label" + dataDictionary.getLabelTypes().size() : valueName);
 		type.getLabel().add(label);		
 	}
     
@@ -155,4 +169,12 @@ public class DFDTestUtil {
     	((DataFlowDiagram)sourceNode.eContainer()).getFlows().add(flow);
     	return flow;
     }
+    
+    public static List<Label> getAllIncomingLabel(AbstractVertex<?> vertex) {
+		return vertex.getAllIncomingDataCharacteristics().stream().flatMap(it -> it.getAllCharacteristics().stream()).map(DFDCharacteristicValue.class::cast).map(it -> it.getLabel()).toList();
+	}
+	
+	public static List<Label> getAllOutgoingLabel(AbstractVertex<?> vertex) {
+		return vertex.getAllOutgoingDataCharacteristics().stream().flatMap(it -> it.getAllCharacteristics().stream()).map(DFDCharacteristicValue.class::cast).map(it -> it.getLabel()).toList();
+	}
 }

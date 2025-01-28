@@ -21,6 +21,9 @@ public class DFDSimpleTransposeFlowGraphFinderTest {
 		dataDictionary = DFDTestUtil.createDataDictionary();
 	}
 	
+	/**
+	 * Tests equivalence of copied TFG
+	 */
 	@Test
 	public void testCopying() {
 		Node a = DFDTestUtil.createNode("a", dataFlowDiagram, dataDictionary);

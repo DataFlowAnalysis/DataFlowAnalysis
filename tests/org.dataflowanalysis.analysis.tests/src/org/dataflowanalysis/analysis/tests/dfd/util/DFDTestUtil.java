@@ -33,15 +33,28 @@ public class DFDTestUtil {
 	private static final dataflowdiagramFactory dfdFactory = dataflowdiagramFactory.eINSTANCE;
 	private static final datadictionaryFactory ddFactory = datadictionaryFactory.eINSTANCE;
 	
+	/**
+	 * Creates and returns a new data flow diagram
+	 * @return data flow diagram
+	 */
 	public static DataFlowDiagram createDataFlowDiagram() {
 		return dfdFactory.createDataFlowDiagram();
 	}
 	
+	/**
+	 * Creates and returns a new data dictionary
+	 * @return data dictionary
+	 */
 	public static DataDictionary createDataDictionary() {
 		return ddFactory.createDataDictionary();
 	}
 		
-    
+    /**
+     * Creates a basic DFD containing all Assignment and Term types and returns a map for easier access to elements
+     * @param dataFlowDiagram Container to be filled
+     * @param dataDictionary Container to be filled
+     * @return Map mapping entity names to nodes, flows and labels
+     */
     public static Map<String, Entity> createBasicDFDandDD(DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary) {  	
     	Map<String, Entity> mapNameToEntity = new HashMap<>();
     	
@@ -103,6 +116,12 @@ public class DFDTestUtil {
 		return mapNameToEntity;
 	}
     
+    /**
+     * Creates a new label type and label and adds it to the datadictionary
+     * @param dataDictionary Container for new label type
+     * @param typeName Name of the new label type, or null for typeX (where X-1 equals number of existing types) 
+     * @param valueName Name of the new label, or null for valueX 
+     */
     public static void createAndAddLabelTypeAndLabel(DataDictionary dataDictionary, String typeName, String valueName) {
 		LabelType type = ddFactory.createLabelType();
 		type.setEntityName(typeName == null ? "type" + dataDictionary.getLabelTypes().size() : typeName);
@@ -113,6 +132,15 @@ public class DFDTestUtil {
 		type.getLabel().add(label);		
 	}
     
+    /**
+     * Creates a new assignment for the behavior of the node
+     * @param node Node for which the assignment is created
+     * @param inPins Required in pins, or null for all existing in pins
+     * @param outPin Out pin, or null for any outPin
+     * @param label List of labels the assignment passes if required
+     * @param term Term for Assignment (non abstract) if required
+     * @param assignmentType Type of assignment to be created
+     */
     public static void createAndAddAssignment(Node node, List<Pin> inPins, Pin outPin, List<Label> label, Term term, Class<? extends AbstractAssignment> assignmentType) {
 		AbstractAssignment assignment;
 		
@@ -138,6 +166,13 @@ public class DFDTestUtil {
 		node.getBehavior().getAssignment().add(assignment);
 	}
 	
+    /**
+     * Creates a Node with behavior and adds both to the containers
+     * @param name Name of the new node
+     * @param dataFlowDiagram Container for new node
+     * @param dataDictionary Container for new behavior
+     * @return created Node
+     */
 	public static Node createNode(String name, DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary) {
     	Node node = dfdFactory.createProcess();
     	node.setEntityName(name);
@@ -149,6 +184,15 @@ public class DFDTestUtil {
     	return node;
 	}
 	    
+	/**
+	 * Creates a Flow and if required the in/out pins for the flow and adds them to the containers
+	 * @param sourceNode Source node of the flow
+	 * @param destinationNode Destination node of the flow
+	 * @param sourcePin Source Pin, or null to create a new one
+	 * @param destinationPin Destination Pin, or null to create a new one
+	 * @param name Name of the new flow
+	 * @return created flow
+	 */
     public static Flow createFlow(Node sourceNode, Node destinationNode, Pin sourcePin, Pin destinationPin, String name) {
     	Flow flow = dfdFactory.createFlow();
     	flow.setDestinationNode(destinationNode);
@@ -170,10 +214,20 @@ public class DFDTestUtil {
     	return flow;
     }
     
+    /**
+     * Gets all incoming labels on a DFDVertex or DFDSimpleVertex
+     * @param vertex DFDVertex or DFDSimpleVertex
+     * @return all incoming Labels
+     */
     public static List<Label> getAllIncomingLabel(AbstractVertex<?> vertex) {
 		return vertex.getAllIncomingDataCharacteristics().stream().flatMap(it -> it.getAllCharacteristics().stream()).map(DFDCharacteristicValue.class::cast).map(it -> it.getLabel()).toList();
 	}
 	
+    /**
+     * Gets all outgoing labels on a DFDVertex or DFDSimpleVertex
+     * @param vertex DFDVertex or DFDSimpleVertex
+     * @return all outgoing Labels
+     */
 	public static List<Label> getAllOutgoingLabel(AbstractVertex<?> vertex) {
 		return vertex.getAllOutgoingDataCharacteristics().stream().flatMap(it -> it.getAllCharacteristics().stream()).map(DFDCharacteristicValue.class::cast).map(it -> it.getLabel()).toList();
 	}

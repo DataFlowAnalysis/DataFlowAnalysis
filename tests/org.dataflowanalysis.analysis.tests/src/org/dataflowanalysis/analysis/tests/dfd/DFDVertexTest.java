@@ -19,6 +19,10 @@ import org.junit.jupiter.api.Test;
 import tools.mdsd.modelingfoundations.identifier.Entity;
 
 public class DFDVertexTest {
+	/**
+	 * Gets a basic DFD from DFDTestUtils and then manually builds and analyzes Vertices without a TFG
+	 * Asserts correct evaluation and equivalence with Automated analysis
+	 */
 	@Test
 	public void testEvaluation() {
 		DataFlowDiagram dataFlowDiagram = DFDTestUtil.createDataFlowDiagram();
@@ -44,9 +48,9 @@ public class DFDVertexTest {
 		
 		assertEquals(DFDTestUtil.getAllOutgoingLabel(aVertex), List.of(label1, label2));
 		assertEquals(DFDTestUtil.getAllIncomingLabel(bVertex), List.of(label1, label2));
-		assertEquals(DFDTestUtil.getAllOutgoingLabel(bVertex),  List.of(label1));
-		assertEquals(DFDTestUtil.getAllIncomingLabel(cVertex),  List.of(label1));
-		assertEquals(DFDTestUtil.getAllOutgoingLabel(cVertex),  List.of(label2));
+		assertEquals(DFDTestUtil.getAllOutgoingLabel(bVertex), List.of(label1));
+		assertEquals(DFDTestUtil.getAllIncomingLabel(cVertex), List.of(label1));
+		assertEquals(DFDTestUtil.getAllOutgoingLabel(cVertex), List.of(label2));
 		assertEquals(DFDTestUtil.getAllIncomingLabel(dVertex), List.of(label2));
 		assertEquals(DFDTestUtil.getAllOutgoingLabel(dVertex), List.of());
 		assertEquals(DFDTestUtil.getAllIncomingLabel(eVertex), List.of());

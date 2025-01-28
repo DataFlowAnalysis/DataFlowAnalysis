@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Test;
 public class DFDTransposeFlowGraphFinderTest {
 	DFDConfidentialityAnalysis analysis;	
 	
+	/**
+	 * Tests equivalence of copied TFGs
+	 */
 	@Test
 	public void testTFGCopy() {
 		final var minimalDataFlowDiagramPath = Paths.get("models", "DFDTestModels", "BranchingTest.dataflowdiagram");
@@ -34,6 +37,9 @@ public class DFDTransposeFlowGraphFinderTest {
         }));
 	}
 	
+	/**
+	 * Tests correct detection of cyclic DFDs
+	 */
 	@Test
 	public void testCyclicDetection() {
 		final var loopDataFlowDiagramPath = Paths.get("models", "simpleLoopDFD", "loopDFD.dataflowdiagram");

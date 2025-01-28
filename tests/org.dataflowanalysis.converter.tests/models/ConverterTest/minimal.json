@@ -5,19 +5,16 @@
     "children" : [ {
       "text" : "view",
       "labels" : [ ],
-      "ports": [
-        {
-          "behavior": "assign Sensitivity.Personal if (Sensitivity.Personal || FALSE) && TRUE from request",
-          "id": "bsqjm",
-          "type": "port:dfd-output",
-          "children": []
-        },
-        {
-          "id": "ti4ri7",
-          "type": "port:dfd-input",
-          "children": []
-        }
-      ],
+      "ports" : [ {
+        "behavior" : "assign Sensitivity.Personal if (Sensitivity.Personal || FALSE) && TRUE from request",
+        "id" : "bsqjm",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "id" : "ti4ri7",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      } ],
       "id" : "0bh7yh",
       "type" : "node:function",
       "annotation" : {
@@ -29,28 +26,24 @@
     }, {
       "text" : "encrypt",
       "labels" : [ ],
-      "ports": [
-        {
-          "behavior": "forward data\nassign Encryption.Encrypted if TRUE\nassign  if TRUE",
-          "id": "3wntc",
-          "type": "port:dfd-output",
-          "children": []
-        },
-        {
-          "id": "kqjy4g",
-          "type": "port:dfd-input",
-          "children": []
-        },
-        {
-          "id": "mvakn",
-          "type": "port:dfd-output",
-          "children": []
-        }
-      ],
+      "ports" : [ {
+        "behavior" : "forward data\nassign Encryption.Encrypted if TRUE\nassign  if TRUE",
+        "id" : "3wntc",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "id" : "kqjy4g",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "mvakn",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
       "id" : "3n988k",
       "type" : "node:function",
       "annotation" : {
-        "message" : "PropagatedLabels:\nSensitivity.Public\nEncryption.Encrypted\nSensitivity.Personal\n",
+        "message" : "PropagatedLabels:\nEncryption.Encrypted\n",
         "icon" : "tag",
         "color" : "#FFFFFF"
       },
@@ -71,7 +64,7 @@
       "id" : "4myuyr",
       "type" : "node:function",
       "annotation" : {
-        "message" : "PropagatedLabels:\nSensitivity.Public\nEncryption.Encrypted\nViolation.Violation\nSensitivity.Personal\n",
+        "message" : "PropagatedLabels:\nEncryption.Encrypted\nSensitivity.Personal\n",
         "icon" : "tag",
         "color" : "#FFFFFF"
       },
@@ -82,25 +75,21 @@
         "labelTypeId" : "gvia09",
         "labelTypeValueId" : "g10hr"
       } ],
-      "ports": [
-        {
-          "behavior": "set Sensitivity.Personal,Sensitivity.Public,Violation.Violation\nunset Violation.Violation",
-          "id": "4wbyft",
-          "type": "port:dfd-output",
-          "children": []
-        },
-        {
-          "id": "nhcrad",
-          "type": "port:dfd-input",
-          "children": []
-        },
-        {
-          "behavior": "assign Sensitivity.Personal if TRUE || FALSE",
-          "id": "wksxi8",
-          "type": "port:dfd-output",
-          "children": []
-        }
-      ],
+      "ports" : [ {
+        "behavior" : "set Sensitivity.Personal,Sensitivity.Public,Violation.Violation\nunset Violation.Violation",
+        "id" : "4wbyft",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "id" : "nhcrad",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "behavior" : "assign Sensitivity.Personal if TRUE || FALSE",
+        "id" : "wksxi8",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      } ],
       "id" : "7oii5l",
       "type" : "node:input-output",
       "annotation" : {
@@ -115,28 +104,24 @@
         "labelTypeId" : "gvia09",
         "labelTypeValueId" : "5hnugm"
       } ],
-      "ports": [
-        {
-          "behavior": "forward data|request,data2\nassign Violation.Violation if Sensitivity.Personal && Sensitivity.Public from data2,data|request",
-          "id": "1j7bn5",
-          "type": "port:dfd-output",
-          "children": []
-        },
-        {
-          "id": "bxu9v",
-          "type": "port:dfd-input",
-          "children": []
-        },
-        {
-          "id": "scljwi",
-          "type": "port:dfd-input",
-          "children": []
-        }
-      ],
+      "ports" : [ {
+        "behavior" : "forward data|request,data2\nassign Violation.Violation if Sensitivity.Personal && Sensitivity.Public from data2,data|request",
+        "id" : "1j7bn5",
+        "type" : "port:dfd-output",
+        "children" : [ ]
+      }, {
+        "id" : "bxu9v",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      }, {
+        "id" : "scljwi",
+        "type" : "port:dfd-input",
+        "children" : [ ]
+      } ],
       "id" : "8j2r1g",
       "type" : "node:storage",
       "annotation" : {
-        "message" : "PropagatedLabels:\nSensitivity.Public\nEncryption.Encrypted\nViolation.Violation\nSensitivity.Personal\n",
+        "message" : "PropagatedLabels:\nEncryption.Encrypted\nSensitivity.Personal\n",
         "icon" : "tag",
         "color" : "#FFFFFF"
       },
@@ -177,11 +162,6 @@
       } ],
       "id" : "js61f",
       "type" : "node:function",
-      "annotation" : {
-        "message" : "PropagatedLabels:\nSensitivity.Public\nSensitivity.Personal\n",
-        "icon" : "tag",
-        "color" : "#FFFFFF"
-      },
       "children" : [ ]
     }, {
       "text" : "items",
@@ -240,11 +220,6 @@
       } ],
       "id" : "z9v1jp",
       "type" : "node:function",
-      "annotation" : {
-        "message" : "PropagatedLabels:\nSensitivity.Public\nSensitivity.Personal\n",
-        "icon" : "tag",
-        "color" : "#FFFFFF"
-      },
       "children" : [ ]
     } ]
   },
@@ -283,5 +258,6 @@
       "text" : "nonEU"
     } ]
   } ],
-  "editorMode" : "edit"
+  "editorMode" : "edit",
+  "constraints" : [ ]
 }

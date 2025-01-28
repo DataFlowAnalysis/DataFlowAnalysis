@@ -1,287 +1,333 @@
 {
-  "model" : {
-    "type" : "graph",
-    "id" : "root",
-    "children" : [ {
-      "text" : "view",
-      "labels" : [ ],
-      "ports": [
-        {
-          "behavior": "assign Sensitivity.Personal if (Sensitivity.Personal || FALSE) && TRUE from request",
-          "id": "bsqjm",
-          "type": "port:dfd-output",
-          "children": []
+  "model": {
+    "type": "graph",
+    "id": "root",
+    "children": [
+      {
+        "text": "view",
+        "labels": [],
+        "ports": [
+          {
+            "behavior": "assign Sensitivity.Personal if (Sensitivity.Personal || FALSE) && TRUE from request",
+            "id": "bsqjm",
+            "type": "port:dfd-output",
+            "children": []
+          },
+          {
+            "id": "ti4ri7",
+            "type": "port:dfd-input",
+            "children": []
+          }
+        ],
+        "id": "0bh7yh",
+        "type": "node:function",
+        "annotation": {
+          "message": "PropagatedLabels:\nSensitivity.Personal\n",
+          "icon": "tag",
+          "color": "#FFFFFF"
         },
-        {
-          "id": "ti4ri7",
-          "type": "port:dfd-input",
-          "children": []
-        }
-      ],
-      "id" : "0bh7yh",
-      "type" : "node:function",
-      "annotation" : {
-        "message" : "PropagatedLabels:\nSensitivity.Personal\n",
-        "icon" : "tag",
-        "color" : "#FFFFFF"
+        "children": []
       },
-      "children" : [ ]
-    }, {
-      "text" : "encrypt",
-      "labels" : [ ],
-      "ports": [
-        {
-          "behavior": "forward data\nassign Encryption.Encrypted if TRUE\nassign  if TRUE",
-          "id": "3wntc",
-          "type": "port:dfd-output",
-          "children": []
+      {
+        "text": "encrypt",
+        "labels": [],
+        "ports": [
+          {
+            "behavior": "forward data\nassign Encryption.Encrypted if TRUE\nassign  if TRUE",
+            "id": "3wntc",
+            "type": "port:dfd-output",
+            "children": []
+          },
+          {
+            "id": "kqjy4g",
+            "type": "port:dfd-input",
+            "children": []
+          },
+          {
+            "id": "mvakn",
+            "type": "port:dfd-output",
+            "children": []
+          }
+        ],
+        "id": "3n988k",
+        "type": "node:function",
+        "annotation": {
+          "message": "PropagatedLabels:\nSensitivity.Public\nEncryption.Encrypted\nSensitivity.Personal\n",
+          "icon": "tag",
+          "color": "#FFFFFF"
         },
-        {
-          "id": "kqjy4g",
-          "type": "port:dfd-input",
-          "children": []
+        "children": []
+      },
+      {
+        "text": "display",
+        "labels": [],
+        "ports": [
+          {
+            "id": "0hfzu",
+            "type": "port:dfd-input",
+            "children": []
+          },
+          {
+            "behavior": "forward items",
+            "id": "y1p7qq",
+            "type": "port:dfd-output",
+            "children": []
+          }
+        ],
+        "id": "4myuyr",
+        "type": "node:function",
+        "annotation": {
+          "message": "PropagatedLabels:\nSensitivity.Public\nEncryption.Encrypted\nViolation.Violation\nSensitivity.Personal\n",
+          "icon": "tag",
+          "color": "#FFFFFF"
         },
-        {
-          "id": "mvakn",
-          "type": "port:dfd-output",
-          "children": []
-        }
-      ],
-      "id" : "3n988k",
-      "type" : "node:function",
-      "annotation" : {
-        "message" : "PropagatedLabels:\nSensitivity.Public\nEncryption.Encrypted\nSensitivity.Personal\n",
-        "icon" : "tag",
-        "color" : "#FFFFFF"
+        "children": []
       },
-      "children" : [ ]
-    }, {
-      "text" : "display",
-      "labels" : [ ],
-      "ports" : [ {
-        "id" : "0hfzu",
-        "type" : "port:dfd-input",
-        "children" : [ ]
-      }, {
-        "behavior" : "forward items",
-        "id" : "y1p7qq",
-        "type" : "port:dfd-output",
-        "children" : [ ]
-      } ],
-      "id" : "4myuyr",
-      "type" : "node:function",
-      "annotation" : {
-        "message" : "PropagatedLabels:\nSensitivity.Public\nEncryption.Encrypted\nViolation.Violation\nSensitivity.Personal\n",
-        "icon" : "tag",
-        "color" : "#FFFFFF"
-      },
-      "children" : [ ]
-    }, {
-      "text" : "User",
-      "labels" : [ {
-        "labelTypeId" : "gvia09",
-        "labelTypeValueId" : "g10hr"
-      } ],
-      "ports": [
-        {
-          "behavior": "set Sensitivity.Personal,Sensitivity.Public,Violation.Violation\nunset Violation.Violation",
-          "id": "4wbyft",
-          "type": "port:dfd-output",
-          "children": []
+      {
+        "text": "User",
+        "labels": [
+          {
+            "labelTypeId": "gvia09",
+            "labelTypeValueId": "g10hr"
+          }
+        ],
+        "ports": [
+          {
+            "behavior": "set Sensitivity.Personal,Sensitivity.Public,Violation.Violation\nunset Violation.Violation",
+            "id": "4wbyft",
+            "type": "port:dfd-output",
+            "children": []
+          },
+          {
+            "id": "nhcrad",
+            "type": "port:dfd-input",
+            "children": []
+          },
+          {
+            "behavior": "assign Sensitivity.Personal if TRUE || FALSE",
+            "id": "wksxi8",
+            "type": "port:dfd-output",
+            "children": []
+          }
+        ],
+        "id": "7oii5l",
+        "type": "node:input-output",
+        "annotation": {
+          "message": "PropagatedLabels:\nSensitivity.Public\nSensitivity.Personal\n",
+          "icon": "tag",
+          "color": "#FFFFFF"
         },
-        {
-          "id": "nhcrad",
-          "type": "port:dfd-input",
-          "children": []
+        "children": []
+      },
+      {
+        "text": "Database",
+        "labels": [
+          {
+            "labelTypeId": "gvia09",
+            "labelTypeValueId": "5hnugm"
+          }
+        ],
+        "ports": [
+          {
+            "behavior": "forward data|request,data2\nassign Violation.Violation if Sensitivity.Personal && Sensitivity.Public from data2,data|request",
+            "id": "1j7bn5",
+            "type": "port:dfd-output",
+            "children": []
+          },
+          {
+            "id": "bxu9v",
+            "type": "port:dfd-input",
+            "children": []
+          },
+          {
+            "id": "scljwi",
+            "type": "port:dfd-input",
+            "children": []
+          }
+        ],
+        "id": "8j2r1g",
+        "type": "node:storage",
+        "annotation": {
+          "message": "PropagatedLabels:\nSensitivity.Public\nEncryption.Encrypted\nViolation.Violation\nSensitivity.Personal\n",
+          "icon": "tag",
+          "color": "#FFFFFF"
         },
-        {
-          "behavior": "assign Sensitivity.Personal if TRUE || FALSE",
-          "id": "wksxi8",
-          "type": "port:dfd-output",
-          "children": []
-        }
-      ],
-      "id" : "7oii5l",
-      "type" : "node:input-output",
-      "annotation" : {
-        "message" : "PropagatedLabels:\nSensitivity.Public\nSensitivity.Personal\n",
-        "icon" : "tag",
-        "color" : "#FFFFFF"
+        "children": []
       },
-      "children" : [ ]
-    }, {
-      "text" : "Database",
-      "labels" : [ {
-        "labelTypeId" : "gvia09",
-        "labelTypeValueId" : "5hnugm"
-      } ],
-      "ports": [
-        {
-          "behavior": "forward data|request,data2\nassign Violation.Violation if Sensitivity.Personal && Sensitivity.Public from data2,data|request",
-          "id": "1j7bn5",
-          "type": "port:dfd-output",
-          "children": []
+      {
+        "text": "data2",
+        "id": "98fwyp",
+        "type": "edge:arrow",
+        "sourceId": "mvakn",
+        "targetId": "bxu9v",
+        "children": []
+      },
+      {
+        "text": "request",
+        "id": "c9n88l",
+        "type": "edge:arrow",
+        "sourceId": "bsqjm",
+        "targetId": "scljwi",
+        "children": []
+      },
+      {
+        "text": "items",
+        "id": "hi397b",
+        "type": "edge:arrow",
+        "sourceId": "y1p7qq",
+        "targetId": "nhcrad",
+        "children": []
+      },
+      {
+        "text": "process",
+        "labels": [],
+        "ports": [
+          {
+            "behavior": "forward data",
+            "id": "eedb56",
+            "type": "port:dfd-output",
+            "children": []
+          },
+          {
+            "id": "xyepdb",
+            "type": "port:dfd-input",
+            "children": []
+          }
+        ],
+        "id": "js61f",
+        "type": "node:function",
+        "annotation": {
+          "message": "PropagatedLabels:\nSensitivity.Public\nSensitivity.Personal\n",
+          "icon": "tag",
+          "color": "#FFFFFF"
         },
-        {
-          "id": "bxu9v",
-          "type": "port:dfd-input",
-          "children": []
+        "children": []
+      },
+      {
+        "text": "items",
+        "id": "n81f3b",
+        "type": "edge:arrow",
+        "sourceId": "1j7bn5",
+        "targetId": "0hfzu",
+        "children": []
+      },
+      {
+        "text": "data",
+        "id": "ojjvtp",
+        "type": "edge:arrow",
+        "sourceId": "3wntc",
+        "targetId": "scljwi",
+        "children": []
+      },
+      {
+        "text": "data",
+        "id": "ufflto",
+        "type": "edge:arrow",
+        "sourceId": "eedb56",
+        "targetId": "kqjy4g",
+        "children": []
+      },
+      {
+        "text": "request",
+        "id": "uflsc",
+        "type": "edge:arrow",
+        "sourceId": "wksxi8",
+        "targetId": "ti4ri7",
+        "children": []
+      },
+      {
+        "text": "data",
+        "id": "vq8g3l",
+        "type": "edge:arrow",
+        "sourceId": "4wbyft",
+        "targetId": "2331e8",
+        "children": []
+      },
+      {
+        "text": "data",
+        "id": "xrzc19",
+        "type": "edge:arrow",
+        "sourceId": "vnkg73",
+        "targetId": "xyepdb",
+        "children": []
+      },
+      {
+        "text": "buy",
+        "labels": [],
+        "ports": [
+          {
+            "id": "2331e8",
+            "type": "port:dfd-input",
+            "children": []
+          },
+          {
+            "behavior": "forward data",
+            "id": "vnkg73",
+            "type": "port:dfd-output",
+            "children": []
+          }
+        ],
+        "id": "z9v1jp",
+        "type": "node:function",
+        "annotation": {
+          "message": "PropagatedLabels:\nSensitivity.Public\nSensitivity.Personal\n",
+          "icon": "tag",
+          "color": "#FFFFFF"
         },
-        {
-          "id": "scljwi",
-          "type": "port:dfd-input",
-          "children": []
-        }
-      ],
-      "id" : "8j2r1g",
-      "type" : "node:storage",
-      "annotation" : {
-        "message" : "PropagatedLabels:\nSensitivity.Public\nEncryption.Encrypted\nViolation.Violation\nSensitivity.Personal\n",
-        "icon" : "tag",
-        "color" : "#FFFFFF"
-      },
-      "children" : [ ]
-    }, {
-      "text" : "data2",
-      "id" : "98fwyp",
-      "type" : "edge:arrow",
-      "sourceId" : "mvakn",
-      "targetId" : "bxu9v",
-      "children" : [ ]
-    }, {
-      "text" : "request",
-      "id" : "c9n88l",
-      "type" : "edge:arrow",
-      "sourceId" : "bsqjm",
-      "targetId" : "scljwi",
-      "children" : [ ]
-    }, {
-      "text" : "items",
-      "id" : "hi397b",
-      "type" : "edge:arrow",
-      "sourceId" : "y1p7qq",
-      "targetId" : "nhcrad",
-      "children" : [ ]
-    }, {
-      "text" : "process",
-      "labels" : [ ],
-      "ports" : [ {
-        "behavior" : "forward data",
-        "id" : "eedb56",
-        "type" : "port:dfd-output",
-        "children" : [ ]
-      }, {
-        "id" : "xyepdb",
-        "type" : "port:dfd-input",
-        "children" : [ ]
-      } ],
-      "id" : "js61f",
-      "type" : "node:function",
-      "annotation" : {
-        "message" : "PropagatedLabels:\nSensitivity.Public\nSensitivity.Personal\n",
-        "icon" : "tag",
-        "color" : "#FFFFFF"
-      },
-      "children" : [ ]
-    }, {
-      "text" : "items",
-      "id" : "n81f3b",
-      "type" : "edge:arrow",
-      "sourceId" : "1j7bn5",
-      "targetId" : "0hfzu",
-      "children" : [ ]
-    }, {
-      "text" : "data",
-      "id" : "ojjvtp",
-      "type" : "edge:arrow",
-      "sourceId" : "3wntc",
-      "targetId" : "scljwi",
-      "children" : [ ]
-    }, {
-      "text" : "data",
-      "id" : "ufflto",
-      "type" : "edge:arrow",
-      "sourceId" : "eedb56",
-      "targetId" : "kqjy4g",
-      "children" : [ ]
-    }, {
-      "text" : "request",
-      "id" : "uflsc",
-      "type" : "edge:arrow",
-      "sourceId" : "wksxi8",
-      "targetId" : "ti4ri7",
-      "children" : [ ]
-    }, {
-      "text" : "data",
-      "id" : "vq8g3l",
-      "type" : "edge:arrow",
-      "sourceId" : "4wbyft",
-      "targetId" : "2331e8",
-      "children" : [ ]
-    }, {
-      "text" : "data",
-      "id" : "xrzc19",
-      "type" : "edge:arrow",
-      "sourceId" : "vnkg73",
-      "targetId" : "xyepdb",
-      "children" : [ ]
-    }, {
-      "text" : "buy",
-      "labels" : [ ],
-      "ports" : [ {
-        "id" : "2331e8",
-        "type" : "port:dfd-input",
-        "children" : [ ]
-      }, {
-        "behavior" : "forward data",
-        "id" : "vnkg73",
-        "type" : "port:dfd-output",
-        "children" : [ ]
-      } ],
-      "id" : "z9v1jp",
-      "type" : "node:function",
-      "annotation" : {
-        "message" : "PropagatedLabels:\nSensitivity.Public\nSensitivity.Personal\n",
-        "icon" : "tag",
-        "color" : "#FFFFFF"
-      },
-      "children" : [ ]
-    } ]
+        "children": []
+      }
+    ]
   },
-  "labelTypes" : [ {
-    "id" : "4h3wzk",
-    "name" : "Sensitivity",
-    "values" : [ {
-      "id" : "zzvphn",
-      "text" : "Personal"
-    }, {
-      "id" : "veaan9",
-      "text" : "Public"
-    } ]
-  }, {
-    "id" : "84rllz",
-    "name" : "Encryption",
-    "values" : [ {
-      "id" : "2r6xe6",
-      "text" : "Encrypted"
-    } ]
-  }, {
-    "id" : "86d5fk",
-    "name" : "Violation",
-    "values" : [ {
-      "id" : "hnlcg",
-      "text" : "Violation"
-    } ]
-  }, {
-    "id" : "gvia09",
-    "name" : "Location",
-    "values" : [ {
-      "id" : "g10hr",
-      "text" : "EU"
-    }, {
-      "id" : "5hnugm",
-      "text" : "nonEU"
-    } ]
-  } ],
-  "editorMode" : "edit"
+  "labelTypes": [
+    {
+      "id": "4h3wzk",
+      "name": "Sensitivity",
+      "values": [
+        {
+          "id": "zzvphn",
+          "text": "Personal"
+        },
+        {
+          "id": "veaan9",
+          "text": "Public"
+        }
+      ]
+    },
+    {
+      "id": "84rllz",
+      "name": "Encryption",
+      "values": [
+        {
+          "id": "2r6xe6",
+          "text": "Encrypted"
+        }
+      ]
+    },
+    {
+      "id": "86d5fk",
+      "name": "Violation",
+      "values": [
+        {
+          "id": "hnlcg",
+          "text": "Violation"
+        }
+      ]
+    },
+    {
+      "id": "gvia09",
+      "name": "Location",
+      "values": [
+        {
+          "id": "g10hr",
+          "text": "EU"
+        },
+        {
+          "id": "5hnugm",
+          "text": "nonEU"
+        }
+      ]
+    }
+  ],
+  "editorMode": "edit",
+  "constraints": []
 }

@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
+import org.dataflowanalysis.analysis.pcm.core.CallReturnBehavior;
 import org.dataflowanalysis.converter.DataFlowDiagramConverter;
 import org.dataflowanalysis.converter.PCMConverter;
 import org.dataflowanalysis.examplemodels.Activator;
@@ -234,20 +235,19 @@ public class PCMTest extends ConverterTest{
         Map<String, String> nameMapping = new HashMap<>();
 
         for (var vertex : vertices) {
-            nameMapping.putIfAbsent(vertex.getReferencedElement()
-                    .getId(),
-                    vertex.getReferencedElement()
-                            .getEntityName());
+			nameMapping.putIfAbsent(vertex.getReferencedElement().getId(),
+						vertex.getReferencedElement().getEntityName());
         }
         
     	List<Node> nodes = dfd.getNodes();
     	for (Node node : nodes) {
     		String dfdId = node.getId();
+			String nodeNameStripped = node.getEntityName().replace("Calling ", "").replace("Returning ", "");
     		if (nameMapping.containsKey(dfdId)) {
     			if (nameMapping.get(dfdId).equals("aName")) {
     				continue;
     			}
-    			assertEquals(nameMapping.get(dfdId), node.getEntityName());
+    			assertEquals(nameMapping.get(dfdId), nodeNameStripped);
     			continue;
     		}
     		int suffixIndex = dfdId.lastIndexOf('_');
@@ -259,7 +259,7 @@ public class PCMTest extends ConverterTest{
 			if (nameMapping.get(strippedId).equals("aName")) {
 				continue;
 			}
-    		assertTrue(nameMapping.get(strippedId).equals(node.getEntityName()), "Could not find PCM Vertex with ID: " + dfdId + " / " + strippedId);
+            assertEquals(nodeNameStripped, nameMapping.get(strippedId), "Could not find PCM Vertex with ID: " + dfdId + " / " + strippedId);
     	}
     }
     

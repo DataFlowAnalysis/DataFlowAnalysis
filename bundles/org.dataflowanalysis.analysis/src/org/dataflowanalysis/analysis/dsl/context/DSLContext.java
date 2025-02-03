@@ -11,7 +11,11 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents the constraint variable context of one constraint
+ * The main purpose of this class is to contain the mapping between variables, like ${@code GrantedRole}, and their possible values.
+ * As this information is specific to variable name <strong> and </strong> vertex, a {@link DSLContextKey} is required.
+ * <p/>
+ * Additionally, this class stores information required for selectors to parse and work correctly.
+ * Currently, only a {@link DSLContextProvider} is required that is responsible for parsing vertex types
  */
 public class DSLContext {
     private final Map<DSLContextKey, List<ConstraintVariable>> context;
@@ -82,6 +86,10 @@ public class DSLContext {
                 .toList();
     }
 
+    /**
+     * Returns the optional context provider of the DSL
+     * @return Returns the optional context provider of the DSL
+     */
     public Optional<DSLContextProvider> getContextProvider() {
         return contextProvider;
     }

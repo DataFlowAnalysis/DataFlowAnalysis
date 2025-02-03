@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.StringJoiner;
 
+/**
+ * Represents the {@link ConditionalSelector} matched by an {@link AnalysisConstraint}
+ */
 public class ConditionalSelectors extends AbstractParseable {
     private static final String DSL_KEYWORD = "where";
     private static final Logger logger = Logger.getLogger(ConditionalSelectors.class);
@@ -51,6 +54,12 @@ public class ConditionalSelectors extends AbstractParseable {
         return dslString.toString();
     }
 
+    /**
+     * Parses the {@link ConditionalSelectors} of an {@link AnalysisConstraint}.
+     * @param string String view on the string that is parsed
+     * @param context DSL context used during parsing
+     * @return Returns a {@link ParseResult} that may contain the {@link ConditionalSelectors} of the {@link AnalysisConstraint}
+     */
     public static ParseResult<ConditionalSelectors> fromString(StringView string, DSLContext context) {
         if (string.invalid()) {
             return ParseResult.error("Unexpected end of input!");

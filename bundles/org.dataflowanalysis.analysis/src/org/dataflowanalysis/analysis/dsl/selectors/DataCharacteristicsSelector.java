@@ -73,6 +73,13 @@ public class DataCharacteristicsSelector extends DataSelector {
         }
     }
 
+    /**
+     * Parses a {@link DataCharacteristicsSelector} object from the given view on a string
+     * <p/>
+     * This method expects the following format: {@code [!]<Type>.<Value>}
+     * @param string String view on the string that is parsed
+     * @return {@link ParseResult} containing the {@link DataCharacteristicsSelector} object
+     */
     public static ParseResult<DataCharacteristicsSelector> fromString(StringView string, DSLContext context) {
         logger.info("Parsing: " + string.getString());
         boolean inverted = string.getString().startsWith(DSL_INVERTED_SYMBOL);

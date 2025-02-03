@@ -1,5 +1,8 @@
 package org.dataflowanalysis.analysis.dsl;
 
+/**
+ * This class represents a parsable DSL object and collects functionality common to parsable DSL objects
+ */
 public abstract class AbstractParseable {
     protected static final String DSL_SEPARATOR = ".";
     protected static final String DSL_DELIMITER = ",";

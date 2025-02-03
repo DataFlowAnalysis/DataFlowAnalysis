@@ -42,6 +42,13 @@ public class EmptySetOperationConditionalSelector implements ConditionalSelector
         return DSL_KEYWORD + " " + setOperation.toString();
     }
 
+    /**
+     * Parses a {@link EmptySetOperationConditionalSelector} object from the given view on a string
+     * <p/>
+     * This method expects the following format: {@code empty <SetOperation>}
+     * @param string String view on the string that is parsed
+     * @return {@link ParseResult} containing the {@link EmptySetOperationConditionalSelector} object
+     */
     public static ParseResult<EmptySetOperationConditionalSelector> fromString(StringView string) {
         logger.info("Parsing: " + string.getString());
         if (!string.startsWith(DSL_KEYWORD)) {

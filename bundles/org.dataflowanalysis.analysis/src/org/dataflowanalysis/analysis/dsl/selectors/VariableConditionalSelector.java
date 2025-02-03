@@ -55,6 +55,13 @@ public class VariableConditionalSelector extends AbstractParseable implements Co
 		}
 	}
 
+	/**
+	 * Parses a {@link VariableConditionalSelector} object from the given view on a string
+	 * <p/>
+	 * This method expects the following format: {@code present<Variable>}
+	 * @param string String view on the string that is parsed
+	 * @return {@link ParseResult} containing the {@link VariableConditionalSelector} object
+	 */
 	public static ParseResult<VariableConditionalSelector> fromString(StringView string) {
 		if (!string.startsWith(DSL_KEYWORD)) {
 			return string.expect(DSL_KEYWORD);

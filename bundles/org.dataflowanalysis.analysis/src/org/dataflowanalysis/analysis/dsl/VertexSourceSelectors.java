@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
+/**
+ * Represents the source vertex {@link AbstractSelector} matched by an {@link AnalysisConstraint}
+ */
 public class VertexSourceSelectors extends AbstractParseable {
     private static final String DSL_KEYWORD = "vertex";
     private static final Logger logger = Logger.getLogger(VertexSourceSelectors.class);
@@ -47,6 +50,12 @@ public class VertexSourceSelectors extends AbstractParseable {
         return dslString.toString();
     }
 
+    /**
+     * Parses the {@link VertexSourceSelectors} of an {@link AnalysisConstraint}.
+     * @param string String view on the string that is parsed
+     * @param context DSL context used during parsing
+     * @return Returns a {@link ParseResult} that may contain the {@link VertexSourceSelectors} of the {@link AnalysisConstraint}
+     */
     public static ParseResult<VertexSourceSelectors> fromString(StringView string, DSLContext context) {
         if (string.invalid()) {
             return ParseResult.error("Unexpected end of input!");

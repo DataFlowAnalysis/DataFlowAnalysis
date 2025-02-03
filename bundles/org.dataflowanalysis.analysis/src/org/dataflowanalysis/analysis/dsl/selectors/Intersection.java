@@ -55,6 +55,13 @@ public class Intersection extends AbstractParseable implements SetOperation {
         return DSL_KEYWORD + DSL_PAREN_OPEN + firstVariable.toString() + DSL_DELIMITER + secondVariable.toString() + DSL_PAREN_CLOSE;
     }
 
+    /**
+     * Parses a {@link Intersection} object from the given view on a string
+     * <p/>
+     * This method expects the following format: {@code intersection(<Var1>,<Var2>)}
+     * @param string String view on the string that is parsed
+     * @return {@link ParseResult} containing the {@link Intersection} object
+     */
     public static ParseResult<Intersection> fromString(StringView string) {
         logger.info("Parsing: " + string.getString());
         if (!string.startsWith(DSL_KEYWORD)) {

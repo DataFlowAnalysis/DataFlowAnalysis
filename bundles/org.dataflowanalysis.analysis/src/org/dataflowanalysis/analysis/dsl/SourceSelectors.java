@@ -2,6 +2,10 @@ package org.dataflowanalysis.analysis.dsl;
 
 import java.util.Optional;
 
+/**
+ * Contains the {@link SourceSelectors} of an {@link AnalysisConstraint}.
+ * It stores {@link DataSourceSelectors} and {@link VertexSourceSelectors} that describe the origin of the flow
+ */
 public final class SourceSelectors {
     private final Optional<DataSourceSelectors> dataSourceSelectors;
     private final Optional<VertexSourceSelectors> nodeSourceSelectors;

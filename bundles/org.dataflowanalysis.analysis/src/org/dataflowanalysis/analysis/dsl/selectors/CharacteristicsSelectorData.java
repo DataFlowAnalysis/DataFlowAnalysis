@@ -13,11 +13,20 @@ import org.dataflowanalysis.analysis.utils.StringView;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Represents a selected characteristic with a given characteristic type and characteristic value.
+ * Each may be a {@link ConstraintVariableReference} that is not a constant
+ */
 public final class CharacteristicsSelectorData extends AbstractParseable {
     private static final Logger logger = Logger.getLogger(CharacteristicsSelectorData.class);
     private final ConstraintVariableReference characteristicType;
     private final ConstraintVariableReference characteristicValue;
 
+    /**
+     * Creates a new characteristics data object with the given {@link ConstraintVariableReference} as characteristic type and value
+     * @param characteristicType {@link ConstraintVariableReference} used as characteristic type
+     * @param characteristicValue {@link ConstraintVariableReference} used as characteristic value
+     */
     public CharacteristicsSelectorData(ConstraintVariableReference characteristicType, ConstraintVariableReference characteristicValue) {
         this.characteristicType = characteristicType;
         this.characteristicValue = characteristicValue;
@@ -69,6 +78,13 @@ public final class CharacteristicsSelectorData extends AbstractParseable {
         return this.characteristicType.toString() + DSL_SEPARATOR + this.characteristicValue.toString();
     }
 
+    /**
+     * Parses a {@link CharacteristicsSelectorData} object from the given view on a string.
+     * <p/>
+     * This method expects the following format: {@code <Type>.<Value>}
+     * @param string String view on the string that is parsed
+     * @return {@link ParseResult} containing the {@link CharacteristicsSelectorData} object
+     */
     public static ParseResult<CharacteristicsSelectorData> fromString(StringView string) {
         logger.info("Parsing: " + string.getString());
         ParseResult<ConstraintVariableReference> characteristicType = ConstraintVariableReference.fromString(string);
@@ -88,26 +104,19 @@ public final class CharacteristicsSelectorData extends AbstractParseable {
         return ParseResult.ok(new CharacteristicsSelectorData(characteristicType.getResult(), characteristicValue.getResult()));
     }
 
+    /**
+     * Returns the characteristic type of the characteristics selector data object
+     * @return {@link  ConstraintVariableReference} to the characteristic type
+     */
     public ConstraintVariableReference characteristicType() {
         return characteristicType;
     }
 
+    /**type
+     * Returns the characteristic value of the characteristics selector data object
+     * @return {@link  ConstraintVariableReference} to the characteristic value
+     */
     public ConstraintVariableReference characteristicValue() {
         return characteristicValue;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null || obj.getClass() != this.getClass()) return false;
-        var that = (CharacteristicsSelectorData) obj;
-        return Objects.equals(this.characteristicType, that.characteristicType) &&
-                Objects.equals(this.characteristicValue, that.characteristicValue);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(characteristicType, characteristicValue);
-    }
-
 }

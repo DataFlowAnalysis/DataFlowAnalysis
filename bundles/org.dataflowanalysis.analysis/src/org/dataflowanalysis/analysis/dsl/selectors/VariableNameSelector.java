@@ -37,6 +37,13 @@ public class VariableNameSelector extends DataSelector {
         return DSL_KEYWORD + " " + this.variableName;
     }
 
+    /**
+     * Parses a {@link VariableNameSelector} object from the given view on a string
+     * <p/>
+     * This method expects the following format: {@code named <Name>}
+     * @param string String view on the string that is parsed
+     * @return {@link ParseResult} containing the {@link VariableNameSelector} object
+     */
     public static ParseResult<VariableNameSelector> fromString(StringView string, DSLContext context) {
         logger.info("Parsing: " + string.getString());
         if (!string.startsWith(DSL_KEYWORD)) {

@@ -1,9 +1,10 @@
 package org.dataflowanalysis.analysis.dsl.selectors;
 
 import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.dsl.AbstractParseable;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 
-public abstract class AbstractSelector {
+public abstract class AbstractSelector extends AbstractParseable {
     protected DSLContext context;
 
     public AbstractSelector(DSLContext context) {

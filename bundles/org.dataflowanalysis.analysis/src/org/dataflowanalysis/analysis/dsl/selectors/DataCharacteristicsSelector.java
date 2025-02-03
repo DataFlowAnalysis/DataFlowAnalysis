@@ -67,7 +67,7 @@ public class DataCharacteristicsSelector extends DataSelector {
     @Override
     public String toString() {
         if (this.inverted) {
-            return "!" + dataCharacteristic.toString();
+            return DSL_INVERTED_SYMBOL + dataCharacteristic.toString();
         } else {
             return dataCharacteristic.toString();
         }
@@ -75,11 +75,11 @@ public class DataCharacteristicsSelector extends DataSelector {
 
     public static ParseResult<DataCharacteristicsSelector> fromString(StringView string, DSLContext context) {
         logger.info("Parsing: " + string.getString());
-        boolean inverted = string.getString().startsWith("!");
-        if (inverted) string.advance(1);
+        boolean inverted = string.getString().startsWith(DSL_INVERTED_SYMBOL);
+        if (inverted) string.advance(DSL_INVERTED_SYMBOL.length());
         ParseResult<CharacteristicsSelectorData> selectorData = CharacteristicsSelectorData.fromString(string);
         if (selectorData.failed()) {
-            if (inverted) string.retreat(1);
+            if (inverted) string.retreat(DSL_INVERTED_SYMBOL.length());
             return ParseResult.error(selectorData.getError());
         }
         string.advance(1);

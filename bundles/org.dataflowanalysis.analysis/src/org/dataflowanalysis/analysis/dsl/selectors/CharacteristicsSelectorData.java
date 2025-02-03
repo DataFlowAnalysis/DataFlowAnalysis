@@ -3,6 +3,7 @@ package org.dataflowanalysis.analysis.dsl.selectors;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
+import org.dataflowanalysis.analysis.dsl.AbstractParseable;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.context.DSLContextKey;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
@@ -10,14 +11,22 @@ import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
 import java.util.List;
+import java.util.Objects;
 
-public record CharacteristicsSelectorData(ConstraintVariableReference characteristicType, ConstraintVariableReference characteristicValue) {
-    private static final String DSL_SEPARATOR = ".";
+public final class CharacteristicsSelectorData extends AbstractParseable {
     private static final Logger logger = Logger.getLogger(CharacteristicsSelectorData.class);
+    private final ConstraintVariableReference characteristicType;
+    private final ConstraintVariableReference characteristicValue;
+
+    public CharacteristicsSelectorData(ConstraintVariableReference characteristicType, ConstraintVariableReference characteristicValue) {
+        this.characteristicType = characteristicType;
+        this.characteristicValue = characteristicValue;
+    }
 
     /**
      * Determines whether a characteristic matches the saved reference
-     * @param context DSL Matching context
+     *
+     * @param context        DSL Matching context
      * @param characteristic Provided characteristic that should be matched
      * @return Returns true of the provided characteristic matches the saved reference.
      * Otherwise, the method returns false.
@@ -36,13 +45,13 @@ public record CharacteristicsSelectorData(ConstraintVariableReference characteri
         if (!characteristicTypeVariable.isConstant() && !characteristicTypes.contains(characteristic.getTypeName())) {
             characteristicTypes.add(characteristic.getTypeName());
         }
-        if(!characteristicValueVariable.isConstant() && !characteristicValues.contains(characteristic.getValueName())) {
+        if (!characteristicValueVariable.isConstant() && !characteristicValues.contains(characteristic.getValueName())) {
             characteristicValues.add(characteristic.getValueName());
         }
         return true;
     }
 
-    public void applyResults(DSLContext context, AbstractVertex<?> vertex, String variableName,  List<String> characteristicTypes, List<String> characteristicValues) {
+    public void applyResults(DSLContext context, AbstractVertex<?> vertex, String variableName, List<String> characteristicTypes, List<String> characteristicValues) {
         var characteristicTypeVariable = context.getMapping(DSLContextKey.of(variableName, vertex), this.characteristicType());
         var characteristicValueVariable = context.getMapping(DSLContextKey.of(variableName, vertex), this.characteristicValue());
 
@@ -73,9 +82,32 @@ public record CharacteristicsSelectorData(ConstraintVariableReference characteri
         string.advance(DSL_SEPARATOR.length());
         ParseResult<ConstraintVariableReference> characteristicValue = ConstraintVariableReference.fromString(string);
         if (characteristicValue.failed()) {
-            string.retreat(DSL_SEPARATOR.length() + characteristicType.getResult().toString().length());
+            string.retreat(AbstractParseable.DSL_SEPARATOR.length() + characteristicType.getResult().toString().length());
             return ParseResult.error(characteristicValue.getError());
         }
         return ParseResult.ok(new CharacteristicsSelectorData(characteristicType.getResult(), characteristicValue.getResult()));
     }
+
+    public ConstraintVariableReference characteristicType() {
+        return characteristicType;
+    }
+
+    public ConstraintVariableReference characteristicValue() {
+        return characteristicValue;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null || obj.getClass() != this.getClass()) return false;
+        var that = (CharacteristicsSelectorData) obj;
+        return Objects.equals(this.characteristicType, that.characteristicType) &&
+                Objects.equals(this.characteristicValue, that.characteristicValue);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(characteristicType, characteristicValue);
+    }
+
 }

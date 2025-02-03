@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
-public class VertexSourceSelectors {
+public class VertexSourceSelectors extends AbstractParseable {
     private static final String DSL_KEYWORD = "vertex";
     private static final Logger logger = Logger.getLogger(VertexSourceSelectors.class);
 

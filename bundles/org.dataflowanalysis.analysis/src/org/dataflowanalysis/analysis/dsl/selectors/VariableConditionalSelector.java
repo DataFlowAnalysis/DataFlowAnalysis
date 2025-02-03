@@ -1,6 +1,7 @@
 package org.dataflowanalysis.analysis.dsl.selectors;
 
 import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.dsl.AbstractParseable;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariable;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
@@ -10,7 +11,7 @@ import org.dataflowanalysis.analysis.utils.StringView;
 import java.util.List;
 import java.util.Optional;
 
-public class VariableConditionalSelector implements ConditionalSelector {
+public class VariableConditionalSelector extends AbstractParseable implements ConditionalSelector {
 	private static final String DSL_KEYWORD = "present";
 
 	private final ConstraintVariableReference constraintVariable;
@@ -48,7 +49,7 @@ public class VariableConditionalSelector implements ConditionalSelector {
 	@Override
 	public String toString() {
 		if (this.inverted) {
-			return DSL_KEYWORD + " !" + this.constraintVariable.toString();
+			return DSL_KEYWORD + " " + DSL_INVERTED_SYMBOL + this.constraintVariable.toString();
 		} else {
 			return DSL_KEYWORD + " " + this.constraintVariable.toString();
 		}
@@ -62,12 +63,12 @@ public class VariableConditionalSelector implements ConditionalSelector {
 		if (string.invalid() || string.empty()) {
 			return ParseResult.error("Cannot parse variable conditional selector from empty/invalid string");
 		}
-		boolean inverted = string.startsWith("!");
-		if (inverted) string.advance(1);
+		boolean inverted = string.startsWith(DSL_INVERTED_SYMBOL);
+		if (inverted) string.advance(DSL_INVERTED_SYMBOL.length());
 		ParseResult<ConstraintVariableReference> constraintVariableReference = ConstraintVariableReference.fromString(string);
 		if (constraintVariableReference.failed()) {
 			string.retreat(DSL_KEYWORD.length() + 1);
-			if (inverted) string.retreat(1);
+			if (inverted) string.retreat(DSL_INVERTED_SYMBOL.length());
 			return ParseResult.error(constraintVariableReference.getError());
 		}
 		string.advance(1);

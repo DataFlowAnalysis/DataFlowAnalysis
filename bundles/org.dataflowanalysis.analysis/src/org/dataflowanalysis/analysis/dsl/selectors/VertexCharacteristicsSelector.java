@@ -66,7 +66,7 @@ public class VertexCharacteristicsSelector extends DataSelector {
     @Override
     public String toString() {
         if (this.inverted) {
-            return "!" + this.vertexCharacteristics.toString();
+            return DSL_INVERTED_SYMBOL + this.vertexCharacteristics.toString();
         } else {
             return this.vertexCharacteristics.toString();
         }
@@ -74,11 +74,11 @@ public class VertexCharacteristicsSelector extends DataSelector {
 
     public static ParseResult<VertexCharacteristicsSelector> fromString(StringView string, DSLContext context) {
         logger.info("Parsing: " + string.getString());
-        boolean inverted = string.getString().startsWith("!");
-        if (inverted) string.advance(1);
+        boolean inverted = string.getString().startsWith(DSL_INVERTED_SYMBOL);
+        if (inverted) string.advance(DSL_INVERTED_SYMBOL.length());
         ParseResult<CharacteristicsSelectorData> selectorData = CharacteristicsSelectorData.fromString(string);
         if (selectorData.failed()) {
-            if (inverted) string.retreat(1);
+            if (inverted) string.retreat(DSL_INVERTED_SYMBOL.length());
             return ParseResult.error(selectorData.getError());
         }
         string.advance(1);

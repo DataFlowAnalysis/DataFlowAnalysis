@@ -50,7 +50,7 @@ public class VertexTypeSelector extends VertexSelector {
     @Override
     public String toString() {
         if (this.inverted) {
-            return DSL_KEYWORD + " !" + this.vertexType.toString();
+            return DSL_KEYWORD + " " + DSL_INVERTED_SYMBOL + this.vertexType.toString();
         } else {
             return DSL_KEYWORD + " " + this.vertexType.toString();
         }
@@ -58,7 +58,7 @@ public class VertexTypeSelector extends VertexSelector {
 
     public static ParseResult<VertexTypeSelector> fromString(StringView string, DSLContext context) {
         logger.info("Parsing: " + string.getString());
-        boolean inverted = string.getString().startsWith("!");
+        boolean inverted = string.getString().startsWith(DSL_INVERTED_SYMBOL);
         if (context.getContextProvider().isEmpty()) {
         	return ParseResult.error("Cannot parse vertex types without context provider!");
         }
@@ -66,7 +66,7 @@ public class VertexTypeSelector extends VertexSelector {
         if (vertexType.failed()) {
             return ParseResult.error(vertexType.getError());
         }
-        if (inverted) string.advance(1);
+        if (inverted) string.advance(DSL_INVERTED_SYMBOL.length());
         string.advance(1);
         return ParseResult.ok(new VertexTypeSelector(context, vertexType.getResult(), inverted));
     }

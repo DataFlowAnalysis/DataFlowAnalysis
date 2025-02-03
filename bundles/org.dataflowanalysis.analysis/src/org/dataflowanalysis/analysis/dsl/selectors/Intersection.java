@@ -2,6 +2,7 @@ package org.dataflowanalysis.analysis.dsl.selectors;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.dsl.AbstractParseable;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.context.DSLContextKey;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
@@ -10,11 +11,8 @@ import org.dataflowanalysis.analysis.utils.StringView;
 
 import java.util.List;
 
-public class Intersection implements SetOperation {
+public class Intersection extends AbstractParseable implements SetOperation {
     private static final String DSL_KEYWORD = "intersection";
-    private static final String DSL_PAREN_OPEN = "(";
-    private static final String DSL_DELIMITER = ",";
-    private static final String DSL_PAREN_CLOSE = ")";
     private static final Logger logger = Logger.getLogger(Intersection.class);
 
     private final ConstraintVariableReference firstVariable;

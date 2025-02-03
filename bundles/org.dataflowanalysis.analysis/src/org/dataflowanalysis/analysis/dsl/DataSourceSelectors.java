@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.StringJoiner;
 
-public class DataSourceSelectors {
+public class DataSourceSelectors extends AbstractParseable {
     private static final Logger logger = Logger.getLogger(DataSourceSelectors.class);
     private static final String DSL_KEYWORD = "data";
 

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.StringJoiner;
 
-public class ConditionalSelectors {
+public class ConditionalSelectors extends AbstractParseable {
     private static final String DSL_KEYWORD = "where";
     private static final Logger logger = Logger.getLogger(ConditionalSelectors.class);
 

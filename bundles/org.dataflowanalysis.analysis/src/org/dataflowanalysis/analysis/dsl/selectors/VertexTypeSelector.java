@@ -1,9 +1,15 @@
 package org.dataflowanalysis.analysis.dsl.selectors;
 
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.utils.ParseResult;
+import org.dataflowanalysis.analysis.utils.StringView;
 
 public class VertexTypeSelector extends VertexSelector {
+    private static final Logger logger = Logger.getLogger(VertexTypeSelector.class);
+    private static final String DSL_KEYWORD = "type";
+
     private final VertexType vertexType;
     private final boolean inverted;
     private final boolean recursive;
@@ -39,5 +45,36 @@ public class VertexTypeSelector extends VertexSelector {
         return this.inverted
                 ? !this.vertexType.matches(vertex)
                 : this.vertexType.matches(vertex);
+    }
+
+    @Override
+    public String toString() {
+        if (this.inverted) {
+            return DSL_KEYWORD + " " + DSL_INVERTED_SYMBOL + this.vertexType.toString();
+        } else {
+            return DSL_KEYWORD + " " + this.vertexType.toString();
+        }
+    }
+
+    /**
+     * Parses a {@link VertexTypeSelector} object from the given view on a string
+     * <p/>
+     * This method expects the following format: {@code type <VertexType>}
+     * @param string String view on the string that is parsed
+     * @return {@link ParseResult} containing the {@link VertexTypeSelector} object
+     */
+    public static ParseResult<VertexTypeSelector> fromString(StringView string, DSLContext context) {
+        logger.info("Parsing: " + string.getString());
+        boolean inverted = string.getString().startsWith(DSL_INVERTED_SYMBOL);
+        if (context.getContextProvider().isEmpty()) {
+        	return ParseResult.error("Cannot parse vertex types without context provider!");
+        }
+        ParseResult<VertexType> vertexType = context.getContextProvider().get().vertexTypeFromString(string);
+        if (vertexType.failed()) {
+            return ParseResult.error(vertexType.getError());
+        }
+        if (inverted) string.advance(DSL_INVERTED_SYMBOL.length());
+        string.advance(1);
+        return ParseResult.ok(new VertexTypeSelector(context, vertexType.getResult(), inverted));
     }
 }

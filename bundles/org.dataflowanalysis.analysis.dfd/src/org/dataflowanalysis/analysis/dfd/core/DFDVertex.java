@@ -3,6 +3,7 @@ package org.dataflowanalysis.analysis.dfd.core;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -84,7 +85,7 @@ public class DFDVertex extends AbstractVertex<Node> {
      * @return Returns the map of output pins with their labels
      */
     private Map<Pin, List<Label>> determineOutputPinOutgoingLabelMap(Map<Pin, List<Label>> inputPinsIncomingLabelMap) {
-        Map<Pin, List<Label>> outputPinsOutgoingLabelMap = new HashMap<>();
+        Map<Pin, List<Label>> outputPinsOutgoingLabelMap = new LinkedHashMap<>();
         var assignments = this.getReferencedElement()
                 .getBehavior()
                 .getAssignment();

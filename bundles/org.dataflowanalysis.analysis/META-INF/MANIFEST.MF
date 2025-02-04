@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Data Flow Analysis
 Bundle-SymbolicName: org.dataflowanalysis.analysis
-Bundle-Version: 3.0.0.qualifier
+Bundle-Version: 4.0.0.qualifier
 Automatic-Module-Name: org.dataflowanalysis.analysis
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: org.eclipse.core.runtime,
@@ -14,12 +14,14 @@ Require-Bundle: org.eclipse.core.runtime,
  org.dataflowanalysis.pcm.extension.dictionary.characterized;visibility:=reexport,
  org.dataflowanalysis.pcm.extension.dddsl;visibility:=reexport,
  org.dataflowanalysis.pcm.extension.nodecharacteristics,
- org.dataflowanalysis.dfd.dataflowdiagram
+ org.dataflowanalysis.dfd.dataflowdiagram,
+ org.eclipse.xtext;bundle-version="2.30.0"
 Export-Package: 
  org.dataflowanalysis.analysis,
  org.dataflowanalysis.analysis.core,
  org.dataflowanalysis.analysis.dsl,
  org.dataflowanalysis.analysis.dsl.constraint,
+ org.dataflowanalysis.analysis.dsl.context,
  org.dataflowanalysis.analysis.dsl.query,
  org.dataflowanalysis.analysis.dsl.result,
  org.dataflowanalysis.analysis.dsl.selectors,

@@ -66,6 +66,7 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
             throw new IllegalStateException("Could not initialize analysis");
         }
         this.resourceProvider.loadRequiredResources();
+        this.resourceProvider.validate();
         if (!this.resourceProvider.sufficientResourcesLoaded()) {
             logger.error("Insufficient amount of resources loaded");
             throw new IllegalStateException("Could not initialize analysis");

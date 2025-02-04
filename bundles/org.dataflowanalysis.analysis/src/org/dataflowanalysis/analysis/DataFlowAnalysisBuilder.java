@@ -69,10 +69,6 @@ public abstract class DataFlowAnalysisBuilder {
             logger.error("The dataflow analysis can only be run in standalone mode",
                     new IllegalStateException("Dataflow analysis can only be run in standalone mode"));
         }
-        if (!customResourceProviderIsLoaded && (this.modelProjectName == null || this.modelProjectName.isEmpty())) {
-            logger.error("The dataflow analysis requires a model project name to be present to resolve paths to" + " the models",
-                    new IllegalStateException("Model project name is required"));
-        }
     }
 
     /**

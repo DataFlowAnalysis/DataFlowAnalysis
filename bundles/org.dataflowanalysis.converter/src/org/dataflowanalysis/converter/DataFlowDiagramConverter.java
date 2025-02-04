@@ -103,6 +103,10 @@ public class DataFlowDiagramConverter extends Converter {
         return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, conditions, finderClass));
     }
 
+    public WebEditorDfd dfdToWeb(DataFlowDiagramAndDictionary complete, Map<Node, Annotation> annotations) {
+        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), annotations);
+    }
+
     /**
      * Converts a DataFlowDiagramAndDictionary object into a WebEditorDfd object, analyzes it with a custom Finder, checks for the constraints and annotates the WebDFD.
      * @param complete The DataFlowDiagramAndDictionary object to convert.

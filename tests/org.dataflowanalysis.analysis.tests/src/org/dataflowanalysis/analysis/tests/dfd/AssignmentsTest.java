@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.dfd.core.DFDVertex;
@@ -12,25 +11,36 @@ import org.dataflowanalysis.analysis.dfd.resource.DFDModelResourceProvider;
 import org.dataflowanalysis.analysis.tests.dfd.util.DFDTestUtil;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.ForwardingAssignment;
+import org.dataflowanalysis.dfd.datadictionary.Label;
+import org.dataflowanalysis.dfd.datadictionary.LabelType;
 import org.dataflowanalysis.dfd.datadictionary.SetAssignment;
 import org.dataflowanalysis.dfd.datadictionary.UnsetAssignment;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
+import org.dataflowanalysis.dfd.datadictionary.datadictionaryFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import tools.mdsd.modelingfoundations.identifier.Entity;
 
 public class AssignmentsTest {
     private DataFlowDiagram dataFlowDiagram;
     private DataDictionary dataDictionary;
-       
+
     @BeforeEach
     public void init() {    
     	dataFlowDiagram = DFDTestUtil.createDataFlowDiagram();
-        dataDictionary = DFDTestUtil.createDataDictionary();   	
+        dataDictionary = DFDTestUtil.createDataDictionary();
+
+        LabelType type = datadictionaryFactory.eINSTANCE.createLabelType();
+        type.setEntityName("type");
+        Label label = datadictionaryFactory.eINSTANCE.createLabel();
+        label.setEntityName("value");
+        type.getLabel()
+                .add(label);
+        dataDictionary.getLabelTypes()
+                .add(type);
     }
-    
+
     @Test
     public void testTFGBuildingWithSetAssignments() {
     	//Test whether Set Assignment starts TFG of 2 Nodes
@@ -67,9 +77,9 @@ public class AssignmentsTest {
     	tfg = analysis.findFlowGraphs();
     	tfg.evaluate();
     	
-    	assertEquals(tfg.getTransposeFlowGraphs().size(), 1);    
+    	assertEquals(tfg.getTransposeFlowGraphs().size(), 1);
     }
-    
+
     @Test
     public void testSetAndUnsetBehavior() {
     	//Test whether Set Assignment sets Label
@@ -134,10 +144,12 @@ public class AssignmentsTest {
     		});
     	});
     }
-    
+
     private List<CharacteristicValue> getAllCharacteristicValues(DFDVertex vertex) {
-    	return vertex.getAllOutgoingDataCharacteristics().stream().flatMap(it -> it.getAllCharacteristics().stream()).collect(Collectors.toList());
+        return vertex.getAllOutgoingDataCharacteristics()
+                .stream()
+                .flatMap(it -> it.getAllCharacteristics()
+                        .stream())
+                .collect(Collectors.toList());
     }
-    
-   
 }

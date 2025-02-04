@@ -2,6 +2,7 @@ package org.dataflowanalysis.analysis.dfd.resource;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.eclipse.emf.common.util.URI;
@@ -13,6 +14,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  * {@link URI}
  */
 public class DFDURIResourceProvider extends DFDResourceProvider {
+    private static final Logger logger = Logger.getLogger(DFDURIResourceProvider.class);
+
     private final URI dataFlowDiagramURI;
     private final URI dataDictionaryURI;
     private DataFlowDiagram dataFlowDiagram;
@@ -38,6 +41,17 @@ public class DFDURIResourceProvider extends DFDResourceProvider {
             loadedResources.forEach(EcoreUtil::resolveAll);
         } while (loadedResources.size() != this.resources.getResources()
                 .size());
+        EcoreUtil.resolveAll(this.resources);
+        for (var resource : this.resources.getResources()) {
+            if (!resource.getErrors()
+                    .isEmpty()) {
+                logger.error("Errors occurred during loading a model:");
+                logger.error(resource.getErrors()
+                        .stream()
+                        .map(Resource.Diagnostic::getMessage)
+                        .toList());
+            }
+        }
     }
 
     @Override

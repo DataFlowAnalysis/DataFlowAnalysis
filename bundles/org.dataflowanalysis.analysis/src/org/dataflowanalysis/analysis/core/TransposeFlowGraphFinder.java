@@ -14,6 +14,6 @@ public interface TransposeFlowGraphFinder {
      * @return Returns a list of all transpose flow graph between the list of source and sink nodes
      */
     List<? extends AbstractTransposeFlowGraph> findTransposeFlowGraphs(List<?> sinkNodes, List<?> sourceNodes);
-    
+
     List<? extends AbstractTransposeFlowGraph> findTransposeFlowGraphs(List<?> sourceNodes);
 }

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DataFlowAnalysis PCM
 Bundle-SymbolicName: org.dataflowanalysis.analysis.pcm
-Bundle-Version: 3.0.0.qualifier
+Bundle-Version: 4.0.0.qualifier
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources;visibility:=reexport,
  tools.mdsd.library.standalone.initialization;bundle-version="0.2.0";visibility:=reexport,
@@ -12,7 +12,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.dataflowanalysis.pcm.extension.dictionary.characterized;bundle-version="5.2.0";visibility:=reexport,
  org.dataflowanalysis.pcm.extension.dddsl;bundle-version="5.2.0";visibility:=reexport,
  org.dataflowanalysis.pcm.extension.nodecharacteristics;bundle-version="0.1.0";visibility:=reexport,
- org.dataflowanalysis.analysis
+ org.dataflowanalysis.analysis,
+ org.eclipse.xtext;bundle-version="2.30.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: org.dataflowanalysis.analysis.pcm
 Export-Package: org.dataflowanalysis.analysis.pcm,

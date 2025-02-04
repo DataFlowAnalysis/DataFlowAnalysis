@@ -15,8 +15,6 @@ import org.dataflowanalysis.pcm.extension.model.confidentiality.dictionary.Dicti
 import org.dataflowanalysis.pcm.extension.model.confidentiality.dictionary.PCMDataDictionary;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.xtext.linking.impl.AbstractCleaningLinker;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.parser.antlr.AbstractInternalAntlrParser;
@@ -141,7 +139,9 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
      */
     private boolean loadRequiredModels() {
         try {
+            this.resourceProvider.setupResources();
             this.resourceProvider.loadRequiredResources();
+            this.resourceProvider.validate();
 
             this.dataDictionaries = this.resourceProvider.lookupToplevelElement(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
                     .stream()

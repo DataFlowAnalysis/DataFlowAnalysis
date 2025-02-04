@@ -1,7 +1,6 @@
 package org.dataflowanalysis.analysis.dfd.simple;
 
 import java.util.*;
-
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
@@ -19,7 +18,7 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
  */
 public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
     protected final DataFlowDiagram dataFlowDiagram;
-    
+
     private Map<Node, DFDSimpleVertex> mapNodeToExistingVertex = new HashMap<>();
 
     public DFDSimpleTransposeFlowGraphFinder(DFDResourceProvider resourceProvider) {
@@ -47,10 +46,9 @@ public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFind
     @Override
     public List<? extends AbstractTransposeFlowGraph> findTransposeFlowGraphs(List<?> sinkNodes, List<?> sourceNodes) {
         List<DFDSimpleTransposeFlowGraph> transposeFlowGraphs = new ArrayList<>();
-        
+
         System.out.println(dataFlowDiagram.getNodes());
 
-        
         for (Node endNode : getEndNodes(dataFlowDiagram.getNodes())) {
             DFDSimpleVertex sink = determineSinks(endNode);
             transposeFlowGraphs.add(new DFDSimpleTransposeFlowGraph(sink));
@@ -67,46 +65,76 @@ public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFind
      * @return List of sinks created from the initial sink with previous vertices calculated
      */
     private DFDSimpleVertex determineSinks(Node node) {
-    	if (mapNodeToExistingVertex.get(node) != null) return mapNodeToExistingVertex.get(node);
-    	
-    	if (!verifySimplicity(node)) throw new IllegalArgumentException("DFD not simple: outPin not requiring all InPins");
-    	
-    	Map<Pin, Flow> pinToFlowMap = new HashMap<>();
-    	Set<DFDSimpleVertex> previousVertices = new HashSet<>();
-    	
-    	node.getBehavior().getInPin().forEach(pin -> {
-    		var incomingFlows = dataFlowDiagram.getFlows().stream().filter(flow -> flow.getDestinationPin().equals(pin)).toList();
-    		if (incomingFlows.size() != 1) throw new IllegalArgumentException("DFD not simple: Number of flows to inpin not 1");
-    		var incomingFlow = incomingFlows.get(0);
-    		pinToFlowMap.put(pin, incomingFlow);
-    		previousVertices.add(determineSinks(incomingFlow.getSourceNode()));
-    	});
-    	
-    	node.getBehavior().getOutPin().forEach(pin -> {
-    		var outgoingFlows = dataFlowDiagram.getFlows().stream().filter(flow -> flow.getSourcePin().equals(pin)).toList();
-    		if (outgoingFlows.size() == 0) throw new IllegalArgumentException("DFD not simple: Dead output pin");
-    		var flowname = outgoingFlows.get(0).getEntityName();
-    		outgoingFlows.forEach(it -> {
-    			if (!it.getEntityName().equals(flowname)) throw new IllegalArgumentException("DFD not simple: All outgoing flows from one pin must have the same name");
-    		});
-    		var outgoingFlow = outgoingFlows.get(0);
-    		pinToFlowMap.put(pin, outgoingFlow);
-    	});
-    	
-    	var vertex = new DFDSimpleVertex(node, previousVertices, pinToFlowMap);
-    	mapNodeToExistingVertex.put(node, vertex);
-    	return vertex;
+        if (mapNodeToExistingVertex.get(node) != null)
+            return mapNodeToExistingVertex.get(node);
+
+        if (!verifySimplicity(node))
+            throw new IllegalArgumentException("DFD not simple: outPin not requiring all InPins");
+
+        Map<Pin, Flow> pinToFlowMap = new HashMap<>();
+        Set<DFDSimpleVertex> previousVertices = new HashSet<>();
+
+        node.getBehavior()
+                .getInPin()
+                .forEach(pin -> {
+                    var incomingFlows = dataFlowDiagram.getFlows()
+                            .stream()
+                            .filter(flow -> flow.getDestinationPin()
+                                    .equals(pin))
+                            .toList();
+                    if (incomingFlows.size() != 1)
+                        throw new IllegalArgumentException("DFD not simple: Number of flows to inpin not 1");
+                    var incomingFlow = incomingFlows.get(0);
+                    pinToFlowMap.put(pin, incomingFlow);
+                    previousVertices.add(determineSinks(incomingFlow.getSourceNode()));
+                });
+
+        node.getBehavior()
+                .getOutPin()
+                .forEach(pin -> {
+                    var outgoingFlows = dataFlowDiagram.getFlows()
+                            .stream()
+                            .filter(flow -> flow.getSourcePin()
+                                    .equals(pin))
+                            .toList();
+                    if (outgoingFlows.size() == 0)
+                        throw new IllegalArgumentException("DFD not simple: Dead output pin");
+                    var flowname = outgoingFlows.get(0)
+                            .getEntityName();
+                    outgoingFlows.forEach(it -> {
+                        if (!it.getEntityName()
+                                .equals(flowname))
+                            throw new IllegalArgumentException("DFD not simple: All outgoing flows from one pin must have the same name");
+                    });
+                    var outgoingFlow = outgoingFlows.get(0);
+                    pinToFlowMap.put(pin, outgoingFlow);
+                });
+
+        var vertex = new DFDSimpleVertex(node, previousVertices, pinToFlowMap);
+        mapNodeToExistingVertex.put(node, vertex);
+        return vertex;
     }
-    
-    //Assumption!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    private boolean verifySimplicity(Node node) {		
-    	return node.getBehavior().getAssignment().stream().filter(ForwardingAssignment.class::isInstance).anyMatch(it -> ((ForwardingAssignment)it).getInputPins().equals(node.getBehavior().getInPin()))
-    			|| node.getBehavior().getAssignment().stream().filter(Assignment.class::isInstance).anyMatch(it -> ((Assignment)it).getInputPins().equals(node.getBehavior().getInPin()))
-    			|| node.getBehavior().getInPin().size() == 0
-    			|| node.getBehavior().getOutPin().size() == 0;    	
+
+    // Assumption!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    private boolean verifySimplicity(Node node) {
+        return node.getBehavior()
+                .getAssignment()
+                .stream()
+                .filter(ForwardingAssignment.class::isInstance)
+                .anyMatch(it -> ((ForwardingAssignment) it).getInputPins()
+                        .equals(node.getBehavior()
+                                .getInPin()))
+                || node.getBehavior()
+                        .getAssignment()
+                        .stream()
+                        .filter(Assignment.class::isInstance)
+                        .anyMatch(it -> ((Assignment) it).getInputPins()
+                                .equals(node.getBehavior()
+                                        .getInPin()))
+                || node.getBehavior()
+                        .getOutPin()
+                        .size() == 0;
     }
-    
-    
 
     /**
      * Gets a list of nodes that are sinks of the given list of nodes
@@ -124,8 +152,10 @@ public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFind
                     .getInPin()) {
                 for (AbstractAssignment abstractAssignment : node.getBehavior()
                         .getAssignment()) {
-                	if ((abstractAssignment instanceof ForwardingAssignment forwardingAssignment && forwardingAssignment.getInputPins().contains(inputPin)) ||
-                			(abstractAssignment instanceof Assignment assignment && assignment.getInputPins().contains(inputPin))) {
+                    if ((abstractAssignment instanceof ForwardingAssignment forwardingAssignment && forwardingAssignment.getInputPins()
+                            .contains(inputPin)) || (abstractAssignment instanceof Assignment assignment
+                                    && assignment.getInputPins()
+                                            .contains(inputPin))) {
                         endNodes.remove(node);
                         break;
                     }

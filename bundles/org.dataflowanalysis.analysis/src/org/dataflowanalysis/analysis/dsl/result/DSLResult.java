@@ -1,14 +1,18 @@
 package org.dataflowanalysis.analysis.dsl.result;
 
+import java.util.List;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
-
-import java.util.List;
 
 /**
  * Represents a result of the dsl on a given transpose flow graph
  */
 public final class DSLResult {
+    private static final String RESULT_TEMPLATE = """
+            Violation in TFG: %s
+            Violating vertices: %s
+            """;
+
     private final AbstractTransposeFlowGraph transposeFlowGraph;
     private final List<? extends AbstractVertex<?>> matchingVertices;
     private final DSLConstraintTrace constraintTrace;
@@ -19,7 +23,8 @@ public final class DSLResult {
      * @param matchingVertices Given list of matched vertices of the transpose flow graph
      * @param constraintTrace Given constraint trace of the transpose flow graph
      */
-    public DSLResult(AbstractTransposeFlowGraph transposeFlowGraph, List<? extends AbstractVertex<?>> matchingVertices, DSLConstraintTrace constraintTrace) {
+    public DSLResult(AbstractTransposeFlowGraph transposeFlowGraph, List<? extends AbstractVertex<?>> matchingVertices,
+            DSLConstraintTrace constraintTrace) {
         this.transposeFlowGraph = transposeFlowGraph;
         this.matchingVertices = matchingVertices;
         this.constraintTrace = constraintTrace;
@@ -47,5 +52,11 @@ public final class DSLResult {
      */
     public DSLConstraintTrace getConstraintTrace() {
         return constraintTrace;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(RESULT_TEMPLATE, this.transposeFlowGraph.getSink()
+                .toString(), this.matchingVertices.toString());
     }
 }

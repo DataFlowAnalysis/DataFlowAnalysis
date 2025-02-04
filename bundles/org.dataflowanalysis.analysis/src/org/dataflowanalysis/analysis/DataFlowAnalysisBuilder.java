@@ -38,8 +38,8 @@ public abstract class DataFlowAnalysisBuilder {
 
     /**
      * Sets the model project name of the analysis that is used to resolve paths to the files of the model. Example: For
-     * models contained in the {@code org.dataflowanalysis.analysis.testmodels} project/bundle the modelProjectName would be equal
-     * to that name.
+     * models contained in the {@code org.dataflowanalysis.analysis.testmodels} project/bundle the modelProjectName would be
+     * equal to that name.
      * @return Builder of the analysis
      */
     public DataFlowAnalysisBuilder modelProjectName(String modelProjectName) {
@@ -68,10 +68,6 @@ public abstract class DataFlowAnalysisBuilder {
         if (!this.standalone) {
             logger.error("The dataflow analysis can only be run in standalone mode",
                     new IllegalStateException("Dataflow analysis can only be run in standalone mode"));
-        }
-        if (!customResourceProviderIsLoaded && (this.modelProjectName == null || this.modelProjectName.isEmpty())) {
-            logger.error("The dataflow analysis requires a model project name to be present to resolve paths to" + " the models",
-                    new IllegalStateException("Model project name is required"));
         }
     }
 

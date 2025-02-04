@@ -15,8 +15,8 @@ public abstract class FlowGraphCollection {
     private List<? extends AbstractTransposeFlowGraph> transposeFlowGraphs;
 
     /**
-     * Creates a new collection of flow graphs.
-     * {@link FlowGraphCollection#initialize(ResourceProvider)} should be called before this class is used
+     * Creates a new collection of flow graphs. {@link FlowGraphCollection#initialize(ResourceProvider)} should be called
+     * before this class is used
      */
     public FlowGraphCollection() {
     }
@@ -29,7 +29,7 @@ public abstract class FlowGraphCollection {
         this.resourceProvider = resourceProvider;
         this.transposeFlowGraphs = this.findTransposeFlowGraphs();
     }
-    
+
     /**
      * Initializes the flow graph collection with the given resource provider
      * @param resourceProvider Resource provider used to find transpose flow graphs
@@ -50,7 +50,6 @@ public abstract class FlowGraphCollection {
         this.resourceProvider = resourceProvider;
         this.transposeFlowGraphs = this.findTransposeFlowGraphs();
     }
-    
 
     /**
      * Initializes a new collection of flow graphs with the given transpose flow graphs

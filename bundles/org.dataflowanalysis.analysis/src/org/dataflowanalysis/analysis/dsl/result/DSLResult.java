@@ -9,6 +9,11 @@ import java.util.List;
  * Represents a result of the dsl on a given transpose flow graph
  */
 public final class DSLResult {
+    private static final String RESULT_TEMPLATE = """
+            Violation in TFG: %s
+            Violating vertices: %s
+            """;
+
     private final AbstractTransposeFlowGraph transposeFlowGraph;
     private final List<? extends AbstractVertex<?>> matchingVertices;
     private final DSLConstraintTrace constraintTrace;
@@ -47,5 +52,10 @@ public final class DSLResult {
      */
     public DSLConstraintTrace getConstraintTrace() {
         return constraintTrace;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(RESULT_TEMPLATE, this.transposeFlowGraph.getSink().toString(), this.matchingVertices.toString());
     }
 }

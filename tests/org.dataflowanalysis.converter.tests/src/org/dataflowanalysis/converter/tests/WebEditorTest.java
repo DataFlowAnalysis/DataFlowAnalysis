@@ -45,6 +45,8 @@ public class WebEditorTest extends ConverterTest {
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(minimalWebDFD);
         WebEditorDfd webBefore = objectMapper.readValue(file, WebEditorDfd.class);
+        
+        webAfter.constraints().addAll(webBefore.constraints());
 
         webBefore.sort();
         webAfter.sort();

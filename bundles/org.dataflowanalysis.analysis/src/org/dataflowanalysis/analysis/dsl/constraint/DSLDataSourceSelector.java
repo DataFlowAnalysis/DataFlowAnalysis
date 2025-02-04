@@ -30,7 +30,7 @@ public class DSLDataSourceSelector {
      * @return Returns DSL constraint builder for source vertex data
      */
     public DSLDataSourceSelector withLabel(String characteristicType, String characteristicValue) {
-        this.analysisConstraint.addFlowSource(new DataCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), ConstraintVariableReference.ofConstant(List.of(characteristicValue)))));
+        this.analysisConstraint.addDataSourceSelector(new DataCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), ConstraintVariableReference.ofConstant(List.of(characteristicValue)))));
         return this;
     }
 
@@ -41,7 +41,7 @@ public class DSLDataSourceSelector {
      * @return Returns DSL constraint builder for source vertex data
      */
     public DSLDataSourceSelector withLabel(String characteristicType, ConstraintVariableReference characteristicValueVariable) {
-        this.analysisConstraint.addFlowSource(new DataCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), characteristicValueVariable)));
+        this.analysisConstraint.addDataSourceSelector(new DataCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), characteristicValueVariable)));
         return this;
     }
 
@@ -56,7 +56,7 @@ public class DSLDataSourceSelector {
     public DSLDataSourceSelector withLabel(String characteristicType, List<String> characteristicValues) {
         List<CharacteristicsSelectorData> data = new ArrayList<>();
         characteristicValues.forEach(it -> data.add(new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), ConstraintVariableReference.ofConstant(List.of(it)))));
-        this.analysisConstraint.addFlowSource(new DataCharacteristicListSelector(analysisConstraint.getContext(), data));
+        this.analysisConstraint.addDataSourceSelector(new DataCharacteristicListSelector(analysisConstraint.getContext(), data));
         return this;
     }
 
@@ -67,7 +67,7 @@ public class DSLDataSourceSelector {
      * @return Returns DSL constraint builder for source vertex data
      */
     public DSLDataSourceSelector withoutLabel(String characteristicType, String characteristicValue) {
-        this.analysisConstraint.addFlowSource(new DataCharacteristicsSelector(analysisConstraint.getContext(),new CharacteristicsSelectorData( ConstraintVariableReference.ofConstant(List.of(characteristicType)), ConstraintVariableReference.ofConstant( List.of(characteristicValue))), true));
+        this.analysisConstraint.addDataSourceSelector(new DataCharacteristicsSelector(analysisConstraint.getContext(),new CharacteristicsSelectorData( ConstraintVariableReference.ofConstant(List.of(characteristicType)), ConstraintVariableReference.ofConstant( List.of(characteristicValue))), true));
         return this;
     }
 
@@ -80,7 +80,7 @@ public class DSLDataSourceSelector {
      * @return Returns DSL constraint builder for source vertex data
      */
     public DSLDataSourceSelector withoutLabel(String characteristicType, List<String> characteristicValues) {
-        characteristicValues.forEach(characteristicValue -> this.analysisConstraint.addFlowSource(new DataCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant( List.of(characteristicType)), ConstraintVariableReference.ofConstant(List.of(characteristicValue))), true)));
+        characteristicValues.forEach(characteristicValue -> this.analysisConstraint.addDataSourceSelector(new DataCharacteristicsSelector(analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant( List.of(characteristicType)), ConstraintVariableReference.ofConstant(List.of(characteristicValue))), true)));
         return this;
     }
 

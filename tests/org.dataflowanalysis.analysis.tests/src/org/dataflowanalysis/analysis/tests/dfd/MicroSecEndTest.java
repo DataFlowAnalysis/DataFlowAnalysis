@@ -442,4 +442,17 @@ public class MicroSecEndTest {
                                 && c.getValueName()
                                         .equals(value)));
     }
+    
+    /**
+     * Returns a deep copy of the {@code TUHH_MODELS} map.
+     */
+    public static Map<String, List<Integer>> getTuhhModels() {
+        Map<String, List<Integer>> deepCopy = new HashMap<>();
+        
+        for (var entry : TUHH_MODELS.entrySet()) {
+            deepCopy.put(entry.getKey(), new ArrayList<>(entry.getValue()));
+        }
+
+        return deepCopy;
+    }
 }

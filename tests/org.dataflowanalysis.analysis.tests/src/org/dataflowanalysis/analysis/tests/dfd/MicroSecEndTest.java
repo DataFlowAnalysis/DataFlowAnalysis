@@ -23,7 +23,7 @@ import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.dfd.core.DFDTransposeFlowGraphFinder;
 import org.dataflowanalysis.examplemodels.Activator;
-import static org.dataflowanalysis.examplemodels.TuhhModels.getTuhhModels;
+import org.dataflowanalysis.examplemodels.TuhhModels;
 import org.junit.jupiter.api.Test;
 
 public class MicroSecEndTest {
@@ -91,7 +91,7 @@ public class MicroSecEndTest {
 
     @Test
     void testConstraints() {
-        var tuhhModels = getTuhhModels();
+        var tuhhModels = TuhhModels.getTuhhModels();
         
         for (var model : tuhhModels.keySet()) {
             for (int variant : tuhhModels.get(model)) {

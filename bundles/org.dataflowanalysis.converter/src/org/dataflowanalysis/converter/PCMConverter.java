@@ -673,11 +673,13 @@ public class PCMConverter extends Converter {
 		Pin outPin = node.getBehavior().getOutPin().stream()
 				.filter(it -> it.getEntityName().equals(reference.getReferenceName())).findAny().orElseThrow();
 		assignment.setOutputPin(outPin);
-		Pin inPin = node.getBehavior().getInPin().stream().filter(
+		Optional<Pin> inPin = node.getBehavior().getInPin().stream().filter(
 				it -> it.getEntityName().equals(namedEnumCharacteristicReference.getNamedReference().getReferenceName())
 						|| it.getEntityName().equals(""))
-				.findAny().orElseThrow();
-		assignment.getInputPins().add(inPin);
+				.findAny();
+		if (inPin.isPresent()) {
+			assignment.getInputPins().add(inPin.get());
+		}
 		return assignment;
 	}
 

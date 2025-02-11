@@ -5,11 +5,14 @@ analyze their data characteristics and formulate constraints to check if definie
 For more information visit the [official page](https://dataflowanalysis.org/) of the project.
 
 ## Installation
-
 - Install the product from our [updatesite](https://updatesite.palladio-simulator.com/DataFlowAnalysis/product/nightly/) 
 - Clone this repository
-- Import the projects in this repository 
 
+For usage in eclipse, follow the guide [here](docs/eclipse.md).
+To use the data flow analysis in IntelliJ follow the installation instructions [here](docs/intellij.md).
+
+Finally, run the tests contained in the `org.dataflowanalysis.tests` bundle.
+If all tests succeed, you have set up the project correctly.
 ## Usage
 
 First step of using the project is to create a modelling project in Eclipse.

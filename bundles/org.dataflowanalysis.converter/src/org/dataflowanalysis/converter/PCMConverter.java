@@ -679,6 +679,8 @@ public class PCMConverter extends Converter {
 				.findAny();
 		if (inPin.isPresent()) {
 			assignment.getInputPins().add(inPin.get());
+		} else {
+			logger.warn("One StoEx references incoming data that is not incoming!");
 		}
 		return assignment;
 	}

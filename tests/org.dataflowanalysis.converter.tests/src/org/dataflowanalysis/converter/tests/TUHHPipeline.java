@@ -14,14 +14,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import static java.util.Map.entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.HashSet;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import com.google.common.collect.ImmutableMap;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.converter.MicroSecEndConverter;
@@ -33,32 +32,30 @@ public class TUHHPipeline {
 
     public static final List<Integer> OUT_OF_SCOPE_VARIANTS = List.of(13, 14, 15, 16, 17);
 
-    public static final Map<String, List<Integer>> FAULTY_VARIANTS = ImmutableMap.<String, List<Integer>>builder()
-            .put("callistaenterprise", List.of(4))
-            .put("ewolff", List.of(3, 6))
-            .put("fernandoabcampos", List.of(3, 6))
-            .put("jferrater", List.of(1, 4))
-            .put("mdeket", List.of(3, 6))
-            .put("mudigal-technologies", List.of(3, 6))
-            .put("rohitghatol", List.of(11))
-            .put("spring-petclinic", List.of(4))
-            .put("georgwittberger", List.of(9))
-            .build();
+    public static final Map<String, List<Integer>> FAULTY_VARIANTS = Map.ofEntries(
+            entry("callistaenterprise", List.of(4)),
+            entry("ewolff", List.of(3, 6)),
+            entry("fernandoabcampos", List.of(3, 6)),
+            entry("jferrater", List.of(1, 4)),
+            entry("mdeket", List.of(3, 6)),
+            entry("mudigal-technologies", List.of(3, 6)),
+            entry("rohitghatol", List.of(11)),
+            entry("spring-petclinic", List.of(4)),
+            entry("georgwittberger", List.of(9)));
 
-    public static final Map<String, List<Integer>> CYCLIC_SINK_VARIANTS = ImmutableMap.<String, List<Integer>>builder()
-            .put("anilallewar", List.of(10))
-            .put("ewolff", List.of(0, 2, 4, 7, 8, 11))
-            .put("ewolff-kafka", List.of(10, 11, 12))
-            .put("jferrater", List.of(10, 11, 12))
-            .put("mdeket", List.of(0, 2, 4, 7, 8, 9, 10, 11, 12))
-            .put("mudigal-technologies", List.of(10, 12))
-            .put("piomin", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 17, 18))
-            .put("rohitghatol", List.of(0, 6, 7, 8, 9))
-            .put("shabbirdwd53", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 17, 18))
-            .put("spring-petclinic", List.of(10, 11, 12))
-            .put("yidongnan", List.of(10, 11, 12))
-            .put("fernandoabcampos", List.of(0, 1, 2, 4, 5, 7, 8, 9, 10, 11, 12))
-            .build();
+    public static final Map<String, List<Integer>> CYCLIC_SINK_VARIANTS = Map.ofEntries(
+            entry("anilallewar", List.of(10)),
+            entry("ewolff", List.of(0, 2, 4, 7, 8, 11)),
+            entry("ewolff-kafka", List.of(10, 11, 12)),
+            entry("jferrater", List.of(10, 11, 12)),
+            entry("mdeket", List.of(0, 2, 4, 7, 8, 9, 10, 11, 12)),
+            entry("mudigal-technologies", List.of(10, 12)),
+            entry("piomin", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 17, 18)),
+            entry("rohitghatol", List.of(0, 6, 7, 8, 9)),
+            entry("shabbirdwd53", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 17, 18)),
+            entry("spring-petclinic", List.of(10, 11, 12)),
+            entry("yidongnan", List.of(10, 11, 12)),
+            entry("fernandoabcampos", List.of(0, 1, 2, 4, 5, 7, 8, 9, 10, 11, 12)));
 
     @Disabled
     @Test

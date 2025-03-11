@@ -54,7 +54,7 @@ public class DataFlowDiagramConverter extends Converter {
     public WebEditorDfd dfdToWeb(String project, String inputDataFlowDiagram, String inputDataDictionary, Class<?> activator)
             throws StandaloneInitializationException {
         DataFlowDiagramAndDictionary complete = loadDFD(project, inputDataFlowDiagram, inputDataDictionary, activator);
-        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, null, null));
+        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, null, null), false);
     }
 
     /**
@@ -63,7 +63,7 @@ public class DataFlowDiagramConverter extends Converter {
      * @return WebEditorDfd object representing the web editor version of the data flow diagram.
      */
     public WebEditorDfd dfdToWeb(DataFlowDiagramAndDictionary complete) {
-        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, null, null));
+        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, null, null), false);
     }
     
     /**
@@ -77,7 +77,7 @@ public class DataFlowDiagramConverter extends Converter {
             throws StandaloneInitializationException {
         DataFlowDiagramAndDictionary complete = loadDFD(project, inputDataFlowDiagram, inputDataDictionary, activator);       
         
-        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, conditions, null));
+        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, conditions, null), false);
     }
 
     /**
@@ -86,7 +86,7 @@ public class DataFlowDiagramConverter extends Converter {
      * @return WebEditorDfd object representing the web editor version of the data flow diagram.
      */
     public WebEditorDfd dfdToWebAndAnalyzeAndAnnotate(DataFlowDiagramAndDictionary complete, List<Predicate<? super AbstractVertex<?>>> conditions) {
-        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, conditions, null));
+        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, conditions, null), false);
     }
     
     /**
@@ -100,11 +100,25 @@ public class DataFlowDiagramConverter extends Converter {
             throws StandaloneInitializationException {
         DataFlowDiagramAndDictionary complete = loadDFD(project, inputDataFlowDiagram, inputDataDictionary, activator);       
         
-        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, conditions, finderClass));
+        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, conditions, finderClass), false);
+    }
+    
+    /**
+     * Converts Data Flow Diagram and Data Dictionary provided via paths into a WebEditorDfd object, analyzes it with a custom Finder, checks for the constraints and annotates the WebDFD. Also sets the readonly flag
+     * @param inputDataFlowDiagram The path of the data flow diagram.
+     * @param inputDataDictionary The path of the data dictionary.
+     * @return WebEditorDfd object representing the web editor version of the data flow diagram.
+     * @throws StandaloneInitializationException
+     */
+    public WebEditorDfd dfdToWebAndAnalyzeAndAnnotateWithCustomTFGFinderAndSetReadOnly(String project, String inputDataFlowDiagram, String inputDataDictionary, Class<?> activator, List<Predicate<? super AbstractVertex<?>>> conditions, Class<? extends TransposeFlowGraphFinder> finderClass)
+            throws StandaloneInitializationException {
+        DataFlowDiagramAndDictionary complete = loadDFD(project, inputDataFlowDiagram, inputDataDictionary, activator);       
+        
+        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, conditions, finderClass), true);
     }
 
     public WebEditorDfd dfdToWeb(DataFlowDiagramAndDictionary complete, Map<Node, Annotation> annotations) {
-        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), annotations);
+        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), annotations, false);
     }
 
     /**
@@ -115,7 +129,18 @@ public class DataFlowDiagramConverter extends Converter {
      * @return WebEditorDfd object representing the web editor version of the data flow diagram.
      */
     public WebEditorDfd dfdToWebAndAnalyzeAndAnnotateWithCustomTFGFinder(DataFlowDiagramAndDictionary complete, List<Predicate<? super AbstractVertex<?>>> conditions, Class<? extends TransposeFlowGraphFinder> finderClass) {
-        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, conditions, finderClass));
+        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, conditions, finderClass), false);
+    }
+    
+    /**
+     * Converts a DataFlowDiagramAndDictionary object into a WebEditorDfd object, analyzes it with a custom Finder, checks for the constraints and annotates the WebDFD. Also sets the readonly flag
+     * @param complete The DataFlowDiagramAndDictionary object to convert.
+     * @param conditions List of constraints
+     * @param finderClass Custom TFG Finder
+     * @return WebEditorDfd object representing the web editor version of the data flow diagram.
+     */
+    public WebEditorDfd dfdToWebAndAnalyzeAndAnnotateWithCustomTFGFinderAndSetReadOnly(DataFlowDiagramAndDictionary complete, List<Predicate<? super AbstractVertex<?>>> conditions, Class<? extends TransposeFlowGraphFinder> finderClass) {
+        return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, conditions, finderClass), true);
     }
     
     /**
@@ -209,7 +234,7 @@ public class DataFlowDiagramConverter extends Converter {
         }
     }
 
-    private WebEditorDfd processDfd(DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary, Map<Node, Annotation> mapNodeToAnnotation) {
+    private WebEditorDfd processDfd(DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary, Map<Node, Annotation> mapNodeToAnnotation, boolean readOnly) {
         inputPinToFlowNamesMap = new HashMap<>();
         List<Child> children = new ArrayList<>();
         List<WebEditorLabelType> labelTypes = new ArrayList<>();        
@@ -222,7 +247,7 @@ public class DataFlowDiagramConverter extends Converter {
 
         createNodes(dataFlowDiagram, children, mapNodeToAnnotation);
 
-        return new WebEditorDfd(new Model("graph", "root", children), labelTypes, "edit", new ArrayList<>());
+        return new WebEditorDfd(new Model("graph", "root", children), labelTypes, readOnly ? "readonly" : "edit", new ArrayList<>());
     }
 
     private void createNodes(DataFlowDiagram dataFlowDiagram, List<Child> children, Map<Node, Annotation> mapNodeToAnnotation) {

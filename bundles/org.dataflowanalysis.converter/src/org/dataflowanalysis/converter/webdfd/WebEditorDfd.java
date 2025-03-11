@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @param labelTypes A list of {@link WebEditorLabelType}
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record WebEditorDfd(Model model, List<WebEditorLabelType> labelTypes, String editorMode, List<Constraint> constraints) {
+public record WebEditorDfd(Model model, List<WebEditorLabelType> labelTypes, String mode, List<Constraint> constraints) {
 
     /**
      * Sorts the data flow diagram based on the id's of the contents

@@ -1,8 +1,8 @@
 package org.dataflowanalysis.analysis.dsl.constraint;
 
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
-import org.dataflowanalysis.analysis.dsl.selectors.Intersection;
 import org.dataflowanalysis.analysis.dsl.selectors.EmptySetOperationConditionalSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.Intersection;
 import org.dataflowanalysis.analysis.dsl.selectors.VariableConditionalSelector;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
 

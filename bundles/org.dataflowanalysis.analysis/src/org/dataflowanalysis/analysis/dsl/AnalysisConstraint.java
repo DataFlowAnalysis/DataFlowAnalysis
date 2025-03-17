@@ -1,5 +1,9 @@
 package org.dataflowanalysis.analysis.dsl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringJoiner;
+import java.util.stream.Stream;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
@@ -8,26 +12,21 @@ import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.context.DSLContextProvider;
 import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
-import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringJoiner;
-import java.util.stream.Stream;
 
 /**
  * Represents an analysis constraint created by the DSL
  */
 public class AnalysisConstraint {
-    private static final String DSL_KEYWORD= "neverFlows";
+    private static final String DSL_KEYWORD = "neverFlows";
 
-	private static final String FAILED_MATCHING_MESSAGE = "Vertex %s failed to match selector %s";
-	private static final String SUCEEDED_MATCHING_MESSAGE = "Vertex %s matched all selectors";
-	private static final String OMMITED_TRANSPOSE_FLOW_GRAPH = "Transpose flow graph %s did not contain any violations. Omitting!";
-	
+    private static final String FAILED_MATCHING_MESSAGE = "Vertex %s failed to match selector %s";
+    private static final String SUCEEDED_MATCHING_MESSAGE = "Vertex %s matched all selectors";
+    private static final String OMMITED_TRANSPOSE_FLOW_GRAPH = "Transpose flow graph %s did not contain any violations. Omitting!";
+
     private final Logger logger = Logger.getLogger(AnalysisConstraint.class);
     private final DataSourceSelectors dataSourceSelectors;
     private final VertexSourceSelectors vertexSourceSelectors;
@@ -47,8 +46,7 @@ public class AnalysisConstraint {
     }
 
     public AnalysisConstraint(VertexSourceSelectors vertexSourceSelectors, DataSourceSelectors dataSourceSelectors,
-                              VertexDestinationSelectors vertexDestinationSelectors, ConditionalSelectors conditionalSelectors,
-                              DSLContext context) {
+            VertexDestinationSelectors vertexDestinationSelectors, ConditionalSelectors conditionalSelectors, DSLContext context) {
         this.vertexSourceSelectors = vertexSourceSelectors;
         this.dataSourceSelectors = dataSourceSelectors;
         this.vertexDestinationSelectors = vertexDestinationSelectors;
@@ -63,34 +61,40 @@ public class AnalysisConstraint {
      */
     public List<DSLResult> findViolations(FlowGraphCollection flowGraphCollection) {
         List<DSLResult> results = new ArrayList<>();
-        for(AbstractTransposeFlowGraph transposeFlowGraph : flowGraphCollection.getTransposeFlowGraphs()) {
+        for (AbstractTransposeFlowGraph transposeFlowGraph : flowGraphCollection.getTransposeFlowGraphs()) {
             DSLConstraintTrace constraintTrace = new DSLConstraintTrace();
             List<AbstractVertex<?>> violations = new ArrayList<>();
             for (AbstractVertex<?> vertex : transposeFlowGraph.getVertices()) {
                 boolean matched = true;
-                for (AbstractSelector selector : Stream.concat(Stream.concat(dataSourceSelectors.getSelectors().stream(), vertexSourceSelectors.getSelectors().stream()), vertexDestinationSelectors.getSelectors().stream()).toList()) {
+                for (AbstractSelector selector : Stream.concat(Stream.concat(dataSourceSelectors.getSelectors()
+                        .stream(),
+                        vertexSourceSelectors.getSelectors()
+                                .stream()),
+                        vertexDestinationSelectors.getSelectors()
+                                .stream())
+                        .toList()) {
                     if (!selector.matches(vertex)) {
-                    	logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, selector));
+                        logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, selector));
                         matched = false;
                         constraintTrace.addMissingSelector(vertex, selector);
                     }
                 }
                 for (ConditionalSelector selector : this.conditionalSelectors.getSelectors()) {
                     if (!selector.matchesSelector(vertex, context)) {
-                    	logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, selector));
+                        logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, selector));
                         matched = false;
                         constraintTrace.addMissingConditionalSelector(vertex, selector);
                     }
                 }
                 if (matched) {
-                	logger.debug(String.format(SUCEEDED_MATCHING_MESSAGE, vertex));
+                    logger.debug(String.format(SUCEEDED_MATCHING_MESSAGE, vertex));
                     violations.add(vertex);
                 }
             }
             if (!violations.isEmpty()) {
                 results.add(new DSLResult(transposeFlowGraph, violations, constraintTrace));
             } else {
-            	logger.debug(String.format(OMMITED_TRANSPOSE_FLOW_GRAPH, transposeFlowGraph));
+                logger.debug(String.format(OMMITED_TRANSPOSE_FLOW_GRAPH, transposeFlowGraph));
             }
         }
         return results;
@@ -139,17 +143,21 @@ public class AnalysisConstraint {
     @Override
     public String toString() {
         StringJoiner dslString = new StringJoiner(" ");
-        if (!this.dataSourceSelectors.getSelectors().isEmpty()) {
+        if (!this.dataSourceSelectors.getSelectors()
+                .isEmpty()) {
             dslString.add(this.dataSourceSelectors.toString());
         }
-        if (!this.vertexSourceSelectors.getSelectors().isEmpty()) {
+        if (!this.vertexSourceSelectors.getSelectors()
+                .isEmpty()) {
             dslString.add(this.vertexSourceSelectors.toString());
         }
         dslString.add(DSL_KEYWORD);
-        if (!this.vertexDestinationSelectors.getSelectors().isEmpty()) {
+        if (!this.vertexDestinationSelectors.getSelectors()
+                .isEmpty()) {
             dslString.add(this.vertexDestinationSelectors.toString());
         }
-        if (!this.conditionalSelectors.getSelectors().isEmpty()) {
+        if (!this.conditionalSelectors.getSelectors()
+                .isEmpty()) {
             dslString.add(this.conditionalSelectors.toString());
         }
         return dslString.toString();
@@ -161,7 +169,7 @@ public class AnalysisConstraint {
      * @return Returns a {@link ParseResult} that may contain the {@link AnalysisConstraint}
      */
     public static ParseResult<AnalysisConstraint> fromString(StringView string) {
-    	return AnalysisConstraint.fromString(string, null);
+        return AnalysisConstraint.fromString(string, null);
     }
 
     /**
@@ -176,8 +184,12 @@ public class AnalysisConstraint {
         if (sourceSelectors.failed()) {
             return ParseResult.error(sourceSelectors.getError());
         }
-        DataSourceSelectors dataSourceSelectors = sourceSelectors.getResult().getDataSourceSelectors().orElse(new DataSourceSelectors());
-        VertexSourceSelectors vertexSourceSelectors = sourceSelectors.getResult().getNodeSourceSelectors().orElse(new VertexSourceSelectors());
+        DataSourceSelectors dataSourceSelectors = sourceSelectors.getResult()
+                .getDataSourceSelectors()
+                .orElse(new DataSourceSelectors());
+        VertexSourceSelectors vertexSourceSelectors = sourceSelectors.getResult()
+                .getNodeSourceSelectors()
+                .orElse(new VertexSourceSelectors());
 
         if (!string.startsWith(DSL_KEYWORD)) {
             return string.expect(DSL_KEYWORD);
@@ -197,12 +209,13 @@ public class AnalysisConstraint {
             return ParseResult.error("Unexpected symbols: " + string.getString());
         }
 
-        return ParseResult.ok(new AnalysisConstraint(vertexSourceSelectors, dataSourceSelectors, vertexDestinationSelectors, conditionalSelectors, context));
+        return ParseResult
+                .ok(new AnalysisConstraint(vertexSourceSelectors, dataSourceSelectors, vertexDestinationSelectors, conditionalSelectors, context));
     }
 
     /**
-     * Parses the source selector part of an {@link AnalysisConstraint}.
-     * It contains both {@link DataSourceSelectors} and {@link VertexSourceSelectors}
+     * Parses the source selector part of an {@link AnalysisConstraint}. It contains both {@link DataSourceSelectors} and
+     * {@link VertexSourceSelectors}
      * @param string String view on the string that is parsed
      * @param context DSL context used during parsing
      * @return Returns a {@link ParseResult} that may contain the {@link SourceSelectors} of the {@link AnalysisConstraint}
@@ -220,7 +233,7 @@ public class AnalysisConstraint {
 
         if (nodeSourceSelector.successful() && dataSourceSelector.successful()) {
             return ParseResult.ok(new SourceSelectors(dataSourceSelector.getResult(), nodeSourceSelector.getResult()));
-        } else if(dataSourceSelector.successful()) {
+        } else if (dataSourceSelector.successful()) {
             return ParseResult.ok(new SourceSelectors(dataSourceSelector.getResult()));
         } else if (nodeSourceSelector.successful()) {
             return ParseResult.ok(new SourceSelectors(nodeSourceSelector.getResult()));

@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.dfd.core.DFDTransposeFlowGraphFinder;
@@ -43,19 +42,19 @@ public class CyclicFinderTest {
         assertEquals(flowGraphVertexNames, expectedVertexNames);
 
     }
-    
+
     @Test
     public void checkPseudoLoopNotDetected() {
-    	 String locationLoop = Paths.get("models", "DFDTestModels")
-                 .toString();
-         var model = Paths.get(locationLoop, "complexPseudoCycle")
-                 .toString();
+        String locationLoop = Paths.get("models", "DFDTestModels")
+                .toString();
+        var model = Paths.get(locationLoop, "complexPseudoCycle")
+                .toString();
 
-         var analysis = buildAnalysis(model);
-         analysis.initializeAnalysis();
-         var flowGraph = analysis.findFlowGraphs();
+        var analysis = buildAnalysis(model);
+        analysis.initializeAnalysis();
+        var flowGraph = analysis.findFlowGraphs();
 
-         assertTrue(!flowGraph.wasCyclic());
+        assertTrue(!flowGraph.wasCyclic());
     }
 
     @Test

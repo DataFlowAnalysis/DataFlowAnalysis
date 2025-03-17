@@ -13,10 +13,16 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 public abstract class DFDResourceProvider extends ResourceProvider {
     @Override
     public void setupResources() {
-        this.resources.getPackageRegistry().put(dataflowdiagramPackage.eNS_URI, dataflowdiagramPackage.eINSTANCE);
-        this.resources.getResourceFactoryRegistry().getExtensionToFactoryMap().put(dataflowdiagramPackage.eNAME, new XMIResourceFactoryImpl());
-        this.resources.getPackageRegistry().put(datadictionaryPackage.eNS_URI, datadictionaryPackage.eINSTANCE);
-        this.resources.getResourceFactoryRegistry().getExtensionToFactoryMap().put(datadictionaryPackage.eNAME, new XMIResourceFactoryImpl());
+        this.resources.getPackageRegistry()
+                .put(dataflowdiagramPackage.eNS_URI, dataflowdiagramPackage.eINSTANCE);
+        this.resources.getResourceFactoryRegistry()
+                .getExtensionToFactoryMap()
+                .put(dataflowdiagramPackage.eNAME, new XMIResourceFactoryImpl());
+        this.resources.getPackageRegistry()
+                .put(datadictionaryPackage.eNS_URI, datadictionaryPackage.eINSTANCE);
+        this.resources.getResourceFactoryRegistry()
+                .getExtensionToFactoryMap()
+                .put(datadictionaryPackage.eNAME, new XMIResourceFactoryImpl());
     }
 
     /**

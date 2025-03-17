@@ -35,12 +35,12 @@ public class PCMTransposeFlowGraph extends AbstractTransposeFlowGraph {
     public AbstractPCMVertex<?> getSink() {
         return (AbstractPCMVertex<?>) this.sink;
     }
-    
+
     @Override
     public PCMTransposeFlowGraph copy() {
         return this.copy(new IdentityHashMap<>());
     }
-    
+
     public PCMTransposeFlowGraph copy(Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
         AbstractPCMVertex<?> pcmSink = (AbstractPCMVertex<?>) this.sink;
         AbstractPCMVertex<?> clonedSink = pcmSink.copy(vertexMapping);

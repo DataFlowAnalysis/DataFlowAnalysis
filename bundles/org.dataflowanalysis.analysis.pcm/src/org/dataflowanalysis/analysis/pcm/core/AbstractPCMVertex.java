@@ -162,14 +162,14 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     public T getReferencedElement() {
         return referencedElement;
     }
-    
+
     /**
      * Return the stored resource provider
      * @return Return the stored resource provider
      */
     public ResourceProvider getResourceProvider() {
-		return resourceProvider;
-	}
+        return resourceProvider;
+    }
 
     /**
      * Returns the assembly contexts of the vertex
@@ -182,8 +182,8 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     /**
      * Determines whether a vertex is equivalent to another vertex in the context of the PCM model
      * <p/>
-     * A vertex is equivalent in the PCM context, when the id of the referenced PCM elements is equal 
-     * and the <i>direction<i/> (e.g. calling, returning) is equal
+     * A vertex is equivalent in the PCM context, when the id of the referenced PCM elements is equal and the
+     * <i>direction<i/> (e.g. calling, returning) is equal
      * @param otherVertexObject Other vertex object that is used in the comparison
      * @return Returns true, when vertices are equivalent in the context of PCM elements
      */
@@ -199,6 +199,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getReferencedElement().getId());
+        return Objects.hash(this.getReferencedElement()
+                .getId());
     }
 }

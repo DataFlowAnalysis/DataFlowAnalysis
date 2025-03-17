@@ -1,13 +1,12 @@
 package org.dataflowanalysis.analysis.dsl.selectors;
 
+import java.util.List;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
-
-import java.util.List;
 
 public class EmptySetOperationConditionalSelector implements ConditionalSelector {
     private static final String DSL_KEYWORD = "empty";
@@ -21,13 +20,15 @@ public class EmptySetOperationConditionalSelector implements ConditionalSelector
 
     @Override
     public boolean matchesSelector(AbstractVertex<?> vertex, DSLContext context) {
-        List<String> variableNames = vertex.getAllIncomingDataCharacteristics().stream()
+        List<String> variableNames = vertex.getAllIncomingDataCharacteristics()
+                .stream()
                 .map(DataCharacteristic::variableName)
                 .toList();
         boolean result = true;
-        for(String variableName : variableNames) {
-            if(result) {
-                result = !setOperation.match(vertex,  variableName, context).isEmpty();
+        for (String variableName : variableNames) {
+            if (result) {
+                result = !setOperation.match(vertex, variableName, context)
+                        .isEmpty();
             }
         }
         return !result;

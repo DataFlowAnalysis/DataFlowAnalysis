@@ -1,5 +1,6 @@
 package org.dataflowanalysis.analysis.dsl.selectors;
 
+import java.util.List;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dsl.AbstractParseable;
@@ -8,8 +9,6 @@ import org.dataflowanalysis.analysis.dsl.context.DSLContextKey;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
-
-import java.util.List;
 
 public class Intersection extends AbstractParseable implements SetOperation {
     private static final String DSL_KEYWORD = "intersection";
@@ -36,9 +35,13 @@ public class Intersection extends AbstractParseable implements SetOperation {
             return List.of();
         }
 
-        return first.getPossibleValues().get().stream()
+        return first.getPossibleValues()
+                .get()
+                .stream()
                 .distinct()
-                .filter(it -> second.getPossibleValues().get().contains(it))
+                .filter(it -> second.getPossibleValues()
+                        .get()
+                        .contains(it))
                 .toList();
     }
 
@@ -82,20 +85,28 @@ public class Intersection extends AbstractParseable implements SetOperation {
         }
 
         if (!string.startsWith(DSL_DELIMITER)) {
-            string.retreat(DSL_KEYWORD.length() + DSL_PAREN_OPEN.length() + firstConstraintVariableReference.getResult().toString().length());
+            string.retreat(DSL_KEYWORD.length() + DSL_PAREN_OPEN.length() + firstConstraintVariableReference.getResult()
+                    .toString()
+                    .length());
             return string.expect(DSL_DELIMITER);
         }
         string.advance(DSL_DELIMITER.length());
 
         ParseResult<ConstraintVariableReference> secondConstraintVariableReference = ConstraintVariableReference.fromString(string);
         if (secondConstraintVariableReference.failed()) {
-            string.retreat(DSL_KEYWORD.length() + DSL_PAREN_OPEN.length() + firstConstraintVariableReference.getResult().toString().length() + DSL_DELIMITER.length());
+            string.retreat(DSL_KEYWORD.length() + DSL_PAREN_OPEN.length() + firstConstraintVariableReference.getResult()
+                    .toString()
+                    .length() + DSL_DELIMITER.length());
             return ParseResult.error(secondConstraintVariableReference.getError());
         }
 
         if (!string.startsWith(DSL_PAREN_CLOSE)) {
-            string.retreat(DSL_KEYWORD.length() + DSL_PAREN_OPEN.length() + firstConstraintVariableReference.getResult().toString().length()
-                    + DSL_DELIMITER.length() + secondConstraintVariableReference.getResult().toString().length());
+            string.retreat(DSL_KEYWORD.length() + DSL_PAREN_OPEN.length() + firstConstraintVariableReference.getResult()
+                    .toString()
+                    .length() + DSL_DELIMITER.length()
+                    + secondConstraintVariableReference.getResult()
+                            .toString()
+                            .length());
             return string.expect(DSL_PAREN_CLOSE);
         }
         string.advance(DSL_PAREN_CLOSE.length());

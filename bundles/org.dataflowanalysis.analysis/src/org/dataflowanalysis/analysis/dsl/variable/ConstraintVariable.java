@@ -44,8 +44,7 @@ public class ConstraintVariable {
 
     /**
      * Determines whether the constraint variable is a constant
-     * @return  Returns true, if the constraint variable is constant.
-     *          Otherwise, the method returns false
+     * @return Returns true, if the constraint variable is constant. Otherwise, the method returns false
      */
     public boolean isConstant() {
         return this.name.equals(CONSTANT_NAME);
@@ -53,8 +52,7 @@ public class ConstraintVariable {
 
     /**
      * Determines whether the constraint variable had values assigned
-     * @return  Returns true, if the constraint variable has values assigned.
-     *          Otherwise, the method returns false
+     * @return Returns true, if the constraint variable has values assigned. Otherwise, the method returns false
      */
     public boolean hasValues() {
         return this.possibleValues.isPresent();
@@ -77,9 +75,10 @@ public class ConstraintVariable {
             throw new IllegalStateException();
         }
         if (this.possibleValues.isEmpty()) {
-        	this.possibleValues = Optional.of(new ArrayList<>());
+            this.possibleValues = Optional.of(new ArrayList<>());
         }
-        this.possibleValues.get().addAll(possibleValues);
+        this.possibleValues.get()
+                .addAll(possibleValues);
     }
 
     /**
@@ -92,8 +91,8 @@ public class ConstraintVariable {
 
     /**
      * Returns the assigned values of the constraint variable
-     * @return  Returns an optional containing possible values of the constraint variable.
-     *          If none have been set, the method returns an empty optional
+     * @return Returns an optional containing possible values of the constraint variable. If none have been set, the method
+     * returns an empty optional
      */
     public Optional<List<String>> getPossibleValues() {
         return possibleValues;

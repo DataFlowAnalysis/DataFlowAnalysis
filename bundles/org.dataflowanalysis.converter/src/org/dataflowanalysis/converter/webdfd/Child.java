@@ -17,15 +17,16 @@ import java.util.List;
 
 // The WebEditor is susceptible to changes, and to accommodate new fields, we disregard any unseen fields
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record Child(String text, List<WebEditorLabel> labels, List<Port> ports, String id, String type, String sourceId, String targetId, Annotation annotation,
-        List<Child> children) {
+public record Child(String text, List<WebEditorLabel> labels, List<Port> ports, String id, String type, String sourceId, String targetId,
+        Annotation annotation, List<Child> children) {
 
     /**
      * Overrides equals method to support child type specific equality checks.
      */
-	@Override
+    @Override
     public boolean equals(Object otherObject) {
-		if (!(otherObject instanceof Child other)) return false;
+        if (!(otherObject instanceof Child other))
+            return false;
         if (!this.type.equals(other.type)) {
             return false;
         } else if (this.type.split(":")[0].equals("node")) {

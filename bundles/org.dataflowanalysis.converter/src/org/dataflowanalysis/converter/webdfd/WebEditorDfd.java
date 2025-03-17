@@ -1,9 +1,8 @@
 package org.dataflowanalysis.converter.webdfd;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.Comparator;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * Represents a web editor data flow diagram

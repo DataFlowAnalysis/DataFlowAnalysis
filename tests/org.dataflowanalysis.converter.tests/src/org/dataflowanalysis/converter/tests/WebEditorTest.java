@@ -45,14 +45,13 @@ public class WebEditorTest extends ConverterTest {
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(minimalWebDFD);
         WebEditorDfd webBefore = objectMapper.readValue(file, WebEditorDfd.class);
-        
-        webAfter.constraints().addAll(webBefore.constraints());
+
+        webAfter.constraints()
+                .addAll(webBefore.constraints());
 
         webBefore.sort();
         webAfter.sort();
-        
-        
-        
+
         assertEquals(webBefore, webAfter);
 
         checkBehaviorAndPinNames(dfdBefore);
@@ -110,7 +109,6 @@ public class WebEditorTest extends ConverterTest {
         cleanup(tempWebDFD);
     }
 
-    
     private void checkBehaviorAndPinNames(DataFlowDiagramAndDictionary dfd) {
         for (Node node : dfd.dataFlowDiagram()
                 .getNodes()) {

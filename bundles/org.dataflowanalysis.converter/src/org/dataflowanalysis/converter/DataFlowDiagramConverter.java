@@ -3,7 +3,6 @@ package org.dataflowanalysis.converter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializationExce
  */
 public class DataFlowDiagramConverter extends Converter {
 
-	private Map<Pin, List<String>> inputPinToFlowNamesMap;
+    private Map<Pin, List<String>> inputPinToFlowNamesMap;
 
     private final Logger logger = Logger.getLogger(DataFlowDiagramConverter.class);
     protected final static String DELIMITER_PIN_NAME = "|";
@@ -45,7 +44,8 @@ public class DataFlowDiagramConverter extends Converter {
     private BehaviorConverter behaviorConverter;
 
     /**
-     * Converts Data Flow Diagram and Data Dictionary provided via paths into a WebEditorDfd object, analyzes it and annotates the propagated labels in the WebDFD.
+     * Converts Data Flow Diagram and Data Dictionary provided via paths into a WebEditorDfd object, analyzes it and
+     * annotates the propagated labels in the WebDFD.
      * @param inputDataFlowDiagram The path of the data flow diagram.
      * @param inputDataDictionary The path of the data dictionary.
      * @return WebEditorDfd object representing the web editor version of the data flow diagram.
@@ -58,47 +58,52 @@ public class DataFlowDiagramConverter extends Converter {
     }
 
     /**
-     * Converts a DataFlowDiagramAndDictionary object into a WebEditorDfd object, analyzes it and annotates the propagated labels in the WebDFD.
+     * Converts a DataFlowDiagramAndDictionary object into a WebEditorDfd object, analyzes it and annotates the propagated
+     * labels in the WebDFD.
      * @param complete The DataFlowDiagramAndDictionary object to convert.
      * @return WebEditorDfd object representing the web editor version of the data flow diagram.
      */
     public WebEditorDfd dfdToWeb(DataFlowDiagramAndDictionary complete) {
         return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, null, null), false);
     }
-    
+
     /**
-     * Converts Data Flow Diagram and Data Dictionary provided via paths into a WebEditorDfd object, analyzes it, checks for the constraints and annotates the WebDFD.
+     * Converts Data Flow Diagram and Data Dictionary provided via paths into a WebEditorDfd object, analyzes it, checks for
+     * the constraints and annotates the WebDFD.
      * @param inputDataFlowDiagram The path of the data flow diagram.
      * @param inputDataDictionary The path of the data dictionary.
      * @return WebEditorDfd object representing the web editor version of the data flow diagram.
      * @throws StandaloneInitializationException
      */
-    public WebEditorDfd dfdToWebAndAnalyzeAndAnnotate(String project, String inputDataFlowDiagram, String inputDataDictionary, Class<?> activator, List<Predicate<? super AbstractVertex<?>>> conditions)
-            throws StandaloneInitializationException {
-        DataFlowDiagramAndDictionary complete = loadDFD(project, inputDataFlowDiagram, inputDataDictionary, activator);       
-        
+    public WebEditorDfd dfdToWebAndAnalyzeAndAnnotate(String project, String inputDataFlowDiagram, String inputDataDictionary, Class<?> activator,
+            List<Predicate<? super AbstractVertex<?>>> conditions) throws StandaloneInitializationException {
+        DataFlowDiagramAndDictionary complete = loadDFD(project, inputDataFlowDiagram, inputDataDictionary, activator);
+
         return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, conditions, null), false);
     }
 
     /**
-     * Converts a DataFlowDiagramAndDictionary object into a WebEditorDfd object, analyzes it, checks for the constraints and annotates the WebDFD.
+     * Converts a DataFlowDiagramAndDictionary object into a WebEditorDfd object, analyzes it, checks for the constraints
+     * and annotates the WebDFD.
      * @param complete The DataFlowDiagramAndDictionary object to convert.
      * @return WebEditorDfd object representing the web editor version of the data flow diagram.
      */
     public WebEditorDfd dfdToWebAndAnalyzeAndAnnotate(DataFlowDiagramAndDictionary complete, List<Predicate<? super AbstractVertex<?>>> conditions) {
         return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, conditions, null), false);
     }
-    
+
     /**
-     * Converts Data Flow Diagram and Data Dictionary provided via paths into a WebEditorDfd object, analyzes it with a custom Finder, checks for the constraints and annotates the WebDFD.
+     * Converts Data Flow Diagram and Data Dictionary provided via paths into a WebEditorDfd object, analyzes it with a
+     * custom Finder, checks for the constraints and annotates the WebDFD.
      * @param inputDataFlowDiagram The path of the data flow diagram.
      * @param inputDataDictionary The path of the data dictionary.
      * @return WebEditorDfd object representing the web editor version of the data flow diagram.
      * @throws StandaloneInitializationException
      */
-    public WebEditorDfd dfdToWebAndAnalyzeAndAnnotateWithCustomTFGFinder(String project, String inputDataFlowDiagram, String inputDataDictionary, Class<?> activator, List<Predicate<? super AbstractVertex<?>>> conditions, Class<? extends TransposeFlowGraphFinder> finderClass)
+    public WebEditorDfd dfdToWebAndAnalyzeAndAnnotateWithCustomTFGFinder(String project, String inputDataFlowDiagram, String inputDataDictionary,
+            Class<?> activator, List<Predicate<? super AbstractVertex<?>>> conditions, Class<? extends TransposeFlowGraphFinder> finderClass)
             throws StandaloneInitializationException {
-        DataFlowDiagramAndDictionary complete = loadDFD(project, inputDataFlowDiagram, inputDataDictionary, activator);       
+        DataFlowDiagramAndDictionary complete = loadDFD(project, inputDataFlowDiagram, inputDataDictionary, activator);
         
         return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, conditions, finderClass), false);
     }
@@ -122,7 +127,8 @@ public class DataFlowDiagramConverter extends Converter {
     }
 
     /**
-     * Converts a DataFlowDiagramAndDictionary object into a WebEditorDfd object, analyzes it with a custom Finder, checks for the constraints and annotates the WebDFD.
+     * Converts a DataFlowDiagramAndDictionary object into a WebEditorDfd object, analyzes it with a custom Finder, checks
+     * for the constraints and annotates the WebDFD.
      * @param complete The DataFlowDiagramAndDictionary object to convert.
      * @param conditions List of constraints
      * @param finderClass Custom TFG Finder
@@ -142,7 +148,7 @@ public class DataFlowDiagramConverter extends Converter {
     public WebEditorDfd dfdToWebAndAnalyzeAndAnnotateWithCustomTFGFinderAndSetReadOnly(DataFlowDiagramAndDictionary complete, List<Predicate<? super AbstractVertex<?>>> conditions, Class<? extends TransposeFlowGraphFinder> finderClass) {
         return processDfd(complete.dataFlowDiagram(), complete.dataDictionary(), createNodeAnnotationMap(complete, conditions, finderClass), true);
     }
-    
+
     /**
      * Stores a WebEditorDfd object into a specified output file.
      * @param web The WebEditorDfd object to store.
@@ -158,7 +164,7 @@ public class DataFlowDiagramConverter extends Converter {
         } catch (IOException e) {
             logger.error("Could not store web dfd:", e);
         }
-    }   
+    }
 
     /**
      * Creates the node annotations by analyzing the DFD
@@ -167,62 +173,81 @@ public class DataFlowDiagramConverter extends Converter {
      * @param finderClass Custom TFG Finder (optional)
      * @return
      */
-    private Map<Node, Annotation> createNodeAnnotationMap (DataFlowDiagramAndDictionary complete, List<Predicate<? super AbstractVertex<?>>> conditions, Class<? extends TransposeFlowGraphFinder> finderClass) {
-    	TransposeFlowGraphFinder finder;
-    	if (finderClass == null) finder = new DFDTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
-    	else {
-    		if (finderClass.equals(DFDSimpleTransposeFlowGraphFinder.class))
-            	finder = new DFDSimpleTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
+    private Map<Node, Annotation> createNodeAnnotationMap(DataFlowDiagramAndDictionary complete,
+            List<Predicate<? super AbstractVertex<?>>> conditions, Class<? extends TransposeFlowGraphFinder> finderClass) {
+        TransposeFlowGraphFinder finder;
+        if (finderClass == null)
+            finder = new DFDTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
+        else {
+            if (finderClass.equals(DFDSimpleTransposeFlowGraphFinder.class))
+                finder = new DFDSimpleTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
             else
                 finder = new DFDTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
-    			 
-    	}
-         var collection = finder.findTransposeFlowGraphs();
-         collection = collection.stream().map(AbstractTransposeFlowGraph::evaluate).toList();
-         
-         Map<Node, Annotation> mapNodeToAnnotations = new HashMap<>();
-         Map<Node, Set<String>> mapNodeToPropagatedLabels = new HashMap<>();
-         collection.stream().forEach(tfg -> tfg.getVertices().forEach(vertex -> {
-         	Node node = (Node) vertex.getReferencedElement();        	
-         	mapNodeToPropagatedLabels.putIfAbsent(node, new HashSet<>());
-         	var label = mapNodeToPropagatedLabels.get(node);
-         	vertex.getAllOutgoingDataCharacteristics().forEach(characteristic -> characteristic.getAllCharacteristics().forEach(value -> {
-         		label.add(value.getTypeName() + "." + value.getValueName());
-         	}));         	
-         }));
-         
-         mapNodeToPropagatedLabels.keySet().forEach(key -> {
-        	StringBuilder builder = new StringBuilder();
-	      	builder.append("PropagatedLabels:").append("\n");
-	      	
-	      	mapNodeToPropagatedLabels.get(key).forEach(value -> {
-	      		builder.append(value).append("\n");
-	      	});
-	      	if (!mapNodeToPropagatedLabels.get(key).isEmpty())mapNodeToAnnotations.put(key, new Annotation(builder.toString(), "tag", "#FFFFFF"));
-        });
-        
-         
-         if (conditions == null) return mapNodeToAnnotations;
-         
-         DFDConfidentialityAnalysis analysis = new DFDConfidentialityAnalysis(null, null, null);
-         for (int i = 0; i < conditions.size(); i++) {
-         	var condition = conditions.get(i);
-         	if (condition == null) continue;
-         	for (var tfg : collection) {         		
-         		var violations = analysis.queryDataFlow(tfg, condition);
-         		for (var vertex : violations) {
-         			Node node = (Node)vertex.getReferencedElement();   	
-                 	StringBuilder builder = new StringBuilder();
-                 	if (mapNodeToAnnotations.get(node) != null) builder.append(mapNodeToAnnotations.get(node).message()).append("\n");
-                 	builder.append("Violation: Constraint ").append(i).append(" violated.").append("\n");
-                 	mapNodeToAnnotations.put(node, new Annotation(builder.toString(), "bolt", "#ff0000"));
-         		}
-         	}
-         }
-         return mapNodeToAnnotations;
+
+        }
+        var collection = finder.findTransposeFlowGraphs();
+        collection = collection.stream()
+                .map(AbstractTransposeFlowGraph::evaluate)
+                .toList();
+
+        Map<Node, Annotation> mapNodeToAnnotations = new HashMap<>();
+        Map<Node, Set<String>> mapNodeToPropagatedLabels = new HashMap<>();
+        collection.stream()
+                .forEach(tfg -> tfg.getVertices()
+                        .forEach(vertex -> {
+                            Node node = (Node) vertex.getReferencedElement();
+                            mapNodeToPropagatedLabels.putIfAbsent(node, new HashSet<>());
+                            var label = mapNodeToPropagatedLabels.get(node);
+                            vertex.getAllOutgoingDataCharacteristics()
+                                    .forEach(characteristic -> characteristic.getAllCharacteristics()
+                                            .forEach(value -> {
+                                                label.add(value.getTypeName() + "." + value.getValueName());
+                                            }));
+                        }));
+
+        mapNodeToPropagatedLabels.keySet()
+                .forEach(key -> {
+                    StringBuilder builder = new StringBuilder();
+                    builder.append("PropagatedLabels:")
+                            .append("\n");
+
+                    mapNodeToPropagatedLabels.get(key)
+                            .forEach(value -> {
+                                builder.append(value)
+                                        .append("\n");
+                            });
+                    if (!mapNodeToPropagatedLabels.get(key)
+                            .isEmpty())
+                        mapNodeToAnnotations.put(key, new Annotation(builder.toString(), "tag", "#FFFFFF"));
+                });
+
+        if (conditions == null)
+            return mapNodeToAnnotations;
+
+        DFDConfidentialityAnalysis analysis = new DFDConfidentialityAnalysis(null, null, null);
+        for (int i = 0; i < conditions.size(); i++) {
+            var condition = conditions.get(i);
+            if (condition == null)
+                continue;
+            for (var tfg : collection) {
+                var violations = analysis.queryDataFlow(tfg, condition);
+                for (var vertex : violations) {
+                    Node node = (Node) vertex.getReferencedElement();
+                    StringBuilder builder = new StringBuilder();
+                    if (mapNodeToAnnotations.get(node) != null)
+                        builder.append(mapNodeToAnnotations.get(node)
+                                .message())
+                                .append("\n");
+                    builder.append("Violation: Constraint ")
+                            .append(i)
+                            .append(" violated.")
+                            .append("\n");
+                    mapNodeToAnnotations.put(node, new Annotation(builder.toString(), "bolt", "#ff0000"));
+                }
+            }
+        }
+        return mapNodeToAnnotations;
     }
-
-
 
     private void createLabelTypesAndValues(List<WebEditorLabelType> labelTypes, DataDictionary dataDictionary) {
         for (LabelType labelType : dataDictionary.getLabelTypes()) {
@@ -237,7 +262,7 @@ public class DataFlowDiagramConverter extends Converter {
     private WebEditorDfd processDfd(DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary, Map<Node, Annotation> mapNodeToAnnotation, boolean readOnly) {
         inputPinToFlowNamesMap = new HashMap<>();
         List<Child> children = new ArrayList<>();
-        List<WebEditorLabelType> labelTypes = new ArrayList<>();        
+        List<WebEditorLabelType> labelTypes = new ArrayList<>();
 
         behaviorConverter = new BehaviorConverter(dataDictionary);
 
@@ -287,34 +312,39 @@ public class DataFlowDiagramConverter extends Converter {
                     .forEach(pin -> ports
                             .add(new Port(createBehaviorString(mapPinToAssignments.get(pin)), pin.getId(), "port:dfd-output", new ArrayList<>())));
             if (mapNodeToAnnotation == null)
-            	children.add(new Child(text, labels, ports, id, type, null, null, null, new ArrayList<>()));
-            else 
-            	children.add(new Child(text, labels, ports, id, type, null, null, mapNodeToAnnotation.get(node), new ArrayList<>()));
+                children.add(new Child(text, labels, ports, id, type, null, null, null, new ArrayList<>()));
+            else
+                children.add(new Child(text, labels, ports, id, type, null, null, mapNodeToAnnotation.get(node), new ArrayList<>()));
         }
     }
 
     private void createFlows(DataFlowDiagram dataFlowDiagram, List<Child> children) {
-    	var controlFlowNameMap = createControlFlowNameMap(dataFlowDiagram);
+        var controlFlowNameMap = createControlFlowNameMap(dataFlowDiagram);
         for (Flow flow : dataFlowDiagram.getFlows()) {
-        	fillPinToFlowNamesMap(inputPinToFlowNamesMap,flow, controlFlowNameMap);
+            fillPinToFlowNamesMap(inputPinToFlowNamesMap, flow, controlFlowNameMap);
             children.add(createFlow(flow, controlFlowNameMap));
         }
     }
-    
+
     private HashMap<Flow, String> createControlFlowNameMap(DataFlowDiagram dataFlowDiagram) {
-    	var controlFlowNameMap = new HashMap<Flow, String>();
-    	dataFlowDiagram.getNodes().forEach(node -> {
-    		var controlFlows = dataFlowDiagram.getFlows().stream()
-	    		.filter(flow -> flow.getDestinationNode().equals(node))
-	    		.filter(flow -> flow.getEntityName().equals("")).toList();
-    		
-    		String controlFlowName = CONTROL_FLOW_NAME;
-    		for (var flow : controlFlows) {
-    			controlFlowNameMap.put(flow, controlFlowName);
-    			controlFlowName += CONTROL_FLOW_NAME;
-    		}
-    	});
-    	return controlFlowNameMap;
+        var controlFlowNameMap = new HashMap<Flow, String>();
+        dataFlowDiagram.getNodes()
+                .forEach(node -> {
+                    var controlFlows = dataFlowDiagram.getFlows()
+                            .stream()
+                            .filter(flow -> flow.getDestinationNode()
+                                    .equals(node))
+                            .filter(flow -> flow.getEntityName()
+                                    .equals(""))
+                            .toList();
+
+                    String controlFlowName = CONTROL_FLOW_NAME;
+                    for (var flow : controlFlows) {
+                        controlFlowNameMap.put(flow, controlFlowName);
+                        controlFlowName += CONTROL_FLOW_NAME;
+                    }
+                });
+        return controlFlowNameMap;
     }
 
     private Child createFlow(Flow flow, HashMap<Flow, String> controlFlowNameMap) {
@@ -323,11 +353,10 @@ public class DataFlowDiagramConverter extends Converter {
         String sourceId = flow.getSourcePin()
                 .getId();
         String targetId = flow.getDestinationPin()
-                .getId(); 
+                .getId();
         String text = controlFlowNameMap.getOrDefault(flow, flow.getEntityName());
         return new Child(text, null, null, id, type, sourceId, targetId, null, new ArrayList<>());
     }
-    
 
     private Map<Pin, List<AbstractAssignment>> mapping(Node node) {
         Map<Pin, List<AbstractAssignment>> mapPinToAssignments = new HashMap<>();
@@ -353,35 +382,36 @@ public class DataFlowDiagramConverter extends Converter {
         StringBuilder builder = new StringBuilder();
         for (AbstractAssignment abstractAssignment : abstractAssignments) {
             if (abstractAssignment instanceof ForwardingAssignment forwardingAssignment) {
-                builder.append("forward ");                
+                builder.append("forward ");
                 builder.append(getStringFromInputPins(forwardingAssignment.getInputPins()));
             } else if (abstractAssignment instanceof SetAssignment setAssignment) {
-            	builder.append("set ");
-            	builder.append(getStringFromOutLabels(setAssignment.getOutputLabels()));
+                builder.append("set ");
+                builder.append(getStringFromOutLabels(setAssignment.getOutputLabels()));
             } else if (abstractAssignment instanceof UnsetAssignment unsetAssignment) {
-            	builder.append("unset ");
-            	builder.append(getStringFromOutLabels(unsetAssignment.getOutputLabels()));
-            } else if (abstractAssignment instanceof Assignment assignment) {                
+                builder.append("unset ");
+                builder.append(getStringFromOutLabels(unsetAssignment.getOutputLabels()));
+            } else if (abstractAssignment instanceof Assignment assignment) {
                 builder.append("assign ");
                 builder.append(getStringFromOutLabels(assignment.getOutputLabels()));
                 builder.append(" if ");
                 builder.append(behaviorConverter.termToString(assignment.getTerm()));
-                if (!assignment.getInputPins().isEmpty()) {
-                	builder.append(" from ");
-                	builder.append(getStringFromInputPins(assignment.getInputPins()));
-                }      
+                if (!assignment.getInputPins()
+                        .isEmpty()) {
+                    builder.append(" from ");
+                    builder.append(getStringFromInputPins(assignment.getInputPins()));
+                }
             }
             builder.append("\n");
         }
         return builder.toString()
                 .trim();
     }
-    
-    private String getStringFromInputPins (List<Pin> inputPins) {
-    	List<String> pinNamesAsString = new ArrayList<>();
-        
-    	inputPins.forEach(pin -> {
-        	var flowNames = inputPinToFlowNamesMap.get(pin)
+
+    private String getStringFromInputPins(List<Pin> inputPins) {
+        List<String> pinNamesAsString = new ArrayList<>();
+
+        inputPins.forEach(pin -> {
+            var flowNames = inputPinToFlowNamesMap.get(pin)
                     .stream()
                     .sorted()
                     .toList();
@@ -390,18 +420,18 @@ public class DataFlowDiagramConverter extends Converter {
         });
         return String.join(DELIMITER_MULTI_PIN, pinNamesAsString);
     }
-    
-    private String getStringFromOutLabels (List<Label> outLabels) {
-    	List<String> outLabelsAsStrings = new ArrayList<>();
-        
-    	outLabels.forEach(label -> {
-    		outLabelsAsStrings.add(((LabelType)label.eContainer()).getEntityName() + "." + label.getEntityName());
+
+    private String getStringFromOutLabels(List<Label> outLabels) {
+        List<String> outLabelsAsStrings = new ArrayList<>();
+
+        outLabels.forEach(label -> {
+            outLabelsAsStrings.add(((LabelType) label.eContainer()).getEntityName() + "." + label.getEntityName());
         });
-    	
+
         return String.join(DELIMITER_MULTI_LABEL, outLabelsAsStrings);
     }
 
-    private void fillPinToFlowNamesMap(Map<Pin,List<String>> map,Flow flow,  HashMap<Flow, String> controlFlowNameMap) {
+    private void fillPinToFlowNamesMap(Map<Pin, List<String>> map, Flow flow, HashMap<Flow, String> controlFlowNameMap) {
         if (map.containsKey(flow.getDestinationPin())) {
             map.get(flow.getDestinationPin())
                     .add(controlFlowNameMap.getOrDefault(flow, flow.getEntityName()));

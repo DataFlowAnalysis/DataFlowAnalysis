@@ -163,8 +163,8 @@ public class BehaviorConverter {
 
     private String termToString(Term term, boolean isNested) {
         if (term instanceof LabelReference labelReference) {
-        	Label label = labelReference.getLabel();
-            return ((LabelType)label.eContainer()).getEntityName() + "." + label.getEntityName();
+            Label label = labelReference.getLabel();
+            return ((LabelType) label.eContainer()).getEntityName() + "." + label.getEntityName();
         } else if (term instanceof TRUE) {
             return "TRUE";
         } else if (term instanceof AND and) {

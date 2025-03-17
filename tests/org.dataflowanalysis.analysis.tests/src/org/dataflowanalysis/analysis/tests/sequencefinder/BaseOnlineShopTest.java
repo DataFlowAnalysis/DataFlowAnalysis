@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 import java.nio.file.Paths;
 import java.util.List;
-
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
@@ -41,11 +40,11 @@ public abstract class BaseOnlineShopTest {
                 .build();
 
         analysis.initializeAnalysis();
-        
+
         flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
     }
-    
+
     protected abstract Class<? extends TransposeFlowGraphFinder> getTransposeFlowGraphFinder();
 
     @Test
@@ -125,7 +124,7 @@ public abstract class BaseOnlineShopTest {
             assertEquals(0, violations.size());
         }
     }
-    
+
     @Test
     public void checkIsNotCyclic() {
         assertFalse(flowGraph.wasCyclic());

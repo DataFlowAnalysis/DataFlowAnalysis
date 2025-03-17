@@ -1,19 +1,15 @@
 package org.dataflowanalysis.analysis.dsl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringJoiner;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
-import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.EmptySetOperationConditionalSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VariableConditionalSelector;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.StringJoiner;
 
 /**
  * Represents the {@link ConditionalSelector} matched by an {@link AnalysisConstraint}
@@ -23,7 +19,6 @@ public class ConditionalSelectors extends AbstractParseable {
     private static final Logger logger = Logger.getLogger(ConditionalSelectors.class);
 
     private final List<ConditionalSelector> selectors;
-
 
     public ConditionalSelectors() {
         selectors = new ArrayList<>();
@@ -58,7 +53,8 @@ public class ConditionalSelectors extends AbstractParseable {
      * Parses the {@link ConditionalSelectors} of an {@link AnalysisConstraint}.
      * @param string String view on the string that is parsed
      * @param context DSL context used during parsing
-     * @return Returns a {@link ParseResult} that may contain the {@link ConditionalSelectors} of the {@link AnalysisConstraint}
+     * @return Returns a {@link ParseResult} that may contain the {@link ConditionalSelectors} of the
+     * {@link AnalysisConstraint}
      */
     public static ParseResult<ConditionalSelectors> fromString(StringView string, DSLContext context) {
         if (string.invalid()) {

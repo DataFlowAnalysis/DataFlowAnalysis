@@ -6,8 +6,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
- * Represents a result from parsing.
- * It may contain a result with type {@link T} or an error as a {@link String}
+ * Represents a result from parsing. It may contain a result with type {@link T} or an error as a {@link String}
  * @param <T> Resulting type after parsing
  */
 public class ParseResult<T> {
@@ -44,7 +43,9 @@ public class ParseResult<T> {
      * Indicates whether the parse result contains a erroneous result
      * @return Returns true, if the {@link ParseResult} contains a erroneous result. Otherwise, the method returns false
      */
-    public boolean failed() { return error.isPresent(); };
+    public boolean failed() {
+        return error.isPresent();
+    };
 
     /**
      * Returns the contained result in the {@link ParseResult}, if present
@@ -52,7 +53,8 @@ public class ParseResult<T> {
      * @return Returns the contained result in the {@link ParseResult}
      */
     public T getResult() {
-        if (this.result.isEmpty()) throw new NoSuchElementException();
+        if (this.result.isEmpty())
+            throw new NoSuchElementException();
         return result.get();
     }
 
@@ -62,42 +64,47 @@ public class ParseResult<T> {
      * @return Returns the contained error in the {@link ParseResult}
      */
     public String getError() {
-        if (this.error.isEmpty()) throw new NoSuchElementException();
+        if (this.error.isEmpty())
+            throw new NoSuchElementException();
         return error.get();
     }
 
     /**
-     * Maps the successful result of the {@link ParseResult}, if it is present using the given function
-     * This is safe, because the value being cast (T) is null/not present
+     * Maps the successful result of the {@link ParseResult}, if it is present using the given function This is safe,
+     * because the value being cast (T) is null/not present
      * @param function Function that maps the result typed {@link T} to a result typed {@link N}
      * @return Returns a {@link ParseResult} containing the same error or the mapped value after applying the function
      * @param <N> Return type of the function and contained type in the returned {@link ParseResult}
      */
     @SuppressWarnings("unchecked")
     public <N> ParseResult<N> map(Function<T, N> function) {
-        if (this.error.isPresent()) return (ParseResult<N>) this;
+        if (this.error.isPresent())
+            return (ParseResult<N>) this;
         return new ParseResult<>(function.apply(this.getResult()));
     }
 
     /**
-     * Chains two {@link ParseResult}, if the {@link ParseResult} is erroneous.
-     * If the {@link ParseResult} is present, this function equals the identity function.
+     * Chains two {@link ParseResult}, if the {@link ParseResult} is erroneous. If the {@link ParseResult} is present, this
+     * function equals the identity function.
      * @param other Other {@link ParseResult} that is used, when this {@link ParseResult} is not erroneous
-     * @return Returns this, when this {@link ParseResult} is successful. Otherwise, it returns the provided {@link ParseResult}
+     * @return Returns this, when this {@link ParseResult} is successful. Otherwise, it returns the provided
+     * {@link ParseResult}
      */
     public ParseResult<T> orElse(ParseResult<T> other) {
-        if (this.result.isPresent()) return this;
+        if (this.result.isPresent())
+            return this;
         return other;
     }
 
     /**
      * Returns either this {@link ParseResult}, if it is successful, or the other provided value
      * @param other Other provided value of the same type as {@link T}
-     * @return Returns the contained successful value in the {@link ParseResult}, if it is present.
-     *          Otherwise, the method returns the given parameter of the same type.
+     * @return Returns the contained successful value in the {@link ParseResult}, if it is present. Otherwise, the method
+     * returns the given parameter of the same type.
      */
     public T or(T other) {
-        if (this.result.isPresent()) return this.getResult();
+        if (this.result.isPresent())
+            return this.getResult();
         return other;
     }
 
@@ -110,8 +117,7 @@ public class ParseResult<T> {
     }
 
     /**
-     * Evaluates the given predicate, if a successful result is present.
-     * Otherwise, it runs the specified empty action
+     * Evaluates the given predicate, if a successful result is present. Otherwise, it runs the specified empty action
      * @param predicate Given predicate that is run if the {@link ParseResult} is successful
      * @param emptyAction Action that is run, if the {@link ParseResult} is erroneous
      */
@@ -139,7 +145,10 @@ public class ParseResult<T> {
 
     @Override
     public String toString() {
-        if (this.successful()) return this.getResult().toString();
-        else return this.getError();
+        if (this.successful())
+            return this.getResult()
+                    .toString();
+        else
+            return this.getError();
     }
 }

@@ -38,13 +38,14 @@ public class VertexTypeSelector extends VertexSelector {
     @Override
     public boolean matches(AbstractVertex<?> vertex) {
         if (this.recursive) {
-            return this.inverted
-                    ? !this.vertexType.matches(vertex) && vertex.getPreviousElements().stream().noneMatch(this::matches)
-                    : this.vertexType.matches(vertex) || vertex.getPreviousElements().stream().anyMatch(this::matches);
+            return this.inverted ? !this.vertexType.matches(vertex) && vertex.getPreviousElements()
+                    .stream()
+                    .noneMatch(this::matches)
+                    : this.vertexType.matches(vertex) || vertex.getPreviousElements()
+                            .stream()
+                            .anyMatch(this::matches);
         }
-        return this.inverted
-                ? !this.vertexType.matches(vertex)
-                : this.vertexType.matches(vertex);
+        return this.inverted ? !this.vertexType.matches(vertex) : this.vertexType.matches(vertex);
     }
 
     @Override
@@ -65,15 +66,20 @@ public class VertexTypeSelector extends VertexSelector {
      */
     public static ParseResult<VertexTypeSelector> fromString(StringView string, DSLContext context) {
         logger.info("Parsing: " + string.getString());
-        boolean inverted = string.getString().startsWith(DSL_INVERTED_SYMBOL);
-        if (context.getContextProvider().isEmpty()) {
-        	return ParseResult.error("Cannot parse vertex types without context provider!");
+        boolean inverted = string.getString()
+                .startsWith(DSL_INVERTED_SYMBOL);
+        if (context.getContextProvider()
+                .isEmpty()) {
+            return ParseResult.error("Cannot parse vertex types without context provider!");
         }
-        ParseResult<VertexType> vertexType = context.getContextProvider().get().vertexTypeFromString(string);
+        ParseResult<VertexType> vertexType = context.getContextProvider()
+                .get()
+                .vertexTypeFromString(string);
         if (vertexType.failed()) {
             return ParseResult.error(vertexType.getError());
         }
-        if (inverted) string.advance(DSL_INVERTED_SYMBOL.length());
+        if (inverted)
+            string.advance(DSL_INVERTED_SYMBOL.length());
         string.advance(1);
         return ParseResult.ok(new VertexTypeSelector(context, vertexType.getResult(), inverted));
     }

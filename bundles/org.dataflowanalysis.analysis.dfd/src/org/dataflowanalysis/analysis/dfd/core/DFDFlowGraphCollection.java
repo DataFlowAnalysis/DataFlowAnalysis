@@ -71,12 +71,13 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
         }
 
         if (transposeFlowGraphFinderClass.equals(DFDSimpleTransposeFlowGraphFinder.class))
-        	this.transposeFlowGraphFinder = new DFDSimpleTransposeFlowGraphFinder(dfdResourceProvider);
+            this.transposeFlowGraphFinder = new DFDSimpleTransposeFlowGraphFinder(dfdResourceProvider);
         else
             this.transposeFlowGraphFinder = new DFDTransposeFlowGraphFinder(dfdResourceProvider);
 
         return transposeFlowGraphFinder.findTransposeFlowGraphs();
     }
+
     /**
      * @return whether the provided DFD had cyclic behavior or not, since resolving Cycles can lead to unexpected behavior
      */

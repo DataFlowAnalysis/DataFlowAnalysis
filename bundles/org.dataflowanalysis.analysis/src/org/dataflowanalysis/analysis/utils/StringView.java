@@ -26,7 +26,8 @@ public class StringView {
 
     /**
      * Returns the stored string beginning at the stored index
-     * @throws IllegalArgumentException Throws a {@link IllegalArgumentException} if the view on the string is {@link StringView#invalid()}
+     * @throws IllegalArgumentException Throws a {@link IllegalArgumentException} if the view on the string is
+     * {@link StringView#invalid()}
      * @return Returns the stored string beginning at the stored index
      */
     public String getString() {
@@ -55,21 +56,24 @@ public class StringView {
     /**
      * Determines whether the view of the stored string begins with the given prefix
      * @param prefix Prefix that the view of the stored string is compared against
-     * @throws IllegalArgumentException Throws a {@link IllegalArgumentException} if the view on the string is {@link StringView#invalid()}
-     * @return Returns true, if the view of the stored string begins with the given prefix.
-     *          Otherwise, the method returns false
+     * @throws IllegalArgumentException Throws a {@link IllegalArgumentException} if the view on the string is
+     * {@link StringView#invalid()}
+     * @return Returns true, if the view of the stored string begins with the given prefix. Otherwise, the method returns
+     * false
      */
     public boolean startsWith(String prefix) {
         if (this.invalid()) {
             throw new IllegalArgumentException();
         }
-        return this.string.substring(index).startsWith(prefix);
+        return this.string.substring(index)
+                .startsWith(prefix);
     }
 
     /**
      * Returns an erroneous {@link ParseResult} that contains an error, specifying an expected given prefix
      * @param prefix Given prefix that was expected
-     * @throws IllegalArgumentException Throws a {@link IllegalArgumentException} if the view on the string is {@link StringView#invalid()}
+     * @throws IllegalArgumentException Throws a {@link IllegalArgumentException} if the view on the string is
+     * {@link StringView#invalid()}
      * @return Returns a {@link ParseResult} with the given error
      * @param <T> Type of the {@link ParseResult} that is not relevant here
      */
@@ -82,8 +86,7 @@ public class StringView {
 
     /**
      * Determines whether the string view has overrun and is empty
-     * @return Returns true, if the string view has overrun its bounds and is empty.
-     *          Otherwise, the method returns false.
+     * @return Returns true, if the string view has overrun its bounds and is empty. Otherwise, the method returns false.
      */
     public boolean empty() {
         return this.string.length() < this.index;

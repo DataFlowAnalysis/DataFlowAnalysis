@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
-
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.eclipse.emf.common.util.URI;
@@ -114,12 +113,17 @@ public abstract class ResourceProvider {
         } else if (resource.getContents()
                 .isEmpty()) {
             throw new IllegalArgumentException(String.format("Model with URI %s is empty", modelURI));
-        } else if (!resource.getErrors().isEmpty()) {
+        } else if (!resource.getErrors()
+                .isEmpty()) {
             logger.error("Error loading resource: " + resource.getErrors());
         }
-        if (!resource.getErrors().isEmpty()) {
+        if (!resource.getErrors()
+                .isEmpty()) {
             logger.error("Errors occurred during loading a model:");
-            logger.error(resource.getErrors().stream().map(Resource.Diagnostic::getMessage).toList());
+            logger.error(resource.getErrors()
+                    .stream()
+                    .map(Resource.Diagnostic::getMessage)
+                    .toList());
         }
         return resource.getContents()
                 .get(0);

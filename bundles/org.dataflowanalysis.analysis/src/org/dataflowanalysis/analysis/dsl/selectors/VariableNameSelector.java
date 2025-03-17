@@ -3,7 +3,6 @@ package org.dataflowanalysis.analysis.dsl.selectors;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
-import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
@@ -24,8 +23,10 @@ public class VariableNameSelector extends DataSelector {
 
     @Override
     public boolean matches(AbstractVertex<?> vertex) {
-        return vertex.getAllDataCharacteristics().stream()
-                .anyMatch(it -> it.variableName().equals(this.variableName));
+        return vertex.getAllDataCharacteristics()
+                .stream()
+                .anyMatch(it -> it.variableName()
+                        .equals(this.variableName));
     }
 
     public String getVariableName() {
@@ -53,7 +54,8 @@ public class VariableNameSelector extends DataSelector {
         if (string.invalid() || string.empty()) {
             return ParseResult.error("Cannot parse variable name selector from empty or invalid string!");
         }
-        String[] split = string.getString().split(" ");
+        String[] split = string.getString()
+                .split(" ");
         if (split.length == 0 || split[0].isEmpty()) {
             string.retreat(DSL_KEYWORD.length() + 1);
             return ParseResult.error("Invalid variable name in variable name selector!");

@@ -26,8 +26,9 @@ import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.simple.DFDSimpleTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
-import org.dataflowanalysis.converter.DataFlowDiagramConverter;
-import org.dataflowanalysis.converter.PCMConverter;
+import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramConverter;
+import org.dataflowanalysis.converter.pcm2dfd.PCMConverter;
+import org.dataflowanalysis.converter.pcm2dfd.PCMConverterModel;
 import org.dataflowanalysis.dfd.datadictionary.AND;
 import org.dataflowanalysis.dfd.datadictionary.Assignment;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
@@ -91,7 +92,8 @@ public class PCMTest extends ConverterTest {
             }
         }
 
-        var dfd = new PCMConverter().pcmToDFD(TEST_MODELS, usageModelPath, allocationPath, nodeCharPath, Activator.class);
+        PCMConverterModel pcmConverterModel = new PCMConverterModel(TEST_MODELS, usageModelPath, allocationPath, nodeCharPath, Activator.class);
+        var dfd = new PCMConverter().convert(pcmConverterModel);
 
         // Assignment: flights.*.* := RETURN.*.*
         var readFlightsFromDB = dfd.dataFlowDiagram()
@@ -185,20 +187,16 @@ public class PCMTest extends ConverterTest {
             }
         }
 
-        var complete = new PCMConverter().pcmToDFD(modelLocation, usageModelPath, allocationPath, nodeCharPath, Activator.class);
+        PCMConverterModel pcmConverterModel = new PCMConverterModel(modelLocation, usageModelPath, allocationPath, nodeCharPath, Activator.class);
+        var complete = new PCMConverter().convert(pcmConverterModel);
 
         var dfdConverter = new DataFlowDiagramConverter();
         List<Predicate<? super AbstractVertex<?>>> constraints = new ArrayList<>();
         constraints.add(constraint);
-        var web = dfdConverter.dfdToWebAndAnalyzeAndAnnotateWithCustomTFGFinder(complete, constraints, DFDSimpleTransposeFlowGraphFinder.class); // Replace
-                                                                                                                                                 // null
-                                                                                                                                                 // with
-                                                                                                                                                 // simpleFinder
-                                                                                                                                                 // once
-                                                                                                                                                 // Analysis
-                                                                                                                                                 // PR
-                                                                                                                                                 // merged
-        dfdConverter.storeWeb(web, webTarget);
+        dfdConverter.setConditions(constraints);
+        dfdConverter.setTransposeFlowGraphFinder(DFDSimpleTransposeFlowGraphFinder.class);
+        var web = dfdConverter.convert(complete);
+        web.save(".", webTarget);
 
         var dfd = complete.dataFlowDiagram();
         var dd = complete.dataDictionary();

@@ -5,11 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.dataflowanalysis.converter.BehaviorConverter;
-import org.dataflowanalysis.converter.DataFlowDiagramAndDictionary;
-import org.dataflowanalysis.converter.DataFlowDiagramConverter;
-import org.dataflowanalysis.converter.webdfd.Child;
-import org.dataflowanalysis.converter.webdfd.WebEditorDfd;
+import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary;
+import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramConverter;
+import org.dataflowanalysis.converter.web2dfd.BehaviorConverter;
+import org.dataflowanalysis.converter.web2dfd.model.Child;
+import org.dataflowanalysis.converter.web2dfd.model.WebEditorDfd;
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.datadictionary.Behavior;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
@@ -133,9 +133,9 @@ public class BehaviorTest {
                 .getAssignment()
                 .add(unsetAssignment);
 
-        var webDfd = dataFlowDiagramConverter.dfdToWeb(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
+        var webDfd = dataFlowDiagramConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
 
-        testAssignment(webDfd, "b",
+        testAssignment(webDfd.getModel(), "b",
                 List.of("assign type.value,type.value2 if !(type.value && TRUE) from a2b", "set type.value", "unset type.value2"));
     }
 
@@ -168,9 +168,9 @@ public class BehaviorTest {
 
         createFlow(c, d, c_out, null, "c2d");
 
-        var webDfd = dataFlowDiagramConverter.dfdToWeb(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
+        var webDfd = dataFlowDiagramConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
 
-        testAssignment(webDfd, "c", List.of("forward a2c|b2c"));
+        testAssignment(webDfd.getModel(), "c", List.of("forward a2c|b2c"));
 
         Node z = createNode("z");
         var newFlow = createFlow(z, c, null, null, "z2c");
@@ -192,9 +192,9 @@ public class BehaviorTest {
                 .getAssignment()
                 .add(assignment2);
 
-        webDfd = dataFlowDiagramConverter.dfdToWeb(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
+        webDfd = dataFlowDiagramConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
 
-        testAssignment(webDfd, "c", List.of("forward a2c|b2c,z2c"));
+        testAssignment(webDfd.getModel(), "c", List.of("forward a2c|b2c,z2c"));
     }
 
     private void testAssignment(WebEditorDfd webDFD, String nodeName, List<String> assignments) {

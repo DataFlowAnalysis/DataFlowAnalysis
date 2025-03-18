@@ -12,8 +12,16 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.dataflowanalysis.converter.*;
-import org.dataflowanalysis.converter.microsecend.*;
+import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramConverter;
+import org.dataflowanalysis.converter.micro2dfd.Micro2DFDConverter;
+import org.dataflowanalysis.converter.micro2dfd.MicroConverterModel;
+import org.dataflowanalysis.converter.micro2dfd.model.ExternalEntity;
+import org.dataflowanalysis.converter.micro2dfd.model.InformationFlow;
+import org.dataflowanalysis.converter.micro2dfd.model.MicroSecEnd;
+import org.dataflowanalysis.converter.micro2dfd.model.MicroSecEndProcess;
+import org.dataflowanalysis.converter.micro2dfd.model.Service;
+import org.dataflowanalysis.converter.plant2micro.Plant2MicroConverter;
+import org.dataflowanalysis.converter.web2dfd.Web2DFDConverter;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Assignment;
 import org.dataflowanalysis.dfd.datadictionary.ForwardingAssignment;
@@ -28,10 +36,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class MicroSecEndTest extends ConverterTest {
-    private MicroSecEndConverter converter;
+    private Micro2DFDConverter converter;
 
-    private final String ANILALLEWAR = Paths.get(TEST_JSONS, "anilallewar.json")
+    private final String ANILALLEWAR_PATH = Paths.get(TEST_JSONS, "anilallewar.json")
             .toString();
+    private final MicroConverterModel ANILALLEWAR = new MicroConverterModel(ANILALLEWAR_PATH);
     private final String TO_PLANT = Paths.get(TEST_JSONS, "toPlant.txt")
             .toString();
     private final String FROM_PLANT = Paths.get(TEST_JSONS, "fromPlant.json")
@@ -41,29 +50,27 @@ public class MicroSecEndTest extends ConverterTest {
 
     @BeforeEach
     public void setup() {
-        converter = new MicroSecEndConverter();
+        converter = new Micro2DFDConverter();
     }
 
     @Test
-    @DisplayName("Check amout of pins, assigments and flows")
-    public void checkPinsAssigmentsAndFlows() {
-        var micro = converter.loadMicro(ANILALLEWAR)
-                .get();
-        var dfd = converter.microToDfd(micro);
+    @DisplayName("Check amount of pins, assignments and flows")
+    public void checkPinsAssignmentsAndFlows() {
+        var dfd = converter.convert(ANILALLEWAR);
 
         List<AbstractAssignment> assignments = dfd.dataDictionary()
                 .getBehavior()
                 .stream()
                 .flatMap(behavior -> behavior.getAssignment()
                         .stream())
-                .collect(Collectors.toList());
+                .toList();
 
         List<Pin> outPins = dfd.dataDictionary()
                 .getBehavior()
                 .stream()
                 .flatMap(behavior -> behavior.getOutPin()
                         .stream())
-                .collect(Collectors.toList());
+                .toList();
 
         var nodes = dfd.dataFlowDiagram()
                 .getNodes();
@@ -79,7 +86,7 @@ public class MicroSecEndTest extends ConverterTest {
                 assertEquals(forwardCount, behaviour.getOutPin()
                         .size());
             } else {
-                assertEquals(forwardCount, 0);
+                assertEquals(0, forwardCount);
             }
 
             var assignmentCount = behaviour.getAssignment()
@@ -89,9 +96,10 @@ public class MicroSecEndTest extends ConverterTest {
             assertEquals(assignmentCount, behaviour.getOutPin()
                     .size());
 
-            var expectedInPins = micro.informationFlows()
+            var expectedInPins = ANILALLEWAR.getModel()
+                    .informationFlows()
                     .stream()
-                    .map(iflow -> iflow.receiver())
+                    .map(InformationFlow::receiver)
                     .toList()
                     .contains(node.getEntityName()) ? 1 : 0;
             assertEquals(node.getBehavior()
@@ -99,7 +107,8 @@ public class MicroSecEndTest extends ConverterTest {
                     .size(), expectedInPins);
         }
 
-        assertEquals(micro.informationFlows()
+        assertEquals(ANILALLEWAR.getModel()
+                .informationFlows()
                 .size(), outPins.size());
 
         // Double Check for Assignments without a output pin
@@ -112,23 +121,24 @@ public class MicroSecEndTest extends ConverterTest {
     @Test
     @DisplayName("Check if ids are not random")
     public void checkIdForRandomness() {
-        var dfdConverter = new DataFlowDiagramConverter();
+        var dfdConverter = new org.dataflowanalysis.converter.dfd2web.DataFlowDiagramConverter();
 
-        var webDfdOne = dfdConverter.dfdToWeb(converter.microToDfd(ANILALLEWAR));
-        var webDfdTwo = dfdConverter.dfdToWeb(converter.microToDfd(ANILALLEWAR));
+        var webDfdOne = dfdConverter.convert(converter.convert(ANILALLEWAR));
+        var webDfdTwo = dfdConverter.convert(converter.convert(ANILALLEWAR));
 
-        assertEquals(webDfdOne, webDfdTwo);
+        assertEquals(webDfdOne.getModel(), webDfdTwo.getModel());
     }
 
     @Test
     @DisplayName("Test JSON -> Plant -> JSON")
     public void jsonToPlantToJson() throws StreamReadException, DatabindException, IOException {
-        converter.runPythonScript(ANILALLEWAR, TXT, TO_PLANT);
+        Plant2MicroConverter plant2MicroConverter = new Plant2MicroConverter();
+        plant2MicroConverter.runPythonScript(ANILALLEWAR_PATH, TXT, TO_PLANT);
         ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File(ANILALLEWAR);
+        File file = new File(ANILALLEWAR_PATH);
         MicroSecEnd microBefore = objectMapper.readValue(file, MicroSecEnd.class);
 
-        converter.runPythonScript(TO_PLANT, JSON, FROM_PLANT);
+        plant2MicroConverter.runPythonScript(TO_PLANT, JSON, FROM_PLANT);
         objectMapper = new ObjectMapper();
         file = new File(FROM_PLANT);
         MicroSecEnd microAfter = objectMapper.readValue(file, MicroSecEnd.class);
@@ -145,33 +155,37 @@ public class MicroSecEndTest extends ConverterTest {
     @Test
     @DisplayName("Test Micro -> DFD")
     public void microToDfd() throws StreamReadException, DatabindException, IOException {
-        MicroSecEnd micro = converter.loadMicro(ANILALLEWAR)
-                .get();
-        DataFlowDiagramAndDictionary complete = converter.microToDfd(micro);
+        org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary complete = converter.convert(ANILALLEWAR);
 
         DataFlowDiagram dfd = complete.dataFlowDiagram();
 
-        assertEquals(micro.externalEntities()
+        assertEquals(ANILALLEWAR.getModel()
+                .externalEntities()
                 .size()
-                + micro.services()
+                + ANILALLEWAR.getModel()
+                        .services()
                         .size(),
                 dfd.getNodes()
                         .size());
-        assertEquals(micro.informationFlows()
+        assertEquals(ANILALLEWAR.getModel()
+                .informationFlows()
                 .size(),
                 dfd.getFlows()
                         .size());
 
-        for (Service service : micro.services()) {
+        for (Service service : ANILALLEWAR.getModel()
+                .services()) {
             checkEntityName(service, dfd);
         }
 
-        for (ExternalEntity ee : micro.externalEntities()) {
+        for (ExternalEntity ee : ANILALLEWAR.getModel()
+                .externalEntities()) {
             checkEntityName(ee, dfd);
         }
 
         int match = 0;
-        for (InformationFlow iflow : micro.informationFlows()) {
+        for (InformationFlow iflow : ANILALLEWAR.getModel()
+                .informationFlows()) {
             for (Flow flow : dfd.getFlows()) {
                 if (iflow.sender()
                         .equals(flow.getSourceNode()
@@ -220,7 +234,8 @@ public class MicroSecEndTest extends ConverterTest {
                 }
             }
         }
-        assertEquals(match, micro.informationFlows()
+        assertEquals(match, ANILALLEWAR.getModel()
+                .informationFlows()
                 .size());
 
         ensureCorrectDFDConversion(complete);
@@ -233,12 +248,12 @@ public class MicroSecEndTest extends ConverterTest {
         return labelTypeName + "." + labelName;
     }
 
-    private void ensureCorrectDFDConversion(DataFlowDiagramAndDictionary complete) {
-        var webConverter = new WebEditorConverter();
+    private void ensureCorrectDFDConversion(org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary complete) {
+        var webConverter = new Web2DFDConverter();
         var dfdConverter = new DataFlowDiagramConverter();
-        var webBefore = dfdConverter.dfdToWeb(complete);
-        var webAfter = dfdConverter.dfdToWeb(webConverter.webToDfd(webBefore));
-        assertEquals(webBefore, webAfter);
+        var webBefore = dfdConverter.convert(complete);
+        var webAfter = dfdConverter.convert(webConverter.convert(webBefore));
+        assertEquals(webBefore.getModel(), webAfter.getModel());
     }
 
     private void checkEntityName(MicroSecEndProcess process, DataFlowDiagram dfd) {

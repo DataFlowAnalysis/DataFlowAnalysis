@@ -5,14 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
-import org.dataflowanalysis.converter.DataFlowDiagramAndDictionary;
-import org.dataflowanalysis.converter.DataFlowDiagramConverter;
-import org.dataflowanalysis.converter.WebEditorConverter;
-import org.dataflowanalysis.converter.webdfd.WebEditorDfd;
+import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary;
+import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramConverter;
+import org.dataflowanalysis.converter.web2dfd.Web2DFDConverter;
+import org.dataflowanalysis.converter.web2dfd.WebEditorConverterModel;
+import org.dataflowanalysis.converter.web2dfd.model.WebEditorDfd;
 import org.dataflowanalysis.dfd.datadictionary.Pin;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
@@ -23,31 +23,28 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializationExce
 
 public class WebEditorTest extends ConverterTest {
     private DataFlowDiagramConverter dfdConverter;
-    private WebEditorConverter webConverter;
+    private Web2DFDConverter webConverter;
 
-    private final String minimalWebDFD = Paths.get(TEST_JSONS, "minimal.json")
-            .toString();
-    private final String tempWebDFD = "test.json";
+    private final WebEditorConverterModel minimalWebDFD = new WebEditorConverterModel(Paths.get(TEST_JSONS, "minimal.json")
+            .toString());
+    private final String tempWebDFD = "test";
     private final String TESTS = "org.dataflowanalysis.converter.tests";
 
     @BeforeEach
     public void setup() {
         dfdConverter = new DataFlowDiagramConverter();
-        webConverter = new WebEditorConverter();
+        webConverter = new Web2DFDConverter();
     }
 
     @Test
     @DisplayName("Test Web -> DFD -> Web")
     public void webToDfdToWeb() throws StreamReadException, DatabindException, IOException {
-        DataFlowDiagramAndDictionary dfdBefore = webConverter.webToDfd(minimalWebDFD);
-        WebEditorDfd webAfter = dfdConverter.dfdToWeb(dfdBefore);
+        DataFlowDiagramAndDictionary dfdBefore = webConverter.convert(minimalWebDFD);
+        WebEditorDfd webAfter = dfdConverter.convert(dfdBefore)
+                .getModel();
+        WebEditorDfd webBefore = minimalWebDFD.getModel();
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File(minimalWebDFD);
-        WebEditorDfd webBefore = objectMapper.readValue(file, WebEditorDfd.class);
-
-        webAfter.constraints()
-                .addAll(webBefore.constraints());
+        webAfter.constraints().addAll(webBefore.constraints());
 
         webBefore.sort();
         webAfter.sort();
@@ -58,24 +55,17 @@ public class WebEditorTest extends ConverterTest {
     }
 
     @Test
-    // @Disabled("Does not run on the CICD pipeline and has no priority right now")
     @DisplayName("Test storing and loading functionality")
     public void testStoreLoad() throws StreamReadException, DatabindException, IOException, StandaloneInitializationException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File(minimalWebDFD);
+        DataFlowDiagramAndDictionary completeBefore = webConverter.convert(minimalWebDFD);
 
-        WebEditorDfd webBefore = objectMapper.readValue(file, WebEditorDfd.class);
-        DataFlowDiagramAndDictionary completeBefore = webConverter.webToDfd(webBefore);
+        minimalWebDFD.save(".", tempWebDFD);
+        completeBefore.save("./bin", tempWebDFD);
 
-        dfdConverter.storeWeb(webBefore, tempWebDFD);
-        webConverter.storeDFD(completeBefore, "bin" + File.separator + tempWebDFD);
+        WebEditorConverterModel webAfter = new WebEditorConverterModel(tempWebDFD + ".json");
+        DataFlowDiagramAndDictionary completeAfter = new DataFlowDiagramAndDictionary("./bin/test.dataflowdiagram", "./bin/test.datadictionary");
 
-        WebEditorDfd webAfter = webConverter.loadWeb(tempWebDFD)
-                .get();
-        DataFlowDiagramAndDictionary completeAfter = dfdConverter.loadDFD(TESTS, "bin/test.dataflowdiagram", "bin/test.datadictionary",
-                org.dataflowanalysis.converter.tests.Activator.class);
-
-        assertEquals(webBefore, webAfter);
+        assertEquals(minimalWebDFD.getModel(), webAfter.getModel());
         assertEquals(completeBefore.dataFlowDiagram()
                 .getNodes()
                 .size(),

@@ -1,6 +1,7 @@
 package org.dataflowanalysis.converter.tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +30,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class AnnotationsTest {
-    private DFD2WebConverter DFD2WebConverter;
+    private DFD2WebConverter dfd2WebConverter;
     private final dataflowdiagramFactory dfdFactory = dataflowdiagramFactory.eINSTANCE;
     private final datadictionaryFactory ddFactory = datadictionaryFactory.eINSTANCE;
     private DataFlowDiagram dataFlowDiagram;
@@ -39,7 +40,7 @@ public class AnnotationsTest {
 
     @BeforeEach
     public void init() {
-        DFD2WebConverter = new DFD2WebConverter();
+        dfd2WebConverter = new DFD2WebConverter();
         dataFlowDiagram = dfdFactory.createDataFlowDiagram();
         dataDictionary = ddFactory.createDataDictionary();
 
@@ -84,7 +85,7 @@ public class AnnotationsTest {
     @Test
     public void testPropagatedLabelsAnnotation() {
         Map<String, Annotation> nodeNameToAnnotationMap = new HashMap<>();
-        var webDfd = DFD2WebConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
+        var webDfd = dfd2WebConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
         webDfd.getModel()
                 .model()
                 .children()
@@ -122,8 +123,8 @@ public class AnnotationsTest {
         conditions.add(this::condition);
 
         Map<String, Annotation> nodeNameToAnnotationMap = new HashMap<>();
-        DFD2WebConverter.setConditions(conditions);
-        var webDfd = DFD2WebConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
+        dfd2WebConverter.setConditions(conditions);
+        var webDfd = dfd2WebConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
         webDfd.getModel()
                 .model()
                 .children()
@@ -145,7 +146,7 @@ public class AnnotationsTest {
                 .color());
         assertEquals("bolt", nodeNameToAnnotationMap.get("b")
                 .icon());
-        assertEquals(null, nodeNameToAnnotationMap.get("c"));
+        assertNull(nodeNameToAnnotationMap.get("c"));
     }
 
     private boolean condition(AbstractVertex<?> node) {

@@ -44,6 +44,7 @@ public class DFD2WebConverter extends Converter {
 
     private Optional<List<Predicate<? super AbstractVertex<?>>>> conditions = Optional.empty();
     private Optional<Class<? extends TransposeFlowGraphFinder>> transposeFlowGraphFinder = Optional.empty();
+    private boolean readOnly = false;
 
     private Map<Pin, List<String>> inputPinToFlowNamesMap;
     private BehaviorConverter behaviorConverter;
@@ -78,6 +79,14 @@ public class DFD2WebConverter extends Converter {
      */
     public void setTransposeFlowGraphFinder(Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinder) {
         this.transposeFlowGraphFinder = Optional.ofNullable(transposeFlowGraphFinder);
+    }
+
+    /**
+     * Sets whether the resulting web dfd should be in read-only or not
+     * @param readOnly Determines whether the read only mode is set
+     */
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
     }
 
     /**
@@ -186,7 +195,7 @@ public class DFD2WebConverter extends Converter {
 
         createNodes(dataFlowDiagram, children, mapNodeToAnnotation);
 
-        return new WebEditorDfd(new Model("graph", "root", children), labelTypes, "edit", new ArrayList<>());
+        return new WebEditorDfd(new Model("graph", "root", children), labelTypes, readOnly ? "view" : "edit", new ArrayList<>());
     }
 
     private void createNodes(DataFlowDiagram dataFlowDiagram, List<Child> children, Map<Node, Annotation> mapNodeToAnnotation) {

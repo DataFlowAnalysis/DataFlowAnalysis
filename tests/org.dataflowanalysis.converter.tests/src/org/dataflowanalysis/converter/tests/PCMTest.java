@@ -190,12 +190,12 @@ public class PCMTest extends ConverterTest {
         PCMConverterModel pcmConverterModel = new PCMConverterModel(modelLocation, usageModelPath, allocationPath, nodeCharPath, Activator.class);
         var complete = new PCM2DFDConverter().convert(pcmConverterModel);
 
-        var dfdConverter = new DFD2WebConverter();
+        var dfd2WebConverter = new DFD2WebConverter();
         List<Predicate<? super AbstractVertex<?>>> constraints = new ArrayList<>();
         constraints.add(constraint);
-        dfdConverter.setConditions(constraints);
-        dfdConverter.setTransposeFlowGraphFinder(DFDSimpleTransposeFlowGraphFinder.class);
-        var web = dfdConverter.convert(complete);
+        dfd2WebConverter.setConditions(constraints);
+        dfd2WebConverter.setTransposeFlowGraphFinder(DFDSimpleTransposeFlowGraphFinder.class);
+        var web = dfd2WebConverter.convert(complete);
         web.save(".", webTarget);
 
         var dfd = complete.dataFlowDiagram();

@@ -22,25 +22,24 @@ import org.junit.jupiter.api.Test;
 import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
 
 public class WebEditorTest extends ConverterTest {
-    private DFD2WebConverter dfdConverter;
-    private Web2DFDConverter webConverter;
+    private DFD2WebConverter dfd2WebConverter;
+    private Web2DFDConverter web2DFDConverter;
 
     private final WebEditorConverterModel minimalWebDFD = new WebEditorConverterModel(Paths.get(TEST_JSONS, "minimal.json")
             .toString());
     private final String tempWebDFD = "test";
-    private final String TESTS = "org.dataflowanalysis.converter.tests";
 
     @BeforeEach
     public void setup() {
-        dfdConverter = new DFD2WebConverter();
-        webConverter = new Web2DFDConverter();
+        dfd2WebConverter = new DFD2WebConverter();
+        web2DFDConverter = new Web2DFDConverter();
     }
 
     @Test
     @DisplayName("Test Web -> DFD -> Web")
-    public void webToDfdToWeb() throws StreamReadException, DatabindException, IOException {
-        DataFlowDiagramAndDictionary dfdBefore = webConverter.convert(minimalWebDFD);
-        WebEditorDfd webAfter = dfdConverter.convert(dfdBefore)
+    public void webToDfdToWeb() {
+        DataFlowDiagramAndDictionary dfdBefore = web2DFDConverter.convert(minimalWebDFD);
+        WebEditorDfd webAfter = dfd2WebConverter.convert(dfdBefore)
                 .getModel();
         WebEditorDfd webBefore = minimalWebDFD.getModel();
 
@@ -56,8 +55,8 @@ public class WebEditorTest extends ConverterTest {
 
     @Test
     @DisplayName("Test storing and loading functionality")
-    public void testStoreLoad() throws StreamReadException, DatabindException, IOException, StandaloneInitializationException {
-        DataFlowDiagramAndDictionary completeBefore = webConverter.convert(minimalWebDFD);
+    public void testStoreLoad() {
+        DataFlowDiagramAndDictionary completeBefore = web2DFDConverter.convert(minimalWebDFD);
 
         minimalWebDFD.save(".", tempWebDFD);
         completeBefore.save("./bin", tempWebDFD);

@@ -26,7 +26,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class BehaviorTest {
     private BehaviorConverter behaviourConverter;
-    private DFD2WebConverter DFD2WebConverter;
+    private DFD2WebConverter dfd2WebConverter;
     private final dataflowdiagramFactory dfdFactory = dataflowdiagramFactory.eINSTANCE;
     private final datadictionaryFactory ddFactory = datadictionaryFactory.eINSTANCE;
     private DataFlowDiagram dataFlowDiagram;
@@ -34,7 +34,7 @@ public class BehaviorTest {
 
     @BeforeEach
     public void init() {
-        DFD2WebConverter = new DFD2WebConverter();
+        dfd2WebConverter = new DFD2WebConverter();
         dataFlowDiagram = dfdFactory.createDataFlowDiagram();
         dataDictionary = ddFactory.createDataDictionary();
         behaviourConverter = new BehaviorConverter(dataDictionary);
@@ -133,7 +133,7 @@ public class BehaviorTest {
                 .getAssignment()
                 .add(unsetAssignment);
 
-        var webDfd = DFD2WebConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
+        var webDfd = dfd2WebConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
 
         testAssignment(webDfd.getModel(), "b",
                 List.of("assign type.value,type.value2 if !(type.value && TRUE) from a2b", "set type.value", "unset type.value2"));
@@ -168,7 +168,7 @@ public class BehaviorTest {
 
         createFlow(c, d, c_out, null, "c2d");
 
-        var webDfd = DFD2WebConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
+        var webDfd = dfd2WebConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
 
         testAssignment(webDfd.getModel(), "c", List.of("forward a2c|b2c"));
 
@@ -192,7 +192,7 @@ public class BehaviorTest {
                 .getAssignment()
                 .add(assignment2);
 
-        webDfd = DFD2WebConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
+        webDfd = dfd2WebConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
 
         testAssignment(webDfd.getModel(), "c", List.of("forward a2c|b2c,z2c"));
     }

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.dataflowanalysis.converter.dfd2web.DFD2WebConverter;
+import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.converter.micro2dfd.Micro2DFDConverter;
 import org.dataflowanalysis.converter.micro2dfd.MicroConverterModel;
 import org.dataflowanalysis.converter.micro2dfd.model.ExternalEntity;
@@ -36,7 +37,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class MicroSecEndTest extends ConverterTest {
-    private Micro2DFDConverter converter;
+    private Micro2DFDConverter micro2DFDConverter;
 
     private final String ANILALLEWAR_PATH = Paths.get(TEST_JSONS, "anilallewar.json")
             .toString();
@@ -50,13 +51,13 @@ public class MicroSecEndTest extends ConverterTest {
 
     @BeforeEach
     public void setup() {
-        converter = new Micro2DFDConverter();
+        micro2DFDConverter = new Micro2DFDConverter();
     }
 
     @Test
     @DisplayName("Check amount of pins, assignments and flows")
     public void checkPinsAssignmentsAndFlows() {
-        var dfd = converter.convert(ANILALLEWAR);
+        var dfd = micro2DFDConverter.convert(ANILALLEWAR);
 
         List<AbstractAssignment> assignments = dfd.dataDictionary()
                 .getBehavior()
@@ -121,10 +122,10 @@ public class MicroSecEndTest extends ConverterTest {
     @Test
     @DisplayName("Check if ids are not random")
     public void checkIdForRandomness() {
-        var dfdConverter = new DFD2WebConverter();
+        var dfd2webConverter = new DFD2WebConverter();
 
-        var webDfdOne = dfdConverter.convert(converter.convert(ANILALLEWAR));
-        var webDfdTwo = dfdConverter.convert(converter.convert(ANILALLEWAR));
+        var webDfdOne = dfd2webConverter.convert(micro2DFDConverter.convert(ANILALLEWAR));
+        var webDfdTwo = dfd2webConverter.convert(micro2DFDConverter.convert(ANILALLEWAR));
 
         assertEquals(webDfdOne.getModel(), webDfdTwo.getModel());
     }
@@ -155,7 +156,7 @@ public class MicroSecEndTest extends ConverterTest {
     @Test
     @DisplayName("Test Micro -> DFD")
     public void microToDfd() throws StreamReadException, DatabindException, IOException {
-        org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary complete = converter.convert(ANILALLEWAR);
+        DataFlowDiagramAndDictionary complete = micro2DFDConverter.convert(ANILALLEWAR);
 
         DataFlowDiagram dfd = complete.dataFlowDiagram();
 
@@ -249,10 +250,10 @@ public class MicroSecEndTest extends ConverterTest {
     }
 
     private void ensureCorrectDFDConversion(org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary complete) {
-        var webConverter = new Web2DFDConverter();
-        var dfdConverter = new DFD2WebConverter();
-        var webBefore = dfdConverter.convert(complete);
-        var webAfter = dfdConverter.convert(webConverter.convert(webBefore));
+        var web2DFDConverter = new Web2DFDConverter();
+        var dfd2WebConverter = new DFD2WebConverter();
+        var webBefore = dfd2WebConverter.convert(complete);
+        var webAfter = dfd2WebConverter.convert(web2DFDConverter.convert(webBefore));
         assertEquals(webBefore.getModel(), webAfter.getModel());
     }
 

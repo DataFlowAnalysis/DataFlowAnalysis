@@ -142,6 +142,7 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
     private boolean loadRequiredModels() {
         try {
             this.resourceProvider.loadRequiredResources();
+            this.resourceProvider.validate();
 
             this.dataDictionaries = this.resourceProvider.lookupToplevelElement(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
                     .stream()

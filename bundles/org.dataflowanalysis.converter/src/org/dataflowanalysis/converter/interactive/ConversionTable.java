@@ -13,17 +13,18 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 import org.dataflowanalysis.converter.Converter;
-import org.dataflowanalysis.converter.chain.ConverterChain;
-import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramConverter;
+import org.dataflowanalysis.converter.ModelType;
+import org.dataflowanalysis.converter.ConverterChain;
+import org.dataflowanalysis.converter.dfd2web.DFD2WebConverter;
 import org.dataflowanalysis.converter.micro2dfd.Micro2DFDConverter;
-import org.dataflowanalysis.converter.pcm2dfd.PCMConverter;
+import org.dataflowanalysis.converter.pcm2dfd.PCM2DFDConverter;
 import org.dataflowanalysis.converter.plant2micro.Plant2MicroConverter;
 import org.dataflowanalysis.converter.web2dfd.Web2DFDConverter;
 
 public class ConversionTable {
     private final Map<ConversionKey, Supplier<Converter>> conversionTable = Map.of(
-            ConversionKey.of(ModelType.PCM, ModelType.DFD), PCMConverter::new,
-            ConversionKey.of(ModelType.DFD, ModelType.WEB_DFD), DataFlowDiagramConverter::new,
+            ConversionKey.of(ModelType.PCM, ModelType.DFD), PCM2DFDConverter::new,
+            ConversionKey.of(ModelType.DFD, ModelType.WEB_DFD), DFD2WebConverter::new,
             ConversionKey.of(ModelType.PLANT, ModelType.MICRO), Plant2MicroConverter::new,
             ConversionKey.of(ModelType.MICRO, ModelType.DFD), Micro2DFDConverter::new,
             ConversionKey.of(ModelType.WEB_DFD, ModelType.DFD), Web2DFDConverter::new

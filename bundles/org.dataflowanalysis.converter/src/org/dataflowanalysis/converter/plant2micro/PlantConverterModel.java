@@ -1,7 +1,7 @@
 package org.dataflowanalysis.converter.plant2micro;
 
 import org.dataflowanalysis.converter.ConverterModel;
-import org.dataflowanalysis.converter.interactive.ModelType;
+import org.dataflowanalysis.converter.ModelType;
 
 public class PlantConverterModel extends ConverterModel {
     private final String filePath;
@@ -23,10 +23,5 @@ public class PlantConverterModel extends ConverterModel {
 
     public String getFileName() {
         return fileName;
-    }
-
-    @Override
-    public void save(String filePath, String fileName) {
-
     }
 }

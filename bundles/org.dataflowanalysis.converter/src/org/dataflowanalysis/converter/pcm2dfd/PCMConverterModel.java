@@ -7,7 +7,7 @@ import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.resource.PCMURIResourceProvider;
 import org.dataflowanalysis.converter.ConverterModel;
-import org.dataflowanalysis.converter.interactive.ModelType;
+import org.dataflowanalysis.converter.ModelType;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.emf.common.util.URI;
 
@@ -68,10 +68,5 @@ public class PCMConverterModel extends ConverterModel {
 
     public FlowGraphCollection getFlowGraphCollection() {
         return flowGraphCollection;
-    }
-
-    @Override
-    public void save(String filePath, String fileName) {
-        // TODO
     }
 }

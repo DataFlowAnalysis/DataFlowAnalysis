@@ -7,10 +7,11 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import org.dataflowanalysis.converter.ConverterModel;
-import org.dataflowanalysis.converter.interactive.ModelType;
+import org.dataflowanalysis.converter.ModelType;
+import org.dataflowanalysis.converter.PersistableConverterModel;
 import org.dataflowanalysis.converter.web2dfd.model.WebEditorDfd;
 
-public class WebEditorConverterModel extends ConverterModel {
+public class WebEditorConverterModel extends PersistableConverterModel {
     private static final String FILE_EXTENSION = ".json";
 
     private final WebEditorDfd model;

@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramConverter;
+import org.dataflowanalysis.converter.dfd2web.DFD2WebConverter;
 import org.dataflowanalysis.converter.micro2dfd.Micro2DFDConverter;
 import org.dataflowanalysis.converter.micro2dfd.MicroConverterModel;
 import org.dataflowanalysis.converter.micro2dfd.model.ExternalEntity;
@@ -121,7 +121,7 @@ public class MicroSecEndTest extends ConverterTest {
     @Test
     @DisplayName("Check if ids are not random")
     public void checkIdForRandomness() {
-        var dfdConverter = new org.dataflowanalysis.converter.dfd2web.DataFlowDiagramConverter();
+        var dfdConverter = new DFD2WebConverter();
 
         var webDfdOne = dfdConverter.convert(converter.convert(ANILALLEWAR));
         var webDfdTwo = dfdConverter.convert(converter.convert(ANILALLEWAR));
@@ -250,7 +250,7 @@ public class MicroSecEndTest extends ConverterTest {
 
     private void ensureCorrectDFDConversion(org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary complete) {
         var webConverter = new Web2DFDConverter();
-        var dfdConverter = new DataFlowDiagramConverter();
+        var dfdConverter = new DFD2WebConverter();
         var webBefore = dfdConverter.convert(complete);
         var webAfter = dfdConverter.convert(webConverter.convert(webBefore));
         assertEquals(webBefore.getModel(), webAfter.getModel());

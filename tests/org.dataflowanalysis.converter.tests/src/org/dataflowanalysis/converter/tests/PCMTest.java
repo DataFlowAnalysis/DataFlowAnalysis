@@ -26,8 +26,8 @@ import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.simple.DFDSimpleTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
-import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramConverter;
-import org.dataflowanalysis.converter.pcm2dfd.PCMConverter;
+import org.dataflowanalysis.converter.dfd2web.DFD2WebConverter;
+import org.dataflowanalysis.converter.pcm2dfd.PCM2DFDConverter;
 import org.dataflowanalysis.converter.pcm2dfd.PCMConverterModel;
 import org.dataflowanalysis.dfd.datadictionary.AND;
 import org.dataflowanalysis.dfd.datadictionary.Assignment;
@@ -93,7 +93,7 @@ public class PCMTest extends ConverterTest {
         }
 
         PCMConverterModel pcmConverterModel = new PCMConverterModel(TEST_MODELS, usageModelPath, allocationPath, nodeCharPath, Activator.class);
-        var dfd = new PCMConverter().convert(pcmConverterModel);
+        var dfd = new PCM2DFDConverter().convert(pcmConverterModel);
 
         // Assignment: flights.*.* := RETURN.*.*
         var readFlightsFromDB = dfd.dataFlowDiagram()
@@ -188,9 +188,9 @@ public class PCMTest extends ConverterTest {
         }
 
         PCMConverterModel pcmConverterModel = new PCMConverterModel(modelLocation, usageModelPath, allocationPath, nodeCharPath, Activator.class);
-        var complete = new PCMConverter().convert(pcmConverterModel);
+        var complete = new PCM2DFDConverter().convert(pcmConverterModel);
 
-        var dfdConverter = new DataFlowDiagramConverter();
+        var dfdConverter = new DFD2WebConverter();
         List<Predicate<? super AbstractVertex<?>>> constraints = new ArrayList<>();
         constraints.add(constraint);
         dfdConverter.setConditions(constraints);

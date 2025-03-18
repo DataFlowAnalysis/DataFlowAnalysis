@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary;
-import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramConverter;
+import org.dataflowanalysis.converter.dfd2web.DFD2WebConverter;
 import org.dataflowanalysis.converter.web2dfd.Web2DFDConverter;
 import org.dataflowanalysis.converter.web2dfd.WebEditorConverterModel;
 import org.dataflowanalysis.converter.web2dfd.model.WebEditorDfd;
@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
 
 public class WebEditorTest extends ConverterTest {
-    private DataFlowDiagramConverter dfdConverter;
+    private DFD2WebConverter dfdConverter;
     private Web2DFDConverter webConverter;
 
     private final WebEditorConverterModel minimalWebDFD = new WebEditorConverterModel(Paths.get(TEST_JSONS, "minimal.json")
@@ -32,7 +32,7 @@ public class WebEditorTest extends ConverterTest {
 
     @BeforeEach
     public void setup() {
-        dfdConverter = new DataFlowDiagramConverter();
+        dfdConverter = new DFD2WebConverter();
         webConverter = new Web2DFDConverter();
     }
 

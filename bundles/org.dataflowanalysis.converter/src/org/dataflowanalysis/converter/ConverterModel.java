@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
 import org.apache.log4j.Logger;
-import org.dataflowanalysis.converter.interactive.ModelType;
 import org.dataflowanalysis.converter.util.FileNameOnlyURIHandler;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -21,9 +20,6 @@ public abstract class ConverterModel {
     public ConverterModel(ModelType modelType) {
         this.modelType = modelType;
     }
-
-    // TODO: Should be ending agnostic (accept ending and not)
-    public abstract void save(String filePath, String fileName);
 
     protected String promptInput(Scanner scanner, String fileExtension) {
         System.out.println("Please enter a path to a ." + fileExtension + " file: ");

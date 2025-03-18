@@ -1,4 +1,4 @@
-package org.dataflowanalysis.converter.interactive;
+package org.dataflowanalysis.converter;
 
 public enum ModelType {
     PCM("Palladio Component Model"),

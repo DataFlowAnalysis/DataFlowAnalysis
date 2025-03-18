@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary;
-import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramConverter;
+import org.dataflowanalysis.converter.dfd2web.DFD2WebConverter;
 import org.dataflowanalysis.converter.web2dfd.model.Annotation;
 import org.dataflowanalysis.dfd.datadictionary.Assignment;
 import org.dataflowanalysis.dfd.datadictionary.Behavior;
@@ -29,7 +29,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class AnnotationsTest {
-    private DataFlowDiagramConverter dataFlowDiagramConverter;
+    private DFD2WebConverter DFD2WebConverter;
     private final dataflowdiagramFactory dfdFactory = dataflowdiagramFactory.eINSTANCE;
     private final datadictionaryFactory ddFactory = datadictionaryFactory.eINSTANCE;
     private DataFlowDiagram dataFlowDiagram;
@@ -39,7 +39,7 @@ public class AnnotationsTest {
 
     @BeforeEach
     public void init() {
-        dataFlowDiagramConverter = new DataFlowDiagramConverter();
+        DFD2WebConverter = new DFD2WebConverter();
         dataFlowDiagram = dfdFactory.createDataFlowDiagram();
         dataDictionary = ddFactory.createDataDictionary();
 
@@ -84,7 +84,7 @@ public class AnnotationsTest {
     @Test
     public void testPropagatedLabelsAnnotation() {
         Map<String, Annotation> nodeNameToAnnotationMap = new HashMap<>();
-        var webDfd = dataFlowDiagramConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
+        var webDfd = DFD2WebConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
         webDfd.getModel()
                 .model()
                 .children()
@@ -122,8 +122,8 @@ public class AnnotationsTest {
         conditions.add(this::condition);
 
         Map<String, Annotation> nodeNameToAnnotationMap = new HashMap<>();
-        dataFlowDiagramConverter.setConditions(conditions);
-        var webDfd = dataFlowDiagramConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
+        DFD2WebConverter.setConditions(conditions);
+        var webDfd = DFD2WebConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
         webDfd.getModel()
                 .model()
                 .children()

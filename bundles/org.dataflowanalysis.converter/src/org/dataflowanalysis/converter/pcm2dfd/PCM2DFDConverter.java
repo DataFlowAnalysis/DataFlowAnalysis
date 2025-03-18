@@ -55,10 +55,9 @@ import org.palladiosimulator.pcm.usagemodel.Start;
 import org.palladiosimulator.pcm.usagemodel.Stop;
 
 /**
- * Converts Palladio models to the data flow diagram and dictionary representation. Inherits from {@link Converter} to
- * utilize shared conversion logic while providing specific functionality for handling Palladio models.
+ * Converts Palladio models to the data flow diagram and dictionary representation
  */
-public class PCMConverter extends Converter {
+public class PCM2DFDConverter extends Converter {
     private final Map<AbstractPCMVertex<?>, Node> dfdNodeMap = new HashMap<>();
     private DataDictionary dataDictionary;
     private DataFlowDiagram dataFlowDiagram;

@@ -5,6 +5,8 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.converter.Converter;
 import org.dataflowanalysis.converter.ConverterModel;
+import org.dataflowanalysis.converter.ModelType;
+import org.dataflowanalysis.converter.PersistableConverterModel;
 import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.converter.pcm2dfd.PCMConverterModel;
 
@@ -63,7 +65,7 @@ public class ConvertTask {
         Converter converter = conversionTable.getConverter(ConversionKey.of(origin, goal));
 
         ConverterModel input = getConverterModel(origin, scanner);
-        ConverterModel output = converter.convert(input);
+        PersistableConverterModel output = converter.convert(input);
 
         System.out.println("Please enter a path to a folder where the files should be saved. Leave empty for current working directory");
         System.out.print("> ");

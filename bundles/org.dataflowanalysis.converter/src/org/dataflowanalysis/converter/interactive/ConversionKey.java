@@ -1,5 +1,7 @@
 package org.dataflowanalysis.converter.interactive;
 
+import org.dataflowanalysis.converter.ModelType;
+
 public record ConversionKey(ModelType origin, ModelType destination) {
 
     public static ConversionKey of(ModelType origin, ModelType destination) {

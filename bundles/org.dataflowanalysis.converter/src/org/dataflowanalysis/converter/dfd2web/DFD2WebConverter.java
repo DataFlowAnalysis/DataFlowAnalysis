@@ -32,18 +32,15 @@ import org.dataflowanalysis.dfd.dataflowdiagram.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.Process;
 
 /**
- * Converts data flow diagrams and dictionaries between web editor formats and the application's internal
- * representation. Inherits from {@link Converter} to utilize shared conversion logic while providing specific
- * functionality for handling data flow diagram formats. Supports loading from and storing to files, and conversion
- * between different data representation formats.
+ * Converts data flow diagrams and dictionaries to the web editor format
  */
-public class DataFlowDiagramConverter extends Converter {
-    protected final static String DELIMITER_PIN_NAME = "|";
-    protected final static String DELIMITER_MULTI_PIN = ",";
-    protected final static String DELIMITER_MULTI_LABEL = ",";
-    private final static String CONTROL_FLOW_NAME = "~";
+public class DFD2WebConverter extends Converter {
+    private final Logger logger = Logger.getLogger(DFD2WebConverter.class);
 
-    private final Logger logger = Logger.getLogger(DataFlowDiagramConverter.class);
+    private final static String DELIMITER_PIN_NAME = "|";
+    private final static String DELIMITER_MULTI_PIN = ",";
+    private final static String DELIMITER_MULTI_LABEL = ",";
+    private final static String CONTROL_FLOW_NAME = "~";
 
     private Optional<List<Predicate<? super AbstractVertex<?>>>> conditions = Optional.empty();
     private Optional<Class<? extends TransposeFlowGraphFinder>> transposeFlowGraphFinder = Optional.empty();
@@ -67,10 +64,18 @@ public class DataFlowDiagramConverter extends Converter {
         return new WebEditorConverterModel(webEditorDfd);
     }
 
+    /**
+     * Sets the conditions, when a vertex should receive an annotation
+     * @param conditions Conditions that determine whether a vertex receives an annotation
+     */
     public void setConditions(List<Predicate<? super AbstractVertex<?>>> conditions) {
         this.conditions = Optional.ofNullable(conditions);
     }
 
+    /**
+     * Sets the transpose flow graph finder class that is used to create annotations
+     * @param transposeFlowGraphFinder Transpose graph finder class that is used to create annotations
+     */
     public void setTransposeFlowGraphFinder(Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinder) {
         this.transposeFlowGraphFinder = Optional.ofNullable(transposeFlowGraphFinder);
     }

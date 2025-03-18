@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Scanner;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.converter.Converter;
-import org.dataflowanalysis.converter.ConverterFactory;
 import org.dataflowanalysis.converter.ConverterModel;
 import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.converter.pcm2dfd.PCMConverterModel;
@@ -61,8 +60,7 @@ public class ConvertTask {
 
     private static void runConversion(ModelType origin, ModelType goal, Scanner scanner) {
         ConversionTable conversionTable = new ConversionTable();
-        ConverterFactory converterFactory = conversionTable.getConverter(ConversionKey.of(origin, goal));
-        Converter converter = converterFactory.createInstance();
+        Converter converter = conversionTable.getConverter(ConversionKey.of(origin, goal));
 
         ConverterModel input = getConverterModel(origin, scanner);
         ConverterModel output = converter.convert(input);

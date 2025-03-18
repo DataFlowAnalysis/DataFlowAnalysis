@@ -10,23 +10,28 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.dataflowanalysis.converter.ConverterFactory;
-import org.dataflowanalysis.converter.chain.ConverterChainFactory;
-import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramConverterFactory;
-import org.dataflowanalysis.converter.micro2dfd.Micro2DFDConverterFactory;
-import org.dataflowanalysis.converter.pcm2dfd.PCMConverterFactory;
-import org.dataflowanalysis.converter.plant2micro.Plant2MicroConverterFactory;
-import org.dataflowanalysis.converter.web2dfd.Web2DFDConverterFactory;
+import java.util.function.Supplier;
+
+import org.dataflowanalysis.converter.Converter;
+import org.dataflowanalysis.converter.chain.ConverterChain;
+import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramConverter;
+import org.dataflowanalysis.converter.micro2dfd.Micro2DFDConverter;
+import org.dataflowanalysis.converter.pcm2dfd.PCMConverter;
+import org.dataflowanalysis.converter.plant2micro.Plant2MicroConverter;
+import org.dataflowanalysis.converter.web2dfd.Web2DFDConverter;
 
 public class ConversionTable {
-    private final Map<ConversionKey, ConverterFactory> conversionTable = Map.of(ConversionKey.of(ModelType.PCM, ModelType.DFD),
-            new PCMConverterFactory(), ConversionKey.of(ModelType.DFD, ModelType.WEB_DFD), new DataFlowDiagramConverterFactory(),
-            ConversionKey.of(ModelType.PLANT, ModelType.MICRO), new Plant2MicroConverterFactory(), ConversionKey.of(ModelType.MICRO, ModelType.DFD),
-            new Micro2DFDConverterFactory(), ConversionKey.of(ModelType.WEB_DFD, ModelType.DFD), new Web2DFDConverterFactory());
+    private final Map<ConversionKey, Supplier<Converter>> conversionTable = Map.of(
+            ConversionKey.of(ModelType.PCM, ModelType.DFD), PCMConverter::new,
+            ConversionKey.of(ModelType.DFD, ModelType.WEB_DFD), DataFlowDiagramConverter::new,
+            ConversionKey.of(ModelType.PLANT, ModelType.MICRO), Plant2MicroConverter::new,
+            ConversionKey.of(ModelType.MICRO, ModelType.DFD), Micro2DFDConverter::new,
+            ConversionKey.of(ModelType.WEB_DFD, ModelType.DFD), Web2DFDConverter::new
+    );
 
-    public ConverterFactory getConverter(ConversionKey conversionKey) {
+    public Converter getConverter(ConversionKey conversionKey) {
         if (conversionTable.containsKey(conversionKey)) {
-            return conversionTable.get(conversionKey);
+            return conversionTable.get(conversionKey).get();
         }
         List<ModelType> visited = new ArrayList<>();
         Deque<ModelType> current = new ArrayDeque<>();
@@ -37,14 +42,14 @@ public class ConversionTable {
             ModelType modelType = current.pop();
             if (modelType.equals(conversionKey.destination())) {
                 // Backtrack
-                List<ConverterFactory> converters = new ArrayList<>();
+                List<Converter> converters = new ArrayList<>();
                 while (modelType != conversionKey.origin()) {
                     ModelType parentModelType = parent.get(modelType);
-                    converters.add(conversionTable.get(ConversionKey.of(parentModelType, modelType)));
+                    converters.add(conversionTable.get(ConversionKey.of(parentModelType, modelType)).get());
                     modelType = parentModelType;
                 }
                 Collections.reverse(converters);
-                return new ConverterChainFactory(converters);
+                return new ConverterChain(converters);
             }
             visited.add(modelType);
             for (var directDestination : getDirectDestinations(modelType)) {

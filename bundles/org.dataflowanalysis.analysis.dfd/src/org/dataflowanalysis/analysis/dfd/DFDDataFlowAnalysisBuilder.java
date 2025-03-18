@@ -133,6 +133,7 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
     public DFDConfidentialityAnalysis build() {
         this.validate();
         DFDResourceProvider resourceProvider = this.getEffectiveResourceProvider();
+        resourceProvider.validate();
 
         if (customTransposeFlowGraphFinderClass == null)
             return new DFDConfidentialityAnalysis(resourceProvider, this.pluginActivator, this.modelProjectName);

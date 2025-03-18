@@ -47,6 +47,15 @@ public abstract class ResourceProvider {
 
     public abstract void setupResources();
 
+    public void validate() {
+        for (Resource resource : this.resources.getResources()) {
+            if (!resource.getErrors().isEmpty()) {
+                logger.error("Error loading model " + resource.getURI().toString());
+                resource.getErrors().forEach(error -> logger.error(error.getMessage()));
+            }
+        }
+    }
+
     /**
      * Looks up an ECore element with the given entity id
      * @param id Identifier of the object that the lookup should return

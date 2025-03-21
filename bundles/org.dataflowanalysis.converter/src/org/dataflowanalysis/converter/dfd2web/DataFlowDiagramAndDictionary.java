@@ -5,7 +5,6 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import org.dataflowanalysis.analysis.dfd.resource.DFDURIResourceProvider;
 import org.dataflowanalysis.analysis.utils.ResourceUtils;
-import org.dataflowanalysis.converter.ConverterModel;
 import org.dataflowanalysis.converter.ModelType;
 import org.dataflowanalysis.converter.PersistableConverterModel;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
@@ -103,8 +102,8 @@ public final class DataFlowDiagramAndDictionary extends PersistableConverterMode
     public DataFlowDiagramAndDictionary(Scanner scanner) {
         super(ModelType.DFD);
 
-        String inputDataFlowDiagram = this.promptInput(scanner, "dataflowdiagram");
-        String inputDataDictionary = this.promptInput(scanner, "datadictionary");
+        String inputDataFlowDiagram = this.getFilePath(scanner, "dataflowdiagram");
+        String inputDataDictionary = this.getFilePath(scanner, "datadictionary");
 
         URI dfdURI = URI.createFileURI(inputDataFlowDiagram);
         URI ddURI = URI.createFileURI(inputDataDictionary);

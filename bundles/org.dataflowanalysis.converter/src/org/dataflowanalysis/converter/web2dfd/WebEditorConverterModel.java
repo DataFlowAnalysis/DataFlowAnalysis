@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Scanner;
 
-import org.dataflowanalysis.converter.ConverterModel;
 import org.dataflowanalysis.converter.ModelType;
 import org.dataflowanalysis.converter.PersistableConverterModel;
 import org.dataflowanalysis.converter.web2dfd.model.WebEditorDfd;
@@ -41,7 +40,7 @@ public class WebEditorConverterModel extends PersistableConverterModel {
 
     public WebEditorConverterModel(Scanner scanner) {
         super(ModelType.WEB_DFD);
-        String inputPath = this.promptInput(scanner, "json");
+        String inputPath = this.getFilePath(scanner, "json");
 
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(inputPath);

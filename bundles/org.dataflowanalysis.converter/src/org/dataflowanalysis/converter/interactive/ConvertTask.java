@@ -48,6 +48,7 @@ public class ConvertTask {
         }
         List<String> parameterList = new ArrayList<>(Arrays.stream(parameters).toList());
         parameterList.remove(0);
+
         ConversionTable conversionTable = new ConversionTable();
         Converter converter = conversionTable.getConverter(ConversionKey.of(origin.get(), destination.get()));
         ConverterModel converterModel = getConverterModel(origin.get(), parameterList);
@@ -76,16 +77,7 @@ public class ConvertTask {
         List<ModelType> origins = conversionTable.getPossibleOrigins()
                 .stream()
                 .toList();
-        for (int i = 0; i < origins.size(); i++) {
-            System.out.println("[" + (i + 1) + "] " + origins.get(i)
-                    .getName());
-        }
-        try {
-            int index = Integer.parseInt(scanner.nextLine()) - 1;
-            return origins.get(index);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(e);
-        }
+        return getModelTypeFromSelection(scanner, origins);
     }
 
     private static ModelType getGoal(Scanner scanner, ModelType origin) {
@@ -94,13 +86,17 @@ public class ConvertTask {
         List<ModelType> goals = conversionTable.getPossibleDestinations(origin)
                 .stream()
                 .toList();
-        for (int i = 0; i < goals.size(); i++) {
-            System.out.println("[" + (i + 1) + "] " + goals.get(i)
+        return getModelTypeFromSelection(scanner, goals);
+    }
+
+    private static ModelType getModelTypeFromSelection(Scanner scanner, List<ModelType> modelTypes) {
+        for (int i = 0; i < modelTypes.size(); i++) {
+            System.out.println("[" + (i + 1) + "] " + modelTypes.get(i)
                     .getName());
         }
         try {
             int index = Integer.parseInt(scanner.nextLine()) - 1;
-            return goals.get(index);
+            return modelTypes.get(index);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(e);
         }

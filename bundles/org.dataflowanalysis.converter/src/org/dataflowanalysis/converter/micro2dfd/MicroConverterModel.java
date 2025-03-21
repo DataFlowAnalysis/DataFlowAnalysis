@@ -36,7 +36,7 @@ public class MicroConverterModel extends PersistableConverterModel {
 
     public MicroConverterModel(Scanner scanner) {
         super(ModelType.MICRO);
-        String filePath = this.promptInput(scanner, "json");
+        String filePath = this.getFilePath(scanner, "json");
 
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(filePath);

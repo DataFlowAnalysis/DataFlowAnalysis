@@ -19,7 +19,7 @@ public class PlantConverterModel extends ConverterModel {
 
     public PlantConverterModel(Scanner scanner) {
         super(ModelType.PLANT);
-        String plantPath = this.promptInput(scanner, "json");
+        String plantPath = this.getFilePath(scanner, "json");
         Path path = Paths.get(plantPath).toAbsolutePath().normalize();
         this.filePath = path.getParent().toString();
         this.fileName = path.getFileName().toString();

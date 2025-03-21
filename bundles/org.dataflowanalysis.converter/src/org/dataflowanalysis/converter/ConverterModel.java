@@ -12,16 +12,29 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 
+/**
+ * Abstract representation for an input to an {@link Converter}
+ */
 public abstract class ConverterModel {
     protected static final Logger logger = Logger.getLogger(ConverterModel.class);
 
     private final ModelType modelType;
 
+    /**
+     * Creates a new converter model with the given model type that is encapsulates
+     * @param modelType Model type of the encapsulated model
+     */
     public ConverterModel(ModelType modelType) {
         this.modelType = modelType;
     }
 
-    protected String promptInput(Scanner scanner, String fileExtension) {
+    /**
+     * Prompts the user for a file path on the given scanner. It must have the given file extension
+     * @param scanner Given scanner which the prompt will read from
+     * @param fileExtension File extension the user-provided file path must have
+     * @return Returns a string with the given file path
+     */
+    protected String getFilePath(Scanner scanner, String fileExtension) {
         System.out.println("Please enter a path to a ." + fileExtension + " file: ");
         System.out.print("> ");
         String filePath = scanner.nextLine();
@@ -32,6 +45,12 @@ public abstract class ConverterModel {
         return filePath;
     }
 
+    /**
+     * Transforms the converter model to a concrete instance given the class
+     * @param converterModelClass Class of the concrete instance
+     * @return Returns an optional containing the concrete converter model instance
+     * @param <T> Type parameter for the concrete converter model instance
+     */
     public <T> Optional<T> toType(Class<T> converterModelClass) {
         if (converterModelClass.isInstance(this)) {
             return Optional.of(converterModelClass.cast(this));

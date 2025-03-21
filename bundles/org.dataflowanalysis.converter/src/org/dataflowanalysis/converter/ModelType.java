@@ -2,6 +2,10 @@ package org.dataflowanalysis.converter;
 
 import java.util.Optional;
 
+/**
+ * This enum represents all model types the converters may interact with.
+ * It must have a full name and abbreviation for usage with the CLI
+ */
 public enum ModelType {
     PCM("Palladio Component Model", "pcm"),
     DFD("Data Flow Diagram Model", "dfd"),
@@ -25,6 +29,11 @@ public enum ModelType {
         return abbreviation;
     }
 
+    /**
+     * Returns the correct model type for the given abbreviation
+     * @param abbreviation Given abbreviation corresponding to a model type
+     * @return Returns an optional containing the correct model type, if it exists
+     */
     public static Optional<ModelType> fromAbbreviation(String abbreviation) {
         for (ModelType modelType : ModelType.values()) {
             if (modelType.getAbbreviation().equalsIgnoreCase(abbreviation)) {

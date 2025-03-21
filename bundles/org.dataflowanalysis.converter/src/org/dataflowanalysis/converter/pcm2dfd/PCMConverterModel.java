@@ -51,9 +51,9 @@ public class PCMConverterModel extends ConverterModel {
     public PCMConverterModel(Scanner scanner) {
         super(ModelType.PCM);
 
-        String usageModelPath = this.promptInput(scanner, "usagemodel");
-        String allocationPath = this.promptInput(scanner, "allocation");
-        String nodeCharPath = this.promptInput(scanner, "nodecharacteristics");
+        String usageModelPath = this.getFilePath(scanner, "usagemodel");
+        String allocationPath = this.getFilePath(scanner, "allocation");
+        String nodeCharPath = this.getFilePath(scanner, "nodecharacteristics");
 
         DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
                 .useCustomResourceProvider(new PCMURIResourceProvider(URI.createFileURI(usageModelPath), URI.createFileURI(allocationPath),

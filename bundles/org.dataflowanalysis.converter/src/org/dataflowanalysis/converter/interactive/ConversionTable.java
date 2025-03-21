@@ -21,6 +21,9 @@ import org.dataflowanalysis.converter.pcm2dfd.PCM2DFDConverter;
 import org.dataflowanalysis.converter.plant2micro.Plant2MicroConverter;
 import org.dataflowanalysis.converter.web2dfd.Web2DFDConverter;
 
+/**
+ * This class contains all possible conversions currently supported by the converter
+ */
 public class ConversionTable {
     private final Map<ConversionKey, Supplier<Converter>> conversionTable = Map.of(
             ConversionKey.of(ModelType.PCM, ModelType.DFD), PCM2DFDConverter::new,
@@ -30,6 +33,14 @@ public class ConversionTable {
             ConversionKey.of(ModelType.WEB_DFD, ModelType.DFD), Web2DFDConverter::new
     );
 
+    /**
+     * TODO: This method is ugly. Furthermore this is just BFS
+     * Determines the converter required to convert according to the given conversion key.
+     * If no direct conversion between the elements exists, it creates the shortest {@link ConverterChain}
+     * @param conversionKey Given conversion key that the converter should fulfil
+     * @return Returns the converter that achieves the desired conversion
+     * @throws IllegalArgumentException A valid converter cannot be found
+     */
     public Converter getConverter(ConversionKey conversionKey) {
         if (conversionTable.containsKey(conversionKey)) {
             return conversionTable.get(conversionKey).get();
@@ -63,6 +74,10 @@ public class ConversionTable {
         throw new IllegalArgumentException("No path");
     }
 
+    /**
+     * Determines all possible origins for conversions
+     * @return Returns a collection containing all possible origins for conversions
+     */
     public Collection<ModelType> getPossibleOrigins() {
         Set<ModelType> result = new HashSet<>();
         for (var entry : conversionTable.entrySet()) {
@@ -72,6 +87,12 @@ public class ConversionTable {
         return result;
     }
 
+    /**
+     * Determines all possible destinations for a model type.
+     * Destinations via other model types are included in the result
+     * @param origin Model type of the originating model
+     * @return Returns a collection containing all possible (transitive) conversion destinations for the given origin
+     */
     public Collection<ModelType> getPossibleDestinations(ModelType origin) {
         Set<ModelType> result = new HashSet<>();
         boolean changed = result.addAll(getDirectDestinations(origin));
@@ -84,6 +105,12 @@ public class ConversionTable {
         return result;
     }
 
+    /**
+     * Returns the direct conversion destinations for a model type
+     * Does not include destinations via other model
+     * @param origin Originating model type
+     * @return Returns a collection containing all direct destinations for a model type
+     */
     private Collection<ModelType> getDirectDestinations(ModelType origin) {
         Set<ModelType> result = new HashSet<>();
         for (var entry : conversionTable.entrySet()) {

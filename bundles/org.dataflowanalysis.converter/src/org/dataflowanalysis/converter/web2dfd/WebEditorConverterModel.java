@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Scanner;
+
 import org.dataflowanalysis.converter.ConverterModel;
 import org.dataflowanalysis.converter.ModelType;
 import org.dataflowanalysis.converter.PersistableConverterModel;
@@ -27,6 +29,20 @@ public class WebEditorConverterModel extends PersistableConverterModel {
      */
     public WebEditorConverterModel(String inputPath) {
         super(ModelType.WEB_DFD);
+        ObjectMapper objectMapper = new ObjectMapper();
+        File file = new File(inputPath);
+        try {
+            this.model = objectMapper.readValue(file, WebEditorDfd.class);
+        } catch (IOException e) {
+            logger.error("Could not load web dfd:", e);
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    public WebEditorConverterModel(Scanner scanner) {
+        super(ModelType.WEB_DFD);
+        String inputPath = this.promptInput(scanner, "json");
+
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(inputPath);
         try {

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Scanner;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.dataflowanalysis.converter.ModelType;
@@ -23,6 +24,20 @@ public class MicroConverterModel extends PersistableConverterModel {
 
     public MicroConverterModel(String filePath) {
         super(ModelType.MICRO);
+        ObjectMapper objectMapper = new ObjectMapper();
+        File file = new File(filePath);
+        try {
+            this.model = objectMapper.readValue(file, MicroSecEnd.class);
+        } catch (IOException e) {
+            logger.error("Could not load MicroSecEnd:", e);
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    public MicroConverterModel(Scanner scanner) {
+        super(ModelType.MICRO);
+        String filePath = this.promptInput(scanner, "json");
+
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(filePath);
         try {

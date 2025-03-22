@@ -94,28 +94,18 @@ public class DFD2WebConverter extends Converter {
      * @param complete DFD / DD combination
      * @param conditions List of constraints (optional)
      * @param finderClass Custom TFG Finder (optional)
-     * @return
+     * @return Returns the annotations that should be added to nodes in the data flow diagram
      */
     private Map<Node, Annotation> createNodeAnnotationMap(DataFlowDiagramAndDictionary complete,
             List<Predicate<? super AbstractVertex<?>>> conditions, Class<? extends TransposeFlowGraphFinder> finderClass) {
-        TransposeFlowGraphFinder finder;
-        if (finderClass == null)
-            finder = new DFDTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
-        else {
-            if (finderClass.equals(DFDSimpleTransposeFlowGraphFinder.class))
-                finder = new DFDSimpleTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
-            else
-                finder = new DFDTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
-
-        }
-        var collection = finder.findTransposeFlowGraphs();
+        var collection = getTransposeFlowGraphs(complete, finderClass);
         collection = collection.stream()
                 .map(AbstractTransposeFlowGraph::evaluate)
                 .toList();
 
         Map<Node, Annotation> mapNodeToAnnotations = new HashMap<>();
         Map<Node, Set<String>> mapNodeToPropagatedLabels = new HashMap<>();
-        collection.stream()
+        collection
                 .forEach(tfg -> tfg.getVertices()
                         .forEach(vertex -> {
                             Node node = (Node) vertex.getReferencedElement();
@@ -123,9 +113,7 @@ public class DFD2WebConverter extends Converter {
                             var label = mapNodeToPropagatedLabels.get(node);
                             vertex.getAllOutgoingDataCharacteristics()
                                     .forEach(characteristic -> characteristic.getAllCharacteristics()
-                                            .forEach(value -> {
-                                                label.add(value.getTypeName() + "." + value.getValueName());
-                                            }));
+                                            .forEach(value -> label.add(value.getTypeName() + "." + value.getValueName())));
                         }));
 
         mapNodeToPropagatedLabels.keySet()
@@ -135,10 +123,8 @@ public class DFD2WebConverter extends Converter {
                             .append("\n");
 
                     mapNodeToPropagatedLabels.get(key)
-                            .forEach(value -> {
-                                builder.append(value)
-                                        .append("\n");
-                            });
+                            .forEach(value -> builder.append(value)
+                                    .append("\n"));
                     if (!mapNodeToPropagatedLabels.get(key)
                             .isEmpty())
                         mapNodeToAnnotations.put(key, new Annotation(builder.toString(), "tag", "#FFFFFF"));
@@ -170,6 +156,20 @@ public class DFD2WebConverter extends Converter {
             }
         }
         return mapNodeToAnnotations;
+    }
+
+    private static List<? extends AbstractTransposeFlowGraph> getTransposeFlowGraphs(DataFlowDiagramAndDictionary complete, Class<? extends TransposeFlowGraphFinder> finderClass) {
+        TransposeFlowGraphFinder finder;
+        if (finderClass == null)
+            finder = new DFDTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
+        else {
+            if (finderClass.equals(DFDSimpleTransposeFlowGraphFinder.class))
+                finder = new DFDSimpleTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
+            else
+                finder = new DFDTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
+
+        }
+        return finder.findTransposeFlowGraphs();
     }
 
     private void createLabelTypesAndValues(List<WebEditorLabelType> labelTypes, DataDictionary dataDictionary) {
@@ -257,8 +257,7 @@ public class DFD2WebConverter extends Converter {
                             .stream()
                             .filter(flow -> flow.getDestinationNode()
                                     .equals(node))
-                            .filter(flow -> flow.getEntityName()
-                                    .equals(""))
+                            .filter(flow -> flow.getEntityName().isEmpty())
                             .toList();
 
                     String controlFlowName = CONTROL_FLOW_NAME;
@@ -347,9 +346,7 @@ public class DFD2WebConverter extends Converter {
     private String getStringFromOutLabels(List<Label> outLabels) {
         List<String> outLabelsAsStrings = new ArrayList<>();
 
-        outLabels.forEach(label -> {
-            outLabelsAsStrings.add(((LabelType) label.eContainer()).getEntityName() + "." + label.getEntityName());
-        });
+        outLabels.forEach(label -> outLabelsAsStrings.add(((LabelType) label.eContainer()).getEntityName() + "." + label.getEntityName()));
 
         return String.join(DELIMITER_MULTI_LABEL, outLabelsAsStrings);
     }

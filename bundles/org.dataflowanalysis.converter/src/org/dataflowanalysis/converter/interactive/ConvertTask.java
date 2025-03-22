@@ -21,6 +21,19 @@ import org.dataflowanalysis.converter.web2dfd.WebEditorConverterModel;
 public class ConvertTask {
     private static final Logger logger = Logger.getLogger(ConvertTask.class);
 
+    /**
+     * Entry point of the interactive converter.
+     * Can be run interactively without any command line parameter or directly via the command line parameters
+     * <p/>
+     * During interactive mode users will be prompted for each input
+     * <p/>
+     * In direct mode parameters will be read from the command line arguments:
+     * 1. Conversion in the format ORIGIN2DESTINATION
+     * 2. Paths to models required for the origin model
+     * 3. Path to the folder the result should be saved in
+     * 4. File name of the resulting model files
+     * @param args Command line parameters
+     */
     public static void main(String[] args) {
         if (args.length > 0) {
             handleParameters(args);

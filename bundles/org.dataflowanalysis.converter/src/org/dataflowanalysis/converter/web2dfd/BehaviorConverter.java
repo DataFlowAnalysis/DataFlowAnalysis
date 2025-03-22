@@ -22,7 +22,7 @@ import org.dataflowanalysis.dfd.datadictionary.datadictionaryFactory;
  */
 public class BehaviorConverter {
     private final datadictionaryFactory ddFactory = datadictionaryFactory.eINSTANCE;
-    private DataDictionary dataDictionary;
+    private final DataDictionary dataDictionary;
 
     private final Logger logger = Logger.getLogger(BehaviorConverter.class);
 
@@ -87,16 +87,12 @@ public class BehaviorConverter {
     }
 
     private int precedence(String operator) {
-        switch (operator) {
-            case LOGICAL_OR:
-                return 1;
-            case LOGICAL_AND:
-                return 2;
-            case LOGICAL_NOT:
-                return 3;
-            default:
-                return -1;
-        }
+        return switch (operator) {
+            case LOGICAL_OR -> 1;
+            case LOGICAL_AND -> 2;
+            case LOGICAL_NOT -> 3;
+            default -> -1;
+        };
     }
 
     private void performOperation(Stack<Term> operands, String operator) {
@@ -202,14 +198,14 @@ public class BehaviorConverter {
 
             if (current == '(' || current == ')') {
                 // Directly add parentheses as separate tokens
-                if (token.length() > 0) {
+                if (!token.isEmpty()) {
                     tokens.add(token.toString());
                     token.setLength(0); // Reset the token builder
                 }
                 tokens.add(Character.toString(current));
             } else if (current == '&' || current == '|' || current == '!') {
                 // Handle logical operators
-                if (token.length() > 0) {
+                if (!token.isEmpty()) {
                     tokens.add(token.toString());
                     token.setLength(0);
                 }
@@ -229,7 +225,7 @@ public class BehaviorConverter {
             }
         }
 
-        if (token.length() > 0) {
+        if (!token.isEmpty()) {
             tokens.add(token.toString());
         }
 

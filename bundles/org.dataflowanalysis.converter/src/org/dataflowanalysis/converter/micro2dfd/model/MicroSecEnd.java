@@ -46,7 +46,7 @@ public record MicroSecEnd(List<Service> services,
                 .flatMap(node -> node.stereotypes()
                         .stream())
                 .collect(Collectors.toList()));
-        allStereotypes.forEach(stereotype -> Collections.sort(stereotype));
+        allStereotypes.forEach(Collections::sort);
     }
 
 }

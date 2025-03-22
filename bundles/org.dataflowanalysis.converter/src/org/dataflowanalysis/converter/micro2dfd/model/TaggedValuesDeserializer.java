@@ -33,13 +33,13 @@ public class TaggedValuesDeserializer extends JsonDeserializer<Map<String, List<
             parser.nextToken();
 
             if (parser.getCurrentToken() == JsonToken.START_ARRAY) {
-                List<String> values = objectMapper.readValue(parser, new TypeReference<List<String>>() {
+                List<String> values = objectMapper.readValue(parser, new TypeReference<>() {
                 });
                 List<String> sanitizedValues = new ArrayList<>();
                 for (String value : values) {
                     var sanitizedValue = value.trim()
                             .replaceAll("[^a-zA-Z0-9_]", "");
-                    if (!sanitizedValue.equals("")) {
+                    if (!sanitizedValue.isEmpty()) {
                         sanitizedValues.add(sanitizedValue);
                     }
                 }

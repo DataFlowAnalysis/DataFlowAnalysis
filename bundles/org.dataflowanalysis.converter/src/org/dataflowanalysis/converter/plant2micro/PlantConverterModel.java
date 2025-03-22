@@ -27,7 +27,7 @@ public class PlantConverterModel extends ConverterModel {
 
     /**
      * Returns the file path to the Plant UML model folder
-     * @return
+     * @return Returns the path to the folder containing the model files
      */
     public String getFilePath() {
         return filePath;

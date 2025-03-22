@@ -3,11 +3,11 @@ package org.dataflowanalysis.converter.web2dfd;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.converter.Converter;
 import org.dataflowanalysis.converter.ConverterModel;
@@ -76,13 +76,11 @@ public class Web2DFDConverter extends Converter {
 
         List<Node> nodesInBehavior = nodeOutpinBehaviorMap.keySet()
                 .stream()
-                .collect(Collectors.toList());
+                .toList();
 
         nodesInBehavior.forEach(node -> {
             Map<Pin, String> outpinBehaviors = nodeOutpinBehaviorMap.get(node);
-            outpinBehaviors.forEach((outpin, behavior) -> {
-                parseBehavior(node, outpin, behavior, dataFlowDiagram, dataDictionary);
-            });
+            outpinBehaviors.forEach((outpin, behavior) -> parseBehavior(node, outpin, behavior, dataFlowDiagram, dataDictionary));
         });
 
         return new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary);
@@ -287,8 +285,7 @@ public class Web2DFDConverter extends Converter {
         var labels = new ArrayList<Label>();
         Arrays.asList(string.split(","))
                 .forEach(typeValuePair -> {
-                    if (typeValuePair == null || typeValuePair.trim()
-                            .equals(""))
+                    if (typeValuePair.trim().isEmpty())
                         return;
                     String typeName = typeValuePair.split("\\.")[0];
                     String valueName = typeValuePair.split("\\.")[1];
@@ -331,7 +328,7 @@ public class Web2DFDConverter extends Converter {
             List<String> incomingFlowNames = Arrays.asList(pinName.split(Pattern.quote(DELIMITER_PIN_NAME)));
             pinToFlowNames.keySet()
                     .forEach(key -> {
-                        if (pinToFlowNames.get(key)
+                        if (new HashSet<>(pinToFlowNames.get(key))
                                 .containsAll(incomingFlowNames))
                             inPins.add(key);
                     });

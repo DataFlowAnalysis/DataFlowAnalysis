@@ -42,7 +42,8 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
         List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.getVariableCharacterizations();
 
         if (this.isCalling()) {
-            this.checkCallParameter(this.getReferencedElement().getOperationSignature__EntryLevelSystemCall(), variableCharacterisations);
+            this.checkCallParameter(this.getReferencedElement()
+                    .getOperationSignature__EntryLevelSystemCall(), variableCharacterisations);
         }
 
         List<DataCharacteristic> outgoingDataCharacteristics = this.getDataCharacteristics(nodeCharacteristics, variableCharacterisations,
@@ -101,9 +102,10 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
         }
         return super.isEquivalentInContext(otherVertex) && this.isCalling() == otherVertex.isCalling();
     }
-    
+
     @Override
     public int hashCode() {
-        return Objects.hash(this.getReferencedElement().getId(), this.isCalling);
+        return Objects.hash(this.getReferencedElement()
+                .getId(), this.isCalling);
     }
 }

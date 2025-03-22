@@ -2,7 +2,6 @@ package org.dataflowanalysis.analysis.dfd.resource;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
@@ -44,9 +43,13 @@ public class DFDURIResourceProvider extends DFDResourceProvider {
                 .size());
         EcoreUtil.resolveAll(this.resources);
         for (var resource : this.resources.getResources()) {
-            if (!resource.getErrors().isEmpty()) {
+            if (!resource.getErrors()
+                    .isEmpty()) {
                 logger.error("Errors occurred during loading a model:");
-                logger.error(resource.getErrors().stream().map(Resource.Diagnostic::getMessage).toList());
+                logger.error(resource.getErrors()
+                        .stream()
+                        .map(Resource.Diagnostic::getMessage)
+                        .toList());
             }
         }
     }

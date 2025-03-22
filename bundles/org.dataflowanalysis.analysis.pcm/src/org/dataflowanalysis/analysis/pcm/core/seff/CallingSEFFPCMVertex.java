@@ -48,7 +48,8 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
 
         List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.getVariableCharacterizations();
         if (this.isCalling()) {
-            this.checkCallParameter(this.getReferencedElement().getCalledService_ExternalService(), variableCharacterisations);
+            this.checkCallParameter(this.getReferencedElement()
+                    .getCalledService_ExternalService(), variableCharacterisations);
         }
         List<DataCharacteristic> outgoingDataCharacteristics = this.getDataCharacteristics(nodeCharacteristics, variableCharacterisations,
                 incomingDataCharacteristics);
@@ -107,9 +108,10 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
         }
         return super.isEquivalentInContext(otherVertex) && this.isCalling() == otherVertex.isCalling();
     }
-    
+
     @Override
     public int hashCode() {
-        return Objects.hash(this.getReferencedElement().getId(), this.isCalling);
+        return Objects.hash(this.getReferencedElement()
+                .getId(), this.isCalling);
     }
 }

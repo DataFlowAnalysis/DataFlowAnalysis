@@ -3,7 +3,6 @@ package org.dataflowanalysis.analysis.dfd.core;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.Map;
-
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 
@@ -35,9 +34,9 @@ public class DFDTransposeFlowGraph extends AbstractTransposeFlowGraph {
 
     @Override
     public AbstractTransposeFlowGraph copy() {
-    	return this.copy(new IdentityHashMap<>());
+        return this.copy(new IdentityHashMap<>());
     }
-    
+
     public AbstractTransposeFlowGraph copy(Map<DFDVertex, DFDVertex> mapping) {
         DFDVertex copiedSink = ((DFDVertex) sink).copy(mapping);
         copiedSink.unify(new HashSet<>());

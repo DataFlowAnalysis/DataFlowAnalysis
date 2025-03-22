@@ -1,6 +1,5 @@
 package org.dataflowanalysis.analysis.pcm;
 
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 import org.apache.log4j.Logger;
@@ -103,16 +102,17 @@ public class PCMDataFlowConfidentialityAnalysisBuilder extends DataFlowAnalysisB
      * Creates a new URI resource loader with the saved URIs
      * @return New instance of a URI resource loader with the internally saved values
      */
-    private PCMResourceProvider getURIResourceProvider() {    	
-    	URI usageModelUri = this.modelProjectName.isEmpty() ? URI.createFileURI(Paths.get(this.relativeUsageModelPath).toAbsolutePath().toString())
-    			: ResourceUtils.createRelativePluginURI(this.relativeUsageModelPath, modelProjectName);
-    	URI allocationModelUri = this.modelProjectName.isEmpty() ? URI.createFileURI(Paths.get(this.relativeAllocationModelPath).toAbsolutePath().toString())
-    			: ResourceUtils.createRelativePluginURI(this.relativeAllocationModelPath, modelProjectName);
-    	URI nodeCharacteristicsUri = this.modelProjectName.isEmpty() ? URI.createFileURI(Paths.get(this.relativeNodeCharacteristicsPath).toAbsolutePath().toString())
-    			: ResourceUtils.createRelativePluginURI(this.relativeNodeCharacteristicsPath, modelProjectName);
-    	
-    	
-    	
+    private PCMResourceProvider getURIResourceProvider() {
+        URI usageModelUri = this.modelProjectName.isEmpty() ? URI.createFileURI(Paths.get(this.relativeUsageModelPath)
+                .toAbsolutePath()
+                .toString()) : ResourceUtils.createRelativePluginURI(this.relativeUsageModelPath, modelProjectName);
+        URI allocationModelUri = this.modelProjectName.isEmpty() ? URI.createFileURI(Paths.get(this.relativeAllocationModelPath)
+                .toAbsolutePath()
+                .toString()) : ResourceUtils.createRelativePluginURI(this.relativeAllocationModelPath, modelProjectName);
+        URI nodeCharacteristicsUri = this.modelProjectName.isEmpty() ? URI.createFileURI(Paths.get(this.relativeNodeCharacteristicsPath)
+                .toAbsolutePath()
+                .toString()) : ResourceUtils.createRelativePluginURI(this.relativeNodeCharacteristicsPath, modelProjectName);
+
         return new PCMURIResourceProvider(usageModelUri, allocationModelUri, nodeCharacteristicsUri);
     }
 
@@ -129,7 +129,8 @@ public class PCMDataFlowConfidentialityAnalysisBuilder extends DataFlowAnalysisB
                     new IllegalStateException("The Analysis requires an allocation model"));
         }
         if (this.customResourceProvider.isPresent()) {
-            this.customResourceProvider.get().setupResources();
+            this.customResourceProvider.get()
+                    .setupResources();
             this.customResourceProvider.get()
                     .loadRequiredResources();
             this.customResourceProvider.get().validate();
@@ -139,7 +140,8 @@ public class PCMDataFlowConfidentialityAnalysisBuilder extends DataFlowAnalysisB
                         new IllegalStateException("Could not load all required resources"));
             }
         }
-        if (this.customResourceProvider.isEmpty() && (this.relativeNodeCharacteristicsPath == null || this.relativeNodeCharacteristicsPath.isEmpty())) {
+        if (this.customResourceProvider.isEmpty()
+                && (this.relativeNodeCharacteristicsPath == null || this.relativeNodeCharacteristicsPath.isEmpty())) {
             logger.warn(
                     "Using node characteristic model without specifying path to the assignment model. No node" + " characteristics will be applied!");
         }

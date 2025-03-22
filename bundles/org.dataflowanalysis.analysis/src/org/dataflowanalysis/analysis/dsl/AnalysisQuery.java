@@ -1,5 +1,7 @@
 package org.dataflowanalysis.analysis.dsl;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
@@ -10,18 +12,15 @@ import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Represents an analysis query created by the DSL
  */
 public class AnalysisQuery {
-	private static final String FAILED_MATCHING_MESSAGE = "Vertex %s failed to match selector %s";
-	private static final String SUCEEDED_MATCHING_MESSAGE = "Vertex %s matched all selectors";
-	private static final String OMMITED_TRANSPOSE_FLOW_GRAPH = "Transpose flow graph %s did not contain any queried vertices. Omitting!";
-	
-	private final Logger logger = Logger.getLogger(AnalysisQuery.class);
+    private static final String FAILED_MATCHING_MESSAGE = "Vertex %s failed to match selector %s";
+    private static final String SUCEEDED_MATCHING_MESSAGE = "Vertex %s matched all selectors";
+    private static final String OMMITED_TRANSPOSE_FLOW_GRAPH = "Transpose flow graph %s did not contain any queried vertices. Omitting!";
+
+    private final Logger logger = Logger.getLogger(AnalysisQuery.class);
     private final List<AbstractSelector> flowSource;
     private final List<ConditionalSelector> selectors;
     private final DSLContext context;
@@ -35,7 +34,6 @@ public class AnalysisQuery {
         this.context = new DSLContext();
     }
 
-
     /**
      * Find queried vertices of the query in the given flow graph collection
      * @param flowGraphCollection Given flow graph collection in which the query is evaluated
@@ -43,34 +41,34 @@ public class AnalysisQuery {
      */
     public List<DSLResult> query(FlowGraphCollection flowGraphCollection) {
         List<DSLResult> results = new ArrayList<>();
-        for(AbstractTransposeFlowGraph transposeFlowGraph : flowGraphCollection.getTransposeFlowGraphs()) {
+        for (AbstractTransposeFlowGraph transposeFlowGraph : flowGraphCollection.getTransposeFlowGraphs()) {
             DSLConstraintTrace constraintTrace = new DSLConstraintTrace();
             List<AbstractVertex<?>> matchedVertices = new ArrayList<>();
             for (AbstractVertex<?> vertex : transposeFlowGraph.getVertices()) {
                 boolean matched = true;
                 for (AbstractSelector selector : this.flowSource) {
                     if (!selector.matches(vertex)) {
-                    	logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, selector));
+                        logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, selector));
                         matched = false;
                         constraintTrace.addMissingSelector(vertex, selector);
                     }
                 }
-                for(ConditionalSelector selector : this.selectors) {
-                    if(!selector.matchesSelector(vertex, context)) {
-                    	logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, selector));
+                for (ConditionalSelector selector : this.selectors) {
+                    if (!selector.matchesSelector(vertex, context)) {
+                        logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, selector));
                         matched = false;
                         constraintTrace.addMissingConditionalSelector(vertex, selector);
                     }
                 }
                 if (matched) {
-                	logger.debug(String.format(SUCEEDED_MATCHING_MESSAGE, vertex));
+                    logger.debug(String.format(SUCEEDED_MATCHING_MESSAGE, vertex));
                     matchedVertices.add(vertex);
                 }
             }
             if (!matchedVertices.isEmpty()) {
                 results.add(new DSLResult(transposeFlowGraph, matchedVertices, constraintTrace));
             } else {
-            	logger.debug(String.format(OMMITED_TRANSPOSE_FLOW_GRAPH, transposeFlowGraph));
+                logger.debug(String.format(OMMITED_TRANSPOSE_FLOW_GRAPH, transposeFlowGraph));
             }
         }
         return results;

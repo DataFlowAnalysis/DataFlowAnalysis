@@ -5,8 +5,8 @@ import org.dataflowanalysis.analysis.dsl.AbstractParseable;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 
 /**
- * An abstract representation of a selector with a given {@link DSLContext}.
- * An {@link AbstractSelector} must provide a {@link AbstractSelector#matches(AbstractVertex)} that indicates whether the provide vertex matches the selector
+ * An abstract representation of a selector with a given {@link DSLContext}. An {@link AbstractSelector} must provide a
+ * {@link AbstractSelector#matches(AbstractVertex)} that indicates whether the provide vertex matches the selector
  */
 public abstract class AbstractSelector extends AbstractParseable {
     protected DSLContext context;

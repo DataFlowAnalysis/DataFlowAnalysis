@@ -28,7 +28,7 @@ public class PCMTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
         this.contexts = List.of();
         this.parameter = List.of();
     }
-    
+
     public PCMTransposeFlowGraphFinder(ResourceProvider resourceProvider, Collection<AssemblyContext> contexts, Collection<Parameter> parameter) {
         this.resourceProvider = resourceProvider;
         this.contexts = contexts;
@@ -37,12 +37,13 @@ public class PCMTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
 
     @Override
     public List<? extends PCMTransposeFlowGraph> findTransposeFlowGraphs() {
-        if(!(this.resourceProvider instanceof PCMResourceProvider pcmResourceProvider)) {
+        if (!(this.resourceProvider instanceof PCMResourceProvider pcmResourceProvider)) {
             logger.error("Resource provider of the transpose flow graph finder is not a pcm resource provider, please provide a correct one");
             throw new IllegalStateException();
         }
         return this.findTransposeFlowGraphs(List.of(), PCMQueryUtils.findStartActionsForUsageModel(pcmResourceProvider.getUsageModel()));
     }
+
     @Override
     public List<? extends PCMTransposeFlowGraph> findTransposeFlowGraphs(List<?> sourceNodes) {
         return this.findTransposeFlowGraphs(sourceNodes, List.of());
@@ -51,10 +52,9 @@ public class PCMTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
     /**
      * Determines the transpose flow graphs starting at the given list of source nodes and ending at the list of sink nodes.
      * <p/>
-     * If the list of sink nodes is empty, every action sequence starting at the source nodes will be returned
-     * <b>
-     * Only works from user nodes or within one SEFF due to missing and required context information (e.g. where a SEFF returns to)
-     * </b>
+     * If the list of sink nodes is empty, every action sequence starting at the source nodes will be returned <b> Only
+     * works from user nodes or within one SEFF due to missing and required context information (e.g. where a SEFF returns
+     * to) </b>
      * @param sinkNodes List of sink nodes the transpose flow graphs should end at
      * @param sourceNodes List of source nodes the transpose flow graphs should start at
      * @return Returns a list of all transpose flow graphs starting at the list of sources and ending at the list of sinks
@@ -91,7 +91,8 @@ public class PCMTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
     private List<PCMTransposeFlowGraph> findTransposeFlowGraphsForSEFFActions(List<AbstractAction> seffActions, List<Entity> sinks) {
         SEFFFinderContext context = new SEFFFinderContext(new ArrayDeque<>(contexts), new ArrayDeque<>(), new ArrayList<>(parameter));
         return seffActions.stream()
-                .map(it -> new PCMSEFFTransposeFlowGraphFinder(this.resourceProvider, context, sinks, new PCMTransposeFlowGraph()).findSequencesForSEFFAction(it))
+                .map(it -> new PCMSEFFTransposeFlowGraphFinder(this.resourceProvider, context, sinks, new PCMTransposeFlowGraph())
+                        .findSequencesForSEFFAction(it))
                 .flatMap(List::stream)
                 .toList();
     }

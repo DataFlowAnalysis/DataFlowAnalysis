@@ -3,8 +3,8 @@ package org.dataflowanalysis.analysis.dsl;
 import java.util.Optional;
 
 /**
- * Contains the {@link SourceSelectors} of an {@link AnalysisConstraint}.
- * It stores {@link DataSourceSelectors} and {@link VertexSourceSelectors} that describe the origin of the flow
+ * Contains the {@link SourceSelectors} of an {@link AnalysisConstraint}. It stores {@link DataSourceSelectors} and
+ * {@link VertexSourceSelectors} that describe the origin of the flow
  */
 public final class SourceSelectors {
     private final Optional<DataSourceSelectors> dataSourceSelectors;
@@ -24,7 +24,6 @@ public final class SourceSelectors {
         this.dataSourceSelectors = Optional.empty();
         this.nodeSourceSelectors = Optional.of(vertexSourceSelectors);
     }
-    
 
     public Optional<DataSourceSelectors> getDataSourceSelectors() {
         return dataSourceSelectors;

@@ -2,13 +2,8 @@ package org.dataflowanalysis.analysis.pcm.resource;
 
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.dddsl.DDDslStandaloneSetup;
-import org.dataflowanalysis.pcm.extension.dictionary.DataDictionary.DataDictionaryPackage;
-import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.DataDictionaryCharacterizedPackage;
 import org.dataflowanalysis.pcm.extension.nodecharacteristics.nodecharacteristics.NodeCharacteristicsPackage;
 import org.dataflowanalysis.pcm.extension.nodecharacteristics.nodecharacteristics.util.NodeCharacteristicsResourceFactoryImpl;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.eclipse.xtext.resource.XtextResourceFactory;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationPackage;
 import org.palladiosimulator.pcm.allocation.util.AllocationResourceFactoryImpl;
@@ -25,18 +20,36 @@ import org.palladiosimulator.pcm.usagemodel.util.UsagemodelResourceFactoryImpl;
 public abstract class PCMResourceProvider extends ResourceProvider {
     @Override
     public void setupResources() {
-        this.resources.getPackageRegistry().put(AllocationPackage.eNS_URI, AllocationPackage.eINSTANCE);
-        this.resources.getResourceFactoryRegistry().getExtensionToFactoryMap().put(AllocationPackage.eNAME, new AllocationResourceFactoryImpl());
-        this.resources.getPackageRegistry().put(NodeCharacteristicsPackage.eNS_URI, NodeCharacteristicsPackage.eINSTANCE);
-        this.resources.getResourceFactoryRegistry().getExtensionToFactoryMap().put(NodeCharacteristicsPackage.eNAME, new NodeCharacteristicsResourceFactoryImpl());
-        this.resources.getPackageRegistry().put(RepositoryPackage.eNS_URI, RepositoryPackage.eINSTANCE);
-        this.resources.getResourceFactoryRegistry().getExtensionToFactoryMap().put(RepositoryPackage.eNAME, new RepositoryResourceFactoryImpl());
-        this.resources.getPackageRegistry().put(ResourceenvironmentPackage.eNS_URI, ResourceenvironmentPackage.eINSTANCE);
-        this.resources.getResourceFactoryRegistry().getExtensionToFactoryMap().put(ResourceenvironmentPackage.eNAME, new ResourceenvironmentResourceFactoryImpl());
-        this.resources.getPackageRegistry().put(SystemPackage.eNS_URI, SystemPackage.eINSTANCE);
-        this.resources.getResourceFactoryRegistry().getExtensionToFactoryMap().put(SystemPackage.eNAME, new SystemResourceFactoryImpl());
-        this.resources.getPackageRegistry().put(UsagemodelPackage.eNS_URI, UsagemodelPackage.eINSTANCE);
-        this.resources.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UsagemodelPackage.eNAME, new UsagemodelResourceFactoryImpl());
+        this.resources.getPackageRegistry()
+                .put(AllocationPackage.eNS_URI, AllocationPackage.eINSTANCE);
+        this.resources.getResourceFactoryRegistry()
+                .getExtensionToFactoryMap()
+                .put(AllocationPackage.eNAME, new AllocationResourceFactoryImpl());
+        this.resources.getPackageRegistry()
+                .put(NodeCharacteristicsPackage.eNS_URI, NodeCharacteristicsPackage.eINSTANCE);
+        this.resources.getResourceFactoryRegistry()
+                .getExtensionToFactoryMap()
+                .put(NodeCharacteristicsPackage.eNAME, new NodeCharacteristicsResourceFactoryImpl());
+        this.resources.getPackageRegistry()
+                .put(RepositoryPackage.eNS_URI, RepositoryPackage.eINSTANCE);
+        this.resources.getResourceFactoryRegistry()
+                .getExtensionToFactoryMap()
+                .put(RepositoryPackage.eNAME, new RepositoryResourceFactoryImpl());
+        this.resources.getPackageRegistry()
+                .put(ResourceenvironmentPackage.eNS_URI, ResourceenvironmentPackage.eINSTANCE);
+        this.resources.getResourceFactoryRegistry()
+                .getExtensionToFactoryMap()
+                .put(ResourceenvironmentPackage.eNAME, new ResourceenvironmentResourceFactoryImpl());
+        this.resources.getPackageRegistry()
+                .put(SystemPackage.eNS_URI, SystemPackage.eINSTANCE);
+        this.resources.getResourceFactoryRegistry()
+                .getExtensionToFactoryMap()
+                .put(SystemPackage.eNAME, new SystemResourceFactoryImpl());
+        this.resources.getPackageRegistry()
+                .put(UsagemodelPackage.eNS_URI, UsagemodelPackage.eINSTANCE);
+        this.resources.getResourceFactoryRegistry()
+                .getExtensionToFactoryMap()
+                .put(UsagemodelPackage.eNAME, new UsagemodelResourceFactoryImpl());
 
         DDDslStandaloneSetup.doSetup();
     }

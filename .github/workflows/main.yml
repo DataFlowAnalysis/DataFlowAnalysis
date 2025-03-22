@@ -27,6 +27,8 @@ jobs:
           maven-version: 3.9.6
       - name: Build and Verify
         run: mvn clean verify
+      - name: Check formatting
+        run: mvn spotless:check
       - name: Publish Nightly Update Site
         if: github.event_name != 'release' && github.ref == 'refs/heads/main' && github.repository_owner == 'DataFlowAnalysis'
         uses: peaceiris/actions-gh-pages@v4

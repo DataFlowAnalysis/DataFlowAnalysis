@@ -1,14 +1,13 @@
 package org.dataflowanalysis.analysis.dsl.result;
 
-import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
 
 /**
  * Constraint trace that contains missing selectors and conditional selectors of all vertices
@@ -31,7 +30,8 @@ public class DSLConstraintTrace {
      * @param missingSelector Selector that has not been fulfilled by the vertex
      */
     public void addMissingSelector(AbstractVertex<?> key, AbstractSelector missingSelector) {
-        this.missingSelectors.getOrDefault(key, new ArrayList<>()).add(missingSelector);
+        this.missingSelectors.getOrDefault(key, new ArrayList<>())
+                .add(missingSelector);
     }
 
     /**
@@ -40,7 +40,8 @@ public class DSLConstraintTrace {
      * @param missingSelector Selector that has not been fulfilled by the vertex
      */
     public void addMissingConditionalSelector(AbstractVertex<?> key, ConditionalSelector missingSelector) {
-        this.missingConditionalSelectors.getOrDefault(key, new ArrayList<>()).add(missingSelector);
+        this.missingConditionalSelectors.getOrDefault(key, new ArrayList<>())
+                .add(missingSelector);
     }
 
     /**

@@ -84,7 +84,8 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
      */
     public DFDDataFlowAnalysisBuilder useCustomResourceProvider(DFDResourceProvider resourceProvider) {
         this.customResourceProvider = Optional.of(resourceProvider);
-        if (resourceProvider instanceof DFDModelResourceProvider) customResourceProviderIsLoaded = true;
+        if (resourceProvider instanceof DFDModelResourceProvider)
+            customResourceProviderIsLoaded = true;
         return this;
     }
 
@@ -102,11 +103,13 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
      */
     private DFDResourceProvider getEffectiveResourceProvider() {
         if (this.customResourceProvider.isEmpty()) {
-            URI dataDictionaryUri = this.modelProjectName.isEmpty() ? URI.createFileURI(Paths.get(this.dataDictionaryPath).toAbsolutePath().toString())
-                    :  ResourceUtils.createRelativePluginURI(this.dataDictionaryPath, this.modelProjectName);
-            URI dataFlowDiagramUri = this.modelProjectName.isEmpty() ? URI.createFileURI(Paths.get(this.dataFlowDiagramPath).toAbsolutePath().toString())
-                    :  ResourceUtils.createRelativePluginURI(this.dataFlowDiagramPath, this.modelProjectName);
-            
+            URI dataDictionaryUri = this.modelProjectName.isEmpty() ? URI.createFileURI(Paths.get(this.dataDictionaryPath)
+                    .toAbsolutePath()
+                    .toString()) : ResourceUtils.createRelativePluginURI(this.dataDictionaryPath, this.modelProjectName);
+            URI dataFlowDiagramUri = this.modelProjectName.isEmpty() ? URI.createFileURI(Paths.get(this.dataFlowDiagramPath)
+                    .toAbsolutePath()
+                    .toString()) : ResourceUtils.createRelativePluginURI(this.dataFlowDiagramPath, this.modelProjectName);
+
             return new DFDURIResourceProvider(dataFlowDiagramUri, dataDictionaryUri);
         }
         return this.customResourceProvider.get();

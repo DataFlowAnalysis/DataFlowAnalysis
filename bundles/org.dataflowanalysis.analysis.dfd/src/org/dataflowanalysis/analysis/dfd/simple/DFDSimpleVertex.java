@@ -32,6 +32,7 @@ import org.dataflowanalysis.dfd.datadictionary.Term;
 import org.dataflowanalysis.dfd.datadictionary.UnsetAssignment;
 import org.dataflowanalysis.dfd.dataflowdiagram.Flow;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
+
 /**
  * This class represents a vertex references a node in the dfd model. Multiple dfd vertices may reference the same node
  */
@@ -60,18 +61,23 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
         if (super.isEvaluated()) {
             return;
         }
-        
+
         previousVertices.forEach(it -> it.evaluateDataFlow());
 
         List<CharacteristicValue> vertexCharacteristics = determineNodeCharacteristics();
 
-        List<DataCharacteristic> incomingCharacteristics = previousVertices.stream().map(it -> it.getAllOutgoingDataCharacteristics()).flatMap(List::stream).collect(Collectors.toList());        
-        
+        List<DataCharacteristic> incomingCharacteristics = previousVertices.stream()
+                .map(it -> it.getAllOutgoingDataCharacteristics())
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
+
         Map<Pin, Set<Label>> outgoingLabelPerPin = new HashMap<>();
-        referencedElement.getBehavior().getAssignment().forEach(it -> handleOutgoingAssignments(it, incomingCharacteristics, outgoingLabelPerPin));              
- 
+        referencedElement.getBehavior()
+                .getAssignment()
+                .forEach(it -> handleOutgoingAssignments(it, incomingCharacteristics, outgoingLabelPerPin));
+
         List<DataCharacteristic> outgoingDataCharacteristics = new ArrayList<>(this.createDataCharacteristicsFromLabels(outgoingLabelPerPin));
-        
+
         this.setPropagationResult(incomingCharacteristics, outgoingDataCharacteristics, vertexCharacteristics);
     }
 
@@ -87,66 +93,82 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
         return nodeCharacteristics;
     }
 
-    
-
-
     /**
      * Calculates outgoing labels for assignment and adds them into mapOutputPinToOutgoingLabels
      * @param assignment Assignment to be evaluated
      * @param incomingDataCharacteristics incoming characteristics as list
      * @param outgoingLabelPerPin Maps Output Pins to Outgoing Labels, to be filled by method
      */
-    private void handleOutgoingAssignments(AbstractAssignment abstractAssignment, List<DataCharacteristic> incomingDataCharacteristics, Map<Pin, Set<Label>> outgoingLabelPerPin) {
-    	// Takes the labels of all incoming Characteristics whos names match the flows arriving on all input pins of the assignment
-    	var incomingLabels = incomingDataCharacteristics.stream().filter(it -> {
-    		return mapPinToFlow.keySet().stream()
-				.filter(key -> {
-					if (abstractAssignment instanceof UnsetAssignment || abstractAssignment instanceof SetAssignment) return false;
-					if (abstractAssignment instanceof Assignment assignment) return assignment.getInputPins().contains(key);
-					else return abstractAssignment instanceof ForwardingAssignment forwardingAssignment && forwardingAssignment.getInputPins().contains(key);
-    			})
-				.map(key -> mapPinToFlow.get(key).getEntityName())
-				.toList()
-				.contains(it.getVariableName());
-    	}).flatMap(it -> it.getAllCharacteristics().stream().map(value -> ((DFDCharacteristicValue)value).getLabel())).collect(Collectors.toSet());
-    	
-    	
-    	var outPin = abstractAssignment.getOutputPin();
-    	if (outPin == null) return;
-    	if (outgoingLabelPerPin.get(outPin) == null) outgoingLabelPerPin.put(outPin, new HashSet<>());
-    	
-    	if (abstractAssignment instanceof ForwardingAssignment forwardingAssignment) {
-    		outgoingLabelPerPin.get(forwardingAssignment.getOutputPin())
+    private void handleOutgoingAssignments(AbstractAssignment abstractAssignment, List<DataCharacteristic> incomingDataCharacteristics,
+            Map<Pin, Set<Label>> outgoingLabelPerPin) {
+        // Takes the labels of all incoming Characteristics whos names match the flows arriving on all input pins of the
+        // assignment
+        var incomingLabels = incomingDataCharacteristics.stream()
+                .filter(it -> {
+                    return mapPinToFlow.keySet()
+                            .stream()
+                            .filter(key -> {
+                                if (abstractAssignment instanceof UnsetAssignment || abstractAssignment instanceof SetAssignment)
+                                    return false;
+                                if (abstractAssignment instanceof Assignment assignment)
+                                    return assignment.getInputPins()
+                                            .contains(key);
+                                else
+                                    return abstractAssignment instanceof ForwardingAssignment forwardingAssignment
+                                            && forwardingAssignment.getInputPins()
+                                                    .contains(key);
+                            })
+                            .map(key -> mapPinToFlow.get(key)
+                                    .getEntityName())
+                            .toList()
+                            .contains(it.getVariableName());
+                })
+                .flatMap(it -> it.getAllCharacteristics()
+                        .stream()
+                        .map(value -> ((DFDCharacteristicValue) value).getLabel()))
+                .collect(Collectors.toSet());
+
+        var outPin = abstractAssignment.getOutputPin();
+        if (outPin == null)
+            return;
+        if (outgoingLabelPerPin.get(outPin) == null)
+            outgoingLabelPerPin.put(outPin, new HashSet<>());
+
+        if (abstractAssignment instanceof ForwardingAssignment forwardingAssignment) {
+            outgoingLabelPerPin.get(forwardingAssignment.getOutputPin())
                     .addAll(incomingLabels);
             return;
-        }else if (abstractAssignment instanceof SetAssignment setAssignment) {
-        	outgoingLabelPerPin.get(abstractAssignment.getOutputPin())
-            .addAll(setAssignment.getOutputLabels());
-        	return;
-        }else if (abstractAssignment instanceof UnsetAssignment unsetAssignment) {
-        	outgoingLabelPerPin.get(abstractAssignment.getOutputPin())
-            .removeAll(unsetAssignment.getOutputLabels());
-        	return;
+        } else if (abstractAssignment instanceof SetAssignment setAssignment) {
+            outgoingLabelPerPin.get(abstractAssignment.getOutputPin())
+                    .addAll(setAssignment.getOutputLabels());
+            return;
+        } else if (abstractAssignment instanceof UnsetAssignment unsetAssignment) {
+            outgoingLabelPerPin.get(abstractAssignment.getOutputPin())
+                    .removeAll(unsetAssignment.getOutputLabels());
+            return;
         } else if (abstractAssignment instanceof Assignment assignment) {
-        	if (evaluateTerm(assignment.getTerm(), incomingLabels)) {
-        		outgoingLabelPerPin.get(assignment.getOutputPin())
-                    .addAll(assignment.getOutputLabels());
-        	} else outgoingLabelPerPin.get(assignment.getOutputPin())
-            .removeAll(assignment.getOutputLabels());
+            if (evaluateTerm(assignment.getTerm(), incomingLabels)) {
+                outgoingLabelPerPin.get(assignment.getOutputPin())
+                        .addAll(assignment.getOutputLabels());
+            } else
+                outgoingLabelPerPin.get(assignment.getOutputPin())
+                        .removeAll(assignment.getOutputLabels());
         }
     }
 
     /**
      * Create data characteristics from Map mapping Input/Output Pin to labels. Important: The name of the data
-     * characteristic is equal to the name of the flow. 
+     * characteristic is equal to the name of the flow.
      * @param pinToLabelMap Map mapping Input/Output Pin to labels
      * @return List of created data characteristics
      */
     private List<DataCharacteristic> createDataCharacteristicsFromLabels(Map<Pin, Set<Label>> pinToLabelMap) {
         return pinToLabelMap.keySet()
                 .stream()
-                .map(pin -> new DataCharacteristic(mapPinToFlow.get(pin).getEntityName(), new ArrayList<CharacteristicValue>(this.getCharacteristicValuesForPin(pin, pinToLabelMap))))
-                .filter(it -> it.getAllCharacteristics().size() > 0)
+                .map(pin -> new DataCharacteristic(mapPinToFlow.get(pin)
+                        .getEntityName(), new ArrayList<CharacteristicValue>(this.getCharacteristicValuesForPin(pin, pinToLabelMap))))
+                .filter(it -> it.getAllCharacteristics()
+                        .size() > 0)
                 .toList();
     }
 
@@ -163,7 +185,6 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
                 .filter(distinctByKey(CharacteristicValue::getValueId))
                 .collect(Collectors.toSet());
     }
-    
 
     /**
      * Filters objects to be distinct by key
@@ -212,23 +233,23 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
      * Goes through the previous vertices and replaces equal vertices by the same vertex
      * @param vertices Set of unique vertices that are used to replace equal vertices
      */
-    public void unify(Set<DFDSimpleVertex> vertices) {  
-    	List<DFDSimpleVertex> toRemove = new ArrayList<>();
-    	List<DFDSimpleVertex> toAdd = new ArrayList<>();
-    	previousVertices.forEach(it -> {
-    		for (var vertex : vertices) {
-    			if (it.equals(vertex)) {
-    				toRemove.add(it);
-    				toAdd.add(vertex);
-    			}
-    		}
-    	});
-    	previousVertices.removeAll(toRemove);
-    	previousVertices.addAll(toAdd);
-    	vertices.addAll(previousVertices);
-    	
+    public void unify(Set<DFDSimpleVertex> vertices) {
+        List<DFDSimpleVertex> toRemove = new ArrayList<>();
+        List<DFDSimpleVertex> toAdd = new ArrayList<>();
+        previousVertices.forEach(it -> {
+            for (var vertex : vertices) {
+                if (it.equals(vertex)) {
+                    toRemove.add(it);
+                    toAdd.add(vertex);
+                }
+            }
+        });
+        previousVertices.removeAll(toRemove);
+        previousVertices.addAll(toAdd);
+        vertices.addAll(previousVertices);
+
         this.getPreviousElements()
-        .forEach(vertex -> ((DFDSimpleVertex)vertex).unify(vertices));
+                .forEach(vertex -> ((DFDSimpleVertex) vertex).unify(vertices));
     }
 
     /**
@@ -236,12 +257,11 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
      */
     public DFDSimpleVertex copy(Map<DFDSimpleVertex, DFDSimpleVertex> mapping) {
         Set<DFDSimpleVertex> previousVerticesNew = new HashSet<>();
-        this.previousVertices
-                .forEach(it -> {
-                	var newVertice =  mapping.getOrDefault(it, it.copy(mapping));
-                	previousVerticesNew.add(newVertice);
-                	mapping.putIfAbsent(it, newVertice);
-                	});
+        this.previousVertices.forEach(it -> {
+            var newVertice = mapping.getOrDefault(it, it.copy(mapping));
+            previousVerticesNew.add(newVertice);
+            mapping.putIfAbsent(it, newVertice);
+        });
         return new DFDSimpleVertex(this.referencedElement, previousVerticesNew, new HashMap<>(this.mapPinToFlow));
     }
 
@@ -250,14 +270,12 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
         return String.format("(%s, %s)", this.referencedElement.getEntityName(), this.referencedElement.getId());
     }
 
-    
-
     @Override
-    public List<AbstractVertex<Node>> getPreviousElements() {    	
-       return previousVertices.stream().map(it -> (AbstractVertex<Node>)it).toList();
+    public List<AbstractVertex<Node>> getPreviousElements() {
+        return previousVertices.stream()
+                .map(it -> (AbstractVertex<Node>) it)
+                .toList();
     }
-
-    
 
     /**
      * Returns the mapping between pins of the node and the connected input flows connecting the vertex to the previous

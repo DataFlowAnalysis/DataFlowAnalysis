@@ -25,8 +25,9 @@ public record Child(String text, List<WebEditorLabel> labels, List<Port> ports, 
      */
     @Override
     public boolean equals(Object otherObject) {
-        if (!(otherObject instanceof Child other))
+        if (!(otherObject instanceof Child other)) {
             return false;
+        }
         if (!this.type.equals(other.type)) {
             return false;
         } else if (this.type.split(":")[0].equals("node")) {

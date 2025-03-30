@@ -2,11 +2,11 @@ package org.dataflowanalysis.analysis.dfd.simple;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentHashMap.KeySetView;
 import java.util.function.Function;
@@ -62,16 +62,13 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
         if (super.isEvaluated()) {
             return;
         }
-
-        previousVertices.forEach(it -> it.evaluateDataFlow());
+        
+        previousVertices.forEach(DFDSimpleVertex::evaluateDataFlow);
 
         List<CharacteristicValue> vertexCharacteristics = determineNodeCharacteristics();
 
-        List<DataCharacteristic> incomingCharacteristics = previousVertices.stream()
-                .map(it -> it.getAllOutgoingDataCharacteristics())
-                .flatMap(List::stream)
-                .collect(Collectors.toList());
-
+        List<DataCharacteristic> incomingCharacteristics = previousVertices.stream().map(AbstractVertex::getAllOutgoingDataCharacteristics).flatMap(List::stream).collect(Collectors.toList());
+        
         Map<Pin, Set<Label>> outgoingLabelPerPin = new HashMap<>();
         referencedElement.getBehavior()
                 .getAssignment()
@@ -96,7 +93,7 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
 
     /**
      * Calculates outgoing labels for assignment and adds them into mapOutputPinToOutgoingLabels
-     * @param assignment Assignment to be evaluated
+     * @param abstractAssignment Assignment to be evaluated
      * @param incomingDataCharacteristics incoming characteristics as list
      * @param outgoingLabelPerPin Maps Output Pins to Outgoing Labels, to be filled by method
      */

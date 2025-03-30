@@ -1,6 +1,5 @@
 package org.dataflowanalysis.analysis.dfd.core;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,7 +7,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentHashMap.KeySetView;
 import java.util.function.Function;
@@ -205,7 +203,7 @@ public class DFDVertex extends AbstractVertex<Node> {
 
     /**
      * Combines all Incoming Labels from relevant input pins
-     * @param assignment Assignment to determine relevant input pins
+     * @param abstractAssignment Assignment to determine relevant input pins
      * @param inputPinsIncomingLabelMap Maps all input pins to all incoming labels
      * @return List of relevant labels
      */

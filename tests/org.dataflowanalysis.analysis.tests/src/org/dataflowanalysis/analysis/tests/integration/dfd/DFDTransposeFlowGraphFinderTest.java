@@ -1,6 +1,6 @@
-package org.dataflowanalysis.analysis.tests.dfd;
+package org.dataflowanalysis.analysis.tests.integration.dfd;
 
-import static org.dataflowanalysis.analysis.tests.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
+import static org.dataflowanalysis.analysis.tests.integration.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
 
 import java.nio.file.Paths;
 
@@ -17,8 +17,8 @@ public class DFDTransposeFlowGraphFinderTest {
 	 */
 	@Test
 	public void testTFGCopy() {
-		final var minimalDataFlowDiagramPath = Paths.get("models", "DFDTestModels", "BranchingTest.dataflowdiagram");
-        final var minimalDataDictionaryPath = Paths.get("models", "DFDTestModels", "BranchingTest.datadictionary");
+		final var minimalDataFlowDiagramPath = Paths.get("models", "dfd", "Branching", "default.dataflowdiagram");
+        final var minimalDataDictionaryPath = Paths.get("models", "dfd", "Branching", "default.datadictionary");
 
         this.analysis = new DFDDataFlowAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)
@@ -42,8 +42,8 @@ public class DFDTransposeFlowGraphFinderTest {
 	 */
 	@Test
 	public void testCyclicDetection() {
-		final var loopDataFlowDiagramPath = Paths.get("models", "simpleLoopDFD", "loopDFD.dataflowdiagram");
-        final var loopDataDictionaryPath = Paths.get("models", "simpleLoopDFD", "loopDFD.datadictionary");
+		final var loopDataFlowDiagramPath = Paths.get("models", "dfd", "SimpleLoop", "default.dataflowdiagram");
+        final var loopDataDictionaryPath = Paths.get("models", "dfd", "SimpleLoop", "default.datadictionary");
 
         this.analysis = new DFDDataFlowAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)
@@ -55,8 +55,8 @@ public class DFDTransposeFlowGraphFinderTest {
         analysis.initializeAnalysis();
         assert(analysis.findFlowGraphs().wasCyclic());
         
-        final var minimalDataFlowDiagramPath = Paths.get("models", "DFDTestModels", "BranchingTest.dataflowdiagram");
-        final var minimalDataDictionaryPath = Paths.get("models", "DFDTestModels", "BranchingTest.datadictionary");
+        final var minimalDataFlowDiagramPath = Paths.get("models", "dfd", "Branching", "default.dataflowdiagram");
+        final var minimalDataDictionaryPath = Paths.get("models", "dfd", "Branching", "default.datadictionary");
 
         this.analysis = new DFDDataFlowAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)

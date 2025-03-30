@@ -34,9 +34,11 @@ public class ConversionTable {
     );
 
     /**
-     * TODO: This method is ugly. Furthermore this is just BFS
      * Determines the converter required to convert according to the given conversion key.
      * If no direct conversion between the elements exists, it creates the shortest {@link ConverterChain}
+     * <p/>
+     * For conversions via a {@link ConverterChain},
+     * a Breath First Search (BFS) is performed to find the shortest path to the desired conversion.
      * @param conversionKey Given conversion key that the converter should fulfil
      * @return Returns the converter that achieves the desired conversion
      * @throws IllegalArgumentException A valid converter cannot be found
@@ -53,15 +55,7 @@ public class ConversionTable {
         while (!current.isEmpty()) {
             ModelType modelType = current.pop();
             if (modelType.equals(conversionKey.destination())) {
-                // Backtrack
-                List<Converter> converters = new ArrayList<>();
-                while (modelType != conversionKey.origin()) {
-                    ModelType parentModelType = parent.get(modelType);
-                    converters.add(conversionTable.get(ConversionKey.of(parentModelType, modelType)).get());
-                    modelType = parentModelType;
-                }
-                Collections.reverse(converters);
-                return new ConverterChain(converters);
+                return this.getConverterChain(modelType, conversionKey, parent);
             }
             visited.add(modelType);
             for (var directDestination : getDirectDestinations(modelType)) {
@@ -72,6 +66,26 @@ public class ConversionTable {
             }
         }
         throw new IllegalArgumentException("No path");
+    }
+
+    /**
+     * Backtracks from the given destination to the origin of the conversion key with the given list of parent model types
+     * <p/>
+     * This corresponds to the usual backtracking of a found route in Breadth First Search (BFS)
+     * @param destination Destination of the converter chain
+     * @param conversionKey Conversion key the converter chain implements
+     * @param parent Mapping describing for each model (key) which models (values) can convert into it
+     * @return Returns a {@link ConverterChain} implementing the conversion key
+     */
+    private ConverterChain getConverterChain(ModelType destination, ConversionKey conversionKey, Map<ModelType, ModelType> parent) {
+        List<Converter> converters = new ArrayList<>();
+        while (destination != conversionKey.origin()) {
+            ModelType parentModelType = parent.get(destination);
+            converters.add(conversionTable.get(ConversionKey.of(parentModelType, destination)).get());
+            destination = parentModelType;
+        }
+        Collections.reverse(converters);
+        return new ConverterChain(converters);
     }
 
     /**

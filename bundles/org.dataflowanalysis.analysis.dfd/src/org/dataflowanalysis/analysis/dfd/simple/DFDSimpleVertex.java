@@ -6,7 +6,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentHashMap.KeySetView;
 import java.util.function.Function;
@@ -62,11 +61,11 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
             return;
         }
         
-        previousVertices.forEach(it -> it.evaluateDataFlow());
+        previousVertices.forEach(DFDSimpleVertex::evaluateDataFlow);
 
         List<CharacteristicValue> vertexCharacteristics = determineNodeCharacteristics();
 
-        List<DataCharacteristic> incomingCharacteristics = previousVertices.stream().map(it -> it.getAllOutgoingDataCharacteristics()).flatMap(List::stream).collect(Collectors.toList());        
+        List<DataCharacteristic> incomingCharacteristics = previousVertices.stream().map(AbstractVertex::getAllOutgoingDataCharacteristics).flatMap(List::stream).collect(Collectors.toList());
         
         Map<Pin, Set<Label>> outgoingLabelPerPin = new HashMap<>();
         referencedElement.getBehavior().getAssignment().forEach(it -> handleOutgoingAssignments(it, incomingCharacteristics, outgoingLabelPerPin));              
@@ -93,28 +92,26 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
 
     /**
      * Calculates outgoing labels for assignment and adds them into mapOutputPinToOutgoingLabels
-     * @param assignment Assignment to be evaluated
+     * @param abstractAssignment Assignment to be evaluated
      * @param incomingDataCharacteristics incoming characteristics as list
      * @param outgoingLabelPerPin Maps Output Pins to Outgoing Labels, to be filled by method
      */
     private void handleOutgoingAssignments(AbstractAssignment abstractAssignment, List<DataCharacteristic> incomingDataCharacteristics, Map<Pin, Set<Label>> outgoingLabelPerPin) {
     	// Takes the labels of all incoming Characteristics whos names match the flows arriving on all input pins of the assignment
-    	var incomingLabels = incomingDataCharacteristics.stream().filter(it -> {
-    		return mapPinToFlow.keySet().stream()
-				.filter(key -> {
-					if (abstractAssignment instanceof UnsetAssignment || abstractAssignment instanceof SetAssignment) return false;
-					if (abstractAssignment instanceof Assignment assignment) return assignment.getInputPins().contains(key);
-					else return abstractAssignment instanceof ForwardingAssignment forwardingAssignment && forwardingAssignment.getInputPins().contains(key);
-    			})
-				.map(key -> mapPinToFlow.get(key).getEntityName())
-				.toList()
-				.contains(it.getVariableName());
-    	}).flatMap(it -> it.getAllCharacteristics().stream().map(value -> ((DFDCharacteristicValue)value).getLabel())).collect(Collectors.toSet());
+    	var incomingLabels = incomingDataCharacteristics.stream().filter(it -> mapPinToFlow.keySet().stream()
+            .filter(key -> {
+                if (abstractAssignment instanceof UnsetAssignment || abstractAssignment instanceof SetAssignment) return false;
+                if (abstractAssignment instanceof Assignment assignment) return assignment.getInputPins().contains(key);
+                else return abstractAssignment instanceof ForwardingAssignment forwardingAssignment && forwardingAssignment.getInputPins().contains(key);
+            })
+            .map(key -> mapPinToFlow.get(key).getEntityName())
+            .toList()
+            .contains(it.getVariableName())).flatMap(it -> it.getAllCharacteristics().stream().map(value -> ((DFDCharacteristicValue)value).getLabel())).collect(Collectors.toSet());
     	
     	
     	var outPin = abstractAssignment.getOutputPin();
     	if (outPin == null) return;
-    	if (outgoingLabelPerPin.get(outPin) == null) outgoingLabelPerPin.put(outPin, new LinkedHashSet<>());
+        outgoingLabelPerPin.computeIfAbsent(outPin, k -> new LinkedHashSet<>());
     	
     	if (abstractAssignment instanceof ForwardingAssignment forwardingAssignment) {
     		outgoingLabelPerPin.get(forwardingAssignment.getOutputPin())

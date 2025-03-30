@@ -11,7 +11,7 @@ import org.dataflowanalysis.analysis.utils.StringView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VertexCharacteristicsSelector extends DataSelector {
+public class VertexCharacteristicsSelector extends VertexSelector {
     private static final Logger logger = Logger.getLogger(VertexCharacteristicsSelector.class);
 
     private final CharacteristicsSelectorData vertexCharacteristics;

@@ -7,19 +7,16 @@ import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import java.util.List;
 
 public class DummyVertex extends AbstractVertex<String> {
-    private boolean evaluated;
     private final List<DummyVertex> previousElements;
 
     public DummyVertex(String referencedElement) {
         super(referencedElement);
         this.previousElements = List.of();
-        this.evaluated = false;
     }
 
     public DummyVertex(String referencedElement, List<DummyVertex> previousElements) {
         super(referencedElement);
         this.previousElements = previousElements;
-        this.evaluated = false;
     }
 
     public static DummyVertex of(String referencedElement) {
@@ -32,7 +29,7 @@ public class DummyVertex extends AbstractVertex<String> {
 
     @Override
     public void evaluateDataFlow() {
-        this.evaluated = true;
+        this.setPropagationResult(List.of(), List.of(), List.of());
         this.getPreviousElements().forEach(AbstractVertex::evaluateDataFlow);
     }
 
@@ -53,9 +50,5 @@ public class DummyVertex extends AbstractVertex<String> {
 
     public DummyVertex copy() {
         return new DummyVertex(this.referencedElement + "_copy", this.previousElements);
-    }
-
-    public boolean hasEvaluated() {
-        return evaluated;
     }
 }

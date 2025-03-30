@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.tests.dfd;
+package org.dataflowanalysis.analysis.tests.integration.dfd;
 
 import static org.dataflowanalysis.analysis.tests.integration.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,10 +33,10 @@ public class ResourceProviderTest {
      
      @BeforeEach
      public void setUp() {
-    	 final Path minimalDataFlowDiagramPath = Paths.get("models", "dfd", "Branching", "BranchingTest.dataflowdiagram");
-         final Path minimalDataDictionaryPath = Paths.get("models", "dfd", "Branching", "BranchingTest.datadictionary");
-         final var minimalDataFlowDiagramPathDirect = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "dfd", "Branching", "BranchingTest.dataflowdiagram");
-         final var minimalDataDictionaryPathDirect = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "dfd", "Branching", "BranchingTest.datadictionary");
+    	 final Path minimalDataFlowDiagramPath = Paths.get("models", "dfd", "Branching", "default.dataflowdiagram");
+         final Path minimalDataDictionaryPath = Paths.get("models", "dfd", "Branching", "default.datadictionary");
+         final var minimalDataFlowDiagramPathDirect = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "dfd", "Branching", "default.dataflowdiagram");
+         final var minimalDataDictionaryPathDirect = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "dfd", "Branching", "default.datadictionary");
          
          var dfdUri = URI.createPlatformPluginURI(minimalDataFlowDiagramPathDirect.toString(), false);
          var ddUri = URI.createPlatformPluginURI(minimalDataDictionaryPathDirect.toString(), false);
@@ -76,15 +76,15 @@ public class ResourceProviderTest {
                 .size(), 4);
     }
 
-    @Test
-    public void testAbsolutePathForResourceProvider() {
-        String tempDir = System.getProperty("java.io.tmpdir");
-        var dfdFile = new File(tempDir, "BranchingTest.dataflowdiagram");
-        var ddFile = new File(tempDir, "BranchingTest.datadictionary");
-        dfdFile.deleteOnExit();
-        ddFile.deleteOnExit();
-
-        ResourceSet resourceSet = new ResourceSetImpl();
+	@Test
+	public void testAbsolutePathForResourceProvider() {
+		String tempDir = System.getProperty("java.io.tmpdir");
+		var dfdFile = new File(tempDir,"default.dataflowdiagram");
+		var ddFile = new File(tempDir,"default.datadictionary");
+		dfdFile.deleteOnExit();
+		ddFile.deleteOnExit();
+		
+		ResourceSet resourceSet = new ResourceSetImpl();
         Resource dfdResource = createAndAddResource(dfdFile.toString(), new String[] {"dataflowdiagram"}, resourceSet);
         Resource ddResource = createAndAddResource(ddFile.toString(), new String[] {"datadictionary"}, resourceSet);
 

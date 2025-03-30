@@ -29,9 +29,9 @@ public class VertexTest {
     @MethodSource("vertices")
     public void shouldEvaluateCorrectly(DummyVertex vertex) {
         vertex.evaluateDataFlow();
-        assertTrue(vertex.hasEvaluated());
+        assertTrue(vertex.isEvaluated());
         for (DummyVertex previous : vertex.getPreviousElements().stream().map(DummyVertex.class::cast).toList()) {
-            assertTrue(previous.hasEvaluated());
+            assertTrue(previous.isEvaluated());
         }
     }
 

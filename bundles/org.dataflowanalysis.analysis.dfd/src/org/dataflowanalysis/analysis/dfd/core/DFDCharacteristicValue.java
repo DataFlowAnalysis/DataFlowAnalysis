@@ -36,4 +36,9 @@ public record DFDCharacteristicValue(LabelType labelType, Label label) implement
     public Label getLabel() {
         return this.label;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s.%s", this.getTypeName(), this.getValueName());
+    }
 }

@@ -10,7 +10,7 @@ import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
-public class VertexCharacteristicsSelector extends DataSelector {
+public class VertexCharacteristicsSelector extends VertexSelector {
     private static final Logger logger = Logger.getLogger(VertexCharacteristicsSelector.class);
 
     private final CharacteristicsSelectorData vertexCharacteristics;

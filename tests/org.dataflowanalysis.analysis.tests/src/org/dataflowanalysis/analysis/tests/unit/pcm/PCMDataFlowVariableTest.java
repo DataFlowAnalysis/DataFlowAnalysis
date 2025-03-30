@@ -20,9 +20,9 @@ public class PCMDataFlowVariableTest {
 
     private static Stream<Arguments> getValidPCMDataFlowVariables() {
         return Stream.of(
-                Arguments.of("ccd", "Location", "EU", "ccd.Location.EU"),
-                Arguments.of("query", "Location", "nonEU", "query.Location.nonEU"),
-                Arguments.of("RETURN","Encrypted", "true", "RETURN.Encrypted.true")
+                Arguments.of("ccd", "Location", "EU", "ccd.[Location.EU]"),
+                Arguments.of("query", "Location", "nonEU", "query.[Location.nonEU]"),
+                Arguments.of("RETURN","Encrypted", "true", "RETURN.[Encrypted.true]")
         );
     }
 

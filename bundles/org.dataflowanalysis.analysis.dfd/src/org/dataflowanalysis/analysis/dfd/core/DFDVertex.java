@@ -153,15 +153,12 @@ public class DFDVertex extends AbstractVertex<Node> {
         if (abstractAssignment instanceof ForwardingAssignment forwardingAssignment) {
             outputPinsOutgoingLabelMap.get(forwardingAssignment.getOutputPin())
                     .addAll(incomingLabels);
-            return;
         }else if (abstractAssignment instanceof SetAssignment setAssignment) {
         	outputPinsOutgoingLabelMap.get(abstractAssignment.getOutputPin())
             .addAll(setAssignment.getOutputLabels());
-        	return;
         }else if (abstractAssignment instanceof UnsetAssignment unsetAssignment) {
         	outputPinsOutgoingLabelMap.get(abstractAssignment.getOutputPin())
             .removeAll(unsetAssignment.getOutputLabels());
-        	return;
         } else if (abstractAssignment instanceof Assignment assignment) {
         	if (evaluateTerm(assignment.getTerm(), incomingLabels)) {
             outputPinsOutgoingLabelMap.get(assignment.getOutputPin())
@@ -203,7 +200,7 @@ public class DFDVertex extends AbstractVertex<Node> {
 
     /**
      * Combines all Incoming Labels from relevant input pins
-     * @param assignment Assignment to determine relevant input pins
+     * @param abstractAssignment Assignment to determine relevant input pins
      * @param inputPinsIncomingLabelMap Maps all input pins to all incoming labels
      * @return List of relevant labels
      */
@@ -295,9 +292,9 @@ public class DFDVertex extends AbstractVertex<Node> {
         this.pinDFDVertexMap.keySet()
                 .forEach(key -> {
                 	var oldVertex = this.pinDFDVertexMap.get(key);
-                	var newVertice =  mapping.getOrDefault(oldVertex, this.pinDFDVertexMap.get(key).copy(mapping));
-                	copiedPinDFDVertexMap.put(key, newVertice);
-                	mapping.putIfAbsent(oldVertex, newVertice);
+                	var newVertices =  mapping.getOrDefault(oldVertex, this.pinDFDVertexMap.get(key).copy(mapping));
+                	copiedPinDFDVertexMap.put(key, newVertices);
+                	mapping.putIfAbsent(oldVertex, newVertices);
                 	});
         return new DFDVertex(this.referencedElement, copiedPinDFDVertexMap, new HashMap<>(this.pinFlowMap));
     }

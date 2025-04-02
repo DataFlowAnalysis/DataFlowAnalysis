@@ -133,7 +133,8 @@ public class PCMDataFlowConfidentialityAnalysisBuilder extends DataFlowAnalysisB
                     .setupResources();
             this.customResourceProvider.get()
                     .loadRequiredResources();
-            this.customResourceProvider.get().validate();
+            this.customResourceProvider.get()
+                    .validate();
             if (!this.customResourceProvider.get()
                     .sufficientResourcesLoaded()) {
                 logger.error("The custom resource provider could not load all required resources",

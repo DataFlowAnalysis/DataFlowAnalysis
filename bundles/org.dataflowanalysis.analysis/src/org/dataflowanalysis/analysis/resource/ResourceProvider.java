@@ -48,9 +48,12 @@ public abstract class ResourceProvider {
 
     public void validate() {
         for (Resource resource : this.resources.getResources()) {
-            if (!resource.getErrors().isEmpty()) {
-                logger.error("Error loading model " + resource.getURI().toString());
-                resource.getErrors().forEach(error -> logger.error(error.getMessage()));
+            if (!resource.getErrors()
+                    .isEmpty()) {
+                logger.error("Error loading model " + resource.getURI()
+                        .toString());
+                resource.getErrors()
+                        .forEach(error -> logger.error(error.getMessage()));
             }
         }
     }

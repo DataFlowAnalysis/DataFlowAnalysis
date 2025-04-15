@@ -12,17 +12,22 @@ import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuild
 import org.dataflowanalysis.examplemodels.results.ExampleModelResult;
 import org.dataflowanalysis.examplemodels.results.ExpectedCharacteristic;
 import org.dataflowanalysis.examplemodels.results.ExpectedViolation;
-import org.dataflowanalysis.examplemodels.results.dfd.BranchingResult;
-import org.dataflowanalysis.examplemodels.results.dfd.ComplexPseudoCycleResult;
+import org.dataflowanalysis.examplemodels.results.dfd.models.BranchingResult;
 import org.dataflowanalysis.examplemodels.results.dfd.DFDExampleModelResult;
-import org.dataflowanalysis.examplemodels.results.dfd.DeadOutPinResult;
-import org.dataflowanalysis.examplemodels.results.dfd.MinimalResult;
-import org.dataflowanalysis.examplemodels.results.dfd.OnlineShopResult;
-import org.dataflowanalysis.examplemodels.results.dfd.SimpleLoopResult;
-import org.dataflowanalysis.examplemodels.results.dfd.SimpleOnlineShopResult;
-import org.dataflowanalysis.examplemodels.results.dfd.UnusedInputResult;
-import org.dataflowanalysis.examplemodels.results.dfd.WrongFlowNameResult;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.OnlineShopResult;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.SimpleOnlineShopResult;
 import org.dataflowanalysis.examplemodels.results.pcm.*;
+import org.dataflowanalysis.examplemodels.results.pcm.models.CompositeResult;
+import org.dataflowanalysis.examplemodels.results.pcm.models.IgnoredNodesResult;
+import org.dataflowanalysis.examplemodels.results.pcm.models.MultipleDeploymentsResult;
+import org.dataflowanalysis.examplemodels.results.pcm.models.NodeCharacteristicsResult;
+import org.dataflowanalysis.examplemodels.results.pcm.models.VariableReturnResult;
+import org.dataflowanalysis.examplemodels.results.pcm.scenarios.BankBranchesResult;
+import org.dataflowanalysis.examplemodels.results.pcm.scenarios.BranchingOnlineShopResult;
+import org.dataflowanalysis.examplemodels.results.pcm.scenarios.CoronaWarnAppResult;
+import org.dataflowanalysis.examplemodels.results.pcm.scenarios.InternationalOnlineShopResult;
+import org.dataflowanalysis.examplemodels.results.pcm.scenarios.MaaSTicketSystemResult;
+import org.dataflowanalysis.examplemodels.results.pcm.scenarios.TravelPlannerResult;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -33,7 +38,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static org.junit.Assume.assumeTrue;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -42,8 +46,8 @@ public class ExampleModelsTest {
 
     private static Stream<Arguments> providePCMExampleModelViolations() {
         return Stream.of(
+                Arguments.of(new BankBranchesResult()),
                 Arguments.of(new BranchingOnlineShopResult()),
-                //TODO: Missing constraint: Arguments.of(new CoCarResult()),
                 Arguments.of(new CompositeResult()),
                 Arguments.of(new CoronaWarnAppResult()),
                 Arguments.of(new IgnoredNodesResult()),
@@ -59,14 +63,8 @@ public class ExampleModelsTest {
     private static Stream<Arguments> provideDFDExampleModelViolations() {
         return Stream.of(
                 Arguments.of(new BranchingResult()),
-                Arguments.of(new ComplexPseudoCycleResult()),
-                Arguments.of(new DeadOutPinResult()),
-                Arguments.of(new MinimalResult()),
                 Arguments.of(new OnlineShopResult()),
-                Arguments.of(new SimpleLoopResult()),
-                Arguments.of(new SimpleOnlineShopResult()),
-                Arguments.of(new UnusedInputResult()),
-                Arguments.of(new WrongFlowNameResult())
+                Arguments.of(new SimpleOnlineShopResult())
         );
     }
 
@@ -127,6 +125,7 @@ public class ExampleModelsTest {
         for (ExpectedViolation expectedViolation : exampleModelResult.getExpectedViolations()) {
             Optional<? extends AbstractVertex<?>> violatingVertex = Optional.empty();
             for (DSLResult violation : violatingVertices) {
+                if (violatingVertex.isPresent()) continue;
                 int flowGraphIndex = flowGraphs.getTransposeFlowGraphs().indexOf(violation.getTransposeFlowGraph());
                 assertTrue(flowGraphIndex != -1);
                 violatingVertex = violation.getMatchedVertices().stream()

@@ -37,7 +37,7 @@ public class DataCharacteristicsSelector extends DataSelector {
         if (variableNames.isEmpty()) {
             return false;
         }
-        boolean result = true;
+        List<Boolean> results = new ArrayList<>();
         for (String variableName : variableNames) {
             List<CharacteristicValue> presentCharacteristics = vertex.getAllIncomingDataCharacteristics()
                     .stream()
@@ -53,15 +53,15 @@ public class DataCharacteristicsSelector extends DataSelector {
                             characteristicValues))
                     .toList();
             this.dataCharacteristic.applyResults(context, vertex, variableName, characteristicTypes, characteristicValues);
-
-            if (result) {
-                result = this.inverted ? matches.stream()
-                        .noneMatch(it -> it)
-                        : matches.stream()
-                                .anyMatch(it -> it);
-            }
+            results.add(this.inverted ? matches.stream()
+                    .noneMatch(it -> it)
+                    : matches.stream()
+                            .anyMatch(it -> it));
         }
-        return result;
+        return this.inverted ? results.stream()
+                .allMatch(it -> it)
+                : results.stream()
+                        .anyMatch(it -> it);
     }
 
     public boolean isInverted() {

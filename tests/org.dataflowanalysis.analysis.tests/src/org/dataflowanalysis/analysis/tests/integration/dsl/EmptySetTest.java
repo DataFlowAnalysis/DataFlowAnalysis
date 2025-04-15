@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.tests.dsl;
+package org.dataflowanalysis.analysis.tests.integration.dsl;
 
 import static org.junit.jupiter.api.Assertions.*;
 

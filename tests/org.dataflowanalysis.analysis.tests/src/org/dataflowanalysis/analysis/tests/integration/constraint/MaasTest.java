@@ -20,11 +20,11 @@ public class MaasTest {
 	
 	@Test
 	 public void testRealisticConstraints() {
-		 final var usageModelPath = Paths.get("casestudies", "pcm", "MaaSTicketSystem", "MaaS.usagemodel")
+		 final var usageModelPath = Paths.get("scenarios", "pcm", "MaaSTicketSystem", "MaaS.usagemodel")
 	                .toString();
-        final var allocationPath = Paths.get("casestudies", "pcm", "MaaSTicketSystem", "MaaS.allocation")
+        final var allocationPath = Paths.get("scenarios", "pcm", "MaaSTicketSystem", "MaaS.allocation")
                 .toString();
-        final var nodeCharPath = Paths.get("casestudies", "pcm", "MaaSTicketSystem", "MaaS.nodecharacteristics")
+        final var nodeCharPath = Paths.get("scenarios", "pcm", "MaaSTicketSystem", "MaaS.nodecharacteristics")
 	                .toString();
         
         analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()

@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.tests.dfd.simple;
+package org.dataflowanalysis.analysis.tests.integration.dfd.simple;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -10,7 +10,7 @@ import java.util.Set;
 
 import org.dataflowanalysis.analysis.dfd.simple.DFDSimpleTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.simple.DFDSimpleVertex;
-import org.dataflowanalysis.analysis.tests.dfd.util.DFDTestUtil;
+import org.dataflowanalysis.analysis.tests.integration.dfd.util.DFDTestUtil;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.Label;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;

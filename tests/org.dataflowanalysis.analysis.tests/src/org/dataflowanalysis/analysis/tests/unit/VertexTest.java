@@ -14,7 +14,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.Assume.assumeNoException;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class VertexTest {
@@ -53,7 +52,7 @@ public class VertexTest {
         try {
             vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics, vertexCharacteristics);
         } catch (Exception e) {
-            assumeNoException(e);
+            fail(e);
         }
         assertThrowsExactly(IllegalArgumentException.class, () -> vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics, vertexCharacteristics));
     }
@@ -68,7 +67,7 @@ public class VertexTest {
         try {
             vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics, vertexCharacteristics);
         } catch (Exception e) {
-            assumeNoException(e);
+            fail(e);
         }
         assertTrue(vertex.isEvaluated());
     }
@@ -90,7 +89,7 @@ public class VertexTest {
         try {
             vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics, vertexCharacteristics);
         } catch (Exception e) {
-            assumeNoException(e);
+            fail(e);
         }
 
         assertEquals(1, vertex.getAllIncomingDataCharacteristics().size());
@@ -110,7 +109,7 @@ public class VertexTest {
         try {
             vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics, vertexCharacteristics);
         } catch (Exception e) {
-            assumeNoException(e);
+            fail(e);
         }
 
         assertEquals(1, vertex.getAllOutgoingDataCharacteristics().size());
@@ -130,7 +129,7 @@ public class VertexTest {
         try {
             vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics, vertexCharacteristics);
         } catch (Exception e) {
-            assumeNoException(e);
+            fail(e);
         }
 
         assertEquals(1, vertex.getAllVertexCharacteristics().size());
@@ -154,7 +153,7 @@ public class VertexTest {
         try {
             vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics, vertexCharacteristics);
         } catch (Exception e) {
-            assumeNoException(e);
+            fail(e);
         }
 
         assertEquals(1, vertex.getVertexCharacteristics("Type").size());
@@ -173,7 +172,7 @@ public class VertexTest {
         try {
             vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics, vertexCharacteristics);
         } catch (Exception e) {
-            assumeNoException(e);
+            fail(e);
         }
 
         assertEquals(1, vertex.getDataCharacteristicMap("Type").size());
@@ -197,7 +196,7 @@ public class VertexTest {
         try {
             vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics, vertexCharacteristics);
         } catch (Exception e) {
-            assumeNoException(e);
+            fail(e);
         }
 
         String expected = """

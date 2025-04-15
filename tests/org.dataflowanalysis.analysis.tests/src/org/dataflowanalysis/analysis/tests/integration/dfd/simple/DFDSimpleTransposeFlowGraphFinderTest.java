@@ -1,8 +1,8 @@
-package org.dataflowanalysis.analysis.tests.dfd.simple;
+package org.dataflowanalysis.analysis.tests.integration.dfd.simple;
 
 import org.dataflowanalysis.analysis.dfd.simple.DFDSimpleTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.simple.DFDSimpleVertex;
-import org.dataflowanalysis.analysis.tests.dfd.util.DFDTestUtil;
+import org.dataflowanalysis.analysis.tests.integration.dfd.util.DFDTestUtil;
 import org.dataflowanalysis.dfd.datadictionary.Assignment;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.datadictionaryFactory;

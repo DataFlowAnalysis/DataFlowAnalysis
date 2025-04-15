@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.tests.dfd.util;
+package org.dataflowanalysis.analysis.tests.integration.dfd.util;
 
 import java.util.HashMap;
 import java.util.List;

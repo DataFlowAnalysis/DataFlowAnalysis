@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.tests.dfd;
+package org.dataflowanalysis.analysis.tests.integration.dfd;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

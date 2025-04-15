@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 public class MicroSecEndTest {
     public static final String PROJECT_NAME = "org.dataflowanalysis.examplemodels";
-    public static final String location = Paths.get("casestudies", "dfd", "TUHH-Models")
+    public static final String location = Paths.get("scenarios", "dfd", "TUHH-Models")
             .toString();
     private final Logger logger = Logger.getLogger(MicroSecEndTest.class);
 

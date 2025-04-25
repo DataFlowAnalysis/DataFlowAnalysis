@@ -1,5 +1,6 @@
 package org.dataflowanalysis.converter.tests;
 
+import static java.util.Map.entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -21,10 +22,9 @@ import org.dataflowanalysis.converter.micro2dfd.MicroConverterModel;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-public class TUHHPipeline {
-
+public class TUHHPipelineTest {
     public static Path converter;
-    private final Logger logger = Logger.getLogger(TUHHPipeline.class);
+    private final Logger logger = Logger.getLogger(TUHHPipelineTest.class);
 
     public static final List<Integer> OUT_OF_SCOPE_VARIANTS = List.of(13, 14, 15, 16, 17);
 

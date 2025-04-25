@@ -3,9 +3,8 @@ package org.dataflowanalysis.converter.interactive;
 import org.dataflowanalysis.converter.ModelType;
 
 /**
- * A Conversion key describes a conversion between two model types.
- * It may be used in the {@link ConversionTable} to find the
- * corresponding {@link org.dataflowanalysis.converter.Converter} for the conversion
+ * A Conversion key describes a conversion between two model types. It may be used in the {@link ConversionTable} to
+ * find the corresponding {@link org.dataflowanalysis.converter.Converter} for the conversion
  * @param origin The origin of the conversion
  * @param destination The destination of the conversion
  */

@@ -22,16 +22,14 @@ public class StandaloneConvertTask {
     private static final Logger logger = Logger.getLogger(StandaloneConvertTask.class);
 
     /**
-     * Entry point of the interactive converter.
-     * Can be run interactively without any command line parameter or directly via the command line parameters
+     * Entry point of the interactive converter. Can be run interactively without any command line parameter or directly via
+     * the command line parameters
      * <p/>
      * During interactive mode users will be prompted for each input
      * <p/>
-     * In direct mode parameters will be read from the command line arguments:
-     * 1. Conversion in the format ORIGIN2DESTINATION
-     * 2. Paths to models required for the origin model
-     * 3. Path to the folder the result should be saved in
-     * 4. File name of the resulting model files
+     * In direct mode parameters will be read from the command line arguments: 1. Conversion in the format
+     * ORIGIN2DESTINATION 2. Paths to models required for the origin model 3. Path to the folder the result should be saved
+     * in 4. File name of the resulting model files
      * @param args Command line parameters
      */
     public static void main(String[] args) {
@@ -59,7 +57,8 @@ public class StandaloneConvertTask {
             System.err.println("Invalid requested conversion destination: " + conversionSplit[1]);
             System.exit(-1);
         }
-        List<String> parameterList = new ArrayList<>(Arrays.stream(parameters).toList());
+        List<String> parameterList = new ArrayList<>(Arrays.stream(parameters)
+                .toList());
         parameterList.remove(0);
 
         ConversionTable conversionTable = new ConversionTable();
@@ -199,8 +198,13 @@ public class StandaloneConvertTask {
                     System.exit(-1);
                 }
                 String plantPath = args.remove(0);
-                Path path = Paths.get(plantPath).toAbsolutePath().normalize();
-                return new PlantConverterModel(path.getParent().toString(), path.getFileName().toString());
+                Path path = Paths.get(plantPath)
+                        .toAbsolutePath()
+                        .normalize();
+                return new PlantConverterModel(path.getParent()
+                        .toString(),
+                        path.getFileName()
+                                .toString());
             }
             default -> throw new IllegalArgumentException();
         }

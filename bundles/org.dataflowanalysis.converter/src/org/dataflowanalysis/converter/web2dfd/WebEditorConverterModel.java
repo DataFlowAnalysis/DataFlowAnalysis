@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Scanner;
-
 import org.dataflowanalysis.converter.ModelType;
 import org.dataflowanalysis.converter.PersistableConverterModel;
 import org.dataflowanalysis.converter.util.PathUtils;

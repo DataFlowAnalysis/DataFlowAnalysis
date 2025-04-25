@@ -285,7 +285,8 @@ public class Web2DFDConverter extends Converter {
         var labels = new ArrayList<Label>();
         Arrays.asList(string.split(","))
                 .forEach(typeValuePair -> {
-                    if (typeValuePair.trim().isEmpty())
+                    if (typeValuePair.trim()
+                            .isEmpty())
                         return;
                     String typeName = typeValuePair.split("\\.")[0];
                     String valueName = typeValuePair.split("\\.")[1];
@@ -328,8 +329,7 @@ public class Web2DFDConverter extends Converter {
             List<String> incomingFlowNames = Arrays.asList(pinName.split(Pattern.quote(DELIMITER_PIN_NAME)));
             pinToFlowNames.keySet()
                     .forEach(key -> {
-                        if (new HashSet<>(pinToFlowNames.get(key))
-                                .containsAll(incomingFlowNames))
+                        if (new HashSet<>(pinToFlowNames.get(key)).containsAll(incomingFlowNames))
                             inPins.add(key);
                     });
         });

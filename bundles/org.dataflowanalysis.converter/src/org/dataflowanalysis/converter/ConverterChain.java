@@ -23,9 +23,11 @@ public class ConverterChain extends Converter {
 
     @Override
     public PersistableConverterModel convert(ConverterModel input) {
-        PersistableConverterModel current = this.converters.get(0).convert(input);
-        for(int i = 1; i < this.converters.size(); i++) {
-            current = this.converters.get(i).convert(current);
+        PersistableConverterModel current = this.converters.get(0)
+                .convert(input);
+        for (int i = 1; i < this.converters.size(); i++) {
+            current = this.converters.get(i)
+                    .convert(current);
         }
         return current;
     }

@@ -3,13 +3,10 @@ package org.dataflowanalysis.converter.tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.fasterxml.jackson.core.exc.StreamReadException;
-import com.fasterxml.jackson.databind.DatabindException;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Paths;
-import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.converter.dfd2web.DFD2WebConverter;
+import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.converter.web2dfd.Web2DFDConverter;
 import org.dataflowanalysis.converter.web2dfd.WebEditorConverterModel;
 import org.dataflowanalysis.converter.web2dfd.model.WebEditorDfd;
@@ -19,7 +16,6 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
 
 public class WebEditorTest extends ConverterTest {
     private DFD2WebConverter dfd2WebConverter;
@@ -43,7 +39,8 @@ public class WebEditorTest extends ConverterTest {
                 .getModel();
         WebEditorDfd webBefore = minimalWebDFD.getModel();
 
-        webAfter.constraints().addAll(webBefore.constraints());
+        webAfter.constraints()
+                .addAll(webBefore.constraints());
 
         webBefore.sort();
         webAfter.sort();

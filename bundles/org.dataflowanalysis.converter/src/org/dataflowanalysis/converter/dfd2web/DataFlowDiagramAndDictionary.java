@@ -46,7 +46,8 @@ public final class DataFlowDiagramAndDictionary extends PersistableConverterMode
      * @param inputDataFlowDiagram Relative path to the data flow diagram starting at the modelling project root
      * @param inputDataDictionary Relative path to the data dictionary starting at the modelling project root
      * @param activator Plugin activator that used to register the modelling project
-     * @throws StandaloneInitializationException Thrown when initialization of the project via the model project name and activator fails
+     * @throws StandaloneInitializationException Thrown when initialization of the project via the model project name and
+     * activator fails
      */
     public DataFlowDiagramAndDictionary(String modelProjectName, String inputDataFlowDiagram, String inputDataDictionary, Class<?> activator)
             throws StandaloneInitializationException {

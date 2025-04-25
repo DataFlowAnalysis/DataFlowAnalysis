@@ -105,16 +105,15 @@ public class DFD2WebConverter extends Converter {
 
         Map<Node, Annotation> mapNodeToAnnotations = new HashMap<>();
         Map<Node, Set<String>> mapNodeToPropagatedLabels = new HashMap<>();
-        collection
-                .forEach(tfg -> tfg.getVertices()
-                        .forEach(vertex -> {
-                            Node node = (Node) vertex.getReferencedElement();
-                            mapNodeToPropagatedLabels.putIfAbsent(node, new HashSet<>());
-                            var label = mapNodeToPropagatedLabels.get(node);
-                            vertex.getAllOutgoingDataCharacteristics()
-                                    .forEach(characteristic -> characteristic.getAllCharacteristics()
-                                            .forEach(value -> label.add(value.getTypeName() + "." + value.getValueName())));
-                        }));
+        collection.forEach(tfg -> tfg.getVertices()
+                .forEach(vertex -> {
+                    Node node = (Node) vertex.getReferencedElement();
+                    mapNodeToPropagatedLabels.putIfAbsent(node, new HashSet<>());
+                    var label = mapNodeToPropagatedLabels.get(node);
+                    vertex.getAllOutgoingDataCharacteristics()
+                            .forEach(characteristic -> characteristic.getAllCharacteristics()
+                                    .forEach(value -> label.add(value.getTypeName() + "." + value.getValueName())));
+                }));
 
         mapNodeToPropagatedLabels.keySet()
                 .forEach(key -> {
@@ -158,7 +157,8 @@ public class DFD2WebConverter extends Converter {
         return mapNodeToAnnotations;
     }
 
-    private static List<? extends AbstractTransposeFlowGraph> getTransposeFlowGraphs(DataFlowDiagramAndDictionary complete, Class<? extends TransposeFlowGraphFinder> finderClass) {
+    private static List<? extends AbstractTransposeFlowGraph> getTransposeFlowGraphs(DataFlowDiagramAndDictionary complete,
+            Class<? extends TransposeFlowGraphFinder> finderClass) {
         TransposeFlowGraphFinder finder;
         if (finderClass == null)
             finder = new DFDTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
@@ -257,7 +257,8 @@ public class DFD2WebConverter extends Converter {
                             .stream()
                             .filter(flow -> flow.getDestinationNode()
                                     .equals(node))
-                            .filter(flow -> flow.getEntityName().isEmpty())
+                            .filter(flow -> flow.getEntityName()
+                                    .isEmpty())
                             .toList();
 
                     String controlFlowName = CONTROL_FLOW_NAME;

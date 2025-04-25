@@ -11,10 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
-
 import org.dataflowanalysis.converter.Converter;
-import org.dataflowanalysis.converter.ModelType;
 import org.dataflowanalysis.converter.ConverterChain;
+import org.dataflowanalysis.converter.ModelType;
 import org.dataflowanalysis.converter.dfd2web.DFD2WebConverter;
 import org.dataflowanalysis.converter.micro2dfd.Micro2DFDConverter;
 import org.dataflowanalysis.converter.pcm2dfd.PCM2DFDConverter;
@@ -25,27 +24,25 @@ import org.dataflowanalysis.converter.web2dfd.Web2DFDConverter;
  * This class contains all possible conversions currently supported by the converter
  */
 public class ConversionTable {
-    private final Map<ConversionKey, Supplier<Converter>> conversionTable = Map.of(
-            ConversionKey.of(ModelType.PCM, ModelType.DFD), PCM2DFDConverter::new,
-            ConversionKey.of(ModelType.DFD, ModelType.WEB_DFD), DFD2WebConverter::new,
-            ConversionKey.of(ModelType.PLANT, ModelType.MICRO), Plant2MicroConverter::new,
-            ConversionKey.of(ModelType.MICRO, ModelType.DFD), Micro2DFDConverter::new,
-            ConversionKey.of(ModelType.WEB_DFD, ModelType.DFD), Web2DFDConverter::new
-    );
+    private final Map<ConversionKey, Supplier<Converter>> conversionTable = Map.of(ConversionKey.of(ModelType.PCM, ModelType.DFD),
+            PCM2DFDConverter::new, ConversionKey.of(ModelType.DFD, ModelType.WEB_DFD), DFD2WebConverter::new,
+            ConversionKey.of(ModelType.PLANT, ModelType.MICRO), Plant2MicroConverter::new, ConversionKey.of(ModelType.MICRO, ModelType.DFD),
+            Micro2DFDConverter::new, ConversionKey.of(ModelType.WEB_DFD, ModelType.DFD), Web2DFDConverter::new);
 
     /**
-     * Determines the converter required to convert according to the given conversion key.
-     * If no direct conversion between the elements exists, it creates the shortest {@link ConverterChain}
+     * Determines the converter required to convert according to the given conversion key. If no direct conversion between
+     * the elements exists, it creates the shortest {@link ConverterChain}
      * <p/>
-     * For conversions via a {@link ConverterChain},
-     * a Breath First Search (BFS) is performed to find the shortest path to the desired conversion.
+     * For conversions via a {@link ConverterChain}, a Breath First Search (BFS) is performed to find the shortest path to
+     * the desired conversion.
      * @param conversionKey Given conversion key that the converter should fulfil
      * @return Returns the converter that achieves the desired conversion
      * @throws IllegalArgumentException A valid converter cannot be found
      */
     public Converter getConverter(ConversionKey conversionKey) {
         if (conversionTable.containsKey(conversionKey)) {
-            return conversionTable.get(conversionKey).get();
+            return conversionTable.get(conversionKey)
+                    .get();
         }
         List<ModelType> visited = new ArrayList<>();
         Deque<ModelType> current = new ArrayDeque<>();
@@ -81,7 +78,8 @@ public class ConversionTable {
         List<Converter> converters = new ArrayList<>();
         while (destination != conversionKey.origin()) {
             ModelType parentModelType = parent.get(destination);
-            converters.add(conversionTable.get(ConversionKey.of(parentModelType, destination)).get());
+            converters.add(conversionTable.get(ConversionKey.of(parentModelType, destination))
+                    .get());
             destination = parentModelType;
         }
         Collections.reverse(converters);
@@ -102,8 +100,7 @@ public class ConversionTable {
     }
 
     /**
-     * Determines all possible destinations for a model type.
-     * Destinations via other model types are included in the result
+     * Determines all possible destinations for a model type. Destinations via other model types are included in the result
      * @param origin Model type of the originating model
      * @return Returns a collection containing all possible (transitive) conversion destinations for the given origin
      */
@@ -120,8 +117,7 @@ public class ConversionTable {
     }
 
     /**
-     * Returns the direct conversion destinations for a model type
-     * Does not include destinations via other model
+     * Returns the direct conversion destinations for a model type Does not include destinations via other model
      * @param origin Originating model type
      * @return Returns a collection containing all direct destinations for a model type
      */

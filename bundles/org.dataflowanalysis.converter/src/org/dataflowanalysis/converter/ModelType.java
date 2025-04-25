@@ -3,8 +3,8 @@ package org.dataflowanalysis.converter;
 import java.util.Optional;
 
 /**
- * This enum represents all model types the converters may interact with.
- * It must have a full name and abbreviation for usage with the CLI
+ * This enum represents all model types the converters may interact with. It must have a full name and abbreviation for
+ * usage with the CLI
  */
 public enum ModelType {
     PCM("Palladio Component Model", "pcm"),
@@ -36,7 +36,8 @@ public enum ModelType {
      */
     public static Optional<ModelType> fromAbbreviation(String abbreviation) {
         for (ModelType modelType : ModelType.values()) {
-            if (modelType.getAbbreviation().equalsIgnoreCase(abbreviation)) {
+            if (modelType.getAbbreviation()
+                    .equalsIgnoreCase(abbreviation)) {
                 return Optional.of(modelType);
             }
         }

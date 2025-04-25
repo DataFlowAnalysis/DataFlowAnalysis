@@ -2,12 +2,11 @@ package org.dataflowanalysis.converter.micro2dfd;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Scanner;
-
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.dataflowanalysis.converter.ModelType;
 import org.dataflowanalysis.converter.PersistableConverterModel;
 import org.dataflowanalysis.converter.micro2dfd.model.MicroSecEnd;

@@ -617,7 +617,8 @@ public class PCM2DFDConverter extends Converter {
         Pin inPin = node.getBehavior()
                 .getInPin()
                 .stream()
-                .filter(it -> it.getEntityName().isEmpty())
+                .filter(it -> it.getEntityName()
+                        .isEmpty())
                 .findAny()
                 .orElseThrow(() -> {
                     logger.error("Cannot find required in-pin with empty name at vertex with name " + vertex);
@@ -626,7 +627,8 @@ public class PCM2DFDConverter extends Converter {
         Pin outPin = node.getBehavior()
                 .getOutPin()
                 .stream()
-                .filter(it -> it.getEntityName().isEmpty())
+                .filter(it -> it.getEntityName()
+                        .isEmpty())
                 .findAny()
                 .orElseThrow(() -> {
                     logger.error("Cannot find required out-pin with empty name at vertex with name " + vertex);
@@ -696,7 +698,8 @@ public class PCM2DFDConverter extends Converter {
                 .filter(it -> it.getEntityName()
                         .equals(namedEnumCharacteristicReference.getNamedReference()
                                 .getReferenceName())
-                        || it.getEntityName().isEmpty())
+                        || it.getEntityName()
+                                .isEmpty())
                 .findAny()
                 .orElseThrow();
         assignment.getInputPins()

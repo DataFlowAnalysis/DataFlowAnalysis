@@ -13,7 +13,7 @@ import org.eclipse.core.runtime.Plugin;
 import org.eclipse.emf.common.util.URI;
 
 public class PCMConverterModel extends ConverterModel {
-    private static final String FILE_EXTENSION_USAGE = ".usage";
+    private static final String FILE_EXTENSION_USAGE = ".usagemodel";
     private static final String FILE_EXTENSION_ALLOCATION = ".allocation";
     private static final String FILE_EXTENSION_NODE = ".nodecharacteristics";
 

@@ -85,7 +85,7 @@ public class StandaloneConvertTask {
     }
 
     private static ModelType getOrigin(Scanner scanner) {
-        System.out.println("Please enter the desired model: ");
+        System.out.println("Please enter the desired origin model: ");
         ConversionTable conversionTable = new ConversionTable();
         List<ModelType> origins = conversionTable.getPossibleOrigins()
                 .stream()
@@ -94,7 +94,7 @@ public class StandaloneConvertTask {
     }
 
     private static ModelType getGoal(Scanner scanner, ModelType origin) {
-        System.out.println("Please enter the desired model: ");
+        System.out.println("Please enter the desired destination model: ");
         ConversionTable conversionTable = new ConversionTable();
         List<ModelType> goals = conversionTable.getPossibleDestinations(origin)
                 .stream()

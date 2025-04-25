@@ -18,8 +18,8 @@ import org.dataflowanalysis.converter.pcm2dfd.PCMConverterModel;
 import org.dataflowanalysis.converter.plant2micro.PlantConverterModel;
 import org.dataflowanalysis.converter.web2dfd.WebEditorConverterModel;
 
-public class ConvertTask {
-    private static final Logger logger = Logger.getLogger(ConvertTask.class);
+public class StandaloneConvertTask {
+    private static final Logger logger = Logger.getLogger(StandaloneConvertTask.class);
 
     /**
      * Entry point of the interactive converter.

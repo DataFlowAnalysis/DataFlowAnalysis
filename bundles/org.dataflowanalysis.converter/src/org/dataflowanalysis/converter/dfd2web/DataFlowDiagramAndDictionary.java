@@ -62,6 +62,7 @@ public final class DataFlowDiagramAndDictionary extends PersistableConverterMode
         URI ddURI = ResourceUtils.createRelativePluginURI(inputDataDictionary, modelProjectName);
 
         var provider = new DFDURIResourceProvider(dfdURI, ddURI);
+        provider.setupResources();
         provider.loadRequiredResources();
         this.dataFlowDiagram = provider.getDataFlowDiagram();
         this.dataDictionary = provider.getDataDictionary();

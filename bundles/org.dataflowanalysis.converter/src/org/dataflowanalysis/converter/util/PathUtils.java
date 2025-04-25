@@ -9,13 +9,22 @@ public class PathUtils {
      * @return Normalized path string without quotes and a file extension
      */
     public static String normalizePathString(String input, String extension) {
+        input = PathUtils.normalizePathString(input);
+        if (!input.endsWith(extension))
+            input = input + extension;
+        return input;
+    }
+
+    /**
+     * Normalizes the given path string by removing quotes
+     * @param input Given input path string
+     * @return Normalized path string without quotes
+     */
+    public static String normalizePathString(String input) {
         if (input.startsWith("\""))
             input = input.substring(1);
         if (input.endsWith("\""))
             input = input.substring(0, input.length() - 1);
-
-        if (!input.endsWith(extension))
-            input = input + extension;
         return input;
     }
 }

@@ -16,6 +16,7 @@ import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.converter.micro2dfd.MicroConverterModel;
 import org.dataflowanalysis.converter.pcm2dfd.PCMConverterModel;
 import org.dataflowanalysis.converter.plant2micro.PlantConverterModel;
+import org.dataflowanalysis.converter.util.PathUtils;
 import org.dataflowanalysis.converter.web2dfd.WebEditorConverterModel;
 
 public class StandaloneConvertTask {
@@ -126,6 +127,7 @@ public class StandaloneConvertTask {
         String filePath = scanner.nextLine();
         if (filePath.isEmpty())
             filePath = ".";
+        filePath = PathUtils.normalizePathString(filePath);
         System.out.println("Please enter a filename for the model files. Leave empty for \"default\"");
         System.out.print("> ");
         String fileName = scanner.nextLine();

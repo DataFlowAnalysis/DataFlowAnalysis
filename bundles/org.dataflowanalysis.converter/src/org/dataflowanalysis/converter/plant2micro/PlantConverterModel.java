@@ -8,6 +8,8 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class PlantConverterModel extends ConverterModel {
+    private static final String FILE_EXTENSION = ".json";
+
     private final String filePath;
     private final String fileName;
 
@@ -19,7 +21,7 @@ public class PlantConverterModel extends ConverterModel {
 
     public PlantConverterModel(Scanner scanner) {
         super(ModelType.PLANT);
-        String plantPath = this.getFilePath(scanner, "json");
+        String plantPath = this.getFilePath(scanner, FILE_EXTENSION);
         Path path = Paths.get(plantPath).toAbsolutePath().normalize();
         this.filePath = path.getParent().toString();
         this.fileName = path.getFileName().toString();

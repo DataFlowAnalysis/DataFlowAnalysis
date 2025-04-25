@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.Scanner;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.converter.util.FileNameOnlyURIHandler;
+import org.dataflowanalysis.converter.util.PathUtils;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -35,14 +36,9 @@ public abstract class ConverterModel {
      * @return Returns a string with the given file path
      */
     protected String getFilePath(Scanner scanner, String fileExtension) {
-        System.out.println("Please enter a path to a ." + fileExtension + " file: ");
+        System.out.println("Please enter a path to a " + fileExtension + " file: ");
         System.out.print("> ");
-        String filePath = scanner.nextLine();
-        if (!filePath.endsWith("." + fileExtension)) {
-            System.out.println("Invalid path to file, the file must end with ." + fileExtension + "!");
-            throw new IllegalArgumentException();
-        }
-        return filePath;
+        return PathUtils.normalizePathString(scanner.nextLine(), fileExtension);
     }
 
     /**

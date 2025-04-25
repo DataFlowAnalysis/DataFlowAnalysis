@@ -8,10 +8,15 @@ import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuild
 import org.dataflowanalysis.analysis.pcm.resource.PCMURIResourceProvider;
 import org.dataflowanalysis.converter.ConverterModel;
 import org.dataflowanalysis.converter.ModelType;
+import org.dataflowanalysis.converter.util.PathUtils;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.emf.common.util.URI;
 
 public class PCMConverterModel extends ConverterModel {
+    private static final String FILE_EXTENSION_USAGE = ".usage";
+    private static final String FILE_EXTENSION_ALLOCATION = ".allocation";
+    private static final String FILE_EXTENSION_NODE = ".nodecharacteristics";
+
     private FlowGraphCollection flowGraphCollection;
 
     public PCMConverterModel(FlowGraphCollection flowGraphCollection) {
@@ -21,6 +26,9 @@ public class PCMConverterModel extends ConverterModel {
     public PCMConverterModel(String modelLocation, String usageModelPath, String allocationPath, String nodeCharPath,
             Class<? extends Plugin> activator) {
         super(ModelType.PCM);
+        usageModelPath = PathUtils.normalizePathString(usageModelPath, FILE_EXTENSION_USAGE);
+        allocationPath = PathUtils.normalizePathString(allocationPath, FILE_EXTENSION_ALLOCATION);
+        nodeCharPath = PathUtils.normalizePathString(nodeCharPath, FILE_EXTENSION_NODE);
         DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
                 .modelProjectName(modelLocation)
                 .usePluginActivator(activator)
@@ -37,6 +45,9 @@ public class PCMConverterModel extends ConverterModel {
 
     public PCMConverterModel(String usageModelPath, String allocationPath, String nodeCharPath) {
         super(ModelType.PCM);
+        usageModelPath = PathUtils.normalizePathString(usageModelPath, FILE_EXTENSION_USAGE);
+        allocationPath = PathUtils.normalizePathString(allocationPath, FILE_EXTENSION_ALLOCATION);
+        nodeCharPath = PathUtils.normalizePathString(nodeCharPath, FILE_EXTENSION_NODE);
         DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
                 .useCustomResourceProvider(new PCMURIResourceProvider(URI.createFileURI(usageModelPath), URI.createFileURI(allocationPath),
                         URI.createFileURI(nodeCharPath)))
@@ -51,9 +62,9 @@ public class PCMConverterModel extends ConverterModel {
     public PCMConverterModel(Scanner scanner) {
         super(ModelType.PCM);
 
-        String usageModelPath = this.getFilePath(scanner, "usagemodel");
-        String allocationPath = this.getFilePath(scanner, "allocation");
-        String nodeCharPath = this.getFilePath(scanner, "nodecharacteristics");
+        String usageModelPath = this.getFilePath(scanner, FILE_EXTENSION_USAGE);
+        String allocationPath = this.getFilePath(scanner, FILE_EXTENSION_ALLOCATION);
+        String nodeCharPath = this.getFilePath(scanner, FILE_EXTENSION_NODE);
 
         DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
                 .useCustomResourceProvider(new PCMURIResourceProvider(URI.createFileURI(usageModelPath), URI.createFileURI(allocationPath),

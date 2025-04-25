@@ -7,6 +7,7 @@ import org.dataflowanalysis.analysis.dfd.resource.DFDURIResourceProvider;
 import org.dataflowanalysis.analysis.utils.ResourceUtils;
 import org.dataflowanalysis.converter.ModelType;
 import org.dataflowanalysis.converter.PersistableConverterModel;
+import org.dataflowanalysis.converter.util.PathUtils;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.eclipse.emf.common.util.URI;
@@ -55,8 +56,8 @@ public final class DataFlowDiagramAndDictionary extends PersistableConverterMode
                 .build()
                 .init();
 
-        if (!inputDataFlowDiagram.endsWith(FILE_EXTENSION_DFD)) inputDataFlowDiagram = inputDataFlowDiagram + FILE_EXTENSION_DFD;
-        if(!inputDataDictionary.endsWith(FILE_EXTENSION_DD)) inputDataDictionary = inputDataDictionary + FILE_EXTENSION_DD;
+        inputDataFlowDiagram = PathUtils.normalizePathString(inputDataFlowDiagram, FILE_EXTENSION_DFD);
+        inputDataDictionary = PathUtils.normalizePathString(inputDataDictionary, FILE_EXTENSION_DD);
 
         URI dfdURI = ResourceUtils.createRelativePluginURI(inputDataFlowDiagram, modelProjectName);
         URI ddURI = ResourceUtils.createRelativePluginURI(inputDataDictionary, modelProjectName);
@@ -77,8 +78,8 @@ public final class DataFlowDiagramAndDictionary extends PersistableConverterMode
      */
     public DataFlowDiagramAndDictionary(String inputDataFlowDiagram, String inputDataDictionary) {
         super(ModelType.DFD);
-        if (!inputDataFlowDiagram.endsWith(FILE_EXTENSION_DFD)) inputDataFlowDiagram = inputDataFlowDiagram + FILE_EXTENSION_DFD;
-        if(!inputDataDictionary.endsWith(FILE_EXTENSION_DD)) inputDataDictionary = inputDataDictionary + FILE_EXTENSION_DD;
+        inputDataFlowDiagram = PathUtils.normalizePathString(inputDataFlowDiagram, FILE_EXTENSION_DFD);
+        inputDataDictionary = PathUtils.normalizePathString(inputDataDictionary, FILE_EXTENSION_DD);
 
         URI dfdURI = URI.createFileURI(Paths.get(inputDataFlowDiagram)
                 .toAbsolutePath()
@@ -103,8 +104,8 @@ public final class DataFlowDiagramAndDictionary extends PersistableConverterMode
     public DataFlowDiagramAndDictionary(Scanner scanner) {
         super(ModelType.DFD);
 
-        String inputDataFlowDiagram = this.getFilePath(scanner, "dataflowdiagram");
-        String inputDataDictionary = this.getFilePath(scanner, "datadictionary");
+        String inputDataFlowDiagram = this.getFilePath(scanner, FILE_EXTENSION_DFD);
+        String inputDataDictionary = this.getFilePath(scanner, FILE_EXTENSION_DD);
 
         URI dfdURI = URI.createFileURI(inputDataFlowDiagram);
         URI ddURI = URI.createFileURI(inputDataDictionary);

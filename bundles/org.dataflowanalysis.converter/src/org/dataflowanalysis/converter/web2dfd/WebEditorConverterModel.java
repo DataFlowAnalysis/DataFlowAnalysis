@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import org.dataflowanalysis.converter.ModelType;
 import org.dataflowanalysis.converter.PersistableConverterModel;
+import org.dataflowanalysis.converter.util.PathUtils;
 import org.dataflowanalysis.converter.web2dfd.model.WebEditorDfd;
 
 public class WebEditorConverterModel extends PersistableConverterModel {
@@ -40,7 +41,7 @@ public class WebEditorConverterModel extends PersistableConverterModel {
 
     public WebEditorConverterModel(Scanner scanner) {
         super(ModelType.WEB_DFD);
-        String inputPath = this.getFilePath(scanner, "json");
+        String inputPath = this.getFilePath(scanner, FILE_EXTENSION);
 
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(inputPath);
@@ -58,9 +59,7 @@ public class WebEditorConverterModel extends PersistableConverterModel {
 
     @Override
     public void save(String filePath, String fileName) {
-        if (!fileName.endsWith(FILE_EXTENSION))
-            fileName = fileName + FILE_EXTENSION;
-
+        fileName = PathUtils.normalizePathString(fileName, FILE_EXTENSION);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);

@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.dataflowanalysis.converter.ModelType;
 import org.dataflowanalysis.converter.PersistableConverterModel;
 import org.dataflowanalysis.converter.micro2dfd.model.MicroSecEnd;
+import org.dataflowanalysis.converter.util.PathUtils;
 
 public class MicroConverterModel extends PersistableConverterModel {
     private static final String FILE_EXTENSION = ".json";
@@ -25,6 +26,7 @@ public class MicroConverterModel extends PersistableConverterModel {
     public MicroConverterModel(String filePath) {
         super(ModelType.MICRO);
         ObjectMapper objectMapper = new ObjectMapper();
+        filePath = PathUtils.normalizePathString(filePath, FILE_EXTENSION);
         File file = new File(filePath);
         try {
             this.model = objectMapper.readValue(file, MicroSecEnd.class);
@@ -36,7 +38,7 @@ public class MicroConverterModel extends PersistableConverterModel {
 
     public MicroConverterModel(Scanner scanner) {
         super(ModelType.MICRO);
-        String filePath = this.getFilePath(scanner, "json");
+        String filePath = this.getFilePath(scanner, FILE_EXTENSION);
 
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(filePath);
@@ -54,8 +56,7 @@ public class MicroConverterModel extends PersistableConverterModel {
 
     @Override
     public void save(String filePath, String fileName) {
-        if (!fileName.endsWith(FILE_EXTENSION))
-            fileName = fileName + FILE_EXTENSION;
+        fileName = PathUtils.normalizePathString(fileName, FILE_EXTENSION);
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);

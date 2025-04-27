@@ -76,6 +76,12 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
 
         return new DFDFlowGraphCollection(this.resourceProvider, this.transposeFlowGraphFinderClass);
     }
+    
+    
+    public DFDFlowGraphCollection findFlowGraphsWithCustomCycleDepth(int cycleDepth) {
+
+        return new DFDFlowGraphCollection(this.resourceProvider, this.transposeFlowGraphFinderClass, cycleDepth);
+    }
 
     @Override
     public void setLoggerLevel(Level level) {

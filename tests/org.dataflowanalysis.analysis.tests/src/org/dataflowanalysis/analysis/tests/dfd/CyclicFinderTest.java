@@ -40,7 +40,22 @@ public class CyclicFinderTest {
         var expectedVertexNames = List.of((List.of("A", "B", "C")), (List.of("A", "B", "D", "B", "C")));
 
         assertEquals(flowGraphVertexNames, expectedVertexNames);
+        
+        var flowGraph2 = analysis.findFlowGraphsWithCustomCycleDepth(2);
+        List<List<String>> flowGraphVertexNames2 = new ArrayList<>();
 
+        for (var tfg : flowGraph2.getTransposeFlowGraphs()) {
+            var vertexNames = new ArrayList<String>();
+            for (var vertex : tfg.getVertices()) {
+                var dfdVertex = (DFDVertex) vertex;
+                vertexNames.add(dfdVertex.getName());
+
+            }
+            flowGraphVertexNames2.add(vertexNames);
+        }
+        var expectedVertexNames2 = List.of((List.of("A", "B", "C")), (List.of("A", "B", "D", "B", "C")), (List.of("A", "B", "D", "B", "D", "B", "C")));
+
+        assertEquals(flowGraphVertexNames2, expectedVertexNames2);
     }
 
     @Test

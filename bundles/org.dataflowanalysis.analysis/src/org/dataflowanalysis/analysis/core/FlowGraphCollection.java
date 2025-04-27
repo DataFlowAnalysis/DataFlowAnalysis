@@ -74,6 +74,7 @@ public abstract class FlowGraphCollection {
     public void evaluate() {
         this.transposeFlowGraphs = this.getTransposeFlowGraphs()
                 .stream()
+                .parallel()
                 .map(AbstractTransposeFlowGraph::evaluate)
                 .toList();
     }

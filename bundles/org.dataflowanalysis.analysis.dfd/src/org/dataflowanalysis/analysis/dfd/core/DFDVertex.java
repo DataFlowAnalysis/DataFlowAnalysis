@@ -154,23 +154,23 @@ public class DFDVertex extends AbstractVertex<Node> {
             outputPinsOutgoingLabelMap.get(forwardingAssignment.getOutputPin())
                     .addAll(incomingLabels);
             return;
-        } else if (abstractAssignment instanceof SetAssignment setAssignment) {
-            outputPinsOutgoingLabelMap.get(abstractAssignment.getOutputPin())
-                    .addAll(setAssignment.getOutputLabels());
-            return;
-        } else if (abstractAssignment instanceof UnsetAssignment unsetAssignment) {
-            outputPinsOutgoingLabelMap.get(abstractAssignment.getOutputPin())
-                    .removeAll(unsetAssignment.getOutputLabels());
-            return;
+        }else if (abstractAssignment instanceof SetAssignment setAssignment) {
+        	outputPinsOutgoingLabelMap.get(abstractAssignment.getOutputPin())
+            .addAll(setAssignment.getOutputLabels());
+        	return;
+        }else if (abstractAssignment instanceof UnsetAssignment unsetAssignment) {
+        	outputPinsOutgoingLabelMap.get(abstractAssignment.getOutputPin())
+            .removeAll(unsetAssignment.getOutputLabels());
+        	return;
         } else if (abstractAssignment instanceof Assignment assignment) {
-            if (evaluateTerm(assignment.getTerm(), incomingLabels)) {
-                outputPinsOutgoingLabelMap.get(assignment.getOutputPin())
-                        .addAll(assignment.getOutputLabels());
-            } else
-                outputPinsOutgoingLabelMap.get(abstractAssignment.getOutputPin())
-                        .removeAll(assignment.getOutputLabels());
+        	if (evaluateTerm(assignment.getTerm(), incomingLabels)) {
+            outputPinsOutgoingLabelMap.get(assignment.getOutputPin())
+                    .addAll(assignment.getOutputLabels());
+        	} else outputPinsOutgoingLabelMap.get(abstractAssignment.getOutputPin())
+            .removeAll(assignment.getOutputLabels());
         }
 
+        
     }
 
     /**
@@ -209,18 +209,17 @@ public class DFDVertex extends AbstractVertex<Node> {
      */
     private static List<Label> combineLabelsOnAllInputPins(AbstractAssignment abstractAssignment, Map<Pin, List<Label>> inputPinsIncomingLabelMap) {
         List<Label> allLabel = new ArrayList<>();
-        if (abstractAssignment instanceof SetAssignment || abstractAssignment instanceof UnsetAssignment)
-            return allLabel;
+        if (abstractAssignment instanceof SetAssignment || abstractAssignment instanceof UnsetAssignment) return allLabel;
         else if (abstractAssignment instanceof Assignment assignment) {
-            for (var inputPin : assignment.getInputPins()) {
-                allLabel.addAll(inputPinsIncomingLabelMap.getOrDefault(inputPin, new ArrayList<>()));
-            }
+        	for (var inputPin : assignment.getInputPins()) {
+        		allLabel.addAll(inputPinsIncomingLabelMap.getOrDefault(inputPin, new ArrayList<>()));
+        	}
         } else if (abstractAssignment instanceof ForwardingAssignment forwardingAssignment) {
-            for (var inputPin : forwardingAssignment.getInputPins()) {
-                allLabel.addAll(inputPinsIncomingLabelMap.getOrDefault(inputPin, new ArrayList<>()));
-            }
+        	for (var inputPin : forwardingAssignment.getInputPins()) {
+        		allLabel.addAll(inputPinsIncomingLabelMap.getOrDefault(inputPin, new ArrayList<>()));
+        	}
         }
-
+        
         return allLabel;
     }
 
@@ -267,71 +266,16 @@ public class DFDVertex extends AbstractVertex<Node> {
         return false;
     }
 
-    /**
-     * Goes through the previous vertices and replaces equal vertices by the same vertex
-     * @param vertices Set of unique vertices that are used to replace equal vertices
-     */
-    public void unify(Set<DFDVertex> vertices) {
-        for (var key : this.getPinDFDVertexMap()
-                .keySet()) {
-            for (var vertex : vertices) {
-                if (vertex.equals(this.getPinDFDVertexMap()
-                        .get(key))) {
-                    this.getPinDFDVertexMap()
-                            .put(key, vertex);
-                }
-            }
-            vertices.add(this.getPinDFDVertexMap()
-                    .get(key));
-        }
-        this.getPreviousElements()
-                .forEach(vertex -> ((DFDVertex) vertex).unify(vertices));
-    }
-
-    /**
-     * Creates a clone of the vertex without considering data characteristics nor vertex characteristics
-     */
-    public DFDVertex copy(Map<DFDVertex, DFDVertex> mapping) {
-        Map<Pin, DFDVertex> copiedPinDFDVertexMap = new HashMap<>();
-        this.pinDFDVertexMap.keySet()
-                .forEach(key -> {
-                    var oldVertex = this.pinDFDVertexMap.get(key);
-                    var newVertice = mapping.getOrDefault(oldVertex, this.pinDFDVertexMap.get(key)
-                            .copy(mapping));
-                    copiedPinDFDVertexMap.put(key, newVertice);
-                    mapping.putIfAbsent(oldVertex, newVertice);
-                });
-        return new DFDVertex(this.referencedElement, copiedPinDFDVertexMap, new HashMap<>(this.pinFlowMap));
-    }
-
     @Override
     public String toString() {
         return String.format("(%s, %s)", this.referencedElement.getEntityName(), this.referencedElement.getId());
     }
 
-    @Override
-    public boolean equals(Object other) {
-        if (super.equals(other))
-            return true;
-        if (!(other instanceof DFDVertex vertex))
-            return false;
-        if (!this.referencedElement.equals(vertex.getReferencedElement()))
-            return false;
-        for (var key : this.getPinDFDVertexMap()
-                .keySet()) {
-            if (!this.getPinDFDVertexMap()
-                    .get(key)
-                    .equals(vertex.getPinDFDVertexMap()
-                            .get(key)))
-                return false;
-        }
-        return true;
-    }
+    
 
     @Override
-    public List<AbstractVertex<?>> getPreviousElements() {
-        return (new HashSet<AbstractVertex<?>>(this.pinDFDVertexMap.values())).stream()
-                .toList();
+    public List<AbstractVertex<?>> getPreviousElements() {    	
+        return (new HashSet<AbstractVertex<?>>(this.pinDFDVertexMap.values())).stream().toList();
     }
 
     /**

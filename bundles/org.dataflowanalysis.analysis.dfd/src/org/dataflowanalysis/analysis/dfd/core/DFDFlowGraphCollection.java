@@ -14,6 +14,7 @@ import org.dataflowanalysis.analysis.resource.ResourceProvider;
  */
 public class DFDFlowGraphCollection extends FlowGraphCollection {
     private final Logger logger = Logger.getLogger(DFDFlowGraphCollection.class);
+    private int cycleDepth = 1;
 
     /**
      * Creates a new collection of flow graphs. {@link DFDFlowGraphCollection#initialize(ResourceProvider)} should be called
@@ -39,6 +40,7 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
     public void initialize(ResourceProvider resourceProvider, Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinderClass) {
         super.initialize(resourceProvider, transposeFlowGraphFinderClass);
     }
+    
 
     /**
      * Creates a new instance of a dfd flow graph with the given resource provider. Transpose flow graphs are determined via
@@ -47,6 +49,17 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
      */
     public DFDFlowGraphCollection(DFDResourceProvider resourceProvider, Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinderClass) {
         super();
+        super.initialize(resourceProvider, transposeFlowGraphFinderClass);
+    }
+    
+    /**
+     * Creates a new instance of a dfd flow graph with the given resource provider. Transpose flow graphs are determined via
+     * {@link DFDFlowGraphCollection#findTransposeFlowGraphs()}
+     * @param resourceProvider Resource provider that provides model files to the transpose flow graph finder
+     */
+    public DFDFlowGraphCollection(DFDResourceProvider resourceProvider, Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinderClass, int cycleDepth) {
+        super();
+        this.cycleDepth = cycleDepth;
         super.initialize(resourceProvider, transposeFlowGraphFinderClass);
     }
 
@@ -72,8 +85,10 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
 
         if (transposeFlowGraphFinderClass.equals(DFDSimpleTransposeFlowGraphFinder.class))
             this.transposeFlowGraphFinder = new DFDSimpleTransposeFlowGraphFinder(dfdResourceProvider);
-        else
+        else {
             this.transposeFlowGraphFinder = new DFDTransposeFlowGraphFinder(dfdResourceProvider);
+            if (cycleDepth != 1) ((DFDTransposeFlowGraphFinder)this.transposeFlowGraphFinder).setCycleDepth(cycleDepth);
+        }
 
         return transposeFlowGraphFinder.findTransposeFlowGraphs();
     }
@@ -87,4 +102,9 @@ public class DFDFlowGraphCollection extends FlowGraphCollection {
         }
         return false;
     }
+
+	public int getCycleDepth() {
+		return cycleDepth;
+	}
+    
 }

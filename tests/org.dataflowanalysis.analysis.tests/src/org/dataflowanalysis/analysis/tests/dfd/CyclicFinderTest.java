@@ -40,7 +40,7 @@ public class CyclicFinderTest {
         var expectedVertexNames = List.of((List.of("A", "B", "C")), (List.of("A", "B", "D", "B", "C")));
 
         assertEquals(flowGraphVertexNames, expectedVertexNames);
-        
+
         var flowGraph2 = analysis.findFlowGraphsWithCustomCycleDepth(2);
         List<List<String>> flowGraphVertexNames2 = new ArrayList<>();
 
@@ -53,7 +53,8 @@ public class CyclicFinderTest {
             }
             flowGraphVertexNames2.add(vertexNames);
         }
-        var expectedVertexNames2 = List.of((List.of("A", "B", "C")), (List.of("A", "B", "D", "B", "C")), (List.of("A", "B", "D", "B", "D", "B", "C")));
+        var expectedVertexNames2 = List.of((List.of("A", "B", "C")), (List.of("A", "B", "D", "B", "C")),
+                (List.of("A", "B", "D", "B", "D", "B", "C")));
 
         assertEquals(flowGraphVertexNames2, expectedVertexNames2);
     }

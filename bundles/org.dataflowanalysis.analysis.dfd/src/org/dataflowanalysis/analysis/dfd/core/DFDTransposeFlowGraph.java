@@ -3,10 +3,8 @@ package org.dataflowanalysis.analysis.dfd.core;
 import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.Map;
-
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
-
 import org.dataflowanalysis.dfd.datadictionary.Pin;
 
 /**
@@ -29,35 +27,36 @@ public class DFDTransposeFlowGraph extends AbstractTransposeFlowGraph {
      */
     @Override
     public AbstractTransposeFlowGraph evaluate() {
-        DFDVertex newSink = cloneSink((DFDVertex)super.sink, new HashMap<>());
+        DFDVertex newSink = cloneSink((DFDVertex) super.sink, new HashMap<>());
         newSink.evaluateDataFlow();
         return new DFDTransposeFlowGraph(newSink);
     }
 
     @Override
     public AbstractTransposeFlowGraph copy() {
-    	return this.copy(new IdentityHashMap<>());
+        return this.copy(new IdentityHashMap<>());
     }
-    
+
     public AbstractTransposeFlowGraph copy(Map<DFDVertex, DFDVertex> mapping) {
-        DFDVertex copiedSink = cloneSink((DFDVertex)super.sink, mapping);
+        DFDVertex copiedSink = cloneSink((DFDVertex) super.sink, mapping);
         return new DFDTransposeFlowGraph(copiedSink);
     }
-    
+
     private DFDVertex cloneSink(DFDVertex vertex, Map<DFDVertex, DFDVertex> mapping) {
-    	if (mapping.containsKey(vertex)) {
-    		var test = mapping.get(vertex);
-    		System.out.println(test);
-    		return test;
-    	} 
-    	
-    	var newMap = new IdentityHashMap<Pin, DFDVertex>();
-    	vertex.getPinDFDVertexMap().forEach((pin, v) -> {
-    		var newVertex = cloneSink(v, mapping);
-    		newMap.put(pin, newVertex);
-    		mapping.put(v, newVertex);
-    	});
-    	
-    	return new DFDVertex(vertex.getReferencedElement(), newMap, new IdentityHashMap<>(vertex.getPinFlowMap()));
+        if (mapping.containsKey(vertex)) {
+            var test = mapping.get(vertex);
+            System.out.println(test);
+            return test;
+        }
+
+        var newMap = new IdentityHashMap<Pin, DFDVertex>();
+        vertex.getPinDFDVertexMap()
+                .forEach((pin, v) -> {
+                    var newVertex = cloneSink(v, mapping);
+                    newMap.put(pin, newVertex);
+                    mapping.put(v, newVertex);
+                });
+
+        return new DFDVertex(vertex.getReferencedElement(), newMap, new IdentityHashMap<>(vertex.getPinFlowMap()));
     }
 }

@@ -1,12 +1,10 @@
 package org.dataflowanalysis.analysis.tests.dfd;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -48,44 +46,20 @@ public class MicroSecEndTest {
         var analysis = buildAnalysis(model);
         analysis.initializeAnalysis();
         var flowGraph = analysis.findFlowGraphs();
-        
-       /* flowGraph.evaluate();
 
-        assertFalse(flowGraph.getTransposeFlowGraphs()
-                .isEmpty());
-        Map<Integer, List<AbstractTransposeFlowGraph>> violatingTransposeFlowGraphs = new HashMap<>();
-        for (var transposeFlowGraph : flowGraph.getTransposeFlowGraphs()) {
-
-            hasLoggingServer(transposeFlowGraph, violatingTransposeFlowGraphs);
-
-            hasSecretManager(transposeFlowGraph, violatingTransposeFlowGraphs);
-
-            for (var vertex : transposeFlowGraph.getVertices()) {
-                hasGateway(violationsSet, variant, vertex);
-
-                hasAuthenticatedRerquest(violationsSet, variant, vertex);
-
-                hasOptionalAuthorizedEntrypoint(violationsSet, variant, vertex, flowGraph.getTransposeFlowGraphs());
-
-                hasTransformedEntryIdentity(violationsSet, variant, vertex);
-
-                hasTokenValidation(violationsSet, variant, vertex);
-
-                hasLoginAttemptsRegulation(violationsSet, variant, vertex);
-
-                hasEncryptedEntryConnection(violationsSet, variant, vertex);
-
-                hasEncrytedInternalConnection(violationsSet, variant, vertex);
-
-                hasLocalLogging(violationsSet, variant, vertex);
-
-                hasLogSanitization(violationsSet, variant, vertex);
-
-                hasOptionalMessageBroker(violationsSet, variant, vertex, flowGraph.getTransposeFlowGraphs());
-
-            }
-        }
-        checkCrossTransposeFlowGraphViolations(flowGraph, violatingTransposeFlowGraphs, violationsSet);
+        /*
+         * flowGraph.evaluate(); assertFalse(flowGraph.getTransposeFlowGraphs() .isEmpty()); Map<Integer,
+         * List<AbstractTransposeFlowGraph>> violatingTransposeFlowGraphs = new HashMap<>(); for (var transposeFlowGraph :
+         * flowGraph.getTransposeFlowGraphs()) { hasLoggingServer(transposeFlowGraph, violatingTransposeFlowGraphs);
+         * hasSecretManager(transposeFlowGraph, violatingTransposeFlowGraphs); for (var vertex :
+         * transposeFlowGraph.getVertices()) { hasGateway(violationsSet, variant, vertex);
+         * hasAuthenticatedRerquest(violationsSet, variant, vertex); hasOptionalAuthorizedEntrypoint(violationsSet, variant,
+         * vertex, flowGraph.getTransposeFlowGraphs()); hasTransformedEntryIdentity(violationsSet, variant, vertex);
+         * hasTokenValidation(violationsSet, variant, vertex); hasLoginAttemptsRegulation(violationsSet, variant, vertex);
+         * hasEncryptedEntryConnection(violationsSet, variant, vertex); hasEncrytedInternalConnection(violationsSet, variant,
+         * vertex); hasLocalLogging(violationsSet, variant, vertex); hasLogSanitization(violationsSet, variant, vertex);
+         * hasOptionalMessageBroker(violationsSet, variant, vertex, flowGraph.getTransposeFlowGraphs()); } }
+         * checkCrossTransposeFlowGraphViolations(flowGraph, violatingTransposeFlowGraphs, violationsSet);
          */
     }
 
@@ -97,10 +71,11 @@ public class MicroSecEndTest {
             for (int variant : tuhhModels.get(model)) {
                 Set<Integer> violationSet = new TreeSet<Integer>();
                 String variationName = model + "_" + variant;
-                performAnalysis(Paths.get(location, model, variationName).toString(), variant, violationSet);
+                performAnalysis(Paths.get(location, model, variationName)
+                        .toString(), variant, violationSet);
                 logger.info("Variant: " + variationName);
                 logger.info("Violations: " + violationSet);
-                //assertFalse(violationSet.contains(variant));
+                // assertFalse(violationSet.contains(variant));
             }
         }
     }

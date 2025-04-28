@@ -139,6 +139,7 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
      */
     private boolean loadRequiredModels() {
         try {
+            this.resourceProvider.setupResources();
             this.resourceProvider.loadRequiredResources();
             this.resourceProvider.validate();
 

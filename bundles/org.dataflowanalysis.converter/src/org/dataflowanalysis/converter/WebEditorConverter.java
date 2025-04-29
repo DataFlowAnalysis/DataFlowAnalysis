@@ -254,21 +254,21 @@ public class WebEditorConverter extends Converter {
                 if (behaviorString.startsWith("forward")) {
                     var assignment = ddFactory.createForwardingAssignment();
                     var inPins = getInPinsFromString(behaviorString.replaceFirst("forward ", "")
-                    		.trim(), node, dfd);
+                            .trim(), node, dfd);
                     assignment.getInputPins()
                             .addAll(inPins);
                     abstractAssignment = assignment;
                 } else if (behaviorString.startsWith("set")) {
                     var assignment = ddFactory.createSetAssignment();
                     var outLabels = getLabelFromString(behaviorString.replaceFirst("set ", "")
-                    		.trim(), dd);
+                            .trim(), dd);
                     assignment.getOutputLabels()
                             .addAll(outLabels);
                     abstractAssignment = assignment;
                 } else if (behaviorString.startsWith("unset")) {
                     var assignment = ddFactory.createUnsetAssignment();
                     var outLabels = getLabelFromString(behaviorString.replaceFirst("unset ", "")
-                    		.trim(), dd);
+                            .trim(), dd);
                     assignment.getOutputLabels()
                             .addAll(outLabels);
                     abstractAssignment = assignment;

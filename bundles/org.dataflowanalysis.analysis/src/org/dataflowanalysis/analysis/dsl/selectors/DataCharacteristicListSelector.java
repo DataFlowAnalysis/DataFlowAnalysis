@@ -94,9 +94,10 @@ public class DataCharacteristicListSelector extends DataSelector {
             string.advance(DSL_INVERTED_SYMBOL.length());
         List<CharacteristicsSelectorData> selectors = new ArrayList<>();
         ParseResult<CharacteristicsSelectorData> selectorData = CharacteristicsSelectorData.fromString(string);
-        while (selectorData.successful() && !(string.startsWith(" ") || string.getString()
-                .isEmpty())) {
+        if (selectorData.successful()) {
             selectors.add(selectorData.getResult());
+        }
+        while (!(string.startsWith(" ") || string.getString().isEmpty())) {
             if (!string.startsWith(DSL_DELIMITER)) {
                 if (inverted)
                     string.retreat(DSL_INVERTED_SYMBOL.length());
@@ -104,6 +105,11 @@ public class DataCharacteristicListSelector extends DataSelector {
             }
             string.advance(DSL_DELIMITER.length());
             selectorData = CharacteristicsSelectorData.fromString(string);
+            if (selectorData.successful()) {
+                selectors.add(selectorData.getResult());
+            } else {
+                break;
+            }
         }
         if (selectorData.failed()) {
             if (inverted)

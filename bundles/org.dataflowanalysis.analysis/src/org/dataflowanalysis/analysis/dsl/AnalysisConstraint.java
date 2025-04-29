@@ -143,14 +143,8 @@ public class AnalysisConstraint {
     @Override
     public String toString() {
         StringJoiner dslString = new StringJoiner(" ");
-        if (!this.dataSourceSelectors.getSelectors()
-                .isEmpty()) {
-            dslString.add(this.dataSourceSelectors.toString());
-        }
-        if (!this.vertexSourceSelectors.getSelectors()
-                .isEmpty()) {
-            dslString.add(this.vertexSourceSelectors.toString());
-        }
+        SourceSelectors sourceSelectors = new SourceSelectors(this.dataSourceSelectors, this.vertexSourceSelectors);
+        dslString.add(sourceSelectors.toString());
         dslString.add(DSL_KEYWORD);
         if (!this.vertexDestinationSelectors.getSelectors()
                 .isEmpty()) {
@@ -180,16 +174,12 @@ public class AnalysisConstraint {
      */
     public static ParseResult<AnalysisConstraint> fromString(StringView string, DSLContextProvider contextProvider) {
         DSLContext context = new DSLContext(contextProvider);
-        var sourceSelectors = parseSourceSelector(string, context);
+        var sourceSelectors = SourceSelectors.fromString(string, context);
         if (sourceSelectors.failed()) {
             return ParseResult.error(sourceSelectors.getError());
         }
-        DataSourceSelectors dataSourceSelectors = sourceSelectors.getResult()
-                .getDataSourceSelectors()
-                .orElse(new DataSourceSelectors());
-        VertexSourceSelectors vertexSourceSelectors = sourceSelectors.getResult()
-                .getNodeSourceSelectors()
-                .orElse(new VertexSourceSelectors());
+        DataSourceSelectors dataSourceSelectors = sourceSelectors.getResult().getDataSourceSelectors().orElse(new DataSourceSelectors());
+        VertexSourceSelectors vertexSourceSelectors = sourceSelectors.getResult().getVertexSourceSelectors().orElse(new VertexSourceSelectors());
 
         if (!string.startsWith(DSL_KEYWORD)) {
             return string.expect(DSL_KEYWORD);
@@ -211,34 +201,5 @@ public class AnalysisConstraint {
 
         return ParseResult
                 .ok(new AnalysisConstraint(vertexSourceSelectors, dataSourceSelectors, vertexDestinationSelectors, conditionalSelectors, context));
-    }
-
-    /**
-     * Parses the source selector part of an {@link AnalysisConstraint}. It contains both {@link DataSourceSelectors} and
-     * {@link VertexSourceSelectors}
-     * @param string String view on the string that is parsed
-     * @param context DSL context used during parsing
-     * @return Returns a {@link ParseResult} that may contain the {@link SourceSelectors} of the {@link AnalysisConstraint}
-     */
-    private static ParseResult<SourceSelectors> parseSourceSelector(StringView string, DSLContext context) {
-        ParseResult<DataSourceSelectors> dataSourceSelector = DataSourceSelectors.fromString(string, context);
-        ParseResult<VertexSourceSelectors> nodeSourceSelector;
-        if (dataSourceSelector.successful()) {
-            nodeSourceSelector = VertexSourceSelectors.fromString(string, context);
-        } else {
-            nodeSourceSelector = VertexSourceSelectors.fromString(string, context);
-            if (nodeSourceSelector.successful())
-                dataSourceSelector = DataSourceSelectors.fromString(string, context);
-        }
-
-        if (nodeSourceSelector.successful() && dataSourceSelector.successful()) {
-            return ParseResult.ok(new SourceSelectors(dataSourceSelector.getResult(), nodeSourceSelector.getResult()));
-        } else if (dataSourceSelector.successful()) {
-            return ParseResult.ok(new SourceSelectors(dataSourceSelector.getResult()));
-        } else if (nodeSourceSelector.successful()) {
-            return ParseResult.ok(new SourceSelectors(nodeSourceSelector.getResult()));
-        } else {
-            return ParseResult.error("Could not parse source selectors");
-        }
     }
 }

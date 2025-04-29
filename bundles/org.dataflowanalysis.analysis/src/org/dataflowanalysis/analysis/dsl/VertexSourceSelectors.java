@@ -66,6 +66,7 @@ public class VertexSourceSelectors extends AbstractParseable {
         }
         string.advance(DSL_KEYWORD.length() + 1);
         if (string.invalid()) {
+            string.retreat(DSL_KEYWORD.length() + 1);
             return ParseResult.error("Unexpected end of input!");
         }
         logger.info("Parsing: " + string.getString());
@@ -85,6 +86,7 @@ public class VertexSourceSelectors extends AbstractParseable {
             break;
         }
         if (selectors.isEmpty()) {
+            string.retreat(DSL_KEYWORD.length() + 1);
             return ParseResult.error("Keyword " + DSL_KEYWORD + " is missing any selectors!");
         }
         VertexSourceSelectors vertexSourceSelectors = new VertexSourceSelectors(selectors);

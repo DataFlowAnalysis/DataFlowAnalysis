@@ -16,20 +16,21 @@ public class DataCharacteristicListSelectorTest {
 
     @ParameterizedTest
     @MethodSource("correctDataCharacteristicSelectors")
-    public void shouldParseCorrectly(String variableReference, boolean inverted) {
-        ParseResult<DataCharacteristicListSelector> dataCharacteristicsSelector = DataCharacteristicListSelector
-                .fromString(new StringView(variableReference), new DSLContext());
+    public void shouldParseCorrectly(String dataCharacteristicsSelectorString, boolean inverted) {
+        StringView stringView = new StringView(dataCharacteristicsSelectorString);
+        ParseResult<DataCharacteristicListSelector> dataCharacteristicsSelector = DataCharacteristicListSelector.fromString(stringView, new DSLContext());
         assertTrue(dataCharacteristicsSelector.successful());
-        assertEquals(inverted, dataCharacteristicsSelector.getResult()
-                .isInverted());
+        assertTrue(stringView.empty());
+        assertEquals(inverted, dataCharacteristicsSelector.getResult().isInverted());
+        assertEquals(dataCharacteristicsSelectorString, dataCharacteristicsSelector.getResult().toString());
     }
 
     @ParameterizedTest
     @MethodSource("incorrectDataCharacteristicSelectors")
-    public void shouldNotParse(String variableReference) {
-        ParseResult<DataCharacteristicListSelector> dataCharacteristicsSelector = DataCharacteristicListSelector
-                .fromString(new StringView(variableReference), new DSLContext());
-        assertTrue(dataCharacteristicsSelector.failed());
+    public void shouldNotParse(String dataCharacteristicsSelectorString) {
+        StringView stringView = new StringView(dataCharacteristicsSelectorString);
+        ParseResult<DataCharacteristicListSelector> dataCharacteristicsSelector = DataCharacteristicListSelector.fromString(stringView, new DSLContext());
+        assertTrue(dataCharacteristicsSelector.failed() || !stringView.empty());
     }
 
     private static Stream<Arguments> correctDataCharacteristicSelectors() {

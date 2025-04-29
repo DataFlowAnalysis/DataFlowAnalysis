@@ -15,9 +15,11 @@ public class VertexSourceSelectorTest {
     @ParameterizedTest
     @MethodSource("correctVertexSourceSelectors")
     public void shouldParseCorrectly(String vertexSourceSelectorString) {
-        ParseResult<VertexSourceSelectors> vertexSourceSelectors = VertexSourceSelectors.fromString(new StringView(vertexSourceSelectorString),
-                new DSLContext());
+        StringView stringView = new StringView(vertexSourceSelectorString);
+        ParseResult<VertexSourceSelectors> vertexSourceSelectors = VertexSourceSelectors.fromString(stringView, new DSLContext());
         assertTrue(vertexSourceSelectors.successful());
+        assertTrue(stringView.empty());
+        assertEquals(vertexSourceSelectorString, vertexSourceSelectors.getResult().toString());
     }
 
     @ParameterizedTest

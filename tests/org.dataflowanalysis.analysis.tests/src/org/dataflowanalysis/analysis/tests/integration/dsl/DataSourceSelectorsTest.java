@@ -15,9 +15,11 @@ public class DataSourceSelectorsTest {
     @ParameterizedTest
     @MethodSource("correctDataSourceSelectors")
     public void shouldParseCorrectly(String dataSourceSelectorString) {
-        ParseResult<DataSourceSelectors> dataSourceSelectors = DataSourceSelectors.fromString(new StringView(dataSourceSelectorString),
-                new DSLContext());
+        StringView stringView = new StringView(dataSourceSelectorString);
+        ParseResult<DataSourceSelectors> dataSourceSelectors = DataSourceSelectors.fromString(stringView, new DSLContext());
         assertTrue(dataSourceSelectors.successful());
+        assertTrue(stringView.empty());
+        assertEquals(dataSourceSelectors, dataSourceSelectors.getResult().toString());
     }
 
     @ParameterizedTest

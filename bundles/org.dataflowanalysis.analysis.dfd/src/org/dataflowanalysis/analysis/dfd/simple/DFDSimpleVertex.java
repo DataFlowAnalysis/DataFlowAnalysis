@@ -127,10 +127,10 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
                 .collect(Collectors.toSet());
 
         var outPin = abstractAssignment.getOutputPin();
-        if (outPin == null)
+        if (outPin == null) {
             return;
-        if (outgoingLabelPerPin.get(outPin) == null)
-            outgoingLabelPerPin.put(outPin, new HashSet<>());
+        }
+        outgoingLabelPerPin.computeIfAbsent(outPin, k -> new LinkedHashSet<>());
 
         if (abstractAssignment instanceof ForwardingAssignment forwardingAssignment) {
             outgoingLabelPerPin.get(forwardingAssignment.getOutputPin())

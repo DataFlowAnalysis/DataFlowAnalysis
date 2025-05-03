@@ -309,7 +309,7 @@ public class PCM2DFDConverter extends Converter {
         flow.setSourceNode(sourceNode);
         flow.setDestinationPin(inPin);
         flow.setSourcePin(outPin);
-        flow.setEntityName("");
+        flow.setEntityName("~");
         dataFlowDiagram.getFlows()
                 .add(flow);
 

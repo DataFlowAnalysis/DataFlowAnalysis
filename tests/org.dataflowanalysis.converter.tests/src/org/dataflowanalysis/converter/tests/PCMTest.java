@@ -56,7 +56,7 @@ public class PCMTest extends ConverterTest {
     @Test
     @DisplayName("Test PCM2DFD MaaS")
     public void maasToDfd() {
-        testSpecificModel("MaaS_Ticket_System_base", "MaaS", TEST_MODELS, "maas.json", this::maasCondition);
+        testSpecificModel("MaaSTicketSystem", "MaaS", TEST_MODELS, "maas.json", this::maasCondition);
     }
 
     @Test
@@ -68,11 +68,11 @@ public class PCMTest extends ConverterTest {
     @Test
     @DisplayName("Test PCM2DFD TravelPlanner Behavior")
     public void testTravelPlannerBehavior() {
-        final var usageModelPath = Paths.get("casestudies", "TravelPlanner", "travelPlanner.usagemodel")
+        final var usageModelPath = Paths.get("scenarios", "pcm", "TravelPlanner", "travelPlanner.usagemodel")
                 .toString();
-        final var allocationPath = Paths.get("casestudies", "TravelPlanner", "travelPlanner.allocation")
+        final var allocationPath = Paths.get("scenarios", "pcm", "TravelPlanner", "travelPlanner.allocation")
                 .toString();
-        final var nodeCharPath = Paths.get("casestudies", "TravelPlanner", "travelPlanner.nodecharacteristics")
+        final var nodeCharPath = Paths.get("scenarios", "pcm", "TravelPlanner", "travelPlanner.nodecharacteristics")
                 .toString();
 
         DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
@@ -163,11 +163,11 @@ public class PCMTest extends ConverterTest {
 
     private void testSpecificModel(String inputModel, String inputFile, String modelLocation, String webTarget,
             Predicate<AbstractVertex<?>> constraint) {
-        final var usageModelPath = Paths.get("casestudies", inputModel, inputFile + ".usagemodel")
+        final var usageModelPath = Paths.get("scenarios", "pcm", inputModel, inputFile + ".usagemodel")
                 .toString();
-        final var allocationPath = Paths.get("casestudies", inputModel, inputFile + ".allocation")
+        final var allocationPath = Paths.get("scenarios", "pcm", inputModel, inputFile + ".allocation")
                 .toString();
-        final var nodeCharPath = Paths.get("casestudies", inputModel, inputFile + ".nodecharacteristics")
+        final var nodeCharPath = Paths.get("scenarios", "pcm", inputModel, inputFile + ".nodecharacteristics")
                 .toString();
 
         DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
@@ -433,8 +433,8 @@ public class PCMTest extends ConverterTest {
     }
 
     private static Stream<Arguments> getPCMModels() {
-        return Stream.of(Arguments.of(TEST_MODELS, "casestudies/CoCarNextGen_Base/AudiA6C8_base.usagemodel",
-                "casestudies/CoCarNextGen_Base/AudiA6C8_base.allocation", "casestudies/CoCarNextGen_Base/AudiA6C8_base.nodecharacteristics",
+        return Stream.of(Arguments.of(TEST_MODELS, "scenarios/pcm/CoCarNextGen/AudiA6C8.usagemodel",
+                "scenarios/pcm/CoCarNextGen/AudiA6C8.allocation", "scenarios/pcm/CoCarNextGen/AudiA6C8.nodecharacteristics",
                 Activator.class));
     }
 

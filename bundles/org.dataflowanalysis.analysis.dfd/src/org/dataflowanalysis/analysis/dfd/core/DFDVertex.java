@@ -203,7 +203,7 @@ public class DFDVertex extends AbstractVertex<Node> {
 
     /**
      * Combines all Incoming Labels from relevant input pins
-     * @param assignment Assignment to determine relevant input pins
+     * @param abstractAssignment Assignment to determine relevant input pins
      * @param inputPinsIncomingLabelMap Maps all input pins to all incoming labels
      * @return List of relevant labels
      */

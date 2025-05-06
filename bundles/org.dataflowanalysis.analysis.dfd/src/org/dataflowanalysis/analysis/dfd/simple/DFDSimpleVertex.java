@@ -2,7 +2,7 @@ package org.dataflowanalysis.analysis.dfd.simple;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -61,16 +61,13 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
         if (super.isEvaluated()) {
             return;
         }
-
-        previousVertices.forEach(it -> it.evaluateDataFlow());
+        
+        previousVertices.forEach(DFDSimpleVertex::evaluateDataFlow);
 
         List<CharacteristicValue> vertexCharacteristics = determineNodeCharacteristics();
 
-        List<DataCharacteristic> incomingCharacteristics = previousVertices.stream()
-                .map(it -> it.getAllOutgoingDataCharacteristics())
-                .flatMap(List::stream)
-                .collect(Collectors.toList());
-
+        List<DataCharacteristic> incomingCharacteristics = previousVertices.stream().map(AbstractVertex::getAllOutgoingDataCharacteristics).flatMap(List::stream).collect(Collectors.toList());
+        
         Map<Pin, Set<Label>> outgoingLabelPerPin = new HashMap<>();
         referencedElement.getBehavior()
                 .getAssignment()
@@ -95,7 +92,7 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
 
     /**
      * Calculates outgoing labels for assignment and adds them into mapOutputPinToOutgoingLabels
-     * @param assignment Assignment to be evaluated
+     * @param abstractAssignment Assignment to be evaluated
      * @param incomingDataCharacteristics incoming characteristics as list
      * @param outgoingLabelPerPin Maps Output Pins to Outgoing Labels, to be filled by method
      */
@@ -129,10 +126,10 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
                 .collect(Collectors.toSet());
 
         var outPin = abstractAssignment.getOutputPin();
-        if (outPin == null)
+        if (outPin == null) {
             return;
-        if (outgoingLabelPerPin.get(outPin) == null)
-            outgoingLabelPerPin.put(outPin, new HashSet<>());
+        }
+        outgoingLabelPerPin.computeIfAbsent(outPin, k -> new LinkedHashSet<>());
 
         if (abstractAssignment instanceof ForwardingAssignment forwardingAssignment) {
             outgoingLabelPerPin.get(forwardingAssignment.getOutputPin())
@@ -178,12 +175,12 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
      * @param pinToLabelMap Mapping of a pin to the assigned labels
      * @return Returns a list of characteristic values assigned to the given pin
      */
-    private Set<CharacteristicValue> getCharacteristicValuesForPin(Pin pin, Map<Pin, Set<Label>> pinToLabelMap) {
+    private List<CharacteristicValue> getCharacteristicValuesForPin(Pin pin, Map<Pin, Set<Label>> pinToLabelMap) {
         return pinToLabelMap.get(pin)
                 .stream()
                 .map(label -> new DFDCharacteristicValue((LabelType) label.eContainer(), label))
                 .filter(distinctByKey(CharacteristicValue::getValueId))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
     /**
@@ -256,7 +253,7 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
      * Creates a clone of the vertex without considering data characteristics nor vertex characteristics
      */
     public DFDSimpleVertex copy(Map<DFDSimpleVertex, DFDSimpleVertex> mapping) {
-        Set<DFDSimpleVertex> previousVerticesNew = new HashSet<>();
+        Set<DFDSimpleVertex> previousVerticesNew = new LinkedHashSet<>();
         this.previousVertices.forEach(it -> {
             var newVertice = mapping.getOrDefault(it, it.copy(mapping));
             previousVerticesNew.add(newVertice);
@@ -275,6 +272,15 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
         return previousVertices.stream()
                 .map(it -> (AbstractVertex<Node>) it)
                 .toList();
+    }
+    
+    public boolean equalsSemantically(DFDSimpleVertex other) {
+    	if (this.equals(other)) return true;
+    	if (!this.mapPinToFlow.equals(other.getPinFlowMap())) return false;
+    	if (this.previousVertices.size() == 0 && other.previousVertices.size() == 0) return true;
+    	return this.previousVertices.stream().allMatch(previousVertex -> {
+    		return other.getPreviousElements().stream().map(DFDSimpleVertex.class::cast).anyMatch(it -> it.equalsSemantically(previousVertex));
+    	});
     }
 
     /**

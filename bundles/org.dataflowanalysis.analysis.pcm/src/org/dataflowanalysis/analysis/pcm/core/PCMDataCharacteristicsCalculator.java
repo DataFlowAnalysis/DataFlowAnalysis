@@ -14,6 +14,7 @@ import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionar
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Literal;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.expressions.And;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.expressions.False;
+import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.expressions.Not;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.expressions.Or;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.expressions.Term;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.expressions.True;
@@ -50,7 +51,9 @@ public class PCMDataCharacteristicsCalculator {
      */
     private void createNodeCharacteristicsContainer(List<CharacteristicValue> vertexCharacteristics) {
         DataCharacteristic vertexCharacteristicsContainer = new DataCharacteristic("container");
-        vertexCharacteristics.forEach(vertexCharacteristicsContainer::addCharacteristic);
+        for (CharacteristicValue vertexCharacteristic : vertexCharacteristics) {
+            vertexCharacteristicsContainer = vertexCharacteristicsContainer.addCharacteristic(vertexCharacteristic);
+        }
         this.currentVariables.add(vertexCharacteristicsContainer);
     }
 
@@ -72,6 +75,9 @@ public class PCMDataCharacteristicsCalculator {
 
         AbstractNamedReference reference = variableCharacterisation.getVariableUsage_VariableCharacterisation()
                 .getNamedReference__VariableUsage();
+        if (reference.getReferenceName().isBlank()) {
+            throw new IllegalArgumentException("Variable Name may not be null!");
+        }
         DataCharacteristic existingCharacteristic = this.getDataCharacteristicByReference(reference)
                 .orElse(new DataCharacteristic(reference.getReferenceName()));
 
@@ -178,6 +184,8 @@ public class PCMDataCharacteristicsCalculator {
             return evaluateTerm(andTerm.getLeft(), characteristicValue) && evaluateTerm(andTerm.getRight(), characteristicValue);
         } else if (term instanceof Or orTerm) {
             return evaluateTerm(orTerm.getLeft(), characteristicValue) || evaluateTerm(orTerm.getRight(), characteristicValue);
+        } else if(term instanceof Not notTerm) {
+            return !evaluateTerm(notTerm.getTerm(), characteristicValue);
         } else {
             throw new IllegalArgumentException("Unknown type: " + term.getClass()
                     .getName());
@@ -191,6 +199,9 @@ public class PCMDataCharacteristicsCalculator {
      * @return Returns, whether the characteristic reference evaluates to true or false (or is undefined)
      */
     private boolean evaluateNamedReference(NamedEnumCharacteristicReference characteristicReference, CharacteristicValue characteristicValue) {
+        if(characteristicReference.getNamedReference().getReferenceName().isBlank()) {
+            throw new IllegalArgumentException("Variable Name in right hand side of StoEx may not be blank!");
+        }
         var optionalDataCharacteristic = getDataCharacteristicByReference(characteristicReference.getNamedReference());
         if (optionalDataCharacteristic.isEmpty()) {
             return false;

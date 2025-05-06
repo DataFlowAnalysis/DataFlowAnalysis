@@ -1,9 +1,6 @@
 package org.dataflowanalysis.analysis.core;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 
@@ -157,37 +154,6 @@ public abstract class AbstractVertex<T> {
     }
 
     /**
-     * Returns a list of data characteristics with the given name
-     * <p>
-     * See {@link AbstractVertex#getVertexCharacteristics(String)} for a similar method for vertex characteristics
-     * @param requiredDataCharacteristicName Name of the data characteristic
-     * @return Returns a list of all data characteristics with the given name
-     */
-    public List<DataCharacteristic> getDataCharacteristics(String requiredDataCharacteristicName) {
-        return this.getAllIncomingDataCharacteristics()
-                .stream()
-                .filter(it -> it.getVariableName()
-                        .equals(requiredDataCharacteristicName))
-                .collect(Collectors.toList());
-    }
-
-    /**
-     * Returns a list of data characteristic names with the given required data characteristic name
-     * <p>
-     * See {@link AbstractVertex#getVertexCharacteristicNames(String)} for a similar method for vertex characteristics
-     * @param requiredDataCharacteristicName Name of the data characteristic
-     * @return Returns a list of all data characteristics with the given name
-     */
-    public List<String> getDataCharacteristicNames(String requiredDataCharacteristicName) {
-        return this.getAllIncomingDataCharacteristics()
-                .stream()
-                .filter(it -> it.getVariableName()
-                        .equals(requiredDataCharacteristicName))
-                .map(DataCharacteristic::variableName)
-                .collect(Collectors.toList());
-    }
-
-    /**
      * Returns a map containing the characteristic values with the given characteristic type for each data characteristic
      * <p>
      * To get the characteristic value names for the data characteristics use
@@ -242,7 +208,7 @@ public abstract class AbstractVertex<T> {
      * @return a comma separated list of the format: "CharacteristicType.CharacteristicLiteral,
      * CharacteristicType.CharacteristicLiteral"
      */
-    public String createPrintableCharacteristicsList(List<CharacteristicValue> characteristics) {
+    private String createPrintableCharacteristicsList(List<CharacteristicValue> characteristics) {
         List<String> entries = characteristics.stream()
                 .map(it -> String.format("%s.%s", it.getTypeName(), it.getValueName()))
                 .toList();

@@ -1,35 +1,74 @@
 package org.dataflowanalysis.analysis.dsl;
 
+import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.utils.ParseResult;
+import org.dataflowanalysis.analysis.utils.StringView;
+
 import java.util.Optional;
+import java.util.StringJoiner;
 
 /**
  * Contains the {@link SourceSelectors} of an {@link AnalysisConstraint}. It stores {@link DataSourceSelectors} and
  * {@link VertexSourceSelectors} that describe the origin of the flow
  */
-public final class SourceSelectors {
+public final class SourceSelectors extends AbstractParseable {
     private final Optional<DataSourceSelectors> dataSourceSelectors;
-    private final Optional<VertexSourceSelectors> nodeSourceSelectors;
+    private final Optional<VertexSourceSelectors> vertexSourceSelectors;
 
     public SourceSelectors(DataSourceSelectors dataSourceSelectors, VertexSourceSelectors vertexSourceSelectors) {
         this.dataSourceSelectors = Optional.of(dataSourceSelectors);
-        this.nodeSourceSelectors = Optional.of(vertexSourceSelectors);
+        this.vertexSourceSelectors = Optional.of(vertexSourceSelectors);
     }
 
     public SourceSelectors(DataSourceSelectors dataSourceSelectors) {
         this.dataSourceSelectors = Optional.of(dataSourceSelectors);
-        this.nodeSourceSelectors = Optional.empty();
+        this.vertexSourceSelectors = Optional.empty();
     }
 
     public SourceSelectors(VertexSourceSelectors vertexSourceSelectors) {
         this.dataSourceSelectors = Optional.empty();
-        this.nodeSourceSelectors = Optional.of(vertexSourceSelectors);
+        this.vertexSourceSelectors = Optional.of(vertexSourceSelectors);
     }
 
     public Optional<DataSourceSelectors> getDataSourceSelectors() {
         return dataSourceSelectors;
     }
 
-    public Optional<VertexSourceSelectors> getNodeSourceSelectors() {
-        return nodeSourceSelectors;
+    public Optional<VertexSourceSelectors> getVertexSourceSelectors() {
+        return vertexSourceSelectors;
+    }
+
+    public static ParseResult<SourceSelectors> fromString(StringView string, DSLContext context) {
+        ParseResult<DataSourceSelectors> dataSourceSelector = DataSourceSelectors.fromString(string, context);
+        ParseResult<VertexSourceSelectors> nodeSourceSelector;
+        if (dataSourceSelector.successful()) {
+            nodeSourceSelector = VertexSourceSelectors.fromString(string, context);
+        } else {
+            nodeSourceSelector = VertexSourceSelectors.fromString(string, context);
+            if (nodeSourceSelector.successful())
+                dataSourceSelector = DataSourceSelectors.fromString(string, context);
+        }
+
+        if (nodeSourceSelector.successful() && dataSourceSelector.successful()) {
+            return ParseResult.ok(new SourceSelectors(dataSourceSelector.getResult(), nodeSourceSelector.getResult()));
+        } else if(dataSourceSelector.successful()) {
+            return ParseResult.ok(new SourceSelectors(dataSourceSelector.getResult()));
+        } else if (nodeSourceSelector.successful()) {
+            return ParseResult.ok(new SourceSelectors(nodeSourceSelector.getResult()));
+        } else {
+            return ParseResult.error("Could not parse source selectors");
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringJoiner dslString = new StringJoiner(" ");
+        if (this.dataSourceSelectors.isPresent() && !this.dataSourceSelectors.get().getSelectors().isEmpty()) {
+            dslString.add(this.dataSourceSelectors.get().toString());
+        }
+        if (this.vertexSourceSelectors.isPresent() && !this.vertexSourceSelectors.get().getSelectors().isEmpty()) {
+            dslString.add(this.vertexSourceSelectors.get().toString());
+        }
+        return dslString.toString();
     }
 }

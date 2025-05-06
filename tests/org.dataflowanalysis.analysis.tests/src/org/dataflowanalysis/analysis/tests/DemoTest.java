@@ -1,6 +1,6 @@
 package org.dataflowanalysis.analysis.tests;
 
-import static org.dataflowanalysis.analysis.tests.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
+import static org.dataflowanalysis.analysis.tests.integration.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,7 +21,7 @@ import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraphCollection;
-import org.dataflowanalysis.analysis.tests.constraint.ConstraintTest;
+import org.dataflowanalysis.analysis.tests.integration.constraint.ConstraintTest;
 import org.dataflowanalysis.examplemodels.Activator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -43,9 +43,9 @@ public class DemoTest {
 
     @BeforeAll
     public void initializePCMAnalysis() {
-        final Path usageModelPath = Paths.get("models", "InternationalOnlineShop", "default.usagemodel");
-        final Path allocationPath = Paths.get("models", "InternationalOnlineShop", "default.allocation");
-        final Path nodeCharacteristicsPath = Paths.get("models", "InternationalOnlineShop", "default.nodecharacteristics");
+        final Path usageModelPath = Paths.get("scenarios", "pcm", "InternationalOnlineShop", "default.usagemodel");
+        final Path allocationPath = Paths.get("scenarios", "pcm", "InternationalOnlineShop", "default.allocation");
+        final Path nodeCharacteristicsPath = Paths.get("scenarios", "pcm", "InternationalOnlineShop", "default.nodecharacteristics");
 
         pcmAnalysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)
@@ -59,8 +59,8 @@ public class DemoTest {
 
     @BeforeAll
     public void initializeDFDAnalysis() {
-        final Path dataFlowDiagramPath = Paths.get("models", "OnlineShopDFD", "onlineshop.dataflowdiagram");
-        final Path dataDictionaryPath = Paths.get("models", "OnlineShopDFD", "onlineshop.datadictionary");
+        final Path dataFlowDiagramPath = Paths.get("scenarios", "dfd", "OnlineShop", "default.dataflowdiagram");
+        final Path dataDictionaryPath = Paths.get("scenarios", "dfd", "OnlineShop", "default.datadictionary");
 
         dfdAnalysis = new DFDDataFlowAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)

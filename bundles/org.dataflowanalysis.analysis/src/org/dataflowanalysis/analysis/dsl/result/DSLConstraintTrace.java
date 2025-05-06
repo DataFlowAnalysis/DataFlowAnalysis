@@ -30,8 +30,9 @@ public class DSLConstraintTrace {
      * @param missingSelector Selector that has not been fulfilled by the vertex
      */
     public void addMissingSelector(AbstractVertex<?> key, AbstractSelector missingSelector) {
-        this.missingSelectors.getOrDefault(key, new ArrayList<>())
-                .add(missingSelector);
+        List<AbstractSelector> updatedValue = this.missingSelectors.getOrDefault(key, new ArrayList<>());
+        updatedValue.add(missingSelector);
+        this.missingSelectors.put(key, updatedValue);
     }
 
     /**
@@ -40,8 +41,9 @@ public class DSLConstraintTrace {
      * @param missingSelector Selector that has not been fulfilled by the vertex
      */
     public void addMissingConditionalSelector(AbstractVertex<?> key, ConditionalSelector missingSelector) {
-        this.missingConditionalSelectors.getOrDefault(key, new ArrayList<>())
-                .add(missingSelector);
+        List<ConditionalSelector> updatedValue = this.missingConditionalSelectors.getOrDefault(key, new ArrayList<>());
+        updatedValue.add(missingSelector);
+        this.missingConditionalSelectors.put(key, updatedValue);
     }
 
     /**

@@ -51,7 +51,6 @@ public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFind
 
         for (Node endNode : getEndNodes(dataFlowDiagram.getNodes())) {
             DFDSimpleVertex sink = determineSinks(endNode);
-            sink.unify(new HashSet<>());
             transposeFlowGraphs.add(new DFDSimpleTransposeFlowGraph(sink));
         }
         return transposeFlowGraphs;
@@ -132,6 +131,9 @@ public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFind
                         .anyMatch(it -> ((Assignment) it).getInputPins()
                                 .equals(node.getBehavior()
                                         .getInPin()))
+                || node.getBehavior()
+                    .getInPin()
+                    .size() == 0
                 || node.getBehavior()
                         .getOutPin()
                         .size() == 0;

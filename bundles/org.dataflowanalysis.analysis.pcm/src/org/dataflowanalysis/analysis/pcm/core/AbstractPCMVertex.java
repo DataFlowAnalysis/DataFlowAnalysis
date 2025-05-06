@@ -179,6 +179,7 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
         return context;
     }
 
+
     /**
      * Determines whether a vertex is equivalent to another vertex in the context of the PCM model
      * <p/>

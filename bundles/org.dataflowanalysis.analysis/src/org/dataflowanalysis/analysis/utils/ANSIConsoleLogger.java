@@ -49,21 +49,16 @@ public class ANSIConsoleLogger extends ConsoleAppender {
      * @param level Logging level of the message
      * @return Returns a string that colors the message according to it's level
      */
-    private String getColor(Level level) {
-        switch (level.toInt()) {
-            case Priority.FATAL_INT:
-                return FATAL_COLOR;
-            case Priority.ERROR_INT:
-                return ERROR_COLOR;
-            case Priority.WARN_INT:
-                return WARN_COLOR;
-            case Priority.INFO_INT:
-                return INFO_COLOR;
-            case Priority.DEBUG_INT:
-                return DEBUG_COLOR;
-            default:
-                return TRACE_COLOR;
-        }
+    private String getColor(Level level)
+    {
+        return switch (level.toInt()) {
+            case Priority.FATAL_INT -> FATAL_COLOR;
+            case Priority.ERROR_INT -> ERROR_COLOR;
+            case Priority.WARN_INT -> WARN_COLOR;
+            case Priority.INFO_INT -> INFO_COLOR;
+            case Priority.DEBUG_INT -> DEBUG_COLOR;
+            default -> TRACE_COLOR;
+        };
     }
 
 }

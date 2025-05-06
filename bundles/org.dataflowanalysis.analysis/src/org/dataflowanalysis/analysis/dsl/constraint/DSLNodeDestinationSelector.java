@@ -1,10 +1,13 @@
 package org.dataflowanalysis.analysis.dsl.constraint;
 
 import java.util.List;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.selectors.CharacteristicsSelectorData;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.VertexPredicateSelector;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
+import java.util.function.Predicate;
 
 /**
  * Represents the DSL object of a node destination selector
@@ -87,6 +90,18 @@ public class DSLNodeDestinationSelector {
                 analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
                         ConstraintVariableReference.ofConstant(List.of(characteristicValue))),
                 true)));
+        return this;
+    }
+
+    /**
+     * Match vertices that match the given predicate
+     * <p/>
+     * <b>Warning: This selector cannot be serialized into a string</b>
+     * @param predicate Given predicate the vertices must have
+     * @return DSL node selector to add more constraints
+     */
+    public DSLNodeDestinationSelector with(Predicate<AbstractVertex<?>> predicate) {
+        this.analysisConstraint.addNodeDestinationSelector(new VertexPredicateSelector(analysisConstraint.getContext(), predicate));
         return this;
     }
 

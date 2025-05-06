@@ -1,6 +1,5 @@
 package org.dataflowanalysis.analysis.dfd.simple;
 
-import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.Map;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;

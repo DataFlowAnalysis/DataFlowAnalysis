@@ -1,9 +1,7 @@
 package org.dataflowanalysis.analysis.tests.integration.dsl;
 
-import org.dataflowanalysis.analysis.dsl.DataSourceSelectors;
 import org.dataflowanalysis.analysis.dsl.SourceSelectors;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
-import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicListSelector;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 import org.junit.jupiter.params.ParameterizedTest;

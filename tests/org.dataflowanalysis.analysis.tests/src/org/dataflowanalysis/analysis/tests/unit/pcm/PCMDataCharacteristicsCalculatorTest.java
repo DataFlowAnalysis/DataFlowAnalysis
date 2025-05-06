@@ -2,11 +2,8 @@ package org.dataflowanalysis.analysis.tests.unit.pcm;
 
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
 import de.uka.ipd.sdq.stoex.StoexFactory;
-import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
-import org.dataflowanalysis.analysis.pcm.core.PCMCharacteristicValue;
 import org.dataflowanalysis.analysis.pcm.core.PCMDataCharacteristicsCalculator;
-import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.tests.unit.mock.CharacteristicsFactory;
 import org.dataflowanalysis.analysis.tests.unit.mock.DummyCharacteristicValue;
 import org.dataflowanalysis.analysis.tests.unit.mock.DummyResourceProvider;
@@ -27,12 +24,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.parameter.ParameterFactory;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
-import org.palladiosimulator.pcm.usagemodel.UsageModel;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;

@@ -33,6 +33,12 @@ import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * This dummy resource provider holds required resources to test different functionality from the data flow analysis.
+ * Elements can be created and modified via the member methods of this class.
+ * <p/>
+ * Model elements are stored in memory
+ */
 public class DummyResourceProvider extends PCMResourceProvider {
     private final PCMDataDictionary dataDictionary;
     private final Assignments assignments;

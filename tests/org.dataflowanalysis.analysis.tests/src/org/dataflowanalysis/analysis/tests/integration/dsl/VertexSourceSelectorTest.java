@@ -19,7 +19,8 @@ public class VertexSourceSelectorTest {
         ParseResult<VertexSourceSelectors> vertexSourceSelectors = VertexSourceSelectors.fromString(stringView, new DSLContext());
         assertTrue(vertexSourceSelectors.successful());
         assertTrue(stringView.empty());
-        assertEquals(vertexSourceSelectorString, vertexSourceSelectors.getResult().toString());
+        assertEquals(vertexSourceSelectorString, vertexSourceSelectors.getResult()
+                .toString());
     }
 
     @ParameterizedTest

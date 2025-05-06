@@ -61,13 +61,16 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
         if (super.isEvaluated()) {
             return;
         }
-        
+
         previousVertices.forEach(DFDSimpleVertex::evaluateDataFlow);
 
         List<CharacteristicValue> vertexCharacteristics = determineNodeCharacteristics();
 
-        List<DataCharacteristic> incomingCharacteristics = previousVertices.stream().map(AbstractVertex::getAllOutgoingDataCharacteristics).flatMap(List::stream).collect(Collectors.toList());
-        
+        List<DataCharacteristic> incomingCharacteristics = previousVertices.stream()
+                .map(AbstractVertex::getAllOutgoingDataCharacteristics)
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
+
         Map<Pin, Set<Label>> outgoingLabelPerPin = new HashMap<>();
         referencedElement.getBehavior()
                 .getAssignment()
@@ -273,14 +276,21 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
                 .map(it -> (AbstractVertex<Node>) it)
                 .toList();
     }
-    
+
     public boolean equalsSemantically(DFDSimpleVertex other) {
-    	if (this.equals(other)) return true;
-    	if (!this.mapPinToFlow.equals(other.getPinFlowMap())) return false;
-    	if (this.previousVertices.size() == 0 && other.previousVertices.size() == 0) return true;
-    	return this.previousVertices.stream().allMatch(previousVertex -> {
-    		return other.getPreviousElements().stream().map(DFDSimpleVertex.class::cast).anyMatch(it -> it.equalsSemantically(previousVertex));
-    	});
+        if (this.equals(other))
+            return true;
+        if (!this.mapPinToFlow.equals(other.getPinFlowMap()))
+            return false;
+        if (this.previousVertices.size() == 0 && other.previousVertices.size() == 0)
+            return true;
+        return this.previousVertices.stream()
+                .allMatch(previousVertex -> {
+                    return other.getPreviousElements()
+                            .stream()
+                            .map(DFDSimpleVertex.class::cast)
+                            .anyMatch(it -> it.equalsSemantically(previousVertex));
+                });
     }
 
     /**

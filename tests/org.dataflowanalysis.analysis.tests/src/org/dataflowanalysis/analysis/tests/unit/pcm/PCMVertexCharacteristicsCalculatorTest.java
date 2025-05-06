@@ -1,5 +1,11 @@
 package org.dataflowanalysis.analysis.tests.unit.pcm;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.List;
+import java.util.stream.Stream;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.pcm.core.PCMVertexCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.tests.unit.mock.DummyResourceProvider;
@@ -17,13 +23,6 @@ import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
-
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.List;
-import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class PCMVertexCharacteristicsCalculatorTest {
     private static DummyResourceProvider dummyResourceProvider;
@@ -50,14 +49,14 @@ public class PCMVertexCharacteristicsCalculatorTest {
     }
 
     private static Stream<Arguments> getValidCharacterizationsResult() {
-        return Stream.of(
-                Arguments.of(getAbstractUserAction(usageScenario), List.of(), List.of(ExpectedCharacteristic.of("A", "B"))),
+        return Stream.of(Arguments.of(getAbstractUserAction(usageScenario), List.of(), List.of(ExpectedCharacteristic.of("A", "B"))),
                 Arguments.of(getAbstractUserAction(otherUsageScenario), List.of(), List.of()),
-                Arguments.of(getUserAction(), List.of(assemblyContext), List.of(ExpectedCharacteristic.of("A", "C"), ExpectedCharacteristic.of("A", "D"))),
-                Arguments.of(getUserAction(), List.of(otherAssemblyContext, assemblyContext), List.of(ExpectedCharacteristic.of("A", "C"), ExpectedCharacteristic.of("A", "D"))),
+                Arguments.of(getUserAction(), List.of(assemblyContext),
+                        List.of(ExpectedCharacteristic.of("A", "C"), ExpectedCharacteristic.of("A", "D"))),
+                Arguments.of(getUserAction(), List.of(otherAssemblyContext, assemblyContext),
+                        List.of(ExpectedCharacteristic.of("A", "C"), ExpectedCharacteristic.of("A", "D"))),
                 Arguments.of(getUserAction(), List.of(otherAssemblyContext), List.of()),
-                Arguments.of(getUserAction(), List.of(resourceAssemblyContext), List.of(ExpectedCharacteristic.of("A", "D")))
-        );
+                Arguments.of(getUserAction(), List.of(resourceAssemblyContext), List.of(ExpectedCharacteristic.of("A", "D"))));
     }
 
     @Test
@@ -68,7 +67,8 @@ public class PCMVertexCharacteristicsCalculatorTest {
 
     @ParameterizedTest
     @MethodSource("getValidCharacterizationsResult")
-    public void shouldCalculateCorrectCharacteristics(Entity node, List<AssemblyContext> givenContext, List<ExpectedCharacteristic> expectedCharacteristics) {
+    public void shouldCalculateCorrectCharacteristics(Entity node, List<AssemblyContext> givenContext,
+            List<ExpectedCharacteristic> expectedCharacteristics) {
         Deque<AssemblyContext> context = new ArrayDeque<>();
         givenContext.forEach(context::push);
 
@@ -76,10 +76,12 @@ public class PCMVertexCharacteristicsCalculatorTest {
         List<CharacteristicValue> vertexCharacteristics = calculator.getVertexCharacteristics(node, context);
 
         assertEquals(expectedCharacteristics.size(), vertexCharacteristics.size());
-        for(ExpectedCharacteristic expectedCharacteristic : expectedCharacteristics) {
+        for (ExpectedCharacteristic expectedCharacteristic : expectedCharacteristics) {
             assertTrue(vertexCharacteristics.stream()
-                    .filter(it -> it.getTypeName().equals(expectedCharacteristic.characteristicType()))
-                    .anyMatch(it -> it.getValueName().equals(expectedCharacteristic.characteristicLiteral())));
+                    .filter(it -> it.getTypeName()
+                            .equals(expectedCharacteristic.characteristicType()))
+                    .anyMatch(it -> it.getValueName()
+                            .equals(expectedCharacteristic.characteristicLiteral())));
         }
     }
 
@@ -95,4 +97,3 @@ public class PCMVertexCharacteristicsCalculatorTest {
         return SeffFactory.eINSTANCE.createSetVariableAction();
     }
 }
-

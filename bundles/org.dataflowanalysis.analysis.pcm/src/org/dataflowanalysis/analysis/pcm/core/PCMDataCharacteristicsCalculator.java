@@ -75,7 +75,8 @@ public class PCMDataCharacteristicsCalculator {
 
         AbstractNamedReference reference = variableCharacterisation.getVariableUsage_VariableCharacterisation()
                 .getNamedReference__VariableUsage();
-        if (reference.getReferenceName().isBlank()) {
+        if (reference.getReferenceName()
+                .isBlank()) {
             throw new IllegalArgumentException("Variable Name may not be null!");
         }
         DataCharacteristic existingCharacteristic = this.getDataCharacteristicByReference(reference)
@@ -184,7 +185,7 @@ public class PCMDataCharacteristicsCalculator {
             return evaluateTerm(andTerm.getLeft(), characteristicValue) && evaluateTerm(andTerm.getRight(), characteristicValue);
         } else if (term instanceof Or orTerm) {
             return evaluateTerm(orTerm.getLeft(), characteristicValue) || evaluateTerm(orTerm.getRight(), characteristicValue);
-        } else if(term instanceof Not notTerm) {
+        } else if (term instanceof Not notTerm) {
             return !evaluateTerm(notTerm.getTerm(), characteristicValue);
         } else {
             throw new IllegalArgumentException("Unknown type: " + term.getClass()
@@ -199,7 +200,9 @@ public class PCMDataCharacteristicsCalculator {
      * @return Returns, whether the characteristic reference evaluates to true or false (or is undefined)
      */
     private boolean evaluateNamedReference(NamedEnumCharacteristicReference characteristicReference, CharacteristicValue characteristicValue) {
-        if(characteristicReference.getNamedReference().getReferenceName().isBlank()) {
+        if (characteristicReference.getNamedReference()
+                .getReferenceName()
+                .isBlank()) {
             throw new IllegalArgumentException("Variable Name in right hand side of StoEx may not be blank!");
         }
         var optionalDataCharacteristic = getDataCharacteristicByReference(characteristicReference.getNamedReference());

@@ -1,7 +1,14 @@
 package org.dataflowanalysis.analysis.tests.unit.pcm;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
 import de.uka.ipd.sdq.stoex.StoexFactory;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Stream;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.pcm.core.PCMDataCharacteristicsCalculator;
 import org.dataflowanalysis.analysis.tests.unit.mock.CharacteristicsFactory;
@@ -26,14 +33,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.palladiosimulator.pcm.parameter.ParameterFactory;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class PCMDataCharacteristicsCalculatorTest {
     private static final String STAR = null;
@@ -60,46 +59,39 @@ class PCMDataCharacteristicsCalculatorTest {
                 // ccd.A.B := false && true
                 Arguments.of(getCharacterization("ccd", "A", "B", getAndRhs(getFalseRhs(), getTrueRhs()))),
                 // ccd.A.B := container.NodeType.NodeValue
-                Arguments.of(getCharacterization("ccd", "A", "B", getReference("container", "NodeType", "NodeValue")))
-        );
+                Arguments.of(getCharacterization("ccd", "A", "B", getReference("container", "NodeType", "NodeValue"))));
     }
 
     private static Stream<Arguments> getInvalidCharacterizations() {
-        return Stream.of(
-                Arguments.of(getCharacterization("", "A", "B", getTrueRhs())),
+        return Stream.of(Arguments.of(getCharacterization("", "A", "B", getTrueRhs())),
                 Arguments.of(getCharacterization("ccd", STAR, "A", getTrueRhs())),
-                Arguments.of(getCharacterization("ccd", STAR, STAR, getReference("", STAR, STAR)))
-        );
+                Arguments.of(getCharacterization("ccd", STAR, STAR, getReference("", STAR, STAR))));
     }
 
     private static Stream<Arguments> getValidCharacterizationsResult() {
         return Stream.of(
                 // ccd.A.B := TRUE
                 Arguments.of(getCharacterization("ccd", "A", "B", getTrueRhs()),
-                        Map.of("ccd", List.of(ExpectedCharacteristic.of("A", "B")),
-                                "RETURN", List.of(ExpectedCharacteristic.of("otherA", "B")))),
+                        Map.of("ccd", List.of(ExpectedCharacteristic.of("A", "B")), "RETURN", List.of(ExpectedCharacteristic.of("otherA", "B")))),
                 // ccd.A.* := true
                 Arguments.of(getCharacterization("ccd", "A", STAR, getTrueRhs()),
-                        Map.of("ccd", List.of(ExpectedCharacteristic.of("A", "B"),  ExpectedCharacteristic.of("A", "C")),
-                                "RETURN", List.of(ExpectedCharacteristic.of("otherA", "B")))),
+                        Map.of("ccd", List.of(ExpectedCharacteristic.of("A", "B"), ExpectedCharacteristic.of("A", "C")), "RETURN",
+                                List.of(ExpectedCharacteristic.of("otherA", "B")))),
                 // ccd.*.* := true
-                Arguments.of(getCharacterization("ccd", STAR, STAR, getTrueRhs()),
-                        Map.of("ccd", List.of(ExpectedCharacteristic.of("A", "B"),  ExpectedCharacteristic.of("A", "C"),
-                                ExpectedCharacteristic.of("otherA", "B"),  ExpectedCharacteristic.of("otherA", "C")),
-                                "RETURN", List.of(ExpectedCharacteristic.of("otherA", "B")))),
+                Arguments.of(getCharacterization("ccd", STAR, STAR, getTrueRhs()), Map.of("ccd",
+                        List.of(ExpectedCharacteristic.of("A", "B"), ExpectedCharacteristic.of("A", "C"), ExpectedCharacteristic.of("otherA", "B"),
+                                ExpectedCharacteristic.of("otherA", "C")),
+                        "RETURN", List.of(ExpectedCharacteristic.of("otherA", "B")))),
                 // ccd.*.* := RETURN.*.*
                 Arguments.of(getCharacterization("ccd", STAR, STAR, getReference("RETURN", STAR, STAR)),
-                        Map.of("ccd", List.of(ExpectedCharacteristic.of("otherA", "B")),
-                                "RETURN", List.of(ExpectedCharacteristic.of("otherA", "B")))),
+                        Map.of("ccd", List.of(ExpectedCharacteristic.of("otherA", "B")), "RETURN",
+                                List.of(ExpectedCharacteristic.of("otherA", "B")))),
                 // ccd.A.B := false && true
                 Arguments.of(getCharacterization("ccd", "A", "B", getAndRhs(getFalseRhs(), getTrueRhs())),
-                        Map.of("ccd", List.of(),
-                                "RETURN", List.of(ExpectedCharacteristic.of("otherA", "B")))),
+                        Map.of("ccd", List.of(), "RETURN", List.of(ExpectedCharacteristic.of("otherA", "B")))),
                 // ccd.A.B := container.NodeType.NodeValue
                 Arguments.of(getCharacterization("ccd", "A", "B", getReference("container", "NodeType", "NodeValue")),
-                        Map.of("ccd", List.of(ExpectedCharacteristic.of("A", "B")),
-                                "RETURN", List.of(ExpectedCharacteristic.of("otherA", "B"))))
-        );
+                        Map.of("ccd", List.of(ExpectedCharacteristic.of("A", "B")), "RETURN", List.of(ExpectedCharacteristic.of("otherA", "B")))));
     }
 
     @ParameterizedTest
@@ -118,28 +110,34 @@ class PCMDataCharacteristicsCalculatorTest {
 
     @ParameterizedTest
     @MethodSource("getValidCharacterizationsResult")
-    public void shouldCalculateCorrectCharacteristics(ConfidentialityVariableCharacterisation characterisation, Map<String, List<ExpectedCharacteristic>> expectedResult) {
+    public void shouldCalculateCorrectCharacteristics(ConfidentialityVariableCharacterisation characterisation,
+            Map<String, List<ExpectedCharacteristic>> expectedResult) {
         PCMDataCharacteristicsCalculator calculator = new PCMDataCharacteristicsCalculator(
-                List.of(new CharacteristicsFactory("RETURN").with("otherA.B")),
-                List.of(DummyCharacteristicValue.fromString("NodeType.NodeValue")),
+                List.of(new CharacteristicsFactory("RETURN").with("otherA.B")), List.of(DummyCharacteristicValue.fromString("NodeType.NodeValue")),
                 dummyResourceProvider);
         calculator.evaluate(characterisation);
         var result = calculator.getCalculatedCharacteristics();
         assertEquals(expectedResult.size(), result.size());
         for (var expectedDataCharacteristics : expectedResult.entrySet()) {
             Optional<DataCharacteristic> dataCharacteristic = result.stream()
-                    .filter(it -> it.getVariableName().equals(expectedDataCharacteristics.getKey()))
+                    .filter(it -> it.getVariableName()
+                            .equals(expectedDataCharacteristics.getKey()))
                     .findAny();
             assertTrue(dataCharacteristic.isPresent());
-            for(ExpectedCharacteristic expectedCharacteristic : expectedDataCharacteristics.getValue()) {
-                assertTrue(dataCharacteristic.get().getAllCharacteristics().stream()
-                        .filter(it -> it.getTypeName().equals(expectedCharacteristic.characteristicType()))
-                        .anyMatch(it -> it.getValueName().equals(expectedCharacteristic.characteristicLiteral())));
+            for (ExpectedCharacteristic expectedCharacteristic : expectedDataCharacteristics.getValue()) {
+                assertTrue(dataCharacteristic.get()
+                        .getAllCharacteristics()
+                        .stream()
+                        .filter(it -> it.getTypeName()
+                                .equals(expectedCharacteristic.characteristicType()))
+                        .anyMatch(it -> it.getValueName()
+                                .equals(expectedCharacteristic.characteristicLiteral())));
             }
         }
     }
 
-    private static ConfidentialityVariableCharacterisation getCharacterization(String variableName, String characteristicType, String characteristicValue, Term term) {
+    private static ConfidentialityVariableCharacterisation getCharacterization(String variableName, String characteristicType,
+            String characteristicValue, Term term) {
         ConfidentialityVariableCharacterisation characterisation = ConfidentialityFactory.eINSTANCE.createConfidentialityVariableCharacterisation();
         characterisation.setVariableUsage_VariableCharacterisation(getVariableUsage(variableName));
         characterisation.setLhs(getLhs(characteristicType, characteristicValue));

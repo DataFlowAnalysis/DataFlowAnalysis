@@ -132,8 +132,8 @@ public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFind
                                 .equals(node.getBehavior()
                                         .getInPin()))
                 || node.getBehavior()
-                    .getInPin()
-                    .size() == 0
+                        .getInPin()
+                        .size() == 0
                 || node.getBehavior()
                         .getOutPin()
                         .size() == 0;

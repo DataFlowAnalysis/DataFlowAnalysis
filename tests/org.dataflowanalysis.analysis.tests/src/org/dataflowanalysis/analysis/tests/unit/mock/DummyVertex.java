@@ -1,10 +1,9 @@
 package org.dataflowanalysis.analysis.tests.unit.mock;
 
+import java.util.List;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
-
-import java.util.List;
 
 public class DummyVertex extends AbstractVertex<String> {
     private final List<DummyVertex> previousElements;
@@ -30,11 +29,13 @@ public class DummyVertex extends AbstractVertex<String> {
     @Override
     public void evaluateDataFlow() {
         this.setPropagationResult(List.of(), List.of(), List.of());
-        this.getPreviousElements().forEach(AbstractVertex::evaluateDataFlow);
+        this.getPreviousElements()
+                .forEach(AbstractVertex::evaluateDataFlow);
     }
 
     @Override
-    public void setPropagationResult(List<DataCharacteristic> incomingDataCharacteristics, List<DataCharacteristic> outgoingDataCharacteristics, List<CharacteristicValue> vertexCharacteristics) {
+    public void setPropagationResult(List<DataCharacteristic> incomingDataCharacteristics, List<DataCharacteristic> outgoingDataCharacteristics,
+            List<CharacteristicValue> vertexCharacteristics) {
         super.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics);
     }
 

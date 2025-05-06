@@ -1,37 +1,31 @@
 package org.dataflowanalysis.analysis.tests.unit;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
+import java.util.stream.Stream;
 import org.dataflowanalysis.analysis.tests.unit.mock.DummyTransposeFlowGraph;
 import org.dataflowanalysis.analysis.tests.unit.mock.DummyVertex;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.List;
-import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 public class TransposeFlowGraphTest {
     private static Stream<Arguments> transposeFlowGraphs() {
         var vertexB = DummyVertex.of("B");
         var vertexC = DummyVertex.of("C");
         var vertexA = DummyVertex.of("A", List.of(vertexB, vertexC));
-        return Stream.of(
-                Arguments.of(DummyTransposeFlowGraph.of("1"), 1),
-                Arguments.of(DummyTransposeFlowGraph.of("1", "2", "3"), 3),
-                Arguments.of(DummyTransposeFlowGraph.of(vertexA), 3)
-        );
+        return Stream.of(Arguments.of(DummyTransposeFlowGraph.of("1"), 1), Arguments.of(DummyTransposeFlowGraph.of("1", "2", "3"), 3),
+                Arguments.of(DummyTransposeFlowGraph.of(vertexA), 3));
     }
 
     private static Stream<Arguments> succeedingVerticesTransposeFlowGraph() {
         var vertexB = DummyVertex.of("B");
         var vertexC = DummyVertex.of("C");
         var vertexA = DummyVertex.of("A", List.of(vertexB, vertexC));
-        return Stream.of(
-                Arguments.of(DummyTransposeFlowGraph.of(vertexA), vertexB, List.of(vertexA)),
+        return Stream.of(Arguments.of(DummyTransposeFlowGraph.of(vertexA), vertexB, List.of(vertexA)),
                 Arguments.of(DummyTransposeFlowGraph.of(vertexA), vertexC, List.of(vertexA)),
-                Arguments.of(DummyTransposeFlowGraph.of(vertexA), vertexA, List.of())
-        );
+                Arguments.of(DummyTransposeFlowGraph.of(vertexA), vertexA, List.of()));
     }
 
     @ParameterizedTest
@@ -53,17 +47,23 @@ public class TransposeFlowGraphTest {
     @ParameterizedTest
     @MethodSource("transposeFlowGraphs")
     public void shouldStoreCorrectly(DummyTransposeFlowGraph transposeFlowGraph, int expectedSize) {
-        assertFalse(transposeFlowGraph.getVertices().isEmpty());
+        assertFalse(transposeFlowGraph.getVertices()
+                .isEmpty());
         assertNotNull(transposeFlowGraph.getSink());
-        assertEquals(expectedSize, transposeFlowGraph.getVertices().size());
+        assertEquals(expectedSize, transposeFlowGraph.getVertices()
+                .size());
     }
 
     @ParameterizedTest
     @MethodSource("transposeFlowGraphs")
     public void shouldAccessCorrectly(DummyTransposeFlowGraph transposeFlowGraph, int expectedSize) {
-        assertEquals(expectedSize, transposeFlowGraph.getVertices().size());
-        assertEquals(expectedSize, transposeFlowGraph.stream().toList().size());
-        assertIterableEquals(transposeFlowGraph.getVertices(), transposeFlowGraph.stream().toList());
+        assertEquals(expectedSize, transposeFlowGraph.getVertices()
+                .size());
+        assertEquals(expectedSize, transposeFlowGraph.stream()
+                .toList()
+                .size());
+        assertIterableEquals(transposeFlowGraph.getVertices(), transposeFlowGraph.stream()
+                .toList());
     }
 
     @ParameterizedTest

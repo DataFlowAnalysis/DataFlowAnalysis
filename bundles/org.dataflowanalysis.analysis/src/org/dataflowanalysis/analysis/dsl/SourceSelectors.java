@@ -1,11 +1,10 @@
 package org.dataflowanalysis.analysis.dsl;
 
+import java.util.Optional;
+import java.util.StringJoiner;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
-
-import java.util.Optional;
-import java.util.StringJoiner;
 
 /**
  * Contains the {@link SourceSelectors} of an {@link AnalysisConstraint}. It stores {@link DataSourceSelectors} and
@@ -51,7 +50,7 @@ public final class SourceSelectors extends AbstractParseable {
 
         if (nodeSourceSelector.successful() && dataSourceSelector.successful()) {
             return ParseResult.ok(new SourceSelectors(dataSourceSelector.getResult(), nodeSourceSelector.getResult()));
-        } else if(dataSourceSelector.successful()) {
+        } else if (dataSourceSelector.successful()) {
             return ParseResult.ok(new SourceSelectors(dataSourceSelector.getResult()));
         } else if (nodeSourceSelector.successful()) {
             return ParseResult.ok(new SourceSelectors(nodeSourceSelector.getResult()));
@@ -63,11 +62,17 @@ public final class SourceSelectors extends AbstractParseable {
     @Override
     public String toString() {
         StringJoiner dslString = new StringJoiner(" ");
-        if (this.dataSourceSelectors.isPresent() && !this.dataSourceSelectors.get().getSelectors().isEmpty()) {
-            dslString.add(this.dataSourceSelectors.get().toString());
+        if (this.dataSourceSelectors.isPresent() && !this.dataSourceSelectors.get()
+                .getSelectors()
+                .isEmpty()) {
+            dslString.add(this.dataSourceSelectors.get()
+                    .toString());
         }
-        if (this.vertexSourceSelectors.isPresent() && !this.vertexSourceSelectors.get().getSelectors().isEmpty()) {
-            dslString.add(this.vertexSourceSelectors.get().toString());
+        if (this.vertexSourceSelectors.isPresent() && !this.vertexSourceSelectors.get()
+                .getSelectors()
+                .isEmpty()) {
+            dslString.add(this.vertexSourceSelectors.get()
+                    .toString());
         }
         return dslString.toString();
     }

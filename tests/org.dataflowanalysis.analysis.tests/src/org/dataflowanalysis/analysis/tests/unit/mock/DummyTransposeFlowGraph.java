@@ -1,9 +1,8 @@
 package org.dataflowanalysis.analysis.tests.unit.mock;
 
+import java.util.List;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
-
-import java.util.List;
 
 public class DummyTransposeFlowGraph extends AbstractTransposeFlowGraph {
     private boolean evaluated;

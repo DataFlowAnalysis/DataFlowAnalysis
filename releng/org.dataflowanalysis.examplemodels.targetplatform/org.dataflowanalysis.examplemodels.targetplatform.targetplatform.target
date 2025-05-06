@@ -51,8 +51,14 @@
 			<unit id="org.dataflowanalysis.dfd.datadictionary.feature.feature.group" version="0.0.0"/>
 			<unit id="org.dataflowanalysis.dfd.dataflowdiagram.feature.feature.group" version="0.0.0"/>
 			<repository location="https://dataflowanalysis.github.io/updatesite/nightly/dfd-metamodel/"/>
-		</location>
-		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+    </location>
+    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+			<unit id="org.dataflowanalysis.analysis" version="0.0.0"/>
+			<unit id="org.dataflowanalysis.analysis.pcm" version="0.0.0"/>
+			<unit id="org.dataflowanalysis.analysis.dfd" version="0.0.0"/>
+			<repository location="https://dataflowanalysis.github.io/updatesite/nightly/dataflowanalysis/"/>
+    </location>	
+    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 			<unit id="org.palladiosimulator.mdsdprofiles.api" version="0.0.0"/>
 			<repository location="https://updatesite.palladio-simulator.com/palladio-supporting-mdsdprofiles/releases/latest/"/>
 		</location>

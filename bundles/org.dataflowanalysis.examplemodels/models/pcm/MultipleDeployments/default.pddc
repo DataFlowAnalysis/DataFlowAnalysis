@@ -1,0 +1,15 @@
+dictionary id "_LQUxQF9UEe2ZFM6wnMZzJA"
+
+enum Location {
+	EU
+	nonEU
+}
+
+enum Sensitivity {
+	Personal
+	Public
+}
+
+enumCharacteristicType DataSensitivity using Sensitivity
+
+enumCharacteristicType ServerLocation using Location

@@ -1,0 +1,21 @@
+dictionary id "_Zf2gABPJEfC6H5LfCNvhSA"
+
+enum Locations {
+	USA
+	Asia
+}
+
+enum Roles {
+	Clerk
+	Manager
+}
+
+enum Status {
+	Regular
+	Celebrity
+}
+
+enumCharacteristicType Location using Locations
+enumCharacteristicType Origin using Locations
+enumCharacteristicType Role using Roles 
+enumCharacteristicType Status using Status

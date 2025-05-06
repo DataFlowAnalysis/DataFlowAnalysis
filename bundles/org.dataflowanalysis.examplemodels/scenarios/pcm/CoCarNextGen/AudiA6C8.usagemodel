@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="ASCII"?>
+<usagemodel:UsageModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DataDictionaryCharacterized="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/1.0" xmlns:confidentiality="http://dataflowanalysis.org/pcm/extension/model/0.1.0" xmlns:expression="http://dataflowanalysis.org/pcm/extension/model/0.1.0/expression" xmlns:expressions="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/expressions/1.0" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" xmlns:usagemodel="http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.2">
+  <usageScenario_UsageModel id="_Pg7AgD6YEe-jwOaKnkYhDQ" entityName="Car2X Data Provider">
+    <scenarioBehaviour_UsageScenario id="_Ya0ZYD6YEe-jwOaKnkYhDQ" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_Ya0ZYT6YEe-jwOaKnkYhDQ" successor="_bb_EUD6YEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_Ya1AcD6YEe-jwOaKnkYhDQ" predecessor="_bb_EUD6YEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_bb_EUD6YEe-jwOaKnkYhDQ" entityName="send car2x data" successor="_Ya1AcD6YEe-jwOaKnkYhDQ" predecessor="_Ya0ZYT6YEe-jwOaKnkYhDQ">
+        <providedRole_EntryLevelSystemCall href="AudiA6C8.system#_EMuXcD0vEe-hSesFjA3W0w"/>
+        <operationSignature__EntryLevelSystemCall href="AudiA6C8.repository#_n-qpcDhQEe-TWfVuLMhuaw"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_-Q6b0D6YEe-jwOaKnkYhDQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="AudiA6C8.pddc#_mkQXYD0mEe-hSesFjA3W0w-characteristicTypes@1"/>
+              <literal href="AudiA6C8.pddc#_mkQXYD0mEe-hSesFjA3W0w-characteristicEnumerations@1.literals@7"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_-Q6b0T6YEe-jwOaKnkYhDQ"/>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_-Q6b0j6YEe-jwOaKnkYhDQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="AudiA6C8.pddc#_mkQXYD0mEe-hSesFjA3W0w-characteristicTypes@2"/>
+              <literal href="AudiA6C8.pddc#_mkQXYD0mEe-hSesFjA3W0w-characteristicEnumerations@2.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_-Q6b0z6YEe-jwOaKnkYhDQ"/>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_-Q6b1D6YEe-jwOaKnkYhDQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="AudiA6C8.pddc#_mkQXYD0mEe-hSesFjA3W0w-characteristicTypes@1"/>
+              <literal href="AudiA6C8.pddc#_mkQXYD0mEe-hSesFjA3W0w-characteristicEnumerations@1.literals@4"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_-Q6b1T6YEe-jwOaKnkYhDQ"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="carData"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_Cjz0YD6ZEe-jwOaKnkYhDQ" entityName="myAudi App provide calender info">
+    <scenarioBehaviour_UsageScenario id="_D0YEYD6ZEe-jwOaKnkYhDQ" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_D0YEYT6ZEe-jwOaKnkYhDQ" successor="_E6SjkD6ZEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_D0YEYj6ZEe-jwOaKnkYhDQ" predecessor="_E6SjkD6ZEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_E6SjkD6ZEe-jwOaKnkYhDQ" entityName="provide calender info to car" successor="_D0YEYj6ZEe-jwOaKnkYhDQ" predecessor="_D0YEYT6ZEe-jwOaKnkYhDQ">
+        <providedRole_EntryLevelSystemCall href="AudiA6C8.system#_LHCPgDoAEe-uRP4Svlg0-Q"/>
+        <operationSignature__EntryLevelSystemCall href="AudiA6C8.repository#_YjA1ADemEe-Zh_B5eAtwMg"/>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_PDUpED6ZEe-jwOaKnkYhDQ" entityName="myAudi App lock vehicle">
+    <scenarioBehaviour_UsageScenario id="_P0Hz4D6ZEe-jwOaKnkYhDQ" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_P0Hz4T6ZEe-jwOaKnkYhDQ" successor="_SmHaYD6ZEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_P0Hz4j6ZEe-jwOaKnkYhDQ" predecessor="_SmHaYD6ZEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_SmHaYD6ZEe-jwOaKnkYhDQ" entityName="send lock signal" successor="_P0Hz4j6ZEe-jwOaKnkYhDQ" predecessor="_P0Hz4T6ZEe-jwOaKnkYhDQ">
+        <providedRole_EntryLevelSystemCall href="AudiA6C8.system#_C9fVgDoAEe-uRP4Svlg0-Q"/>
+        <operationSignature__EntryLevelSystemCall href="AudiA6C8.repository#_FZABwDenEe-Zh_B5eAtwMg"/>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_gNaWgD6ZEe-jwOaKnkYhDQ" entityName="myAudi App find car">
+    <scenarioBehaviour_UsageScenario id="_3IlRwD6ZEe-jwOaKnkYhDQ" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_3IlRwT6ZEe-jwOaKnkYhDQ" successor="_4SxM8D6ZEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_3IlRwj6ZEe-jwOaKnkYhDQ" predecessor="_4SxM8D6ZEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_4SxM8D6ZEe-jwOaKnkYhDQ" entityName="call find car" successor="_3IlRwj6ZEe-jwOaKnkYhDQ" predecessor="_3IlRwT6ZEe-jwOaKnkYhDQ">
+        <providedRole_EntryLevelSystemCall href="AudiA6C8.system#_JD-LkDoAEe-uRP4Svlg0-Q"/>
+        <operationSignature__EntryLevelSystemCall href="AudiA6C8.repository#_yoVYEDemEe-Zh_B5eAtwMg"/>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_MokBdj6aEe-jwOaKnkYhDQ"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_MokBdz6aEe-jwOaKnkYhDQ">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="carLocation"/>
+        </outputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_hO7d4D6ZEe-jwOaKnkYhDQ" entityName="myAudi App tranfer current destination">
+    <scenarioBehaviour_UsageScenario id="_emPu8D6aEe-jwOaKnkYhDQ" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_emPu8T6aEe-jwOaKnkYhDQ" successor="_fqW3UD6aEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_emPu8j6aEe-jwOaKnkYhDQ" predecessor="_fqW3UD6aEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_fqW3UD6aEe-jwOaKnkYhDQ" entityName="import current destination from phone" successor="_emPu8j6aEe-jwOaKnkYhDQ" predecessor="_emPu8T6aEe-jwOaKnkYhDQ">
+        <providedRole_EntryLevelSystemCall href="AudiA6C8.system#_JD-LkDoAEe-uRP4Svlg0-Q"/>
+        <operationSignature__EntryLevelSystemCall href="AudiA6C8.repository#_0AIRcDemEe-Zh_B5eAtwMg"/>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_h1JwYD6ZEe-jwOaKnkYhDQ" entityName="MMITouchDisplay initiate navigation search">
+    <scenarioBehaviour_UsageScenario id="_tOcucD6aEe-jwOaKnkYhDQ" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_tOcucT6aEe-jwOaKnkYhDQ" successor="_uT7IwD6aEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_tOcucj6aEe-jwOaKnkYhDQ" predecessor="_uT7IwD6aEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_uT7IwD6aEe-jwOaKnkYhDQ" entityName="initiate navigation search" successor="_tOcucj6aEe-jwOaKnkYhDQ" predecessor="_tOcucT6aEe-jwOaKnkYhDQ">
+        <providedRole_EntryLevelSystemCall href="AudiA6C8.system#_hGNugDn-Ee-uRP4Svlg0-Q"/>
+        <operationSignature__EntryLevelSystemCall href="AudiA6C8.repository#_ITWmsD0QEe-hSesFjA3W0w"/>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_ib188D6ZEe-jwOaKnkYhDQ" entityName="myAudi App trigger remote heating">
+    <scenarioBehaviour_UsageScenario id="_jYw4MD6ZEe-jwOaKnkYhDQ" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_jYw4MT6ZEe-jwOaKnkYhDQ" successor="_lCNiQD6ZEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_jYw4Mj6ZEe-jwOaKnkYhDQ" predecessor="_sn6IUD6ZEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_lCNiQD6ZEe-jwOaKnkYhDQ" entityName="trigger auxiliary heating" successor="_sn6IUD6ZEe-jwOaKnkYhDQ" predecessor="_jYw4MT6ZEe-jwOaKnkYhDQ">
+        <providedRole_EntryLevelSystemCall href="AudiA6C8.system#_C9fVgDoAEe-uRP4Svlg0-Q"/>
+        <operationSignature__EntryLevelSystemCall href="AudiA6C8.repository#_SDYUkDelEe-Zh_B5eAtwMg"/>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_sn6IUD6ZEe-jwOaKnkYhDQ" entityName="trigger heated seats" successor="_jYw4Mj6ZEe-jwOaKnkYhDQ" predecessor="_lCNiQD6ZEe-jwOaKnkYhDQ">
+        <providedRole_EntryLevelSystemCall href="AudiA6C8.system#_C9fVgDoAEe-uRP4Svlg0-Q"/>
+        <operationSignature__EntryLevelSystemCall href="AudiA6C8.repository#_Pu9a4DelEe-Zh_B5eAtwMg"/>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_-vOdkD6aEe-jwOaKnkYhDQ" entityName="MMITouchDisplay use search">
+    <scenarioBehaviour_UsageScenario id="__bqs0D6aEe-jwOaKnkYhDQ" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="__bqs0T6aEe-jwOaKnkYhDQ" successor="_ANGw0D6bEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="__bqs0j6aEe-jwOaKnkYhDQ" predecessor="_ANGw0D6bEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_ANGw0D6bEe-jwOaKnkYhDQ" entityName="search" successor="__bqs0j6aEe-jwOaKnkYhDQ" predecessor="__bqs0T6aEe-jwOaKnkYhDQ">
+        <providedRole_EntryLevelSystemCall href="AudiA6C8.system#_hGNugDn-Ee-uRP4Svlg0-Q"/>
+        <operationSignature__EntryLevelSystemCall href="AudiA6C8.repository#_jIPikDn8Ee-uRP4Svlg0-Q"/>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_k2AAdD6bEe-jwOaKnkYhDQ"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_k2AAdT6bEe-jwOaKnkYhDQ">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="results"/>
+        </outputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="term"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_ltV4AD6bEe-jwOaKnkYhDQ" entityName="MMITouchDisplay use voice control">
+    <scenarioBehaviour_UsageScenario id="_mzYTAD6bEe-jwOaKnkYhDQ" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_mzYTAT6bEe-jwOaKnkYhDQ" successor="_oPj9ID6bEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_mzYTAj6bEe-jwOaKnkYhDQ" predecessor="_oPj9ID6bEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_oPj9ID6bEe-jwOaKnkYhDQ" entityName="initiate processing speach" successor="_mzYTAj6bEe-jwOaKnkYhDQ" predecessor="_mzYTAT6bEe-jwOaKnkYhDQ">
+        <providedRole_EntryLevelSystemCall href="AudiA6C8.system#_hGNugDn-Ee-uRP4Svlg0-Q"/>
+        <operationSignature__EntryLevelSystemCall href="AudiA6C8.repository#_wuv0gDn8Ee-uRP4Svlg0-Q"/>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_L0fOMD6cEe-jwOaKnkYhDQ" entityName="Trigger drive assist">
+    <scenarioBehaviour_UsageScenario id="_MuyTQD6cEe-jwOaKnkYhDQ" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_MuyTQT6cEe-jwOaKnkYhDQ" successor="_PwzSwD6cEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_MuyTQj6cEe-jwOaKnkYhDQ" predecessor="_PwzSwD6cEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_PwzSwD6cEe-jwOaKnkYhDQ" entityName="start ADA" successor="_MuyTQj6cEe-jwOaKnkYhDQ" predecessor="_MuyTQT6cEe-jwOaKnkYhDQ">
+        <providedRole_EntryLevelSystemCall href="AudiA6C8.system#_hGNugDn-Ee-uRP4Svlg0-Q"/>
+        <operationSignature__EntryLevelSystemCall href="AudiA6C8.repository#_dT2soDn9Ee-uRP4Svlg0-Q"/>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_V4VRsD6cEe-jwOaKnkYhDQ" entityName="Trigger efficiency assist">
+    <scenarioBehaviour_UsageScenario id="_YKbQID6cEe-jwOaKnkYhDQ" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_YKbQIT6cEe-jwOaKnkYhDQ" successor="_Ztas4D6cEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_YKbQIj6cEe-jwOaKnkYhDQ" predecessor="_Ztas4D6cEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_Ztas4D6cEe-jwOaKnkYhDQ" entityName="start efficiency assist" successor="_YKbQIj6cEe-jwOaKnkYhDQ" predecessor="_YKbQIT6cEe-jwOaKnkYhDQ">
+        <providedRole_EntryLevelSystemCall href="AudiA6C8.system#_hGNugDn-Ee-uRP4Svlg0-Q"/>
+        <operationSignature__EntryLevelSystemCall href="AudiA6C8.repository#_R1eXAD0tEe-hSesFjA3W0w"/>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_dq09oD6cEe-jwOaKnkYhDQ" entityName="Trigger junction assist">
+    <scenarioBehaviour_UsageScenario id="_fg5ucD6cEe-jwOaKnkYhDQ" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_fg5ucT6cEe-jwOaKnkYhDQ" successor="_gNnqgD6cEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_fg6VgD6cEe-jwOaKnkYhDQ" predecessor="_gNnqgD6cEe-jwOaKnkYhDQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_gNnqgD6cEe-jwOaKnkYhDQ" entityName="scan and visualize junction" successor="_fg6VgD6cEe-jwOaKnkYhDQ" predecessor="_fg5ucT6cEe-jwOaKnkYhDQ">
+        <providedRole_EntryLevelSystemCall href="AudiA6C8.system#_hGNugDn-Ee-uRP4Svlg0-Q"/>
+        <operationSignature__EntryLevelSystemCall href="AudiA6C8.repository#_msFnUDn9Ee-uRP4Svlg0-Q"/>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+</usagemodel:UsageModel>

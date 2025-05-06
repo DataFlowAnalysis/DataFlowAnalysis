@@ -127,12 +127,17 @@
       <unit id="org.apache.commons.math" version="0.0.0"/>
       <repository location="https://download.eclipse.org/tools/orbit/downloads/2021-12/"/>
     </location>
-	<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
-<unit id="org.palladiosimulator.branding.feature.feature.group" version="2.0.0"/>
-<unit id="org.palladiosimulator.license.feature.group" version="1.0.0"/>
-<unit id="org.palladiosimulator.license.epl2.feature.group" version="1.0.0"/>
-<repository location="https://updatesite.palladio-simulator.com/palladio-supporting-branding/releases/latest/"/>
+    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+      <unit id="org.palladiosimulator.branding.feature.feature.group" version="2.0.0"/>
+      <unit id="org.palladiosimulator.license.feature.group" version="1.0.0"/>
+      <unit id="org.palladiosimulator.license.epl2.feature.group" version="1.0.0"/>
+      <repository location="https://updatesite.palladio-simulator.com/palladio-supporting-branding/releases/latest/"/>
     </location>
-
+    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+			<unit id="org.dataflowanalysis.analysis" version="0.0.0"/>
+			<unit id="org.dataflowanalysis.analysis.pcm" version="0.0.0"/>
+			<unit id="org.dataflowanalysis.analysis.dfd" version="0.0.0"/>
+			<repository location="https://dataflowanalysis.github.io/updatesite/nightly/dataflowanalysis/"/>
+    </location>	
 	</locations>
 </target>

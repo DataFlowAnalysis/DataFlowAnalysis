@@ -1,13 +1,13 @@
 package org.dataflowanalysis.analysis.dsl.constraint;
 
 import java.util.List;
+import java.util.function.Predicate;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.selectors.CharacteristicsSelectorData;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexPredicateSelector;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
-import java.util.function.Predicate;
 
 /**
  * Represents the DSL object of a node destination selector

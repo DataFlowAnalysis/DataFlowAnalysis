@@ -1,8 +1,7 @@
 package org.dataflowanalysis.analysis.tests.unit.mock;
 
-import org.dataflowanalysis.analysis.core.CharacteristicValue;
-
 import java.util.UUID;
+import org.dataflowanalysis.analysis.core.CharacteristicValue;
 
 public class DummyCharacteristicValue implements CharacteristicValue {
     private final String characteristicType;
@@ -33,6 +32,7 @@ public class DummyCharacteristicValue implements CharacteristicValue {
 
     @Override
     public String getValueId() {
-        return UUID.randomUUID().toString();
+        return UUID.randomUUID()
+                .toString();
     }
 }

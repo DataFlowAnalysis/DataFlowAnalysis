@@ -97,7 +97,8 @@ public class DataCharacteristicListSelector extends DataSelector {
         if (selectorData.successful()) {
             selectors.add(selectorData.getResult());
         }
-        while (!(string.startsWith(" ") || string.getString().isEmpty())) {
+        while (!(string.startsWith(" ") || string.getString()
+                .isEmpty())) {
             if (!string.startsWith(DSL_DELIMITER)) {
                 if (inverted)
                     string.retreat(DSL_INVERTED_SYMBOL.length());

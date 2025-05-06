@@ -19,7 +19,8 @@ public class DataSourceSelectorsTest {
         ParseResult<DataSourceSelectors> dataSourceSelectors = DataSourceSelectors.fromString(stringView, new DSLContext());
         assertTrue(dataSourceSelectors.successful());
         assertTrue(stringView.empty());
-        assertEquals(dataSourceSelectorString, dataSourceSelectors.getResult().toString());
+        assertEquals(dataSourceSelectorString, dataSourceSelectors.getResult()
+                .toString());
     }
 
     @ParameterizedTest

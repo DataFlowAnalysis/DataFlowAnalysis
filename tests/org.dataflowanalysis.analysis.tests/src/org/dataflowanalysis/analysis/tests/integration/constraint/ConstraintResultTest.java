@@ -146,8 +146,10 @@ public class ConstraintResultTest extends ConstraintTest {
      */
     @Test
     public void returnTestConstraintResults() {
-        PCMDataFlowConfidentialityAnalysis returnAnalysis = super.initializeAnalysis(Paths.get("models", "pcm", "VariableReturn", "default.usagemodel"),
-                Paths.get("models", "pcm", "VariableReturn", "default.allocation"), Paths.get("models", "pcm", "VariableReturn", "default.nodecharacteristics"));
+        PCMDataFlowConfidentialityAnalysis returnAnalysis = super.initializeAnalysis(
+                Paths.get("models", "pcm", "VariableReturn", "default.usagemodel"),
+                Paths.get("models", "pcm", "VariableReturn", "default.allocation"),
+                Paths.get("models", "pcm", "VariableReturn", "default.nodecharacteristics"));
         Predicate<AbstractVertex<?>> constraint = this::returnCondition;
         returnAnalysis.setLoggerLevel(Level.TRACE);
         List<ConstraintData> constraintData = ConstraintViolations.returnViolations;

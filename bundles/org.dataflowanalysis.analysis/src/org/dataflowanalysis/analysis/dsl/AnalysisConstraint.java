@@ -178,8 +178,12 @@ public class AnalysisConstraint {
         if (sourceSelectors.failed()) {
             return ParseResult.error(sourceSelectors.getError());
         }
-        DataSourceSelectors dataSourceSelectors = sourceSelectors.getResult().getDataSourceSelectors().orElse(new DataSourceSelectors());
-        VertexSourceSelectors vertexSourceSelectors = sourceSelectors.getResult().getVertexSourceSelectors().orElse(new VertexSourceSelectors());
+        DataSourceSelectors dataSourceSelectors = sourceSelectors.getResult()
+                .getDataSourceSelectors()
+                .orElse(new DataSourceSelectors());
+        VertexSourceSelectors vertexSourceSelectors = sourceSelectors.getResult()
+                .getVertexSourceSelectors()
+                .orElse(new VertexSourceSelectors());
 
         if (!string.startsWith(DSL_KEYWORD)) {
             return string.expect(DSL_KEYWORD);

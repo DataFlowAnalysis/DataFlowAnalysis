@@ -18,18 +18,22 @@ public class DataCharacteristicListSelectorTest {
     @MethodSource("correctDataCharacteristicSelectors")
     public void shouldParseCorrectly(String dataCharacteristicsSelectorString, boolean inverted) {
         StringView stringView = new StringView(dataCharacteristicsSelectorString);
-        ParseResult<DataCharacteristicListSelector> dataCharacteristicsSelector = DataCharacteristicListSelector.fromString(stringView, new DSLContext());
+        ParseResult<DataCharacteristicListSelector> dataCharacteristicsSelector = DataCharacteristicListSelector.fromString(stringView,
+                new DSLContext());
         assertTrue(dataCharacteristicsSelector.successful());
         assertTrue(stringView.empty());
-        assertEquals(inverted, dataCharacteristicsSelector.getResult().isInverted());
-        assertEquals(dataCharacteristicsSelectorString, dataCharacteristicsSelector.getResult().toString());
+        assertEquals(inverted, dataCharacteristicsSelector.getResult()
+                .isInverted());
+        assertEquals(dataCharacteristicsSelectorString, dataCharacteristicsSelector.getResult()
+                .toString());
     }
 
     @ParameterizedTest
     @MethodSource("incorrectDataCharacteristicSelectors")
     public void shouldNotParse(String dataCharacteristicsSelectorString) {
         StringView stringView = new StringView(dataCharacteristicsSelectorString);
-        ParseResult<DataCharacteristicListSelector> dataCharacteristicsSelector = DataCharacteristicListSelector.fromString(stringView, new DSLContext());
+        ParseResult<DataCharacteristicListSelector> dataCharacteristicsSelector = DataCharacteristicListSelector.fromString(stringView,
+                new DSLContext());
         assertTrue(dataCharacteristicsSelector.failed() || !stringView.empty());
     }
 

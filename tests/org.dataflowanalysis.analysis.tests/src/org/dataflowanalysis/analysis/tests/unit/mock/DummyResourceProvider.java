@@ -1,5 +1,7 @@
 package org.dataflowanalysis.analysis.tests.unit.mock;
 
+import java.util.List;
+import java.util.UUID;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.DataDictionaryCharacterizedFactory;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.EnumCharacteristic;
@@ -30,9 +32,6 @@ import org.palladiosimulator.pcm.usagemodel.UsageModel;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 
-import java.util.List;
-import java.util.UUID;
-
 /**
  * This dummy resource provider holds required resources to test different functionality from the data flow analysis.
  * Elements can be created and modified via the member methods of this class.
@@ -50,33 +49,45 @@ public class DummyResourceProvider extends PCMResourceProvider {
     public DummyResourceProvider() {
         dataDictionary = DictionaryFactory.eINSTANCE.createPCMDataDictionary();
         Resource resource = new XMIResourceImpl();
-        resource.getContents().add(dataDictionary);
-        this.resources.getResources().add(resource);
+        resource.getContents()
+                .add(dataDictionary);
+        this.resources.getResources()
+                .add(resource);
 
         assignments = NodeCharacteristicsFactory.eINSTANCE.createAssignments();
         Resource assignmentsResource = new XMIResourceImpl();
-        assignmentsResource.getContents().add(assignments);
-        this.resources.getResources().add(assignmentsResource);
+        assignmentsResource.getContents()
+                .add(assignments);
+        this.resources.getResources()
+                .add(assignmentsResource);
 
         allocation = AllocationFactory.eINSTANCE.createAllocation();
         Resource allocationResource = new XMIResourceImpl();
-        allocationResource.getContents().add(allocation);
-        this.resources.getResources().add(allocationResource);
+        allocationResource.getContents()
+                .add(allocation);
+        this.resources.getResources()
+                .add(allocationResource);
 
         usageModel = UsagemodelFactory.eINSTANCE.createUsageModel();
         Resource usageResource = new XMIResourceImpl();
-        usageResource.getContents().add(usageModel);
-        this.resources.getResources().add(usageResource);
+        usageResource.getContents()
+                .add(usageModel);
+        this.resources.getResources()
+                .add(usageResource);
 
         system = SystemFactory.eINSTANCE.createSystem();
         Resource systemResource = new XMIResourceImpl();
-        systemResource.getContents().add(system);
-        this.resources.getResources().add(systemResource);
+        systemResource.getContents()
+                .add(system);
+        this.resources.getResources()
+                .add(systemResource);
 
         resourceEnvironment = ResourceenvironmentFactory.eINSTANCE.createResourceEnvironment();
         Resource resourceResource = new XMIResourceImpl();
-        resourceResource.getContents().add(resourceEnvironment);
-        this.resources.getResources().add(resourceResource);
+        resourceResource.getContents()
+                .add(resourceEnvironment);
+        this.resources.getResources()
+                .add(resourceResource);
     }
 
     @Override
@@ -103,9 +114,10 @@ public class DummyResourceProvider extends PCMResourceProvider {
         characteristicType.setId(String.valueOf(UUID.randomUUID()));
         characteristicType.setName(type);
         characteristicType.setType(enumeration);
-        this.dataDictionary.getCharacteristicTypes().add(characteristicType);
+        this.dataDictionary.getCharacteristicTypes()
+                .add(characteristicType);
 
-        for(String value : values) {
+        for (String value : values) {
             Literal literal = DataDictionaryCharacterizedFactory.eINSTANCE.createLiteral();
             literal.setId(String.valueOf(UUID.randomUUID()));
             literal.setName(value);
@@ -115,55 +127,70 @@ public class DummyResourceProvider extends PCMResourceProvider {
             characteristic.setId(String.valueOf(UUID.randomUUID()));
             characteristic.setName(value);
             characteristic.setType(characteristicType);
-            characteristic.getValues().add(literal);
+            characteristic.getValues()
+                    .add(literal);
         }
     }
 
     public void addUsageAssignment(UsageScenario usageScenario, String type, String value) {
-        org.dataflowanalysis.pcm.extension.model.confidentiality.characteristics.EnumCharacteristic characteristic = org.dataflowanalysis.pcm.extension.model.confidentiality.characteristics.CharacteristicsFactory.eINSTANCE.createEnumCharacteristic();
+        org.dataflowanalysis.pcm.extension.model.confidentiality.characteristics.EnumCharacteristic characteristic = org.dataflowanalysis.pcm.extension.model.confidentiality.characteristics.CharacteristicsFactory.eINSTANCE
+                .createEnumCharacteristic();
         EnumCharacteristicType characteristicType = getEnumCharacteristicType(type);
         characteristic.setType(characteristicType);
-        characteristic.getValues().add(getEnumCharacteristicValue(characteristicType, value));
+        characteristic.getValues()
+                .add(getEnumCharacteristicValue(characteristicType, value));
 
         UsageAssignee usageAssignee = NodeCharacteristicsFactory.eINSTANCE.createUsageAssignee();
         usageAssignee.setUsagescenario(usageScenario);
-        usageAssignee.getCharacteristics().add(characteristic);
-        assignments.getAssignee().add(usageAssignee);
+        usageAssignee.getCharacteristics()
+                .add(characteristic);
+        assignments.getAssignee()
+                .add(usageAssignee);
     }
 
     public void addAssemblyAssignment(AssemblyContext assemblyContext, String type, String value) {
-        org.dataflowanalysis.pcm.extension.model.confidentiality.characteristics.EnumCharacteristic characteristic = org.dataflowanalysis.pcm.extension.model.confidentiality.characteristics.CharacteristicsFactory.eINSTANCE.createEnumCharacteristic();
+        org.dataflowanalysis.pcm.extension.model.confidentiality.characteristics.EnumCharacteristic characteristic = org.dataflowanalysis.pcm.extension.model.confidentiality.characteristics.CharacteristicsFactory.eINSTANCE
+                .createEnumCharacteristic();
         EnumCharacteristicType characteristicType = getEnumCharacteristicType(type);
         characteristic.setType(characteristicType);
-        characteristic.getValues().add(getEnumCharacteristicValue(characteristicType, value));
+        characteristic.getValues()
+                .add(getEnumCharacteristicValue(characteristicType, value));
 
         AssemblyAssignee assemblyAssignee = NodeCharacteristicsFactory.eINSTANCE.createAssemblyAssignee();
         assemblyAssignee.setAssemblycontext(assemblyContext);
-        assemblyAssignee.getCharacteristics().add(characteristic);
-        assignments.getAssignee().add(assemblyAssignee);
+        assemblyAssignee.getCharacteristics()
+                .add(characteristic);
+        assignments.getAssignee()
+                .add(assemblyAssignee);
     }
 
     public void addResourceAssignment(ResourceContainer resourceContainer, String type, String value) {
-        org.dataflowanalysis.pcm.extension.model.confidentiality.characteristics.EnumCharacteristic characteristic = org.dataflowanalysis.pcm.extension.model.confidentiality.characteristics.CharacteristicsFactory.eINSTANCE.createEnumCharacteristic();
+        org.dataflowanalysis.pcm.extension.model.confidentiality.characteristics.EnumCharacteristic characteristic = org.dataflowanalysis.pcm.extension.model.confidentiality.characteristics.CharacteristicsFactory.eINSTANCE
+                .createEnumCharacteristic();
         EnumCharacteristicType characteristicType = getEnumCharacteristicType(type);
         characteristic.setType(characteristicType);
-        characteristic.getValues().add(getEnumCharacteristicValue(characteristicType, value));
+        characteristic.getValues()
+                .add(getEnumCharacteristicValue(characteristicType, value));
 
         ResourceAssignee resourceAssignee = NodeCharacteristicsFactory.eINSTANCE.createResourceAssignee();
         resourceAssignee.setResourcecontainer(resourceContainer);
-        resourceAssignee.getCharacteristics().add(characteristic);
-        assignments.getAssignee().add(resourceAssignee);
+        resourceAssignee.getCharacteristics()
+                .add(characteristic);
+        assignments.getAssignee()
+                .add(resourceAssignee);
     }
 
     public AssemblyContext addAssemblyContext(String name, ResourceContainer resourceContainer) {
         AssemblyContext assemblyContext = CompositionFactory.eINSTANCE.createAssemblyContext();
         assemblyContext.setEntityName(name);
-        this.system.getAssemblyContexts__ComposedStructure().add(assemblyContext);
+        this.system.getAssemblyContexts__ComposedStructure()
+                .add(assemblyContext);
 
         AllocationContext allocationContext = AllocationFactory.eINSTANCE.createAllocationContext();
         allocationContext.setAssemblyContext_AllocationContext(assemblyContext);
         allocationContext.setResourceContainer_AllocationContext(resourceContainer);
-        this.allocation.getAllocationContexts_Allocation().add(allocationContext);
+        this.allocation.getAllocationContexts_Allocation()
+                .add(allocationContext);
         return assemblyContext;
     }
 
@@ -185,25 +212,29 @@ public class DummyResourceProvider extends PCMResourceProvider {
         literal.setName(value);
         literal.setEnum(characteristicType.getType());
 
-        org.dataflowanalysis.pcm.extension.model.confidentiality.characteristics.EnumCharacteristic characteristic = CharacteristicsFactory.eINSTANCE.createEnumCharacteristic();
+        org.dataflowanalysis.pcm.extension.model.confidentiality.characteristics.EnumCharacteristic characteristic = CharacteristicsFactory.eINSTANCE
+                .createEnumCharacteristic();
         characteristic.setId(String.valueOf(UUID.randomUUID()));
         characteristic.setEntityName(value);
         characteristic.setType(characteristicType);
-        characteristic.getValues().add(literal);
+        characteristic.getValues()
+                .add(literal);
         return literal;
     }
 
     public UsageScenario getUsageScenario(String name) {
         UsageScenario usageScenario = UsagemodelFactory.eINSTANCE.createUsageScenario();
         usageScenario.setEntityName(name);
-        this.usageModel.getUsageScenario_UsageModel().add(usageScenario);
+        this.usageModel.getUsageScenario_UsageModel()
+                .add(usageScenario);
         return usageScenario;
     }
 
     public ResourceContainer getResourceContainer(String name) {
         ResourceContainer resourceContainer = ResourceenvironmentFactory.eINSTANCE.createResourceContainer();
         resourceContainer.setEntityName(name);
-        this.resourceEnvironment.getResourceContainer_ResourceEnvironment().add(resourceContainer);
+        this.resourceEnvironment.getResourceContainer_ResourceEnvironment()
+                .add(resourceContainer);
         return resourceContainer;
     }
 

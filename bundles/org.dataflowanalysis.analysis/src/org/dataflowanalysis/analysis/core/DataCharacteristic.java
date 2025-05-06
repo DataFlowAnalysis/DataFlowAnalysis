@@ -26,7 +26,6 @@ public final class DataCharacteristic {
 
     /**
      * Constructs a data characteristic with a given name and an empty list of characteristic values
-     *
      * @param variableName Name of the data characteristic
      */
     public DataCharacteristic(String variableName) {
@@ -35,7 +34,6 @@ public final class DataCharacteristic {
 
     /**
      * Adds a characteristic value to the list of stored characteristics of the data characteristic
-     *
      * @param characteristic Characteristic value that is added to the data characteristic
      * @return Returns a new data characteristic object with the updated characteristic values
      */
@@ -48,7 +46,6 @@ public final class DataCharacteristic {
     /**
      * Determines, whether the data characteristic has a characteristic value applied. This is determined by
      * {@link Object#equals(Object)}.
-     *
      * @param characteristic Characteristic value that is searched
      * @return Returns true, if the data characteristic has the characteristic value applied. Otherwise, the method returns
      * false.
@@ -59,7 +56,6 @@ public final class DataCharacteristic {
 
     /**
      * Returns a list of all characteristic values that are applied at the data characteristic
-     *
      * @return Returns a list of all characteristic values present at the data characteristic
      */
     public List<CharacteristicValue> getAllCharacteristics() {
@@ -68,7 +64,6 @@ public final class DataCharacteristic {
 
     /**
      * Returns a list of characteristic with the given characteristic type
-     *
      * @param characteristicType Name of the characteristic type
      * @return Returns a list of all characteristics matching the characteristic type
      */
@@ -83,7 +78,6 @@ public final class DataCharacteristic {
     /**
      * Returns the name of the data characteristic. For the data characteristic {@code ccd.Sensitivity.Personal}, it will
      * return {@code ccd}
-     *
      * @return Returns the name of the data characteristic
      */
     public String getVariableName() {
@@ -92,7 +86,8 @@ public final class DataCharacteristic {
 
     @Override
     public String toString() {
-        return String.format("%s.%s", this.getVariableName(), this.getAllCharacteristics().toString());
+        return String.format("%s.%s", this.getVariableName(), this.getAllCharacteristics()
+                .toString());
     }
 
     public String variableName() {

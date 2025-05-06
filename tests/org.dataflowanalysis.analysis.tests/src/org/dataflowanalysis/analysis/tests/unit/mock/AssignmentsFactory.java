@@ -10,5 +10,4 @@ public class AssignmentsFactory {
         this.assignments = NodeCharacteristicsFactory.eINSTANCE.createAssignments();
     }
 
-
 }

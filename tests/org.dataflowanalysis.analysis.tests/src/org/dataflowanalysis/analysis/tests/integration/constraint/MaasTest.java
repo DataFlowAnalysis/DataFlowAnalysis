@@ -1,8 +1,7 @@
 package org.dataflowanalysis.analysis.tests.integration.constraint;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.dataflowanalysis.analysis.tests.integration.AnalysisUtils.TEST_MODEL_PROJECT_NAME;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.nio.file.Paths;
 import java.util.List;
@@ -17,16 +16,15 @@ import org.junit.jupiter.api.Test;
 public class MaasTest {
     private DataFlowConfidentialityAnalysis analysis;
 
-	
-	@Test
-	 public void testRealisticConstraints() {
-		 final var usageModelPath = Paths.get("scenarios", "pcm", "MaaSTicketSystem", "MaaS.usagemodel")
-	                .toString();
+    @Test
+    public void testRealisticConstraints() {
+        final var usageModelPath = Paths.get("scenarios", "pcm", "MaaSTicketSystem", "MaaS.usagemodel")
+                .toString();
         final var allocationPath = Paths.get("scenarios", "pcm", "MaaSTicketSystem", "MaaS.allocation")
                 .toString();
         final var nodeCharPath = Paths.get("scenarios", "pcm", "MaaSTicketSystem", "MaaS.nodecharacteristics")
-	                .toString();
-        
+                .toString();
+
         analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)
                 .usePluginActivator(Activator.class)

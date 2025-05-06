@@ -1,9 +1,8 @@
 package org.dataflowanalysis.analysis.dsl.selectors;
 
+import java.util.function.Predicate;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
-
-import java.util.function.Predicate;
 
 public class VertexPredicateSelector extends VertexSelector {
     private final Predicate<AbstractVertex<?>> predicate;

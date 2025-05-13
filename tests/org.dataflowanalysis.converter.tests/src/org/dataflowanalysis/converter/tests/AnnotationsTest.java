@@ -1,6 +1,7 @@
 package org.dataflowanalysis.converter.tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,9 +11,9 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.converter.DataFlowDiagramAndDictionary;
-import org.dataflowanalysis.converter.DataFlowDiagramConverter;
-import org.dataflowanalysis.converter.webdfd.Annotation;
+import org.dataflowanalysis.converter.dfd2web.DFD2WebConverter;
+import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary;
+import org.dataflowanalysis.converter.web2dfd.model.Annotation;
 import org.dataflowanalysis.dfd.datadictionary.Assignment;
 import org.dataflowanalysis.dfd.datadictionary.Behavior;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
@@ -29,7 +30,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class AnnotationsTest {
-    private DataFlowDiagramConverter dataFlowDiagramConverter;
+    private DFD2WebConverter dfd2WebConverter;
     private final dataflowdiagramFactory dfdFactory = dataflowdiagramFactory.eINSTANCE;
     private final datadictionaryFactory ddFactory = datadictionaryFactory.eINSTANCE;
     private DataFlowDiagram dataFlowDiagram;
@@ -39,7 +40,7 @@ public class AnnotationsTest {
 
     @BeforeEach
     public void init() {
-        dataFlowDiagramConverter = new DataFlowDiagramConverter();
+        dfd2WebConverter = new DFD2WebConverter();
         dataFlowDiagram = dfdFactory.createDataFlowDiagram();
         dataDictionary = ddFactory.createDataDictionary();
 
@@ -84,8 +85,9 @@ public class AnnotationsTest {
     @Test
     public void testPropagatedLabelsAnnotation() {
         Map<String, Annotation> nodeNameToAnnotationMap = new HashMap<>();
-        var webDfd = dataFlowDiagramConverter.dfdToWeb(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
-        webDfd.model()
+        var webDfd = dfd2WebConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
+        webDfd.getModel()
+                .model()
                 .children()
                 .stream()
                 .filter(child -> child.type()
@@ -121,9 +123,10 @@ public class AnnotationsTest {
         conditions.add(this::condition);
 
         Map<String, Annotation> nodeNameToAnnotationMap = new HashMap<>();
-        var webDfd = dataFlowDiagramConverter.dfdToWebAndAnalyzeAndAnnotate(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary),
-                conditions);
-        webDfd.model()
+        dfd2WebConverter.setConditions(conditions);
+        var webDfd = dfd2WebConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
+        webDfd.getModel()
+                .model()
                 .children()
                 .stream()
                 .filter(child -> child.type()
@@ -143,7 +146,7 @@ public class AnnotationsTest {
                 .color());
         assertEquals("bolt", nodeNameToAnnotationMap.get("b")
                 .icon());
-        assertEquals(null, nodeNameToAnnotationMap.get("c"));
+        assertNull(nodeNameToAnnotationMap.get("c"));
     }
 
     private boolean condition(AbstractVertex<?> node) {

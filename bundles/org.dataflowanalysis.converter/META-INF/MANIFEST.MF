@@ -5,8 +5,13 @@ Bundle-SymbolicName: org.dataflowanalysis.converter
 Bundle-Version: 4.0.0.qualifier
 Export-Package: 
  org.dataflowanalysis.converter,
- org.dataflowanalysis.converter.microsecend,
- org.dataflowanalysis.converter.webdfd
+ org.dataflowanalysis.converter.dfd2web,
+ org.dataflowanalysis.converter.micro2dfd,
+ org.dataflowanalysis.converter.micro2dfd.model,
+ org.dataflowanalysis.converter.pcm2dfd,
+ org.dataflowanalysis.converter.plant2micro,
+ org.dataflowanalysis.converter.web2dfd,
+ org.dataflowanalysis.converter.web2dfd.model
 Require-Bundle: org.dataflowanalysis.dfd.datadictionary,
  org.dataflowanalysis.dfd.dataflowdiagram,
  com.fasterxml.jackson.core.jackson-annotations;bundle-version="2.13.2";visibility:=reexport,

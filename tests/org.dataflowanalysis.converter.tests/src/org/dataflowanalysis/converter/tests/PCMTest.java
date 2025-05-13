@@ -1,8 +1,6 @@
 package org.dataflowanalysis.converter.tests;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -15,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
@@ -26,9 +25,12 @@ import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.simple.DFDSimpleTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
-import org.dataflowanalysis.converter.DataFlowDiagramConverter;
-import org.dataflowanalysis.converter.PCMConverter;
+import org.dataflowanalysis.converter.dfd2web.DFD2WebConverter;
+import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary;
+import org.dataflowanalysis.converter.pcm2dfd.PCM2DFDConverter;
+import org.dataflowanalysis.converter.pcm2dfd.PCMConverterModel;
 import org.dataflowanalysis.dfd.datadictionary.AND;
+import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Assignment;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.ForwardingAssignment;
@@ -37,8 +39,12 @@ import org.dataflowanalysis.dfd.datadictionary.LabelType;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.dataflowanalysis.examplemodels.Activator;
+import org.eclipse.core.runtime.Plugin;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class PCMTest extends ConverterTest {
     @Test
@@ -91,7 +97,8 @@ public class PCMTest extends ConverterTest {
             }
         }
 
-        var dfd = new PCMConverter().pcmToDFD(TEST_MODELS, usageModelPath, allocationPath, nodeCharPath, Activator.class);
+        PCMConverterModel pcmConverterModel = new PCMConverterModel(TEST_MODELS, usageModelPath, allocationPath, nodeCharPath, Activator.class);
+        var dfd = new PCM2DFDConverter().convert(pcmConverterModel);
 
         // Assignment: flights.*.* := RETURN.*.*
         var readFlightsFromDB = dfd.dataFlowDiagram()
@@ -185,20 +192,16 @@ public class PCMTest extends ConverterTest {
             }
         }
 
-        var complete = new PCMConverter().pcmToDFD(modelLocation, usageModelPath, allocationPath, nodeCharPath, Activator.class);
+        PCMConverterModel pcmConverterModel = new PCMConverterModel(modelLocation, usageModelPath, allocationPath, nodeCharPath, Activator.class);
+        var complete = new PCM2DFDConverter().convert(pcmConverterModel);
 
-        var dfdConverter = new DataFlowDiagramConverter();
+        var dfd2WebConverter = new DFD2WebConverter();
         List<Predicate<? super AbstractVertex<?>>> constraints = new ArrayList<>();
         constraints.add(constraint);
-        var web = dfdConverter.dfdToWebAndAnalyzeAndAnnotateWithCustomTFGFinder(complete, constraints, DFDSimpleTransposeFlowGraphFinder.class); // Replace
-                                                                                                                                                 // null
-                                                                                                                                                 // with
-                                                                                                                                                 // simpleFinder
-                                                                                                                                                 // once
-                                                                                                                                                 // Analysis
-                                                                                                                                                 // PR
-                                                                                                                                                 // merged
-        dfdConverter.storeWeb(web, webTarget);
+        dfd2WebConverter.setConditions(constraints);
+        dfd2WebConverter.setTransposeFlowGraphFinder(DFDSimpleTransposeFlowGraphFinder.class);
+        var web = dfd2WebConverter.convert(complete);
+        web.save(".", webTarget);
 
         var dfd = complete.dataFlowDiagram();
         var dd = complete.dataDictionary();
@@ -427,5 +430,34 @@ public class PCMTest extends ConverterTest {
                 .map(CharacteristicValue.class::cast)
                 .map(CharacteristicValue::getTypeName)
                 .toList();
+    }
+
+    private static Stream<Arguments> getPCMModels() {
+        return Stream.of(Arguments.of(TEST_MODELS, "casestudies/CoCarNextGen_Base/AudiA6C8_base.usagemodel",
+                "casestudies/CoCarNextGen_Base/AudiA6C8_base.allocation", "casestudies/CoCarNextGen_Base/AudiA6C8_base.nodecharacteristics",
+                Activator.class));
+    }
+
+    @ParameterizedTest
+    @MethodSource("getPCMModels")
+    public void testValidDFD(String modelLocation, String usageModelPath, String allocationPath, String nodeCharPath,
+            Class<? extends Plugin> activator) {
+        PCM2DFDConverter converter = new PCM2DFDConverter();
+        PCMConverterModel converterModel = new PCMConverterModel(modelLocation, usageModelPath, allocationPath, nodeCharPath, activator);
+        DataFlowDiagramAndDictionary dfd = converter.convert(converterModel);
+        for (Node node : dfd.dataFlowDiagram()
+                .getNodes()) {
+            for (AbstractAssignment abstractAssignment : node.getBehavior()
+                    .getAssignment()) {
+                if (abstractAssignment instanceof Assignment assignment) {
+                    if (assignment.getInputPins()
+                            .isEmpty() && assignment.getOutputPin() == null) {
+                        System.err.println(node);
+                    }
+                    assertFalse(assignment.getInputPins()
+                            .isEmpty() && assignment.getOutputPin() == null, "Invalid node" + node);
+                }
+            }
+        }
     }
 }

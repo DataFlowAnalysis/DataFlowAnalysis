@@ -15,14 +15,14 @@ public class ConverterChain extends Converter {
      * @param converters List of at least one converter that are sequentially run
      */
     public ConverterChain(List<Converter> converters) {
-        if (converters.isEmpty()) {
-            throw new IllegalArgumentException("Must provide at least one converter");
-        }
         this.converters = converters;
     }
 
     @Override
     public PersistableConverterModel convert(ConverterModel input) {
+        if (converters.isEmpty()) {
+            return (PersistableConverterModel) input;
+        }
         PersistableConverterModel current = this.converters.get(0)
                 .convert(input);
         for (int i = 1; i < this.converters.size(); i++) {

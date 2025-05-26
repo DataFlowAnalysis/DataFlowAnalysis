@@ -433,9 +433,8 @@ public class PCMTest extends ConverterTest {
     }
 
     private static Stream<Arguments> getPCMModels() {
-        return Stream.of(Arguments.of(TEST_MODELS, "scenarios/pcm/CoCarNextGen/AudiA6C8.usagemodel",
-                "scenarios/pcm/CoCarNextGen/AudiA6C8.allocation", "scenarios/pcm/CoCarNextGen/AudiA6C8.nodecharacteristics",
-                Activator.class));
+        return Stream.of(Arguments.of(TEST_MODELS, "scenarios/pcm/CoCarNextGen/AudiA6C8.usagemodel", "scenarios/pcm/CoCarNextGen/AudiA6C8.allocation",
+                "scenarios/pcm/CoCarNextGen/AudiA6C8.nodecharacteristics", Activator.class));
     }
 
     @ParameterizedTest

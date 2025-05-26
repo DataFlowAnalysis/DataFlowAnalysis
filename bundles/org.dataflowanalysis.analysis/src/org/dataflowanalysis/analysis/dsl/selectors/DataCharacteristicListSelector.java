@@ -38,7 +38,7 @@ public class DataCharacteristicListSelector extends DataSelector {
         if (variableNames.isEmpty()) {
             return false;
         }
-        boolean result = true;
+        List<Boolean> results = new ArrayList<>();
         for (String variableName : variableNames) {
             List<CharacteristicValue> presentCharacteristics = vertex.getAllIncomingDataCharacteristics()
                     .stream()
@@ -54,14 +54,15 @@ public class DataCharacteristicListSelector extends DataSelector {
                             .anyMatch(dc -> dc.matchesCharacteristic(context, vertex, it, variableName, characteristicTypes, characteristicValues)))
                     .toList();
             this.dataCharacteristics.forEach(it -> it.applyResults(context, vertex, variableName, characteristicTypes, characteristicValues));
-            if (result) {
-                result = this.inverted ? matches.stream()
-                        .noneMatch(it -> it)
-                        : matches.stream()
-                                .anyMatch(it -> it);
-            }
+            results.add(this.inverted ? matches.stream()
+                    .noneMatch(it -> it)
+                    : matches.stream()
+                            .anyMatch(it -> it));
         }
-        return result;
+        return this.inverted ? results.stream()
+                .allMatch(it -> it)
+                : results.stream()
+                        .anyMatch(it -> it);
     }
 
     public boolean isInverted() {
@@ -117,10 +118,13 @@ public class DataCharacteristicListSelector extends DataSelector {
                 string.retreat(DSL_INVERTED_SYMBOL.length());
             return ParseResult.error(selectorData.getError());
         }
-        if (selectors.isEmpty()) {
+        if (selectors.size() <= 1) {
             if (inverted)
                 string.retreat(DSL_INVERTED_SYMBOL.length());
-            return ParseResult.error("Cannot parse data characteristic list selector as the list is empty!");
+            selectors.stream()
+                    .forEach(it -> string.retreat(it.toString()
+                            .length()));
+            return ParseResult.error("Cannot parse data characteristic list selector as the list is empty or one element!");
         }
         string.advance(1);
         return ParseResult.ok(new DataCharacteristicListSelector(context, selectors, inverted));

@@ -3,15 +3,23 @@
 layout: home
 
 hero:
-  name: "Karlsruhe Data Flow Diagram Analysis"
-  text: "An extensible framework for data flow analysis"
-  tagline: My great project tagline
+  name: "DFA – The Karlsruhe Data Flow Diagram Analysis"
+  text: "An extensible data flow analysis framework for information security"
+  image:
+    src: /dfa-artwork.png
+    alt: DFA – The Karlsruhe Data Flow Diagram Analysis
   actions:
     - theme: brand
-      text: Download
+      text: Download v4.0
       link: /markdown-examples
+    - theme: brand
+      text: Web Editor
+      link: /api-examples
     - theme: alt
-      text: Getting started
+      text: Getting Started
+      link: /api-examples
+    - theme: alt
+      text: Examples
       link: /api-examples
 
 features:
@@ -22,4 +30,3 @@ features:
   - title: Feature C
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
-

@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "KDFDA - Karlsruhe Data Flow Diagram Analysis",
+  title: "DFA – The Karlsruhe Data Flow Diagram Analysis",
   description: "An extensible framework for data flow analysis",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config

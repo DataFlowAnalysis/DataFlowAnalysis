@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="ASCII"?> 
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://dataflowanalysis.org/dfd/dataflowdiagram" id="0"> 
+  <flows id="81" entityName="admin_dashboard" sourceNode="3" destinationNode="6"> 
+    <destinationPin href="yidongnan_0.datadictionary#79"/> 
+    <sourcePin href="yidongnan_0.datadictionary#80"/> 
+  </flows> 
+  <flows id="85" entityName="config_server" sourceNode="6" destinationNode="4"> 
+    <destinationPin href="yidongnan_0.datadictionary#83"/> 
+    <sourcePin href="yidongnan_0.datadictionary#84"/> 
+  </flows> 
+  <flows id="88" entityName="config_server" sourceNode="6" destinationNode="5"> 
+    <destinationPin href="yidongnan_0.datadictionary#86"/> 
+    <sourcePin href="yidongnan_0.datadictionary#87"/> 
+  </flows> 
+  <flows id="90" entityName="admin_dashboard" sourceNode="3" destinationNode="4"> 
+    <destinationPin href="yidongnan_0.datadictionary#83"/> 
+    <sourcePin href="yidongnan_0.datadictionary#89"/> 
+  </flows> 
+  <flows id="93" entityName="admin_dashboard" sourceNode="3" destinationNode="7"> 
+    <destinationPin href="yidongnan_0.datadictionary#91"/> 
+    <sourcePin href="yidongnan_0.datadictionary#92"/> 
+  </flows> 
+  <flows id="95" entityName="hystrix_dashboard" sourceNode="7" destinationNode="4"> 
+    <destinationPin href="yidongnan_0.datadictionary#83"/> 
+    <sourcePin href="yidongnan_0.datadictionary#94"/> 
+  </flows> 
+  <flows id="98" entityName="admin_dashboard" sourceNode="3" destinationNode="8"> 
+    <destinationPin href="yidongnan_0.datadictionary#96"/> 
+    <sourcePin href="yidongnan_0.datadictionary#97"/> 
+  </flows> 
+  <flows id="100" entityName="service_a" sourceNode="8" destinationNode="5"> 
+    <destinationPin href="yidongnan_0.datadictionary#86"/> 
+    <sourcePin href="yidongnan_0.datadictionary#99"/> 
+  </flows> 
+  <flows id="102" entityName="config_server" sourceNode="6" destinationNode="8"> 
+    <destinationPin href="yidongnan_0.datadictionary#96"/> 
+    <sourcePin href="yidongnan_0.datadictionary#101"/> 
+  </flows> 
+  <flows id="104" entityName="service_a" sourceNode="8" destinationNode="4"> 
+    <destinationPin href="yidongnan_0.datadictionary#83"/> 
+    <sourcePin href="yidongnan_0.datadictionary#103"/> 
+  </flows> 
+  <flows id="106" entityName="service_a" sourceNode="8" destinationNode="7"> 
+    <destinationPin href="yidongnan_0.datadictionary#91"/> 
+    <sourcePin href="yidongnan_0.datadictionary#105"/> 
+  </flows> 
+  <flows id="109" entityName="admin_dashboard" sourceNode="3" destinationNode="9"> 
+    <destinationPin href="yidongnan_0.datadictionary#107"/> 
+    <sourcePin href="yidongnan_0.datadictionary#108"/> 
+  </flows> 
+  <flows id="111" entityName="service_b" sourceNode="9" destinationNode="5"> 
+    <destinationPin href="yidongnan_0.datadictionary#86"/> 
+    <sourcePin href="yidongnan_0.datadictionary#110"/> 
+  </flows> 
+  <flows id="113" entityName="config_server" sourceNode="6" destinationNode="9"> 
+    <destinationPin href="yidongnan_0.datadictionary#107"/> 
+    <sourcePin href="yidongnan_0.datadictionary#112"/> 
+  </flows> 
+  <flows id="115" entityName="service_b" sourceNode="9" destinationNode="4"> 
+    <destinationPin href="yidongnan_0.datadictionary#83"/> 
+    <sourcePin href="yidongnan_0.datadictionary#114"/> 
+  </flows> 
+  <flows id="117" entityName="service_a" sourceNode="8" destinationNode="9"> 
+    <destinationPin href="yidongnan_0.datadictionary#107"/> 
+    <sourcePin href="yidongnan_0.datadictionary#116"/> 
+  </flows> 
+  <flows id="121" entityName="user" sourceNode="2" destinationNode="10"> 
+    <destinationPin href="yidongnan_0.datadictionary#119"/> 
+    <sourcePin href="yidongnan_0.datadictionary#120"/> 
+  </flows> 
+  <flows id="123" entityName="zuul" sourceNode="10" destinationNode="8"> 
+    <destinationPin href="yidongnan_0.datadictionary#96"/> 
+    <sourcePin href="yidongnan_0.datadictionary#122"/> 
+  </flows> 
+  <flows id="125" entityName="eureka_server" sourceNode="4" destinationNode="10"> 
+    <destinationPin href="yidongnan_0.datadictionary#119"/> 
+    <sourcePin href="yidongnan_0.datadictionary#124"/> 
+  </flows> 
+  <flows id="128" entityName="rabbitmq" sourceNode="5" destinationNode="11"> 
+    <destinationPin href="yidongnan_0.datadictionary#126"/> 
+    <sourcePin href="yidongnan_0.datadictionary#127"/> 
+  </flows> 
+  <flows id="130" entityName="service_b" sourceNode="9" destinationNode="11"> 
+    <destinationPin href="yidongnan_0.datadictionary#126"/> 
+    <sourcePin href="yidongnan_0.datadictionary#129"/> 
+  </flows> 
+  <flows id="132" entityName="service_b" sourceNode="9" destinationNode="7"> 
+    <destinationPin href="yidongnan_0.datadictionary#91"/> 
+    <sourcePin href="yidongnan_0.datadictionary#131"/> 
+  </flows> 
+  <flows id="134" entityName="service_a" sourceNode="8" destinationNode="11"> 
+    <destinationPin href="yidongnan_0.datadictionary#126"/> 
+    <sourcePin href="yidongnan_0.datadictionary#133"/> 
+  </flows> 
+  <flows id="136" entityName="admin_dashboard" sourceNode="3" destinationNode="5"> 
+    <destinationPin href="yidongnan_0.datadictionary#86"/> 
+    <sourcePin href="yidongnan_0.datadictionary#135"/> 
+  </flows> 
+  <flows id="138" entityName="admin_dashboard" sourceNode="3" destinationNode="10"> 
+    <destinationPin href="yidongnan_0.datadictionary#119"/> 
+    <sourcePin href="yidongnan_0.datadictionary#137"/> 
+  </flows> 
+  <flows id="140" entityName="zuul" sourceNode="10" destinationNode="5"> 
+    <destinationPin href="yidongnan_0.datadictionary#86"/> 
+    <sourcePin href="yidongnan_0.datadictionary#139"/> 
+  </flows> 
+  <flows id="142" entityName="zuul" sourceNode="10" destinationNode="11"> 
+    <destinationPin href="yidongnan_0.datadictionary#126"/> 
+    <sourcePin href="yidongnan_0.datadictionary#141"/> 
+  </flows> 
+  <flows id="144" entityName="zuul" sourceNode="10" destinationNode="6"> 
+    <destinationPin href="yidongnan_0.datadictionary#79"/> 
+    <sourcePin href="yidongnan_0.datadictionary#143"/> 
+  </flows> 
+  <nodes xsi:type="dataflowdiagram:External" id="2" entityName="user"> 
+    <behavior href="yidongnan_0.datadictionary#61"/> 
+    <properties href="yidongnan_0.datadictionary#63"/> 
+  </nodes> 
+  <nodes xsi:type="dataflowdiagram:Process" id="3" entityName="admin_dashboard"> 
+    <behavior href="yidongnan_0.datadictionary#39"/> 
+    <properties href="yidongnan_0.datadictionary#41"/> 
+    <properties href="yidongnan_0.datadictionary#23"/> 
+    <properties href="yidongnan_0.datadictionary#16"/> 
+    <properties href="yidongnan_0.datadictionary#42"/> 
+    <properties href="yidongnan_0.datadictionary#44"/> 
+  </nodes> 
+  <nodes xsi:type="dataflowdiagram:Process" id="4" entityName="eureka_server"> 
+    <behavior href="yidongnan_0.datadictionary#33"/> 
+    <properties href="yidongnan_0.datadictionary#35"/> 
+    <properties href="yidongnan_0.datadictionary#23"/> 
+    <properties href="yidongnan_0.datadictionary#16"/> 
+    <properties href="yidongnan_0.datadictionary#36"/> 
+    <properties href="yidongnan_0.datadictionary#38"/> 
+  </nodes> 
+  <nodes xsi:type="dataflowdiagram:Process" id="5" entityName="rabbitmq"> 
+    <behavior href="yidongnan_0.datadictionary#64"/> 
+    <properties href="yidongnan_0.datadictionary#66"/> 
+    <properties href="yidongnan_0.datadictionary#23"/> 
+    <properties href="yidongnan_0.datadictionary#68"/> 
+    <properties href="yidongnan_0.datadictionary#69"/> 
+  </nodes> 
+  <nodes xsi:type="dataflowdiagram:Process" id="6" entityName="config_server"> 
+    <behavior href="yidongnan_0.datadictionary#27"/> 
+    <properties href="yidongnan_0.datadictionary#29"/> 
+    <properties href="yidongnan_0.datadictionary#23"/> 
+    <properties href="yidongnan_0.datadictionary#16"/> 
+    <properties href="yidongnan_0.datadictionary#30"/> 
+    <properties href="yidongnan_0.datadictionary#32"/> 
+  </nodes> 
+  <nodes xsi:type="dataflowdiagram:Process" id="7" entityName="hystrix_dashboard"> 
+    <behavior href="yidongnan_0.datadictionary#70"/> 
+    <properties href="yidongnan_0.datadictionary#72"/> 
+    <properties href="yidongnan_0.datadictionary#73"/> 
+    <properties href="yidongnan_0.datadictionary#23"/> 
+    <properties href="yidongnan_0.datadictionary#16"/> 
+    <properties href="yidongnan_0.datadictionary#75"/> 
+    <properties href="yidongnan_0.datadictionary#76"/> 
+    <properties href="yidongnan_0.datadictionary#78"/> 
+  </nodes> 
+  <nodes xsi:type="dataflowdiagram:Process" id="8" entityName="service_a"> 
+    <behavior href="yidongnan_0.datadictionary#45"/> 
+    <properties href="yidongnan_0.datadictionary#15"/> 
+    <properties href="yidongnan_0.datadictionary#47"/> 
+    <properties href="yidongnan_0.datadictionary#16"/> 
+    <properties href="yidongnan_0.datadictionary#49"/> 
+    <properties href="yidongnan_0.datadictionary#50"/> 
+  </nodes> 
+  <nodes xsi:type="dataflowdiagram:Process" id="9" entityName="service_b"> 
+    <behavior href="yidongnan_0.datadictionary#13"/> 
+    <properties href="yidongnan_0.datadictionary#15"/> 
+    <properties href="yidongnan_0.datadictionary#16"/> 
+    <properties href="yidongnan_0.datadictionary#19"/> 
+  </nodes> 
+  <nodes xsi:type="dataflowdiagram:Process" id="10" entityName="zuul"> 
+    <behavior href="yidongnan_0.datadictionary#51"/> 
+    <properties href="yidongnan_0.datadictionary#53"/> 
+    <properties href="yidongnan_0.datadictionary#23"/> 
+    <properties href="yidongnan_0.datadictionary#54"/> 
+    <properties href="yidongnan_0.datadictionary#16"/> 
+    <properties href="yidongnan_0.datadictionary#55"/> 
+    <properties href="yidongnan_0.datadictionary#57"/> 
+    <properties href="yidongnan_0.datadictionary#58"/> 
+    <properties href="yidongnan_0.datadictionary#60"/> 
+  </nodes> 
+  <nodes xsi:type="dataflowdiagram:Process" id="11" entityName="zipkin"> 
+    <behavior href="yidongnan_0.datadictionary#20"/> 
+    <properties href="yidongnan_0.datadictionary#22"/> 
+    <properties href="yidongnan_0.datadictionary#23"/> 
+    <properties href="yidongnan_0.datadictionary#25"/> 
+    <properties href="yidongnan_0.datadictionary#26"/> 
+  </nodes> 
+</dataflowdiagram:DataFlowDiagram> 

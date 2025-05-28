@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ASCII"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DataDictionaryCharacterized="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/1.0" xmlns:confidentiality="http://dataflowanalysis.org/pcm/extension/model/0.1.0" xmlns:expression="http://dataflowanalysis.org/pcm/extension/model/0.1.0/expression" xmlns:expressions="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/expressions/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="_-Y9QMKo9Ee6YHLXtRVQM-w" entityName="New Repository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_oLmRoKpHEe6ICOKQQaQogw" entityName="DefaultComponent">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_qg9mgKpHEe6ICOKQQaQogw" entityName="DefaultComponent.DefaultInterface.OperationProvidedRole1" providedInterface__OperationProvidedRole="_lzg_8KpHEe6ICOKQQaQogw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_qhTkwKpHEe6ICOKQQaQogw" describedService__SEFF="_mz_lgKpHEe6ICOKQQaQogw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_qhTkwapHEe6ICOKQQaQogw" successor_AbstractAction="_s2R4EKpHEe6ICOKQQaQogw"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_qhTkwqpHEe6ICOKQQaQogw" predecessor_AbstractAction="_xA4QQKpHEe6ICOKQQaQogw"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_sI84AKpHEe6ICOKQQaQogw" entityName="InternalAction1" predecessor_AbstractAction="_s2R4EKpHEe6ICOKQQaQogw" successor_AbstractAction="_xA4QQKpHEe6ICOKQQaQogw"/>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_s2R4EKpHEe6ICOKQQaQogw" entityName="SetVariableAction1" predecessor_AbstractAction="_qhTkwapHEe6ICOKQQaQogw" successor_AbstractAction="_sI84AKpHEe6ICOKQQaQogw">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_7LzzMKpHEe6ICOKQQaQogw">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="dic.pddc#_5ABf0KpBEe6cvbqfOct7wA-characteristicTypes@0"/>
+              <literal href="dic.pddc#_5ABf0KpBEe6cvbqfOct7wA-characteristicEnumerations@0.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_7LzzMapHEe6ICOKQQaQogw"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="forward"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_xA4QQKpHEe6ICOKQQaQogw" entityName="SetVariableAction2" predecessor_AbstractAction="_sI84AKpHEe6ICOKQQaQogw" successor_AbstractAction="_qhTkwqpHEe6ICOKQQaQogw">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="__Zc4UKpHEe6ICOKQQaQogw">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="dic.pddc#_5ABf0KpBEe6cvbqfOct7wA-characteristicTypes@0"/>
+            </lhs>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="__Zc4UapHEe6ICOKQQaQogw">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="dic.pddc#_5ABf0KpBEe6cvbqfOct7wA-characteristicTypes@0"/>
+              <namedReference xsi:type="stoex:VariableReference" referenceName="forward"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_lzg_8KpHEe6ICOKQQaQogw" entityName="DefaultInterface">
+    <signatures__OperationInterface id="_mz_lgKpHEe6ICOKQQaQogw" entityName="default"/>
+  </interfaces__Repository>
+</repository:Repository>

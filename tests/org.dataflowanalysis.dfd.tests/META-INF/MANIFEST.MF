@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Data Flow Diagram Tests
+Bundle-SymbolicName: org.dataflowanalysis.dfd.tests
+Bundle-Version: 4.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Automatic-Module-Name: org.dataflowanalysis.dfd.tests
+Export-Package: org.dataflowanalysis.dfd.tests
+Require-Bundle: org.junit,
+ junit-jupiter-api,
+ tools.mdsd.library.standalone.initialization,
+ org.dataflowanalysis.dfd.datadictionary,
+ org.dataflowanalysis.dfd.dataflowdiagram,
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.emf.ecore

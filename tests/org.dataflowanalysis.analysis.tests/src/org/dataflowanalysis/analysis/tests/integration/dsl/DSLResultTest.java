@@ -3,6 +3,7 @@ package org.dataflowanalysis.analysis.tests.integration.dsl;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import java.util.UUID;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
@@ -104,7 +105,8 @@ public class DSLResultTest extends BaseTest {
     private void evaluateAnalysis(AnalysisConstraint constraint, DataFlowConfidentialityAnalysis analysis, List<ConstraintData> expectedResults) {
         logger.info("DSL String: " + constraint.toString());
         ParseResult<AnalysisConstraint> constraintParsed = AnalysisConstraint.fromString(new StringView(constraint.toString()),
-                new PCMDSLContextProvider());
+                new PCMDSLContextProvider(), UUID.randomUUID()
+                        .toString());
         if (constraintParsed.failed()) {
             fail(System.lineSeparator() + constraintParsed.getError());
         }

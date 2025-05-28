@@ -3,6 +3,7 @@ package org.dataflowanalysis.analysis.dsl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.UUID;
 import java.util.stream.Stream;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
@@ -24,10 +25,11 @@ public class AnalysisConstraint {
     private static final String DSL_KEYWORD = "neverFlows";
 
     private static final String FAILED_MATCHING_MESSAGE = "Vertex %s failed to match selector %s";
-    private static final String SUCEEDED_MATCHING_MESSAGE = "Vertex %s matched all selectors";
+    private static final String SUCCEEDED_MATCHING_MESSAGE = "Vertex %s matched all selectors";
     private static final String OMMITED_TRANSPOSE_FLOW_GRAPH = "Transpose flow graph %s did not contain any violations. Omitting!";
 
     private final Logger logger = Logger.getLogger(AnalysisConstraint.class);
+    private final String name;
     private final DataSourceSelectors dataSourceSelectors;
     private final VertexSourceSelectors vertexSourceSelectors;
     private final VertexDestinationSelectors vertexDestinationSelectors;
@@ -38,6 +40,8 @@ public class AnalysisConstraint {
      * Create a new analysis constraint with no constraints
      */
     public AnalysisConstraint() {
+        this.name = UUID.randomUUID()
+                .toString();
         this.vertexSourceSelectors = new VertexSourceSelectors();
         this.dataSourceSelectors = new DataSourceSelectors();
         this.vertexDestinationSelectors = new VertexDestinationSelectors();
@@ -45,8 +49,9 @@ public class AnalysisConstraint {
         this.context = new DSLContext();
     }
 
-    public AnalysisConstraint(VertexSourceSelectors vertexSourceSelectors, DataSourceSelectors dataSourceSelectors,
+    public AnalysisConstraint(String name, VertexSourceSelectors vertexSourceSelectors, DataSourceSelectors dataSourceSelectors,
             VertexDestinationSelectors vertexDestinationSelectors, ConditionalSelectors conditionalSelectors, DSLContext context) {
+        this.name = name;
         this.vertexSourceSelectors = vertexSourceSelectors;
         this.dataSourceSelectors = dataSourceSelectors;
         this.vertexDestinationSelectors = vertexDestinationSelectors;
@@ -87,7 +92,7 @@ public class AnalysisConstraint {
                     }
                 }
                 if (matched) {
-                    logger.debug(String.format(SUCEEDED_MATCHING_MESSAGE, vertex));
+                    logger.debug(String.format(SUCCEEDED_MATCHING_MESSAGE, vertex));
                     violations.add(vertex);
                 }
             }
@@ -163,7 +168,8 @@ public class AnalysisConstraint {
      * @return Returns a {@link ParseResult} that may contain the {@link AnalysisConstraint}
      */
     public static ParseResult<AnalysisConstraint> fromString(StringView string) {
-        return AnalysisConstraint.fromString(string, null);
+        return AnalysisConstraint.fromString(string, null, UUID.randomUUID()
+                .toString());
     }
 
     /**
@@ -172,7 +178,7 @@ public class AnalysisConstraint {
      * @param contextProvider Context provider used to parse analysis-specific contents
      * @return Returns a {@link ParseResult} that may contain the {@link AnalysisConstraint}
      */
-    public static ParseResult<AnalysisConstraint> fromString(StringView string, DSLContextProvider contextProvider) {
+    public static ParseResult<AnalysisConstraint> fromString(StringView string, DSLContextProvider contextProvider, String name) {
         DSLContext context = new DSLContext(contextProvider);
         var sourceSelectors = SourceSelectors.fromString(string, context);
         if (sourceSelectors.failed()) {
@@ -202,8 +208,7 @@ public class AnalysisConstraint {
         if (!string.empty()) {
             return ParseResult.error("Unexpected symbols: " + string.getString());
         }
-
-        return ParseResult
-                .ok(new AnalysisConstraint(vertexSourceSelectors, dataSourceSelectors, vertexDestinationSelectors, conditionalSelectors, context));
+        return ParseResult.ok(
+                new AnalysisConstraint(name, vertexSourceSelectors, dataSourceSelectors, vertexDestinationSelectors, conditionalSelectors, context));
     }
 }

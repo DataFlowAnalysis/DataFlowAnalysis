@@ -1,0 +1,409 @@
+{
+    "services": [
+        {
+            "name": "config_server",
+            "stereotypes": [
+                "configuration_server",
+                "infrastructural"
+            ],
+            "tagged_values": {
+                "Configuration Server": "Spring Cloud Config",
+                "Port": 9090
+            }
+        },
+        {
+            "name": "discovery_service",
+            "stereotypes": [
+                "service_discovery",
+                "infrastructural"
+            ],
+            "tagged_values": {
+                "Service Discovery": "Eureka",
+                "Port": 8761
+            }
+        },
+        {
+            "name": "rabbitmq",
+            "stereotypes": [
+                "message_broker",
+                "infrastructural"
+            ],
+            "tagged_values": {
+                "Message Broker": "RabbitMQ",
+                "Port": 5672
+            }
+        },
+        {
+            "name": "monitor_dashboard",
+            "stereotypes": [
+                "monitoring_dashboard",
+                "infrastructural"
+            ],
+            "tagged_values": {
+                "Monitoring Dashboard": "Hystrix",
+                "Port": 8179
+            }
+        },
+        {
+            "name": "turbine",
+            "stereotypes": [
+                "monitoring_server",
+                "infrastructural"
+            ],
+            "tagged_values": {
+                "Monitoring Server": "Turbine",
+                "Port": 8989
+            }
+        },
+        {
+            "name": "statement_service",
+            "stereotypes": [
+                "internal"
+            ],
+            "tagged_values": {
+                "Port": 8080
+            }
+        },
+        {
+            "name": "card_service",
+            "stereotypes": [
+                "internal"
+            ],
+            "tagged_values": {
+                "Port": 8080
+            }
+        },
+        {
+            "name": "card_statement_composite",
+            "stereotypes": [
+                "internal",
+                "circuit_breaker"
+            ],
+            "tagged_values": {
+                "Port": 8080,
+                "Circuit Breaker": "Hystrix"
+            }
+        },
+        {
+            "name": "edge_server",
+            "stereotypes": [
+                "gateway",
+                "infrastructural",
+                "load_balancer"
+            ],
+            "tagged_values": {
+                "Gateway": "Zuul",
+                "Port": 8765,
+                "Load Balancer": "Ribbon"
+            }
+        },
+        {
+            "name": "secret_manager",
+            "stereotypes": [
+                "infrastructural",
+                "secret_manager"
+            ],
+            "tagged_values": {}
+        }
+    ],
+    "external_entities": [
+        {
+            "name": "github_repository",
+            "stereotypes": [
+                "github_repository",
+                "entrypoint"
+            ],
+            "tagged_values": {
+                "URL": "https://github.com/fernandoabcampos/microservices-config.git"
+            }
+        },
+        {
+            "name": "user",
+            "stereotypes": [
+                "user_stereotype",
+                "entrypoint",
+                "exitpoint"
+            ],
+            "tagged_values": {}
+        }
+    ],
+    "information_flows": [
+        {
+            "sender": "github_repository",
+            "receiver": "config_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "discovery_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "monitor_dashboard",
+            "receiver": "discovery_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "monitor_dashboard",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "turbine",
+            "receiver": "discovery_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "rabbitmq",
+            "receiver": "turbine",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "turbine",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "turbine",
+            "receiver": "monitor_dashboard",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "statement_service",
+            "receiver": "discovery_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "statement_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "card_service",
+            "receiver": "discovery_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "card_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "card_statement_composite",
+            "receiver": "discovery_service",
+            "stereotypes": [
+                "restful_http",
+                "circuit_breaker_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "card_statement_composite",
+            "receiver": "card_service",
+            "stereotypes": [
+                "restful_http",
+                "circuit_breaker_link",
+                "feign_connection",
+                "load_balanced_link"
+            ],
+            "tagged_values": {
+                "'Circuit Breaker'": "Hystrix",
+                "'Load Balancer'": "Ribbon"
+            }
+        },
+        {
+            "sender": "card_statement_composite",
+            "receiver": "statement_service",
+            "stereotypes": [
+                "restful_http",
+                "circuit_breaker_link",
+                "feign_connection",
+                "load_balanced_link"
+            ],
+            "tagged_values": {
+                "'Circuit Breaker'": "Hystrix",
+                "'Load Balancer'": "Ribbon"
+            }
+        },
+        {
+            "sender": "config_server",
+            "receiver": "card_statement_composite",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "card_statement_composite",
+            "receiver": "rabbitmq",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "discovery_service",
+            "receiver": "edge_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user",
+            "receiver": "edge_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "edge_server",
+            "receiver": "user",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "edge_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "edge_server",
+            "receiver": "card_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "edge_server",
+            "receiver": "statement_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "edge_server",
+            "receiver": "card_statement_composite",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "secret_manager",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "discovery_service",
+            "receiver": "secret_manager",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "rabbitmq",
+            "receiver": "secret_manager",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "monitor_dashboard",
+            "receiver": "secret_manager",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "turbine",
+            "receiver": "secret_manager",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "statement_service",
+            "receiver": "secret_manager",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "card_service",
+            "receiver": "secret_manager",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "card_statement_composite",
+            "receiver": "secret_manager",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "edge_server",
+            "receiver": "secret_manager",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        }
+    ]
+}

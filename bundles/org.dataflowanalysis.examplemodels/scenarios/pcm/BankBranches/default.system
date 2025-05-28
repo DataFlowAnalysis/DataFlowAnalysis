@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ASCII"?>
+<system:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="_mBBuED6tEeuVUal8mM_jUA" entityName="New System">
+  <assemblyContexts__ComposedStructure id="_q_2YgD6tEeuVUal8mM_jUA" entityName="Assembly_BranchOffice_USA">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:CompositeComponent" href="default.repository#_CzJggD6sEeuVUal8mM_jUA"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_xNu3ED6tEeuVUal8mM_jUA" entityName="Assembly_BranchOffice_Asia">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:CompositeComponent" href="default.repository#_CzJggD6sEeuVUal8mM_jUA"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_7oEH8D6tEeuVUal8mM_jUA" entityName="Assembly_CustomerMovement_USA-to_Asia">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="default.repository#_aK08ID6tEeuVUal8mM_jUA"/>
+  </assemblyContexts__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_weE7wD6tEeuVUal8mM_jUA" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_pbaxUD6tEeuVUal8mM_jUA" assemblyContext_ProvidedDelegationConnector="_q_2YgD6tEeuVUal8mM_jUA">
+    <innerProvidedRole_ProvidedDelegationConnector href="default.repository#_DPH1YD6tEeuVUal8mM_jUA"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_w0fQoD6tEeuVUal8mM_jUA" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_np_3AD6tEeuVUal8mM_jUA" assemblyContext_ProvidedDelegationConnector="_q_2YgD6tEeuVUal8mM_jUA">
+    <innerProvidedRole_ProvidedDelegationConnector href="default.repository#_A0MrED6tEeuVUal8mM_jUA"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_2NumMD6tEeuVUal8mM_jUA" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_xwMD4D6tEeuVUal8mM_jUA" assemblyContext_ProvidedDelegationConnector="_xNu3ED6tEeuVUal8mM_jUA">
+    <innerProvidedRole_ProvidedDelegationConnector href="default.repository#_A0MrED6tEeuVUal8mM_jUA"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_2lAdwD6tEeuVUal8mM_jUA" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_zAt3oD6tEeuVUal8mM_jUA" assemblyContext_ProvidedDelegationConnector="_xNu3ED6tEeuVUal8mM_jUA">
+    <innerProvidedRole_ProvidedDelegationConnector href="default.repository#_DPH1YD6tEeuVUal8mM_jUA"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_AxeRwD6uEeuVUal8mM_jUA" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_-0lHQD6tEeuVUal8mM_jUA" assemblyContext_ProvidedDelegationConnector="_7oEH8D6tEeuVUal8mM_jUA">
+    <innerProvidedRole_ProvidedDelegationConnector href="default.repository#_ghlC0D6tEeuVUal8mM_jUA"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_BcEt8D6uEeuVUal8mM_jUA" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_7oEH8D6tEeuVUal8mM_jUA" providingAssemblyContext_AssemblyConnector="_q_2YgD6tEeuVUal8mM_jUA">
+    <providedRole_AssemblyConnector href="default.repository#_A0MrED6tEeuVUal8mM_jUA"/>
+    <requiredRole_AssemblyConnector href="default.repository#_hh4pQD6tEeuVUal8mM_jUA"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_B0Kd0D6uEeuVUal8mM_jUA" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_7oEH8D6tEeuVUal8mM_jUA" providingAssemblyContext_AssemblyConnector="_xNu3ED6tEeuVUal8mM_jUA">
+    <providedRole_AssemblyConnector href="default.repository#_A0MrED6tEeuVUal8mM_jUA"/>
+    <requiredRole_AssemblyConnector href="default.repository#_jhvoMD6tEeuVUal8mM_jUA"/>
+  </connectors__ComposedStructure>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_np_3AD6tEeuVUal8mM_jUA" entityName="CustomerHandlingProvidedRole_USA_Regular">
+    <providedInterface__OperationProvidedRole href="default.repository#_VnmeAD6sEeuVUal8mM_jUA"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_pbaxUD6tEeuVUal8mM_jUA" entityName="CustomerHandlingProvidedRole_USA_Celebrity">
+    <providedInterface__OperationProvidedRole href="default.repository#_VnmeAD6sEeuVUal8mM_jUA"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_xwMD4D6tEeuVUal8mM_jUA" entityName="CustomerHandlingProvidedRole_Asia_Regular">
+    <providedInterface__OperationProvidedRole href="default.repository#_VnmeAD6sEeuVUal8mM_jUA"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_zAt3oD6tEeuVUal8mM_jUA" entityName="CustomerHandlingProvidedRole_Asia_Celebrity">
+    <providedInterface__OperationProvidedRole href="default.repository#_VnmeAD6sEeuVUal8mM_jUA"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_-0lHQD6tEeuVUal8mM_jUA" entityName="CustomerMovementProvidedRole_USA-to-Asia">
+    <providedInterface__OperationProvidedRole href="default.repository#_bRV4QD6tEeuVUal8mM_jUA"/>
+  </providedRoles_InterfaceProvidingEntity>
+</system:System>

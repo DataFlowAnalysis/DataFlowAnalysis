@@ -1,0 +1,453 @@
+{
+    "services": [
+        {
+            "name": "config_server",
+            "stereotypes": [
+                "configuration_server",
+                "infrastructural"
+            ],
+            "tagged_values": {
+                "Configuration Server": "Spring Cloud Config",
+                "Port": 8888
+            }
+        },
+        {
+            "name": "admin",
+            "stereotypes": [
+                "administration_server",
+                "infrastructural"
+            ],
+            "tagged_values": {
+                "Administration Server": "Spring Boot Admin",
+                "Port": 8026
+            }
+        },
+        {
+            "name": "eureka_server",
+            "stereotypes": [
+                "service_discovery",
+                "infrastructural"
+            ],
+            "tagged_values": {
+                "Service Discovery": "Eureka",
+                "Port": 8010
+            }
+        },
+        {
+            "name": "user_service",
+            "stereotypes": [
+                "internal"
+            ],
+            "tagged_values": {
+                "Port": 8016
+            }
+        },
+        {
+            "name": "kafka",
+            "stereotypes": [
+                "message_broker",
+                "infrastructural"
+            ],
+            "tagged_values": {
+                "Message Broker": "Kafka",
+                "Port": 9092
+            }
+        },
+        {
+            "name": "mailer",
+            "stereotypes": [
+                "internal",
+                "local_logging"
+            ],
+            "tagged_values": {
+                "Port": 8020
+            }
+        },
+        {
+            "name": "reminder",
+            "stereotypes": [
+                "internal",
+                "local_logging"
+            ],
+            "tagged_values": {
+                "Port": 8015
+            }
+        },
+        {
+            "name": "api_gateway",
+            "stereotypes": [
+                "gateway",
+                "circuit_breaker",
+                "resource_server",
+                "infrastructural",
+                "csrf_disabled",
+                "transform_identity_representation"
+            ],
+            "tagged_values": {
+                "Circuit Breaker": "Hystrix",
+                "Port": 8018
+            }
+        },
+        {
+            "name": "oauth",
+            "stereotypes": [
+                "authorization_server",
+                "tokenstore",
+                "infrastructural",
+                "circuit_breaker"
+            ],
+            "tagged_values": {
+                "Authorization Server": "Spring OAuth2",
+                "Port": 8017,
+                "Circuit Breaker": "Hystrix"
+            }
+        },
+        {
+            "name": "proxy",
+            "stereotypes": [
+                "web_application",
+                "infrastructural"
+            ],
+            "tagged_values": {
+                "Web Application": "Nginx",
+                "Port": 80
+            }
+        },
+        {
+            "name": "zookeeper",
+            "stereotypes": [
+                "configuration_server",
+                "infrastructural"
+            ],
+            "tagged_values": {
+                "Configuration Server": "ZooKeeper",
+                "Port": 2181
+            }
+        },
+        {
+            "name": "jmx_monitoring",
+            "stereotypes": [
+                "internal"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "name": "todo_infra",
+            "stereotypes": [
+                "internal"
+            ],
+            "tagged_values": {}
+        }
+    ],
+    "information_flows": [
+        {
+            "sender": "admin",
+            "receiver": "config_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "eureka_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "eureka_server",
+            "receiver": "admin",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "admin",
+            "receiver": "user_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "user_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "admin",
+            "receiver": "mailer",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "mailer",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "mailer",
+            "receiver": "eureka_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "kafka",
+            "receiver": "mailer",
+            "stereotypes": [
+                "restful_http",
+                "message_consumer_kafka"
+            ],
+            "tagged_values": {
+                "'Consumer Topic'": "todo-mail"
+            }
+        },
+        {
+            "sender": "reminder",
+            "receiver": "eureka_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "admin",
+            "receiver": "reminder",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "reminder",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "reminder",
+            "receiver": "kafka",
+            "stereotypes": [
+                "restful_http",
+                "message_producer_kafka"
+            ],
+            "tagged_values": {
+                "'Producer Topic'": "todo-mail"
+            }
+        },
+        {
+            "sender": "eureka_server",
+            "receiver": "api_gateway",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "admin",
+            "receiver": "api_gateway",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "api_gateway",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "user_service",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link",
+                "feign_connection"
+            ],
+            "tagged_values": {
+                "'Load Balancer'": "Ribbon"
+            }
+        },
+        {
+            "sender": "config_server",
+            "receiver": "oauth",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "oauth",
+            "receiver": "user_service",
+            "stereotypes": [
+                "restful_http",
+                "auth_provider",
+                "load_balanced_link",
+                "feign_connection"
+            ],
+            "tagged_values": {
+                "'Load Balancer'": "Ribbon"
+            }
+        },
+        {
+            "sender": "oauth",
+            "receiver": "eureka_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "admin",
+            "receiver": "oauth",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user",
+            "receiver": "proxy",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "proxy",
+            "receiver": "user",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "proxy",
+            "receiver": "api_gateway",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "zookeeper",
+            "receiver": "kafka",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "proxy",
+            "receiver": "logstash",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user_service",
+            "receiver": "logstash",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "reminder",
+            "receiver": "logstash",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "eureka_server",
+            "receiver": "logstash",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "logstash",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "oauth",
+            "receiver": "logstash",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "admin",
+            "receiver": "logstash",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "logstash",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "mailer",
+            "receiver": "logstash",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        }
+    ],
+    "external_entities": [
+        {
+            "name": "user",
+            "stereotypes": [
+                "user_stereotype",
+                "entrypoint",
+                "exitpoint"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "name": "logstash",
+            "stereotypes": [
+                "logging_server",
+                "exitpoint"
+            ],
+            "tagged_values": {
+                "Logging Server": "Logstash",
+                "Port": 5044
+            }
+        }
+    ]
+}

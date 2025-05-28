@@ -6,8 +6,30 @@
    <feature id="org.dataflowanalysis.analysis.feature.source">
       <category name="org.dataflowanalysis.analysis.source.category"/>
    </feature>
-   
-   <category-def name="org.dataflowanalysis.analysis.category" label="Data Flow Analysis"/>
-   <category-def name="org.dataflowanalysis.analysis.source.category" label="Data Flow Analysis Sources"/>
+   <feature id="org.dataflowanalysis.converter.feature">
+      <category name="org.dataflowanalysis.converter.category"/>
+   </feature>
+   <feature id="org.dataflowanalysis.dfd.datadictionary.feature">
+		<category name="dfd" />
+	</feature>
+	<feature id="org.dataflowanalysis.dfd.dataflowdiagram.feature">
+		<category name="dfd" />
+	</feature>
+	<feature id="org.dataflowanalysis.dfd.datadictionary.feature.source">
+		<category name="dfd.source" />
+	</feature>
+	<feature id="org.dataflowanalysis.dfd.dataflowdiagram.feature.source">
+		<category name="dfd.source" />
+	</feature>
+	<feature id="org.dataflowanalysis.examplemodels.feature">
+      <category name="org.dataflowanalysis.examplemodels.category"/>
+    </feature>
+	
+	<category-def name="dfd" label="DFD Metamodel"/>
+    <category-def name="dfd.source" label="DFD Metamodel Sources"/>
+    <category-def name="org.dataflowanalysis.analysis.category" label="Data Flow Analysis"/>
+    <category-def name="org.dataflowanalysis.analysis.source.category" label="Data Flow Analysis Sources"/>
+	<category-def name="org.dataflowanalysis.converter.category" label="Data Flow Analysis Converter"/>
+	<category-def name="org.dataflowanalysis.examplemodels.category" label="Data Flow Analysis Example Models"/>
 </site>
 

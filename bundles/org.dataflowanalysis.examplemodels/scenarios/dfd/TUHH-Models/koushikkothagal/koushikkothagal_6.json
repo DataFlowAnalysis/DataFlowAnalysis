@@ -1,0 +1,162 @@
+{
+    "services": [
+        {
+            "name": "discovery_server",
+            "stereotypes": [
+                "infrastructural",
+                "service_discovery"
+            ],
+            "tagged_values": {
+                "Port": 8761,
+                "Service Discovery": "Eureka"
+            }
+        },
+        {
+            "name": "ratings_data_service",
+            "stereotypes": [
+                "internal"
+            ],
+            "tagged_values": {
+                "Port": 8083,
+                "Endpoints": [
+                    "/ratingsdata",
+                    "/ratingsdata/movies/{movieId}",
+                    "/ratingsdata/user/{userId}"
+                ]
+            }
+        },
+        {
+            "name": "movie_info_service",
+            "stereotypes": [
+                "internal"
+            ],
+            "tagged_values": {
+                "Port": 8082,
+                "Endpoints": [
+                    "/movies",
+                    "/movies/{movieId}"
+                ]
+            }
+        },
+        {
+            "name": "movie_catalog_service",
+            "stereotypes": [
+                "internal",
+                "load_balancer"
+            ],
+            "tagged_values": {
+                "Port": 8081,
+                "Load Balancer": "Spring Cloud",
+                "Endpoints": [
+                    "/catalog",
+                    "/catalog/{userId}"
+                ]
+            }
+        },
+        {
+            "name": "auth_server",
+            "stereotypes": [
+                "infrastructural",
+                "authorization_server",
+                "login_attempts_regulation"
+            ],
+            "tagged_values": {}
+        }
+    ],
+    "information_flows": [
+        {
+            "sender": "ratings_data_service",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "movie_info_service",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "external_website",
+            "receiver": "movie_info_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "movie_catalog_service",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "movie_catalog_service",
+            "receiver": "ratings_data_service",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "movie_catalog_service",
+            "receiver": "movie_info_service",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "movie_info_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "movie_catalog_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "ratings_data_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        }
+    ],
+    "external_entities": [
+        {
+            "name": "external_website",
+            "stereotypes": [
+                "external_website"
+            ],
+            "tagged_values": {
+                "URL": "https://api.themoviedb.org"
+            }
+        }
+    ]
+}

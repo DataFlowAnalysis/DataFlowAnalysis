@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="ASCII"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_1EnaMDL5Ee-Y2OLvDHUg3A" entityName="New Repository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_jqhRkDd9Ee-Zh_B5eAtwMg" entityName="CentralLockingCU">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_ww-KoDeiEe-Zh_B5eAtwMg" entityName="CentralLockingCU.CentralLockingAccess.OperationProvidedRole1" providedInterface__OperationProvidedRole="_fBHdsDeiEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_ww-KoTeiEe-Zh_B5eAtwMg" describedService__SEFF="_nhuz4DeiEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_ww-xsDeiEe-Zh_B5eAtwMg" successor_AbstractAction="_ww-xsTeiEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_ww-xsTeiEe-Zh_B5eAtwMg" predecessor_AbstractAction="_ww-xsDeiEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_j_ajgDd9Ee-Zh_B5eAtwMg" entityName="HeatedSeatsCU">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_52Xo4DeiEe-Zh_B5eAtwMg" entityName="HeatedSeatsCU.HeatedSeatsControll.OperationProvidedRole1" providedInterface__OperationProvidedRole="_fZ3U4DeiEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_52YP8DeiEe-Zh_B5eAtwMg" describedService__SEFF="_zlwmcDeiEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_52YP8TeiEe-Zh_B5eAtwMg" successor_AbstractAction="_52YP8jeiEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_52YP8jeiEe-Zh_B5eAtwMg" predecessor_AbstractAction="_52YP8TeiEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_vuqY4Dd9Ee-Zh_B5eAtwMg" entityName="DriveByWireCU">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_gVpEkDg6Ee-TWfVuLMhuaw" entityName="DriveByWireCU.DriveByWire.OperationProvidedRole1" providedInterface__OperationProvidedRole="_FRdFgDg6Ee-TWfVuLMhuaw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_gVproDg6Ee-TWfVuLMhuaw" describedService__SEFF="_P9qJgDg6Ee-TWfVuLMhuaw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_gVqSsDg6Ee-TWfVuLMhuaw" successor_AbstractAction="_gVqSsTg6Ee-TWfVuLMhuaw"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_gVqSsTg6Ee-TWfVuLMhuaw" predecessor_AbstractAction="_gVqSsDg6Ee-TWfVuLMhuaw"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_gV0DsDg6Ee-TWfVuLMhuaw" describedService__SEFF="_NYgsMDg6Ee-TWfVuLMhuaw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_gV0DsTg6Ee-TWfVuLMhuaw" successor_AbstractAction="_gV0Dsjg6Ee-TWfVuLMhuaw"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_gV0Dsjg6Ee-TWfVuLMhuaw" predecessor_AbstractAction="_gV0DsTg6Ee-TWfVuLMhuaw"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_y-r_MDd9Ee-Zh_B5eAtwMg" entityName="MMI-Search">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_CFJBIDejEe-Zh_B5eAtwMg" entityName="MMI-Search.SearchInterface.OperationProvidedRole1" providedInterface__OperationProvidedRole="_Mr2tsDeOEe-Zh_B5eAtwMg"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_CK088DekEe-Zh_B5eAtwMg" entityName="MMI-Search.LocationBasedSearch.OperationProvidedRole2" providedInterface__OperationProvidedRole="_Ryez0DePEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_Cl_rcDejEe-Zh_B5eAtwMg" entityName="MMI-Search.SearchInterface.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_Mr2tsDeOEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_DHD7sDekEe-Zh_B5eAtwMg" entityName="MMI-Search.LocationBasedSearch.OperationRequiredRole2" requiredInterface__OperationRequiredRole="_Ryez0DePEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_CFJBITejEe-Zh_B5eAtwMg" describedService__SEFF="_flkTwDeQEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_CFJBIjejEe-Zh_B5eAtwMg" successor_AbstractAction="_duenwDe7Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_CFJBIzejEe-Zh_B5eAtwMg" predecessor_AbstractAction="_duenwDe7Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:BranchAction" id="_duenwDe7Ee-Zh_B5eAtwMg" entityName="InternetConnectionAvailable" predecessor_AbstractAction="_CFJBIjejEe-Zh_B5eAtwMg" successor_AbstractAction="_CFJBIzejEe-Zh_B5eAtwMg">
+        <branches_Branch xsi:type="seff:GuardedBranchTransition" id="_-2-5sDe7Ee-Zh_B5eAtwMg" entityName="GuardedBranchTransition1">
+          <branchBehaviour_BranchTransition id="_-2-5sTe7Ee-Zh_B5eAtwMg">
+            <steps_Behaviour xsi:type="seff:StartAction" id="_-2-5sje7Ee-Zh_B5eAtwMg" successor_AbstractAction="_Gi3nUDe8Ee-Zh_B5eAtwMg"/>
+            <steps_Behaviour xsi:type="seff:StopAction" id="_-2-5sze7Ee-Zh_B5eAtwMg" predecessor_AbstractAction="_Gi3nUDe8Ee-Zh_B5eAtwMg"/>
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_Gi3nUDe8Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_-2-5sje7Ee-Zh_B5eAtwMg" successor_AbstractAction="_-2-5sze7Ee-Zh_B5eAtwMg" calledService_ExternalService="_flkTwDeQEe-Zh_B5eAtwMg" role_ExternalService="_Cl_rcDejEe-Zh_B5eAtwMg"/>
+          </branchBehaviour_BranchTransition>
+          <branchCondition_GuardedBranchTransition specification="true"/>
+        </branches_Branch>
+        <branches_Branch xsi:type="seff:GuardedBranchTransition" id="_BjHv0De8Ee-Zh_B5eAtwMg" entityName="GuardedBranchTransition2">
+          <branchBehaviour_BranchTransition id="_BjHv0Te8Ee-Zh_B5eAtwMg">
+            <steps_Behaviour xsi:type="seff:StartAction" id="_BjHv0je8Ee-Zh_B5eAtwMg" successor_AbstractAction="_Nd7U8De8Ee-Zh_B5eAtwMg"/>
+            <steps_Behaviour xsi:type="seff:StopAction" id="_BjHv0ze8Ee-Zh_B5eAtwMg" predecessor_AbstractAction="_Nd7U8De8Ee-Zh_B5eAtwMg"/>
+            <steps_Behaviour xsi:type="seff:InternalAction" id="_Nd7U8De8Ee-Zh_B5eAtwMg" entityName="UseOnBoardSearchFunctionality" predecessor_AbstractAction="_BjHv0je8Ee-Zh_B5eAtwMg" successor_AbstractAction="_BjHv0ze8Ee-Zh_B5eAtwMg"/>
+          </branchBehaviour_BranchTransition>
+          <branchCondition_GuardedBranchTransition specification="false"/>
+        </branches_Branch>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_CK1kADekEe-Zh_B5eAtwMg" describedService__SEFF="_CtUEIDeSEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_CK1kATekEe-Zh_B5eAtwMg" successor_AbstractAction="_SgNjEDe8Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_CK1kAjekEe-Zh_B5eAtwMg" predecessor_AbstractAction="_SgNjEDe8Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:BranchAction" id="_SgNjEDe8Ee-Zh_B5eAtwMg" entityName="BranchAction1" predecessor_AbstractAction="_CK1kATekEe-Zh_B5eAtwMg" successor_AbstractAction="_CK1kAjekEe-Zh_B5eAtwMg">
+        <branches_Branch xsi:type="seff:GuardedBranchTransition" id="_VepqIDe8Ee-Zh_B5eAtwMg" entityName="GuardedBranchTransition1">
+          <branchBehaviour_BranchTransition id="_VeqRMDe8Ee-Zh_B5eAtwMg">
+            <steps_Behaviour xsi:type="seff:StartAction" id="_VeqRMTe8Ee-Zh_B5eAtwMg" successor_AbstractAction="_XV-YIDe8Ee-Zh_B5eAtwMg"/>
+            <steps_Behaviour xsi:type="seff:StopAction" id="_VeqRMje8Ee-Zh_B5eAtwMg" predecessor_AbstractAction="_XV-YIDe8Ee-Zh_B5eAtwMg"/>
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_XV-YIDe8Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_VeqRMTe8Ee-Zh_B5eAtwMg" successor_AbstractAction="_VeqRMje8Ee-Zh_B5eAtwMg" calledService_ExternalService="_CtUEIDeSEe-Zh_B5eAtwMg" role_ExternalService="_DHD7sDekEe-Zh_B5eAtwMg"/>
+          </branchBehaviour_BranchTransition>
+          <branchCondition_GuardedBranchTransition specification="true"/>
+        </branches_Branch>
+        <branches_Branch xsi:type="seff:GuardedBranchTransition" id="_eFb5wDe8Ee-Zh_B5eAtwMg" entityName="GuardedBranchTransition2">
+          <branchBehaviour_BranchTransition id="_eFb5wTe8Ee-Zh_B5eAtwMg">
+            <steps_Behaviour xsi:type="seff:StartAction" id="_eFb5wje8Ee-Zh_B5eAtwMg" successor_AbstractAction="_fsG8oDe8Ee-Zh_B5eAtwMg"/>
+            <steps_Behaviour xsi:type="seff:StopAction" id="_eFb5wze8Ee-Zh_B5eAtwMg" predecessor_AbstractAction="_fsG8oDe8Ee-Zh_B5eAtwMg"/>
+            <steps_Behaviour xsi:type="seff:InternalAction" id="_fsG8oDe8Ee-Zh_B5eAtwMg" entityName="UseOnBoardLocationBasedSearch" predecessor_AbstractAction="_eFb5wje8Ee-Zh_B5eAtwMg" successor_AbstractAction="_eFb5wze8Ee-Zh_B5eAtwMg"/>
+          </branchBehaviour_BranchTransition>
+          <branchCondition_GuardedBranchTransition specification="true"/>
+        </branches_Branch>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_1MiW0Dd9Ee-Zh_B5eAtwMg" entityName="Car2XModule">
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_7etNwDekEe-Zh_B5eAtwMg" entityName="Car2XModule.Car2XDataProvider.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_lgeocDePEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_7-04QDekEe-Zh_B5eAtwMg" entityName="Car2XModule.Car2XDataAggregator.OperationRequiredRole2" requiredInterface__OperationRequiredRole="_qKdEQDePEe-Zh_B5eAtwMg"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_2jrv8Dd9Ee-Zh_B5eAtwMg" entityName="SmartPhoneConnectability">
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_y3-TYDeiEe-Zh_B5eAtwMg" entityName="SmartPhoneConnectability.CentralLockingAccess.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_fBHdsDeiEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_6cJPcDeiEe-Zh_B5eAtwMg" entityName="SmartPhoneConnectability.HeatedSeatsControll.OperationRequiredRole2" requiredInterface__OperationRequiredRole="_fZ3U4DeiEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_7w3NYDenEe-Zh_B5eAtwMg" entityName="SmartPhoneConnectability.RemoteComfortFeatures.OperationRequiredRole3" requiredInterface__OperationRequiredRole="_HP6yADelEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_8rxWcDenEe-Zh_B5eAtwMg" entityName="SmartPhoneConnectability.CalenderIntegration.OperationRequiredRole4" requiredInterface__OperationRequiredRole="_t3bsUDePEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_9gv2oDenEe-Zh_B5eAtwMg" entityName="SmartPhoneConnectability.AudiConnectKey.OperationRequiredRole5" requiredInterface__OperationRequiredRole="__DpgsDePEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_-u5r0DenEe-Zh_B5eAtwMg" entityName="SmartPhoneConnectability.myAudiNavigation.OperationRequiredRole6" requiredInterface__OperationRequiredRole="_6mOTIDePEe-Zh_B5eAtwMg"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_6E3XsDd9Ee-Zh_B5eAtwMg" entityName="VoiceControl">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_ZX2IEDeiEe-Zh_B5eAtwMg" entityName="VoiceControl.SpeachRecognition.OperationProvidedRole1" providedInterface__OperationProvidedRole="_YSFxADeOEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_cAtAsDeiEe-Zh_B5eAtwMg" entityName="VoiceControl.SpeachRecognition.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_YSFxADeOEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_ZX2IETeiEe-Zh_B5eAtwMg" describedService__SEFF="_x7rvcDeQEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_ZX2IEjeiEe-Zh_B5eAtwMg" successor_AbstractAction="_ZX2IEzeiEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_ZX2IEzeiEe-Zh_B5eAtwMg" predecessor_AbstractAction="_ZX2IEjeiEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_BMLYoDd-Ee-Zh_B5eAtwMg" entityName="MMINavigationPlus">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_20c2YDeqEe-Zh_B5eAtwMg" entityName="MMINavigationPlus.NavigationRouteCalculation.OperationProvidedRole1" providedInterface__OperationProvidedRole="_ObqB8DePEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_XW-i4DeqEe-Zh_B5eAtwMg" entityName="MMINavigationPlus.GoogleEarthMapProvider.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_RA1J4DeOEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_sbmMMDeqEe-Zh_B5eAtwMg" entityName="MMINavigationPlus.NavigationRouteCalculation.OperationRequiredRole2" requiredInterface__OperationRequiredRole="_ObqB8DePEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_20kyMDeqEe-Zh_B5eAtwMg" describedService__SEFF="_EOQu8DeREe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_20kyMTeqEe-Zh_B5eAtwMg" successor_AbstractAction="_20kyMjeqEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_20kyMjeqEe-Zh_B5eAtwMg" predecessor_AbstractAction="_20kyMTeqEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_ECBkYDd-Ee-Zh_B5eAtwMg" entityName="IntelligentNavigationSystem">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_o1fBIDeqEe-Zh_B5eAtwMg" entityName="IntelligentNavigationSystem.NavigationRouteCalculation.OperationProvidedRole1" providedInterface__OperationProvidedRole="_ObqB8DePEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_mNfEIDeqEe-Zh_B5eAtwMg" entityName="IntelligentNavigationSystem.NavigationRouteCalculation.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_ObqB8DePEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_o1foMDeqEe-Zh_B5eAtwMg" describedService__SEFF="_EOQu8DeREe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_o1foMTeqEe-Zh_B5eAtwMg" successor_AbstractAction="_o1foMjeqEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_o1foMjeqEe-Zh_B5eAtwMg" predecessor_AbstractAction="_o1foMTeqEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_OyKtMDd-Ee-Zh_B5eAtwMg" entityName="SensorFusionLayer">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_uGG-UDeLEe-Zh_B5eAtwMg" entityName="SensorFusionLayer.AmbientFusionLayer.OperationProvidedRole1" providedInterface__OperationProvidedRole="_PGYMMDeKEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_xaRL0DeNEe-Zh_B5eAtwMg" entityName="SensorFusionLayer.ILongRangeRadar.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_QfP8QDeNEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_yEGzADeNEe-Zh_B5eAtwMg" entityName="SensorFusionLayer.IUltraSonicSensor.OperationRequiredRole2" requiredInterface__OperationRequiredRole="_xj2QgDeLEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_zeMLYDeNEe-Zh_B5eAtwMg" entityName="SensorFusionLayer.ILaserScanner.OperationRequiredRole3" requiredInterface__OperationRequiredRole="_fA8gkDeMEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_0KURkDeNEe-Zh_B5eAtwMg" entityName="SensorFusionLayer.IFrontCamera.OperationRequiredRole4" requiredInterface__OperationRequiredRole="_blyy4DeNEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_0oc_EDeNEe-Zh_B5eAtwMg" entityName="SensorFusionLayer.IAmbientCamera.OperationRequiredRole5" requiredInterface__OperationRequiredRole="_9MBNgDeLEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_1H5UIDeNEe-Zh_B5eAtwMg" entityName="SensorFusionLayer.IMidRangeRadar.OperationRequiredRole6" requiredInterface__OperationRequiredRole="_ZQYQIDeMEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_uGUZsDeLEe-Zh_B5eAtwMg" describedService__SEFF="_jqIHoDeLEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_uGWO4DeLEe-Zh_B5eAtwMg" successor_AbstractAction="_O9QroDe6Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_uGW18DeLEe-Zh_B5eAtwMg" predecessor_AbstractAction="_WGbtwDe6Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_O9QroDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_uGWO4DeLEe-Zh_B5eAtwMg" successor_AbstractAction="_QW_esDe6Ee-Zh_B5eAtwMg" calledService_ExternalService="__FCkoDeLEe-Zh_B5eAtwMg" role_ExternalService="_0oc_EDeNEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_QW_esDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction2" predecessor_AbstractAction="_O9QroDe6Ee-Zh_B5eAtwMg" successor_AbstractAction="_SL05YDe6Ee-Zh_B5eAtwMg" calledService_ExternalService="_cscR4DeNEe-Zh_B5eAtwMg" role_ExternalService="_0KURkDeNEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_SL05YDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction3" predecessor_AbstractAction="_QW_esDe6Ee-Zh_B5eAtwMg" successor_AbstractAction="_TQ98gDe6Ee-Zh_B5eAtwMg" calledService_ExternalService="_hX2tkDeMEe-Zh_B5eAtwMg" role_ExternalService="_zeMLYDeNEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_TQ98gDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction4" predecessor_AbstractAction="_SL05YDe6Ee-Zh_B5eAtwMg" successor_AbstractAction="_VI9_8De6Ee-Zh_B5eAtwMg" calledService_ExternalService="_Q4dtgDeNEe-Zh_B5eAtwMg" role_ExternalService="_xaRL0DeNEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_VI9_8De6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction5" predecessor_AbstractAction="_TQ98gDe6Ee-Zh_B5eAtwMg" successor_AbstractAction="_WGbtwDe6Ee-Zh_B5eAtwMg" calledService_ExternalService="_cShygDeMEe-Zh_B5eAtwMg" role_ExternalService="_1H5UIDeNEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_WGbtwDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction6" predecessor_AbstractAction="_VI9_8De6Ee-Zh_B5eAtwMg" successor_AbstractAction="_uGW18DeLEe-Zh_B5eAtwMg" calledService_ExternalService="_GZ7SEDeNEe-Zh_B5eAtwMg" role_ExternalService="_yEGzADeNEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_Yf-PQDd-Ee-Zh_B5eAtwMg" entityName="LongRangeRadar">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sPskYDeNEe-Zh_B5eAtwMg" entityName="LongRangeRadar.Interface6.OperationProvidedRole1" providedInterface__OperationProvidedRole="_QfP8QDeNEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_sPtLcDeNEe-Zh_B5eAtwMg" describedService__SEFF="_Q4dtgDeNEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_sPtLcTeNEe-Zh_B5eAtwMg" successor_AbstractAction="_sPtLcjeNEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_sPtLcjeNEe-Zh_B5eAtwMg" predecessor_AbstractAction="_sPtLcTeNEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_bu4bQDd-Ee-Zh_B5eAtwMg" entityName="LaserScanner">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_pV00QDeNEe-Zh_B5eAtwMg" entityName="LaserScanner.ILaserScanner.OperationProvidedRole1" providedInterface__OperationProvidedRole="_fA8gkDeMEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_pV1bUDeNEe-Zh_B5eAtwMg" describedService__SEFF="_hX2tkDeMEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_pV1bUTeNEe-Zh_B5eAtwMg" successor_AbstractAction="_pV1bUjeNEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_pV1bUjeNEe-Zh_B5eAtwMg" predecessor_AbstractAction="_pV1bUTeNEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_c3g3QDd-Ee-Zh_B5eAtwMg" entityName="MidRangeRadar">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_iE8AkDeNEe-Zh_B5eAtwMg" entityName="MidRangeRadar.IMidRangeRadar.OperationProvidedRole1" providedInterface__OperationProvidedRole="_ZQYQIDeMEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_iE_q8DeNEe-Zh_B5eAtwMg" describedService__SEFF="_cShygDeMEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_iE_q8TeNEe-Zh_B5eAtwMg" successor_AbstractAction="_iE_q8jeNEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_iE_q8jeNEe-Zh_B5eAtwMg" predecessor_AbstractAction="_iE_q8TeNEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_eKcewDd-Ee-Zh_B5eAtwMg" entityName="UltrasonicSensor">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_q9MasDeNEe-Zh_B5eAtwMg" entityName="UltrasonicSensor.IUltraSonicSensor.OperationProvidedRole1" providedInterface__OperationProvidedRole="_xj2QgDeLEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_q9NBwDeNEe-Zh_B5eAtwMg" describedService__SEFF="_GZ7SEDeNEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_q9NBwTeNEe-Zh_B5eAtwMg" successor_AbstractAction="_q9NBwjeNEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_q9NBwjeNEe-Zh_B5eAtwMg" predecessor_AbstractAction="_q9NBwTeNEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_i1hGwDd-Ee-Zh_B5eAtwMg" entityName="AmbientCamera">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_kCUTQDeNEe-Zh_B5eAtwMg" entityName="AmbientCamera.IAmbientCamera.OperationProvidedRole1" providedInterface__OperationProvidedRole="_9MBNgDeLEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_kCUTQTeNEe-Zh_B5eAtwMg" describedService__SEFF="__FCkoDeLEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_kCU6UDeNEe-Zh_B5eAtwMg" successor_AbstractAction="_kCU6UTeNEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_kCU6UTeNEe-Zh_B5eAtwMg" predecessor_AbstractAction="_kCU6UDeNEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_l9Hw4Dd-Ee-Zh_B5eAtwMg" entityName="FrontCamera">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_mfoqQDeNEe-Zh_B5eAtwMg" entityName="FrontCamera.IFrontCamera.OperationProvidedRole1" providedInterface__OperationProvidedRole="_blyy4DeNEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_mfpRUDeNEe-Zh_B5eAtwMg" describedService__SEFF="_cscR4DeNEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_mfpRUTeNEe-Zh_B5eAtwMg" successor_AbstractAction="_mfpRUjeNEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_mfpRUjeNEe-Zh_B5eAtwMg" predecessor_AbstractAction="_mfpRUTeNEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_TBdbUDeCEe-Zh_B5eAtwMg" entityName="Gateway">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_TU_oEDeSEe-Zh_B5eAtwMg" entityName="Gateway.SearchInterface.OperationProvidedRole1" providedInterface__OperationProvidedRole="_Mr2tsDeOEe-Zh_B5eAtwMg"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_UT2dADeSEe-Zh_B5eAtwMg" entityName="Gateway.NavigationMapProvider.OperationProvidedRole2" providedInterface__OperationProvidedRole="_RA1J4DeOEe-Zh_B5eAtwMg"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_VZVeYDeSEe-Zh_B5eAtwMg" entityName="Gateway.SpeachRecognition.OperationProvidedRole3" providedInterface__OperationProvidedRole="_YSFxADeOEe-Zh_B5eAtwMg"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_XclIgDeSEe-Zh_B5eAtwMg" entityName="Gateway.NavigationRouteCalculation.OperationProvidedRole4" providedInterface__OperationProvidedRole="_ObqB8DePEe-Zh_B5eAtwMg"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_ZMJosDeSEe-Zh_B5eAtwMg" entityName="Gateway.LocationBasedSearch.OperationProvidedRole5" providedInterface__OperationProvidedRole="_Ryez0DePEe-Zh_B5eAtwMg"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_dTX8wDeSEe-Zh_B5eAtwMg" entityName="Gateway.Car2XDataProvider.OperationProvidedRole6" providedInterface__OperationProvidedRole="_lgeocDePEe-Zh_B5eAtwMg"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_e3yV0DeSEe-Zh_B5eAtwMg" entityName="Gateway.Car2XDataAggregator.OperationProvidedRole7" providedInterface__OperationProvidedRole="_qKdEQDePEe-Zh_B5eAtwMg"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_GjuTADeoEe-Zh_B5eAtwMg" entityName="Gateway.myAudiNavigation.OperationProvidedRole8" providedInterface__OperationProvidedRole="_6mOTIDePEe-Zh_B5eAtwMg"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_Hue18DeoEe-Zh_B5eAtwMg" entityName="Gateway.CalenderIntegration.OperationProvidedRole9" providedInterface__OperationProvidedRole="_t3bsUDePEe-Zh_B5eAtwMg"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_R58kYDeoEe-Zh_B5eAtwMg" entityName="Gateway.RemoteComfortFeatures.OperationProvidedRole10" providedInterface__OperationProvidedRole="_HP6yADelEe-Zh_B5eAtwMg"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_XVbVoDeoEe-Zh_B5eAtwMg" entityName="Gateway.AudiConnectKey.OperationProvidedRole11" providedInterface__OperationProvidedRole="__DpgsDePEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_SsxKcDeSEe-Zh_B5eAtwMg" entityName="Gateway.SearchInterface.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_Mr2tsDeOEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_TzBn4DeSEe-Zh_B5eAtwMg" entityName="Gateway.NavigationMapProvider.OperationRequiredRole2" requiredInterface__OperationRequiredRole="_RA1J4DeOEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_Uwt_MDeSEe-Zh_B5eAtwMg" entityName="Gateway.SpeachRecognition.OperationRequiredRole3" requiredInterface__OperationRequiredRole="_YSFxADeOEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_WXER8DeSEe-Zh_B5eAtwMg" entityName="Gateway.NavigationRouteCalculation.OperationRequiredRole4" requiredInterface__OperationRequiredRole="_ObqB8DePEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_YKBdUDeSEe-Zh_B5eAtwMg" entityName="Gateway.LocationBasedSearch.OperationRequiredRole5" requiredInterface__OperationRequiredRole="_Ryez0DePEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_b-AsUDeSEe-Zh_B5eAtwMg" entityName="Gateway.Car2XDataProvider.OperationRequiredRole6" requiredInterface__OperationRequiredRole="_lgeocDePEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_d-NpgDeSEe-Zh_B5eAtwMg" entityName="Gateway.Car2XDataAggregator.OperationRequiredRole7" requiredInterface__OperationRequiredRole="_qKdEQDePEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_AX-icDeoEe-Zh_B5eAtwMg" entityName="Gateway.myAudiNavigation.OperationRequiredRole8" requiredInterface__OperationRequiredRole="_6mOTIDePEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_BMMNoDeoEe-Zh_B5eAtwMg" entityName="Gateway.AudiConnectKey.OperationRequiredRole9" requiredInterface__OperationRequiredRole="__DpgsDePEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_DPnd8DeoEe-Zh_B5eAtwMg" entityName="Gateway.CalenderIntegration.OperationRequiredRole10" requiredInterface__OperationRequiredRole="_t3bsUDePEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_EGZU8DeoEe-Zh_B5eAtwMg" entityName="Gateway.RemoteComfortFeatures.OperationRequiredRole11" requiredInterface__OperationRequiredRole="_HP6yADelEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_TVA2MDeSEe-Zh_B5eAtwMg" describedService__SEFF="_flkTwDeQEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_TVA2MTeSEe-Zh_B5eAtwMg" successor_AbstractAction="_j0O6gDe6Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_TVA2MjeSEe-Zh_B5eAtwMg" predecessor_AbstractAction="_j0O6gDe6Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_j0O6gDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_TVA2MTeSEe-Zh_B5eAtwMg" successor_AbstractAction="_TVA2MjeSEe-Zh_B5eAtwMg" calledService_ExternalService="_flkTwDeQEe-Zh_B5eAtwMg" role_ExternalService="_SsxKcDeSEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_UT2dATeSEe-Zh_B5eAtwMg" describedService__SEFF="_k9QKIDeQEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_UT3EEDeSEe-Zh_B5eAtwMg" successor_AbstractAction="_pOx3oDe6Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_UT3EETeSEe-Zh_B5eAtwMg" predecessor_AbstractAction="_pOx3oDe6Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_pOx3oDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_UT3EEDeSEe-Zh_B5eAtwMg" successor_AbstractAction="_UT3EETeSEe-Zh_B5eAtwMg" calledService_ExternalService="_k9QKIDeQEe-Zh_B5eAtwMg" role_ExternalService="_TzBn4DeSEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_VZVeYTeSEe-Zh_B5eAtwMg" describedService__SEFF="_x7rvcDeQEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_VZVeYjeSEe-Zh_B5eAtwMg" successor_AbstractAction="_tCk5YDe6Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_VZVeYzeSEe-Zh_B5eAtwMg" predecessor_AbstractAction="_tCk5YDe6Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_tCk5YDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_VZVeYjeSEe-Zh_B5eAtwMg" successor_AbstractAction="_VZVeYzeSEe-Zh_B5eAtwMg" calledService_ExternalService="_x7rvcDeQEe-Zh_B5eAtwMg" role_ExternalService="_Uwt_MDeSEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_XclvkDeSEe-Zh_B5eAtwMg" describedService__SEFF="_EOQu8DeREe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_XclvkTeSEe-Zh_B5eAtwMg" successor_AbstractAction="_xD1vYDe6Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_XclvkjeSEe-Zh_B5eAtwMg" predecessor_AbstractAction="_xD1vYDe6Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_xD1vYDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_XclvkTeSEe-Zh_B5eAtwMg" successor_AbstractAction="_XclvkjeSEe-Zh_B5eAtwMg" calledService_ExternalService="_EOQu8DeREe-Zh_B5eAtwMg" role_ExternalService="_WXER8DeSEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_ZMKPwDeSEe-Zh_B5eAtwMg" describedService__SEFF="_CtUEIDeSEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_ZMKPwTeSEe-Zh_B5eAtwMg" successor_AbstractAction="_3cONwDe6Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_ZMKPwjeSEe-Zh_B5eAtwMg" predecessor_AbstractAction="_3cONwDe6Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_3cONwDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_ZMKPwTeSEe-Zh_B5eAtwMg" successor_AbstractAction="_ZMKPwjeSEe-Zh_B5eAtwMg" calledService_ExternalService="_CtUEIDeSEe-Zh_B5eAtwMg" role_ExternalService="_YKBdUDeSEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_dTYj0DeSEe-Zh_B5eAtwMg" describedService__SEFF="_YuOzEDeREe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_dTYj0TeSEe-Zh_B5eAtwMg" successor_AbstractAction="_6WdxUDe6Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_dTYj0jeSEe-Zh_B5eAtwMg" predecessor_AbstractAction="_6WdxUDe6Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_6WdxUDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_dTYj0TeSEe-Zh_B5eAtwMg" successor_AbstractAction="_dTYj0jeSEe-Zh_B5eAtwMg" calledService_ExternalService="_YuOzEDeREe-Zh_B5eAtwMg" role_ExternalService="_b-AsUDeSEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_e3y84DeSEe-Zh_B5eAtwMg" describedService__SEFF="_mDMCADeREe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_e3y84TeSEe-Zh_B5eAtwMg" successor_AbstractAction="_9ehucDe6Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_e3y84jeSEe-Zh_B5eAtwMg" predecessor_AbstractAction="_9ehucDe6Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_9ehucDe6Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_e3y84TeSEe-Zh_B5eAtwMg" successor_AbstractAction="_e3y84jeSEe-Zh_B5eAtwMg" calledService_ExternalService="_mDMCADeREe-Zh_B5eAtwMg" role_ExternalService="_d-NpgDeSEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_Gju6EDeoEe-Zh_B5eAtwMg" describedService__SEFF="_yoVYEDemEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_Gju6ETeoEe-Zh_B5eAtwMg" successor_AbstractAction="_AaODgDe7Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_Gju6EjeoEe-Zh_B5eAtwMg" predecessor_AbstractAction="_AaODgDe7Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_AaODgDe7Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_Gju6ETeoEe-Zh_B5eAtwMg" successor_AbstractAction="_Gju6EjeoEe-Zh_B5eAtwMg" calledService_ExternalService="_yoVYEDemEe-Zh_B5eAtwMg" role_ExternalService="_AX-icDeoEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_Gj1nwDeoEe-Zh_B5eAtwMg" describedService__SEFF="_0AIRcDemEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_Gj1nwTeoEe-Zh_B5eAtwMg" successor_AbstractAction="_Fe1z8De7Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_Gj1nwjeoEe-Zh_B5eAtwMg" predecessor_AbstractAction="_Fe1z8De7Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_Fe1z8De7Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_Gj1nwTeoEe-Zh_B5eAtwMg" successor_AbstractAction="_Gj1nwjeoEe-Zh_B5eAtwMg" calledService_ExternalService="_0AIRcDemEe-Zh_B5eAtwMg" role_ExternalService="_AX-icDeoEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_HufdADeoEe-Zh_B5eAtwMg" describedService__SEFF="_YjA1ADemEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_HufdATeoEe-Zh_B5eAtwMg" successor_AbstractAction="_JQJiYDe7Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_HufdAjeoEe-Zh_B5eAtwMg" predecessor_AbstractAction="_JQJiYDe7Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_JQJiYDe7Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_HufdATeoEe-Zh_B5eAtwMg" successor_AbstractAction="_HufdAjeoEe-Zh_B5eAtwMg" calledService_ExternalService="_YjA1ADemEe-Zh_B5eAtwMg" role_ExternalService="_DPnd8DeoEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_R59LcDeoEe-Zh_B5eAtwMg" describedService__SEFF="_Pu9a4DelEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_R59LcTeoEe-Zh_B5eAtwMg" successor_AbstractAction="_NCtOADe7Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_R59LcjeoEe-Zh_B5eAtwMg" predecessor_AbstractAction="_NCtOADe7Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_NCtOADe7Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_R59LcTeoEe-Zh_B5eAtwMg" successor_AbstractAction="_R59LcjeoEe-Zh_B5eAtwMg" calledService_ExternalService="_Pu9a4DelEe-Zh_B5eAtwMg" role_ExternalService="_EGZU8DeoEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_R6EgMDeoEe-Zh_B5eAtwMg" describedService__SEFF="_SDYUkDelEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_R6EgMTeoEe-Zh_B5eAtwMg" successor_AbstractAction="_P5WD8De7Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_R6EgMjeoEe-Zh_B5eAtwMg" predecessor_AbstractAction="_P5WD8De7Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_P5WD8De7Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_R6EgMTeoEe-Zh_B5eAtwMg" successor_AbstractAction="_R6EgMjeoEe-Zh_B5eAtwMg" calledService_ExternalService="_SDYUkDelEe-Zh_B5eAtwMg" role_ExternalService="_EGZU8DeoEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_R6JYsDeoEe-Zh_B5eAtwMg" describedService__SEFF="_FZABwDenEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_R6JYsTeoEe-Zh_B5eAtwMg" successor_AbstractAction="_Sx5lcDe7Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_R6J_wDeoEe-Zh_B5eAtwMg" predecessor_AbstractAction="_Sx5lcDe7Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_Sx5lcDe7Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_R6JYsTeoEe-Zh_B5eAtwMg" successor_AbstractAction="_R6J_wDeoEe-Zh_B5eAtwMg" calledService_ExternalService="_FZABwDenEe-Zh_B5eAtwMg" role_ExternalService="_EGZU8DeoEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_XVb8sDeoEe-Zh_B5eAtwMg" describedService__SEFF="_kO2mgDelEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_XVb8sTeoEe-Zh_B5eAtwMg" successor_AbstractAction="_WF-lUDe7Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_XVb8sjeoEe-Zh_B5eAtwMg" predecessor_AbstractAction="_WF-lUDe7Ee-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_WF-lUDe7Ee-Zh_B5eAtwMg" entityName="ExternalCallAction1" predecessor_AbstractAction="_XVb8sTeoEe-Zh_B5eAtwMg" successor_AbstractAction="_XVb8sjeoEe-Zh_B5eAtwMg" calledService_ExternalService="_kO2mgDelEe-Zh_B5eAtwMg" role_ExternalService="_BMMNoDeoEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_-gtP4DeIEe-Zh_B5eAtwMg" entityName="JunctionAssistant">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_BbdEUDg6Ee-TWfVuLMhuaw" entityName="JunctionAssistant.JunctionAssist.OperationProvidedRole1" providedInterface__OperationProvidedRole="_yWcNADg5Ee-TWfVuLMhuaw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_bCuK8DehEe-Zh_B5eAtwMg" entityName="JunctionAssistant.AmbientFusionLayer.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_PGYMMDeKEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_BbdrYDg6Ee-TWfVuLMhuaw" describedService__SEFF="_y2wEwDg5Ee-TWfVuLMhuaw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_BbdrYTg6Ee-TWfVuLMhuaw" successor_AbstractAction="_BbdrYjg6Ee-TWfVuLMhuaw"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_BbdrYjg6Ee-TWfVuLMhuaw" predecessor_AbstractAction="_BbdrYTg6Ee-TWfVuLMhuaw"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_U12F4DeJEe-Zh_B5eAtwMg" entityName="AdaptiveDriveAssist">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_tvkvkDg5Ee-TWfVuLMhuaw" entityName="AdaptiveDriveAssist.DriveAssist.OperationProvidedRole1" providedInterface__OperationProvidedRole="_8AaNYDg4Ee-TWfVuLMhuaw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_hGV6QDehEe-Zh_B5eAtwMg" entityName="AdaptiveDriveAssist.AmbientFusionLayer.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_PGYMMDeKEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_hEqtwDg6Ee-TWfVuLMhuaw" entityName="AdaptiveDriveAssist.DriveByWire.OperationRequiredRole2" requiredInterface__OperationRequiredRole="_FRdFgDg6Ee-TWfVuLMhuaw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_tv0AIDg5Ee-TWfVuLMhuaw" describedService__SEFF="_QZMrcDg5Ee-TWfVuLMhuaw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_tv0AITg5Ee-TWfVuLMhuaw" successor_AbstractAction="_tv0AIjg5Ee-TWfVuLMhuaw"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_tv0AIjg5Ee-TWfVuLMhuaw" predecessor_AbstractAction="_tv0AITg5Ee-TWfVuLMhuaw"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_a9RXIDeJEe-Zh_B5eAtwMg" entityName="EfficiencyAssistant">
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_kz2t0DehEe-Zh_B5eAtwMg" entityName="EfficiencyAssistant.AmbientFusionLayer.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_PGYMMDeKEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_wlCWQDg4Ee-TWfVuLMhuaw" entityName="EfficiencyAssistant.Car2XDataProvider.OperationRequiredRole2" requiredInterface__OperationRequiredRole="_lgeocDePEe-Zh_B5eAtwMg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_NXGMYDg5Ee-TWfVuLMhuaw" entityName="EfficiencyAssistant.DriveAssist.OperationRequiredRole3" requiredInterface__OperationRequiredRole="_8AaNYDg4Ee-TWfVuLMhuaw"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_twPG4DeJEe-Zh_B5eAtwMg" entityName="GoogleSearch">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_InKMYDeSEe-Zh_B5eAtwMg" entityName="GoogleSearch.SearchInterface.OperationProvidedRole1" providedInterface__OperationProvidedRole="_Mr2tsDeOEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_InKzcDeSEe-Zh_B5eAtwMg" describedService__SEFF="_flkTwDeQEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_InKzcTeSEe-Zh_B5eAtwMg" successor_AbstractAction="_InKzcjeSEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_InKzcjeSEe-Zh_B5eAtwMg" predecessor_AbstractAction="_InKzcTeSEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_wi-UQDeJEe-Zh_B5eAtwMg" entityName="GoogleEarthNavigationBackend">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="__GZn0DeREe-Zh_B5eAtwMg" entityName="GoogleEarthNavigationBackend.NavigationMapProvider.OperationProvidedRole1" providedInterface__OperationProvidedRole="_RA1J4DeOEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="__GZn0TeREe-Zh_B5eAtwMg" describedService__SEFF="_k9QKIDeQEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="__GZn0jeREe-Zh_B5eAtwMg" successor_AbstractAction="__GZn0zeREe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="__GZn0zeREe-Zh_B5eAtwMg" predecessor_AbstractAction="__GZn0jeREe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_y4xuADeJEe-Zh_B5eAtwMg" entityName="OnlineSpeachRecognitionBackend">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_9mvL4DeREe-Zh_B5eAtwMg" entityName="OnlineSpeachRecognitionBackend.SpeachRecognition.OperationProvidedRole1" providedInterface__OperationProvidedRole="_YSFxADeOEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_9mvy8DeREe-Zh_B5eAtwMg" describedService__SEFF="_x7rvcDeQEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_9mvy8TeREe-Zh_B5eAtwMg" successor_AbstractAction="_9mwaADeREe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_9mwaADeREe-Zh_B5eAtwMg" predecessor_AbstractAction="_9mvy8TeREe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_1t0BcDeJEe-Zh_B5eAtwMg" entityName="HERERouteCalculation">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_8u5k8DeREe-Zh_B5eAtwMg" entityName="HERERouteCalculation.NavigationRouteCalculation.OperationProvidedRole1" providedInterface__OperationProvidedRole="_ObqB8DePEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_8u6MADeREe-Zh_B5eAtwMg" describedService__SEFF="_EOQu8DeREe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_8u6MATeREe-Zh_B5eAtwMg" successor_AbstractAction="_8u6MAjeREe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_8u6MAjeREe-Zh_B5eAtwMg" predecessor_AbstractAction="_8u6MATeREe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_5AxnADeJEe-Zh_B5eAtwMg" entityName="HERELocationBasedSearch">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_HByxEDeSEe-Zh_B5eAtwMg" entityName="HERELocationBasedSearch.LocationBasedSearch.OperationProvidedRole1" providedInterface__OperationProvidedRole="_Ryez0DePEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_HBzYIDeSEe-Zh_B5eAtwMg" describedService__SEFF="_CtUEIDeSEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_HBzYITeSEe-Zh_B5eAtwMg" successor_AbstractAction="_HBzYIjeSEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_HBzYIjeSEe-Zh_B5eAtwMg" predecessor_AbstractAction="_HBzYITeSEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="__TBBIDeJEe-Zh_B5eAtwMg" entityName="myAudiApp">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_p1wSsDenEe-Zh_B5eAtwMg" entityName="myAudiApp.myAudiNavigation.OperationProvidedRole1" providedInterface__OperationProvidedRole="_6mOTIDePEe-Zh_B5eAtwMg"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_qrbWcDenEe-Zh_B5eAtwMg" entityName="myAudiApp.AudiConnectKey.OperationProvidedRole2" providedInterface__OperationProvidedRole="__DpgsDePEe-Zh_B5eAtwMg"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sUkegDenEe-Zh_B5eAtwMg" entityName="myAudiApp.CalenderIntegration.OperationProvidedRole3" providedInterface__OperationProvidedRole="_t3bsUDePEe-Zh_B5eAtwMg"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_tF6b4DenEe-Zh_B5eAtwMg" entityName="myAudiApp.RemoteComfortFeatures.OperationProvidedRole4" providedInterface__OperationProvidedRole="_HP6yADelEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_p1w5wDenEe-Zh_B5eAtwMg" describedService__SEFF="_yoVYEDemEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_p1w5wTenEe-Zh_B5eAtwMg" successor_AbstractAction="_p1w5wjenEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_p1w5wjenEe-Zh_B5eAtwMg" predecessor_AbstractAction="_p1w5wTenEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_p16qwDenEe-Zh_B5eAtwMg" describedService__SEFF="_0AIRcDemEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_p16qwTenEe-Zh_B5eAtwMg" successor_AbstractAction="_p16qwjenEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_p16qwjenEe-Zh_B5eAtwMg" predecessor_AbstractAction="_p16qwTenEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_qrb9gDenEe-Zh_B5eAtwMg" describedService__SEFF="_kO2mgDelEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_qrb9gTenEe-Zh_B5eAtwMg" successor_AbstractAction="_qrb9gjenEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_qrb9gjenEe-Zh_B5eAtwMg" predecessor_AbstractAction="_qrb9gTenEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_sUlFkDenEe-Zh_B5eAtwMg" describedService__SEFF="_YjA1ADemEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_sUlFkTenEe-Zh_B5eAtwMg" successor_AbstractAction="_sUlFkjenEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_sUlFkjenEe-Zh_B5eAtwMg" predecessor_AbstractAction="_sUlFkTenEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_tF7C8DenEe-Zh_B5eAtwMg" describedService__SEFF="_Pu9a4DelEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_tF7C8TenEe-Zh_B5eAtwMg" successor_AbstractAction="_tF7C8jenEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_tF7C8jenEe-Zh_B5eAtwMg" predecessor_AbstractAction="_tF7C8TenEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_tF_7cDenEe-Zh_B5eAtwMg" describedService__SEFF="_SDYUkDelEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_tF_7cTenEe-Zh_B5eAtwMg" successor_AbstractAction="_tF_7cjenEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_tF_7cjenEe-Zh_B5eAtwMg" predecessor_AbstractAction="_tF_7cTenEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_tGEz8DenEe-Zh_B5eAtwMg" describedService__SEFF="_FZABwDenEe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_tGEz8TenEe-Zh_B5eAtwMg" successor_AbstractAction="_tGEz8jenEe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_tGEz8jenEe-Zh_B5eAtwMg" predecessor_AbstractAction="_tGEz8TenEe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_CoehEDeKEe-Zh_B5eAtwMg" entityName="AudiCar2XBackend">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_2_iOYDeREe-Zh_B5eAtwMg" entityName="AudiCar2XBackend.Car2XDataProvider.OperationProvidedRole1" providedInterface__OperationProvidedRole="_lgeocDePEe-Zh_B5eAtwMg"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_47CRwDeREe-Zh_B5eAtwMg" entityName="AudiCar2XBackend.Car2XDataAggregator.OperationProvidedRole2" providedInterface__OperationProvidedRole="_qKdEQDePEe-Zh_B5eAtwMg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_2_i1cDeREe-Zh_B5eAtwMg" describedService__SEFF="_YuOzEDeREe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_2_i1cTeREe-Zh_B5eAtwMg" successor_AbstractAction="_2_i1cjeREe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_2_i1cjeREe-Zh_B5eAtwMg" predecessor_AbstractAction="_2_i1cTeREe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_47C40DeREe-Zh_B5eAtwMg" describedService__SEFF="_mDMCADeREe-Zh_B5eAtwMg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_47C40TeREe-Zh_B5eAtwMg" successor_AbstractAction="_47C40jeREe-Zh_B5eAtwMg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_47C40jeREe-Zh_B5eAtwMg" predecessor_AbstractAction="_47C40TeREe-Zh_B5eAtwMg"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_PGYMMDeKEe-Zh_B5eAtwMg" entityName="AmbientFusionLayer">
+    <signatures__OperationInterface id="_jqIHoDeLEe-Zh_B5eAtwMg" entityName="getEnvironmentInformation">
+      <returnType__OperationSignature xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_xj2QgDeLEe-Zh_B5eAtwMg" entityName="IUltraSonicSensor">
+    <signatures__OperationInterface id="_GZ7SEDeNEe-Zh_B5eAtwMg" entityName="getSensorValues">
+      <returnType__OperationSignature xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_9MBNgDeLEe-Zh_B5eAtwMg" entityName="IAmbientCamera">
+    <signatures__OperationInterface id="__FCkoDeLEe-Zh_B5eAtwMg" entityName="getCameraImage">
+      <returnType__OperationSignature xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_ZQYQIDeMEe-Zh_B5eAtwMg" entityName="IMidRangeRadar">
+    <signatures__OperationInterface id="_cShygDeMEe-Zh_B5eAtwMg" entityName="getRadarValues">
+      <returnType__OperationSignature xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_fA8gkDeMEe-Zh_B5eAtwMg" entityName="ILaserScanner">
+    <signatures__OperationInterface id="_hX2tkDeMEe-Zh_B5eAtwMg" entityName="getScannerResults">
+      <returnType__OperationSignature xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_QfP8QDeNEe-Zh_B5eAtwMg" entityName="ILongRangeRadar">
+    <signatures__OperationInterface id="_Q4dtgDeNEe-Zh_B5eAtwMg" entityName="getRadarValues">
+      <returnType__OperationSignature xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_blyy4DeNEe-Zh_B5eAtwMg" entityName="IFrontCamera">
+    <signatures__OperationInterface id="_cscR4DeNEe-Zh_B5eAtwMg" entityName="getCameraImage">
+      <returnType__OperationSignature xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_Mr2tsDeOEe-Zh_B5eAtwMg" entityName="SearchInterface">
+    <signatures__OperationInterface id="_flkTwDeQEe-Zh_B5eAtwMg" entityName="search">
+      <parameters__OperationSignature parameterName="searchTerm">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+      </parameters__OperationSignature>
+      <returnType__OperationSignature xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_RA1J4DeOEe-Zh_B5eAtwMg" entityName="GoogleEarthMapProvider">
+    <signatures__OperationInterface id="_k9QKIDeQEe-Zh_B5eAtwMg" entityName="getMapFor">
+      <parameters__OperationSignature parameterName="section">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+      </parameters__OperationSignature>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_YSFxADeOEe-Zh_B5eAtwMg" entityName="SpeachRecognition">
+    <signatures__OperationInterface id="_x7rvcDeQEe-Zh_B5eAtwMg" entityName="processSpeach">
+      <parameters__OperationSignature parameterName="speachSnippet">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.6"/>
+      </parameters__OperationSignature>
+      <returnType__OperationSignature xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_ObqB8DePEe-Zh_B5eAtwMg" entityName="NavigationRouteCalculation">
+    <signatures__OperationInterface id="_EOQu8DeREe-Zh_B5eAtwMg" entityName="calculateRoute">
+      <parameters__OperationSignature parameterName="routeStartStop">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+      </parameters__OperationSignature>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_Ryez0DePEe-Zh_B5eAtwMg" entityName="LocationBasedSearch">
+    <signatures__OperationInterface id="_CtUEIDeSEe-Zh_B5eAtwMg" entityName="search">
+      <parameters__OperationSignature parameterName="location">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+      </parameters__OperationSignature>
+      <parameters__OperationSignature parameterName="searchTerm">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+      </parameters__OperationSignature>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_lgeocDePEe-Zh_B5eAtwMg" entityName="Car2XDataProvider">
+    <signatures__OperationInterface id="_YuOzEDeREe-Zh_B5eAtwMg" entityName="provideData">
+      <parameters__OperationSignature parameterName="request">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+      </parameters__OperationSignature>
+      <returnType__OperationSignature xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_qKdEQDePEe-Zh_B5eAtwMg" entityName="Car2XDataAggregator">
+    <signatures__OperationInterface id="_mDMCADeREe-Zh_B5eAtwMg" entityName="submitData">
+      <parameters__OperationSignature parameterName="dataType">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+      </parameters__OperationSignature>
+      <parameters__OperationSignature parameterName="data">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+      </parameters__OperationSignature>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_t3bsUDePEe-Zh_B5eAtwMg" entityName="CalenderIntegration">
+    <signatures__OperationInterface id="_YjA1ADemEe-Zh_B5eAtwMg" entityName="provideCalenderInfo">
+      <parameters__OperationSignature parameterName="calenderInfo">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+      </parameters__OperationSignature>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_6mOTIDePEe-Zh_B5eAtwMg" entityName="myAudiNavigation">
+    <signatures__OperationInterface id="_yoVYEDemEe-Zh_B5eAtwMg" entityName="findCar">
+      <returnType__OperationSignature xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_0AIRcDemEe-Zh_B5eAtwMg" entityName="transferCurrentDestination">
+      <parameters__OperationSignature parameterName="currentDest">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+      </parameters__OperationSignature>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="__DpgsDePEe-Zh_B5eAtwMg" entityName="AudiConnectKey">
+    <signatures__OperationInterface id="_kO2mgDelEe-Zh_B5eAtwMg" entityName="sendUnlockSignal"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_fBHdsDeiEe-Zh_B5eAtwMg" entityName="CentralLockingAccess">
+    <signatures__OperationInterface id="_nhuz4DeiEe-Zh_B5eAtwMg" entityName="trigger">
+      <parameters__OperationSignature parameterName="lock">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
+      </parameters__OperationSignature>
+      <parameters__OperationSignature parameterName="lockType">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+      </parameters__OperationSignature>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_fZ3U4DeiEe-Zh_B5eAtwMg" entityName="HeatedSeatsControll">
+    <signatures__OperationInterface id="_zlwmcDeiEe-Zh_B5eAtwMg" entityName="set">
+      <parameters__OperationSignature parameterName="seat">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+      </parameters__OperationSignature>
+      <parameters__OperationSignature parameterName="level">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+      </parameters__OperationSignature>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_HP6yADelEe-Zh_B5eAtwMg" entityName="RemoteComfortFeatures">
+    <signatures__OperationInterface id="_Pu9a4DelEe-Zh_B5eAtwMg" entityName="triggerHeatedSeats">
+      <parameters__OperationSignature parameterName="seat">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+      </parameters__OperationSignature>
+      <parameters__OperationSignature parameterName="heatSetting">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+      </parameters__OperationSignature>
+      <returnType__OperationSignature xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_SDYUkDelEe-Zh_B5eAtwMg" entityName="triggerAuxiliaryHeating">
+      <parameters__OperationSignature parameterName="power">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
+      </parameters__OperationSignature>
+      <returnType__OperationSignature xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_FZABwDenEe-Zh_B5eAtwMg" entityName="lockVehicle">
+      <returnType__OperationSignature xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_8AaNYDg4Ee-TWfVuLMhuaw" entityName="DriveAssist">
+    <signatures__OperationInterface id="_QZMrcDg5Ee-TWfVuLMhuaw" entityName="LateralLongitudinalControl"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_yWcNADg5Ee-TWfVuLMhuaw" entityName="JunctionAssist">
+    <signatures__OperationInterface id="_y2wEwDg5Ee-TWfVuLMhuaw" entityName="scanAndDisplayJunction"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_FRdFgDg6Ee-TWfVuLMhuaw" entityName="DriveByWire">
+    <signatures__OperationInterface id="_NYgsMDg6Ee-TWfVuLMhuaw" entityName="steeringInput"/>
+    <signatures__OperationInterface id="_P9qJgDg6Ee-TWfVuLMhuaw" entityName="throttleInput"/>
+  </interfaces__Repository>
+</repository:Repository>

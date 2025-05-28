@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ASCII"?> 
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_6WNf8FCjEe-156mTbdRFxg"> 
+  <labelTypes id="4h3wzk" entityName="Sensitivity"> 
+    <label id="zzvphn" entityName="Personal"/> 
+    <label id="veaan9" entityName="Public"/> 
+  </labelTypes> 
+  <labelTypes id="gvia09" entityName="Location"> 
+    <label id="g10hr" entityName="EU"/> 
+    <label id="5hnugm" entityName="nonEU"/> 
+  </labelTypes> 
+  <labelTypes id="84rllz" entityName="Encryption"> 
+    <label id="2r6xe6" entityName="Encrypted"/> 
+  </labelTypes> 
+  <behavior id="_6WP8MVCjEe-156mTbdRFxg" entityName="C"> 
+    <inPin id="zf0rw" entityName="C_in_"/> 
+  </behavior> 
+  <behavior id="_6WRKUVCjEe-156mTbdRFxg" entityName="B"> 
+    <inPin id="7y0iws" entityName="B_in_start"/> 
+    <outPin id="mesx5i" entityName="B_out_"/> 
+    <outPin id="92lxe" entityName="B_out_loop"/> 
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_6WSYcFCjEe-156mTbdRFxg" inputPins="7y0iws" outputPin="mesx5i"/> 
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_6WSYcVCjEe-156mTbdRFxg" inputPins="7y0iws" outputPin="92lxe"/> 
+  </behavior> 
+  <behavior id="_6WRKVlCjEe-156mTbdRFxg" entityName="D"> 
+    <inPin id="uww6lig" entityName="D_in_loop"/> 
+    <outPin id="8vbihk" entityName="D_out_"/> 
+    <assignment xsi:type="datadictionary:Assignment" id="_6WS_gFCjEe-156mTbdRFxg" inputPins="uww6lig" outputPin="8vbihk" outputLabels="5hnugm"> 
+      <term xsi:type="datadictionary:TRUE" id="_6WS_gVCjEe-156mTbdRFxg"/> 
+    </assignment> 
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_6WTmkFCjEe-156mTbdRFxg" inputPins="uww6lig" outputPin="8vbihk"/> 
+  </behavior> 
+  <behavior id="_6WRKWlCjEe-156mTbdRFxg" entityName="A"> 
+    <outPin id="904mkk" entityName="A_out_start"/> 
+  </behavior> 
+</datadictionary:DataDictionary> 

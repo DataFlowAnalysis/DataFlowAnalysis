@@ -1,0 +1,22 @@
+module org.dataflowanalysis.dfd.mwe2
+
+import tools.mdsd.ecoreworkflow.mwe2lib.bean.EclipseRCPSupportingStandaloneSetup
+import tools.mdsd.ecoreworkflow.mwe2lib.component.URISupportingDirectoryCleaner
+
+var workspaceRoot = "../../../"
+
+Workflow {
+	bean = EclipseRCPSupportingStandaloneSetup {
+		scanClassPath = true
+		platformUri = workspaceRoot		
+	}
+
+	component = URISupportingDirectoryCleaner {
+		directory = "platform:/resource/org.dataflowanalysis.dfd.datadictionary/src-gen"
+		directory = "platform:/resource/org.dataflowanalysis.dfd.datadictionary.edit/src-gen"
+		directory = "platform:/resource/org.dataflowanalysis.dfd.datadictionary.editor/src-gen"
+		directory = "platform:/resource/org.dataflowanalysis.dfd.dataflowdiagram/src-gen"
+		directory = "platform:/resource/org.dataflowanalysis.dfd.dataflowdiagram.edit/src-gen"
+		directory = "platform:/resource/org.dataflowanalysis.dfd.dataflowdiagram.editor/src-gen"
+	}
+}

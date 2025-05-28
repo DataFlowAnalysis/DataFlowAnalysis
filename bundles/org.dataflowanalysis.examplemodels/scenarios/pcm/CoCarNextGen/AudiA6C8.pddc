@@ -1,0 +1,40 @@
+dictionary id "_mkQXYD0mEe-hSesFjA3W0w"
+
+enum Location {
+	Smartphone
+	Onboard
+	AudiCloud
+	HEREBackend
+	GoogleBackend
+}
+
+enum DataType {
+	GPSLocation
+	AmbientSensor
+	Navigation
+	Traffic
+	Car2X
+	ExternalAuth
+	DriveControlInstruction
+	VehicleIdentifier
+}
+
+enum Granularity {
+	Detailed
+	Aggregated
+}
+
+enum Status {
+	GatewayChecked
+}
+
+enum Trigger {
+	Manual
+	Automatic
+}
+
+enumCharacteristicType Location using Location
+enumCharacteristicType DataType using DataType
+enumCharacteristicType Granularity using Granularity
+enumCharacteristicType Status using Status
+enumCharacteristicType Trigger using Trigger

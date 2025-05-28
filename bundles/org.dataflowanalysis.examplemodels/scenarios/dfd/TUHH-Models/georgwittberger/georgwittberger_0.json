@@ -1,0 +1,93 @@
+{
+    "services": [
+        {
+            "name": "apache_server",
+            "stereotypes": [
+                "web_server",
+                "infrastructural",
+                "entrypoint"
+            ],
+            "tagged_values": {
+                "Web Server": "Apache httpd"
+            }
+        },
+        {
+            "name": "content_service",
+            "stereotypes": [
+                "internal"
+            ],
+            "tagged_values": {
+                "Port": 11080
+            }
+        },
+        {
+            "name": "product_service",
+            "stereotypes": [
+                "internal"
+            ],
+            "tagged_values": {
+                "Port": 11081
+            }
+        },
+        {
+            "name": "cart_service",
+            "stereotypes": [
+                "internal"
+            ],
+            "tagged_values": {
+                "Port": 11082
+            }
+        }
+    ],
+    "external_entities": [
+        {
+            "name": "user",
+            "stereotypes": [
+                "user_stereotype"
+            ],
+            "tagged_values": {}
+        }
+    ],
+    "information_flows": [
+        {
+            "sender": "user",
+            "receiver": "apache_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "cart_service",
+            "receiver": "product_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "apache_server",
+            "receiver": "cart_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "apache_server",
+            "receiver": "product_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "apache_server",
+            "receiver": "content_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        }
+    ]
+}

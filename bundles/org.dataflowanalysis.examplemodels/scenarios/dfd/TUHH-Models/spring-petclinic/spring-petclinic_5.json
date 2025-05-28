@@ -1,0 +1,483 @@
+{
+    "services": [
+        {
+            "name": "config_server",
+            "stereotypes": [
+                "configuration_server",
+                "infrastructural",
+                "token_validation"
+            ],
+            "tagged_values": {
+                "Configuration Server": "Spring Cloud Config",
+                "Port": 8888
+            }
+        },
+        {
+            "name": "discovery_server",
+            "stereotypes": [
+                "service_discovery",
+                "infrastructural",
+                "token_validation"
+            ],
+            "tagged_values": {
+                "Service Discovery": "Eureka",
+                "Port": 8761
+            }
+        },
+        {
+            "name": "tracing_server",
+            "stereotypes": [
+                "tracing_server",
+                "infrastructural",
+                "token_validation"
+            ],
+            "tagged_values": {
+                "Tracing Server": "Zipkin",
+                "Port": 9411
+            }
+        },
+        {
+            "name": "admin_server",
+            "stereotypes": [
+                "administration_server",
+                "infrastructural",
+                "token_validation"
+            ],
+            "tagged_values": {
+                "Administration Server": "Spring Boot Admin",
+                "Port": 9090
+            }
+        },
+        {
+            "name": "prometheus_server",
+            "stereotypes": [
+                "metrics_server",
+                "infrastructural",
+                "token_validation"
+            ],
+            "tagged_values": {
+                "Metrics Server": "Prometheus",
+                "Port": 9090
+            }
+        },
+        {
+            "name": "grafana_server",
+            "stereotypes": [
+                "monitoring_dashboard",
+                "infrastructural",
+                "token_validation"
+            ],
+            "tagged_values": {
+                "Monitoring Dashboard": "Grafana",
+                "Port": 3000
+            }
+        },
+        {
+            "name": "customers_service",
+            "stereotypes": [
+                "in_memory_data_store",
+                "local_logging",
+                "internal",
+                "token_validation"
+            ],
+            "tagged_values": {
+                "Port": 8081,
+                "In-Memory Data Store": "HSQLDB",
+                "Logging Technology": "Lombok",
+                "Endpoints": [
+                    "/owners",
+                    "/owners/{ownerId}"
+                ]
+            }
+        },
+        {
+            "name": "vets_service",
+            "stereotypes": [
+                "in_memory_data_store",
+                "internal",
+                "token_validation"
+            ],
+            "tagged_values": {
+                "Port": 8083,
+                "In-Memory Data Store": "HSQLDB",
+                "Endpoints": [
+                    "/vets"
+                ]
+            }
+        },
+        {
+            "name": "visits_service",
+            "stereotypes": [
+                "in_memory_data_store",
+                "local_logging",
+                "internal",
+                "token_validation"
+            ],
+            "tagged_values": {
+                "Port": 8082,
+                "In-Memory Data Store": "HSQLDB",
+                "Logging Technology": "Lombok"
+            }
+        },
+        {
+            "name": "api_gateway",
+            "stereotypes": [
+                "gateway",
+                "infrastructural",
+                "load_balancer",
+                "token_validation"
+            ],
+            "tagged_values": {
+                "Gateway": "Spring Cloud Gateway",
+                "Port": 8080,
+                "Load Balancer": "Spring Cloud",
+                "Endpoints": [
+                    "/api/gatewayowners/{ownerId}",
+                    "/api/gateway"
+                ]
+            }
+        },
+        {
+            "name": "auth_server",
+            "stereotypes": [
+                "infrastructural",
+                "authorization_server"
+            ],
+            "tagged_values": {}
+        }
+    ],
+    "external_entities": [
+        {
+            "name": "github_repository",
+            "stereotypes": [
+                "github_repository",
+                "entrypoint"
+            ],
+            "tagged_values": {
+                "URL": "https://github.com/spring-petclinic/spring-petclinic-microservices-config"
+            }
+        },
+        {
+            "name": "user",
+            "stereotypes": [
+                "user_stereotype",
+                "entrypoint",
+                "exitpoint"
+            ],
+            "tagged_values": {}
+        }
+    ],
+    "information_flows": [
+        {
+            "sender": "github_repository",
+            "receiver": "config_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "tracing_server",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "tracing_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "admin_server",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "admin_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "prometheus_server",
+            "receiver": "grafana_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "customers_service",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "customers_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "customers_service",
+            "receiver": "tracing_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "customers_service",
+            "receiver": "prometheus_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "vets_service",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "vets_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "vets_service",
+            "receiver": "tracing_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "vets_service",
+            "receiver": "prometheus_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "visits_service",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "visits_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "visits_service",
+            "receiver": "tracing_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "visits_service",
+            "receiver": "prometheus_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "discovery_server",
+            "receiver": "api_gateway",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user",
+            "receiver": "api_gateway",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "user",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "config_server",
+            "receiver": "api_gateway",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "prometheus_server",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "vets_service",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "visits_service",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "customers_service",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link",
+                "circuit_breaker_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "api_gateway",
+            "receiver": "tracing_server",
+            "stereotypes": [
+                "restful_http",
+                "load_balanced_link"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "config_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "discovery_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "tracing_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "admin_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "prometheus_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "grafana_server",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "customers_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "vets_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "visits_service",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "auth_server",
+            "receiver": "api_gateway",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        }
+    ]
+}

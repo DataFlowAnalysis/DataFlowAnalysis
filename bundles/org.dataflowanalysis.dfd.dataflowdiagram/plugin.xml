@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated dataflowdiagrammodel -->
+      <package
+            uri="http://dataflowanalysis.org/dfd/dataflowdiagrammodel"
+            class="org.dataflowanalysis.dfd.diagram.dataflowdiagrammodel.DataFlowDiagramModelPackage"
+            genModel="model/dataflowdiagram.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated dataflowdiagram -->
+      <package
+            uri="http://dataflowanalysis.org/dfd/dataflowdiagram"
+            class="org.dataflowanalysis.dfd.dataflowdiagram.dataflowdiagramPackage"
+            genModel="model/dataflowdiagram.genmodel"/>
+   </extension>
+
+</plugin>

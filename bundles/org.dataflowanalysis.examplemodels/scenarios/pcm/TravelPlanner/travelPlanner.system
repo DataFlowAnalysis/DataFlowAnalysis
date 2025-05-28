@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ASCII"?>
+<system:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="_bOLKwPVgEeuMKba1Qn68bg" entityName="TravelPlanner System">
+  <assemblyContexts__ComposedStructure id="_g2-mUPVgEeuMKba1Qn68bg" entityName="Assembly_Airline">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:CompositeComponent" href="travelPlanner.repository#_pwyxkPVeEeuMKba1Qn68bg"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_hshuQPVgEeuMKba1Qn68bg" entityName="Assembly_CreditCardCenter">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:CompositeComponent" href="travelPlanner.repository#__4HqgPVdEeuMKba1Qn68bg"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_iS4joPVgEeuMKba1Qn68bg" entityName="Assembly_TravelPlanner">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="travelPlanner.repository#_-LMZMPVeEeuMKba1Qn68bg"/>
+  </assemblyContexts__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_owe5MPVgEeuMKba1Qn68bg" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_eoQE8PVgEeuMKba1Qn68bg" assemblyContext_ProvidedDelegationConnector="_hshuQPVgEeuMKba1Qn68bg">
+    <innerProvidedRole_ProvidedDelegationConnector href="travelPlanner.repository#_EgzF0PVeEeuMKba1Qn68bg"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_pIvBIPVgEeuMKba1Qn68bg" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_eAKxQPVgEeuMKba1Qn68bg" assemblyContext_ProvidedDelegationConnector="_hshuQPVgEeuMKba1Qn68bg">
+    <innerProvidedRole_ProvidedDelegationConnector href="travelPlanner.repository#_Lrfx8PVeEeuMKba1Qn68bg"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_vVT4IPVgEeuMKba1Qn68bg" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_ff0mIPVgEeuMKba1Qn68bg" assemblyContext_ProvidedDelegationConnector="_g2-mUPVgEeuMKba1Qn68bg">
+    <innerProvidedRole_ProvidedDelegationConnector href="travelPlanner.repository#_4OkpwPVeEeuMKba1Qn68bg"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_wIXFsPVgEeuMKba1Qn68bg" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_fDhEoPVgEeuMKba1Qn68bg" assemblyContext_ProvidedDelegationConnector="_iS4joPVgEeuMKba1Qn68bg">
+    <innerProvidedRole_ProvidedDelegationConnector href="travelPlanner.repository#__YwYgPVeEeuMKba1Qn68bg"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_wnNk4PVgEeuMKba1Qn68bg" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_f_HKMPVgEeuMKba1Qn68bg" assemblyContext_ProvidedDelegationConnector="_iS4joPVgEeuMKba1Qn68bg">
+    <innerProvidedRole_ProvidedDelegationConnector href="travelPlanner.repository#_Bvj30PVfEeuMKba1Qn68bg"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_xN-p8PVgEeuMKba1Qn68bg" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_iS4joPVgEeuMKba1Qn68bg" providingAssemblyContext_AssemblyConnector="_g2-mUPVgEeuMKba1Qn68bg">
+    <providedRole_AssemblyConnector href="travelPlanner.repository#_xiqycPVeEeuMKba1Qn68bg"/>
+    <requiredRole_AssemblyConnector href="travelPlanner.repository#_FqqbcPVfEeuMKba1Qn68bg"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_xqsbIPVgEeuMKba1Qn68bg" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_iS4joPVgEeuMKba1Qn68bg" providingAssemblyContext_AssemblyConnector="_g2-mUPVgEeuMKba1Qn68bg">
+    <providedRole_AssemblyConnector href="travelPlanner.repository#_tzDtIPVeEeuMKba1Qn68bg"/>
+    <requiredRole_AssemblyConnector href="travelPlanner.repository#_D-dYUPVfEeuMKba1Qn68bg"/>
+  </connectors__ComposedStructure>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_eAKxQPVgEeuMKba1Qn68bg" entityName="CreditCardDataDBProvidedRole">
+    <providedInterface__OperationProvidedRole href="travelPlanner.repository#_WhReIPVdEeuMKba1Qn68bg"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_eoQE8PVgEeuMKba1Qn68bg" entityName="CreditCardDataDeclassificationProvidedRole">
+    <providedInterface__OperationProvidedRole href="travelPlanner.repository#_YSeWAPVdEeuMKba1Qn68bg"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_fDhEoPVgEeuMKba1Qn68bg" entityName="FlightBookingProvidedRole">
+    <providedInterface__OperationProvidedRole href="travelPlanner.repository#_V1NCUPVdEeuMKba1Qn68bg"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_ff0mIPVgEeuMKba1Qn68bg" entityName="FlightDBProvidedRole">
+    <providedInterface__OperationProvidedRole href="travelPlanner.repository#_XlcQ4PVdEeuMKba1Qn68bg"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_f_HKMPVgEeuMKba1Qn68bg" entityName="FlightQueryProvidedRole">
+    <providedInterface__OperationProvidedRole href="travelPlanner.repository#_VE604PVdEeuMKba1Qn68bg"/>
+  </providedRoles_InterfaceProvidingEntity>
+</system:System>

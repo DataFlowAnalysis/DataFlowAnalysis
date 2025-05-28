@@ -1,0 +1,201 @@
+{
+    "services": [
+        {
+            "name": "zookeeper",
+            "stereotypes": [
+                "configuration_server",
+                "infrastructural"
+            ],
+            "tagged_values": {
+                "Configuration Server": "ZooKeeper"
+            }
+        },
+        {
+            "name": "kafka",
+            "stereotypes": [
+                "message_broker",
+                "infrastructural"
+            ],
+            "tagged_values": {
+                "Message Broker": "Kafka",
+                "Port": 9092
+            }
+        },
+        {
+            "name": "order",
+            "stereotypes": [
+                "internal"
+            ],
+            "tagged_values": {
+                "Port": 8080,
+                "Endpoints": [
+                    "/order"
+                ]
+            }
+        },
+        {
+            "name": "invoicing",
+            "stereotypes": [
+                "internal",
+                "local_logging"
+            ],
+            "tagged_values": {
+                "Port": 8080
+            }
+        },
+        {
+            "name": "shipping",
+            "stereotypes": [
+                "internal",
+                "local_logging"
+            ],
+            "tagged_values": {
+                "Port": 8080
+            }
+        },
+        {
+            "name": "apache",
+            "stereotypes": [
+                "web_server",
+                "infrastructural",
+                "entrypoint"
+            ],
+            "tagged_values": {
+                "Web Server": "Apache httpd",
+                "Port": 80
+            }
+        },
+        {
+            "name": "postgres",
+            "stereotypes": [
+                "database",
+                "plaintext_credentials"
+            ],
+            "tagged_values": {
+                "Database": "PostgreSQL",
+                "Username": "dbuser",
+                "Password": "dbpass"
+            }
+        }
+    ],
+    "information_flows": [
+        {
+            "sender": "zookeeper",
+            "receiver": "kafka",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "order",
+            "receiver": "kafka",
+            "stereotypes": [
+                "restful_http",
+                "message_producer_kafka"
+            ],
+            "tagged_values": {
+                "'Producer Topic'": "\"order\""
+            }
+        },
+        {
+            "sender": "kafka",
+            "receiver": "invoicing",
+            "stereotypes": [
+                "restful_http",
+                "message_consumer_kafka"
+            ],
+            "tagged_values": {
+                "'Consumer Topic'": "\"order\""
+            }
+        },
+        {
+            "sender": "kafka",
+            "receiver": "shipping",
+            "stereotypes": [
+                "restful_http",
+                "message_consumer_kafka"
+            ],
+            "tagged_values": {
+                "'Consumer Topic'": "\"order\""
+            }
+        },
+        {
+            "sender": "apache",
+            "receiver": "order",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "apache",
+            "receiver": "shipping",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "apache",
+            "receiver": "invoicing",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "user",
+            "receiver": "apache",
+            "stereotypes": [
+                "restful_http"
+            ],
+            "tagged_values": {}
+        },
+        {
+            "sender": "postgres",
+            "receiver": "order",
+            "stereotypes": [
+                "jdbc",
+                "plaintext_credentials_link"
+            ],
+            "tagged_values": {
+                "'Username'": "\"dbuser\"",
+                " 'Password'": "\"dbpass\""
+            }
+        },
+        {
+            "sender": "postgres",
+            "receiver": "shipping",
+            "stereotypes": [
+                "jdbc",
+                "plaintext_credentials_link"
+            ],
+            "tagged_values": {
+                "'Username'": "\"dbuser\"",
+                " 'Password'": "\"dbpass\""
+            }
+        },
+        {
+            "sender": "postgres",
+            "receiver": "invoicing",
+            "stereotypes": [
+                "jdbc",
+                "plaintext_credentials_link"
+            ],
+            "tagged_values": {
+                "'Username'": "\"dbuser\"",
+                " 'Password'": "\"dbpass\""
+            }
+        }
+    ],
+    "external_entities": [
+        {
+            "name": "user",
+            "stereotypes": [
+                "user_stereotype"
+            ],
+            "tagged_values": {}
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Converter
+Bundle-SymbolicName: org.dataflowanalysis.converter
+Bundle-Version: 4.0.0.qualifier
+Export-Package: 
+ org.dataflowanalysis.converter,
+ org.dataflowanalysis.converter.dfd2web,
+ org.dataflowanalysis.converter.micro2dfd,
+ org.dataflowanalysis.converter.micro2dfd.model,
+ org.dataflowanalysis.converter.pcm2dfd,
+ org.dataflowanalysis.converter.plant2micro,
+ org.dataflowanalysis.converter.web2dfd,
+ org.dataflowanalysis.converter.web2dfd.model
+Require-Bundle: org.dataflowanalysis.dfd.datadictionary,
+ org.dataflowanalysis.dfd.dataflowdiagram,
+ com.fasterxml.jackson.core.jackson-annotations;bundle-version="2.13.2";visibility:=reexport,
+ com.fasterxml.jackson.core.jackson-core;bundle-version="2.13.2";visibility:=reexport,
+ com.fasterxml.jackson.core.jackson-databind;bundle-version="2.13.2";visibility:=reexport,
+ org.eclipse.emf.ecore.xmi;visibility:=reexport,
+ org.apache.log4j;visibility:=reexport,
+ org.dataflowanalysis.analysis,
+ org.dataflowanalysis.analysis.pcm,
+ org.dataflowanalysis.analysis.dfd
+Automatic-Module-Name: org.dataflowanalysis.converter
+Bundle-RequiredExecutionEnvironment: JavaSE-17

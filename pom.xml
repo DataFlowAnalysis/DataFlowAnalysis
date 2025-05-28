@@ -142,6 +142,84 @@
 	</plugins>
  </build>
  
+  <profiles>
+	<profile>
+		<id>execute-generate-workflow</id>
+		<activation>
+			<file>
+				<exists>workflow/generate.mwe2</exists>
+			</file>
+		</activation>
+		<build>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>3.1.0</version>
+					<executions>
+						<execution>
+							<id>ExecuteMWE2LauncherForGenerate</id>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>java</goal>
+							</goals>
+							<configuration>
+								<mainClass>org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher</mainClass>
+								<arguments>
+									<argument>/${project.basedir}/workflow/generate.mwe2</argument>
+									<argument>-p</argument>
+									<argument>workspaceRoot=/${maven.multiModuleProjectDirectory}</argument>
+								</arguments>
+								<classpathScope>compile</classpathScope>
+								<includePluginDependencies>true</includePluginDependencies>
+								<cleanupDaemonThreads>false</cleanupDaemonThreads> <!-- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=475098#c3 -->
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</build>
+	</profile>
+	<profile>
+		<id>execute-clean-workflow</id>
+		<activation>
+			<file>
+				<exists>workflow/clean.mwe2</exists>
+			</file>
+		</activation>
+		<build>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>3.1.0</version>
+					<executions>
+						<execution>
+							<id>ExecuteMWE2LauncherForClean</id>
+							<phase>clean</phase>
+							<goals>
+								<goal>java</goal>
+							</goals>
+							<configuration>
+								<mainClass>org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher</mainClass>
+								<arguments>
+									<argument>/${project.basedir}/workflow/clean.mwe2</argument>
+									<argument>-p</argument>
+									<argument>workspaceRoot=/${maven.multiModuleProjectDirectory}</argument>
+								</arguments>
+								<classpathScope>compile</classpathScope>
+								<includePluginDependencies>true</includePluginDependencies>
+								<cleanupDaemonThreads>false
+								</cleanupDaemonThreads> <!-- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=475098#c3 -->
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</build>
+	</profile>
+ </profiles>
+ 
  <modules>
 		<module>releng</module>
 		<module>bundles</module>

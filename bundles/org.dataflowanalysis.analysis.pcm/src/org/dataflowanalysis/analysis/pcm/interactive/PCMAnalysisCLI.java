@@ -72,7 +72,7 @@ public class PCMAnalysisCLI {
             AnalysisConstraint constraint = constraints.get(i);
             List<DSLResult> violations = constraint.findViolations(flowGraphs);
             for (DSLResult violation : violations) {
-                logger.info("Violation for constraint " + i + ":");
+                logger.info("Violation for constraint " + constraint.getName() + ":");
                 logger.info(violation.toString());
                 logger.info("-------------------------");
             }

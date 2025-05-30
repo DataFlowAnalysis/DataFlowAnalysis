@@ -12,7 +12,15 @@ public class ConstraintDSL {
      * Creates a new constraint DSL type to create an {@link AnalysisConstraint}
      */
     public ConstraintDSL() {
-        this.analysisConstraint = new AnalysisConstraint();
+        this.analysisConstraint = new AnalysisConstraint("default");
+    }
+
+    /**
+     * Creates a new constraint DSL type to create an {@link AnalysisConstraint}
+     * @param name Name of the constraint
+     */
+    public ConstraintDSL(String name) {
+        this.analysisConstraint = new AnalysisConstraint(name);
     }
 
     /**

@@ -3,7 +3,6 @@ package org.dataflowanalysis.analysis.dsl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
-import java.util.UUID;
 import java.util.stream.Stream;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
@@ -22,6 +21,8 @@ import org.dataflowanalysis.analysis.utils.StringView;
  * Represents an analysis constraint created by the DSL
  */
 public class AnalysisConstraint {
+    private static final String DSL_LIST_TOKEN = "-";
+    private static final String DSL_NAME_SEPARATOR = ":";
     private static final String DSL_KEYWORD = "neverFlows";
 
     private static final String FAILED_MATCHING_MESSAGE = "Vertex %s failed to match selector %s";
@@ -39,9 +40,8 @@ public class AnalysisConstraint {
     /**
      * Create a new analysis constraint with no constraints
      */
-    public AnalysisConstraint() {
-        this.name = UUID.randomUUID()
-                .toString();
+    public AnalysisConstraint(String name) {
+        this.name = name;
         this.vertexSourceSelectors = new VertexSourceSelectors();
         this.dataSourceSelectors = new DataSourceSelectors();
         this.vertexDestinationSelectors = new VertexDestinationSelectors();
@@ -148,6 +148,8 @@ public class AnalysisConstraint {
     @Override
     public String toString() {
         StringJoiner dslString = new StringJoiner(" ");
+        dslString.add(DSL_LIST_TOKEN);
+        dslString.add(this.name + DSL_NAME_SEPARATOR);
         SourceSelectors sourceSelectors = new SourceSelectors(this.dataSourceSelectors, this.vertexSourceSelectors);
         dslString.add(sourceSelectors.toString());
         dslString.add(DSL_KEYWORD);
@@ -168,8 +170,7 @@ public class AnalysisConstraint {
      * @return Returns a {@link ParseResult} that may contain the {@link AnalysisConstraint}
      */
     public static ParseResult<AnalysisConstraint> fromString(StringView string) {
-        return AnalysisConstraint.fromString(string, null, UUID.randomUUID()
-                .toString());
+        return AnalysisConstraint.fromString(string, null);
     }
 
     /**
@@ -178,8 +179,30 @@ public class AnalysisConstraint {
      * @param contextProvider Context provider used to parse analysis-specific contents
      * @return Returns a {@link ParseResult} that may contain the {@link AnalysisConstraint}
      */
-    public static ParseResult<AnalysisConstraint> fromString(StringView string, DSLContextProvider contextProvider, String name) {
+    public static ParseResult<AnalysisConstraint> fromString(StringView string, DSLContextProvider contextProvider) {
         DSLContext context = new DSLContext(contextProvider);
+        if (!string.startsWith(DSL_LIST_TOKEN)) {
+            return string.expect(DSL_LIST_TOKEN);
+        }
+        string.advance(DSL_LIST_TOKEN.length() + 1);
+        if (string.startsWith(" ")) {
+            string.advance(1);
+        }
+        int index = string.getString()
+                .indexOf(DSL_NAME_SEPARATOR);
+        if (index == -1) {
+            return ParseResult.error("Invalid DSL Constraint: Did delimit constraint name with " + DSL_NAME_SEPARATOR);
+        }
+        String name = string.getString()
+                .substring(0, index);
+        string.advance(name.length());
+        if (!string.startsWith(DSL_NAME_SEPARATOR)) {
+            return string.expect(DSL_NAME_SEPARATOR);
+        }
+        string.advance(DSL_NAME_SEPARATOR.length() + 1);
+        if (string.startsWith(" ")) {
+            string.advance(1);
+        }
         var sourceSelectors = SourceSelectors.fromString(string, context);
         if (sourceSelectors.failed()) {
             return ParseResult.error(sourceSelectors.getError());
@@ -210,5 +233,9 @@ public class AnalysisConstraint {
         }
         return ParseResult.ok(
                 new AnalysisConstraint(name, vertexSourceSelectors, dataSourceSelectors, vertexDestinationSelectors, conditionalSelectors, context));
+    }
+
+    public String getName() {
+        return name;
     }
 }

@@ -3,7 +3,6 @@ package org.dataflowanalysis.analysis.tests.integration.dsl;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
-import java.util.UUID;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
@@ -83,7 +82,7 @@ public class DSLResultTest extends BaseTest {
 
     @Test
     public void testDataObjects() {
-        AnalysisConstraint constraint = new AnalysisConstraint();
+        AnalysisConstraint constraint = new AnalysisConstraint("default");
         constraint.addDataSourceSelector(new DataCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(
                 ConstraintVariableReference.ofConstant(List.of("DataSensitivity")), ConstraintVariableReference.ofConstant(List.of("Personal")))));
         constraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(
@@ -94,19 +93,18 @@ public class DSLResultTest extends BaseTest {
 
     @Test
     public void testStringify() {
-        AnalysisConstraint constraint = new AnalysisConstraint();
+        AnalysisConstraint constraint = new AnalysisConstraint("testDSL");
         constraint.addDataSourceSelector(new DataCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(
                 ConstraintVariableReference.ofConstant(List.of("DataSensitivity")), ConstraintVariableReference.ofConstant(List.of("Personal")))));
         constraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(
                 ConstraintVariableReference.ofConstant(List.of("ServerLocation")), ConstraintVariableReference.ofConstant(List.of("nonEU")))));
-        assertEquals("data DataSensitivity.Personal neverFlows vertex ServerLocation.nonEU", constraint.toString());
+        assertEquals("- testDSL: data DataSensitivity.Personal neverFlows vertex ServerLocation.nonEU", constraint.toString());
     }
 
     private void evaluateAnalysis(AnalysisConstraint constraint, DataFlowConfidentialityAnalysis analysis, List<ConstraintData> expectedResults) {
         logger.info("DSL String: " + constraint.toString());
         ParseResult<AnalysisConstraint> constraintParsed = AnalysisConstraint.fromString(new StringView(constraint.toString()),
-                new PCMDSLContextProvider(), UUID.randomUUID()
-                        .toString());
+                new PCMDSLContextProvider());
         if (constraintParsed.failed()) {
             fail(System.lineSeparator() + constraintParsed.getError());
         }

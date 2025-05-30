@@ -21,13 +21,16 @@ import org.dataflowanalysis.analysis.utils.StringView;
  * Represents an analysis constraint created by the DSL
  */
 public class AnalysisConstraint {
+    private static final String DSL_LIST_TOKEN = "-";
+    private static final String DSL_NAME_SEPARATOR = ":";
     private static final String DSL_KEYWORD = "neverFlows";
 
     private static final String FAILED_MATCHING_MESSAGE = "Vertex %s failed to match selector %s";
-    private static final String SUCEEDED_MATCHING_MESSAGE = "Vertex %s matched all selectors";
+    private static final String SUCCEEDED_MATCHING_MESSAGE = "Vertex %s matched all selectors";
     private static final String OMMITED_TRANSPOSE_FLOW_GRAPH = "Transpose flow graph %s did not contain any violations. Omitting!";
 
     private final Logger logger = Logger.getLogger(AnalysisConstraint.class);
+    private final String name;
     private final DataSourceSelectors dataSourceSelectors;
     private final VertexSourceSelectors vertexSourceSelectors;
     private final VertexDestinationSelectors vertexDestinationSelectors;
@@ -37,7 +40,8 @@ public class AnalysisConstraint {
     /**
      * Create a new analysis constraint with no constraints
      */
-    public AnalysisConstraint() {
+    public AnalysisConstraint(String name) {
+        this.name = name;
         this.vertexSourceSelectors = new VertexSourceSelectors();
         this.dataSourceSelectors = new DataSourceSelectors();
         this.vertexDestinationSelectors = new VertexDestinationSelectors();
@@ -45,8 +49,9 @@ public class AnalysisConstraint {
         this.context = new DSLContext();
     }
 
-    public AnalysisConstraint(VertexSourceSelectors vertexSourceSelectors, DataSourceSelectors dataSourceSelectors,
+    public AnalysisConstraint(String name, VertexSourceSelectors vertexSourceSelectors, DataSourceSelectors dataSourceSelectors,
             VertexDestinationSelectors vertexDestinationSelectors, ConditionalSelectors conditionalSelectors, DSLContext context) {
+        this.name = name;
         this.vertexSourceSelectors = vertexSourceSelectors;
         this.dataSourceSelectors = dataSourceSelectors;
         this.vertexDestinationSelectors = vertexDestinationSelectors;
@@ -87,7 +92,7 @@ public class AnalysisConstraint {
                     }
                 }
                 if (matched) {
-                    logger.debug(String.format(SUCEEDED_MATCHING_MESSAGE, vertex));
+                    logger.debug(String.format(SUCCEEDED_MATCHING_MESSAGE, vertex));
                     violations.add(vertex);
                 }
             }
@@ -143,6 +148,8 @@ public class AnalysisConstraint {
     @Override
     public String toString() {
         StringJoiner dslString = new StringJoiner(" ");
+        dslString.add(DSL_LIST_TOKEN);
+        dslString.add(this.name + DSL_NAME_SEPARATOR);
         SourceSelectors sourceSelectors = new SourceSelectors(this.dataSourceSelectors, this.vertexSourceSelectors);
         dslString.add(sourceSelectors.toString());
         dslString.add(DSL_KEYWORD);
@@ -174,6 +181,28 @@ public class AnalysisConstraint {
      */
     public static ParseResult<AnalysisConstraint> fromString(StringView string, DSLContextProvider contextProvider) {
         DSLContext context = new DSLContext(contextProvider);
+        if (!string.startsWith(DSL_LIST_TOKEN)) {
+            return string.expect(DSL_LIST_TOKEN);
+        }
+        string.advance(DSL_LIST_TOKEN.length() + 1);
+        if (string.startsWith(" ")) {
+            string.advance(1);
+        }
+        int index = string.getString()
+                .indexOf(DSL_NAME_SEPARATOR);
+        if (index == -1) {
+            return ParseResult.error("Invalid DSL Constraint: Did delimit constraint name with " + DSL_NAME_SEPARATOR);
+        }
+        String name = string.getString()
+                .substring(0, index);
+        string.advance(name.length());
+        if (!string.startsWith(DSL_NAME_SEPARATOR)) {
+            return string.expect(DSL_NAME_SEPARATOR);
+        }
+        string.advance(DSL_NAME_SEPARATOR.length() + 1);
+        if (string.startsWith(" ")) {
+            string.advance(1);
+        }
         var sourceSelectors = SourceSelectors.fromString(string, context);
         if (sourceSelectors.failed()) {
             return ParseResult.error(sourceSelectors.getError());
@@ -202,8 +231,11 @@ public class AnalysisConstraint {
         if (!string.empty()) {
             return ParseResult.error("Unexpected symbols: " + string.getString());
         }
+        return ParseResult.ok(
+                new AnalysisConstraint(name, vertexSourceSelectors, dataSourceSelectors, vertexDestinationSelectors, conditionalSelectors, context));
+    }
 
-        return ParseResult
-                .ok(new AnalysisConstraint(vertexSourceSelectors, dataSourceSelectors, vertexDestinationSelectors, conditionalSelectors, context));
+    public String getName() {
+        return name;
     }
 }

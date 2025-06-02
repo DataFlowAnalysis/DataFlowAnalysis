@@ -18,10 +18,10 @@ hero:
       link: https://editor.dataflowanalysis.org
     - theme: alt
       text: Getting Started
-      link: /wiki/
+      link: /wiki/gettingstarted
     - theme: alt
       text: Examples
-      link: /examples/
+      link: /wiki/examples
 
 features:
   - icon: 

@@ -3,20 +3,22 @@ Bundle-ManifestVersion: 2
 Bundle-Name: DataFlowAnalysis PCM
 Bundle-SymbolicName: org.dataflowanalysis.analysis.pcm
 Bundle-Version: 4.0.0.qualifier
-Require-Bundle: org.eclipse.core.runtime,
+Require-Bundle: 
+ org.eclipse.core.runtime,
  org.eclipse.core.resources;visibility:=reexport,
- tools.mdsd.library.standalone.initialization;bundle-version="0.2.0";visibility:=reexport,
- tools.mdsd.library.standalone.initialization.log4j;bundle-version="0.2.0";visibility:=reexport,
- org.palladiosimulator.pcm;bundle-version="5.2.0";visibility:=reexport,
- org.apache.log4j;bundle-version="1.2.15";visibility:=reexport,
- org.dataflowanalysis.pcm.extension.dictionary.characterized;bundle-version="5.2.0";visibility:=reexport,
- org.dataflowanalysis.pcm.extension.dddsl;bundle-version="5.2.0";visibility:=reexport,
- org.dataflowanalysis.pcm.extension.nodecharacteristics;bundle-version="0.1.0";visibility:=reexport,
+ tools.mdsd.library.standalone.initialization,
+ tools.mdsd.library.standalone.initialization.log4j,
+ org.palladiosimulator.pcm,
+ org.apache.log4j;bundle-version="1.2.15",
+ org.dataflowanalysis.pcm.extension.dictionary.characterized,
+ org.dataflowanalysis.pcm.extension.dddsl,
+ org.dataflowanalysis.pcm.extension.nodecharacteristics,
  org.dataflowanalysis.analysis,
  org.eclipse.xtext;bundle-version="2.30.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: org.dataflowanalysis.analysis.pcm
-Export-Package: org.dataflowanalysis.analysis.pcm,
+Export-Package: 
+ org.dataflowanalysis.analysis.pcm,
  org.dataflowanalysis.analysis.pcm.core,
  org.dataflowanalysis.analysis.pcm.core.finder,
  org.dataflowanalysis.analysis.pcm.core.seff,

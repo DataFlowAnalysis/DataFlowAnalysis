@@ -14,6 +14,12 @@ Require-Bundle: org.dataflowanalysis.converter,
  org.dataflowanalysis.analysis.pcm,
  org.dataflowanalysis.analysis.dfd,
  org.dataflowanalysis.examplemodels,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ tools.mdsd.modelingfoundations.identifier,
+ org.apache.log4j;bundle-version="1.2.15",
+ org.palladiosimulator.pcm,
+ com.fasterxml.jackson.core.jackson-annotations;bundle-version="2.13.2",
+ com.fasterxml.jackson.core.jackson-core;bundle-version="2.13.2",
+ com.fasterxml.jackson.core.jackson-databind;bundle-version="2.13.2"
 Automatic-Module-Name: org.dataflowanalysis.converter.tests
 Bundle-RequiredExecutionEnvironment: JavaSE-17

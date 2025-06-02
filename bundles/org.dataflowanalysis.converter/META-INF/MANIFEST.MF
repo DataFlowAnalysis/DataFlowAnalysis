@@ -12,15 +12,22 @@ Export-Package:
  org.dataflowanalysis.converter.plant2micro,
  org.dataflowanalysis.converter.web2dfd,
  org.dataflowanalysis.converter.web2dfd.model
-Require-Bundle: org.dataflowanalysis.dfd.datadictionary,
+Require-Bundle: 
+ org.dataflowanalysis.dfd.datadictionary,
  org.dataflowanalysis.dfd.dataflowdiagram,
- com.fasterxml.jackson.core.jackson-annotations;bundle-version="2.13.2";visibility:=reexport,
- com.fasterxml.jackson.core.jackson-core;bundle-version="2.13.2";visibility:=reexport,
- com.fasterxml.jackson.core.jackson-databind;bundle-version="2.13.2";visibility:=reexport,
- org.eclipse.emf.ecore.xmi;visibility:=reexport,
- org.apache.log4j;visibility:=reexport,
+ com.fasterxml.jackson.core.jackson-annotations;bundle-version="2.13.2",
+ com.fasterxml.jackson.core.jackson-core;bundle-version="2.13.2",
+ com.fasterxml.jackson.core.jackson-databind;bundle-version="2.13.2",
+ org.eclipse.emf.ecore.xmi,
+ org.apache.log4j,
  org.dataflowanalysis.analysis,
  org.dataflowanalysis.analysis.pcm,
- org.dataflowanalysis.analysis.dfd
+ org.dataflowanalysis.analysis.dfd,
+ tools.mdsd.library.standalone.initialization,
+ tools.mdsd.library.standalone.initialization.log4j,
+ org.palladiosimulator.pcm,
+ org.dataflowanalysis.pcm.extension.dictionary.characterized,
+ org.dataflowanalysis.pcm.extension.dddsl,
+ org.dataflowanalysis.pcm.extension.nodecharacteristics
 Automatic-Module-Name: org.dataflowanalysis.converter
 Bundle-RequiredExecutionEnvironment: JavaSE-17

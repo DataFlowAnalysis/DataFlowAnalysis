@@ -5,14 +5,15 @@ Bundle-SymbolicName: org.dataflowanalysis.analysis
 Bundle-Version: 4.0.0.qualifier
 Automatic-Module-Name: org.dataflowanalysis.analysis
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.core.resources;visibility:=reexport,
- tools.mdsd.library.standalone.initialization;bundle-version="0.2.0";visibility:=reexport,
- tools.mdsd.library.standalone.initialization.log4j;bundle-version="0.2.0";visibility:=reexport,
- org.palladiosimulator.pcm;bundle-version="5.2.0";visibility:=reexport,
- org.apache.log4j;bundle-version="1.2.15";visibility:=reexport,
- org.dataflowanalysis.pcm.extension.dictionary.characterized;visibility:=reexport,
- org.dataflowanalysis.pcm.extension.dddsl;visibility:=reexport,
+Require-Bundle: 
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ tools.mdsd.library.standalone.initialization,
+ tools.mdsd.library.standalone.initialization.log4j,
+ org.palladiosimulator.pcm,
+ org.apache.log4j;bundle-version="1.2.15",
+ org.dataflowanalysis.pcm.extension.dictionary.characterized,
+ org.dataflowanalysis.pcm.extension.dddsl,
  org.dataflowanalysis.pcm.extension.nodecharacteristics,
  org.dataflowanalysis.dfd.dataflowdiagram,
  org.eclipse.xtext;bundle-version="2.30.0"

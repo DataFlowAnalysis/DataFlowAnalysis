@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -8,36 +8,39 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Download', link: '/download/' },
-      { text: 'Publications', link: '/publications/'},
-      { text: 'Documentation', link: '/wiki/'},
-      { text: 'Examples', link: '/examples/'},
+      { text: "Home", link: "/" },
+      { text: "Download", link: "/download/" },
+      { text: "Publications", link: "/publications/" },
+      { text: "Documentation", link: "/wiki/" },
+      { text: "Examples", link: "/examples/" },
     ],
+
+    logo: "/dataflowanalysis-logo.png",
+    siteTitle: "DFA - The Karlsruhe Data Flow Diagram Analysis",
 
     sidebar: [
       {
-        text: 'Quick Links',
+        text: "Quick Links",
         items: [
           {
-            text: 'Download',
-            link: '/download/'
+            text: "Download",
+            link: "/download/",
           },
           {
-            text: 'Publications',
-            link: '/publications/'
+            text: "Publications",
+            link: "/publications/",
           },
           {
-            text: 'Online Editor',
-            link: 'https://editor.dataflowanalysis.org'
+            text: "Online Editor",
+            link: "https://editor.dataflowanalysis.org",
           },
           {
-            text: 'GitHub Organization',
-            link: 'https://github.com/DataFlowAnalysis'
+            text: "GitHub Organization",
+            link: "https://github.com/DataFlowAnalysis",
           },
           {
-            text: 'Eclipse Updatesite',
-            link: 'https://dataflowanalysis.github.io/updatesite/'
+            text: "Eclipse Updatesite",
+            link: "https://dataflowanalysis.github.io/updatesite/",
           },
           {
             text: 'Helmholtz RSD',
@@ -46,27 +49,38 @@ export default defineConfig({
         ]
       },
       {
-        text: 'Documentation',
+        text: "Documentation",
+        link: "/wiki/wiki",
         items: [
+          { text: "Quick Start Guide", link: "/wiki/quick-start" },
+          { text: "DFA Web Editor", link: "/wiki/webeditor/intro" },
+          { text: "Data Flow Diagrams (DFDs)", link: "/wiki/dfd/intro" },
+          { text: "Palladio Component Model (PCM)", link: "/wiki/pcm/intro" },
+          { text: "Command Line Interface (CLI)", link: "/wiki/cli/intro" },
           {
-            text: 'Overview',
-            link: '/wiki/'
+            text: "Developer Docs",
+            items: [
+              {
+                text: "Development Setup in Eclipse",
+                link: "/wiki/eclipse/intro",
+              },
+              {
+                text: "Development Setup in IntelliJ",
+                link: "/wiki/intellij/intro",
+              },
+            ],
           },
-          {
-            text: 'Getting Started',
-            link: '/wiki/gettingstarted.md'
-          }
-        ]
+        ],
       },
       {
-        text: 'Examples',
+        text: "Examples",
         items: [
           {
-            text: 'Overview',
-            link: '/examples/'
-          }
-        ]
-      }
+            text: "Overview",
+            link: "/examples/",
+          },
+        ],
+      },
     ],
 
     socialLinks: [
@@ -74,7 +88,8 @@ export default defineConfig({
     ],
 
     notFound: {
-      quote: "This flow has no sink. Let's go back to the source and try again."
+      quote:
+        "This flow has no sink. Let's go back to the source and try again.",
     },
 
     footer: {

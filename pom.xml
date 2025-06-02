@@ -131,6 +131,12 @@
 						<include>bundles/**/*.java</include>
 						<include>tests/**/*.java</include>
 					</includes>
+					<excludes>
+						<exclude>bundles/org.dataflowanalysis.dfd.dataflowdiagram.edit/**/*.java</exclude>
+						<exclude>bundles/org.dataflowanalysis.dfd.dataflowdiagram.editor/**/*.java</exclude>
+						<exclude>bundles/org.dataflowanalysis.dfd.datadictionary.edit/**/*.java</exclude>
+						<exclude>bundles/org.dataflowanalysis.dfd.datadictionary.editor/**/*.java</exclude>
+					</excludes>
 					<eclipse>
 						<file>${maven.multiModuleProjectDirectory}/formatter.xml</file>
 					</eclipse>

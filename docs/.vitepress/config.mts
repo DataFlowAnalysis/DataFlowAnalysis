@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -7,22 +7,44 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Getting started', link: '/wiki/wiki.md'},
-      { text: 'Documentation', link: '/wiki/wiki.md'},
-      { text: 'Examples', link: '/examples/examples.md'}
+      { text: "Home", link: "/" },
+      { text: "Getting started", link: "/wiki/quick-start" },
+      { text: "Documentation", link: "/wiki/wiki.md" },
+      { text: "Examples", link: "/examples/examples.md" },
     ],
+
+    logo: "/dataflowanalysis-logo.png",
+    siteTitle: "DFA - The Karlsruhe Data Flow Diagram Analysis",
 
     sidebar: [
       {
-        text: 'Wiki',
+        text: "Wiki",
+        link: "/wiki/wiki",
         items: [
-        ]
-      }
+          { text: "Quick Start Guide", link: "/wiki/quick-start" },
+          { text: "DFA Web Editor", link: "/wiki/webeditor/intro" },
+          { text: "Data Flow Diagrams (DFDs)", link: "/wiki/dfd/intro" },
+          { text: "Palladio Component Model (PCM)", link: "/wiki/pcm/intro" },
+          { text: "Command Line Interface (CLI)", link: "/wiki/cli/intro" },
+          {
+            text: "Developer Docs",
+            items: [
+              {
+                text: "Development Setup in Eclipse",
+                link: "/wiki/eclipse/intro",
+              },
+              {
+                text: "Development Setup in IntelliJ",
+                link: "/wiki/intellij/intro",
+              },
+            ],
+          },
+        ],
+      },
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
-    ]
-  }
-})
+      { icon: "github", link: "https://github.com/vuejs/vitepress" },
+    ],
+  },
+});

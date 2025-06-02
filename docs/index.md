@@ -11,16 +11,16 @@ hero:
   actions:
     - theme: brand
       text: Download v4.0
-      link: /markdown-examples
+      link: https://github.com/DataFlowAnalysis/product/releases/latest
     - theme: brand
       text: Web Editor
       link: https://editor.dataflowanalysis.org
     - theme: alt
       text: Getting Started
-      link: /api-examples
+      link: /wiki/quick-start
     - theme: alt
       text: Examples
-      link: /api-examples
+      link: /wiki/examples
 
 features:
   - icon: 

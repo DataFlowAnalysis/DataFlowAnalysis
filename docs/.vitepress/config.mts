@@ -1,10 +1,11 @@
-import { defineConfig } from "vitepress";
+import { withMermaid } from "vitepress-plugin-mermaid";
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
+export default withMermaid({
   title: "xDECAF 😆☕",
-  head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
-  description: "xDECAF – An extensible data flow diagram constraint analysis framework for information security",
+  head: [["link", { rel: "icon", href: "/favicon.ico" }]],
+  description:
+    "xDECAF – An extensible data flow diagram constraint analysis framework for information security",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
@@ -43,17 +44,23 @@ export default defineConfig({
             link: "https://dataflowanalysis.github.io/updatesite/",
           },
           {
-            text: 'Helmholtz RSD',
-            link: 'http://helmholtz.software/software/xdecaf'
-          }
-        ]
+            text: "Helmholtz RSD",
+            link: "http://helmholtz.software/software/xdecaf",
+          },
+        ],
       },
       {
         text: "Documentation",
         link: "/wiki/wiki",
         items: [
           { text: "Quick Start Guide", link: "/wiki/quick-start" },
-          { text: "DFA Web Editor", link: "/wiki/webeditor/intro" },
+          {
+            text: "DFA Web Editor",
+            link: "/wiki/webeditor/intro",
+            items: [
+              { text: "Node Behavior", link: "/wiki/webeditor/assignments" },
+            ],
+          },
           {
             text: "Writing Analysis Constraints",
             link: "/wiki/dsl/intro",
@@ -105,7 +112,8 @@ export default defineConfig({
     },
 
     footer: {
-      message: 'xDECAF – An extensible data flow diagram constraint analysis framework for information security. <a href="https://www.kit.edu/impressum.php">Imprint</a>, <a href="https://www.kit.edu/legals.php">Legals</a>, <a href="https://www.kit.edu/privacypolicy.php">Privacy Policy</a>.',
-    }
-  }
-})
+      message:
+        'xDECAF – An extensible data flow diagram constraint analysis framework for information security. <a href="https://www.kit.edu/impressum.php">Imprint</a>, <a href="https://www.kit.edu/legals.php">Legals</a>, <a href="https://www.kit.edu/privacypolicy.php">Privacy Policy</a>.',
+    },
+  },
+});

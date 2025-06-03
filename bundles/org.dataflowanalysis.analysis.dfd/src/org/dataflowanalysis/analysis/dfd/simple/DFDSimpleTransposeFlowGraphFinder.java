@@ -47,8 +47,6 @@ public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFind
     public List<? extends AbstractTransposeFlowGraph> findTransposeFlowGraphs(List<?> sinkNodes, List<?> sourceNodes) {
         List<DFDSimpleTransposeFlowGraph> transposeFlowGraphs = new ArrayList<>();
 
-        System.out.println(dataFlowDiagram.getNodes());
-
         for (Node endNode : getEndNodes(dataFlowDiagram.getNodes())) {
             DFDSimpleVertex sink = determineSinks(endNode);
             transposeFlowGraphs.add(new DFDSimpleTransposeFlowGraph(sink));

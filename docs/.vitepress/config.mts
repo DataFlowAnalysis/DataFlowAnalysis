@@ -1,7 +1,7 @@
-import { defineConfig } from "vitepress";
+import { withMermaid } from "vitepress-plugin-mermaid";
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
+export default withMermaid({
   title: "DFA – The Karlsruhe Data Flow Diagram Analysis",
   head: [["link", { rel: "icon", href: "/favicon.ico" }]],
   description: "An extensible framework for data flow analysis",
@@ -53,7 +53,13 @@ export default defineConfig({
         link: "/wiki/wiki",
         items: [
           { text: "Quick Start Guide", link: "/wiki/quick-start" },
-          { text: "DFA Web Editor", link: "/wiki/webeditor/intro" },
+          {
+            text: "DFA Web Editor",
+            link: "/wiki/webeditor/intro",
+            items: [
+              { text: "Node Behavior", link: "/wiki/webeditor/assignments" },
+            ],
+          },
           {
             text: "Writing Analysis Constraints",
             link: "/wiki/dsl/intro",

@@ -1,6 +1,6 @@
 # Wiki
 ## Quick Start
-For a Quick guide to getting started, please look at out [Quick Start Guide](quick-start.md)!
+For a Quick guide to getting started, please look at our [Quick Start Guide](quick-start.md)!
 
 
 ## Overview

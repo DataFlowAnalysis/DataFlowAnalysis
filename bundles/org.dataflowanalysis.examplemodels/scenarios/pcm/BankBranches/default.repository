@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="ASCII"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DataDictionaryCharacterized="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/1.0" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:confidentiality="http://dataflowanalysis.org/pcm/extension/model/0.1.0" xmlns:expression="http://dataflowanalysis.org/pcm/extension/model/0.1.0/expression" xmlns:expressions="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/expressions/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="_kC4RQD6rEeuVUal8mM_jUA" entityName="New Repository">
+  <components__Repository xsi:type="repository:CompositeComponent" id="_CzJggD6sEeuVUal8mM_jUA" entityName="BranchOffice">
+    <assemblyContexts__ComposedStructure id="_ID3WwD6tEeuVUal8mM_jUA" entityName="Assembly_CustomerStore_Regular" encapsulatedComponent__AssemblyContext="_hL1ZUBU_EfC2EPNO18gXnw"/>
+    <assemblyContexts__ComposedStructure id="_JsFRwD6tEeuVUal8mM_jUA" entityName="Assembly_CustomerHandling_Regular" encapsulatedComponent__AssemblyContext="_Qn_wcD6sEeuVUal8mM_jUA"/>
+    <assemblyContexts__ComposedStructure id="_Muw_oD6tEeuVUal8mM_jUA" entityName="Assembly_CustomerHandling_Celebrity" encapsulatedComponent__AssemblyContext="_Qn_wcD6sEeuVUal8mM_jUA"/>
+    <assemblyContexts__ComposedStructure id="_OT38QD6tEeuVUal8mM_jUA" entityName="Assembly_CustomerStore_Celebrity" encapsulatedComponent__AssemblyContext="_hL1ZUBU_EfC2EPNO18gXnw"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_MByk4D6tEeuVUal8mM_jUA" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_JsFRwD6tEeuVUal8mM_jUA" providingAssemblyContext_AssemblyConnector="_ID3WwD6tEeuVUal8mM_jUA" providedRole_AssemblyConnector="_jAEXERU_EfC2EPNO18gXnw" requiredRole_AssemblyConnector="___VfoD6sEeuVUal8mM_jUA"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_McnfsD6tEeuVUal8mM_jUA" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_ukLQUD6sEeuVUal8mM_jUA" outerProvidedRole_ProvidedDelegationConnector="_A0MrED6tEeuVUal8mM_jUA" assemblyContext_ProvidedDelegationConnector="_JsFRwD6tEeuVUal8mM_jUA"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_PkblMD6tEeuVUal8mM_jUA" entityName="newProvidedDelegationConnector" innerProvidedRole_ProvidedDelegationConnector="_ukLQUD6sEeuVUal8mM_jUA" outerProvidedRole_ProvidedDelegationConnector="_DPH1YD6tEeuVUal8mM_jUA" assemblyContext_ProvidedDelegationConnector="_Muw_oD6tEeuVUal8mM_jUA"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_P9mTID6tEeuVUal8mM_jUA" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_Muw_oD6tEeuVUal8mM_jUA" providingAssemblyContext_AssemblyConnector="_OT38QD6tEeuVUal8mM_jUA" providedRole_AssemblyConnector="_jAEXERU_EfC2EPNO18gXnw" requiredRole_AssemblyConnector="___VfoD6sEeuVUal8mM_jUA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_A0MrED6tEeuVUal8mM_jUA" entityName="BranchOffice.provided.CustomerHandling.Regular" providedInterface__OperationProvidedRole="_VnmeAD6sEeuVUal8mM_jUA"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_DPH1YD6tEeuVUal8mM_jUA" entityName="BranchOffice.provided.CustomerHandling.Celebrity" providedInterface__OperationProvidedRole="_VnmeAD6sEeuVUal8mM_jUA"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_Qn_wcD6sEeuVUal8mM_jUA" entityName="CustomerHandling">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_ukLQUD6sEeuVUal8mM_jUA" entityName="CustomerHandling.CustomerHandling.OperationProvidedRole1" providedInterface__OperationProvidedRole="_VnmeAD6sEeuVUal8mM_jUA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="___VfoD6sEeuVUal8mM_jUA" entityName="CustomerHandling.CustomerStore.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_6igqkD6sEeuVUal8mM_jUA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_ukfZYD6sEeuVUal8mM_jUA" describedService__SEFF="_eYedwD6sEeuVUal8mM_jUA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_ukgAcD6sEeuVUal8mM_jUA" successor_AbstractAction="_yRI_YD6uEeuVUal8mM_jUA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_ukgAcT6sEeuVUal8mM_jUA" predecessor_AbstractAction="_WTlS4D6vEeuVUal8mM_jUA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_yRI_YD6uEeuVUal8mM_jUA" entityName="CustomerHandling.findCustomer.callDB" predecessor_AbstractAction="_ukgAcD6sEeuVUal8mM_jUA" successor_AbstractAction="_WTlS4D6vEeuVUal8mM_jUA" calledService_ExternalService="_8EkTMD6sEeuVUal8mM_jUA" role_ExternalService="___VfoD6sEeuVUal8mM_jUA">
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_wCMbgBU9EfC2EPNO18gXnw"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_wCMbgRU9EfC2EPNO18gXnw">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customer"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_WTlS4D6vEeuVUal8mM_jUA" entityName="CustomerHandling.findCustomer.return" predecessor_AbstractAction="_yRI_YD6uEeuVUal8mM_jUA" successor_AbstractAction="_ukgAcT6sEeuVUal8mM_jUA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_ExriUBU-EfC2EPNO18gXnw"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_FVv4sxU-EfC2EPNO18gXnw">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="customer"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_umY20D6sEeuVUal8mM_jUA" describedService__SEFF="_g-oAoD6sEeuVUal8mM_jUA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_umY20T6sEeuVUal8mM_jUA" successor_AbstractAction="_turg0D6uEeuVUal8mM_jUA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_umZd4D6sEeuVUal8mM_jUA" predecessor_AbstractAction="_turg0D6uEeuVUal8mM_jUA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_turg0D6uEeuVUal8mM_jUA" entityName="CustomerHandling.registerCustomer.callDB" predecessor_AbstractAction="_umY20T6sEeuVUal8mM_jUA" successor_AbstractAction="_umZd4D6sEeuVUal8mM_jUA" calledService_ExternalService="_7Ts28D6sEeuVUal8mM_jUA" role_ExternalService="___VfoD6sEeuVUal8mM_jUA">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_N9IlQBU-EfC2EPNO18gXnw"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_Olp90xU-EfC2EPNO18gXnw">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customer"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_umngUD6sEeuVUal8mM_jUA" describedService__SEFF="_o5iowD6sEeuVUal8mM_jUA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_umngUT6sEeuVUal8mM_jUA" successor_AbstractAction="_3fGSAD6uEeuVUal8mM_jUA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_umngUj6sEeuVUal8mM_jUA" predecessor_AbstractAction="_Ahk_ID6vEeuVUal8mM_jUA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_3fGSAD6uEeuVUal8mM_jUA" entityName="CustomerHanling.determineCreditLine.callDB" predecessor_AbstractAction="_umngUT6sEeuVUal8mM_jUA" successor_AbstractAction="_8jkRcD6uEeuVUal8mM_jUA" calledService_ExternalService="_8EkTMD6sEeuVUal8mM_jUA" role_ExternalService="___VfoD6sEeuVUal8mM_jUA">
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_UMVScBU-EfC2EPNO18gXnw"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_V5KnsxU-EfC2EPNO18gXnw">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customer"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_8jkRcD6uEeuVUal8mM_jUA" entityName="CustomerHanling.determineCreditLine.matchCustomer" predecessor_AbstractAction="_3fGSAD6uEeuVUal8mM_jUA" successor_AbstractAction="_Ahk_ID6vEeuVUal8mM_jUA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_avk9ABU-EfC2EPNO18gXnw">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:Or" id="_dzFxWhU-EfC2EPNO18gXnw">
+              <left xsi:type="expression:NamedEnumCharacteristicReference" id="_nbyJ7xU-EfC2EPNO18gXnw">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="customer"/>
+              </left>
+              <right xsi:type="expression:NamedEnumCharacteristicReference" id="_pZKcoxU-EfC2EPNO18gXnw">
+                <namedReference xsi:type="stoex:VariableReference" referenceName="customerName"/>
+              </right>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_z_QRgBU-EfC2EPNO18gXnw">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@3"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@2.literals@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:Or" id="_1QVe6hU-EfC2EPNO18gXnw">
+              <left xsi:type="expression:NamedEnumCharacteristicReference" id="_8LU7HxU-EfC2EPNO18gXnw">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@3"/>
+                <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@2.literals@1"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="customer"/>
+              </left>
+              <right xsi:type="expression:NamedEnumCharacteristicReference" id="__MpXExU-EfC2EPNO18gXnw">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@3"/>
+                <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@2.literals@1"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="customerName"/>
+              </right>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_JcUQABU_EfC2EPNO18gXnw">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@3"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@2.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:Or" id="_Kc6xahU_EfC2EPNO18gXnw">
+              <left xsi:type="expression:NamedEnumCharacteristicReference" id="_PGQ7HxU_EfC2EPNO18gXnw">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@3"/>
+                <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@2.literals@0"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="customer"/>
+              </left>
+              <right xsi:type="expression:NamedEnumCharacteristicReference" id="_P-_58xU_EfC2EPNO18gXnw">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@3"/>
+                <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@2.literals@0"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="customerName"/>
+              </right>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customer"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_Ahk_ID6vEeuVUal8mM_jUA" entityName="CustomerHanling.determineCreditLine.calculateAndReturn" predecessor_AbstractAction="_8jkRcD6uEeuVUal8mM_jUA" successor_AbstractAction="_umngUj6sEeuVUal8mM_jUA">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_bfGgABU_EfC2EPNO18gXnw"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_cMACQxU_EfC2EPNO18gXnw">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="customer"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_aK08ID6tEeuVUal8mM_jUA" entityName="CustomerMovement">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_ghlC0D6tEeuVUal8mM_jUA" entityName="CustomerMovement.CustomerMovement.OperationProvidedRole1" providedInterface__OperationProvidedRole="_bRV4QD6tEeuVUal8mM_jUA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_hh4pQD6tEeuVUal8mM_jUA" entityName="CustomerMovement.required.CustomerHandling.from" requiredInterface__OperationRequiredRole="_VnmeAD6sEeuVUal8mM_jUA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_jhvoMD6tEeuVUal8mM_jUA" entityName="CustomerMovement.required.CustomerHandling.to" requiredInterface__OperationRequiredRole="_VnmeAD6sEeuVUal8mM_jUA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_gh3WsD6tEeuVUal8mM_jUA" describedService__SEFF="_c4CwUD6tEeuVUal8mM_jUA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_gh3WsT6tEeuVUal8mM_jUA" successor_AbstractAction="_FFvt4D6vEeuVUal8mM_jUA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_gh3Wsj6tEeuVUal8mM_jUA" predecessor_AbstractAction="_JQPYYD6vEeuVUal8mM_jUA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_FFvt4D6vEeuVUal8mM_jUA" entityName="CustomerMovement.moveCustomer.callFrom" predecessor_AbstractAction="_gh3WsT6tEeuVUal8mM_jUA" successor_AbstractAction="_JQPYYD6vEeuVUal8mM_jUA" calledService_ExternalService="_eYedwD6sEeuVUal8mM_jUA" role_ExternalService="_hh4pQD6tEeuVUal8mM_jUA">
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_6Z1S0BU_EfC2EPNO18gXnw"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_783y4xU_EfC2EPNO18gXnw">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customer"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_JQPYYD6vEeuVUal8mM_jUA" entityName="CustomerMovement.moveCustomer.callTo" predecessor_AbstractAction="_FFvt4D6vEeuVUal8mM_jUA" successor_AbstractAction="_gh3Wsj6tEeuVUal8mM_jUA" calledService_ExternalService="_g-oAoD6sEeuVUal8mM_jUA" role_ExternalService="_jhvoMD6tEeuVUal8mM_jUA">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_Ai47wBVAEfC2EPNO18gXnw"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_Gy9ysxVAEfC2EPNO18gXnw">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="customer"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_KJ5SQBVAEfC2EPNO18gXnw">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:Not" id="_Lq382BVAEfC2EPNO18gXnw">
+              <term xsi:type="expression:NamedEnumCharacteristicReference" id="_PAP9OBVAEfC2EPNO18gXnw">
+                <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@1"/>
+                <namedReference xsi:type="stoex:VariableReference" referenceName="customer"/>
+              </term>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customer"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_hL1ZUBU_EfC2EPNO18gXnw" entityName="CustomerStore">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_jAEXERU_EfC2EPNO18gXnw" entityName="CustomerStoreInterface" providedInterface__OperationProvidedRole="_6igqkD6sEeuVUal8mM_jUA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_nL4QNxU_EfC2EPNO18gXnw" describedService__SEFF="_7Ts28D6sEeuVUal8mM_jUA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_sLOfEhU_EfC2EPNO18gXnw" successor_AbstractAction="_ssA38BU_EfC2EPNO18gXnw"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_ssA38BU_EfC2EPNO18gXnw" predecessor_AbstractAction="_sLOfEhU_EfC2EPNO18gXnw"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_pt459xU_EfC2EPNO18gXnw" describedService__SEFF="_8EkTMD6sEeuVUal8mM_jUA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_t6vU4hU_EfC2EPNO18gXnw" successor_AbstractAction="_Xu6WeRVAEfC2EPNO18gXnw"/>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_Xu6WeRVAEfC2EPNO18gXnw" entityName="Return Stored Customer" predecessor_AbstractAction="_t6vU4hU_EfC2EPNO18gXnw" successor_AbstractAction="_uXp6YBU_EfC2EPNO18gXnw">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_HDrSwBVBEfC2EPNO18gXnw">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@3"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@2.literals@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_ItqvZhVBEfC2EPNO18gXnw"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_uXp6YBU_EfC2EPNO18gXnw" predecessor_AbstractAction="_Xu6WeRVAEfC2EPNO18gXnw"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_VnmeAD6sEeuVUal8mM_jUA" entityName="CustomerHandling">
+    <signatures__OperationInterface id="_eYedwD6sEeuVUal8mM_jUA" entityName="findCustomer" returnType__OperationSignature="_XRKc0D6sEeuVUal8mM_jUA">
+      <parameters__OperationSignature dataType__Parameter="_XzZAID6sEeuVUal8mM_jUA" parameterName="customerName"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_g-oAoD6sEeuVUal8mM_jUA" entityName="registerCustomer">
+      <parameters__OperationSignature dataType__Parameter="_XRKc0D6sEeuVUal8mM_jUA" parameterName="customer"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_o5iowD6sEeuVUal8mM_jUA" entityName="determineCreditLine" returnType__OperationSignature="_Z2Hs4D6sEeuVUal8mM_jUA">
+      <parameters__OperationSignature dataType__Parameter="_XzZAID6sEeuVUal8mM_jUA" parameterName="customerName"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_6igqkD6sEeuVUal8mM_jUA" entityName="CustomerStore">
+    <signatures__OperationInterface id="_7Ts28D6sEeuVUal8mM_jUA" entityName="addCustomer">
+      <parameters__OperationSignature dataType__Parameter="_XRKc0D6sEeuVUal8mM_jUA" parameterName="customer"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_8EkTMD6sEeuVUal8mM_jUA" entityName="getCustomer" returnType__OperationSignature="_XRKc0D6sEeuVUal8mM_jUA"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_bRV4QD6tEeuVUal8mM_jUA" entityName="CustomerMovement">
+    <signatures__OperationInterface id="_c4CwUD6tEeuVUal8mM_jUA" entityName="moveCustomer">
+      <parameters__OperationSignature dataType__Parameter="_XRKc0D6sEeuVUal8mM_jUA" parameterName="customer"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_XRKc0D6sEeuVUal8mM_jUA" entityName="Customer"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_XzZAID6sEeuVUal8mM_jUA" entityName="CustomerName"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_Z2Hs4D6sEeuVUal8mM_jUA" entityName="CreditLine"/>
+</repository:Repository>

@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DFA Example Models
+Bundle-SymbolicName: org.dataflowanalysis.examplemodels
+Bundle-Version: 4.0.0.qualifier
+Require-Bundle: 
+ org.eclipse.core.runtime,
+ com.google.guava,
+ org.dataflowanalysis.analysis,
+ org.dataflowanalysis.analysis.pcm,
+ org.dataflowanalysis.analysis.dfd,
+ org.dataflowanalysis.dfd.dataflowdiagram,
+ tools.mdsd.modelingfoundations.identifier,
+ org.palladiosimulator.pcm
+Automatic-Module-Name: org.dataflowanalysis.examplemodels
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Export-Package: 
+ org.dataflowanalysis.examplemodels,
+ org.dataflowanalysis.examplemodels.results,
+ org.dataflowanalysis.examplemodels.results.pcm,
+ org.dataflowanalysis.examplemodels.results.pcm.models,
+ org.dataflowanalysis.examplemodels.results.pcm.scenarios,
+ org.dataflowanalysis.examplemodels.results.dfd,
+ org.dataflowanalysis.examplemodels.results.dfd.models,
+ org.dataflowanalysis.examplemodels.results.dfd.scenarios
+

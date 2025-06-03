@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="ASCII"?>
+<usagemodel:UsageModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DataDictionaryCharacterized="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/1.0" xmlns:confidentiality="http://dataflowanalysis.org/pcm/extension/model/0.1.0" xmlns:expression="http://dataflowanalysis.org/pcm/extension/model/0.1.0/expression" xmlns:expressions="http://dataflowanalysis.org/pcm/extension/dictionary/characterized/expressions/1.0" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" xmlns:usagemodel="http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.2">
+  <usageScenario_UsageModel id="_oMuCMD6wEeuVUal8mM_jUA" entityName="ClerkUSA">
+    <scenarioBehaviour_UsageScenario id="_3Y4qYD6wEeuVUal8mM_jUA" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_3Y4qYT6wEeuVUal8mM_jUA" successor="_HFJu8D6xEeuVUal8mM_jUA"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_3Y4qYj6wEeuVUal8mM_jUA" predecessor="_KU1XAD6xEeuVUal8mM_jUA"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_HFJu8D6xEeuVUal8mM_jUA" entityName="ClerkUSA.registerCustomer.RegularUSA" successor="_NTFQ0D6xEeuVUal8mM_jUA" predecessor="_3Y4qYT6wEeuVUal8mM_jUA">
+        <providedRole_EntryLevelSystemCall href="default.system#_np_3AD6tEeuVUal8mM_jUA"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_g-oAoD6sEeuVUal8mM_jUA"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="__O1oED6yEeuVUal8mM_jUA">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@3"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@2.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="__vuSJj6zEeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_AZjSQD60EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@1"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@0.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_B-Vexj60EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customer"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_KU1XAD6xEeuVUal8mM_jUA" entityName="ClerkUSA.determineCreditLine.RegularUSA" successor="_3Y4qYj6wEeuVUal8mM_jUA" predecessor="_NTFQ0D6xEeuVUal8mM_jUA">
+        <providedRole_EntryLevelSystemCall href="default.system#_np_3AD6tEeuVUal8mM_jUA"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_o5iowD6sEeuVUal8mM_jUA"/>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_KlZbMD60EeulRPEeT0f8DQ"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_K_DRUz60EeulRPEeT0f8DQ">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="creditLine"/>
+        </outputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_FrbbkD60EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@1"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@0.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_G0O2tj60EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_Hizz8D60EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@3"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@2.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_I1-E9j60EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customerName"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_NTFQ0D6xEeuVUal8mM_jUA" entityName="ClerkUSA.findCustomer.RegularUSA" successor="_KU1XAD6xEeuVUal8mM_jUA" predecessor="_HFJu8D6xEeuVUal8mM_jUA">
+        <providedRole_EntryLevelSystemCall href="default.system#_np_3AD6tEeuVUal8mM_jUA"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_eYedwD6sEeuVUal8mM_jUA"/>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_dWW_0D60EeulRPEeT0f8DQ"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_d212sz60EeulRPEeT0f8DQ">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customer"/>
+        </outputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_V5uPID60EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@1"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@0.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_YkB5Rj60EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_ZN-OID60EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@3"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@2.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_bJ0Pxj60EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customerName"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_poSoUD6wEeuVUal8mM_jUA" entityName="ManagerUSA">
+    <scenarioBehaviour_UsageScenario id="_3wPacD6wEeuVUal8mM_jUA" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_3wPacT6wEeuVUal8mM_jUA" successor="_XOUx8D6xEeuVUal8mM_jUA"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_3wPacj6wEeuVUal8mM_jUA" predecessor="_uE2dwD6xEeuVUal8mM_jUA"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_XOUx8D6xEeuVUal8mM_jUA" entityName="ManagerUSA.registerCustomer.CelebrityUSA" successor="_jKuSgD6xEeuVUal8mM_jUA" predecessor="_3wPacT6wEeuVUal8mM_jUA">
+        <providedRole_EntryLevelSystemCall href="default.system#_pbaxUD6tEeuVUal8mM_jUA"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_g-oAoD6sEeuVUal8mM_jUA"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_ldKu4D60EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@1"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@0.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_ncdtJj60EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_oKf30D60EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@3"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@2.literals@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_puBgFj60EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customer"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_jKuSgD6xEeuVUal8mM_jUA" entityName="ManagerUSA.findCustomer.RegularAsia" successor="_pUMyMD6xEeuVUal8mM_jUA" predecessor="_XOUx8D6xEeuVUal8mM_jUA">
+        <providedRole_EntryLevelSystemCall href="default.system#_xwMD4D6tEeuVUal8mM_jUA"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_eYedwD6sEeuVUal8mM_jUA"/>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_tWkUED60EeulRPEeT0f8DQ"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_tsqf4z60EeulRPEeT0f8DQ">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customerAsia"/>
+        </outputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_vR7_ID61EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@3"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@2.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_zaS7pj61EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_0sDecD61EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@1"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@0.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_2dGlVj61EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customerName"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_pUMyMD6xEeuVUal8mM_jUA" entityName="ManagerUSA.findCustomer.RegularUSA" successor="_uE2dwD6xEeuVUal8mM_jUA" predecessor="_jKuSgD6xEeuVUal8mM_jUA">
+        <providedRole_EntryLevelSystemCall href="default.system#_np_3AD6tEeuVUal8mM_jUA"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_eYedwD6sEeuVUal8mM_jUA"/>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_x80tgD60EeulRPEeT0f8DQ"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_yXCkUz60EeulRPEeT0f8DQ">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customerUSA"/>
+        </outputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_6W_oAD61EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@1"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@0.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_7h8_Rj61EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_8LnnUD61EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@3"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@2.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_9fPLVj61EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customerName"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_uE2dwD6xEeuVUal8mM_jUA" entityName="ManagerUSA.moveCustomer.USA-to-Asia" successor="_3wPacj6wEeuVUal8mM_jUA" predecessor="_pUMyMD6xEeuVUal8mM_jUA">
+        <providedRole_EntryLevelSystemCall href="default.system#_-0lHQD6tEeuVUal8mM_jUA"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_c4CwUD6tEeuVUal8mM_jUA"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_2WIQED60EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@1"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@0.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_4P84dj60EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_419IgD60EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@3"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@2.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_6T0Npj60EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customer"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_qfEfUD6wEeuVUal8mM_jUA" entityName="ClerkAsia">
+    <scenarioBehaviour_UsageScenario id="_4AZ9YD6wEeuVUal8mM_jUA" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_4AZ9YT6wEeuVUal8mM_jUA" successor="_GNkxQD6yEeuVUal8mM_jUA"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_4AZ9Yj6wEeuVUal8mM_jUA" predecessor="_LxynwD6yEeuVUal8mM_jUA"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_GNkxQD6yEeuVUal8mM_jUA" entityName="ClerkAsia.registerCustomer.RegularAsia" successor="_JD3o8D6yEeuVUal8mM_jUA" predecessor="_4AZ9YT6wEeuVUal8mM_jUA">
+        <providedRole_EntryLevelSystemCall href="default.system#_xwMD4D6tEeuVUal8mM_jUA"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_g-oAoD6sEeuVUal8mM_jUA"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_98VMcD60EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@1"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@0.literals@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_-Y_TRj60EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_ASHYED61EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@3"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@2.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_Ba4-Bj61EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customer"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_JD3o8D6yEeuVUal8mM_jUA" entityName="ClerkAsia.findCustomer.RegularAsia" successor="_LxynwD6yEeuVUal8mM_jUA" predecessor="_GNkxQD6yEeuVUal8mM_jUA">
+        <providedRole_EntryLevelSystemCall href="default.system#_xwMD4D6tEeuVUal8mM_jUA"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_eYedwD6sEeuVUal8mM_jUA"/>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_MAYWAD61EeulRPEeT0f8DQ"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_MbQ7Mz61EeulRPEeT0f8DQ">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customer"/>
+        </outputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_FRpNID61EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@1"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@0.literals@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_GoKUJj61EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_ITPV4D61EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@3"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@2.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_JoWutj61EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customerName"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_LxynwD6yEeuVUal8mM_jUA" entityName="ClerkAsia.determineCreditLine.RegularAsia" successor="_4AZ9Yj6wEeuVUal8mM_jUA" predecessor="_JD3o8D6yEeuVUal8mM_jUA">
+        <providedRole_EntryLevelSystemCall href="default.system#_xwMD4D6tEeuVUal8mM_jUA"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_o5iowD6sEeuVUal8mM_jUA"/>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_YL-wMD61EeulRPEeT0f8DQ"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_Yt38Uz61EeulRPEeT0f8DQ">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="creditLine"/>
+        </outputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_RmdNsD61EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@1"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@0.literals@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_S23stj61EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_TfkrcD61EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@3"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@2.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_UtAu9j61EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customerName"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_rcIkgD6wEeuVUal8mM_jUA" entityName="ManagerAsia">
+    <scenarioBehaviour_UsageScenario id="_4NhzYD6wEeuVUal8mM_jUA" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_4NhzYT6wEeuVUal8mM_jUA" successor="_T-gKgD6yEeuVUal8mM_jUA"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_4NiacD6wEeuVUal8mM_jUA" predecessor="_f36BcD6yEeuVUal8mM_jUA"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_T-gKgD6yEeuVUal8mM_jUA" entityName="ManagerAsia.registerCustomer.CelebrityAsia" successor="_cTanAD6yEeuVUal8mM_jUA" predecessor="_4NhzYT6wEeuVUal8mM_jUA">
+        <providedRole_EntryLevelSystemCall href="default.system#_zAt3oD6tEeuVUal8mM_jUA"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_g-oAoD6sEeuVUal8mM_jUA"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_BsP-UD62EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@1"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@0.literals@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_COLmtj62EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_ES6ekD62EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@3"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@2.literals@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_FZV7Jj62EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customer"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_cTanAD6yEeuVUal8mM_jUA" entityName="ManagerAsia.findCustomer.RegularAsia" successor="_f36BcD6yEeuVUal8mM_jUA" predecessor="_T-gKgD6yEeuVUal8mM_jUA">
+        <providedRole_EntryLevelSystemCall href="default.system#_xwMD4D6tEeuVUal8mM_jUA"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_eYedwD6sEeuVUal8mM_jUA"/>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_P9U3QD62EeulRPEeT0f8DQ"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_QZvGcz62EeulRPEeT0f8DQ">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customerAsia"/>
+        </outputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_JNqhUD62EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@1"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@0.literals@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_J9-j9j62EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_LdTosD62EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@3"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@2.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_MZTW5j62EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customerName"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_f36BcD6yEeuVUal8mM_jUA" entityName="ManagerAsia.findCustomer.RegularUSA" successor="_4NiacD6wEeuVUal8mM_jUA" predecessor="_cTanAD6yEeuVUal8mM_jUA">
+        <providedRole_EntryLevelSystemCall href="default.system#_np_3AD6tEeuVUal8mM_jUA"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_eYedwD6sEeuVUal8mM_jUA"/>
+        <outputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_alX0AD62EeulRPEeT0f8DQ"/>
+            <rhs xsi:type="expression:NamedEnumCharacteristicReference" id="_a-GdEz62EeulRPEeT0f8DQ">
+              <namedReference xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+            </rhs>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customerUSA"/>
+        </outputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_S2uGQD62EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@1"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@0.literals@1"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_VOf19j62EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <variableCharacterisation_VariableUsage xsi:type="confidentiality:ConfidentialityVariableCharacterisation">
+            <specification_VariableCharacterisation specification="false"/>
+            <lhs xsi:type="expression:LhsEnumCharacteristicReference" id="_V3iL4D62EeulRPEeT0f8DQ">
+              <characteristicType xsi:type="DataDictionaryCharacterized:EnumCharacteristicType" href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicTypes@3"/>
+              <literal href="default.pddc#_Zf2gABPJEfC6H5LfCNvhSA-characteristicEnumerations@2.literals@0"/>
+            </lhs>
+            <rhs xsi:type="expressions:True" id="_XX2IFj62EeulRPEeT0f8DQ"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="customerName"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
+</usagemodel:UsageModel>

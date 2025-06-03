@@ -334,24 +334,24 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
      */
     protected List<Node> getEndNodes(List<Node> nodes) {        
         var endNodes =  nodes.stream()
-        	    .filter(node -> {
-        	        return node.getBehavior()
-        	                .getInPin()
-        	                .stream()
-        	                .filter(pin -> {
-        	                    for (AbstractAssignment abstractAssignment : node.getBehavior()
-        	                            .getAssignment()) {
-        	                        if ((abstractAssignment instanceof ForwardingAssignment forwardingAssignment 
-        	                                && forwardingAssignment.getInputPins()
-        	                                        .contains(pin)) 
-        	                                || (abstractAssignment instanceof Assignment assignment && assignment.getInputPins()
-        	                                        .contains(pin))) {
-        	                            return false;
-        	                        }
-        	                    }
-        	                    return true;
-        	                }).count() > 0;
-        	    }).toList();   
+                .filter(node -> {
+                    return node.getBehavior()
+                            .getInPin()
+                            .stream()
+                            .filter(pin -> {
+                                for (AbstractAssignment abstractAssignment : node.getBehavior()
+                                        .getAssignment()) {
+                                    if ((abstractAssignment instanceof ForwardingAssignment forwardingAssignment 
+                                            && forwardingAssignment.getInputPins()
+                                                    .contains(pin)) 
+                                            || (abstractAssignment instanceof Assignment assignment && assignment.getInputPins()
+                                                    .contains(pin))) {
+                                        return false;
+                                    }
+                                }
+                                return true;
+                            }).count() > 0;
+                }).toList();   
         
         if (endNodes.isEmpty()) throw new IllegalArgumentException("Error, sink cannot be identified!");
         

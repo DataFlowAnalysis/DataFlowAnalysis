@@ -355,12 +355,11 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
                 })
                 .toList();
 
-        if (endNodes.isEmpty()) 
+        if (endNodes.isEmpty())
             throw new IllegalArgumentException("Error, sink cannot be identified!");
-        
+
         return endNodes;
     }
-
 
     public boolean hasCycles() {
         return hasCycles;

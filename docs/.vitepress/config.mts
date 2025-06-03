@@ -54,6 +54,17 @@ export default defineConfig({
         items: [
           { text: "Quick Start Guide", link: "/wiki/quick-start" },
           { text: "DFA Web Editor", link: "/wiki/webeditor/intro" },
+          {
+            text: "Writing Analysis Constraints",
+            link: "/wiki/dsl/intro",
+            collapsed: true,
+            items: [
+              { text: "Source Selectors", link: "/wiki/dsl/source" },
+              { text: "Destination Selectors", link: "/wiki/dsl/destination" },
+              { text: "Variables", link: "/wiki/dsl/variables" },
+              { text: "Conditional Selectors", link: "/wiki/dsl/conditional" },
+            ],
+          },
           { text: "Data Flow Diagrams (DFDs)", link: "/wiki/dfd/intro" },
           { text: "Palladio Component Model (PCM)", link: "/wiki/pcm/intro" },
           { text: "Command Line Interface (CLI)", link: "/wiki/cli/intro" },
@@ -70,6 +81,7 @@ export default defineConfig({
               },
             ],
           },
+          { text: "Glossary", link: "/wiki/glossary" },
         ],
       },
       {

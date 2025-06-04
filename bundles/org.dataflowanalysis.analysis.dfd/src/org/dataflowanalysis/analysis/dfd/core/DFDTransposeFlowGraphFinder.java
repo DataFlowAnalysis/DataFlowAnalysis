@@ -341,7 +341,7 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
                             .filter(pin -> {
                                 return isInputPinUsed(pin, node);
                             })
-                            .count() > 0; //If a single input pin is unused we have a sink
+                            .count() > 0; // If a single input pin is unused we have a sink
                 })
                 .toList();
 
@@ -350,21 +350,20 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
 
         return endNodes;
     }
-    
+
     /**
      * Checks whether an input Pin is not used by any assignment in the node
      * @param pin Input Pin
      * @param node Node
-     * @return 
+     * @return
      */
     private boolean isInputPinUsed(Pin pin, Node node) {
         for (AbstractAssignment abstractAssignment : node.getBehavior()
                 .getAssignment()) {
-            if ((abstractAssignment instanceof ForwardingAssignment forwardingAssignment
-                    && forwardingAssignment.getInputPins()
-                            .contains(pin))
-                    || (abstractAssignment instanceof Assignment assignment && assignment.getInputPins()
-                            .contains(pin))) {
+            if ((abstractAssignment instanceof ForwardingAssignment forwardingAssignment && forwardingAssignment.getInputPins()
+                    .contains(pin)) || (abstractAssignment instanceof Assignment assignment
+                            && assignment.getInputPins()
+                                    .contains(pin))) {
                 return false;
             }
         }

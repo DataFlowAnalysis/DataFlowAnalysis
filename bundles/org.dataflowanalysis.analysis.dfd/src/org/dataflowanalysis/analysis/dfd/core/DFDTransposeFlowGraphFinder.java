@@ -333,30 +333,42 @@ public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
      * @return List of sink nodes reachable by the given list of nodes
      */
     protected List<Node> getEndNodes(List<Node> nodes) {
-        List<Node> endNodes = new ArrayList<>(nodes);
-        for (Node node : nodes) {
-            if (node.getBehavior()
-                    .getInPin()
-                    .isEmpty())
-                endNodes.remove(node);
-            for (Pin inputPin : node.getBehavior()
-                    .getInPin()) {
-                for (AbstractAssignment abstractAssignment : node.getBehavior()
-                        .getAssignment()) {
-                    if ((abstractAssignment instanceof ForwardingAssignment forwardingAssignment && forwardingAssignment.getInputPins()
-                            .contains(inputPin)) || (abstractAssignment instanceof Assignment assignment
-                                    && assignment.getInputPins()
-                                            .contains(inputPin))) {
-                        endNodes.remove(node);
-                        break;
-                    }
-                }
+        var endNodes = nodes.stream()
+                .filter(node -> {
+                    return node.getBehavior()
+                            .getInPin()
+                            .stream()
+                            .filter(pin -> {
+                                return isInputPinUsed(pin, node);
+                            })
+                            .count() > 0; //If a single input pin is unused we have a sink
+                })
+                .toList();
+
+        if (endNodes.isEmpty())
+            throw new IllegalArgumentException("Error, sink cannot be identified!");
+
+        return endNodes;
+    }
+    
+    /**
+     * Checks whether an input Pin is not used by any assignment in the node
+     * @param pin Input Pin
+     * @param node Node
+     * @return 
+     */
+    private boolean isInputPinUsed(Pin pin, Node node) {
+        for (AbstractAssignment abstractAssignment : node.getBehavior()
+                .getAssignment()) {
+            if ((abstractAssignment instanceof ForwardingAssignment forwardingAssignment
+                    && forwardingAssignment.getInputPins()
+                            .contains(pin))
+                    || (abstractAssignment instanceof Assignment assignment && assignment.getInputPins()
+                            .contains(pin))) {
+                return false;
             }
         }
-        if (endNodes.isEmpty() && !nodes.isEmpty()) {
-            throw new IllegalArgumentException("DFD terminates in a cycle, no sink can be identified.");
-        }
-        return endNodes;
+        return true;
     }
 
     public boolean hasCycles() {

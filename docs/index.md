@@ -10,17 +10,17 @@ hero:
     alt: DFA – The Karlsruhe Data Flow Diagram Analysis
   actions:
     - theme: brand
-      text: Download v4.0
-      link: /markdown-examples
+      text: Download
+      link: /download.md
     - theme: brand
-      text: Web Editor
+      text: Online Editor
       link: https://editor.dataflowanalysis.org
     - theme: alt
       text: Getting Started
-      link: /api-examples
+      link: /wiki/
     - theme: alt
       text: Examples
-      link: /api-examples
+      link: /examples/
 
 features:
   - icon: 
@@ -48,3 +48,6 @@ features:
     title: Identify Security Flaws
     details: Analyze confidentiality, integrity, and other information flow properties by reusing simple yet versatile security annotations.
 ---
+
+**TODO: Summarize the DFD syntax and show more information from https://github.com/DataFlowAnalysis, refer to central ECSA paper.**
+

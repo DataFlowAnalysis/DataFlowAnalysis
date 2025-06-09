@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_qeLvQS_qEfCy_4XEclxE_A">
+  <labelTypes id="vljvh" entityName="Identity">
+    <label id="z2vuaa" entityName="Mother"/>
+    <label id="oqq2r" entityName="Dad"/>
+    <label id="vb0xw" entityName="Aunt"/>
+    <label id="1cnzie" entityName="IndexingBot"/>
+  </labelTypes>
+  <labelTypes id="6drw8l" entityName="Read">
+    <label id="7p1lcu" entityName="Mother"/>
+    <label id="qsj85" entityName="Dad"/>
+    <label id="dhfohg" entityName="Aunt"/>
+    <label id="e8kf57" entityName="IndexingBot"/>
+  </labelTypes>
+  <labelTypes id="9jr84l" entityName="Owner">
+    <label id="01mazd" entityName="Mother"/>
+  </labelTypes>
+  <labelTypes id="4qmig" entityName="TraversedNodes">
+    <label id="6p4cbg" entityName="addPicture"/>
+    <label id="igu1hs" entityName="pictureStorage"/>
+    <label id="yqu7nt" entityName="readPicture"/>
+    <label id="huqgc6" entityName="mother"/>
+    <label id="as8h9i" entityName="dad"/>
+    <label id="0noedq" entityName="aunt"/>
+    <label id="33ryia" entityName="indexingBot"/>
+  </labelTypes>
+  <behavior id="_qeLvVy_qEfCy_4XEclxE_A" entityName="Mother">
+    <inPin id="6bvsh7" entityName="Mother_in_picture"/>
+    <outPin id="pzv6hg" entityName="Mother_out_motherPicture"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_qeMWZi_qEfCy_4XEclxE_A" outputPin="pzv6hg" outputLabels="huqgc6"/>
+  </behavior>
+  <behavior id="_qeLvWy_qEfCy_4XEclxE_A" entityName="Dad">
+    <inPin id="rva68j" entityName="Dad_in_picture"/>
+    <outPin id="f6wz2q" entityName="Dad_out_dadPicture"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_qeMWWi_qEfCy_4XEclxE_A" outputPin="f6wz2q" inputPins="rva68j"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_qeMWWy_qEfCy_4XEclxE_A" outputPin="f6wz2q" outputLabels="as8h9i"/>
+  </behavior>
+  <behavior id="_qeLvXy_qEfCy_4XEclxE_A" entityName="Aunt">
+    <inPin id="j6a32" entityName="Aunt_in_picture"/>
+  </behavior>
+  <behavior id="_qeLvYi_qEfCy_4XEclxE_A" entityName="Family Pictures">
+    <inPin id="efr68k" entityName="Family Pictures_in_picture"/>
+    <outPin id="l7yqhg" entityName="Family Pictures_out_picture"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_qeMWVy_qEfCy_4XEclxE_A" outputPin="l7yqhg" inputPins="efr68k"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_qeMWWC_qEfCy_4XEclxE_A" outputPin="l7yqhg" outputLabels="igu1hs"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_qeMWWS_qEfCy_4XEclxE_A" outputPin="l7yqhg" outputLabels="dhfohg"/>
+  </behavior>
+  <behavior id="_qeLvZi_qEfCy_4XEclxE_A" entityName="read pictures">
+    <inPin id="hmhlg5" entityName="read pictures_in_picture"/>
+    <outPin id="9fv3si" entityName="read pictures_out_picture"/>
+    <outPin id="b4g3ml" entityName="read pictures_out_picture"/>
+    <outPin id="tj9ox" entityName="read pictures_out_picture"/>
+    <outPin id="j4hq8ov" entityName="read pictures_out_picture"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_qeMWXi_qEfCy_4XEclxE_A" outputPin="9fv3si" inputPins="hmhlg5"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_qeMWXy_qEfCy_4XEclxE_A" outputPin="9fv3si" outputLabels="yqu7nt"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_qeMWYC_qEfCy_4XEclxE_A" outputPin="b4g3ml" inputPins="hmhlg5"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_qeMWYS_qEfCy_4XEclxE_A" outputPin="b4g3ml" outputLabels="yqu7nt"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_qeMWYi_qEfCy_4XEclxE_A" outputPin="j4hq8ov" inputPins="hmhlg5"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_qeMWYy_qEfCy_4XEclxE_A" outputPin="j4hq8ov" outputLabels="yqu7nt"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_qeMWZC_qEfCy_4XEclxE_A" outputPin="tj9ox" inputPins="hmhlg5"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_qeMWZS_qEfCy_4XEclxE_A" outputPin="tj9ox" outputLabels="yqu7nt"/>
+  </behavior>
+  <behavior id="_qeLvbS_qEfCy_4XEclxE_A" entityName="add pictures">
+    <inPin id="y7wy2c" entityName="add pictures_in_motherPicture"/>
+    <inPin id="q9uoh2" entityName="add pictures_in_dadPicture"/>
+    <outPin id="i75rub" entityName="add pictures_out_picture"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_qeMWXC_qEfCy_4XEclxE_A" outputPin="i75rub" inputPins="y7wy2c"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_qeMWXS_qEfCy_4XEclxE_A" outputPin="i75rub" outputLabels="6p4cbg"/>
+  </behavior>
+  <behavior id="_qeLvci_qEfCy_4XEclxE_A" entityName="Indexing Bot">
+    <inPin id="h5c7l" entityName="Indexing Bot_in_picture"/>
+  </behavior>
+</datadictionary:DataDictionary>

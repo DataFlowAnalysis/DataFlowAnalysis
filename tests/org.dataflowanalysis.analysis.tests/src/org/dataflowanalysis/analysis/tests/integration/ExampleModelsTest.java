@@ -51,7 +51,20 @@ public class ExampleModelsTest {
     }
 
     private static Stream<Arguments> provideDFDExampleModelViolations() {
-        return Stream.of(Arguments.of(new BranchingResult()), Arguments.of(new OnlineShopResult()), Arguments.of(new SimpleOnlineShopResult()));
+        return Stream.of(Arguments.of(new BranchingResult()), Arguments.of(new OnlineShopResult()), Arguments.of(new SimpleOnlineShopResult()),
+        		Arguments.of(new ACABACNoViolationResult()), Arguments.of(new ACABACViolationResult()),
+        		Arguments.of(new ACContactSMSNoViolationResult()),
+        		Arguments.of(new ACDACNoViolationResult()), Arguments.of(new ACDACViolationResult()),
+        		Arguments.of(new ACDistanceTrackerNoViolationResult()), Arguments.of(new ACDistanceTrackerViolationResult()),
+        		Arguments.of(new ACMACNoViolationResult()),
+        		Arguments.of(new ACTravelPlannerNoViolationResult()),
+        		Arguments.of(new IFContactSMSNoViolationResult()),
+        		Arguments.of(new IFFriendMapNoViolationResult()), Arguments.of(new IFFriendMapViolationResult()),
+        		Arguments.of(new IFHospitalNoViolationResult()), Arguments.of(new IFHospitalViolationResult()),
+        		Arguments.of(new IFJPMailNoViolationResult()), Arguments.of(new IFJPMailViolationResult()),
+        		Arguments.of(new IFPrivateTaxiNoViolationResult()), Arguments.of(new IFPrivateTaxiViolationResult()),
+        		Arguments.of(new IFTravelPlannerNoViolationResult()),
+        		Arguments.of(new IFWebRTCNoViolationResult()), Arguments.of(new IFWebRTCViolationResult()));
     }
 
     @ParameterizedTest

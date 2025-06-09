@@ -1,0 +1,1241 @@
+{
+    "model": {
+        "canvasBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 960,
+            "height": 961
+        },
+        "scroll": {
+            "x": 69.2099422785466,
+            "y": 166.10959793150022
+        },
+        "zoom": 0.9957413673572789,
+        "position": {
+            "x": 0,
+            "y": 0
+        },
+        "size": {
+            "width": -1,
+            "height": -1
+        },
+        "features": {},
+        "type": "graph",
+        "id": "root",
+        "children": [
+            {
+                "position": {
+                    "x": 11,
+                    "y": 387
+                },
+                "size": {
+                    "width": -1,
+                    "height": -1
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "split mail",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 20.5
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "nbmstb",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 28,
+                            "y": 42.5
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "4lufz4",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 64.5,
+                            "y": 23
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward Policy, EmailBodyAndHeader\nassign Level.Low if Level.Low from Policy\nassign Level.Low if Level.Low from EmailBodyAndHeader\nassign Level.High if Level.High from Policy\nassign Level.High if Level.High from EmailBodyAndHeader",
+                        "features": {},
+                        "id": "5h320d",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "features": {},
+                "id": "z8h0ig",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 291,
+                    "y": 392
+                },
+                "size": {
+                    "width": -1,
+                    "height": -1
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "prepare encryption",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 33
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "ha7uux",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 20.5
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "j4srg5",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 30.5,
+                            "y": 42.5
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward BobPubKey, EmailBodyAndHeader\nassign Level.Low if Level.Low from BobPubKey\nassign Level.Low if Level.Low from EmailBodyAndHeader\nassign Level.High if Level.High from BobPubKey\nassign Level.High if Level.High from EmailBodyAndHeader",
+                        "features": {},
+                        "id": "q1dfhk",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "features": {},
+                "id": "8jeed",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": -246,
+                    "y": 394
+                },
+                "size": {
+                    "width": -1,
+                    "height": -1
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Alice",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 58.5,
+                            "y": 15.5
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "set Level.High",
+                        "features": {},
+                        "id": "gjkcwb",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "features": {},
+                "id": "go7xt",
+                "type": "node:input-output",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 599,
+                    "y": 537
+                },
+                "size": {
+                    "width": -1,
+                    "height": -1
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "SMTP",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "vbkupo"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 13
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "fh2",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 30.5,
+                            "y": 42.5
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": true,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward EmailBodyAndHeaderAndBobPubKey",
+                        "features": {},
+                        "id": "ght5jh",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "features": {},
+                "id": "hkp4w",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 793.5,
+                    "y": 684
+                },
+                "size": {
+                    "width": -1,
+                    "height": -1
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Bob DS",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 38,
+                            "y": 38.5
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "",
+                        "features": {},
+                        "id": "axn537",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "features": {},
+                "id": "uuw6nr",
+                "type": "node:storage",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 331,
+                    "y": 892
+                },
+                "size": {
+                    "width": -1,
+                    "height": -1
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "decrypt",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 64.5,
+                            "y": 18
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "7qbb6p",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 18
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward EmailBodyEncryptedAndHeaderAndBobPriveteKey\nassign Level.High if LevelBeforeEncryption.High from EmailBodyEncryptedAndHeaderAndBobPriveteKey\nassign Level.Low if LevelBeforeEncryption.Low from EmailBodyEncryptedAndHeaderAndBobPriveteKey",
+                        "features": {},
+                        "id": "efr0hs",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "features": {},
+                "id": "6yd2y",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": -65,
+                    "y": 719
+                },
+                "size": {
+                    "width": -1,
+                    "height": -1
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "PolicyInitiator",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 86.5,
+                            "y": 23
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "set Level.Low",
+                        "features": {},
+                        "id": "56zk5",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "features": {},
+                "id": "5lmyig",
+                "type": "node:input-output",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 173.5,
+                    "y": 729
+                },
+                "size": {
+                    "width": -1,
+                    "height": -1
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Policy DS",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 23
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "npnfsr",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 10.5,
+                            "y": -3.5
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward Policy",
+                        "features": {},
+                        "id": "jj2kv",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 40.5,
+                            "y": -3.5
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward Policy",
+                        "features": {},
+                        "id": "dqgr4p",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 69.5,
+                            "y": 30.5
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward Policy",
+                        "features": {},
+                        "id": "x8tisi",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "features": {},
+                "id": "bqt06n",
+                "type": "node:storage",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 339,
+                    "y": 802
+                },
+                "size": {
+                    "width": -1,
+                    "height": -1
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "authorize",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 5.5,
+                            "y": -3.5
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "j5x56q",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 68.5,
+                            "y": 18
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward Policy",
+                        "features": {},
+                        "id": "e4iwfq",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "features": {},
+                "id": "1vhoyg",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 736,
+                    "y": 802
+                },
+                "size": {
+                    "width": -1,
+                    "height": -1
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "authorize key reading",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 0.5
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "fsa88r",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 33,
+                            "y": -3.5
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "me6naz",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 13,
+                            "y": 42.5
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward BobPrivateKey, Policy\nassign Level.Low if Level.Low from BobPrivateKey\nassign Level.Low if Level.Low from Policy\nassign Level.High if Level.High from BobPrivateKey\nassign Level.High if Level.High from Policy",
+                        "features": {},
+                        "id": "up10a",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "features": {},
+                "id": "vk1unm",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 16,
+                    "y": 547
+                },
+                "size": {
+                    "width": -1,
+                    "height": -1
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "authorize",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 28,
+                            "y": 42.5
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "5pimrr",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 35.5,
+                            "y": -3.5
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward Policy",
+                        "features": {},
+                        "id": "49wgwa",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "features": {},
+                "id": "va8o3",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "features": {},
+                "id": "5anyx",
+                "type": "edge:arrow",
+                "sourceId": "jj2kv",
+                "targetId": "5pimrr",
+                "children": [],
+                "text": "Policy"
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 195,
+                        "y": 480
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "features": {},
+                "id": "r15zy",
+                "type": "edge:arrow",
+                "sourceId": "dqgr4p",
+                "targetId": "ha7uux",
+                "children": [],
+                "text": "BobPubKey"
+            },
+            {
+                "position": {
+                    "x": 596,
+                    "y": 672
+                },
+                "size": {
+                    "width": -1,
+                    "height": -1
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "POP3",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "vbkupo"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 33,
+                            "y": -3.5
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "pepa57",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 30.5,
+                            "y": 42.5
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward EmailBodyEncryptedAndHeader",
+                        "features": {},
+                        "id": "yddkf8",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "features": {},
+                "id": "f63vu",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 601,
+                    "y": 982
+                },
+                "size": {
+                    "width": -1,
+                    "height": -1
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "prepare decryption",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 55.5,
+                            "y": -3.5
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "wvh329",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 30.5,
+                            "y": -3.5
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "kee28",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 23
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward BobPrivateKey, EmailBodyEncryptedAndHeader\nassign Level.Low if Level.Low from BobPrivateKey\nassign Level.Low if Level.Low from EmailBodyEncryptedAndHeader\nassign Level.High if Level.High from BobPrivateKey\nassign Level.High if Level.High from EmailBodyEncryptedAndHeader",
+                        "features": {},
+                        "id": "jut89",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "features": {},
+                "id": "hxkxn",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "features": {},
+                "id": "gbsege",
+                "type": "edge:arrow",
+                "sourceId": "yddkf8",
+                "targetId": "kee28",
+                "children": [],
+                "text": "EmailBodyEncryptedAndHeader"
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "features": {},
+                "id": "o05t5c",
+                "type": "edge:arrow",
+                "sourceId": "x8tisi",
+                "targetId": "j5x56q",
+                "children": [],
+                "text": "Policy"
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "features": {},
+                "id": "lngzw6",
+                "type": "edge:arrow",
+                "sourceId": "49wgwa",
+                "targetId": "4lufz4",
+                "children": [],
+                "text": "Policy"
+            },
+            {
+                "position": {
+                    "x": 20,
+                    "y": 889
+                },
+                "size": {
+                    "width": -1,
+                    "height": -1
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Bob",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 86.5,
+                            "y": 18
+                        },
+                        "size": {
+                            "width": -1,
+                            "height": -1
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "nvcwzl",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "features": {},
+                "id": "lp8zpn",
+                "type": "node:input-output",
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "features": {},
+                "id": "p8sfo5",
+                "type": "edge:arrow",
+                "sourceId": "56zk5",
+                "targetId": "npnfsr",
+                "children": [],
+                "text": "Policy"
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "EmailBodyAndHeader",
+                "features": {},
+                "id": "h9mc18",
+                "type": "edge:arrow",
+                "sourceId": "gjkcwb",
+                "targetId": "nbmstb",
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "EmailBodyAndHeader",
+                "features": {},
+                "id": "d6vdc8",
+                "type": "edge:arrow",
+                "sourceId": "5h320d",
+                "targetId": "j4srg5",
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "features": {},
+                "id": "85rkeq",
+                "type": "edge:arrow",
+                "sourceId": "e4iwfq",
+                "targetId": "fsa88r",
+                "children": [],
+                "text": "Policy"
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "features": {},
+                "id": "qk7mnr",
+                "type": "edge:arrow",
+                "sourceId": "up10a",
+                "targetId": "wvh329",
+                "children": [],
+                "text": "BobPrivateKey"
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "features": {},
+                "id": "idrnq",
+                "type": "edge:arrow",
+                "sourceId": "axn537",
+                "targetId": "me6naz",
+                "children": [],
+                "text": "BobPrivateKey"
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "features": {},
+                "id": "0wdhf4",
+                "type": "edge:arrow",
+                "sourceId": "jut89",
+                "targetId": "7qbb6p",
+                "children": [],
+                "text": "EmailBodyEncryptedAndHeaderAndBobPriveteKey"
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "features": {},
+                "id": "d2ss6",
+                "type": "edge:arrow",
+                "sourceId": "efr0hs",
+                "targetId": "nvcwzl",
+                "children": [],
+                "text": "EmailBodyAndHeader"
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "features": {},
+                "id": "mf8vvh",
+                "type": "edge:arrow",
+                "sourceId": "q1dfhk",
+                "targetId": "fh2",
+                "children": [],
+                "text": "EmailBodyAndHeaderAndBobPubKey"
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "features": {},
+                "id": "nz3yhh",
+                "type": "edge:arrow",
+                "sourceId": "ght5jh",
+                "targetId": "pepa57",
+                "children": [],
+                "text": "EmailBodyEncryptedAndHeader"
+            }
+        ]
+    },
+    "labelTypes": [
+        {
+            "id": "ud5z2",
+            "name": "Zone",
+            "values": [
+                {
+                    "id": "nkwkcj",
+                    "text": "Trust"
+                },
+                {
+                    "id": "vbkupo",
+                    "text": "Attack"
+                }
+            ]
+        },
+        {
+            "id": "pqllad",
+            "name": "Level",
+            "values": [
+                {
+                    "id": "kghn",
+                    "text": "High"
+                },
+                {
+                    "id": "xzprol",
+                    "text": "Low"
+                }
+            ]
+        },
+        {
+            "id": "bsks6d",
+            "name": "LevelBeforeEncryption",
+            "values": [
+                {
+                    "id": "wy0t1h",
+                    "text": "High"
+                },
+                {
+                    "id": "lpfrq",
+                    "text": "Low"
+                }
+            ]
+        }
+    ],
+    "constraints": [
+        {
+            "id": "werv3",
+            "name": "SafetyConstraint",
+            "constraint": "data Level.High neverFlows vertex Zone.Attack"
+        }
+    ],
+    "mode": "edit"
+}

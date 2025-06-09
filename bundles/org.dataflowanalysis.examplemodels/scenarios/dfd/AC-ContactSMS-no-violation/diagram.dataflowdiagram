@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://dataflowanalysis.org/dfd/dataflowdiagram" id="_aWFqUC_qEfCy_4XEclxE_A">
+  <flows id="kuw3en" entityName="contact" sourceNode="l0qnpt" destinationNode="2f74m7">
+    <destinationPin href="diagram.datadictionary#02pjt"/>
+    <sourcePin href="diagram.datadictionary#60sgge"/>
+  </flows>
+  <flows id="u3zkc" entityName="contacts" sourceNode="l6zcy5" destinationNode="l0qnpt">
+    <destinationPin href="diagram.datadictionary#m3ysbfg"/>
+    <sourcePin href="diagram.datadictionary#p3p815"/>
+  </flows>
+  <flows id="60r59e" entityName="deleteContact" sourceNode="2f74m7" destinationNode="mlxxt">
+    <destinationPin href="diagram.datadictionary#7qmsx3"/>
+    <sourcePin href="diagram.datadictionary#o2gb8r"/>
+  </flows>
+  <flows id="7f23aq" entityName="addContact" sourceNode="9ic5ds" destinationNode="mlxxt">
+    <destinationPin href="diagram.datadictionary#2pzfek"/>
+    <sourcePin href="diagram.datadictionary#q52qe"/>
+  </flows>
+  <flows id="6z7bt" entityName="contacts" sourceNode="mlxxt" destinationNode="l6zcy5">
+    <destinationPin href="diagram.datadictionary#al4e8s"/>
+    <sourcePin href="diagram.datadictionary#6b4mqo"/>
+  </flows>
+  <flows id="3w6het" entityName="contact" sourceNode="l0qnpt" destinationNode="9ic5ds">
+    <destinationPin href="diagram.datadictionary#tszws8"/>
+    <sourcePin href="diagram.datadictionary#evdd8m"/>
+  </flows>
+  <flows id="4jk1ko" entityName="contacts" sourceNode="l6zcy5" destinationNode="74lj1">
+    <destinationPin href="diagram.datadictionary#m8eevv"/>
+    <sourcePin href="diagram.datadictionary#iqus8"/>
+  </flows>
+  <flows id="qu94ia" entityName="contact" sourceNode="74lj1" destinationNode="1irllr">
+    <destinationPin href="diagram.datadictionary#moo80h"/>
+    <sourcePin href="diagram.datadictionary#7lceys"/>
+  </flows>
+  <flows id="yivrib" entityName="criteria" sourceNode="l0qnpt" destinationNode="74lj1">
+    <destinationPin href="diagram.datadictionary#q54wb"/>
+    <sourcePin href="diagram.datadictionary#k13qqx"/>
+  </flows>
+  <flows id="9j4ti" entityName="number" sourceNode="1irllr" destinationNode="ztul2">
+    <destinationPin href="diagram.datadictionary#9ru4y"/>
+    <sourcePin href="diagram.datadictionary#ck34xw"/>
+  </flows>
+  <flows id="625oz" entityName="sms" sourceNode="ztul2" destinationNode="6oilhg">
+    <destinationPin href="diagram.datadictionary#e45gpj"/>
+    <sourcePin href="diagram.datadictionary#pumxjr"/>
+  </flows>
+  <flows id="emv95" entityName="message" sourceNode="l0qnpt" destinationNode="ztul2">
+    <destinationPin href="diagram.datadictionary#eyfif"/>
+    <sourcePin href="diagram.datadictionary#3t1gqc"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:Process" id="9ic5ds" entityName="add contact">
+    <behavior href="diagram.datadictionary#_aWFqWS_qEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#lor4vn"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="l6zcy5" entityName="list contacts">
+    <behavior href="diagram.datadictionary#_aWGRYS_qEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#lor4vn"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="2f74m7" entityName="delete contact">
+    <behavior href="diagram.datadictionary#_aWGRZi_qEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#lor4vn"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="l0qnpt" entityName="User">
+    <behavior href="diagram.datadictionary#_aWGRai_qEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#lor4vn"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="74lj1" entityName="select contact">
+    <behavior href="diagram.datadictionary#_aWGRcS_qEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#lor4vn"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Store" id="mlxxt" entityName="Contact Store">
+    <behavior href="diagram.datadictionary#_aWGRdi_qEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#lor4vn"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="1irllr" entityName="extract number">
+    <behavior href="diagram.datadictionary#_aWGRey_qEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#lor4vn"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="6oilhg" entityName="SMS Gameway">
+    <behavior href="diagram.datadictionary#_aWGRfy_qEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#66ru7d"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="ztul2" entityName="send SMS">
+    <behavior href="diagram.datadictionary#_aWGRgi_qEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#66ru7d"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

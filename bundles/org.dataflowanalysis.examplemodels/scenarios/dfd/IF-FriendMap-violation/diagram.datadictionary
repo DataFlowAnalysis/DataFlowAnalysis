@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_O2fmkTrXEfCJkoMBjFpfFw">
+  <labelTypes id="bllxwa" entityName="Level">
+    <label id="y08jnra" entityName="High"/>
+    <label id="w4wcap" entityName="Low"/>
+  </labelTypes>
+  <labelTypes id="t6zm3k" entityName="Zone">
+    <label id="q0tm78" entityName="Trust"/>
+    <label id="c907z" entityName="Attack"/>
+  </labelTypes>
+  <labelTypes id="oybkag" entityName="Actor">
+    <label id="0d1tt" entityName="Google"/>
+    <label id="99gwtt" entityName="Alice"/>
+    <label id="bapgzq" entityName="SocialNetwork"/>
+    <label id="tucxg7" entityName="CreateMap"/>
+  </labelTypes>
+  <behavior id="_O2fmnjrXEfCJkoMBjFpfFw" entityName="Load Friend Map Code">
+    <inPin id="ufrcmc" entityName="Load Friend Map Code_in_AppCode"/>
+    <outPin id="yms0j9" entityName="Load Friend Map Code_out_AppCode"/>
+    <outPin id="tuwr6" entityName="Load Friend Map Code_out_AppCode"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_O2gN4jrXEfCJkoMBjFpfFw" outputPin="yms0j9" inputPins="ufrcmc"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_O2gN4zrXEfCJkoMBjFpfFw" outputPin="tuwr6" inputPins="ufrcmc"/>
+  </behavior>
+  <behavior id="_O2fmozrXEfCJkoMBjFpfFw" entityName="SNAPP">
+    <inPin id="cv6hlc" entityName="SNAPP_in_Map"/>
+    <outPin id="enlrfn" entityName="SNAPP_out_Locations"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_O2gNzjrXEfCJkoMBjFpfFw" outputPin="enlrfn" inputPins="cv6hlc"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_O2gNzzrXEfCJkoMBjFpfFw" outputPin="enlrfn" outputLabels="y08jnra"/>
+  </behavior>
+  <behavior id="_O2fmpzrXEfCJkoMBjFpfFw" entityName="Load Map Code">
+    <inPin id="ukvqdc" entityName="Load Map Code_in_AppCode"/>
+    <inPin id="kksl1b" entityName="Load Map Code_in_MapCode"/>
+    <outPin id="xv1ndn" entityName="Load Map Code_out_MapCode"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_O2gNyTrXEfCJkoMBjFpfFw" outputPin="xv1ndn" inputPins="ukvqdc"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_O2gNyjrXEfCJkoMBjFpfFw" outputPin="xv1ndn" outputLabels="y08jnra" inputPins="ukvqdc">
+      <term xsi:type="datadictionary:LabelReference" id="_O2gNyzrXEfCJkoMBjFpfFw" label="y08jnra"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_O2gNzDrXEfCJkoMBjFpfFw" outputPin="xv1ndn" outputLabels="y08jnra" inputPins="kksl1b">
+      <term xsi:type="datadictionary:LabelReference" id="_O2gNzTrXEfCJkoMBjFpfFw" label="y08jnra"/>
+    </assignment>
+  </behavior>
+  <behavior id="_O2fmrDrXEfCJkoMBjFpfFw" entityName="Map Services">
+    <inPin id="25jbya" entityName="Map Services_in_MapCode"/>
+    <outPin id="zu0vrb" entityName="Map Services_out_MapCode"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_O2gN5DrXEfCJkoMBjFpfFw" outputPin="zu0vrb" inputPins="25jbya"/>
+  </behavior>
+  <behavior id="_O2fmsDrXEfCJkoMBjFpfFw" entityName="MapProvider">
+    <outPin id="mganue" entityName="MapProvider_out_MapCode"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_O2gN6jrXEfCJkoMBjFpfFw" outputPin="mganue" outputLabels="w4wcap"/>
+  </behavior>
+  <behavior id="_O2fmszrXEfCJkoMBjFpfFw" entityName="Load Friend Locations">
+    <inPin id="zx4lta" entityName="Load Friend Locations_in_AppCode"/>
+    <inPin id="0l2n0n" entityName="Load Friend Locations_in_Locations"/>
+    <outPin id="vge3hi" entityName="Load Friend Locations_out_Locations"/>
+    <outPin id="5y67gs" entityName="Load Friend Locations_out_LocationBobAndLocationAlice"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_O2gN1jrXEfCJkoMBjFpfFw" outputPin="vge3hi" inputPins="zx4lta"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_O2gN1zrXEfCJkoMBjFpfFw" outputPin="vge3hi" outputLabels="y08jnra" inputPins="zx4lta">
+      <term xsi:type="datadictionary:TRUE" id="_O2gN2DrXEfCJkoMBjFpfFw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_O2gN2TrXEfCJkoMBjFpfFw" outputPin="vge3hi" outputLabels="y08jnra" inputPins="0l2n0n">
+      <term xsi:type="datadictionary:TRUE" id="_O2gN2jrXEfCJkoMBjFpfFw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_O2gN2zrXEfCJkoMBjFpfFw" outputPin="5y67gs" inputPins="zx4lta"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_O2gN3DrXEfCJkoMBjFpfFw" outputPin="5y67gs" outputLabels="y08jnra" inputPins="zx4lta">
+      <term xsi:type="datadictionary:TRUE" id="_O2gN3TrXEfCJkoMBjFpfFw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_O2gN3jrXEfCJkoMBjFpfFw" outputPin="5y67gs" outputLabels="y08jnra" inputPins="0l2n0n">
+      <term xsi:type="datadictionary:TRUE" id="_O2gN3zrXEfCJkoMBjFpfFw"/>
+    </assignment>
+  </behavior>
+  <behavior id="_O2fmuTrXEfCJkoMBjFpfFw" entityName="Receive Map">
+    <inPin id="cbr2wj" entityName="Receive Map_in_Map"/>
+    <outPin id="6yhf0b" entityName="Receive Map_out_Map"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_O2gN1DrXEfCJkoMBjFpfFw" outputPin="6yhf0b" inputPins="cbr2wj"/>
+  </behavior>
+  <behavior id="_O2fmvTrXEfCJkoMBjFpfFw" entityName="Create Map">
+    <inPin id="v7floh" entityName="Create Map_in_Locations"/>
+    <outPin id="0lqvxzf" entityName="Create Map_out_Locations"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_O2gN0zrXEfCJkoMBjFpfFw" outputPin="0lqvxzf" inputPins="v7floh"/>
+  </behavior>
+  <behavior id="_O2fmwTrXEfCJkoMBjFpfFw" entityName="Create Map">
+    <inPin id="dw9p0i" entityName="Create Map_in_MapCode"/>
+    <inPin id="jfqmjs" entityName="Create Map_in_Locations"/>
+    <outPin id="swn7jb" entityName="Create Map_out_Locations"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_O2gN5TrXEfCJkoMBjFpfFw" outputPin="swn7jb" inputPins="dw9p0i"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_O2gN5jrXEfCJkoMBjFpfFw" outputPin="swn7jb" outputLabels="y08jnra" inputPins="dw9p0i">
+      <term xsi:type="datadictionary:TRUE" id="_O2gN5zrXEfCJkoMBjFpfFw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_O2gN6DrXEfCJkoMBjFpfFw" outputPin="swn7jb" outputLabels="y08jnra" inputPins="jfqmjs">
+      <term xsi:type="datadictionary:TRUE" id="_O2gN6TrXEfCJkoMBjFpfFw"/>
+    </assignment>
+  </behavior>
+  <behavior id="_O2fmxjrXEfCJkoMBjFpfFw" entityName="Load Map">
+    <inPin id="eo5bte" entityName="Load Map_in_Map"/>
+    <outPin id="by35yw" entityName="Load Map_out_Map"/>
+    <outPin id="y4b8no" entityName="Load Map_out_Map"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_O2gN0DrXEfCJkoMBjFpfFw" outputPin="by35yw" inputPins="eo5bte"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_O2gN0TrXEfCJkoMBjFpfFw" outputPin="y4b8no" inputPins="eo5bte"/>
+  </behavior>
+  <behavior id="_O2gNoTrXEfCJkoMBjFpfFw" entityName="Share Map">
+    <inPin id="fhkch" entityName="Share Map_in_Map"/>
+    <outPin id="dli9u6" entityName="Share Map_out_Map"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_O2gN4TrXEfCJkoMBjFpfFw" outputPin="dli9u6" inputPins="fhkch"/>
+  </behavior>
+  <behavior id="_O2gNpTrXEfCJkoMBjFpfFw" entityName="Post Map">
+    <inPin id="g0sm0p" entityName="Post Map_in_Map"/>
+    <outPin id="gp7d7" entityName="Post Map_out_Map"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_O2gN0jrXEfCJkoMBjFpfFw" outputPin="gp7d7" inputPins="g0sm0p"/>
+  </behavior>
+  <behavior id="_O2gNqTrXEfCJkoMBjFpfFw" entityName="Find Friend Location">
+    <inPin id="aj62lj" entityName="Find Friend Location_in_Locations"/>
+    <outPin id="1e05y" entityName="Find Friend Location_out_Locations"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_O2gN4DrXEfCJkoMBjFpfFw" outputPin="1e05y" inputPins="aj62lj"/>
+  </behavior>
+  <behavior id="_O2gNrTrXEfCJkoMBjFpfFw" entityName="Friend Map">
+    <outPin id="z4hsfg" entityName="Friend Map_out_AppCode"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_O2gN6zrXEfCJkoMBjFpfFw" outputPin="z4hsfg" outputLabels="w4wcap"/>
+  </behavior>
+  <behavior id="_O2gNsDrXEfCJkoMBjFpfFw" entityName="LocalDS">
+    <inPin id="s06s3" entityName="LocalDS_in_Map"/>
+    <inPin id="y6188b" entityName="LocalDS_in_LocationBobAndLocationAlice"/>
+  </behavior>
+  <behavior id="_O2gNtDrXEfCJkoMBjFpfFw" entityName="Create Map">
+    <inPin id="sicxdx" entityName="Create Map_in_Locations"/>
+    <outPin id="5c4fzk" entityName="Create Map_out_Map"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_O2gN1TrXEfCJkoMBjFpfFw" outputPin="5c4fzk" inputPins="sicxdx"/>
+  </behavior>
+</datadictionary:DataDictionary>

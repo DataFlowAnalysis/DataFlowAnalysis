@@ -9,8 +9,8 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Download', link: '/download.md' },
-      { text: 'Publications', link: '/publications.md'},
+      { text: 'Download', link: '/download/' },
+      { text: 'Publications', link: '/publications/'},
       { text: 'Documentation', link: '/wiki/'},
       { text: 'Examples', link: '/examples/'},
     ],
@@ -21,11 +21,11 @@ export default defineConfig({
         items: [
           {
             text: 'Download',
-            link: 'download.md'
+            link: '/download/'
           },
           {
             text: 'Publications',
-            link: 'publications.md'
+            link: '/publications/'
           },
           {
             text: 'Online Editor',

@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: Download
-      link: /download.md
+      link: /download/
     - theme: brand
       text: Online Editor
       link: https://editor.dataflowanalysis.org
@@ -49,5 +49,33 @@ features:
     details: Analyze confidentiality, integrity, and other information flow properties by reusing simple yet versatile security annotations.
 ---
 
+<div style="margin-bottom:30px;">&nbsp;</div>
+
+<img src="/img/bigpicture-dark.png" v-if="isDark" />
+<img src="/img/bigpicture-light.png" v-if="!isDark" />
+
 **TODO: Summarize the DFD syntax and show more information from https://github.com/DataFlowAnalysis, refer to central ECSA paper.**
 
+<script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+
+const isDark = ref(null);
+let observer = null;
+
+const setDark = () => {
+  isDark.value = document.documentElement.classList.contains('dark');
+};
+
+onMounted(() => {
+  setDark();
+  observer = new MutationObserver(setDark);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class'],
+  });
+});
+
+onBeforeUnmount(() => {
+  observer.disconnect();
+});
+</script>

@@ -13,3 +13,9 @@ All Other
 ## Framework Extensions
 
 MDMA, ABUNAI, and Nils papers
+
+<script setup>
+import {parseBibFile} from "bibtex";
+const result = parseBibFile('@article{sample1,title={sample title}}');
+console.log(result);
+</script>

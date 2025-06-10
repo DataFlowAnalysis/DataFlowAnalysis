@@ -1,6 +1,7 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
+title: DFA – The Karlsruhe Data Flow Diagram Analysis
 
 hero:
   name: "DFA – The Karlsruhe Data Flow Diagram Analysis"
@@ -75,7 +76,14 @@ Exemplary questions are:
 <img src="/img/analysis-dark.png" v-if="isDark" style="margin-bottom:30px;" />
 <img src="/img/analysis-light.png" v-if="!isDark" style="margin-bottom:30px;" />
 
-**TODO: Summarize the DFD syntax and show more information from https://github.com/DataFlowAnalysis, refer to central ECSA paper.**
+All aspects of the Karlsruhe Data Flow Diagram Analysis have been scientifically published at multiple conferences and journals, e.g., the [data flow diagram notation](https://doi.org/10.5220/0010515300260037), or the [core analysis algorithms](https://doi.org/10.1016/j.jss.2021.111138). For a quick overview of the analysis framework, please see this key publication:
+
+<div style="border-radius:12px;background-color:var(--vp-c-bg-soft);display:flex;padding:10px;padding-left:20px">
+  <img style="height:60px;margin-right:15px;margin-top:10px;" src="/img/paper-dark.svg" v-if="isDark">
+  <img style="height:60px;margin-right:15px;margin-top:10px;"  src="/img/paper-light.svg" v-if="!isDark">
+  <p>N. Boltz and S. Hahner, et al., "<a href="https://sebastianhahner.de/publications/2024/BoltzHahner2024_AnExtensibleFrameworkForArchitectureBasedDataFlowAnalysisForInformationSecurity.pdf" style="font-weight:bold">An Extensible Framework for Architecture-Based Data Flow Analysis for Information Security</a>",<br>European Conference on Software Architecture (ECSA), Springer, 2024, doi: <a href="https://doi.org/10.1007/978-3-031-66326-0_21">10.1007/978-3-031-66326-0_21</a>.
+</p>
+</div>
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';

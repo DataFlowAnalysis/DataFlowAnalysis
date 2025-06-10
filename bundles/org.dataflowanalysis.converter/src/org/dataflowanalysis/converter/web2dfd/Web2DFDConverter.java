@@ -276,7 +276,7 @@ public class Web2DFDConverter extends Converter {
                         .add(abstractAssignment);
             } catch (ArrayIndexOutOfBoundsException e) {
                 logger.error("Assignment string is invalid: " + behaviorString);
-            } 
+            }
         }
 
     }

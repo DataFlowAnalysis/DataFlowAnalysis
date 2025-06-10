@@ -15,7 +15,6 @@ import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.core.DFDTransposeFlowGraphFinder;
-import org.dataflowanalysis.analysis.dfd.core.DFDVertex;
 import org.dataflowanalysis.analysis.dfd.simple.DFDSimpleTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.converter.Converter;
@@ -99,54 +98,67 @@ public class DFD2WebConverter extends Converter {
      * @param finderClass Custom TFG Finder (optional)
      * @return Returns the annotations that should be added to nodes in the data flow diagram
      */
-    private Map<Node, List<Annotation>> createNodeAnnotationMap(DataFlowDiagramAndDictionary complete,
-            List<AnalysisConstraint> conditions, Class<? extends TransposeFlowGraphFinder> finderClass) {
+    private Map<Node, List<Annotation>> createNodeAnnotationMap(DataFlowDiagramAndDictionary complete, List<AnalysisConstraint> conditions,
+            Class<? extends TransposeFlowGraphFinder> finderClass) {
         var collection = getTransposeFlowGraphs(complete, finderClass).stream()
                 .map(AbstractTransposeFlowGraph::evaluate)
                 .toList();
 
         Map<Node, List<Annotation>> mapNodeToAnnotations = new HashMap<>();
-        
-        complete.dataFlowDiagram().getNodes().forEach(node -> mapNodeToAnnotations.put(node, new ArrayList<>()));
-        
+
+        complete.dataFlowDiagram()
+                .getNodes()
+                .forEach(node -> mapNodeToAnnotations.put(node, new ArrayList<>()));
+
         collection.forEach(tfg -> tfg.getVertices()
                 .forEach(vertex -> {
                     var node = vertex.getReferencedElement();
-                    mapNodeToAnnotations.get(node).addAll(createLabelAnnotationsForOneVertex((AbstractVertex<Node>) vertex, tfg.hashCode()));
-                }));       
+                    mapNodeToAnnotations.get(node)
+                            .addAll(createLabelAnnotationsForOneVertex((AbstractVertex<Node>) vertex, tfg.hashCode()));
+                }));
 
         if (conditions == null)
             return mapNodeToAnnotations;
-        
+
         conditions.forEach(condition -> {
-            condition.findViolations(new DFDFlowGraphCollection(null, collection)).forEach(violation -> {
-                violation.getMatchedVertices().stream().forEach(it -> {
-                    var node = (Node) it.getReferencedElement();
-                    mapNodeToAnnotations.putIfAbsent(node, new ArrayList<>());
-                    String message = "Constraint " + condition.getName() + " violated";
-                    mapNodeToAnnotations.get(node).add(new Annotation(message, "bolt", stringToColorHex(condition.getName()), violation.getTransposeFlowGraph().hashCode()));
-                });
-            });             
+            condition.findViolations(new DFDFlowGraphCollection(null, collection))
+                    .forEach(violation -> {
+                        violation.getMatchedVertices()
+                                .stream()
+                                .forEach(it -> {
+                                    var node = (Node) it.getReferencedElement();
+                                    mapNodeToAnnotations.putIfAbsent(node, new ArrayList<>());
+                                    String message = "Constraint " + condition.getName() + " violated";
+                                    mapNodeToAnnotations.get(node)
+                                            .add(new Annotation(message, "bolt", stringToColorHex(condition.getName()),
+                                                    violation.getTransposeFlowGraph()
+                                                            .hashCode()));
+                                });
+                    });
         });
         return mapNodeToAnnotations;
     }
-    
+
     private List<Annotation> createLabelAnnotationsForOneVertex(AbstractVertex<Node> vertex, int tfg) {
         List<Annotation> annotations = new ArrayList<>();
         StringBuilder builder = new StringBuilder("Propagated:");
-        if (!vertex.getAllOutgoingDataCharacteristics().isEmpty()) {
+        if (!vertex.getAllOutgoingDataCharacteristics()
+                .isEmpty()) {
             vertex.getAllOutgoingDataCharacteristics()
                     .forEach(characteristic -> characteristic.getAllCharacteristics()
-                            .forEach(value -> builder.append(value.getTypeName() + "." + value.getValueName()).append(",")));
+                            .forEach(value -> builder.append(value.getTypeName() + "." + value.getValueName())
+                                    .append(",")));
             annotations.add(new Annotation(builder.toString(), "tag", "#FFFFFF", tfg));
         }
-        if (!vertex.getAllIncomingDataCharacteristics().isEmpty()) {
+        if (!vertex.getAllIncomingDataCharacteristics()
+                .isEmpty()) {
             builder.setLength(0);
             builder.append("Incoming:");
             vertex.getAllIncomingDataCharacteristics()
-            .forEach(characteristic -> characteristic.getAllCharacteristics()
-                    .forEach(value -> builder.append(value.getTypeName() + "." + value.getValueName()).append(",")));
-            annotations.add(new Annotation(builder.toString(), "tag", "#FFFFFF", tfg));             
+                    .forEach(characteristic -> characteristic.getAllCharacteristics()
+                            .forEach(value -> builder.append(value.getTypeName() + "." + value.getValueName())
+                                    .append(",")));
+            annotations.add(new Annotation(builder.toString(), "tag", "#FFFFFF", tfg));
         }
         return annotations;
     }
@@ -363,7 +375,7 @@ public class DFD2WebConverter extends Converter {
             MessageDigest md = MessageDigest.getInstance("MD5");
             hash = md.digest(input.getBytes(StandardCharsets.UTF_8));
         } catch (NoSuchAlgorithmException e) {
-            hash = new byte[] {(byte)0x80, (byte)0x80, (byte)0x80, 0};
+            hash = new byte[] {(byte) 0x80, (byte) 0x80, (byte) 0x80, 0};
         }
         float hue = (hash[0] & 0xFF) / 255f;
         float saturation = 0.5f + ((hash[1] & 0xFF) / 255f) * 0.5f;

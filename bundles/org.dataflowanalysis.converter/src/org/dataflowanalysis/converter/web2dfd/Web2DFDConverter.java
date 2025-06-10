@@ -276,7 +276,7 @@ public class Web2DFDConverter extends Converter {
                         .add(abstractAssignment);
             } catch (ArrayIndexOutOfBoundsException e) {
                 logger.error("Assignment string is invalid: " + behaviorString);
-            }
+            } 
         }
 
     }
@@ -300,7 +300,7 @@ public class Web2DFDConverter extends Converter {
                             .filter(label -> label.getEntityName()
                                     .equals(valueName))
                             .findAny()
-                            .orElse(null);
+                            .orElseThrow(() -> new IllegalArgumentException("Label:" + typeValuePair + " does not exist!"));
                     labels.add(value);
                 });
         return labels;

@@ -18,7 +18,7 @@ import java.util.List;
 // The WebEditor is susceptible to changes, and to accommodate new fields, we disregard any unseen fields
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record Child(String text, List<WebEditorLabel> labels, List<Port> ports, String id, String type, String sourceId, String targetId,
-        Annotation annotation, List<Child> children) {
+        List<Annotation> annotations, List<Child> children) {
 
     /**
      * Overrides equals method to support child type specific equality checks.

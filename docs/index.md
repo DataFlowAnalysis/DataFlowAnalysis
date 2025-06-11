@@ -85,7 +85,8 @@ All aspects of the Karlsruhe Data Flow Diagram Analysis have been scientifically
   reference="European Conference on Software Architecture (ECSA), Springer,
       2024"
   url="https://sebastianhahner.de/publications/2024/BoltzHahner2024_AnExtensibleFrameworkForArchitectureBasedDataFlowAnalysisForInformationSecurity.pdf"
-  doi="10.1007/978-3-031-66326-0_21" />
+  doi="10.1007/978-3-031-66326-0_21"
+  linebreak="yes,please" />
 
 <script setup>
 import PaperHighlight from './PaperHighlight.vue'

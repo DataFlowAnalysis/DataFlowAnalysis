@@ -7,7 +7,7 @@ hero:
   name: "DFA – The Karlsruhe Data Flow Diagram Analysis"
   text: "An extensible data flow analysis framework for information security"
   image:
-    src: /dfa-artwork.png
+    src: /img/dfa-artwork.png
     alt: DFA – The Karlsruhe Data Flow Diagram Analysis
   actions:
     - theme: brand

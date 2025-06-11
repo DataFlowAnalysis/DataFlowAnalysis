@@ -50,11 +50,11 @@ export default defineConfig({
         items: [
           {
             text: 'Overview',
-            link: 'wiki/'
+            link: '/wiki/'
           },
           {
             text: 'Getting Started',
-            link: 'wiki/gettingstarted.md'
+            link: '/wiki/gettingstarted.md'
           }
         ]
       },
@@ -63,7 +63,7 @@ export default defineConfig({
         items: [
           {
             text: 'Overview',
-            link: 'examples/'
+            link: '/examples/'
           }
         ]
       }
@@ -75,6 +75,10 @@ export default defineConfig({
 
     notFound: {
       quote: "This flow has no sink. Let's go back to the source and try again."
+    },
+
+    footer: {
+      message: 'DFA – The Karlsruhe Data Flow Diagram Analysis, <a href="https://www.kit.edu/impressum.php">Imprint</a>, <a href="https://www.kit.edu/legals.php">Legals</a>, <a href="https://www.kit.edu/privacypolicy.php">Privacy Policy</a>',
     }
   }
 })

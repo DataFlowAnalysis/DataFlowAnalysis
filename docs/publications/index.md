@@ -54,10 +54,10 @@ For further information, please visits [github.com/arcovia-dev](https://github.c
 <script setup>
 import PaperHighlight from '../PaperHighlight.vue'
 import { ref } from 'vue';
-import { parseBibFile } from "bibtex";
+import * as bibtex from "bibtex";
 import { bib } from "./bib.js";
 
-const entries = parseBibFile(bib).entries_raw;
+const entries = bibtex.parseBibFile(bib).entries_raw;
 const bibDFA = ref(filterAndFormatEntries(entries, "dfa"));
 const bibABUNAI = ref(filterAndFormatEntries(entries, "abunai"));
 const bibMDPA = ref(filterAndFormatEntries(entries, "mdpa"));

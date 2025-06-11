@@ -78,33 +78,17 @@ Exemplary questions are:
 
 All aspects of the Karlsruhe Data Flow Diagram Analysis have been scientifically published at multiple conferences and journals, e.g., the [data flow diagram notation](https://doi.org/10.5220/0010515300260037), or the [core analysis algorithms](https://doi.org/10.1016/j.jss.2021.111138). For a quick overview of the analysis framework, please see this key publication:
 
-<div style="border-radius:12px;background-color:var(--vp-c-bg-soft);display:flex;padding:10px;padding-left:20px">
-  <img style="height:60px;margin-right:15px;margin-top:10px;" src="/img/paper-dark.svg" v-if="isDark">
-  <img style="height:60px;margin-right:15px;margin-top:10px;"  src="/img/paper-light.svg" v-if="!isDark">
-  <p>N. Boltz and S. Hahner, et al., "<a href="https://sebastianhahner.de/publications/2024/BoltzHahner2024_AnExtensibleFrameworkForArchitectureBasedDataFlowAnalysisForInformationSecurity.pdf" style="font-weight:bold">An Extensible Framework for Architecture-Based Data Flow Analysis for Information Security</a>",<br>European Conference on Software Architecture (ECSA), Springer, 2024, doi: <a href="https://doi.org/10.1007/978-3-031-66326-0_21">10.1007/978-3-031-66326-0_21</a>.
-</p>
-</div>
+<PaperHighlight
+  authors="N. Boltz and S. Hahner, et al."
+  title="An Extensible Framework for Architecture-Based Data Flow Analysis
+        for Information Security"
+  reference="European Conference on Software Architecture (ECSA), Springer,
+      2024"
+  url="https://sebastianhahner.de/publications/2024/BoltzHahner2024_AnExtensibleFrameworkForArchitectureBasedDataFlowAnalysisForInformationSecurity.pdf"
+  doi="10.1007/978-3-031-66326-0_21" />
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
-
-const isDark = ref(null);
-let observer = null;
-
-const setDark = () => {
-  isDark.value = document.documentElement.classList.contains('dark');
-};
-
-onMounted(() => {
-  setDark();
-  observer = new MutationObserver(setDark);
-  observer.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ['class'],
-  });
-});
-
-onBeforeUnmount(() => {
-  observer.disconnect();
-});
+import PaperHighlight from './PaperHighlight.vue'
+import { useData } from 'vitepress';
+const isDark = useData().isDark;
 </script>

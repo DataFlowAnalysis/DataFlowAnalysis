@@ -1,6 +1,7 @@
 ---
 prev: false
 next: false
+aside: false
 ---
 
 # Download
@@ -18,7 +19,7 @@ Afterwards, visit [Getting Started](/wiki/gettingstarted.md) to learn more about
 ## Eclipse Product <Badge type="info">Recommended</Badge>
 
 Our [Eclipse Product](https://updatesite.palladio-simulator.com/DataFlowAnalysis/product/releases/) is a pre-configured Eclipse desktop application with all required dependencies installed to quickly get started.
-We provide it for all major operation systems.
+We provide the Eclipse Product for all major operation systems.
 
 <VPButton text='Windows 10 & 11' href="https://updatesite.palladio-simulator.com/DataFlowAnalysis/product/releases/latest/DataFlowAnalysis.win32.win32.x86_64.zip" />  
 <VPButton text='Linux (GTK)' href="https://updatesite.palladio-simulator.com/DataFlowAnalysis/product/releases/latest/DataFlowAnalysis.linux.gtk.x86_64.zip" /> 
@@ -27,7 +28,7 @@ We provide it for all major operation systems.
 
 ## Eclipse Updatesite
 
-We provide an Eclipse Updatesite with all major artifacts ready to be installed in the [Eclipse Modeling Framework](https://eclipse.dev/emf/). It comprises both the latest release artifacts and a nightly build.
+We provide an Eclipse Updatesite with all major artifacts ready to be installed in the [Eclipse Modeling Framework](https://eclipse.dev/emf/). The updatesite comprises both the latest release artifacts and a nightly build.
 
 [Release](https://dataflowanalysis.github.io//updatesite/release) (add this URL to your Updatesites in Eclipse):
 
@@ -43,7 +44,7 @@ https://dataflowanalysis.github.io//updatesite/nightly
 
 ## Online Editor
 
-If you only want to edit and analyze data flow diagrams without further tool support or analysis extensions, just use our online editor at https://editor.dataflowanalysis.org/.
+If you only want to edit and analyze data flow diagrams without further tool support or analysis extensions, just use our online editor, available at https://editor.dataflowanalysis.org/.
 
 <script setup>
 import { ref } from 'vue'

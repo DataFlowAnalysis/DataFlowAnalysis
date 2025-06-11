@@ -49,11 +49,12 @@ export default defineConfig({
         text: 'Documentation',
         items: [
           {
-            text: 'Getting Started',
-            link: 'wiki/gettingstarted.md'
+            text: 'Overview',
+            link: 'wiki/'
           },
           {
-            text: 'TODO'
+            text: 'Getting Started',
+            link: 'wiki/gettingstarted.md'
           }
         ]
       },
@@ -61,7 +62,8 @@ export default defineConfig({
         text: 'Examples',
         items: [
           {
-            text: 'TODO'
+            text: 'Overview',
+            link: 'examples/'
           }
         ]
       }

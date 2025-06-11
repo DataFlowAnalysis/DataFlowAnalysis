@@ -16,6 +16,8 @@ MDMA, ABUNAI, and Nils papers
 
 <script setup>
 import {parseBibFile} from "bibtex";
-const result = parseBibFile('@article{sample1,title={sample title}}');
+import {bib} from "./bib.js";
+
+const result = parseBibFile(bib);
 console.log(result);
 </script>

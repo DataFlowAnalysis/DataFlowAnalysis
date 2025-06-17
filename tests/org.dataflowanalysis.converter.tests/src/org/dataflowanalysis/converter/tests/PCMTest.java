@@ -4,14 +4,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.log4j.Level;
@@ -19,10 +17,13 @@ import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
-import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
-import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
+import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.simple.DFDSimpleTransposeFlowGraphFinder;
+import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
+import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
+import org.dataflowanalysis.analysis.dsl.selectors.Intersection;
+import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariable;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.converter.dfd2web.DFD2WebConverter;
@@ -50,13 +51,13 @@ public class PCMTest extends ConverterTest {
     @Test
     @DisplayName("Test PCM2DFD TravelPlanner")
     public void travelToDfd() {
-        testSpecificModel("TravelPlanner", "travelPlanner", TEST_MODELS, "tp.json", this::travelPlannerCondition);
+        testSpecificModel("TravelPlanner", "travelPlanner", TEST_MODELS, "tp.json", getTravelPlannerConstraints());
     }
 
     @Test
     @DisplayName("Test PCM2DFD MaaS")
     public void maasToDfd() {
-        testSpecificModel("MaaSTicketSystem", "MaaS", TEST_MODELS, "maas.json", this::maasCondition);
+        testSpecificModel("MaaSTicketSystem", "MaaS", TEST_MODELS, "maas.json", getMaasConstraints());
     }
 
     @Test
@@ -162,7 +163,7 @@ public class PCMTest extends ConverterTest {
     }
 
     private void testSpecificModel(String inputModel, String inputFile, String modelLocation, String webTarget,
-            Predicate<AbstractVertex<?>> constraint) {
+            List<AnalysisConstraint> constraints) {
         final var usageModelPath = Paths.get("scenarios", "pcm", inputModel, inputFile + ".usagemodel")
                 .toString();
         final var allocationPath = Paths.get("scenarios", "pcm", inputModel, inputFile + ".allocation")
@@ -196,8 +197,6 @@ public class PCMTest extends ConverterTest {
         var complete = new PCM2DFDConverter().convert(pcmConverterModel);
 
         var dfd2WebConverter = new DFD2WebConverter();
-        List<Predicate<? super AbstractVertex<?>>> constraints = new ArrayList<>();
-        constraints.add(constraint);
         dfd2WebConverter.setConditions(constraints);
         dfd2WebConverter.setTransposeFlowGraphFinder(DFDSimpleTransposeFlowGraphFinder.class);
         var web = dfd2WebConverter.convert(complete);
@@ -209,30 +208,28 @@ public class PCMTest extends ConverterTest {
         assertEquals(dfd.getNodes()
                 .size(), vertices.size());
 
-        if (constraint != null) {
+        if (constraints != null && !constraints.isEmpty()) {
             DFDSimpleTransposeFlowGraphFinder dfdTransposeFlowGraphFinder = new DFDSimpleTransposeFlowGraphFinder(dd, dfd);
-            var dfdTFGCollection = dfdTransposeFlowGraphFinder.findTransposeFlowGraphs()
+            var dfdTFGCollection = new DFDFlowGraphCollection(null, dfdTransposeFlowGraphFinder.findTransposeFlowGraphs()
                     .stream()
                     .map(it -> {
                         return it.evaluate();
                     })
-                    .toList();
+                    .toList());
             List<String> nodeIds = new ArrayList<>();
             for (Node node : dfd.getNodes()) {
                 nodeIds.add(node.getId());
             }
 
-            List<AbstractVertex<?>> results = flowGraph.getTransposeFlowGraphs()
-                    .stream()
-                    .map(it -> analysis.queryDataFlow(it, constraint))
-                    .flatMap(Collection::stream)
-                    .collect(Collectors.toList());
+            var results = constraints.stream()
+                    .flatMap(constraint -> constraint.findViolations(flowGraph)
+                            .stream())
+                    .toList();
 
-            DFDConfidentialityAnalysis dfdAnalysis = new DFDConfidentialityAnalysis(null, null, TEST_JSONS);
-            List<AbstractVertex<?>> dfdResults = dfdTFGCollection.stream()
-                    .map(it -> dfdAnalysis.queryDataFlow(it, constraint))
-                    .flatMap(Collection::stream)
-                    .collect(Collectors.toList());
+            var dfdResults = constraints.stream()
+                    .flatMap(constraint -> constraint.findViolations(dfdTFGCollection)
+                            .stream())
+                    .toList();
 
             assertEquals(results.size(), dfdResults.size());
             checkTFGs(flowGraph, dfdTFGCollection);
@@ -311,9 +308,11 @@ public class PCMTest extends ConverterTest {
         }
     }
 
-    private void checkTFGs(FlowGraphCollection pcmFlowGraphs, List<AbstractTransposeFlowGraph> dfdFlowGraphs) {
+    private void checkTFGs(FlowGraphCollection pcmFlowGraphs, FlowGraphCollection dfdFlowGraphs) {
         assertEquals(pcmFlowGraphs.getTransposeFlowGraphs()
-                .size(), dfdFlowGraphs.size());
+                .size(),
+                dfdFlowGraphs.getTransposeFlowGraphs()
+                        .size());
     }
 
     private void checkLabels(DataDictionary dd, FlowGraphCollection flowGraph) {
@@ -355,83 +354,6 @@ public class PCMTest extends ConverterTest {
         assertEquals(labelsPCM, labelsDFD);
     }
 
-    private boolean travelPlannerCondition(AbstractVertex<?> node) {
-        List<String> assignedRoles = node.getVertexCharacteristics("AssignedRoles")
-                .stream()
-                .map(CharacteristicValue::getValueName)
-                .toList();
-        Collection<List<CharacteristicValue>> grantedRoles = node.getDataCharacteristicMap("GrantedRoles")
-                .values();
-
-        for (List<CharacteristicValue> dataFlowCharacteristics : grantedRoles) {
-            if (!dataFlowCharacteristics.isEmpty() && dataFlowCharacteristics.stream()
-                    .distinct()
-                    .map(CharacteristicValue::getValueName)
-                    .noneMatch(assignedRoles::contains)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean maasCondition(AbstractVertex<?> vertex) {
-        var nodeLabels = retrieveNodeLabels(vertex);
-        var dataLabels = retrieveDataLabels(vertex);
-        var dataLabelTypes = retrieveDataLabelsTypes(vertex);
-
-        if ((!dataLabels.contains("Encrypted") || dataLabels.contains("FineGranular")) && dataLabels.contains("Customer")
-                && (dataLabels.contains("STS") || dataLabels.contains("LTS") || dataLabels.contains("TripData")) && !nodeLabels.contains("Customer"))
-            return true;
-
-        // Constraint 2: Ticket inspectors must not be able to trace past trips of customers c
-        if (dataLabels.contains("Vehicle") && dataLabels.contains("VehicleData") && dataLabels.contains("Customer") && dataLabels.contains("TripData")
-                && nodeLabels.contains("Inspector"))
-            return true;
-
-        // Constraint 3: No granular information about individual trips of customer must be visible to the company
-
-        if (dataLabels.contains("FineGranular") && dataLabels.contains("Customer")
-                && (dataLabels.contains("STS") || dataLabels.contains("LTS") || dataLabels.contains("TripData"))
-                && nodeLabels.contains("MobilityProvider"))
-            return true;
-
-        if (dataLabels.contains("FineGranular") && dataLabels.contains("Customer") && dataLabels.contains("TripData")
-                && (nodeLabels.contains("SupportStaff") || nodeLabels.contains("BillingStaff") || nodeLabels.contains("AnalysisStaff")
-                        || nodeLabels.contains("Administrators")))
-            return true;
-
-        return dataLabelTypes.contains("writeActions") && nodeLabels.contains("Write");
-
-    }
-
-    private List<String> retrieveNodeLabels(AbstractVertex<?> vertex) {
-        return vertex.getAllVertexCharacteristics()
-                .stream()
-                .map(CharacteristicValue.class::cast)
-                .map(CharacteristicValue::getValueName)
-                .toList();
-    }
-
-    private List<String> retrieveDataLabels(AbstractVertex<?> vertex) {
-        return vertex.getAllDataCharacteristics()
-                .stream()
-                .map(DataCharacteristic::getAllCharacteristics)
-                .flatMap(List::stream)
-                .map(CharacteristicValue.class::cast)
-                .map(CharacteristicValue::getValueName)
-                .toList();
-    }
-
-    private List<String> retrieveDataLabelsTypes(AbstractVertex<?> vertex) {
-        return vertex.getAllDataCharacteristics()
-                .stream()
-                .map(DataCharacteristic::getAllCharacteristics)
-                .flatMap(List::stream)
-                .map(CharacteristicValue.class::cast)
-                .map(CharacteristicValue::getTypeName)
-                .toList();
-    }
-
     private static Stream<Arguments> getPCMModels() {
         return Stream.of(Arguments.of(TEST_MODELS, "scenarios/pcm/CoCarNextGen/AudiA6C8.usagemodel", "scenarios/pcm/CoCarNextGen/AudiA6C8.allocation",
                 "scenarios/pcm/CoCarNextGen/AudiA6C8.nodecharacteristics", Activator.class));
@@ -458,5 +380,39 @@ public class PCMTest extends ConverterTest {
                 }
             }
         }
+    }
+
+    private List<AnalysisConstraint> getTravelPlannerConstraints() {
+        return List.of(new ConstraintDSL().ofData()
+                .withLabel("GrantedRoles", ConstraintVariable.of("grantedRoles"))
+                .neverFlows()
+                .toVertex()
+                .withCharacteristic("AssignedRoles", ConstraintVariable.of("assignedRoles"))
+                .where()
+                .isNotEmpty(ConstraintVariable.of("grantedRoles"))
+                .isNotEmpty(ConstraintVariable.of("assignedRoles"))
+                .isEmpty(Intersection.of(ConstraintVariable.of("grantedRoles"), ConstraintVariable.of("assignedRoles")))
+                .create());
+    }
+
+    public List<AnalysisConstraint> getMaasConstraints() {
+        List<AnalysisConstraint> constraints = new ArrayList<>();
+        constraints.add(new ConstraintDSL().fromNode()
+                .neverFlows()
+                .toVertex()
+                .withCharacteristic("Role", "MaliciousActor")
+                .create());
+        constraints.add(new ConstraintDSL().ofData()
+                .withLabel("DataType", "LoginData")
+                .neverFlows()
+                .toVertex()
+                .withCharacteristic("Role", "Customer")
+                .create());
+        constraints.add(new ConstraintDSL().ofData()
+                .withLabel("Origin", "Leaked")
+                .neverFlows()
+                .toVertex()
+                .create());
+        return constraints;
     }
 }

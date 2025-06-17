@@ -21,10 +21,10 @@ Afterwards, visit [Getting Started](/wiki/gettingstarted.md) to learn more about
 Our [Eclipse Product](https://updatesite.palladio-simulator.com/DataFlowAnalysis/product/releases/) is a pre-configured Eclipse desktop application with all required dependencies installed to quickly get started.
 We provide the Eclipse Product for all major operation systems.
 
-<VPButton text='Windows 10 & 11' href="https://updatesite.palladio-simulator.com/DataFlowAnalysis/product/releases/latest/DataFlowAnalysis.win32.win32.x86_64.zip" />  
-<VPButton text='Linux (GTK)' href="https://updatesite.palladio-simulator.com/DataFlowAnalysis/product/releases/latest/DataFlowAnalysis.linux.gtk.x86_64.zip" /> 
-<VPButton text='macOS (ARM)' href="https://updatesite.palladio-simulator.com/DataFlowAnalysis/product/releases/latest/DataFlowAnalysis.macosx.cocoa.aarch64.tar.gz" /> 
-<VPButton text='macOS (Intel)' href="https://updatesite.palladio-simulator.com/DataFlowAnalysis/product/releases/latest/DataFlowAnalysis.macosx.cocoa.x86_64.zip" /> 
+<VPButton text='Windows 10 & 11' href="https://github.com/DataFlowAnalysis/DataFlowAnalysis/releases/download/latest/DataFlowAnalysis.win32.win32.x86_64.zip" />  
+<VPButton text='Linux (GTK)' href="https://github.com/DataFlowAnalysis/DataFlowAnalysis/releases/download/latest/DataFlowAnalysis.linux.gtk.x86_64.zip" /> 
+<VPButton text='macOS (ARM)' href="https://github.com/DataFlowAnalysis/DataFlowAnalysis/releases/download/latest/DataFlowAnalysis.macosx.cocoa.aarch64.tar.gz" /> 
+<VPButton text='macOS (Intel)' href="https://github.com/DataFlowAnalysis/DataFlowAnalysis/releases/download/latest/DataFlowAnalysis.macosx.cocoa.x86_64.zip" /> 
 
 ## Eclipse Updatesite
 

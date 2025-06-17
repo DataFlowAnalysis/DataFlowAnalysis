@@ -51,9 +51,9 @@ export default withMermaid({
       },
       {
         text: "Documentation",
-        link: "/wiki/wiki",
+        link: "/wiki",
         items: [
-          { text: "Quick Start Guide", link: "/wiki/quick-start" },
+          { text: "Quick Start Guide", link: "/wiki/gettingstarted" },
           {
             text: "DFA Web Editor",
             link: "/wiki/webeditor/intro",

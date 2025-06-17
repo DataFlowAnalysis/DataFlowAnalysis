@@ -1,84 +1,118 @@
-import { defineConfig } from 'vitepress'
+import { withMermaid } from "vitepress-plugin-mermaid";
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
+export default withMermaid({
   title: "DFA – The Karlsruhe Data Flow Diagram Analysis",
-  head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
+  head: [["link", { rel: "icon", href: "/favicon.ico" }]],
   description: "An extensible framework for data flow analysis",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Download', link: '/download/' },
-      { text: 'Publications', link: '/publications/'},
-      { text: 'Documentation', link: '/wiki/'},
-      { text: 'Examples', link: '/examples/'},
+      { text: "Home", link: "/" },
+      { text: "Download", link: "/download/" },
+      { text: "Publications", link: "/publications/" },
+      { text: "Documentation", link: "/wiki/" },
+      { text: "Examples", link: "/examples/" },
     ],
+
+    logo: "/dataflowanalysis-logo.png",
+    siteTitle: "DFA - The Karlsruhe Data Flow Diagram Analysis",
 
     sidebar: [
       {
-        text: 'Quick Links',
+        text: "Quick Links",
         items: [
           {
-            text: 'Download',
-            link: '/download/'
+            text: "Download",
+            link: "/download/",
           },
           {
-            text: 'Publications',
-            link: '/publications/'
+            text: "Publications",
+            link: "/publications/",
           },
           {
-            text: 'Online Editor',
-            link: 'https://editor.dataflowanalysis.org'
+            text: "Online Editor",
+            link: "https://editor.dataflowanalysis.org",
           },
           {
-            text: 'GitHub Organization',
-            link: 'https://github.com/DataFlowAnalysis'
+            text: "GitHub Organization",
+            link: "https://github.com/DataFlowAnalysis",
           },
           {
-            text: 'Eclipse Updatesite',
-            link: 'https://dataflowanalysis.github.io/updatesite/'
+            text: "Eclipse Updatesite",
+            link: "https://dataflowanalysis.github.io/updatesite/",
           },
           {
-            text: 'Helmholtz RSD',
-            link: 'http://helmholtz.software/software/dfa'
-          }
-        ]
+            text: "Helmholtz RSD",
+            link: "http://helmholtz.software/software/dfa",
+          },
+        ],
       },
       {
-        text: 'Documentation',
+        text: "Documentation",
+        link: "/wiki",
         items: [
+          { text: "Quick Start Guide", link: "/wiki/gettingstarted" },
           {
-            text: 'Overview',
-            link: '/wiki/'
+            text: "DFA Web Editor",
+            link: "/wiki/webeditor/intro",
+            items: [
+              { text: "Node Behavior", link: "/wiki/webeditor/assignments" },
+            ],
           },
           {
-            text: 'Getting Started',
-            link: '/wiki/gettingstarted.md'
-          }
-        ]
+            text: "Writing Analysis Constraints",
+            link: "/wiki/dsl/intro",
+            collapsed: true,
+            items: [
+              { text: "Source Selectors", link: "/wiki/dsl/source" },
+              { text: "Destination Selectors", link: "/wiki/dsl/destination" },
+              { text: "Variables", link: "/wiki/dsl/variables" },
+              { text: "Conditional Selectors", link: "/wiki/dsl/conditional" },
+            ],
+          },
+          { text: "Data Flow Diagrams (DFDs)", link: "/wiki/dfd/intro" },
+          { text: "Palladio Component Model (PCM)", link: "/wiki/pcm/intro" },
+          { text: "Command Line Interface (CLI)", link: "/wiki/cli/intro" },
+          {
+            text: "Developer Docs",
+            items: [
+              {
+                text: "Development Setup in Eclipse",
+                link: "/wiki/eclipse/intro",
+              },
+              {
+                text: "Development Setup in IntelliJ",
+                link: "/wiki/intellij/intro",
+              },
+            ],
+          },
+          { text: "Glossary", link: "/wiki/glossary" },
+        ],
       },
       {
-        text: 'Examples',
+        text: "Examples",
         items: [
           {
-            text: 'Overview',
-            link: '/examples/'
-          }
-        ]
-      }
+            text: "Overview",
+            link: "/examples/",
+          },
+        ],
+      },
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: "github", link: "https://github.com/vuejs/vitepress" },
     ],
 
     notFound: {
-      quote: "This flow has no sink. Let's go back to the source and try again."
+      quote:
+        "This flow has no sink. Let's go back to the source and try again.",
     },
 
     footer: {
-      message: 'DFA – The Karlsruhe Data Flow Diagram Analysis, <a href="https://www.kit.edu/impressum.php">Imprint</a>, <a href="https://www.kit.edu/legals.php">Legals</a>, <a href="https://www.kit.edu/privacypolicy.php">Privacy Policy</a>',
-    }
-  }
-})
+      message:
+        'DFA – The Karlsruhe Data Flow Diagram Analysis, <a href="https://www.kit.edu/impressum.php">Imprint</a>, <a href="https://www.kit.edu/legals.php">Legals</a>, <a href="https://www.kit.edu/privacypolicy.php">Privacy Policy</a>',
+    },
+  },
+});

@@ -1,14 +1,14 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
-title: DFA – The Karlsruhe Data Flow Diagram Analysis
+title: xDECAF – An extensible data flow diagram constraint analysis framework for information security
 
 hero:
-  name: "DFA – The Karlsruhe Data Flow Diagram Analysis"
-  text: "An extensible data flow analysis framework for information security"
+  name: "xDECAF"
+  text: "An extensible data flow diagram constraint analysis framework for information security"
   image:
-    src: /img/dfa-artwork.png
-    alt: DFA – The Karlsruhe Data Flow Diagram Analysis
+    src: /img/xdecaf-artwork.png
+    alt: xDECAF – An extensible data flow diagram constraint analysis framework for information security
   actions:
     - theme: brand
       text: Download
@@ -76,7 +76,7 @@ Exemplary questions are:
 <img src="/img/analysis-dark.png" v-if="isDark" style="margin-bottom:30px;" />
 <img src="/img/analysis-light.png" v-if="!isDark" style="margin-bottom:30px;" />
 
-All aspects of the Karlsruhe Data Flow Diagram Analysis have been [scientifically published](/publications/) at multiple conferences and journals, e.g., the [data flow diagram notation](https://doi.org/10.5220/0010515300260037), or the [core analysis algorithms](https://doi.org/10.1016/j.jss.2021.111138). For a quick overview of the analysis framework, please see this key publication:
+All aspects of the xDECAF data flow analysis framework have been [scientifically published](/publications/) at multiple conferences and journals, e.g., the [data flow diagram notation](https://doi.org/10.5220/0010515300260037), or the [core analysis algorithms](https://doi.org/10.1016/j.jss.2021.111138). For a quick overview of the analysis framework, please see this key publication:
 
 <PaperHighlight
   authors="N. Boltz and S. Hahner, et al."

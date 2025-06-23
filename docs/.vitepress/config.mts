@@ -2,9 +2,9 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "DFA – The Karlsruhe Data Flow Diagram Analysis",
+  title: "xDECAF 😆☕",
   head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
-  description: "An extensible framework for data flow analysis",
+  description: "xDECAF – An extensible data flow diagram constraint analysis framework for information security",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
@@ -41,7 +41,7 @@ export default defineConfig({
           },
           {
             text: 'Helmholtz RSD',
-            link: 'http://helmholtz.software/software/dfa'
+            link: 'http://helmholtz.software/software/xdecaf'
           }
         ]
       },
@@ -78,7 +78,7 @@ export default defineConfig({
     },
 
     footer: {
-      message: 'DFA – The Karlsruhe Data Flow Diagram Analysis, <a href="https://www.kit.edu/impressum.php">Imprint</a>, <a href="https://www.kit.edu/legals.php">Legals</a>, <a href="https://www.kit.edu/privacypolicy.php">Privacy Policy</a>',
+      message: 'xDECAF – An extensible data flow diagram constraint analysis framework for information security. <a href="https://www.kit.edu/impressum.php">Imprint</a>, <a href="https://www.kit.edu/legals.php">Legals</a>, <a href="https://www.kit.edu/privacypolicy.php">Privacy Policy</a>.',
     }
   }
 })

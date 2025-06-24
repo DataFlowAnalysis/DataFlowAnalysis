@@ -50,7 +50,7 @@ The `<Type>` describes the model element the node must have to match the selecto
 Note that is property is dependent on the type of model that you are analyzing.
 The selector can be inverted to match nodes that do not have the specified type using `vertex type !<Type>`.
 ::: tip Example 
-Assuming that you are working with a [Data Flow Diagram](dfd/intro.md), one might want to match all occurences where data is processed.
+Assuming that you are working with a [Data Flow Diagram](/wiki/dfd/index.md), one might want to match all occurences where data is processed.
 To do that, the constraint should match all processing elements present in the model.
 ```
 vertex type PROCESSING

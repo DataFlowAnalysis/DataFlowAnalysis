@@ -1,5 +1,5 @@
 # Modelling Node Behaviors with Assignments
-The behavior of a node in a [Data Flow Diagram](/docs/wiki/dfd/data-flow-diagrams) is defined by a set of assignments per output pin.
+The behavior of a node in a [Data Flow Diagram](/docs/wiki/dfd/) is defined by a set of assignments per output pins.
 The three basic operations in nodes consist of forwarding data from the input pin to the output pin, setting a label and removing a label.
 Additionally, one can describe conditional assignments that are dependent on the value of the input. 
 
@@ -96,7 +96,7 @@ TODO: What is currently true?
 - Cycles cannot be the end of a data flow though the system
 - Cycles cannot be the begining of a data flow though the system 
 
-Asume we have the following simplified [Data Flow Diagram](/docs/wiki/dfd/data-flow-diagrams):
+Asume we have the following simplified [Data Flow Diagram](/docs/wiki/dfd/):
 ```mermaid
 graph LR;
 A-->B;

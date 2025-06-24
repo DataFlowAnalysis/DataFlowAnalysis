@@ -12,12 +12,16 @@ export default withMermaid({
       { text: "Home", link: "/" },
       { text: "Download", link: "/download/" },
       { text: "Publications", link: "/publications/" },
-      { text: "Documentation", link: "/wiki/" },
+      { text: "Documentation", link: "/wiki/gettingstarted" },
       { text: "Examples", link: "/examples/" },
     ],
 
     logo: "/dataflowanalysis-logo.png",
-    siteTitle: "DFA - The Karlsruhe Data Flow Diagram Analysis",
+    siteTitle: "xDECAF 😆☕",
+
+    search: {
+      provider: "local",
+    },
 
     sidebar: [
       {
@@ -51,19 +55,18 @@ export default withMermaid({
       },
       {
         text: "Documentation",
-        link: "/wiki",
         items: [
           { text: "Quick Start Guide", link: "/wiki/gettingstarted" },
           {
             text: "DFA Web Editor",
-            link: "/wiki/webeditor/intro",
+            link: "/wiki/webeditor/",
             items: [
               { text: "Node Behavior", link: "/wiki/webeditor/assignments" },
             ],
           },
           {
             text: "Writing Analysis Constraints",
-            link: "/wiki/dsl/intro",
+            link: "/wiki/dsl/",
             collapsed: true,
             items: [
               { text: "Source Selectors", link: "/wiki/dsl/source" },
@@ -72,19 +75,19 @@ export default withMermaid({
               { text: "Conditional Selectors", link: "/wiki/dsl/conditional" },
             ],
           },
-          { text: "Data Flow Diagrams (DFDs)", link: "/wiki/dfd/intro" },
-          { text: "Palladio Component Model (PCM)", link: "/wiki/pcm/intro" },
-          { text: "Command Line Interface (CLI)", link: "/wiki/cli/intro" },
+          { text: "Data Flow Diagrams (DFDs)", link: "/wiki/dfd/" },
+          { text: "Palladio Component Model (PCM)", link: "/wiki/pcm/" },
+          { text: "Command Line Interface (CLI)", link: "/wiki/cli/" },
           {
             text: "Developer Docs",
             items: [
               {
                 text: "Development Setup in Eclipse",
-                link: "/wiki/eclipse/intro",
+                link: "/wiki/eclipse/",
               },
               {
                 text: "Development Setup in IntelliJ",
-                link: "/wiki/intellij/intro",
+                link: "/wiki/intellij/",
               },
             ],
           },
@@ -103,7 +106,10 @@ export default withMermaid({
     ],
 
     socialLinks: [
-      { icon: "github", link: "https://github.com/vuejs/vitepress" },
+      {
+        icon: "github",
+        link: "https://github.com/DataFlowAnalysis/DataFlowAnalysis",
+      },
     ],
 
     notFound: {

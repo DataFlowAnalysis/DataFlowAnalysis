@@ -7,7 +7,7 @@ export const bib = `
 	publisher = {{IEEE}},
 	author = {Seifermann, Stephan},
 	date = {2016},
-	tag = {dfa}
+	tag = {xdecaf}
 }
 
 @inproceedings{seifermann_data-driven_2019,
@@ -18,7 +18,7 @@ export const bib = `
 	publisher = {{IEEE}},
 	author = {Seifermann, Stephan and Heinrich, Robert and Reussner, Ralf},
 	date = {2019},
-	tag = {dfa}
+	tag = {xdecaf}
 }
 
 @inproceedings{hahner_modeling_2021,
@@ -29,7 +29,7 @@ export const bib = `
 	publisher = {{IEEE}},
 	author = {Hahner, Sebastian and Seifermann, Stephan and Heinrich, Robert and Walter, Maximilian and Bureš, Tomáš and Hnětynka, Petr},
 	date = {2021},
-	tag = {dfa}
+	tag = {xdecaf}
 }
 
 @inproceedings{seifermann_unified_2021,
@@ -40,7 +40,7 @@ export const bib = `
 	publisher = {{SCITEPRESS}},
 	author = {Seifermann, Stephan and Heinrich, Robert and Werle, Dominik and Reussner, Ralf},
 	date = {2021},
-	tag = {dfa}
+	tag = {xdecaf}
 }
 
 @article{seifermann_detecting_2022,
@@ -51,7 +51,7 @@ export const bib = `
 	publisher = {{Elsevier}},
 	author = {Seifermann, Stephan and Heinrich, Robert and Werle, Dominik and Reussner, Ralf},
 	date = {2022},
-	tag = {dfa}
+	tag = {xdecaf}
 }
 
 @inproceedings{boltz_handling_2022,
@@ -84,7 +84,7 @@ export const bib = `
 	type = {Dissertation},
 	author = {Seifermann, Stephan},
 	date = {2022},
-	tag = {dfa}
+	tag = {xdecaf}
 }
 
 @inproceedings{hahner_architecture-based_2023,
@@ -116,7 +116,7 @@ export const bib = `
 	publisher = {{arXiv}},
 	author = {Schwickerath, Felix and Boltz, Nicolas and Hahner, Sebastian and Walter, Maximilian and Gerking, Christopher and Heinrich, Robert},
 	date = {2023},
-	tag = {dfa},
+	tag = {xdecaf},
 }
 
 @inproceedings{boltz_model-based_2022,
@@ -149,7 +149,7 @@ export const bib = `
 	publisher = {Springer},
 	author = {Boltz, Nicolas and Hahner, Sebastian and Gerking, Christopher and Heinrich, Robert},
 	date = {2024},
-	tag = {dfa}
+	tag = {xdecaf}
 }
 
 @thesis{hahner_architecture-based_2024,
@@ -163,6 +163,19 @@ export const bib = `
 	tag = {abunai},
 }
 
+
+@inproceedings{hahner_arcn_2024,
+	title = {{ARC}³N: A Collaborative Uncertainty Catalog to Address the Awareness Problem of Model-Based Confidentiality Analysis},
+	url = {https://sebastianhahner.de/publications/2024/Hahner2024_ARC3NACollaborativeUncertaintyCatalogToAddressTheAwarenessProblemOfModelBasedConfidentialityAnalysis.pdf},
+	doi = {10.1145/3652620.3688556},
+	booktitle = {{ACM}/{IEEE} 27th International Conference on Model Driven Engineering Languages and Systems ({MODELS} Companion '24)},
+	publisher = {{ACM/IEEE}},
+	author = {Hahner, Sebastian and Niehues, Nils and Boltz, Nicolas and Fuksa, Mario and Heinrich, Robert},
+	date = {2024},
+	tag = {abunai}
+}
+
+
 @inproceedings{niehues_integrating_2024,
 	title = {Integrating Security-Enriched Data Flow Diagrams Into Architecture-Based Confidentiality Analysis},
 	url = {https://dl.gi.de/handle/20.500.12116/45546},
@@ -170,7 +183,7 @@ export const bib = `
 	publisher = {Gesellschaft für Informatik},
 	author = {Niehues, Nils and Arp, Benjamin and Hüller, Tom and Schwickerath, Felix and Boltz, Nicolas and Hahner, Sebastian},
 	date = {2024},
-	tag = {dfa},
+	tag = {xdecaf},
 }
 
 @inproceedings{huller_towards_2024,
@@ -180,7 +193,7 @@ export const bib = `
 	publisher = {Gesellschaft für Informatik},
 	author = {Hüller, Tom and Schwickerath, Felix and Arp, Benjamin and Niehues, Nils and Boltz, Nicolas and Hahner, Sebastian},
 	date = {2024},
-	tag = {dfa}
+	tag = {xdecaf}
 }
 
 @inproceedings{arp_analyzing_2024,
@@ -190,7 +203,7 @@ export const bib = `
 	publisher = {Gesellschaft für Informatik},
 	author = {Arp, Benjamin and Niehues, Nils and Hüller, Tom and Schwickerath, Felix and Boltz, Nicolas and Hahner, Sebastian},
 	date = {2024},
-	tag = {dfa}
+	tag = {xdecaf}
 }
 
 @inproceedings{niehues_architecture-based_2025,

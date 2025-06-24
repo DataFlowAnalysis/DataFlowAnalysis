@@ -6,7 +6,7 @@ aside: false
 
 # Publications
 
-This page lists selected publications that present the foundation, application, and extension of the Karlsruhe Data Flow Diagram Analysis.
+This page lists selected publications that present the foundation, application, and extension of the xDECAF framework.
 The extensible analysis framework has been presented in this premiere publication:
 
 <PaperHighlight
@@ -18,11 +18,11 @@ The extensible analysis framework has been presented in this premiere publicatio
   url="https://sebastianhahner.de/publications/2024/BoltzHahner2024_AnExtensibleFrameworkForArchitectureBasedDataFlowAnalysisForInformationSecurity.pdf"
   doi="10.1007/978-3-031-66326-0_21" />
 
-## Data Flow Analysis
+## Analysis Framework
 
 Further publications present various aspects of the analysis framework, e.g., the analysis algorithm, or the constraint formulation:
 
-<div v-html="bibDFA"></div>
+<div v-html="bibXDECAF"></div>
 
 ## Analysis Extensions
 
@@ -58,13 +58,18 @@ import * as bibtex from "bibtex";
 import { bib } from "./bib.js";
 
 const entries = bibtex.parseBibFile(bib).entries_raw;
-const bibDFA = ref(filterAndFormatEntries(entries, "dfa"));
+const bibXDECAF = ref(filterAndFormatEntries(entries, "xdecaf"));
 const bibABUNAI = ref(filterAndFormatEntries(entries, "abunai"));
 const bibMDPA = ref(filterAndFormatEntries(entries, "mdpa"));
 const bibARCOVIA = ref(filterAndFormatEntries(entries, "arcovia"));
 
 function filterAndFormatEntries(entries, tag) {
     const filteredEntries = entries.filter(entry => entry.getFieldAsString("tag") == tag);
+    filteredEntries.sort((a, b) => {
+        const dateA = new Date(a.getFieldAsString("date"));
+        const dateB = new Date(b.getFieldAsString("date"));
+        return dateB - dateA; // Sort by date descending
+    });
     const formattedEntries = filteredEntries.map(entry => formatBibEntry(entry));
 
     return `<ul><li>${formattedEntries.join("</li><li>")}</li></ul>`;

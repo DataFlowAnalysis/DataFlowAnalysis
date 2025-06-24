@@ -25,6 +25,7 @@ We provide the Eclipse Product for all major operation systems.
 <VPButton text='Linux (GTK)' href="https://github.com/DataFlowAnalysis/DataFlowAnalysis/releases/download/latest/DataFlowAnalysis.linux.gtk.x86_64.zip" /> 
 <VPButton text='macOS (ARM)' href="https://github.com/DataFlowAnalysis/DataFlowAnalysis/releases/download/latest/DataFlowAnalysis.macosx.cocoa.aarch64.tar.gz" /> 
 <VPButton text='macOS (Intel)' href="https://github.com/DataFlowAnalysis/DataFlowAnalysis/releases/download/latest/DataFlowAnalysis.macosx.cocoa.x86_64.zip" /> 
+<VPButton text='Plugins (for IntelliJ)' href="https://github.com/DataFlowAnalysis/DataFlowAnalysis/releases/download/latest/DataFlowAnalysis.jars.tar.gz" /> 
 
 ## Eclipse Updatesite
 

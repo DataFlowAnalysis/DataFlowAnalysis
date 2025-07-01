@@ -5,6 +5,7 @@ import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
 import org.dataflowanalysis.examplemodels.results.ExpectedViolation;
 import org.dataflowanalysis.examplemodels.results.dfd.DFDExampleModelResult;
+
 public class CWANoViolation implements DFDExampleModelResult {
 
     @Override
@@ -20,28 +21,28 @@ public class CWANoViolation implements DFDExampleModelResult {
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
         return List.of(new ConstraintDSL().ofData()
-                .withLabel("Identifiers","RPI")
-                .withLabel("Identifiers","TEK")
+                .withLabel("Identifiers", "RPI")
+                .withLabel("Identifiers", "TEK")
                 .neverFlows()
                 .toVertex()
                 .withCharacteristic("Server", "CWApp")
                 .create(),
-                
+
                 new ConstraintDSL().ofData()
-                .withLabel("Identifiers","PersonalData")
-                .neverFlows()
-                .toVertex()
-                .withCharacteristic("Server", "CWApp")
-                .withCharacteristic("Server","VerificationServer")
-                .withCharacteristic("Server","TestResultServer")
-                .withCharacteristic("Server","DDServer")
-                .withCharacteristic("Server","CWAppServer")
-                .create());
+                        .withLabel("Identifiers", "PersonalData")
+                        .neverFlows()
+                        .toVertex()
+                        .withCharacteristic("Server", "CWApp")
+                        .withCharacteristic("Server", "VerificationServer")
+                        .withCharacteristic("Server", "TestResultServer")
+                        .withCharacteristic("Server", "DDServer")
+                        .withCharacteristic("Server", "CWAppServer")
+                        .create());
     }
 
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
-    	return List.of();
+        return List.of();
     }
 
     @Override
@@ -51,7 +52,6 @@ public class CWANoViolation implements DFDExampleModelResult {
 
     @Override
     public String getFileName() {
-    	return "diagram";
+        return "diagram";
     }
 }
-

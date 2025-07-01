@@ -83,11 +83,15 @@ export default withMermaid({
             items: [
               {
                 text: "Development Setup in Eclipse",
-                link: "/wiki/eclipse/",
+                link: "/wiki/development/eclipse",
               },
               {
                 text: "Development Setup in IntelliJ",
-                link: "/wiki/intellij/",
+                link: "/wiki/development/intellij",
+              },
+              {
+                text: "Running Locally",
+                link: "/wiki/development/running-locally",
               },
             ],
           },

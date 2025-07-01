@@ -18,7 +18,7 @@ public class VWCariad implements DFDExampleModelResult {
 
     @Override
     public String getModelName() {
-        return "vwcariad";
+        return "VWCariad";
     }
 
     @Override

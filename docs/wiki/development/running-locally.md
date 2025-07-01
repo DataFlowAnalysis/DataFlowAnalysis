@@ -10,12 +10,12 @@ An example for a eclipse modelling project is the example models bundle at `bund
 
 Currently, running the analysis is only possible in standalone mode and is set by calling `standalone()`.
 The Activator class is provided to `usePluginAcivator(Class<? extends Plugin>)`, while the models are passed to their corresponding `use` methods.
-Finally, a constructed analysis is built from the Builder by calling `build()`.
+Finally, a constructed analysis is built from the builder by calling `build()`.
 This steps also runs some precursory validation on the provided setup.
 
 <<< ../../../tests/org.dataflowanalysis.analysis.tests/src/org/dataflowanalysis/analysis/tests/DemoTest.java#init{5-11}
 
-The analysis is fully initalized by calling `initializeAnalysis()` on the created Analysis object.
+The analysis is fully initalized by calling `initializeAnalysis()` on the created analysis object.
 If any errors during model loading occur, they will be logged on the command line logger.
 
 <<< ../../../tests/org.dataflowanalysis.analysis.tests/src/org/dataflowanalysis/analysis/tests/DemoTest.java#init{12}

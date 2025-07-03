@@ -96,7 +96,7 @@ public class AnnotationsTest {
                     nodeNameToAnnotationMap.put(node.text(), node.annotations());
                 });
 
-        assertEquals("Propagated:type.value", nodeNameToAnnotationMap.get("a")
+        assertEquals("Propagated: type.value", nodeNameToAnnotationMap.get("a")
                 .get(0)
                 .message()
                 .replace(",", "")
@@ -107,7 +107,7 @@ public class AnnotationsTest {
         assertEquals("tag", nodeNameToAnnotationMap.get("a")
                 .get(0)
                 .icon());
-        assertEquals("Propagated:type.value", nodeNameToAnnotationMap.get("b")
+        assertEquals("Propagated: type.value", nodeNameToAnnotationMap.get("b")
                 .get(0)
                 .message()
                 .replace(",", "")
@@ -150,7 +150,7 @@ public class AnnotationsTest {
                     return annotation.message()
                             .replace(",", "")
                             .replace("\n", "")
-                            .equals("Propagated:type.value");
+                            .equals("Propagated: type.value");
                 }));
 
         assert (nodeNameToAnnotationMap.get("b")
@@ -159,7 +159,7 @@ public class AnnotationsTest {
                     return annotation.message()
                             .replace(",", "")
                             .replace("\n", "")
-                            .equals("Propagated:type.value");
+                            .equals("Propagated: type.value");
                 }));
 
         assert (nodeNameToAnnotationMap.get("b")

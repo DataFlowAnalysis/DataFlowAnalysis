@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
@@ -141,25 +143,23 @@ public class DFD2WebConverter extends Converter {
 
     private List<Annotation> createLabelAnnotationsForOneVertex(AbstractVertex<Node> vertex, int tfg) {
         List<Annotation> annotations = new ArrayList<>();
-        StringBuilder builder = new StringBuilder("Propagated:");
-        if (!vertex.getAllOutgoingDataCharacteristics()
-                .isEmpty()) {
-            vertex.getAllOutgoingDataCharacteristics()
-                    .forEach(characteristic -> characteristic.getAllCharacteristics()
-                            .forEach(value -> builder.append(value.getTypeName() + "." + value.getValueName())
-                                    .append(",")));
-            annotations.add(new Annotation(builder.toString(), "tag", "#FFFFFF", tfg));
+        
+        if (!vertex.getAllOutgoingDataCharacteristics().isEmpty()) {
+            String outgoing = vertex.getAllOutgoingDataCharacteristics().stream()
+                .flatMap(ch -> ch.getAllCharacteristics().stream())
+                .map(v -> v.getTypeName() + "." + v.getValueName())
+                .collect(Collectors.joining(", "));
+            annotations.add(new Annotation("Propagated: " + outgoing, "tag", "#FFFFFF", tfg));
         }
-        if (!vertex.getAllIncomingDataCharacteristics()
-                .isEmpty()) {
-            builder.setLength(0);
-            builder.append("Incoming:");
-            vertex.getAllIncomingDataCharacteristics()
-                    .forEach(characteristic -> characteristic.getAllCharacteristics()
-                            .forEach(value -> builder.append(value.getTypeName() + "." + value.getValueName())
-                                    .append(",")));
-            annotations.add(new Annotation(builder.toString(), "tag", "#FFFFFF", tfg));
+
+        if (!vertex.getAllIncomingDataCharacteristics().isEmpty()) {
+            String incoming = vertex.getAllIncomingDataCharacteristics().stream()
+                .flatMap(ch -> ch.getAllCharacteristics().stream())
+                .map(v -> v.getTypeName() + "." + v.getValueName())
+                .collect(Collectors.joining(", "));
+            annotations.add(new Annotation("Incoming: " + incoming, "tag", "#FFFFFF", tfg));
         }
+        
         return annotations;
     }
 
@@ -232,18 +232,18 @@ public class DFD2WebConverter extends Converter {
 
             node.getBehavior()
                     .getInPin()
-                    .forEach(pin -> ports.add(new Port(null, pin.getId(), "port:dfd-input", new ArrayList<>())));
+                    .forEach(pin -> ports.add(new Port(null, pin.getId(), "port:dfd-input", new ArrayList<>(), null, null)));
 
             Map<Pin, List<AbstractAssignment>> mapPinToAssignments = mapping(node);
 
             node.getBehavior()
                     .getOutPin()
                     .forEach(pin -> ports
-                            .add(new Port(createBehaviorString(mapPinToAssignments.get(pin)), pin.getId(), "port:dfd-output", new ArrayList<>())));
+                            .add(new Port(createBehaviorString(mapPinToAssignments.get(pin)), pin.getId(), "port:dfd-output", new ArrayList<>(), null, null)));
             if (mapNodeToAnnotation == null)
-                children.add(new Child(text, labels, ports, id, type, null, null, null, new ArrayList<>()));
+                children.add(new Child(text, labels, ports, id, type, null, null, null, new ArrayList<>(), null, null));
             else
-                children.add(new Child(text, labels, ports, id, type, null, null, mapNodeToAnnotation.get(node), new ArrayList<>()));
+                children.add(new Child(text, labels, ports, id, type, null, null, mapNodeToAnnotation.get(node), new ArrayList<>(), null, null));
         }
     }
 
@@ -284,7 +284,7 @@ public class DFD2WebConverter extends Converter {
         String targetId = flow.getDestinationPin()
                 .getId();
         String text = controlFlowNameMap.getOrDefault(flow, flow.getEntityName());
-        return new Child(text, null, null, id, type, sourceId, targetId, null, new ArrayList<>());
+        return new Child(text, null, null, id, type, sourceId, targetId, null, new ArrayList<>(), null, null);
     }
 
     private Map<Pin, List<AbstractAssignment>> mapping(Node node) {

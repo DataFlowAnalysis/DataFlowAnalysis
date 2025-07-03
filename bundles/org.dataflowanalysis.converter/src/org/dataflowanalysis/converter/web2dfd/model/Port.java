@@ -13,7 +13,7 @@ import java.util.List;
 
 // The WebEditor is susceptible to changes, and to accommodate new fields, we disregard any unseen fields
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record Port(String behavior, String id, String type, List<Object> children) {
+public record Port(String behavior, String id, String type, List<Object> children, Position position, Size size) {
 
     public boolean equals(Port other) {
         if (!this.type.equals(other.type)) {

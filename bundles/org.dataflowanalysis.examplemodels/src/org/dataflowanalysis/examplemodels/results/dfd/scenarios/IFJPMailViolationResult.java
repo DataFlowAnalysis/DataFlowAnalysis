@@ -39,9 +39,7 @@ public class IFJPMailViolationResult implements DFDExampleModelResult {
         		new ExpectedViolation(0, new DFDIdentifier("f63vu"), 
         				List.of(new ExpectedCharacteristic("Zone", "Attack")),
         				Map.of("pepa57", List.of(new ExpectedCharacteristic("Level", "High")))));
-    }//Violating vertices: [(SMTP, hkp4w), (POP3, f63vu)]
-    //fh2=[Level.High]
-    //pepa57=[Level.High]
+    }
 
     @Override
     public String toString() {

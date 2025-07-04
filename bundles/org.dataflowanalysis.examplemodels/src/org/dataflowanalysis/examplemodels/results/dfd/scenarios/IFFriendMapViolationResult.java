@@ -32,10 +32,12 @@ public class IFFriendMapViolationResult implements DFDExampleModelResult {
 
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
-        return List.of(new ExpectedViolation(0, new DFDIdentifier("mt5r15"),
-        		List.of(new ExpectedCharacteristic("Actor", "Google"), new ExpectedCharacteristic("Zone", "Attack")), 
-        				Map.of("sicxdx", List.of(new ExpectedCharacteristic("Level", "Low"), new ExpectedCharacteristic("Level", "High")))));
-    } //sicxdx=[Level.Low, Level.High]
+        return List.of(
+        		new ExpectedViolation(0, new DFDIdentifier("mt5r15"),
+        				List.of(new ExpectedCharacteristic("Actor", "Google"), new ExpectedCharacteristic("Zone", "Attack")), 
+        				Map.of("sicxdx", 
+        						List.of(new ExpectedCharacteristic("Level", "Low"), new ExpectedCharacteristic("Level", "High")))));
+    }
 
     @Override
     public String toString() {

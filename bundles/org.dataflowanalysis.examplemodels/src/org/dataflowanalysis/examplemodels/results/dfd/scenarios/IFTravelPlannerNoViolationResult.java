@@ -1,13 +1,10 @@
 package org.dataflowanalysis.examplemodels.results.dfd.scenarios;
 
 import java.util.List;
-import java.util.Map;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
-import org.dataflowanalysis.examplemodels.results.ExpectedCharacteristic;
 import org.dataflowanalysis.examplemodels.results.ExpectedViolation;
 import org.dataflowanalysis.examplemodels.results.dfd.DFDExampleModelResult;
-import org.dataflowanalysis.examplemodels.results.dfd.DFDIdentifier;
 
 public class IFTravelPlannerNoViolationResult implements DFDExampleModelResult {
     @Override
@@ -17,7 +14,7 @@ public class IFTravelPlannerNoViolationResult implements DFDExampleModelResult {
 
     @Override
     public String getModelName() {
-        return "IF-PrivateTaxi-no-violation";
+        return "IF-TravelPlanner-no-violation";
     }
 
     @Override
@@ -28,6 +25,7 @@ public class IFTravelPlannerNoViolationResult implements DFDExampleModelResult {
     			.toVertex()
     			.withCharacteristic("ClearanceLevel", "UserAirline")
     			.create(),
+    			
     			new ConstraintDSL().ofData()
     			.withLabel("ClassificationLevel", "User")
     			.neverFlows()
@@ -38,11 +36,16 @@ public class IFTravelPlannerNoViolationResult implements DFDExampleModelResult {
 
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
-        return null;
+        return List.of();
     }
 
     @Override
     public String toString() {
         return this.getModelName();
+    }
+    
+    @Override
+    public String getFileName() {
+    	return "diagram";
     }
 }

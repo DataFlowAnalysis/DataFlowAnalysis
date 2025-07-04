@@ -39,15 +39,6 @@ public class ACDACViolationResult implements DFDExampleModelResult {
         						new ExpectedCharacteristic("TraversedNodes", "pictureStorage"), new ExpectedCharacteristic("Read", "Aunt"),
         						new ExpectedCharacteristic("TraversedNodes", "readPicture")))));
     }
-    //characteristics: {h5c7l=[TraversedNodes.mother, TraversedNodes.addPicture, TraversedNodes.pictureStorage, Read.Aunt, TraversedNodes.readPicture]}
-    /**
-     * new ExpectedViolation(2, new DFDIdentifier("fagty"), 
-        		List.of(new ExpectedCharacteristic("Identity", "IndexingBot")), 
-        		Map.of("h5c7l", 
-        				List.of(new ExpectedCharacteristic("TraversedNodes", "mother"), new ExpectedCharacteristic("TraversedNodes", "addPicture"),
-        						new ExpectedCharacteristic("TraversedNodes", "pictureStorage"), new ExpectedCharacteristic("Read", "Aunt"),
-        						new ExpectedCharacteristic("TraversedNodes", "readPicture"))))
-     */
     
     
     

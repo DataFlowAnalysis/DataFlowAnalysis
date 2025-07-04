@@ -32,13 +32,15 @@ public class ACDistanceTrackerViolationResult implements DFDExampleModelResult {
 
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
-        return List.of(new ExpectedViolation(1, new DFDIdentifier("d6mr08"),
-        		List.of(new ExpectedCharacteristic("Roles", "DistanceTracker")), Map.of("466m7", 
-        				List.of(new ExpectedCharacteristic("AccessRights", "User"), new ExpectedCharacteristic("AccessRights", "TrackingService")))),
+    	return List.of(
+        		new ExpectedViolation(1, new DFDIdentifier("d6mr08"),
+        				List.of(new ExpectedCharacteristic("Roles", "DistanceTracker")),
+        				Map.of("466m7",
+        						List.of(new ExpectedCharacteristic("AccessRights", "User"), new ExpectedCharacteristic("AccessRights", "TrackingService")))),
         		new ExpectedViolation(1, new DFDIdentifier("eq0c5k"),
-                		List.of(new ExpectedCharacteristic("Roles", "DistanceTracker")), Map.of("7r5i93", 
-                				List.of(new ExpectedCharacteristic("AccessRights", "User"), new ExpectedCharacteristic("AccessRights", "TrackingService")))));
-        
+        				List.of(new ExpectedCharacteristic("Roles", "DistanceTracker")),
+        				Map.of("7r5i93",
+        						List.of(new ExpectedCharacteristic("AccessRights", "User"), new ExpectedCharacteristic("AccessRights", "TrackingService")))));	
     }
 
     @Override

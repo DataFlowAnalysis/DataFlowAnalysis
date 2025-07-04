@@ -47,58 +47,6 @@ public class ACABACViolationResult implements DFDExampleModelResult {
 						List.of(new ExpectedCharacteristic("DataOrigin", "USA"), new ExpectedCharacteristic("DataStatus", "Regular"),
 								new ExpectedCharacteristic("DataStatus", "Celebrity")))));
     }
-    
-    /**
-     * 
-        		new ExpectedViolation(2, new DFDIdentifier("370gkb"), 
-        				List.of(new ExpectedCharacteristic("NodeRole", "Clerk"), new ExpectedCharacteristic("NodeLocation", "Asia")), 
-        				Map.of("t2a5tp", 
-        						List.of(new ExpectedCharacteristic("DataOrigin", "Asia"), new ExpectedCharacteristic("DataStatus", "Regular"),
-        								new ExpectedCharacteristic("DataStatus", "Celebrity")))), 
-        		new ExpectedViolation(2, new DFDIdentifier("fis13o"), 
-        				List.of(new ExpectedCharacteristic("NodeRole", "Clerk"), new ExpectedCharacteristic("NodeLocation", "USA")), 
-        				Map.of("bgccb", 
-                				List.of(new ExpectedCharacteristic("DataOrigin", "Asia"), new ExpectedCharacteristic("DataStatus", "Regular"),
-                						new ExpectedCharacteristic("DataStatus", "Celebrity"))))
-     */
-    
-    
-    
-    
-    
-    //Vertex (Clerk Asia, 370gkb) has the following incorrect data characteristics: {t2a5tp=[DataOrigin.Asia, DataStatus.Regular, DataStatus.Celebrity], 
-    //bgccb=[DataOrigin.Asia, DataStatus.Regular, DataStatus.Celebrity]}
-    
-    /**
-     * ,
-     * return List.of( EXAMPLE STRUCTURE
-        		new ExpectedViolation(0, new DFDIdentifier("hkp4w"),
-        				List.of(new ExpectedCharacteristic("Zone", "Attack")),
-        				Map.of("fh2", List.of(new ExpectedCharacteristic("Level", "High")))), 
-        		new ExpectedViolation(0, new DFDIdentifier("f63vu"), 
-        				List.of(new ExpectedCharacteristic("Zone", "Attack")),
-        				Map.of("pepa57", List.of(new ExpectedCharacteristic("Level", "High")))));
-     * 
-     * 
-     * 
-     * 
-     * 
-        		new ExpectedViolation(2, new DFDIdentifier("fis13o"), 
-        			List.of(new ExpectedCharacteristic("NodeRole", "Clerk"), new ExpectedCharacteristic("NodeLocation", "USA")), 
-        				Map.of())))
-        				
-        				Map.of("bgccb", 
-        				List.of(new ExpectedCharacteristic("DataOrigin", "Asia"), new ExpectedCharacteristic("DataStatus", "Regular"),
-        						new ExpectedCharacteristic("DataStatus", "Celebrity")))
-        						
-        	)),
-        		new ExpectedViolation(2, new DFDIdentifier("370gkb"), 
-                		List.of(new ExpectedCharacteristic("NodeRole", "Clerk"), new ExpectedCharacteristic("NodeLocation", "Asia")), 
-                		Map.of("bccgb", 
-                				List.of(new ExpectedCharacteristic("DataOrigin", "Asia"), new ExpectedCharacteristic("DataStatus", "Regular"),
-                						new ExpectedCharacteristic("DataStatus", "Celebrity"))))
-        			);
-     */
 
     @Override
     public String toString() {

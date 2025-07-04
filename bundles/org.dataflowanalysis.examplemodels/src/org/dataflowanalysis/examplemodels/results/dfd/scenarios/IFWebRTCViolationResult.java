@@ -32,9 +32,10 @@ public class IFWebRTCViolationResult implements DFDExampleModelResult {
 
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
-    	return List.of(new ExpectedViolation(4, new DFDIdentifier("ni7d7"),
+    	return List.of(new ExpectedViolation(2, new DFDIdentifier("ni7d7"),
         		List.of(new ExpectedCharacteristic("Zone", "Attack")), 
-        				Map.of()));
+				Map.of("d3bsd",
+						List.of(new ExpectedCharacteristic("Level", "High"), new ExpectedCharacteristic("Level", "Low")))));
     }
 
     @Override

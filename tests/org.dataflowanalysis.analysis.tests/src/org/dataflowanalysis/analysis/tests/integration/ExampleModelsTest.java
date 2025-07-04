@@ -71,19 +71,20 @@ public class ExampleModelsTest {
                 Arguments.of(new MiniTwitCaseStudy()), Arguments.of(new HipaaCaseStudy()), Arguments.of(new DocProc()),
                 Arguments.of(new AppleWallet()), Arguments.of(new CMACaseStudy()));
         		Arguments.of(new ACABACNoViolationResult()), Arguments.of(new ACABACViolationResult()),
-        		Arguments.of(new ACContactSMSNoViolationResult()),
+        		Arguments.of(new ACContactSMSNoViolationResult()), Arguments.of(new ACContactSMSViolationResult()),
         		Arguments.of(new ACDACNoViolationResult()), Arguments.of(new ACDACViolationResult()),
         		Arguments.of(new ACDistanceTrackerNoViolationResult()), Arguments.of(new ACDistanceTrackerViolationResult()),
-        		Arguments.of(new ACMACNoViolationResult()),
-        		Arguments.of(new ACTravelPlannerNoViolationResult()),
-        		Arguments.of(new IFContactSMSNoViolationResult()),
-        		Arguments.of(new IFFriendMapNoViolationResult()), Arguments.of(new IFFriendMapViolationResult()),
+        		Arguments.of(new ACMACNoViolationResult()), Arguments.of(new ACMACViolationResult()),
+        		Arguments.of(new ACTravelPlannerNoViolationResult()), Arguments.of(new ACTravelPlannerViolationResult()),
+        		Arguments.of(new IFContactSMSNoViolationResult()), Arguments.of(new IFContactSMSViolationResult()),
+        		Arguments.of(new IFFriendMapNoViolationResult()), Arguments.of(new IFFriendMapViolationResult()), 
         		Arguments.of(new IFHospitalNoViolationResult()), Arguments.of(new IFHospitalViolationResult()),
         		Arguments.of(new IFJPMailNoViolationResult()), Arguments.of(new IFJPMailViolationResult()),
         		Arguments.of(new IFPrivateTaxiNoViolationResult()), Arguments.of(new IFPrivateTaxiViolationResult()),
-        		Arguments.of(new IFTravelPlannerNoViolationResult()),
+        		Arguments.of(new IFTravelPlannerNoViolationResult()), Arguments.of(new IFTravelPlannerViolationResult()),
         		Arguments.of(new IFWebRTCNoViolationResult()), Arguments.of(new IFWebRTCViolationResult()));
     }
+
 
     @ParameterizedTest
     @MethodSource("providePCMExampleModelViolations")

@@ -35,6 +35,7 @@ import org.dataflowanalysis.examplemodels.results.dfd.scenarios.MiniTwitCaseStud
 import org.dataflowanalysis.examplemodels.results.dfd.scenarios.OnlineShopResult;
 import org.dataflowanalysis.examplemodels.results.dfd.scenarios.SimpleOnlineShopResult;
 import org.dataflowanalysis.examplemodels.results.dfd.scenarios.VWCariad;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.*;
 import org.dataflowanalysis.examplemodels.results.pcm.*;
 import org.dataflowanalysis.examplemodels.results.pcm.models.CompositeResult;
 import org.dataflowanalysis.examplemodels.results.pcm.models.IgnoredNodesResult;
@@ -84,7 +85,6 @@ public class ExampleModelsTest {
         		Arguments.of(new IFTravelPlannerNoViolationResult()), Arguments.of(new IFTravelPlannerViolationResult()),
         		Arguments.of(new IFWebRTCNoViolationResult()), Arguments.of(new IFWebRTCViolationResult()));
     }
-
 
     @ParameterizedTest
     @MethodSource("providePCMExampleModelViolations")

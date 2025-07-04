@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://dataflowanalysis.org/dfd/dataflowdiagram" id="_O8vJgFZXEfCJkoMBjFpfFw">
+  <flows id="6qnfzs" entityName="fuel_data" sourceNode="jdbsk" destinationNode="0w3et16">
+    <destinationPin href="diagram.datadictionary#cz5en4"/>
+    <sourcePin href="diagram.datadictionary#u0nr2d"/>
+  </flows>
+  <flows id="hduoks" entityName="speed_data" sourceNode="r2v58" destinationNode="0w3et16">
+    <destinationPin href="diagram.datadictionary#cz5en4"/>
+    <sourcePin href="diagram.datadictionary#j4rcg"/>
+  </flows>
+  <flows id="5pbmi" entityName="camera_data" sourceNode="a6vgev" destinationNode="0w3et16">
+    <destinationPin href="diagram.datadictionary#cz5en4"/>
+    <sourcePin href="diagram.datadictionary#n564rb"/>
+  </flows>
+  <flows id="eo82sq" entityName="engine_data" sourceNode="k18zxm" destinationNode="0w3et16">
+    <destinationPin href="diagram.datadictionary#cz5en4"/>
+    <sourcePin href="diagram.datadictionary#57altg"/>
+  </flows>
+  <flows id="amd7c" entityName="location_data" sourceNode="czkerj" destinationNode="0w3et16">
+    <destinationPin href="diagram.datadictionary#cz5en4"/>
+    <sourcePin href="diagram.datadictionary#r2i20h"/>
+  </flows>
+  <flows id="puzw9r" entityName="camera_data" sourceNode="1pr838" destinationNode="a6vgev">
+    <destinationPin href="diagram.datadictionary#7878x"/>
+    <sourcePin href="diagram.datadictionary#4mckmu"/>
+  </flows>
+  <flows id="40psps" entityName="fuel_data" sourceNode="k3yzo" destinationNode="jdbsk">
+    <destinationPin href="diagram.datadictionary#3oylqh"/>
+    <sourcePin href="diagram.datadictionary#g5p81s"/>
+  </flows>
+  <flows id="wp574" entityName="location_data" sourceNode="mubp2p" destinationNode="czkerj">
+    <destinationPin href="diagram.datadictionary#4f18oh"/>
+    <sourcePin href="diagram.datadictionary#vsczv"/>
+  </flows>
+  <flows id="daak69" entityName="speed_data" sourceNode="3glpws" destinationNode="r2v58">
+    <destinationPin href="diagram.datadictionary#acemr5"/>
+    <sourcePin href="diagram.datadictionary#tiyfa"/>
+  </flows>
+  <flows id="e9ep9w" entityName="packaged_data" sourceNode="d7izz" destinationNode="q0x39">
+    <destinationPin href="diagram.datadictionary#1jgh0l"/>
+    <sourcePin href="diagram.datadictionary#o3p0k"/>
+  </flows>
+  <flows id="on3qga" entityName="packaged_data" sourceNode="q0x39" destinationNode="kb3jf">
+    <destinationPin href="diagram.datadictionary#0drggh"/>
+    <sourcePin href="diagram.datadictionary#85tpj"/>
+  </flows>
+  <flows id="bzeif9" entityName="car_request" sourceNode="kb3jf" destinationNode="im6zp">
+    <destinationPin href="diagram.datadictionary#9cyrn"/>
+    <sourcePin href="diagram.datadictionary#mnlus"/>
+  </flows>
+  <flows id="wghb4h" entityName="car_request" sourceNode="im6zp" destinationNode="tduo98">
+    <destinationPin href="diagram.datadictionary#tso5ed"/>
+    <sourcePin href="diagram.datadictionary#862j6"/>
+  </flows>
+  <flows id="vr1n1b" entityName="packaged_data" sourceNode="7w331" destinationNode="rf77i">
+    <destinationPin href="diagram.datadictionary#1ayrsj"/>
+    <sourcePin href="diagram.datadictionary#1y08g"/>
+  </flows>
+  <flows id="gc09gk" entityName="engine_data" sourceNode="eol74c" destinationNode="k18zxm">
+    <destinationPin href="diagram.datadictionary#q33qlh"/>
+    <sourcePin href="diagram.datadictionary#xssexj"/>
+  </flows>
+  <flows id="vyn1sq" entityName="command" sourceNode="p68ehwa" destinationNode="lclfy">
+    <destinationPin href="diagram.datadictionary#42dcf7"/>
+    <sourcePin href="diagram.datadictionary#222w8v"/>
+  </flows>
+  <flows id="2jski" entityName="auth_token" sourceNode="uc7mys" destinationNode="rf77i">
+    <destinationPin href="diagram.datadictionary#1ayrsj"/>
+    <sourcePin href="diagram.datadictionary#8zjfn"/>
+  </flows>
+  <flows id="a5xeg" entityName="command" sourceNode="tduo98" destinationNode="p68ehwa">
+    <destinationPin href="diagram.datadictionary#qehges"/>
+    <sourcePin href="diagram.datadictionary#b8rl2p"/>
+  </flows>
+  <flows id="nnljti" entityName="car_request" sourceNode="tduo98" destinationNode="p68ehwa">
+    <destinationPin href="diagram.datadictionary#vwg3d6"/>
+    <sourcePin href="diagram.datadictionary#htut2w"/>
+  </flows>
+  <flows id="jk5i0k" entityName="car_request" sourceNode="p68ehwa" destinationNode="lclfy">
+    <destinationPin href="diagram.datadictionary#zsiqjc"/>
+    <sourcePin href="diagram.datadictionary#ueawym"/>
+  </flows>
+  <flows id="lguzxt" entityName="command" sourceNode="lclfy" destinationNode="snjfns">
+    <destinationPin href="diagram.datadictionary#o505jf"/>
+    <sourcePin href="diagram.datadictionary#kigytd"/>
+  </flows>
+  <flows id="2xdxji" entityName="car_request" sourceNode="lclfy" destinationNode="snjfns">
+    <destinationPin href="diagram.datadictionary#jvhd75"/>
+    <sourcePin href="diagram.datadictionary#9ohobk"/>
+  </flows>
+  <flows id="0oamtc" entityName="car_request" sourceNode="snjfns" destinationNode="t3msl5">
+    <destinationPin href="diagram.datadictionary#mqyhqj"/>
+    <sourcePin href="diagram.datadictionary#waskls"/>
+  </flows>
+  <flows id="s82idl" entityName="command" sourceNode="snjfns" destinationNode="t3msl5">
+    <destinationPin href="diagram.datadictionary#zsqkse"/>
+    <sourcePin href="diagram.datadictionary#1vhmy"/>
+  </flows>
+  <flows id="6yn0ct" entityName="config_data" sourceNode="omgfol" destinationNode="t3msl5">
+    <destinationPin href="diagram.datadictionary#2uk5rs"/>
+    <sourcePin href="diagram.datadictionary#e9pobch"/>
+  </flows>
+  <flows id="sze0ep" entityName="command" sourceNode="t3msl5" destinationNode="h71owa">
+    <destinationPin href="diagram.datadictionary#swaknp"/>
+    <sourcePin href="diagram.datadictionary#2w88lxc"/>
+  </flows>
+  <flows id="9rngtq" entityName="command" sourceNode="h71owa" destinationNode="gxdfs">
+    <destinationPin href="diagram.datadictionary#3qga3r"/>
+    <sourcePin href="diagram.datadictionary#589gok3mw"/>
+  </flows>
+  <flows id="libgyb" entityName="packaged_data" sourceNode="t3msl5" destinationNode="7w331">
+    <destinationPin href="diagram.datadictionary#q8ydug"/>
+    <sourcePin href="diagram.datadictionary#h0710g"/>
+  </flows>
+  <flows id="z811xd" entityName="app_memory" sourceNode="v6peil" destinationNode="poscub">
+    <destinationPin href="diagram.datadictionary#xa0por"/>
+    <sourcePin href="diagram.datadictionary#93geko"/>
+  </flows>
+  <flows id="p7ysi9" entityName="command" sourceNode="5cnk1l" destinationNode="tduo98">
+    <destinationPin href="diagram.datadictionary#cwn2tq"/>
+    <sourcePin href="diagram.datadictionary#buv6k"/>
+  </flows>
+  <flows id="4zx8k" entityName="sensor_data" sourceNode="0w3et16" destinationNode="gkvt8c">
+    <destinationPin href="diagram.datadictionary#x1nddm"/>
+    <sourcePin href="diagram.datadictionary#0c7vnt"/>
+  </flows>
+  <flows id="gzfyrx" entityName="profile_data" sourceNode="lr7cxm" destinationNode="gkvt8c">
+    <destinationPin href="diagram.datadictionary#6ed3lj"/>
+    <sourcePin href="diagram.datadictionary#ibxri"/>
+  </flows>
+  <flows id="g1hhy" entityName="sensor_data" sourceNode="gkvt8c" destinationNode="d7izz">
+    <destinationPin href="diagram.datadictionary#5icv9a"/>
+    <sourcePin href="diagram.datadictionary#9bq35k"/>
+  </flows>
+  <flows id="ri9yc" entityName="sensor_data" sourceNode="gkvt8c" destinationNode="1keyp8">
+    <destinationPin href="diagram.datadictionary#gv862"/>
+    <sourcePin href="diagram.datadictionary#cr2gd"/>
+  </flows>
+  <flows id="8iewgc" entityName="lock_command" sourceNode="y4ye8" destinationNode="rn7pr">
+    <destinationPin href="diagram.datadictionary#mfxto"/>
+    <sourcePin href="diagram.datadictionary#wshhle"/>
+  </flows>
+  <flows id="17punf" entityName="status_command" sourceNode="y4ye8" destinationNode="nwbnwt">
+    <destinationPin href="diagram.datadictionary#ykrdks"/>
+    <sourcePin href="diagram.datadictionary#e0gd45i"/>
+  </flows>
+  <flows id="d5d2en" entityName="location_command" sourceNode="y4ye8" destinationNode="ihv6lfl">
+    <destinationPin href="diagram.datadictionary#uymbwl"/>
+    <sourcePin href="diagram.datadictionary#u3wtrs"/>
+  </flows>
+  <flows id="125u49" entityName="start_command" sourceNode="y4ye8" destinationNode="q9f7ik">
+    <destinationPin href="diagram.datadictionary#6s1loe"/>
+    <sourcePin href="diagram.datadictionary#hknk6m"/>
+  </flows>
+  <flows id="9s8cz6" entityName="ac_command" sourceNode="y4ye8" destinationNode="j84wi8">
+    <destinationPin href="diagram.datadictionary#vkcvtc"/>
+    <sourcePin href="diagram.datadictionary#tgpte"/>
+  </flows>
+  <flows id="xv78qp" entityName="lock_command" sourceNode="rn7pr" destinationNode="5cnk1l">
+    <destinationPin href="diagram.datadictionary#ftdh7"/>
+    <sourcePin href="diagram.datadictionary#jo6lx"/>
+  </flows>
+  <flows id="4otzzp" entityName="status_command" sourceNode="nwbnwt" destinationNode="5cnk1l">
+    <destinationPin href="diagram.datadictionary#ftdh7"/>
+    <sourcePin href="diagram.datadictionary#n84csl"/>
+  </flows>
+  <flows id="xitvn" entityName="location_command" sourceNode="ihv6lfl" destinationNode="5cnk1l">
+    <destinationPin href="diagram.datadictionary#ftdh7"/>
+    <sourcePin href="diagram.datadictionary#wemmop"/>
+  </flows>
+  <flows id="i4roxc" entityName="start_command" sourceNode="q9f7ik" destinationNode="5cnk1l">
+    <destinationPin href="diagram.datadictionary#ftdh7"/>
+    <sourcePin href="diagram.datadictionary#ugvppm"/>
+  </flows>
+  <flows id="5kraq3" entityName="ac_command" sourceNode="j84wi8" destinationNode="5cnk1l">
+    <destinationPin href="diagram.datadictionary#ftdh7"/>
+    <sourcePin href="diagram.datadictionary#noftmo"/>
+  </flows>
+  <flows id="can0xo" entityName="aws_credentials" sourceNode="607x98" destinationNode="v6peil">
+    <destinationPin href="diagram.datadictionary#icvgbq"/>
+    <sourcePin href="diagram.datadictionary#otafh"/>
+  </flows>
+  <flows id="6yr4ad" entityName="command" sourceNode="gxdfs" destinationNode="gkvt8c">
+    <destinationPin href="diagram.datadictionary#v1jyiq"/>
+    <sourcePin href="diagram.datadictionary#fs7mnb"/>
+  </flows>
+  <flows id="aiiiil" entityName="command" sourceNode="gkvt8c" destinationNode="azdzy">
+    <destinationPin href="diagram.datadictionary#7kdwx"/>
+    <sourcePin href="diagram.datadictionary#h46hvm"/>
+  </flows>
+  <flows id="3s8o7" entityName="status_command" sourceNode="azdzy" destinationNode="8rrs1t">
+    <destinationPin href="diagram.datadictionary#8aeekc"/>
+    <sourcePin href="diagram.datadictionary#zzj9up"/>
+  </flows>
+  <flows id="h3a0n" entityName="lock_command" sourceNode="azdzy" destinationNode="zo75i">
+    <destinationPin href="diagram.datadictionary#8bpx7l"/>
+    <sourcePin href="diagram.datadictionary#d00kya"/>
+  </flows>
+  <flows id="omcr6s" entityName="start_command" sourceNode="azdzy" destinationNode="hp3qg8">
+    <destinationPin href="diagram.datadictionary#8gp3vl"/>
+    <sourcePin href="diagram.datadictionary#ckpdqp"/>
+  </flows>
+  <flows id="7ym95yy" entityName="location_command" sourceNode="azdzy" destinationNode="tv4k1e">
+    <destinationPin href="diagram.datadictionary#7hjfjjr"/>
+    <sourcePin href="diagram.datadictionary#d146r"/>
+  </flows>
+  <flows id="044ll5" entityName="packaged_data" sourceNode="rf77i" destinationNode="14coqs">
+    <destinationPin href="diagram.datadictionary#n0ax3b"/>
+    <sourcePin href="diagram.datadictionary#zkk1dc"/>
+  </flows>
+  <flows id="yiysib" entityName="token" sourceNode="rpqae" destinationNode="y4ye8">
+    <destinationPin href="diagram.datadictionary#ix1jmo"/>
+    <sourcePin href="diagram.datadictionary#pzjc1o"/>
+  </flows>
+  <flows id="azmat4" entityName="credentials" sourceNode="4o6jrl" destinationNode="eu3qt">
+    <destinationPin href="diagram.datadictionary#n45idi"/>
+    <sourcePin href="diagram.datadictionary#71alx"/>
+  </flows>
+  <flows id="iq50kt" entityName="credentials" sourceNode="eu3qt" destinationNode="rpqae">
+    <destinationPin href="diagram.datadictionary#do8pva"/>
+    <sourcePin href="diagram.datadictionary#ryvcyv"/>
+  </flows>
+  <flows id="c0pbb6" entityName="exposed_endpoint_list" sourceNode="607x98" destinationNode="m03db">
+    <destinationPin href="diagram.datadictionary#t85k2f"/>
+    <sourcePin href="diagram.datadictionary#m6aij"/>
+  </flows>
+  <flows id="vu7hw8s" entityName="env_request" sourceNode="snjfns" destinationNode="e4bmp">
+    <destinationPin href="diagram.datadictionary#yjkaa6"/>
+    <sourcePin href="diagram.datadictionary#971n7"/>
+  </flows>
+  <flows id="61cbtk" entityName="security_event" sourceNode="p68ehwa" destinationNode="e4bmp">
+    <destinationPin href="diagram.datadictionary#eg8ch"/>
+    <sourcePin href="diagram.datadictionary#5ncs1d"/>
+  </flows>
+  <flows id="o0f3el" entityName="last_http_request" sourceNode="snjfns" destinationNode="e4bmp">
+    <destinationPin href="diagram.datadictionary#pwhite"/>
+    <sourcePin href="diagram.datadictionary#0svzfo"/>
+  </flows>
+  <flows id="j7kz1h" entityName="heapdump_request" sourceNode="snjfns" destinationNode="e4bmp">
+    <destinationPin href="diagram.datadictionary#h1kpwr"/>
+    <sourcePin href="diagram.datadictionary#iysot3"/>
+  </flows>
+  <flows id="zs5g2b" entityName="exposed_endpoint_list" sourceNode="m03db" destinationNode="e4bmp">
+    <destinationPin href="diagram.datadictionary#wukn8g"/>
+    <sourcePin href="diagram.datadictionary#xoc7lsp"/>
+  </flows>
+  <flows id="kgxt5k" entityName="heapdump_request" sourceNode="e4bmp" destinationNode="v6peil">
+    <destinationPin href="diagram.datadictionary#6ts3x"/>
+    <sourcePin href="diagram.datadictionary#kofx7"/>
+  </flows>
+  <flows id="nyvu16" entityName="env_request" sourceNode="e4bmp" destinationNode="ln36ri">
+    <destinationPin href="diagram.datadictionary#wh01si"/>
+    <sourcePin href="diagram.datadictionary#i4syo"/>
+  </flows>
+  <flows id="malq5r" entityName="security_event" sourceNode="e4bmp" destinationNode="muk1b">
+    <destinationPin href="diagram.datadictionary#ujur9"/>
+    <sourcePin href="diagram.datadictionary#n3nc48"/>
+  </flows>
+  <flows id="gd498j" entityName="last_http_request" sourceNode="e4bmp" destinationNode="z4767c">
+    <destinationPin href="diagram.datadictionary#v5agc"/>
+    <sourcePin href="diagram.datadictionary#5yecxd"/>
+  </flows>
+  <flows id="y523lr" entityName="climate_command" sourceNode="azdzy" destinationNode="z2e5q8">
+    <destinationPin href="diagram.datadictionary#9ee247"/>
+    <sourcePin href="diagram.datadictionary#r2jvd"/>
+  </flows>
+  <flows id="di2l2" entityName="app_properties" sourceNode="607x98" destinationNode="ln36ri">
+    <destinationPin href="diagram.datadictionary#gqg1otm"/>
+    <sourcePin href="diagram.datadictionary#t2hjt"/>
+  </flows>
+  <flows id="0z1g09" entityName="packaged_data" sourceNode="t3msl5" destinationNode="34qi">
+    <destinationPin href="diagram.datadictionary#rcj466"/>
+    <sourcePin href="diagram.datadictionary#h0710g"/>
+  </flows>
+  <flows id="akdcb" entityName="aws_credentials" sourceNode="607x98" destinationNode="34qi">
+    <destinationPin href="diagram.datadictionary#rcj466"/>
+    <sourcePin href="diagram.datadictionary#otafh"/>
+  </flows>
+  <flows id="8e2z2c" entityName="packaged_data" sourceNode="34qi" destinationNode="8148ps">
+    <destinationPin href="diagram.datadictionary#986lwi"/>
+    <sourcePin href="diagram.datadictionary#r1k20k"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:Process" id="v6peil" entityName="spring_app_memory">
+    <behavior href="diagram.datadictionary#_O8vJolZXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#yneejw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="k18zxm" entityName="engine_actuator">
+    <behavior href="diagram.datadictionary#_O8vwk1ZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="3glpws" entityName="speed_sensor">
+    <behavior href="diagram.datadictionary#_O8vwl1ZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="jdbsk" entityName="fuel_actuator">
+    <behavior href="diagram.datadictionary#_O8vwmlZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="1pr838" entityName="camera_sensor">
+    <behavior href="diagram.datadictionary#_O8vwnlZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="r2v58" entityName="speed_actuator">
+    <behavior href="diagram.datadictionary#_O8vwoVZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="a6vgev" entityName="camera_actuator">
+    <behavior href="diagram.datadictionary#_O8vwpVZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="czkerj" entityName="location_actuator">
+    <behavior href="diagram.datadictionary#_O8vwqVZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="0w3et16" entityName="zone controller">
+    <behavior href="diagram.datadictionary#_O8vwrVZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="eol74c" entityName="engine_sensor">
+    <behavior href="diagram.datadictionary#_O8vwsVZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="k3yzo" entityName="fuel_sensor">
+    <behavior href="diagram.datadictionary#_O8vwtFZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="mubp2p" entityName="location_sensor">
+    <behavior href="diagram.datadictionary#_O8vwt1ZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="1keyp8" entityName="car_human computer interface">
+    <behavior href="diagram.datadictionary#_O8vwulZXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#0icoa"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="d7izz" entityName="store_forward_buffer">
+    <behavior href="diagram.datadictionary#_O8vwvVZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="q0x39" entityName="cellular_modem">
+    <behavior href="diagram.datadictionary#_O8vwwVZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="kb3jf" entityName="mqtt_client">
+    <behavior href="diagram.datadictionary#_O8vwxVZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="q9f7ik" entityName="start_car">
+    <behavior href="diagram.datadictionary#_O8vwyVZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="nwbnwt" entityName="get_car_status">
+    <behavior href="diagram.datadictionary#_O8vwzVZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="rn7pr" entityName="lock_car">
+    <behavior href="diagram.datadictionary#_O8vw0VZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="lclfy" entityName="dispatcher_servlet">
+    <behavior href="diagram.datadictionary#_O8vw1VZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="tduo98" entityName="servlet_filters">
+    <behavior href="diagram.datadictionary#_O8vw21ZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="im6zp" entityName="azure_event_grid">
+    <behavior href="diagram.datadictionary#_O8vw4VZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="7w331" entityName="spring_mongodb_repository">
+    <behavior href="diagram.datadictionary#_O8vw5VZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="uc7mys" entityName="azure_active_directory">
+    <behavior href="diagram.datadictionary#_O8vw6VZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="rf77i" entityName="jdbc_driver">
+    <behavior href="diagram.datadictionary#_O8vw7FZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="rpqae" entityName="auth_service">
+    <behavior href="diagram.datadictionary#_O8vw8FZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="ihv6lfl" entityName="get_car_location">
+    <behavior href="diagram.datadictionary#_O8vw9FZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="lr7cxm" entityName="driver_account">
+    <behavior href="diagram.datadictionary#_O8vw-FZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="omgfol" entityName="spring_config_metadata">
+    <behavior href="diagram.datadictionary#_O8vw-1ZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="p68ehwa" entityName="spring_security">
+    <behavior href="diagram.datadictionary#_O8vw_lZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="snjfns" entityName="spring_web_controller">
+    <behavior href="diagram.datadictionary#_O8vxBVZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="t3msl5" entityName="spring_boot_app">
+    <behavior href="diagram.datadictionary#_O8vxDlZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="h71owa" entityName="azure_event_grid">
+    <behavior href="diagram.datadictionary#_O8vxFVZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="gxdfs" entityName="azure_event_hub">
+    <behavior href="diagram.datadictionary#_O8vxGVZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="5cnk1l" entityName="mobile_app_logic">
+    <behavior href="diagram.datadictionary#_O8vxHVZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="gkvt8c" entityName="high performance computer">
+    <behavior href="diagram.datadictionary#_O8vxIVZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="y4ye8" entityName="mobile_app_ui">
+    <behavior href="diagram.datadictionary#_O8vxKVZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="j84wi8" entityName="start_ac">
+    <behavior href="diagram.datadictionary#_O8vxMVZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="607x98" entityName="spring_app_properties">
+    <behavior href="diagram.datadictionary#_O8vxNVZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="azdzy" entityName="Vehicle Communication Bus">
+    <behavior href="diagram.datadictionary#_O8vxOlZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="8rrs1t" entityName="Battery Management System">
+    <behavior href="diagram.datadictionary#_O8vxQlZXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#puc8mm"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="zo75i" entityName="Body Control Module">
+    <behavior href="diagram.datadictionary#_O8vxRVZXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#puc8mm"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="hp3qg8" entityName="Powertrain Control Module">
+    <behavior href="diagram.datadictionary#_O8vxSFZXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#puc8mm"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="tv4k1e" entityName="Navigation ECU">
+    <behavior href="diagram.datadictionary#_O8vxS1ZXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#puc8mm"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="4o6jrl" entityName="customer">
+    <behavior href="diagram.datadictionary#_O8vxTlZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="eu3qt" entityName="login">
+    <behavior href="diagram.datadictionary#_O8vxUVZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="m03db" entityName="endpoint_exposure_config">
+    <behavior href="diagram.datadictionary#_O8vxVVZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="e4bmp" entityName="spring_actuator">
+    <behavior href="diagram.datadictionary#_O8vxWVZXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#0icoa"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="ln36ri" entityName="actuator_env">
+    <behavior href="diagram.datadictionary#_O8vxZFZXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#0icoa"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="muk1b" entityName="auditevent_repository">
+    <behavior href="diagram.datadictionary#_O8vxaFZXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#0icoa"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="z4767c" entityName="http_trace_endpoint">
+    <behavior href="diagram.datadictionary#_O8vxa1ZXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#0icoa"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="z2e5q8" entityName="Climate Control Module">
+    <behavior href="diagram.datadictionary#_O8vxblZXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#puc8mm"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Store" id="14coqs" entityName="azure_data_lake_storage">
+    <behavior href="diagram.datadictionary#_O8vxcVZXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#6480elx"/>
+    <properties href="diagram.datadictionary#0icoa"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="34qi" entityName="aws_s3_client">
+    <behavior href="diagram.datadictionary#_O8vxdFZXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Store" id="8148ps" entityName="S3_bucket">
+    <behavior href="diagram.datadictionary#_O8vxeFZXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#vm4pt"/>
+    <properties href="diagram.datadictionary#0icoa"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="poscub" entityName="heapdump">
+    <behavior href="diagram.datadictionary#_O8vxe1ZXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#74s5kd"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

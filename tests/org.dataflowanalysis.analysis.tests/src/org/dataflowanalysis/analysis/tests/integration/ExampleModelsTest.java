@@ -22,6 +22,12 @@ import org.dataflowanalysis.examplemodels.results.ExpectedViolation;
 import org.dataflowanalysis.examplemodels.results.dfd.DFDExampleModelResult;
 import org.dataflowanalysis.examplemodels.results.dfd.models.BranchingResult;
 import org.dataflowanalysis.examplemodels.results.dfd.scenarios.*;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.CWANoViolation;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.CWAPersonalDataViolation;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.CWARPIViolation;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.OnlineShopResult;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.SimpleOnlineShopResult;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.VWCariad;
 import org.dataflowanalysis.examplemodels.results.pcm.*;
 import org.dataflowanalysis.examplemodels.results.pcm.models.CompositeResult;
 import org.dataflowanalysis.examplemodels.results.pcm.models.IgnoredNodesResult;
@@ -63,7 +69,10 @@ public class ExampleModelsTest {
         		Arguments.of(new IFJPMailNoViolationResult()), Arguments.of(new IFJPMailViolationResult()),
         		Arguments.of(new IFPrivateTaxiNoViolationResult()), Arguments.of(new IFPrivateTaxiViolationResult()),
         		Arguments.of(new IFTravelPlannerNoViolationResult()), Arguments.of(new IFTravelPlannerViolationResult()),
-        		Arguments.of(new IFWebRTCNoViolationResult()), Arguments.of(new IFWebRTCViolationResult()));
+        		Arguments.of(new IFWebRTCNoViolationResult()), Arguments.of(new IFWebRTCViolationResult()),
+            Arguments.of(new CWANoViolation()), Arguments.of(new VWCariad()), Arguments.of(new CWAPersonalDataViolation()),
+            Arguments.of(new CWARPIViolation()));
+
     }
 
     @ParameterizedTest

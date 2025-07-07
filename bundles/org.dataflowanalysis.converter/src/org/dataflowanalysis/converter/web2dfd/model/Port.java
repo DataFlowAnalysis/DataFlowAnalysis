@@ -1,6 +1,8 @@
 package org.dataflowanalysis.converter.web2dfd.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.List;
 
 /**
@@ -13,6 +15,7 @@ import java.util.List;
 
 // The WebEditor is susceptible to changes, and to accommodate new fields, we disregard any unseen fields
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public record Port(String behavior, String id, String type, List<Object> children, Position position, Size size) {
 
     public boolean equals(Port other) {

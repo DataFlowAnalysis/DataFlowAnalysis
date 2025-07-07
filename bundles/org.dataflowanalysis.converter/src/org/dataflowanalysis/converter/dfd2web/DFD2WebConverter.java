@@ -31,6 +31,7 @@ import org.dataflowanalysis.converter.web2dfd.model.Value;
 import org.dataflowanalysis.converter.web2dfd.model.WebEditorDfd;
 import org.dataflowanalysis.converter.web2dfd.model.WebEditorLabel;
 import org.dataflowanalysis.converter.web2dfd.model.WebEditorLabelType;
+import org.dataflowanalysis.converter.web2dfd.model.Position;
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.Process;
@@ -243,7 +244,7 @@ public class DFD2WebConverter extends Converter {
             if (mapNodeToAnnotation == null)
                 children.add(new Child(text, labels, ports, id, type, null, null, null, new ArrayList<>(), null, null));
             else
-                children.add(new Child(text, labels, ports, id, type, null, null, mapNodeToAnnotation.get(node), new ArrayList<>(), null, null));
+                children.add(new Child(text, labels, ports, id, type, null, null, mapNodeToAnnotation.get(node), new ArrayList<>(), new Position(0,0), null));
         }
     }
 

@@ -2,6 +2,7 @@ package org.dataflowanalysis.converter.web2dfd.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -26,6 +27,7 @@ import java.util.List;
 // The WebEditor is susceptible to changes, and to accommodate new fields, we disregard any unseen fields
 @JsonSerialize(using = ChildSerializer.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public record Child(String text, List<WebEditorLabel> labels, List<Port> ports, String id, String type, String sourceId, String targetId, 
         List<Annotation> annotations, List<Child> children, Position position, Size size) {
 

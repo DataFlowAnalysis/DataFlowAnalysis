@@ -70,8 +70,8 @@ public class ExampleModelsTest {
         		Arguments.of(new IFPrivateTaxiNoViolationResult()), Arguments.of(new IFPrivateTaxiViolationResult()),
         		Arguments.of(new IFTravelPlannerNoViolationResult()), Arguments.of(new IFTravelPlannerViolationResult()),
         		Arguments.of(new IFWebRTCNoViolationResult()), Arguments.of(new IFWebRTCViolationResult()),
-            Arguments.of(new CWANoViolation()), Arguments.of(new VWCariad()), Arguments.of(new CWAPersonalDataViolation()),
-            Arguments.of(new CWARPIViolation()));
+        		Arguments.of(new CWANoViolation()), Arguments.of(new VWCariad()), Arguments.of(new CWAPersonalDataViolation()),
+        		Arguments.of(new CWARPIViolation()));
 
     }
 

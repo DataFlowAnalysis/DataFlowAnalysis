@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
@@ -27,11 +26,11 @@ import org.dataflowanalysis.converter.web2dfd.model.Annotation;
 import org.dataflowanalysis.converter.web2dfd.model.Child;
 import org.dataflowanalysis.converter.web2dfd.model.Model;
 import org.dataflowanalysis.converter.web2dfd.model.Port;
+import org.dataflowanalysis.converter.web2dfd.model.Position;
 import org.dataflowanalysis.converter.web2dfd.model.Value;
 import org.dataflowanalysis.converter.web2dfd.model.WebEditorDfd;
 import org.dataflowanalysis.converter.web2dfd.model.WebEditorLabel;
 import org.dataflowanalysis.converter.web2dfd.model.WebEditorLabelType;
-import org.dataflowanalysis.converter.web2dfd.model.Position;
 import org.dataflowanalysis.dfd.datadictionary.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.*;
 import org.dataflowanalysis.dfd.dataflowdiagram.Process;
@@ -144,23 +143,29 @@ public class DFD2WebConverter extends Converter {
 
     private List<Annotation> createLabelAnnotationsForOneVertex(AbstractVertex<Node> vertex, int tfg) {
         List<Annotation> annotations = new ArrayList<>();
-        
-        if (!vertex.getAllOutgoingDataCharacteristics().isEmpty()) {
-            String outgoing = vertex.getAllOutgoingDataCharacteristics().stream()
-                .flatMap(ch -> ch.getAllCharacteristics().stream())
-                .map(v -> v.getTypeName() + "." + v.getValueName())
-                .collect(Collectors.joining(", "));
+
+        if (!vertex.getAllOutgoingDataCharacteristics()
+                .isEmpty()) {
+            String outgoing = vertex.getAllOutgoingDataCharacteristics()
+                    .stream()
+                    .flatMap(ch -> ch.getAllCharacteristics()
+                            .stream())
+                    .map(v -> v.getTypeName() + "." + v.getValueName())
+                    .collect(Collectors.joining(", "));
             annotations.add(new Annotation("Propagated: " + outgoing, "tag", "#FFFFFF", tfg));
         }
 
-        if (!vertex.getAllIncomingDataCharacteristics().isEmpty()) {
-            String incoming = vertex.getAllIncomingDataCharacteristics().stream()
-                .flatMap(ch -> ch.getAllCharacteristics().stream())
-                .map(v -> v.getTypeName() + "." + v.getValueName())
-                .collect(Collectors.joining(", "));
+        if (!vertex.getAllIncomingDataCharacteristics()
+                .isEmpty()) {
+            String incoming = vertex.getAllIncomingDataCharacteristics()
+                    .stream()
+                    .flatMap(ch -> ch.getAllCharacteristics()
+                            .stream())
+                    .map(v -> v.getTypeName() + "." + v.getValueName())
+                    .collect(Collectors.joining(", "));
             annotations.add(new Annotation("Incoming: " + incoming, "tag", "#FFFFFF", tfg));
         }
-        
+
         return annotations;
     }
 
@@ -239,12 +244,13 @@ public class DFD2WebConverter extends Converter {
 
             node.getBehavior()
                     .getOutPin()
-                    .forEach(pin -> ports
-                            .add(new Port(createBehaviorString(mapPinToAssignments.get(pin)), pin.getId(), "port:dfd-output", new ArrayList<>(), null, null)));
+                    .forEach(pin -> ports.add(new Port(createBehaviorString(mapPinToAssignments.get(pin)), pin.getId(), "port:dfd-output",
+                            new ArrayList<>(), null, null)));
             if (mapNodeToAnnotation == null)
                 children.add(new Child(text, labels, ports, id, type, null, null, null, new ArrayList<>(), null, null));
             else
-                children.add(new Child(text, labels, ports, id, type, null, null, mapNodeToAnnotation.get(node), new ArrayList<>(), new Position(0,0), null));
+                children.add(new Child(text, labels, ports, id, type, null, null, mapNodeToAnnotation.get(node), new ArrayList<>(),
+                        new Position(0, 0), null));
         }
     }
 

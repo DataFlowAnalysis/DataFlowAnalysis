@@ -2,7 +2,6 @@ package org.dataflowanalysis.converter.web2dfd.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.util.List;
 
 /**

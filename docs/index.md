@@ -88,8 +88,17 @@ All aspects of the xDECAF data flow analysis framework have been [scientifically
   doi="10.1007/978-3-031-66326-0_21"
   linebreak="yes,please" />
 
+To get started quickly, you may also refer to our data flow analysis lecture that introduces all fundamental topics required to understand the xDECAF framework. This includes data flow diagrams, data and node labels, data flow constraints, flow graph extraction, and label propagation:
+
+<TalkHighlight
+  authors="S. Hahner"
+  title="Data Flow Analysis"
+  reference="Guest Lecture, Software Security Engineering, Karlsruhe Institute of Technology (KIT)"
+  url="https://sebastianhahner.de/talks/2025/SSE_2025_GuestLectureDataFlowAnalysis.pdf" />
+
 <script setup>
 import PaperHighlight from './PaperHighlight.vue'
+import TalkHighlight from './TalkHighlight.vue'
 import { useData } from 'vitepress';
 const isDark = useData().isDark;
 </script>

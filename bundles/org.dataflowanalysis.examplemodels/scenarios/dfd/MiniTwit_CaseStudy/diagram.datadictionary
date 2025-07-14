@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_XrIx4WC8EfCJkoMBjFpfFw">
+  <labelTypes id="68g79s" entityName="UserData">
+    <label id="88nmef" entityName="FeedMessages"/>
+    <label id="rc0ln" entityName="FollowData"/>
+    <label id="6da3jb" entityName="UserMessages"/>
+    <label id="0ke0l9" entityName="UnfollowData"/>
+    <label id="c2ujxi" entityName="UserProfile"/>
+    <label id="mceji" entityName="Message"/>
+    <label id="l99ed" entityName="UserData"/>
+    <label id="lzz2rc" entityName="Purpose"/>
+    <label id="1rlwc" entityName="UserConsents"/>
+    <label id="0hakn" entityName="NewConsents"/>
+    <label id="o5uiwm1" entityName="Ads"/>
+  </labelTypes>
+  <labelTypes id="9ga8x5" entityName="Decorator">
+    <label id="d1kqus" entityName="secure"/>
+    <label id="ps6emg" entityName="user_registered"/>
+    <label id="1h60a" entityName="login_required"/>
+  </labelTypes>
+  <labelTypes id="flhi9" entityName="ConsentedPurposes">
+    <label id="jdohfp" entityName="DisplayPublicTimeline"/>
+    <label id="vu8tj" entityName="GenerateRelevantMarketingEntities"/>
+    <label id="r2qfjt" entityName="DisplayRelevantPosts"/>
+  </labelTypes>
+  <labelTypes id="x62jte" entityName="Credentials">
+    <label id="dtgwjk" entityName="Email"/>
+    <label id="55037s" entityName="Password"/>
+    <label id="tnt53p" entityName="Username"/>
+  </labelTypes>
+  <behavior id="_XrIx-2C8EfCJkoMBjFpfFw" entityName="flask app">
+    <inPin id="u9yhps" entityName="flask app_in_credentials"/>
+    <outPin id="dpl7nk" entityName="flask app_out_credentials"/>
+    <outPin id="msydmt" entityName="flask app_out_credentials"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_XrIyhGC8EfCJkoMBjFpfFw" outputPin="dpl7nk" inputPins="u9yhps"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_XrIyhWC8EfCJkoMBjFpfFw" outputPin="msydmt" inputPins="u9yhps"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_XrIyhmC8EfCJkoMBjFpfFw" outputPin="msydmt" outputLabels="dtgwjk"/>
+  </behavior>
+  <behavior id="_XrIyAGC8EfCJkoMBjFpfFw" entityName="login_flask">
+    <inPin id="7p9j0j" entityName="login_flask_in_credentials"/>
+    <outPin id="aa7uws" entityName="login_flask_out_credentials"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_XrIyg2C8EfCJkoMBjFpfFw" outputPin="aa7uws" inputPins="7p9j0j"/>
+  </behavior>
+  <behavior id="_XrIyBGC8EfCJkoMBjFpfFw" entityName="after_register_hook">
+    <inPin id="jfb53o" entityName="after_register_hook_in_credentials"/>
+    <outPin id="95p90q" entityName="after_register_hook_out_credentials"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_XrIymGC8EfCJkoMBjFpfFw" outputPin="95p90q" inputPins="jfb53o"/>
+  </behavior>
+  <behavior id="_XrIyCGC8EfCJkoMBjFpfFw" entityName="generate ad general">
+    <inPin id="mc78g5" entityName="generate ad general_in_ads"/>
+  </behavior>
+  <behavior id="_XrIyC2C8EfCJkoMBjFpfFw" entityName="remove consents">
+    <inPin id="1uqqvh" entityName="remove consents_in_user_consents"/>
+    <outPin id="ejt8bg" entityName="remove consents_out_actualized_consents"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_XrIyemC8EfCJkoMBjFpfFw" outputPin="ejt8bg" outputLabels="0hakn"/>
+  </behavior>
+  <behavior id="_XrIyD2C8EfCJkoMBjFpfFw" entityName="follow user">
+    <outPin id="8amxr" entityName="follow user_out_follow_data"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_XrIygmC8EfCJkoMBjFpfFw" outputPin="8amxr" outputLabels="rc0ln"/>
+  </behavior>
+  <behavior id="_XrIyEmC8EfCJkoMBjFpfFw" entityName="add message">
+    <outPin id="5fdsm7" entityName="add message_out_message"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_XrIyeWC8EfCJkoMBjFpfFw" outputPin="5fdsm7" outputLabels="mceji"/>
+  </behavior>
+  <behavior id="_XrIyFWC8EfCJkoMBjFpfFw" entityName="save_to_DB">
+    <inPin id="miufs5cl" entityName="save_to_DB_in_added_consent"/>
+    <inPin id="4ffmbqo" entityName="save_to_DB_in_actualized_consents"/>
+    <inPin id="56o2e9" entityName="save_to_DB_in_follow_data"/>
+    <inPin id="od8rwl" entityName="save_to_DB_in_message"/>
+    <inPin id="g06gz" entityName="save_to_DB_in_unfollow_data"/>
+  </behavior>
+  <behavior id="_XrIyHGC8EfCJkoMBjFpfFw" entityName="unfollow user">
+    <outPin id="yug23g" entityName="unfollow user_out_unfollow_data"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_XrIylWC8EfCJkoMBjFpfFw" outputPin="yug23g" outputLabels="0ke0l9"/>
+  </behavior>
+  <behavior id="_XrIyH2C8EfCJkoMBjFpfFw" entityName="check_credentials">
+    <inPin id="1qfcol" entityName="check_credentials_in_credentials"/>
+    <outPin id="z8zh4d" entityName="check_credentials_out_check_credentials"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_XrIyfGC8EfCJkoMBjFpfFw" outputPin="z8zh4d" inputPins="1qfcol"/>
+  </behavior>
+  <behavior id="_XrIyI2C8EfCJkoMBjFpfFw" entityName="register_flask">
+    <inPin id="vnbab4" entityName="register_flask_in_credentials"/>
+    <outPin id="zslhze" entityName="register_flask_out_credentials"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_XrIylmC8EfCJkoMBjFpfFw" outputPin="zslhze" inputPins="vnbab4"/>
+  </behavior>
+  <behavior id="_XrIyJ2C8EfCJkoMBjFpfFw" entityName="User">
+    <outPin id="0ogtkc" entityName="User_out_credentials"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_XrIyfmC8EfCJkoMBjFpfFw" outputPin="0ogtkc" outputLabels="dtgwjk"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_XrIyf2C8EfCJkoMBjFpfFw" outputPin="0ogtkc" outputLabels="55037s"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_XrIygGC8EfCJkoMBjFpfFw" outputPin="0ogtkc" outputLabels="tnt53p"/>
+  </behavior>
+  <behavior id="_XrIyKmC8EfCJkoMBjFpfFw" entityName="policy">
+    <inPin id="g3qn6" entityName="policy_in_user_consents"/>
+    <outPin id="7n59p" entityName="policy_out_user_consents"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_XrIyl2C8EfCJkoMBjFpfFw" outputPin="7n59p" inputPins="g3qn6"/>
+  </behavior>
+  <behavior id="_XrIyLmC8EfCJkoMBjFpfFw" entityName="privacy template">
+    <inPin id="u2rpd" entityName="privacy template_in_user_consents"/>
+  </behavior>
+  <behavior id="_XrIyMWC8EfCJkoMBjFpfFw" entityName="SQLite DB">
+    <inPin id="7hp09h" entityName="SQLite DB_in_credentials"/>
+    <inPin id="dci3d" entityName="SQLite DB_in_check_credentials"/>
+    <outPin id="81ah5c" entityName="SQLite DB_out_user_consents"/>
+    <outPin id="p6uf1" entityName="SQLite DB_out_purpose"/>
+    <outPin id="lbzimbq" entityName="SQLite DB_out_user_data"/>
+    <outPin id="940tdi" entityName="SQLite DB_out_feed_messages"/>
+    <outPin id="j1de5w" entityName="SQLite DB_out_user_messages"/>
+    <outPin id="j0f2im" entityName="SQLite DB_out_user_profile"/>
+    <outPin id="idjb" entityName="SQLite DB_out_follow_data"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_XrIyjmC8EfCJkoMBjFpfFw" outputPin="81ah5c" outputLabels="1rlwc"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_XrIyj2C8EfCJkoMBjFpfFw" outputPin="idjb" outputLabels="rc0ln"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_XrIykGC8EfCJkoMBjFpfFw" outputPin="lbzimbq" outputLabels="l99ed"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_XrIykWC8EfCJkoMBjFpfFw" outputPin="j0f2im" outputLabels="c2ujxi"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_XrIykmC8EfCJkoMBjFpfFw" outputPin="940tdi" outputLabels="88nmef"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_XrIyk2C8EfCJkoMBjFpfFw" outputPin="p6uf1" outputLabels="lzz2rc"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_XrIylGC8EfCJkoMBjFpfFw" outputPin="j1de5w" outputLabels="6da3jb"/>
+  </behavior>
+  <behavior id="_XrIyPGC8EfCJkoMBjFpfFw" entityName="current_user">
+    <inPin id="0jyvo" entityName="current_user_in_user_consents"/>
+    <inPin id="cvxjx" entityName="current_user_in_purpose"/>
+    <inPin id="bf0wr" entityName="current_user_in_user_data"/>
+    <inPin id="b1lq5p" entityName="current_user_in_feed_messages"/>
+    <inPin id="0p384e" entityName="current_user_in_user_messages"/>
+    <inPin id="t56ia" entityName="current_user_in_user_profile"/>
+    <inPin id="66mbj" entityName="current_user_in_follow_data"/>
+    <outPin id="89kph" entityName="current_user_out_purpose"/>
+    <outPin id="nzjpp" entityName="current_user_out_user_consentsuser_consentsuser_consents"/>
+    <outPin id="5ecybb" entityName="current_user_out_user_data"/>
+    <outPin id="yvllie" entityName="current_user_out_feed_messages"/>
+    <outPin id="l8wxwc" entityName="current_user_out_users_messages"/>
+    <outPin id="a0rp8" entityName="current_user_out_user_profile"/>
+    <outPin id="du5jge" entityName="current_user_out_follow_data"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_XrIyh2C8EfCJkoMBjFpfFw" outputPin="l8wxwc" inputPins="0p384e"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_XrIyiGC8EfCJkoMBjFpfFw" outputPin="5ecybb" inputPins="bf0wr"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_XrIyiWC8EfCJkoMBjFpfFw" outputPin="a0rp8" inputPins="t56ia"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_XrIyimC8EfCJkoMBjFpfFw" outputPin="89kph" inputPins="cvxjx"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_XrIyi2C8EfCJkoMBjFpfFw" outputPin="du5jge" inputPins="66mbj"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_XrIyjGC8EfCJkoMBjFpfFw" outputPin="nzjpp" inputPins="0jyvo"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_XrIyjWC8EfCJkoMBjFpfFw" outputPin="yvllie" inputPins="b1lq5p"/>
+  </behavior>
+  <behavior id="_XrIyTGC8EfCJkoMBjFpfFw" entityName="add consents">
+    <inPin id="kafd8r" entityName="add consents_in_user_consentspurposeuser_data"/>
+    <outPin id="mzgx9b" entityName="add consents_out_added_consent"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_XrIygWC8EfCJkoMBjFpfFw" outputPin="mzgx9b" outputLabels="0hakn"/>
+  </behavior>
+  <behavior id="_XrIyUGC8EfCJkoMBjFpfFw" entityName="display single user timeline">
+    <inPin id="7bj7u9" entityName="display single user timeline_in_users_messagesuser_profilefollow_data"/>
+    <outPin id="9ahnc" entityName="display single user timeline_out_timeline_data"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_XrIye2C8EfCJkoMBjFpfFw" outputPin="9ahnc" inputPins="7bj7u9"/>
+  </behavior>
+  <behavior id="_XrIyVGC8EfCJkoMBjFpfFw" entityName="display public timeline">
+    <inPin id="f59jtw" entityName="display public timeline_in_feed_messages"/>
+    <outPin id="x9r4ow" entityName="display public timeline_out_ads"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_XrIyfWC8EfCJkoMBjFpfFw" outputPin="x9r4ow" outputLabels="o5uiwm1"/>
+  </behavior>
+  <behavior id="_XrIyWGC8EfCJkoMBjFpfFw" entityName="user timeline template">
+    <inPin id="ggqn9" entityName="user timeline template_in_timeline_data"/>
+  </behavior>
+</datadictionary:DataDictionary>

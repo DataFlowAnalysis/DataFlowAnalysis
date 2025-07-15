@@ -15,11 +15,10 @@
     in {
       default = nixpkgs.legacyPackages.${system}.mkShellNoCC {
         shellHook = ''
-          rm -rf .husky/_
-          ${pkgs.husky}/bin/husky install .husky
+          ${pkgs.git}/bin/git config --local core.hooksPath gitHooks/hooks
         '';
         packages = with pkgs; [
-          husky
+          git
           maven
           python3
           openjdk17

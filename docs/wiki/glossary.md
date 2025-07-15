@@ -1,6 +1,7 @@
 # Glossary of Commonly Used Terms
 ## Data Flow Diagram
-Either describes the [Data Flow Diagram Model](/wiki/dfd/) (the ***modeling framework***) or the contained [Data Flow Diagram](/wiki/dfd/index.md#data-flow-diagram) (the ***metamodel***)
+Describes the [Data Flow Diagram](/wiki/dfd#data-flow-diagram) (the ***metamodel***).
+Sometimes describes the entire model of a system, including the [Data Dictionary](/wiki/dfd#data-dictionary) (the ***modelling framework***)
 
 ## Data Dictionary
 A component of the [Data Flow Diagram Model](/wiki/dfd/) responsible for storing [Node Label](/wiki/glossary#node-label) or [Data Label](/wiki/glossary#data-label)
@@ -37,11 +38,18 @@ A component of the [Analysis Constraint DSL](/wiki/dsl/) that matches [Nodes](/w
 For more information on variables see: [DSL Variables](/wiki/dsl/variables).
 For more information on conditional selectors see: [Conditional Selectors](/wiki/dsl/conditional)
 
-## Vertex / Node
-A vertex or node describes an element of a [Transpose Flow Graph](/wiki/glossary#transpose-flow-graph) that corresponds to exactly one element in the model.
-Data may flow into and out of the node, their properties available as [Data Label](/docs/glossary#data-label).
-Additionally properties of the node are available as [Vertex / Node Label](/docs/glossary#vertex-node-label).
-For more information see: [Data Flow Analysis](/wiki/analysis/)
+## Vertex
+A vertex describes an element of a [Transpose Flow Graph](/wiki/glossary#transpose-flow-graph) that corresponds to exactly one element in the model.
+Data may flow into and out of the vertex, their properties available as [Data Label](/docs/glossary#data-label).
+Additionally properties of the vertex are available as [Vertex Label](/docs/glossary#vertex-node-label).
+For more information see: [Data Flow Analysis](/wiki/analysis/).
+
+Not to be confused with a [Node](/wiki/glossary#node) that is an element of a [Data Flow Diagram](/wiki/dfd#data-flow-diagram)
+
+## Node 
+A node describes an element of an [Data Flow Diagram](/wiki/dfd#data-flow-diagram).
+
+Not to be confused with a [Vertex](/wiki/glossary#vertex) that is part of an [Transpose Flow Graph](/wiki/glossary#transpose-flow-graph)
 
 ## Source 
 A Source is a special [Node](/wiki/glossary#node) that data does not flow into. 

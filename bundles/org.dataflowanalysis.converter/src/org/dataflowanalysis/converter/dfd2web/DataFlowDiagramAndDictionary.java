@@ -42,10 +42,10 @@ public final class DataFlowDiagramAndDictionary extends PersistableConverterMode
      * Loads a {@link DataFlowDiagramAndDictionary} using the provided paths to a data flow diagram and dictionary.
      * <p/>
      * This method uses eclipse platform URIs and cannot be run standalone
-     * @param modelProjectName Name of the modelling project the files are contained in
-     * @param inputDataFlowDiagram Relative path to the data flow diagram starting at the modelling project root
-     * @param inputDataDictionary Relative path to the data dictionary starting at the modelling project root
-     * @param activator Plugin activator that used to register the modelling project
+     * @param modelProjectName Name of the modeling project the files are contained in
+     * @param inputDataFlowDiagram Relative path to the data flow diagram starting at the modeling project root
+     * @param inputDataDictionary Relative path to the data dictionary starting at the modeling project root
+     * @param activator Plugin activator that used to register the modeling project
      * @throws StandaloneInitializationException Thrown when initialization of the project via the model project name and
      * activator fails
      */

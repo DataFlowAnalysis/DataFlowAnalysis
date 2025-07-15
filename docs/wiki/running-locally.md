@@ -1,12 +1,12 @@
 # Running the Analysis Locally using our Java API
-First step of using the project is to create a modelling project in Eclipse.
+First step of using the project is to create a modeling project in Eclipse.
 Furthermore, the Activator class,
 an example found at the project tests/org.dataflowanalysis.analysis.tests,
 is needed to load the models.
-It determines the base location of the modelling project.
+It determines the base location of the modeling project.
 The `PROJECT_NAME` in the example code is determined by the project name
-(e.g. org.dataflowanalysis.analysis.tests) of the modelling project that should be analyzed.
-The `USAGE_MODEL_PATH`, `ALLOCATION_MODEL_PATH` and `NODE_MODEL_PATH` describe the path of to the usage, allocation and node characteristics model relative to the root of the modelling project.
+(e.g. org.dataflowanalysis.analysis.tests) of the modeling project that should be analyzed.
+The `USAGE_MODEL_PATH`, `ALLOCATION_MODEL_PATH` and `NODE_MODEL_PATH` describe the path of to the usage, allocation and node characteristics model relative to the root of the modeling project.
 
 Currently, the analysis only supports analyzing a project which has a activator.
 Should you wish to use models outside of a project, you must use relative paths from an project with an Activator class.

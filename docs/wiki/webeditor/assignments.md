@@ -1,4 +1,4 @@
-# Modelling Node Behaviors with Assignments
+# Modeling Node Behaviors with Assignments
 The behavior of a node in a [Data Flow Diagram](/docs/wiki/dfd/) is defined by a set of assignments per output pins.
 The three basic operations in nodes consist of forwarding data from the input pin to the output pin, setting a label and removing a label.
 Additionally, one can describe conditional assignments that are dependent on the value of the input. 

@@ -9,7 +9,7 @@ For specific aspects of specific graphical editors follow these links to the cor
 - [SEFFs](/wiki/pcm/seff-editor)
 - [Usage Model](/wiki/pcm/usage-editor)
 
-Information on how to use the confidentiality extensions can be found in the [Confidentiality Modelling Wiki](/wiki/pcm/confidentiality-usages)
+Information on how to use the confidentiality extensions can be found in the [Confidentiality Modeling Wiki](/wiki/pcm/confidentiality-usages)
 
 ## Opening Graphical Editors 
 ![Model Explorer with expanded allocation model](/img/pcm/model-explorer.png) 

@@ -42,7 +42,7 @@ Next, a Node can also have **Node Labels** that describe properties of a node.
 The Data Dictionary contains a set of **Label Types** and corresponding **Label Values** that describe the properties of nodes and data in the Data Flow Diagram.
 
 ::: tip Example of an Label Type and Label Values 
-For example for modelling a location of a system, one might model the following: 
+For example for modeling a location of a system, one might model the following: 
 A Label Type `Location` with Label Values `EU`, `NA`, `Asia`
 :::
 

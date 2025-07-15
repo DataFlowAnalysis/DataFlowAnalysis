@@ -22,30 +22,28 @@ public class IFFriendMapViolationResult implements DFDExampleModelResult {
 
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
-    	return List.of(new ConstraintDSL().ofData()
-    			.withLabel("Level", "High")
-    			.neverFlows()
-    			.toVertex()
-    			.withCharacteristic("Zone", "Attack")
-    			.create());
+        return List.of(new ConstraintDSL().ofData()
+                .withLabel("Level", "High")
+                .neverFlows()
+                .toVertex()
+                .withCharacteristic("Zone", "Attack")
+                .create());
     }
 
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
-        return List.of(
-        		new ExpectedViolation(0, new DFDIdentifier("mt5r15"),
-        				List.of(new ExpectedCharacteristic("Actor", "Google"), new ExpectedCharacteristic("Zone", "Attack")), 
-        				Map.of("sicxdx", 
-        						List.of(new ExpectedCharacteristic("Level", "Low"), new ExpectedCharacteristic("Level", "High")))));
+        return List.of(new ExpectedViolation(0, new DFDIdentifier("mt5r15"),
+                List.of(new ExpectedCharacteristic("Actor", "Google"), new ExpectedCharacteristic("Zone", "Attack")),
+                Map.of("sicxdx", List.of(new ExpectedCharacteristic("Level", "Low"), new ExpectedCharacteristic("Level", "High")))));
     }
 
     @Override
     public String toString() {
         return this.getModelName();
     }
-    
+
     @Override
     public String getFileName() {
-    	return "diagram";
+        return "diagram";
     }
 }

@@ -19,12 +19,12 @@ public class ACDACNoViolationResult implements DFDExampleModelResult {
 
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
-    	return List.of(new ConstraintDSL().ofData()
-    			.withoutLabel("Read", "IndexingBot")
-    			.neverFlows()
-    			.toVertex()
-    			.withCharacteristic("Identity", "IndexingBot")
-    			.create());
+        return List.of(new ConstraintDSL().ofData()
+                .withoutLabel("Read", "IndexingBot")
+                .neverFlows()
+                .toVertex()
+                .withCharacteristic("Identity", "IndexingBot")
+                .create());
     }
 
     @Override
@@ -36,9 +36,9 @@ public class ACDACNoViolationResult implements DFDExampleModelResult {
     public String toString() {
         return this.getModelName();
     }
-    
+
     @Override
     public String getFileName() {
-    	return "diagram";
+        return "diagram";
     }
 }

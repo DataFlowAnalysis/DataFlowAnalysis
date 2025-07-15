@@ -32,10 +32,12 @@ public class VertexSourceSelectorTest {
     }
 
     private static Stream<Arguments> correctVertexSourceSelectors() {
-        return Stream.of(Arguments.of("vertex A.B"), Arguments.of("vertex otherA.otherB"), Arguments.of("vertex A.B C.D"));
+        return Stream.of(Arguments.of("vertex A.B A.B,A.C"), Arguments.of("vertex otherA.otherB"), Arguments.of("vertex A.B C.D"),
+                Arguments.of("vertex A.B,C.D"));
     }
 
     private static Stream<Arguments> incorrectVertexSourceSelectors() {
-        return Stream.of(Arguments.of("vertex A"), Arguments.of(""), Arguments.of("vertex"), Arguments.of("vertex A.B C"));
+        return Stream.of(Arguments.of("vertex A"), Arguments.of(""), Arguments.of("vertex"), Arguments.of("vertex A.B C"),
+                Arguments.of("vertex A.B,C."));
     }
 }

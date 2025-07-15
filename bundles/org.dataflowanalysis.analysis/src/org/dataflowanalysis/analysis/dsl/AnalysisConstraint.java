@@ -219,6 +219,11 @@ public class AnalysisConstraint {
         }
         string.advance(DSL_KEYWORD.length() + 1);
 
+        if (string.empty()) {
+            return ParseResult.ok(new AnalysisConstraint(name, vertexSourceSelectors, dataSourceSelectors, new VertexDestinationSelectors(),
+                    new ConditionalSelectors(), context));
+        }
+
         ParseResult<VertexDestinationSelectors> nodeDestinationSelectorsParseResult = VertexDestinationSelectors.fromString(string, context);
         if (nodeDestinationSelectorsParseResult.failed()) {
             return ParseResult.error(nodeDestinationSelectorsParseResult.getError());

@@ -19,12 +19,12 @@ public class IFHospitalNoViolationResult implements DFDExampleModelResult {
 
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
-    	return List.of(new ConstraintDSL().ofData()
-    			.withLabel("Level", "High")
-    			.neverFlows()
-    			.toVertex()
-    			.withCharacteristic("Zone", "Attack")
-    			.create());
+        return List.of(new ConstraintDSL().ofData()
+                .withLabel("Level", "High")
+                .neverFlows()
+                .toVertex()
+                .withCharacteristic("Zone", "Attack")
+                .create());
     }
 
     @Override
@@ -36,9 +36,9 @@ public class IFHospitalNoViolationResult implements DFDExampleModelResult {
     public String toString() {
         return this.getModelName();
     }
-    
+
     @Override
     public String getFileName() {
-    	return "diagram";
+        return "diagram";
     }
 }

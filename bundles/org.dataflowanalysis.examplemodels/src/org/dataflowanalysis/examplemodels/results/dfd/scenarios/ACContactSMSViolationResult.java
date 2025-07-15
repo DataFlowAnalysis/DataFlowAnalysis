@@ -22,35 +22,30 @@ public class ACContactSMSViolationResult implements DFDExampleModelResult {
 
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
-    	return List.of(new ConstraintDSL().ofData()
-    			.withoutLabel("AccessRights", "Receiver")
-    			.neverFlows()
-    			.toVertex()
-    			.withCharacteristic("Role", "Receiver")
-    			.create());
+        return List.of(new ConstraintDSL().ofData()
+                .withoutLabel("AccessRights", "Receiver")
+                .neverFlows()
+                .toVertex()
+                .withCharacteristic("Role", "Receiver")
+                .create());
     }
 
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
         return List.of(
-        		new ExpectedViolation(3, new DFDIdentifier("ztul2"),
-        				List.of(new ExpectedCharacteristic("Role", "Receiver")),
-        				Map.of("9ru4y", 
-        						List.of(new ExpectedCharacteristic("AccessRights", "User")))),
-        		new ExpectedViolation(3, new DFDIdentifier("6oilhg"),
-                		List.of(new ExpectedCharacteristic("Role", "Receiver")),
-                				Map.of("e45gpj",
-                						List.of(new ExpectedCharacteristic("AccessRights", "User")))));	
-    }  
-    
-        
+                new ExpectedViolation(3, new DFDIdentifier("ztul2"), List.of(new ExpectedCharacteristic("Role", "Receiver")),
+                        Map.of("9ru4y", List.of(new ExpectedCharacteristic("AccessRights", "User")))),
+                new ExpectedViolation(3, new DFDIdentifier("6oilhg"), List.of(new ExpectedCharacteristic("Role", "Receiver")),
+                        Map.of("e45gpj", List.of(new ExpectedCharacteristic("AccessRights", "User")))));
+    }
+
     @Override
     public String toString() {
         return this.getModelName();
     }
-    
+
     @Override
     public String getFileName() {
-    	return "diagram";
+        return "diagram";
     }
 }

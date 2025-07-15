@@ -56,28 +56,50 @@ export default withMermaid({
       {
         text: "Documentation",
         items: [
-          { text: "Quick Start Guide", link: "/wiki/gettingstarted" },
+          { text: "Getting Started", link: "/wiki/gettingstarted" },
           {
-            text: "DFA Web Editor",
-            link: "/wiki/webeditor/",
+            text: "Tooling",
             items: [
-              { text: "Node Behavior", link: "/wiki/webeditor/assignments" },
+              {
+                text: "DFA Web Editor",
+                link: "/wiki/webeditor/",
+                items: [
+                  {
+                    text: "Node Behavior",
+                    link: "/wiki/webeditor/assignments",
+                  },
+                  {
+                    text: "Writing Analysis Constraints",
+                    link: "/wiki/dsl/",
+                    collapsed: true,
+                    items: [
+                      { text: "Source Selectors", link: "/wiki/dsl/source" },
+                      {
+                        text: "Destination Selectors",
+                        link: "/wiki/dsl/destination",
+                      },
+                      { text: "Variables", link: "/wiki/dsl/variables" },
+                      {
+                        text: "Conditional Selectors",
+                        link: "/wiki/dsl/conditional",
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                text: "Command Line Interface (CLI)",
+                link: "/wiki/cli/",
+              },
             ],
           },
           {
-            text: "Writing Analysis Constraints",
-            link: "/wiki/dsl/",
-            collapsed: true,
+            text: "Knowledge",
             items: [
-              { text: "Source Selectors", link: "/wiki/dsl/source" },
-              { text: "Destination Selectors", link: "/wiki/dsl/destination" },
-              { text: "Variables", link: "/wiki/dsl/variables" },
-              { text: "Conditional Selectors", link: "/wiki/dsl/conditional" },
+              { text: "Data Flow Diagrams (DFDs)", link: "/wiki/dfd/" },
+              { text: "Palladio Component Model (PCM)", link: "/wiki/pcm/" },
             ],
           },
-          { text: "Data Flow Diagrams (DFDs)", link: "/wiki/dfd/" },
-          { text: "Palladio Component Model (PCM)", link: "/wiki/pcm/" },
-          { text: "Command Line Interface (CLI)", link: "/wiki/cli/" },
           {
             text: "Developer Docs",
             items: [
@@ -92,6 +114,10 @@ export default withMermaid({
               {
                 text: "Running Locally",
                 link: "/wiki/development/running-locally",
+              },
+              {
+                text: "Style Guide",
+                link: "/wiki/development/style",
               },
             ],
           },
@@ -110,7 +136,7 @@ export default withMermaid({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/DataFlowAnalysis' }
+      { icon: "github", link: "https://github.com/DataFlowAnalysis" },
     ],
 
     notFound: {

@@ -43,7 +43,7 @@ public class DemoTest {
 
     @BeforeAll
     public void initializePCMAnalysis() {
-        //#region init
+        // #region init
         final Path usageModelPath = Paths.get("scenarios", "pcm", "InternationalOnlineShop", "default.usagemodel");
         final Path allocationPath = Paths.get("scenarios", "pcm", "InternationalOnlineShop", "default.allocation");
         final Path nodeCharacteristicsPath = Paths.get("scenarios", "pcm", "InternationalOnlineShop", "default.nodecharacteristics");
@@ -56,7 +56,7 @@ public class DemoTest {
                 .useNodeCharacteristicsModel(nodeCharacteristicsPath.toString())
                 .build();
         pcmAnalysis.initializeAnalysis();
-        //#endregion init
+        // #endregion init
     }
 
     @BeforeAll
@@ -108,7 +108,7 @@ public class DemoTest {
 
     @Test
     public void testPCMAnalysisUsingTheDSL() {
-        //#region dsl
+        // #region dsl
         PCMFlowGraphCollection flowGraphs = pcmAnalysis.findFlowGraphs();
         flowGraphs.evaluate();
 
@@ -129,7 +129,7 @@ public class DemoTest {
         } else {
             logger.info("No confidentiality violations found.");
         }
-        //#endregion dsl
+        // #endregion dsl
     }
 
     @Test

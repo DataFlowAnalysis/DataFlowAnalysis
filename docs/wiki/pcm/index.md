@@ -1,5 +1,5 @@
 # Data Flow Analysis with Palladio
-The Palladio Component Model is an [Archtecture Description Language](https://en.wikipedia.org/wiki/Architecture_description_language) for modelling software systems.
+The Palladio Component Model is an [Archtecture Description Language](https://en.wikipedia.org/wiki/Architecture_description_language) for modeling software systems.
 The model contains various models used to describe the system from different viewpoints.
 
 For more information on the base models see [our small summary](/wiki/pcm/models) or the [Palladio Component Model Wiki](https://sdq.kastel.kit.edu/wiki/Palladio_Component_Model)

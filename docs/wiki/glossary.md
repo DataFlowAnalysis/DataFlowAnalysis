@@ -1,6 +1,6 @@
 # Glossary of Commonly Used Terms
 ## Data Flow Diagram
-Either describes the [Data Flow Diagram Model](/wiki/dfd/) (the ***modelling framework***) or the contained [Data Flow Diagram](/wiki/dfd/index.md#data-flow-diagram) (the ***metamodel***)
+Either describes the [Data Flow Diagram Model](/wiki/dfd/) (the ***modeling framework***) or the contained [Data Flow Diagram](/wiki/dfd/index.md#data-flow-diagram) (the ***metamodel***)
 
 ## Data Dictionary
 A component of the [Data Flow Diagram Model](/wiki/dfd/) responsible for storing [Node Label](/wiki/glossary#node-label) or [Data Label](/wiki/glossary#data-label)

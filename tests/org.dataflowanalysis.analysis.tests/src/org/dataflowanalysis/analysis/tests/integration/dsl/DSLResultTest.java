@@ -101,6 +101,72 @@ public class DSLResultTest extends BaseTest {
         assertEquals("- testDSL: data DataSensitivity.Personal neverFlows vertex ServerLocation.nonEU", constraint.toString());
     }
 
+    @Test
+    public void testVertexLabelOr() {
+        AnalysisConstraint constraint = new ConstraintDSL().ofData()
+                .neverFlows()
+                .toVertex()
+                .withCharacteristic("AssignedRoles", List.of("User", "Airline"))
+                .create();
+
+        FlowGraphCollection flowGraph = travelPlannerAnalysis.findFlowGraphs();
+        flowGraph.evaluate();
+        List<DSLResult> result = constraint.findViolations(flowGraph);
+        List<? extends AbstractVertex<?>> violations = result.stream()
+                .map(DSLResult::getMatchedVertices)
+                .flatMap(List::stream)
+                .toList();
+        for (AbstractVertex<?> vertex : flowGraph.getTransposeFlowGraphs()
+                .stream()
+                .flatMap(it -> it.getVertices()
+                        .stream())
+                .toList()) {
+            if (violations.contains(vertex)) {
+                continue;
+            }
+            logger.error("Should have matched vertex: " + vertex.createPrintableNodeInformation());
+        }
+        logger.setLevel(Level.TRACE);
+        violations.forEach(vertex -> logger.trace(vertex.createPrintableNodeInformation()));
+        assertEquals(42, violations.size());
+        assertEquals(constraint.toString(), AnalysisConstraint.fromString(new StringView(constraint.toString()))
+                .getResult()
+                .toString());
+    }
+
+    @Test
+    public void testDataLabelOr() {
+        AnalysisConstraint constraint = new ConstraintDSL().ofData()
+                .withLabel("GrantedRoles", List.of("User", "Airline"))
+                .neverFlows()
+                .toVertex()
+                .create();
+
+        FlowGraphCollection flowGraph = travelPlannerAnalysis.findFlowGraphs();
+        flowGraph.evaluate();
+        List<DSLResult> result = constraint.findViolations(flowGraph);
+        List<? extends AbstractVertex<?>> violations = result.stream()
+                .map(DSLResult::getMatchedVertices)
+                .flatMap(List::stream)
+                .toList();
+        for (AbstractVertex<?> vertex : flowGraph.getTransposeFlowGraphs()
+                .stream()
+                .flatMap(it -> it.getVertices()
+                        .stream())
+                .toList()) {
+            if (violations.contains(vertex)) {
+                continue;
+            }
+            logger.error("Should have matched vertex: " + vertex.createPrintableNodeInformation());
+        }
+        logger.setLevel(Level.TRACE);
+        violations.forEach(vertex -> logger.trace(vertex.createPrintableNodeInformation()));
+        assertEquals(34, violations.size());
+        assertEquals(constraint.toString(), AnalysisConstraint.fromString(new StringView(constraint.toString()))
+                .getResult()
+                .toString());
+    }
+
     private void evaluateAnalysis(AnalysisConstraint constraint, DataFlowConfidentialityAnalysis analysis, List<ConstraintData> expectedResults) {
         logger.info("DSL String: " + constraint.toString());
         ParseResult<AnalysisConstraint> constraintParsed = AnalysisConstraint.fromString(new StringView(constraint.toString()),

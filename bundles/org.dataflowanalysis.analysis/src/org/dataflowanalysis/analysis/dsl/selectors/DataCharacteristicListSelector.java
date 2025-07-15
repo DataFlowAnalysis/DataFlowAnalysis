@@ -39,28 +39,34 @@ public class DataCharacteristicListSelector extends DataSelector {
             return false;
         }
         List<Boolean> results = new ArrayList<>();
-        for (String variableName : variableNames) {
-            List<CharacteristicValue> presentCharacteristics = vertex.getAllIncomingDataCharacteristics()
-                    .stream()
-                    .filter(it -> it.variableName()
-                            .equals(variableName))
-                    .flatMap(it -> it.characteristics()
-                            .stream())
-                    .toList();
-            List<String> characteristicTypes = new ArrayList<>();
-            List<String> characteristicValues = new ArrayList<>();
-            List<Boolean> matches = presentCharacteristics.stream()
-                    .map(it -> this.dataCharacteristics.stream()
-                            .anyMatch(dc -> dc.matchesCharacteristic(context, vertex, it, variableName, characteristicTypes, characteristicValues)))
-                    .toList();
-            this.dataCharacteristics.forEach(it -> it.applyResults(context, vertex, variableName, characteristicTypes, characteristicValues));
-            results.add(this.inverted ? matches.stream()
-                    .noneMatch(it -> it)
-                    : matches.stream()
-                            .anyMatch(it -> it));
+        for (CharacteristicsSelectorData dataCharacteristic : this.dataCharacteristics) {
+            List<Boolean> dataCharacteristicResult = new ArrayList<>();
+            for (String variableName : variableNames) {
+                List<CharacteristicValue> presentCharacteristics = vertex.getAllIncomingDataCharacteristics()
+                        .stream()
+                        .filter(it -> it.variableName()
+                                .equals(variableName))
+                        .flatMap(it -> it.characteristics()
+                                .stream())
+                        .toList();
+                List<String> characteristicTypes = new ArrayList<>();
+                List<String> characteristicValues = new ArrayList<>();
+                List<Boolean> matches = presentCharacteristics.stream()
+                        .map(it -> dataCharacteristic.matchesCharacteristic(context, vertex, it, variableName, characteristicTypes,
+                                characteristicValues))
+                        .toList();
+                dataCharacteristic.applyResults(context, vertex, variableName, characteristicTypes, characteristicValues);
+                dataCharacteristicResult.add(this.inverted ? matches.stream()
+                        .noneMatch(it -> it)
+                        : matches.stream()
+                                .anyMatch(it -> it));
+            }
+            results.add(dataCharacteristicResult.stream()
+                    .anyMatch(it -> it));
         }
+
         return this.inverted ? results.stream()
-                .allMatch(it -> it)
+                .noneMatch(it -> it)
                 : results.stream()
                         .anyMatch(it -> it);
     }

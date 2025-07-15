@@ -6,6 +6,7 @@ import java.util.StringJoiner;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsListSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexTypeSelector;
 import org.dataflowanalysis.analysis.utils.ParseResult;
@@ -72,6 +73,12 @@ public class VertexSourceSelectors extends AbstractParseable {
         logger.info("Parsing: " + string.getString());
         List<AbstractSelector> selectors = new ArrayList<>();
         while (!string.invalid()) {
+            var listSelector = VertexCharacteristicsListSelector.fromString(string, context);
+            if (listSelector.successful()) {
+                selectors.add(listSelector.getResult());
+                continue;
+            }
+
             var selector = VertexCharacteristicsSelector.fromString(string, context);
             if (selector.successful()) {
                 selectors.add(selector.getResult());

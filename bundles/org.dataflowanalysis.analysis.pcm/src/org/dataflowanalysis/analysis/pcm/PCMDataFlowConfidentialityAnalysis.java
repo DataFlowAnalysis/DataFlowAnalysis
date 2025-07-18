@@ -36,7 +36,7 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
     /**
      * Creates a new instance of a data flow analysis with the given parameters
      * @param resourceProvider Resource provider that provides the required resources to the analysis
-     * @param modelProjectName Name of the modelling project
+     * @param modelProjectName Name of the modeling project
      * @param modelProjectActivator Plugin class of the analysis
      */
     public PCMDataFlowConfidentialityAnalysis(PCMResourceProvider resourceProvider, String modelProjectName,

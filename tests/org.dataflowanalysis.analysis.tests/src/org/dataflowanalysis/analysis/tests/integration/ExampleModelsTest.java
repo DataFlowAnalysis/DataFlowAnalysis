@@ -21,9 +21,14 @@ import org.dataflowanalysis.examplemodels.results.ExpectedCharacteristic;
 import org.dataflowanalysis.examplemodels.results.ExpectedViolation;
 import org.dataflowanalysis.examplemodels.results.dfd.DFDExampleModelResult;
 import org.dataflowanalysis.examplemodels.results.dfd.models.BranchingResult;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.CMA_CaseStudy;
 import org.dataflowanalysis.examplemodels.results.dfd.scenarios.CWANoViolation;
 import org.dataflowanalysis.examplemodels.results.dfd.scenarios.CWAPersonalDataViolation;
 import org.dataflowanalysis.examplemodels.results.dfd.scenarios.CWARPIViolation;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.ComponentTesting_CaseStudy;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.ECUUpdate_CaseStudy;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.Hippa_CaseStudy;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.MiniTwit_CaseStudy;
 import org.dataflowanalysis.examplemodels.results.dfd.scenarios.OnlineShopResult;
 import org.dataflowanalysis.examplemodels.results.dfd.scenarios.SimpleOnlineShopResult;
 import org.dataflowanalysis.examplemodels.results.dfd.scenarios.VWCariad;
@@ -57,7 +62,8 @@ public class ExampleModelsTest {
     private static Stream<Arguments> provideDFDExampleModelViolations() {
         return Stream.of(Arguments.of(new BranchingResult()), Arguments.of(new OnlineShopResult()), Arguments.of(new SimpleOnlineShopResult()),
                 Arguments.of(new CWANoViolation()), Arguments.of(new VWCariad()), Arguments.of(new CWAPersonalDataViolation()),
-                Arguments.of(new CWARPIViolation()));
+                Arguments.of(new CWARPIViolation()), Arguments.of(new ComponentTesting_CaseStudy()), Arguments.of(new ECUUpdate_CaseStudy()),
+                Arguments.of(new MiniTwit_CaseStudy()), Arguments.of(new Hippa_CaseStudy()), Arguments.of(new CMA_CaseStudy()));
     }
 
     @ParameterizedTest

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_KksXwV2VEfCJkoMBjFpfFw">
+  <labelTypes id="mm9xkb" entityName="Data">
+    <label id="2ypcdi" entityName="Credentials"/>
+    <label id="fp7e9" entityName="SW"/>
+    <label id="hj7yl" entityName="App"/>
+    <label id="paivzj" entityName="FleetTechnology"/>
+    <label id="m4v51i" entityName="UpdateInstruction"/>
+    <label id="oh9urf" entityName="Token"/>
+    <label id="ka6rnd" entityName="UpdateReport"/>
+  </labelTypes>
+  <labelTypes id="ba6i1r" entityName="AuthorizedParty">
+    <label id="f075wk" entityName="Driver"/>
+  </labelTypes>
+  <behavior id="_KksXzV2VEfCJkoMBjFpfFw" entityName="ECU">
+    <inPin id="ee1pkb" entityName="ECU_in_software"/>
+    <outPin id="rhzk3k" entityName="ECU_out_update_info"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KksX_l2VEfCJkoMBjFpfFw" outputPin="rhzk3k" outputLabels="ka6rnd"/>
+  </behavior>
+  <behavior id="_KksX0V2VEfCJkoMBjFpfFw" entityName="Driver">
+    <outPin id="o8t8tq" entityName="Driver_out_credentials"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KksX_V2VEfCJkoMBjFpfFw" outputPin="o8t8tq" outputLabels="2ypcdi"/>
+  </behavior>
+  <behavior id="_KksX1F2VEfCJkoMBjFpfFw" entityName="WiFi-dongle">
+    <inPin id="4rx0nn" entityName="WiFi-dongle_in_software"/>
+    <outPin id="wkowoz" entityName="WiFi-dongle_out_software"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KksYAV2VEfCJkoMBjFpfFw" outputPin="wkowoz" inputPins="4rx0nn"/>
+  </behavior>
+  <behavior id="_KksX2F2VEfCJkoMBjFpfFw" entityName="update-orchestrator">
+    <inPin id="ua4h7k" entityName="update-orchestrator_in_ecu_info"/>
+    <outPin id="onans" entityName="update-orchestrator_out_update_instruction"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KksX_12VEfCJkoMBjFpfFw" outputPin="onans" outputLabels="m4v51i"/>
+  </behavior>
+  <behavior id="_KksX3F2VEfCJkoMBjFpfFw" entityName="Inventory-manager">
+    <inPin id="5w44fl" entityName="Inventory-manager_in_ecu_info"/>
+    <outPin id="ppqeq8" entityName="Inventory-manager_out_ecu_info"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KksYAl2VEfCJkoMBjFpfFw" outputPin="ppqeq8" inputPins="5w44fl"/>
+  </behavior>
+  <behavior id="_KksX4F2VEfCJkoMBjFpfFw" entityName="Fleet technology">
+    <outPin id="s905l" entityName="Fleet technology_out_ecu_info"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KksYAF2VEfCJkoMBjFpfFw" outputPin="s905l" outputLabels="paivzj"/>
+  </behavior>
+  <behavior id="_KksX412VEfCJkoMBjFpfFw" entityName="SW storage">
+    <outPin id="sr5alv" entityName="SW storage_out_software"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KksX_F2VEfCJkoMBjFpfFw" outputPin="sr5alv" outputLabels="fp7e9"/>
+  </behavior>
+  <behavior id="_KksX5l2VEfCJkoMBjFpfFw" entityName="Mobile App">
+    <inPin id="3otqta" entityName="Mobile App_in_update_instruction"/>
+    <inPin id="d1dudo" entityName="Mobile App_in_software"/>
+    <inPin id="nyz56h" entityName="Mobile App_in_token"/>
+    <outPin id="iow6o" entityName="Mobile App_out_software"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KksX-12VEfCJkoMBjFpfFw" outputPin="iow6o" inputPins="d1dudo"/>
+  </behavior>
+  <behavior id="_KksX7F2VEfCJkoMBjFpfFw" entityName="report update">
+    <inPin id="ndqbhp" entityName="report update_in_update_info"/>
+  </behavior>
+  <behavior id="_KksX712VEfCJkoMBjFpfFw" entityName="Authentication &amp; Authorization Service">
+    <inPin id="k7v47" entityName="Authentication &amp; Authorization Service_in_credentials"/>
+    <outPin id="fnlewl" entityName="Authentication &amp; Authorization Service_out_token"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KksYA12VEfCJkoMBjFpfFw" outputPin="fnlewl" outputLabels="oh9urf"/>
+  </behavior>
+</datadictionary:DataDictionary>

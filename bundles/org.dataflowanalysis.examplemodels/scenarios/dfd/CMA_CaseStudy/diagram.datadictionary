@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_hkijIWDAEfCJkoMBjFpfFw">
+  <labelTypes id="w1dnfc" entityName="ResearcherTypeAllowed">
+    <label id="duqgcm" entityName="Normal"/>
+    <label id="fgwi6g" entityName="Committee"/>
+    <label id="x4b2t4" entityName="Chair"/>
+  </labelTypes>
+  <labelTypes id="nls2em" entityName="DataType">
+    <label id="cou7m" entityName="AcceptedPaper"/>
+    <label id="qgmz98" entityName="ConsentSettings"/>
+    <label id="unc8a9" entityName="ReviewedPaper"/>
+    <label id="ob40bj" entityName="CandidateReviewers"/>
+    <label id="9etyl" entityName="Manuscript"/>
+    <label id="l91s3u" entityName="NewConsents"/>
+    <label id="wa283" entityName="Purpose"/>
+  </labelTypes>
+  <labelTypes id="2u8u9" entityName="RequestTypes">
+    <label id="udlsx" entityName="Consent"/>
+    <label id="h01k2t" entityName="Paper"/>
+    <label id="lx76yq" entityName="Recommend"/>
+    <label id="hpup1c" entityName="Candidates"/>
+    <label id="3stj1v" entityName="Review"/>
+    <label id="p05v2" entityName="Accept"/>
+  </labelTypes>
+  <labelTypes id="hbyg1x" entityName="Decorator">
+    <label id="d1ob2e" entityName="secure"/>
+    <label id="s97zxp" entityName="user_registered"/>
+    <label id="lzsn5" entityName="login_required"/>
+  </labelTypes>
+  <labelTypes id="5cva6i" entityName="ConsentedPurposes">
+    <label id="gai14g" entityName="PublishPaper"/>
+    <label id="1ph77" entityName="AssignReviewer"/>
+    <label id="o6rsynb" entityName="RecommendPapers"/>
+    <label id="n162a6" entityName="ViewPaper"/>
+  </labelTypes>
+  <labelTypes id="uobvx" entityName="Credentials">
+    <label id="ik4l8s" entityName="Email"/>
+    <label id="ask9p9" entityName="Password"/>
+    <label id="vckeuh" entityName="Username"/>
+  </labelTypes>
+  <behavior id="_hkijQ2DAEfCJkoMBjFpfFw" entityName="search papers">
+    <outPin id="vl7ew" entityName="search papers_out_paper_request"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_hkij5WDAEfCJkoMBjFpfFw" outputPin="vl7ew" outputLabels="h01k2t"/>
+  </behavior>
+  <behavior id="_hkijRmDAEfCJkoMBjFpfFw" entityName="submit manuscript">
+    <outPin id="o1xlje" entityName="submit manuscript_out_manuscript"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_hkij_GDAEfCJkoMBjFpfFw" outputPin="o1xlje" outputLabels="9etyl"/>
+  </behavior>
+  <behavior id="_hkijSWDAEfCJkoMBjFpfFw" entityName="recommend_papers">
+    <inPin id="uimkzc" entityName="recommend_papers_in_papers"/>
+    <outPin id="2t2rw" entityName="recommend_papers_out_papers"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkikAWDAEfCJkoMBjFpfFw" outputPin="2t2rw" inputPins="uimkzc"/>
+  </behavior>
+  <behavior id="_hkijTWDAEfCJkoMBjFpfFw" entityName="save to DB">
+    <inPin id="48nybi" entityName="save to DB_in_actualized_consents"/>
+    <inPin id="z6e1yh" entityName="save to DB_in_new_consents"/>
+    <inPin id="my9bas" entityName="save to DB_in_accepted_paper"/>
+    <inPin id="edfs6c" entityName="save to DB_in_manuscript"/>
+    <inPin id="hu0yye" entityName="save to DB_in_papers"/>
+  </behavior>
+  <behavior id="_hkijVGDAEfCJkoMBjFpfFw" entityName="retrieve manuscripts">
+    <inPin id="xdko9f" entityName="retrieve manuscripts_in_manuscripts"/>
+    <outPin id="p6xa3" entityName="retrieve manuscripts_out_manuscripts"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkij8GDAEfCJkoMBjFpfFw" outputPin="p6xa3" inputPins="xdko9f"/>
+  </behavior>
+  <behavior id="_hkijWGDAEfCJkoMBjFpfFw" entityName="show candidate reviewers">
+    <inPin id="4dclwg" entityName="show candidate reviewers_in_candidate_reviewers"/>
+    <outPin id="c9fnm" entityName="show candidate reviewers_out_candidate_reviewers"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkij82DAEfCJkoMBjFpfFw" outputPin="c9fnm" inputPins="4dclwg"/>
+  </behavior>
+  <behavior id="_hkijXGDAEfCJkoMBjFpfFw" entityName="SQLite DB">
+    <inPin id="eossk" entityName="SQLite DB_in_check_credentials"/>
+    <inPin id="l8j5m" entityName="SQLite DB_in_credentials"/>
+    <outPin id="rfpyjr" entityName="SQLite DB_out_purpose"/>
+    <outPin id="msmpuz" entityName="SQLite DB_out_user_consents"/>
+    <outPin id="d26wmt" entityName="SQLite DB_out_manuscripts"/>
+    <outPin id="e80kbs" entityName="SQLite DB_out_candidate_reviewers"/>
+    <outPin id="b24j1n" entityName="SQLite DB_out_paper"/>
+    <outPin id="z5etok" entityName="SQLite DB_out_reviewed_paper"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_hkij6WDAEfCJkoMBjFpfFw" outputPin="d26wmt" outputLabels="9etyl"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_hkij6mDAEfCJkoMBjFpfFw" outputPin="rfpyjr" outputLabels="wa283"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_hkij62DAEfCJkoMBjFpfFw" outputPin="b24j1n" outputLabels="cou7m"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_hkij7GDAEfCJkoMBjFpfFw" outputPin="msmpuz" outputLabels="qgmz98"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_hkij7WDAEfCJkoMBjFpfFw" outputPin="e80kbs" outputLabels="ob40bj"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_hkij7mDAEfCJkoMBjFpfFw" outputPin="z5etok" outputLabels="unc8a9"/>
+  </behavior>
+  <behavior id="_hkijZmDAEfCJkoMBjFpfFw" entityName="after_register_hook">
+    <inPin id="68wvs4" entityName="after_register_hook_in_credentials"/>
+    <outPin id="u6jfhe" entityName="after_register_hook_out_credentials"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkikB2DAEfCJkoMBjFpfFw" outputPin="u6jfhe" inputPins="68wvs4"/>
+  </behavior>
+  <behavior id="_hkijamDAEfCJkoMBjFpfFw" entityName="User">
+    <outPin id="uqnuoi" entityName="User_out_credentials"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_hkikBGDAEfCJkoMBjFpfFw" outputPin="uqnuoi" outputLabels="ik4l8s"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_hkikBWDAEfCJkoMBjFpfFw" outputPin="uqnuoi" outputLabels="ask9p9"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_hkikBmDAEfCJkoMBjFpfFw" outputPin="uqnuoi" outputLabels="vckeuh"/>
+  </behavior>
+  <behavior id="_hkijbWDAEfCJkoMBjFpfFw" entityName="flask app">
+    <inPin id="pu6yxo" entityName="flask app_in_credentials"/>
+    <outPin id="owodln" entityName="flask app_out_credentials"/>
+    <outPin id="zv64d7" entityName="flask app_out_credentials"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkij_mDAEfCJkoMBjFpfFw" outputPin="owodln" inputPins="pu6yxo"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkij_2DAEfCJkoMBjFpfFw" outputPin="zv64d7" inputPins="pu6yxo"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_hkikAGDAEfCJkoMBjFpfFw" outputPin="zv64d7" outputLabels="ik4l8s"/>
+  </behavior>
+  <behavior id="_hkijcmDAEfCJkoMBjFpfFw" entityName="register flask">
+    <inPin id="qyi91k" entityName="register flask_in_credentials"/>
+    <outPin id="3vqhqq" entityName="register flask_out_credentials"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkikA2DAEfCJkoMBjFpfFw" outputPin="3vqhqq" inputPins="qyi91k"/>
+  </behavior>
+  <behavior id="_hkijdmDAEfCJkoMBjFpfFw" entityName="login flask">
+    <inPin id="v62v7f" entityName="login flask_in_credentials"/>
+    <outPin id="bx2xx" entityName="login flask_out_credentials"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkij5mDAEfCJkoMBjFpfFw" outputPin="bx2xx" inputPins="v62v7f"/>
+  </behavior>
+  <behavior id="_hkijemDAEfCJkoMBjFpfFw" entityName="check_credentials">
+    <inPin id="4g0thq" entityName="check_credentials_in_credentials"/>
+    <outPin id="j3d4n" entityName="check_credentials_out_check_credentials"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkij72DAEfCJkoMBjFpfFw" outputPin="j3d4n" inputPins="4g0thq"/>
+  </behavior>
+  <behavior id="_hkijfmDAEfCJkoMBjFpfFw" entityName="remove_consents">
+    <inPin id="2s4qos" entityName="remove_consents_in_user_consents"/>
+    <outPin id="8f9n0g" entityName="remove_consents_out_actualized_consents"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_hkij9GDAEfCJkoMBjFpfFw" outputPin="8f9n0g" outputLabels="l91s3u"/>
+  </behavior>
+  <behavior id="_hkijgmDAEfCJkoMBjFpfFw" entityName="review_papers">
+    <inPin id="p0qbkk" entityName="review_papers_in_manuscript"/>
+    <outPin id="hrm8zx" entityName="review_papers_out_papers"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkij4WDAEfCJkoMBjFpfFw" outputPin="hrm8zx" inputPins="p0qbkk"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_hkij4mDAEfCJkoMBjFpfFw" outputPin="hrm8zx" outputLabels="3stj1v"/>
+  </behavior>
+  <behavior id="_hkijhmDAEfCJkoMBjFpfFw" entityName="assign reviewer">
+    <inPin id="7b7pdh" entityName="assign reviewer_in_candidates_reviewers"/>
+    <outPin id="7cmpw" entityName="assign reviewer_out_manuscript"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkij8WDAEfCJkoMBjFpfFw" outputPin="7cmpw" inputPins="7b7pdh"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_hkij8mDAEfCJkoMBjFpfFw" outputPin="7cmpw" outputLabels="ob40bj"/>
+  </behavior>
+  <behavior id="_hkijimDAEfCJkoMBjFpfFw" entityName="add consents">
+    <inPin id="onpc2" entityName="add consents_in_user_consentspurpose"/>
+    <outPin id="e5gyyk" entityName="add consents_out_new_consents"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_hkij_WDAEfCJkoMBjFpfFw" outputPin="e5gyyk" outputLabels="l91s3u"/>
+  </behavior>
+  <behavior id="_hkijjmDAEfCJkoMBjFpfFw" entityName="privacy-template">
+    <inPin id="lfnrvg" entityName="privacy-template_in_user_consents"/>
+  </behavior>
+  <behavior id="_hkijkWDAEfCJkoMBjFpfFw" entityName="policy">
+    <inPin id="9u68a" entityName="policy_in_user_consents"/>
+    <outPin id="z8d6w" entityName="policy_out_user_consents"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkij9WDAEfCJkoMBjFpfFw" outputPin="z8d6w" inputPins="9u68a"/>
+  </behavior>
+  <behavior id="_hkijlWDAEfCJkoMBjFpfFw" entityName="calculate conflicts">
+    <inPin id="68e6ph" entityName="calculate conflicts_in_manuscriptscandidate_reviewers"/>
+    <outPin id="jj014c" entityName="calculate conflicts_out_candidates_reviewers"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkij5GDAEfCJkoMBjFpfFw" outputPin="jj014c" inputPins="68e6ph"/>
+  </behavior>
+  <behavior id="_hkijmWDAEfCJkoMBjFpfFw" entityName="current_user">
+    <inPin id="5mnvf" entityName="current_user_in_purpose"/>
+    <inPin id="98bknt" entityName="current_user_in_user_consents"/>
+    <inPin id="ac6d3" entityName="current_user_in_manuscripts"/>
+    <inPin id="u4eqa" entityName="current_user_in_candidate_reviewers"/>
+    <inPin id="5yfqm6" entityName="current_user_in_paper"/>
+    <inPin id="p39x9m" entityName="current_user_in_reviewed_paper"/>
+    <outPin id="i7ltm4" entityName="current_user_out_user_consentsuser_consentsuser_consents"/>
+    <outPin id="f5mm7" entityName="current_user_out_purpose"/>
+    <outPin id="68p2t" entityName="current_user_out_manuscripts"/>
+    <outPin id="lprs9f" entityName="current_user_out_candidate_reviewers"/>
+    <outPin id="dbvuvg" entityName="current_user_out_paperpaper"/>
+    <outPin id="75dppw" entityName="current_user_out_reviewed_paper"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkij9mDAEfCJkoMBjFpfFw" outputPin="dbvuvg" inputPins="5yfqm6"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkij92DAEfCJkoMBjFpfFw" outputPin="lprs9f" inputPins="u4eqa"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkij-GDAEfCJkoMBjFpfFw" outputPin="75dppw" inputPins="p39x9m"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkij-WDAEfCJkoMBjFpfFw" outputPin="i7ltm4" inputPins="98bknt"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkij-mDAEfCJkoMBjFpfFw" outputPin="f5mm7" inputPins="5mnvf"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkij-2DAEfCJkoMBjFpfFw" outputPin="68p2t" inputPins="ac6d3"/>
+  </behavior>
+  <behavior id="_hkijp2DAEfCJkoMBjFpfFw" entityName="retrieve recent papers">
+    <inPin id="l7371" entityName="retrieve recent papers_in_paper"/>
+    <outPin id="6tviun" entityName="retrieve recent papers_out_papers"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkij42DAEfCJkoMBjFpfFw" outputPin="6tviun" inputPins="l7371"/>
+  </behavior>
+  <behavior id="_hkijq2DAEfCJkoMBjFpfFw" entityName="calculate recommendations">
+    <inPin id="9zcrsw" entityName="calculate recommendations_in_papers"/>
+    <outPin id="cbmok5" entityName="calculate recommendations_out_papers"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkij52DAEfCJkoMBjFpfFw" outputPin="cbmok5" inputPins="9zcrsw"/>
+  </behavior>
+  <behavior id="_hkijr2DAEfCJkoMBjFpfFw" entityName="accept paper">
+    <inPin id="ktr5zk" entityName="accept paper_in_reviewed_paper"/>
+    <outPin id="pkykcs" entityName="accept paper_out_accepted_paper"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_hkij6GDAEfCJkoMBjFpfFw" outputPin="pkykcs" outputLabels="cou7m"/>
+  </behavior>
+  <behavior id="_hkijs2DAEfCJkoMBjFpfFw" entityName="view paper">
+    <inPin id="tzu7tc" entityName="view paper_in_paper_requestpaper"/>
+    <outPin id="uf558" entityName="view paper_out_paper"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_hkikAmDAEfCJkoMBjFpfFw" outputPin="uf558" inputPins="tzu7tc"/>
+  </behavior>
+  <behavior id="_hkijt2DAEfCJkoMBjFpfFw" entityName="view-paper-template">
+    <inPin id="nlu11k" entityName="view-paper-template_in_paper"/>
+  </behavior>
+  <behavior id="_hkijumDAEfCJkoMBjFpfFw" entityName="recommend-papers-template">
+    <inPin id="irt49" entityName="recommend-papers-template_in_papers"/>
+  </behavior>
+</datadictionary:DataDictionary>

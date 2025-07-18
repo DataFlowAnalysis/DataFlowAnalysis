@@ -216,4 +216,16 @@ export const bib = `
 	date = {2025},
 	tag = {arcovia}
 }
+
+@ARTICLE{reiche_coupling_2025,
+  author={Reiche, Frederik and Reussner, Ralf and Heinrich, Robert},
+  journal={IEEE Transactions on Software Engineering}, 
+  title={Detecting Information Flow Security Vulnerabilities by Analysis Coupling}, 
+  year={2025},
+  volume={},
+  number={},
+  pages={1-33},
+  doi={10.1109/TSE.2025.3589647}
+}
+
 `;

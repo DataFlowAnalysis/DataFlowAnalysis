@@ -36,7 +36,7 @@ export const bib = `
 	title = {A Unified Model to Detect Information Flow and Access Control Violations in Software Architectures},
 	url = {https://www.scitepress.org/DigitalLibrary/Link.aspx?doi=10.5220/0010515300260037},
 	doi = {10.5220/0010515300260037},
-	booktitle = {Proceedings of the 18th International Conference on Security and Cryptography},
+	booktitle = {International Conference on Security and Cryptography},
 	publisher = {{SCITEPRESS}},
 	author = {Seifermann, Stephan and Heinrich, Robert and Werle, Dominik and Reussner, Ralf},
 	date = {2021},
@@ -216,14 +216,14 @@ export const bib = `
 }
 
 @article{reiche_coupling_2025,
-	author={Reiche, Frederik and Reussner, Ralf and Heinrich, Robert},
-	journal={Transactions on Software Engineering}, 
 	title={Detecting Information Flow Security Vulnerabilities by Analysis Coupling},
-	publisher={{IEEE}},
-	year={2025},
-	pages={1-33},
-	doi={10.1109/TSE.2025.3589647},
 	url={https://ieeexplore.ieee.org/document/11082015},
+	doi={10.1109/TSE.2025.3589647},
+	journaltitle={Transactions on Software Engineering}, 
+	publisher={{IEEE}},
+	author={Reiche, Frederik and Reussner, Ralf and Heinrich, Robert},
+	date={2025},
+	pages={1-33},
 	tag = {xdecaf}
 }
 

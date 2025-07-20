@@ -61,12 +61,12 @@ export default withMermaid({
             text: "Tooling",
             items: [
               {
-                text: "DFA Web Editor",
-                link: "/wiki/webeditor/",
+                text: "Online Editor",
+                link: "/wiki/onlineeditor/",
                 items: [
                   {
                     text: "Node Behavior",
-                    link: "/wiki/webeditor/assignments",
+                    link: "/wiki/onlineeditor/assignments",
                   },
                   {
                     text: "Writing Analysis Constraints",

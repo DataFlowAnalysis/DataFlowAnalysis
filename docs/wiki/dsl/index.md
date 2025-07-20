@@ -6,6 +6,6 @@ Additionally, one can define some relationships between the two selectors using 
 
 [Source Selectors](source.md) select the origin of a data flow based on their node label, incoming data, type or incoming names of data. 
 
-[Desintation Selectors](destination.md) selects the destination of a data flow based on their node label.
+[Destination Selectors](destination.md) selects the destination of a data flow based on their node label.
 
 [Conditional Selectors](conditional.md) selects nodes based on [Variables](variables.md) defined in the previous two selectors.

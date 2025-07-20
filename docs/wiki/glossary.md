@@ -27,16 +27,16 @@ For more information see: [Data Flow Diagram](/wiki/dfd/index#data-dictionary)
 
 ## Source Selector
 A component of the [Analysis Constraint DSL](/wiki/dsl/) that describes properties that a [Node](/wiki/glossary#node) or [Data Flow](/wiki/glossary#data-flow) needs to have to be matched by the constraint
-For more information see: [Source Selector](/wiki/dsl/source)
+For more information see: [Source Selector](/wiki/dsl#source)
 
 ## Destination Selector
 A component of the [Analysis Constraint DSL](/wiki/dsl/) that describes properties that a [Node](/wiki/glossary#node) or [Data Flow](/wiki/glossary#data-flow) need to have to be matched by the constraint.
-For more information see: [Destination Selector](/wiki/dsl/destination)
+For more information see: [Destination Selector](/wiki/dsl#destination)
 
 ## Conditional Selector
-A component of the [Analysis Constraint DSL](/wiki/dsl/) that matches [Nodes](/wiki/glossary#node) based on [DSL Variables](/wiki/dsl/variables).
-For more information on variables see: [DSL Variables](/wiki/dsl/variables).
-For more information on conditional selectors see: [Conditional Selectors](/wiki/dsl/conditional)
+A component of the [Analysis Constraint DSL](/wiki/dsl/) that matches [Nodes](/wiki/glossary#node) based on [DSL Variables](/wiki/dsl#variables).
+For more information on variables see: [DSL Variables](/wiki/dsl#variables).
+For more information on conditional selectors see: [Conditional Selectors](/wiki/dsl#conditional)
 
 ## Vertex
 A vertex describes an element of a [Transpose Flow Graph](/wiki/glossary#transpose-flow-graph) that corresponds to exactly one element in the model.

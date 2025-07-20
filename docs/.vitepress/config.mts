@@ -75,21 +75,8 @@ export default withMermaid({
                     link: "/wiki/onlineeditor/assignments",
                   },
                   {
-                    text: "Writing Analysis Constraints",
+                    text: "Constraint DSL",
                     link: "/wiki/dsl/",
-                    collapsed: true,
-                    items: [
-                      { text: "Source Selectors", link: "/wiki/dsl/source" },
-                      {
-                        text: "Destination Selectors",
-                        link: "/wiki/dsl/destination",
-                      },
-                      { text: "Variables", link: "/wiki/dsl/variables" },
-                      {
-                        text: "Conditional Selectors",
-                        link: "/wiki/dsl/conditional",
-                      },
-                    ],
                   },
                 ],
               },

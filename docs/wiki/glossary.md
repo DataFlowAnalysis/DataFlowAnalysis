@@ -52,12 +52,12 @@ A node describes an element of an [Data Flow Diagram](/wiki/dfd#data-flow-diagra
 Not to be confused with a [Vertex](/wiki/glossary#vertex) that is part of an [Transpose Flow Graph](/wiki/glossary#transpose-flow-graph)
 
 ## Source 
-A Source is a special [Node](/wiki/glossary#node) that data does not flow into. 
+A Source is a special [Vertex](/wiki/glossary#vertex) that data does not flow into. 
 It only has outgoing data.
 For more information see: [Data Flow Analysis](/wiki/analysis/)
 
 ## Sink
-A Sink is a special [Node](/wiki/glossary#node) that data does not flow out of.
+A Sink is a special [Vertex](/wiki/glossary#vertex) that data does not flow out of.
 It only has incoming data and clearly defines a [Transpose Flow Graph](/wiki/glossary#transpose-flow-graph) with its previous nodes.
 For more information see: [Data Flow Analysis](/wiki/analysis/)
 

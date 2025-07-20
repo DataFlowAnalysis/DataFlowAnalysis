@@ -7,7 +7,7 @@ The Data Flow Analysis can be run fully inside a browser, no additional setup re
 You can model your system using our online representation of [Data Flow Diagrams](/wiki/dfd/) and formulate constraints via our [DSL](/wiki/dsl/).
 
 ### Running Locally
-Should you wish running the analysis locally, you need to decide which development enviornment you wish to use:
+Should you wish running the analysis locally, you need to decide which development environment you wish to use:
 
 #### Eclipse 
 Using our analysis is easy using the provided eclipse product from the [Downloads Page](/download/#eclipse-product-recommended)

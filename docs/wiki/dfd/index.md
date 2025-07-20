@@ -36,10 +36,11 @@ The Ports of Nodes can be connected using **Flows** that denote that the data fr
 Each Output Pin of a Node can have an **Behavior** that describes properties of the data flowing out of this node.
 This Behavior may depend on the data flowing into the nodes though it's Input Pins.
 
-Next, a Node can also have **Node Labels** that describe properties of a node.
+Next, a **Node** can also have **Node Labels** that describe properties of a **Node** .
 
 ## Data Dictionary
 The Data Dictionary contains a set of **Label Types** and corresponding **Label Values** that describe the properties of nodes and data in the Data Flow Diagram.
+Additionally, it stores the **Behaviors** outlined in the previous section, allowing for reuse.
 
 ::: tip Example of an Label Type and Label Values 
 For example for modeling a location of a system, one might model the following: 

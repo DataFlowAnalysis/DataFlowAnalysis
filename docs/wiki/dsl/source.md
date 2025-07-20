@@ -1,5 +1,5 @@
 # Source Selectors
-A **source selector** describes the origin of a data flow though the system.
+A **source selector** describes the origin of a data flow through the system.
 It can select nodes based on their node label or data labels flowing into the node.
 
 ## Vertex Selector

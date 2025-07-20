@@ -49,7 +49,7 @@ export default withMermaid({
           },
           {
             text: "Helmholtz RSD",
-            link: "http://helmholtz.software/software/xdecaf",
+            link: "http://helmholtz.software/software/dfa",
           },
         ],
       },

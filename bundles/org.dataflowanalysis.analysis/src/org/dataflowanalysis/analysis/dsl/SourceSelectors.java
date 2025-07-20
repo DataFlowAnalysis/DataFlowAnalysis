@@ -43,14 +43,19 @@ public final class SourceSelectors extends AbstractParseable {
     }
 
     public static ParseResult<SourceSelectors> fromString(StringView string, DSLContext context) {
+        string.skipWhitespace();
         ParseResult<DataSourceSelectors> dataSourceSelector = DataSourceSelectors.fromString(string, context);
         ParseResult<VertexSourceSelectors> nodeSourceSelector;
         if (dataSourceSelector.successful()) {
+            string.skipWhitespace();
             nodeSourceSelector = VertexSourceSelectors.fromString(string, context);
         } else {
+            string.skipWhitespace();
             nodeSourceSelector = VertexSourceSelectors.fromString(string, context);
-            if (nodeSourceSelector.successful())
+            if (nodeSourceSelector.successful()) {
+                string.skipWhitespace();
                 dataSourceSelector = DataSourceSelectors.fromString(string, context);
+            }
         }
 
         if (nodeSourceSelector.successful() && dataSourceSelector.successful()) {

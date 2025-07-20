@@ -57,6 +57,7 @@ public class ConditionalSelectors extends AbstractParseable {
      * {@link AnalysisConstraint}
      */
     public static ParseResult<ConditionalSelectors> fromString(StringView string, DSLContext context) {
+        string.skipWhitespace();
         if (string.invalid()) {
             return ParseResult.error("Unexpected end of input!");
         }
@@ -64,12 +65,14 @@ public class ConditionalSelectors extends AbstractParseable {
             return string.expect(DSL_KEYWORD);
         }
         string.advance(DSL_KEYWORD.length() + 1);
+        string.skipWhitespace();
         if (string.invalid()) {
             return ParseResult.error("Unexpected end of input!");
         }
         logger.info("Parsing: " + string.getString());
         List<ConditionalSelector> selectors = new ArrayList<>();
         while (!string.invalid()) {
+            string.skipWhitespace();
             var selector = VariableConditionalSelector.fromString(string);
             if (selector.successful()) {
                 selectors.add(selector.getResult());

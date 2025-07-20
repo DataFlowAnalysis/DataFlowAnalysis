@@ -21,7 +21,7 @@ public class StringView {
      * @return Returns true, if the index remains in bounds of the string. Otherwise, the method returns false
      */
     public boolean invalid() {
-        return this.index > string.length() || this.index < 0;
+        return this.index >= string.length() || this.index < 0;
     }
 
     /**
@@ -41,8 +41,39 @@ public class StringView {
      * Moves the string view forward by the given amount
      * @param amount Amount to move the string view forward
      */
-    public void advance(int amount) {
+    public int advance(int amount) {
+        int oldIndex = this.index;
         this.index += amount;
+        return oldIndex;
+    }
+
+    /**
+     * Sets the position of the string view to the provided position
+     * @param position Position the string view should have
+     */
+    public void setPosition(int position) {
+        if (position >= string.length() || position < 0) {
+            throw new IllegalArgumentException("Invalid position!");
+        }
+        this.index = position;
+    }
+
+    /**
+     * Returns the position of the string view in the String
+     * @return Returns the index into the string, the string view is currently at
+     */
+    public int getPosition() {
+        return index;
+    }
+
+    /**
+     * Advances until the next character is not whitespace or the boundary of the string has been hit
+     */
+    public void skipWhitespace() {
+        while (!this.empty() && !this.invalid() && Character.isWhitespace(this.getString()
+                .charAt(0))) {
+            this.advance(1);
+        }
     }
 
     /**
@@ -89,6 +120,6 @@ public class StringView {
      * @return Returns true, if the string view has overrun its bounds and is empty. Otherwise, the method returns false.
      */
     public boolean empty() {
-        return this.string.length() < this.index;
+        return this.string.length() <= this.index;
     }
 }

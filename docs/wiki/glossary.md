@@ -41,7 +41,7 @@ For more information on conditional selectors see: [Conditional Selectors](/wiki
 ## Vertex
 A vertex describes an element of a [Transpose Flow Graph](/wiki/glossary#transpose-flow-graph) that corresponds to exactly one element in the model.
 Data may flow into and out of the vertex, their properties available as [Data Label](/docs/glossary#data-label).
-Additionally properties of the vertex are available as [Vertex Label](/docs/glossary#vertex-node-label).
+Additionally properties of the vertex are available as [Vertex Label](/docs/glossary#node-label).
 For more information see: [Data Flow Analysis](/wiki/analysis/).
 
 Not to be confused with a [Node](/wiki/glossary#node) that is an element of a [Data Flow Diagram](/wiki/dfd#data-flow-diagram)
@@ -68,11 +68,11 @@ It may has certain properties after [Label Propagation](/wiki/analysis/label-pro
 ## Transpose Flow Graph 
 A Transpose Flow Graph describes a unique flow though the software system and can be identified using a [Sink](/wiki/glossary#sink)
 
-## Vertex / Node Label
-A Vertex or Node Label is a [Label Type](/wiki/glossary#label-type) that is applied to a [Node](/wiki/glossary#node).
+## Node Label
+A Node Label is a [Label Value](/wiki/glossary#label-value) that is applied to a [Node](/wiki/glossary#node).
 It can be used in a [DSL Constraint](/wiki/dsl/) to match vertices using their vertex/node label
 
 ## Data Label
-A Data Label is a [Label Type](/wiki/glossary#label-type) that is applied to a [Data Flow](/wiki/glossary#data-flow).
+A Data Label is a [Label Value](/wiki/glossary#label-value) that is applied to a [Data Flow](/wiki/glossary#data-flow).
 It can be used in a [DSL Constraint](/wiki/dsl/) to match vertices using their vertex/node label
 

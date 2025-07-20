@@ -21,7 +21,7 @@ hero:
       link: /wiki/gettingstarted
     - theme: alt
       text: Examples
-      link: /wiki/examples
+      link: /examples/
 
 features:
   - icon: 

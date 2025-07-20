@@ -14,20 +14,20 @@ If you want to work or modify the analysis directly, you first need to clone the
 Then use the dialouge at `File->Import->General->Existing Projects into Workspace` to import the plugins contained in the analysis repository.
 Select the Folder of the cloned analysis as root directory.
 Then use the `Deselect All` button to deselect all found projects and select the following if you need them:
-| Project                                           | Description                                       | Recommended?  |
-|-------------------------------------------------- | ------------------------------------------------- | ------------- |
-| `org.dataflowanalysis.analysis`                   | Core Functionality of the Analysis                | ✅            |
-| `org.dataflowanalysis.analysis.pcm`               | PCM Functionality of the Analysis                 | ✅            |
-| `org.dataflowanalysis.analysis.dfd`               | DFD Functionality of the Analysis                 | ✅            | 
-| `org.dataflowanalysis.analysis.tests`             | Tests of the Analysis                             | ✅            |
-| `org.dataflowanalysis.analysis.examplemodels`     | Example Models                                    | ✅            |
-| `org.dataflowanalysis.analysis.converter`         | Model Converter                                   | ✅/❓         |
-| `org.dataflowanalysis.analysis.converter.tests`   | Tests of the Model Converter                      | ✅/❓         |
-| Projects ending with `.feature`                   | Eclipse Feature Plugin                            | ❌            |
-| Projects ending with `.targetplatform`            | Eclipse Targetplatform                            | ❌            |
-| `org.dataflowanalysis.dfd.datadictionary.*`       | Data Dictionary Model, typically not imported     | ❓            |
-| `org.dataflowanalysis.dfd.dataflowdiagram.*`      | Data Flow Diagram Model, typically not imported   | ❓            |
-| Projects eding with `.mwe2`                       | Tests of the Model Converter                      | ❌            |
+| Project                                           | Description                                       | Recommended?                  |
+|-------------------------------------------------- | ------------------------------------------------- | ----------------------------- |
+| `org.dataflowanalysis.analysis`                   | Core Functionality of the Analysis                | Required                      |
+| `org.dataflowanalysis.analysis.pcm`               | PCM Functionality of the Analysis                 | Required                      |
+| `org.dataflowanalysis.analysis.dfd`               | DFD Functionality of the Analysis                 | Required                      | 
+| `org.dataflowanalysis.analysis.tests`             | Tests of the Analysis                             | Required                      |
+| `org.dataflowanalysis.analysis.examplemodels`     | Example Models                                    | Required                      |
+| `org.dataflowanalysis.analysis.converter`         | Model Converter                                   | Needed for Model Conversion   |
+| `org.dataflowanalysis.analysis.converter.tests`   | Tests of the Model Converter                      | Needed for Model Conversion   |
+| Projects ending with `.feature`                   | Eclipse Feature Plugin                            | Do Not Import                 |
+| Projects ending with `.targetplatform`            | Eclipse Targetplatform                            | Do Not Import                 |
+| `org.dataflowanalysis.dfd.datadictionary.*`       | Data Dictionary Metamodel                         | Only imported when modifed    |
+| `org.dataflowanalysis.dfd.dataflowdiagram.*`      | Data Flow Diagram Metamodel                       | Only imported when modified   |
+| Projects eding with `.mwe2`                       | Automatic Build Scrips for Metamodels             | Do Not Import                 |
 
 
 ## 4. Testing the Setup

@@ -59,6 +59,7 @@ export default withMermaid({
           { text: "Getting Started", link: "/wiki/gettingstarted" },
           {
             text: "Tooling",
+            link: "/wiki/tooling",
             items: [
               {
                 text: "Online Editor",
@@ -95,6 +96,7 @@ export default withMermaid({
           },
           {
             text: "Knowledge",
+            link: "/wiki/knowledge",
             items: [
               { text: "Data Flow Diagrams (DFDs)", link: "/wiki/dfd/" },
               { text: "Palladio Component Model (PCM)", link: "/wiki/pcm/" },
@@ -102,6 +104,7 @@ export default withMermaid({
           },
           {
             text: "Developer Docs",
+            link: "/wiki/developer",
             items: [
               {
                 text: "Development Setup in Eclipse",

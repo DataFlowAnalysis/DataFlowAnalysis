@@ -16,6 +16,11 @@ export default withMermaid({
       { text: "Examples", link: "/examples/" },
     ],
 
+    docFooter: {
+      prev: false,
+      next: false,
+    },
+
     logo: "/dataflowanalysis-logo.png",
     siteTitle: "xDECAF 😆☕",
 

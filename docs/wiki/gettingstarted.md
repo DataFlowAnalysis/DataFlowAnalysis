@@ -6,6 +6,8 @@ The extensible data flow diagram constraint analysis framework (xDECAF) is a dat
 The Data Flow Analysis can be run fully inside a browser, no additional setup required.
 You can model your system using our online representation of [Data Flow Diagrams](/wiki/dfd/) and formulate constraints via our [DSL](/wiki/dsl/).
 
+For more information see the [Online Editor Wiki Section](/wiki/onlineeditor/)
+
 ### Running Locally
 Should you wish running the analysis locally, you need to decide which development environment you wish to use:
 

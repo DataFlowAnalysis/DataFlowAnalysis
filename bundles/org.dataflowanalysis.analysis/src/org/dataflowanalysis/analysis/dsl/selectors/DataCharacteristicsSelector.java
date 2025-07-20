@@ -85,15 +85,19 @@ public class DataCharacteristicsSelector extends DataSelector {
      * @return {@link ParseResult} containing the {@link DataCharacteristicsSelector} object
      */
     public static ParseResult<DataCharacteristicsSelector> fromString(StringView string, DSLContext context) {
+        string.skipWhitespace();
+        if (string.invalid() || string.empty()) {
+            return ParseResult.error("Cannot parse data characteristic selector from empty or invalid string!");
+        }
         logger.info("Parsing: " + string.getString());
+        int position = string.getPosition();
         boolean inverted = string.getString()
                 .startsWith(DSL_INVERTED_SYMBOL);
         if (inverted)
             string.advance(DSL_INVERTED_SYMBOL.length());
         ParseResult<CharacteristicsSelectorData> selectorData = CharacteristicsSelectorData.fromString(string);
         if (selectorData.failed()) {
-            if (inverted)
-                string.retreat(DSL_INVERTED_SYMBOL.length());
+            string.setPosition(position);
             return ParseResult.error(selectorData.getError());
         }
         string.advance(1);

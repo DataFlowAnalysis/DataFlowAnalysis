@@ -66,47 +66,49 @@ public class Intersection extends AbstractParseable implements SetOperation {
      * @return {@link ParseResult} containing the {@link Intersection} object
      */
     public static ParseResult<Intersection> fromString(StringView string) {
+        string.skipWhitespace();
+        if (string.invalid() || string.empty()) {
+            return ParseResult.error("Cannot parse intersection from empty or invalid string!");
+        }
         logger.info("Parsing: " + string.getString());
+        int position = string.getPosition();
         if (!string.startsWith(DSL_KEYWORD)) {
             return string.expect(DSL_KEYWORD);
         }
         string.advance(DSL_KEYWORD.length());
 
         if (!string.startsWith(DSL_PAREN_OPEN)) {
-            string.retreat(DSL_KEYWORD.length());
+            string.setPosition(position);
             return string.expect(DSL_PAREN_OPEN);
         }
         string.advance(DSL_PAREN_OPEN.length());
 
         ParseResult<ConstraintVariableReference> firstConstraintVariableReference = ConstraintVariableReference.fromString(string);
         if (firstConstraintVariableReference.failed()) {
-            string.retreat(DSL_KEYWORD.length() + DSL_PAREN_OPEN.length());
+            string.setPosition(position);
             return ParseResult.error(firstConstraintVariableReference.getError());
         }
 
+        if (string.invalid() || string.empty()) {
+            return ParseResult.error("Missing opening parentheses for intersection operation!");
+        }
         if (!string.startsWith(DSL_DELIMITER)) {
-            string.retreat(DSL_KEYWORD.length() + DSL_PAREN_OPEN.length() + firstConstraintVariableReference.getResult()
-                    .toString()
-                    .length());
+            string.setPosition(position);
             return string.expect(DSL_DELIMITER);
         }
         string.advance(DSL_DELIMITER.length());
 
         ParseResult<ConstraintVariableReference> secondConstraintVariableReference = ConstraintVariableReference.fromString(string);
         if (secondConstraintVariableReference.failed()) {
-            string.retreat(DSL_KEYWORD.length() + DSL_PAREN_OPEN.length() + firstConstraintVariableReference.getResult()
-                    .toString()
-                    .length() + DSL_DELIMITER.length());
+            string.setPosition(position);
             return ParseResult.error(secondConstraintVariableReference.getError());
         }
 
+        if (string.invalid() || string.empty()) {
+            return ParseResult.error("Missing closing parentheses for intersection operation!");
+        }
         if (!string.startsWith(DSL_PAREN_CLOSE)) {
-            string.retreat(DSL_KEYWORD.length() + DSL_PAREN_OPEN.length() + firstConstraintVariableReference.getResult()
-                    .toString()
-                    .length() + DSL_DELIMITER.length()
-                    + secondConstraintVariableReference.getResult()
-                            .toString()
-                            .length());
+            string.setPosition(position);
             return string.expect(DSL_PAREN_CLOSE);
         }
         string.advance(DSL_PAREN_CLOSE.length());

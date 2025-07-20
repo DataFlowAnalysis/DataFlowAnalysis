@@ -89,23 +89,29 @@ public final class CharacteristicsSelectorData extends AbstractParseable {
      * @return {@link ParseResult} containing the {@link CharacteristicsSelectorData} object
      */
     public static ParseResult<CharacteristicsSelectorData> fromString(StringView string) {
+        string.skipWhitespace();
+        if (string.invalid() || string.empty()) {
+            return ParseResult.error("Cannot parse characteristic selector data from empty or invalid string!");
+        }
         logger.info("Parsing: " + string.getString());
+        int position = string.getPosition();
         ParseResult<ConstraintVariableReference> characteristicType = ConstraintVariableReference.fromString(string);
         if (characteristicType.failed()) {
+            string.setPosition(position);
             return ParseResult.error(characteristicType.getError());
         }
+        if (string.invalid() || string.empty()) {
+            string.setPosition(position);
+            return ParseResult.error("Missing characteristic value from characteristics selector data!");
+        }
         if (!string.startsWith(DSL_SEPARATOR)) {
-            string.retreat(characteristicType.getResult()
-                    .toString()
-                    .length());
+            string.setPosition(position);
             return string.expect(DSL_SEPARATOR);
         }
         string.advance(DSL_SEPARATOR.length());
         ParseResult<ConstraintVariableReference> characteristicValue = ConstraintVariableReference.fromString(string);
         if (characteristicValue.failed()) {
-            string.retreat(AbstractParseable.DSL_SEPARATOR.length() + characteristicType.getResult()
-                    .toString()
-                    .length());
+            string.setPosition(position);
             return ParseResult.error(characteristicValue.getError());
         }
         return ParseResult.ok(new CharacteristicsSelectorData(characteristicType.getResult(), characteristicValue.getResult()));

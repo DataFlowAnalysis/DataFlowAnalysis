@@ -65,7 +65,12 @@ public class VertexTypeSelector extends VertexSelector {
      * @return {@link ParseResult} containing the {@link VertexTypeSelector} object
      */
     public static ParseResult<VertexTypeSelector> fromString(StringView string, DSLContext context) {
+        string.skipWhitespace();
+        if (string.invalid() || string.empty()) {
+            return ParseResult.error("Cannot parse vertex type selector from empty or invalid string!");
+        }
         logger.info("Parsing: " + string.getString());
+        int position = string.getPosition();
         boolean inverted = string.getString()
                 .startsWith(DSL_INVERTED_SYMBOL);
         if (context.getContextProvider()
@@ -76,6 +81,7 @@ public class VertexTypeSelector extends VertexSelector {
                 .get()
                 .vertexTypeFromString(string);
         if (vertexType.failed()) {
+            string.setPosition(position);
             return ParseResult.error(vertexType.getError());
         }
         if (inverted)

@@ -36,10 +36,6 @@ public class IFHospitalViolationResult implements DFDExampleModelResult {
                 Map.of("kauuko", List.of(new ExpectedCharacteristic("Level", "High"), new ExpectedCharacteristic("Level", "Low")))));
     }
 
-    /**
-     * new ExpectedViolation(0, new DFDIdentifier("a5ll3i"), List.of(new ExpectedCharacteristic("Zone", "Attack")),
-     * Map.of("kauuko", List.of(new ExpectedCharacteristic("Level", "High"), new ExpectedCharacteristic("Level", "Low"))))
-     */
     @Override
     public String toString() {
         return this.getModelName();

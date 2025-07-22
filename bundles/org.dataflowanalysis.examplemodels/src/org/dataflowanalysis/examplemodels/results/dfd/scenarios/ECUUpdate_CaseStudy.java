@@ -21,9 +21,7 @@ public class ECUUpdate_CaseStudy implements DFDExampleModelResult {
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
         return List.of(new ConstraintDSL().ofData()
-                .withoutLabel("Data", "Token")
-                .withoutLabel("Data", "SW")
-                .withoutLabel("Data", "UpdateInstruction")
+                .withoutLabel("Data", List.of("Token", "SW", "UpdateInstruction"))
                 .neverFlows()
                 .toVertex()
                 .withCharacteristic("Credentials", "Required")

@@ -34,8 +34,7 @@ public class VWCariad implements DFDExampleModelResult {
                         .withLabel("DataSensitivity", "non_anonymized")
                         .neverFlows()
                         .toVertex()
-                        .withCharacteristic("DataBaseType", "AWSBucket")
-                        .withCharacteristic("DataBaseType", "AzureDataLake")
+                        .withCharacteristic("DataBaseType", List.of("AWSBucket","AzureDataLake"))
                         .create(),
 
                 new ConstraintDSL().ofData()
@@ -56,8 +55,7 @@ public class VWCariad implements DFDExampleModelResult {
                         .withLabel("DataEncryption", "nonEncrypted")
                         .neverFlows()
                         .toVertex()
-                        .withCharacteristic("DataBaseType", "AWSBucket")
-                        .withCharacteristic("DataBaseType", "AzureDataLake")
+                        .withCharacteristic("DataBaseType", List.of("AWSBucket","AzureDataLake"))
                         .create(),
 
                 new ConstraintDSL().ofData()

@@ -21,9 +21,7 @@ public class Hippa_CaseStudy implements DFDExampleModelResult {
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
         return List.of(new ConstraintDSL().ofData()
-                .withLabel("DataType", "ConsentSettings")
-                .withLabel("DataType", "NewConsentSettings")
-                .withLabel("DataType", "IndexRecords")
+                .withLabel("DataType", List.of("ConsentSettings","NewConsentSettings","IndexRecords"))
                 .neverFlows()
                 .toVertex()
                 .withoutCharacteristic("Decorator", "secure")

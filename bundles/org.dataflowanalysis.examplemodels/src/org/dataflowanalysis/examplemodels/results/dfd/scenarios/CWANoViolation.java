@@ -21,22 +21,17 @@ public class CWANoViolation implements DFDExampleModelResult {
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
         return List.of(new ConstraintDSL().ofData()
-                .withLabel("Identifiers", "RPI")
-                .withLabel("Identifiers", "TEK")
+                .withLabel("Identifiers", List.of("RPI","TEK"))
                 .neverFlows()
                 .toVertex()
-                .withCharacteristic("Server", "CWApp")
+                .withCharacteristic("Server", List.of("CWApp","CWAppServer"))
                 .create(),
 
                 new ConstraintDSL().ofData()
                         .withLabel("Identifiers", "PersonalData")
                         .neverFlows()
                         .toVertex()
-                        .withCharacteristic("Server", "CWApp")
-                        .withCharacteristic("Server", "VerificationServer")
-                        .withCharacteristic("Server", "TestResultServer")
-                        .withCharacteristic("Server", "DDServer")
-                        .withCharacteristic("Server", "CWAppServer")
+                        .withCharacteristic("Server", List.of("CWApp","VerificationServer","TestResultServer","DDServer","CWAppServer"))
                         .create());
     }
 

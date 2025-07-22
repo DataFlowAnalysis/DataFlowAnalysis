@@ -3,8 +3,8 @@
         "canvasBounds": {
             "x": 0,
             "y": 0,
-            "width": 1440,
-            "height": 765
+            "width": 1920,
+            "height": 945
         },
         "scroll": {
             "x": 0,
@@ -6555,9 +6555,9 @@
                 "hideLabels": false,
                 "minimumWidth": 50,
                 "annotation": {
-                    "message": "PropagatedLabels:\nTestResults.PCR_test_results_positive\nTokens.teleTAN\nTokens.TAN\nIdentifiers.PersonalData\nTestResults.RAT_test_results\n\nConstraint 0 violated",
-                    "icon": "bolt",
-                    "color": "#2C18C3"
+                    "message": "PropagatedLabels:\nTestResults.PCR_test_results_positive\nTokens.teleTAN\nTokens.TAN\nIdentifiers.PersonalData\nTestResults.RAT_test_results\n",
+                    "icon": "tag",
+                    "color": "#FFFFFF"
                 },
                 "features": {},
                 "id": "oz1nrf",
@@ -6813,15 +6813,11 @@
             "constraint": "data Identifiers.RPI,Identifiers.TEK neverFlows vertex Server.CWApp,Server.CWAppServer"
         },
         {
-            "id": "l8iznj",
-            "name": "Personal_Data_verification",
-            "constraint": "data Identifiers.PersonalData neverFlows vertex Server.VerificationServer"
-        },
-        {
             "id": "3mtd8",
             "name": "Personal_Data",
             "constraint": "data Identifiers.PersonalData neverFlows vertex Server.CWApp,Server.VerificationServer,Server.TestResultServer,Server.DDServer,Server.CWAppServer"
         }
     ],
-    "mode": "edit"
+    "mode": "edit",
+    "version": 1
 }

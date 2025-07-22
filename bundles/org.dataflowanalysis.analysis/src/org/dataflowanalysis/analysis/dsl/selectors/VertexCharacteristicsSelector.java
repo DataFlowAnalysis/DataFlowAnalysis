@@ -7,6 +7,7 @@ import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariable;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
@@ -44,7 +45,30 @@ public class VertexCharacteristicsSelector extends VertexSelector {
                 .stream()
                 .map(DataCharacteristic::variableName)
                 .toList();
-        boolean result = !variableNames.isEmpty();
+        List<Boolean> results = new ArrayList<>();
+        if (variableNames.isEmpty()) {
+            List<CharacteristicValue> presentCharacteristics = vertex.getAllVertexCharacteristics();
+            List<String> characteristicTypes = new ArrayList<>();
+            List<String> characteristicValues = new ArrayList<>();
+            List<Boolean> matches = presentCharacteristics.stream()
+                    .map(it -> this.vertexCharacteristics.matchesCharacteristic(context, vertex, it, ConstraintVariable.CONSTANT_NAME,
+                            characteristicTypes, characteristicValues))
+                    .toList();
+            results.add(this.inverted ? matches.stream()
+                    .noneMatch(it -> it)
+                    : matches.stream()
+                            .anyMatch(it -> it));
+            boolean result = this.inverted ? results.stream()
+                    .allMatch(it -> it)
+                    : results.stream()
+                            .anyMatch(it -> it);
+            if (this.recursive) {
+                return result || vertex.getPreviousElements()
+                        .stream()
+                        .anyMatch(this::matches);
+            }
+            return result;
+        }
         for (String variableName : variableNames) {
             List<CharacteristicValue> presentCharacteristics = vertex.getAllVertexCharacteristics();
             List<String> characteristicTypes = new ArrayList<>();
@@ -54,13 +78,15 @@ public class VertexCharacteristicsSelector extends VertexSelector {
                             characteristicValues))
                     .toList();
             this.vertexCharacteristics.applyResults(context, vertex, variableName, characteristicTypes, characteristicValues);
-            if (result) {
-                result = this.inverted ? matches.stream()
-                        .noneMatch(it -> it)
-                        : matches.stream()
-                                .anyMatch(it -> it);
-            }
+            results.add(this.inverted ? matches.stream()
+                    .noneMatch(it -> it)
+                    : matches.stream()
+                            .anyMatch(it -> it));
         }
+        boolean result = this.inverted ? results.stream()
+                .allMatch(it -> it)
+                : results.stream()
+                        .anyMatch(it -> it);
         if (this.recursive) {
             return result || vertex.getPreviousElements()
                     .stream()

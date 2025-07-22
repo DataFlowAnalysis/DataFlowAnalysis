@@ -54,7 +54,7 @@ public class ParseResult<T> {
      */
     public T getResult() {
         if (this.result.isEmpty())
-            throw new NoSuchElementException();
+            throw new NoSuchElementException(this.error.orElseThrow());
         return result.get();
     }
 

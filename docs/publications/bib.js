@@ -3,7 +3,7 @@ export const bib = `
 	title = {Architectural Data Flow Analysis},
 	url = {http://ieeexplore.ieee.org/document/7516842/},
 	doi = {10.1109/WICSA.2016.49},
-	booktitle = {2016 13th Working {IEEE}/{IFIP} Conference on Software Architecture ({WICSA})},
+	booktitle = {Working {IEEE}/{IFIP} Conference on Software Architecture ({WICSA})},
 	publisher = {{IEEE}},
 	author = {Seifermann, Stephan},
 	date = {2016},
@@ -14,7 +14,7 @@ export const bib = `
 	title = {Data-Driven Software Architecture for Analyzing Confidentiality},
 	url = {https://ieeexplore.ieee.org/document/8703910/},
 	doi = {10.1109/ICSA.2019.00009},
-	booktitle = {2019 {IEEE} International Conference on Software Architecture ({ICSA})},
+	booktitle = {International Conference on Software Architecture ({ICSA})},
 	publisher = {{IEEE}},
 	author = {Seifermann, Stephan and Heinrich, Robert and Reussner, Ralf},
 	date = {2019},
@@ -25,7 +25,7 @@ export const bib = `
 	title = {Modeling Data Flow Constraints for Design-Time Confidentiality Analyses},
 	url = {https://sebastianhahner.de/publications/2021/Hahner2021_ModelingDataFlowConstraintsForDesignTimeConfidentialityAnalyses.pdf},
 	doi = {10.1109/ICSA-C52384.2021.00009},
-	booktitle = {2021 {IEEE} 18th International Conference on Software Architecture Companion ({ICSA}-C)},
+	booktitle = {International Conference on Software Architecture Companion ({ICSA}-C)},
 	publisher = {{IEEE}},
 	author = {Hahner, Sebastian and Seifermann, Stephan and Heinrich, Robert and Walter, Maximilian and Bureš, Tomáš and Hnětynka, Petr},
 	date = {2021},
@@ -36,7 +36,7 @@ export const bib = `
 	title = {A Unified Model to Detect Information Flow and Access Control Violations in Software Architectures},
 	url = {https://www.scitepress.org/DigitalLibrary/Link.aspx?doi=10.5220/0010515300260037},
 	doi = {10.5220/0010515300260037},
-	booktitle = {Proceedings of the 18th International Conference on Security and Cryptography},
+	booktitle = {International Conference on Security and Cryptography},
 	publisher = {{SCITEPRESS}},
 	author = {Seifermann, Stephan and Heinrich, Robert and Werle, Dominik and Reussner, Ralf},
 	date = {2021},
@@ -58,7 +58,7 @@ export const bib = `
 	title = {Handling Environmental Uncertainty in Design Time Access Control Analysis},
 	doi = {10.1109/SEAA56994.2022.00067},
 	url = {https://sebastianhahner.de/publications/2022/Boltz2022_HandlingEnvironmentalUncertaintyInDesignTimeAccessControlAnalysis.pdf},
-	booktitle = {2022 48th Euromicro Conference on Software Engineering and Advanced Applications ({SEAA})},
+	booktitle = {Conference on Software Engineering and Advanced Applications ({SEAA})},
 	publisher = {{IEEE}},
 	author = {Boltz, Nicolas and Hahner, Sebastian and Walter, Maximilian and Seifermann, Stephan and Heinrich, Robert and Bures, Tomas and Hnetynka, Petr},
 	date = {2022},
@@ -91,7 +91,7 @@ export const bib = `
 	title = {Architecture-Based Uncertainty Impact Analysis to Ensure Confidentiality},
 	doi = {10.1109/SEAMS59076.2023.00026},
 	url = {https://sebastianhahner.de/publications/2023/Hahner2023_ArchitectureBasedUncertaintyImpactAnalysisToEnsureConfidentiality.pdf},
-	booktitle = {2023 {IEEE}/{ACM} 18th Symposium on Software Engineering for Adaptive and Self-Managing Systems ({SEAMS})},
+	booktitle = {Symposium on Software Engineering for Adaptive and Self-Managing Systems ({SEAMS})},
 	publisher = {{IEEE}/{ACM}},
 	author = {Hahner, Sebastian and Heinrich, Robert and Reussner, Ralf},
 	date = {2023},
@@ -102,7 +102,7 @@ export const bib = `
 	title = {Model-based Confidentiality Analysis under Uncertainty},
 	doi = {10.1109/ICSA-C57050.2023.00062},
 	url = {https://sebastianhahner.de/publications/2023/Hahner2023_ModelBasedConfidentialityAnalysisUnderUncertainty.pdf},
-	booktitle = {2023 {IEEE} 20th International Conference on Software Architecture Companion ({ICSA}-C)},
+	booktitle = {International Conference on Software Architecture Companion ({ICSA}-C)},
 	publisher = {{IEEE}},
 	author = {Hahner, Sebastian and Bitschi, Tizian and Walter, Maximilian and Bureš, Tomáš and Hnětynka, Petr and Heinrich, Robert},
 	date = {2023},
@@ -138,7 +138,7 @@ export const bib = `
 	publisher = {Springer},
 	author = {Boltz, Nicolas and Schmid, Larissa and Taghavi, Bahareh and Gerking, Christopher and Heinrich, Robert},
 	date = {2024},
-	tag = {mdpa}
+	tag = {xdecaf}
 }
 
 @inproceedings{boltz_extensible_2024,
@@ -163,18 +163,16 @@ export const bib = `
 	tag = {abunai},
 }
 
-
 @inproceedings{hahner_arcn_2024,
 	title = {{ARC}³N: A Collaborative Uncertainty Catalog to Address the Awareness Problem of Model-Based Confidentiality Analysis},
 	url = {https://sebastianhahner.de/publications/2024/Hahner2024_ARC3NACollaborativeUncertaintyCatalogToAddressTheAwarenessProblemOfModelBasedConfidentialityAnalysis.pdf},
 	doi = {10.1145/3652620.3688556},
-	booktitle = {{ACM}/{IEEE} 27th International Conference on Model Driven Engineering Languages and Systems ({MODELS} Companion '24)},
+	booktitle = {International Conference on Model Driven Engineering Languages and Systems ({MODELS} Companion)},
 	publisher = {{ACM/IEEE}},
 	author = {Hahner, Sebastian and Niehues, Nils and Boltz, Nicolas and Fuksa, Mario and Heinrich, Robert},
 	date = {2024},
 	tag = {abunai}
 }
-
 
 @inproceedings{niehues_integrating_2024,
 	title = {Integrating Security-Enriched Data Flow Diagrams Into Architecture-Based Confidentiality Analysis},
@@ -210,10 +208,23 @@ export const bib = `
 	title = {An Architecture-Based Approach to Mitigate Confidentiality Violations Using Machine Learning},
 	url = {https://sebastianhahner.de/publications/2025/Niehues2025_AnArchitectureBasedApproachToMitigateConfidentialityViolationsUsingMachineLearning.pdf},
 	doi = {10.1109/ICSA65012.2025.00020},
-	booktitle = {2025 {IEEE} 22nd International Conference on Software Architecture ({ICSA})},
+	booktitle = {International Conference on Software Architecture ({ICSA})},
 	publisher = {{IEEE}},
 	author = {Niehues, Nils and Hahner, Sebastian and Heinrich, Robert},
 	date = {2025},
 	tag = {arcovia}
 }
+
+@article{reiche_coupling_2025,
+	title={Detecting Information Flow Security Vulnerabilities by Analysis Coupling},
+	url={https://ieeexplore.ieee.org/document/11082015},
+	doi={10.1109/TSE.2025.3589647},
+	journaltitle={Transactions on Software Engineering}, 
+	publisher={{IEEE}},
+	author={Reiche, Frederik and Reussner, Ralf and Heinrich, Robert},
+	date={2025},
+	pages={1-33},
+	tag = {xdecaf}
+}
+
 `;

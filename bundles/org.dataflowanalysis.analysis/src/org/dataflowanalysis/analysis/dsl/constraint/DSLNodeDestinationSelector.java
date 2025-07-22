@@ -1,12 +1,11 @@
 package org.dataflowanalysis.analysis.dsl.constraint;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
-import org.dataflowanalysis.analysis.dsl.selectors.CharacteristicsSelectorData;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexPredicateSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.*;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
 
 /**
@@ -57,9 +56,11 @@ public class DSLNodeDestinationSelector {
      * @return DSL node selector to add more constraints
      */
     public DSLNodeDestinationSelector withCharacteristic(String characteristicType, List<String> characteristicValues) {
-        characteristicValues.forEach(characteristicValue -> this.analysisConstraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(
-                analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
-                        ConstraintVariableReference.ofConstant(List.of(characteristicValue))))));
+        List<CharacteristicsSelectorData> data = new ArrayList<>();
+        characteristicValues
+                .forEach(it -> data.add(new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
+                        ConstraintVariableReference.ofConstant(List.of(it)))));
+        this.analysisConstraint.addNodeDestinationSelector(new VertexCharacteristicsListSelector(analysisConstraint.getContext(), data));
         return this;
     }
 
@@ -86,10 +87,11 @@ public class DSLNodeDestinationSelector {
      * @return DSL node selector to add more constraints
      */
     public DSLNodeDestinationSelector withoutCharacteristic(String characteristicType, List<String> characteristicValues) {
-        characteristicValues.forEach(characteristicValue -> this.analysisConstraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(
-                analysisConstraint.getContext(), new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
-                        ConstraintVariableReference.ofConstant(List.of(characteristicValue))),
-                true)));
+        List<CharacteristicsSelectorData> data = new ArrayList<>();
+        characteristicValues
+                .forEach(it -> data.add(new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
+                        ConstraintVariableReference.ofConstant(List.of(it)))));
+        this.analysisConstraint.addNodeDestinationSelector(new VertexCharacteristicsListSelector(analysisConstraint.getContext(), data, true));
         return this;
     }
 

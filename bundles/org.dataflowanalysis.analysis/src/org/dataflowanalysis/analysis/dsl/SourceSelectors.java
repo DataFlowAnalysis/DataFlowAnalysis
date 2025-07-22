@@ -29,6 +29,11 @@ public final class SourceSelectors extends AbstractParseable {
         this.vertexSourceSelectors = Optional.of(vertexSourceSelectors);
     }
 
+    public SourceSelectors() {
+        this.dataSourceSelectors = Optional.empty();
+        this.vertexSourceSelectors = Optional.empty();
+    }
+
     public Optional<DataSourceSelectors> getDataSourceSelectors() {
         return dataSourceSelectors;
     }
@@ -55,7 +60,7 @@ public final class SourceSelectors extends AbstractParseable {
         } else if (nodeSourceSelector.successful()) {
             return ParseResult.ok(new SourceSelectors(nodeSourceSelector.getResult()));
         } else {
-            return ParseResult.error("Could not parse source selectors");
+            return ParseResult.ok(new SourceSelectors());
         }
     }
 

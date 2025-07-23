@@ -21,7 +21,7 @@ public class ComponentTesting_CaseStudy implements DFDExampleModelResult {
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
         return List.of(new ConstraintDSL().ofData()
-                .withoutLabel("Data", List.of("AccessToken","Request"))
+                .withoutLabel("Data", List.of("AccessToken", "Request"))
                 .neverFlows()
                 .toVertex()
                 .withCharacteristic("Credentials", "Required")

@@ -21,7 +21,8 @@ public class CMA_CaseStudy implements DFDExampleModelResult {
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
         return List.of(new ConstraintDSL().ofData()
-                .withLabel("DataType", List.of("AcceptedPaper","ConsentSettings","ReviewedPaper","CandidateReviewers","Manuscript","NewConsents","Purpose"))
+                .withLabel("DataType",
+                        List.of("AcceptedPaper", "ConsentSettings", "ReviewedPaper", "CandidateReviewers", "Manuscript", "NewConsents", "Purpose"))
                 .neverFlows()
                 .toVertex()
                 .withoutCharacteristic("Decorator", "secure")
@@ -38,7 +39,7 @@ public class CMA_CaseStudy implements DFDExampleModelResult {
                         .withLabel("DataType", "AcceptedPaper")
                         .neverFlows()
                         .toVertex()
-                        .withoutCharacteristic("ConsentedPurposes", List.of("ViewPaper","RecommendPapers"))
+                        .withoutCharacteristic("ConsentedPurposes", List.of("ViewPaper", "RecommendPapers"))
                         .create());
     }
 

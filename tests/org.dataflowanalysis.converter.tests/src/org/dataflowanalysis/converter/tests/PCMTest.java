@@ -197,7 +197,7 @@ public class PCMTest extends ConverterTest {
         var complete = new PCM2DFDConverter().convert(pcmConverterModel);
 
         var dfd2WebConverter = new DFD2WebConverter();
-        dfd2WebConverter.setConditions(constraints);
+        dfd2WebConverter.setConstraints(constraints);
         dfd2WebConverter.setTransposeFlowGraphFinder(DFDSimpleTransposeFlowGraphFinder.class);
         var web = dfd2WebConverter.convert(complete);
         web.save(".", webTarget);

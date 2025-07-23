@@ -132,7 +132,7 @@ public class AnnotationsTest {
                 .add(label);
 
         Map<String, List<Annotation>> nodeNameToAnnotationMap = new HashMap<>();
-        dfd2WebConverter.setConditions(List.of(constraint));
+        dfd2WebConverter.setConstraints(List.of(constraint));
         var webDfd = dfd2WebConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
         webDfd.getModel()
                 .model()

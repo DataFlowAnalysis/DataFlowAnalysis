@@ -70,10 +70,10 @@ public class DFD2WebConverter extends Converter {
     }
 
     /**
-     * Sets the conditions, when a vertex should receive an annotation
-     * @param conditions Conditions that determine whether a vertex receives an annotation
+     * Sets the constraints, when a vertex should receive an annotation
+     * @param constraints constraints that determine whether a vertex receives an annotation
      */
-    public void setConditions(List<AnalysisConstraint> constraints) {
+    public void setConstraints(List<AnalysisConstraint> constraints) {
         this.constraints = Optional.ofNullable(constraints);
     }
 
@@ -96,11 +96,11 @@ public class DFD2WebConverter extends Converter {
     /**
      * Creates the node annotations by analyzing the DFD
      * @param complete DFD / DD combination
-     * @param conditions List of constraints (optional)
+     * @param constraints List of constraints (optional)
      * @param finderClass Custom TFG Finder (optional)
      * @return Returns the annotations that should be added to nodes in the data flow diagram
      */
-    private Map<Node, List<Annotation>> createNodeAnnotationMap(DataFlowDiagramAndDictionary complete, List<AnalysisConstraint> conditions,
+    private Map<Node, List<Annotation>> createNodeAnnotationMap(DataFlowDiagramAndDictionary complete, List<AnalysisConstraint> constraints,
             Class<? extends TransposeFlowGraphFinder> finderClass) {
         var collection = getTransposeFlowGraphs(complete, finderClass).stream()
                 .map(AbstractTransposeFlowGraph::evaluate)
@@ -119,20 +119,20 @@ public class DFD2WebConverter extends Converter {
                             .addAll(createLabelAnnotationsForOneVertex((AbstractVertex<Node>) vertex, tfg.hashCode()));
                 }));
 
-        if (conditions == null)
+        if (constraints == null)
             return mapNodeToAnnotations;
 
-        conditions.forEach(condition -> {
-            condition.findViolations(new DFDFlowGraphCollection(null, collection))
+        constraints.forEach(constraint -> {
+            constraint.findViolations(new DFDFlowGraphCollection(null, collection))
                     .forEach(violation -> {
                         violation.getMatchedVertices()
                                 .stream()
                                 .forEach(it -> {
                                     var node = (Node) it.getReferencedElement();
                                     mapNodeToAnnotations.putIfAbsent(node, new ArrayList<>());
-                                    String message = "Constraint " + condition.getName() + " violated";
+                                    String message = "Constraint " + constraint.getName() + " violated";
                                     mapNodeToAnnotations.get(node)
-                                            .add(new Annotation(message, "bolt", stringToColorHex(condition.getName()),
+                                            .add(new Annotation(message, "bolt", stringToColorHex(constraint.getName()),
                                                     violation.getTransposeFlowGraph()
                                                             .hashCode()));
                                 });

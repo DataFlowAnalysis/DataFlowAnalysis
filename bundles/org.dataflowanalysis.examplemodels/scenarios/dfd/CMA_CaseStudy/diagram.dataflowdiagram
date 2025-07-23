@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://dataflowanalysis.org/dfd/dataflowdiagram" id="_hkijIGDAEfCJkoMBjFpfFw">
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://dataflowanalysis.org/dfd/dataflowdiagram" id="_ABjLgGeNEfCJkoMBjFpfFw">
   <flows id="9v4lgx" entityName="papers" sourceNode="4wr50n" destinationNode="p43b24">
     <destinationPin href="diagram.datadictionary#uimkzc"/>
     <sourcePin href="diagram.datadictionary#cbmok5"/>
@@ -149,133 +149,131 @@
     <sourcePin href="diagram.datadictionary#hrm8zx"/>
   </flows>
   <nodes xsi:type="dataflowdiagram:Process" id="i6s7ml" entityName="search papers">
-    <behavior href="diagram.datadictionary#_hkijQ2DAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjLo2eNEfCJkoMBjFpfFw"/>
     <properties href="diagram.datadictionary#duqgcm"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="f11bd" entityName="submit manuscript">
-    <behavior href="diagram.datadictionary#_hkijRmDAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjLpmeNEfCJkoMBjFpfFw"/>
     <properties href="diagram.datadictionary#gai14g"/>
     <properties href="diagram.datadictionary#duqgcm"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="p43b24" entityName="recommend_papers">
-    <behavior href="diagram.datadictionary#_hkijSWDAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjLqWeNEfCJkoMBjFpfFw"/>
     <properties href="diagram.datadictionary#o6rsynb"/>
     <properties href="diagram.datadictionary#lzsn5"/>
     <properties href="diagram.datadictionary#d1ob2e"/>
     <properties href="diagram.datadictionary#duqgcm"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="wnq4ko" entityName="save to DB">
-    <behavior href="diagram.datadictionary#_hkijTWDAEfCJkoMBjFpfFw"/>
-    <properties href="diagram.datadictionary#o6rsynb"/>
+    <behavior href="diagram.datadictionary#_ABjLrWeNEfCJkoMBjFpfFw"/>
     <properties href="diagram.datadictionary#n162a6"/>
     <properties href="diagram.datadictionary#lzsn5"/>
     <properties href="diagram.datadictionary#d1ob2e"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="84abtg" entityName="retrieve manuscripts">
-    <behavior href="diagram.datadictionary#_hkijVGDAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjLtGeNEfCJkoMBjFpfFw"/>
     <properties href="diagram.datadictionary#1ph77"/>
     <properties href="diagram.datadictionary#lzsn5"/>
     <properties href="diagram.datadictionary#d1ob2e"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="f7xum" entityName="show candidate reviewers">
-    <behavior href="diagram.datadictionary#_hkijWGDAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjLuGeNEfCJkoMBjFpfFw"/>
     <properties href="diagram.datadictionary#1ph77"/>
     <properties href="diagram.datadictionary#d1ob2e"/>
     <properties href="diagram.datadictionary#fgwi6g"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Store" id="qe21zb" entityName="SQLite DB">
-    <behavior href="diagram.datadictionary#_hkijXGDAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjLvGeNEfCJkoMBjFpfFw"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="44qv9g" entityName="after_register_hook">
-    <behavior href="diagram.datadictionary#_hkijZmDAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjLxmeNEfCJkoMBjFpfFw"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="wth1dr" entityName="User">
-    <behavior href="diagram.datadictionary#_hkijamDAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjLymeNEfCJkoMBjFpfFw"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="atnzih" entityName="flask app">
-    <behavior href="diagram.datadictionary#_hkijbWDAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjLzWeNEfCJkoMBjFpfFw"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="iwd3kz" entityName="register flask">
-    <behavior href="diagram.datadictionary#_hkijcmDAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjL0meNEfCJkoMBjFpfFw"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="84z0zk" entityName="login flask">
-    <behavior href="diagram.datadictionary#_hkijdmDAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjL1meNEfCJkoMBjFpfFw"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="l4jf7mv" entityName="check_credentials">
-    <behavior href="diagram.datadictionary#_hkijemDAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjL2meNEfCJkoMBjFpfFw"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="v5lh5" entityName="remove_consents">
-    <behavior href="diagram.datadictionary#_hkijfmDAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjL3meNEfCJkoMBjFpfFw"/>
     <properties href="diagram.datadictionary#lzsn5"/>
     <properties href="diagram.datadictionary#d1ob2e"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="f1l2j" entityName="review_papers">
-    <behavior href="diagram.datadictionary#_hkijgmDAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjL4meNEfCJkoMBjFpfFw"/>
     <properties href="diagram.datadictionary#d1ob2e"/>
     <properties href="diagram.datadictionary#fgwi6g"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="qt0v6" entityName="assign reviewer">
-    <behavior href="diagram.datadictionary#_hkijhmDAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjL5meNEfCJkoMBjFpfFw"/>
     <properties href="diagram.datadictionary#1ph77"/>
     <properties href="diagram.datadictionary#lzsn5"/>
     <properties href="diagram.datadictionary#d1ob2e"/>
     <properties href="diagram.datadictionary#fgwi6g"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="5pqzqn" entityName="add consents">
-    <behavior href="diagram.datadictionary#_hkijimDAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjL6meNEfCJkoMBjFpfFw"/>
     <properties href="diagram.datadictionary#lzsn5"/>
     <properties href="diagram.datadictionary#d1ob2e"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:External" id="zbaxo" entityName="privacy-template">
-    <behavior href="diagram.datadictionary#_hkijjmDAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjL7meNEfCJkoMBjFpfFw"/>
     <properties href="diagram.datadictionary#d1ob2e"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="hvjizi" entityName="policy">
-    <behavior href="diagram.datadictionary#_hkijkWDAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjL8WeNEfCJkoMBjFpfFw"/>
     <properties href="diagram.datadictionary#lzsn5"/>
     <properties href="diagram.datadictionary#d1ob2e"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="gj2eoj" entityName="calculate conflicts">
-    <behavior href="diagram.datadictionary#_hkijlWDAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjL9WeNEfCJkoMBjFpfFw"/>
     <properties href="diagram.datadictionary#1ph77"/>
     <properties href="diagram.datadictionary#d1ob2e"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:External" id="06fjvh" entityName="current_user">
-    <behavior href="diagram.datadictionary#_hkijmWDAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjL-WeNEfCJkoMBjFpfFw"/>
     <properties href="diagram.datadictionary#1ph77"/>
     <properties href="diagram.datadictionary#o6rsynb"/>
-    <properties href="diagram.datadictionary#n162a6"/>
     <properties href="diagram.datadictionary#d1ob2e"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="i43djp" entityName="retrieve recent papers">
-    <behavior href="diagram.datadictionary#_hkijp2DAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjykmeNEfCJkoMBjFpfFw"/>
     <properties href="diagram.datadictionary#o6rsynb"/>
     <properties href="diagram.datadictionary#lzsn5"/>
     <properties href="diagram.datadictionary#d1ob2e"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="4wr50n" entityName="calculate recommendations">
-    <behavior href="diagram.datadictionary#_hkijq2DAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjylmeNEfCJkoMBjFpfFw"/>
     <properties href="diagram.datadictionary#o6rsynb"/>
     <properties href="diagram.datadictionary#d1ob2e"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="0jo5m" entityName="accept paper">
-    <behavior href="diagram.datadictionary#_hkijr2DAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjymmeNEfCJkoMBjFpfFw"/>
     <properties href="diagram.datadictionary#d1ob2e"/>
     <properties href="diagram.datadictionary#x4b2t4"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Process" id="18eazv" entityName="view paper">
-    <behavior href="diagram.datadictionary#_hkijs2DAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjynmeNEfCJkoMBjFpfFw"/>
     <properties href="diagram.datadictionary#n162a6"/>
     <properties href="diagram.datadictionary#d1ob2e"/>
     <properties href="diagram.datadictionary#duqgcm"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:External" id="9ezjdm" entityName="view-paper-template">
-    <behavior href="diagram.datadictionary#_hkijt2DAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjyomeNEfCJkoMBjFpfFw"/>
     <properties href="diagram.datadictionary#n162a6"/>
     <properties href="diagram.datadictionary#d1ob2e"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:External" id="s54fh" entityName="recommend-papers-template">
-    <behavior href="diagram.datadictionary#_hkijumDAEfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_ABjypWeNEfCJkoMBjFpfFw"/>
     <properties href="diagram.datadictionary#o6rsynb"/>
     <properties href="diagram.datadictionary#d1ob2e"/>
   </nodes>

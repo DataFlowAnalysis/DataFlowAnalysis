@@ -38,7 +38,7 @@ public class CMA_CaseStudy implements DFDExampleModelResult {
                         .withLabel("DataType", "AcceptedPaper")
                         .neverFlows()
                         .toVertex()
-                        .withoutCharacteristic("ConsentedPurposes", List.of("RecommendPapers", "ViewPaper"))
+                        .withoutCharacteristic("ConsentedPurposes", List.of("ViewPaper","RecommendPapers"))
                         .create());
     }
 

@@ -97,7 +97,7 @@ TODO: What is currently true?
 - Cycles cannot be the end of a data flow though the system
 - Cycles cannot be the begining of a data flow though the system 
 
-Asume we have the following simplified [Data Flow Diagram](/docs/wiki/dfd/):
+Asume we have the following simplified [Data Flow Diagram](/wiki/dfd/):
 ```mermaid
 graph LR;
 A-->B;

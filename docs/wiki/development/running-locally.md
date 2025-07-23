@@ -1,7 +1,7 @@
 # Running the Analysis Locally using our Java API
 ## Initializing the Analysis
 To use the analysis one needs to use the corresponding Analysis Builder required to run the analysis:
-In the instance of [DFD Models](/wiki/dfd) one should use the `DFDDataFlowAnalysisBuilder` class and for [PCM Models](/wiki/pcm) the `PCMDataFlowConfidentialityAnalysisBuilder`.
+In the instance of [DFD Models](/wiki/dfd/) one should use the `DFDDataFlowAnalysisBuilder` class and for [PCM Models](/wiki/pcm/) the `PCMDataFlowConfidentialityAnalysisBuilder`.
 
 Then, one needs to define paths to the corresponding models within a eclipse modeling project.
 An example for a eclipse modeling project is the example models bundle at `bundles/org.dataflowanalysis.analysis.examplemodels`

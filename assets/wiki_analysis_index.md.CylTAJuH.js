@@ -1,0 +1,1 @@
+import{_ as e,c as a,o as t}from"./chunks/framework.DDIT__tB.js";const l=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"wiki/analysis/index.md","filePath":"wiki/analysis/index.md"}'),i={name:"wiki/analysis/index.md"};function n(s,r,o,c,d,p){return t(),a("div")}const m=e(i,[["render",n]]);export{l as __pageData,m as default};

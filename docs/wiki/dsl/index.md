@@ -103,7 +103,7 @@ vertex type PROCESSING
 
 
 ## Conditional Selectors
-Conditional selectors use the values of [Variables](/docs/wiki/dsl#variables) to create additional constraints for nodes to fulfil:
+Conditional selectors use the values of [Variables](/wiki/dsl/index#variables) to create additional constraints for nodes to fulfil:
 The constraints can check whether variables are present and whether the intersection of variable values is empty 
 
 ### Present Selector
@@ -141,7 +141,7 @@ present $GrantedRoles present $AllowedRoles
 
 ## Variables
 A variable describes a variable component in selecting nodes and can be used to compare values within one selector or between them.
-They are used in conjuction with [Conditional Selectors](/docs/wiki/dsl#conditional-selectors).
+They are used in conjuction with [Conditional Selectors](/wiki/dsl/index#conditional-selectors).
 
 A variable may be defined using the `$` (Dollar) sign.
 ::: tip Example 
@@ -151,7 +151,7 @@ $foo
 ```
 :::
 
-A variable may be used in place of a label or label type in any [Source Selector](/docs/wiki/dsl#source) or [Destination Selector](/docs/wiki/dsl#destination).
+A variable may be used in place of a label or label type in any [Source Selector](/wiki/dsl/index#source) or [Destination Selector](/wiki/dsl/index#destination).
 ::: tip Example 
 This example assumes the Location of a node is modelled using a label type `Location` with labels `EU` and `nonEU`, applied to each node as a node label.
 If one wants to create a variable "Location" containing the Location of a node, one can write the following:

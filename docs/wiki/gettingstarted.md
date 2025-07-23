@@ -13,7 +13,7 @@ Should you wish running the analysis locally, you need to decide which developme
 
 #### Eclipse 
 Using our analysis is easy using the provided eclipse product from the [Downloads Page](/download/#eclipse-product-recommended)
-After that you can follow the [Eclipse Setup Guide](/wiki/edevelopment/eclipse)
+After that you can follow the [Eclipse Setup Guide](/wiki/development/eclipse)
 
 #### IntelliJ
 Our analysis can be used inside of IntelliJ as well, albeit with some more required setup.

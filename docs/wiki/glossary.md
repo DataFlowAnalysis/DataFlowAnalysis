@@ -27,21 +27,21 @@ For more information see: [Data Flow Diagram](/wiki/dfd/index#data-dictionary)
 
 ## Source Selector
 A component of the [Analysis Constraint DSL](/wiki/dsl/) that describes properties that a [Node](/wiki/glossary#node) or [Data Flow](/wiki/glossary#data-flow) needs to have to be matched by the constraint
-For more information see: [Source Selector](/wiki/dsl#source)
+For more information see: [Source Selector](/wiki/dsl/index#source)
 
 ## Destination Selector
 A component of the [Analysis Constraint DSL](/wiki/dsl/) that describes properties that a [Node](/wiki/glossary#node) or [Data Flow](/wiki/glossary#data-flow) need to have to be matched by the constraint.
-For more information see: [Destination Selector](/wiki/dsl#destination)
+For more information see: [Destination Selector](/wiki/dsl/index#destination)
 
 ## Conditional Selector
-A component of the [Analysis Constraint DSL](/wiki/dsl/) that matches [Nodes](/wiki/glossary#node) based on [DSL Variables](/wiki/dsl#variables).
-For more information on variables see: [DSL Variables](/wiki/dsl#variables).
-For more information on conditional selectors see: [Conditional Selectors](/wiki/dsl#conditional)
+A component of the [Analysis Constraint DSL](/wiki/dsl/) that matches [Nodes](/wiki/glossary#node) based on [DSL Variables](/wiki/dsl/index#variables).
+For more information on variables see: [DSL Variables](/wiki/dsl/index#variables).
+For more information on conditional selectors see: [Conditional Selectors](/wiki/dsl/index#conditional)
 
 ## Vertex
 A vertex describes an element of a [Transpose Flow Graph](/wiki/glossary#transpose-flow-graph) that corresponds to exactly one element in the model.
-Data may flow into and out of the vertex, their properties available as [Data Label](/docs/glossary#data-label).
-Additionally properties of the vertex are available as [Vertex Label](/docs/glossary#node-label).
+Data may flow into and out of the vertex, their properties available as [Data Label](/wiki/glossary#data-label).
+Additionally properties of the vertex are available as [Vertex Label](/wiki/glossary#node-label).
 For more information see: [Data Flow Analysis](/wiki/analysis/).
 
 Not to be confused with a [Node](/wiki/glossary#node) that is an element of a [Data Flow Diagram](/wiki/dfd#data-flow-diagram)

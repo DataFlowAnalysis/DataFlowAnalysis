@@ -6,7 +6,7 @@ You should place this folder into a location where it will not be moved, for exa
 ## 2. Creating a New Project
 First, create a new **empty** IntelliJ project that should contain the project files. 
 The selected file location must not necessarily correspond to the location where you cloned the projects to.
-![Creating an empty project](img/setup/intellij-empty-project.png)
+![Creating an empty project](/img/setup/intellij-empty-project.png)
 
 After you created an empty project, the editor will open up.
 As our project uses Java 17, set the language level of the project to Java 17.

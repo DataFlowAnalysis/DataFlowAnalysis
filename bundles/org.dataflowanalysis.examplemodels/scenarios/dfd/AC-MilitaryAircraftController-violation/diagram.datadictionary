@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_G0NqkVZUEfCRrfw2FPYOHw">
+  <labelTypes id="sr09hg" entityName="ClearanceLevel">
+    <label id="kwi7kk" entityName="Secret"/>
+    <label id="4z4p6g" entityName="Classified"/>
+    <label id="hqlq7x" entityName="Unclassified"/>
+  </labelTypes>
+  <labelTypes id="0eb8t" entityName="ClassificationLevel">
+    <label id="k7l6bt" entityName="Secret"/>
+    <label id="vg9zmp" entityName="Classified"/>
+    <label id="izwlso" entityName="Unclassified"/>
+  </labelTypes>
+  <behavior id="_G0Nqm1ZUEfCRrfw2FPYOHw" entityName="Military Filight Controller">
+    <inPin id="xuovz" entityName="Military Filight Controller_in_militaryPlaneRoute"/>
+    <inPin id="r9n0ui" entityName="Military Filight Controller_in_planePosition"/>
+    <outPin id="qb4ghe" entityName="Military Filight Controller_out_planePosition"/>
+    <outPin id="xojjx" entityName="Military Filight Controller_out_planeID"/>
+    <outPin id="7ot0r" entityName="Military Filight Controller_out_planeID"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_G0OR11ZUEfCRrfw2FPYOHw" outputPin="7ot0r" outputLabels="k7l6bt"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_G0OR2FZUEfCRrfw2FPYOHw" outputPin="xojjx" outputLabels="k7l6bt"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_G0OR2VZUEfCRrfw2FPYOHw" outputPin="qb4ghe" outputLabels="k7l6bt"/>
+  </behavior>
+  <behavior id="_G0NqolZUEfCRrfw2FPYOHw" entityName="register plane">
+    <inPin id="emal1i" entityName="register plane_in_planePosition"/>
+    <outPin id="3r7zyw" entityName="register plane_out_militaryPlanePosition"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_G0O4wFZUEfCRrfw2FPYOHw" outputPin="3r7zyw" inputPins="emal1i"/>
+  </behavior>
+  <behavior id="_G0NqplZUEfCRrfw2FPYOHw" entityName="determine new route">
+    <inPin id="h8fq9h" entityName="determine new route_in_planeID"/>
+    <inPin id="7otlh" entityName="determine new route_in_militaryPlanePositions"/>
+    <inPin id="x24drpn" entityName="determine new route_in_civilPlaneRoutes"/>
+    <outPin id="87wv6l" entityName="determine new route_out_militaryPlaneRoute"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_G0ORtFZUEfCRrfw2FPYOHw" outputPin="87wv6l" inputPins="7otlh"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0ORtVZUEfCRrfw2FPYOHw" outputPin="87wv6l" outputLabels="izwlso" inputPins="7otlh">
+      <term xsi:type="datadictionary:LabelReference" id="_G0ORtlZUEfCRrfw2FPYOHw" label="izwlso"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0ORt1ZUEfCRrfw2FPYOHw" outputPin="87wv6l" outputLabels="izwlso" inputPins="h8fq9h">
+      <term xsi:type="datadictionary:LabelReference" id="_G0ORuFZUEfCRrfw2FPYOHw" label="izwlso"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0ORuVZUEfCRrfw2FPYOHw" outputPin="87wv6l" outputLabels="izwlso" inputPins="x24drpn">
+      <term xsi:type="datadictionary:LabelReference" id="_G0ORulZUEfCRrfw2FPYOHw" label="izwlso"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0ORu1ZUEfCRrfw2FPYOHw" outputPin="87wv6l" outputLabels="vg9zmp" inputPins="7otlh">
+      <term xsi:type="datadictionary:LabelReference" id="_G0ORvFZUEfCRrfw2FPYOHw" label="vg9zmp"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0ORvVZUEfCRrfw2FPYOHw" outputPin="87wv6l" outputLabels="vg9zmp" inputPins="h8fq9h">
+      <term xsi:type="datadictionary:LabelReference" id="_G0ORvlZUEfCRrfw2FPYOHw" label="vg9zmp"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0ORv1ZUEfCRrfw2FPYOHw" outputPin="87wv6l" outputLabels="vg9zmp" inputPins="x24drpn">
+      <term xsi:type="datadictionary:LabelReference" id="_G0ORwFZUEfCRrfw2FPYOHw" label="vg9zmp"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0ORwVZUEfCRrfw2FPYOHw" outputPin="87wv6l" outputLabels="k7l6bt" inputPins="7otlh">
+      <term xsi:type="datadictionary:LabelReference" id="_G0ORwlZUEfCRrfw2FPYOHw" label="k7l6bt"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0ORw1ZUEfCRrfw2FPYOHw" outputPin="87wv6l" outputLabels="k7l6bt" inputPins="h8fq9h">
+      <term xsi:type="datadictionary:LabelReference" id="_G0ORxFZUEfCRrfw2FPYOHw" label="k7l6bt"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0ORxVZUEfCRrfw2FPYOHw" outputPin="87wv6l" outputLabels="k7l6bt" inputPins="x24drpn">
+      <term xsi:type="datadictionary:LabelReference" id="_G0ORxlZUEfCRrfw2FPYOHw" label="k7l6bt"/>
+    </assignment>
+  </behavior>
+  <behavior id="_G0NqrFZUEfCRrfw2FPYOHw" entityName="find plane position">
+    <inPin id="tbksw" entityName="find plane position_in_planeID"/>
+    <inPin id="08pj3" entityName="find plane position_in_militaryPlanePosition"/>
+    <outPin id="blepgw" entityName="find plane position_out_planePosition"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_G0OR2lZUEfCRrfw2FPYOHw" outputPin="blepgw" inputPins="08pj3"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0OR21ZUEfCRrfw2FPYOHw" outputPin="blepgw" outputLabels="izwlso" inputPins="08pj3">
+      <term xsi:type="datadictionary:LabelReference" id="_G0OR3FZUEfCRrfw2FPYOHw" label="izwlso"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0OR3VZUEfCRrfw2FPYOHw" outputPin="blepgw" outputLabels="izwlso" inputPins="tbksw">
+      <term xsi:type="datadictionary:LabelReference" id="_G0OR3lZUEfCRrfw2FPYOHw" label="izwlso"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0OR31ZUEfCRrfw2FPYOHw" outputPin="blepgw" outputLabels="vg9zmp" inputPins="08pj3">
+      <term xsi:type="datadictionary:LabelReference" id="_G0OR4FZUEfCRrfw2FPYOHw" label="vg9zmp"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0OR4VZUEfCRrfw2FPYOHw" outputPin="blepgw" outputLabels="vg9zmp" inputPins="tbksw">
+      <term xsi:type="datadictionary:LabelReference" id="_G0OR4lZUEfCRrfw2FPYOHw" label="vg9zmp"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0OR41ZUEfCRrfw2FPYOHw" outputPin="blepgw" outputLabels="k7l6bt" inputPins="08pj3">
+      <term xsi:type="datadictionary:LabelReference" id="_G0OR5FZUEfCRrfw2FPYOHw" label="k7l6bt"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0OR5VZUEfCRrfw2FPYOHw" outputPin="blepgw" outputLabels="k7l6bt" inputPins="tbksw">
+      <term xsi:type="datadictionary:LabelReference" id="_G0OR5lZUEfCRrfw2FPYOHw" label="k7l6bt"/>
+    </assignment>
+  </behavior>
+  <behavior id="_G0NqsVZUEfCRrfw2FPYOHw" entityName="register Plane">
+    <inPin id="7w14xo" entityName="register Plane_in_planePosition"/>
+    <outPin id="1song" entityName="register Plane_out_planePosition"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_G0ORs1ZUEfCRrfw2FPYOHw" outputPin="1song" inputPins="7w14xo"/>
+  </behavior>
+  <behavior id="_G0NqtVZUEfCRrfw2FPYOHw" entityName="find Plane Position">
+    <inPin id="2a06q" entityName="find Plane Position_in_planePositions"/>
+    <inPin id="wru12" entityName="find Plane Position_in_planeID"/>
+    <outPin id="v6nagn" entityName="find Plane Position_out_planePosition"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_G0ORo1ZUEfCRrfw2FPYOHw" outputPin="v6nagn" inputPins="2a06q"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0ORpFZUEfCRrfw2FPYOHw" outputPin="v6nagn" outputLabels="izwlso" inputPins="2a06q">
+      <term xsi:type="datadictionary:LabelReference" id="_G0ORpVZUEfCRrfw2FPYOHw" label="izwlso"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0ORplZUEfCRrfw2FPYOHw" outputPin="v6nagn" outputLabels="izwlso" inputPins="wru12">
+      <term xsi:type="datadictionary:LabelReference" id="_G0ORp1ZUEfCRrfw2FPYOHw" label="izwlso"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0ORqFZUEfCRrfw2FPYOHw" outputPin="v6nagn" outputLabels="vg9zmp" inputPins="2a06q">
+      <term xsi:type="datadictionary:LabelReference" id="_G0ORqVZUEfCRrfw2FPYOHw" label="vg9zmp"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0ORqlZUEfCRrfw2FPYOHw" outputPin="v6nagn" outputLabels="vg9zmp" inputPins="wru12">
+      <term xsi:type="datadictionary:LabelReference" id="_G0ORq1ZUEfCRrfw2FPYOHw" label="vg9zmp"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0ORrFZUEfCRrfw2FPYOHw" outputPin="v6nagn" outputLabels="k7l6bt" inputPins="2a06q">
+      <term xsi:type="datadictionary:LabelReference" id="_G0ORrVZUEfCRrfw2FPYOHw" label="k7l6bt"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0ORrlZUEfCRrfw2FPYOHw" outputPin="v6nagn" outputLabels="k7l6bt" inputPins="wru12">
+      <term xsi:type="datadictionary:LabelReference" id="_G0ORr1ZUEfCRrfw2FPYOHw" label="k7l6bt"/>
+    </assignment>
+  </behavior>
+  <behavior id="_G0NqulZUEfCRrfw2FPYOHw" entityName="planes">
+    <inPin id="wfi5so" entityName="planes_in_planePosition"/>
+    <outPin id="jif55l" entityName="planes_out_planePositions"/>
+    <outPin id="h84s3r" entityName="planes_out_planePositions"/>
+    <outPin id="jyv4gd" entityName="planes_out_planePositions"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_G0O4vVZUEfCRrfw2FPYOHw" outputPin="h84s3r" inputPins="wfi5so"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_G0O4vlZUEfCRrfw2FPYOHw" outputPin="jif55l" inputPins="wfi5so"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_G0O4v1ZUEfCRrfw2FPYOHw" outputPin="jyv4gd" inputPins="wfi5so"/>
+  </behavior>
+  <behavior id="_G0NqwFZUEfCRrfw2FPYOHw" entityName="Clerk">
+    <inPin id="qfz8s" entityName="Clerk_in_weatherReport"/>
+    <outPin id="cuf9dn" entityName="Clerk_out_timeInterval"/>
+    <outPin id="ozjtg" entityName="Clerk_out_weatherData"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_G0OR6VZUEfCRrfw2FPYOHw" outputPin="cuf9dn" outputLabels="izwlso"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_G0OR6lZUEfCRrfw2FPYOHw" outputPin="ozjtg" outputLabels="izwlso"/>
+  </behavior>
+  <behavior id="_G0NqxVZUEfCRrfw2FPYOHw" entityName="create weather report">
+    <inPin id="z9xe3" entityName="create weather report_in_timeInterval"/>
+    <inPin id="4s3d1n" entityName="create weather report_in_weatherData"/>
+    <outPin id="650smo" entityName="create weather report_out_weatherReport"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_G0ORx1ZUEfCRrfw2FPYOHw" outputPin="650smo" inputPins="z9xe3"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0ORyFZUEfCRrfw2FPYOHw" outputPin="650smo" outputLabels="izwlso" inputPins="z9xe3">
+      <term xsi:type="datadictionary:LabelReference" id="_G0ORyVZUEfCRrfw2FPYOHw" label="izwlso"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0ORylZUEfCRrfw2FPYOHw" outputPin="650smo" outputLabels="izwlso" inputPins="4s3d1n">
+      <term xsi:type="datadictionary:LabelReference" id="_G0ORy1ZUEfCRrfw2FPYOHw" label="izwlso"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0ORzFZUEfCRrfw2FPYOHw" outputPin="650smo" outputLabels="vg9zmp" inputPins="z9xe3">
+      <term xsi:type="datadictionary:LabelReference" id="_G0ORzVZUEfCRrfw2FPYOHw" label="vg9zmp"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0ORzlZUEfCRrfw2FPYOHw" outputPin="650smo" outputLabels="vg9zmp" inputPins="4s3d1n">
+      <term xsi:type="datadictionary:LabelReference" id="_G0ORz1ZUEfCRrfw2FPYOHw" label="vg9zmp"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0OR0FZUEfCRrfw2FPYOHw" outputPin="650smo" outputLabels="k7l6bt" inputPins="z9xe3">
+      <term xsi:type="datadictionary:LabelReference" id="_G0OR0VZUEfCRrfw2FPYOHw" label="k7l6bt"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0OR0lZUEfCRrfw2FPYOHw" outputPin="650smo" outputLabels="k7l6bt" inputPins="4s3d1n">
+      <term xsi:type="datadictionary:LabelReference" id="_G0OR01ZUEfCRrfw2FPYOHw" label="k7l6bt"/>
+    </assignment>
+  </behavior>
+  <behavior id="_G0NqylZUEfCRrfw2FPYOHw" entityName="store weather report">
+    <inPin id="98h5ia" entityName="store weather report_in_weatherReport"/>
+    <outPin id="f35t9q" entityName="store weather report_out_weatherReport"/>
+    <outPin id="hec7io" entityName="store weather report_out_weatherReport"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_G0OR51ZUEfCRrfw2FPYOHw" outputPin="f35t9q" inputPins="98h5ia"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_G0OR6FZUEfCRrfw2FPYOHw" outputPin="hec7io" inputPins="98h5ia"/>
+  </behavior>
+  <behavior id="_G0Nqz1ZUEfCRrfw2FPYOHw" entityName="Flight Controller">
+    <inPin id="h0xebf" entityName="Flight Controller_in_planePosition"/>
+    <inPin id="e0otvg" entityName="Flight Controller_in_planeRoute"/>
+    <outPin id="6bq9rf" entityName="Flight Controller_out_planeID"/>
+    <outPin id="de9g97" entityName="Flight Controller_out_planeID"/>
+    <outPin id="2p3ag6" entityName="Flight Controller_out_planePosition"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_G0OR1FZUEfCRrfw2FPYOHw" outputPin="de9g97" outputLabels="vg9zmp"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_G0OR1VZUEfCRrfw2FPYOHw" outputPin="2p3ag6" outputLabels="vg9zmp"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_G0OR1lZUEfCRrfw2FPYOHw" outputPin="6bq9rf" outputLabels="vg9zmp"/>
+  </behavior>
+  <behavior id="_G0Nq1lZUEfCRrfw2FPYOHw" entityName="weather data">
+    <inPin id="vzi14" entityName="weather data_in_weatherReport"/>
+    <inPin id="51tns" entityName="weather data_in_weatherData"/>
+    <outPin id="aetc89" entityName="weather data_out_weatherReport"/>
+    <outPin id="ot7hbk" entityName="weather data_out_weatherReport"/>
+    <outPin id="yhpebd" entityName="weather data_out_weatherData"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_G0NrCVZUEfCRrfw2FPYOHw" outputPin="yhpebd" inputPins="51tns"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_G0NrClZUEfCRrfw2FPYOHw" outputPin="aetc89" inputPins="vzi14"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_G0NrC1ZUEfCRrfw2FPYOHw" outputPin="ot7hbk" inputPins="vzi14"/>
+  </behavior>
+  <behavior id="_G0Nq3VZUEfCRrfw2FPYOHw" entityName="find available civil routes">
+    <inPin id="68rk8i" entityName="find available civil routes_in_planePositions"/>
+    <inPin id="vj7c8o" entityName="find available civil routes_in_weatherReport"/>
+    <outPin id="ho24o" entityName="find available civil routes_out_civilPlaneRoutes"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_G0O4sFZUEfCRrfw2FPYOHw" outputPin="ho24o" inputPins="68rk8i"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0O4sVZUEfCRrfw2FPYOHw" outputPin="ho24o" outputLabels="izwlso" inputPins="68rk8i">
+      <term xsi:type="datadictionary:LabelReference" id="_G0O4slZUEfCRrfw2FPYOHw" label="izwlso"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0O4s1ZUEfCRrfw2FPYOHw" outputPin="ho24o" outputLabels="izwlso" inputPins="vj7c8o">
+      <term xsi:type="datadictionary:LabelReference" id="_G0O4tFZUEfCRrfw2FPYOHw" label="izwlso"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0O4tVZUEfCRrfw2FPYOHw" outputPin="ho24o" outputLabels="vg9zmp" inputPins="68rk8i">
+      <term xsi:type="datadictionary:LabelReference" id="_G0O4tlZUEfCRrfw2FPYOHw" label="vg9zmp"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0O4t1ZUEfCRrfw2FPYOHw" outputPin="ho24o" outputLabels="vg9zmp" inputPins="vj7c8o">
+      <term xsi:type="datadictionary:LabelReference" id="_G0O4uFZUEfCRrfw2FPYOHw" label="vg9zmp"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0O4uVZUEfCRrfw2FPYOHw" outputPin="ho24o" outputLabels="k7l6bt" inputPins="68rk8i">
+      <term xsi:type="datadictionary:LabelReference" id="_G0O4ulZUEfCRrfw2FPYOHw" label="k7l6bt"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0O4u1ZUEfCRrfw2FPYOHw" outputPin="ho24o" outputLabels="k7l6bt" inputPins="vj7c8o">
+      <term xsi:type="datadictionary:LabelReference" id="_G0O4vFZUEfCRrfw2FPYOHw" label="k7l6bt"/>
+    </assignment>
+  </behavior>
+  <behavior id="_G0Nq4lZUEfCRrfw2FPYOHw" entityName="determine Route">
+    <inPin id="m1fco" entityName="determine Route_in_planePositions"/>
+    <inPin id="45xcd" entityName="determine Route_in_planeID"/>
+    <inPin id="5bphw9" entityName="determine Route_in_weatherReport"/>
+    <inPin id="3vt6d" entityName="determine Route_in_militaryPlanePositions"/>
+    <outPin id="fhhgsc" entityName="determine Route_out_planeRoute"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_G0NrDFZUEfCRrfw2FPYOHw" outputPin="fhhgsc" inputPins="m1fco 3vt6d"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0NrDVZUEfCRrfw2FPYOHw" outputPin="fhhgsc" outputLabels="izwlso" inputPins="m1fco">
+      <term xsi:type="datadictionary:LabelReference" id="_G0NrDlZUEfCRrfw2FPYOHw" label="izwlso"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0NrD1ZUEfCRrfw2FPYOHw" outputPin="fhhgsc" outputLabels="izwlso" inputPins="45xcd">
+      <term xsi:type="datadictionary:LabelReference" id="_G0NrEFZUEfCRrfw2FPYOHw" label="izwlso"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0NrEVZUEfCRrfw2FPYOHw" outputPin="fhhgsc" outputLabels="izwlso" inputPins="5bphw9">
+      <term xsi:type="datadictionary:LabelReference" id="_G0NrElZUEfCRrfw2FPYOHw" label="izwlso"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0NrE1ZUEfCRrfw2FPYOHw" outputPin="fhhgsc" outputLabels="izwlso" inputPins="3vt6d">
+      <term xsi:type="datadictionary:LabelReference" id="_G0NrFFZUEfCRrfw2FPYOHw" label="izwlso"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0NrFVZUEfCRrfw2FPYOHw" outputPin="fhhgsc" outputLabels="vg9zmp" inputPins="m1fco">
+      <term xsi:type="datadictionary:LabelReference" id="_G0NrFlZUEfCRrfw2FPYOHw" label="vg9zmp"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0NrF1ZUEfCRrfw2FPYOHw" outputPin="fhhgsc" outputLabels="vg9zmp" inputPins="45xcd">
+      <term xsi:type="datadictionary:LabelReference" id="_G0NrGFZUEfCRrfw2FPYOHw" label="vg9zmp"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0NrGVZUEfCRrfw2FPYOHw" outputPin="fhhgsc" outputLabels="vg9zmp" inputPins="5bphw9">
+      <term xsi:type="datadictionary:LabelReference" id="_G0NrGlZUEfCRrfw2FPYOHw" label="vg9zmp"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0NrG1ZUEfCRrfw2FPYOHw" outputPin="fhhgsc" outputLabels="vg9zmp" inputPins="3vt6d">
+      <term xsi:type="datadictionary:LabelReference" id="_G0NrHFZUEfCRrfw2FPYOHw" label="vg9zmp"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0NrHVZUEfCRrfw2FPYOHw" outputPin="fhhgsc" outputLabels="k7l6bt" inputPins="m1fco">
+      <term xsi:type="datadictionary:LabelReference" id="_G0NrHlZUEfCRrfw2FPYOHw" label="k7l6bt"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0NrH1ZUEfCRrfw2FPYOHw" outputPin="fhhgsc" outputLabels="k7l6bt" inputPins="45xcd">
+      <term xsi:type="datadictionary:LabelReference" id="_G0NrIFZUEfCRrfw2FPYOHw" label="k7l6bt"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0NrIVZUEfCRrfw2FPYOHw" outputPin="fhhgsc" outputLabels="k7l6bt" inputPins="5bphw9">
+      <term xsi:type="datadictionary:LabelReference" id="_G0ORoFZUEfCRrfw2FPYOHw" label="k7l6bt"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_G0ORoVZUEfCRrfw2FPYOHw" outputPin="fhhgsc" outputLabels="k7l6bt" inputPins="3vt6d">
+      <term xsi:type="datadictionary:LabelReference" id="_G0ORolZUEfCRrfw2FPYOHw" label="k7l6bt"/>
+    </assignment>
+  </behavior>
+  <behavior id="_G0Nq6VZUEfCRrfw2FPYOHw" entityName="Military Planes">
+    <inPin id="jqg5ri" entityName="Military Planes_in_militaryPlanePosition"/>
+    <outPin id="yu27w" entityName="Military Planes_out_militaryPlanePosition"/>
+    <outPin id="j9r2x" entityName="Military Planes_out_militaryPlanePositions"/>
+    <outPin id="hnexm" entityName="Military Planes_out_militaryPlanePositions"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_G0ORsFZUEfCRrfw2FPYOHw" outputPin="yu27w" inputPins="jqg5ri"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_G0ORsVZUEfCRrfw2FPYOHw" outputPin="j9r2x" inputPins="jqg5ri"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_G0ORslZUEfCRrfw2FPYOHw" outputPin="hnexm" inputPins="jqg5ri"/>
+  </behavior>
+</datadictionary:DataDictionary>

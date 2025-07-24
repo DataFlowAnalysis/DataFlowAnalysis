@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://dataflowanalysis.org/dfd/dataflowdiagram" id="_yc1XMFZSEfCRrfw2FPYOHw">
+  <flows id="dr89pb" entityName="location" sourceNode="sbw62" destinationNode="yeuq7e">
+    <destinationPin href="diagram.datadictionary#2qr1s"/>
+    <sourcePin href="diagram.datadictionary#nb83mj"/>
+  </flows>
+  <flows id="45flcd" entityName="consent" sourceNode="sbw62" destinationNode="yeuq7e">
+    <destinationPin href="diagram.datadictionary#1dmj5"/>
+    <sourcePin href="diagram.datadictionary#6mwcw"/>
+  </flows>
+  <flows id="s5scec" entityName="location" sourceNode="yeuq7e" destinationNode="bgbt0r">
+    <destinationPin href="diagram.datadictionary#5eka79"/>
+    <sourcePin href="diagram.datadictionary#y44ipi"/>
+  </flows>
+  <flows id="xzzdl9" entityName="consent" sourceNode="sbw62" destinationNode="7jq43h">
+    <destinationPin href="diagram.datadictionary#bhm0qk"/>
+    <sourcePin href="diagram.datadictionary#lsyc9l"/>
+  </flows>
+  <flows id="04qtap" entityName="location" sourceNode="bgbt0r" destinationNode="9ysgxs">
+    <destinationPin href="diagram.datadictionary#qhr9j6"/>
+    <sourcePin href="diagram.datadictionary#qs083c"/>
+  </flows>
+  <flows id="d7tt04" entityName="locations" sourceNode="9ysgxs" destinationNode="9ok0ye">
+    <destinationPin href="diagram.datadictionary#wmhqbt"/>
+    <sourcePin href="diagram.datadictionary#i3cec88"/>
+  </flows>
+  <flows id="1y7lca" entityName="distanceViolation" sourceNode="9ok0ye" destinationNode="d6mr08">
+    <destinationPin href="diagram.datadictionary#ey0pew"/>
+    <sourcePin href="diagram.datadictionary#amywti"/>
+  </flows>
+  <flows id="yk17zj" entityName="distance" sourceNode="9ok0ye" destinationNode="7jq43h">
+    <destinationPin href="diagram.datadictionary#t3cfj6"/>
+    <sourcePin href="diagram.datadictionary#0lojk"/>
+  </flows>
+  <flows id="gmohjk" entityName="distance" sourceNode="d6mr08" destinationNode="eq0c5k">
+    <destinationPin href="diagram.datadictionary#7r5i93"/>
+    <sourcePin href="diagram.datadictionary#n975iu"/>
+  </flows>
+  <flows id="e3hgbh" entityName="distance" sourceNode="7jq43h" destinationNode="d6mr08">
+    <destinationPin href="diagram.datadictionary#466m7"/>
+    <sourcePin href="diagram.datadictionary#ec16ek"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:External" id="sbw62" entityName="User">
+    <behavior href="diagram.datadictionary#_yc1XO1ZSEfCRrfw2FPYOHw"/>
+    <properties href="diagram.datadictionary#csbgwk"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="9ok0ye" entityName="calculate distance">
+    <behavior href="diagram.datadictionary#_yc1XQFZSEfCRrfw2FPYOHw"/>
+    <properties href="diagram.datadictionary#o3fxk"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="yeuq7e" entityName="confirm location">
+    <behavior href="diagram.datadictionary#_yc1XRVZSEfCRrfw2FPYOHw"/>
+    <properties href="diagram.datadictionary#csbgwk"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="bgbt0r" entityName="record location">
+    <behavior href="diagram.datadictionary#_yc1XSlZSEfCRrfw2FPYOHw"/>
+    <properties href="diagram.datadictionary#o3fxk"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="7jq43h" entityName="confirm distance">
+    <behavior href="diagram.datadictionary#_yc1XTlZSEfCRrfw2FPYOHw"/>
+    <properties href="diagram.datadictionary#o3fxk"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Store" id="9ysgxs" entityName="Location Store">
+    <behavior href="diagram.datadictionary#_yc1XU1ZSEfCRrfw2FPYOHw"/>
+    <properties href="diagram.datadictionary#o3fxk"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="d6mr08" entityName="record distance">
+    <behavior href="diagram.datadictionary#_yc1XV1ZSEfCRrfw2FPYOHw"/>
+    <properties href="diagram.datadictionary#iao8e"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Store" id="eq0c5k" entityName="Distance Store">
+    <behavior href="diagram.datadictionary#_yc1XXFZSEfCRrfw2FPYOHw"/>
+    <properties href="diagram.datadictionary#iao8e"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

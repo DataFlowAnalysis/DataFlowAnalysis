@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://dataflowanalysis.org/dfd/dataflowdiagram" id="_KksXwF2VEfCJkoMBjFpfFw">
+  <flows id="ungq8" entityName="ecu_info" sourceNode="mcjsc2" destinationNode="ixuyca">
+    <destinationPin href="diagram.datadictionary#5w44fl"/>
+    <sourcePin href="diagram.datadictionary#s905l"/>
+  </flows>
+  <flows id="4sggva" entityName="ecu_info" sourceNode="ixuyca" destinationNode="3ty9uu">
+    <destinationPin href="diagram.datadictionary#ua4h7k"/>
+    <sourcePin href="diagram.datadictionary#ppqeq8"/>
+  </flows>
+  <flows id="c15yhe" entityName="software" sourceNode="6iigr7" destinationNode="wz0t9vr">
+    <destinationPin href="diagram.datadictionary#ee1pkb"/>
+    <sourcePin href="diagram.datadictionary#wkowoz"/>
+  </flows>
+  <flows id="bdzvc9" entityName="update_instruction" sourceNode="3ty9uu" destinationNode="kiiiw">
+    <destinationPin href="diagram.datadictionary#3otqta"/>
+    <sourcePin href="diagram.datadictionary#onans"/>
+  </flows>
+  <flows id="3lzua4" entityName="software" sourceNode="1p9bdc" destinationNode="kiiiw">
+    <destinationPin href="diagram.datadictionary#d1dudo"/>
+    <sourcePin href="diagram.datadictionary#sr5alv"/>
+  </flows>
+  <flows id="dcaau" entityName="software" sourceNode="kiiiw" destinationNode="6iigr7">
+    <destinationPin href="diagram.datadictionary#4rx0nn"/>
+    <sourcePin href="diagram.datadictionary#iow6o"/>
+  </flows>
+  <flows id="1u4agb" entityName="update_info" sourceNode="wz0t9vr" destinationNode="v7ilil">
+    <destinationPin href="diagram.datadictionary#ndqbhp"/>
+    <sourcePin href="diagram.datadictionary#rhzk3k"/>
+  </flows>
+  <flows id="7d59lk" entityName="credentials" sourceNode="39y0sf" destinationNode="8uj8f5">
+    <destinationPin href="diagram.datadictionary#k7v47"/>
+    <sourcePin href="diagram.datadictionary#o8t8tq"/>
+  </flows>
+  <flows id="rlj53rs" entityName="token" sourceNode="8uj8f5" destinationNode="kiiiw">
+    <destinationPin href="diagram.datadictionary#nyz56h"/>
+    <sourcePin href="diagram.datadictionary#fnlewl"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:External" id="wz0t9vr" entityName="ECU">
+    <behavior href="diagram.datadictionary#_KksXzV2VEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="39y0sf" entityName="Driver">
+    <behavior href="diagram.datadictionary#_KksX0V2VEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#f075wk"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="6iigr7" entityName="WiFi-dongle">
+    <behavior href="diagram.datadictionary#_KksX1F2VEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="3ty9uu" entityName="update-orchestrator">
+    <behavior href="diagram.datadictionary#_KksX2F2VEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="ixuyca" entityName="Inventory-manager">
+    <behavior href="diagram.datadictionary#_KksX3F2VEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="mcjsc2" entityName="Fleet technology">
+    <behavior href="diagram.datadictionary#_KksX4F2VEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Store" id="1p9bdc" entityName="SW storage">
+    <behavior href="diagram.datadictionary#_KksX412VEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="kiiiw" entityName="Mobile App">
+    <behavior href="diagram.datadictionary#_KksX5l2VEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="v7ilil" entityName="report update">
+    <behavior href="diagram.datadictionary#_KksX7F2VEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="8uj8f5" entityName="Authentication &amp; Authorization Service">
+    <behavior href="diagram.datadictionary#_KksX712VEfCJkoMBjFpfFw"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

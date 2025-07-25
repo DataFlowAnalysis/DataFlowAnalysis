@@ -1,15 +1,12 @@
 package org.dataflowanalysis.examplemodels.results.dfd.scenarios;
 
 import java.util.List;
-import java.util.Map;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
-import org.dataflowanalysis.examplemodels.results.ExpectedCharacteristic;
 import org.dataflowanalysis.examplemodels.results.ExpectedViolation;
 import org.dataflowanalysis.examplemodels.results.dfd.DFDExampleModelResult;
-import org.dataflowanalysis.examplemodels.results.dfd.DFDIdentifier;
 
-public class CWAPersonalDataViolation implements DFDExampleModelResult {
+public class CMA_CaseStudy implements DFDExampleModelResult {
 
     @Override
     public String getBaseFolderName() {
@@ -18,32 +15,37 @@ public class CWAPersonalDataViolation implements DFDExampleModelResult {
 
     @Override
     public String getModelName() {
-        return "CWA/PersonalDataViolation";
+        return "CMA_CaseStudy";
     }
 
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
         return List.of(new ConstraintDSL().ofData()
-                .withLabel("Identifiers", List.of("RPI", "TEK"))
+                .withLabel("DataType",
+                        List.of("AcceptedPaper", "ConsentSettings", "ReviewedPaper", "CandidateReviewers", "Manuscript", "NewConsents", "Purpose"))
                 .neverFlows()
                 .toVertex()
-                .withCharacteristic("Server", List.of("CWApp", "CWAppServer"))
+                .withoutCharacteristic("Decorator", "secure")
                 .create(),
 
                 new ConstraintDSL().ofData()
-                        .withLabel("Identifiers", "PersonalData")
+                        .withLabel("DataType", "CandidateReviewers")
                         .neverFlows()
                         .toVertex()
-                        .withCharacteristic("Server", List.of("CWApp", "VerificationServer", "TestResultServer", "DDServer", "CWAppServer"))
+                        .withoutCharacteristic("ConsentedPurposes", "AssignReviewer")
+                        .create(),
+
+                new ConstraintDSL().ofData()
+                        .withLabel("DataType", "AcceptedPaper")
+                        .neverFlows()
+                        .toVertex()
+                        .withoutCharacteristic("ConsentedPurposes", List.of("ViewPaper", "RecommendPapers"))
                         .create());
     }
 
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
-        return List.of(new ExpectedViolation(0, new DFDIdentifier("oz1nrf"),
-                List.of(new ExpectedCharacteristic("Server", "VerificationServer"), new ExpectedCharacteristic("Cloud", "OTC")),
-                Map.of("rly6k", List.of(new ExpectedCharacteristic("Identifiers", "PersonalData")))));
-
+        return List.of();
     }
 
     @Override

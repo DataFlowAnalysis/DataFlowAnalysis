@@ -51,7 +51,12 @@ public class EmptySetOperationConditionalSelector implements ConditionalSelector
      * @return {@link ParseResult} containing the {@link EmptySetOperationConditionalSelector} object
      */
     public static ParseResult<EmptySetOperationConditionalSelector> fromString(StringView string) {
+        string.skipWhitespace();
+        if (string.invalid() || string.empty()) {
+            return ParseResult.error("Cannot parse empty set operation from empty or invalid string!");
+        }
         logger.info("Parsing: " + string.getString());
+        int position = string.getPosition();
         if (!string.startsWith(DSL_KEYWORD)) {
             return string.expect(DSL_KEYWORD);
         }
@@ -59,7 +64,7 @@ public class EmptySetOperationConditionalSelector implements ConditionalSelector
 
         ParseResult<Intersection> intersection = Intersection.fromString(string);
         if (intersection.failed()) {
-            string.retreat(DSL_KEYWORD.length() + 1);
+            string.setPosition(position);
             return ParseResult.error(intersection.getError());
         }
         string.advance(1);

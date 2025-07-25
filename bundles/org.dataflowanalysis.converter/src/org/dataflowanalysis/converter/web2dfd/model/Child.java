@@ -1,7 +1,13 @@
 package org.dataflowanalysis.converter.web2dfd.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.util.ArrayList;
 import java.util.List;
+import org.dataflowanalysis.converter.web2dfd.ChildSerializer;
 
 /**
  * Represents a child (node/edge) in the web editor model
@@ -16,9 +22,21 @@ import java.util.List;
  */
 
 // The WebEditor is susceptible to changes, and to accommodate new fields, we disregard any unseen fields
+@JsonSerialize(using = ChildSerializer.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public record Child(String text, List<WebEditorLabel> labels, List<Port> ports, String id, String type, String sourceId, String targetId,
-        Annotation annotation, List<Child> children) {
+        List<Annotation> annotations, List<Child> children, Position position, Size size) {
+
+    @JsonCreator
+    public static Child create(@JsonProperty("text") String text, @JsonProperty("labels") List<WebEditorLabel> labels,
+            @JsonProperty("ports") List<Port> ports, @JsonProperty("id") String id, @JsonProperty("type") String type,
+            @JsonProperty("sourceId") String sourceId, @JsonProperty("targetId") String targetId,
+            @JsonProperty("annotations") List<Annotation> annotations, @JsonProperty("children") List<Child> children,
+            @JsonProperty("position") Position position, @JsonProperty("size") Size size) {
+        return new Child(text, labels, ports, id, type, sourceId, targetId,
+                annotations == null && type.startsWith("node") ? new ArrayList<>() : annotations, children, position, size);
+    }
 
     /**
      * Overrides equals method to support child type specific equality checks.

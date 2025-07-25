@@ -46,18 +46,24 @@ public class VariableNameSelector extends DataSelector {
      * @return {@link ParseResult} containing the {@link VariableNameSelector} object
      */
     public static ParseResult<VariableNameSelector> fromString(StringView string, DSLContext context) {
+        string.skipWhitespace();
+        if (string.invalid() || string.empty()) {
+            return ParseResult.error("Cannot parse variable name selector from empty or invalid string!");
+        }
         logger.info("Parsing: " + string.getString());
+        int position = string.getPosition();
         if (!string.startsWith(DSL_KEYWORD)) {
             return string.expect(DSL_KEYWORD);
         }
         string.advance(DSL_KEYWORD.length() + 1);
         if (string.invalid() || string.empty()) {
+            string.setPosition(position);
             return ParseResult.error("Cannot parse variable name selector from empty or invalid string!");
         }
         String[] split = string.getString()
                 .split(" ");
         if (split.length == 0 || split[0].isEmpty()) {
-            string.retreat(DSL_KEYWORD.length() + 1);
+            string.setPosition(position);
             return ParseResult.error("Invalid variable name in variable name selector!");
         }
         string.advance(split[0].length());

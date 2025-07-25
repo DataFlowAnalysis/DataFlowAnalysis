@@ -58,20 +58,25 @@ public class VertexDestinationSelectors extends AbstractParseable {
      * {@link AnalysisConstraint}
      */
     public static ParseResult<VertexDestinationSelectors> fromString(StringView string, DSLContext context) {
+        string.skipWhitespace();
         if (string.invalid()) {
             return ParseResult.error("Unexpected end of input!");
         }
+        int position = string.getPosition();
         if (!string.getString()
                 .startsWith(DSL_KEYWORD)) {
             return ParseResult.error("String did not start with " + DSL_KEYWORD);
         }
         string.advance(DSL_KEYWORD.length() + 1);
+        string.skipWhitespace();
         if (string.invalid()) {
+            string.setPosition(position);
             return ParseResult.error("Unexpected end of input!");
         }
         logger.info("Parsing: " + string.getString());
         List<AbstractSelector> selectors = new ArrayList<>();
         while (!string.invalid()) {
+            string.skipWhitespace();
             var listSelector = VertexCharacteristicsListSelector.fromString(string, context);
             if (listSelector.successful()) {
                 selectors.add(listSelector.getResult());
@@ -91,6 +96,7 @@ public class VertexDestinationSelectors extends AbstractParseable {
             break;
         }
         if (selectors.isEmpty()) {
+            string.setPosition(position);
             return ParseResult.error("Keyword " + DSL_KEYWORD + " is missing any selectors!");
         }
         VertexDestinationSelectors vertexDestinationSelectors = new VertexDestinationSelectors(selectors);

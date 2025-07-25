@@ -126,6 +126,7 @@
 			<artifactId>spotless-maven-plugin</artifactId>
 			<version>2.43.0</version>
 			<configuration>
+				<lineEndings>UNIX</lineEndings>
 				<java>
 					<includes>
 						<include>bundles/**/*.java</include>

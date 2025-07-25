@@ -67,11 +67,17 @@ public class VariableConditionalSelector extends AbstractParseable implements Co
      * @return {@link ParseResult} containing the {@link VariableConditionalSelector} object
      */
     public static ParseResult<VariableConditionalSelector> fromString(StringView string) {
+        string.skipWhitespace();
+        if (string.invalid() || string.empty()) {
+            return ParseResult.error("Cannot parse variable conditional selector from empty or invalid string!");
+        }
+        int position = string.getPosition();
         if (!string.startsWith(DSL_KEYWORD)) {
             return string.expect(DSL_KEYWORD);
         }
         string.advance(DSL_KEYWORD.length() + 1);
         if (string.invalid() || string.empty()) {
+            string.setPosition(position);
             return ParseResult.error("Cannot parse variable conditional selector from empty/invalid string");
         }
         boolean inverted = string.startsWith(DSL_INVERTED_SYMBOL);
@@ -79,9 +85,7 @@ public class VariableConditionalSelector extends AbstractParseable implements Co
             string.advance(DSL_INVERTED_SYMBOL.length());
         ParseResult<ConstraintVariableReference> constraintVariableReference = ConstraintVariableReference.fromString(string);
         if (constraintVariableReference.failed()) {
-            string.retreat(DSL_KEYWORD.length() + 1);
-            if (inverted)
-                string.retreat(DSL_INVERTED_SYMBOL.length());
+            string.setPosition(position);
             return ParseResult.error(constraintVariableReference.getError());
         }
         string.advance(1);

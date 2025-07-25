@@ -20,7 +20,8 @@ public class SourceSelectorsTest {
         ParseResult<SourceSelectors> sourceSelectors = SourceSelectors.fromString(stringView, new DSLContext());
         assertTrue(sourceSelectors.successful());
         assertTrue(stringView.empty());
-        assertEquals(sourceSelector, sourceSelectors.toString());
+        assertEquals(sourceSelector.replace("\n", "")
+                .replace("\t", ""), sourceSelectors.toString());
     }
 
     @ParameterizedTest
@@ -34,7 +35,9 @@ public class SourceSelectorsTest {
     private static Stream<Arguments> correctSourceSelectors() {
         return Stream.of(Arguments.of("vertex A.B"), Arguments.of("data A.B"), Arguments.of("data A.B vertex A.B"),
                 Arguments.of("data otherA.otherB vertex A.B C.D"), Arguments.of("data A.B named C vertex A.B C.D"),
-                Arguments.of("data A.B,C.D named E vertex otherA.otherB"), Arguments.of("data A.B,C.D E.F named G vertex A.B C.D"));
+                Arguments.of("data A.B,C.D named E vertex otherA.otherB"), Arguments.of("data A.B,C.D E.F named G vertex A.B C.D"),
+                Arguments.of("data A.B,C.D \nnamed E \n\tvertex otherA.otherB"),
+                Arguments.of("data A.B,C.D E.F \n\n\n\tnamed G \n\n\n\n\tvertex A.B C.D"));
     }
 
     private static Stream<Arguments> incorrectSourceSelectors() {

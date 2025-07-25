@@ -18,7 +18,7 @@ hero:
       link: https://editor.dataflowanalysis.org
     - theme: alt
       text: Getting Started
-      link: /wiki/
+      link: /wiki/gettingstarted
     - theme: alt
       text: Examples
       link: /examples/
@@ -56,16 +56,16 @@ features:
 Our approach to data flow diagrams unifies previous modeling approaches and provides and concise syntax to express the information security of software systems.
 We build on the [1979 DeMarco notation](https://en.wikipedia.org/wiki/Data-flow_diagram) comprising data sources, sinks, flows, and files.
 To enable security-related analysis, we extend the notation by input and output pins, behaviors, and means to characterize data and nodes using labels.
-See the [wiki](/wiki/) for more information.
+See the [wiki](/wiki/gettingstarted) for more information.
 
 <img src="/img/bigpicture-dark.png" v-if="isDark" style="margin-bottom:30px;" />
 <img src="/img/bigpicture-light.png" v-if="!isDark" style="margin-bottom:30px;" />
 
 # Expressing and Analyzing Information Security Requirements
 
-Our analysis utilizes [label propagation](/wiki/) to analyze the characteristics of data flows.
+Our analysis utilizes [label propagation](/wiki/gettingstarted) to analyze the characteristics of data flows.
 First, we extract all possible flows from data flow diagrams or other model representations such as [Palladio software architecture](https://www.palladio-simulator.com/) models.
-Afterwards, we query these so-called [Transpose Flow Graphs (TFGs)](/wiki/) to identify violations of information security requirements that were denoted as [data flow constraints](/wiki/).
+Afterwards, we query these so-called [Transpose Flow Graphs (TFGs)](/wiki/glossary#transpose-flow-graph) to identify violations of information security requirements that were denoted as [data flow constraints](/wiki/dsl/).
 Exemplary questions are:
 
 * Does personal data flow to unauthorized locations violating the GDPR?

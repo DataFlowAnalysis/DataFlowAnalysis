@@ -42,7 +42,7 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
     }
 
     /**
-     * Sets the modelling project name of the analysis
+     * Sets the modeling project name of the analysis
      * @return Builder of the analysis
      */
     public DFDDataFlowAnalysisBuilder modelProjectName(String modelProjectName) {

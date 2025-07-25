@@ -94,7 +94,12 @@ public class DataCharacteristicListSelector extends DataSelector {
      * @return {@link ParseResult} containing the {@link DataCharacteristicListSelector} object
      */
     public static ParseResult<DataCharacteristicListSelector> fromString(StringView string, DSLContext context) {
+        string.skipWhitespace();
+        if (string.invalid() || string.empty()) {
+            return ParseResult.error("Cannot parse characteristic list selector from empty or invalid string!");
+        }
         logger.info("Parsing: " + string.getString());
+        int position = string.getPosition();
         boolean inverted = string.getString()
                 .startsWith(DSL_INVERTED_SYMBOL);
         if (inverted)
@@ -104,11 +109,9 @@ public class DataCharacteristicListSelector extends DataSelector {
         if (selectorData.successful()) {
             selectors.add(selectorData.getResult());
         }
-        while (!(string.startsWith(" ") || string.getString()
-                .isEmpty())) {
+        while (!(string.empty() || string.invalid() || string.startsWith(" "))) {
             if (!string.startsWith(DSL_DELIMITER)) {
-                if (inverted)
-                    string.retreat(DSL_INVERTED_SYMBOL.length());
+                string.setPosition(position);
                 return string.expect(DSL_DELIMITER);
             }
             string.advance(DSL_DELIMITER.length());
@@ -120,16 +123,11 @@ public class DataCharacteristicListSelector extends DataSelector {
             }
         }
         if (selectorData.failed()) {
-            if (inverted)
-                string.retreat(DSL_INVERTED_SYMBOL.length());
+            string.setPosition(position);
             return ParseResult.error(selectorData.getError());
         }
         if (selectors.size() <= 1) {
-            if (inverted)
-                string.retreat(DSL_INVERTED_SYMBOL.length());
-            selectors.stream()
-                    .forEach(it -> string.retreat(it.toString()
-                            .length()));
+            string.setPosition(position);
             return ParseResult.error("Cannot parse data characteristic list selector as the list is empty or one element!");
         }
         string.advance(1);

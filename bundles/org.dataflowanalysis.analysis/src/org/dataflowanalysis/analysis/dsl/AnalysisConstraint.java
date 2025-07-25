@@ -181,13 +181,12 @@ public class AnalysisConstraint {
      */
     public static ParseResult<AnalysisConstraint> fromString(StringView string, DSLContextProvider contextProvider) {
         DSLContext context = new DSLContext(contextProvider);
+        string.skipWhitespace();
         if (!string.startsWith(DSL_LIST_TOKEN)) {
             return string.expect(DSL_LIST_TOKEN);
         }
         string.advance(DSL_LIST_TOKEN.length() + 1);
-        if (string.startsWith(" ")) {
-            string.advance(1);
-        }
+        string.skipWhitespace();
         int index = string.getString()
                 .indexOf(DSL_NAME_SEPARATOR);
         if (index == -1) {
@@ -200,9 +199,7 @@ public class AnalysisConstraint {
             return string.expect(DSL_NAME_SEPARATOR);
         }
         string.advance(DSL_NAME_SEPARATOR.length() + 1);
-        if (string.startsWith(" ")) {
-            string.advance(1);
-        }
+        string.skipWhitespace();
         var sourceSelectors = SourceSelectors.fromString(string, context);
         if (sourceSelectors.failed()) {
             return ParseResult.error(sourceSelectors.getError());
@@ -213,12 +210,13 @@ public class AnalysisConstraint {
         VertexSourceSelectors vertexSourceSelectors = sourceSelectors.getResult()
                 .getVertexSourceSelectors()
                 .orElse(new VertexSourceSelectors());
-
+        string.skipWhitespace();
         if (!string.startsWith(DSL_KEYWORD)) {
             return string.expect(DSL_KEYWORD);
         }
         string.advance(DSL_KEYWORD.length() + 1);
 
+        string.skipWhitespace();
         if (string.empty()) {
             return ParseResult.ok(new AnalysisConstraint(name, vertexSourceSelectors, dataSourceSelectors, new VertexDestinationSelectors(),
                     new ConditionalSelectors(), context));
@@ -230,9 +228,11 @@ public class AnalysisConstraint {
         }
         VertexDestinationSelectors vertexDestinationSelectors = nodeDestinationSelectorsParseResult.getResult();
 
+        string.skipWhitespace();
         ParseResult<ConditionalSelectors> conditionalSelectorsParseResult = ConditionalSelectors.fromString(string, context);
         ConditionalSelectors conditionalSelectors = conditionalSelectorsParseResult.or(new ConditionalSelectors());
 
+        string.skipWhitespace();
         if (!string.empty()) {
             return ParseResult.error("Unexpected symbols: " + string.getString());
         }

@@ -1,16 +1,12 @@
 package org.dataflowanalysis.converter.tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.core.CharacteristicValue;
+import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
+import org.dataflowanalysis.analysis.utils.StringView;
 import org.dataflowanalysis.converter.dfd2web.DFD2WebConverter;
 import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.converter.web2dfd.model.Annotation;
@@ -37,6 +33,10 @@ public class AnnotationsTest {
     private DataDictionary dataDictionary;
     private Node b;
     private LabelType type;
+
+    private final AnalysisConstraint constraint = AnalysisConstraint
+            .fromString(new StringView("- Name: data type.value neverFlows vertex type.violation"))
+            .getResult();
 
     @BeforeEach
     public void init() {
@@ -84,7 +84,7 @@ public class AnnotationsTest {
 
     @Test
     public void testPropagatedLabelsAnnotation() {
-        Map<String, Annotation> nodeNameToAnnotationMap = new HashMap<>();
+        Map<String, List<Annotation>> nodeNameToAnnotationMap = new HashMap<>();
         var webDfd = dfd2WebConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
         webDfd.getModel()
                 .model()
@@ -93,21 +93,32 @@ public class AnnotationsTest {
                 .filter(child -> child.type()
                         .startsWith("node"))
                 .forEach(node -> {
-                    nodeNameToAnnotationMap.put(node.text(), node.annotation());
+                    nodeNameToAnnotationMap.put(node.text(), node.annotations());
                 });
-        assertEquals("PropagatedLabels:type.value", nodeNameToAnnotationMap.get("a")
+
+        assertEquals("Propagated: type.value", nodeNameToAnnotationMap.get("a")
+                .get(0)
                 .message()
-                .replace(" ", "")
+                .replace(",", "")
                 .replace("\n", ""));
         assertEquals("#FFFFFF", nodeNameToAnnotationMap.get("a")
+                .get(0)
                 .color());
         assertEquals("tag", nodeNameToAnnotationMap.get("a")
+                .get(0)
                 .icon());
-        assertEquals("PropagatedLabels:type.value", nodeNameToAnnotationMap.get("b")
+        assertEquals("Propagated: type.value", nodeNameToAnnotationMap.get("b")
+                .get(0)
                 .message()
-                .replace(" ", "")
+                .replace(",", "")
                 .replace("\n", ""));
-        assertEquals(null, nodeNameToAnnotationMap.get("c"));
+
+        assert (nodeNameToAnnotationMap.get("c")
+                .stream()
+                .filter(a -> a.message()
+                        .startsWith("Propagated"))
+                .toList()
+                .isEmpty());
     }
 
     @Test
@@ -119,11 +130,9 @@ public class AnnotationsTest {
 
         b.getProperties()
                 .add(label);
-        List<Predicate<? super AbstractVertex<?>>> conditions = new ArrayList<>();
-        conditions.add(this::condition);
 
-        Map<String, Annotation> nodeNameToAnnotationMap = new HashMap<>();
-        dfd2WebConverter.setConditions(conditions);
+        Map<String, List<Annotation>> nodeNameToAnnotationMap = new HashMap<>();
+        dfd2WebConverter.setConstraints(List.of(constraint));
         var webDfd = dfd2WebConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
         webDfd.getModel()
                 .model()
@@ -132,36 +141,44 @@ public class AnnotationsTest {
                 .filter(child -> child.type()
                         .startsWith("node"))
                 .forEach(node -> {
-                    nodeNameToAnnotationMap.put(node.text(), node.annotation());
+                    nodeNameToAnnotationMap.put(node.text(), node.annotations());
                 });
-        assertEquals("PropagatedLabels:type.value", nodeNameToAnnotationMap.get("a")
-                .message()
-                .replace(" ", "")
-                .replace("\n", ""));
-        assertEquals("PropagatedLabels:type.valueViolation:Constraint0violated.", nodeNameToAnnotationMap.get("b")
-                .message()
-                .replace(" ", "")
-                .replace("\n", ""));
-        assertEquals("#ff0000", nodeNameToAnnotationMap.get("b")
-                .color());
-        assertEquals("bolt", nodeNameToAnnotationMap.get("b")
-                .icon());
-        assertNull(nodeNameToAnnotationMap.get("c"));
-    }
 
-    private boolean condition(AbstractVertex<?> node) {
-        List<String> properties = node.getVertexCharacteristics("type")
+        assert (nodeNameToAnnotationMap.get("a")
                 .stream()
-                .map(CharacteristicValue::getValueName)
-                .toList();
-        List<String> incomingLabeList = node.getAllIncomingDataCharacteristics()
-                .stream()
-                .flatMap(it -> it.getAllCharacteristics()
-                        .stream()
-                        .map(c -> c.getValueName()))
-                .collect(Collectors.toList());
+                .anyMatch(annotation -> {
+                    return annotation.message()
+                            .replace(",", "")
+                            .replace("\n", "")
+                            .equals("Propagated: type.value");
+                }));
 
-        return properties.contains("violation") && incomingLabeList.contains("value");
+        assert (nodeNameToAnnotationMap.get("b")
+                .stream()
+                .anyMatch(annotation -> {
+                    return annotation.message()
+                            .replace(",", "")
+                            .replace("\n", "")
+                            .equals("Propagated: type.value");
+                }));
+
+        assert (nodeNameToAnnotationMap.get("b")
+                .stream()
+                .anyMatch(annotation -> {
+                    return annotation.message()
+                            .equals("Constraint Name violated")
+                            && !annotation.color()
+                                    .equals("FFFFFF")
+                            && annotation.icon()
+                                    .equals("bolt");
+                }));
+
+        assert (nodeNameToAnnotationMap.get("c")
+                .stream()
+                .filter(a -> a.message()
+                        .startsWith("Propagated"))
+                .toList()
+                .isEmpty());
     }
 
     private Node createNode(String name) {

@@ -39,6 +39,7 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 public class DFDVertex extends AbstractVertex<Node> {
     protected final Map<Pin, DFDVertex> pinDFDVertexMap;
     protected final Map<Pin, Flow> pinFlowMap;
+    protected final List<Pin> evaluatedOutPins = new ArrayList<>();
 
     /**
      * Creates a new vertex with the given referenced node and pin mappings
@@ -71,8 +72,51 @@ public class DFDVertex extends AbstractVertex<Node> {
                 .forEach(pin -> this.fillMapOfIncomingLabelsPerPin(pin, inputPinsIncomingLabelMap));
 
         List<DataCharacteristic> dataCharacteristics = new ArrayList<>(this.createDataCharacteristicsFromLabels(inputPinsIncomingLabelMap));
+        List<DataCharacteristic> outgoingDataCharacteristics = new ArrayList<>();
+        this.setPropagationResult(dataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics);
+    }
+
+    /**
+     * Evaluates the given vertex by determining incoming and outgoing data characteristics and node characteristics
+     */
+    public void evaluateDataFlow(List<Pin> outPinsForOutgoing) {
+        if (super.isEvaluated()) {
+            if (!evaluatedOutPins.containsAll(outPinsForOutgoing)) {
+                Map<Pin, List<Label>> inputPinsIncomingLabelMap = new HashMap<>();
+                this.getPinFlowMap()
+                        .keySet()
+                        .forEach(pin -> this.fillMapOfIncomingLabelsPerPin(pin, inputPinsIncomingLabelMap));
+                Map<Pin, List<Label>> outputPinsOutgoingLabelMap = determineOutputPinOutgoingLabelMap(inputPinsIncomingLabelMap);
+
+                outputPinsOutgoingLabelMap.entrySet()
+                        .removeIf(e -> !outPinsForOutgoing.contains(e.getKey()));
+
+                var charsToAdd = this.createDataCharacteristicsFromLabels(outputPinsOutgoingLabelMap);
+
+                this.getAllOutgoingDataCharacteristics()
+                        .addAll(charsToAdd);
+                evaluatedOutPins.addAll(outPinsForOutgoing);
+            }
+            return;
+        }
+
+        evaluatedOutPins.addAll(outPinsForOutgoing);
+
+        evaluatePreviousVertices();
+
+        List<CharacteristicValue> vertexCharacteristics = determineNodeCharacteristics();
+
+        Map<Pin, List<Label>> inputPinsIncomingLabelMap = new HashMap<>();
+        this.getPinFlowMap()
+                .keySet()
+                .forEach(pin -> this.fillMapOfIncomingLabelsPerPin(pin, inputPinsIncomingLabelMap));
+
+        List<DataCharacteristic> dataCharacteristics = new ArrayList<>(this.createDataCharacteristicsFromLabels(inputPinsIncomingLabelMap));
 
         Map<Pin, List<Label>> outputPinsOutgoingLabelMap = determineOutputPinOutgoingLabelMap(inputPinsIncomingLabelMap);
+
+        outputPinsOutgoingLabelMap.entrySet()
+                .removeIf(e -> !outPinsForOutgoing.contains(e.getKey()));
 
         List<DataCharacteristic> outgoingDataCharacteristics = new ArrayList<>(this.createDataCharacteristicsFromLabels(outputPinsOutgoingLabelMap));
         this.setPropagationResult(dataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics);
@@ -111,9 +155,24 @@ public class DFDVertex extends AbstractVertex<Node> {
      */
     private void evaluatePreviousVertices() {
         Map<Pin, DFDVertex> previousVertices = this.getPinDFDVertexMap();
+
+        // invert to Map<DFDVertex,List<Pin>>
+        Map<DFDVertex, List<Pin>> groups = previousVertices.entrySet()
+                .stream()
+                .collect(Collectors.groupingBy(Map.Entry::getValue, Collectors.mapping(Map.Entry::getKey, Collectors.toList())));
+
+        // build Map<Pin,List<Pin>>
+        Map<Pin, List<Pin>> result = previousVertices.entrySet()
+                .stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> groups.get(e.getValue())));
+
         previousVertices.keySet()
                 .forEach(pin -> previousVertices.get(pin)
-                        .evaluateDataFlow());
+                        .evaluateDataFlow(result.get(pin)
+                                .stream()
+                                .map(inPin -> pinFlowMap.get(inPin)
+                                        .getSourcePin())
+                                .toList()));
     }
 
     /**

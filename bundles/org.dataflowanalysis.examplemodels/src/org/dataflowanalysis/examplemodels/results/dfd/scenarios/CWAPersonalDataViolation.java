@@ -18,7 +18,7 @@ public class CWAPersonalDataViolation implements DFDExampleModelResult {
 
     @Override
     public String getModelName() {
-        return "CWAPersonalDataViolation";
+        return "CWA/PersonalDataViolation";
     }
 
     @Override

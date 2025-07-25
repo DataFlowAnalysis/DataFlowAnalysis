@@ -18,7 +18,7 @@ public class CWARPIViolation implements DFDExampleModelResult {
 
     @Override
     public String getModelName() {
-        return "CWARPIViolation";
+        return "CWA/RPIViolation";
     }
 
     @Override

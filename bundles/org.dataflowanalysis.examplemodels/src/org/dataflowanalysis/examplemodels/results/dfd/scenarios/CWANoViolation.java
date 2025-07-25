@@ -15,7 +15,7 @@ public class CWANoViolation implements DFDExampleModelResult {
 
     @Override
     public String getModelName() {
-        return "CWANoViolation";
+        return "CWA/NoViolation";
     }
 
     @Override

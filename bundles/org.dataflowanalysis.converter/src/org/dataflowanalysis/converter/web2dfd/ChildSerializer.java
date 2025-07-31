@@ -30,7 +30,7 @@ public class ChildSerializer extends StdSerializer<Child> {
         gen.writeObjectField("annotations", child.annotations());
         gen.writeObjectField("children", child.children());
 
-        // ✅ Only include position and size if type starts with "node"
+        // Only include position and size if type starts with "node"
         if (child.type() != null && child.type()
                 .startsWith("node")) {
             gen.writeObjectField("position", child.position());

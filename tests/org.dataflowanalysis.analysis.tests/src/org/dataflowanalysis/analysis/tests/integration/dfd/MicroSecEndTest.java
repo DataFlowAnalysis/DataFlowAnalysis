@@ -164,7 +164,8 @@ public class MicroSecEndTest {
             list.add(innerList);
         }
         var compareList = List.of(List.of("apache_server", "user", "apache_server", "content_service"),
-                List.of("apache_server", "user", "apache_server", "cart_service", "product_service"), List.of("apache_server", "user", "apache_server", "product_service"));
+                List.of("apache_server", "user", "apache_server", "cart_service", "product_service"),
+                List.of("apache_server", "user", "apache_server", "product_service"));
 
         assertEquals(list, compareList);
     }

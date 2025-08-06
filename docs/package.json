@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "predev": "node scripts/prebuild.js",
     "dev": "vitepress dev",
+    "prebuild": "node scripts/prebuild.js",
     "build": "vitepress build",
     "preview": "vitepress preview"
   },

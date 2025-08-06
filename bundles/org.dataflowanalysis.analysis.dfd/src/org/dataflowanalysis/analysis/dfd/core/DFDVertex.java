@@ -376,6 +376,11 @@ public class DFDVertex extends AbstractVertex<Node> {
             return false;
         if (!this.referencedElement.equals(vertex.getReferencedElement()))
             return false;
+        if (!this.getPinDFDVertexMap()
+                .keySet()
+                .equals(vertex.getPinDFDVertexMap()
+                        .keySet()))
+            return false;
         for (var key : this.getPinDFDVertexMap()
                 .keySet()) {
             if (!this.getPinDFDVertexMap()

@@ -3,8 +3,8 @@ name: Deploy docs
 on:
  workflow_dispatch: # Use this to dispatch from the Actions Tab
  push:
-    branches:
-      - main
+  paths:
+    - 'docs/**'
       
 jobs:
   build-and-deploy:
@@ -24,6 +24,7 @@ jobs:
           npm run build
 
       - name: Deploy 🚀
+        if: github.ref == 'refs/heads/main'
         uses: JamesIves/github-pages-deploy-action@v4.7.3
         with:
           branch: gh-pages

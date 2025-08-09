@@ -191,15 +191,18 @@ public abstract class AbstractVertex<T> {
      * literals
      */
     public String createPrintableNodeInformation() {
-        String template = "Propagated %s%s\tNode characteristics: %s%s\tData flow Variables:  %s%s";
+        String template = """
+                Propagated %s
+                \tNode characteristics: %s
+                \tData flow Variables:  %s
+                """;
         String nodeCharacteristics = createPrintableCharacteristicsList(this.getAllVertexCharacteristics());
         String dataCharacteristics = this.getAllDataCharacteristics()
                 .stream()
                 .map(e -> String.format("%s [%s]", e.variableName(), createPrintableCharacteristicsList(e.getAllCharacteristics())))
                 .collect(Collectors.joining(", "));
 
-        return String.format(template, this, System.lineSeparator(), nodeCharacteristics, System.lineSeparator(), dataCharacteristics,
-                System.lineSeparator());
+        return String.format(template, this, nodeCharacteristics, dataCharacteristics);
     }
 
     /**

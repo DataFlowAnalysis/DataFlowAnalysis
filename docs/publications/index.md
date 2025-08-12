@@ -70,8 +70,6 @@ import abunaiBib from './bib/abunai.json'
 import mdpaBib from './bib/mdpa.json'
 import arcoviaBib from './bib/arcovia.json'
 
-console.log(xdcafBib, abunaiBib, mdpaBib, arcoviaBib)
-
 function sortEntries(entries: BibEntry[]) {
     return entries.sort((a, b) => {
         const dateA = new Date(a.issued['date-parts'][0][0]);

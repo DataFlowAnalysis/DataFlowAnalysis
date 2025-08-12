@@ -53,7 +53,6 @@ import { VPButton } from 'vitepress/theme'
 import version from './version.json'
 
 let releaseInfo = ref('The latest released version is available on GitHub.')
-console.log(version)
 if (version && version.version) {
   if (!version.date) {
     releaseInfo = `The latest released version is ${version.version}.`

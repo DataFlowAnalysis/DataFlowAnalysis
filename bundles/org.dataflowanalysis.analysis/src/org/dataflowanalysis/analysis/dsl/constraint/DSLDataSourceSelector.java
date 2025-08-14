@@ -35,6 +35,7 @@ public class DSLDataSourceSelector {
         return this;
     }
 
+    // TODO this is for a non-constant ConstraintVariableReference, why does withoutLabel not handle non-constants? Would that even make sense?
     /**
      * Matches source vertices with the given characteristic type and characteristic value
      * @param characteristicType Characteristic type that must be present at the source vertex
@@ -47,6 +48,7 @@ public class DSLDataSourceSelector {
         return this;
     }
 
+    //TODO at least one or at most one ??
     /**
      * Matches source vertices with the given characteristic type and characteristic values
      * <p/>
@@ -87,12 +89,17 @@ public class DSLDataSourceSelector {
      * @return Returns DSL constraint builder for source vertex data
      */
     public DSLDataSourceSelector withoutLabel(String characteristicType, List<String> characteristicValues) {
-        characteristicValues.forEach(
-                characteristicValue -> this.analysisConstraint.addDataSourceSelector(new DataCharacteristicsSelector(analysisConstraint.getContext(),
-                        new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
-                                ConstraintVariableReference.ofConstant(List.of(characteristicValue))),
-                        true)));
-        return this;
+    	
+    	// Option 1: recursive return
+    	var res = this;
+    	for(String characteristicValue : characteristicValues) {
+    		res = res.withoutLabel(characteristicType, characteristicValue);
+    	}
+    	return res;
+    	
+    	// Option 2: discard return
+//    	characteristicValues.forEach(it -> this.withoutLabel(characteristicType, it)); // "this" can be omitted
+//    	return this;
     }
 
     /**

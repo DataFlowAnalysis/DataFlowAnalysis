@@ -33,6 +33,7 @@ public class VertexCharacteristicsListSelector extends VertexSelector {
         this.recursive = false;
     }
 
+    // TODO does this ever get used? call hierarchy shows no calls
     public VertexCharacteristicsListSelector(DSLContext context, List<CharacteristicsSelectorData> vertexCharacteristics, boolean inverted,
             boolean recursive) {
         super(context);

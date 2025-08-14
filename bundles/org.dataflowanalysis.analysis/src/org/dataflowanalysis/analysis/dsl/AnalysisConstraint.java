@@ -36,6 +36,11 @@ public class AnalysisConstraint {
     private final VertexDestinationSelectors vertexDestinationSelectors;
     private final ConditionalSelectors conditionalSelectors;
     private final DSLContext context;
+    
+    public DataSourceSelectors getDataSourceSelectors() { return dataSourceSelectors; }
+    public VertexSourceSelectors getVertexSourceSelectors() { return vertexSourceSelectors; }
+    public VertexDestinationSelectors getVertexDestinationSelectors() { return vertexDestinationSelectors; }
+    public ConditionalSelectors getConditionalSelectors() { return conditionalSelectors; }
 
     /**
      * Create a new analysis constraint with no constraints

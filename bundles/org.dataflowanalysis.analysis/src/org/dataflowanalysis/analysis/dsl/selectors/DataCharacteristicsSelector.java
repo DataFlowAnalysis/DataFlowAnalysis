@@ -15,6 +15,8 @@ public class DataCharacteristicsSelector extends DataSelector {
 
     private final CharacteristicsSelectorData dataCharacteristic;
     private final boolean inverted;
+    
+    public CharacteristicsSelectorData getDataCharacteristic() { return dataCharacteristic; }
 
     public DataCharacteristicsSelector(DSLContext context, CharacteristicsSelectorData dataCharacteristic) {
         super(context);
@@ -42,7 +44,7 @@ public class DataCharacteristicsSelector extends DataSelector {
             List<CharacteristicValue> presentCharacteristics = vertex.getAllIncomingDataCharacteristics()
                     .stream()
                     .filter(it -> it.variableName()
-                            .equals(variableName))
+                    		.equals(variableName))
                     .flatMap(it -> it.characteristics()
                             .stream())
                     .toList();

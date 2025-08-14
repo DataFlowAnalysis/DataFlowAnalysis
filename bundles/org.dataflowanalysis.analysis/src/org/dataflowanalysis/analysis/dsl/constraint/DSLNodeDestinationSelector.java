@@ -35,6 +35,7 @@ public class DSLNodeDestinationSelector {
         return this;
     }
 
+    // TODO this is for a non-constant ConstraintVariableReference, why does withoutCharacteristic not handle non-constants? Would that even make sense?
     /**
      * Match vertices that have the given node characteristic
      * @param characteristicType Node characteristic type that must be present at the vertex
@@ -47,8 +48,9 @@ public class DSLNodeDestinationSelector {
         return this;
     }
 
+    // TODO at most one or at least one ? 
     /**
-     * Match vertices that have one of the given node characteristics
+     * Match vertices that have one of the given node characteristics 
      * <p/>
      * Only one node characteristic value must be present at the vertex
      * @param characteristicType Node characteristic type that must be present at the vertex
@@ -79,7 +81,7 @@ public class DSLNodeDestinationSelector {
     }
 
     /**
-     * Match vertices that do not have the given node characteristic
+     * Match vertices that do not have the given node characteristics
      * <p/>
      * All node characteristic values must be absent at the vertex
      * @param characteristicType Node characteristic type that must be absent at the vertex
@@ -87,12 +89,17 @@ public class DSLNodeDestinationSelector {
      * @return DSL node selector to add more constraints
      */
     public DSLNodeDestinationSelector withoutCharacteristic(String characteristicType, List<String> characteristicValues) {
-        List<CharacteristicsSelectorData> data = new ArrayList<>();
-        characteristicValues
-                .forEach(it -> data.add(new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
-                        ConstraintVariableReference.ofConstant(List.of(it)))));
-        this.analysisConstraint.addNodeDestinationSelector(new VertexCharacteristicsListSelector(analysisConstraint.getContext(), data, true));
-        return this;
+    	
+    	// Option 1: recursive return
+    	var res = this;
+    	for(String characteristicValue : characteristicValues) {
+    		res = res.withoutCharacteristic(characteristicType, characteristicValue);
+    	}
+    	return res;
+    	
+//    	// Option 2: discard return
+//    	characteristicValues.forEach(it -> this.withoutCharacteristic(characteristicType, it)); // "this" can be omitted
+//    	return this;
     }
 
     /**

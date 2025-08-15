@@ -18,6 +18,8 @@ public class VertexCharacteristicsSelector extends VertexSelector {
     private final boolean inverted;
     private final boolean recursive;
 
+    public CharacteristicsSelectorData getCharacteristicsSelectorData() { return vertexCharacteristics; }
+
     public VertexCharacteristicsSelector(DSLContext context, CharacteristicsSelectorData vertexCharacteristics) {
         super(context);
         this.vertexCharacteristics = vertexCharacteristics;

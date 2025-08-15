@@ -17,7 +17,7 @@ public class DataCharacteristicListSelector extends DataSelector {
     private final List<CharacteristicsSelectorData> dataCharacteristics;
     private final boolean inverted;
     
-    public List<CharacteristicsSelectorData> getDataCharacteristic() { return dataCharacteristics; }
+    public List<CharacteristicsSelectorData> getCharacteristicsSelectorDataList() { return dataCharacteristics; }
 
     public DataCharacteristicListSelector(DSLContext context, List<CharacteristicsSelectorData> dataCharacteristics) {
         super(context);

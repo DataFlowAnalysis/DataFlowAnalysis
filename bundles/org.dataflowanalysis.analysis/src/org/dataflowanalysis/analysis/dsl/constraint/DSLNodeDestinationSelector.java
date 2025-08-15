@@ -50,7 +50,7 @@ public class DSLNodeDestinationSelector {
 
     // TODO at most one or at least one ? 
     /**
-     * Match vertices that have one of the given node characteristics 
+     * Match vertices that have one of the given node characteristics
      * <p/>
      * Only one node characteristic value must be present at the vertex
      * @param characteristicType Node characteristic type that must be present at the vertex

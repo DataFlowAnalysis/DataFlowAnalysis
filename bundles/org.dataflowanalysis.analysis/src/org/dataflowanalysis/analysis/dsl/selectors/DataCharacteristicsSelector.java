@@ -44,7 +44,7 @@ public class DataCharacteristicsSelector extends DataSelector {
             List<CharacteristicValue> presentCharacteristics = vertex.getAllIncomingDataCharacteristics()
                     .stream()
                     .filter(it -> it.variableName()
-                    		.equals(variableName))
+                            .equals(variableName))
                     .flatMap(it -> it.characteristics()
                             .stream())
                     .toList();

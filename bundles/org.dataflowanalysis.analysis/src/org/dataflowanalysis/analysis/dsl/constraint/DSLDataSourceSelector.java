@@ -89,17 +89,8 @@ public class DSLDataSourceSelector {
      * @return Returns DSL constraint builder for source vertex data
      */
     public DSLDataSourceSelector withoutLabel(String characteristicType, List<String> characteristicValues) {
-    	
-    	// Option 1: recursive return
-    	var res = this;
-    	for(String characteristicValue : characteristicValues) {
-    		res = res.withoutLabel(characteristicType, characteristicValue);
-    	}
-    	return res;
-    	
-    	// Option 2: discard return
-//    	characteristicValues.forEach(it -> this.withoutLabel(characteristicType, it)); // "this" can be omitted
-//    	return this;
+        characteristicValues.forEach(it -> this.withoutLabel(characteristicType, it));
+    	return this;
     }
 
     /**

@@ -89,17 +89,8 @@ public class DSLNodeDestinationSelector {
      * @return DSL node selector to add more constraints
      */
     public DSLNodeDestinationSelector withoutCharacteristic(String characteristicType, List<String> characteristicValues) {
-    	
-    	// Option 1: recursive return
-    	var res = this;
-    	for(String characteristicValue : characteristicValues) {
-    		res = res.withoutCharacteristic(characteristicType, characteristicValue);
-    	}
-    	return res;
-    	
-//    	// Option 2: discard return
-//    	characteristicValues.forEach(it -> this.withoutCharacteristic(characteristicType, it)); // "this" can be omitted
-//    	return this;
+    	characteristicValues.forEach(it -> this.withoutCharacteristic(characteristicType, it));
+    	return this;
     }
 
     /**

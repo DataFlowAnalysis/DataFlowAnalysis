@@ -145,6 +145,22 @@ public class AnalysisConstraint {
         return context;
     }
 
+    public DataSourceSelectors getDataSourceSelectors() {
+        return dataSourceSelectors;
+    }
+
+    public VertexSourceSelectors getVertexSourceSelectors() {
+        return vertexSourceSelectors;
+    }
+
+    public VertexDestinationSelectors getVertexDestinationSelectors() {
+        return vertexDestinationSelectors;
+    }
+
+    public ConditionalSelectors getConditionalSelectors() {
+        return conditionalSelectors;
+    }
+
     @Override
     public String toString() {
         StringJoiner dslString = new StringJoiner(" ");

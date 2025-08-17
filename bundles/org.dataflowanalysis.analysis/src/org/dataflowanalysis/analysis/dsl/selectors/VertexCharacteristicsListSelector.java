@@ -109,6 +109,10 @@ public class VertexCharacteristicsListSelector extends VertexSelector {
         return result;
     }
 
+    public List<CharacteristicsSelectorData> getCharacteristicsSelectorDataList() {
+        return vertexCharacteristics;
+    }
+
     @Override
     public String toString() {
         StringJoiner vertexCharacteristicsString = new StringJoiner(DSL_DELIMITER);

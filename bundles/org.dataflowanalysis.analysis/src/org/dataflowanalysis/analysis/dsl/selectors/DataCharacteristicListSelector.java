@@ -75,6 +75,10 @@ public class DataCharacteristicListSelector extends DataSelector {
         return inverted;
     }
 
+    public List<CharacteristicsSelectorData> getCharacteristicsSelectorDataList() {
+        return dataCharacteristics;
+    }
+
     @Override
     public String toString() {
         StringJoiner dataCharacteristicsString = new StringJoiner(DSL_DELIMITER);

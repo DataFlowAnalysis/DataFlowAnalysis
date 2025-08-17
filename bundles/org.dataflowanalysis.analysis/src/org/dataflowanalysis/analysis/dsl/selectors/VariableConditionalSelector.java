@@ -50,6 +50,10 @@ public class VariableConditionalSelector extends AbstractParseable implements Co
         return constraintVariable;
     }
 
+    public boolean isInverted() {
+        return inverted;
+    }
+
     @Override
     public String toString() {
         if (this.inverted) {

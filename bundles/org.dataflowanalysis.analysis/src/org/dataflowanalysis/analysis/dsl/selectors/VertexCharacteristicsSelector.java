@@ -95,6 +95,10 @@ public class VertexCharacteristicsSelector extends VertexSelector {
         return result;
     }
 
+    public CharacteristicsSelectorData getCharacteristicsSelectorData() {
+        return vertexCharacteristics;
+    }
+
     @Override
     public String toString() {
         if (this.inverted) {

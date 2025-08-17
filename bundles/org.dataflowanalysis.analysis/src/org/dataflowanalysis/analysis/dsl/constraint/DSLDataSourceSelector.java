@@ -87,11 +87,11 @@ public class DSLDataSourceSelector {
      * @return Returns DSL constraint builder for source vertex data
      */
     public DSLDataSourceSelector withoutLabel(String characteristicType, List<String> characteristicValues) {
-        characteristicValues.forEach(
-                characteristicValue -> this.analysisConstraint.addDataSourceSelector(new DataCharacteristicsSelector(analysisConstraint.getContext(),
-                        new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
-                                ConstraintVariableReference.ofConstant(List.of(characteristicValue))),
-                        true)));
+        List<CharacteristicsSelectorData> data = new ArrayList<>();
+        characteristicValues
+                .forEach(it -> data.add(new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
+                        ConstraintVariableReference.ofConstant(List.of(it)))));
+        this.analysisConstraint.addDataSourceSelector(new DataCharacteristicListSelector(analysisConstraint.getContext(), data, true));
         return this;
     }
 

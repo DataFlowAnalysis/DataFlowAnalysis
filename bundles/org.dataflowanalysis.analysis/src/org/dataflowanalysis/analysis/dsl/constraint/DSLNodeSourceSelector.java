@@ -78,7 +78,6 @@ public class DSLNodeSourceSelector {
         return this;
     }
 
-    // TODO why does this handle non-constant ConstraintVariableReference here but all other classes don't ?
     /**
      * Match vertices without the given characteristic type and value
      * @param characteristicType Characteristic type that must be absent at the vertex
@@ -101,8 +100,12 @@ public class DSLNodeSourceSelector {
      * @return Returns a dsl node source selector to add more constraints
      */
     public DSLNodeSourceSelector withoutCharacteristic(String characteristicType, List<String> characteristicValues) {
-    	characteristicValues.forEach(it -> this.withoutCharacteristic(characteristicType, it));
-    	return this;
+        List<CharacteristicsSelectorData> data = new ArrayList<>();
+        characteristicValues
+                .forEach(it -> data.add(new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
+                        ConstraintVariableReference.ofConstant(List.of(it)))));
+        this.analysisConstraint.addNodeSourceSelector(new VertexCharacteristicsListSelector(analysisConstraint.getContext(), data, true));
+        return this;
     }
 
     /**

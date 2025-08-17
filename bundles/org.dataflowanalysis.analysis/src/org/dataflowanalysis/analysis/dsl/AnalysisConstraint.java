@@ -37,18 +37,6 @@ public class AnalysisConstraint {
     private final ConditionalSelectors conditionalSelectors;
     private final DSLContext context;
 
-    // Only ever has DataCharacteristicsSelector and DataCharacteristicListSelector
-    public DataSourceSelectors getDataSourceSelectors() { return dataSourceSelectors; }
-
-    // Only ever has VertexCharacteristicsSelector and VertexCharacteristicListSelector and VertexTypeSelector
-    public VertexSourceSelectors getVertexSourceSelectors() { return vertexSourceSelectors; }
-
-    // Only ever has VertexCharacteristicsSelector and VertexCharacteristicListSelector and VertexPredicateSelector
-    public VertexDestinationSelectors getVertexDestinationSelectors() { return vertexDestinationSelectors; }
-
-    // Only ever has ConditionalSelector
-    public ConditionalSelectors getConditionalSelectors() { return conditionalSelectors; }
-
     /**
      * Create a new analysis constraint with no constraints
      */
@@ -155,6 +143,22 @@ public class AnalysisConstraint {
      */
     public DSLContext getContext() {
         return context;
+    }
+
+    public DataSourceSelectors getDataSourceSelectors() {
+        return dataSourceSelectors;
+    }
+
+    public VertexSourceSelectors getVertexSourceSelectors() {
+        return vertexSourceSelectors;
+    }
+
+    public VertexDestinationSelectors getVertexDestinationSelectors() {
+        return vertexDestinationSelectors;
+    }
+
+    public ConditionalSelectors getConditionalSelectors() {
+        return conditionalSelectors;
     }
 
     @Override

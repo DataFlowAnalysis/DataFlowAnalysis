@@ -15,8 +15,6 @@ public class DataCharacteristicsSelector extends DataSelector {
 
     private final CharacteristicsSelectorData dataCharacteristic;
     private final boolean inverted;
-    
-    public CharacteristicsSelectorData getCharacteristicsSelectorData() { return dataCharacteristic; }
 
     public DataCharacteristicsSelector(DSLContext context, CharacteristicsSelectorData dataCharacteristic) {
         super(context);
@@ -68,6 +66,10 @@ public class DataCharacteristicsSelector extends DataSelector {
 
     public boolean isInverted() {
         return inverted;
+    }
+
+    public CharacteristicsSelectorData getCharacteristicsSelectorData() {
+        return dataCharacteristic;
     }
 
     @Override

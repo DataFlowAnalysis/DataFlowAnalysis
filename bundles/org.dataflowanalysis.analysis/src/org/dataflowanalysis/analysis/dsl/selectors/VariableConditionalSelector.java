@@ -16,10 +16,6 @@ public class VariableConditionalSelector extends AbstractParseable implements Co
     private final ConstraintVariableReference constraintVariable;
     private final boolean inverted;
 
-    public boolean isInverted() {
-        return inverted;
-    }
-
     public VariableConditionalSelector(ConstraintVariableReference constraintVariable) {
         this.constraintVariable = constraintVariable;
         this.inverted = false;
@@ -52,6 +48,10 @@ public class VariableConditionalSelector extends AbstractParseable implements Co
 
     public ConstraintVariableReference getConstraintVariable() {
         return constraintVariable;
+    }
+
+    public boolean isInverted() {
+        return inverted;
     }
 
     @Override

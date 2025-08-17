@@ -22,7 +22,9 @@ The extensible analysis framework has been presented in this premiere publicatio
 
 Further publications present various aspects of the analysis framework, e.g., the analysis algorithm, or the constraint formulation:
 
-<div v-html="bibXDECAF"></div>
+<ul>
+    <BibEntryComponent v-for="e in sortEntries(xdcafBib)" :entry="e" />
+</ul>
 
 ## Analysis Extensions
 
@@ -34,7 +36,9 @@ ABUNAI supports the modeling and analysis of uncertainty and its impact on confi
 By combining data flow analysis with architecture-based uncertainty propagation, predictions can be made on the interaction of uncertainty and confidentiality.
 For further information, please visits [abunai.dev](https://abunai.dev).
 
-<div v-html="bibABUNAI"></div>
+<ul>
+    <BibEntryComponent v-for="e in sortEntries(abunaiBib)" :entry="e" />
+</ul>
 
 ### MDPA – Model-Based Data Protection Assessments
 
@@ -42,90 +46,35 @@ MDPA enables the model-based assessment of data protection.
 By incorporating legal information from the GDPR, experts can make statements about data privacy from a software architectural viewpoint.
 For further information, please visits [github.com/Model-Based-Data-Protection-Assessments](https://github.com/Model-Based-Data-Protection-Assessments).
 
-<div v-html="bibMDPA"></div>
+<ul>
+    <BibEntryComponent v-for="e in sortEntries(mdpaBib)" :entry="e" />
+</ul>
 
 ### ARCoViA – Automated Repair of Confidentiality Violations in Software Architectures
 
 ARCoVIA assists software architects in automatically repearing confidentiality violations in software architectures.
 For further information, please visits [github.com/arcovia-dev](https://github.com/arcovia-dev).
 
-<div v-html="bibARCOVIA"></div>
+<ul>
+    <BibEntryComponent v-for="e in sortEntries(arcoviaBib)" :entry="e" />
+</ul>
 
-<script setup>
+<script setup lang="ts">
 import PaperHighlight from '../PaperHighlight.vue'
 import { ref } from 'vue';
-import * as bibtex from "bibtex";
 import { bib } from "./bib.js";
+import BibEntryComponent from './BibEntryComponent.vue'
+import { BibEntry } from './BibEntry';
+import xdcafBib from './bib/xdcaf.json'
+import abunaiBib from './bib/abunai.json'
+import mdpaBib from './bib/mdpa.json'
+import arcoviaBib from './bib/arcovia.json'
 
-const entries = bibtex.parseBibFile(bib).entries_raw;
-const bibXDECAF = ref(filterAndFormatEntries(entries, "xdecaf"));
-const bibABUNAI = ref(filterAndFormatEntries(entries, "abunai"));
-const bibMDPA = ref(filterAndFormatEntries(entries, "mdpa"));
-const bibARCOVIA = ref(filterAndFormatEntries(entries, "arcovia"));
-
-function filterAndFormatEntries(entries, tag) {
-    const filteredEntries = entries.filter(entry => entry.getFieldAsString("tag") == tag);
-    filteredEntries.sort((a, b) => {
-        const dateA = new Date(a.getFieldAsString("date"));
-        const dateB = new Date(b.getFieldAsString("date"));
+function sortEntries(entries: BibEntry[]) {
+    return entries.sort((a, b) => {
+        const dateA = new Date(a.issued['date-parts'][0][0]);
+        const dateB = new Date(b.issued['date-parts'][0][0]);
         return dateB - dateA; // Sort by date descending
     });
-    const formattedEntries = filteredEntries.map(entry => formatBibEntry(entry));
-
-    return `<ul><li>${formattedEntries.join("</li><li>")}</li></ul>`;
-}
-
-function formatBibEntry(entry) {
-    const title = entry.getFieldAsString("title");
-    const author = entry.getFieldAsString("author");
-    const date = entry.getFieldAsString("date");
-
-    let url = entry.getFieldAsString("url");
-    const doi = entry.getFieldAsString("doi");
-
-    if(!url) {
-        if(doi) {
-            url = `https://doi.org/${doi}`;
-        } else {
-            url = "#";
-        }
-    }
-
-    let venue = "";
-    if(entry.type == "inproceedings") {
-        venue = `${entry.getFieldAsString("booktitle")}, ${entry.getFieldAsString("publisher")}`
-    } else if (entry.type == "article") {
-        venue = `${entry.getFieldAsString("journaltitle")}, ${entry.getFieldAsString("publisher")}`
-    } else if (entry.type == "misc") {
-        venue = entry.getFieldAsString("publisher");
-    } else if (entry.type == "thesis") {
-        venue = `${entry.getFieldAsString("institution")}, ${entry.getFieldAsString("type")}`
-    }
-
-    const formattedAuthorList = formatBibtexAuthors(author);
-
-    let formattedBibEntry = `${formattedAuthorList}, "<a href="${url}">${title}</a>", ${venue}, ${date}`;
-
-    if(doi) {
-        formattedBibEntry = formattedBibEntry + `, doi: <a href="https://doi.org/${doi}">${doi}</a>`;
-    }
-
-    return `${formattedBibEntry}.`;
-}
-
-function formatBibtexAuthors(bibtexAuthors) {
-  const authors = bibtexAuthors.split(/\s+and\s+/);
-
-  const formattedAuthors = authors.slice(0, 3).map(author => {
-    const [last, first] = author.split(',').map(s => s.trim());
-    const firstInitial = first ? first.charAt(0) + '.' : '';
-    return `${firstInitial} ${last}`;
-  });
-
-  if (authors.length > 3) {
-    formattedAuthors.push("et al.");
-  }
-
-  return formattedAuthors.join(', ');
 }
 </script>

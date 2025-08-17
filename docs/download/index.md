@@ -50,22 +50,20 @@ If you only want to edit and analyze data flow diagrams without further tool sup
 <script setup>
 import { ref } from 'vue'
 import { VPButton } from 'vitepress/theme'
+import version from './version.json'
 
-const releaseInfo = ref('The latest released version is available on GitHub.')
-const url = 'https://api.github.com/repos/DataFlowAnalysis/DataFlowAnalysis/releases/latest';
-
-fetch(url).then(response => {
-    response.json().then(data => {
-    const latestReleaseVersion = data.tag_name;
-
-    const rawDate = new Date(data.published_at);
-    const latestReleaseDate = rawDate.toLocaleDateString('en-US', {
+let releaseInfo = ref('The latest released version is available on GitHub.')
+if (version && version.version) {
+  if (!version.date) {
+    releaseInfo = `The latest released version is ${version.version}.`
+  } else {
+    const date = new Date(version.date).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'});
-
-    releaseInfo.value = `The latest released version ${latestReleaseVersion} was released on ${latestReleaseDate}.`
-})});
+    releaseInfo = `The latest released version ${version.version} was released on ${date}.`
+  }
+}
 </script>
 
 <style module>

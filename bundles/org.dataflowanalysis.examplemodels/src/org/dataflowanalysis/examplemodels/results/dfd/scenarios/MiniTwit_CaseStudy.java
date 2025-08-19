@@ -24,7 +24,7 @@ public class MiniTwit_CaseStudy implements DFDExampleModelResult {
                 .withLabel("UserData", List.of("UnfollowData", "FollowData", "Message", "NewConsents"))
                 .neverFlows()
                 .toVertex()
-                .withoutCharacteristic("Decorator", "secure")
+                .withoutCharacteristic("Decorator", "Secure")
                 .create(),
 
                 new ConstraintDSL().ofData()

@@ -24,7 +24,7 @@ public class Hipaa_CaseStudy implements DFDExampleModelResult {
                 .withLabel("DataType", List.of("ConsentSettings", "NewConsentSettings", "IndexRecords"))
                 .neverFlows()
                 .toVertex()
-                .withoutCharacteristic("Decorator", "secure")
+                .withoutCharacteristic("Decorator", "Secure")
                 .create(),
 
                 new ConstraintDSL().ofData()

@@ -24,42 +24,42 @@ public class VWCariad implements DFDExampleModelResult {
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
         return List.of(new ConstraintDSL().ofData()
-                .withLabel("DataSensitivity", "confidential")
+                .withLabel("DataSensitivity", "Confidential")
                 .neverFlows()
                 .toVertex()
-                .withCharacteristic("EndpointConfiguration", "public")
+                .withCharacteristic("EndpointConfiguration", "Public")
                 .create(),
 
                 new ConstraintDSL().ofData()
-                        .withLabel("DataSensitivity", "non_anonymized")
+                        .withLabel("DataSensitivity", "NonAnonymized")
                         .neverFlows()
                         .toVertex()
                         .withCharacteristic("DataBaseType", List.of("AWSBucket", "AzureDataLake"))
                         .create(),
 
                 new ConstraintDSL().ofData()
-                        .withLabel("RequestSensitivity", "confidential")
+                        .withLabel("RequestSensitivity", "Confidential")
                         .neverFlows()
                         .toVertex()
-                        .withCharacteristic("EndpointConfiguration", "public")
+                        .withCharacteristic("EndpointConfiguration", "Public")
                         .create(),
 
                 new ConstraintDSL().ofData()
                         .withLabel("DataBaseToken", "AWSToken")
                         .neverFlows()
                         .toVertex()
-                        .withCharacteristic("EndpointConfiguration", "public")
+                        .withCharacteristic("EndpointConfiguration", "Public")
                         .create(),
 
                 new ConstraintDSL().ofData()
-                        .withLabel("DataEncryption", "nonEncrypted")
+                        .withLabel("DataEncryption", "NonEncrypted")
                         .neverFlows()
                         .toVertex()
                         .withCharacteristic("DataBaseType", List.of("AWSBucket", "AzureDataLake"))
                         .create(),
 
                 new ConstraintDSL().ofData()
-                        .withLabel("UserClearance", "non_authenticated")
+                        .withLabel("UserClearance", "NonAuthenticated")
                         .neverFlows()
                         .toVertex()
                         .withCharacteristic("CarControlUnits", "ECU")
@@ -68,10 +68,10 @@ public class VWCariad implements DFDExampleModelResult {
 
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
-        return List.of(new ExpectedViolation(22, new DFDIdentifier("poscub"), List.of(new ExpectedCharacteristic("EndpointConfiguration", "public")),
-                Map.of("xa0por", List.of(new ExpectedCharacteristic("DataSensitivity", "confidential"),
-                        new ExpectedCharacteristic("RequestSensitivity", "confidential"), new ExpectedCharacteristic("DataBaseToken", "AWSToken"),
-                        new ExpectedCharacteristic("DataEncryption", "nonEncrypted")))));
+        return List.of(new ExpectedViolation(22, new DFDIdentifier("poscub"), List.of(new ExpectedCharacteristic("EndpointConfiguration", "Public")),
+                Map.of("xa0por", List.of(new ExpectedCharacteristic("DataSensitivity", "Confidential"),
+                        new ExpectedCharacteristic("RequestSensitivity", "Confidential"), new ExpectedCharacteristic("DataBaseToken", "AWSToken"),
+                        new ExpectedCharacteristic("DataEncryption", "NonEncrypted")))));
 
     }
 

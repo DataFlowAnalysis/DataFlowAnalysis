@@ -25,7 +25,7 @@ public class CMA_CaseStudy implements DFDExampleModelResult {
                         List.of("AcceptedPaper", "ConsentSettings", "ReviewedPaper", "CandidateReviewers", "Manuscript", "NewConsents", "Purpose"))
                 .neverFlows()
                 .toVertex()
-                .withoutCharacteristic("Decorator", "secure")
+                .withoutCharacteristic("Decorator", "Secure")
                 .create(),
 
                 new ConstraintDSL().ofData()

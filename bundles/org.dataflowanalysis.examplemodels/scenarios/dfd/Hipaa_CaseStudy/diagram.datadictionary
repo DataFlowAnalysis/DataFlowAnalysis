@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_SdiroWC8EfCJkoMBjFpfFw">
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_7caHoXqsEfCvx4l13OBupA">
   <labelTypes id="98h668" entityName="DataType">
     <label id="mm2q28" entityName="ConsentSettings"/>
     <label id="h0fv4n" entityName="IndexRecords"/>
@@ -14,88 +14,88 @@
     <label id="ofgita" entityName="ViewRecords"/>
   </labelTypes>
   <labelTypes id="s8bkwu" entityName="Decorator">
-    <label id="yubjsc" entityName="secure"/>
-    <label id="0sogk" entityName="login_required"/>
-    <label id="kovbwh" entityName="user_registered"/>
+    <label id="yubjsc" entityName="Secure"/>
+    <label id="0sogk" entityName="LoginRequired"/>
+    <label id="kovbwh" entityName="UserRegistered"/>
   </labelTypes>
-  <behavior id="_SdirsWC8EfCJkoMBjFpfFw" entityName="after_register_hook">
-    <inPin id="dmtbvu" entityName="after_register_hook_in_credentials"/>
-    <outPin id="h19d3f" entityName="after_register_hook_out_credentials"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_SdisEGC8EfCJkoMBjFpfFw" outputPin="h19d3f" inputPins="dmtbvu"/>
+  <behavior id="_7caHsXqsEfCvx4l13OBupA" entityName="After Register Hook">
+    <inPin id="dmtbvu" entityName="After Register Hook_in_credentials"/>
+    <outPin id="h19d3f" entityName="After Register Hook_out_credentials"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_7caIAHqsEfCvx4l13OBupA" outputPin="h19d3f" inputPins="dmtbvu"/>
   </behavior>
-  <behavior id="_SdirtWC8EfCJkoMBjFpfFw" entityName="User">
+  <behavior id="_7caHtXqsEfCvx4l13OBupA" entityName="User">
     <outPin id="il76so" entityName="User_out_credentials"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_SdisA2C8EfCJkoMBjFpfFw" outputPin="il76so" outputLabels="v7ey4l"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_SdisBGC8EfCJkoMBjFpfFw" outputPin="il76so" outputLabels="7fmabq"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_SdisBWC8EfCJkoMBjFpfFw" outputPin="il76so" outputLabels="1yqqfj"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_7caIB3qsEfCvx4l13OBupA" outputPin="il76so" outputLabels="v7ey4l"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_7caICHqsEfCvx4l13OBupA" outputPin="il76so" outputLabels="7fmabq"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_7caICXqsEfCvx4l13OBupA" outputPin="il76so" outputLabels="1yqqfj"/>
   </behavior>
-  <behavior id="_SdiruGC8EfCJkoMBjFpfFw" entityName="flask app">
-    <inPin id="m6uzo" entityName="flask app_in_credentials"/>
-    <outPin id="3tvs3" entityName="flask app_out_credentials"/>
-    <outPin id="rjxpcj" entityName="flask app_out_credentials"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_SdisCWC8EfCJkoMBjFpfFw" outputPin="3tvs3" inputPins="m6uzo"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_SdisCmC8EfCJkoMBjFpfFw" outputPin="rjxpcj" inputPins="m6uzo"/>
+  <behavior id="_7caHuHqsEfCvx4l13OBupA" entityName="Flask App">
+    <inPin id="m6uzo" entityName="Flask App_in_credentials"/>
+    <outPin id="3tvs3" entityName="Flask App_out_credentials"/>
+    <outPin id="rjxpcj" entityName="Flask App_out_credentials"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_7caIDXqsEfCvx4l13OBupA" outputPin="rjxpcj" inputPins="m6uzo"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_7caIDnqsEfCvx4l13OBupA" outputPin="3tvs3" inputPins="m6uzo"/>
   </behavior>
-  <behavior id="_SdirvWC8EfCJkoMBjFpfFw" entityName="login_flask">
-    <inPin id="zfk4o" entityName="login_flask_in_credentials"/>
-    <outPin id="3eq1qp" entityName="login_flask_out_credentials"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_SdisDmC8EfCJkoMBjFpfFw" outputPin="3eq1qp" inputPins="zfk4o"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_SdisD2C8EfCJkoMBjFpfFw" outputPin="3eq1qp" outputLabels="v7ey4l"/>
+  <behavior id="_7caHvXqsEfCvx4l13OBupA" entityName="Login Flask">
+    <inPin id="zfk4o" entityName="Login Flask_in_credentials"/>
+    <outPin id="3eq1qp" entityName="Login Flask_out_credentials"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_7caIA3qsEfCvx4l13OBupA" outputPin="3eq1qp" inputPins="zfk4o"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_7caIBHqsEfCvx4l13OBupA" outputPin="3eq1qp" outputLabels="v7ey4l"/>
   </behavior>
-  <behavior id="_SdirwWC8EfCJkoMBjFpfFw" entityName="check_credentials">
-    <inPin id="cdzwg" entityName="check_credentials_in_credentials"/>
-    <outPin id="phpm4k" entityName="check_credentials_out_check_credentials"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_SdisAmC8EfCJkoMBjFpfFw" outputPin="phpm4k" inputPins="cdzwg"/>
+  <behavior id="_7caHwXqsEfCvx4l13OBupA" entityName="Check Credentials">
+    <inPin id="cdzwg" entityName="Check Credentials_in_credentials"/>
+    <outPin id="phpm4k" entityName="Check Credentials_out_check_credentials"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_7caIBXqsEfCvx4l13OBupA" outputPin="phpm4k" inputPins="cdzwg"/>
   </behavior>
-  <behavior id="_SdirxWC8EfCJkoMBjFpfFw" entityName="SQLite DB">
+  <behavior id="_7caHxXqsEfCvx4l13OBupA" entityName="SQLite DB">
     <inPin id="6cbvt" entityName="SQLite DB_in_check_credentials"/>
     <inPin id="ndpm3d" entityName="SQLite DB_in_credentials"/>
     <outPin id="zcjqv5" entityName="SQLite DB_out_index_records"/>
     <outPin id="fiwwap" entityName="SQLite DB_out_user_consents"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_SdisBmC8EfCJkoMBjFpfFw" outputPin="zcjqv5" outputLabels="h0fv4n"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_SdisB2C8EfCJkoMBjFpfFw" outputPin="fiwwap" outputLabels="mm2q28"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_7caID3qsEfCvx4l13OBupA" outputPin="fiwwap" outputLabels="mm2q28"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_7caIEHqsEfCvx4l13OBupA" outputPin="zcjqv5" outputLabels="h0fv4n"/>
   </behavior>
-  <behavior id="_Sdiry2C8EfCJkoMBjFpfFw" entityName="policy">
-    <inPin id="jakj4m" entityName="policy_in_user_consents"/>
-    <outPin id="ptcflm" entityName="policy_out_user_consents"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_SdisDWC8EfCJkoMBjFpfFw" outputPin="ptcflm" inputPins="jakj4m"/>
+  <behavior id="_7caHy3qsEfCvx4l13OBupA" entityName="Policy">
+    <inPin id="jakj4m" entityName="Policy_in_user_consents"/>
+    <outPin id="ptcflm" entityName="Policy_out_user_consents"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_7caIAnqsEfCvx4l13OBupA" outputPin="ptcflm" inputPins="jakj4m"/>
   </behavior>
-  <behavior id="_Sdirz2C8EfCJkoMBjFpfFw" entityName="add_consents">
-    <inPin id="4man" entityName="add_consents_in_user_consents"/>
-    <outPin id="stn4z8" entityName="add_consents_out_new_consents"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_SdisDGC8EfCJkoMBjFpfFw" outputPin="stn4z8" outputLabels="nmgib"/>
+  <behavior id="_7caHz3qsEfCvx4l13OBupA" entityName="Add Consents">
+    <inPin id="4man" entityName="Add Consents_in_user_consents"/>
+    <outPin id="stn4z8" entityName="Add Consents_out_new_consents"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_7caICnqsEfCvx4l13OBupA" outputPin="stn4z8" outputLabels="nmgib"/>
   </behavior>
-  <behavior id="_Sdir02C8EfCJkoMBjFpfFw" entityName="save_to_DB">
-    <inPin id="30byi" entityName="save_to_DB_in_actualized_consents"/>
-    <inPin id="s207ga" entityName="save_to_DB_in_new_consents"/>
+  <behavior id="_7caH03qsEfCvx4l13OBupA" entityName="Save To DB">
+    <inPin id="30byi" entityName="Save To DB_in_actualized_consents"/>
+    <inPin id="s207ga" entityName="Save To DB_in_new_consents"/>
   </behavior>
-  <behavior id="_Sdir12C8EfCJkoMBjFpfFw" entityName="remove_consents">
-    <inPin id="kaydas" entityName="remove_consents_in_user_consents"/>
-    <outPin id="u0y74s" entityName="remove_consents_out_actualized_consents"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_SdisCGC8EfCJkoMBjFpfFw" outputPin="u0y74s" outputLabels="nmgib"/>
+  <behavior id="_7caH13qsEfCvx4l13OBupA" entityName="Remove Consents">
+    <inPin id="kaydas" entityName="Remove Consents_in_user_consents"/>
+    <outPin id="u0y74s" entityName="Remove Consents_out_actualized_consents"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_7caIBnqsEfCvx4l13OBupA" outputPin="u0y74s" outputLabels="nmgib"/>
   </behavior>
-  <behavior id="_Sdir22C8EfCJkoMBjFpfFw" entityName="view index records">
-    <inPin id="smbtq8" entityName="view index records_in_index_records"/>
-    <outPin id="1bdmpm" entityName="view index records_out_index_records"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_SdisC2C8EfCJkoMBjFpfFw" outputPin="1bdmpm" inputPins="smbtq8"/>
+  <behavior id="_7caH23qsEfCvx4l13OBupA" entityName="View Index Records">
+    <inPin id="smbtq8" entityName="View Index Records_in_index_records"/>
+    <outPin id="1bdmpm" entityName="View Index Records_out_index_records"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_7caIAXqsEfCvx4l13OBupA" outputPin="1bdmpm" inputPins="smbtq8"/>
   </behavior>
-  <behavior id="_Sdir32C8EfCJkoMBjFpfFw" entityName="register_flask">
-    <inPin id="s9vzo" entityName="register_flask_in_credentials"/>
-    <outPin id="7hple" entityName="register_flask_out_credentials"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_SdisAWC8EfCJkoMBjFpfFw" outputPin="7hple" inputPins="s9vzo"/>
+  <behavior id="_7caH33qsEfCvx4l13OBupA" entityName="Register Flask">
+    <inPin id="s9vzo" entityName="Register Flask_in_credentials"/>
+    <outPin id="7hple" entityName="Register Flask_out_credentials"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_7caH_3qsEfCvx4l13OBupA" outputPin="7hple" inputPins="s9vzo"/>
   </behavior>
-  <behavior id="_Sdir42C8EfCJkoMBjFpfFw" entityName="view-consents template">
-    <inPin id="zxbm2q" entityName="view-consents template_in_user_consents"/>
+  <behavior id="_7caH43qsEfCvx4l13OBupA" entityName="View Consents Template">
+    <inPin id="zxbm2q" entityName="View Consents Template_in_user_consents"/>
   </behavior>
-  <behavior id="_Sdir5mC8EfCJkoMBjFpfFw" entityName="current-user">
-    <inPin id="br073a" entityName="current-user_in_index_records"/>
-    <inPin id="0o0chf" entityName="current-user_in_user_consents"/>
-    <outPin id="7rybfc" entityName="current-user_out_index_records"/>
-    <outPin id="tdjr1" entityName="current-user_out_user_consentsuser_consentsuser_consents"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Sdir_2C8EfCJkoMBjFpfFw" outputPin="tdjr1" inputPins="0o0chf"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_SdisAGC8EfCJkoMBjFpfFw" outputPin="7rybfc" inputPins="br073a"/>
+  <behavior id="_7caH5nqsEfCvx4l13OBupA" entityName="Current User">
+    <inPin id="br073a" entityName="Current User_in_index_records"/>
+    <inPin id="0o0chf" entityName="Current User_in_user_consents"/>
+    <outPin id="7rybfc" entityName="Current User_out_index_records"/>
+    <outPin id="tdjr1" entityName="Current User_out_user_consentsuser_consentsuser_consents"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_7caIC3qsEfCvx4l13OBupA" outputPin="7rybfc" inputPins="br073a"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_7caIDHqsEfCvx4l13OBupA" outputPin="tdjr1" inputPins="0o0chf"/>
   </behavior>
-  <behavior id="_Sdir7GC8EfCJkoMBjFpfFw" entityName="view_index-template">
-    <inPin id="e3q01p" entityName="view_index-template_in_index_records"/>
+  <behavior id="_7caH7HqsEfCvx4l13OBupA" entityName="View Index Template">
+    <inPin id="e3q01p" entityName="View Index Template_in_index_records"/>
   </behavior>
 </datadictionary:DataDictionary>

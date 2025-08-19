@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://dataflowanalysis.org/dfd/dataflowdiagram" id="_SdiroGC8EfCJkoMBjFpfFw">
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://dataflowanalysis.org/dfd/dataflowdiagram" id="_7caHoHqsEfCvx4l13OBupA">
   <flows id="lc7dks" entityName="credentials" sourceNode="7oii5l" destinationNode="ac9tpa">
     <destinationPin href="diagram.datadictionary#m6uzo"/>
     <sourcePin href="diagram.datadictionary#il76so"/>
@@ -68,64 +68,64 @@
     <destinationPin href="diagram.datadictionary#e3q01p"/>
     <sourcePin href="diagram.datadictionary#1bdmpm"/>
   </flows>
-  <nodes xsi:type="dataflowdiagram:Process" id="y65tc" entityName="after_register_hook">
-    <behavior href="diagram.datadictionary#_SdirsWC8EfCJkoMBjFpfFw"/>
+  <nodes xsi:type="dataflowdiagram:Process" id="y65tc" entityName="After Register Hook">
+    <behavior href="diagram.datadictionary#_7caHsXqsEfCvx4l13OBupA"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:External" id="7oii5l" entityName="User">
-    <behavior href="diagram.datadictionary#_SdirtWC8EfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_7caHtXqsEfCvx4l13OBupA"/>
   </nodes>
-  <nodes xsi:type="dataflowdiagram:Process" id="ac9tpa" entityName="flask app">
-    <behavior href="diagram.datadictionary#_SdiruGC8EfCJkoMBjFpfFw"/>
+  <nodes xsi:type="dataflowdiagram:Process" id="ac9tpa" entityName="Flask App">
+    <behavior href="diagram.datadictionary#_7caHuHqsEfCvx4l13OBupA"/>
   </nodes>
-  <nodes xsi:type="dataflowdiagram:Process" id="vym7zr" entityName="login_flask">
-    <behavior href="diagram.datadictionary#_SdirvWC8EfCJkoMBjFpfFw"/>
+  <nodes xsi:type="dataflowdiagram:Process" id="vym7zr" entityName="Login Flask">
+    <behavior href="diagram.datadictionary#_7caHvXqsEfCvx4l13OBupA"/>
   </nodes>
-  <nodes xsi:type="dataflowdiagram:Process" id="oltnsm" entityName="check_credentials">
-    <behavior href="diagram.datadictionary#_SdirwWC8EfCJkoMBjFpfFw"/>
+  <nodes xsi:type="dataflowdiagram:Process" id="oltnsm" entityName="Check Credentials">
+    <behavior href="diagram.datadictionary#_7caHwXqsEfCvx4l13OBupA"/>
   </nodes>
   <nodes xsi:type="dataflowdiagram:Store" id="mibcgs" entityName="SQLite DB">
-    <behavior href="diagram.datadictionary#_SdirxWC8EfCJkoMBjFpfFw"/>
+    <behavior href="diagram.datadictionary#_7caHxXqsEfCvx4l13OBupA"/>
   </nodes>
-  <nodes xsi:type="dataflowdiagram:Process" id="xdpows" entityName="policy">
-    <behavior href="diagram.datadictionary#_Sdiry2C8EfCJkoMBjFpfFw"/>
+  <nodes xsi:type="dataflowdiagram:Process" id="xdpows" entityName="Policy">
+    <behavior href="diagram.datadictionary#_7caHy3qsEfCvx4l13OBupA"/>
     <properties href="diagram.datadictionary#0sogk"/>
     <properties href="diagram.datadictionary#yubjsc"/>
   </nodes>
-  <nodes xsi:type="dataflowdiagram:Process" id="419ra" entityName="add_consents">
-    <behavior href="diagram.datadictionary#_Sdirz2C8EfCJkoMBjFpfFw"/>
+  <nodes xsi:type="dataflowdiagram:Process" id="419ra" entityName="Add Consents">
+    <behavior href="diagram.datadictionary#_7caHz3qsEfCvx4l13OBupA"/>
     <properties href="diagram.datadictionary#0sogk"/>
     <properties href="diagram.datadictionary#yubjsc"/>
   </nodes>
-  <nodes xsi:type="dataflowdiagram:Process" id="lpezgc" entityName="save_to_DB">
-    <behavior href="diagram.datadictionary#_Sdir02C8EfCJkoMBjFpfFw"/>
+  <nodes xsi:type="dataflowdiagram:Process" id="lpezgc" entityName="Save To DB">
+    <behavior href="diagram.datadictionary#_7caH03qsEfCvx4l13OBupA"/>
     <properties href="diagram.datadictionary#0sogk"/>
     <properties href="diagram.datadictionary#yubjsc"/>
   </nodes>
-  <nodes xsi:type="dataflowdiagram:Process" id="6mac7tj" entityName="remove_consents">
-    <behavior href="diagram.datadictionary#_Sdir12C8EfCJkoMBjFpfFw"/>
+  <nodes xsi:type="dataflowdiagram:Process" id="6mac7tj" entityName="Remove Consents">
+    <behavior href="diagram.datadictionary#_7caH13qsEfCvx4l13OBupA"/>
     <properties href="diagram.datadictionary#0sogk"/>
     <properties href="diagram.datadictionary#yubjsc"/>
   </nodes>
-  <nodes xsi:type="dataflowdiagram:Process" id="2yngjm" entityName="view index records">
-    <behavior href="diagram.datadictionary#_Sdir22C8EfCJkoMBjFpfFw"/>
+  <nodes xsi:type="dataflowdiagram:Process" id="2yngjm" entityName="View Index Records">
+    <behavior href="diagram.datadictionary#_7caH23qsEfCvx4l13OBupA"/>
     <properties href="diagram.datadictionary#ofgita"/>
     <properties href="diagram.datadictionary#0sogk"/>
     <properties href="diagram.datadictionary#yubjsc"/>
   </nodes>
-  <nodes xsi:type="dataflowdiagram:Process" id="7vk82" entityName="register_flask">
-    <behavior href="diagram.datadictionary#_Sdir32C8EfCJkoMBjFpfFw"/>
+  <nodes xsi:type="dataflowdiagram:Process" id="7vk82" entityName="Register Flask">
+    <behavior href="diagram.datadictionary#_7caH33qsEfCvx4l13OBupA"/>
   </nodes>
-  <nodes xsi:type="dataflowdiagram:External" id="kglue" entityName="view-consents template">
-    <behavior href="diagram.datadictionary#_Sdir42C8EfCJkoMBjFpfFw"/>
+  <nodes xsi:type="dataflowdiagram:External" id="kglue" entityName="View Consents Template">
+    <behavior href="diagram.datadictionary#_7caH43qsEfCvx4l13OBupA"/>
     <properties href="diagram.datadictionary#yubjsc"/>
   </nodes>
-  <nodes xsi:type="dataflowdiagram:External" id="3sb4v" entityName="current-user">
-    <behavior href="diagram.datadictionary#_Sdir5mC8EfCJkoMBjFpfFw"/>
+  <nodes xsi:type="dataflowdiagram:External" id="3sb4v" entityName="Current User">
+    <behavior href="diagram.datadictionary#_7caH5nqsEfCvx4l13OBupA"/>
     <properties href="diagram.datadictionary#ofgita"/>
     <properties href="diagram.datadictionary#yubjsc"/>
   </nodes>
-  <nodes xsi:type="dataflowdiagram:External" id="5h91jq" entityName="view_index-template">
-    <behavior href="diagram.datadictionary#_Sdir7GC8EfCJkoMBjFpfFw"/>
+  <nodes xsi:type="dataflowdiagram:External" id="5h91jq" entityName="View Index Template">
+    <behavior href="diagram.datadictionary#_7caH7HqsEfCvx4l13OBupA"/>
     <properties href="diagram.datadictionary#ofgita"/>
     <properties href="diagram.datadictionary#yubjsc"/>
   </nodes>

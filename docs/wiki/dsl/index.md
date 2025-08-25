@@ -85,6 +85,17 @@ vertex Location.nonEU
 ```
 :::
 
+### Vertex Name Selector 
+A node can be selected according to it's name in the model, using the `named <Name>` selector, where `<Name>` is the name the vertex should have.
+The specified name cannot contain any spaces.
+Additionally, this selector can be inverted using `!named <Name>`.
+::: tip Example 
+To match all vertices **exactly** named "Database", one might use the following selector: 
+```
+named Database
+```
+:::
+
 ### Vertex Type Selector
 Additionally, one might select nodes based on their type using the `vertex type <Type>` **source selector**.
 The `<Type>` describes the model element the node must have to match the selector.

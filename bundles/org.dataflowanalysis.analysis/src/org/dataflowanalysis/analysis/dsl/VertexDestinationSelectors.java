@@ -8,6 +8,7 @@ import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsListSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.VertexNameSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexTypeSelector;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
@@ -86,6 +87,11 @@ public class VertexDestinationSelectors extends AbstractParseable {
             var selector = VertexCharacteristicsSelector.fromString(string, context);
             if (selector.successful()) {
                 selectors.add(selector.getResult());
+                continue;
+            }
+            var nameSelector = VertexNameSelector.fromString(string, context);
+            if (nameSelector.successful()) {
+                selectors.add(nameSelector.getResult());
                 continue;
             }
             var typeSelector = VertexTypeSelector.fromString(string, context);

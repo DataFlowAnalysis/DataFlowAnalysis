@@ -89,4 +89,12 @@ public class VertexTypeSelector extends VertexSelector {
         string.advance(1);
         return ParseResult.ok(new VertexTypeSelector(context, vertexType.getResult(), inverted));
     }
+
+    /**
+     * Returns the {@link VertexType} that is matched by the selector
+     * @return Returns the stored {@link VertexType}
+     */
+    public VertexType getVertexType() {
+        return vertexType;
+    }
 }

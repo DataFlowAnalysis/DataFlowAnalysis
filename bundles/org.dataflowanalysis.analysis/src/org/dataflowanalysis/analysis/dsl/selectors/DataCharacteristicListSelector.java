@@ -1,6 +1,7 @@
 package org.dataflowanalysis.analysis.dsl.selectors;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.StringJoiner;
 import org.apache.log4j.Logger;
@@ -132,5 +133,13 @@ public class DataCharacteristicListSelector extends DataSelector {
         }
         string.advance(1);
         return ParseResult.ok(new DataCharacteristicListSelector(context, selectors, inverted));
+    }
+
+    /**
+     * Returns the data characteristics stored in the data characteristic list selector
+     * @return Returns the {@link CharacteristicsSelectorData} stored in the selector
+     */
+    public List<CharacteristicsSelectorData> getDataCharacteristics() {
+        return Collections.unmodifiableList(dataCharacteristics);
     }
 }

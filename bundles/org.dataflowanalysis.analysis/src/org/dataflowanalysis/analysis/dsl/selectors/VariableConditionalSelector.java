@@ -46,6 +46,18 @@ public class VariableConditionalSelector extends AbstractParseable implements Co
                 .isEmpty();
     }
 
+    /**
+     * Returns, whether the variable conditional selector is inverted
+     * @return Returns true, if the variable conditional selector is inverted. Otherwise, this method returns false
+     */
+    public boolean isInverted() {
+        return inverted;
+    }
+
+    /**
+     * Returns the constraint variable that is referenced in the conditional selector
+     * @return Returns the referenced constraint variable
+     */
     public ConstraintVariableReference getConstraintVariable() {
         return constraintVariable;
     }

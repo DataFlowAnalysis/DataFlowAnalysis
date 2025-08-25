@@ -131,7 +131,19 @@ public class VertexCharacteristicsSelector extends VertexSelector {
         return ParseResult.ok(new VertexCharacteristicsSelector(context, selectorData.getResult(), inverted));
     }
 
+    /**
+     * Returns, whether the variable conditional selector is inverted
+     * @return Returns true, if the variable conditional selector is inverted. Otherwise, this method returns false
+     */
     public boolean isInverted() {
         return inverted;
+    }
+
+    /**
+     * Returns the vertex characteristic stored in the vertex characteristic selector
+     * @return Returns the {@link CharacteristicsSelectorData} stored in the selector
+     */
+    public CharacteristicsSelectorData getVertexCharacteristics() {
+        return vertexCharacteristics;
     }
 }

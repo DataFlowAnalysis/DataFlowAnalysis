@@ -29,6 +29,10 @@ public class VariableNameSelector extends DataSelector {
                         .equals(this.variableName));
     }
 
+    /**
+     * Returns the variable name the data flowing to the node must (or must not) have
+     * @return Returns the variable name matched by the selector
+     */
     public String getVariableName() {
         return variableName;
     }

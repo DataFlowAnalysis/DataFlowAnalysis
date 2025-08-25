@@ -103,4 +103,12 @@ public class DataCharacteristicsSelector extends DataSelector {
         string.advance(1);
         return ParseResult.ok(new DataCharacteristicsSelector(context, selectorData.getResult(), inverted));
     }
+
+    /**
+     * Returns the data characteristic stored in the data characteristic selector
+     * @return Returns the {@link CharacteristicsSelectorData} stored in the selector
+     */
+    public CharacteristicsSelectorData getDataCharacteristic() {
+        return dataCharacteristic;
+    }
 }

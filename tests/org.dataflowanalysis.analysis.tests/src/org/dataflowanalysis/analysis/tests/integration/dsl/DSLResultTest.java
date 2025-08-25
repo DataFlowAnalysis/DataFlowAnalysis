@@ -28,6 +28,7 @@ import org.dataflowanalysis.analysis.tests.integration.constraint.data.Constrain
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 import org.junit.jupiter.api.Test;
+import tools.mdsd.modelingfoundations.identifier.NamedElement;
 
 public class DSLResultTest extends BaseTest {
     private static final Logger logger = Logger.getLogger(DSLResultTest.class);
@@ -162,6 +163,39 @@ public class DSLResultTest extends BaseTest {
         logger.setLevel(Level.TRACE);
         violations.forEach(vertex -> logger.trace(vertex.createPrintableNodeInformation()));
         assertEquals(34, violations.size());
+        assertEquals(constraint.toString(), AnalysisConstraint.fromString(new StringView(constraint.toString()))
+                .getResult()
+                .toString());
+    }
+
+    @Test
+    public void testNameSelector() {
+        AnalysisConstraint constraint = new ConstraintDSL().ofData()
+                .neverFlows()
+                .toVertex()
+                .withVertexName("DatabaseLoadInventory")
+                .create();
+
+        FlowGraphCollection flowGraph = onlineShopAnalysis.findFlowGraphs();
+        flowGraph.evaluate();
+        List<DSLResult> result = constraint.findViolations(flowGraph);
+        List<? extends AbstractVertex<?>> violations = result.stream()
+                .map(DSLResult::getMatchedVertices)
+                .flatMap(List::stream)
+                .toList();
+        for (AbstractVertex<?> vertex : violations) {
+            if (!(vertex instanceof NamedElement namedElement)) {
+                continue;
+            }
+            if (namedElement.getEntityName()
+                    .equalsIgnoreCase("DatabaseLoadInventory")) {
+                continue;
+            }
+            logger.error("Should not have matched vertex: " + vertex.createPrintableNodeInformation());
+        }
+        logger.setLevel(Level.TRACE);
+        violations.forEach(vertex -> logger.trace(vertex.createPrintableNodeInformation()));
+        assertEquals(2 * 2, violations.size());
         assertEquals(constraint.toString(), AnalysisConstraint.fromString(new StringView(constraint.toString()))
                 .getResult()
                 .toString());

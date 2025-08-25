@@ -96,6 +96,26 @@ public class DSLNodeDestinationSelector {
     }
 
     /**
+     * Match vertices that have the given vertex name
+     * @param vertexName Name the given vertex should have
+     * @return DSL node selector to add more constraints
+     */
+    public DSLNodeDestinationSelector withVertexName(String vertexName) {
+        this.analysisConstraint.addNodeDestinationSelector(new VertexNameSelector(vertexName, analysisConstraint.getContext()));
+        return this;
+    }
+
+    /**
+     * Match vertices that do not have the given vertex name
+     * @param vertexName Name the given vertex should not have
+     * @return DSL node selector to add more constraints
+     */
+    public DSLNodeDestinationSelector withoutVertexName(String vertexName) {
+        this.analysisConstraint.addNodeDestinationSelector(new VertexNameSelector(vertexName, true, analysisConstraint.getContext()));
+        return this;
+    }
+
+    /**
      * Match vertices that match the given predicate
      * <p/>
      * <b>Warning: This selector cannot be serialized into a string</b>

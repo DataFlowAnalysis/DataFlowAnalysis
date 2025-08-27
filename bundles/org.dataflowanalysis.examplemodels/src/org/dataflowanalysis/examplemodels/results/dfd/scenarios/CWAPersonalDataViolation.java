@@ -41,8 +41,8 @@ public class CWAPersonalDataViolation implements DFDExampleModelResult {
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
         return List.of(new ExpectedViolation(1, new DFDIdentifier("oz1nrf"),
-          List.of(new ExpectedCharacteristic("Server", "VerificationServer"), new ExpectedCharacteristic("Cloud", "OTC")),
-            Map.of("rly6k", List.of(new ExpectedCharacteristic("Identifiers", "PersonalData")))));
+                List.of(new ExpectedCharacteristic("Server", "VerificationServer"), new ExpectedCharacteristic("Cloud", "OTC")),
+                Map.of("rly6k", List.of(new ExpectedCharacteristic("Identifiers", "PersonalData")))));
 
     }
 

@@ -25,7 +25,7 @@ public class AppleWallet implements DFDExampleModelResult {
                 .withLabel("RequestTypes", "Authorization")
                 .neverFlows()
                 .toVertex()
-                .withoutCharacteristic("Secure","Enclave")
+                .withoutCharacteristic("Secure", "Enclave")
                 .create());
     }
 

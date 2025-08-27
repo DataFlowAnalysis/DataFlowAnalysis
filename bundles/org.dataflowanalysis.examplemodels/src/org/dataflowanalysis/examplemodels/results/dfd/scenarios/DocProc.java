@@ -2,6 +2,7 @@ package org.dataflowanalysis.examplemodels.results.dfd.scenarios;
 
 import java.util.List;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
+import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
 import org.dataflowanalysis.examplemodels.results.ExpectedViolation;
 import org.dataflowanalysis.examplemodels.results.dfd.DFDExampleModelResult;
 
@@ -19,7 +20,12 @@ public class DocProc implements DFDExampleModelResult {
 
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
-        return List.of();
+        return List.of(new ConstraintDSL().ofData()
+                .withLabel("Data", "GeneratedPDfs")
+                .neverFlows()
+                .toVertex()
+                .withoutCharacteristic("SecurityLevel", "Secure")
+                .create());
     }
 
     @Override

@@ -45,10 +45,15 @@ In this last part about the delivery of the documents first the *generated_pdfs*
 
 - ### 🏷️ Node Labels:
     - ### Module:
-        - __DeliveryManager__: this node belongs to the Delivery Manager module/component
+        - __DeliveryManager__: This node belongs to the Delivery Manager module/component
+
+    - ### SecurityLevel:
+        - __Secure__: This node is secure
         
 ## ⚠️ Constraints
-- __None__
+- The generated pdfs (possibly containing sensitive information) should never flow to a node which is not secure
+
+    1. __secure__: `data Data.GeneratedPDFs neverFlows vertex !SecurityLevel.Secure`
 
 ## 🚨 Violations
 - __None__

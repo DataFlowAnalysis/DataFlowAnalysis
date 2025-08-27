@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_cqJdYYNJEfCvx4l13OBupA">
+  <labelTypes id="gcl5kl" entityName="Data">
+    <label id="91eiqa" entityName="OrganzationEnrollment"/>
+    <label id="y2rqx" entityName="AdminCredentials"/>
+    <label id="za4hp6" entityName="CustomerRawData"/>
+    <label id="7oghs" entityName="DocumentTemplates"/>
+    <label id="9ms64r" entityName="NextGenerationJob"/>
+    <label id="x7oj3" entityName="GeneratedPDFs"/>
+    <label id="06elr" entityName="ScheduleDelivery"/>
+    <label id="z9gc9" entityName="Permissions"/>
+    <label id="7zuqv" entityName="BatchValidation"/>
+    <label id="suu3s5" entityName="ValidationFeedback"/>
+  </labelTypes>
+  <labelTypes id="h1z58q" entityName="Module">
+    <label id="gmx3zr" entityName="DeliveryManager"/>
+  </labelTypes>
+  <labelTypes id="dhb5k" entityName="Reports">
+    <label id="5ykyj" entityName="Error"/>
+    <label id="p910h" entityName="Status"/>
+  </labelTypes>
+  <labelTypes id="09e418" entityName="Requests">
+    <label id="zw7ibg" entityName="Enrollment"/>
+    <label id="164macj" entityName="DeliveryStatus"/>
+    <label id="byr8b" entityName="Register"/>
+    <label id="vjegvh" entityName="Authenticate"/>
+  </labelTypes>
+  <behavior id="_cqJdeINJEfCvx4l13OBupA" entityName="Document Generation">
+    <outPin id="rsfuxh" entityName="Document Generation_out_schedule_delivery"/>
+    <outPin id="8koebd" entityName="Document Generation_out_generated_pdfs"/>
+    <outPin id="tvqgqm" entityName="Document Generation_out_next_generated_job"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cqJeAINJEfCvx4l13OBupA" outputPin="rsfuxh" outputLabels="06elr"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cqJeAYNJEfCvx4l13OBupA" outputPin="8koebd" outputLabels="x7oj3"/>
+  </behavior>
+  <behavior id="_cqJdfYNJEfCvx4l13OBupA" entityName="Generated PDFs Archive Storage">
+    <inPin id="4a59wj" entityName="Generated PDFs Archive Storage_in_generated_pdfs"/>
+    <outPin id="a3s7jx" entityName="Generated PDFs Archive Storage_out_generated_pdfs"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_cqJeAoNJEfCvx4l13OBupA" outputPin="a3s7jx" inputPins="4a59wj"/>
+  </behavior>
+  <behavior id="_cqJdgYNJEfCvx4l13OBupA" entityName="Print Service">
+    <inPin id="z942k" entityName="Print Service_in_generated_pdfs"/>
+  </behavior>
+  <behavior id="_cqJdhINJEfCvx4l13OBupA" entityName="Email">
+    <inPin id="nufaim" entityName="Email_in_generated_pdfs"/>
+    <outPin id="ppw6nh" entityName="Email_out_delivery_status"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cqJd-4NJEfCvx4l13OBupA" outputPin="ppw6nh" outputLabels="164macj"/>
+  </behavior>
+  <behavior id="_cqJdiINJEfCvx4l13OBupA" entityName="Check Delivery Status">
+    <inPin id="308ynp" entityName="Check Delivery Status_in_delivery_status"/>
+  </behavior>
+  <behavior id="_cqJdi4NJEfCvx4l13OBupA" entityName="Customer Organization Dashboard">
+    <inPin id="v7tjh6" entityName="Customer Organization Dashboard_in_permissions"/>
+    <inPin id="gf7fnf" entityName="Customer Organization Dashboard_in_documents_templates"/>
+    <inPin id="xlhxal" entityName="Customer Organization Dashboard_in_raw_data"/>
+    <inPin id="ip7xoo" entityName="Customer Organization Dashboard_in_admin_credentials"/>
+    <outPin id="24ysrr" entityName="Customer Organization Dashboard_out_document_templates"/>
+    <outPin id="e8vxvg" entityName="Customer Organization Dashboard_out_raw_data"/>
+    <outPin id="ctnf3y" entityName="Customer Organization Dashboard_out_enrollment_request"/>
+    <outPin id="rtofi" entityName="Customer Organization Dashboard_out_status"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cqJeA4NJEfCvx4l13OBupA" outputPin="24ysrr" outputLabels="7oghs"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cqJeBINJEfCvx4l13OBupA" outputPin="rtofi" outputLabels="p910h"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cqJeBYNJEfCvx4l13OBupA" outputPin="rtofi" outputLabels="5ykyj"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cqJeBoNJEfCvx4l13OBupA" outputPin="ctnf3y" outputLabels="zw7ibg"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_cqJeB4NJEfCvx4l13OBupA" outputPin="e8vxvg" inputPins="xlhxal"/>
+  </behavior>
+  <behavior id="_cqJdlYNJEfCvx4l13OBupA" entityName="Template Storage">
+    <inPin id="ls36cn" entityName="Template Storage_in_document_templates"/>
+  </behavior>
+  <behavior id="_cqJdmINJEfCvx4l13OBupA" entityName="Admin Dashboard">
+    <inPin id="8lvpj" entityName="Admin Dashboard_in_organization_enrollmentadmin_credentials"/>
+    <inPin id="xv2n1g" entityName="Admin Dashboard_in_enrollment_request"/>
+    <outPin id="itgqq" entityName="Admin Dashboard_out_permissions"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cqJd8oNJEfCvx4l13OBupA" outputPin="itgqq" outputLabels="z9gc9"/>
+  </behavior>
+  <behavior id="_cqJdnYNJEfCvx4l13OBupA" entityName="Raw Data Storage">
+    <inPin id="cql1d" entityName="Raw Data Storage_in_raw_data"/>
+    <outPin id="nod7vx" entityName="Raw Data Storage_out_raw_data"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_cqJd-YNJEfCvx4l13OBupA" outputPin="nod7vx" inputPins="cql1d"/>
+  </behavior>
+  <behavior id="_cqJdoYNJEfCvx4l13OBupA" entityName="DocProc Admin">
+    <outPin id="dxuijz" entityName="DocProc Admin_out_organization_enrollment"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cqJd_YNJEfCvx4l13OBupA" outputPin="dxuijz" outputLabels="91eiqa"/>
+  </behavior>
+  <behavior id="_cqJdpINJEfCvx4l13OBupA" entityName="Admin Credentials">
+    <outPin id="5slxc" entityName="Admin Credentials_out_admin_credentials"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cqJd_INJEfCvx4l13OBupA" outputPin="5slxc" outputLabels="y2rqx"/>
+  </behavior>
+  <behavior id="_cqJdp4NJEfCvx4l13OBupA" entityName="Input Verification">
+    <inPin id="ecfxlq" entityName="Input Verification_in_raw_data"/>
+    <inPin id="0deu2r" entityName="Input Verification_in_validation_feedback"/>
+    <outPin id="qvk42l" entityName="Input Verification_out_raw_data"/>
+    <outPin id="0tqnsd" entityName="Input Verification_out_batch_validation"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cqJeCYNJEfCvx4l13OBupA" outputPin="0tqnsd" outputLabels="7zuqv"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_cqJeCoNJEfCvx4l13OBupA" outputPin="qvk42l" inputPins="ecfxlq"/>
+  </behavior>
+  <behavior id="_cqJdrYNJEfCvx4l13OBupA" entityName="Generation Scheduler">
+    <inPin id="lgopj9" entityName="Generation Scheduler_in_raw_data"/>
+    <inPin id="5fbamd" entityName="Generation Scheduler_in_batch_validation"/>
+    <inPin id="ll3z3w" entityName="Generation Scheduler_in_next_generated_job"/>
+    <outPin id="uemil" entityName="Generation Scheduler_out_validation_feedback"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cqJeCINJEfCvx4l13OBupA" outputPin="uemil" outputLabels="suu3s5"/>
+  </behavior>
+  <behavior id="_cqJds4NJEfCvx4l13OBupA" entityName="Delivery Manager">
+    <inPin id="ai7mk" entityName="Delivery Manager_in_schedule_delivery"/>
+    <inPin id="1yd9bu" entityName="Delivery Manager_in_delivery_status"/>
+    <inPin id="bxb3q5" entityName="Delivery Manager_in_generated_pdfs"/>
+    <outPin id="pooo3" entityName="Delivery Manager_out_generated_pdfsgenerated_pdfsgenerated_pdfs"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_cqJd-INJEfCvx4l13OBupA" outputPin="pooo3" inputPins="bxb3q5"/>
+  </behavior>
+  <behavior id="_cqJduYNJEfCvx4l13OBupA" entityName="Delivery Scheduler">
+    <inPin id="t3adc" entityName="Delivery Scheduler_in_schedule_delivery"/>
+    <inPin id="5maixt" entityName="Delivery Scheduler_in_generated_pdfs"/>
+    <outPin id="gjvv4j" entityName="Delivery Scheduler_out_schedule_delivery"/>
+    <outPin id="oy7u9o" entityName="Delivery Scheduler_out_generated_pdfs"/>
+    <outPin id="ekl9gn" entityName="Delivery Scheduler_out_generated_pdfs"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_cqJd_oNJEfCvx4l13OBupA" outputPin="oy7u9o" inputPins="5maixt"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_cqJd_4NJEfCvx4l13OBupA" outputPin="ekl9gn" inputPins="5maixt"/>
+  </behavior>
+  <behavior id="_cqJdwINJEfCvx4l13OBupA" entityName="Personal Document Store">
+    <inPin id="o7l1zz" entityName="Personal Document Store_in_register_request"/>
+    <inPin id="y74ohc" entityName="Personal Document Store_in_auth_request"/>
+    <inPin id="777ou" entityName="Personal Document Store_in_generated_pdfs"/>
+    <outPin id="oz3u" entityName="Personal Document Store_out_generated_pdfs"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_cqJd-oNJEfCvx4l13OBupA" outputPin="oz3u" inputPins="777ou"/>
+  </behavior>
+  <behavior id="_cqJdxoNJEfCvx4l13OBupA" entityName="Recipient">
+    <inPin id="vs6npj" entityName="Recipient_in_generated_pdfs"/>
+    <outPin id="2ym8t" entityName="Recipient_out_register_request"/>
+    <outPin id="fz6bgt" entityName="Recipient_out_auth_request"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cqJd9oNJEfCvx4l13OBupA" outputPin="fz6bgt" outputLabels="vjegvh"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cqJd94NJEfCvx4l13OBupA" outputPin="2ym8t" outputLabels="byr8b"/>
+  </behavior>
+  <behavior id="_cqJdy4NJEfCvx4l13OBupA" entityName="Zoomit">
+    <inPin id="yavdtw" entityName="Zoomit_in_generated_pdfs"/>
+    <outPin id="ycwrv" entityName="Zoomit_out_delivery_status"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cqJd8YNJEfCvx4l13OBupA" outputPin="ycwrv" outputLabels="164macj"/>
+  </behavior>
+  <behavior id="_cqJdz4NJEfCvx4l13OBupA" entityName="Customer Admin">
+    <inPin id="oyk15m" entityName="Customer Admin_in_status"/>
+    <outPin id="8l4fu6" entityName="Customer Admin_out_documents_templates"/>
+    <outPin id="kcthro" entityName="Customer Admin_out_raw_data"/>
+    <outPin id="193cf" entityName="Customer Admin_out_admin_credentials"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cqJd84NJEfCvx4l13OBupA" outputPin="kcthro" outputLabels="za4hp6"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cqJd9INJEfCvx4l13OBupA" outputPin="193cf" outputLabels="y2rqx"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cqJd9YNJEfCvx4l13OBupA" outputPin="8l4fu6" outputLabels="7oghs"/>
+  </behavior>
+</datadictionary:DataDictionary>

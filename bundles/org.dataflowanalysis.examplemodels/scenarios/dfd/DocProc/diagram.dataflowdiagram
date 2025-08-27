@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://dataflowanalysis.org/dfd/dataflowdiagram" id="_cqJdYINJEfCvx4l13OBupA">
+  <flows id="2nb2ov" entityName="document_templates" sourceNode="glpq5o" destinationNode="axdlgbp">
+    <destinationPin href="diagram.datadictionary#ls36cn"/>
+    <sourcePin href="diagram.datadictionary#24ysrr"/>
+  </flows>
+  <flows id="xlzdfc" entityName="enrollment_request" sourceNode="glpq5o" destinationNode="mbgqa9">
+    <destinationPin href="diagram.datadictionary#xv2n1g"/>
+    <sourcePin href="diagram.datadictionary#ctnf3y"/>
+  </flows>
+  <flows id="57q5q" entityName="permissions" sourceNode="mbgqa9" destinationNode="glpq5o">
+    <destinationPin href="diagram.datadictionary#v7tjh6"/>
+    <sourcePin href="diagram.datadictionary#itgqq"/>
+  </flows>
+  <flows id="qszrta" entityName="delivery_status" sourceNode="3c9kgp" destinationNode="a8jlts">
+    <destinationPin href="diagram.datadictionary#308ynp"/>
+    <sourcePin href="diagram.datadictionary#ppw6nh"/>
+  </flows>
+  <flows id="rc8l6m" entityName="organization_enrollment" sourceNode="toozka" destinationNode="mbgqa9">
+    <destinationPin href="diagram.datadictionary#8lvpj"/>
+    <sourcePin href="diagram.datadictionary#dxuijz"/>
+  </flows>
+  <flows id="gnunyj" entityName="raw_data" sourceNode="glpq5o" destinationNode="l7jpik">
+    <destinationPin href="diagram.datadictionary#ecfxlq"/>
+    <sourcePin href="diagram.datadictionary#e8vxvg"/>
+  </flows>
+  <flows id="2wx83f" entityName="raw_data" sourceNode="l7jpik" destinationNode="1rsdg">
+    <destinationPin href="diagram.datadictionary#cql1d"/>
+    <sourcePin href="diagram.datadictionary#qvk42l"/>
+  </flows>
+  <flows id="0ll9co" entityName="raw_data" sourceNode="1rsdg" destinationNode="364dtfu">
+    <destinationPin href="diagram.datadictionary#lgopj9"/>
+    <sourcePin href="diagram.datadictionary#nod7vx"/>
+  </flows>
+  <flows id="k5r6ij" entityName="batch_validation" sourceNode="l7jpik" destinationNode="364dtfu">
+    <destinationPin href="diagram.datadictionary#5fbamd"/>
+    <sourcePin href="diagram.datadictionary#0tqnsd"/>
+  </flows>
+  <flows id="gv3zgdp" entityName="validation_feedback" sourceNode="364dtfu" destinationNode="l7jpik">
+    <destinationPin href="diagram.datadictionary#0deu2r"/>
+    <sourcePin href="diagram.datadictionary#uemil"/>
+  </flows>
+  <flows id="0v7rvf" entityName="generated_pdfs" sourceNode="w7alnb" destinationNode="v865vg">
+    <destinationPin href="diagram.datadictionary#4a59wj"/>
+    <sourcePin href="diagram.datadictionary#8koebd"/>
+  </flows>
+  <flows id="jqt4sc" entityName="schedule_delivery" sourceNode="w7alnb" destinationNode="hrbgt5">
+    <destinationPin href="diagram.datadictionary#t3adc"/>
+    <sourcePin href="diagram.datadictionary#rsfuxh"/>
+  </flows>
+  <flows id="eopbiq" entityName="schedule_delivery" sourceNode="hrbgt5" destinationNode="74hmw">
+    <destinationPin href="diagram.datadictionary#ai7mk"/>
+    <sourcePin href="diagram.datadictionary#gjvv4j"/>
+  </flows>
+  <flows id="a9nvhe" entityName="generated_pdfs" sourceNode="v865vg" destinationNode="hrbgt5">
+    <destinationPin href="diagram.datadictionary#5maixt"/>
+    <sourcePin href="diagram.datadictionary#a3s7jx"/>
+  </flows>
+  <flows id="pen72f" entityName="generated_pdfs" sourceNode="hrbgt5" destinationNode="74hmw">
+    <destinationPin href="diagram.datadictionary#bxb3q5"/>
+    <sourcePin href="diagram.datadictionary#ekl9gn"/>
+  </flows>
+  <flows id="r0t45" entityName="generated_pdfs" sourceNode="hrbgt5" destinationNode="8jr7ja">
+    <destinationPin href="diagram.datadictionary#777ou"/>
+    <sourcePin href="diagram.datadictionary#oy7u9o"/>
+  </flows>
+  <flows id="y53l5q" entityName="register_request" sourceNode="bvtc2o" destinationNode="8jr7ja">
+    <destinationPin href="diagram.datadictionary#o7l1zz"/>
+    <sourcePin href="diagram.datadictionary#2ym8t"/>
+  </flows>
+  <flows id="lgyzrg" entityName="auth_request" sourceNode="bvtc2o" destinationNode="8jr7ja">
+    <destinationPin href="diagram.datadictionary#y74ohc"/>
+    <sourcePin href="diagram.datadictionary#fz6bgt"/>
+  </flows>
+  <flows id="d6oukkt" entityName="generated_pdfs" sourceNode="8jr7ja" destinationNode="bvtc2o">
+    <destinationPin href="diagram.datadictionary#vs6npj"/>
+    <sourcePin href="diagram.datadictionary#oz3u"/>
+  </flows>
+  <flows id="9egp8s" entityName="generated_pdfs" sourceNode="74hmw" destinationNode="3c9kgp">
+    <destinationPin href="diagram.datadictionary#nufaim"/>
+    <sourcePin href="diagram.datadictionary#pooo3"/>
+  </flows>
+  <flows id="qovy0h" entityName="generated_pdfs" sourceNode="74hmw" destinationNode="g9gm5h">
+    <destinationPin href="diagram.datadictionary#z942k"/>
+    <sourcePin href="diagram.datadictionary#pooo3"/>
+  </flows>
+  <flows id="woaped" entityName="generated_pdfs" sourceNode="74hmw" destinationNode="bq2csn">
+    <destinationPin href="diagram.datadictionary#yavdtw"/>
+    <sourcePin href="diagram.datadictionary#pooo3"/>
+  </flows>
+  <flows id="hjrxc4" entityName="delivery_status" sourceNode="bq2csn" destinationNode="74hmw">
+    <destinationPin href="diagram.datadictionary#1yd9bu"/>
+    <sourcePin href="diagram.datadictionary#ycwrv"/>
+  </flows>
+  <flows id="feqe3" entityName="admin_credentials" sourceNode="q9mwlh" destinationNode="mbgqa9">
+    <destinationPin href="diagram.datadictionary#8lvpj"/>
+    <sourcePin href="diagram.datadictionary#5slxc"/>
+  </flows>
+  <flows id="62f77p" entityName="documents_templates" sourceNode="pgmss" destinationNode="glpq5o">
+    <destinationPin href="diagram.datadictionary#gf7fnf"/>
+    <sourcePin href="diagram.datadictionary#8l4fu6"/>
+  </flows>
+  <flows id="xh11u" entityName="raw_data" sourceNode="pgmss" destinationNode="glpq5o">
+    <destinationPin href="diagram.datadictionary#xlhxal"/>
+    <sourcePin href="diagram.datadictionary#kcthro"/>
+  </flows>
+  <flows id="qbju5q" entityName="status" sourceNode="glpq5o" destinationNode="pgmss">
+    <destinationPin href="diagram.datadictionary#oyk15m"/>
+    <sourcePin href="diagram.datadictionary#rtofi"/>
+  </flows>
+  <flows id="donzbn" entityName="admin_credentials" sourceNode="pgmss" destinationNode="glpq5o">
+    <destinationPin href="diagram.datadictionary#ip7xoo"/>
+    <sourcePin href="diagram.datadictionary#193cf"/>
+  </flows>
+  <flows id="c5kw7l" entityName="next_generated_job" sourceNode="w7alnb" destinationNode="364dtfu">
+    <destinationPin href="diagram.datadictionary#ll3z3w"/>
+    <sourcePin href="diagram.datadictionary#tvqgqm"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:Process" id="w7alnb" entityName="Document Generation">
+    <behavior href="diagram.datadictionary#_cqJdeINJEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Store" id="v865vg" entityName="Generated PDFs Archive Storage">
+    <behavior href="diagram.datadictionary#_cqJdfYNJEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="g9gm5h" entityName="Print Service">
+    <behavior href="diagram.datadictionary#_cqJdgYNJEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="3c9kgp" entityName="Email">
+    <behavior href="diagram.datadictionary#_cqJdhINJEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="a8jlts" entityName="Check Delivery Status">
+    <behavior href="diagram.datadictionary#_cqJdiINJEfCvx4l13OBupA"/>
+    <properties href="diagram.datadictionary#gmx3zr"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="glpq5o" entityName="Customer Organization Dashboard">
+    <behavior href="diagram.datadictionary#_cqJdi4NJEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Store" id="axdlgbp" entityName="Template Storage">
+    <behavior href="diagram.datadictionary#_cqJdlYNJEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="mbgqa9" entityName="Admin Dashboard">
+    <behavior href="diagram.datadictionary#_cqJdmINJEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Store" id="1rsdg" entityName="Raw Data Storage">
+    <behavior href="diagram.datadictionary#_cqJdnYNJEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="toozka" entityName="DocProc Admin">
+    <behavior href="diagram.datadictionary#_cqJdoYNJEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Store" id="q9mwlh" entityName="Admin Credentials">
+    <behavior href="diagram.datadictionary#_cqJdpINJEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="l7jpik" entityName="Input Verification">
+    <behavior href="diagram.datadictionary#_cqJdp4NJEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="364dtfu" entityName="Generation Scheduler">
+    <behavior href="diagram.datadictionary#_cqJdrYNJEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="74hmw" entityName="Delivery Manager">
+    <behavior href="diagram.datadictionary#_cqJds4NJEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="hrbgt5" entityName="Delivery Scheduler">
+    <behavior href="diagram.datadictionary#_cqJduYNJEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="8jr7ja" entityName="Personal Document Store">
+    <behavior href="diagram.datadictionary#_cqJdwINJEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="bvtc2o" entityName="Recipient">
+    <behavior href="diagram.datadictionary#_cqJdxoNJEfCvx4l13OBupA"/>
+    <properties href="diagram.datadictionary#vjegvh"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="bq2csn" entityName="Zoomit">
+    <behavior href="diagram.datadictionary#_cqJdy4NJEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="pgmss" entityName="Customer Admin">
+    <behavior href="diagram.datadictionary#_cqJdz4NJEfCvx4l13OBupA"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

@@ -55,11 +55,11 @@ The left side of the diagram shows the user entering its _credentials_ (_email_,
 
 - Advertisements data neverflows to a node which does not have the purpose/setting of GenerateRelevantMaketingEntities allowed:
 
-    1. __purpose_display_sing_timeline__: `data UserData.Ads neverFlows vertex !ConsentedPurposes.GenerateRelevantMarketingEntities`
+    2. __purpose_display_sing_timeline__: `data UserData.Ads neverFlows vertex !ConsentedPurposes.GenerateRelevantMarketingEntities`
 
 - Feed Messages data from the user neverflow to a node which does not have the purpose/action of DisplayPublicTimeline allowed:
 
-    1. __purpose_display_sing_timeline__: `data UserData.FeedMessages neverFlows vertex !ConsentedPurposes.DisplayPublicTimeline`
+    3. __purpose_display_sing_timeline__: `data UserData.FeedMessages neverFlows vertex !ConsentedPurposes.DisplayPublicTimeline`
 
 ## 🚨 Violations
 - __None__

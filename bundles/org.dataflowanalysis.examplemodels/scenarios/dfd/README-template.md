@@ -12,6 +12,8 @@
 ## 🏷️ Label description
 
 - ### 🗂️ Data Labels:
+    - ### Type 1
+    - ### Type 2
 - ### 🏷️ Node Labels:
 
 ## ⚠️ Constraints(if any)

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
-<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_dFtr0VZWEfCJkoMBjFpfFw">
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_KXL34YKPEfCvx4l13OBupA">
   <labelTypes id="y4xb5c" entityName="Identifiers">
-    <label id="o0iuh" entityName="GUID_QR"/>
+    <label id="o0iuh" entityName="GuidQR"/>
     <label id="rtxmh4" entityName="PersonalData"/>
     <label id="ixxhqg" entityName="CWATestId"/>
     <label id="rrwye" entityName="RPI"/>
@@ -9,11 +9,11 @@
     <label id="dmyso2" entityName="AEM"/>
   </labelTypes>
   <labelTypes id="1hybj4" entityName="Tokens">
-    <label id="49ts0j" entityName="registration_token"/>
+    <label id="49ts0j" entityName="RegistrationToken"/>
     <label id="vquwc" entityName="TAN"/>
-    <label id="grw8i" entityName="Diagnosis_Keys"/>
-    <label id="anii7" entityName="teleTAN"/>
-    <label id="lrwtts" entityName="Diagnosis_Keys_Batch"/>
+    <label id="grw8i" entityName="DiagnosisKeys"/>
+    <label id="anii7" entityName="TeleTAN"/>
+    <label id="lrwtts" entityName="DiagnosisKeysBatch"/>
     <label id="oy42f8" entityName="AttestationToken"/>
     <label id="q45n7f" entityName="APIToken"/>
     <label id="dh7vxu" entityName="OTP"/>
@@ -21,16 +21,16 @@
     <label id="4yrozt" entityName="Salt"/>
   </labelTypes>
   <labelTypes id="2v58kv" entityName="TestResults">
-    <label id="27ghn8" entityName="PCR_test_results_positive"/>
-    <label id="aptd1f" entityName="RAT_test_results"/>
+    <label id="27ghn8" entityName="PCRTestResultsPositive"/>
+    <label id="aptd1f" entityName="RATTestResults"/>
   </labelTypes>
   <labelTypes id="grgfp" entityName="UserConfigurations">
-    <label id="6bkmah" entityName="Notifications_On"/>
+    <label id="6bkmah" entityName="NotificationsOn"/>
     <label id="bhirlc" entityName="AllowUploadKeys"/>
     <label id="cwmon" entityName="AllowPersonalData"/>
   </labelTypes>
   <labelTypes id="ljunpw" entityName="Encrypted">
-    <label id="1d46ih" entityName="metadata"/>
+    <label id="1d46ih" entityName="Metadata"/>
   </labelTypes>
   <labelTypes id="we26n" entityName="Information">
     <label id="0zg8tg" entityName="RiskSummary"/>
@@ -45,7 +45,7 @@
     <label id="9ffd7" entityName="Foreign"/>
   </labelTypes>
   <labelTypes id="x019v" entityName="MobileOS">
-    <label id="tbrsp" entityName="iOS"/>
+    <label id="tbrsp" entityName="IOS"/>
     <label id="rvy1rq" entityName="Android"/>
   </labelTypes>
   <labelTypes id="kx003c" entityName="Server">
@@ -64,305 +64,291 @@
   <labelTypes id="xwf9up" entityName="Cloud">
     <label id="9sb4vk" entityName="OTC"/>
   </labelTypes>
-  <behavior id="_dFtsCVZWEfCJkoMBjFpfFw" entityName="laboratory information system">
-    <inPin id="nqtftc" entityName="laboratory information system_in_test_results"/>
-    <outPin id="zd9bys" entityName="laboratory information system_out_test_results"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu59FZWEfCJkoMBjFpfFw" outputPin="zd9bys" inputPins="nqtftc"/>
+  <behavior id="_KXL4GYKPEfCvx4l13OBupA" entityName="Laboratory Information System">
+    <inPin id="nqtftc" entityName="Laboratory Information System_in_test_results"/>
+    <outPin id="zd9bys" entityName="Laboratory Information System_out_test_results"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXMfoIKPEfCvx4l13OBupA" outputPin="zd9bys" inputPins="nqtftc"/>
   </behavior>
-  <behavior id="_dFtsDVZWEfCJkoMBjFpfFw" entityName="Test Result Server">
+  <behavior id="_KXL4HYKPEfCvx4l13OBupA" entityName="Test Result Server">
     <inPin id="1bj5t" entityName="Test Result Server_in_test_results"/>
     <outPin id="0bdkxj" entityName="Test Result Server_out_test_results"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFuUKFZWEfCJkoMBjFpfFw" outputPin="0bdkxj" inputPins="1bj5t"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXMfmYKPEfCvx4l13OBupA" outputPin="0bdkxj" inputPins="1bj5t"/>
   </behavior>
-  <behavior id="_dFtsEVZWEfCJkoMBjFpfFw" entityName="CWA User Interface">
+  <behavior id="_KXL4IYKPEfCvx4l13OBupA" entityName="CWA User Interface">
     <inPin id="k00mdh" entityName="CWA User Interface_in_test_results"/>
   </behavior>
-  <behavior id="_dFtsFFZWEfCJkoMBjFpfFw" entityName="Corona Warn App">
+  <behavior id="_KXL4JIKPEfCvx4l13OBupA" entityName="Corona Warn App">
     <inPin id="owhnd8" entityName="Corona Warn App_in_rat_test_result"/>
-    <inPin id="hgg97d" entityName="Corona Warn App_in_risk_summary"/>
     <inPin id="11t5gm" entityName="Corona Warn App_in_pcr_test_results"/>
     <inPin id="p30m2t" entityName="Corona Warn App_in_register_token"/>
     <inPin id="2jdtm" entityName="Corona Warn App_in_teks"/>
-    <inPin id="09iepb" entityName="Corona Warn App_in_test_QR"/>
+    <inPin id="09iepb" entityName="Corona Warn App_in_test_qr"/>
     <inPin id="kpra5i" entityName="Corona Warn App_in_user_configurations"/>
     <outPin id="7mmtk" entityName="Corona Warn App_out_risk_summary"/>
     <outPin id="r6bcxj" entityName="Corona Warn App_out_test_results"/>
-    <outPin id="pvb4s" entityName="Corona Warn App_out_test_QR"/>
+    <outPin id="pvb4s" entityName="Corona Warn App_out_test_qr"/>
     <outPin id="kegndc" entityName="Corona Warn App_out_foreign_teks"/>
     <outPin id="gyowl9" entityName="Corona Warn App_out_teks"/>
     <outPin id="fz881" entityName="Corona Warn App_out_user_configurations"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu5-1ZWEfCJkoMBjFpfFw" outputPin="kegndc" inputPins="2jdtm"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu5_FZWEfCJkoMBjFpfFw" outputPin="pvb4s" inputPins="09iepb"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu5_VZWEfCJkoMBjFpfFw" outputPin="gyowl9" inputPins="2jdtm"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu5_lZWEfCJkoMBjFpfFw" outputPin="fz881" inputPins="kpra5i"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu5_1ZWEfCJkoMBjFpfFw" outputPin="7mmtk" inputPins="hgg97d"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6AFZWEfCJkoMBjFpfFw" outputPin="r6bcxj" inputPins="11t5gm"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGL4KPEfCvx4l13OBupA" outputPin="kegndc" inputPins="2jdtm"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGMIKPEfCvx4l13OBupA" outputPin="pvb4s" inputPins="09iepb"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGMYKPEfCvx4l13OBupA" outputPin="gyowl9" inputPins="2jdtm"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGMoKPEfCvx4l13OBupA" outputPin="7mmtk"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGM4KPEfCvx4l13OBupA" outputPin="fz881" inputPins="kpra5i"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGNIKPEfCvx4l13OBupA" outputPin="r6bcxj" inputPins="11t5gm"/>
   </behavior>
-  <behavior id="_dFtsI1ZWEfCJkoMBjFpfFw" entityName="public health officer">
-    <inPin id="p8gisl" entityName="public health officer_in_teleTAN"/>
-    <outPin id="z7sisu" entityName="public health officer_out_teleTAN"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6FFZWEfCJkoMBjFpfFw" outputPin="z7sisu" inputPins="p8gisl"/>
+  <behavior id="_KXL4MoKPEfCvx4l13OBupA" entityName="Public Health Officer">
+    <inPin id="p8gisl" entityName="Public Health Officer_in_tele_tan"/>
+    <outPin id="z7sisu" entityName="Public Health Officer_out_tele_tan"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGD4KPEfCvx4l13OBupA" outputPin="z7sisu" inputPins="p8gisl"/>
   </behavior>
-  <behavior id="_dFtsJ1ZWEfCJkoMBjFpfFw" entityName="Health Authority Portal">
-    <inPin id="0106ua" entityName="Health Authority Portal_in_teleTAN"/>
-    <outPin id="esuisu" entityName="Health Authority Portal_out_teleTAN"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFuUB1ZWEfCJkoMBjFpfFw" outputPin="esuisu" inputPins="0106ua"/>
+  <behavior id="_KXL4NoKPEfCvx4l13OBupA" entityName="Health Authority Portal">
+    <inPin id="0106ua" entityName="Health Authority Portal_in_tele_tan"/>
+    <outPin id="esuisu" entityName="Health Authority Portal_out_tele_tan"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGBYKPEfCvx4l13OBupA" outputPin="esuisu" inputPins="0106ua"/>
   </behavior>
-  <behavior id="_dFtsK1ZWEfCJkoMBjFpfFw" entityName="calculate CWA Test ID">
-    <outPin id="1x9r2" entityName="calculate CWA Test ID_out_CWA_test_Id"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFuULlZWEfCJkoMBjFpfFw" outputPin="1x9r2" outputLabels="ixxhqg"/>
+  <behavior id="_KXL4OoKPEfCvx4l13OBupA" entityName="Calculate CWA Test ID">
+    <outPin id="1x9r2" entityName="Calculate CWA Test ID_out_cwa_test_id"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXMfnIKPEfCvx4l13OBupA" outputPin="1x9r2" outputLabels="ixxhqg"/>
   </behavior>
-  <behavior id="_dFtsLlZWEfCJkoMBjFpfFw" entityName="CWA Rapid Antigen Test Portal">
-    <inPin id="1rir4f" entityName="CWA Rapid Antigen Test Portal_in_CWA_test_Id"/>
+  <behavior id="_KXL4PYKPEfCvx4l13OBupA" entityName="CWA Rapid Antigen Test Portal">
+    <inPin id="1rir4f" entityName="CWA Rapid Antigen Test Portal_in_cwa_test_id"/>
     <inPin id="ttm2ox" entityName="CWA Rapid Antigen Test Portal_in_personal_data"/>
   </behavior>
-  <behavior id="_dFtsMlZWEfCJkoMBjFpfFw" entityName="3rd Party Register Portal">
+  <behavior id="_KXL4QYKPEfCvx4l13OBupA" entityName="3rd Party Register Portal">
     <inPin id="1cewz7" entityName="3rd Party Register Portal_in_personal_data"/>
     <outPin id="xa3cg6" entityName="3rd Party Register Portal_out_personal_data"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6AVZWEfCJkoMBjFpfFw" outputPin="xa3cg6" inputPins="1cewz7"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGLoKPEfCvx4l13OBupA" outputPin="xa3cg6" inputPins="1cewz7"/>
   </behavior>
-  <behavior id="_dFtsNlZWEfCJkoMBjFpfFw" entityName="Verification Server">
+  <behavior id="_KXL4RYKPEfCvx4l13OBupA" entityName="Verification Server">
     <inPin id="uqry3y" entityName="Verification Server_in_test_results"/>
-    <inPin id="wthws6" entityName="Verification Server_in_test_GUID"/>
+    <inPin id="wthws6" entityName="Verification Server_in_test_guid"/>
     <inPin id="rly6k" entityName="Verification Server_in_rat_test_result"/>
     <outPin id="3xymvj" entityName="Verification Server_out_rat_test_result"/>
     <outPin id="xwsv69" entityName="Verification Server_out_pcr_test_results"/>
-    <outPin id="yiz13c" entityName="Verification Server_out_teleTAN"/>
-    <outPin id="ospa3e" entityName="Verification Server_out_TAN"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFu6DVZWEfCJkoMBjFpfFw" outputPin="ospa3e" outputLabels="vquwc"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFu6DlZWEfCJkoMBjFpfFw" outputPin="yiz13c" outputLabels="anii7"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6D1ZWEfCJkoMBjFpfFw" outputPin="xwsv69" inputPins="uqry3y"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6EFZWEfCJkoMBjFpfFw" outputPin="3xymvj" inputPins="rly6k"/>
+    <outPin id="yiz13c" entityName="Verification Server_out_tele_tan"/>
+    <outPin id="ospa3e" entityName="Verification Server_out_tan"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGKIKPEfCvx4l13OBupA" outputPin="3xymvj" inputPins="rly6k"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGKYKPEfCvx4l13OBupA" outputPin="xwsv69" inputPins="uqry3y"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXNGKoKPEfCvx4l13OBupA" outputPin="ospa3e" outputLabels="vquwc"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXNGK4KPEfCvx4l13OBupA" outputPin="yiz13c" outputLabels="anii7"/>
   </behavior>
-  <behavior id="_dFtsP1ZWEfCJkoMBjFpfFw" entityName="store_keys">
-    <inPin id="l03kjt" entityName="store_keys_in_diagnosis_keys"/>
-    <outPin id="cfn6cl" entityName="store_keys_out_diagnosis_keys"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6J1ZWEfCJkoMBjFpfFw" outputPin="cfn6cl" inputPins="l03kjt"/>
+  <behavior id="_KXL4ToKPEfCvx4l13OBupA" entityName="Store Keys">
+    <inPin id="l03kjt" entityName="Store Keys_in_diagnosis_keys"/>
+    <outPin id="cfn6cl" entityName="Store Keys_out_diagnosis_keys"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGA4KPEfCvx4l13OBupA" outputPin="cfn6cl" inputPins="l03kjt"/>
   </behavior>
-  <behavior id="_dFtsQ1ZWEfCJkoMBjFpfFw" entityName="Keys Database">
+  <behavior id="_KXL4UoKPEfCvx4l13OBupA" entityName="Keys Database">
     <inPin id="30stoj" entityName="Keys Database_in_diagnosis_keys"/>
     <outPin id="ebs0m" entityName="Keys Database_out_teks"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFuT-VZWEfCJkoMBjFpfFw" outputPin="ebs0m" outputLabels="lrwtts"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXMfmIKPEfCvx4l13OBupA" outputPin="ebs0m" outputLabels="lrwtts"/>
   </behavior>
-  <behavior id="_dFtsR1ZWEfCJkoMBjFpfFw" entityName="send_keys_batch">
+  <behavior id="_KXL4VoKPEfCvx4l13OBupA" entityName="send_keys_batch">
     <inPin id="tmu5i" entityName="send_keys_batch_in_teks"/>
     <outPin id="u88r44" entityName="send_keys_batch_out_teks"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6ClZWEfCJkoMBjFpfFw" outputPin="u88r44" inputPins="tmu5i"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGEoKPEfCvx4l13OBupA" outputPin="u88r44" inputPins="tmu5i"/>
   </behavior>
-  <behavior id="_dFtsS1ZWEfCJkoMBjFpfFw" entityName="Main User Mobile">
-    <inPin id="5j0app" entityName="Main User Mobile_in_test_QR"/>
-    <inPin id="x8qbm3" entityName="Main User Mobile_in_teleTAN"/>
-    <outPin id="ssdx7i" entityName="Main User Mobile_out_RAT_result"/>
-    <outPin id="t2nsn" entityName="Main User Mobile_out_test_QRtest_QR"/>
-    <outPin id="3h6513" entityName="Main User Mobile_out_personal_data"/>
+  <behavior id="_KXL4WoKPEfCvx4l13OBupA" entityName="Main User Mobile">
+    <inPin id="5j0app" entityName="Main User Mobile_in_test_qr"/>
+    <inPin id="x8qbm3" entityName="Main User Mobile_in_tele_tan"/>
+    <outPin id="t2nsn" entityName="Main User Mobile_out_test_qrtest_qr"/>
+    <outPin id="ssdx7i" entityName="Main User Mobile_out_rat_result"/>
     <outPin id="rsk3pi" entityName="Main User Mobile_out_user_configurations"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFu6AlZWEfCJkoMBjFpfFw" outputPin="rsk3pi" outputLabels="cwmon"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFu6A1ZWEfCJkoMBjFpfFw" outputPin="rsk3pi" outputLabels="bhirlc"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFu6BFZWEfCJkoMBjFpfFw" outputPin="ssdx7i" outputLabels="aptd1f"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6BVZWEfCJkoMBjFpfFw" outputPin="t2nsn" inputPins="5j0app"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFu6BlZWEfCJkoMBjFpfFw" outputPin="3h6513" outputLabels="rtxmh4"/>
+    <outPin id="3h6513" entityName="Main User Mobile_out_personal_data"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXNGG4KPEfCvx4l13OBupA" outputPin="3h6513" outputLabels="rtxmh4"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGHIKPEfCvx4l13OBupA" outputPin="t2nsn" inputPins="5j0app"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXNGHYKPEfCvx4l13OBupA" outputPin="rsk3pi" outputLabels="cwmon"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXNGHoKPEfCvx4l13OBupA" outputPin="rsk3pi" outputLabels="bhirlc"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXNGH4KPEfCvx4l13OBupA" outputPin="ssdx7i" outputLabels="aptd1f"/>
   </behavior>
-  <behavior id="_dFtsU1ZWEfCJkoMBjFpfFw" entityName="BLE Interface">
+  <behavior id="_KXL4YoKPEfCvx4l13OBupA" entityName="BLE Interface">
     <inPin id="q3z59h" entityName="BLE Interface_in_broadcast"/>
     <outPin id="7xti1" entityName="BLE Interface_out_broadcast"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFuT91ZWEfCJkoMBjFpfFw" outputPin="7xti1" inputPins="q3z59h"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGLYKPEfCvx4l13OBupA" outputPin="7xti1" inputPins="q3z59h"/>
   </behavior>
-  <behavior id="_dFtsV1ZWEfCJkoMBjFpfFw" entityName="Content Delivery Network">
+  <behavior id="_KXL4ZoKPEfCvx4l13OBupA" entityName="Content Delivery Network">
     <inPin id="m5my55" entityName="Content Delivery Network_in_teks"/>
     <outPin id="xxo5mr" entityName="Content Delivery Network_out_teks"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6F1ZWEfCJkoMBjFpfFw" outputPin="xxo5mr" inputPins="m5my55"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGB4KPEfCvx4l13OBupA" outputPin="xxo5mr" inputPins="m5my55"/>
   </behavior>
-  <behavior id="_dFtsW1ZWEfCJkoMBjFpfFw" entityName="get_teks_batch">
-    <inPin id="aitrib" entityName="get_teks_batch_in_foreign_teks"/>
-    <outPin id="etbvbi" entityName="get_teks_batch_out_foreign_teks"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu5-lZWEfCJkoMBjFpfFw" outputPin="etbvbi" inputPins="aitrib"/>
+  <behavior id="_KXL4aoKPEfCvx4l13OBupA" entityName="Get Teks Batch">
+    <inPin id="aitrib" entityName="Get Teks Batch_in_foreign_teks"/>
+    <outPin id="etbvbi" entityName="Get Teks Batch_out_foreign_teks"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGJ4KPEfCvx4l13OBupA" outputPin="etbvbi" inputPins="aitrib"/>
   </behavior>
-  <behavior id="_dFtsX1ZWEfCJkoMBjFpfFw" entityName="generate_own_teks">
-    <outPin id="8ld8t" entityName="generate_own_teks_out_user_teksuser_teks"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFuULVZWEfCJkoMBjFpfFw" outputPin="8ld8t" outputLabels="aysoy"/>
+  <behavior id="_KXL4boKPEfCvx4l13OBupA" entityName="Generate Own Teks">
+    <outPin id="8ld8t" entityName="Generate Own Teks_out_user_teksuser_teks"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXNGFoKPEfCvx4l13OBupA" outputPin="8ld8t" outputLabels="aysoy"/>
   </behavior>
-  <behavior id="_dFtsYlZWEfCJkoMBjFpfFw" entityName="create RPI">
-    <inPin id="yo57bo" entityName="create RPI_in_user_teks"/>
-    <outPin id="y2whm9" entityName="create RPI_out_local_tek"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6HVZWEfCJkoMBjFpfFw" outputPin="y2whm9" inputPins="yo57bo"/>
+  <behavior id="_KXL4cYKPEfCvx4l13OBupA" entityName="Create RPI">
+    <inPin id="yo57bo" entityName="Create RPI_in_user_teks"/>
+    <outPin id="y2whm9" entityName="Create RPI_out_local_tek"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGGoKPEfCvx4l13OBupA" outputPin="y2whm9" inputPins="yo57bo"/>
   </behavior>
-  <behavior id="_dFtsZlZWEfCJkoMBjFpfFw" entityName="create AEM">
-    <inPin id="9chkzs" entityName="create AEM_in_apis_metadatauser_teks"/>
-    <outPin id="dvyza1" entityName="create AEM_out_aem"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFuUAlZWEfCJkoMBjFpfFw" outputPin="dvyza1" inputPins="9chkzs"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFuUA1ZWEfCJkoMBjFpfFw" outputPin="dvyza1" outputLabels="1d46ih"/>
+  <behavior id="_KXL4dYKPEfCvx4l13OBupA" entityName="Create AEM">
+    <inPin id="9chkzs" entityName="Create AEM_in_apis_metadatauser_teks"/>
+    <outPin id="dvyza1" entityName="Create AEM_out_aem"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXMfk4KPEfCvx4l13OBupA" outputPin="dvyza1" inputPins="9chkzs"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXMflIKPEfCvx4l13OBupA" outputPin="dvyza1" outputLabels="1d46ih"/>
   </behavior>
-  <behavior id="_dFtsalZWEfCJkoMBjFpfFw" entityName="Distribution Server">
+  <behavior id="_KXL4eYKPEfCvx4l13OBupA" entityName="Distribution Server">
     <inPin id="ckfu28" entityName="Distribution Server_in_teks"/>
     <outPin id="1enuub" entityName="Distribution Server_out_teks"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu591ZWEfCJkoMBjFpfFw" outputPin="1enuub" inputPins="ckfu28"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGBoKPEfCvx4l13OBupA" outputPin="1enuub" inputPins="ckfu28"/>
   </behavior>
-  <behavior id="_dFtsblZWEfCJkoMBjFpfFw" entityName="send Bluetooth Payload">
-    <inPin id="ffhlb" entityName="send Bluetooth Payload_in_payload"/>
+  <behavior id="_KXL4fYKPEfCvx4l13OBupA" entityName="Send Bluetooth Payload">
+    <inPin id="ffhlb" entityName="Send Bluetooth Payload_in_payload"/>
   </behavior>
-  <behavior id="_dFtscVZWEfCJkoMBjFpfFw" entityName="BLE Beacon Mechanics">
+  <behavior id="_KXL4gIKPEfCvx4l13OBupA" entityName="BLE Beacon Mechanics">
     <inPin id="d25hz" entityName="BLE Beacon Mechanics_in_broadcast"/>
     <outPin id="uzscn4" entityName="BLE Beacon Mechanics_out_broadcast"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFuUBlZWEfCJkoMBjFpfFw" outputPin="uzscn4" inputPins="d25hz"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGJoKPEfCvx4l13OBupA" outputPin="uzscn4" inputPins="d25hz"/>
   </behavior>
-  <behavior id="_dFtsdVZWEfCJkoMBjFpfFw" entityName="Exposure Notification Framework">
-    <inPin id="8m4dp" entityName="Exposure Notification Framework_in_aemlocal_tek"/>
-    <inPin id="skq0qe" entityName="Exposure Notification Framework_in_broadcast"/>
-    <inPin id="yh3qnl" entityName="Exposure Notification Framework_in_foreign_teks"/>
-    <outPin id="oxblo" entityName="Exposure Notification Framework_out_payload"/>
-    <outPin id="tvm37p" entityName="Exposure Notification Framework_out_broadcast"/>
-    <outPin id="ir4xs3" entityName="Exposure Notification Framework_out_foreign_keys"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu58VZWEfCJkoMBjFpfFw" outputPin="tvm37p" inputPins="skq0qe"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu58lZWEfCJkoMBjFpfFw" outputPin="ir4xs3" inputPins="yh3qnl"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu581ZWEfCJkoMBjFpfFw" outputPin="oxblo" inputPins="8m4dp"/>
+  <behavior id="_KXL4hIKPEfCvx4l13OBupA" entityName="Foreign RPIs Storage">
+    <inPin id="8fm8da" entityName="Foreign RPIs Storage_in_broadcast"/>
+    <outPin id="7blea" entityName="Foreign RPIs Storage_out_broadcast"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGJIKPEfCvx4l13OBupA" outputPin="7blea" inputPins="8fm8da"/>
   </behavior>
-  <behavior id="_dFuS4VZWEfCJkoMBjFpfFw" entityName="foreign RPIs storage">
-    <inPin id="8fm8da" entityName="foreign RPIs storage_in_broadcast"/>
-    <outPin id="7blea" entityName="foreign RPIs storage_out_broadcast"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6FVZWEfCJkoMBjFpfFw" outputPin="7blea" inputPins="8fm8da"/>
+  <behavior id="_KXL4iIKPEfCvx4l13OBupA" entityName="Reconstruct RPIs">
+    <inPin id="743sur" entityName="Reconstruct RPIs_in_foreign_keys"/>
+    <outPin id="qcasvx" entityName="Reconstruct RPIs_out_foreign_rpis"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGFYKPEfCvx4l13OBupA" outputPin="qcasvx" inputPins="743sur"/>
   </behavior>
-  <behavior id="_dFuS5VZWEfCJkoMBjFpfFw" entityName="reconstruct RPIs">
-    <inPin id="743sur" entityName="reconstruct RPIs_in_foreign_keys"/>
-    <outPin id="ebaaz" entityName="reconstruct RPIs_out_foreign_rpis"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFuUKVZWEfCJkoMBjFpfFw" outputPin="ebaaz" inputPins="743sur"/>
+  <behavior id="_KXL4jIKPEfCvx4l13OBupA" entityName="Log Foreign RPIs">
+    <inPin id="hk7frb" entityName="Log Foreign RPIs_in_broadcast"/>
+    <outPin id="n1a3xv" entityName="Log Foreign RPIs_out_broadcast"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGCIKPEfCvx4l13OBupA" outputPin="n1a3xv" inputPins="hk7frb"/>
   </behavior>
-  <behavior id="_dFuS6VZWEfCJkoMBjFpfFw" entityName="log foreign RPIs">
-    <inPin id="hk7frb" entityName="log foreign RPIs_in_broadcast"/>
-    <outPin id="n1a3xv" entityName="log foreign RPIs_out_broadcast"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6EVZWEfCJkoMBjFpfFw" outputPin="n1a3xv" inputPins="hk7frb"/>
+  <behavior id="_KXL4kIKPEfCvx4l13OBupA" entityName="Camera">
+    <outPin id="7vpyat" entityName="Camera_out_test_qr"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXNGCoKPEfCvx4l13OBupA" outputPin="7vpyat" outputLabels="o0iuh"/>
   </behavior>
-  <behavior id="_dFuS7VZWEfCJkoMBjFpfFw" entityName="Camera">
-    <outPin id="7vpyat" entityName="Camera_out_test_QR"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFuUAVZWEfCJkoMBjFpfFw" outputPin="7vpyat" outputLabels="o0iuh"/>
+  <behavior id="_KXL4k4KPEfCvx4l13OBupA" entityName="Extract GUID From QR">
+    <inPin id="sz7ax9" entityName="Extract GUID From QR_in_test_qr"/>
+    <outPin id="9grgrk" entityName="Extract GUID From QR_out_test_guid"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGDoKPEfCvx4l13OBupA" outputPin="9grgrk"/>
   </behavior>
-  <behavior id="_dFuS8FZWEfCJkoMBjFpfFw" entityName="extract GUID from QR">
-    <inPin id="sz7ax9" entityName="extract GUID from QR_in_test_QR"/>
-    <outPin id="9grgrk" entityName="extract GUID from QR_out_test_GUID"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFvhAFZWEfCJkoMBjFpfFw" outputPin="9grgrk" inputPins="sz7ax9"/>
+  <behavior id="_KXL4l4KPEfCvx4l13OBupA" entityName="Generate Registration Token">
+    <outPin id="tnuruo" entityName="Generate Registration Token_out_register_token"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXNGJYKPEfCvx4l13OBupA" outputPin="tnuruo" outputLabels="49ts0j"/>
   </behavior>
-  <behavior id="_dFuS9FZWEfCJkoMBjFpfFw" entityName="generate registration token">
-    <outPin id="tnuruo" entityName="generate registration token_out_register_token"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFuUJ1ZWEfCJkoMBjFpfFw" outputPin="tnuruo" outputLabels="49ts0j"/>
+  <behavior id="_KXL4moKPEfCvx4l13OBupA" entityName="Send Local Keys">
+    <inPin id="oix74" entityName="Send Local Keys_in_local_keys"/>
+    <outPin id="529d8s" entityName="Send Local Keys_out_local_keys"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGIIKPEfCvx4l13OBupA" outputPin="529d8s" inputPins="oix74"/>
   </behavior>
-  <behavior id="_dFuS91ZWEfCJkoMBjFpfFw" entityName="send_local_keys">
-    <inPin id="oix74" entityName="send_local_keys_in_local_keys"/>
-    <outPin id="529d8s" entityName="send_local_keys_out_local_keys"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6HlZWEfCJkoMBjFpfFw" outputPin="529d8s" inputPins="oix74"/>
-  </behavior>
-  <behavior id="_dFuS-1ZWEfCJkoMBjFpfFw" entityName="Foreign Country Server">
+  <behavior id="_KXL4noKPEfCvx4l13OBupA" entityName="Foreign Country Server">
     <inPin id="rdbjpd" entityName="Foreign Country Server_in_local_keys"/>
   </behavior>
-  <behavior id="_dFuS_lZWEfCJkoMBjFpfFw" entityName="get_foreign_keys">
-    <inPin id="xh3mfl" entityName="get_foreign_keys_in_foreign_keys"/>
-    <outPin id="6i56j" entityName="get_foreign_keys_out_foreign_keys"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFuULFZWEfCJkoMBjFpfFw" outputPin="6i56j" inputPins="xh3mfl"/>
+  <behavior id="_KXL4oYKPEfCvx4l13OBupA" entityName="Get Foreign Keys">
+    <inPin id="xh3mfl" entityName="Get Foreign Keys_in_foreign_keys"/>
+    <outPin id="6i56j" entityName="Get Foreign Keys_out_foreign_keys"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXMfmoKPEfCvx4l13OBupA" outputPin="6i56j" inputPins="xh3mfl"/>
   </behavior>
-  <behavior id="_dFuTAlZWEfCJkoMBjFpfFw" entityName="EFGS_download">
-    <outPin id="2no08g" entityName="EFGS_download_out_foreign_keys"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFu6HFZWEfCJkoMBjFpfFw" outputPin="2no08g" outputLabels="9ffd7"/>
+  <behavior id="_KXL4pYKPEfCvx4l13OBupA" entityName="EFGS Download">
+    <outPin id="2no08g" entityName="EFGS Download_out_foreign_keys"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXMfnYKPEfCvx4l13OBupA" outputPin="2no08g"/>
   </behavior>
-  <behavior id="_dFuTBVZWEfCJkoMBjFpfFw" entityName="EFGS_upload">
-    <inPin id="cpbawg" entityName="EFGS_upload_in_local_keys"/>
-    <outPin id="hcdu8" entityName="EFGS_upload_out_"/>
-    <outPin id="b0d3gq" entityName="EFGS_upload_out_local_keys"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6B1ZWEfCJkoMBjFpfFw" outputPin="b0d3gq" inputPins="cpbawg"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6CFZWEfCJkoMBjFpfFw" outputPin="hcdu8" inputPins="cpbawg"/>
+  <behavior id="_KXL4qIKPEfCvx4l13OBupA" entityName="EFGS Upload">
+    <inPin id="cpbawg" entityName="EFGS Upload_in_local_keys"/>
+    <outPin id="b0d3gq" entityName="EFGS Upload_out_local_keys"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGE4KPEfCvx4l13OBupA" outputPin="b0d3gq" inputPins="cpbawg"/>
   </behavior>
-  <behavior id="_dFuTClZWEfCJkoMBjFpfFw" entityName="iOS token check">
-    <inPin id="wi3r8" entityName="iOS token check_in_device_token"/>
-    <outPin id="lnu43" entityName="iOS token check_out_device_token"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFuUBVZWEfCJkoMBjFpfFw" outputPin="lnu43" inputPins="wi3r8"/>
+  <behavior id="_KXL4rIKPEfCvx4l13OBupA" entityName="IOS Token Check">
+    <inPin id="wi3r8" entityName="IOS Token Check_in_device_token"/>
+    <outPin id="lnu43" entityName="IOS Token Check_out_device_token"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGQIKPEfCvx4l13OBupA" outputPin="lnu43" inputPins="wi3r8"/>
   </behavior>
-  <behavior id="_dFuTDlZWEfCJkoMBjFpfFw" entityName="Apple Device Check Server">
+  <behavior id="_KXL4sIKPEfCvx4l13OBupA" entityName="Apple Device Check Server">
     <inPin id="gmk3u7" entityName="Apple Device Check Server_in_device_token"/>
   </behavior>
-  <behavior id="_dFuTEVZWEfCJkoMBjFpfFw" entityName="evaluate_risk">
-    <inPin id="7roxz9" entityName="evaluate_risk_in_risk_summary"/>
+  <behavior id="_KXL4s4KPEfCvx4l13OBupA" entityName="Evaluate Risk">
+    <inPin id="7roxz9" entityName="Evaluate Risk_in_risk_summary"/>
   </behavior>
-  <behavior id="_dFuTFFZWEfCJkoMBjFpfFw" entityName="generate API token">
-    <outPin id="dpsnvjl" entityName="generate API token_out_api_token"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFuT-FZWEfCJkoMBjFpfFw" outputPin="dpsnvjl" outputLabels="q45n7f"/>
+  <behavior id="_KXL4toKPEfCvx4l13OBupA" entityName="Generate API Token">
+    <outPin id="dpsnvjl" entityName="Generate API Token_out_api_token"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXNGCYKPEfCvx4l13OBupA" outputPin="dpsnvjl" outputLabels="q45n7f"/>
   </behavior>
-  <behavior id="_dFuTF1ZWEfCJkoMBjFpfFw" entityName="send API token">
-    <inPin id="2n3872" entityName="send API token_in_api_token"/>
-    <outPin id="857anq" entityName="send API token_out_api_tokenapi_token"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFuUJlZWEfCJkoMBjFpfFw" outputPin="857anq" inputPins="2n3872"/>
+  <behavior id="_KXL4uYKPEfCvx4l13OBupA" entityName="Send API Token">
+    <inPin id="2n3872" entityName="Send API Token_in_api_token"/>
+    <outPin id="857anq" entityName="Send API Token_out_api_tokenapi_token"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGIYKPEfCvx4l13OBupA" outputPin="857anq" inputPins="2n3872"/>
   </behavior>
-  <behavior id="_dFuTG1ZWEfCJkoMBjFpfFw" entityName="generate otp">
-    <outPin id="kixep" entityName="generate otp_out_otpotp"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFuUAFZWEfCJkoMBjFpfFw" outputPin="kixep" outputLabels="dh7vxu"/>
+  <behavior id="_KXL4vYKPEfCvx4l13OBupA" entityName="Generate Otp">
+    <outPin id="kixep" entityName="Generate Otp_out_otpotp"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXNGO4KPEfCvx4l13OBupA" outputPin="kixep" outputLabels="dh7vxu"/>
   </behavior>
-  <behavior id="_dFuTHlZWEfCJkoMBjFpfFw" entityName="collect analytic data">
-    <outPin id="hjh01b" entityName="collect analytic data_out_analytic_data"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFuUJVZWEfCJkoMBjFpfFw" outputPin="hjh01b" outputLabels="1f4mh8"/>
+  <behavior id="_KXL4wIKPEfCvx4l13OBupA" entityName="Collect Analytic Data">
+    <outPin id="hjh01b" entityName="Collect Analytic Data_out_analytic_data"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXMfvYKPEfCvx4l13OBupA" outputPin="hjh01b" outputLabels="1f4mh8"/>
   </behavior>
-  <behavior id="_dFuTIVZWEfCJkoMBjFpfFw" entityName="send attestation_token">
-    <inPin id="ef4qgg" entityName="send attestation_token_in_attestation_token"/>
-    <outPin id="zirkfj" entityName="send attestation_token_out_attestation_tokenattestation_token"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6ElZWEfCJkoMBjFpfFw" outputPin="zirkfj" inputPins="ef4qgg"/>
+  <behavior id="_KXL4w4KPEfCvx4l13OBupA" entityName="Send Attestation Token">
+    <inPin id="ef4qgg" entityName="Send Attestation Token_in_attestation_token"/>
+    <outPin id="zirkfj" entityName="Send Attestation Token_out_attestation_tokenattestation_token"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGC4KPEfCvx4l13OBupA" outputPin="zirkfj" inputPins="ef4qgg"/>
   </behavior>
-  <behavior id="_dFuTJVZWEfCJkoMBjFpfFw" entityName="send device_token">
-    <inPin id="2rkjk" entityName="send device_token_in_device_token"/>
-    <outPin id="lyohch" entityName="send device_token_out_device_tokendevice_token"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6DFZWEfCJkoMBjFpfFw" outputPin="lyohch" inputPins="2rkjk"/>
+  <behavior id="_KXL4x4KPEfCvx4l13OBupA" entityName="Send Device Token">
+    <inPin id="2rkjk" entityName="Send Device Token_in_device_token"/>
+    <outPin id="lyohch" entityName="Send Device Token_out_device_tokendevice_token"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGOoKPEfCvx4l13OBupA" outputPin="lyohch" inputPins="2rkjk"/>
   </behavior>
-  <behavior id="_dFuTKVZWEfCJkoMBjFpfFw" entityName="Survey Answer Storage">
+  <behavior id="_KXL4y4KPEfCvx4l13OBupA" entityName="Survey Answer Storage">
     <inPin id="y8txs" entityName="Survey Answer Storage_in_survey_data"/>
   </behavior>
-  <behavior id="_dFuTLFZWEfCJkoMBjFpfFw" entityName="submit survey data">
-    <inPin id="g03v4s" entityName="submit survey data_in_otp"/>
-    <outPin id="4ez3jv" entityName="submit survey data_out_survey_data"/>
-    <outPin id="p9by1" entityName="submit survey data_out_otp"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6GVZWEfCJkoMBjFpfFw" outputPin="p9by1" inputPins="g03v4s"/>
-    <assignment xsi:type="datadictionary:Assignment" id="_dFu6GlZWEfCJkoMBjFpfFw" outputPin="4ez3jv" outputLabels="l2rkja" inputPins="g03v4s">
-      <term xsi:type="datadictionary:LabelReference" id="_dFu6G1ZWEfCJkoMBjFpfFw" label="dh7vxu"/>
+  <behavior id="_KXL4zoKPEfCvx4l13OBupA" entityName="Submit Survey Data">
+    <inPin id="g03v4s" entityName="Submit Survey Data_in_otp"/>
+    <outPin id="4ez3jv" entityName="Submit Survey Data_out_survey_data"/>
+    <outPin id="p9by1" entityName="Submit Survey Data_out_otp"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_KXNGN4KPEfCvx4l13OBupA" outputPin="4ez3jv" outputLabels="l2rkja" inputPins="g03v4s">
+      <term xsi:type="datadictionary:LabelReference" id="_KXNGOIKPEfCvx4l13OBupA" label="dh7vxu"/>
     </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGOYKPEfCvx4l13OBupA" outputPin="p9by1" inputPins="g03v4s"/>
   </behavior>
-  <behavior id="_dFuTMVZWEfCJkoMBjFpfFw" entityName="otp server interface">
-    <inPin id="r3eyd" entityName="otp server interface_in_otp"/>
-    <outPin id="wr5jni" entityName="otp server interface_out_otp"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6JVZWEfCJkoMBjFpfFw" outputPin="wr5jni" inputPins="r3eyd"/>
+  <behavior id="_KXL404KPEfCvx4l13OBupA" entityName="Otp Server Interface">
+    <inPin id="r3eyd" entityName="Otp Server Interface_in_otp"/>
+    <outPin id="wr5jni" entityName="Otp Server Interface_out_otp"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGAYKPEfCvx4l13OBupA" outputPin="wr5jni" inputPins="r3eyd"/>
   </behavior>
-  <behavior id="_dFuTNVZWEfCJkoMBjFpfFw" entityName="validate otp">
-    <inPin id="k45bx" entityName="validate otp_in_otp"/>
-    <inPin id="55u9o" entityName="validate otp_in_registered_otp"/>
+  <behavior id="_KXL414KPEfCvx4l13OBupA" entityName="Validate Otp">
+    <inPin id="k45bx" entityName="Validate Otp_in_otp"/>
+    <inPin id="55u9o" entityName="Validate Otp_in_registered_otp"/>
   </behavior>
-  <behavior id="_dFuTOVZWEfCJkoMBjFpfFw" entityName="OTP Storage">
+  <behavior id="_KXL424KPEfCvx4l13OBupA" entityName="OTP Storage">
     <inPin id="nhq8wd" entityName="OTP Storage_in_registered_otp"/>
     <outPin id="z1nz7bh" entityName="OTP Storage_out_registered_otp"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu58FZWEfCJkoMBjFpfFw" outputPin="z1nz7bh" inputPins="nhq8wd"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGEIKPEfCvx4l13OBupA" outputPin="z1nz7bh" inputPins="nhq8wd"/>
   </behavior>
-  <behavior id="_dFuTPVZWEfCJkoMBjFpfFw" entityName="API token storage">
-    <inPin id="scri4c" entityName="API token storage_in_api_token"/>
+  <behavior id="_KXL434KPEfCvx4l13OBupA" entityName="API Token Storage">
+    <inPin id="scri4c" entityName="API Token Storage_in_api_token"/>
   </behavior>
-  <behavior id="_dFuTQFZWEfCJkoMBjFpfFw" entityName="Salt Storage">
+  <behavior id="_KXL44oKPEfCvx4l13OBupA" entityName="Salt Storage">
     <inPin id="cmtguh" entityName="Salt Storage_in_salt"/>
   </behavior>
-  <behavior id="_dFuTQ1ZWEfCJkoMBjFpfFw" entityName="send OTP for EDUS">
-    <inPin id="ryjpkm" entityName="send OTP for EDUS_in_otp"/>
-    <inPin id="2ekhm8" entityName="send OTP for EDUS_in_api_tokendevice_token"/>
-    <inPin id="zqptt" entityName="send OTP for EDUS_in_saltattestation_token"/>
-    <outPin id="m7u5zq" entityName="send OTP for EDUS_out_register_otp"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFuUJFZWEfCJkoMBjFpfFw" outputPin="m7u5zq" inputPins="ryjpkm 2ekhm8 zqptt"/>
+  <behavior id="_KXL45YKPEfCvx4l13OBupA" entityName="Send OTP For EDUS">
+    <inPin id="ryjpkm" entityName="Send OTP For EDUS_in_otp"/>
+    <inPin id="2ekhm8" entityName="Send OTP For EDUS_in_api_tokendevice_token"/>
+    <inPin id="zqptt" entityName="Send OTP For EDUS_in_saltattestation_token"/>
+    <outPin id="m7u5zq" entityName="Send OTP For EDUS_out_register_otp"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXMfvoKPEfCvx4l13OBupA" outputPin="m7u5zq" inputPins="ryjpkm 2ekhm8 zqptt"/>
   </behavior>
-  <behavior id="_dFuTSVZWEfCJkoMBjFpfFw" entityName="Android Check">
+  <behavior id="_KXL464KPEfCvx4l13OBupA" entityName="Android Check">
     <inPin id="tkmcb" entityName="Android Check_in_attest"/>
     <outPin id="ustrkd" entityName="Android Check_out_salt"/>
     <outPin id="khngjk" entityName="Android Check_out_attestation_token"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFuT_FZWEfCJkoMBjFpfFw" outputPin="khngjk" inputPins="tkmcb"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuT_VZWEfCJkoMBjFpfFw" outputPin="khngjk" outputLabels="4yrozt"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFuT_lZWEfCJkoMBjFpfFw" outputPin="ustrkd" inputPins="tkmcb"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuT_1ZWEfCJkoMBjFpfFw" outputPin="ustrkd" outputLabels="oy42f8"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGPIKPEfCvx4l13OBupA" outputPin="ustrkd" inputPins="tkmcb"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXNGPYKPEfCvx4l13OBupA" outputPin="ustrkd" outputLabels="oy42f8"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGPoKPEfCvx4l13OBupA" outputPin="khngjk" inputPins="tkmcb"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXNGP4KPEfCvx4l13OBupA" outputPin="khngjk" outputLabels="4yrozt"/>
   </behavior>
-  <behavior id="_dFuTTlZWEfCJkoMBjFpfFw" entityName="Apple Device Check API">
+  <behavior id="_KXL48IKPEfCvx4l13OBupA" entityName="Apple Device Check API">
     <outPin id="w13xn" entityName="Apple Device Check API_out_device_token"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFuT-lZWEfCJkoMBjFpfFw" outputPin="w13xn" outputLabels="yv117"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXNGFIKPEfCvx4l13OBupA" outputPin="w13xn" outputLabels="yv117"/>
   </behavior>
-  <behavior id="_dFuTUVZWEfCJkoMBjFpfFw" entityName="generate salt">
-    <outPin id="blz7x" entityName="generate salt_out_salt"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFuUBFZWEfCJkoMBjFpfFw" outputPin="blz7x" outputLabels="4yrozt"/>
+  <behavior id="_KXMe8YKPEfCvx4l13OBupA" entityName="Generate Salt">
+    <outPin id="blz7x" entityName="Generate Salt_out_salt"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXNGNYKPEfCvx4l13OBupA" outputPin="blz7x" outputLabels="4yrozt"/>
   </behavior>
-  <behavior id="_dFuTVFZWEfCJkoMBjFpfFw" entityName="CWA Data Donation Server Interface">
+  <behavior id="_KXMe9IKPEfCvx4l13OBupA" entityName="CWA Data Donation Server Interface">
     <inPin id="xee7qb" entityName="CWA Data Donation Server Interface_in_register_otp"/>
     <inPin id="c29d6" entityName="CWA Data Donation Server Interface_in_ppa"/>
     <outPin id="jn7t4" entityName="CWA Data Donation Server Interface_out_analytic_data"/>
@@ -370,119 +356,118 @@
     <outPin id="jpfhbk" entityName="CWA Data Donation Server Interface_out_device_token"/>
     <outPin id="bfq92" entityName="CWA Data Donation Server Interface_out_api_token"/>
     <outPin id="4bzax" entityName="CWA Data Donation Server Interface_out_attest"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFuUCFZWEfCJkoMBjFpfFw" outputPin="jpfhbk" inputPins="c29d6 xee7qb"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUCVZWEfCJkoMBjFpfFw" outputPin="jpfhbk" outputLabels="oy42f8"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUClZWEfCJkoMBjFpfFw" outputPin="jpfhbk" outputLabels="1f4mh8"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUC1ZWEfCJkoMBjFpfFw" outputPin="jpfhbk" outputLabels="dh7vxu"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUDFZWEfCJkoMBjFpfFw" outputPin="jpfhbk" outputLabels="4yrozt"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUDVZWEfCJkoMBjFpfFw" outputPin="jpfhbk" outputLabels="q45n7f"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFuUDlZWEfCJkoMBjFpfFw" outputPin="nbyrnr" inputPins="xee7qb"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUD1ZWEfCJkoMBjFpfFw" outputPin="nbyrnr" outputLabels="q45n7f"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUEFZWEfCJkoMBjFpfFw" outputPin="nbyrnr" outputLabels="4yrozt"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUEVZWEfCJkoMBjFpfFw" outputPin="nbyrnr" outputLabels="yv117"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUElZWEfCJkoMBjFpfFw" outputPin="nbyrnr" outputLabels="oy42f8"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFuUE1ZWEfCJkoMBjFpfFw" outputPin="jn7t4" inputPins="c29d6 xee7qb"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUFFZWEfCJkoMBjFpfFw" outputPin="jn7t4" outputLabels="oy42f8"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUFVZWEfCJkoMBjFpfFw" outputPin="jn7t4" outputLabels="q45n7f"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUFlZWEfCJkoMBjFpfFw" outputPin="jn7t4" outputLabels="dh7vxu"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUF1ZWEfCJkoMBjFpfFw" outputPin="jn7t4" outputLabels="4yrozt"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUGFZWEfCJkoMBjFpfFw" outputPin="jn7t4" outputLabels="yv117"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFuUGVZWEfCJkoMBjFpfFw" outputPin="4bzax" inputPins="xee7qb c29d6"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUGlZWEfCJkoMBjFpfFw" outputPin="4bzax" outputLabels="yv117"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUG1ZWEfCJkoMBjFpfFw" outputPin="4bzax" outputLabels="dh7vxu"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUHFZWEfCJkoMBjFpfFw" outputPin="4bzax" outputLabels="q45n7f"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUHVZWEfCJkoMBjFpfFw" outputPin="4bzax" outputLabels="1f4mh8"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFuUHlZWEfCJkoMBjFpfFw" outputPin="bfq92" inputPins="c29d6 xee7qb"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUH1ZWEfCJkoMBjFpfFw" outputPin="bfq92" outputLabels="4yrozt"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUIFZWEfCJkoMBjFpfFw" outputPin="bfq92" outputLabels="oy42f8"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUIVZWEfCJkoMBjFpfFw" outputPin="bfq92" outputLabels="yv117"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUIlZWEfCJkoMBjFpfFw" outputPin="bfq92" outputLabels="1f4mh8"/>
-    <assignment xsi:type="datadictionary:UnsetAssignment" id="_dFuUI1ZWEfCJkoMBjFpfFw" outputPin="bfq92" outputLabels="dh7vxu"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXMfoYKPEfCvx4l13OBupA" outputPin="jn7t4" inputPins="c29d6 xee7qb"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMfooKPEfCvx4l13OBupA" outputPin="jn7t4" outputLabels="oy42f8"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMfo4KPEfCvx4l13OBupA" outputPin="jn7t4" outputLabels="q45n7f"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMfpIKPEfCvx4l13OBupA" outputPin="jn7t4" outputLabels="dh7vxu"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMfpYKPEfCvx4l13OBupA" outputPin="jn7t4" outputLabels="4yrozt"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMfpoKPEfCvx4l13OBupA" outputPin="jn7t4" outputLabels="yv117"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXMfp4KPEfCvx4l13OBupA" outputPin="jpfhbk" inputPins="c29d6 xee7qb"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMfqIKPEfCvx4l13OBupA" outputPin="jpfhbk" outputLabels="oy42f8"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMfqYKPEfCvx4l13OBupA" outputPin="jpfhbk" outputLabels="1f4mh8"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMfqoKPEfCvx4l13OBupA" outputPin="jpfhbk" outputLabels="dh7vxu"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMfq4KPEfCvx4l13OBupA" outputPin="jpfhbk" outputLabels="4yrozt"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMfrIKPEfCvx4l13OBupA" outputPin="jpfhbk" outputLabels="q45n7f"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXMfrYKPEfCvx4l13OBupA" outputPin="4bzax" inputPins="xee7qb c29d6"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMfroKPEfCvx4l13OBupA" outputPin="4bzax" outputLabels="yv117"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMfr4KPEfCvx4l13OBupA" outputPin="4bzax" outputLabels="dh7vxu"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMfsIKPEfCvx4l13OBupA" outputPin="4bzax" outputLabels="q45n7f"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMfsYKPEfCvx4l13OBupA" outputPin="4bzax" outputLabels="1f4mh8"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXMfsoKPEfCvx4l13OBupA" outputPin="nbyrnr" inputPins="xee7qb"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMfs4KPEfCvx4l13OBupA" outputPin="nbyrnr" outputLabels="q45n7f"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMftIKPEfCvx4l13OBupA" outputPin="nbyrnr" outputLabels="4yrozt"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMftYKPEfCvx4l13OBupA" outputPin="nbyrnr" outputLabels="yv117"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMftoKPEfCvx4l13OBupA" outputPin="nbyrnr" outputLabels="oy42f8"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXMft4KPEfCvx4l13OBupA" outputPin="bfq92" inputPins="c29d6 xee7qb"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMfuIKPEfCvx4l13OBupA" outputPin="bfq92" outputLabels="4yrozt"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMfuYKPEfCvx4l13OBupA" outputPin="bfq92" outputLabels="oy42f8"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMfuoKPEfCvx4l13OBupA" outputPin="bfq92" outputLabels="yv117"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMfu4KPEfCvx4l13OBupA" outputPin="bfq92" outputLabels="1f4mh8"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_KXMfvIKPEfCvx4l13OBupA" outputPin="bfq92" outputLabels="dh7vxu"/>
   </behavior>
-  <behavior id="_dFuTXVZWEfCJkoMBjFpfFw" entityName="send PPA">
-    <inPin id="q7cslq" entityName="send PPA_in_analytic_data"/>
-    <inPin id="v0u1m" entityName="send PPA_in_api_tokendevice_token"/>
-    <inPin id="wqz7k8" entityName="send PPA_in_saltattestation_token"/>
-    <outPin id="p8mme" entityName="send PPA_out_ppa"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6C1ZWEfCJkoMBjFpfFw" outputPin="p8mme" inputPins="q7cslq v0u1m wqz7k8"/>
+  <behavior id="_KXMe_YKPEfCvx4l13OBupA" entityName="Send PPA">
+    <inPin id="q7cslq" entityName="Send PPA_in_analytic_data"/>
+    <inPin id="v0u1m" entityName="Send PPA_in_api_tokendevice_token"/>
+    <inPin id="wqz7k8" entityName="Send PPA_in_saltattestation_token"/>
+    <outPin id="p8mme" entityName="Send PPA_out_ppa"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXMfn4KPEfCvx4l13OBupA" outputPin="p8mme" inputPins="q7cslq v0u1m wqz7k8"/>
   </behavior>
-  <behavior id="_dFuTY1ZWEfCJkoMBjFpfFw" entityName="send salt">
-    <inPin id="w3ffq" entityName="send salt_in_salt"/>
-    <outPin id="783fe4" entityName="send salt_out_saltsalt"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6JlZWEfCJkoMBjFpfFw" outputPin="783fe4" inputPins="w3ffq"/>
+  <behavior id="_KXMfA4KPEfCvx4l13OBupA" entityName="Send Salt">
+    <inPin id="w3ffq" entityName="Send Salt_in_salt"/>
+    <outPin id="783fe4" entityName="Send Salt_out_saltsalt"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGLIKPEfCvx4l13OBupA" outputPin="783fe4" inputPins="w3ffq"/>
   </behavior>
-  <behavior id="_dFuTZ1ZWEfCJkoMBjFpfFw" entityName="local certificate validation">
-    <inPin id="8q255s" entityName="local certificate validation_in_attestation_token"/>
+  <behavior id="_KXMfB4KPEfCvx4l13OBupA" entityName="Local Certificate Validation">
+    <inPin id="8q255s" entityName="Local Certificate Validation_in_attestation_token"/>
   </behavior>
-  <behavior id="_dFuTalZWEfCJkoMBjFpfFw" entityName="generate statistics">
-    <inPin id="gklo9" entityName="generate statistics_in_analytic_data"/>
-    <outPin id="zt718d" entityName="generate statistics_out_analytic_data"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6E1ZWEfCJkoMBjFpfFw" outputPin="zt718d" inputPins="gklo9"/>
+  <behavior id="_KXMfCoKPEfCvx4l13OBupA" entityName="Generate Statistics">
+    <inPin id="gklo9" entityName="Generate Statistics_in_analytic_data"/>
+    <outPin id="zt718d" entityName="Generate Statistics_out_analytic_data"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXMfm4KPEfCvx4l13OBupA" outputPin="zt718d" inputPins="gklo9"/>
   </behavior>
-  <behavior id="_dFuTblZWEfCJkoMBjFpfFw" entityName="Analytic Data Storage">
+  <behavior id="_KXMfDoKPEfCvx4l13OBupA" entityName="Analytic Data Storage">
     <inPin id="vbb0o8" entityName="Analytic Data Storage_in_analytic_data"/>
     <outPin id="jawkbm" entityName="Analytic Data Storage_out_analytic_data"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFuUKlZWEfCJkoMBjFpfFw" outputPin="jawkbm" inputPins="vbb0o8"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGBIKPEfCvx4l13OBupA" outputPin="jawkbm" inputPins="vbb0o8"/>
   </behavior>
-  <behavior id="_dFuTclZWEfCJkoMBjFpfFw" entityName="make statistics available">
-    <inPin id="12ekir" entityName="make statistics available_in_analytic_data"/>
+  <behavior id="_KXMfEoKPEfCvx4l13OBupA" entityName="Make Statistics Available">
+    <inPin id="12ekir" entityName="Make Statistics Available_in_analytic_data"/>
   </behavior>
-  <behavior id="_dFuTdVZWEfCJkoMBjFpfFw" entityName="APIs Metadata ">
+  <behavior id="_KXMfFYKPEfCvx4l13OBupA" entityName="APIs Metadata ">
     <outPin id="t3qfvk" entityName="APIs Metadata _out_apis_metadata"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFu6FlZWEfCJkoMBjFpfFw" outputPin="t3qfvk" outputLabels="g7j84"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXNGAoKPEfCvx4l13OBupA" outputPin="t3qfvk" outputLabels="g7j84"/>
   </behavior>
-  <behavior id="_dFuTeFZWEfCJkoMBjFpfFw" entityName="Secondary Users Mobile">
+  <behavior id="_KXMfGIKPEfCvx4l13OBupA" entityName="Secondary Users Mobile">
     <outPin id="qq2n4e" entityName="Secondary Users Mobile_out_broadcast"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFu59VZWEfCJkoMBjFpfFw" outputPin="qq2n4e" outputLabels="dmyso2"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFu59lZWEfCJkoMBjFpfFw" outputPin="qq2n4e" outputLabels="rrwye"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXNGIoKPEfCvx4l13OBupA" outputPin="qq2n4e" outputLabels="dmyso2"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXNGI4KPEfCvx4l13OBupA" outputPin="qq2n4e" outputLabels="rrwye"/>
   </behavior>
-  <behavior id="_dFuTe1ZWEfCJkoMBjFpfFw" entityName="upload keys">
-    <inPin id="3w54dp" entityName="upload keys_in_TANteksuser_configurations"/>
-    <outPin id="kfbsq" entityName="upload keys_out_diagnosis_keys"/>
-    <assignment xsi:type="datadictionary:Assignment" id="_dFu6H1ZWEfCJkoMBjFpfFw" outputPin="kfbsq" outputLabels="grw8i" inputPins="3w54dp">
-      <term xsi:type="datadictionary:LabelReference" id="_dFu6IFZWEfCJkoMBjFpfFw" label="vquwc"/>
+  <behavior id="_KXMfG4KPEfCvx4l13OBupA" entityName="Upload Keys">
+    <inPin id="3w54dp" entityName="Upload Keys_in_tanteksuser_configurations"/>
+    <outPin id="kfbsq" entityName="Upload Keys_out_diagnosis_keys"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_KXNGDIKPEfCvx4l13OBupA" outputPin="kfbsq" outputLabels="grw8i">
+      <term xsi:type="datadictionary:LabelReference" id="_KXNGDYKPEfCvx4l13OBupA" label="vquwc"/>
     </assignment>
   </behavior>
-  <behavior id="_dFuTf1ZWEfCJkoMBjFpfFw" entityName="Google Service">
+  <behavior id="_KXMfH4KPEfCvx4l13OBupA" entityName="Google Service">
     <outPin id="nmqhl" entityName="Google Service_out_attestation_token"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFuUK1ZWEfCJkoMBjFpfFw" outputPin="nmqhl" outputLabels="oy42f8"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXMfnoKPEfCvx4l13OBupA" outputPin="nmqhl" outputLabels="oy42f8"/>
   </behavior>
-  <behavior id="_dFuTglZWEfCJkoMBjFpfFw" entityName="Google Attestation API">
+  <behavior id="_KXMfIoKPEfCvx4l13OBupA" entityName="Google Attestation API">
     <inPin id="yh5v1f" entityName="Google Attestation API_in_attestation_token"/>
     <outPin id="pn4e" entityName="Google Attestation API_out_attestation_token"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6GFZWEfCJkoMBjFpfFw" outputPin="pn4e" inputPins="yh5v1f"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGEYKPEfCvx4l13OBupA" outputPin="pn4e" inputPins="yh5v1f"/>
   </behavior>
-  <behavior id="_dFuThlZWEfCJkoMBjFpfFw" entityName="lab client">
-    <outPin id="gtrz89" entityName="lab client_out_test_results"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFuT-1ZWEfCJkoMBjFpfFw" outputPin="gtrz89" outputLabels="27ghn8"/>
+  <behavior id="_KXMfJoKPEfCvx4l13OBupA" entityName="Lab Client">
+    <outPin id="gtrz89" entityName="Lab Client_out_test_results"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_KXNGNoKPEfCvx4l13OBupA" outputPin="gtrz89" outputLabels="27ghn8"/>
   </behavior>
-  <behavior id="_dFuTiVZWEfCJkoMBjFpfFw" entityName="add RAT">
-    <inPin id="v5xfwk" entityName="add RAT_in_RAT_resulttest_QR"/>
-    <outPin id="bjxx4s" entityName="add RAT_out_rat_test_result"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6CVZWEfCJkoMBjFpfFw" outputPin="bjxx4s" inputPins="v5xfwk"/>
+  <behavior id="_KXMfKYKPEfCvx4l13OBupA" entityName="Add RAT">
+    <inPin id="v5xfwk" entityName="Add RAT_in_test_qrrat_result"/>
+    <outPin id="bjxx4s" entityName="Add RAT_out_rat_test_result"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGAIKPEfCvx4l13OBupA" outputPin="bjxx4s"/>
   </behavior>
-  <behavior id="_dFuTjVZWEfCJkoMBjFpfFw" entityName="create_risk_summary">
-    <inPin id="ml6s6m" entityName="create_risk_summary_in_risk_level"/>
-    <outPin id="ew1h4" entityName="create_risk_summary_out_risk_summary"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu5-VZWEfCJkoMBjFpfFw" outputPin="ew1h4" inputPins="ml6s6m"/>
+  <behavior id="_KXMfLYKPEfCvx4l13OBupA" entityName="Exposure Notification Framework">
+    <inPin id="skq0qe" entityName="Exposure Notification Framework_in_broadcast"/>
+    <inPin id="8m4dp" entityName="Exposure Notification Framework_in_aemlocal_tek"/>
+    <inPin id="yh3qnl" entityName="Exposure Notification Framework_in_foreign_teks"/>
+    <outPin id="oxblo" entityName="Exposure Notification Framework_out_payload"/>
+    <outPin id="ir4xs3" entityName="Exposure Notification Framework_out_foreign_keys"/>
+    <outPin id="tvm37p" entityName="Exposure Notification Framework_out_broadcast"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGF4KPEfCvx4l13OBupA" outputPin="ir4xs3" inputPins="yh3qnl"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGGIKPEfCvx4l13OBupA" outputPin="tvm37p" inputPins="skq0qe"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXNGGYKPEfCvx4l13OBupA" outputPin="oxblo" inputPins="8m4dp"/>
   </behavior>
-  <behavior id="_dFuTkVZWEfCJkoMBjFpfFw" entityName="api compare keys">
-    <inPin id="u3qvr" entityName="api compare keys_in_keys"/>
-    <outPin id="7mw5ip" entityName="api compare keys_out_risk_level"/>
-    <assignment xsi:type="datadictionary:SetAssignment" id="_dFu5-FZWEfCJkoMBjFpfFw" outputPin="7mw5ip" outputLabels="0zg8tg"/>
-  </behavior>
-  <behavior id="_dFuTlVZWEfCJkoMBjFpfFw" entityName="Corona Warn App Server">
+  <behavior id="_KXMfNYKPEfCvx4l13OBupA" entityName="Corona Warn App Server">
     <inPin id="36il1r" entityName="Corona Warn App Server_in_diagnosis_keys"/>
     <inPin id="vdzpwr" entityName="Corona Warn App Server_in_foreign_keys"/>
     <inPin id="2fhdu8j" entityName="Corona Warn App Server_in_analytic_data"/>
-    <inPin id="zrxa6l" entityName="Corona Warn App Server_in_foreign_rpisbroadcast"/>
+    <inPin id="whtd4m" entityName="Corona Warn App Server_in_foreign_rpisbroadcast"/>
     <outPin id="6rtpq" entityName="Corona Warn App Server_out_diagnosis_keys"/>
     <outPin id="oildeb" entityName="Corona Warn App Server_out_local_keys"/>
     <outPin id="fb5m1" entityName="Corona Warn App Server_out_analytic_data"/>
-    <outPin id="o7v885" entityName="Corona Warn App Server_out_keys"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6IVZWEfCJkoMBjFpfFw" outputPin="oildeb" inputPins="36il1r"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6IlZWEfCJkoMBjFpfFw" outputPin="fb5m1" inputPins="2fhdu8j"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6I1ZWEfCJkoMBjFpfFw" outputPin="6rtpq" inputPins="36il1r"/>
-    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_dFu6JFZWEfCJkoMBjFpfFw" outputPin="o7v885" inputPins="zrxa6l"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXMflYKPEfCvx4l13OBupA" outputPin="fb5m1" inputPins="2fhdu8j"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXMfloKPEfCvx4l13OBupA" outputPin="oildeb" inputPins="36il1r"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_KXMfl4KPEfCvx4l13OBupA" outputPin="6rtpq" inputPins="36il1r"/>
   </behavior>
 </datadictionary:DataDictionary>

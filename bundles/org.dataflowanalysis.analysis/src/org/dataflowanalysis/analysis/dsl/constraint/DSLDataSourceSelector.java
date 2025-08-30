@@ -88,9 +88,9 @@ public class DSLDataSourceSelector {
      */
     public DSLDataSourceSelector withoutLabel(String characteristicType, List<String> characteristicValues) {
         List<CharacteristicsSelectorData> data = new ArrayList<>();
-        characteristicValues
-                .forEach(characteristicValue -> new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
-                        ConstraintVariableReference.ofConstant(List.of(characteristicValue))));
+        characteristicValues.forEach(
+                characteristicValue -> data.add(new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
+                        ConstraintVariableReference.ofConstant(List.of(characteristicValue)))));
         this.analysisConstraint.addDataSourceSelector(new DataCharacteristicListSelector(this.analysisConstraint.getContext(), data, true));
         return this;
     }

@@ -19,12 +19,12 @@ public class ACContactSMSNoViolationResult implements DFDExampleModelResult {
 
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
-        return List.of(new ConstraintDSL().ofData()
-                .withoutLabel("AccessRights", "Receiver")
-                .neverFlows()
-                .toVertex()
-                .withCharacteristic("Role", "Receiver")
-                .create());
+    	return List.of(new ConstraintDSL().ofData()
+    			.withoutLabel("AccessRights", "Receiver")
+    			.neverFlows()
+    			.toVertex()
+    			.withCharacteristic("Role", "Receiver")
+    			.create());
     }
 
     @Override
@@ -36,9 +36,9 @@ public class ACContactSMSNoViolationResult implements DFDExampleModelResult {
     public String toString() {
         return this.getModelName();
     }
-
+    
     @Override
     public String getFileName() {
-        return "diagram";
+    	return "diagram";
     }
 }

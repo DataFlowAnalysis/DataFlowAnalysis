@@ -19,26 +19,26 @@ public class ACDistanceTrackerNoViolationResult implements DFDExampleModelResult
 
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
-        return List.of(new ConstraintDSL().ofData()
-                .withoutLabel("AccessRights", "DistanceTracker")
-                .neverFlows()
-                .toVertex()
-                .withCharacteristic("Roles", "DistanceTracker")
-                .create());
+    	return List.of(new ConstraintDSL().ofData()
+    			.withoutLabel("AccessRights", "DistanceTracker")
+    			.neverFlows()
+    			.toVertex()
+    			.withCharacteristic("Roles", "DistanceTracker")
+    			.create());
     }
 
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
-        return List.of();
-    }
+        return List.of();    
+        }
 
     @Override
     public String toString() {
         return this.getModelName();
     }
-
+    
     @Override
     public String getFileName() {
-        return "diagram";
+    	return "diagram";
     }
 }

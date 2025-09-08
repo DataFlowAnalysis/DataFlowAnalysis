@@ -22,30 +22,33 @@ public class IFContactSMSViolationResult implements DFDExampleModelResult {
 
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
-        return List.of(new ConstraintDSL().ofData()
-                .withoutLabel("ClassificationLevel", "UserReceiver")
-                .neverFlows()
-                .toVertex()
-                .withCharacteristic("ClearanceLevel", "UserReceiver")
-                .create());
+    	return List.of(new ConstraintDSL().ofData()
+    			.withoutLabel("ClassificationLevel", "UserReceiver")
+    			.neverFlows()
+    			.toVertex()
+    			.withCharacteristic("ClearanceLevel", "UserReceiver")
+    			.create());
     }
 
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
-        return List.of(
-                new ExpectedViolation(3, new DFDIdentifier("ztul2"), List.of(new ExpectedCharacteristic("ClearanceLevel", "UserReceiver")),
-                        Map.of("bp424", List.of(new ExpectedCharacteristic("ClassificationLevel", "User")))),
-                new ExpectedViolation(3, new DFDIdentifier("6oilhg"), List.of(new ExpectedCharacteristic("ClearanceLevel", "UserReceiver")),
-                        Map.of("e45gpj", List.of(new ExpectedCharacteristic("ClassificationLevel", "User")))));
+    	return List.of(
+        		new ExpectedViolation(3, new DFDIdentifier("ztul2"),
+					List.of(new ExpectedCharacteristic("ClearanceLevel", "UserReceiver")),
+					Map.of("bp424",
+							List.of(new ExpectedCharacteristic("ClassificationLevel", "User")))),
+        		new ExpectedViolation(3, new DFDIdentifier("6oilhg"),
+    					List.of(new ExpectedCharacteristic("ClearanceLevel", "UserReceiver")),
+    					Map.of("e45gpj",
+    							List.of(new ExpectedCharacteristic("ClassificationLevel", "User")))));
     }
-
     @Override
     public String toString() {
         return this.getModelName();
     }
-
+    
     @Override
     public String getFileName() {
-        return "diagram";
+    	return "diagram";
     }
 }

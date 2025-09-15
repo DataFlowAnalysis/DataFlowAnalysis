@@ -7,10 +7,10 @@
             "height": 1168.75
         },
         "scroll": {
-            "x": -51.99196572040695,
-            "y": -313.7694161756829
+            "x": -103.6229055258467,
+            "y": -63
         },
-        "zoom": 1.271798365122616,
+        "zoom": 2.6392547986450885,
         "position": {
             "x": 0,
             "y": 0
@@ -26,7 +26,7 @@
             {
                 "position": {
                     "x": 380,
-                    "y": 88.99999999999999
+                    "y": 207
                 },
                 "size": {
                     "width": 62,
@@ -37,7 +37,7 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Alice",
-                "color": "var(--color-highlighted)",
+                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "ud5z2",
@@ -72,7 +72,7 @@
                         "message": "Propagated: Level.High",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 1365242934
+                        "tfg": 42036147
                     }
                 ],
                 "features": {},
@@ -83,7 +83,7 @@
             {
                 "position": {
                     "x": 370,
-                    "y": 151
+                    "y": 12
                 },
                 "size": {
                     "width": 72,
@@ -133,7 +133,7 @@
             {
                 "position": {
                     "x": 196,
-                    "y": 25
+                    "y": 109
                 },
                 "size": {
                     "width": 84,
@@ -144,7 +144,7 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Policy DS",
-                "color": "var(--color-highlighted)",
+                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "ud5z2",
@@ -155,7 +155,7 @@
                     {
                         "position": {
                             "x": 80.5,
-                            "y": 17.5
+                            "y": 29.75
                         },
                         "size": {
                             "width": 7,
@@ -174,25 +174,6 @@
                     {
                         "position": {
                             "x": 80.5,
-                            "y": 29.75
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "forward policy",
-                        "features": {},
-                        "id": "x8tisi",
-                        "type": "port:dfd-output",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": 80.5,
                             "y": 5.25
                         },
                         "size": {
@@ -205,7 +186,7 @@
                         "opacity": 1,
                         "behavior": "forward policy",
                         "features": {},
-                        "id": "dqgr4p",
+                        "id": "x8tisi",
                         "type": "port:dfd-output",
                         "children": []
                     },
@@ -226,6 +207,25 @@
                         "id": "npnfsr",
                         "type": "port:dfd-input",
                         "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 80.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward policy",
+                        "features": {},
+                        "id": "dqgr4p",
+                        "type": "port:dfd-output",
+                        "children": []
                     }
                 ],
                 "hideLabels": false,
@@ -235,13 +235,13 @@
                         "message": "Propagated: Level.Low, Level.Low, Level.Low",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 1365242934
+                        "tfg": 42036147
                     },
                     {
                         "message": "Incoming: Level.Low",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 1365242934
+                        "tfg": 42036147
                     }
                 ],
                 "features": {},
@@ -251,8 +251,449 @@
             },
             {
                 "position": {
+                    "x": 1132,
+                    "y": 151.58333333333331
+                },
+                "size": {
+                    "width": 62,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "SMTP",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "vbkupo"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "fh2",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 58.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward email_body_encrypted_header",
+                        "features": {},
+                        "id": "ght5jh",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: LevelBeforeEncryption.High, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    },
+                    {
+                        "message": "Incoming: LevelBeforeEncryption.High, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    }
+                ],
+                "features": {},
+                "id": "hkp4w",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1268,
+                    "y": 151.58333333333331
+                },
+                "size": {
+                    "width": 62,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "POP3",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "vbkupo"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 58.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward email_body_encrypted_and_header",
+                        "features": {},
+                        "id": "yddkf8",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "pepa57",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: LevelBeforeEncryption.High, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    },
+                    {
+                        "message": "Incoming: LevelBeforeEncryption.High, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    }
+                ],
+                "features": {},
+                "id": "f63vu",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 556.6666666666666,
+                    "y": 173
+                },
+                "size": {
+                    "width": 75,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Split Mail",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 28.33333333333333
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "nbmstb",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 71.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward policy\nassign Level.Low if Level.Low from policy\nassign Level.Low if Level.Low from email_body_and_header\nassign Level.High if Level.High from policy\nassign Level.High if Level.High from email_body_and_header",
+                        "features": {},
+                        "id": "5h320d",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 10.666666666666666
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "4lufz4",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    },
+                    {
+                        "message": "Incoming: Level.High, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    }
+                ],
+                "features": {},
+                "id": "z8h0ig",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 449,
+                        "y": 228
+                    },
+                    {
+                        "x": 499,
+                        "y": 228
+                    },
+                    {
+                        "x": 499,
+                        "y": 204.83333333333331
+                    },
+                    {
+                        "x": 549.6666666666666,
+                        "y": 204.83333333333331
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "email_body_and_header",
+                "features": {},
+                "id": "h9mc18",
+                "type": "edge:arrow",
+                "sourceId": "gjkcwb",
+                "targetId": "nbmstb",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 364,
+                    "y": 141
+                },
+                "size": {
+                    "width": 78,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Authorize",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "5pimrr",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 74.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward policy",
+                        "features": {},
+                        "id": "49wgwa",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    },
+                    {
+                        "message": "Incoming: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    }
+                ],
+                "features": {},
+                "id": "va8o3",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 287,
+                        "y": 142.25
+                    },
+                    {
+                        "x": 307,
+                        "y": 142.25
+                    },
+                    {
+                        "x": 307,
+                        "y": 164
+                    },
+                    {
+                        "x": 357,
+                        "y": 164
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "policy",
+                "features": {},
+                "id": "5anyx",
+                "type": "edge:arrow",
+                "sourceId": "jj2kv",
+                "targetId": "5pimrr",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 449,
+                        "y": 164
+                    },
+                    {
+                        "x": 499,
+                        "y": 164
+                    },
+                    {
+                        "x": 499,
+                        "y": 187.16666666666666
+                    },
+                    {
+                        "x": 549.6666666666666,
+                        "y": 187.16666666666666
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "policy",
+                "features": {},
+                "id": "lngzw6",
+                "type": "edge:arrow",
+                "sourceId": "49wgwa",
+                "targetId": "4lufz4",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
                     "x": 12,
-                    "y": 25
+                    "y": 109
                 },
                 "size": {
                     "width": 110,
@@ -263,7 +704,7 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Policy Initiator",
-                "color": "var(--color-highlighted)",
+                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "ud5z2",
@@ -298,7 +739,7 @@
                         "message": "Propagated: Level.Low",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 1365242934
+                        "tfg": 42036147
                     }
                 ],
                 "features": {},
@@ -307,90 +748,34 @@
                 "children": []
             },
             {
-                "position": {
-                    "x": 364,
-                    "y": 23
-                },
-                "size": {
-                    "width": 78,
-                    "height": 46
-                },
-                "strokeWidth": 0,
+                "routingPoints": [
+                    {
+                        "x": 129,
+                        "y": 130
+                    },
+                    {
+                        "x": 189,
+                        "y": 130
+                    }
+                ],
                 "selected": false,
                 "hoverFeedback": false,
                 "opacity": 1,
-                "text": "Authorize",
-                "color": "var(--color-highlighted)",
-                "labels": [
-                    {
-                        "labelTypeId": "ud5z2",
-                        "labelTypeValueId": "nkwkcj"
-                    }
-                ],
-                "ports": [
-                    {
-                        "position": {
-                            "x": 74.5,
-                            "y": 19.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "forward policy",
-                        "features": {},
-                        "id": "49wgwa",
-                        "type": "port:dfd-output",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": -3.5,
-                            "y": 19.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "features": {},
-                        "id": "5pimrr",
-                        "type": "port:dfd-input",
-                        "children": []
-                    }
-                ],
-                "hideLabels": false,
-                "minimumWidth": 50,
-                "annotations": [
-                    {
-                        "message": "Propagated: Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 1365242934
-                    },
-                    {
-                        "message": "Incoming: Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 1365242934
-                    }
-                ],
+                "text": "policy",
                 "features": {},
-                "id": "va8o3",
-                "type": "node:function",
+                "id": "p8sfo5",
+                "type": "edge:arrow",
+                "sourceId": "56zk5",
+                "targetId": "npnfsr",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
                 "children": []
             },
             {
                 "position": {
                     "x": 364,
-                    "y": 213
+                    "y": 74
                 },
                 "size": {
                     "width": 78,
@@ -401,7 +786,7 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Authorize",
-                "color": "var(--color-highlighted)",
+                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "ud5z2",
@@ -454,13 +839,13 @@
                         "message": "Propagated: Level.Low",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 1365242934
+                        "tfg": 42036147
                     },
                     {
                         "message": "Incoming: Level.Low",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 1365242934
+                        "tfg": 42036147
                     }
                 ],
                 "features": {},
@@ -469,9 +854,42 @@
                 "children": []
             },
             {
+                "routingPoints": [
+                    {
+                        "x": 287,
+                        "y": 117.75
+                    },
+                    {
+                        "x": 307,
+                        "y": 117.75
+                    },
+                    {
+                        "x": 307,
+                        "y": 97
+                    },
+                    {
+                        "x": 357,
+                        "y": 97
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "policy",
+                "features": {},
+                "id": "o05t5c",
+                "type": "edge:arrow",
+                "sourceId": "x8tisi",
+                "targetId": "j5x56q",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
                 "position": {
                     "x": 526,
-                    "y": 181
+                    "y": 42
                 },
                 "size": {
                     "width": 167,
@@ -482,7 +900,7 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Authorize Key Reading",
-                "color": "var(--color-highlighted)",
+                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "ud5z2",
@@ -490,25 +908,6 @@
                     }
                 ],
                 "ports": [
-                    {
-                        "position": {
-                            "x": 163.5,
-                            "y": 19.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "forward bob_private_key, Policy\nassign Level.Low if Level.Low from bob_private_key\nassign Level.Low if Level.Low from policy\nassign Level.High if Level.High from bob_private_key\nassign Level.High if Level.High from policy",
-                        "features": {},
-                        "id": "up10a",
-                        "type": "port:dfd-output",
-                        "children": []
-                    },
                     {
                         "position": {
                             "x": -3.5,
@@ -525,6 +924,25 @@
                         "features": {},
                         "id": "fsa88r",
                         "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 163.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward bob_private_key\nassign Level.Low if Level.Low from bob_private_key\nassign Level.Low if Level.Low from policy\nassign Level.High if Level.High from bob_private_key\nassign Level.High if Level.High from policy",
+                        "features": {},
+                        "id": "up10a",
+                        "type": "port:dfd-output",
                         "children": []
                     },
                     {
@@ -553,13 +971,13 @@
                         "message": "Propagated: Level.Low",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 1365242934
+                        "tfg": 42036147
                     },
                     {
                         "message": "Incoming: Level.Low",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 1365242934
+                        "tfg": 42036147
                     }
                 ],
                 "features": {},
@@ -568,20 +986,86 @@
                 "children": []
             },
             {
+                "routingPoints": [
+                    {
+                        "x": 449,
+                        "y": 97
+                    },
+                    {
+                        "x": 499,
+                        "y": 97
+                    },
+                    {
+                        "x": 499,
+                        "y": 73.83333333333333
+                    },
+                    {
+                        "x": 519,
+                        "y": 73.83333333333333
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "policy",
+                "features": {},
+                "id": "85rkeq",
+                "type": "edge:arrow",
+                "sourceId": "e4iwfq",
+                "targetId": "fsa88r",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 449,
+                        "y": 33
+                    },
+                    {
+                        "x": 499,
+                        "y": 33
+                    },
+                    {
+                        "x": 499,
+                        "y": 56.166666666666664
+                    },
+                    {
+                        "x": 519,
+                        "y": 56.166666666666664
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "bob_private_key",
+                "features": {},
+                "id": "idrnq",
+                "type": "edge:arrow",
+                "sourceId": "axn537",
+                "targetId": "me6naz",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
                 "position": {
-                    "x": 1276,
-                    "y": 101
+                    "x": 777,
+                    "y": 151.58333333333331
                 },
                 "size": {
-                    "width": 145,
+                    "width": 143,
                     "height": 46
                 },
                 "strokeWidth": 0,
                 "selected": false,
                 "hoverFeedback": false,
                 "opacity": 1,
-                "text": "Prepare Decryption",
-                "color": "var(--color-highlighted)",
+                "text": "Prepare Encryption",
+                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "ud5z2",
@@ -589,25 +1073,6 @@
                     }
                 ],
                 "ports": [
-                    {
-                        "position": {
-                            "x": 141.5,
-                            "y": 19.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "forward bob_private_key, EmailBodyEncryptedAndHeader\nassign Level.Low if Level.Low from bob_private_key\nassign Level.Low if Level.Low from email_body_encrypted_and_header\nassign Level.High if Level.High from bob_private_key\nassign Level.High if Level.High from email_body_encrypted_and_header",
-                        "features": {},
-                        "id": "jut89",
-                        "type": "port:dfd-output",
-                        "children": []
-                    },
                     {
                         "position": {
                             "x": -3.5,
@@ -622,7 +1087,7 @@
                         "hoverFeedback": false,
                         "opacity": 1,
                         "features": {},
-                        "id": "wvh329",
+                        "id": "j4srg5",
                         "type": "port:dfd-input",
                         "children": []
                     },
@@ -640,8 +1105,27 @@
                         "hoverFeedback": false,
                         "opacity": 1,
                         "features": {},
-                        "id": "kee28",
+                        "id": "ha7uux",
                         "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 139.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward bob_pub_key\nassign Level.Low if Level.Low from bob_pub_key\nassign Level.Low if Level.Low from email_body_and_header\nassign Level.High if Level.High from bob_pub_key\nassign Level.High if Level.High from email_body_and_header",
+                        "features": {},
+                        "id": "q1dfhk",
+                        "type": "port:dfd-output",
                         "children": []
                     }
                 ],
@@ -652,24 +1136,246 @@
                         "message": "Propagated: Level.High",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 1365242934
+                        "tfg": 42036147
                     },
                     {
                         "message": "Incoming: Level.High, Level.Low",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 1365242934
+                        "tfg": 42036147
                     }
                 ],
                 "features": {},
-                "id": "hxkxn",
+                "id": "8jeed",
                 "type": "node:function",
                 "children": []
             },
             {
+                "routingPoints": [
+                    {
+                        "x": 638.6666666666666,
+                        "y": 196
+                    },
+                    {
+                        "x": 750,
+                        "y": 196
+                    },
+                    {
+                        "x": 750,
+                        "y": 183.41666666666663
+                    },
+                    {
+                        "x": 770,
+                        "y": 183.41666666666663
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "email_body_and_header",
+                "features": {},
+                "id": "d6vdc8",
+                "type": "edge:arrow",
+                "sourceId": "5h320d",
+                "targetId": "j4srg5",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 287,
+                        "y": 130
+                    },
+                    {
+                        "x": 750,
+                        "y": 130
+                    },
+                    {
+                        "x": 750,
+                        "y": 165.74999999999997
+                    },
+                    {
+                        "x": 770,
+                        "y": 165.74999999999997
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "bob_pub_key",
+                "features": {},
+                "id": "r15zy",
+                "type": "edge:arrow",
+                "sourceId": "dqgr4p",
+                "targetId": "ha7uux",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
                 "position": {
-                    "x": 1495,
-                    "y": 101
+                    "x": 994,
+                    "y": 151.58333333333331
+                },
+                "size": {
+                    "width": 64,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Encrypt",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "z3y4gi",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 60.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward email_body_and_header_and_bob_pub_key\nassign LevelBeforeEncryption.High if Level.High from email_body_and_header_and_bob_pub_key\nassign LevelBeforeEncryption.Low if Level.Low from email_body_and_header_and_bob_pub_key\nunset Level.High\nset Level.Low",
+                        "features": {},
+                        "id": "bs0h4",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: LevelBeforeEncryption.High, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    },
+                    {
+                        "message": "Incoming: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    }
+                ],
+                "features": {},
+                "id": "z1tv5n",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 927,
+                        "y": 174.58333333333331
+                    },
+                    {
+                        "x": 987,
+                        "y": 174.58333333333331
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "email_body_and_header_and_bob_pub_key",
+                "features": {},
+                "id": "o9bfyp",
+                "type": "edge:arrow",
+                "sourceId": "q1dfhk",
+                "targetId": "z3y4gi",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1065,
+                        "y": 174.58333333333331
+                    },
+                    {
+                        "x": 1125,
+                        "y": 174.58333333333331
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "email_body_encrypted_header",
+                "features": {},
+                "id": "z6bwxc",
+                "type": "edge:arrow",
+                "sourceId": "bs0h4",
+                "targetId": "fh2",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1201,
+                        "y": 174.58333333333331
+                    },
+                    {
+                        "x": 1261,
+                        "y": 174.58333333333331
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "email_body_encrypted_and_header",
+                "features": {},
+                "id": "nz3yhh",
+                "type": "edge:arrow",
+                "sourceId": "ght5jh",
+                "targetId": "pepa57",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1633,
+                    "y": 103.08333333333334
                 },
                 "size": {
                     "width": 66,
@@ -680,7 +1386,7 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Decrypt",
-                "color": "var(--color-highlighted)",
+                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "ud5z2",
@@ -688,6 +1394,24 @@
                     }
                 ],
                 "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "7qbb6p",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
                     {
                         "position": {
                             "x": 62.5,
@@ -706,11 +1430,55 @@
                         "id": "efr0hs",
                         "type": "port:dfd-output",
                         "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
                     },
+                    {
+                        "message": "Incoming: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    }
+                ],
+                "features": {},
+                "id": "6yd2y",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1414,
+                    "y": 103.08333333333333
+                },
+                "size": {
+                    "width": 145,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Prepare Decryption",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
                     {
                         "position": {
                             "x": -3.5,
-                            "y": 19.5
+                            "y": 28.33333333333333
                         },
                         "size": {
                             "width": 7,
@@ -721,8 +1489,45 @@
                         "hoverFeedback": false,
                         "opacity": 1,
                         "features": {},
-                        "id": "7qbb6p",
+                        "id": "kee28",
                         "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 10.666666666666666
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "wvh329",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 141.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward bob_private_key\nassign Level.Low if Level.Low from bob_private_key\nassign Level.Low if Level.Low from email_body_encrypted_and_header\nassign Level.High if Level.High from bob_private_key\nassign Level.High if Level.High from email_body_encrypted_and_header",
+                        "features": {},
+                        "id": "jut89",
+                        "type": "port:dfd-output",
                         "children": []
                     }
                 ],
@@ -730,27 +1535,118 @@
                 "minimumWidth": 50,
                 "annotations": [
                     {
-                        "message": "Propagated: ",
+                        "message": "Propagated: Level.Low",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 1365242934
+                        "tfg": 42036147
                     },
                     {
-                        "message": "Incoming: Level.High",
+                        "message": "Incoming: Level.Low, LevelBeforeEncryption.High, Level.Low",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 1365242934
+                        "tfg": 42036147
                     }
                 ],
                 "features": {},
-                "id": "6yd2y",
+                "id": "hxkxn",
                 "type": "node:function",
                 "children": []
             },
             {
+                "routingPoints": [
+                    {
+                        "x": 1337,
+                        "y": 174.58333333333331
+                    },
+                    {
+                        "x": 1387,
+                        "y": 174.58333333333331
+                    },
+                    {
+                        "x": 1387,
+                        "y": 134.91666666666666
+                    },
+                    {
+                        "x": 1407,
+                        "y": 134.91666666666666
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "email_body_encrypted_and_header",
+                "features": {},
+                "id": "gbsege",
+                "type": "edge:arrow",
+                "sourceId": "yddkf8",
+                "targetId": "kee28",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 700,
+                        "y": 65
+                    },
+                    {
+                        "x": 1387,
+                        "y": 65
+                    },
+                    {
+                        "x": 1387,
+                        "y": 117.25
+                    },
+                    {
+                        "x": 1407,
+                        "y": 117.25
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "bob_private_key",
+                "features": {},
+                "id": "qk7mnr",
+                "type": "edge:arrow",
+                "sourceId": "up10a",
+                "targetId": "wvh329",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1566,
+                        "y": 126.08333333333333
+                    },
+                    {
+                        "x": 1626,
+                        "y": 126.08333333333334
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "email_body_encrypted_and_header_and_bob_private_key",
+                "features": {},
+                "id": "0wdhf4",
+                "type": "edge:arrow",
+                "sourceId": "jut89",
+                "targetId": "7qbb6p",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
                 "position": {
-                    "x": 1635,
-                    "y": 103
+                    "x": 1773,
+                    "y": 105.08333333333334
                 },
                 "size": {
                     "width": 62,
@@ -761,7 +1657,7 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Bob",
-                "color": "var(--color-highlighted)",
+                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "ud5z2",
@@ -795,7 +1691,7 @@
                         "message": "Incoming: ",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 1365242934
+                        "tfg": 42036147
                     }
                 ],
                 "features": {},
@@ -806,202 +1702,12 @@
             {
                 "routingPoints": [
                     {
-                        "x": 1568,
-                        "y": 124
+                        "x": 1706,
+                        "y": 126.08333333333334
                     },
                     {
-                        "x": 1628,
-                        "y": 124
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "email_body_and_header",
-                "features": {},
-                "id": "d2ss6",
-                "type": "edge:arrow",
-                "sourceId": "efr0hs",
-                "targetId": "nvcwzl",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 1428,
-                        "y": 124
-                    },
-                    {
-                        "x": 1488,
-                        "y": 124
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "email_body_encrypted_and_header_and_bob_private_key",
-                "features": {},
-                "id": "0wdhf4",
-                "type": "edge:arrow",
-                "sourceId": "jut89",
-                "targetId": "7qbb6p",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 700,
-                        "y": 204
-                    },
-                    {
-                        "x": 1249,
-                        "y": 204
-                    },
-                    {
-                        "x": 1249,
-                        "y": 132.83333333333331
-                    },
-                    {
-                        "x": 1269,
-                        "y": 132.83333333333331
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "bob_private_key",
-                "features": {},
-                "id": "qk7mnr",
-                "type": "edge:arrow",
-                "sourceId": "up10a",
-                "targetId": "wvh329",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "position": {
-                    "x": 556.6666666666666,
-                    "y": 55
-                },
-                "size": {
-                    "width": 75,
-                    "height": 46
-                },
-                "strokeWidth": 0,
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "Split Mail",
-                "color": "var(--color-highlighted)",
-                "labels": [
-                    {
-                        "labelTypeId": "ud5z2",
-                        "labelTypeValueId": "nkwkcj"
-                    }
-                ],
-                "ports": [
-                    {
-                        "position": {
-                            "x": -3.5,
-                            "y": 28.33333333333333
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "features": {},
-                        "id": "nbmstb",
-                        "type": "port:dfd-input",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": 71.5,
-                            "y": 19.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "forward policy, EmailBodyAndHeader\nassign Level.Low if Level.Low from policy\nassign Level.Low if Level.Low from EmailBodyAndHeader\nassign Level.High if Level.High from policy\nassign Level.High if Level.High from EmailBodyAndHeader",
-                        "features": {},
-                        "id": "5h320d",
-                        "type": "port:dfd-output",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": -3.5,
-                            "y": 10.666666666666666
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "features": {},
-                        "id": "4lufz4",
-                        "type": "port:dfd-input",
-                        "children": []
-                    }
-                ],
-                "hideLabels": false,
-                "minimumWidth": 50,
-                "annotations": [
-                    {
-                        "message": "Propagated: Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 1365242934
-                    },
-                    {
-                        "message": "Incoming: Level.Low, Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 1365242934
-                    }
-                ],
-                "features": {},
-                "id": "z8h0ig",
-                "type": "node:function",
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 449,
-                        "y": 109.99999999999999
-                    },
-                    {
-                        "x": 499,
-                        "y": 109.99999999999999
-                    },
-                    {
-                        "x": 499,
-                        "y": 86.83333333333333
-                    },
-                    {
-                        "x": 549.6666666666666,
-                        "y": 86.83333333333333
+                        "x": 1766,
+                        "y": 126.08333333333334
                     }
                 ],
                 "selected": false,
@@ -1009,622 +1715,10 @@
                 "opacity": 1,
                 "text": "EmailBodyAndHeader",
                 "features": {},
-                "id": "h9mc18",
+                "id": "d2ss6",
                 "type": "edge:arrow",
-                "sourceId": "gjkcwb",
-                "targetId": "nbmstb",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "position": {
-                    "x": 777,
-                    "y": 33.583333333333314
-                },
-                "size": {
-                    "width": 143,
-                    "height": 46
-                },
-                "strokeWidth": 0,
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "Prepare Encryption",
-                "color": "var(--color-highlighted)",
-                "labels": [
-                    {
-                        "labelTypeId": "ud5z2",
-                        "labelTypeValueId": "nkwkcj"
-                    }
-                ],
-                "ports": [
-                    {
-                        "position": {
-                            "x": -3.5,
-                            "y": 28.33333333333333
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "features": {},
-                        "id": "j4srg5",
-                        "type": "port:dfd-input",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": 139.5,
-                            "y": 19.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "forward bob_pub_key, EmailBodyAndHeader\nassign Level.Low if Level.Low from bob_pub_key\nassign Level.Low if Level.Low from email_body_and_header\nassign Level.High if Level.High from bob_pub_key\nassign Level.High if Level.High from email_body_and_header",
-                        "features": {},
-                        "id": "q1dfhk",
-                        "type": "port:dfd-output",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": -3.5,
-                            "y": 10.666666666666666
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "features": {},
-                        "id": "ha7uux",
-                        "type": "port:dfd-input",
-                        "children": []
-                    }
-                ],
-                "hideLabels": false,
-                "minimumWidth": 50,
-                "annotations": [
-                    {
-                        "message": "Propagated: Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 1365242934
-                    },
-                    {
-                        "message": "Incoming: Level.High, Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 1365242934
-                    }
-                ],
-                "features": {},
-                "id": "8jeed",
-                "type": "node:function",
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 638.6666666666666,
-                        "y": 78
-                    },
-                    {
-                        "x": 750,
-                        "y": 78
-                    },
-                    {
-                        "x": 750,
-                        "y": 65.41666666666664
-                    },
-                    {
-                        "x": 770,
-                        "y": 65.41666666666664
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "email_body_and_header",
-                "features": {},
-                "id": "d6vdc8",
-                "type": "edge:arrow",
-                "sourceId": "5h320d",
-                "targetId": "j4srg5",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "position": {
-                    "x": 994,
-                    "y": 33.583333333333314
-                },
-                "size": {
-                    "width": 62,
-                    "height": 46
-                },
-                "strokeWidth": 0,
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "SMTP",
-                "color": "#B24617",
-                "labels": [
-                    {
-                        "labelTypeId": "ud5z2",
-                        "labelTypeValueId": "vbkupo"
-                    }
-                ],
-                "ports": [
-                    {
-                        "position": {
-                            "x": -3.5,
-                            "y": 19.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "features": {},
-                        "id": "fh2",
-                        "type": "port:dfd-input",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": 58.5,
-                            "y": 19.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "forward email_body_and_header_and_bob_pub_key",
-                        "features": {},
-                        "id": "ght5jh",
-                        "type": "port:dfd-output",
-                        "children": []
-                    }
-                ],
-                "hideLabels": false,
-                "minimumWidth": 50,
-                "annotations": [
-                    {
-                        "message": "Propagated: Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 1365242934
-                    },
-                    {
-                        "message": "Incoming: Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 1365242934
-                    },
-                    {
-                        "message": "Constraint SafetyConstraint violated",
-                        "icon": "bolt",
-                        "color": "#B24617",
-                        "tfg": 1365242934
-                    }
-                ],
-                "features": {},
-                "id": "hkp4w",
-                "type": "node:function",
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 927,
-                        "y": 56.583333333333314
-                    },
-                    {
-                        "x": 987,
-                        "y": 56.583333333333314
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "email_body_and_header_and_bob_pub_key",
-                "features": {},
-                "id": "mf8vvh",
-                "type": "edge:arrow",
-                "sourceId": "q1dfhk",
-                "targetId": "fh2",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "position": {
-                    "x": 1130,
-                    "y": 33.583333333333314
-                },
-                "size": {
-                    "width": 62,
-                    "height": 46
-                },
-                "strokeWidth": 0,
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "POP3",
-                "color": "#B24617",
-                "labels": [
-                    {
-                        "labelTypeId": "ud5z2",
-                        "labelTypeValueId": "vbkupo"
-                    }
-                ],
-                "ports": [
-                    {
-                        "position": {
-                            "x": -3.5,
-                            "y": 19.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "features": {},
-                        "id": "pepa57",
-                        "type": "port:dfd-input",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": 58.5,
-                            "y": 19.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "forward email_body_encrypted_and_header",
-                        "features": {},
-                        "id": "yddkf8",
-                        "type": "port:dfd-output",
-                        "children": []
-                    }
-                ],
-                "hideLabels": false,
-                "minimumWidth": 50,
-                "annotations": [
-                    {
-                        "message": "Propagated: Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 1365242934
-                    },
-                    {
-                        "message": "Incoming: Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 1365242934
-                    },
-                    {
-                        "message": "Constraint SafetyConstraint violated",
-                        "icon": "bolt",
-                        "color": "#B24617",
-                        "tfg": 1365242934
-                    }
-                ],
-                "features": {},
-                "id": "f63vu",
-                "type": "node:function",
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 1063,
-                        "y": 56.583333333333314
-                    },
-                    {
-                        "x": 1123,
-                        "y": 56.583333333333314
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "email_body_encrypted_and_header",
-                "features": {},
-                "id": "nz3yhh",
-                "type": "edge:arrow",
-                "sourceId": "ght5jh",
-                "targetId": "pepa57",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 1199,
-                        "y": 56.583333333333314
-                    },
-                    {
-                        "x": 1249,
-                        "y": 56.583333333333314
-                    },
-                    {
-                        "x": 1249,
-                        "y": 115.16666666666667
-                    },
-                    {
-                        "x": 1269,
-                        "y": 115.16666666666667
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "email_body_encrypted_and_header",
-                "features": {},
-                "id": "gbsege",
-                "type": "edge:arrow",
-                "sourceId": "yddkf8",
-                "targetId": "kee28",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 449,
-                        "y": 46
-                    },
-                    {
-                        "x": 499,
-                        "y": 46
-                    },
-                    {
-                        "x": 499,
-                        "y": 69.16666666666667
-                    },
-                    {
-                        "x": 549.6666666666666,
-                        "y": 69.16666666666666
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "policy",
-                "features": {},
-                "id": "lngzw6",
-                "type": "edge:arrow",
-                "sourceId": "49wgwa",
-                "targetId": "4lufz4",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 287,
-                        "y": 46
-                    },
-                    {
-                        "x": 357,
-                        "y": 46
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "policy",
-                "features": {},
-                "id": "5anyx",
-                "type": "edge:arrow",
-                "sourceId": "jj2kv",
-                "targetId": "5pimrr",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 287,
-                        "y": 58.25
-                    },
-                    {
-                        "x": 307,
-                        "y": 58.25
-                    },
-                    {
-                        "x": 307,
-                        "y": 236
-                    },
-                    {
-                        "x": 357,
-                        "y": 236
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "policy",
-                "features": {},
-                "id": "o05t5c",
-                "type": "edge:arrow",
-                "sourceId": "x8tisi",
-                "targetId": "j5x56q",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 449,
-                        "y": 236
-                    },
-                    {
-                        "x": 499,
-                        "y": 236
-                    },
-                    {
-                        "x": 499,
-                        "y": 212.83333333333331
-                    },
-                    {
-                        "x": 519,
-                        "y": 212.83333333333331
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "policy",
-                "features": {},
-                "id": "85rkeq",
-                "type": "edge:arrow",
-                "sourceId": "e4iwfq",
-                "targetId": "fsa88r",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 287,
-                        "y": 33.75
-                    },
-                    {
-                        "x": 307,
-                        "y": 33.75
-                    },
-                    {
-                        "x": 307,
-                        "y": 12
-                    },
-                    {
-                        "x": 750,
-                        "y": 12
-                    },
-                    {
-                        "x": 750,
-                        "y": 47.74999999999997
-                    },
-                    {
-                        "x": 770,
-                        "y": 47.74999999999998
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "bob_pub_key",
-                "features": {},
-                "id": "r15zy",
-                "type": "edge:arrow",
-                "sourceId": "dqgr4p",
-                "targetId": "ha7uux",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 449,
-                        "y": 172
-                    },
-                    {
-                        "x": 499,
-                        "y": 172
-                    },
-                    {
-                        "x": 499,
-                        "y": 195.16666666666666
-                    },
-                    {
-                        "x": 519,
-                        "y": 195.16666666666666
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "bob_private_key",
-                "features": {},
-                "id": "idrnq",
-                "type": "edge:arrow",
-                "sourceId": "axn537",
-                "targetId": "me6naz",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 129,
-                        "y": 46
-                    },
-                    {
-                        "x": 189,
-                        "y": 46
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "policy",
-                "features": {},
-                "id": "p8sfo5",
-                "type": "edge:arrow",
-                "sourceId": "56zk5",
-                "targetId": "npnfsr",
+                "sourceId": "efr0hs",
+                "targetId": "nvcwzl",
                 "labels": null,
                 "ports": null,
                 "annotations": null,

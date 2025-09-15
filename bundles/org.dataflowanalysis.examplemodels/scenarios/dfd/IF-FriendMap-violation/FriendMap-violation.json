@@ -7,10 +7,10 @@
             "height": 1168.75
         },
         "scroll": {
-            "x": -62.99999999999994,
-            "y": -66.22661131940723
+            "x": 0,
+            "y": 0
         },
-        "zoom": 2.383810010214505,
+        "zoom": 1,
         "position": {
             "x": 0,
             "y": 0
@@ -25,1140 +25,29 @@
         "children": [
             {
                 "position": {
-                    "x": 1536,
-                    "y": 76.83333333333333
+                    "x": 507,
+                    "y": 90
                 },
                 "size": {
-                    "width": 82,
-                    "height": 42
-                },
-                "strokeWidth": 0,
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "DropBox",
-                "color": "var(--color-primary)",
-                "labels": [
-                    {
-                        "labelTypeId": "sl6o37",
-                        "labelTypeValueId": "5ssja"
-                    }
-                ],
-                "ports": [
-                    {
-                        "position": {
-                            "x": -3.5,
-                            "y": 17.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "features": {},
-                        "id": "7kibom",
-                        "type": "port:dfd-input",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": 78.5,
-                            "y": 17.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "forward patient_list",
-                        "features": {},
-                        "id": "d12yh6",
-                        "type": "port:dfd-output",
-                        "children": []
-                    }
-                ],
-                "hideLabels": false,
-                "minimumWidth": 50,
-                "annotations": [
-                    {
-                        "message": "Propagated: Level.High, Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    },
-                    {
-                        "message": "Incoming: Level.High, Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    }
-                ],
-                "features": {},
-                "id": "rwbqz8",
-                "type": "node:storage",
-                "children": []
-            },
-            {
-                "position": {
-                    "x": 1539,
-                    "y": 138.83333333333331
-                },
-                "size": {
-                    "width": 79,
-                    "height": 42
-                },
-                "strokeWidth": 0,
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "Employee",
-                "color": "var(--color-highlighted)",
-                "labels": [
-                    {
-                        "labelTypeId": "sl6o37",
-                        "labelTypeValueId": "5ssja"
-                    }
-                ],
-                "ports": [
-                    {
-                        "position": {
-                            "x": 75.5,
-                            "y": 17.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "set Level.High",
-                        "features": {},
-                        "id": "5utn3",
-                        "type": "port:dfd-output",
-                        "children": []
-                    }
-                ],
-                "hideLabels": false,
-                "minimumWidth": 50,
-                "annotations": [
-                    {
-                        "message": "Propagated: Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 132821904
-                    },
-                    {
-                        "message": "Propagated: Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    }
-                ],
-                "features": {},
-                "id": "ufl6uu",
-                "type": "node:input-output",
-                "children": []
-            },
-            {
-                "position": {
-                    "x": 1318,
-                    "y": 12.833333333333325
-                },
-                "size": {
-                    "width": 69,
-                    "height": 42
-                },
-                "strokeWidth": 0,
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "Attacker",
-                "color": "#B24617",
-                "labels": [
-                    {
-                        "labelTypeId": "sl6o37",
-                        "labelTypeValueId": "tffy3w"
-                    }
-                ],
-                "ports": [
-                    {
-                        "position": {
-                            "x": -3.5,
-                            "y": 17.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "features": {},
-                        "id": "kauuko",
-                        "type": "port:dfd-input",
-                        "children": []
-                    }
-                ],
-                "hideLabels": false,
-                "minimumWidth": 50,
-                "annotations": [
-                    {
-                        "message": "Incoming: Level.High, Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 132821904
-                    },
-                    {
-                        "message": "Constraint SafetyConstraint violated",
-                        "icon": "bolt",
-                        "color": "#B24617",
-                        "tfg": 132821904
-                    }
-                ],
-                "features": {},
-                "id": "a5ll3i",
-                "type": "node:input-output",
-                "children": []
-            },
-            {
-                "position": {
-                    "x": 1925,
-                    "y": 125.75000000000001
-                },
-                "size": {
-                    "width": 76,
+                    "width": 166,
                     "height": 46
                 },
                 "strokeWidth": 0,
                 "selected": false,
                 "hoverFeedback": false,
                 "opacity": 1,
-                "text": "Write List",
-                "color": "var(--color-highlighted)",
+                "text": "Load Friend Map Code",
                 "labels": [
                     {
-                        "labelTypeId": "sl6o37",
-                        "labelTypeValueId": "5ssja"
+                        "labelTypeId": "t6zm3k",
+                        "labelTypeValueId": "q0tm78"
                     }
                 ],
                 "ports": [
                     {
                         "position": {
-                            "x": -3.5,
-                            "y": 28.33333333333333
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "forward modified_list",
-                        "features": {},
-                        "id": "8fax3",
-                        "type": "port:dfd-output",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": -3.5,
+                            "x": 162.5,
                             "y": 10.666666666666666
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "features": {},
-                        "id": "dw9x6",
-                        "type": "port:dfd-input",
-                        "children": []
-                    }
-                ],
-                "hideLabels": false,
-                "minimumWidth": 50,
-                "annotations": [
-                    {
-                        "message": "Propagated: Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 132821904
-                    },
-                    {
-                        "message": "Incoming: Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 132821904
-                    },
-                    {
-                        "message": "Propagated: Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    },
-                    {
-                        "message": "Incoming: Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    }
-                ],
-                "features": {},
-                "id": "gdpwp7",
-                "type": "node:function",
-                "children": []
-            },
-            {
-                "position": {
-                    "x": 895,
-                    "y": 119.25
-                },
-                "size": {
-                    "width": 101,
-                    "height": 42
-                },
-                "strokeWidth": 0,
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "Hospital DS",
-                "color": "var(--color-highlighted)",
-                "labels": [
-                    {
-                        "labelTypeId": "sl6o37",
-                        "labelTypeValueId": "5ssja"
-                    }
-                ],
-                "ports": [
-                    {
-                        "position": {
-                            "x": 97.5,
-                            "y": 9.333333333333334
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "forward modified_list",
-                        "features": {},
-                        "id": "21kgg6",
-                        "type": "port:dfd-output",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": 97.5,
-                            "y": 25.66666666666667
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "features": {},
-                        "id": "had3gk",
-                        "type": "port:dfd-input",
-                        "children": []
-                    }
-                ],
-                "hideLabels": false,
-                "minimumWidth": 50,
-                "annotations": [
-                    {
-                        "message": "Propagated: Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 132821904
-                    },
-                    {
-                        "message": "Incoming: Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 132821904
-                    },
-                    {
-                        "message": "Propagated: Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    },
-                    {
-                        "message": "Incoming: Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    }
-                ],
-                "features": {},
-                "id": "v4uvbf",
-                "type": "node:storage",
-                "children": []
-            },
-            {
-                "position": {
-                    "x": 848,
-                    "y": 34
-                },
-                "size": {
-                    "width": 148,
-                    "height": 46
-                },
-                "strokeWidth": 0,
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "Request Patient List",
-                "color": "var(--color-highlighted)",
-                "labels": [
-                    {
-                        "labelTypeId": "sl6o37",
-                        "labelTypeValueId": "5ssja"
-                    }
-                ],
-                "ports": [
-                    {
-                        "position": {
-                            "x": -3.5,
-                            "y": 19.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "features": {},
-                        "id": "5wygjo",
-                        "type": "port:dfd-input",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": 144.5,
-                            "y": 19.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "forward request",
-                        "features": {},
-                        "id": "qknlw",
-                        "type": "port:dfd-output",
-                        "children": []
-                    }
-                ],
-                "hideLabels": false,
-                "minimumWidth": 50,
-                "annotations": [
-                    {
-                        "message": "Propagated: Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 132821904
-                    },
-                    {
-                        "message": "Incoming: Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 132821904
-                    },
-                    {
-                        "message": "Propagated: Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    },
-                    {
-                        "message": "Incoming: Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    }
-                ],
-                "features": {},
-                "id": "8z1us",
-                "type": "node:function",
-                "children": []
-            },
-            {
-                "position": {
-                    "x": 1090,
-                    "y": 42.833333333333336
-                },
-                "size": {
-                    "width": 144,
-                    "height": 46
-                },
-                "strokeWidth": 0,
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "Receive Patient List",
-                "color": "var(--color-highlighted)",
-                "labels": [
-                    {
-                        "labelTypeId": "sl6o37",
-                        "labelTypeValueId": "5ssja"
-                    }
-                ],
-                "ports": [
-                    {
-                        "position": {
-                            "x": -3.5,
-                            "y": 10.666666666666666
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "features": {},
-                        "id": "816n4i",
-                        "type": "port:dfd-input",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": 140.5,
-                            "y": 10.666666666666666
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "forward patient_list,request\nassign Level.Low if Level.Low from patient_list,request\nassign Level.High if Level.High from patient_list,request",
-                        "features": {},
-                        "id": "3qhlk",
-                        "type": "port:dfd-output",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": -3.5,
-                            "y": 28.33333333333333
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "features": {},
-                        "id": "2etmab",
-                        "type": "port:dfd-input",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": 140.5,
-                            "y": 28.33333333333333
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "forward patient_list,request\nassign Level.Low if Level.Low from patient_list,request\nassign Level.High if Level.High from patient_list,request",
-                        "features": {},
-                        "id": "nu74kp",
-                        "type": "port:dfd-output",
-                        "children": []
-                    }
-                ],
-                "hideLabels": false,
-                "minimumWidth": 50,
-                "annotations": [
-                    {
-                        "message": "Propagated: Level.High, Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 132821904
-                    },
-                    {
-                        "message": "Incoming: Level.High, Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 132821904
-                    },
-                    {
-                        "message": "Propagated: Level.High, Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    },
-                    {
-                        "message": "Incoming: Level.High, Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    }
-                ],
-                "features": {},
-                "id": "8h5pxp",
-                "type": "node:function",
-                "children": []
-            },
-            {
-                "position": {
-                    "x": 1318,
-                    "y": 74.83333333333333
-                },
-                "size": {
-                    "width": 144,
-                    "height": 46
-                },
-                "strokeWidth": 0,
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "Receive Patient List",
-                "color": "var(--color-primary)",
-                "labels": [
-                    {
-                        "labelTypeId": "sl6o37",
-                        "labelTypeValueId": "5ssja"
-                    }
-                ],
-                "ports": [
-                    {
-                        "position": {
-                            "x": -3.5,
-                            "y": 19.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "features": {},
-                        "id": "x8a4ds",
-                        "type": "port:dfd-input",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": 140.5,
-                            "y": 19.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "forward patient_list",
-                        "features": {},
-                        "id": "jo6h45",
-                        "type": "port:dfd-output",
-                        "children": []
-                    }
-                ],
-                "hideLabels": false,
-                "minimumWidth": 50,
-                "annotations": [
-                    {
-                        "message": "Propagated: Level.High, Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    },
-                    {
-                        "message": "Incoming: Level.High, Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    }
-                ],
-                "features": {},
-                "id": "nbsblj",
-                "type": "node:function",
-                "children": []
-            },
-            {
-                "position": {
-                    "x": 1702,
-                    "y": 105.83333333333333
-                },
-                "size": {
-                    "width": 139,
-                    "height": 46
-                },
-                "strokeWidth": 0,
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "Modify Patient List",
-                "color": "var(--color-highlighted)",
-                "labels": [
-                    {
-                        "labelTypeId": "sl6o37",
-                        "labelTypeValueId": "5ssja"
-                    }
-                ],
-                "ports": [
-                    {
-                        "position": {
-                            "x": -3.5,
-                            "y": 28.33333333333333
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "features": {},
-                        "id": "5b8q6p",
-                        "type": "port:dfd-input",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": -3.5,
-                            "y": 10.666666666666666
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "features": {},
-                        "id": "eq6qts",
-                        "type": "port:dfd-input",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": 135.5,
-                            "y": 19.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "forward patient_list",
-                        "features": {},
-                        "id": "wjr6oj",
-                        "type": "port:dfd-output",
-                        "children": []
-                    }
-                ],
-                "hideLabels": false,
-                "minimumWidth": 50,
-                "annotations": [
-                    {
-                        "message": "Propagated: Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 132821904
-                    },
-                    {
-                        "message": "Incoming: Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 132821904
-                    },
-                    {
-                        "message": "Propagated: Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    },
-                    {
-                        "message": "Incoming: Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    },
-                    {
-                        "message": "Incoming: Level.High, Level.Low, Level.High",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    }
-                ],
-                "features": {},
-                "id": "u97b9g",
-                "type": "node:function",
-                "children": []
-            },
-            {
-                "position": {
-                    "x": 640,
-                    "y": 34
-                },
-                "size": {
-                    "width": 134,
-                    "height": 46
-                },
-                "strokeWidth": 0,
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "Build List Request",
-                "color": "var(--color-highlighted)",
-                "labels": [
-                    {
-                        "labelTypeId": "sl6o37",
-                        "labelTypeValueId": "5ssja"
-                    }
-                ],
-                "ports": [
-                    {
-                        "position": {
-                            "x": -3.5,
-                            "y": 28.33333333333333
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "features": {},
-                        "id": "dfzgv8",
-                        "type": "port:dfd-input",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": -3.5,
-                            "y": 10.666666666666666
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "features": {},
-                        "id": "8c5u5i",
-                        "type": "port:dfd-input",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": 130.5,
-                            "y": 19.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "forward permissions\nassign Level.Low if Level.Low from permissions\nassign Level.Low if Level.Low from app_code\nassign Level.High if Level.High from permissions\nassign Level.High if Level.High from app_code",
-                        "features": {},
-                        "id": "tdg2xk",
-                        "type": "port:dfd-output",
-                        "children": []
-                    }
-                ],
-                "hideLabels": false,
-                "minimumWidth": 50,
-                "annotations": [
-                    {
-                        "message": "Propagated: Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 132821904
-                    },
-                    {
-                        "message": "Incoming: Level.Low, Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 132821904
-                    },
-                    {
-                        "message": "Propagated: Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    },
-                    {
-                        "message": "Incoming: Level.Low, Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    }
-                ],
-                "features": {},
-                "id": "7wsyks",
-                "type": "node:function",
-                "children": []
-            },
-            {
-                "position": {
-                    "x": 478,
-                    "y": 12
-                },
-                "size": {
-                    "width": 78,
-                    "height": 46
-                },
-                "strokeWidth": 0,
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "Authorize",
-                "color": "var(--color-highlighted)",
-                "labels": [
-                    {
-                        "labelTypeId": "sl6o37",
-                        "labelTypeValueId": "5ssja"
-                    }
-                ],
-                "ports": [
-                    {
-                        "position": {
-                            "x": -3.5,
-                            "y": 19.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "features": {},
-                        "id": "nasu4g",
-                        "type": "port:dfd-input",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": 74.5,
-                            "y": 19.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "forward permissions",
-                        "features": {},
-                        "id": "h17z4xg",
-                        "type": "port:dfd-output",
-                        "children": []
-                    }
-                ],
-                "hideLabels": false,
-                "minimumWidth": 50,
-                "annotations": [
-                    {
-                        "message": "Propagated: Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 132821904
-                    },
-                    {
-                        "message": "Incoming: Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 132821904
-                    },
-                    {
-                        "message": "Propagated: Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    },
-                    {
-                        "message": "Incoming: Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    }
-                ],
-                "features": {},
-                "id": "3onm28",
-                "type": "node:function",
-                "children": []
-            },
-            {
-                "position": {
-                    "x": 196,
-                    "y": 12
-                },
-                "size": {
-                    "width": 78,
-                    "height": 46
-                },
-                "strokeWidth": 0,
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "Authorize",
-                "color": "var(--color-highlighted)",
-                "labels": [
-                    {
-                        "labelTypeId": "sl6o37",
-                        "labelTypeValueId": "5ssja"
-                    }
-                ],
-                "ports": [
-                    {
-                        "position": {
-                            "x": -3.5,
-                            "y": 19.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "features": {},
-                        "id": "vajqji",
-                        "type": "port:dfd-input",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": 74.5,
-                            "y": 19.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "forward policy",
-                        "features": {},
-                        "id": "q7p2fo",
-                        "type": "port:dfd-output",
-                        "children": []
-                    }
-                ],
-                "hideLabels": false,
-                "minimumWidth": 50,
-                "annotations": [
-                    {
-                        "message": "Propagated: Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 132821904
-                    },
-                    {
-                        "message": "Incoming: Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 132821904
-                    },
-                    {
-                        "message": "Propagated: Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    },
-                    {
-                        "message": "Incoming: Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
-                    }
-                ],
-                "features": {},
-                "id": "ab5fpi",
-                "type": "node:function",
-                "children": []
-            },
-            {
-                "position": {
-                    "x": 318,
-                    "y": 56
-                },
-                "size": {
-                    "width": 116,
-                    "height": 46
-                },
-                "strokeWidth": 0,
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "Load App Code",
-                "color": "var(--color-highlighted)",
-                "labels": [
-                    {
-                        "labelTypeId": "sl6o37",
-                        "labelTypeValueId": "5ssja"
-                    }
-                ],
-                "ports": [
-                    {
-                        "position": {
-                            "x": 112.5,
-                            "y": 19.5
                         },
                         "size": {
                             "width": 7,
@@ -1170,7 +59,26 @@
                         "opacity": 1,
                         "behavior": "forward app_code",
                         "features": {},
-                        "id": "b0dkii",
+                        "id": "tuwr6",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 162.5,
+                            "y": 28.33333333333333
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward app_code",
+                        "features": {},
+                        "id": "yms0j9",
                         "type": "port:dfd-output",
                         "children": []
                     },
@@ -1188,7 +96,185 @@
                         "hoverFeedback": false,
                         "opacity": 1,
                         "features": {},
-                        "id": "787num",
+                        "id": "ufrcmc",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    },
+                    {
+                        "message": "Incoming: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    }
+                ],
+                "features": {},
+                "id": "pcfyjb",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 355.5,
+                    "y": 20
+                },
+                "size": {
+                    "width": 62,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "SNAPP",
+                "labels": [
+                    {
+                        "labelTypeId": "t6zm3k",
+                        "labelTypeValueId": "q0tm78"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 58.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward map\nset Level.High",
+                        "features": {},
+                        "id": "enlrfn",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "cv6hlc",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    },
+                    {
+                        "message": "Incoming: ",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    }
+                ],
+                "features": {},
+                "id": "pq3fjo",
+                "type": "node:input-output",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 781.3333333333334,
+                    "y": 127.41666666666667
+                },
+                "size": {
+                    "width": 119,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Load Map Code",
+                "labels": [
+                    {
+                        "labelTypeId": "t6zm3k",
+                        "labelTypeValueId": "q0tm78"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 115.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward app_code\nassign Level.High if Level.High from app_code\nassign Level.High if Level.High from map_code",
+                        "features": {},
+                        "id": "xv1ndn",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 28.33333333333333
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "kksl1b",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 10.666666666666666
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "ukvqdc",
                         "type": "port:dfd-input",
                         "children": []
                     }
@@ -1200,36 +286,1002 @@
                         "message": "Propagated: Level.Low",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 132821904
+                        "tfg": 1211834583
                     },
                     {
-                        "message": "Incoming: Level.Low",
+                        "message": "Incoming: Level.Low, Level.Low",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 132821904
+                        "tfg": 1211834583
+                    }
+                ],
+                "features": {},
+                "id": "c14vvh",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 539,
+                    "y": 156
+                },
+                "size": {
+                    "width": 102,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Map Services",
+                "labels": [
+                    {
+                        "labelTypeId": "t6zm3k",
+                        "labelTypeValueId": "c907z"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 98.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward map_code",
+                        "features": {},
+                        "id": "zu0vrb",
+                        "type": "port:dfd-output",
+                        "children": []
                     },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "25jbya",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
                     {
                         "message": "Propagated: Level.Low",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 380185918
+                        "tfg": 1211834583
                     },
                     {
                         "message": "Incoming: Level.Low",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 380185918
+                        "tfg": 1211834583
                     }
                 ],
                 "features": {},
-                "id": "0d5i8d",
+                "id": "j5dh5r",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 767,
+                    "y": 43.583333333333336
+                },
+                "size": {
+                    "width": 162,
+                    "height": 58
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Load Friend Locations",
+                "labels": [
+                    {
+                        "labelTypeId": "oybkag",
+                        "labelTypeValueId": "99gwtt"
+                    },
+                    {
+                        "labelTypeId": "t6zm3k",
+                        "labelTypeValueId": "q0tm78"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 158.5,
+                            "y": 36.333333333333336
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward app_code\nassign Level.High if TRUE from app_code\nassign Level.High if TRUE from locations",
+                        "features": {},
+                        "id": "vge3hi",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 14.666666666666668
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "0l2n0n",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 36.333333333333336
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "zx4lta",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 158.5,
+                            "y": 14.666666666666668
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward app_code\nassign Level.High if TRUE from app_code\nassign Level.High if TRUE from locations",
+                        "features": {},
+                        "id": "5y67gs",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low, Level.High, Level.Low, Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    },
+                    {
+                        "message": "Incoming: Level.Low, Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    }
+                ],
+                "features": {},
+                "id": "wnd5t5",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1518,
+                    "y": 96.16666666666667
+                },
+                "size": {
+                    "width": 98,
+                    "height": 58
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Receive Map",
+                "labels": [
+                    {
+                        "labelTypeId": "oybkag",
+                        "labelTypeValueId": "tucxg7"
+                    },
+                    {
+                        "labelTypeId": "t6zm3k",
+                        "labelTypeValueId": "q0tm78"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 25.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "cbr2wj",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 94.5,
+                            "y": 25.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward map",
+                        "features": {},
+                        "id": "6yhf0b",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low, Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    },
+                    {
+                        "message": "Incoming: Level.Low, Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    }
+                ],
+                "features": {},
+                "id": "xma9o",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1188,
+                    "y": 96.16666666666667
+                },
+                "size": {
+                    "width": 91,
+                    "height": 58
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Create Map",
+                "labels": [
+                    {
+                        "labelTypeId": "oybkag",
+                        "labelTypeValueId": "tucxg7"
+                    },
+                    {
+                        "labelTypeId": "t6zm3k",
+                        "labelTypeValueId": "q0tm78"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 87.5,
+                            "y": 25.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward locations",
+                        "features": {},
+                        "id": "0lqvxzf",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 25.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "v7floh",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low, Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    },
+                    {
+                        "message": "Incoming: Level.Low, Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    }
+                ],
+                "features": {},
+                "id": "h14ro6k",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1023,
+                    "y": 96.16666666666667
+                },
+                "size": {
+                    "width": 91,
+                    "height": 58
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Create Map",
+                "labels": [
+                    {
+                        "labelTypeId": "oybkag",
+                        "labelTypeValueId": "99gwtt"
+                    },
+                    {
+                        "labelTypeId": "t6zm3k",
+                        "labelTypeValueId": "q0tm78"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 87.5,
+                            "y": 25.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward map_code\nassign Level.High if TRUE from map_code\nassign Level.High if TRUE from locations",
+                        "features": {},
+                        "id": "swn7jb",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 14.666666666666668
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "jfqmjs",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 36.333333333333336
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "dw9p0i",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low, Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    },
+                    {
+                        "message": "Incoming: Level.Low, Level.High, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    }
+                ],
+                "features": {},
+                "id": "c7b85r",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1700,
+                    "y": 122.5
+                },
+                "size": {
+                    "width": 80,
+                    "height": 58
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Load Map",
+                "labels": [
+                    {
+                        "labelTypeId": "oybkag",
+                        "labelTypeValueId": "99gwtt"
+                    },
+                    {
+                        "labelTypeId": "t6zm3k",
+                        "labelTypeValueId": "q0tm78"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 14.666666666666668
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "eo5bte",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 76.5,
+                            "y": 25.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward map",
+                        "features": {},
+                        "id": "by35yw",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 36.333333333333336
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward map",
+                        "features": {},
+                        "id": "y4b8no",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    },
+                    {
+                        "message": "Propagated: Level.Low, Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    },
+                    {
+                        "message": "Incoming: Level.Low, Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    }
+                ],
+                "features": {},
+                "id": "0ydg",
                 "type": "node:function",
                 "children": []
             },
             {
                 "position": {
                     "x": 12,
-                    "y": 36
+                    "y": 97.50000000000001
+                },
+                "size": {
+                    "width": 85,
+                    "height": 58
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Share Map",
+                "labels": [
+                    {
+                        "labelTypeId": "oybkag",
+                        "labelTypeValueId": "99gwtt"
+                    },
+                    {
+                        "labelTypeId": "t6zm3k",
+                        "labelTypeValueId": "q0tm78"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 81.5,
+                            "y": 14.666666666666668
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward map",
+                        "features": {},
+                        "id": "dli9u6",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 81.5,
+                            "y": 36.333333333333336
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "fhkch",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    },
+                    {
+                        "message": "Incoming: ",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    }
+                ],
+                "features": {},
+                "id": "3p5irw",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 181,
+                    "y": 12
+                },
+                "size": {
+                    "width": 85,
+                    "height": 58
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Post Map",
+                "labels": [
+                    {
+                        "labelTypeId": "oybkag",
+                        "labelTypeValueId": "bapgzq"
+                    },
+                    {
+                        "labelTypeId": "t6zm3k",
+                        "labelTypeValueId": "q0tm78"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 81.5,
+                            "y": 25.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward map",
+                        "features": {},
+                        "id": "gp7d7",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 25.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "g0sm0p",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    },
+                    {
+                        "message": "Incoming: ",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    }
+                ],
+                "features": {},
+                "id": "138bkbo",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 514.5,
+                    "y": 12
+                },
+                "size": {
+                    "width": 151,
+                    "height": 58
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Find Friend Location",
+                "labels": [
+                    {
+                        "labelTypeId": "oybkag",
+                        "labelTypeValueId": "bapgzq"
+                    },
+                    {
+                        "labelTypeId": "t6zm3k",
+                        "labelTypeValueId": "q0tm78"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 147.5,
+                            "y": 25.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward locations",
+                        "features": {},
+                        "id": "1e05y",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 25.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "aj62lj",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    },
+                    {
+                        "message": "Incoming: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    }
+                ],
+                "features": {},
+                "id": "89668g",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 343,
+                    "y": 92
+                },
+                "size": {
+                    "width": 90,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Friend Map",
+                "labels": [
+                    {
+                        "labelTypeId": "t6zm3k",
+                        "labelTypeValueId": "q0tm78"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 86.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "set Level.Low",
+                        "features": {},
+                        "id": "z4hsfg",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    }
+                ],
+                "features": {},
+                "id": "khm4jw",
+                "type": "node:input-output",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1353,
+                    "y": 96.16666666666667
+                },
+                "size": {
+                    "width": 91,
+                    "height": 58
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Create Map",
+                "labels": [
+                    {
+                        "labelTypeId": "oybkag",
+                        "labelTypeValueId": "0d1tt"
+                    },
+                    {
+                        "labelTypeId": "t6zm3k",
+                        "labelTypeValueId": "c907z"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 25.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "sicxdx",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 87.5,
+                            "y": 25.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward locations",
+                        "features": {},
+                        "id": "5c4fzk",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low, Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    },
+                    {
+                        "message": "Incoming: Level.Low, Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    },
+                    {
+                        "message": "Constraint Safety violated",
+                        "icon": "bolt",
+                        "color": "#32B45F",
+                        "tfg": 1211834583
+                    }
+                ],
+                "features": {},
+                "id": "mt5r15",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 333,
+                    "y": 158
                 },
                 "size": {
                     "width": 100,
@@ -1239,19 +1291,18 @@
                 "selected": false,
                 "hoverFeedback": false,
                 "opacity": 1,
-                "text": "Hospital App",
-                "color": "var(--color-highlighted)",
+                "text": "Map Provider",
                 "labels": [
                     {
-                        "labelTypeId": "sl6o37",
-                        "labelTypeValueId": "5ssja"
+                        "labelTypeId": "t6zm3k",
+                        "labelTypeValueId": "c907z"
                     }
                 ],
                 "ports": [
                     {
                         "position": {
                             "x": 96.5,
-                            "y": 25.66666666666667
+                            "y": 18
                         },
                         "size": {
                             "width": 7,
@@ -1263,26 +1314,7 @@
                         "opacity": 1,
                         "behavior": "set Level.Low",
                         "features": {},
-                        "id": "nf9anh",
-                        "type": "port:dfd-output",
-                        "children": []
-                    },
-                    {
-                        "position": {
-                            "x": 96.5,
-                            "y": 9.333333333333334
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "set Level.Low",
-                        "features": {},
-                        "id": "hyaqe3",
+                        "id": "mganue",
                         "type": "port:dfd-output",
                         "children": []
                     }
@@ -1291,497 +1323,373 @@
                 "minimumWidth": 50,
                 "annotations": [
                     {
-                        "message": "Propagated: Level.Low, Level.Low",
+                        "message": "Propagated: Level.Low",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 132821904
-                    },
-                    {
-                        "message": "Propagated: Level.Low, Level.Low",
-                        "icon": "tag",
-                        "color": "#FFFFFF",
-                        "tfg": 380185918
+                        "tfg": 1211834583
                     }
                 ],
                 "features": {},
-                "id": "x3cwfp",
+                "id": "1nb6t9",
                 "type": "node:input-output",
                 "children": []
             },
             {
-                "routingPoints": [
+                "position": {
+                    "x": 1864,
+                    "y": 100.08333333333333
+                },
+                "size": {
+                    "width": 76,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Local DS",
+                "labels": [
                     {
-                        "x": 441,
-                        "y": 79
-                    },
-                    {
-                        "x": 613,
-                        "y": 79
-                    },
-                    {
-                        "x": 613,
-                        "y": 65.83333333333333
-                    },
-                    {
-                        "x": 633,
-                        "y": 65.83333333333333
+                        "labelTypeId": "t6zm3k",
+                        "labelTypeValueId": "q0tm78"
                     }
                 ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 25.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "s06s3",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 10.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "y6188b",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Incoming: Level.Low, Level.High, Level.Low, Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1211834583
+                    }
+                ],
+                "features": {},
+                "id": "wtjee",
+                "type": "node:storage",
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "locations",
+                "features": {},
+                "id": "qf0bj",
+                "type": "edge:arrow",
+                "sourceId": "0lqvxzf",
+                "targetId": "sicxdx",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "locations",
+                "features": {},
+                "id": "b8uveg",
+                "type": "edge:arrow",
+                "sourceId": "swn7jb",
+                "targetId": "v7floh",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "locations",
+                "features": {},
+                "id": "j64a8",
+                "type": "edge:arrow",
+                "sourceId": "vge3hi",
+                "targetId": "jfqmjs",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "locations",
+                "features": {},
+                "id": "ulcstq",
+                "type": "edge:arrow",
+                "sourceId": "1e05y",
+                "targetId": "0l2n0n",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "locations",
+                "features": {},
+                "id": "ot2kir",
+                "type": "edge:arrow",
+                "sourceId": "enlrfn",
+                "targetId": "aj62lj",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "map",
+                "features": {},
+                "id": "7q6glf",
+                "type": "edge:arrow",
+                "sourceId": "5c4fzk",
+                "targetId": "cbr2wj",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "map",
+                "features": {},
+                "id": "oxbxa8",
+                "type": "edge:arrow",
+                "sourceId": "6yhf0b",
+                "targetId": "eo5bte",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "map",
+                "features": {},
+                "id": "0p5lb",
+                "type": "edge:arrow",
+                "sourceId": "by35yw",
+                "targetId": "s06s3",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "map",
+                "features": {},
+                "id": "ljjz3p",
+                "type": "edge:arrow",
+                "sourceId": "gp7d7",
+                "targetId": "cv6hlc",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "map",
+                "features": {},
+                "id": "bqd7j",
+                "type": "edge:arrow",
+                "sourceId": "dli9u6",
+                "targetId": "g0sm0p",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "map",
+                "features": {},
+                "id": "ffw3e",
+                "type": "edge:arrow",
+                "sourceId": "y4b8no",
+                "targetId": "fhkch",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "map_code",
+                "features": {},
+                "id": "cnc1wh",
+                "type": "edge:arrow",
+                "sourceId": "xv1ndn",
+                "targetId": "dw9p0i",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "map_code",
+                "features": {},
+                "id": "zciixg",
+                "type": "edge:arrow",
+                "sourceId": "zu0vrb",
+                "targetId": "kksl1b",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "map_code",
+                "features": {},
+                "id": "4g3elq",
+                "type": "edge:arrow",
+                "sourceId": "mganue",
+                "targetId": "25jbya",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [],
                 "selected": false,
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "app_code",
                 "features": {},
-                "id": "89coh8",
+                "id": "sty77n",
                 "type": "edge:arrow",
-                "sourceId": "b0dkii",
-                "targetId": "dfzgv8",
+                "sourceId": "tuwr6",
+                "targetId": "zx4lta",
                 "labels": null,
                 "ports": null,
                 "annotations": null,
                 "children": []
             },
             {
-                "routingPoints": [
-                    {
-                        "x": 119,
-                        "y": 65.16666666666667
-                    },
-                    {
-                        "x": 139,
-                        "y": 65.16666666666667
-                    },
-                    {
-                        "x": 139,
-                        "y": 79
-                    },
-                    {
-                        "x": 311,
-                        "y": 79
-                    }
-                ],
+                "routingPoints": [],
                 "selected": false,
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "app_code",
                 "features": {},
-                "id": "ar96vo",
+                "id": "no7a79t",
                 "type": "edge:arrow",
-                "sourceId": "nf9anh",
-                "targetId": "787num",
+                "sourceId": "yms0j9",
+                "targetId": "ukvqdc",
                 "labels": null,
                 "ports": null,
                 "annotations": null,
                 "children": []
             },
             {
-                "routingPoints": [
-                    {
-                        "x": 119,
-                        "y": 48.83333333333333
-                    },
-                    {
-                        "x": 139,
-                        "y": 48.83333333333333
-                    },
-                    {
-                        "x": 139,
-                        "y": 35
-                    },
-                    {
-                        "x": 189,
-                        "y": 35
-                    }
-                ],
+                "routingPoints": [],
                 "selected": false,
                 "hoverFeedback": false,
                 "opacity": 1,
-                "text": "policy",
+                "text": "app_code",
                 "features": {},
-                "id": "yu5c6g",
+                "id": "pohrgx",
                 "type": "edge:arrow",
-                "sourceId": "hyaqe3",
-                "targetId": "vajqji",
+                "sourceId": "z4hsfg",
+                "targetId": "ufrcmc",
                 "labels": null,
                 "ports": null,
                 "annotations": null,
                 "children": []
             },
             {
-                "routingPoints": [
-                    {
-                        "x": 281,
-                        "y": 35
-                    },
-                    {
-                        "x": 471,
-                        "y": 35
-                    }
-                ],
+                "routingPoints": [],
                 "selected": false,
                 "hoverFeedback": false,
                 "opacity": 1,
-                "text": "permissions",
+                "text": "location_bob_and_location_alice",
                 "features": {},
-                "id": "2kfpo",
+                "id": "84rjo9",
                 "type": "edge:arrow",
-                "sourceId": "q7p2fo",
-                "targetId": "nasu4g",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 563,
-                        "y": 35
-                    },
-                    {
-                        "x": 613,
-                        "y": 35
-                    },
-                    {
-                        "x": 613,
-                        "y": 48.16666666666667
-                    },
-                    {
-                        "x": 633,
-                        "y": 48.16666666666667
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "permissions",
-                "features": {},
-                "id": "s4i6a9",
-                "type": "edge:arrow",
-                "sourceId": "h17z4xg",
-                "targetId": "8c5u5i",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 781,
-                        "y": 57
-                    },
-                    {
-                        "x": 841,
-                        "y": 57
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "request",
-                "features": {},
-                "id": "6sqii9",
-                "type": "edge:arrow",
-                "sourceId": "tdg2xk",
-                "targetId": "5wygjo",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 1003,
-                        "y": 57
-                    },
-                    {
-                        "x": 1083,
-                        "y": 57
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "request",
-                "features": {},
-                "id": "jjw5ub",
-                "type": "edge:arrow",
-                "sourceId": "qknlw",
-                "targetId": "816n4i",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 1241,
-                        "y": 57
-                    },
-                    {
-                        "x": 1261,
-                        "y": 57
-                    },
-                    {
-                        "x": 1261,
-                        "y": 33.83333333333333
-                    },
-                    {
-                        "x": 1311,
-                        "y": 33.83333333333333
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "patient_list",
-                "features": {},
-                "id": "1ia3os",
-                "type": "edge:arrow",
-                "sourceId": "3qhlk",
-                "targetId": "kauuko",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 1003,
-                        "y": 132.08333333333331
-                    },
-                    {
-                        "x": 1023,
-                        "y": 132.08333333333331
-                    },
-                    {
-                        "x": 1023,
-                        "y": 93.75
-                    },
-                    {
-                        "x": 1063,
-                        "y": 93.75
-                    },
-                    {
-                        "x": 1063,
-                        "y": 74.66666666666667
-                    },
-                    {
-                        "x": 1083,
-                        "y": 74.66666666666666
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "patient_list",
-                "features": {},
-                "id": "fl60y",
-                "type": "edge:arrow",
-                "sourceId": "21kgg6",
-                "targetId": "2etmab",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 1918,
-                        "y": 157.58333333333334
-                    },
-                    {
-                        "x": 1898,
-                        "y": 157.58333333333331
-                    },
-                    {
-                        "x": 1898,
-                        "y": 190.83333333333331
-                    },
-                    {
-                        "x": 1023,
-                        "y": 190.83333333333331
-                    },
-                    {
-                        "x": 1023,
-                        "y": 148.41666666666669
-                    },
-                    {
-                        "x": 1003,
-                        "y": 148.41666666666669
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "modified_list",
-                "features": {},
-                "id": "od8y9n",
-                "type": "edge:arrow",
-                "sourceId": "8fax3",
-                "targetId": "had3gk",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 1241,
-                        "y": 74.66666666666666
-                    },
-                    {
-                        "x": 1261,
-                        "y": 74.66666666666667
-                    },
-                    {
-                        "x": 1261,
-                        "y": 97.83333333333333
-                    },
-                    {
-                        "x": 1311,
-                        "y": 97.83333333333333
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "patient_list",
-                "features": {},
-                "id": "sp09ub",
-                "type": "edge:arrow",
-                "sourceId": "nu74kp",
-                "targetId": "x8a4ds",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 1469,
-                        "y": 97.83333333333333
-                    },
-                    {
-                        "x": 1529,
-                        "y": 97.83333333333333
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "patient_list",
-                "features": {},
-                "id": "ttx3un",
-                "type": "edge:arrow",
-                "sourceId": "jo6h45",
-                "targetId": "7kibom",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 1625,
-                        "y": 159.83333333333331
-                    },
-                    {
-                        "x": 1675,
-                        "y": 159.83333333333331
-                    },
-                    {
-                        "x": 1675,
-                        "y": 137.66666666666663
-                    },
-                    {
-                        "x": 1695,
-                        "y": 137.66666666666666
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "patient_list",
-                "features": {},
-                "id": "whr1ba",
-                "type": "edge:arrow",
-                "sourceId": "5utn3",
-                "targetId": "5b8q6p",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 1625,
-                        "y": 97.83333333333333
-                    },
-                    {
-                        "x": 1675,
-                        "y": 97.83333333333333
-                    },
-                    {
-                        "x": 1675,
-                        "y": 120
-                    },
-                    {
-                        "x": 1695,
-                        "y": 120
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "patient_list_from_dropbox",
-                "features": {},
-                "id": "k7vkxr",
-                "type": "edge:arrow",
-                "sourceId": "d12yh6",
-                "targetId": "eq6qts",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
-                        "x": 1848,
-                        "y": 128.83333333333331
-                    },
-                    {
-                        "x": 1898,
-                        "y": 128.83333333333334
-                    },
-                    {
-                        "x": 1898,
-                        "y": 139.91666666666669
-                    },
-                    {
-                        "x": 1918,
-                        "y": 139.91666666666669
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "modified_list",
-                "features": {},
-                "id": "rfpdk",
-                "type": "edge:arrow",
-                "sourceId": "wjr6oj",
-                "targetId": "dw9x6",
+                "sourceId": "5y67gs",
+                "targetId": "y6188b",
                 "labels": null,
                 "ports": null,
                 "annotations": null,
@@ -1791,51 +1699,59 @@
     },
     "labelTypes": [
         {
-            "id": "sl6o37",
+            "id": "bllxwa",
+            "name": "Level",
+            "values": [
+                {
+                    "id": "y08jnra",
+                    "text": "High"
+                },
+                {
+                    "id": "w4wcap",
+                    "text": "Low"
+                }
+            ]
+        },
+        {
+            "id": "t6zm3k",
             "name": "Zone",
             "values": [
                 {
-                    "id": "5ssja",
+                    "id": "q0tm78",
                     "text": "Trust"
                 },
                 {
-                    "id": "tffy3w",
+                    "id": "c907z",
                     "text": "Attack"
                 }
             ]
         },
         {
-            "id": "k9lnos",
-            "name": "Level",
+            "id": "oybkag",
+            "name": "Actor",
             "values": [
                 {
-                    "id": "wvup1a",
-                    "text": "High"
+                    "id": "0d1tt",
+                    "text": "Google"
                 },
                 {
-                    "id": "xvysjw",
-                    "text": "Low"
-                }
-            ]
-        },
-        {
-            "id": "1x1aya",
-            "name": "LevelBeforeEncryption",
-            "values": [
-                {
-                    "id": "1t845q",
-                    "text": "High"
+                    "id": "99gwtt",
+                    "text": "Alice"
                 },
                 {
-                    "id": "4tk7n7",
-                    "text": "Low"
+                    "id": "bapgzq",
+                    "text": "SocialNetwork"
+                },
+                {
+                    "id": "tucxg7",
+                    "text": "CreateMap"
                 }
             ]
         }
     ],
     "constraints": [
         {
-            "name": "SafetyConstraint",
+            "name": "Safety",
             "constraint": "data Level.High neverFlows vertex Zone.Attack"
         }
     ],

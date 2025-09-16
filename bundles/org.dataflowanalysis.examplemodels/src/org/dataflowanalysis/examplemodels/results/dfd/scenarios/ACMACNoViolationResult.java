@@ -19,19 +19,19 @@ public class ACMACNoViolationResult implements DFDExampleModelResult {
 
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
-    	return List.of(new ConstraintDSL().ofData()
-    			.withLabel("ClassificationLevel", "Classified")
-    			.neverFlows()
-    			.toVertex()
-    			.withCharacteristic("ClearanceLevel", "Unclassified")
-    			.create(),
-    			
-    			new ConstraintDSL().ofData()
-    			.withLabel("ClassificationLevel", "Secret")
-    			.neverFlows()
-    			.toVertex()
-    			.withCharacteristic("ClearanceLevel", "Classified")
-    			.create());
+        return List.of(new ConstraintDSL().ofData()
+                .withLabel("ClassificationLevel", "Classified")
+                .neverFlows()
+                .toVertex()
+                .withCharacteristic("ClearanceLevel", "Unclassified")
+                .create(),
+
+                new ConstraintDSL().ofData()
+                        .withLabel("ClassificationLevel", "Secret")
+                        .neverFlows()
+                        .toVertex()
+                        .withCharacteristic("ClearanceLevel", "Classified")
+                        .create());
     }
 
     @Override
@@ -43,9 +43,9 @@ public class ACMACNoViolationResult implements DFDExampleModelResult {
     public String toString() {
         return this.getModelName();
     }
-    
+
     @Override
     public String getFileName() {
-    	return "diagram";
+        return "diagram";
     }
 }

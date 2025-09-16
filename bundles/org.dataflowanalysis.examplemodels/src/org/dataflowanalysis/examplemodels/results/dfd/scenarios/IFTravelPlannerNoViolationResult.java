@@ -19,19 +19,19 @@ public class IFTravelPlannerNoViolationResult implements DFDExampleModelResult {
 
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
-    	return List.of(new ConstraintDSL().ofData()
-    			.withLabel("ClassificationLevel", "User")
-    			.neverFlows()
-    			.toVertex()
-    			.withCharacteristic("ClearanceLevel", "UserAirline")
-    			.create(),
-    			
-    			new ConstraintDSL().ofData()
-    			.withLabel("ClassificationLevel", "User")
-    			.neverFlows()
-    			.toVertex()
-    			.withCharacteristic("ClearanceLevel", "UserAirlineAgency")
-    			.create());
+        return List.of(new ConstraintDSL().ofData()
+                .withLabel("ClassificationLevel", "User")
+                .neverFlows()
+                .toVertex()
+                .withCharacteristic("ClearanceLevel", "UserAirline")
+                .create(),
+
+                new ConstraintDSL().ofData()
+                        .withLabel("ClassificationLevel", "User")
+                        .neverFlows()
+                        .toVertex()
+                        .withCharacteristic("ClearanceLevel", "UserAirlineAgency")
+                        .create());
     }
 
     @Override
@@ -43,9 +43,9 @@ public class IFTravelPlannerNoViolationResult implements DFDExampleModelResult {
     public String toString() {
         return this.getModelName();
     }
-    
+
     @Override
     public String getFileName() {
-    	return "diagram";
+        return "diagram";
     }
 }

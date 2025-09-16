@@ -22,32 +22,30 @@ public class ACDACViolationResult implements DFDExampleModelResult {
 
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
-    	return List.of(new ConstraintDSL().ofData()
-    			.withoutLabel("Read", "IndexingBot")
-    			.neverFlows()
-    			.toVertex()
-    			.withCharacteristic("Identity", "IndexingBot")
-    			.create());
+        return List.of(new ConstraintDSL().ofData()
+                .withoutLabel("Read", "IndexingBot")
+                .neverFlows()
+                .toVertex()
+                .withCharacteristic("Identity", "IndexingBot")
+                .create());
     }
 
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
-        return List.of(new ExpectedViolation(3, new DFDIdentifier("fagty"), 
-        		List.of(new ExpectedCharacteristic("Identity", "IndexingBot")), 
-        		Map.of("h5c7l", 
-        				List.of(new ExpectedCharacteristic("TraversedNodes", "mother"), new ExpectedCharacteristic("TraversedNodes", "addPicture"),
-        						new ExpectedCharacteristic("TraversedNodes", "pictureStorage"), new ExpectedCharacteristic("Read", "Aunt"),
-        						new ExpectedCharacteristic("TraversedNodes", "readPicture")))));
+        return List.of(new ExpectedViolation(3, new DFDIdentifier("fagty"), List.of(new ExpectedCharacteristic("Identity", "IndexingBot")),
+                Map.of("h5c7l",
+                        List.of(new ExpectedCharacteristic("TraversedNodes", "mother"), new ExpectedCharacteristic("TraversedNodes", "addPicture"),
+                                new ExpectedCharacteristic("TraversedNodes", "pictureStorage"), new ExpectedCharacteristic("Read", "Aunt"),
+                                new ExpectedCharacteristic("TraversedNodes", "readPicture")))));
     }
-    
-    
+
     @Override
     public String toString() {
         return this.getModelName();
     }
-    
+
     @Override
     public String getFileName() {
-    	return "diagram";
+        return "diagram";
     }
 }

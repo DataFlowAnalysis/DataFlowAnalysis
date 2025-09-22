@@ -247,10 +247,10 @@ public class DFD2WebConverter extends Converter {
                     .forEach(pin -> ports.add(new Port(createBehaviorString(mapPinToAssignments.get(pin)), pin.getId(), "port:dfd-output",
                             new ArrayList<>(), null, null)));
             if (mapNodeToAnnotation == null)
-                children.add(new Child(text, labels, ports, id, type, null, null, null, new ArrayList<>(), null, null));
+                children.add(new Child(text, labels, ports, id, type, null, null, null, new ArrayList<>(), null, null, null));
             else
                 children.add(new Child(text, labels, ports, id, type, null, null, mapNodeToAnnotation.get(node), new ArrayList<>(),
-                        new Position(0, 0), null));
+                        new Position(0, 0), null, null));
         }
     }
 
@@ -291,7 +291,7 @@ public class DFD2WebConverter extends Converter {
         String targetId = flow.getDestinationPin()
                 .getId();
         String text = controlFlowNameMap.getOrDefault(flow, flow.getEntityName());
-        return new Child(text, null, null, id, type, sourceId, targetId, null, new ArrayList<>(), null, null);
+        return new Child(text, null, null, id, type, sourceId, targetId, null, new ArrayList<>(), null, null, new ArrayList<>());
     }
 
     private Map<Pin, List<AbstractAssignment>> mapping(Node node) {

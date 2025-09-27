@@ -33,7 +33,8 @@ public record Child(String text, List<WebEditorLabel> labels, List<Port> ports, 
             @JsonProperty("ports") List<Port> ports, @JsonProperty("id") String id, @JsonProperty("type") String type,
             @JsonProperty("sourceId") String sourceId, @JsonProperty("targetId") String targetId,
             @JsonProperty("annotations") List<Annotation> annotations, @JsonProperty("children") List<Child> children,
-            @JsonProperty("position") Position position, @JsonProperty("size") Size size, @JsonProperty("routingPoints") List<RoutingPoint> routingPoints) {
+            @JsonProperty("position") Position position, @JsonProperty("size") Size size,
+            @JsonProperty("routingPoints") List<RoutingPoint> routingPoints) {
         return new Child(text, labels, ports, id, type, sourceId, targetId,
                 annotations == null && type.startsWith("node") ? new ArrayList<>() : annotations, children, position, size, routingPoints);
     }

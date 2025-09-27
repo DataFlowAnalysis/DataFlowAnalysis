@@ -36,8 +36,8 @@ public class ChildSerializer extends StdSerializer<Child> {
             gen.writeObjectField("position", child.position());
             gen.writeObjectField("size", child.size());
         }
-
-        // Only include position and size if type starts with "node"
+        
+        // Only include routingPoints for edges
         if (child.type() != null && child.type()
                 .startsWith("edge")) {
             gen.writeObjectField("routingPoints", child.routingPoints());

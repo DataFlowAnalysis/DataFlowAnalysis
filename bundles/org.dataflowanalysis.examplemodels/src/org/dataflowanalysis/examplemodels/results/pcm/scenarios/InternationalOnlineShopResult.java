@@ -36,7 +36,7 @@ public class InternationalOnlineShopResult implements PCMExampleModelResult {
                 new ExpectedViolation(0, PCMIdentifier.of("_oGmXgYTjEeywmO_IpTxeAg", true),
                         List.of(new ExpectedCharacteristic("ServerLocation", "nonEU")),
                         Map.of("userData", List.of(new ExpectedCharacteristic("DataSensitivity", "Personal")))),
-                new ExpectedViolation(0, PCMIdentifier.of("_oGmXgYTjEeywmO_IpTxeAg", false),
+                new ExpectedViolation(0, PCMIdentifier.of("_oGmXgoTjEeywmO_IpTxeAg", false),
                         List.of(new ExpectedCharacteristic("ServerLocation", "nonEU")),
                         Map.of("userData", List.of(new ExpectedCharacteristic("DataSensitivity", "Personal")))));
     }

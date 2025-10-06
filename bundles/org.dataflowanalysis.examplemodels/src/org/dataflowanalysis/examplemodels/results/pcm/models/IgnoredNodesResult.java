@@ -30,8 +30,14 @@ public class IgnoredNodesResult implements PCMExampleModelResult {
 
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
-        return List.of(new ExpectedViolation(0, new PCMIdentifier("_LTpZcKpIEe6ICOKQQaQogw"), List.of(),
-                Map.of("RETURN", List.of(new ExpectedCharacteristic("DataVisibility", "User")))));
+        return List.of(
+                new ExpectedViolation(0, new PCMIdentifier("_LTpZcKpIEe6ICOKQQaQogw"), List.of(),
+                        Map.of("RETURN", List.of(new ExpectedCharacteristic("DataVisibility", "User")))),
+                new ExpectedViolation(0, new PCMIdentifier("_xA4QQKpHEe6ICOKQQaQogw"), List.of(),
+                        Map.of("forward", List.of(new ExpectedCharacteristic("DataVisibility", "User")))),
+                new ExpectedViolation(0, new PCMIdentifier("_qhTkwqpHEe6ICOKQQaQogw"), List.of(),
+                        Map.of("forward", List.of(new ExpectedCharacteristic("DataVisibility", "User")), "RETURN",
+                                List.of(new ExpectedCharacteristic("DataVisibility", "User")))));
     }
 
     @Override

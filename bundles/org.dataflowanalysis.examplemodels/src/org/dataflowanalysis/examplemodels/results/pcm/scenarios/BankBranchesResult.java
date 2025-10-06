@@ -83,6 +83,13 @@ public class BankBranchesResult implements PCMExampleModelResult {
                                 List.of(ExpectedCharacteristic.of("Origin", "Asia"), ExpectedCharacteristic.of("Status", "Regular"),
                                         ExpectedCharacteristic.of("Status", "Celebrity")),
                                 "customerName", List.of(ExpectedCharacteristic.of("Origin", "Asia"), ExpectedCharacteristic.of("Status", "Regular")),
+                                "customer", List.of(ExpectedCharacteristic.of("Status", "Celebrity")))),
+                new ExpectedViolation(2, PCMIdentifier.of("_4AZ9Yj6wEeuVUal8mM_jUA", false),
+                        List.of(new ExpectedCharacteristic("Location", "Asia"), new ExpectedCharacteristic("Role", "Clerk")),
+                        Map.of("creditLine",
+                                List.of(ExpectedCharacteristic.of("Origin", "Asia"), ExpectedCharacteristic.of("Status", "Regular"),
+                                        ExpectedCharacteristic.of("Status", "Celebrity")),
+                                "customerName", List.of(ExpectedCharacteristic.of("Origin", "Asia"), ExpectedCharacteristic.of("Status", "Regular")),
                                 "customer", List.of(ExpectedCharacteristic.of("Status", "Celebrity")))));
     }
 

@@ -53,12 +53,17 @@ public class CWARPIViolation implements DFDExampleModelResult {
 
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
-        return List.of(new ExpectedViolation(39, new DFDIdentifier("3dwb"),
-                List.of(new ExpectedCharacteristic("Server", "CWAppServer"), new ExpectedCharacteristic("Cloud", "OTC")),
-                Map.of("36il1r", List.of(new ExpectedCharacteristic("Tokens", "Diagnosis_Keys")), "2fhdu8j",
-                        List.of(new ExpectedCharacteristic("Information", "AnalyticData")), "vdzpwr",
-                        List.of(new ExpectedCharacteristic("DiagnosisKeys", "Foreign")), "zrxa6l",
-                        List.of(new ExpectedCharacteristic("Identifiers", "RPI"), new ExpectedCharacteristic("Identifiers", "AEM")))));
+        return List.of(
+                new ExpectedViolation(37, new DFDIdentifier("3dwb"),
+                        List.of(new ExpectedCharacteristic("Server", "CWAppServer"), new ExpectedCharacteristic("Cloud", "OTC")),
+                        Map.of("zrxa6l",
+                                List.of(new ExpectedCharacteristic("Identifiers", "RPI"), new ExpectedCharacteristic("Identifiers", "AEM")))),
+                new ExpectedViolation(39, new DFDIdentifier("3dwb"),
+                        List.of(new ExpectedCharacteristic("Server", "CWAppServer"), new ExpectedCharacteristic("Cloud", "OTC")),
+                        Map.of("36il1r", List.of(new ExpectedCharacteristic("Tokens", "Diagnosis_Keys")), "2fhdu8j",
+                                List.of(new ExpectedCharacteristic("Information", "AnalyticData")), "vdzpwr",
+                                List.of(new ExpectedCharacteristic("DiagnosisKeys", "Foreign")), "zrxa6l",
+                                List.of(new ExpectedCharacteristic("Identifiers", "RPI"), new ExpectedCharacteristic("Identifiers", "AEM")))));
     }
 
     @Override

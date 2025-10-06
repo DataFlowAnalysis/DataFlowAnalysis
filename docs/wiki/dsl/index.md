@@ -75,6 +75,11 @@ data named secrets
 ## Destination Selectors 
 A **destination selector** describes the destination of a data flow though the system. 
 It selects nodes based on their vertex label or their vertex type.
+::: warning Warning 
+Currently using only vertex selectors for both source and destination is unsupported.
+When you want to match a node based on their vertex attributes, consider using just Vertex Source Selectors.
+If you want to find flows originating at a specific node and arriving at *another* node, see this [issue](https://github.com/DataFlowAnalysis/DataFlowAnalysis/issues/179)
+:::
 
 ### Vertex Selector
 To select nodes based on their label, one can use `vertex <Type>.<Value>` where `<Type>` describes a label type that must be present at a given node and `<Value>` must describe a label value of the defined label type that must be present at the node. 

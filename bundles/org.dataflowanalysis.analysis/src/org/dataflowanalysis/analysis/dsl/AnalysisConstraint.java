@@ -236,6 +236,14 @@ public class AnalysisConstraint {
         if (!string.empty()) {
             return ParseResult.error("Unexpected symbols: " + string.getString());
         }
+        if (!vertexSourceSelectors.getSelectors()
+                .isEmpty()
+                && !vertexDestinationSelectors.getSelectors()
+                        .isEmpty()
+                && dataSourceSelectors.getSelectors()
+                        .isEmpty()) {
+            return ParseResult.error("Cannot create DSL constraint from purely vertex selectors! This behavior is not implemented yet!");
+        }
         return ParseResult.ok(
                 new AnalysisConstraint(name, vertexSourceSelectors, dataSourceSelectors, vertexDestinationSelectors, conditionalSelectors, context));
     }

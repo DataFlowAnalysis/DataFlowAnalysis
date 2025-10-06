@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
+import org.dataflowanalysis.analysis.dfd.dsl.DFDDSLContextProvider;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.AnalysisQuery;
 import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
@@ -199,6 +200,13 @@ public class DSLResultTest extends BaseTest {
         assertEquals(constraint.toString(), AnalysisConstraint.fromString(new StringView(constraint.toString()))
                 .getResult()
                 .toString());
+    }
+
+    @Test
+    public void cannotParseOnlyVertexSelectors() {
+        ParseResult<AnalysisConstraint> constraint = AnalysisConstraint
+                .fromString(new StringView("- Test: vertex type PROCESS neverFlows vertex type STORE"), new DFDDSLContextProvider());
+        assertTrue(constraint.failed());
     }
 
     private void evaluateAnalysis(AnalysisConstraint constraint, DataFlowConfidentialityAnalysis analysis, List<ConstraintData> expectedResults) {

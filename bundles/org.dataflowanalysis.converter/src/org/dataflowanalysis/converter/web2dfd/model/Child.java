@@ -26,16 +26,17 @@ import org.dataflowanalysis.converter.web2dfd.ChildSerializer;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record Child(String text, List<WebEditorLabel> labels, List<Port> ports, String id, String type, String sourceId, String targetId,
-        List<Annotation> annotations, List<Child> children, Position position, Size size) {
+        List<Annotation> annotations, List<Child> children, Position position, Size size, List<RoutingPoint> routingPoints) {
 
     @JsonCreator
     public static Child create(@JsonProperty("text") String text, @JsonProperty("labels") List<WebEditorLabel> labels,
             @JsonProperty("ports") List<Port> ports, @JsonProperty("id") String id, @JsonProperty("type") String type,
             @JsonProperty("sourceId") String sourceId, @JsonProperty("targetId") String targetId,
             @JsonProperty("annotations") List<Annotation> annotations, @JsonProperty("children") List<Child> children,
-            @JsonProperty("position") Position position, @JsonProperty("size") Size size) {
+            @JsonProperty("position") Position position, @JsonProperty("size") Size size,
+            @JsonProperty("routingPoints") List<RoutingPoint> routingPoints) {
         return new Child(text, labels, ports, id, type, sourceId, targetId,
-                annotations == null && type.startsWith("node") ? new ArrayList<>() : annotations, children, position, size);
+                annotations == null && type.startsWith("node") ? new ArrayList<>() : annotations, children, position, size, routingPoints);
     }
 
     /**

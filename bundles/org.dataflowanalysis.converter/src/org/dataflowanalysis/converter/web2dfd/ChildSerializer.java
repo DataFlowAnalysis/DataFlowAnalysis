@@ -37,6 +37,12 @@ public class ChildSerializer extends StdSerializer<Child> {
             gen.writeObjectField("size", child.size());
         }
 
+        // Only include routingPoints for edges
+        if (child.type() != null && child.type()
+                .startsWith("edge")) {
+            gen.writeObjectField("routingPoints", child.routingPoints());
+        }
+
         gen.writeEndObject();
     }
 }

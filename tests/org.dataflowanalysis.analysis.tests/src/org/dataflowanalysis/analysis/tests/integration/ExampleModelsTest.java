@@ -68,7 +68,7 @@ public class ExampleModelsTest {
                 Arguments.of(new IFFriendMapNoViolationResult()), Arguments.of(new IFFriendMapViolationResult()),
                 Arguments.of(new IFHospitalNoViolationResult()), Arguments.of(new IFHospitalViolationResult()),
                 Arguments.of(new IFJPMailNoViolationResult()), Arguments.of(new IFJPMailViolationResult()),
-                Arguments.of(new IFPrivateTaxiNoViolationResult()), Arguments.of(new IFPrivateTaxiViolationResult()),
+                Arguments.of(new IFPrivateTaxiNoViolationResult()),
                 Arguments.of(new IFTravelPlannerNoViolationResult()), Arguments.of(new IFTravelPlannerViolationResult()),
                 Arguments.of(new IFWebRTCNoViolationResult()), Arguments.of(new IFWebRTCViolationResult()), Arguments.of(new CWANoViolation()),
                 Arguments.of(new VWCariad()), Arguments.of(new CWAPersonalDataViolation()), Arguments.of(new CWARPIViolation()));

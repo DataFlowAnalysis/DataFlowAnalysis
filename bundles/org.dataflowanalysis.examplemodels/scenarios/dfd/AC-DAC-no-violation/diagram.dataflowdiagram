@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://dataflowanalysis.org/dfd/dataflowdiagram" id="_lpXVYC_qEfCy_4XEclxE_A">
+  <flows id="ekx5wq" entityName="motherPicture" sourceNode="3lqxlo" destinationNode="d2erj">
+    <destinationPin href="diagram.datadictionary#y7wy2c"/>
+    <sourcePin href="diagram.datadictionary#pzv6hg"/>
+  </flows>
+  <flows id="c9na5t" entityName="picture" sourceNode="d2erj" destinationNode="050esr">
+    <destinationPin href="diagram.datadictionary#efr68k"/>
+    <sourcePin href="diagram.datadictionary#i75rub"/>
+  </flows>
+  <flows id="wr13pw" entityName="picture" sourceNode="2ksl0i" destinationNode="3lqxlo">
+    <destinationPin href="diagram.datadictionary#6bvsh7"/>
+    <sourcePin href="diagram.datadictionary#9fv3si"/>
+  </flows>
+  <flows id="osynnp" entityName="picture" sourceNode="2ksl0i" destinationNode="mhu9ma">
+    <destinationPin href="diagram.datadictionary#j6a32"/>
+    <sourcePin href="diagram.datadictionary#b4g3ml"/>
+  </flows>
+  <flows id="pd8t5y" entityName="dadPicture" sourceNode="wocqg" destinationNode="d2erj">
+    <destinationPin href="diagram.datadictionary#q9uoh2"/>
+    <sourcePin href="diagram.datadictionary#f6wz2q"/>
+  </flows>
+  <flows id="xw3tf" entityName="picture" sourceNode="050esr" destinationNode="2ksl0i">
+    <destinationPin href="diagram.datadictionary#hmhlg5"/>
+    <sourcePin href="diagram.datadictionary#l7yqhg"/>
+  </flows>
+  <flows id="ymvkcs" entityName="picture" sourceNode="2ksl0i" destinationNode="wocqg">
+    <destinationPin href="diagram.datadictionary#rva68j"/>
+    <sourcePin href="diagram.datadictionary#tj9ox"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:External" id="3lqxlo" entityName="Mother">
+    <behavior href="diagram.datadictionary#_lpXVdy_qEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#z2vuaa"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="wocqg" entityName="Dad">
+    <behavior href="diagram.datadictionary#_lpXVey_qEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#oqq2r"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="mhu9ma" entityName="Aunt">
+    <behavior href="diagram.datadictionary#_lpXVfy_qEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#vb0xw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Store" id="050esr" entityName="Family Pictures">
+    <behavior href="diagram.datadictionary#_lpXVgi_qEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#01mazd"/>
+    <properties href="diagram.datadictionary#dhfohg"/>
+    <properties href="diagram.datadictionary#qsj85"/>
+    <properties href="diagram.datadictionary#7p1lcu"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="2ksl0i" entityName="read pictures">
+    <behavior href="diagram.datadictionary#_lpXVhi_qEfCy_4XEclxE_A"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="d2erj" entityName="add pictures">
+    <behavior href="diagram.datadictionary#_lpXVjC_qEfCy_4XEclxE_A"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="fagty" entityName="Indexing Bot">
+    <behavior href="diagram.datadictionary#_lpXVkS_qEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#1cnzie"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

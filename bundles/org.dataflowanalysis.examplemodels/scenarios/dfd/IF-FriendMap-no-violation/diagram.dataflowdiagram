@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://dataflowanalysis.org/dfd/dataflowdiagram" id="_J7LjIDrXEfCJkoMBjFpfFw">
+  <flows id="no7a79t" entityName="AppCode" sourceNode="pcfyjb" destinationNode="c14vvh">
+    <destinationPin href="diagram.datadictionary#ukvqdc"/>
+    <sourcePin href="diagram.datadictionary#yms0j9"/>
+  </flows>
+  <flows id="zciixg" entityName="MapCode" sourceNode="j5dh5r" destinationNode="c14vvh">
+    <destinationPin href="diagram.datadictionary#kksl1b"/>
+    <sourcePin href="diagram.datadictionary#zu0vrb"/>
+  </flows>
+  <flows id="sty77n" entityName="AppCode" sourceNode="pcfyjb" destinationNode="wnd5t5">
+    <destinationPin href="diagram.datadictionary#zx4lta"/>
+    <sourcePin href="diagram.datadictionary#tuwr6"/>
+  </flows>
+  <flows id="qf0bj" entityName="Locations" sourceNode="h14ro6k" destinationNode="mt5r15">
+    <destinationPin href="diagram.datadictionary#sicxdx"/>
+    <sourcePin href="diagram.datadictionary#0lqvxzf"/>
+  </flows>
+  <flows id="7q6glf" entityName="Map" sourceNode="mt5r15" destinationNode="xma9o">
+    <destinationPin href="diagram.datadictionary#cbr2wj"/>
+    <sourcePin href="diagram.datadictionary#5c4fzk"/>
+  </flows>
+  <flows id="l7ygvp" entityName="Map" sourceNode="xma9o" destinationNode="h7zsr7">
+    <destinationPin href="diagram.datadictionary#lue5c"/>
+    <sourcePin href="diagram.datadictionary#6yhf0b"/>
+  </flows>
+  <flows id="0p5lb" entityName="Map" sourceNode="0ydg" destinationNode="wtjee">
+    <destinationPin href="diagram.datadictionary#s06s3"/>
+    <sourcePin href="diagram.datadictionary#by35yw"/>
+  </flows>
+  <flows id="ffw3e" entityName="Map" sourceNode="0ydg" destinationNode="3p5irw">
+    <destinationPin href="diagram.datadictionary#fhkch"/>
+    <sourcePin href="diagram.datadictionary#y4b8no"/>
+  </flows>
+  <flows id="ljjz3p" entityName="Map" sourceNode="138bkbo" destinationNode="pq3fjo">
+    <destinationPin href="diagram.datadictionary#cv6hlc"/>
+    <sourcePin href="diagram.datadictionary#gp7d7"/>
+  </flows>
+  <flows id="bqd7j" entityName="Map" sourceNode="3p5irw" destinationNode="138bkbo">
+    <destinationPin href="diagram.datadictionary#g0sm0p"/>
+    <sourcePin href="diagram.datadictionary#dli9u6"/>
+  </flows>
+  <flows id="ulcstq" entityName="Locations" sourceNode="89668g" destinationNode="wnd5t5">
+    <destinationPin href="diagram.datadictionary#0l2n0n"/>
+    <sourcePin href="diagram.datadictionary#1e05y"/>
+  </flows>
+  <flows id="j64a8" entityName="Locations" sourceNode="wnd5t5" destinationNode="c7b85r">
+    <destinationPin href="diagram.datadictionary#jfqmjs"/>
+    <sourcePin href="diagram.datadictionary#vge3hi"/>
+  </flows>
+  <flows id="cnc1wh" entityName="MapCode" sourceNode="c14vvh" destinationNode="c7b85r">
+    <destinationPin href="diagram.datadictionary#dw9p0i"/>
+    <sourcePin href="diagram.datadictionary#xv1ndn"/>
+  </flows>
+  <flows id="pohrgx" entityName="AppCode" sourceNode="khm4jw" destinationNode="pcfyjb">
+    <destinationPin href="diagram.datadictionary#ufrcmc"/>
+    <sourcePin href="diagram.datadictionary#z4hsfg"/>
+  </flows>
+  <flows id="4g3elq" entityName="MapCode" sourceNode="1nb6t9" destinationNode="j5dh5r">
+    <destinationPin href="diagram.datadictionary#25jbya"/>
+    <sourcePin href="diagram.datadictionary#mganue"/>
+  </flows>
+  <flows id="ot2kir" entityName="Locations" sourceNode="pq3fjo" destinationNode="89668g">
+    <destinationPin href="diagram.datadictionary#aj62lj"/>
+    <sourcePin href="diagram.datadictionary#enlrfn"/>
+  </flows>
+  <flows id="lbn6gk" entityName="Locations" sourceNode="vdoced" destinationNode="h14ro6k">
+    <destinationPin href="diagram.datadictionary#v7floh"/>
+    <sourcePin href="diagram.datadictionary#2c3ltb"/>
+  </flows>
+  <flows id="h0a7b" entityName="Map" sourceNode="h7zsr7" destinationNode="0ydg">
+    <destinationPin href="diagram.datadictionary#eo5bte"/>
+    <sourcePin href="diagram.datadictionary#nizyfxl"/>
+  </flows>
+  <flows id="q07xn" entityName="Locations" sourceNode="c7b85r" destinationNode="vdoced">
+    <destinationPin href="diagram.datadictionary#1lfvt"/>
+    <sourcePin href="diagram.datadictionary#swn7jb"/>
+  </flows>
+  <flows id="84rjo9" entityName="LocationBobAndLocationAlice" sourceNode="wnd5t5" destinationNode="wtjee">
+    <destinationPin href="diagram.datadictionary#y6188b"/>
+    <sourcePin href="diagram.datadictionary#5y67gs"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:Store" id="wtjee" entityName="LocalDS">
+    <behavior href="diagram.datadictionary#_J7LjLjrXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#q0tm78"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="pcfyjb" entityName="Load Friend Map Code">
+    <behavior href="diagram.datadictionary#_J7LjMjrXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#q0tm78"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="pq3fjo" entityName="SNAPP">
+    <behavior href="diagram.datadictionary#_J7LjNzrXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#q0tm78"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="c14vvh" entityName="Load Map Code">
+    <behavior href="diagram.datadictionary#_J7LjOzrXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#q0tm78"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="j5dh5r" entityName="Map Services">
+    <behavior href="diagram.datadictionary#_J7LjQDrXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#c907z"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="1nb6t9" entityName="MapProvider">
+    <behavior href="diagram.datadictionary#_J7LjRDrXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#c907z"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="wnd5t5" entityName="Load Friend Locations">
+    <behavior href="diagram.datadictionary#_J7LjRzrXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#99gwtt"/>
+    <properties href="diagram.datadictionary#q0tm78"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="xma9o" entityName="Receive Map">
+    <behavior href="diagram.datadictionary#_J7LjTTrXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#tucxg7"/>
+    <properties href="diagram.datadictionary#q0tm78"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="h7zsr7" entityName="Decrypt Map">
+    <behavior href="diagram.datadictionary#_J7LjUTrXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="h14ro6k" entityName="Create Map">
+    <behavior href="diagram.datadictionary#_J7LjVTrXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#tucxg7"/>
+    <properties href="diagram.datadictionary#q0tm78"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="vdoced" entityName="Encrypt Location">
+    <behavior href="diagram.datadictionary#_J7LjWTrXEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="c7b85r" entityName="Create Map">
+    <behavior href="diagram.datadictionary#_J7LjXTrXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#99gwtt"/>
+    <properties href="diagram.datadictionary#q0tm78"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="0ydg" entityName="Load Map">
+    <behavior href="diagram.datadictionary#_J7LjYjrXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#99gwtt"/>
+    <properties href="diagram.datadictionary#q0tm78"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="3p5irw" entityName="Share Map">
+    <behavior href="diagram.datadictionary#_J7LjZzrXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#99gwtt"/>
+    <properties href="diagram.datadictionary#q0tm78"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="138bkbo" entityName="Post Map">
+    <behavior href="diagram.datadictionary#_J7LjazrXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#bapgzq"/>
+    <properties href="diagram.datadictionary#q0tm78"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="89668g" entityName="Find Friend Location">
+    <behavior href="diagram.datadictionary#_J7LjbzrXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#bapgzq"/>
+    <properties href="diagram.datadictionary#q0tm78"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="khm4jw" entityName="Friend Map">
+    <behavior href="diagram.datadictionary#_J7LjczrXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#q0tm78"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="mt5r15" entityName="Create Map">
+    <behavior href="diagram.datadictionary#_J7LjdjrXEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#0d1tt"/>
+    <properties href="diagram.datadictionary#c907z"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

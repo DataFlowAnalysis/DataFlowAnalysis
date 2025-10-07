@@ -1,0 +1,997 @@
+{
+    "model": {
+        "canvasBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 2333.75,
+            "height": 1168.75
+        },
+        "scroll": {
+            "x": -63,
+            "y": -361.90037493304766
+        },
+        "zoom": 1.4414762198888202,
+        "position": {
+            "x": 0,
+            "y": 0
+        },
+        "size": {
+            "width": -1,
+            "height": -1
+        },
+        "features": {},
+        "type": "graph",
+        "id": "root",
+        "children": [
+            {
+                "position": {
+                    "x": 12,
+                    "y": 18.79166666666666
+                },
+                "size": {
+                    "width": 62,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "User",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "7qzsya",
+                        "labelTypeValueId": "csbgwk"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 58.5,
+                            "y": 5.25
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": null,
+                        "features": {},
+                        "id": "lsyc9l",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 58.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "set AccessRights.User",
+                        "features": {},
+                        "id": "nb83mj",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 58.5,
+                            "y": 29.75
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "set AccessRights.User",
+                        "features": {},
+                        "id": "6mwcw",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [],
+                "features": {},
+                "annotation": {
+                    "message": "PropagatedLabels:\nAccessRights.User\n",
+                    "icon": "tag",
+                    "color": "#FFFFFF"
+                },
+                "id": "sbw62",
+                "type": "node:input-output",
+                "sourceId": null,
+                "targetId": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 555,
+                    "y": 30.999999999999996
+                },
+                "size": {
+                    "width": 120,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Location Store",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "7qzsya",
+                        "labelTypeValueId": "o3fxk"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "behavior": null,
+                        "id": "qhr9j6",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 116.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward location",
+                        "features": {},
+                        "id": "i3cec88",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [],
+                "features": {},
+                "annotation": {
+                    "message": "PropagatedLabels:\nAccessRights.User\nAccessRights.TrackingService\n",
+                    "icon": "tag",
+                    "color": "#FFFFFF"
+                },
+                "id": "9ysgxs",
+                "type": "node:storage",
+                "sourceId": null,
+                "targetId": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1360,
+                    "y": 14
+                },
+                "size": {
+                    "width": 121,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Distance Store",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "7qzsya",
+                        "labelTypeValueId": "iao8e"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "behavior": null,
+                        "id": "7r5i93",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [],
+                "features": {},
+                "annotation": null,
+                "id": "eq0c5k",
+                "type": "node:storage",
+                "sourceId": null,
+                "targetId": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 168,
+                    "y": 28.999999999999996
+                },
+                "size": {
+                    "width": 124,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Confirm Location",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "7qzsya",
+                        "labelTypeValueId": "csbgwk"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 28
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "behavior": null,
+                        "id": "1dmj5",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 10.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "behavior": null,
+                        "id": "2qr1s",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 120.5,
+                            "y": 20.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward location,consent\nset AccessRights.TrackingService",
+                        "features": {},
+                        "id": "y44ipi",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [],
+                "features": {},
+                "annotation": {
+                    "message": "PropagatedLabels:\nAccessRights.User\nAccessRights.TrackingService\n",
+                    "icon": "tag",
+                    "color": "#FFFFFF"
+                },
+                "id": "yeuq7e",
+                "type": "node:function",
+                "sourceId": null,
+                "targetId": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 81,
+                        "y": 52.04166666666666
+                    },
+                    {
+                        "x": 101,
+                        "y": 52.041666666666664
+                    },
+                    {
+                        "x": 101,
+                        "y": 57.49999999999999
+                    },
+                    {
+                        "x": 141,
+                        "y": 57.49999999999999
+                    },
+                    {
+                        "x": 141,
+                        "y": 60.83333333333332
+                    },
+                    {
+                        "x": 161,
+                        "y": 60.83333333333333
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "consent",
+                "features": {},
+                "labels": null,
+                "ports": null,
+                "id": "45flcd",
+                "type": "edge:arrow",
+                "sourceId": "6mwcw",
+                "targetId": "1dmj5",
+                "annotation": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 81,
+                        "y": 39.79166666666666
+                    },
+                    {
+                        "x": 101,
+                        "y": 39.79166666666666
+                    },
+                    {
+                        "x": 101,
+                        "y": 45.87499999999999
+                    },
+                    {
+                        "x": 141,
+                        "y": 45.87499999999999
+                    },
+                    {
+                        "x": 141,
+                        "y": 43.166666666666664
+                    },
+                    {
+                        "x": 161,
+                        "y": 43.166666666666664
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "location",
+                "features": {},
+                "labels": null,
+                "ports": null,
+                "id": "dr89pb",
+                "type": "edge:arrow",
+                "sourceId": "nb83mj",
+                "targetId": "2qr1s",
+                "annotation": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 366,
+                    "y": 28.999999999999996
+                },
+                "size": {
+                    "width": 115,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Record Location",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "7qzsya",
+                        "labelTypeValueId": "o3fxk"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 20.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "behavior": null,
+                        "id": "5eka79",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 111.5,
+                            "y": 20.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward location",
+                        "features": {},
+                        "id": "qs083c",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [],
+                "features": {},
+                "annotation": {
+                    "message": "PropagatedLabels:\nAccessRights.User\nAccessRights.TrackingService\n",
+                    "icon": "tag",
+                    "color": "#FFFFFF"
+                },
+                "id": "bgbt0r",
+                "type": "node:function",
+                "sourceId": null,
+                "targetId": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 299,
+                        "y": 52
+                    },
+                    {
+                        "x": 359,
+                        "y": 52
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "location",
+                "features": {},
+                "labels": null,
+                "ports": null,
+                "id": "s5scec",
+                "type": "edge:arrow",
+                "sourceId": "y44ipi",
+                "targetId": "5eka79",
+                "annotation": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 488,
+                        "y": 52
+                    },
+                    {
+                        "x": 548,
+                        "y": 52
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "location",
+                "features": {},
+                "labels": null,
+                "ports": null,
+                "id": "04qtap",
+                "type": "edge:arrow",
+                "sourceId": "qs083c",
+                "targetId": "qhr9j6",
+                "annotation": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 749,
+                    "y": 28.999999999999996
+                },
+                "size": {
+                    "width": 134,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Calculate Distance",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "7qzsya",
+                        "labelTypeValueId": "o3fxk"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 20.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "behavior": null,
+                        "id": "wmhqbt",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 130.5,
+                            "y": 20.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward locations",
+                        "features": {},
+                        "id": "0lojk",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [],
+                "features": {},
+                "annotation": {
+                    "message": "PropagatedLabels:\nAccessRights.User\nAccessRights.TrackingService\n",
+                    "icon": "tag",
+                    "color": "#FFFFFF"
+                },
+                "id": "9ok0ye",
+                "type": "node:function",
+                "sourceId": null,
+                "targetId": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 682,
+                        "y": 52
+                    },
+                    {
+                        "x": 742,
+                        "y": 52
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "locations",
+                "features": {},
+                "labels": null,
+                "ports": null,
+                "id": "d7tt04",
+                "type": "edge:arrow",
+                "sourceId": "i3cec88",
+                "targetId": "wmhqbt",
+                "annotation": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 967,
+                    "y": 12
+                },
+                "size": {
+                    "width": 127,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Confirm Distance",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "7qzsya",
+                        "labelTypeValueId": "o3fxk"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 28
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "behavior": null,
+                        "id": "t3cfj6",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 10.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "behavior": null,
+                        "id": "bhm0qk",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 123.5,
+                            "y": 20.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward distance,consent\nset AccessRights.DistanceTracker",
+                        "features": {},
+                        "id": "ec16ek",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [],
+                "features": {},
+                "annotation": {
+                    "message": "PropagatedLabels:\nAccessRights.User\nAccessRights.TrackingService\nAccessRights.DistanceTracker\n",
+                    "icon": "tag",
+                    "color": "#FFFFFF"
+                },
+                "id": "7jq43h",
+                "type": "node:function",
+                "sourceId": null,
+                "targetId": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 890,
+                        "y": 52
+                    },
+                    {
+                        "x": 940,
+                        "y": 51.99999999999999
+                    },
+                    {
+                        "x": 940,
+                        "y": 43.83333333333333
+                    },
+                    {
+                        "x": 960,
+                        "y": 43.83333333333333
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "distance",
+                "features": {},
+                "labels": null,
+                "ports": null,
+                "id": "yk17zj",
+                "type": "edge:arrow",
+                "sourceId": "0lojk",
+                "targetId": "t3cfj6",
+                "annotation": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 81,
+                        "y": 27.54166666666666
+                    },
+                    {
+                        "x": 101,
+                        "y": 27.54166666666666
+                    },
+                    {
+                        "x": 101,
+                        "y": 17.999999999999996
+                    },
+                    {
+                        "x": 940,
+                        "y": 17.999999999999996
+                    },
+                    {
+                        "x": 940,
+                        "y": 26.166666666666664
+                    },
+                    {
+                        "x": 960,
+                        "y": 26.166666666666664
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "consent",
+                "features": {},
+                "labels": null,
+                "ports": null,
+                "id": "xzzdl9",
+                "type": "edge:arrow",
+                "sourceId": "lsyc9l",
+                "targetId": "bhm0qk",
+                "annotation": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1168,
+                    "y": 12
+                },
+                "size": {
+                    "width": 118,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": true,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Record Distance",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "7qzsya",
+                        "labelTypeValueId": "iao8e"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 20.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "behavior": null,
+                        "id": "466m7",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 114.5,
+                            "y": 20.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward distance",
+                        "features": {},
+                        "id": "n975iu",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [],
+                "features": {},
+                "annotation": {
+                    "message": "PropagatedLabels:\nAccessRights.User\nAccessRights.TrackingService\nAccessRights.DistanceTracker\n",
+                    "icon": "tag",
+                    "color": "#FFFFFF"
+                },
+                "id": "d6mr08",
+                "type": "node:function",
+                "sourceId": null,
+                "targetId": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1101,
+                        "y": 35
+                    },
+                    {
+                        "x": 1161,
+                        "y": 35
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "distance",
+                "features": {},
+                "labels": null,
+                "ports": null,
+                "id": "e3hgbh",
+                "type": "edge:arrow",
+                "sourceId": "ec16ek",
+                "targetId": "466m7",
+                "annotation": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1293,
+                        "y": 35
+                    },
+                    {
+                        "x": 1353,
+                        "y": 35
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "distance",
+                "features": {},
+                "labels": null,
+                "ports": null,
+                "id": "gmohjk",
+                "type": "edge:arrow",
+                "sourceId": "n975iu",
+                "targetId": "7r5i93",
+                "annotation": null,
+                "children": []
+            }
+        ]
+    },
+    "labelTypes": [
+        {
+            "id": "7qzsya",
+            "name": "Roles",
+            "values": [
+                {
+                    "id": "csbgwk",
+                    "text": "User"
+                },
+                {
+                    "id": "o3fxk",
+                    "text": "TrackingService"
+                },
+                {
+                    "id": "iao8e",
+                    "text": "DistanceTracker"
+                }
+            ]
+        },
+        {
+            "id": "gejc1c",
+            "name": "AccessRights",
+            "values": [
+                {
+                    "id": "mfblx",
+                    "text": "User"
+                },
+                {
+                    "id": "ligizb",
+                    "text": "TrackingService"
+                },
+                {
+                    "id": "scgw5g",
+                    "text": "DistanceTracker"
+                }
+            ]
+        }
+    ],
+    "constraints": [
+        {
+            "name": "DistanceTrackerSecurity",
+            "constraint": "data !AccessRights.DistanceTracker neverFlows vertex Roles.DistanceTracker"
+        }
+    ],
+    "mode": "edit",
+    "version": 1
+}

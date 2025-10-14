@@ -3,7 +3,8 @@ name: Build Updatesite for Nightly
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches:
+      - main
   schedule:
     - cron: '0 2 * * *' # run nightly at 2:00 am
 

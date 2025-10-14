@@ -3,14 +3,14 @@
         "canvasBounds": {
             "x": 0,
             "y": 0,
-            "width": 2333.75,
-            "height": 1168.75
+            "width": 2144,
+            "height": 1044.0833740234375
         },
         "scroll": {
-            "x": 0,
-            "y": 0
+            "x": -63,
+            "y": -368.7278806487126
         },
-        "zoom": 1,
+        "zoom": 1.2663910218546959,
         "position": {
             "x": 0,
             "y": 0
@@ -37,6 +37,7 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "User",
+                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "7qzsya",
@@ -109,7 +110,7 @@
                         "message": "Propagated: ClassificationLevel.UserTrackingService, ClassificationLevel.User, ClassificationLevel.UserTrackingService",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 508778012
+                        "tfg": 134487137
                     }
                 ],
                 "features": {},
@@ -131,6 +132,7 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Location Store",
+                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "7qzsya",
@@ -183,13 +185,13 @@
                         "message": "Propagated: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 508778012
+                        "tfg": 134487137
                     },
                     {
                         "message": "Incoming: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 508778012
+                        "tfg": 134487137
                     }
                 ],
                 "features": {},
@@ -211,6 +213,7 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Distance Store",
+                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "7qzsya",
@@ -244,7 +247,7 @@
                         "message": "Incoming: ClassificationLevel.OnlyDistance",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 508778012
+                        "tfg": 134487137
                     }
                 ],
                 "features": {},
@@ -266,6 +269,7 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Record Distance",
+                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "7qzsya",
@@ -318,13 +322,13 @@
                         "message": "Propagated: ClassificationLevel.OnlyDistance",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 508778012
+                        "tfg": 134487137
                     },
                     {
                         "message": "Incoming: ClassificationLevel.OnlyDistance",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 508778012
+                        "tfg": 134487137
                     }
                 ],
                 "features": {},
@@ -362,6 +366,7 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Confirm Distance",
+                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "7qzsya",
@@ -418,7 +423,7 @@
                         "selected": false,
                         "hoverFeedback": false,
                         "opacity": 1,
-                        "behavior": "forward distance,consent\nunset ClassificationLevel.User\nunset ClassificationLevel.UserTrackingService\nset ClassificationLevel.OnlyDistance",
+                        "behavior": "unset ClassificationLevel.User\nunset ClassificationLevel.UserTrackingService\nset ClassificationLevel.OnlyDistance\nforward distance,consent",
                         "features": {},
                         "id": "ec16ek",
                         "type": "port:dfd-output",
@@ -432,13 +437,13 @@
                         "message": "Propagated: ClassificationLevel.OnlyDistance",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 508778012
+                        "tfg": 134487137
                     },
                     {
-                        "message": "Incoming: ClassificationLevel.UserTrackingService, ClassificationLevel.User, ClassificationLevel.UserTrackingService",
+                        "message": "Incoming: ClassificationLevel.User, ClassificationLevel.UserTrackingService, ClassificationLevel.UserTrackingService",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 508778012
+                        "tfg": 134487137
                     }
                 ],
                 "features": {},
@@ -463,22 +468,6 @@
                 "children": []
             },
             {
-                "routingPoints": [],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "distance",
-                "features": {},
-                "id": "e3hgbh",
-                "type": "edge:arrow",
-                "sourceId": "ec16ek",
-                "targetId": "466m7",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
                 "position": {
                     "x": 815,
                     "y": 28.999999999999996
@@ -492,6 +481,7 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Calculate Distance",
+                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "7qzsya",
@@ -544,13 +534,13 @@
                         "message": "Propagated: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 508778012
+                        "tfg": 134487137
                     },
                     {
                         "message": "Incoming: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 508778012
+                        "tfg": 134487137
                     }
                 ],
                 "features": {},
@@ -604,6 +594,7 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Record Location",
+                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "7qzsya",
@@ -656,13 +647,13 @@
                         "message": "Propagated: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 508778012
+                        "tfg": 134487137
                     },
                     {
                         "message": "Incoming: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 508778012
+                        "tfg": 134487137
                     }
                 ],
                 "features": {},
@@ -700,6 +691,7 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Confirm Location",
+                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "7qzsya",
@@ -770,13 +762,13 @@
                         "message": "Propagated: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 508778012
+                        "tfg": 134487137
                     },
                     {
-                        "message": "Incoming: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
+                        "message": "Incoming: ClassificationLevel.UserTrackingService, ClassificationLevel.User",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 508778012
+                        "tfg": 134487137
                     }
                 ],
                 "features": {},
@@ -827,6 +819,22 @@
                 "type": "edge:arrow",
                 "sourceId": "y44ipi",
                 "targetId": "5eka79",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "distance",
+                "features": {},
+                "id": "e3hgbh",
+                "type": "edge:arrow",
+                "sourceId": "ec16ek",
+                "targetId": "466m7",
                 "labels": null,
                 "ports": null,
                 "annotations": null,

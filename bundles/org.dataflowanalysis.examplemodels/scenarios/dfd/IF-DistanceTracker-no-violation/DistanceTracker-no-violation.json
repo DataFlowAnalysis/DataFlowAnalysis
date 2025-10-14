@@ -7,10 +7,10 @@
             "height": 1044.0833740234375
         },
         "scroll": {
-            "x": -63,
-            "y": -368.7278806487126
+            "x": 0,
+            "y": 0
         },
-        "zoom": 1.2663910218546959,
+        "zoom": 1,
         "position": {
             "x": 0,
             "y": 0
@@ -37,7 +37,6 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "User",
-                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "7qzsya",
@@ -107,10 +106,10 @@
                 "minimumWidth": 50,
                 "annotations": [
                     {
-                        "message": "Propagated: ClassificationLevel.UserTrackingService, ClassificationLevel.User, ClassificationLevel.UserTrackingService",
+                        "message": "Propagated: ClassificationLevel.User, ClassificationLevel.UserTrackingService, ClassificationLevel.UserTrackingService",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 134487137
+                        "tfg": 296763836
                     }
                 ],
                 "features": {},
@@ -132,7 +131,6 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Location Store",
-                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "7qzsya",
@@ -185,13 +183,13 @@
                         "message": "Propagated: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 134487137
+                        "tfg": 296763836
                     },
                     {
                         "message": "Incoming: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 134487137
+                        "tfg": 296763836
                     }
                 ],
                 "features": {},
@@ -213,7 +211,6 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Distance Store",
-                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "7qzsya",
@@ -247,7 +244,7 @@
                         "message": "Incoming: ClassificationLevel.OnlyDistance",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 134487137
+                        "tfg": 296763836
                     }
                 ],
                 "features": {},
@@ -269,7 +266,6 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Record Distance",
-                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "7qzsya",
@@ -322,13 +318,13 @@
                         "message": "Propagated: ClassificationLevel.OnlyDistance",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 134487137
+                        "tfg": 296763836
                     },
                     {
                         "message": "Incoming: ClassificationLevel.OnlyDistance",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 134487137
+                        "tfg": 296763836
                     }
                 ],
                 "features": {},
@@ -366,7 +362,6 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Confirm Distance",
-                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "7qzsya",
@@ -423,7 +418,7 @@
                         "selected": false,
                         "hoverFeedback": false,
                         "opacity": 1,
-                        "behavior": "unset ClassificationLevel.User\nunset ClassificationLevel.UserTrackingService\nset ClassificationLevel.OnlyDistance\nforward distance,consent",
+                        "behavior": "forward distance,consent\nunset ClassificationLevel.User\nunset ClassificationLevel.UserTrackingService\nset ClassificationLevel.OnlyDistance",
                         "features": {},
                         "id": "ec16ek",
                         "type": "port:dfd-output",
@@ -437,13 +432,13 @@
                         "message": "Propagated: ClassificationLevel.OnlyDistance",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 134487137
+                        "tfg": 296763836
                     },
                     {
                         "message": "Incoming: ClassificationLevel.User, ClassificationLevel.UserTrackingService, ClassificationLevel.UserTrackingService",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 134487137
+                        "tfg": 296763836
                     }
                 ],
                 "features": {},
@@ -481,7 +476,6 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Calculate Distance",
-                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "7qzsya",
@@ -534,13 +528,13 @@
                         "message": "Propagated: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 134487137
+                        "tfg": 296763836
                     },
                     {
                         "message": "Incoming: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 134487137
+                        "tfg": 296763836
                     }
                 ],
                 "features": {},
@@ -594,7 +588,6 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Record Location",
-                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "7qzsya",
@@ -647,13 +640,13 @@
                         "message": "Propagated: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 134487137
+                        "tfg": 296763836
                     },
                     {
                         "message": "Incoming: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 134487137
+                        "tfg": 296763836
                     }
                 ],
                 "features": {},
@@ -691,7 +684,6 @@
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Confirm Location",
-                "color": "var(--color-primary)",
                 "labels": [
                     {
                         "labelTypeId": "7qzsya",
@@ -762,13 +754,13 @@
                         "message": "Propagated: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 134487137
+                        "tfg": 296763836
                     },
                     {
-                        "message": "Incoming: ClassificationLevel.UserTrackingService, ClassificationLevel.User",
+                        "message": "Incoming: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
                         "icon": "tag",
                         "color": "#FFFFFF",
-                        "tfg": 134487137
+                        "tfg": 296763836
                     }
                 ],
                 "features": {},

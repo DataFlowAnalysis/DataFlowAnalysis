@@ -20,7 +20,7 @@ public class IFDistanceTrackerNoViolationResult implements DFDExampleModelResult
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
         return List.of(new ConstraintDSL().ofData()
-                .withoutLabel("ClassificationLevel", "UserTrackingService")
+                .withLabel("ClassificationLevel", "UserTrackingService")
                 .neverFlows()
                 .toVertex()
                 .withCharacteristic("ClearanceLevel", "OnlyDistance")

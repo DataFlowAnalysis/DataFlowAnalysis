@@ -1,0 +1,883 @@
+{
+    "model": {
+        "canvasBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 2144,
+            "height": 1044.0833740234375
+        },
+        "scroll": {
+            "x": 0,
+            "y": 0
+        },
+        "zoom": 1,
+        "position": {
+            "x": 0,
+            "y": 0
+        },
+        "size": {
+            "width": -1,
+            "height": -1
+        },
+        "features": {},
+        "type": "graph",
+        "id": "root",
+        "children": [
+            {
+                "position": {
+                    "x": 12,
+                    "y": 18.79166666666666
+                },
+                "size": {
+                    "width": 85,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "User",
+                "labels": [
+                    {
+                        "labelTypeId": "7qzsya",
+                        "labelTypeValueId": "csbgwk"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 81.5,
+                            "y": 29.75
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "set ClassificationLevel.User",
+                        "features": {},
+                        "id": "nb83mj",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 81.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "set ClassificationLevel.UserTrackingService",
+                        "features": {},
+                        "id": "6mwcw",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 81.5,
+                            "y": 5.25
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "set ClassificationLevel.UserTrackingService",
+                        "features": {},
+                        "id": "lsyc9l",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.User, ClassificationLevel.UserTrackingService, ClassificationLevel.UserTrackingService",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 296763836
+                    }
+                ],
+                "features": {},
+                "id": "sbw62",
+                "type": "node:input-output",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 597,
+                    "y": 30.999999999999996
+                },
+                "size": {
+                    "width": 144,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Location Store",
+                "labels": [
+                    {
+                        "labelTypeId": "7qzsya",
+                        "labelTypeValueId": "o3fxk"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "qhr9j6",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 140.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward location",
+                        "features": {},
+                        "id": "i3cec88",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 296763836
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 296763836
+                    }
+                ],
+                "features": {},
+                "id": "9ysgxs",
+                "type": "node:storage",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1433,
+                    "y": 14
+                },
+                "size": {
+                    "width": 122,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Distance Store",
+                "labels": [
+                    {
+                        "labelTypeId": "7qzsya",
+                        "labelTypeValueId": "iao8e"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "7r5i93",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Incoming: ClassificationLevel.OnlyDistance",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 296763836
+                    }
+                ],
+                "features": {},
+                "id": "eq0c5k",
+                "type": "node:storage",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1241,
+                    "y": 12
+                },
+                "size": {
+                    "width": 118,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Record Distance",
+                "labels": [
+                    {
+                        "labelTypeId": "7qzsya",
+                        "labelTypeValueId": "iao8e"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 20.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "466m7",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 114.5,
+                            "y": 20.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward distance",
+                        "features": {},
+                        "id": "n975iu",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.OnlyDistance",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 296763836
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.OnlyDistance",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 296763836
+                    }
+                ],
+                "features": {},
+                "id": "d6mr08",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "distance",
+                "features": {},
+                "id": "gmohjk",
+                "type": "edge:arrow",
+                "sourceId": "n975iu",
+                "targetId": "7r5i93",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1033,
+                    "y": 12
+                },
+                "size": {
+                    "width": 134,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Confirm Distance",
+                "labels": [
+                    {
+                        "labelTypeId": "7qzsya",
+                        "labelTypeValueId": "o3fxk"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 28
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "t3cfj6",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 10.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "bhm0qk",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 130.5,
+                            "y": 20.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward distance,consent\nunset ClassificationLevel.User\nunset ClassificationLevel.UserTrackingService\nset ClassificationLevel.OnlyDistance",
+                        "features": {},
+                        "id": "ec16ek",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.OnlyDistance",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 296763836
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.User, ClassificationLevel.UserTrackingService, ClassificationLevel.UserTrackingService",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 296763836
+                    }
+                ],
+                "features": {},
+                "id": "7jq43h",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "consent",
+                "features": {},
+                "id": "xzzdl9",
+                "type": "edge:arrow",
+                "sourceId": "lsyc9l",
+                "targetId": "bhm0qk",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 815,
+                    "y": 28.999999999999996
+                },
+                "size": {
+                    "width": 134,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Calculate Distance",
+                "labels": [
+                    {
+                        "labelTypeId": "7qzsya",
+                        "labelTypeValueId": "o3fxk"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 20.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "wmhqbt",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 130.5,
+                            "y": 20.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward locations",
+                        "features": {},
+                        "id": "0lojk",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 296763836
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 296763836
+                    }
+                ],
+                "features": {},
+                "id": "9ok0ye",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "locations",
+                "features": {},
+                "id": "d7tt04",
+                "type": "edge:arrow",
+                "sourceId": "i3cec88",
+                "targetId": "wmhqbt",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "distance",
+                "features": {},
+                "id": "yk17zj",
+                "type": "edge:arrow",
+                "sourceId": "0lojk",
+                "targetId": "t3cfj6",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 389,
+                    "y": 28.999999999999996
+                },
+                "size": {
+                    "width": 134,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Record Location",
+                "labels": [
+                    {
+                        "labelTypeId": "7qzsya",
+                        "labelTypeValueId": "o3fxk"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 20.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "5eka79",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 130.5,
+                            "y": 20.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward location",
+                        "features": {},
+                        "id": "qs083c",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 296763836
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 296763836
+                    }
+                ],
+                "features": {},
+                "id": "bgbt0r",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "location",
+                "features": {},
+                "id": "04qtap",
+                "type": "edge:arrow",
+                "sourceId": "qs083c",
+                "targetId": "qhr9j6",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 191,
+                    "y": 28.999999999999996
+                },
+                "size": {
+                    "width": 124,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Confirm Location",
+                "labels": [
+                    {
+                        "labelTypeId": "7qzsya",
+                        "labelTypeValueId": "csbgwk"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 28
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "2qr1s",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 10.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "1dmj5",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 120.5,
+                            "y": 20.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward location,consent\nset ClassificationLevel.UserTrackingService",
+                        "features": {},
+                        "id": "y44ipi",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 296763836
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.User, ClassificationLevel.UserTrackingService",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 296763836
+                    }
+                ],
+                "features": {},
+                "id": "yeuq7e",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "location",
+                "features": {},
+                "id": "dr89pb",
+                "type": "edge:arrow",
+                "sourceId": "nb83mj",
+                "targetId": "2qr1s",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "consent",
+                "features": {},
+                "id": "45flcd",
+                "type": "edge:arrow",
+                "sourceId": "6mwcw",
+                "targetId": "1dmj5",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "location",
+                "features": {},
+                "id": "s5scec",
+                "type": "edge:arrow",
+                "sourceId": "y44ipi",
+                "targetId": "5eka79",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "distance",
+                "features": {},
+                "id": "e3hgbh",
+                "type": "edge:arrow",
+                "sourceId": "ec16ek",
+                "targetId": "466m7",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            }
+        ]
+    },
+    "labelTypes": [
+        {
+            "id": "7qzsya",
+            "name": "ClearanceLevel",
+            "values": [
+                {
+                    "id": "csbgwk",
+                    "text": "User"
+                },
+                {
+                    "id": "o3fxk",
+                    "text": "UserTrackingService"
+                },
+                {
+                    "id": "iao8e",
+                    "text": "OnlyDistance"
+                }
+            ]
+        },
+        {
+            "id": "gejc1c",
+            "name": "ClassificationLevel",
+            "values": [
+                {
+                    "id": "mfblx",
+                    "text": "User"
+                },
+                {
+                    "id": "ligizb",
+                    "text": "UserTrackingService"
+                },
+                {
+                    "id": "py0p7n",
+                    "text": "OnlyDistance"
+                }
+            ]
+        }
+    ],
+    "constraints": [
+        {
+            "name": "DistanceConstraint",
+            "constraint": "data ClassificationLevel.UserTrackingService neverFlows vertex ClearanceLevel.OnlyDistance"
+        }
+    ],
+    "mode": "edit",
+    "version": 1
+}

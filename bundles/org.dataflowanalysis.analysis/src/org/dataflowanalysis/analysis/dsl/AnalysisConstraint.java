@@ -236,11 +236,57 @@ public class AnalysisConstraint {
         if (!string.empty()) {
             return ParseResult.error("Unexpected symbols: " + string.getString());
         }
+        if (!vertexSourceSelectors.getSelectors()
+                .isEmpty()
+                && !vertexDestinationSelectors.getSelectors()
+                        .isEmpty()
+                && dataSourceSelectors.getSelectors()
+                        .isEmpty()) {
+            return ParseResult.error("Cannot create DSL constraint from purely vertex selectors! This behavior is not implemented yet!");
+        }
         return ParseResult.ok(
                 new AnalysisConstraint(name, vertexSourceSelectors, dataSourceSelectors, vertexDestinationSelectors, conditionalSelectors, context));
     }
 
+    /**
+     * Returns the name of the analysis constraint
+     * <p/>
+     * If not specified, the analysis constraint will be called "default"
+     * @return Returns the name of the analysis constraint
+     */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Returns the data source selectors of the analysis constraint
+     * @return Returns the saved data source selectors
+     */
+    public DataSourceSelectors getDataSourceSelectors() {
+        return dataSourceSelectors;
+    }
+
+    /**
+     * Returns the vertex source selectors of the analysis constraint
+     * @return Returns the saved vertex source selectors
+     */
+    public VertexSourceSelectors getVertexSourceSelectors() {
+        return vertexSourceSelectors;
+    }
+
+    /**
+     * Returns the vertex destination selectors of the analysis constraint
+     * @return Returns the saved vertex destination selectors
+     */
+    public VertexDestinationSelectors getVertexDestinationSelectors() {
+        return vertexDestinationSelectors;
+    }
+
+    /**
+     * Returns the conditional selectors of the analysis constraint
+     * @return Returns the saved conditional selectors
+     */
+    public ConditionalSelectors getConditionalSelectors() {
+        return conditionalSelectors;
     }
 }

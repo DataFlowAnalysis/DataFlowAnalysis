@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
+import org.dataflowanalysis.analysis.dfd.dsl.DFDDSLContextProvider;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.AnalysisQuery;
 import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
@@ -28,6 +29,7 @@ import org.dataflowanalysis.analysis.tests.integration.constraint.data.Constrain
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 import org.junit.jupiter.api.Test;
+import tools.mdsd.modelingfoundations.identifier.NamedElement;
 
 public class DSLResultTest extends BaseTest {
     private static final Logger logger = Logger.getLogger(DSLResultTest.class);
@@ -165,6 +167,46 @@ public class DSLResultTest extends BaseTest {
         assertEquals(constraint.toString(), AnalysisConstraint.fromString(new StringView(constraint.toString()))
                 .getResult()
                 .toString());
+    }
+
+    @Test
+    public void testNameSelector() {
+        AnalysisConstraint constraint = new ConstraintDSL().ofData()
+                .neverFlows()
+                .toVertex()
+                .withVertexName("DatabaseLoadInventory")
+                .create();
+
+        FlowGraphCollection flowGraph = onlineShopAnalysis.findFlowGraphs();
+        flowGraph.evaluate();
+        List<DSLResult> result = constraint.findViolations(flowGraph);
+        List<? extends AbstractVertex<?>> violations = result.stream()
+                .map(DSLResult::getMatchedVertices)
+                .flatMap(List::stream)
+                .toList();
+        for (AbstractVertex<?> vertex : violations) {
+            if (!(vertex instanceof NamedElement namedElement)) {
+                continue;
+            }
+            if (namedElement.getEntityName()
+                    .equalsIgnoreCase("DatabaseLoadInventory")) {
+                continue;
+            }
+            logger.error("Should not have matched vertex: " + vertex.createPrintableNodeInformation());
+        }
+        logger.setLevel(Level.TRACE);
+        violations.forEach(vertex -> logger.trace(vertex.createPrintableNodeInformation()));
+        assertEquals(2 * 2, violations.size());
+        assertEquals(constraint.toString(), AnalysisConstraint.fromString(new StringView(constraint.toString()))
+                .getResult()
+                .toString());
+    }
+
+    @Test
+    public void cannotParseOnlyVertexSelectors() {
+        ParseResult<AnalysisConstraint> constraint = AnalysisConstraint
+                .fromString(new StringView("- Test: vertex type PROCESS neverFlows vertex type STORE"), new DFDDSLContextProvider());
+        assertTrue(constraint.failed());
     }
 
     private void evaluateAnalysis(AnalysisConstraint constraint, DataFlowConfidentialityAnalysis analysis, List<ConstraintData> expectedResults) {

@@ -78,6 +78,11 @@ export default withMermaid({
                     text: "Constraint DSL",
                     link: "/wiki/dsl/",
                   },
+                  {
+                    text: "Enhanced Visualization",
+                    link: "/wiki/onlineeditor/visualization",
+                  },
+
                 ],
               },
               {
@@ -125,6 +130,10 @@ export default withMermaid({
           {
             text: "Overview",
             link: "/examples/",
+          },
+          {
+            text: "DSL",
+            link: "/examples/dsl",
           },
         ],
       },

@@ -77,6 +77,13 @@ public class VertexTypeSelector extends VertexSelector {
                 .isEmpty()) {
             return ParseResult.error("Cannot parse vertex types without context provider!");
         }
+        if (inverted) {
+            string.advance(DSL_INVERTED_SYMBOL.length());
+        }
+        if (!string.startsWith(DSL_KEYWORD)) {
+            return string.expect(DSL_KEYWORD);
+        }
+        string.advance(DSL_KEYWORD.length() + 1);
         ParseResult<VertexType> vertexType = context.getContextProvider()
                 .get()
                 .vertexTypeFromString(string);
@@ -88,5 +95,13 @@ public class VertexTypeSelector extends VertexSelector {
             string.advance(DSL_INVERTED_SYMBOL.length());
         string.advance(1);
         return ParseResult.ok(new VertexTypeSelector(context, vertexType.getResult(), inverted));
+    }
+
+    /**
+     * Returns the {@link VertexType} that is matched by the selector
+     * @return Returns the stored {@link VertexType}
+     */
+    public VertexType getVertexType() {
+        return vertexType;
     }
 }

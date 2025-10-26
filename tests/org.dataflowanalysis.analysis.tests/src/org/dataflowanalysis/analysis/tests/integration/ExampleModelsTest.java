@@ -142,40 +142,54 @@ public class ExampleModelsTest {
                 logger.error(String.format("Found the following violations: %s", violatingVertices));
                 fail(String.format("Could not find vertex with id: %s", expectedViolation.getIdentifier()));
             }
-
-            List<ExpectedCharacteristic> missingNodeCharacteristics = expectedViolation.hasNodeCharacteristic(violatingVertex.get()
-                    .getAllVertexCharacteristics());
-            if (!missingNodeCharacteristics.isEmpty()) {
-                logger.error(String.format("Vertex %s is missing the following node characteristics: %s", violatingVertex.get(),
-                        missingNodeCharacteristics));
-                fail(String.format("Vertex %s is missing the following node characteristics: %s", violatingVertex.get(), missingNodeCharacteristics));
+            testViolations(violatingVertex.get(), expectedViolation);
+        }
+        for (DSLResult violatingFlowGraph : violatingVertices) {
+            int transposeFlowGraphIndex = flowGraphs.getTransposeFlowGraphs()
+                    .indexOf(violatingFlowGraph.getTransposeFlowGraph());
+            for (var violatingVertex : violatingFlowGraph.getMatchedVertices()) {
+                Optional<ExpectedViolation> expectedViolation = exampleModelResult.getExpectedViolations()
+                        .stream()
+                        .filter(it -> it.references(violatingVertex, transposeFlowGraphIndex))
+                        .findAny();
+                if (expectedViolation.isEmpty()) {
+                    logger.error(String.format("Could not find expected violation for vertex with id: %s", violatingVertex.toString()));
+                    logger.error(String.format("Found the following violations: %s", violatingVertices));
+                    logger.error(String.format("Expected the following violations: %s", exampleModelResult.getExpectedViolations()));
+                    fail(String.format("Could not find expected violation for vertex with id: %s", violatingVertex.toString()));
+                }
+                testViolations(violatingVertex, expectedViolation.get());
             }
+        }
+    }
 
-            var incorrectNodeCharacteristics = expectedViolation.hasIncorrectNodeCharacteristics(violatingVertex.get()
-                    .getAllVertexCharacteristics());
-            if (!incorrectNodeCharacteristics.isEmpty()) {
-                logger.error(String.format("Vertex %s has the following incorrect node characteristics: %s", violatingVertex.get(),
-                        incorrectNodeCharacteristics));
-                fail(String.format("Vertex %s has the following incorrect node characteristics: %s", violatingVertex.get(),
-                        incorrectNodeCharacteristics));
-            }
+    private void testViolations(AbstractVertex<?> violatingVertex, ExpectedViolation expectedViolation) {
+        List<ExpectedCharacteristic> missingNodeCharacteristics = expectedViolation
+                .hasNodeCharacteristic(violatingVertex.getAllVertexCharacteristics());
+        if (!missingNodeCharacteristics.isEmpty()) {
+            logger.error(String.format("Vertex %s is missing the following node characteristics: %s", violatingVertex, missingNodeCharacteristics));
+            fail(String.format("Vertex %s is missing the following node characteristics: %s", violatingVertex, missingNodeCharacteristics));
+        }
 
-            Map<String, List<ExpectedCharacteristic>> missingDataCharacteristics = expectedViolation.hasDataCharacteristics(violatingVertex.get()
-                    .getAllDataCharacteristics());
-            if (!missingDataCharacteristics.isEmpty()) {
-                logger.error(String.format("Vertex %s is missing the following data characteristics: %s", violatingVertex.get(),
-                        missingDataCharacteristics));
-                fail(String.format("Vertex %s is missing the following data characteristics: %s", violatingVertex.get(), missingDataCharacteristics));
-            }
+        var incorrectNodeCharacteristics = expectedViolation.hasIncorrectNodeCharacteristics(violatingVertex.getAllVertexCharacteristics());
+        if (!incorrectNodeCharacteristics.isEmpty()) {
+            logger.error(
+                    String.format("Vertex %s has the following incorrect node characteristics: %s", violatingVertex, incorrectNodeCharacteristics));
+            fail(String.format("Vertex %s has the following incorrect node characteristics: %s", violatingVertex, incorrectNodeCharacteristics));
+        }
 
-            var incorrectDataCharacteristics = expectedViolation.hasMissingDataCharacteristics(violatingVertex.get()
-                    .getAllDataCharacteristics());
-            if (!incorrectDataCharacteristics.isEmpty()) {
-                logger.error(String.format("Vertex %s has the following incorrect data characteristics: %s", violatingVertex.get(),
-                        incorrectDataCharacteristics));
-                fail(String.format("Vertex %s has the following incorrect data characteristics: %s", violatingVertex.get(),
-                        incorrectDataCharacteristics));
-            }
+        Map<String, List<ExpectedCharacteristic>> missingDataCharacteristics = expectedViolation
+                .hasDataCharacteristics(violatingVertex.getAllDataCharacteristics());
+        if (!missingDataCharacteristics.isEmpty()) {
+            logger.error(String.format("Vertex %s is missing the following data characteristics: %s", violatingVertex, missingDataCharacteristics));
+            fail(String.format("Vertex %s is missing the following data characteristics: %s", violatingVertex, missingDataCharacteristics));
+        }
+
+        var incorrectDataCharacteristics = expectedViolation.hasMissingDataCharacteristics(violatingVertex.getAllDataCharacteristics());
+        if (!incorrectDataCharacteristics.isEmpty()) {
+            logger.error(
+                    String.format("Vertex %s has the following incorrect data characteristics: %s", violatingVertex, incorrectDataCharacteristics));
+            fail(String.format("Vertex %s has the following incorrect data characteristics: %s", violatingVertex, incorrectDataCharacteristics));
         }
     }
 }

@@ -4,6 +4,8 @@ They commonly consist of two parts:
 A set of *source selectors* and a set of *destination selectors*.
 Additionally, one can define some relationships between the two selectors using *conditional selectors*.
 
+For examples, see the [DSL Examples](/examples/dsl).
+
 ## Source Selectors
 A **source selector** describes the origin of a data flow through the system.
 It can select nodes based on their node label or data labels flowing into the node.
@@ -73,6 +75,11 @@ data named secrets
 ## Destination Selectors 
 A **destination selector** describes the destination of a data flow though the system. 
 It selects nodes based on their vertex label or their vertex type.
+::: warning Warning 
+Currently using only vertex selectors for both source and destination is unsupported.
+When you want to match a node based on their vertex attributes, consider using just Vertex Source Selectors.
+If you want to find flows originating at a specific node and arriving at *another* node, see this [issue](https://github.com/DataFlowAnalysis/DataFlowAnalysis/issues/179)
+:::
 
 ### Vertex Selector
 To select nodes based on their label, one can use `vertex <Type>.<Value>` where `<Type>` describes a label type that must be present at a given node and `<Value>` must describe a label value of the defined label type that must be present at the node. 
@@ -82,6 +89,17 @@ For the label `Location` and its values `EU` and `nonEU`, one might want to matc
 For that, one might employ the following **source selector**:
 ```
 vertex Location.nonEU
+```
+:::
+
+### Vertex Name Selector 
+A node can be selected according to it's name in the model, using the `named <Name>` selector, where `<Name>` is the name the vertex should have.
+The specified name cannot contain any spaces.
+Additionally, this selector can be inverted using `!named <Name>`.
+::: tip Example 
+To match all vertices **exactly** named "Database", one might use the following selector: 
+```
+named Database
 ```
 :::
 

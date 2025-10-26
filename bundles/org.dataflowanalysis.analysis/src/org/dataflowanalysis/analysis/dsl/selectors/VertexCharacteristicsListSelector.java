@@ -1,6 +1,7 @@
 package org.dataflowanalysis.analysis.dsl.selectors;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.StringJoiner;
 import org.apache.log4j.Logger;
@@ -168,7 +169,19 @@ public class VertexCharacteristicsListSelector extends VertexSelector {
         return ParseResult.ok(new VertexCharacteristicsListSelector(context, selectors, inverted));
     }
 
+    /**
+     * Returns, whether the variable conditional selector is inverted
+     * @return Returns true, if the variable conditional selector is inverted. Otherwise, this method returns false
+     */
     public boolean isInverted() {
         return inverted;
+    }
+
+    /**
+     * Returns the vertex characteristics stored in the vertex characteristic list selector
+     * @return Returns the {@link CharacteristicsSelectorData} stored in the selector
+     */
+    public List<CharacteristicsSelectorData> getVertexCharacteristics() {
+        return Collections.unmodifiableList(this.vertexCharacteristics);
     }
 }

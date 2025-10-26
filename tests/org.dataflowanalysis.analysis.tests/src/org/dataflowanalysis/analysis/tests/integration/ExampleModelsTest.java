@@ -64,9 +64,9 @@ public class ExampleModelsTest {
     private static Stream<Arguments> provideDFDExampleModelViolations() {
         return Stream.of(Arguments.of(new BranchingResult()), Arguments.of(new OnlineShopResult()), Arguments.of(new SimpleOnlineShopResult()),
                 Arguments.of(new CWANoViolation()), Arguments.of(new VWCariad()), Arguments.of(new CWAPersonalDataViolation()),
-                Arguments.of(new CWARPIViolation()), Arguments.of(new ComponentTesting_CaseStudy()), Arguments.of(new ECUUpdate_CaseStudy()),
-                Arguments.of(new MiniTwit_CaseStudy()), Arguments.of(new Hipaa_CaseStudy()), Arguments.of(new DocProc()),
-                Arguments.of(new AppleWallet()), Arguments.of(new CMA_CaseStudy()));
+                Arguments.of(new CWARPIViolation()), Arguments.of(new ComponentTestingCaseStudy()), Arguments.of(new ECUUpdateCaseStudy()),
+                Arguments.of(new MiniTwitCaseStudy()), Arguments.of(new HipaaCaseStudy()), Arguments.of(new DocProc()),
+                Arguments.of(new AppleWallet()), Arguments.of(new CMACaseStudy()));
     }
 
     @ParameterizedTest

@@ -6,7 +6,7 @@ import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
 import org.dataflowanalysis.examplemodels.results.ExpectedViolation;
 import org.dataflowanalysis.examplemodels.results.dfd.DFDExampleModelResult;
 
-public class ComponentTesting_CaseStudy implements DFDExampleModelResult {
+public class ComponentTestingCaseStudy implements DFDExampleModelResult {
 
     @Override
     public String getBaseFolderName() {

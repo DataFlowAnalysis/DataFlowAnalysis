@@ -6,7 +6,7 @@ import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
 import org.dataflowanalysis.examplemodels.results.ExpectedViolation;
 import org.dataflowanalysis.examplemodels.results.dfd.DFDExampleModelResult;
 
-public class MiniTwit_CaseStudy implements DFDExampleModelResult {
+public class MiniTwitCaseStudy implements DFDExampleModelResult {
 
     @Override
     public String getBaseFolderName() {

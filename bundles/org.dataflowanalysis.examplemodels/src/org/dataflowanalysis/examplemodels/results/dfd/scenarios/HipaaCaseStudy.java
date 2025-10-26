@@ -6,7 +6,7 @@ import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
 import org.dataflowanalysis.examplemodels.results.ExpectedViolation;
 import org.dataflowanalysis.examplemodels.results.dfd.DFDExampleModelResult;
 
-public class Hipaa_CaseStudy implements DFDExampleModelResult {
+public class HipaaCaseStudy implements DFDExampleModelResult {
 
     @Override
     public String getBaseFolderName() {

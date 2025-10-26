@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_Ct0s0YMeEfCvx4l13OBupA">
+  <labelTypes id="d4caqh" entityName="CardholderStatus">
+    <label id="7hos2d" entityName="Authenticated"/>
+    <label id="n0k7vj" entityName="Authorized"/>
+  </labelTypes>
+  <labelTypes id="orrrx5" entityName="Secure">
+    <label id="950inv" entityName="Enclave"/>
+    <label id="xtevhg" entityName="Element"/>
+  </labelTypes>
+  <labelTypes id="7tjpv" entityName="CardInformation">
+    <label id="kf2e49" entityName="Name"/>
+    <label id="dfjj3" entityName="Number"/>
+    <label id="xlh73s" entityName="ExpirationDate"/>
+    <label id="7jtrdj" entityName="CVV"/>
+  </labelTypes>
+  <labelTypes id="eogrtm" entityName="TermsConditions">
+    <label id="uqlnyq" entityName="Accepted"/>
+    <label id="wbjptm" entityName="Normal"/>
+    <label id="700q8q" entityName="Id"/>
+  </labelTypes>
+  <labelTypes id="ra560pn" entityName="DeviceInformation">
+    <label id="4krnt" entityName="Model"/>
+    <label id="aid3tyb" entityName="PhoneNumber"/>
+    <label id="z0gqy" entityName="Location"/>
+  </labelTypes>
+  <labelTypes id="uuramt" entityName="PassFile">
+    <label id="t8aw3v" entityName="PassFile"/>
+  </labelTypes>
+  <labelTypes id="qm9l69" entityName="PaymentData">
+    <label id="zg3dor" entityName="Amount"/>
+    <label id="y1q5w" entityName="Token"/>
+    <label id="3qccpi" entityName="Location"/>
+    <label id="w4b2m9" entityName="Others"/>
+    <label id="mlswql" entityName="Authorization"/>
+  </labelTypes>
+  <labelTypes id="zkrlx7" entityName="Location">
+    <label id="o5y16e" entityName="PointOfSale"/>
+    <label id="sjnkmd" entityName="CardholderDevice"/>
+  </labelTypes>
+  <labelTypes id="qy3p9c" entityName="Tokens">
+    <label id="okrkiu" entityName="OTP"/>
+    <label id="udzht" entityName="PAN"/>
+  </labelTypes>
+  <labelTypes id="kifkmh" entityName="Module">
+    <label id="ezo9u" entityName="TerminalApp"/>
+    <label id="dtoc3f" entityName="AppleServer"/>
+  </labelTypes>
+  <labelTypes id="1odiun" entityName="RequestTypes">
+    <label id="oc5ie" entityName="Authentication"/>
+    <label id="k0vjni" entityName="Authorization"/>
+  </labelTypes>
+  <behavior id="_Ct0s-oMeEfCvx4l13OBupA" entityName="Download Pass File">
+    <outPin id="l854s" entityName="Download Pass File_out_pass_file"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UKIMeEfCvx4l13OBupA" outputPin="l854s" outputLabels="t8aw3v"/>
+  </behavior>
+  <behavior id="_Ct0s_YMeEfCvx4l13OBupA" entityName="Payment Network">
+    <inPin id="knrijg" entityName="Payment Network_in_panpayment_data"/>
+    <inPin id="fng49e" entityName="Payment Network_in_authorization_response"/>
+    <outPin id="7s1u3" entityName="Payment Network_out_authorization_request"/>
+    <outPin id="r2pxcm" entityName="Payment Network_out_authorization_response"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Ct1UHYMeEfCvx4l13OBupA" outputPin="7s1u3" inputPins="knrijg"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UHoMeEfCvx4l13OBupA" outputPin="7s1u3" outputLabels="7jtrdj"/>
+  </behavior>
+  <behavior id="_Ct0tA4MeEfCvx4l13OBupA" entityName="Token Service">
+    <inPin id="rcluu" entityName="Token Service_in_otp"/>
+    <outPin id="6vfxki" entityName="Token Service_out_pan"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UJ4MeEfCvx4l13OBupA" outputPin="6vfxki" outputLabels="udzht"/>
+  </behavior>
+  <behavior id="_Ct0tB4MeEfCvx4l13OBupA" entityName="Cardholder">
+    <inPin id="41yehb" entityName="Cardholder_in_authorization"/>
+    <inPin id="hey53c" entityName="Cardholder_in_terms_and_conditions"/>
+    <outPin id="qxsitr" entityName="Cardholder_out_accepted_terms_and_conditions"/>
+    <outPin id="q7ez3m" entityName="Cardholder_out_authorization"/>
+    <outPin id="4vcx7k" entityName="Cardholder_out_card_information"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UIYMeEfCvx4l13OBupA" outputPin="4vcx7k" outputLabels="kf2e49"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UIoMeEfCvx4l13OBupA" outputPin="4vcx7k" outputLabels="7jtrdj"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UI4MeEfCvx4l13OBupA" outputPin="4vcx7k" outputLabels="xlh73s"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UJIMeEfCvx4l13OBupA" outputPin="4vcx7k" outputLabels="dfjj3"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UJYMeEfCvx4l13OBupA" outputPin="qxsitr" outputLabels="uqlnyq"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Ct1UJoMeEfCvx4l13OBupA" outputPin="q7ez3m" inputPins="41yehb"/>
+  </behavior>
+  <behavior id="_Ct0tDoMeEfCvx4l13OBupA" entityName="User Identification">
+    <inPin id="s2ccni" entityName="User Identification_in_authorization_request"/>
+    <outPin id="9y2ueq" entityName="User Identification_out_authorization"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UC4MeEfCvx4l13OBupA" outputPin="9y2ueq" outputLabels="7hos2d"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UDIMeEfCvx4l13OBupA" outputPin="9y2ueq" outputLabels="n0k7vj"/>
+  </behavior>
+  <behavior id="_Ct0tEoMeEfCvx4l13OBupA" entityName="Apple Server">
+    <inPin id="rr3gmbg" entityName="Apple Server_in_card_information"/>
+    <inPin id="baak9n" entityName="Apple Server_in_terms_and_conditions"/>
+    <inPin id="mr91w" entityName="Apple Server_in_accepted_terms_and_conditions"/>
+    <inPin id="ww8yj" entityName="Apple Server_in_otp"/>
+    <outPin id="ie87h" entityName="Apple Server_out_terms_id"/>
+    <outPin id="qutwtd" entityName="Apple Server_out_cvv"/>
+    <outPin id="zphr0b" entityName="Apple Server_out_terms_and_conditions"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Ct1UDYMeEfCvx4l13OBupA" outputPin="zphr0b" inputPins="baak9n"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UDoMeEfCvx4l13OBupA" outputPin="qutwtd" outputLabels="7jtrdj"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UD4MeEfCvx4l13OBupA" outputPin="ie87h" outputLabels="700q8q"/>
+  </behavior>
+  <behavior id="_Ct0tG4MeEfCvx4l13OBupA" entityName="Check Card">
+    <inPin id="duigh7" entityName="Check Card_in_card_information"/>
+    <outPin id="d3sp0n" entityName="Check Card_out_card_information"/>
+    <outPin id="hqvg" entityName="Check Card_out_terms_and_conditions"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Ct1UH4MeEfCvx4l13OBupA" outputPin="d3sp0n" inputPins="duigh7"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UIIMeEfCvx4l13OBupA" outputPin="hqvg" outputLabels="wbjptm"/>
+  </behavior>
+  <behavior id="_Ct0tIIMeEfCvx4l13OBupA" entityName="NFC Controller">
+    <inPin id="2n55hi" entityName="NFC Controller_in_authorization"/>
+    <inPin id="48yzxl" entityName="NFC Controller_in_payment_data"/>
+    <inPin id="s0jhcr" entityName="NFC Controller_in_otp"/>
+    <outPin id="5epw1" entityName="NFC Controller_out_payment_data"/>
+    <outPin id="4kzg0a" entityName="NFC Controller_out_otp"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Ct1UKYMeEfCvx4l13OBupA" outputPin="5epw1" inputPins="48yzxl"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Ct1UKoMeEfCvx4l13OBupA" outputPin="4kzg0a" inputPins="s0jhcr"/>
+  </behavior>
+  <behavior id="_Ct0tJ4MeEfCvx4l13OBupA" entityName="Payment App">
+    <inPin id="te39g" entityName="Payment App_in_card_informationotp"/>
+  </behavior>
+  <behavior id="_Ct0tKoMeEfCvx4l13OBupA" entityName="NFC Reader App">
+    <inPin id="07xg9q" entityName="NFC Reader App_in_otp"/>
+    <inPin id="x1996l" entityName="NFC Reader App_in_payment_data"/>
+    <outPin id="omcgp" entityName="NFC Reader App_out_payment_data"/>
+    <outPin id="tywswc" entityName="NFC Reader App_out_otp"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Ct1UBIMeEfCvx4l13OBupA" outputPin="tywswc" inputPins="07xg9q"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Ct1UBYMeEfCvx4l13OBupA" outputPin="omcgp" inputPins="x1996l"/>
+  </behavior>
+  <behavior id="_Ct0tMIMeEfCvx4l13OBupA" entityName="Show Payment Authorization">
+    <inPin id="eq0nx" entityName="Show Payment Authorization_in_payment_authorization"/>
+  </behavior>
+  <behavior id="_Ct0tM4MeEfCvx4l13OBupA" entityName="Payment Processor">
+    <inPin id="pcser" entityName="Payment Processor_in_pan"/>
+    <inPin id="k5utyc" entityName="Payment Processor_in_authorization_response"/>
+    <inPin id="0484vs" entityName="Payment Processor_in_payment_dataotp"/>
+    <outPin id="kmp2vk" entityName="Payment Processor_out_otp"/>
+    <outPin id="uex53" entityName="Payment Processor_out_pan"/>
+    <outPin id="enpb14" entityName="Payment Processor_out_payment_data"/>
+    <outPin id="1xekc5" entityName="Payment Processor_out_authorization_response"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Ct1UEIMeEfCvx4l13OBupA" outputPin="uex53" inputPins="pcser"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Ct1UEYMeEfCvx4l13OBupA" outputPin="enpb14" inputPins="0484vs"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_Ct1UEoMeEfCvx4l13OBupA" outputPin="enpb14" outputLabels="okrkiu"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Ct1UE4MeEfCvx4l13OBupA" outputPin="kmp2vk" inputPins="0484vs"/>
+  </behavior>
+  <behavior id="_Ct0tPIMeEfCvx4l13OBupA" entityName="Link &amp; Provision">
+    <inPin id="i8wis9" entityName="Link &amp; Provision_in_terms_idcvv"/>
+    <outPin id="bgmfdc" entityName="Link &amp; Provision_out_device_information"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UGoMeEfCvx4l13OBupA" outputPin="bgmfdc" outputLabels="z0gqy"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UG4MeEfCvx4l13OBupA" outputPin="bgmfdc" outputLabels="4krnt"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UHIMeEfCvx4l13OBupA" outputPin="bgmfdc" outputLabels="aid3tyb"/>
+  </behavior>
+  <behavior id="_Ct0tQIMeEfCvx4l13OBupA" entityName="Issuer Bank">
+    <inPin id="q5s6vz" entityName="Issuer Bank_in_authorization_request"/>
+    <inPin id="v1ftl8" entityName="Issuer Bank_in_device_information"/>
+    <outPin id="jythsj" entityName="Issuer Bank_out_authorization_response"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UA4MeEfCvx4l13OBupA" outputPin="jythsj" outputLabels="mlswql"/>
+  </behavior>
+  <behavior id="_Ct0tRYMeEfCvx4l13OBupA" entityName="Carholder">
+    <outPin id="a8f56o" entityName="Carholder_out_authorization_request"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UBoMeEfCvx4l13OBupA" outputPin="a8f56o" outputLabels="oc5ie"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UB4MeEfCvx4l13OBupA" outputPin="a8f56o" outputLabels="k0vjni"/>
+  </behavior>
+  <behavior id="_Ct0tSIMeEfCvx4l13OBupA" entityName="Terminal App">
+    <inPin id="l1xfl" entityName="Terminal App_in_otp"/>
+    <inPin id="djrmg9" entityName="Terminal App_in_authorization_response"/>
+    <outPin id="ekamp9" entityName="Terminal App_out_payment_datapayment_data"/>
+    <outPin id="dqy6d" entityName="Terminal App_out_otp"/>
+    <outPin id="xsmuo" entityName="Terminal App_out_payment_authorization"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UFIMeEfCvx4l13OBupA" outputPin="ekamp9" outputLabels="zg3dor"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UFYMeEfCvx4l13OBupA" outputPin="ekamp9" outputLabels="3qccpi"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UFoMeEfCvx4l13OBupA" outputPin="ekamp9" outputLabels="w4b2m9"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UF4MeEfCvx4l13OBupA" outputPin="ekamp9" outputLabels="y1q5w"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Ct1UGIMeEfCvx4l13OBupA" outputPin="xsmuo"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Ct1UGYMeEfCvx4l13OBupA" outputPin="dqy6d" inputPins="l1xfl"/>
+  </behavior>
+  <behavior id="_Ct0tT4MeEfCvx4l13OBupA" entityName="Apple Pay App">
+    <inPin id="17tcwr" entityName="Apple Pay App_in_payment_data"/>
+    <inPin id="3ktpfb" entityName="Apple Pay App_in_card_information"/>
+    <outPin id="5vpyo6" entityName="Apple Pay App_out_payment_data"/>
+    <outPin id="lftf7i" entityName="Apple Pay App_out_card_information"/>
+    <outPin id="0kqs6h" entityName="Apple Pay App_out_otpotpotp"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Ct1UCIMeEfCvx4l13OBupA" outputPin="0kqs6h" outputLabels="okrkiu"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Ct1UCYMeEfCvx4l13OBupA" outputPin="lftf7i" inputPins="3ktpfb"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Ct1UCoMeEfCvx4l13OBupA" outputPin="5vpyo6" inputPins="17tcwr"/>
+  </behavior>
+  <behavior id="_Ct0tVoMeEfCvx4l13OBupA" entityName="Apple Wallet">
+    <inPin id="r1kc7h" entityName="Apple Wallet_in_payment_data"/>
+    <inPin id="mr8oq" entityName="Apple Wallet_in_pass_file"/>
+    <inPin id="lw3qhs" entityName="Apple Wallet_in_card_information"/>
+    <outPin id="pztc3d" entityName="Apple Wallet_out_card_information"/>
+    <outPin id="vyl24" entityName="Apple Wallet_out_card_information"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Ct1UK4MeEfCvx4l13OBupA" outputPin="pztc3d" inputPins="lw3qhs"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Ct1ULIMeEfCvx4l13OBupA" outputPin="vyl24" inputPins="mr8oq"/>
+  </behavior>
+</datadictionary:DataDictionary>

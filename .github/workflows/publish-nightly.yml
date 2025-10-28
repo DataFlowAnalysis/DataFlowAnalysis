@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '0 2 * * *' # run nightly at 2:00 am
+  push:
+    branches:
+      - main
 
 jobs:
   build_and_publish:

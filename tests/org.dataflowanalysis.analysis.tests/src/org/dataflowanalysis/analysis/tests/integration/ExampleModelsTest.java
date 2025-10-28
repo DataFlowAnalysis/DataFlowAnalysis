@@ -129,9 +129,15 @@ public class ExampleModelsTest {
                         .findAny();
             }
             if (violatingVertex.isEmpty()) {
-                logger.error(String.format("Could not find vertex with id: %s", expectedViolation.getIdentifier()));
-                logger.error(String.format("Found the following violations: %s", violatingVertices));
-                fail(String.format("Could not find vertex with id: %s", expectedViolation.getIdentifier()));
+                logger.error(String.format("Could not find vertex with id %s in TFG with index %s", expectedViolation.getIdentifier(),
+                        expectedViolation.getFlowGraphIndex()));
+                logger.error("Found the following violations:");
+                for (DSLResult violatingTFG : violatingVertices) {
+                    logger.error(String.format("Index %s: %s", flowGraphs.getTransposeFlowGraphs()
+                            .indexOf(violatingTFG.getTransposeFlowGraph()), violatingTFG));
+                }
+                fail(String.format("Could not find vertex with id %s in TFG with index %s", expectedViolation.getIdentifier(),
+                        expectedViolation.getFlowGraphIndex()));
             }
             testViolations(violatingVertex.get(), expectedViolation);
         }
@@ -144,10 +150,16 @@ public class ExampleModelsTest {
                         .filter(it -> it.references(violatingVertex, transposeFlowGraphIndex))
                         .findAny();
                 if (expectedViolation.isEmpty()) {
-                    logger.error(String.format("Could not find expected violation for vertex with id: %s", violatingVertex.toString()));
-                    logger.error(String.format("Found the following violations: %s", violatingVertices));
+                    logger.error(String.format("Could not find expected violation for vertex with id %s in TFG at index %s!",
+                            violatingVertex.toString(), transposeFlowGraphIndex));
+                    logger.error("Found the following violations:");
+                    for (DSLResult violatingTFG : violatingVertices) {
+                        logger.error(String.format("Index %s: %s", flowGraphs.getTransposeFlowGraphs()
+                                .indexOf(violatingTFG.getTransposeFlowGraph()), violatingTFG));
+                    }
                     logger.error(String.format("Expected the following violations: %s", exampleModelResult.getExpectedViolations()));
-                    fail(String.format("Could not find expected violation for vertex with id: %s", violatingVertex.toString()));
+                    fail(String.format("Could not find expected violation for vertex with id %s in TFG at index %s!", violatingVertex.toString(),
+                            transposeFlowGraphIndex));
                 }
                 testViolations(violatingVertex, expectedViolation.get());
             }

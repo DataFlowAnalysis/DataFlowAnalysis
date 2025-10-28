@@ -1,3 +1,2 @@
 #!/usr/bin/env bash
 mvn spotless:apply
-git add "$(git diff --name-only --cached)"

@@ -15,7 +15,7 @@ public class ComponentTestingCaseStudy implements DFDExampleModelResult {
 
     @Override
     public String getModelName() {
-        return "ComponentTesting_CaseStudy";
+        return "ComponentTestingCaseStudy";
     }
 
     @Override

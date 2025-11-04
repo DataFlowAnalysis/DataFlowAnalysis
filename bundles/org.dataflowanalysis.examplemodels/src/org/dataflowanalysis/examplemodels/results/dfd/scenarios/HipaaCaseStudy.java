@@ -15,7 +15,7 @@ public class HipaaCaseStudy implements DFDExampleModelResult {
 
     @Override
     public String getModelName() {
-        return "Hipaa_CaseStudy";
+        return "HipaaCaseStudy";
     }
 
     @Override

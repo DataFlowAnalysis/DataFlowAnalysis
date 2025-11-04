@@ -15,7 +15,7 @@ public class MiniTwitCaseStudy implements DFDExampleModelResult {
 
     @Override
     public String getModelName() {
-        return "MiniTwit_CaseStudy";
+        return "MiniTwitCaseStudy";
     }
 
     @Override

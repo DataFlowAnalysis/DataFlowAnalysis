@@ -15,7 +15,7 @@ public class CMACaseStudy implements DFDExampleModelResult {
 
     @Override
     public String getModelName() {
-        return "CMA_CaseStudy";
+        return "CMACaseStudy";
     }
 
     @Override

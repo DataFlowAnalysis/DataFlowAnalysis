@@ -15,7 +15,7 @@ public class ECUUpdateCaseStudy implements DFDExampleModelResult {
 
     @Override
     public String getModelName() {
-        return "ECUUpdate_CaseStudy";
+        return "ECUUpdateCaseStudy";
     }
 
     @Override

@@ -1,10 +1,10 @@
-name: Deploy docs
+name: Build docs
 
 on:
  workflow_dispatch: # Use this to dispatch from the Actions Tab
  push:
-    branches:
-      - main
+  paths:
+    - 'docs/**'
       
 jobs:
   build-and-deploy:
@@ -23,8 +23,9 @@ jobs:
           npm install
           npm run build
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4.5.0
+      - name: Upload Build as Artifact
+        uses: actions/upload-artifact@v4
         with:
-          branch: gh-pages
-          folder: ./docs/.vitepress/dist
+          name: docs-build
+          path: ./docs/.vitepress/dist
+          retention-days: 30

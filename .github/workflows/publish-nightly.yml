@@ -1,0 +1,40 @@
+name: Build Updatesite for Nightly
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * *' # run nightly at 2:00 am
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 17
+
+      - name: Setup Maven
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: 3.9.6
+
+      - name: Build and Verify
+        run: mvn clean verify
+
+      - name: Publish Nightly Update Site
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          deploy_key: ${{ secrets.UPDATE_SITE_DEPLOY_KEY }}
+          external_repository: DataFlowAnalysis/updatesite
+          destination_dir: nightly/dataflowanalysis/
+          publish_dir: releng/org.dataflowanalysis.analysis.updatesite/target/repository
+          publish_branch: main
+          

@@ -41,16 +41,6 @@ public class IFWebRTCViolationResult implements DFDExampleModelResult {
                                         new ExpectedCharacteristic("ContainedClassification", "High")))));
     }
 
-    /**
-     * new ExpectedViolation(2, new DFDIdentifier("ni7d7"), List.of(new ExpectedCharacteristic("Zone", "Attack")),
-     * Map.of("d3bsd", List.of(new ExpectedCharacteristic("Level", "High"), new ExpectedCharacteristic("Level", "Low"))))
-     * "d3bsd", List.of(new ExpectedCharacteristic("Level", "High"), new ExpectedCharacteristic("Level", "Low")))), new
-     * ExpectedViolation(5, new DFDIdentifier("ni7d7"), List.of(new ExpectedCharacteristic("Zone", "Attack")), Map.of(
-     * "d3bsd", List.of(new ExpectedCharacteristic("Level", "High"), new ExpectedCharacteristic("Level", "Low")), "hxzuok",
-     * List.of(new ExpectedCharacteristic("Level", "High"), new ExpectedCharacteristic("Level", "Low"), new
-     * ExpectedCharacteristic("ContainedClassification", "High")))
-     */
-
     @Override
     public String toString() {
         return this.getModelName();

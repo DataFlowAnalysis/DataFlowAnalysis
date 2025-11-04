@@ -1,0 +1,1781 @@
+{
+    "model": {
+        "canvasBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 2333.75,
+            "height": 1168.75
+        },
+        "scroll": {
+            "x": -103.6229055258467,
+            "y": -63
+        },
+        "zoom": 2.6392547986450885,
+        "position": {
+            "x": 0,
+            "y": 0
+        },
+        "size": {
+            "width": -1,
+            "height": -1
+        },
+        "features": {},
+        "type": "graph",
+        "id": "root",
+        "children": [
+            {
+                "position": {
+                    "x": 380,
+                    "y": 207
+                },
+                "size": {
+                    "width": 62,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Alice",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 58.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "set Level.High",
+                        "features": {},
+                        "id": "gjkcwb",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    }
+                ],
+                "features": {},
+                "id": "go7xt",
+                "type": "node:input-output",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 370,
+                    "y": 12
+                },
+                "size": {
+                    "width": 72,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Bob DS",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 68.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "",
+                        "features": {},
+                        "id": "axn537",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [],
+                "features": {},
+                "id": "uuw6nr",
+                "type": "node:storage",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 196,
+                    "y": 109
+                },
+                "size": {
+                    "width": 84,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Policy DS",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 80.5,
+                            "y": 29.75
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward policy",
+                        "features": {},
+                        "id": "jj2kv",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 80.5,
+                            "y": 5.25
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward policy",
+                        "features": {},
+                        "id": "x8tisi",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "npnfsr",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 80.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward policy",
+                        "features": {},
+                        "id": "dqgr4p",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low, Level.Low, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    },
+                    {
+                        "message": "Incoming: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    }
+                ],
+                "features": {},
+                "id": "bqt06n",
+                "type": "node:storage",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1132,
+                    "y": 151.58333333333331
+                },
+                "size": {
+                    "width": 62,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "SMTP",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "vbkupo"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "fh2",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 58.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward email_body_encrypted_header",
+                        "features": {},
+                        "id": "ght5jh",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: LevelBeforeEncryption.High, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    },
+                    {
+                        "message": "Incoming: LevelBeforeEncryption.High, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    }
+                ],
+                "features": {},
+                "id": "hkp4w",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1268,
+                    "y": 151.58333333333331
+                },
+                "size": {
+                    "width": 62,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "POP3",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "vbkupo"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 58.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward email_body_encrypted_and_header",
+                        "features": {},
+                        "id": "yddkf8",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "pepa57",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: LevelBeforeEncryption.High, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    },
+                    {
+                        "message": "Incoming: LevelBeforeEncryption.High, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    }
+                ],
+                "features": {},
+                "id": "f63vu",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 556.6666666666666,
+                    "y": 173
+                },
+                "size": {
+                    "width": 75,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Split Mail",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 28.33333333333333
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "nbmstb",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 71.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward policy\nassign Level.Low if Level.Low from policy\nassign Level.Low if Level.Low from email_body_and_header\nassign Level.High if Level.High from policy\nassign Level.High if Level.High from email_body_and_header",
+                        "features": {},
+                        "id": "5h320d",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 10.666666666666666
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "4lufz4",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    },
+                    {
+                        "message": "Incoming: Level.High, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    }
+                ],
+                "features": {},
+                "id": "z8h0ig",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 449,
+                        "y": 228
+                    },
+                    {
+                        "x": 499,
+                        "y": 228
+                    },
+                    {
+                        "x": 499,
+                        "y": 204.83333333333331
+                    },
+                    {
+                        "x": 549.6666666666666,
+                        "y": 204.83333333333331
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "email_body_and_header",
+                "features": {},
+                "id": "h9mc18",
+                "type": "edge:arrow",
+                "sourceId": "gjkcwb",
+                "targetId": "nbmstb",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 364,
+                    "y": 141
+                },
+                "size": {
+                    "width": 78,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Authorize",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "5pimrr",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 74.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward policy",
+                        "features": {},
+                        "id": "49wgwa",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    },
+                    {
+                        "message": "Incoming: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    }
+                ],
+                "features": {},
+                "id": "va8o3",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 287,
+                        "y": 142.25
+                    },
+                    {
+                        "x": 307,
+                        "y": 142.25
+                    },
+                    {
+                        "x": 307,
+                        "y": 164
+                    },
+                    {
+                        "x": 357,
+                        "y": 164
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "policy",
+                "features": {},
+                "id": "5anyx",
+                "type": "edge:arrow",
+                "sourceId": "jj2kv",
+                "targetId": "5pimrr",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 449,
+                        "y": 164
+                    },
+                    {
+                        "x": 499,
+                        "y": 164
+                    },
+                    {
+                        "x": 499,
+                        "y": 187.16666666666666
+                    },
+                    {
+                        "x": 549.6666666666666,
+                        "y": 187.16666666666666
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "policy",
+                "features": {},
+                "id": "lngzw6",
+                "type": "edge:arrow",
+                "sourceId": "49wgwa",
+                "targetId": "4lufz4",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 12,
+                    "y": 109
+                },
+                "size": {
+                    "width": 110,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Policy Initiator",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 106.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "set Level.Low",
+                        "features": {},
+                        "id": "56zk5",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    }
+                ],
+                "features": {},
+                "id": "5lmyig",
+                "type": "node:input-output",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 129,
+                        "y": 130
+                    },
+                    {
+                        "x": 189,
+                        "y": 130
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "policy",
+                "features": {},
+                "id": "p8sfo5",
+                "type": "edge:arrow",
+                "sourceId": "56zk5",
+                "targetId": "npnfsr",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 364,
+                    "y": 74
+                },
+                "size": {
+                    "width": 78,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Authorize",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "j5x56q",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 74.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward policy",
+                        "features": {},
+                        "id": "e4iwfq",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    },
+                    {
+                        "message": "Incoming: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    }
+                ],
+                "features": {},
+                "id": "1vhoyg",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 287,
+                        "y": 117.75
+                    },
+                    {
+                        "x": 307,
+                        "y": 117.75
+                    },
+                    {
+                        "x": 307,
+                        "y": 97
+                    },
+                    {
+                        "x": 357,
+                        "y": 97
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "policy",
+                "features": {},
+                "id": "o05t5c",
+                "type": "edge:arrow",
+                "sourceId": "x8tisi",
+                "targetId": "j5x56q",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 526,
+                    "y": 42
+                },
+                "size": {
+                    "width": 167,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Authorize Key Reading",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 28.33333333333333
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "fsa88r",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 163.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward bob_private_key\nassign Level.Low if Level.Low from bob_private_key\nassign Level.Low if Level.Low from policy\nassign Level.High if Level.High from bob_private_key\nassign Level.High if Level.High from policy",
+                        "features": {},
+                        "id": "up10a",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 10.666666666666666
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "me6naz",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    },
+                    {
+                        "message": "Incoming: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    }
+                ],
+                "features": {},
+                "id": "vk1unm",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 449,
+                        "y": 97
+                    },
+                    {
+                        "x": 499,
+                        "y": 97
+                    },
+                    {
+                        "x": 499,
+                        "y": 73.83333333333333
+                    },
+                    {
+                        "x": 519,
+                        "y": 73.83333333333333
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "policy",
+                "features": {},
+                "id": "85rkeq",
+                "type": "edge:arrow",
+                "sourceId": "e4iwfq",
+                "targetId": "fsa88r",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 449,
+                        "y": 33
+                    },
+                    {
+                        "x": 499,
+                        "y": 33
+                    },
+                    {
+                        "x": 499,
+                        "y": 56.166666666666664
+                    },
+                    {
+                        "x": 519,
+                        "y": 56.166666666666664
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "bob_private_key",
+                "features": {},
+                "id": "idrnq",
+                "type": "edge:arrow",
+                "sourceId": "axn537",
+                "targetId": "me6naz",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 777,
+                    "y": 151.58333333333331
+                },
+                "size": {
+                    "width": 143,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Prepare Encryption",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 28.33333333333333
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "j4srg5",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 10.666666666666666
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "ha7uux",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 139.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward bob_pub_key\nassign Level.Low if Level.Low from bob_pub_key\nassign Level.Low if Level.Low from email_body_and_header\nassign Level.High if Level.High from bob_pub_key\nassign Level.High if Level.High from email_body_and_header",
+                        "features": {},
+                        "id": "q1dfhk",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    },
+                    {
+                        "message": "Incoming: Level.High, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    }
+                ],
+                "features": {},
+                "id": "8jeed",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 638.6666666666666,
+                        "y": 196
+                    },
+                    {
+                        "x": 750,
+                        "y": 196
+                    },
+                    {
+                        "x": 750,
+                        "y": 183.41666666666663
+                    },
+                    {
+                        "x": 770,
+                        "y": 183.41666666666663
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "email_body_and_header",
+                "features": {},
+                "id": "d6vdc8",
+                "type": "edge:arrow",
+                "sourceId": "5h320d",
+                "targetId": "j4srg5",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 287,
+                        "y": 130
+                    },
+                    {
+                        "x": 750,
+                        "y": 130
+                    },
+                    {
+                        "x": 750,
+                        "y": 165.74999999999997
+                    },
+                    {
+                        "x": 770,
+                        "y": 165.74999999999997
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "bob_pub_key",
+                "features": {},
+                "id": "r15zy",
+                "type": "edge:arrow",
+                "sourceId": "dqgr4p",
+                "targetId": "ha7uux",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 994,
+                    "y": 151.58333333333331
+                },
+                "size": {
+                    "width": 64,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Encrypt",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "z3y4gi",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 60.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward email_body_and_header_and_bob_pub_key\nassign LevelBeforeEncryption.High if Level.High from email_body_and_header_and_bob_pub_key\nassign LevelBeforeEncryption.Low if Level.Low from email_body_and_header_and_bob_pub_key\nunset Level.High\nset Level.Low",
+                        "features": {},
+                        "id": "bs0h4",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: LevelBeforeEncryption.High, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    },
+                    {
+                        "message": "Incoming: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    }
+                ],
+                "features": {},
+                "id": "z1tv5n",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 927,
+                        "y": 174.58333333333331
+                    },
+                    {
+                        "x": 987,
+                        "y": 174.58333333333331
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "email_body_and_header_and_bob_pub_key",
+                "features": {},
+                "id": "o9bfyp",
+                "type": "edge:arrow",
+                "sourceId": "q1dfhk",
+                "targetId": "z3y4gi",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1065,
+                        "y": 174.58333333333331
+                    },
+                    {
+                        "x": 1125,
+                        "y": 174.58333333333331
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "email_body_encrypted_header",
+                "features": {},
+                "id": "z6bwxc",
+                "type": "edge:arrow",
+                "sourceId": "bs0h4",
+                "targetId": "fh2",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1201,
+                        "y": 174.58333333333331
+                    },
+                    {
+                        "x": 1261,
+                        "y": 174.58333333333331
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "email_body_encrypted_and_header",
+                "features": {},
+                "id": "nz3yhh",
+                "type": "edge:arrow",
+                "sourceId": "ght5jh",
+                "targetId": "pepa57",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1633,
+                    "y": 103.08333333333334
+                },
+                "size": {
+                    "width": 66,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Decrypt",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "7qbb6p",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 62.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward email_body_encrypted_and_header_and_bob_private_key\nassign Level.High if LevelBeforeEncryption.High from email_body_encrypted_and_header_and_bob_private_key\nassign Level.Low if LevelBeforeEncryption.Low from email_body_encrypted_and_header_and_bob_private_key",
+                        "features": {},
+                        "id": "efr0hs",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    },
+                    {
+                        "message": "Incoming: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    }
+                ],
+                "features": {},
+                "id": "6yd2y",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1414,
+                    "y": 103.08333333333333
+                },
+                "size": {
+                    "width": 145,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Prepare Decryption",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 28.33333333333333
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "kee28",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 10.666666666666666
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "wvh329",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 141.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward bob_private_key\nassign Level.Low if Level.Low from bob_private_key\nassign Level.Low if Level.Low from email_body_encrypted_and_header\nassign Level.High if Level.High from bob_private_key\nassign Level.High if Level.High from email_body_encrypted_and_header",
+                        "features": {},
+                        "id": "jut89",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    },
+                    {
+                        "message": "Incoming: Level.Low, LevelBeforeEncryption.High, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    }
+                ],
+                "features": {},
+                "id": "hxkxn",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1337,
+                        "y": 174.58333333333331
+                    },
+                    {
+                        "x": 1387,
+                        "y": 174.58333333333331
+                    },
+                    {
+                        "x": 1387,
+                        "y": 134.91666666666666
+                    },
+                    {
+                        "x": 1407,
+                        "y": 134.91666666666666
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "email_body_encrypted_and_header",
+                "features": {},
+                "id": "gbsege",
+                "type": "edge:arrow",
+                "sourceId": "yddkf8",
+                "targetId": "kee28",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 700,
+                        "y": 65
+                    },
+                    {
+                        "x": 1387,
+                        "y": 65
+                    },
+                    {
+                        "x": 1387,
+                        "y": 117.25
+                    },
+                    {
+                        "x": 1407,
+                        "y": 117.25
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "bob_private_key",
+                "features": {},
+                "id": "qk7mnr",
+                "type": "edge:arrow",
+                "sourceId": "up10a",
+                "targetId": "wvh329",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1566,
+                        "y": 126.08333333333333
+                    },
+                    {
+                        "x": 1626,
+                        "y": 126.08333333333334
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "email_body_encrypted_and_header_and_bob_private_key",
+                "features": {},
+                "id": "0wdhf4",
+                "type": "edge:arrow",
+                "sourceId": "jut89",
+                "targetId": "7qbb6p",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1773,
+                    "y": 105.08333333333334
+                },
+                "size": {
+                    "width": 62,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Bob",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "ud5z2",
+                        "labelTypeValueId": "nkwkcj"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "nvcwzl",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Incoming: ",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 42036147
+                    }
+                ],
+                "features": {},
+                "id": "lp8zpn",
+                "type": "node:input-output",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1706,
+                        "y": 126.08333333333334
+                    },
+                    {
+                        "x": 1766,
+                        "y": 126.08333333333334
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "EmailBodyAndHeader",
+                "features": {},
+                "id": "d2ss6",
+                "type": "edge:arrow",
+                "sourceId": "efr0hs",
+                "targetId": "nvcwzl",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            }
+        ]
+    },
+    "labelTypes": [
+        {
+            "id": "ud5z2",
+            "name": "Zone",
+            "values": [
+                {
+                    "id": "nkwkcj",
+                    "text": "Trust"
+                },
+                {
+                    "id": "vbkupo",
+                    "text": "Attack"
+                }
+            ]
+        },
+        {
+            "id": "pqllad",
+            "name": "Level",
+            "values": [
+                {
+                    "id": "kghn",
+                    "text": "High"
+                },
+                {
+                    "id": "xzprol",
+                    "text": "Low"
+                }
+            ]
+        },
+        {
+            "id": "bsks6d",
+            "name": "LevelBeforeEncryption",
+            "values": [
+                {
+                    "id": "wy0t1h",
+                    "text": "High"
+                },
+                {
+                    "id": "lpfrq",
+                    "text": "Low"
+                }
+            ]
+        }
+    ],
+    "constraints": [
+        {
+            "name": "SafetyConstraint",
+            "constraint": "data Level.High neverFlows vertex Zone.Attack"
+        }
+    ],
+    "mode": "edit",
+    "version": 1
+}

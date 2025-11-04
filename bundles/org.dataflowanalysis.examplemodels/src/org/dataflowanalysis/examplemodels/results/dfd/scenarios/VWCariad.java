@@ -45,7 +45,7 @@ public class VWCariad implements DFDExampleModelResult {
                         .create(),
 
                 new ConstraintDSL().ofData()
-                        .withLabel("DataBaseToken", List.of("AWSToken","AzureToken"))
+                        .withLabel("DataBaseToken", List.of("AWSToken", "AzureToken"))
                         .neverFlows()
                         .toVertex()
                         .withCharacteristic("EndpointConfiguration", "Public")
@@ -72,17 +72,25 @@ public class VWCariad implements DFDExampleModelResult {
                 Map.of("xa0por", List.of(new ExpectedCharacteristic("DataSensitivity", "Confidential"),
                         new ExpectedCharacteristic("RequestSensitivity", "Confidential"), new ExpectedCharacteristic("DataBaseToken", "AWSToken"),
                         new ExpectedCharacteristic("DataEncryption", "NonEncrypted")))),
-        			new ExpectedViolation(18, new DFDIdentifier("14coqs"), List.of(new ExpectedCharacteristic("DataBaseType", "AzureDataLake"), new ExpectedCharacteristic("EndpointConfiguration","Private")),
-        		Map.of("n0ax3b", List.of(new ExpectedCharacteristic("DataEncryption", "NonEncrypted"),
-        				new ExpectedCharacteristic("DataSensitivity", "Personal"),
-        				new ExpectedCharacteristic("DataSensitivity", "NonAnonymized")))),
-        			new ExpectedViolation(20, new DFDIdentifier("8148ps"), List.of(new ExpectedCharacteristic("DataBaseType", "AWSBucket"), new ExpectedCharacteristic("EndpointConfiguration","Private")),
-        		Map.of("986lwi", List.of(new ExpectedCharacteristic("DataEncryption", "NonEncrypted"),
-        				new ExpectedCharacteristic("DataSensitivity", "Personal"),
-        				new ExpectedCharacteristic("DataSensitivity", "NonAnonymized")))),
-        			new ExpectedViolation(21, new DFDIdentifier("8148ps"), List.of(new ExpectedCharacteristic("DataBaseType", "AWSBucket"), new ExpectedCharacteristic("EndpointConfiguration","Private")),
-        		Map.of("986lwi", List.of(new ExpectedCharacteristic("DataBaseToken", "AWSToken"),
-        				new ExpectedCharacteristic("DataEncryption", "NonEncrypted")))));
+                new ExpectedViolation(18, new DFDIdentifier("14coqs"),
+                        List.of(new ExpectedCharacteristic("DataBaseType", "AzureDataLake"),
+                                new ExpectedCharacteristic("EndpointConfiguration", "Private")),
+                        Map.of("n0ax3b",
+                                List.of(new ExpectedCharacteristic("DataEncryption", "NonEncrypted"),
+                                        new ExpectedCharacteristic("DataSensitivity", "Personal"),
+                                        new ExpectedCharacteristic("DataSensitivity", "NonAnonymized")))),
+                new ExpectedViolation(20, new DFDIdentifier("8148ps"),
+                        List.of(new ExpectedCharacteristic("DataBaseType", "AWSBucket"),
+                                new ExpectedCharacteristic("EndpointConfiguration", "Private")),
+                        Map.of("986lwi",
+                                List.of(new ExpectedCharacteristic("DataEncryption", "NonEncrypted"),
+                                        new ExpectedCharacteristic("DataSensitivity", "Personal"),
+                                        new ExpectedCharacteristic("DataSensitivity", "NonAnonymized")))),
+                new ExpectedViolation(21, new DFDIdentifier("8148ps"),
+                        List.of(new ExpectedCharacteristic("DataBaseType", "AWSBucket"),
+                                new ExpectedCharacteristic("EndpointConfiguration", "Private")),
+                        Map.of("986lwi", List.of(new ExpectedCharacteristic("DataBaseToken", "AWSToken"),
+                                new ExpectedCharacteristic("DataEncryption", "NonEncrypted")))));
 
     }
 

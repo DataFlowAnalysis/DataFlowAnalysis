@@ -106,11 +106,7 @@ public class ExpectedViolation {
     public Identifier getIdentifier() {
         return identifier;
     }
-    
-    public int getFlowGraphIndex() {
-        return flowGraphIndex;
-    }
-    
+
     @Override
     public String toString() {
         return String.format("Expected %s in TFG %s with %s and %s", this.identifier, this.flowGraphIndex, this.dataCharacteristics,

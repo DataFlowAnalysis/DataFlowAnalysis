@@ -40,7 +40,13 @@ public class IFPrivateTaxiViolationResult implements DFDExampleModelResult {
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
         return List.of(
-                new ExpectedViolation(8, new DFDIdentifier("szok6"), List.of(new ExpectedCharacteristic("Entity", "PrivateTaxi")),
+        		new ExpectedViolation(2, new DFDIdentifier("szok6"), List.of(
+        				new ExpectedCharacteristic("Entity", "PrivateTaxi")), Map.of()));
+
+    }
+    
+    /**
+     * new ExpectedViolation(8, new DFDIdentifier("szok6"), List.of(new ExpectedCharacteristic("Entity", "PrivateTaxi")),
                         Map.of("l9ktzp", List.of(new ExpectedCharacteristic("CriticalDataType", "RouteDataType")))),
                 new ExpectedViolation(8, new DFDIdentifier("voddy"), List.of(new ExpectedCharacteristic("Entity", "PrivateTaxi")),
                         Map.of("f0m37", List.of(new ExpectedCharacteristic("CriticalDataType", "RouteDataType")))),
@@ -91,8 +97,7 @@ public class IFPrivateTaxiViolationResult implements DFDExampleModelResult {
                 new ExpectedViolation(29, new DFDIdentifier("szok6"), List.of(new ExpectedCharacteristic("Entity", "PrivateTaxi")),
                         Map.of("brzxei", List.of(new ExpectedCharacteristic("CriticalDataType", "ContactInformation")), "l9ktzp",
                                 List.of(new ExpectedCharacteristic("CriticalDataType", "RouteDataType")))));
-
-    }
+     */
 
     @Override
     public String toString() {

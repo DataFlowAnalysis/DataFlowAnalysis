@@ -9,6 +9,7 @@ import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicListSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VariableNameSelector;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
@@ -16,7 +17,7 @@ import org.dataflowanalysis.analysis.utils.StringView;
  * Represents the source data {@link AbstractSelector} matched by an {@link AnalysisConstraint}
  */
 public class DataSourceSelectors extends AbstractParseable {
-    private static final Logger logger = Logger.getLogger(DataSourceSelectors.class);
+    private static final Logger logger = LoggerManager.getLogger(DataSourceSelectors.class);
     private static final String DSL_KEYWORD = "data";
 
     private final List<AbstractSelector> selectors;

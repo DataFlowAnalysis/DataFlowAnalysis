@@ -7,12 +7,13 @@ import org.dataflowanalysis.analysis.dsl.AbstractParseable;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.context.DSLContextKey;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
 public class Intersection extends AbstractParseable implements SetOperation {
     private static final String DSL_KEYWORD = "intersection";
-    private static final Logger logger = Logger.getLogger(Intersection.class);
+    private static final Logger logger = LoggerManager.getLogger(Intersection.class);
 
     private final ConstraintVariableReference firstVariable;
     private final ConstraintVariableReference secondVariable;

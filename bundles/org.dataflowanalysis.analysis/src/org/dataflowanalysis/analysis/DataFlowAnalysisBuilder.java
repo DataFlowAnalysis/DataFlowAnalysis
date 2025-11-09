@@ -1,7 +1,8 @@
 package org.dataflowanalysis.analysis;
 
 import java.util.Optional;
-import org.apache.log4j.*;
+import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.eclipse.core.runtime.Plugin;
 
 /**
@@ -11,7 +12,7 @@ import org.eclipse.core.runtime.Plugin;
  * in subclasses and validated via {@link DataFlowAnalysisBuilder#validate()}.
  */
 public abstract class DataFlowAnalysisBuilder {
-    private final Logger logger = Logger.getLogger(DataFlowAnalysisBuilder.class);
+    private final Logger logger = LoggerManager.getLogger(DataFlowAnalysisBuilder.class);
 
     protected boolean standalone;
     protected String modelProjectName;

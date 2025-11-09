@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -27,7 +28,7 @@ import org.palladiosimulator.pcm.core.entity.Entity;
  * methods for working with loaded resources, like finding specific model elements.
  */
 public abstract class ResourceProvider {
-    private static final Logger logger = Logger.getLogger(ResourceProvider.class);
+    private static final Logger logger = LoggerManager.getLogger(ResourceProvider.class);
 
     protected final ResourceSet resources = new ResourceSetImpl();
 

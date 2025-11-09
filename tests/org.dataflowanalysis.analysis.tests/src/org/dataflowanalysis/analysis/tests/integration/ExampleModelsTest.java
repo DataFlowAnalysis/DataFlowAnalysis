@@ -16,6 +16,7 @@ import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.examplemodels.results.ExampleModelResult;
 import org.dataflowanalysis.examplemodels.results.ExpectedCharacteristic;
 import org.dataflowanalysis.examplemodels.results.ExpectedViolation;
@@ -45,7 +46,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 public class ExampleModelsTest {
-    private final Logger logger = Logger.getLogger(ExampleModelsTest.class);
+    private final Logger logger = LoggerManager.getLogger(ExampleModelsTest.class);
 
     private static Stream<Arguments> providePCMExampleModelViolations() {
         return Stream.of(Arguments.of(new BankBranchesResult()), Arguments.of(new BranchingOnlineShopResult()), Arguments.of(new CompositeResult()),

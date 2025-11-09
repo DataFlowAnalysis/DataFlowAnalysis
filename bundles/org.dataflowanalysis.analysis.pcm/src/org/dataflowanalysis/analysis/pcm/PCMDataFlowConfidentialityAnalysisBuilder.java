@@ -6,12 +6,13 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.pcm.resource.PCMURIResourceProvider;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ResourceUtils;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.emf.common.util.URI;
 
 public class PCMDataFlowConfidentialityAnalysisBuilder extends DataFlowAnalysisBuilder {
-    private final Logger logger = Logger.getLogger(PCMDataFlowConfidentialityAnalysisBuilder.class);
+    private final Logger logger = LoggerManager.getLogger(PCMDataFlowConfidentialityAnalysisBuilder.class);
 
     protected String relativeUsageModelPath;
     protected String relativeAllocationModelPath;

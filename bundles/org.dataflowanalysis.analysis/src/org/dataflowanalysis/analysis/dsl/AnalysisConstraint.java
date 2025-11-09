@@ -14,6 +14,7 @@ import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
@@ -29,7 +30,7 @@ public class AnalysisConstraint {
     private static final String SUCCEEDED_MATCHING_MESSAGE = "Vertex %s matched all selectors";
     private static final String OMMITED_TRANSPOSE_FLOW_GRAPH = "Transpose flow graph %s did not contain any violations. Omitting!";
 
-    private final Logger logger = Logger.getLogger(AnalysisConstraint.class);
+    private final Logger logger = LoggerManager.getLogger(AnalysisConstraint.class);
     private final String name;
     private final DataSourceSelectors dataSourceSelectors;
     private final VertexSourceSelectors vertexSourceSelectors;

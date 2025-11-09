@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Stack;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.dfd.datadictionary.AND;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.datadictionary.Label;
@@ -24,7 +25,7 @@ public class BehaviorConverter {
     private final datadictionaryFactory ddFactory = datadictionaryFactory.eINSTANCE;
     private final DataDictionary dataDictionary;
 
-    private final Logger logger = Logger.getLogger(BehaviorConverter.class);
+    private final Logger logger = LoggerManager.getLogger(BehaviorConverter.class);
 
     private final String LOGICAL_AND = "&&";
     private final String LOGICAL_OR = "||";

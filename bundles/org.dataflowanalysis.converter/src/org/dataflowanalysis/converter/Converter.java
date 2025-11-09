@@ -1,12 +1,13 @@
 package org.dataflowanalysis.converter;
 
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 
 /**
  * This class represents an interface all converters should implement
  */
 public abstract class Converter {
-    protected final Logger logger = Logger.getLogger(Converter.class);
+    protected final Logger logger = LoggerManager.getLogger(Converter.class);
 
     /**
      * Converts the given {@link ConverterModel} input model to the given {@link ConverterModel} output model according to

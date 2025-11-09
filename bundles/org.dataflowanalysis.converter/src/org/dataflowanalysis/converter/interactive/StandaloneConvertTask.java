@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.converter.Converter;
 import org.dataflowanalysis.converter.ConverterModel;
 import org.dataflowanalysis.converter.ModelType;
@@ -20,7 +21,7 @@ import org.dataflowanalysis.converter.util.PathUtils;
 import org.dataflowanalysis.converter.web2dfd.WebEditorConverterModel;
 
 public class StandaloneConvertTask {
-    private static final Logger logger = Logger.getLogger(StandaloneConvertTask.class);
+    private static final Logger logger = LoggerManager.getLogger(StandaloneConvertTask.class);
 
     /**
      * Entry point of the interactive converter. Can be run interactively without any command line parameter or directly via

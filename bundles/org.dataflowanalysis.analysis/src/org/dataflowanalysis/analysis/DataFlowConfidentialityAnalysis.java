@@ -7,6 +7,7 @@ import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.utils.ANSIConsoleLogger;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.eclipse.xtext.linking.impl.AbstractCleaningLinker;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.parser.antlr.AbstractInternalAntlrParser;
@@ -22,7 +23,7 @@ import org.eclipse.xtext.resource.containers.ResourceSetBasedAllContainersStateP
  */
 public abstract class DataFlowConfidentialityAnalysis {
     public static final String PLUGIN_PATH = "org.dataflowanalysis.analysis";
-    private final Logger logger = Logger.getLogger(DataFlowConfidentialityAnalysis.class);
+    private final Logger logger = LoggerManager.getLogger(DataFlowConfidentialityAnalysis.class);
 
     /**
      * Initializes the analysis by setting up the execution environment and loading the referenced models
@@ -61,16 +62,15 @@ public abstract class DataFlowConfidentialityAnalysis {
      * Sets up the unified logging environment for the data flow analysis
      */
     protected void setupLoggers() {
-        BasicConfigurator.resetConfiguration();
         BasicConfigurator.configure(new ANSIConsoleLogger(new EnhancedPatternLayout("%-6r [%p] %-35C{1} - %m%n")));
 
-        Logger.getLogger(AbstractInternalAntlrParser.class)
+        LoggerManager.getLogger(AbstractInternalAntlrParser.class)
                 .setLevel(Level.WARN);
-        Logger.getLogger(DefaultLinkingService.class)
+        LoggerManager.getLogger(DefaultLinkingService.class)
                 .setLevel(Level.WARN);
-        Logger.getLogger(ResourceSetBasedAllContainersStateProvider.class)
+        LoggerManager.getLogger(ResourceSetBasedAllContainersStateProvider.class)
                 .setLevel(Level.WARN);
-        Logger.getLogger(AbstractCleaningLinker.class)
+        LoggerManager.getLogger(AbstractCleaningLinker.class)
                 .setLevel(Level.WARN);
 
         logger.info("Successfully initialized standalone log4j for the data flow analysis.");

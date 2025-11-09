@@ -3,6 +3,7 @@ package org.dataflowanalysis.analysis.core;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 
 /**
  * This class represents an abstract vertex in a {@link AbstractTransposeFlowGraph}. An abstract vertex represents an
@@ -12,7 +13,7 @@ import org.apache.log4j.Logger;
  * @param <T> Type parameter representing the type of the stored object
  */
 public abstract class AbstractVertex<T> {
-    private final Logger logger = Logger.getLogger(AbstractVertex.class);
+    private final Logger logger = LoggerManager.getLogger(AbstractVertex.class);
 
     protected final T referencedElement;
 

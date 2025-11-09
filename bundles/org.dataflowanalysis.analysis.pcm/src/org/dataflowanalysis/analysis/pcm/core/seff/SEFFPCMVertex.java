@@ -13,6 +13,7 @@ import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.Parameter;
@@ -25,7 +26,7 @@ import org.palladiosimulator.pcm.seff.StartAction;
 import org.palladiosimulator.pcm.seff.StopAction;
 
 public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T> {
-    private final Logger logger = Logger.getLogger(SEFFPCMVertex.class);
+    private final Logger logger = LoggerManager.getLogger(SEFFPCMVertex.class);
 
     private final List<Parameter> parameter;
 

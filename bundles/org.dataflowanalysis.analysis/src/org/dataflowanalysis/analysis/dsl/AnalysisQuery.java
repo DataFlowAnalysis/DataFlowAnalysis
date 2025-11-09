@@ -11,16 +11,17 @@ import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 
 /**
  * Represents an analysis query created by the DSL
  */
 public class AnalysisQuery {
     private static final String FAILED_MATCHING_MESSAGE = "Vertex %s failed to match selector %s";
-    private static final String SUCEEDED_MATCHING_MESSAGE = "Vertex %s matched all selectors";
+    private static final String SUCCEEDED_MATCHING_MESSAGE = "Vertex %s matched all selectors";
     private static final String OMMITED_TRANSPOSE_FLOW_GRAPH = "Transpose flow graph %s did not contain any queried vertices. Omitting!";
 
-    private final Logger logger = Logger.getLogger(AnalysisQuery.class);
+    private final Logger logger = LoggerManager.getLogger(AnalysisQuery.class);
     private final List<AbstractSelector> flowSource;
     private final List<ConditionalSelector> selectors;
     private final DSLContext context;
@@ -61,7 +62,7 @@ public class AnalysisQuery {
                     }
                 }
                 if (matched) {
-                    logger.debug(String.format(SUCEEDED_MATCHING_MESSAGE, vertex));
+                    logger.debug(String.format(SUCCEEDED_MATCHING_MESSAGE, vertex));
                     matchedVertices.add(vertex);
                 }
             }

@@ -10,6 +10,7 @@ import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsListSele
 import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexNameSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexTypeSelector;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
@@ -18,7 +19,7 @@ import org.dataflowanalysis.analysis.utils.StringView;
  */
 public class VertexDestinationSelectors extends AbstractParseable {
     private static final String DSL_KEYWORD = "vertex";
-    private static final Logger logger = Logger.getLogger(VertexDestinationSelectors.class);
+    private static final Logger logger = LoggerManager.getLogger(VertexDestinationSelectors.class);
 
     private final List<AbstractSelector> selectors;
 

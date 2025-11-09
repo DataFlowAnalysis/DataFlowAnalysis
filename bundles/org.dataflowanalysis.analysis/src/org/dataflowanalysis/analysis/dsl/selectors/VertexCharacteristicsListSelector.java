@@ -134,7 +134,7 @@ public class VertexCharacteristicsListSelector extends VertexSelector {
         if (string.invalid() || string.empty()) {
             return ParseResult.error("Cannot vertex characteristic list selector from empty or invalid string!");
         }
-        logger.info("Parsing: " + string.getString());
+        logger.debug("Parsing: " + string.getString());
         int position = string.getPosition();
         boolean inverted = string.getString()
                 .startsWith(DSL_INVERTED_SYMBOL);

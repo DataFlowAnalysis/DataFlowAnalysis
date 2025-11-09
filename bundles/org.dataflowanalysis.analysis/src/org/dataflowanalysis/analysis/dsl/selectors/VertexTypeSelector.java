@@ -70,7 +70,7 @@ public class VertexTypeSelector extends VertexSelector {
         if (string.invalid() || string.empty()) {
             return ParseResult.error("Cannot parse vertex type selector from empty or invalid string!");
         }
-        logger.info("Parsing: " + string.getString());
+        logger.debug("Parsing: " + string.getString());
         int position = string.getPosition();
         boolean inverted = string.getString()
                 .startsWith(DSL_INVERTED_SYMBOL);

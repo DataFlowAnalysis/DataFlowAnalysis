@@ -56,7 +56,7 @@ public class EmptySetOperationConditionalSelector implements ConditionalSelector
         if (string.invalid() || string.empty()) {
             return ParseResult.error("Cannot parse empty set operation from empty or invalid string!");
         }
-        logger.info("Parsing: " + string.getString());
+        logger.debug("Parsing: " + string.getString());
         int position = string.getPosition();
         if (!string.startsWith(DSL_KEYWORD)) {
             return string.expect(DSL_KEYWORD);

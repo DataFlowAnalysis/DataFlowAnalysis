@@ -94,7 +94,7 @@ public final class CharacteristicsSelectorData extends AbstractParseable {
         if (string.invalid() || string.empty()) {
             return ParseResult.error("Cannot parse characteristic selector data from empty or invalid string!");
         }
-        logger.info("Parsing: " + string.getString());
+        logger.debug("Parsing: " + string.getString());
         int position = string.getPosition();
         ParseResult<ConstraintVariableReference> characteristicType = ConstraintVariableReference.fromString(string);
         if (characteristicType.failed()) {

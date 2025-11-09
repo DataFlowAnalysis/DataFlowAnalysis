@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.converter.micro2dfd.Micro2DFDConverter;
 import org.dataflowanalysis.converter.micro2dfd.MicroConverterModel;
 import org.junit.jupiter.api.Disabled;

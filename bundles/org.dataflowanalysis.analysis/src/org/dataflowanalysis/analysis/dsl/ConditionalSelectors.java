@@ -70,7 +70,7 @@ public class ConditionalSelectors extends AbstractParseable {
         if (string.invalid()) {
             return ParseResult.error("Unexpected end of input!");
         }
-        logger.info("Parsing: " + string.getString());
+        logger.debug("Parsing: " + string.getString());
         List<ConditionalSelector> selectors = new ArrayList<>();
         while (!string.invalid()) {
             string.skipWhitespace();

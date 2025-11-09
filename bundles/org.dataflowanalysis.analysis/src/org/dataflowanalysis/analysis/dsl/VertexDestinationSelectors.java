@@ -75,7 +75,7 @@ public class VertexDestinationSelectors extends AbstractParseable {
             string.setPosition(position);
             return ParseResult.error("Unexpected end of input!");
         }
-        logger.info("Parsing: " + string.getString());
+        logger.debug("Parsing: " + string.getString());
         List<AbstractSelector> selectors = new ArrayList<>();
         while (!string.invalid()) {
             string.skipWhitespace();

@@ -71,7 +71,7 @@ public class Intersection extends AbstractParseable implements SetOperation {
         if (string.invalid() || string.empty()) {
             return ParseResult.error("Cannot parse intersection from empty or invalid string!");
         }
-        logger.info("Parsing: " + string.getString());
+        logger.debug("Parsing: " + string.getString());
         int position = string.getPosition();
         if (!string.startsWith(DSL_KEYWORD)) {
             return string.expect(DSL_KEYWORD);

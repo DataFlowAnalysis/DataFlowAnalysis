@@ -83,7 +83,7 @@ public final class ConstraintVariableReference extends AbstractParseable {
             return ParseResult.error("Invalid variable: Expected any string!");
         }
         String string = split[0];
-        logger.info("Parsing: " + string);
+        logger.debug("Parsing: " + string);
         stringView.advance(string.length());
         if (string.startsWith(DSL_VARIABLE_SIGN)) {
             if (string.substring(1)

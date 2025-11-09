@@ -3,6 +3,7 @@ package org.dataflowanalysis.converter.tests;
 import java.io.File;
 import java.nio.file.Paths;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 
 public class ConverterTest {
     protected static final String TEST_JSONS = Paths.get("models", "ConverterTest")

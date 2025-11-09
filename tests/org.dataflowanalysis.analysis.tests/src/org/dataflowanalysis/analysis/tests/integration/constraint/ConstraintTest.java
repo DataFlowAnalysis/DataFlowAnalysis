@@ -6,10 +6,11 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.tests.integration.BaseTest;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 
 public class ConstraintTest extends BaseTest {
 
-    private final Logger logger = Logger.getLogger(ConstraintTest.class);
+    private final Logger logger = LoggerManager.getLogger(ConstraintTest.class);
 
     /**
      * Prints a violation with detailed information about the node where it occurred with its data characteristics and

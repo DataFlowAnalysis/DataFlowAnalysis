@@ -3,12 +3,13 @@ package org.dataflowanalysis.analysis.dsl.selectors;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
 public class VariableNameSelector extends DataSelector {
     private static final String DSL_KEYWORD = "named";
-    private static final Logger logger = Logger.getLogger(VariableNameSelector.class);
+    private static final Logger logger = LoggerManager.getLogger(VariableNameSelector.class);
 
     private final String variableName;
 

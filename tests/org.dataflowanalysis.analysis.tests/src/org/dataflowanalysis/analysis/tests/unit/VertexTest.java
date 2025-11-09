@@ -4,11 +4,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import java.util.stream.Stream;
+import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.tests.unit.mock.CharacteristicsFactory;
 import org.dataflowanalysis.analysis.tests.unit.mock.DummyCharacteristicValue;
 import org.dataflowanalysis.analysis.tests.unit.mock.DummyVertex;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -58,8 +60,12 @@ public class VertexTest {
         } catch (Exception e) {
             fail(e);
         }
+        LoggerManager.getInstance()
+                .setLevel(Level.OFF);
         assertThrowsExactly(IllegalArgumentException.class,
                 () -> vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics, vertexCharacteristics));
+        LoggerManager.getInstance()
+                .resetLevel();
     }
 
     @Test

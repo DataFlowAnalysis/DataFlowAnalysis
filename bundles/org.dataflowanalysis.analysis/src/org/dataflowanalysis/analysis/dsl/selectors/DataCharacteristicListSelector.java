@@ -9,11 +9,12 @@ import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
 public class DataCharacteristicListSelector extends DataSelector {
-    private static final Logger logger = Logger.getLogger(DataCharacteristicListSelector.class);
+    private static final Logger logger = LoggerManager.getLogger(DataCharacteristicListSelector.class);
 
     private final List<CharacteristicsSelectorData> dataCharacteristics;
     private final boolean inverted;

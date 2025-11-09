@@ -8,6 +8,7 @@ import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.EmptySetOperationConditionalSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VariableConditionalSelector;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
@@ -16,7 +17,7 @@ import org.dataflowanalysis.analysis.utils.StringView;
  */
 public class ConditionalSelectors extends AbstractParseable {
     private static final String DSL_KEYWORD = "where";
-    private static final Logger logger = Logger.getLogger(ConditionalSelectors.class);
+    private static final Logger logger = LoggerManager.getLogger(ConditionalSelectors.class);
 
     private final List<ConditionalSelector> selectors;
 

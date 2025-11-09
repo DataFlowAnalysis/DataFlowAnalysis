@@ -8,6 +8,7 @@ import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.core.DFDTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import tools.mdsd.library.standalone.initialization.StandaloneInitializationException;
@@ -17,7 +18,7 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder
  * This class represents a toplevel dfd confidentiality analysis which allows analysis of a given model
  */
 public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis {
-    private final Logger logger = Logger.getLogger(DFDConfidentialityAnalysis.class);
+    private final Logger logger = LoggerManager.getLogger(DFDConfidentialityAnalysis.class);
 
     protected final DFDResourceProvider resourceProvider;
     protected final Optional<Class<? extends Plugin>> modelProjectActivator;
@@ -79,6 +80,7 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
 
     @Override
     public void setLoggerLevel(Level level) {
-        logger.setLevel(level);
+        LoggerManager.getInstance()
+                .setLevel(level);
     }
 }

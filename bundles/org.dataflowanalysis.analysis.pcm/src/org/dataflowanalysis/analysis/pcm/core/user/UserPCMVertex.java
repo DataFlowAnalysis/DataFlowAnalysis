@@ -8,12 +8,13 @@ import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 import org.palladiosimulator.pcm.usagemodel.Start;
 import org.palladiosimulator.pcm.usagemodel.Stop;
 
 public class UserPCMVertex<T extends AbstractUserAction> extends AbstractPCMVertex<T> {
-    private final Logger logger = Logger.getLogger(UserPCMVertex.class);
+    private final Logger logger = LoggerManager.getLogger(UserPCMVertex.class);
 
     /**
      * Creates a new User Sequence Element with the given Palladio User Action Element

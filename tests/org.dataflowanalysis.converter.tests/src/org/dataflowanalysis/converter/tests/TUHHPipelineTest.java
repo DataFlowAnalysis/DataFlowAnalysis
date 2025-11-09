@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 
 public class TUHHPipelineTest {
     public static Path converter;
-    private final Logger logger = Logger.getLogger(TUHHPipelineTest.class);
+    private final Logger logger = LoggerManager.getLogger(TUHHPipelineTest.class);
 
     public static final List<Integer> OUT_OF_SCOPE_VARIANTS = List.of(13, 14, 15, 16, 17);
 

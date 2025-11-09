@@ -10,6 +10,7 @@ import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraphCollection;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.pcm.extension.dddsl.DDDslStandaloneSetup;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.dictionary.DictionaryPackage;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.dictionary.PCMDataDictionary;
@@ -24,7 +25,7 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder
 
 public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityAnalysis {
     private static final String PLUGIN_PATH = "org.dataflowanalysis.analysis.pcm";
-    private final Logger logger;
+    private final Logger logger = LoggerManager.getLogger(PCMDataFlowConfidentialityAnalysis.class);
 
     protected final PCMResourceProvider resourceProvider;
 
@@ -42,7 +43,6 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
     public PCMDataFlowConfidentialityAnalysis(PCMResourceProvider resourceProvider, String modelProjectName,
             Optional<Class<? extends Plugin>> modelProjectActivator) {
         this.resourceProvider = resourceProvider;
-        this.logger = Logger.getLogger(PCMDataFlowConfidentialityAnalysis.class);
         this.modelProjectName = modelProjectName;
         this.modelProjectActivator = modelProjectActivator;
     }
@@ -80,6 +80,9 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
         Logger.getLogger(ResourceSetBasedAllContainersStateProvider.class)
                 .setLevel(level);
         Logger.getLogger(AbstractCleaningLinker.class)
+                .setLevel(level);
+
+        LoggerManager.getInstance()
                 .setLevel(level);
     }
 

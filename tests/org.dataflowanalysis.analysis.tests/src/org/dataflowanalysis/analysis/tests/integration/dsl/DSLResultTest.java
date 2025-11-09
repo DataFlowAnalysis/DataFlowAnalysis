@@ -3,7 +3,6 @@ package org.dataflowanalysis.analysis.tests.integration.dsl;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
@@ -26,13 +25,14 @@ import org.dataflowanalysis.analysis.pcm.dsl.PCMVertexType;
 import org.dataflowanalysis.analysis.tests.integration.BaseTest;
 import org.dataflowanalysis.analysis.tests.integration.constraint.data.ConstraintData;
 import org.dataflowanalysis.analysis.tests.integration.constraint.data.ConstraintViolations;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 import org.junit.jupiter.api.Test;
 import tools.mdsd.modelingfoundations.identifier.NamedElement;
 
 public class DSLResultTest extends BaseTest {
-    private static final Logger logger = Logger.getLogger(DSLResultTest.class);
+    private static final Logger logger = LoggerManager.getLogger(DSLResultTest.class);
 
     @Test
     public void testDSL() {
@@ -126,9 +126,7 @@ public class DSLResultTest extends BaseTest {
             if (violations.contains(vertex)) {
                 continue;
             }
-            logger.error("Should have matched vertex: " + vertex.createPrintableNodeInformation());
         }
-        logger.setLevel(Level.TRACE);
         violations.forEach(vertex -> logger.trace(vertex.createPrintableNodeInformation()));
         assertEquals(42, violations.size());
         assertEquals(constraint.toString(), AnalysisConstraint.fromString(new StringView(constraint.toString()))
@@ -159,9 +157,7 @@ public class DSLResultTest extends BaseTest {
             if (violations.contains(vertex)) {
                 continue;
             }
-            logger.error("Should have matched vertex: " + vertex.createPrintableNodeInformation());
         }
-        logger.setLevel(Level.TRACE);
         violations.forEach(vertex -> logger.trace(vertex.createPrintableNodeInformation()));
         assertEquals(34, violations.size());
         assertEquals(constraint.toString(), AnalysisConstraint.fromString(new StringView(constraint.toString()))
@@ -192,9 +188,7 @@ public class DSLResultTest extends BaseTest {
                     .equalsIgnoreCase("DatabaseLoadInventory")) {
                 continue;
             }
-            logger.error("Should not have matched vertex: " + vertex.createPrintableNodeInformation());
         }
-        logger.setLevel(Level.TRACE);
         violations.forEach(vertex -> logger.trace(vertex.createPrintableNodeInformation()));
         assertEquals(2 * 2, violations.size());
         assertEquals(constraint.toString(), AnalysisConstraint.fromString(new StringView(constraint.toString()))
@@ -226,7 +220,6 @@ public class DSLResultTest extends BaseTest {
                 .map(DSLResult::getMatchedVertices)
                 .flatMap(List::stream)
                 .toList();
-        logger.setLevel(Level.TRACE);
         violations.forEach(vertex -> logger.trace(vertex.createPrintableNodeInformation()));
         assertEquals(expectedResults.size(), violations.size());
     }

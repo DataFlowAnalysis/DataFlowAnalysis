@@ -5,7 +5,6 @@ import static org.dataflowanalysis.analysis.tests.integration.AnalysisUtils.asse
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraphCollection;
 import org.dataflowanalysis.analysis.tests.integration.BaseTest;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,6 @@ public class LabelPropagationTest extends BaseTest {
      */
     @Test
     public void travelPlannerCharacteristicsPresentTest() {
-        travelPlannerAnalysis.setLoggerLevel(Level.TRACE);
         PCMFlowGraphCollection flowGraph = travelPlannerAnalysis.findFlowGraphs();
         flowGraph.evaluate();
 
@@ -40,7 +38,6 @@ public class LabelPropagationTest extends BaseTest {
      */
     @Test
     public void internationalOnlineShopCharacteristicsPresentTest() {
-        internationalOnlineShopAnalysis.setLoggerLevel(Level.TRACE);
         PCMFlowGraphCollection flowGraph = internationalOnlineShopAnalysis.findFlowGraphs();
         flowGraph.evaluate();
 
@@ -61,7 +58,6 @@ public class LabelPropagationTest extends BaseTest {
      */
     @Test
     public void onlineShopCharacteristicsPresentTest() {
-        onlineShopAnalysis.setLoggerLevel(Level.TRACE);
         PCMFlowGraphCollection flowGraph = onlineShopAnalysis.findFlowGraphs();
         flowGraph.evaluate();
 

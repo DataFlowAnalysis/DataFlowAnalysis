@@ -21,6 +21,7 @@ import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.dfd.core.DFDTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.core.DFDVertex;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.examplemodels.Activator;
 import org.dataflowanalysis.examplemodels.TuhhModels;
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,7 @@ public class MicroSecEndTest {
     public static final String PROJECT_NAME = "org.dataflowanalysis.examplemodels";
     public static final String location = Paths.get("scenarios", "dfd", "TUHH-Models")
             .toString();
-    private final Logger logger = Logger.getLogger(MicroSecEndTest.class);
+    private final Logger logger = LoggerManager.getLogger(MicroSecEndTest.class);
 
     private DFDConfidentialityAnalysis buildAnalysis(String name) {
         var dataFlowDiagramPath = name + ".dataflowdiagram";

@@ -8,9 +8,10 @@ import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.pcm.core.finder.PCMTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 
 public class PCMFlowGraphCollection extends FlowGraphCollection {
-    private static final Logger logger = Logger.getLogger(PCMFlowGraphCollection.class);
+    private static final Logger logger = LoggerManager.getLogger(PCMFlowGraphCollection.class);
 
     public PCMFlowGraphCollection() {
 

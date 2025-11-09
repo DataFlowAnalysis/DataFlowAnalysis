@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.converter.util.FileNameOnlyURIHandler;
 import org.dataflowanalysis.converter.util.PathUtils;
 import org.eclipse.emf.common.util.URI;
@@ -17,7 +18,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
  * Abstract representation for an input to an {@link Converter}
  */
 public abstract class ConverterModel {
-    protected static final Logger logger = Logger.getLogger(ConverterModel.class);
+    protected static final Logger logger = LoggerManager.getLogger(ConverterModel.class);
 
     private final ModelType modelType;
 

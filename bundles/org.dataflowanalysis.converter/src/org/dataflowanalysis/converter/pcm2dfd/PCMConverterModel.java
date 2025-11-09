@@ -1,7 +1,6 @@
 package org.dataflowanalysis.converter.pcm2dfd;
 
 import java.util.Scanner;
-import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
@@ -37,7 +36,6 @@ public class PCMConverterModel extends ConverterModel {
                 .useNodeCharacteristicsModel(nodeCharPath)
                 .build();
 
-        analysis.setLoggerLevel(Level.TRACE);
         analysis.initializeAnalysis();
         this.flowGraphCollection = analysis.findFlowGraphs();
         this.flowGraphCollection.evaluate();
@@ -53,7 +51,6 @@ public class PCMConverterModel extends ConverterModel {
                         URI.createFileURI(nodeCharPath)))
                 .build();
 
-        analysis.setLoggerLevel(Level.TRACE);
         analysis.initializeAnalysis();
         this.flowGraphCollection = analysis.findFlowGraphs();
         this.flowGraphCollection.evaluate();
@@ -71,7 +68,6 @@ public class PCMConverterModel extends ConverterModel {
                         URI.createFileURI(nodeCharPath)))
                 .build();
 
-        analysis.setLoggerLevel(Level.TRACE);
         analysis.initializeAnalysis();
         this.flowGraphCollection = analysis.findFlowGraphs();
         this.flowGraphCollection.evaluate();

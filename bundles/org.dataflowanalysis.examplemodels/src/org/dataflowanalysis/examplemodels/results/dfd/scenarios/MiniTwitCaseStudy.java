@@ -6,7 +6,7 @@ import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
 import org.dataflowanalysis.examplemodels.results.ExpectedViolation;
 import org.dataflowanalysis.examplemodels.results.dfd.DFDExampleModelResult;
 
-public class CWANoViolation implements DFDExampleModelResult {
+public class MiniTwitCaseStudy implements DFDExampleModelResult {
 
     @Override
     public String getBaseFolderName() {
@@ -15,23 +15,37 @@ public class CWANoViolation implements DFDExampleModelResult {
 
     @Override
     public String getModelName() {
-        return "CWA/NoViolation";
+        return "MiniTwitCaseStudy";
     }
 
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
         return List.of(new ConstraintDSL().ofData()
-                .withLabel("Identifiers", List.of("RPI", "TEK"))
+                .withLabel("UserData", List.of("UnfollowData", "FollowData", "Message", "NewConsents"))
                 .neverFlows()
                 .toVertex()
-                .withCharacteristic("Server", List.of("CWApp", "CWAppServer"))
+                .withoutCharacteristic("Decorator", "Secure")
                 .create(),
 
                 new ConstraintDSL().ofData()
-                        .withLabel("Identifiers", "PersonalData")
+                        .withLabel("UserData", "UserMessages")
                         .neverFlows()
                         .toVertex()
-                        .withCharacteristic("Server", List.of("CWApp", "VerificationServer", "TestResultServer", "DDServer", "CWAppServer"))
+                        .withoutCharacteristic("ConsentedPurposes", "DisplayRelevantPosts")
+                        .create(),
+
+                new ConstraintDSL().ofData()
+                        .withLabel("UserData", "Ads")
+                        .neverFlows()
+                        .toVertex()
+                        .withoutCharacteristic("ConsentedPurposes", "GenerateRelevantMarketingEntities")
+                        .create(),
+
+                new ConstraintDSL().ofData()
+                        .withLabel("UserData", "FeedMessages")
+                        .neverFlows()
+                        .toVertex()
+                        .withoutCharacteristic("ConsentedPurposes", "DisplayPublicTimeline")
                         .create());
     }
 

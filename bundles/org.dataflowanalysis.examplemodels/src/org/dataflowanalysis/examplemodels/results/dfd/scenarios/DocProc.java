@@ -6,7 +6,7 @@ import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
 import org.dataflowanalysis.examplemodels.results.ExpectedViolation;
 import org.dataflowanalysis.examplemodels.results.dfd.DFDExampleModelResult;
 
-public class CWANoViolation implements DFDExampleModelResult {
+public class DocProc implements DFDExampleModelResult {
 
     @Override
     public String getBaseFolderName() {
@@ -15,24 +15,17 @@ public class CWANoViolation implements DFDExampleModelResult {
 
     @Override
     public String getModelName() {
-        return "CWA/NoViolation";
+        return "DocProc";
     }
 
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
         return List.of(new ConstraintDSL().ofData()
-                .withLabel("Identifiers", List.of("RPI", "TEK"))
+                .withLabel("Data", "GeneratedPDfs")
                 .neverFlows()
                 .toVertex()
-                .withCharacteristic("Server", List.of("CWApp", "CWAppServer"))
-                .create(),
-
-                new ConstraintDSL().ofData()
-                        .withLabel("Identifiers", "PersonalData")
-                        .neverFlows()
-                        .toVertex()
-                        .withCharacteristic("Server", List.of("CWApp", "VerificationServer", "TestResultServer", "DDServer", "CWAppServer"))
-                        .create());
+                .withoutCharacteristic("SecurityLevel", "Secure")
+                .create());
     }
 
     @Override

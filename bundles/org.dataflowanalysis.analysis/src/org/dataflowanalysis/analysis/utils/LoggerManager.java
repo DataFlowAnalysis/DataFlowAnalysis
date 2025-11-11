@@ -14,7 +14,7 @@ public class LoggerManager {
 
     private final List<Logger> loggers;
 
-    public LoggerManager() {
+    private LoggerManager() {
         BasicConfigurator.resetConfiguration();
         BasicConfigurator.configure(new ANSIConsoleLogger(new EnhancedPatternLayout("%-6r [%p] %-35C{1} - %m%n")));
         this.loggers = new ArrayList<>();
@@ -22,6 +22,15 @@ public class LoggerManager {
 
     public void setLevel(Level level) {
         this.loggers.forEach(it -> it.setLevel(level));
+    }
+
+    public void setLevel(Level level, Class<?> clazz) {
+        Logger logger = this.loggers.stream()
+                .filter(it -> it.getName()
+                        .equals(clazz.getName()))
+                .findAny()
+                .orElseThrow();
+        logger.setLevel(level);
     }
 
     public void resetLevel() {

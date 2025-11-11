@@ -10,6 +10,7 @@ import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
@@ -17,7 +18,7 @@ import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.Parameter;
 
 public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex<T> {
-    private final Logger logger = Logger.getLogger(AbstractPCMVertex.class);
+    private final Logger logger = LoggerManager.getLogger(AbstractPCMVertex.class);
 
     protected final Deque<AssemblyContext> context;
     protected final ResourceProvider resourceProvider;

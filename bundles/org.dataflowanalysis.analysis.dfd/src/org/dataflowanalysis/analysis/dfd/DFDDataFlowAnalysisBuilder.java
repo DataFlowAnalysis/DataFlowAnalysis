@@ -8,6 +8,7 @@ import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDModelResourceProvider;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.dataflowanalysis.analysis.dfd.resource.DFDURIResourceProvider;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ResourceUtils;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.emf.common.util.URI;
@@ -17,7 +18,7 @@ import org.eclipse.emf.common.util.URI;
  * validated, when calling {@link DFDDataFlowAnalysisBuilder#build()} before an analysis object is returned
  */
 public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
-    private final Logger logger = Logger.getLogger(DFDDataFlowAnalysisBuilder.class);
+    private final Logger logger = LoggerManager.getLogger(DFDDataFlowAnalysisBuilder.class);
 
     protected String dataFlowDiagramPath;
     protected String dataDictionaryPath;

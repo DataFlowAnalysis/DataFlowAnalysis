@@ -9,6 +9,7 @@ import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsListSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.VertexTypeSelector;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
@@ -17,7 +18,7 @@ import org.dataflowanalysis.analysis.utils.StringView;
  */
 public class VertexSourceSelectors extends AbstractParseable {
     private static final String DSL_KEYWORD = "vertex";
-    private static final Logger logger = Logger.getLogger(VertexSourceSelectors.class);
+    private static final Logger logger = LoggerManager.getLogger(VertexSourceSelectors.class);
 
     private final List<AbstractSelector> selectors;
 
@@ -73,7 +74,7 @@ public class VertexSourceSelectors extends AbstractParseable {
             string.setPosition(position);
             return ParseResult.error("Unexpected end of input!");
         }
-        logger.info("Parsing: " + string.getString());
+        logger.debug("Parsing: " + string.getString());
         List<AbstractSelector> selectors = new ArrayList<>();
         while (!string.invalid()) {
             string.skipWhitespace();

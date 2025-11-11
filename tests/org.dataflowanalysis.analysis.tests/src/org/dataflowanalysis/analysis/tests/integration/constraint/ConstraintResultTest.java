@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
@@ -103,7 +102,6 @@ public class ConstraintResultTest extends ConstraintTest {
      */
     @Test
     public void travelPlannerTestConstraintResults() {
-        travelPlannerAnalysis.setLoggerLevel(Level.TRACE);
         Predicate<AbstractVertex<?>> constraint = this::travelPlannerCondition;
         List<ConstraintData> constraintData = ConstraintViolations.travelPlannerViolations;
         testAnalysis(travelPlannerAnalysis, constraint, constraintData);
@@ -116,7 +114,6 @@ public class ConstraintResultTest extends ConstraintTest {
      */
     @Test
     public void internationalOnlineShopTestConstraintResults() {
-        internationalOnlineShopAnalysis.setLoggerLevel(Level.TRACE);
         Predicate<AbstractVertex<?>> constraint = this::internationalOnlineShopCondition;
         List<ConstraintData> constraintData = ConstraintViolations.internationalOnlineShopViolations;
         testAnalysis(internationalOnlineShopAnalysis, constraint, constraintData);
@@ -133,7 +130,6 @@ public class ConstraintResultTest extends ConstraintTest {
                 Paths.get("models", "pcm", "MultipleDeployments", "default.usagemodel"),
                 Paths.get("models", "pcm", "MultipleDeployments", "default.allocation"),
                 Paths.get("models", "pcm", "MultipleDeployments", "default.nodecharacteristics"));
-        analysis.setLoggerLevel(Level.TRACE);
         Predicate<AbstractVertex<?>> constraint = this::internationalOnlineShopCondition;
         List<ConstraintData> constraintData = ConstraintViolations.multipleResourcesViolations;
         testAnalysis(analysis, constraint, constraintData);
@@ -151,7 +147,6 @@ public class ConstraintResultTest extends ConstraintTest {
                 Paths.get("models", "pcm", "VariableReturn", "default.allocation"),
                 Paths.get("models", "pcm", "VariableReturn", "default.nodecharacteristics"));
         Predicate<AbstractVertex<?>> constraint = this::returnCondition;
-        returnAnalysis.setLoggerLevel(Level.TRACE);
         List<ConstraintData> constraintData = ConstraintViolations.returnViolations;
         testAnalysis(returnAnalysis, constraint, constraintData);
     }

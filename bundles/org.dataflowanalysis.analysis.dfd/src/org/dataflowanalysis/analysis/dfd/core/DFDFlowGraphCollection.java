@@ -8,12 +8,13 @@ import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
 import org.dataflowanalysis.analysis.dfd.simple.DFDSimpleTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 
 /**
  * This class represents a flow graph in a dfd model
  */
 public class DFDFlowGraphCollection extends FlowGraphCollection {
-    private final Logger logger = Logger.getLogger(DFDFlowGraphCollection.class);
+    private final Logger logger = LoggerManager.getLogger(DFDFlowGraphCollection.class);
 
     /**
      * Creates a new collection of flow graphs. {@link DFDFlowGraphCollection#initialize(ResourceProvider)} should be called

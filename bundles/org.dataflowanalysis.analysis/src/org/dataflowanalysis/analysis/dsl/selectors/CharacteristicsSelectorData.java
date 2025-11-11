@@ -8,6 +8,7 @@ import org.dataflowanalysis.analysis.dsl.AbstractParseable;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.context.DSLContextKey;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
@@ -16,7 +17,7 @@ import org.dataflowanalysis.analysis.utils.StringView;
  * {@link ConstraintVariableReference} that is not a constant
  */
 public final class CharacteristicsSelectorData extends AbstractParseable {
-    private static final Logger logger = Logger.getLogger(CharacteristicsSelectorData.class);
+    private static final Logger logger = LoggerManager.getLogger(CharacteristicsSelectorData.class);
     private final ConstraintVariableReference characteristicType;
     private final ConstraintVariableReference characteristicValue;
 
@@ -93,7 +94,7 @@ public final class CharacteristicsSelectorData extends AbstractParseable {
         if (string.invalid() || string.empty()) {
             return ParseResult.error("Cannot parse characteristic selector data from empty or invalid string!");
         }
-        logger.info("Parsing: " + string.getString());
+        logger.debug("Parsing: " + string.getString());
         int position = string.getPosition();
         ParseResult<ConstraintVariableReference> characteristicType = ConstraintVariableReference.fromString(string);
         if (characteristicType.failed()) {

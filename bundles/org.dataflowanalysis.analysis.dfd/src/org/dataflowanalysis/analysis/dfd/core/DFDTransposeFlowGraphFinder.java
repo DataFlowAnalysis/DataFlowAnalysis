@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.TransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.resource.DFDResourceProvider;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Assignment;
 import org.dataflowanalysis.dfd.datadictionary.Behavior;
@@ -19,7 +20,7 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
  * The DFDTransposeFlowGraphFinder determines all transpose flow graphs contained in a model
  */
 public class DFDTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
-    private final Logger logger = Logger.getLogger(TransposeFlowGraphFinder.class);
+    private final Logger logger = LoggerManager.getLogger(TransposeFlowGraphFinder.class);
     protected final DataFlowDiagram dataFlowDiagram;
     private boolean hasCycles = false;
 

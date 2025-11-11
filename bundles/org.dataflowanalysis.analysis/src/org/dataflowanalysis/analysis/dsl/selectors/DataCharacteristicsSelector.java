@@ -7,11 +7,12 @@ import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
 public class DataCharacteristicsSelector extends DataSelector {
-    private static final Logger logger = Logger.getLogger(DataCharacteristicsSelector.class);
+    private static final Logger logger = LoggerManager.getLogger(DataCharacteristicsSelector.class);
 
     private final CharacteristicsSelectorData dataCharacteristic;
     private final boolean inverted;
@@ -89,7 +90,7 @@ public class DataCharacteristicsSelector extends DataSelector {
         if (string.invalid() || string.empty()) {
             return ParseResult.error("Cannot parse data characteristic selector from empty or invalid string!");
         }
-        logger.info("Parsing: " + string.getString());
+        logger.debug("Parsing: " + string.getString());
         int position = string.getPosition();
         boolean inverted = string.getString()
                 .startsWith(DSL_INVERTED_SYMBOL);

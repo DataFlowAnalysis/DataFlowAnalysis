@@ -4,17 +4,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Paths;
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraphCollection;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class ConstraintFeatureTest extends ConstraintTest {
-    private final Logger logger = Logger.getLogger(ConstraintFeatureTest.class);
+    private final Logger logger = LoggerManager.getLogger(ConstraintFeatureTest.class);
 
     /**
      * Test determining whether node characteristics work correctly
@@ -30,7 +30,6 @@ public class ConstraintFeatureTest extends ConstraintTest {
         PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        logger.setLevel(Level.TRACE);
         var results = analysis.queryDataFlow(flowGraph.getTransposeFlowGraphs()
                 .get(0), node -> {
                     printNodeInformation(node);
@@ -60,7 +59,6 @@ public class ConstraintFeatureTest extends ConstraintTest {
         PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        logger.setLevel(Level.TRACE);
         var results = analysis.queryDataFlow(flowGraph.getTransposeFlowGraphs()
                 .get(0), node -> {
                     printNodeInformation(node);
@@ -90,7 +88,6 @@ public class ConstraintFeatureTest extends ConstraintTest {
         PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
 
-        logger.setLevel(Level.TRACE);
         var results = analysis.queryDataFlow(flowGraph.getTransposeFlowGraphs()
                 .get(0), node -> {
                     printNodeInformation(node);

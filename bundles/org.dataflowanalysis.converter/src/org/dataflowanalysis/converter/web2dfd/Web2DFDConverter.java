@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.converter.Converter;
 import org.dataflowanalysis.converter.ConverterModel;
 import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary;
@@ -29,7 +30,7 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.dataflowanalysis.dfd.dataflowdiagram.dataflowdiagramFactory;
 
 public class Web2DFDConverter extends Converter {
-    private final static Logger logger = Logger.getLogger(Web2DFDConverter.class);
+    private final static Logger logger = LoggerManager.getLogger(Web2DFDConverter.class);
 
     protected final static String DELIMITER_PIN_NAME = "|";
     protected final static String DELIMITER_MULTI_PIN = ",";

@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.converter.micro2dfd.Micro2DFDConverter;
 import org.dataflowanalysis.converter.micro2dfd.MicroConverterModel;
 import org.junit.jupiter.api.Disabled;
@@ -24,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 public class TUHHPipelineTest {
     public static Path converter;
-    private final Logger logger = Logger.getLogger(TUHHPipelineTest.class);
+    private final Logger logger = LoggerManager.getLogger(TUHHPipelineTest.class);
 
     public static final List<Integer> OUT_OF_SCOPE_VARIANTS = List.of(13, 14, 15, 16, 17);
 

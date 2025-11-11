@@ -17,6 +17,7 @@ import org.dataflowanalysis.analysis.pcm.core.seff.SEFFPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.user.CallingUserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -56,7 +57,7 @@ import org.palladiosimulator.pcm.usagemodel.UsageModel;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 public class PCMQueryUtils {
-    private static final Logger logger = Logger.getLogger(PCMQueryUtils.class);
+    private static final Logger logger = LoggerManager.getLogger(PCMQueryUtils.class);
 
     private PCMQueryUtils() {
         throw new IllegalStateException("Utility classes should not be instantiated");

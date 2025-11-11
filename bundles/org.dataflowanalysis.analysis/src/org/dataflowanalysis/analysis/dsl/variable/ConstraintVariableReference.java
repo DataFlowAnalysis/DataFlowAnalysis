@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Optional;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.dsl.AbstractParseable;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
@@ -13,7 +14,7 @@ import org.dataflowanalysis.analysis.utils.StringView;
  */
 public final class ConstraintVariableReference extends AbstractParseable {
     private static final String DSL_VARIABLE_SIGN = "$";
-    private static final Logger logger = Logger.getLogger(ConstraintVariableReference.class);
+    private static final Logger logger = LoggerManager.getLogger(ConstraintVariableReference.class);
     private final String name;
     private final Optional<List<String>> values;
 
@@ -82,7 +83,7 @@ public final class ConstraintVariableReference extends AbstractParseable {
             return ParseResult.error("Invalid variable: Expected any string!");
         }
         String string = split[0];
-        logger.info("Parsing: " + string);
+        logger.debug("Parsing: " + string);
         stringView.advance(string.length());
         if (string.startsWith(DSL_VARIABLE_SIGN)) {
             if (string.substring(1)

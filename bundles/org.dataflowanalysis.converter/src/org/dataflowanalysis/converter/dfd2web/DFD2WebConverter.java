@@ -18,6 +18,7 @@ import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.core.DFDTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.simple.DFDSimpleTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.converter.Converter;
 import org.dataflowanalysis.converter.ConverterModel;
 import org.dataflowanalysis.converter.web2dfd.BehaviorConverter;
@@ -39,7 +40,7 @@ import org.dataflowanalysis.dfd.dataflowdiagram.Process;
  * Converts data flow diagrams and dictionaries to the web editor format
  */
 public class DFD2WebConverter extends Converter {
-    private final Logger logger = Logger.getLogger(DFD2WebConverter.class);
+    private final Logger logger = LoggerManager.getLogger(DFD2WebConverter.class);
 
     private final static String DELIMITER_PIN_NAME = "|";
     private final static String DELIMITER_MULTI_PIN = ",";

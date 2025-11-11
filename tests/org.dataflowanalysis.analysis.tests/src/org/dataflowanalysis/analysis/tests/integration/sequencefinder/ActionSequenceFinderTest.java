@@ -6,14 +6,14 @@ import static org.dataflowanalysis.analysis.tests.integration.AnalysisUtils.asse
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraphCollection;
 import org.dataflowanalysis.analysis.tests.integration.BaseTest;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.junit.jupiter.api.Test;
 
 public class ActionSequenceFinderTest extends BaseTest {
-    private final Logger logger = Logger.getLogger(ActionSequenceFinderTest.class);
+    private final Logger logger = LoggerManager.getLogger(ActionSequenceFinderTest.class);
 
     /**
      * Tests whether the analysis finds the correct amount of sequences
@@ -21,7 +21,6 @@ public class ActionSequenceFinderTest extends BaseTest {
     @Test
     public void testTravelPlannerCount() {
         PCMFlowGraphCollection flowGraph = travelPlannerAnalysis.findFlowGraphs();
-        travelPlannerAnalysis.setLoggerLevel(Level.TRACE);
         assertEquals(ActionSequenceFinderPaths.travelPlannerPaths.size(), flowGraph.getTransposeFlowGraphs()
                 .size(),
                 String.format("Expected two dataflow sequences, but found %s sequences", flowGraph.getTransposeFlowGraphs()
@@ -36,7 +35,6 @@ public class ActionSequenceFinderTest extends BaseTest {
     @Test
     public void testInternationalOnlineShopCount() {
         PCMFlowGraphCollection flowGraph = internationalOnlineShopAnalysis.findFlowGraphs();
-        internationalOnlineShopAnalysis.setLoggerLevel(Level.TRACE);
         assertEquals(ActionSequenceFinderPaths.internationalOnlineShopPaths.size(), flowGraph.getTransposeFlowGraphs()
                 .size(),
                 String.format("Expected two dataflow sequences, but found %s sequences", flowGraph.getTransposeFlowGraphs()
@@ -51,7 +49,6 @@ public class ActionSequenceFinderTest extends BaseTest {
     @Test
     public void testOnlineShopCount() {
         PCMFlowGraphCollection flowGraph = onlineShopAnalysis.findFlowGraphs();
-        onlineShopAnalysis.setLoggerLevel(Level.TRACE);
         assertEquals(ActionSequenceFinderPaths.onlineShopPaths.size(), flowGraph.getTransposeFlowGraphs()
                 .size(),
                 String.format("Expected two dataflow sequences, but found %s sequences", flowGraph.getTransposeFlowGraphs()

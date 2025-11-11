@@ -12,13 +12,14 @@ import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.StringView;
 
 /**
  * This class is responsible for the interaction with the analysis via a command line interface (CLI)
  */
 public class DFDAnalysisCLI {
-    private static final Logger logger = Logger.getLogger(DFDAnalysisCLI.class);
+    private static final Logger logger = LoggerManager.getLogger(DFDAnalysisCLI.class);
     private static final String INPUT_INDICATOR = "> ";
 
     /**

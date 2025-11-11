@@ -22,6 +22,7 @@ import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.PCMFlowGraphCollection;
 import org.dataflowanalysis.analysis.tests.integration.constraint.ConstraintTest;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.examplemodels.Activator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -39,7 +40,7 @@ public class DemoTest {
     protected PCMDataFlowConfidentialityAnalysis pcmAnalysis;
     protected DFDConfidentialityAnalysis dfdAnalysis;
 
-    private final Logger logger = Logger.getLogger(ConstraintTest.class);
+    private final Logger logger = LoggerManager.getLogger(ConstraintTest.class);
 
     @BeforeAll
     public void initializePCMAnalysis() {

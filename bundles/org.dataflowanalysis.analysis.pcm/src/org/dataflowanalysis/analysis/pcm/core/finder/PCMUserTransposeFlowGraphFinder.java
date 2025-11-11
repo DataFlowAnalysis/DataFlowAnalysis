@@ -9,6 +9,7 @@ import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.dataflowanalysis.analysis.pcm.utils.SEFFWithContext;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
@@ -21,7 +22,7 @@ import org.palladiosimulator.pcm.usagemodel.Start;
 import org.palladiosimulator.pcm.usagemodel.Stop;
 
 public class PCMUserTransposeFlowGraphFinder {
-    private static final Logger logger = Logger.getLogger(PCMUserTransposeFlowGraphFinder.class);
+    private static final Logger logger = LoggerManager.getLogger(PCMUserTransposeFlowGraphFinder.class);
 
     private final ResourceProvider resourceProvider;
     private PCMTransposeFlowGraph currentTransposeFlowGraph;

@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.pcm.extension.dictionary.characterized.DataDictionaryCharacterized.Literal;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.characteristics.EnumCharacteristic;
 import org.dataflowanalysis.pcm.extension.nodecharacteristics.nodecharacteristics.AbstractAssignee;
@@ -40,7 +41,7 @@ import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelPackage;
 
 public class PCMVertexCharacteristicsCalculator {
-    private final Logger logger = Logger.getLogger(PCMVertexCharacteristicsCalculator.class);
+    private final Logger logger = LoggerManager.getLogger(PCMVertexCharacteristicsCalculator.class);
     private final ResourceProvider resourceLoader;
 
     /**

@@ -3,6 +3,7 @@ package org.dataflowanalysis.analysis.dsl.selectors;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 import org.palladiosimulator.pcm.core.entity.Entity;
@@ -10,7 +11,7 @@ import tools.mdsd.modelingfoundations.identifier.NamedElement;
 
 public class VertexNameSelector extends VertexSelector {
     private static final String DSL_KEYWORD = "named";
-    private static final Logger logger = Logger.getLogger(VertexNameSelector.class);
+    private static final Logger logger = LoggerManager.getLogger(VertexNameSelector.class);
 
     private final String name;
     private final boolean inverted;
@@ -69,7 +70,7 @@ public class VertexNameSelector extends VertexSelector {
         if (string.invalid() || string.empty()) {
             return ParseResult.error("Cannot parse vertex name selector from empty or invalid string!");
         }
-        logger.info("Parsing: " + string.getString());
+        logger.debug("Parsing: " + string.getString());
         int position = string.getPosition();
         boolean inverted = false;
         if (string.startsWith(DSL_INVERTED_SYMBOL)) {

@@ -7,12 +7,13 @@ import org.dataflowanalysis.analysis.dsl.AbstractParseable;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.context.DSLContextKey;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
 public class Intersection extends AbstractParseable implements SetOperation {
     private static final String DSL_KEYWORD = "intersection";
-    private static final Logger logger = Logger.getLogger(Intersection.class);
+    private static final Logger logger = LoggerManager.getLogger(Intersection.class);
 
     private final ConstraintVariableReference firstVariable;
     private final ConstraintVariableReference secondVariable;
@@ -70,7 +71,7 @@ public class Intersection extends AbstractParseable implements SetOperation {
         if (string.invalid() || string.empty()) {
             return ParseResult.error("Cannot parse intersection from empty or invalid string!");
         }
-        logger.info("Parsing: " + string.getString());
+        logger.debug("Parsing: " + string.getString());
         int position = string.getPosition();
         if (!string.startsWith(DSL_KEYWORD)) {
             return string.expect(DSL_KEYWORD);

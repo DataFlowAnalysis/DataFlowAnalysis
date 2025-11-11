@@ -10,6 +10,7 @@ import org.dataflowanalysis.analysis.pcm.core.PCMTransposeFlowGraph;
 import org.dataflowanalysis.analysis.pcm.resource.PCMResourceProvider;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.Parameter;
@@ -17,7 +18,7 @@ import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
 
 public class PCMTransposeFlowGraphFinder implements TransposeFlowGraphFinder {
-    private final Logger logger = Logger.getLogger(PCMTransposeFlowGraphFinder.class);
+    private final Logger logger = LoggerManager.getLogger(PCMTransposeFlowGraphFinder.class);
 
     private final ResourceProvider resourceProvider;
     private final Collection<AssemblyContext> contexts;

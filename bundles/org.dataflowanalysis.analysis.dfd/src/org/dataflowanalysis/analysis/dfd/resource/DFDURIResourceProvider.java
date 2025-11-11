@@ -3,6 +3,7 @@ package org.dataflowanalysis.analysis.dfd.resource;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.dfd.datadictionary.DataDictionary;
 import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.eclipse.emf.common.util.URI;
@@ -14,7 +15,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  * {@link URI}
  */
 public class DFDURIResourceProvider extends DFDResourceProvider {
-    private static final Logger logger = Logger.getLogger(DFDURIResourceProvider.class);
+    private static final Logger logger = LoggerManager.getLogger(DFDURIResourceProvider.class);
 
     private final URI dataFlowDiagramURI;
     private final URI dataDictionaryURI;

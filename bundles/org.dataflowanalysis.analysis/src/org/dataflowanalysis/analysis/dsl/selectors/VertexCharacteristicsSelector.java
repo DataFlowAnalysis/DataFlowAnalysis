@@ -8,11 +8,12 @@ import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariable;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
 public class VertexCharacteristicsSelector extends VertexSelector {
-    private static final Logger logger = Logger.getLogger(VertexCharacteristicsSelector.class);
+    private static final Logger logger = LoggerManager.getLogger(VertexCharacteristicsSelector.class);
 
     private final CharacteristicsSelectorData vertexCharacteristics;
     private final boolean inverted;
@@ -116,7 +117,7 @@ public class VertexCharacteristicsSelector extends VertexSelector {
         if (string.invalid() || string.empty()) {
             return ParseResult.error("Cannot parse vertex characteristic selector from empty or invalid string!");
         }
-        logger.info("Parsing: " + string.getString());
+        logger.debug("Parsing: " + string.getString());
         int position = string.getPosition();
         boolean inverted = string.getString()
                 .startsWith(DSL_INVERTED_SYMBOL);

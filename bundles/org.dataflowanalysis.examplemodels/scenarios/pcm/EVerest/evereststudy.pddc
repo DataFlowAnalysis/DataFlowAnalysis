@@ -1,0 +1,49 @@
+dictionary id "_eXN0QDJAEe-RsZftTr_wXQ"
+
+enum Actor {
+    EndUser
+    Engineer
+}
+
+enum Status {
+    Encrypted
+    Hashed
+    Sensitive
+    Anonymized
+    Token
+	Certificate
+	PaymentInformation
+    Signed
+    Firmware
+}
+
+enum ActorStatus {
+    Authorized
+}
+
+enum Component {
+	API
+	EVSESecurity
+	PN532TokenProvider
+	Logs
+}
+
+enum Location {
+    ChargingStation
+    TPM
+    UpdateServer
+    PaymentProvider
+    Car
+    ChargingStationManagementSystem
+    External
+    LocalStorage
+}
+
+enumCharacteristicType Actor using Actor
+enumCharacteristicType Location using Location
+enumCharacteristicType Status using Status
+enumCharacteristicType ActorStatus using ActorStatus
+enumCharacteristicType Component using Component
+
+
+

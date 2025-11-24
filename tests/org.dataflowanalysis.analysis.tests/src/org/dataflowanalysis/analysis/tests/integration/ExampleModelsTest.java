@@ -36,10 +36,10 @@ import org.dataflowanalysis.examplemodels.results.pcm.models.VariableReturnResul
 import org.dataflowanalysis.examplemodels.results.pcm.scenarios.BankBranchesResult;
 import org.dataflowanalysis.examplemodels.results.pcm.scenarios.BranchingOnlineShopResult;
 import org.dataflowanalysis.examplemodels.results.pcm.scenarios.CoronaWarnAppResult;
+import org.dataflowanalysis.examplemodels.results.pcm.scenarios.EVerest;
 import org.dataflowanalysis.examplemodels.results.pcm.scenarios.InternationalOnlineShopResult;
 import org.dataflowanalysis.examplemodels.results.pcm.scenarios.MaaSTicketSystemResult;
 import org.dataflowanalysis.examplemodels.results.pcm.scenarios.TravelPlannerResult;
-import org.dataflowanalysis.examplemodels.results.pcm.scenarios.EVerest;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -52,7 +52,8 @@ public class ExampleModelsTest {
         return Stream.of(Arguments.of(new BankBranchesResult()), Arguments.of(new BranchingOnlineShopResult()), Arguments.of(new CompositeResult()),
                 Arguments.of(new CoronaWarnAppResult()), Arguments.of(new IgnoredNodesResult()), Arguments.of(new InternationalOnlineShopResult()),
                 Arguments.of(new MaaSTicketSystemResult()), Arguments.of(new MultipleDeploymentsResult()),
-                Arguments.of(new NodeCharacteristicsResult()), Arguments.of(new TravelPlannerResult()), Arguments.of(new VariableReturnResult()), Arguments.of(new EVerest()));
+                Arguments.of(new NodeCharacteristicsResult()), Arguments.of(new TravelPlannerResult()), Arguments.of(new VariableReturnResult()),
+                Arguments.of(new EVerest()));
     }
 
     private static Stream<Arguments> provideDFDExampleModelViolations() {

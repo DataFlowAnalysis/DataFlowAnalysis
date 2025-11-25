@@ -138,11 +138,17 @@ public class ExampleModelsTest {
                         .findAny();
             }
             if (violatingVertex.isEmpty()) {
-                logger.error(String.format("Could not find vertex with id: %s", expectedViolation.getIdentifier()));
-                logger.error(String.format("Found the following violations: %s", violatingVertices));
-                fail(String.format("Could not find vertex with id: %s", expectedViolation.getIdentifier()));
+                logger.error(String.format("Could not find vertex with id %s in TFG with index %s", expectedViolation.getIdentifier(),
+                        expectedViolation.getFlowGraphIndex()));
+                logger.error("Found the following violations:");
+                for (DSLResult violatingTFG : violatingVertices) {
+                    logger.error(String.format("Index %s: %s", flowGraphs.getTransposeFlowGraphs()
+                            .indexOf(violatingTFG.getTransposeFlowGraph()), violatingTFG));
+                }
+                fail(String.format("Could not find vertex with id %s in TFG with index %s", expectedViolation.getIdentifier(),
+                        expectedViolation.getFlowGraphIndex()));
             }
-            testViolations(violatingVertex.get(), expectedViolation);
+            testViolations(violatingVertex.get(), expectedViolation, expectedViolation.getFlowGraphIndex());
         }
         for (DSLResult violatingFlowGraph : violatingVertices) {
             int transposeFlowGraphIndex = flowGraphs.getTransposeFlowGraphs()
@@ -153,42 +159,50 @@ public class ExampleModelsTest {
                         .filter(it -> it.references(violatingVertex, transposeFlowGraphIndex))
                         .findAny();
                 if (expectedViolation.isEmpty()) {
-                    logger.error(String.format("Could not find expected violation for vertex with id: %s", violatingVertex.toString()));
-                    logger.error(String.format("Found the following violations: %s", violatingVertices));
+                    logger.error(String.format("Could not find expected violation for vertex with id %s in TFG at index %s!",
+                            violatingVertex.toString(), transposeFlowGraphIndex));
+                    logger.error("Found the following violations:");
+                    for (DSLResult violatingTFG : violatingVertices) {
+                        logger.error(String.format("Index %s: %s", flowGraphs.getTransposeFlowGraphs()
+                                .indexOf(violatingTFG.getTransposeFlowGraph()), violatingTFG));
+                    }
                     logger.error(String.format("Expected the following violations: %s", exampleModelResult.getExpectedViolations()));
-                    fail(String.format("Could not find expected violation for vertex with id: %s", violatingVertex.toString()));
+                    fail(String.format("Could not find expected violation for vertex with id %s in TFG at index %s!", violatingVertex.toString(),
+                            transposeFlowGraphIndex));
                 }
-                testViolations(violatingVertex, expectedViolation.get());
+                testViolations(violatingVertex, expectedViolation.get(), transposeFlowGraphIndex);
             }
         }
     }
 
-    private void testViolations(AbstractVertex<?> violatingVertex, ExpectedViolation expectedViolation) {
+    private void testViolations(AbstractVertex<?> violatingVertex, ExpectedViolation expectedViolation, int transposeFlowGraphIndex) {
         List<ExpectedCharacteristic> missingNodeCharacteristics = expectedViolation
                 .hasNodeCharacteristic(violatingVertex.getAllVertexCharacteristics());
         if (!missingNodeCharacteristics.isEmpty()) {
-            logger.error(String.format("Vertex %s is missing the following node characteristics: %s", violatingVertex, missingNodeCharacteristics));
+            logger.error(String.format("Vertex %s at TFG %s is missing the following node characteristics: %s", violatingVertex,
+                    transposeFlowGraphIndex, missingNodeCharacteristics));
             fail(String.format("Vertex %s is missing the following node characteristics: %s", violatingVertex, missingNodeCharacteristics));
         }
 
         var incorrectNodeCharacteristics = expectedViolation.hasIncorrectNodeCharacteristics(violatingVertex.getAllVertexCharacteristics());
         if (!incorrectNodeCharacteristics.isEmpty()) {
-            logger.error(
-                    String.format("Vertex %s has the following incorrect node characteristics: %s", violatingVertex, incorrectNodeCharacteristics));
+            logger.error(String.format("Vertex %s at TFG %s has the following incorrect node characteristics: %s", violatingVertex,
+                    transposeFlowGraphIndex, incorrectNodeCharacteristics));
             fail(String.format("Vertex %s has the following incorrect node characteristics: %s", violatingVertex, incorrectNodeCharacteristics));
         }
 
         Map<String, List<ExpectedCharacteristic>> missingDataCharacteristics = expectedViolation
                 .hasDataCharacteristics(violatingVertex.getAllDataCharacteristics());
         if (!missingDataCharacteristics.isEmpty()) {
-            logger.error(String.format("Vertex %s is missing the following data characteristics: %s", violatingVertex, missingDataCharacteristics));
+            logger.error(String.format("Vertex %s at TFG %s is missing the following data characteristics: %s", violatingVertex,
+                    transposeFlowGraphIndex, missingDataCharacteristics));
             fail(String.format("Vertex %s is missing the following data characteristics: %s", violatingVertex, missingDataCharacteristics));
         }
 
         var incorrectDataCharacteristics = expectedViolation.hasMissingDataCharacteristics(violatingVertex.getAllDataCharacteristics());
         if (!incorrectDataCharacteristics.isEmpty()) {
-            logger.error(
-                    String.format("Vertex %s has the following incorrect data characteristics: %s", violatingVertex, incorrectDataCharacteristics));
+            logger.error(String.format("Vertex %s at TFG %s has the following incorrect data characteristics: %s", violatingVertex,
+                    transposeFlowGraphIndex, incorrectDataCharacteristics));
             fail(String.format("Vertex %s has the following incorrect data characteristics: %s", violatingVertex, incorrectDataCharacteristics));
         }
     }

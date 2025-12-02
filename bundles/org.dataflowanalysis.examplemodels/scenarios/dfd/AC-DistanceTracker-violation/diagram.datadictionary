@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_4lUdwVZlEfCRrfw2FPYOHw">
+  <labelTypes id="7qzsya" entityName="Roles">
+    <label id="csbgwk" entityName="User"/>
+    <label id="o3fxk" entityName="TrackingService"/>
+    <label id="iao8e" entityName="DistanceTracker"/>
+  </labelTypes>
+  <labelTypes id="gejc1c" entityName="AccessRights">
+    <label id="mfblx" entityName="User"/>
+    <label id="ligizb" entityName="TrackingService"/>
+    <label id="scgw5g" entityName="DistanceTracker"/>
+  </labelTypes>
+  <behavior id="_4lUdy1ZlEfCRrfw2FPYOHw" entityName="User">
+    <outPin id="lsyc9l" entityName="User_out_consent"/>
+    <outPin id="nb83mj" entityName="User_out_location"/>
+    <outPin id="6mwcw" entityName="User_out_consent"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_4lUd91ZlEfCRrfw2FPYOHw" outputPin="6mwcw" outputLabels="mfblx"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_4lUd-FZlEfCRrfw2FPYOHw" outputPin="nb83mj" outputLabels="mfblx"/>
+  </behavior>
+  <behavior id="_4lUd0FZlEfCRrfw2FPYOHw" entityName="Location Store">
+    <inPin id="qhr9j6" entityName="Location Store_in_location"/>
+    <outPin id="i3cec88" entityName="Location Store_out_locations"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_4lUd_FZlEfCRrfw2FPYOHw" outputPin="i3cec88" inputPins="qhr9j6"/>
+  </behavior>
+  <behavior id="_4lUd1FZlEfCRrfw2FPYOHw" entityName="calculate distance">
+    <inPin id="wmhqbt" entityName="calculate distance_in_locations"/>
+    <outPin id="0lojk" entityName="calculate distance_out_distancedistanceViolation"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_4lUd-1ZlEfCRrfw2FPYOHw" outputPin="0lojk" inputPins="wmhqbt"/>
+  </behavior>
+  <behavior id="_4lUd2FZlEfCRrfw2FPYOHw" entityName="confirm location">
+    <inPin id="1dmj5" entityName="confirm location_in_consent"/>
+    <inPin id="2qr1s" entityName="confirm location_in_location"/>
+    <outPin id="y44ipi" entityName="confirm location_out_location"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_4lUd_VZlEfCRrfw2FPYOHw" outputPin="y44ipi" inputPins="2qr1s 1dmj5"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_4lUd_lZlEfCRrfw2FPYOHw" outputPin="y44ipi" outputLabels="ligizb"/>
+  </behavior>
+  <behavior id="_4lUd3VZlEfCRrfw2FPYOHw" entityName="record location">
+    <inPin id="5eka79" entityName="record location_in_location"/>
+    <outPin id="qs083c" entityName="record location_out_location"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_4lUd_1ZlEfCRrfw2FPYOHw" outputPin="qs083c" inputPins="5eka79"/>
+  </behavior>
+  <behavior id="_4lUd4VZlEfCRrfw2FPYOHw" entityName="confirm distance">
+    <inPin id="t3cfj6" entityName="confirm distance_in_distance"/>
+    <inPin id="bhm0qk" entityName="confirm distance_in_consent"/>
+    <outPin id="ec16ek" entityName="confirm distance_out_distance"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_4lUd-VZlEfCRrfw2FPYOHw" outputPin="ec16ek" inputPins="t3cfj6 bhm0qk"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_4lUd-lZlEfCRrfw2FPYOHw" outputPin="ec16ek" outputLabels="scgw5g"/>
+  </behavior>
+  <behavior id="_4lUd5lZlEfCRrfw2FPYOHw" entityName="Distance Store">
+    <inPin id="7r5i93" entityName="Distance Store_in_distance"/>
+  </behavior>
+  <behavior id="_4lUd6VZlEfCRrfw2FPYOHw" entityName="record distance">
+    <inPin id="466m7" entityName="record distance_in_distancedistanceViolation"/>
+    <outPin id="n975iu" entityName="record distance_out_distance"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_4lUd9lZlEfCRrfw2FPYOHw" outputPin="n975iu" inputPins="466m7"/>
+  </behavior>
+</datadictionary:DataDictionary>

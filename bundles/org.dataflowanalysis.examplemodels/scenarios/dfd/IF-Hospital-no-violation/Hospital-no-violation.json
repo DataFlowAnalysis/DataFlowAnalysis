@@ -1,0 +1,1927 @@
+{
+    "model": {
+        "canvasBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 2333.75,
+            "height": 1168.75
+        },
+        "scroll": {
+            "x": -61.99389394750937,
+            "y": -489.90155775754334
+        },
+        "zoom": 0.9939310051107325,
+        "position": {
+            "x": 0,
+            "y": 0
+        },
+        "size": {
+            "width": -1,
+            "height": -1
+        },
+        "features": {},
+        "type": "graph",
+        "id": "root",
+        "children": [
+            {
+                "position": {
+                    "x": 1419,
+                    "y": 142.08333333333334
+                },
+                "size": {
+                    "width": 79,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Employee",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "sl6o37",
+                        "labelTypeValueId": "5ssja"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 75.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "set Level.High",
+                        "features": {},
+                        "id": "5utn3",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Propagated: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    }
+                ],
+                "features": {},
+                "id": "ufl6uu",
+                "type": "node:input-output",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1198,
+                    "y": 14.500000000000004
+                },
+                "size": {
+                    "width": 69,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Attacker",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "sl6o37",
+                        "labelTypeValueId": "tffy3w"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "kauuko",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Incoming: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    }
+                ],
+                "features": {},
+                "id": "a5ll3i",
+                "type": "node:input-output",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1795,
+                    "y": 109.08333333333333
+                },
+                "size": {
+                    "width": 76,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Write List",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "sl6o37",
+                        "labelTypeValueId": "5ssja"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 72.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward modified_list",
+                        "features": {},
+                        "id": "8fax3",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "dw9x6",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Incoming: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Propagated: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    },
+                    {
+                        "message": "Incoming: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    }
+                ],
+                "features": {},
+                "id": "gdpwp7",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1945,
+                    "y": 111.08333333333333
+                },
+                "size": {
+                    "width": 101,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Hospital DS",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "sl6o37",
+                        "labelTypeValueId": "5ssja"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 97.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward modified_list",
+                        "features": {},
+                        "id": "21kgg6",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "had3gk",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Incoming: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Propagated: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    },
+                    {
+                        "message": "Incoming: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    }
+                ],
+                "features": {},
+                "id": "v4uvbf",
+                "type": "node:storage",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 2130,
+                    "y": 92.08333333333333
+                },
+                "size": {
+                    "width": 80,
+                    "height": 36
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Declassify",
+                "color": "var(--color-primary)",
+                "labels": [],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 21.666666666666668
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "vdm66g",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 7.333333333333334
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward patient_list\nassign LevelBeforeEncryption.High if Level.High\nassign LevelBeforeEncryption.Low if Level.Low\nset Level.Low\nunset Level.High",
+                        "features": {},
+                        "id": "38s8us",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Incoming: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    },
+                    {
+                        "message": "Incoming: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    }
+                ],
+                "features": {},
+                "id": "crvlpc",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 748,
+                    "y": 43.5
+                },
+                "size": {
+                    "width": 148,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Request Patient List",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "sl6o37",
+                        "labelTypeValueId": "5ssja"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 144.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward request",
+                        "features": {},
+                        "id": "qknlw",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "5wygjo",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Incoming: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    },
+                    {
+                        "message": "Incoming: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    }
+                ],
+                "features": {},
+                "id": "8z1us",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 970,
+                    "y": 43.5
+                },
+                "size": {
+                    "width": 144,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Receive Patient List",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "sl6o37",
+                        "labelTypeValueId": "5ssja"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 140.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "l2y459",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "816n4i",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 140.5,
+                            "y": 32.75
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward patient_list_encrypted,request\nassign Level.Low if Level.Low from patient_list_encrypted,request\nassign Level.High if Level.High from patient_list_encrypted,request",
+                        "features": {},
+                        "id": "nu74kp",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 140.5,
+                            "y": 6.25
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward patient_list_encrypted,request\nassign Level.Low if Level.Low from patient_list_encrypted,request\nassign Level.High if Level.High from patient_list_encrypted,request",
+                        "features": {},
+                        "id": "3qhlk",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Incoming: Level.Low, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    },
+                    {
+                        "message": "Incoming: Level.Low, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    }
+                ],
+                "features": {},
+                "id": "8h5pxp",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1198,
+                    "y": 78.08333333333333
+                },
+                "size": {
+                    "width": 144,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Receive Patient List",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "sl6o37",
+                        "labelTypeValueId": "5ssja"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "x8a4ds",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 140.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward patient_list",
+                        "features": {},
+                        "id": "jo6h45",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    },
+                    {
+                        "message": "Incoming: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    }
+                ],
+                "features": {},
+                "id": "nbsblj",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1582,
+                    "y": 109.08333333333333
+                },
+                "size": {
+                    "width": 139,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Modify Patient List",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "sl6o37",
+                        "labelTypeValueId": "5ssja"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 28.33333333333333
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "5b8q6p",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 10.666666666666666
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "eq6qts",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 135.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward patient_list",
+                        "features": {},
+                        "id": "wjr6oj",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Incoming: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Propagated: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    },
+                    {
+                        "message": "Incoming: Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    },
+                    {
+                        "message": "Incoming: Level.Low, Level.High",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    }
+                ],
+                "features": {},
+                "id": "u97b9g",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 386,
+                    "y": 77.99999999999999
+                },
+                "size": {
+                    "width": 78,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Authorize",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "sl6o37",
+                        "labelTypeValueId": "5ssja"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "nasu4g",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 74.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward permissions",
+                        "features": {},
+                        "id": "h17z4xg",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Incoming: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    },
+                    {
+                        "message": "Incoming: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    }
+                ],
+                "features": {},
+                "id": "3onm28",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 215,
+                    "y": 77.99999999999999
+                },
+                "size": {
+                    "width": 78,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Authorize",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "sl6o37",
+                        "labelTypeValueId": "5ssja"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "vajqji",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 74.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward policy",
+                        "features": {},
+                        "id": "q7p2fo",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Incoming: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    },
+                    {
+                        "message": "Incoming: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    }
+                ],
+                "features": {},
+                "id": "ab5fpi",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 196,
+                    "y": 12
+                },
+                "size": {
+                    "width": 116,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Load App Code",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "sl6o37",
+                        "labelTypeValueId": "5ssja"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "787num",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 112.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward app_code",
+                        "features": {},
+                        "id": "b0dkii",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Incoming: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    },
+                    {
+                        "message": "Incoming: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    }
+                ],
+                "features": {},
+                "id": "0d5i8d",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 12,
+                    "y": 45.49999999999999
+                },
+                "size": {
+                    "width": 100,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Hospital App",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "sl6o37",
+                        "labelTypeValueId": "5ssja"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 96.5,
+                            "y": 9.333333333333334
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "set Level.Low",
+                        "features": {},
+                        "id": "nf9anh",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 96.5,
+                            "y": 25.66666666666667
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "set Level.Low",
+                        "features": {},
+                        "id": "hyaqe3",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Propagated: Level.Low, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    }
+                ],
+                "features": {},
+                "id": "x3cwfp",
+                "type": "node:input-output",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 119,
+                        "y": 58.33333333333333
+                    },
+                    {
+                        "x": 139,
+                        "y": 58.33333333333333
+                    },
+                    {
+                        "x": 139,
+                        "y": 35
+                    },
+                    {
+                        "x": 189,
+                        "y": 35
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "app_code",
+                "features": {},
+                "id": "ar96vo",
+                "type": "edge:arrow",
+                "sourceId": "nf9anh",
+                "targetId": "787num",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 119,
+                        "y": 74.66666666666666
+                    },
+                    {
+                        "x": 139,
+                        "y": 74.66666666666666
+                    },
+                    {
+                        "x": 139,
+                        "y": 100.99999999999999
+                    },
+                    {
+                        "x": 208,
+                        "y": 100.99999999999999
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "policy",
+                "features": {},
+                "id": "yu5c6g",
+                "type": "edge:arrow",
+                "sourceId": "hyaqe3",
+                "targetId": "vajqji",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 300,
+                        "y": 100.99999999999999
+                    },
+                    {
+                        "x": 379,
+                        "y": 100.99999999999999
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "permissions",
+                "features": {},
+                "id": "2kfpo",
+                "type": "edge:arrow",
+                "sourceId": "q7p2fo",
+                "targetId": "nasu4g",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 2053,
+                        "y": 132.08333333333331
+                    },
+                    {
+                        "x": 2103,
+                        "y": 132.08333333333331
+                    },
+                    {
+                        "x": 2103,
+                        "y": 117.25
+                    },
+                    {
+                        "x": 2123,
+                        "y": 117.25
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "patient_list",
+                "features": {},
+                "id": "yn8tja",
+                "type": "edge:arrow",
+                "sourceId": "21kgg6",
+                "targetId": "vdm66g",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 2123,
+                        "y": 102.91666666666666
+                    },
+                    {
+                        "x": 2103,
+                        "y": 102.91666666666666
+                    },
+                    {
+                        "x": 2103,
+                        "y": 66.5
+                    },
+                    {
+                        "x": 1121,
+                        "y": 66.5
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "patient_list_encrypted",
+                "features": {},
+                "id": "vodspb",
+                "type": "edge:arrow",
+                "sourceId": "38s8us",
+                "targetId": "l2y459",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 903,
+                        "y": 66.5
+                    },
+                    {
+                        "x": 963,
+                        "y": 66.5
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "request",
+                "features": {},
+                "id": "jjw5ub",
+                "type": "edge:arrow",
+                "sourceId": "qknlw",
+                "targetId": "816n4i",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1121,
+                        "y": 79.75
+                    },
+                    {
+                        "x": 1141,
+                        "y": 79.75
+                    },
+                    {
+                        "x": 1141,
+                        "y": 101.08333333333333
+                    },
+                    {
+                        "x": 1191,
+                        "y": 101.08333333333333
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "patient_list",
+                "features": {},
+                "id": "sp09ub",
+                "type": "edge:arrow",
+                "sourceId": "nu74kp",
+                "targetId": "x8a4ds",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1121,
+                        "y": 53.25
+                    },
+                    {
+                        "x": 1141,
+                        "y": 53.25
+                    },
+                    {
+                        "x": 1141,
+                        "y": 35.5
+                    },
+                    {
+                        "x": 1191,
+                        "y": 35.5
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "patient_list",
+                "features": {},
+                "id": "1ia3os",
+                "type": "edge:arrow",
+                "sourceId": "3qhlk",
+                "targetId": "kauuko",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1505,
+                        "y": 163.08333333333334
+                    },
+                    {
+                        "x": 1555,
+                        "y": 163.08333333333334
+                    },
+                    {
+                        "x": 1555,
+                        "y": 140.91666666666666
+                    },
+                    {
+                        "x": 1575,
+                        "y": 140.91666666666666
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "patient_list",
+                "features": {},
+                "id": "whr1ba",
+                "type": "edge:arrow",
+                "sourceId": "5utn3",
+                "targetId": "5b8q6p",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1416,
+                    "y": 80.08333333333333
+                },
+                "size": {
+                    "width": 82,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "DropBox",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "sl6o37",
+                        "labelTypeValueId": "5ssja"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "7kibom",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 78.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward patient_list",
+                        "features": {},
+                        "id": "d12yh6",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    },
+                    {
+                        "message": "Incoming: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    }
+                ],
+                "features": {},
+                "id": "rwbqz8",
+                "type": "node:storage",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1349,
+                        "y": 101.08333333333333
+                    },
+                    {
+                        "x": 1409,
+                        "y": 101.08333333333333
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "patient_list",
+                "features": {},
+                "id": "ttx3un",
+                "type": "edge:arrow",
+                "sourceId": "jo6h45",
+                "targetId": "7kibom",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1505,
+                        "y": 101.08333333333333
+                    },
+                    {
+                        "x": 1555,
+                        "y": 101.08333333333333
+                    },
+                    {
+                        "x": 1555,
+                        "y": 123.25
+                    },
+                    {
+                        "x": 1575,
+                        "y": 123.25
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "patient_list_from_dropbox",
+                "features": {},
+                "id": "k7vkxr",
+                "type": "edge:arrow",
+                "sourceId": "d12yh6",
+                "targetId": "eq6qts",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 548,
+                    "y": 43.5
+                },
+                "size": {
+                    "width": 126,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Build List Request",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "sl6o37",
+                        "labelTypeValueId": "5ssja"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 28
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "8c5u5i",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 10.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "dfzgv8",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 122.5,
+                            "y": 20.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward permissions\nassign Level.Low if Level.Low from permissions\nassign Level.Low if Level.Low from app_code\nassign Level.High if Level.High from permissions\nassign Level.High if Level.High from app_code",
+                        "features": {},
+                        "id": "tdg2xk",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Incoming: Level.Low, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1656782810
+                    },
+                    {
+                        "message": "Propagated: Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    },
+                    {
+                        "message": "Incoming: Level.Low, Level.Low",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 221829239
+                    }
+                ],
+                "features": {},
+                "id": "7wsyks",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 471,
+                        "y": 100.99999999999999
+                    },
+                    {
+                        "x": 521,
+                        "y": 100.99999999999999
+                    },
+                    {
+                        "x": 521,
+                        "y": 75.33333333333333
+                    },
+                    {
+                        "x": 541,
+                        "y": 75.33333333333333
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "permissions",
+                "features": {},
+                "id": "s4i6a9",
+                "type": "edge:arrow",
+                "sourceId": "h17z4xg",
+                "targetId": "8c5u5i",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 319,
+                        "y": 35
+                    },
+                    {
+                        "x": 521,
+                        "y": 35
+                    },
+                    {
+                        "x": 521,
+                        "y": 57.666666666666664
+                    },
+                    {
+                        "x": 541,
+                        "y": 57.66666666666667
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "app_code",
+                "features": {},
+                "id": "89coh8",
+                "type": "edge:arrow",
+                "sourceId": "b0dkii",
+                "targetId": "dfzgv8",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 681,
+                        "y": 66.5
+                    },
+                    {
+                        "x": 741,
+                        "y": 66.5
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "request",
+                "features": {},
+                "id": "6sqii9",
+                "type": "edge:arrow",
+                "sourceId": "tdg2xk",
+                "targetId": "5wygjo",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1878,
+                        "y": 132.08333333333331
+                    },
+                    {
+                        "x": 1938,
+                        "y": 132.08333333333331
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "modified_list",
+                "features": {},
+                "id": "od8y9n",
+                "type": "edge:arrow",
+                "sourceId": "8fax3",
+                "targetId": "had3gk",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1728,
+                        "y": 132.08333333333331
+                    },
+                    {
+                        "x": 1788,
+                        "y": 132.08333333333331
+                    }
+                ],
+                "selected": true,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "modified_list",
+                "features": {},
+                "id": "rfpdk",
+                "type": "edge:arrow",
+                "sourceId": "wjr6oj",
+                "targetId": "dw9x6",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            }
+        ]
+    },
+    "labelTypes": [
+        {
+            "id": "sl6o37",
+            "name": "Zone",
+            "values": [
+                {
+                    "id": "5ssja",
+                    "text": "Trust"
+                },
+                {
+                    "id": "tffy3w",
+                    "text": "Attack"
+                }
+            ]
+        },
+        {
+            "id": "k9lnos",
+            "name": "Level",
+            "values": [
+                {
+                    "id": "wvup1a",
+                    "text": "High"
+                },
+                {
+                    "id": "xvysjw",
+                    "text": "Low"
+                }
+            ]
+        },
+        {
+            "id": "1x1aya",
+            "name": "LevelBeforeEncryption",
+            "values": [
+                {
+                    "id": "1t845q",
+                    "text": "High"
+                },
+                {
+                    "id": "4tk7n7",
+                    "text": "Low"
+                }
+            ]
+        }
+    ],
+    "constraints": [
+        {
+            "name": "SafetyConstraint",
+            "constraint": "data Level.High neverFlows vertex Zone.Attack"
+        }
+    ],
+    "mode": "edit",
+    "version": 1
+}

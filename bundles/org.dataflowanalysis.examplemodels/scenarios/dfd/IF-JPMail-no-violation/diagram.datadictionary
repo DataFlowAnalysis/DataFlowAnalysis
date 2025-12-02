@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_88scgS_rEfCy_4XEclxE_A">
+  <labelTypes id="ud5z2" entityName="Zone">
+    <label id="nkwkcj" entityName="Trust"/>
+    <label id="vbkupo" entityName="Attack"/>
+  </labelTypes>
+  <labelTypes id="pqllad" entityName="Level">
+    <label id="kghn" entityName="High"/>
+    <label id="xzprol" entityName="Low"/>
+  </labelTypes>
+  <labelTypes id="bsks6d" entityName="LevelBeforeEncryption">
+    <label id="wy0t1h" entityName="High"/>
+    <label id="lpfrq" entityName="Low"/>
+  </labelTypes>
+  <behavior id="_88scjC_rEfCy_4XEclxE_A" entityName="split mail">
+    <inPin id="nbmstb" entityName="split mail_in_EmailBodyAndHeader"/>
+    <inPin id="4lufz4" entityName="split mail_in_Policy"/>
+    <outPin id="5h320d" entityName="split mail_out_EmailBodyAndHeader"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_88tDsS_rEfCy_4XEclxE_A" outputPin="5h320d" inputPins="4lufz4"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_88tDsi_rEfCy_4XEclxE_A" outputPin="5h320d" outputLabels="xzprol" inputPins="4lufz4">
+      <term xsi:type="datadictionary:LabelReference" id="_88tDsy_rEfCy_4XEclxE_A" label="xzprol"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_88tDtC_rEfCy_4XEclxE_A" outputPin="5h320d" outputLabels="xzprol" inputPins="nbmstb">
+      <term xsi:type="datadictionary:LabelReference" id="_88tDtS_rEfCy_4XEclxE_A" label="xzprol"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_88tDti_rEfCy_4XEclxE_A" outputPin="5h320d" outputLabels="kghn" inputPins="4lufz4">
+      <term xsi:type="datadictionary:LabelReference" id="_88tDty_rEfCy_4XEclxE_A" label="kghn"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_88tDuC_rEfCy_4XEclxE_A" outputPin="5h320d" outputLabels="kghn" inputPins="nbmstb">
+      <term xsi:type="datadictionary:LabelReference" id="_88tDuS_rEfCy_4XEclxE_A" label="kghn"/>
+    </assignment>
+  </behavior>
+  <behavior id="_88sckS_rEfCy_4XEclxE_A" entityName="prepare encryption">
+    <inPin id="ha7uux" entityName="prepare encryption_in_BobPubKey"/>
+    <inPin id="j4srg5" entityName="prepare encryption_in_EmailBodyAndHeader"/>
+    <outPin id="q1dfhk" entityName="prepare encryption_out_EmailBodyHeaderAndBobPubKey"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_88tDpy_rEfCy_4XEclxE_A" outputPin="q1dfhk" inputPins="ha7uux"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_88tDqC_rEfCy_4XEclxE_A" outputPin="q1dfhk" outputLabels="xzprol" inputPins="ha7uux">
+      <term xsi:type="datadictionary:LabelReference" id="_88tDqS_rEfCy_4XEclxE_A" label="xzprol"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_88tDqi_rEfCy_4XEclxE_A" outputPin="q1dfhk" outputLabels="xzprol" inputPins="j4srg5">
+      <term xsi:type="datadictionary:LabelReference" id="_88tDqy_rEfCy_4XEclxE_A" label="xzprol"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_88tDrC_rEfCy_4XEclxE_A" outputPin="q1dfhk" outputLabels="kghn" inputPins="ha7uux">
+      <term xsi:type="datadictionary:LabelReference" id="_88tDrS_rEfCy_4XEclxE_A" label="kghn"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_88tDri_rEfCy_4XEclxE_A" outputPin="q1dfhk" outputLabels="kghn" inputPins="j4srg5">
+      <term xsi:type="datadictionary:LabelReference" id="_88tDry_rEfCy_4XEclxE_A" label="kghn"/>
+    </assignment>
+  </behavior>
+  <behavior id="_88scli_rEfCy_4XEclxE_A" entityName="Alice">
+    <outPin id="gjkcwb" entityName="Alice_out_EmailBodyAndHeader"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_88tDsC_rEfCy_4XEclxE_A" outputPin="gjkcwb" outputLabels="kghn"/>
+  </behavior>
+  <behavior id="_88scmS_rEfCy_4XEclxE_A" entityName="Bob DS">
+    <outPin id="axn537" entityName="Bob DS_out_BobPrivateKey"/>
+  </behavior>
+  <behavior id="_88scnC_rEfCy_4XEclxE_A" entityName="decrypt">
+    <inPin id="7qbb6p" entityName="decrypt_in_EmailBodyEncryptedAndHeaderAndBobPriveteKey"/>
+    <outPin id="efr0hs" entityName="decrypt_out_EmailBodyAndHeader"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_88tDoi_rEfCy_4XEclxE_A" outputPin="efr0hs" inputPins="7qbb6p"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_88tDoy_rEfCy_4XEclxE_A" outputPin="efr0hs" outputLabels="kghn" inputPins="7qbb6p">
+      <term xsi:type="datadictionary:LabelReference" id="_88tDpC_rEfCy_4XEclxE_A" label="wy0t1h"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_88tDpS_rEfCy_4XEclxE_A" outputPin="efr0hs" outputLabels="xzprol" inputPins="7qbb6p">
+      <term xsi:type="datadictionary:LabelReference" id="_88tDpi_rEfCy_4XEclxE_A" label="lpfrq"/>
+    </assignment>
+  </behavior>
+  <behavior id="_88scoC_rEfCy_4XEclxE_A" entityName="PolicyInitiator">
+    <outPin id="56zk5" entityName="PolicyInitiator_out_Policy"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_88tDzy_rEfCy_4XEclxE_A" outputPin="56zk5" outputLabels="xzprol"/>
+  </behavior>
+  <behavior id="_88scoy_rEfCy_4XEclxE_A" entityName="Policy DS">
+    <inPin id="npnfsr" entityName="Policy DS_in_Policy"/>
+    <outPin id="jj2kv" entityName="Policy DS_out_Policy"/>
+    <outPin id="dqgr4p" entityName="Policy DS_out_BobPubKey"/>
+    <outPin id="x8tisi" entityName="Policy DS_out_Policy"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_88tDui_rEfCy_4XEclxE_A" outputPin="x8tisi" inputPins="npnfsr"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_88tDuy_rEfCy_4XEclxE_A" outputPin="dqgr4p" inputPins="npnfsr"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_88tDvC_rEfCy_4XEclxE_A" outputPin="jj2kv" inputPins="npnfsr"/>
+  </behavior>
+  <behavior id="_88scqS_rEfCy_4XEclxE_A" entityName="authorize">
+    <inPin id="j5x56q" entityName="authorize_in_Policy"/>
+    <outPin id="e4iwfq" entityName="authorize_out_Policy"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_88tDzi_rEfCy_4XEclxE_A" outputPin="e4iwfq" inputPins="j5x56q"/>
+  </behavior>
+  <behavior id="_88scrS_rEfCy_4XEclxE_A" entityName="authorize key reading">
+    <inPin id="fsa88r" entityName="authorize key reading_in_Policy"/>
+    <inPin id="me6naz" entityName="authorize key reading_in_BobPrivateKey"/>
+    <outPin id="up10a" entityName="authorize key reading_out_BobPrivateKey"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_88tDvS_rEfCy_4XEclxE_A" outputPin="up10a" inputPins="me6naz"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_88tDvi_rEfCy_4XEclxE_A" outputPin="up10a" outputLabels="xzprol" inputPins="me6naz">
+      <term xsi:type="datadictionary:LabelReference" id="_88tDvy_rEfCy_4XEclxE_A" label="xzprol"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_88tDwC_rEfCy_4XEclxE_A" outputPin="up10a" outputLabels="xzprol" inputPins="fsa88r">
+      <term xsi:type="datadictionary:LabelReference" id="_88tDwS_rEfCy_4XEclxE_A" label="xzprol"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_88tDwi_rEfCy_4XEclxE_A" outputPin="up10a" outputLabels="kghn" inputPins="me6naz">
+      <term xsi:type="datadictionary:LabelReference" id="_88tDwy_rEfCy_4XEclxE_A" label="kghn"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_88tDxC_rEfCy_4XEclxE_A" outputPin="up10a" outputLabels="kghn" inputPins="fsa88r">
+      <term xsi:type="datadictionary:LabelReference" id="_88tDxS_rEfCy_4XEclxE_A" label="kghn"/>
+    </assignment>
+  </behavior>
+  <behavior id="_88scsi_rEfCy_4XEclxE_A" entityName="authorize">
+    <inPin id="5pimrr" entityName="authorize_in_Policy"/>
+    <outPin id="49wgwa" entityName="authorize_out_Policy"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_88tDoC_rEfCy_4XEclxE_A" outputPin="49wgwa" inputPins="5pimrr"/>
+  </behavior>
+  <behavior id="_88scti_rEfCy_4XEclxE_A" entityName="prepare decryption">
+    <inPin id="wvh329" entityName="prepare decryption_in_BobPrivateKey"/>
+    <inPin id="kee28" entityName="prepare decryption_in_EmailBodyEncryptedAndHeader"/>
+    <outPin id="jut89" entityName="prepare decryption_out_EmailBodyEncryptedAndHeaderAndBobPriveteKey"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_88tD0C_rEfCy_4XEclxE_A" outputPin="jut89" inputPins="wvh329"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_88tD0S_rEfCy_4XEclxE_A" outputPin="jut89" outputLabels="xzprol" inputPins="wvh329">
+      <term xsi:type="datadictionary:LabelReference" id="_88tD0i_rEfCy_4XEclxE_A" label="xzprol"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_88tD0y_rEfCy_4XEclxE_A" outputPin="jut89" outputLabels="xzprol" inputPins="kee28">
+      <term xsi:type="datadictionary:LabelReference" id="_88tD1C_rEfCy_4XEclxE_A" label="xzprol"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_88tD1S_rEfCy_4XEclxE_A" outputPin="jut89" outputLabels="kghn" inputPins="wvh329">
+      <term xsi:type="datadictionary:LabelReference" id="_88tD1i_rEfCy_4XEclxE_A" label="kghn"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_88tD1y_rEfCy_4XEclxE_A" outputPin="jut89" outputLabels="kghn" inputPins="kee28">
+      <term xsi:type="datadictionary:LabelReference" id="_88tD2C_rEfCy_4XEclxE_A" label="kghn"/>
+    </assignment>
+  </behavior>
+  <behavior id="_88scuy_rEfCy_4XEclxE_A" entityName="Bob">
+    <inPin id="nvcwzl" entityName="Bob_in_EmailBodyAndHeader"/>
+  </behavior>
+  <behavior id="_88scvi_rEfCy_4XEclxE_A" entityName="SMTP">
+    <inPin id="fh2" entityName="SMTP_in_EmailBodyEncryptedHeader"/>
+    <outPin id="ght5jh" entityName="SMTP_out_EmailBodyEncryptedAndHeader"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_88tDxi_rEfCy_4XEclxE_A" outputPin="ght5jh" inputPins="fh2"/>
+  </behavior>
+  <behavior id="_88scwi_rEfCy_4XEclxE_A" entityName="POP3">
+    <inPin id="pepa57" entityName="POP3_in_EmailBodyEncryptedAndHeader"/>
+    <outPin id="yddkf8" entityName="POP3_out_EmailBodyEncryptedAndHeader"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_88tDoS_rEfCy_4XEclxE_A" outputPin="yddkf8" inputPins="pepa57"/>
+  </behavior>
+  <behavior id="_88scxi_rEfCy_4XEclxE_A" entityName="encrypt">
+    <inPin id="z3y4gi" entityName="encrypt_in_EmailBodyHeaderAndBobPubKey"/>
+    <outPin id="bs0h4" entityName="encrypt_out_EmailBodyEncryptedHeader"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_88tDxy_rEfCy_4XEclxE_A" outputPin="bs0h4" inputPins="z3y4gi"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_88tDyC_rEfCy_4XEclxE_A" outputPin="bs0h4" outputLabels="wy0t1h" inputPins="z3y4gi">
+      <term xsi:type="datadictionary:LabelReference" id="_88tDyS_rEfCy_4XEclxE_A" label="kghn"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_88tDyi_rEfCy_4XEclxE_A" outputPin="bs0h4" outputLabels="lpfrq" inputPins="z3y4gi">
+      <term xsi:type="datadictionary:LabelReference" id="_88tDyy_rEfCy_4XEclxE_A" label="xzprol"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_88tDzC_rEfCy_4XEclxE_A" outputPin="bs0h4" outputLabels="kghn"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_88tDzS_rEfCy_4XEclxE_A" outputPin="bs0h4" outputLabels="xzprol"/>
+  </behavior>
+</datadictionary:DataDictionary>

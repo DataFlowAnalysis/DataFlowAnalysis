@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_3Spq0S_rEfCy_4XEclxE_A">
+  <labelTypes id="sl6o37" entityName="Zone">
+    <label id="5ssja" entityName="Trust"/>
+    <label id="tffy3w" entityName="Attack"/>
+  </labelTypes>
+  <labelTypes id="k9lnos" entityName="Level">
+    <label id="wvup1a" entityName="High"/>
+    <label id="xvysjw" entityName="Low"/>
+  </labelTypes>
+  <labelTypes id="1x1aya" entityName="LevelBeforeEncryption">
+    <label id="1t845q" entityName="High"/>
+    <label id="4tk7n7" entityName="Low"/>
+  </labelTypes>
+  <behavior id="_3Spq3C_rEfCy_4XEclxE_A" entityName="recieve patient list">
+    <inPin id="x8a4ds" entityName="recieve patient list_in_PatientList"/>
+    <outPin id="jo6h45" entityName="recieve patient list_out_PatientList"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_3SprKi_rEfCy_4XEclxE_A" outputPin="jo6h45" inputPins="x8a4ds"/>
+  </behavior>
+  <behavior id="_3Spq4C_rEfCy_4XEclxE_A" entityName="DropBox">
+    <inPin id="7kibom" entityName="DropBox_in_PatientList"/>
+    <outPin id="d12yh6" entityName="DropBox_out_PatientListFromDropBox"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_3SprLC_rEfCy_4XEclxE_A" outputPin="d12yh6" inputPins="7kibom"/>
+  </behavior>
+  <behavior id="_3Spq5C_rEfCy_4XEclxE_A" entityName="Employee">
+    <outPin id="5utn3" entityName="Employee_out_PatientList"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_3SqR-y_rEfCy_4XEclxE_A" outputPin="5utn3" outputLabels="wvup1a"/>
+  </behavior>
+  <behavior id="_3Spq5y_rEfCy_4XEclxE_A" entityName="modify patient list">
+    <inPin id="5b8q6p" entityName="modify patient list_in_PatientList"/>
+    <inPin id="eq6qts" entityName="modify patient list_in_PatientListFromDropBox"/>
+    <outPin id="wjr6oj" entityName="modify patient list_out_ModifiedList"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_3SprKy_rEfCy_4XEclxE_A" outputPin="wjr6oj" inputPins="5b8q6p"/>
+  </behavior>
+  <behavior id="_3Spq7C_rEfCy_4XEclxE_A" entityName="HospitalDS">
+    <inPin id="had3gk" entityName="HospitalDS_in_ModifiedList"/>
+    <outPin id="21kgg6" entityName="HospitalDS_out_PatientList"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_3SqR6i_rEfCy_4XEclxE_A" outputPin="21kgg6" inputPins="had3gk"/>
+  </behavior>
+  <behavior id="_3Spq8C_rEfCy_4XEclxE_A" entityName="write list">
+    <inPin id="dw9x6" entityName="write list_in_ModifiedList"/>
+    <outPin id="8fax3" entityName="write list_out_ModifiedList"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_3SqR9S_rEfCy_4XEclxE_A" outputPin="8fax3" inputPins="dw9x6"/>
+  </behavior>
+  <behavior id="_3Spq9C_rEfCy_4XEclxE_A" entityName="declassify">
+    <inPin id="vdm66g" entityName="declassify_in_PatientList"/>
+    <outPin id="38s8us" entityName="declassify_out_PatientListEncrypted"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_3SqR4y_rEfCy_4XEclxE_A" outputPin="38s8us" inputPins="vdm66g"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_3SqR5C_rEfCy_4XEclxE_A" outputPin="38s8us" outputLabels="1t845q">
+      <term xsi:type="datadictionary:LabelReference" id="_3SqR5S_rEfCy_4XEclxE_A" label="wvup1a"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_3SqR5i_rEfCy_4XEclxE_A" outputPin="38s8us" outputLabels="4tk7n7">
+      <term xsi:type="datadictionary:LabelReference" id="_3SqR5y_rEfCy_4XEclxE_A" label="xvysjw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_3SqR6C_rEfCy_4XEclxE_A" outputPin="38s8us" outputLabels="xvysjw"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_3SqR6S_rEfCy_4XEclxE_A" outputPin="38s8us" outputLabels="wvup1a"/>
+  </behavior>
+  <behavior id="_3Spq-C_rEfCy_4XEclxE_A" entityName="request patient list">
+    <inPin id="5wygjo" entityName="request patient list_in_Request"/>
+    <outPin id="qknlw" entityName="request patient list_out_Request"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_3SqR9i_rEfCy_4XEclxE_A" outputPin="qknlw" inputPins="5wygjo"/>
+  </behavior>
+  <behavior id="_3Spq_C_rEfCy_4XEclxE_A" entityName="HospitalApp">
+    <outPin id="hyaqe3" entityName="HospitalApp_out_Policy"/>
+    <outPin id="nf9anh" entityName="HospitalApp_out_AppCode"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_3SqR9y_rEfCy_4XEclxE_A" outputPin="nf9anh" outputLabels="xvysjw"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_3SqR-C_rEfCy_4XEclxE_A" outputPin="hyaqe3" outputLabels="xvysjw"/>
+  </behavior>
+  <behavior id="_3SprAC_rEfCy_4XEclxE_A" entityName="authorize">
+    <inPin id="vajqji" entityName="authorize_in_Policy"/>
+    <outPin id="q7p2fo" entityName="authorize_out_Permissions"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_3SprKS_rEfCy_4XEclxE_A" outputPin="q7p2fo" inputPins="vajqji"/>
+  </behavior>
+  <behavior id="_3SprBC_rEfCy_4XEclxE_A" entityName="load app code">
+    <inPin id="787num" entityName="load app code_in_AppCode"/>
+    <outPin id="b0dkii" entityName="load app code_out_AppCode"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_3SqR-S_rEfCy_4XEclxE_A" outputPin="b0dkii" inputPins="787num"/>
+  </behavior>
+  <behavior id="_3SprCC_rEfCy_4XEclxE_A" entityName="authorize">
+    <inPin id="nasu4g" entityName="authorize_in_Permissions"/>
+    <outPin id="h17z4xg" entityName="authorize_out_Permissions"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_3SqR-i_rEfCy_4XEclxE_A" outputPin="h17z4xg" inputPins="nasu4g"/>
+  </behavior>
+  <behavior id="_3SprDC_rEfCy_4XEclxE_A" entityName="build list request">
+    <inPin id="8c5u5i" entityName="build list request_in_Permissions"/>
+    <inPin id="dfzgv8" entityName="build list request_in_AppCode"/>
+    <outPin id="tdg2xk" entityName="build list request_out_Request"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_3SprLS_rEfCy_4XEclxE_A" outputPin="tdg2xk" inputPins="8c5u5i"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_3SprLi_rEfCy_4XEclxE_A" outputPin="tdg2xk" outputLabels="xvysjw" inputPins="8c5u5i">
+      <term xsi:type="datadictionary:LabelReference" id="_3SprLy_rEfCy_4XEclxE_A" label="xvysjw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_3SprMC_rEfCy_4XEclxE_A" outputPin="tdg2xk" outputLabels="xvysjw" inputPins="dfzgv8">
+      <term xsi:type="datadictionary:LabelReference" id="_3SprMS_rEfCy_4XEclxE_A" label="xvysjw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_3SprMi_rEfCy_4XEclxE_A" outputPin="tdg2xk" outputLabels="wvup1a" inputPins="8c5u5i">
+      <term xsi:type="datadictionary:LabelReference" id="_3SqR4C_rEfCy_4XEclxE_A" label="wvup1a"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_3SqR4S_rEfCy_4XEclxE_A" outputPin="tdg2xk" outputLabels="wvup1a" inputPins="dfzgv8">
+      <term xsi:type="datadictionary:LabelReference" id="_3SqR4i_rEfCy_4XEclxE_A" label="wvup1a"/>
+    </assignment>
+  </behavior>
+  <behavior id="_3SprES_rEfCy_4XEclxE_A" entityName="receive patient list">
+    <inPin id="816n4i" entityName="receive patient list_in_Request"/>
+    <inPin id="l2y459" entityName="receive patient list_in_PatientListEncrypted"/>
+    <outPin id="nu74kp" entityName="receive patient list_out_PatientList"/>
+    <outPin id="3qhlk" entityName="receive patient list_out_PatientList"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_3SqR6y_rEfCy_4XEclxE_A" outputPin="3qhlk" inputPins="l2y459 816n4i"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_3SqR7C_rEfCy_4XEclxE_A" outputPin="3qhlk" outputLabels="xvysjw" inputPins="l2y459 816n4i">
+      <term xsi:type="datadictionary:LabelReference" id="_3SqR7S_rEfCy_4XEclxE_A" label="xvysjw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_3SqR7i_rEfCy_4XEclxE_A" outputPin="3qhlk" outputLabels="wvup1a" inputPins="l2y459 816n4i">
+      <term xsi:type="datadictionary:LabelReference" id="_3SqR7y_rEfCy_4XEclxE_A" label="wvup1a"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_3SqR8C_rEfCy_4XEclxE_A" outputPin="nu74kp" inputPins="l2y459 816n4i"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_3SqR8S_rEfCy_4XEclxE_A" outputPin="nu74kp" outputLabels="xvysjw" inputPins="l2y459 816n4i">
+      <term xsi:type="datadictionary:LabelReference" id="_3SqR8i_rEfCy_4XEclxE_A" label="xvysjw"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_3SqR8y_rEfCy_4XEclxE_A" outputPin="nu74kp" outputLabels="wvup1a" inputPins="l2y459 816n4i">
+      <term xsi:type="datadictionary:LabelReference" id="_3SqR9C_rEfCy_4XEclxE_A" label="wvup1a"/>
+    </assignment>
+  </behavior>
+  <behavior id="_3SprFy_rEfCy_4XEclxE_A" entityName="Attacker">
+    <inPin id="kauuko" entityName="Attacker_in_PatientList"/>
+  </behavior>
+</datadictionary:DataDictionary>

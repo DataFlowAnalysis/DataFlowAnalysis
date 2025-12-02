@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://dataflowanalysis.org/dfd/dataflowdiagram" id="_7caHoHqsEfCvx4l13OBupA">
+  <flows id="lc7dks" entityName="credentials" sourceNode="7oii5l" destinationNode="ac9tpa">
+    <destinationPin href="diagram.datadictionary#m6uzo"/>
+    <sourcePin href="diagram.datadictionary#il76so"/>
+  </flows>
+  <flows id="klzcr" entityName="credentials" sourceNode="ac9tpa" destinationNode="vym7zr">
+    <destinationPin href="diagram.datadictionary#zfk4o"/>
+    <sourcePin href="diagram.datadictionary#3tvs3"/>
+  </flows>
+  <flows id="nb4e4h" entityName="credentials" sourceNode="vym7zr" destinationNode="oltnsm">
+    <destinationPin href="diagram.datadictionary#cdzwg"/>
+    <sourcePin href="diagram.datadictionary#3eq1qp"/>
+  </flows>
+  <flows id="yzwstn" entityName="check_credentials" sourceNode="oltnsm" destinationNode="mibcgs">
+    <destinationPin href="diagram.datadictionary#6cbvt"/>
+    <sourcePin href="diagram.datadictionary#phpm4k"/>
+  </flows>
+  <flows id="ckmh6" entityName="new_consents" sourceNode="419ra" destinationNode="lpezgc">
+    <destinationPin href="diagram.datadictionary#s207ga"/>
+    <sourcePin href="diagram.datadictionary#stn4z8"/>
+  </flows>
+  <flows id="lyqno" entityName="actualized_consents" sourceNode="6mac7tj" destinationNode="lpezgc">
+    <destinationPin href="diagram.datadictionary#30byi"/>
+    <sourcePin href="diagram.datadictionary#u0y74s"/>
+  </flows>
+  <flows id="crw0bf" entityName="credentials" sourceNode="ac9tpa" destinationNode="7vk82">
+    <destinationPin href="diagram.datadictionary#s9vzo"/>
+    <sourcePin href="diagram.datadictionary#rjxpcj"/>
+  </flows>
+  <flows id="gwhrm" entityName="credentials" sourceNode="7vk82" destinationNode="y65tc">
+    <destinationPin href="diagram.datadictionary#dmtbvu"/>
+    <sourcePin href="diagram.datadictionary#7hple"/>
+  </flows>
+  <flows id="520wcd" entityName="credentials" sourceNode="y65tc" destinationNode="mibcgs">
+    <destinationPin href="diagram.datadictionary#ndpm3d"/>
+    <sourcePin href="diagram.datadictionary#h19d3f"/>
+  </flows>
+  <flows id="qtihoi" entityName="index_records" sourceNode="mibcgs" destinationNode="3sb4v">
+    <destinationPin href="diagram.datadictionary#br073a"/>
+    <sourcePin href="diagram.datadictionary#zcjqv5"/>
+  </flows>
+  <flows id="uq48" entityName="user_consents" sourceNode="mibcgs" destinationNode="3sb4v">
+    <destinationPin href="diagram.datadictionary#0o0chf"/>
+    <sourcePin href="diagram.datadictionary#fiwwap"/>
+  </flows>
+  <flows id="e3a6nl" entityName="index_records" sourceNode="3sb4v" destinationNode="2yngjm">
+    <destinationPin href="diagram.datadictionary#smbtq8"/>
+    <sourcePin href="diagram.datadictionary#7rybfc"/>
+  </flows>
+  <flows id="w5qnhe" entityName="user_consents" sourceNode="3sb4v" destinationNode="xdpows">
+    <destinationPin href="diagram.datadictionary#jakj4m"/>
+    <sourcePin href="diagram.datadictionary#tdjr1"/>
+  </flows>
+  <flows id="clyscj" entityName="user_consents" sourceNode="3sb4v" destinationNode="419ra">
+    <destinationPin href="diagram.datadictionary#4man"/>
+    <sourcePin href="diagram.datadictionary#tdjr1"/>
+  </flows>
+  <flows id="yw4y3c" entityName="user_consents" sourceNode="3sb4v" destinationNode="6mac7tj">
+    <destinationPin href="diagram.datadictionary#kaydas"/>
+    <sourcePin href="diagram.datadictionary#tdjr1"/>
+  </flows>
+  <flows id="pre38p" entityName="user_consents" sourceNode="xdpows" destinationNode="kglue">
+    <destinationPin href="diagram.datadictionary#zxbm2q"/>
+    <sourcePin href="diagram.datadictionary#ptcflm"/>
+  </flows>
+  <flows id="l79h8g" entityName="index_records" sourceNode="2yngjm" destinationNode="5h91jq">
+    <destinationPin href="diagram.datadictionary#e3q01p"/>
+    <sourcePin href="diagram.datadictionary#1bdmpm"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:Process" id="y65tc" entityName="After Register Hook">
+    <behavior href="diagram.datadictionary#_7caHsXqsEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="7oii5l" entityName="User">
+    <behavior href="diagram.datadictionary#_7caHtXqsEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="ac9tpa" entityName="Flask App">
+    <behavior href="diagram.datadictionary#_7caHuHqsEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="vym7zr" entityName="Login Flask">
+    <behavior href="diagram.datadictionary#_7caHvXqsEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="oltnsm" entityName="Check Credentials">
+    <behavior href="diagram.datadictionary#_7caHwXqsEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Store" id="mibcgs" entityName="SQLite DB">
+    <behavior href="diagram.datadictionary#_7caHxXqsEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="xdpows" entityName="Policy">
+    <behavior href="diagram.datadictionary#_7caHy3qsEfCvx4l13OBupA"/>
+    <properties href="diagram.datadictionary#0sogk"/>
+    <properties href="diagram.datadictionary#yubjsc"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="419ra" entityName="Add Consents">
+    <behavior href="diagram.datadictionary#_7caHz3qsEfCvx4l13OBupA"/>
+    <properties href="diagram.datadictionary#0sogk"/>
+    <properties href="diagram.datadictionary#yubjsc"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="lpezgc" entityName="Save To DB">
+    <behavior href="diagram.datadictionary#_7caH03qsEfCvx4l13OBupA"/>
+    <properties href="diagram.datadictionary#0sogk"/>
+    <properties href="diagram.datadictionary#yubjsc"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="6mac7tj" entityName="Remove Consents">
+    <behavior href="diagram.datadictionary#_7caH13qsEfCvx4l13OBupA"/>
+    <properties href="diagram.datadictionary#0sogk"/>
+    <properties href="diagram.datadictionary#yubjsc"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="2yngjm" entityName="View Index Records">
+    <behavior href="diagram.datadictionary#_7caH23qsEfCvx4l13OBupA"/>
+    <properties href="diagram.datadictionary#ofgita"/>
+    <properties href="diagram.datadictionary#0sogk"/>
+    <properties href="diagram.datadictionary#yubjsc"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="7vk82" entityName="Register Flask">
+    <behavior href="diagram.datadictionary#_7caH33qsEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="kglue" entityName="View Consents Template">
+    <behavior href="diagram.datadictionary#_7caH43qsEfCvx4l13OBupA"/>
+    <properties href="diagram.datadictionary#yubjsc"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="3sb4v" entityName="Current User">
+    <behavior href="diagram.datadictionary#_7caH5nqsEfCvx4l13OBupA"/>
+    <properties href="diagram.datadictionary#ofgita"/>
+    <properties href="diagram.datadictionary#yubjsc"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="5h91jq" entityName="View Index Template">
+    <behavior href="diagram.datadictionary#_7caH7HqsEfCvx4l13OBupA"/>
+    <properties href="diagram.datadictionary#ofgita"/>
+    <properties href="diagram.datadictionary#yubjsc"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

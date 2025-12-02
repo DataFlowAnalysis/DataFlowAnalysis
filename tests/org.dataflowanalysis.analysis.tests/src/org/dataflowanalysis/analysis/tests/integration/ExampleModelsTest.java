@@ -22,9 +22,16 @@ import org.dataflowanalysis.examplemodels.results.ExpectedCharacteristic;
 import org.dataflowanalysis.examplemodels.results.ExpectedViolation;
 import org.dataflowanalysis.examplemodels.results.dfd.DFDExampleModelResult;
 import org.dataflowanalysis.examplemodels.results.dfd.models.BranchingResult;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.AppleWallet;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.CMACaseStudy;
 import org.dataflowanalysis.examplemodels.results.dfd.scenarios.CWANoViolation;
 import org.dataflowanalysis.examplemodels.results.dfd.scenarios.CWAPersonalDataViolation;
 import org.dataflowanalysis.examplemodels.results.dfd.scenarios.CWARPIViolation;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.ComponentTestingCaseStudy;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.DocProc;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.ECUUpdateCaseStudy;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.HipaaCaseStudy;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.MiniTwitCaseStudy;
 import org.dataflowanalysis.examplemodels.results.dfd.scenarios.OnlineShopResult;
 import org.dataflowanalysis.examplemodels.results.dfd.scenarios.SimpleOnlineShopResult;
 import org.dataflowanalysis.examplemodels.results.dfd.scenarios.VWCariad;
@@ -58,7 +65,9 @@ public class ExampleModelsTest {
     private static Stream<Arguments> provideDFDExampleModelViolations() {
         return Stream.of(Arguments.of(new BranchingResult()), Arguments.of(new OnlineShopResult()), Arguments.of(new SimpleOnlineShopResult()),
                 Arguments.of(new CWANoViolation()), Arguments.of(new VWCariad()), Arguments.of(new CWAPersonalDataViolation()),
-                Arguments.of(new CWARPIViolation()));
+                Arguments.of(new CWARPIViolation()), Arguments.of(new ComponentTestingCaseStudy()), Arguments.of(new ECUUpdateCaseStudy()),
+                Arguments.of(new MiniTwitCaseStudy()), Arguments.of(new HipaaCaseStudy()), Arguments.of(new DocProc()),
+                Arguments.of(new AppleWallet()), Arguments.of(new CMACaseStudy()));
     }
 
     @ParameterizedTest

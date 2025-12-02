@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://dataflowanalysis.org/dfd/dataflowdiagram" id="_Ct0s0IMeEfCvx4l13OBupA">
+  <flows id="vbbice" entityName="authorization" sourceNode="ipn4rq" destinationNode="3fed3n">
+    <destinationPin href="diagram.datadictionary#41yehb"/>
+    <sourcePin href="diagram.datadictionary#9y2ueq"/>
+  </flows>
+  <flows id="wb2dd5k" entityName="card_information" sourceNode="kx5g9i" destinationNode="6hagnuh">
+    <destinationPin href="diagram.datadictionary#rr3gmbg"/>
+    <sourcePin href="diagram.datadictionary#d3sp0n"/>
+  </flows>
+  <flows id="v84d9t" entityName="terms_and_conditions" sourceNode="kx5g9i" destinationNode="6hagnuh">
+    <destinationPin href="diagram.datadictionary#baak9n"/>
+    <sourcePin href="diagram.datadictionary#hqvg"/>
+  </flows>
+  <flows id="d9dl89" entityName="accepted_terms_and_conditions" sourceNode="3fed3n" destinationNode="6hagnuh">
+    <destinationPin href="diagram.datadictionary#mr91w"/>
+    <sourcePin href="diagram.datadictionary#qxsitr"/>
+  </flows>
+  <flows id="c8rtdh" entityName="terms_and_conditions" sourceNode="6hagnuh" destinationNode="3fed3n">
+    <destinationPin href="diagram.datadictionary#hey53c"/>
+    <sourcePin href="diagram.datadictionary#zphr0b"/>
+  </flows>
+  <flows id="mketcz" entityName="authorization" sourceNode="3fed3n" destinationNode="dwmpfo">
+    <destinationPin href="diagram.datadictionary#2n55hi"/>
+    <sourcePin href="diagram.datadictionary#q7ez3m"/>
+  </flows>
+  <flows id="xgcb2m" entityName="payment_data" sourceNode="2urax7" destinationNode="dwmpfo">
+    <destinationPin href="diagram.datadictionary#48yzxl"/>
+    <sourcePin href="diagram.datadictionary#omcgp"/>
+  </flows>
+  <flows id="1j0l5c" entityName="otp" sourceNode="dwmpfo" destinationNode="2urax7">
+    <destinationPin href="diagram.datadictionary#07xg9q"/>
+    <sourcePin href="diagram.datadictionary#4kzg0a"/>
+  </flows>
+  <flows id="i7j7g" entityName="otp" sourceNode="ewbpv9" destinationNode="56v06d">
+    <destinationPin href="diagram.datadictionary#rcluu"/>
+    <sourcePin href="diagram.datadictionary#kmp2vk"/>
+  </flows>
+  <flows id="1u91my" entityName="pan" sourceNode="56v06d" destinationNode="ewbpv9">
+    <destinationPin href="diagram.datadictionary#pcser"/>
+    <sourcePin href="diagram.datadictionary#6vfxki"/>
+  </flows>
+  <flows id="7299jc" entityName="pan" sourceNode="ewbpv9" destinationNode="rgtmof">
+    <destinationPin href="diagram.datadictionary#knrijg"/>
+    <sourcePin href="diagram.datadictionary#uex53"/>
+  </flows>
+  <flows id="6rlu4" entityName="payment_data" sourceNode="ewbpv9" destinationNode="rgtmof">
+    <destinationPin href="diagram.datadictionary#knrijg"/>
+    <sourcePin href="diagram.datadictionary#enpb14"/>
+  </flows>
+  <flows id="od331v" entityName="authorization_response" sourceNode="rgtmof" destinationNode="ewbpv9">
+    <destinationPin href="diagram.datadictionary#k5utyc"/>
+    <sourcePin href="diagram.datadictionary#r2pxcm"/>
+  </flows>
+  <flows id="cr4bvk" entityName="terms_id" sourceNode="6hagnuh" destinationNode="1c74g">
+    <destinationPin href="diagram.datadictionary#i8wis9"/>
+    <sourcePin href="diagram.datadictionary#ie87h"/>
+  </flows>
+  <flows id="vvtjjs" entityName="cvv" sourceNode="6hagnuh" destinationNode="1c74g">
+    <destinationPin href="diagram.datadictionary#i8wis9"/>
+    <sourcePin href="diagram.datadictionary#qutwtd"/>
+  </flows>
+  <flows id="anpbnh" entityName="authorization_request" sourceNode="rgtmof" destinationNode="r6wdd9">
+    <destinationPin href="diagram.datadictionary#q5s6vz"/>
+    <sourcePin href="diagram.datadictionary#7s1u3"/>
+  </flows>
+  <flows id="y7vyb" entityName="authorization_response" sourceNode="r6wdd9" destinationNode="rgtmof">
+    <destinationPin href="diagram.datadictionary#fng49e"/>
+    <sourcePin href="diagram.datadictionary#jythsj"/>
+  </flows>
+  <flows id="1jf3g" entityName="device_information" sourceNode="1c74g" destinationNode="r6wdd9">
+    <destinationPin href="diagram.datadictionary#v1ftl8"/>
+    <sourcePin href="diagram.datadictionary#bgmfdc"/>
+  </flows>
+  <flows id="x9gcfa" entityName="authorization_request" sourceNode="8w95rs" destinationNode="ipn4rq">
+    <destinationPin href="diagram.datadictionary#s2ccni"/>
+    <sourcePin href="diagram.datadictionary#a8f56o"/>
+  </flows>
+  <flows id="xz24h" entityName="payment_data" sourceNode="b1xbub" destinationNode="2urax7">
+    <destinationPin href="diagram.datadictionary#x1996l"/>
+    <sourcePin href="diagram.datadictionary#ekamp9"/>
+  </flows>
+  <flows id="tap94h" entityName="payment_data" sourceNode="b1xbub" destinationNode="ewbpv9">
+    <destinationPin href="diagram.datadictionary#0484vs"/>
+    <sourcePin href="diagram.datadictionary#ekamp9"/>
+  </flows>
+  <flows id="g3dl9v" entityName="otp" sourceNode="b1xbub" destinationNode="ewbpv9">
+    <destinationPin href="diagram.datadictionary#0484vs"/>
+    <sourcePin href="diagram.datadictionary#dqy6d"/>
+  </flows>
+  <flows id="hzou6" entityName="otp" sourceNode="2urax7" destinationNode="b1xbub">
+    <destinationPin href="diagram.datadictionary#l1xfl"/>
+    <sourcePin href="diagram.datadictionary#tywswc"/>
+  </flows>
+  <flows id="pf46h5" entityName="authorization_response" sourceNode="ewbpv9" destinationNode="b1xbub">
+    <destinationPin href="diagram.datadictionary#djrmg9"/>
+    <sourcePin href="diagram.datadictionary#1xekc5"/>
+  </flows>
+  <flows id="yce5k" entityName="payment_authorization" sourceNode="b1xbub" destinationNode="13c25c">
+    <destinationPin href="diagram.datadictionary#eq0nx"/>
+    <sourcePin href="diagram.datadictionary#xsmuo"/>
+  </flows>
+  <flows id="84gp89" entityName="payment_data" sourceNode="dwmpfo" destinationNode="ryp8gy">
+    <destinationPin href="diagram.datadictionary#17tcwr"/>
+    <sourcePin href="diagram.datadictionary#5epw1"/>
+  </flows>
+  <flows id="vavy1l" entityName="card_information" sourceNode="ryp8gy" destinationNode="escqi8">
+    <destinationPin href="diagram.datadictionary#te39g"/>
+    <sourcePin href="diagram.datadictionary#lftf7i"/>
+  </flows>
+  <flows id="vaowe" entityName="otp" sourceNode="ryp8gy" destinationNode="escqi8">
+    <destinationPin href="diagram.datadictionary#te39g"/>
+    <sourcePin href="diagram.datadictionary#0kqs6h"/>
+  </flows>
+  <flows id="cq00p" entityName="otp" sourceNode="ryp8gy" destinationNode="6hagnuh">
+    <destinationPin href="diagram.datadictionary#ww8yj"/>
+    <sourcePin href="diagram.datadictionary#0kqs6h"/>
+  </flows>
+  <flows id="5zjnh" entityName="otp" sourceNode="ryp8gy" destinationNode="dwmpfo">
+    <destinationPin href="diagram.datadictionary#s0jhcr"/>
+    <sourcePin href="diagram.datadictionary#0kqs6h"/>
+  </flows>
+  <flows id="x553e" entityName="card_information" sourceNode="n9cqib" destinationNode="kx5g9i">
+    <destinationPin href="diagram.datadictionary#duigh7"/>
+    <sourcePin href="diagram.datadictionary#pztc3d"/>
+  </flows>
+  <flows id="y3g4k" entityName="payment_data" sourceNode="ryp8gy" destinationNode="n9cqib">
+    <destinationPin href="diagram.datadictionary#r1kc7h"/>
+    <sourcePin href="diagram.datadictionary#5vpyo6"/>
+  </flows>
+  <flows id="uupfhe" entityName="pass_file" sourceNode="dr4rla" destinationNode="n9cqib">
+    <destinationPin href="diagram.datadictionary#mr8oq"/>
+    <sourcePin href="diagram.datadictionary#l854s"/>
+  </flows>
+  <flows id="yxn7as" entityName="card_information" sourceNode="3fed3n" destinationNode="n9cqib">
+    <destinationPin href="diagram.datadictionary#lw3qhs"/>
+    <sourcePin href="diagram.datadictionary#4vcx7k"/>
+  </flows>
+  <flows id="oqfk3" entityName="card_information" sourceNode="n9cqib" destinationNode="ryp8gy">
+    <destinationPin href="diagram.datadictionary#3ktpfb"/>
+    <sourcePin href="diagram.datadictionary#vyl24"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:Process" id="dr4rla" entityName="Download Pass File">
+    <behavior href="diagram.datadictionary#_Ct0s-oMeEfCvx4l13OBupA"/>
+    <properties href="diagram.datadictionary#dtoc3f"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="rgtmof" entityName="Payment Network">
+    <behavior href="diagram.datadictionary#_Ct0s_YMeEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="56v06d" entityName="Token Service">
+    <behavior href="diagram.datadictionary#_Ct0tA4MeEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="3fed3n" entityName="Cardholder">
+    <behavior href="diagram.datadictionary#_Ct0tB4MeEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="ipn4rq" entityName="User Identification">
+    <behavior href="diagram.datadictionary#_Ct0tDoMeEfCvx4l13OBupA"/>
+    <properties href="diagram.datadictionary#950inv"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="6hagnuh" entityName="Apple Server">
+    <behavior href="diagram.datadictionary#_Ct0tEoMeEfCvx4l13OBupA"/>
+    <properties href="diagram.datadictionary#dtoc3f"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="kx5g9i" entityName="Check Card">
+    <behavior href="diagram.datadictionary#_Ct0tG4MeEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="dwmpfo" entityName="NFC Controller">
+    <behavior href="diagram.datadictionary#_Ct0tIIMeEfCvx4l13OBupA"/>
+    <properties href="diagram.datadictionary#sjnkmd"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="escqi8" entityName="Payment App">
+    <behavior href="diagram.datadictionary#_Ct0tJ4MeEfCvx4l13OBupA"/>
+    <properties href="diagram.datadictionary#xtevhg"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="2urax7" entityName="NFC Reader App">
+    <behavior href="diagram.datadictionary#_Ct0tKoMeEfCvx4l13OBupA"/>
+    <properties href="diagram.datadictionary#o5y16e"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="13c25c" entityName="Show Payment Authorization">
+    <behavior href="diagram.datadictionary#_Ct0tMIMeEfCvx4l13OBupA"/>
+    <properties href="diagram.datadictionary#o5y16e"/>
+    <properties href="diagram.datadictionary#ezo9u"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="ewbpv9" entityName="Payment Processor">
+    <behavior href="diagram.datadictionary#_Ct0tM4MeEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="1c74g" entityName="Link &amp; Provision">
+    <behavior href="diagram.datadictionary#_Ct0tPIMeEfCvx4l13OBupA"/>
+    <properties href="diagram.datadictionary#dtoc3f"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Store" id="r6wdd9" entityName="Issuer Bank">
+    <behavior href="diagram.datadictionary#_Ct0tQIMeEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="8w95rs" entityName="Carholder">
+    <behavior href="diagram.datadictionary#_Ct0tRYMeEfCvx4l13OBupA"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="b1xbub" entityName="Terminal App">
+    <behavior href="diagram.datadictionary#_Ct0tSIMeEfCvx4l13OBupA"/>
+    <properties href="diagram.datadictionary#o5y16e"/>
+    <properties href="diagram.datadictionary#ezo9u"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="ryp8gy" entityName="Apple Pay App">
+    <behavior href="diagram.datadictionary#_Ct0tT4MeEfCvx4l13OBupA"/>
+    <properties href="diagram.datadictionary#xtevhg"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="n9cqib" entityName="Apple Wallet">
+    <behavior href="diagram.datadictionary#_Ct0tVoMeEfCvx4l13OBupA"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

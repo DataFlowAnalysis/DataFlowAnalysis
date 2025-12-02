@@ -6,7 +6,7 @@ import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
 import org.dataflowanalysis.examplemodels.results.ExpectedViolation;
 import org.dataflowanalysis.examplemodels.results.dfd.DFDExampleModelResult;
 
-public class CWANoViolation implements DFDExampleModelResult {
+public class CMACaseStudy implements DFDExampleModelResult {
 
     @Override
     public String getBaseFolderName() {
@@ -15,23 +15,31 @@ public class CWANoViolation implements DFDExampleModelResult {
 
     @Override
     public String getModelName() {
-        return "CWA/NoViolation";
+        return "CMACaseStudy";
     }
 
     @Override
     public List<AnalysisConstraint> getDSLConstraints() {
         return List.of(new ConstraintDSL().ofData()
-                .withLabel("Identifiers", List.of("RPI", "TEK"))
+                .withLabel("DataType",
+                        List.of("AcceptedPaper", "ConsentSettings", "ReviewedPaper", "CandidateReviewers", "Manuscript", "NewConsents", "Purpose"))
                 .neverFlows()
                 .toVertex()
-                .withCharacteristic("Server", List.of("CWApp", "CWAppServer"))
+                .withoutCharacteristic("Decorator", "Secure")
                 .create(),
 
                 new ConstraintDSL().ofData()
-                        .withLabel("Identifiers", "PersonalData")
+                        .withLabel("DataType", "CandidateReviewers")
                         .neverFlows()
                         .toVertex()
-                        .withCharacteristic("Server", List.of("CWApp", "VerificationServer", "TestResultServer", "DDServer", "CWAppServer"))
+                        .withoutCharacteristic("ConsentedPurposes", "AssignReviewer")
+                        .create(),
+
+                new ConstraintDSL().ofData()
+                        .withLabel("DataType", "AcceptedPaper")
+                        .neverFlows()
+                        .toVertex()
+                        .withoutCharacteristic("ConsentedPurposes", List.of("ViewPaper", "RecommendPapers"))
                         .create());
     }
 

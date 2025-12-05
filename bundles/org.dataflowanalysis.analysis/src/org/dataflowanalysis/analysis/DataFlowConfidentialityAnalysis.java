@@ -6,7 +6,6 @@ import org.apache.log4j.*;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
-import org.dataflowanalysis.analysis.utils.ANSIConsoleLogger;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.eclipse.xtext.linking.impl.AbstractCleaningLinker;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;

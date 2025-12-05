@@ -6,7 +6,6 @@ import org.apache.log4j.*;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
-import org.dataflowanalysis.analysis.utils.ANSIConsoleLogger;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.eclipse.xtext.linking.impl.AbstractCleaningLinker;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
@@ -62,8 +61,6 @@ public abstract class DataFlowConfidentialityAnalysis {
      * Sets up the unified logging environment for the data flow analysis
      */
     protected void setupLoggers() {
-        BasicConfigurator.configure(new ANSIConsoleLogger(new EnhancedPatternLayout("%-6r [%p] %-35C{1} - %m%n")));
-
         LoggerManager.getLogger(AbstractInternalAntlrParser.class)
                 .setLevel(Level.WARN);
         LoggerManager.getLogger(DefaultLinkingService.class)

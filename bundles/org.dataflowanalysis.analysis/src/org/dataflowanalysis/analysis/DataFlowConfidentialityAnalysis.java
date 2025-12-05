@@ -62,8 +62,6 @@ public abstract class DataFlowConfidentialityAnalysis {
      * Sets up the unified logging environment for the data flow analysis
      */
     protected void setupLoggers() {
-        BasicConfigurator.configure(new ANSIConsoleLogger(new EnhancedPatternLayout("%-6r [%p] %-35C{1} - %m%n")));
-
         LoggerManager.getLogger(AbstractInternalAntlrParser.class)
                 .setLevel(Level.WARN);
         LoggerManager.getLogger(DefaultLinkingService.class)

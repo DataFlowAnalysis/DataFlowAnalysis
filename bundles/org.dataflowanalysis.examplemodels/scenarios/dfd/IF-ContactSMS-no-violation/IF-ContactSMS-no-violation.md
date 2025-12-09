@@ -1,0 +1,24 @@
+# 📊 Model: (InformationFlow-ContactSMS-no-violation)
+
+## 🔗 Link to Original Paper/Article
+[View Source](https://ieeexplore.ieee.org/document/8703910)
+
+## 📝 Short Description
+The case is about a user managing contacts and sending a SMS. The user can add, remove and list contacts. To send a SMS, the user selects a contact and writes a message. The system extracts the number and sends the number and message to a SMS gateway. 
+
+## 🔤 Abbreviations
+- `SMS`: Short Message Service
+
+## 📖 Extensive Description
+A `User` can manage their contacts in the `Contact Store`. When sending an SMS, they choose a contact by *criteria*, for which `extract number` adds the `Receiver` Data Label. `send SMS` combines the extracted number with the message and forwards these to the `SMS Gateway`.
+
+## 🏷️ Label Description
+### 🗂️ Data Labels:
+- **ClassificationLevel**: This label designates the node types a data flow may visit. There are `User` and `UserReceiver` types.
+### 🏷️ Node Labels:
+- **ClearanceLevel**: This label categorizes nodes into `User` and `UserReceiver` types, denoting which access rights a data flow must have to visit a node.
+
+## ⚠️ Constraints
+### Constraint Title
+Data may only flow into `ClearanceLevel` nodes if the flow has the corresponding `ClassificationLevel` label.
+- `data !ClassificationLevel.UserReceiver neverFlows vertex ClearanceLevel.UserReceiver`

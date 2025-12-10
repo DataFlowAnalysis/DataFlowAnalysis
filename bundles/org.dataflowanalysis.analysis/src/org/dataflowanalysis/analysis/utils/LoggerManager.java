@@ -39,16 +39,12 @@ public class LoggerManager {
                 .forEach(it -> it.setLevel(DEFAULT_LOG_LEVEL));
     }
 
-    public static Logger getLogger(Class<?> clazz) {
-        Logger logger = instance.loggers.get(clazz);
-        if (logger == null) {
-            logger = Logger.getLogger(clazz);
+    public static Logger getLogger(Class<?> clazz) {        
+        return instance.loggers.computeIfAbsent(clazz, c -> {
+            Logger logger = Logger.getLogger(c);
             logger.setLevel(DEFAULT_LOG_LEVEL);
-            instance.loggers.put(clazz, logger);
-        }
-        HashMap<Class<?>, Logger> log = instance.loggers;
-
-        return logger;
+            return logger;
+        });
     }
 
     public static LoggerManager getInstance() {

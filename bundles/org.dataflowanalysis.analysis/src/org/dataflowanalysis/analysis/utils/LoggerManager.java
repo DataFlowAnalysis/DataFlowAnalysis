@@ -39,7 +39,7 @@ public class LoggerManager {
                 .forEach(it -> it.setLevel(DEFAULT_LOG_LEVEL));
     }
 
-    public static Logger getLogger(Class<?> clazz) {        
+    public static Logger getLogger(Class<?> clazz) {
         return instance.loggers.computeIfAbsent(clazz, c -> {
             Logger logger = Logger.getLogger(c);
             logger.setLevel(DEFAULT_LOG_LEVEL);

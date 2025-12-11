@@ -1,7 +1,7 @@
 package org.dataflowanalysis.analysis.utils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.EnhancedPatternLayout;
 import org.apache.log4j.Level;
@@ -9,39 +9,42 @@ import org.apache.log4j.Logger;
 
 public class LoggerManager {
     private static final Level DEFAULT_LOG_LEVEL = Level.INFO;
+    // Enforce singleton in entire JVM
+    private static final AtomicBoolean CONFIGURED = new AtomicBoolean(false);
 
     private static final LoggerManager instance = new LoggerManager();
 
-    private final List<Logger> loggers;
+    private final HashMap<Class<?>, Logger> loggers;
 
     private LoggerManager() {
-        BasicConfigurator.resetConfiguration();
-        BasicConfigurator.configure(new ANSIConsoleLogger(new EnhancedPatternLayout("%-6r [%p] %-35C{1} - %m%n")));
-        this.loggers = new ArrayList<>();
+        if (CONFIGURED.compareAndSet(false, true)) {
+            org.apache.log4j.LogManager.resetConfiguration();
+            BasicConfigurator.configure(new ANSIConsoleLogger(new EnhancedPatternLayout("%-6r [%p] %-35C{1} - %m%n")));
+        }
+        this.loggers = new HashMap<>();
     }
 
     public void setLevel(Level level) {
-        this.loggers.forEach(it -> it.setLevel(level));
+        this.loggers.values()
+                .forEach(it -> it.setLevel(level));
     }
 
     public void setLevel(Level level, Class<?> clazz) {
-        Logger logger = this.loggers.stream()
-                .filter(it -> it.getName()
-                        .equals(clazz.getName()))
-                .findAny()
-                .orElseThrow();
+        Logger logger = this.loggers.get(clazz);
         logger.setLevel(level);
     }
 
     public void resetLevel() {
-        this.loggers.forEach(it -> it.setLevel(DEFAULT_LOG_LEVEL));
+        this.loggers.values()
+                .forEach(it -> it.setLevel(DEFAULT_LOG_LEVEL));
     }
 
     public static Logger getLogger(Class<?> clazz) {
-        Logger logger = Logger.getLogger(clazz);
-        logger.setLevel(DEFAULT_LOG_LEVEL);
-        instance.loggers.add(logger);
-        return logger;
+        return instance.loggers.computeIfAbsent(clazz, c -> {
+            Logger logger = Logger.getLogger(c);
+            logger.setLevel(DEFAULT_LOG_LEVEL);
+            return logger;
+        });
     }
 
     public static LoggerManager getInstance() {

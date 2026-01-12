@@ -1,7 +1,7 @@
 # 📊 Diagram: (NAME)
 
 ## 🔗 Link to Original Paper/Article
-[View Full Main Source](link)
+<!--[View Full Main Source](link)-->
 
 ## 📝 Short Description
 

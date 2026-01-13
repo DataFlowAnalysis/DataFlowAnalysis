@@ -1,0 +1,1 @@
+import{_ as e,c as a,o as t}from"./chunks/framework.DDIT__tB.js";const _=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"examples/models/pcm/cwa.md","filePath":"examples/models/pcm/cwa.md"}'),c={name:"examples/models/pcm/cwa.md"};function s(o,m,r,p,n,d){return t(),a("div")}const i=e(c,[["render",s]]);export{_ as __pageData,i as default};

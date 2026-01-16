@@ -28,7 +28,7 @@ __Alice__ and __Bob__ want to communicate. They exchange ports via STUN servers 
 ## ⚠️ Constraints(if any)
 ### Safety
 The fundamental requirement is that system parts or actors in the attack zone must not have access to data classified High:
-- `data Level.High neverFlows vertex Zone.Attack`
+- `Safety: data Level.High neverFlows vertex Zone.Attack`
 
 ## 🚨 Violations
 The error introduced in the case is that the session data of Bob can be sent unencrypted to the signaling server. We name the violating flow *bob_session_data* to ease finding the flow in the flow stack. 

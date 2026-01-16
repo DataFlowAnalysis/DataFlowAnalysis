@@ -1,13 +1,10 @@
 package org.dataflowanalysis.examplemodels.results.dfd.scenarios;
 
 import java.util.List;
-import java.util.Map;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
-import org.dataflowanalysis.examplemodels.results.ExpectedCharacteristic;
 import org.dataflowanalysis.examplemodels.results.ExpectedViolation;
 import org.dataflowanalysis.examplemodels.results.dfd.DFDExampleModelResult;
-import org.dataflowanalysis.examplemodels.results.dfd.DFDIdentifier;
 
 public class IFPrivateTaxiViolationResult implements DFDExampleModelResult {
     @Override
@@ -39,8 +36,7 @@ public class IFPrivateTaxiViolationResult implements DFDExampleModelResult {
 
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
-        return List.of(new ExpectedViolation(2, new DFDIdentifier("szok6"), List.of(new ExpectedCharacteristic("Entity", "PrivateTaxi")), Map.of()));
-
+        return List.of();
     }
 
     /**

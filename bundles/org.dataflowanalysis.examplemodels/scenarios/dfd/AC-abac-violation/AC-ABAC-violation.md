@@ -12,7 +12,10 @@ The case is about a banking system deployed in the USA and Asia. Clerks can regi
 -
 
 ## 📖 Extensive Description
-(In this discription you may use/are encouraged to use __Vertex Names__ and *Variable/Edge Names* so that the reader may follow the flow)
+
+The __Clerk US__ can register regular customers by *customer_details*. These customers are stored in the __Customer Storage__ and can be found by *customer_name*. 
+The __Manager__ located in the US can __Register Celebrity__ into a seperate __Celebrity Customer Storage__. Neither Clerk can access this data. 
+The __Manager__ can also change the customer location from `USA` to `Asia` via the node __Move Customer__. The *customer* is fetched by *customer_name* and stored into a __Customer Storage__ with the changed **DataOrigin** label. Now, the __Clerk Asia__ is able to find this *customer*.
 
 ## 🏷️ Label Description
 ### 🗂️ Data Labels:
@@ -24,8 +27,9 @@ The case is about a banking system deployed in the USA and Asia. Clerks can regi
 
 ## ⚠️ Constraints
 ### Security
+
 Clerks are not supposed to be able to access Celebrity customer data.
 `- Security: data DataStatus.Celebrity neverFlows vertex NodeRole.Clerk`
 
 ## 🚨 Violations
-The introduced flow *celebrity_customer_details* lets `Celebrity` data flows into normal __Customer Storage__, which Clerks can access.
+The introduced flow *celebrity_customer_details* lets `Celebrity` data  data flows into the normal __Customer Storage__, which the __Clerk US__ can access.

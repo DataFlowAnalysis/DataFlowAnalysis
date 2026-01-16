@@ -15,7 +15,6 @@ This model describes a mail exchange via public mail server.
 - **POP3**: Post Office Protocol Version 3
 
 ## 📖 Extensive Description
-(In this discription you may use/are encouraged to use __Vertex Names__ and *Variable/Edge Names* so that the reader may follow the flow)
 
 The case is about __Alice__ who sends a mail to __Bob__ via a public mail server. Initially, Alice provides an *email_body_and_header*, which is split into header and body. The body is encrypted (__encrypt__) with the public key of Bob (*BobPubKey*). Header and encrypted body are sent via mail servers to __Bob__. __Bob__ decrypts the body in the `Decrypt` zone and reads the mail. 
 
@@ -29,7 +28,7 @@ The case is about __Alice__ who sends a mail to __Bob__ via a public mail server
 ## ⚠️ Constraint
 ### SafetyConstraint
 The fundamental requirement is that system parts or actors in the attack zone must not have access to data classified High:
-- `data Level.High neverFlows vertex Zone.Attack`
+- `SafetyConstraint: Level.High neverFlows vertex Zone.Attack`
 
 ## 🚨 Violations
 The error introduced in the case is that the email body is not encrypted anymore but transmitted directly. The mail servers now have access to the plaintext of the mail body.

@@ -37,3 +37,7 @@ Finally, the booking confirmation is returned to the user.
 Data that should only be accessed by a certain role, denoted by `GrantedRoles`, should only be accessible at nodes with the correct permissions.
 - `data ClassificationLevel.User neverFlows vertex ClearanceLevel.UserAirline`
 - `data ClassificationLevel.User neverFlows vertex ClearanceLevel.UserAirline`
+
+## 🚨 Violations
+
+None.

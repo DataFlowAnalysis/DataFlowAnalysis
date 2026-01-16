@@ -11,7 +11,7 @@ This case is about a file system for pictures in a family.
 -
 
 ## 📖 Extensive Description
-There are three family users that use a store `Family Pictures`. The `Mother` and `Dad` can `Add` and `Read Pictures`. The aunt can only `Read Pictures`. An `Indexing Bot` might discover the file sharing system but must not access it. 
+There are three family users that use a store __Family Pictures__. The __Mother__ and __Dad__ can *add_pictures* and *read_pictures*. The __Aunt__ can only *read_pictures*. An __Indexing Bot__ might discover the file sharing system but must not access it.
 
 ## 🏷️ Label Description
 ### 🗂️ Data Labels:
@@ -23,8 +23,8 @@ There are three family users that use a store `Family Pictures`. The `Mother` an
 
 ## ⚠️ Constraints
 ### Isolation
-The IndexingBot is not allowed to read or access `Family Pictures` in any way.
-- `data !Read.IndexingBot neverFlows vertex Identity.IndexingBot`
+The __Indexing Bot__ is not allowed to read or access __Family Pictures__ in any way.
+- `Isolation: data !Read.IndexingBot neverFlows vertex Identity.IndexingBot`
 
 ## 🚨 Violations
-The error introduced in the case is that the `IndexingBot` reads *pictures*. 
+The error introduced in the case is that the __IndexingBot__ reads *pictures*. 

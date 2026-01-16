@@ -1,4 +1,4 @@
-# 📊 Model: Travel Planner
+# 📊 Model: (AccessControl-TravelPlanner-violation)
 
 ## 🔗 Link to Original Paper/Article
 [View Source](https://doi.org/10.1109/ICSA.2019.00009)
@@ -36,7 +36,7 @@ Finally, the booking confirmation is returned to the user.
 ### SafeCCD
 Data that should only be accessed by a certain role, denoted by `GrantedRoles`, should only be accessible at nodes with the correct permissions.
 The permissions of a vertex are denoted by `AssignedRoles`.
-- `data Levels.User neverFlows vertex Role.Airline`
+- `SafeCCD: data Levels.User neverFlows vertex Role.Airline`
 
 ## 🚨 Violations
 The error introduced in the case is that credit card data (__ccd__) can bypass the declassification process, which implies a missing access permission. 

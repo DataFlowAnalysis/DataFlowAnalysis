@@ -14,7 +14,6 @@ The case covers a simplified version of the WebRTC protocol.
 - **NAT**: Network Address Translator
 
 ## 📖 Extensive Description
-(In this discription you may use/are encouraged to use __Vertex Names__ and *Variable/Edge Names* so that the reader may follow the flow)
 
 __Alice__ and __Bob__ want to communicate. They exchange ports via STUN servers (__publish_port__ and __receive_port__) and exchange session data via a signaling server (__dispatch_initial_session_data__ and __dispatch_response_session_data__) to initiate a session. These servers are in the **Zone** `Attack`. After that, they can send and receive media by __create_media_package__ and __unpack_media_package__. The exchanged session data and media is encrypted. Encrypted data flows have a **Level** of `Low` but also a ContainedClassification which indicates the true Level of the unencrypted flow.
 
@@ -25,7 +24,11 @@ __Alice__ and __Bob__ want to communicate. They exchange ports via STUN servers 
 ### 🏷️ Node Labels:
 - **Zone**: There are two zones in this model: `Attack` and `Trust`. A node always part of one of these zones.
 
-## ⚠️ Constraints(if any)
+## ⚠️ Constraints
 ### Safety
 The fundamental requirement is that system parts or actors in the attack zone must not have access to data classified High:
-- `data Level.High neverFlows vertex Zone.Attack`
+- `Safety: data Level.High neverFlows vertex Zone.Attack`
+
+## 🚨 Violations
+
+None.

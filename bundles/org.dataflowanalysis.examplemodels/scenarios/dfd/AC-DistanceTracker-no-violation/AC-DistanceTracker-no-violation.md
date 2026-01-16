@@ -24,4 +24,8 @@ The __User__ sends his/her *location* to a *Distance Tracker* service that store
 ## ⚠️ Constraint
 ### DistanceTrackerSecurity
 This constraint ensures that no data flow passes a node it does not have the corresponding label (and access right) for.
-- `data !AccessRights.DistanceTracker neverFlows vertex Roles.DistanceTracker`
+- `DistanceTrackerSecurity: data !AccessRights.DistanceTracker neverFlows vertex Roles.DistanceTracker`
+
+## 🚨 Violations
+
+None.

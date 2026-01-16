@@ -13,7 +13,8 @@ The case is about an airspace monitoring system for civil and military planes.
 
 ## 📖 Extensive Description
 
-There are three types of users. A `Clerk` creates and stores weather reports. A `Flight Controller` registers civil airplanes, finds their positions and determines new routes based on other plane positions and the weather reports of the clerk. The `Military Flight Controller` performs the same tasks for military airplanes and also considers the positions of civil airplanes.
+There are three types of users. A __Clerk__ creates and stores weather reports. A __Flight Controller__ registers civil airplanes, finds their positions and determines new routes based on other plane positions and the weather reports of the clerk. The __Military Flight Controller__ performs the same tasks for military airplanes and also considers the positions of civil airplanes. 
+__Weather Data__ is provided by a __Clerk__ and, as it is `Unclassified` Data, supplied a *weather report* to other processes.
 
 ## 🏷️ Label Description
 ### 🗂️ Data Labels:
@@ -24,11 +25,11 @@ There are three types of users. A `Clerk` creates and stores weather reports. A 
 ## ⚠️ Constraints
 ### SecretConstraint
 This constraint ensures that data designated `Secret` does not flow to nodes with clearance level `Classified`:
-- `data ClassificationLevel.Secret neverFlows vertex ClearanceLevel.Classified`
+- `SecretConstraint: data ClassificationLevel.Secret neverFlows vertex ClearanceLevel.Classified`
 
 ### ClassifiedConstraint
 This constraint ensures that data designated `Classified` does not flow to nodes with clearance level `Unclassified`:
-- `data ClassificationLevel.Classified neverFlows vertex ClearanceLevel.Unclassified`
+- `ClassifiedConstraint:  ClassificationLevel.Classified neverFlows vertex ClearanceLevel.Unclassified`
 
 ## 🚨 Violations
-The error introduced in the case is that the flight controller uses the positions of military planes to determine a new route. This additional flow is called __plane_positions__
+The error introduced in the case is that the flight controller uses the positions of military planes to determine a new route. This additional flow is called __plane_positions__.

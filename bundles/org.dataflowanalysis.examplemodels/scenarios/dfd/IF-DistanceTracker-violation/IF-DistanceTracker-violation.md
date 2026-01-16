@@ -24,7 +24,8 @@ The __User__ sends his/her *location* to a *Distance Tracker* service that store
 ## ⚠️ Constraint
 ### DistanceConstraint
 This constraint ensures that no data flow passes a node it does not have the corresponding **ClassificationLevel** for.
-- `data ClassificationLevel.UserTrackingService neverFlows vertex ClearanceLevel.OnlyDistance`
+- `DistanceConstraint: ClassificationLevel.UserTrackingService neverFlows vertex ClearanceLevel.OnlyDistance`
 
 ## 🚨 Violations
-The error introduced in the case is that the calculated distance can bypass the declassification process, which implies a higher classification level.
+
+The error introduced in the case is that the calculated distance can bypass the declassification process with *distance_violation*, which implies a higher classification level.

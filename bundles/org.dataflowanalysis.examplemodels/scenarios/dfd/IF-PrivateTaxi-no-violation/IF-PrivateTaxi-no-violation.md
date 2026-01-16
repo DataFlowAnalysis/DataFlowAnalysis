@@ -28,8 +28,12 @@ __Riders__ and __Drivers__ have user accounts at the `PrivateTaxiService`. __Rid
 ## ⚠️ Constraints
 ### NeverKnowRoutes
 The Private Taxi Service must never get to know the routes of drivers or riders:
-- `data CriticalDataType.RouteDataType neverFlows vertex Entity.PrivateTaxi`
+- `NeverKnowRoutes: CriticalDataType.RouteDataType neverFlows vertex Entity.PrivateTaxi`
 
 ### NeverKnowContactInfo 
 The Distance Calculation Service must never get to know contact information of drivers or riders:
-- `data CriticalDataType.ContactInformation neverFlows vertex Entity.CalcDistanceService`
+- `NeverKnowContactInfo: CriticalDataType.ContactInformation neverFlows vertex Entity.CalcDistanceService`
+
+## 🚨 Violations
+
+None.

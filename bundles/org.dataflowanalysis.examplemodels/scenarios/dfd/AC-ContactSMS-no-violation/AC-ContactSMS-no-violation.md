@@ -4,13 +4,13 @@
 [View Source](https://ieeexplore.ieee.org/document/8703910)
 
 ## 📝 Short Description
-The case is about a user managing contacts and sending a SMS. The user can add, remove and list contacts. To send a SMS, the user selects a contact and writes a message. The system extracts the number and sends the number and message to a SMS gateway. 
+The case is about a user managing contacts and sending a SMS.
 
 ## 🔤 Abbreviations
 - `SMS`: Short Message Service
 
 ## 📖 Extensive Description
-A `User` can manage their contacts in the `Contact Store`. When sending an SMS, they choose a contact by *criteria*, for which `extract number` adds the `Receiver` Data Label. `send SMS` combines the extracted number with the message and forwards these to the `SMS Gateway`.
+A __User__ can manage their contacts in the __Contact Store__. When sending an SMS, they choose a contact by *criteria*, for which __Extract Number__ adds the `Receiver` Data Label. __Send SMS__ combines the extracted number with the message and forwards these to the __SMS Gateway__.
 
 ## 🏷️ Label Description
 ### 🗂️ Data Labels:
@@ -19,6 +19,10 @@ A `User` can manage their contacts in the `Contact Store`. When sending an SMS, 
 - **Role**: This label categorizes nodes into `User` and `Receiver` types, depending on which part of the system they belong to.
 
 ## ⚠️ Constraints
-### Constraint Title
+### AccessRights
 Data may only flow into `Role` nodes if the flow has the corresponding `AccessRights` label.
-- `data !AccessRights.Receiver neverFlows vertex Role.Receiver`
+- `AccessRights: data !AccessRights.Receiver neverFlows vertex Role.Receiver`
+
+## 🚨 Violations
+
+None.

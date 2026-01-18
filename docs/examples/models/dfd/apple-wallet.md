@@ -7,6 +7,8 @@ This model is available to view using the online editor!
 
 ## 🔗 Link to Original Paper/Article
 
+[Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AppleWallet)
+
 
 ## 📝 Short Description
 These diagrams represent the main functionalities of the Apple Pay architecture, which are the enrollment process of a credit/debit card in Apple pay as conducted by a carholder and the other diagram illustrates the process of payment with the phone in a contactless device. The diagrams and explanations have been taken from the above source.

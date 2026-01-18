@@ -8,6 +8,8 @@ This model is available to view using the online editor!
 ## 🔗 Link to Original Paper/Article
 [View Full Main Source](<https://www.research-collection.ethz.ch/handle/20.500.11850/641986>)
 
+[Open Example Model in Example Models Bundles](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/MiniTwitCaseStudy)
+
 
 ## 📝 Short Description
 This diagram illustrates the data flow between the components/functionalities of the MiniTwit application from the study. The diagram is based on the code from the study, in which the nodes show different functionalities and labels show decorators that the functions had. This application behaves like a much simpler version of Twitter with the diagram showing the main functionalities, such as un/following users, diplaying the public/private timeline or adding a message. The diagram also shows the added components for privacy policies and consents implemented in the app, which was one of the main focus of the paper.

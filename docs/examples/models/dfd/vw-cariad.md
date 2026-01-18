@@ -9,6 +9,8 @@ This model is available to view using the online editor!
 ## 🔗 Link to Original Paper/Article
 [View Full Main Source](<https://www.spiegel.de/netzwelt/web/volkswagen-konzern-datenleck-wir-wissen-wo-dein-auto-steht-a-e12d33d0-97bc-493c-96d1-aa5892861027>)
 
+[Open Example Model in Example Models Bundles](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/VWCariad)
+
 ## 📝 Short Description
 This diagram illustrates the issues associated with the Volkswagen (and Cariad) scandal and data leakage affecting their automobile fleet. It shows how information flows between the mobile app, internal servers (and storage), and the in-vehicle system.
 The first (leftmost) section of the diagram presents a simplified data flow from the mobile app, including functionalities such as login, retrieving the car's location, locking the car, and more. This part connects to Cariad’s main Spring application, which is primarily responsible for storing all vehicle-related data. Finally, on the right side of the diagram, we see the in-car system, composed of sensors, actuators, controllers, control modules, and communication components.

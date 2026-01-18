@@ -8,6 +8,8 @@ This model is available to view using the online editor!
 ## 🔗 Link to Original Paper/Article
 [View Full Main Source](<https://www.research-collection.ethz.ch/handle/20.500.11850/641986>)
 
+[Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/HipaaCaseStudy)
+
 
 ## 📝 Short Description
 This diagram illustrates the data flow between the components/functionalities of the HIPAA application from the study.  The diagram is based on the code from the study, in which the nodes show different functionalities and labels show decorators that the functions had. This application contains only the functionality of viewing index records.The diagram also shows the added components for privacy policies and consents implemented in the app, which was one of the main focus of the paper.

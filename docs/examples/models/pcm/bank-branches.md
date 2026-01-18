@@ -3,6 +3,8 @@
 ## 🔗 Link to Original Paper/Article
 [View Full Main Source](https://doi.org/10.1016/j.jss.2021.111138)
 
+[Open Example Model in Example Models Bundles](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/pcm/BankBranches)
+
 ## 📝 Short Description
 This Model represents a bank managing two different branches in the US and Asia.
 Normal Customers can be registered by clerks, meanwhile celebrities get registered by managers.

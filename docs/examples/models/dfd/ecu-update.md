@@ -8,6 +8,8 @@ This model is available to view using the online editor!
 ## 🔗 Link to Original Paper/Article
 [View Full Main Source](<https://www.sciencedirect.com/science/article/pii/S016412122100100X?via%3Dihub>)
 
+[Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/ECUUpdateCaseStudy)
+
 ## 📝 Short Description
 This diagram illustrates the second case study in the paper, which briefly describes a system focused on updating the ECUs of a truck. The diagram shows the flow of data between the different components in the system. The paper does not describe the structure of these systems as they belong to private companies. For this reason we took the liberty of adding some components to the very brief description that is given.
 

@@ -1,6 +1,7 @@
 # 📊 Diagram: Branching Online Shop
 
 ## 🔗 Link to Original Paper/Article
+[Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/pcm/BranchingOnlineShop)
 
 ## 📝 Short Description
 This model describes a small online shop that is able to present the inventory to a user and allows the user to buy items.

@@ -7,6 +7,7 @@ This model is available to view using the online editor!
 
 ## 🔗 Link to Original Paper/Article
 [View Full Main Source](<https://www.research-collection.ethz.ch/handle/20.500.11850/641986>)
+[Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/HipaaCaseStudy)
 
 
 ## 📝 Short Description

@@ -3,6 +3,7 @@
 
 ## 🔗 Link to Original Paper/Article
 [View Source](https://doi.org/10.1109/ICSA.2019.00009)
+[Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/pcm/TravelPlanner)
 
 ## 📝 Short Description
 It models a user booking a flight with an travel planner application.

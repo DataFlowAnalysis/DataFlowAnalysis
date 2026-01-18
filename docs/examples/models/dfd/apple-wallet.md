@@ -1,5 +1,10 @@
 # 📊 Diagram: Apple Wallet Case Study
 
+::: tip Available Online
+This model is available to view using the online editor!
+<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AppleWallet/AppleWallet.json"></VPButton>
+::: 
+
 ## 🔗 Link to Original Paper/Article
 
 
@@ -17,7 +22,7 @@ Although a more complete and thorough description can be found step-by-step in t
 
 First there is the part regarding the enrollment process. First the __Cardholder__ and the __User Identification__ nodes for the authentication process. Then there is one of the main nodes of the diagram which is __Apple Wallet__. This node receives the *card_information* (such as name, cvv, expiration date, etc) and forwards it to the __Check_Card__ node which, in case the card information is correct, forwards it to the __Apple Server__. This node then does a process of signing the *terms_and_conditions* with the __Cardholder__. When accepted, the __Apple Server__ then sends the id of the terms and conditions in addition with the cards CVV to the __Link And Provision__ node, which forwards the *device_information* (e.g. device model, phone number, approx. location) to the __Issuer Bank__. When this process is finished the __Download Pass File__ node sends a *pass_file* (which represents the card in the app) to the __Apple Wallet__  node which then passes the card information to the __Apple Pay App__ to end the process.
 
-For te part regarding the contactless payment, first the __Terminal App__ node sends the *payment_data* to the __NFC Reader App__ node which resides in POS. This node then forwards this to the __NFC Controller__ node which in turn forwards it to the __Apple Pay App__. Then this last node exchanges the *transaction_information* with the __Apple Wallet__ node in exchange for the *card_information*. Then after the previously mentioned authentication process between __Cardholder__ and __User Identification__ the __Apple Pay App__ sends the *otp* to the __NFC Controller__. This token is forwarded through a series of nodes (__NFC Reader App__, __Terminal App__ an __Payment Processor__) till it ends up at the __Token Service__. This node then determines the *pan* usign the *otp* and it sends it to the __Payment Processor__, which forwards it in addition with the transaction details and cvv of the card to the __Payment Network__. This node finally sends this information to the __Issuer Bank__ as an *authorization_request*. After the __Issuer Bank__ authorizes the payment it sends and *authorization_response* to the __Terminal App__ of the device of the __Cardholder__ thorugh a series of nodes (__Payment Network__, __Payment Processor__).
+For the part regarding the contactless payment, first the __Terminal App__ node sends the *payment_data* to the __NFC Reader App__ node which resides in POS. This node then forwards this to the __NFC Controller__ node which in turn forwards it to the __Apple Pay App__. Then this last node exchanges the *transaction_information* with the __Apple Wallet__ node in exchange for the *card_information*. Then after the previously mentioned authentication process between __Cardholder__ and __User Identification__ the __Apple Pay App__ sends the *otp* to the __NFC Controller__. This token is forwarded through a series of nodes (__NFC Reader App__, __Terminal App__ an __Payment Processor__) till it ends up at the __Token Service__. This node then determines the *pan* usign the *otp* and it sends it to the __Payment Processor__, which forwards it in addition with the transaction details and cvv of the card to the __Payment Network__. This node finally sends this information to the __Issuer Bank__ as an *authorization_request*. After the __Issuer Bank__ authorizes the payment it sends and *authorization_response* to the __Terminal App__ of the device of the __Cardholder__ thorugh a series of nodes (__Payment Network__, __Payment Processor__).
  
 ## 🏷️ Label description
 
@@ -81,12 +86,8 @@ For te part regarding the contactless payment, first the __Terminal App__ node s
 ## 🚨 Violations
 - __None__
 
-
-
-
-
-
-
-
+<script setup>
+import { VPButton } from 'vitepress/theme'
+</script>
 
 

@@ -1,5 +1,10 @@
 # 📊 Diagram: ECU Update System Case Study
 
+::: tip Available Online
+This model is available to view using the online editor!
+<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/ECUUpdateCaseStudy/ECUUpdateCaseStudy.json"></VPButton>
+::: 
+
 ## 🔗 Link to Original Paper/Article
 [View Full Main Source](<https://www.sciencedirect.com/science/article/pii/S016412122100100X?via%3Dihub>)
 
@@ -42,5 +47,9 @@ Starting from the left side of the diagram there is the __Driver__ which sends i
 
 
 
+
+<script setup>
+import { VPButton } from 'vitepress/theme'
+</script>
 
 

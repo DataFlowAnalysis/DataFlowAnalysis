@@ -1,5 +1,11 @@
 # 📊 Diagram: Volkswagen-Cariad Automotive System
 
+::: tip Available Online
+This model is available to view using the online editor!
+<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/VWCariad/vwcariad.json"></VPButton>
+::: 
+
+
 ## 🔗 Link to Original Paper/Article
 [View Full Main Source](<https://www.spiegel.de/netzwelt/web/volkswagen-konzern-datenleck-wir-wissen-wo-dein-auto-steht-a-e12d33d0-97bc-493c-96d1-aa5892861027>)
 
@@ -119,5 +125,9 @@ The following violations relate to the issues revealed in the scandal referenced
 
 
 
+
+<script setup>
+import { VPButton } from 'vitepress/theme'
+</script>
 
 

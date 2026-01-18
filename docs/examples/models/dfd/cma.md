@@ -1,6 +1,10 @@
 ## 📝 Description
 This diagram illustrates the data flow between the components/functionalities of the CMA application from the study. This application contains functionalities such as submitting manuscripts, assigning reviewers to the manuscripts (so that they become accepted papers), recommending papers, searching for papers, etc. The diagram also shows the added components for privacy policies and consents implemented in the app.
 
+::: tip Available Online
+This model is available to view using the online editor!
+<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/CMACaseStudy/CMACaseStudy.json"></VPButton>
+::: 
 
 # 📊 Diagram: Conference Management App (CMA) Case-Study
 
@@ -82,5 +86,9 @@ The left side of the diagram shows the user entering its _credentials_ (_email_,
 
 
 
+
+<script setup>
+import { VPButton } from 'vitepress/theme'
+</script>
 
 

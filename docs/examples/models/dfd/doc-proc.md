@@ -1,5 +1,11 @@
 # 📊 Diagram: DocProc
 
+::: tip Available Online
+This model is available to view using the online editor!
+<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/DocProc/DocProc.json"></VPButton>
+::: 
+
+
 ## 🔗 Link to Original Paper/Article
 [View Full Main Source](<https://zenodo.org/records/15059455>)
 
@@ -65,5 +71,9 @@ In this last part about the delivery of the documents first the *generated_pdfs*
 
 
 
+
+<script setup>
+import { VPButton } from 'vitepress/theme'
+</script>
 
 

@@ -1,5 +1,13 @@
   # 📊 Diagram: Corona Warn App (CWA)
 
+::: tip Available Online
+This model is available to view using the online editor!
+<VPButton text="Open In Online Editor (No Violations)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/CWA/NoViolation/CWANoViolation.json"></VPButton>
+<VPButton text="Open In Online Editor (PersonalDataViolation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/CWA/PersonalDataViolation/CWAPersonaldataViolation.json"></VPButton>
+<VPButton text="Open In Online Editor (RPI Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/CWA/RPIViolation/CWARPIViolation.json"></VPButton>
+::: 
+
+
 ## 🔗 Link to Original Paper/Article
 [View Full Main Source](<https://github.com/corona-warn-app/cwa-documentation/blob/main/solution_architecture.md>)
 
@@ -123,5 +131,9 @@ Although no violations were found in the original CWA architecture, we have slig
 
 
 
+
+<script setup>
+import { VPButton } from 'vitepress/theme'
+</script>
 
 

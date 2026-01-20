@@ -1,4 +1,3 @@
-
 # 📊 Model: (InformationFlow-FriendMap-no-violation)
 
 ## 🔗 Link to Original Paper/Article

@@ -3,14 +3,14 @@
         "canvasBounds": {
             "x": 0,
             "y": 0,
-            "width": 1072,
-            "height": 1047.433349609375
+            "width": 2400,
+            "height": 1168.75
         },
         "scroll": {
-            "x": 246.7713163170945,
-            "y": -192.38561780108984
+            "x": -63,
+            "y": -199.93723958333334
         },
-        "zoom": 1.1888687486418905,
+        "zoom": 1.4625228519195612,
         "position": {
             "x": 0,
             "y": 0
@@ -1578,25 +1578,6 @@
                     },
                     {
                         "position": {
-                            "x": 76.5,
-                            "y": 5.5
-                        },
-                        "size": {
-                            "width": 7,
-                            "height": 7
-                        },
-                        "strokeWidth": 0,
-                        "selected": false,
-                        "hoverFeedback": false,
-                        "opacity": 1,
-                        "behavior": "",
-                        "features": {},
-                        "id": "0422l1",
-                        "type": "port:dfd-output",
-                        "children": []
-                    },
-                    {
-                        "position": {
                             "x": -3.5,
                             "y": 20.5
                         },
@@ -1629,6 +1610,25 @@
                         "features": {},
                         "id": "mway44",
                         "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 76.5,
+                            "y": 5.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": true,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "",
+                        "features": {},
+                        "id": "0422l1",
+                        "type": "port:dfd-output",
                         "children": []
                     }
                 ],
@@ -1783,39 +1783,6 @@
             {
                 "routingPoints": [
                     {
-                        "x": 377.25,
-                        "y": 49.95833333333337
-                    },
-                    {
-                        "x": 406,
-                        "y": 49.95833333333337
-                    },
-                    {
-                        "x": 406,
-                        "y": 21.75
-                    },
-                    {
-                        "x": 1064,
-                        "y": 21.75
-                    }
-                ],
-                "selected": false,
-                "hoverFeedback": false,
-                "opacity": 1,
-                "text": "synchronize",
-                "features": {},
-                "id": "3enh0m",
-                "type": "edge:arrow",
-                "sourceId": "0422l1",
-                "targetId": "w5peu",
-                "labels": null,
-                "ports": null,
-                "annotations": null,
-                "children": []
-            },
-            {
-                "routingPoints": [
-                    {
                         "x": 170,
                         "y": 350.43333333333334
                     },
@@ -1922,7 +1889,7 @@
                     "height": 46
                 },
                 "strokeWidth": 0,
-                "selected": true,
+                "selected": false,
                 "hoverFeedback": false,
                 "opacity": 1,
                 "text": "Sensor Management",
@@ -2097,6 +2064,39 @@
                 "ports": null,
                 "annotations": null,
                 "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 377.25,
+                        "y": 49.95833333333337
+                    },
+                    {
+                        "x": 406,
+                        "y": 49.95833333333337
+                    },
+                    {
+                        "x": 406,
+                        "y": 21.75
+                    },
+                    {
+                        "x": 1064,
+                        "y": 21.75
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "synchronize",
+                "features": {},
+                "id": "3enh0m",
+                "type": "edge:arrow",
+                "sourceId": "0422l1",
+                "targetId": "w5peu",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
             }
         ]
     },
@@ -2118,8 +2118,8 @@
     ],
     "constraints": [
         {
-            "name": "Test",
-            "constraint": "data Sensitivity.Personal neverFlows vertex Location.nonEU"
+            "name": "",
+            "constraint": ""
         }
     ],
     "mode": "edit",

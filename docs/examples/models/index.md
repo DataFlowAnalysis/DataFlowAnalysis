@@ -31,6 +31,8 @@
 | [MilitaryAircraftController-No-Violation (Access Control)](/examples/models/dfd/AC-MAC-no-violation)              | DFD        |
 | [MilitaryAircraftController-Violation (Access Control)](/examples/models/dfd/AC-MAC-violation)                    | DFD        |
 | [MiniTwit](/examples/models/dfd/mini-twit)                                                                        | DFD        |
+| [PatientMonitoringSystem-Monitoring](/examples/models/dfd/patient-monitoring-system-monitoring)                   | DFD        |
+| [PatientMonitoringSystem-Overview](/examples/models/dfd/patient-monitoring-system-overview)                       | DFD        |
 | [PrivateTaxi-No-Violation (Information Flow)](/examples/models/dfd/IF-PrivateTaxi-no-violation)                   | DFD        |
 | [SmartSpeakerSystem-No-Violation](/examples/models/dfd/smart-speaker-no-violation)                                | DFD        |
 | [SmartSpeakerSystem-Storage-Violation](/examples/models/dfd/smart-speaker-storage-violation)                      | DFD        |

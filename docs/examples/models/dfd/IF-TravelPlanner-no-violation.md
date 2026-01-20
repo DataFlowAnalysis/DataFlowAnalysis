@@ -1,7 +1,13 @@
 # 📊 Model: Travel Planner
 
+::: tip Available Online
+This model is available to view using the online editor!
+<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-TravelPlanner-no-violation/TravelPlanner-no-violation.json"></VPButton>
+::: 
+
 ## 🔗 Link to Original Paper/Article
 [View Source](https://doi.org/10.1109/ICSA.2019.00009)
+[Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-TravelPlanner-no-violation)
 
 ## 📝 Short Description
 It models a user booking a flight with an travel planner application.
@@ -39,5 +45,9 @@ Data that should only be accessed by a certain role, denoted by `GrantedRoles`, 
 - `data ClassificationLevel.User neverFlows vertex ClearanceLevel.UserAirline`
 
 ## 🚨 Violations
-
 None.
+
+
+<script setup>
+import { VPButton } from 'vitepress/theme'
+</script>

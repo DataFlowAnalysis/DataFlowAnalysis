@@ -1,20 +1,24 @@
 # 📊 Diagram: (Patient Monitoring System Monitoring)
 
+::: tip Available Online
+This model is available to view using the online editor!
+<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/
+PatientMonitoringSystemPaper/Monitoring.json"></VPButton>
+::: 
+
 ## 🔗 Link to Original Paper/Article
 <!--[View Full Main Source](link)-->
+[Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/PatientMonitoringSystemPaper)
 
 ## 📝 Short Description
-
 This Diagram shows the structure of the Patient Ponitoring System with a focus on the monitoring features of the system.
 
 ## 🔤 Abbreviations
-
 - `GP`: General Practitioner
 - `PMS`: Patient Monitoring System
 - `GPS`: Global Positioning System
 
 ## 📖 Extensive Description
-
 A __Wearable Sensor__ sends different types of biological data to a __Local Buffer__. This data is aggregated and the *aggregated_data* is sent to (abstracted) __Communication Technologies__ and made available to a __GP Portal__ via the __PMS Back-End__. The __Physician__ can change the rate of transmission for the __Wearable Sensor__, __GPS Chip__ and __Smart Scale__ as well as *change_risk_level* for the patient's health.
 The patient can see a simplified version of their health data via a __Patient Interface__ via their local App.
 
@@ -36,5 +40,9 @@ The __Patient__ may only see a part of the data and risk analysis there is. This
 - `SimplePatient: data DataType.PackagedData neverFlows vertex Role.Patient`
 
 ## 🚨 Violations
-
 None.
+
+
+<script setup>
+import { VPButton } from 'vitepress/theme'
+</script>

@@ -1,7 +1,13 @@
 # 📊 Model: (InformationFlow-ContactSMS-violation)
 
+::: tip Available Online
+This model is available to view using the online editor!
+<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-ContactSMS-violation/ContactSMS-violation.json"></VPButton>
+:::
+
 ## 🔗 Link to Original Paper/Article
 [View Source](https://ieeexplore.ieee.org/document/8703910)
+[Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-ContactSMS-violation)
 
 ## 📝 Short Description
 The case is about a user managing contacts and sending a SMS.
@@ -24,5 +30,9 @@ Data may only flow into `ClearanceLevel` nodes if the flow has the corresponding
 - `ContactDirect: data !ClassificationLevel.UserReceiver neverFlows vertex ClearanceLevel.UserReceiver`
 
 ## 🚨 Violations
-
 The introduced flow *contact_direct* bypasses __Extract Number__, which implies a missing access permission.
+
+
+<script setup>
+import { VPButton } from 'vitepress/theme'
+</script>

@@ -1,7 +1,13 @@
 # 📊 Model: (AccessControl-ContactSMS-no-violation)
 
+::: tip Available Online
+This model is available to view using the online editor!
+<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-ContactSMS-no-violation/ContactSMS-no-violation.json"></VPButton>
+::: 
+
 ## 🔗 Link to Original Paper/Article
 [View Source](https://ieeexplore.ieee.org/document/8703910)
+[Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-ContactSMS-no-violation)
 
 ## 📝 Short Description
 The case is about a user managing contacts and sending a SMS.
@@ -24,5 +30,9 @@ Data may only flow into `Role` nodes if the flow has the corresponding `AccessRi
 - `AccessRights: data !AccessRights.Receiver neverFlows vertex Role.Receiver`
 
 ## 🚨 Violations
-
 None.
+
+
+<script setup>
+import { VPButton } from 'vitepress/theme'
+</script>

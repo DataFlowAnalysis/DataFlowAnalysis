@@ -1,18 +1,21 @@
 # 📊 Model: (AccessControl-MAC-violation)
 
+::: tip Available Online
+This model is available to view using the online editor!
+<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-MilitaryAircraftController-violation/MilitaryAircraftController-violation.json"></VPButton>
+::: 
+
 ## 🔗 Link to Original Paper/Article
-Roughtly based on [View Source](https://openlibrary.org/books/OL17011110M/Securing_information_and_communications_systems)
+[View Source](https://openlibrary.org/books/OL17011110M/Securing_information_and_communications_systems)
+[Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-MilitaryAircraftController-violation)
 
 ## 📝 Short Description
-
 The case is about an airspace monitoring system for civil and military planes.
 
 ## 🔤 Abbreviations
-
--
+None.
 
 ## 📖 Extensive Description
-
 There are three types of users. A __Clerk__ creates and stores weather reports. A __Flight Controller__ registers civil airplanes, finds their positions and determines new routes based on other plane positions and the weather reports of the clerk. The __Military Flight Controller__ performs the same tasks for military airplanes and also considers the positions of civil airplanes. 
 __Weather Data__ is provided by a __Clerk__ and, as it is `Unclassified` Data, supplied a *weather report* to other processes.
 
@@ -33,3 +36,7 @@ This constraint ensures that data designated `Classified` does not flow to nodes
 
 ## 🚨 Violations
 The error introduced in the case is that the flight controller uses the positions of military planes to determine a new route. This additional flow is called __plane_positions__.
+
+<script setup>
+import { VPButton } from 'vitepress/theme'
+</script>

@@ -1,17 +1,21 @@
 # 📊 Diagram: (Smart Speaker Platform from `Precise Analysis of Purpose Limitation in Data Flow Diagrams)
 
+::: tip Available Online
+This model is available to view using the online editor!
+<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/PurposeLimitationsPaper/StorageConstraintViolation.json"></VPButton>
+::: 
+
 ## 🔗 Link to Original Paper
-<!--[View Full Main Source](https://doi.org/10.1145/3538969.3539010)-->
+[View Full Main Source](https://doi.org/10.1145/3538969.3539010)
+[Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/PurposeLimitationsPaper)
 
 ## 🔗 Link to GitHub Repository
-<!--[Repository](https://github.com/alshareef-hanaa/PL-DFD)-->
+[Repository](https://github.com/alshareef-hanaa/PL-DFD)
 
 ## 📝 Short Description
-
 This diagram shows a fictional Smart Speaker system. The use cases include the download and install process aswell as voice-guided command sequences and data exchanges with third parties.
 
 ## 🔤 Abbreviations
-
 - `CMD`: Command
 
 ## 📖 Extensive Description
@@ -27,24 +31,25 @@ send certain aggregated statistics about their history of clienteles’
 requests to __Third-party Partners__.
 
 ## 🏷️ Label description
-
-- ### 🗂️ Data Labels:
-    - **Purpose**: These labels mark the intended purpose of a given data flow between two nodes. These can be: `Install`, `Login`, `Authenticate`, `Register`, `Streaming`, `NotifyUser`, `CMDProcessing`, `VoiceProcessing`, `TriggerMusicStore`, `Marketing`, `Storage`, `AIProcessing` and `NoPermission`.
-- ### 🏷️ Node Labels:
-    - **AllowedPurpose**: These labels designate allowed purposes to nodes. They are a subset of **Purpose** labels: `NotifyUser`, `Streaming`, `Register`, `Marketing` and `Storage`.
-    - **ComponentCategory**: This labels the nodes according to their place in the overall system. There are: `UserHomeDevice`, `MusicStore`, `UserPhone`, `Provider`, `DeviceOwner`, `Router`, `ThirdPartyPartner` and `AppStore`.
+-### 🗂️ Data Labels:
+- **Purpose**: These labels mark the intended purpose of a given data flow between two nodes. These can be: `Install`, `Login`, `Authenticate`, `Register`, `Streaming`, `NotifyUser`, `CMDProcessing`, `VoiceProcessing`, `TriggerMusicStore`, `Marketing`, `Storage`, `AIProcessing` and `NoPermission`.
+### 🏷️ Node Labels:
+- **AllowedPurpose**: These labels designate allowed purposes to nodes. They are a subset of **Purpose** labels: `NotifyUser`, `Streaming`, `Register`, `Marketing` and `Storage`.
+- **ComponentCategory**: This labels the nodes according to their place in the overall system. There are: `UserHomeDevice`, `MusicStore`, `UserPhone`, `Provider`, `DeviceOwner`, `Router`, `ThirdPartyPartner` and `AppStore`.
 
 ## ⚠️ Constraints
 ### StorageConstraint
 This constraint ensures that data flows marked for `Storage` **Purposes** are never handed to an entity from the **ComponentCategory** `UserHomeDevice`.
-
 - `StorageConstraint: data Purpose.Storage neverFlows vertex ComponentCategory.ThirdPartyPartner`
 
 ### PermissionConstraint
 This constraint ensures that data without permissions is not processed withhin the `UserHomeDevice`.
-
 - `PermissionConstraint: data Purpose.NoPermission neverFlows vertex ComponentCategory.UserHomeDevice`
 
 ## 🚨 Violations
-
 User data marked for storage flows to a __Third-Party Partner__, which violates the StorageConstraint.
+
+
+<script setup>
+import { VPButton } from 'vitepress/theme'
+</script>

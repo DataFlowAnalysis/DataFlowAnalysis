@@ -1,14 +1,19 @@
 # 📊 Model: (AccessControl-DAC-no-violation)
 
+::: tip Available Online
+This model is available to view using the online editor!
+<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-DAC-no-violation/DAC-no-violation.json"></VPButton>
+::: 
+
 ## 🔗 Link to Original Paper/Article
 [View Source](https://openlibrary.org/books/OL17011110M/Securing_information_and_communications_systems)
+[Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-DAC-no-violation)
 
 ## 📝 Short Description
 This case is about a file system for pictures in a family.
 
 ## 🔤 Abbreviations
-
--
+None.
 
 ## 📖 Extensive Description
 There are three family users that use a store __Family Pictures__. The __Mother__ and __Dad__ can *add_pictures* and *read_pictures*. The __Aunt__ can only *read_pictures*. An __Indexing Bot__ might discover the file sharing system but must not access it. 
@@ -27,5 +32,9 @@ The __Indexing Bot__ is not allowed to read or access __Family Pictures__ in any
 - `Isolation: data !Read.IndexingBot neverFlows vertex Identity.IndexingBot`
 
 ## 🚨 Violations
-
 None.
+
+
+<script setup>
+import { VPButton } from 'vitepress/theme'
+</script>

@@ -1,7 +1,15 @@
 # 📊 Diagram: DocProc
 
+::: tip Available Online
+This model is available to view using the online editor!
+<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/DocProc/DocProc.json"></VPButton>
+::: 
+
+
 ## 🔗 Link to Original Paper/Article
-[View Full Main Source](<https://zenodo.org/records/15059455>)
+[View Full Main Source](https://zenodo.org/records/15059455)
+
+[Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/DocProc)
 
 ## 📝 Short Description
 This diagram shows the flow of data from the DocProc system. As described in the main source this diagram consists of three main parts: (i) the customer facing part (left-hand side), which provides dashboards and self-service facilities to customer administrators for uploading templates, managing accounts, and uploading batches of raw data, (ii) the document generation facilities (depicted in the middle) that involve scheduling document generation jobs, and generating PDF documents, and (iii) the document delivery subsystem, which is responsible for orchestrating the delivery of documents (right-hand side)
@@ -65,5 +73,9 @@ In this last part about the delivery of the documents first the *generated_pdfs*
 
 
 
+
+<script setup>
+import { VPButton } from 'vitepress/theme'
+</script>
 
 

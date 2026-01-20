@@ -1,6 +1,7 @@
 # 📊 PCM Model: CoCarNextGen
 
 ## 🔗 Link to Original Paper/Article
+[View Model Files in Repository](<https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/pcm/CoCarNextGen>)
 
 [View Audi Fakten Source](<https://www.audi-mediacenter.com/de/der-audi-a6-bis-2025-das-multitalent-in-der-business-class-10240/die-fakten-10242>)
 

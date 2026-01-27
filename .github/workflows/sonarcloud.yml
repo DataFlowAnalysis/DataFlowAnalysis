@@ -6,11 +6,13 @@ on:
       - main
     paths:
       - "bundles/**"
+      - "tests/**"
       - ".github/workflows/sonarcloud.yml"
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
       - "bundles/**"
+      - "tests/**"
       - ".github/workflows/sonarcloud.yml"
 
       # Allows you to run this workflow manually from the Actions tab
@@ -35,8 +37,6 @@ jobs:
         working-directory: .
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v6.0.0
-        with:
-          projectBaseDir: bundles
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

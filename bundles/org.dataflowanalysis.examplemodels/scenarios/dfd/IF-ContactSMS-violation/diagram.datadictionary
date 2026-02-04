@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_cXEPYVZREfCRrfw2FPYOHw">
+  <labelTypes id="oy2x4o" entityName="ClearanceLevel">
+    <label id="lor4vn" entityName="User"/>
+    <label id="66ru7d" entityName="UserReceiver"/>
+  </labelTypes>
+  <labelTypes id="08pv8q" entityName="ClassificationLevel">
+    <label id="4eyzrb" entityName="User"/>
+    <label id="xd2p5" entityName="UserReceiver"/>
+  </labelTypes>
+  <behavior id="_cXEPaVZREfCRrfw2FPYOHw" entityName="add contact">
+    <inPin id="tszws8" entityName="add contact_in_contact"/>
+    <outPin id="q52qe" entityName="add contact_out_addContact"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_cXEPnlZREfCRrfw2FPYOHw" outputPin="q52qe" inputPins="tszws8"/>
+  </behavior>
+  <behavior id="_cXEPbVZREfCRrfw2FPYOHw" entityName="delete contact">
+    <inPin id="02pjt" entityName="delete contact_in_contact"/>
+    <outPin id="o2gb8r" entityName="delete contact_out_deleteContact"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_cXEPqFZREfCRrfw2FPYOHw" outputPin="o2gb8r" inputPins="02pjt"/>
+  </behavior>
+  <behavior id="_cXEPcVZREfCRrfw2FPYOHw" entityName="User">
+    <inPin id="m3ysbfg" entityName="User_in_contacts"/>
+    <outPin id="k13qqx" entityName="User_out_criteria"/>
+    <outPin id="evdd8m" entityName="User_out_contact"/>
+    <outPin id="60sgge" entityName="User_out_contact"/>
+    <outPin id="3t1gqc" entityName="User_out_message"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cXEPoVZREfCRrfw2FPYOHw" outputPin="3t1gqc" outputLabels="xd2p5"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cXEPolZREfCRrfw2FPYOHw" outputPin="3t1gqc" outputLabels="4eyzrb"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cXEPo1ZREfCRrfw2FPYOHw" outputPin="60sgge" outputLabels="4eyzrb"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cXEPpFZREfCRrfw2FPYOHw" outputPin="evdd8m" outputLabels="4eyzrb"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cXEPpVZREfCRrfw2FPYOHw" outputPin="k13qqx" outputLabels="4eyzrb"/>
+  </behavior>
+  <behavior id="_cXEPeFZREfCRrfw2FPYOHw" entityName="SMS Gameway">
+    <inPin id="e45gpj" entityName="SMS Gameway_in_sms"/>
+  </behavior>
+  <behavior id="_cXEPe1ZREfCRrfw2FPYOHw" entityName="send SMS">
+    <inPin id="bp424" entityName="send SMS_in_numbermessagecontactDirect"/>
+    <outPin id="6otywj" entityName="send SMS_out_sms"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_cXEPrVZREfCRrfw2FPYOHw" outputPin="6otywj" inputPins="bp424"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_cXEPrlZREfCRrfw2FPYOHw" outputPin="6otywj" outputLabels="xd2p5" inputPins="bp424">
+      <term xsi:type="datadictionary:LabelReference" id="_cXEPr1ZREfCRrfw2FPYOHw" label="xd2p5"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_cXEPsFZREfCRrfw2FPYOHw" outputPin="6otywj" outputLabels="4eyzrb" inputPins="bp424">
+      <term xsi:type="datadictionary:LabelReference" id="_cXEPsVZREfCRrfw2FPYOHw" label="4eyzrb"/>
+    </assignment>
+  </behavior>
+  <behavior id="_cXEPf1ZREfCRrfw2FPYOHw" entityName="list contacts">
+    <inPin id="al4e8s" entityName="list contacts_in_contacts"/>
+    <outPin id="akdvsn" entityName="list contacts_out_contacts"/>
+    <outPin id="p3p815" entityName="list contacts_out_contacts"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_cXEPn1ZREfCRrfw2FPYOHw" outputPin="p3p815" inputPins="al4e8s"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_cXEPoFZREfCRrfw2FPYOHw" outputPin="akdvsn" inputPins="al4e8s"/>
+  </behavior>
+  <behavior id="_cXEPhFZREfCRrfw2FPYOHw" entityName="select contact">
+    <inPin id="q54wb" entityName="select contact_in_criteria"/>
+    <inPin id="m8eevv" entityName="select contact_in_contacts"/>
+    <outPin id="7lceys" entityName="select contact_out_contactcontactDirect"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_cXEPqVZREfCRrfw2FPYOHw" outputPin="7lceys" inputPins="m8eevv"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_cXEPqlZREfCRrfw2FPYOHw" outputPin="7lceys" inputPins="q54wb"/>
+  </behavior>
+  <behavior id="_cXEPiVZREfCRrfw2FPYOHw" entityName="extract number">
+    <inPin id="moo80h" entityName="extract number_in_contact"/>
+    <outPin id="ck34xw" entityName="extract number_out_number"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_cXEPplZREfCRrfw2FPYOHw" outputPin="ck34xw" inputPins="moo80h"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_cXEPp1ZREfCRrfw2FPYOHw" outputPin="ck34xw" outputLabels="xd2p5"/>
+  </behavior>
+  <behavior id="_cXEPjVZREfCRrfw2FPYOHw" entityName="Contact Store">
+    <inPin id="2pzfek" entityName="Contact Store_in_addContact"/>
+    <inPin id="7qmsx3" entityName="Contact Store_in_deleteContact"/>
+    <outPin id="6b4mqo" entityName="Contact Store_out_contacts"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_cXEPq1ZREfCRrfw2FPYOHw" outputPin="6b4mqo" inputPins="2pzfek"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_cXEPrFZREfCRrfw2FPYOHw" outputPin="6b4mqo" inputPins="7qmsx3"/>
+  </behavior>
+</datadictionary:DataDictionary>

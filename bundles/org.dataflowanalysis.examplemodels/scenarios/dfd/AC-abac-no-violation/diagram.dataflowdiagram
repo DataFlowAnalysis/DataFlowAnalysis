@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://dataflowanalysis.org/dfd/dataflowdiagram" id="_6LrPQDrUEfCJkoMBjFpfFw">
+  <flows id="eincq" entityName="creditLine" sourceNode="nf0gyyq" destinationNode="370gkb">
+    <destinationPin href="diagram.datadictionary#bgccb"/>
+    <sourcePin href="diagram.datadictionary#d4ysjm"/>
+  </flows>
+  <flows id="guys" entityName="customer" sourceNode="1u15zn" destinationNode="mv2ojn">
+    <destinationPin href="diagram.datadictionary#ffzcs"/>
+    <sourcePin href="diagram.datadictionary#pwd7z"/>
+  </flows>
+  <flows id="nrfz6g" entityName="creditLine" sourceNode="flsgz" destinationNode="fis13o">
+    <destinationPin href="diagram.datadictionary#jrprc"/>
+    <sourcePin href="diagram.datadictionary#lr93t"/>
+  </flows>
+  <flows id="33lz0a" entityName="customers" sourceNode="hozzh7" destinationNode="dc87sb">
+    <destinationPin href="diagram.datadictionary#4wct1m"/>
+    <sourcePin href="diagram.datadictionary#4u2qg"/>
+  </flows>
+  <flows id="njbk8" entityName="customerName" sourceNode="370gkb" destinationNode="j02dzm">
+    <destinationPin href="diagram.datadictionary#ywzj8k"/>
+    <sourcePin href="diagram.datadictionary#hvufvm"/>
+  </flows>
+  <flows id="6mshv7" entityName="customerDetails" sourceNode="fis13o" destinationNode="hpl7cm">
+    <destinationPin href="diagram.datadictionary#ww2uj"/>
+    <sourcePin href="diagram.datadictionary#c7z61d"/>
+  </flows>
+  <flows id="0xo0rh" entityName="customer" sourceNode="hpl7cm" destinationNode="hozzh7">
+    <destinationPin href="diagram.datadictionary#q9joat"/>
+    <sourcePin href="diagram.datadictionary#3wlmh"/>
+  </flows>
+  <flows id="lsucoj" entityName="customer" sourceNode="hozzh7" destinationNode="84a5bi">
+    <destinationPin href="diagram.datadictionary#5exvv"/>
+    <sourcePin href="diagram.datadictionary#ax0cb"/>
+  </flows>
+  <flows id="feaao" entityName="customers" sourceNode="vk7p9" destinationNode="j02dzm">
+    <destinationPin href="diagram.datadictionary#kxh39"/>
+    <sourcePin href="diagram.datadictionary#fcw4se"/>
+  </flows>
+  <flows id="jef1yg" entityName="customer" sourceNode="84a5bi" destinationNode="vk7p9">
+    <destinationPin href="diagram.datadictionary#3o38q"/>
+    <sourcePin href="diagram.datadictionary#dugp4b"/>
+  </flows>
+  <flows id="29fbvn" entityName="customer" sourceNode="j02dzm" destinationNode="370gkb">
+    <destinationPin href="diagram.datadictionary#t2a5tp"/>
+    <sourcePin href="diagram.datadictionary#3q1z7q"/>
+  </flows>
+  <flows id="5nm39o" entityName="customer" sourceNode="j02dzm" destinationNode="nf0gyyq">
+    <destinationPin href="diagram.datadictionary#8wbvcc"/>
+    <sourcePin href="diagram.datadictionary#t9x86"/>
+  </flows>
+  <flows id="j9etx" entityName="celebrityCustomerDetails" sourceNode="o70b5h" destinationNode="1u15zn">
+    <destinationPin href="diagram.datadictionary#60ebcl"/>
+    <sourcePin href="diagram.datadictionary#es1mdy"/>
+  </flows>
+  <flows id="k3qcq" entityName="customerName" sourceNode="o70b5h" destinationNode="84a5bi">
+    <destinationPin href="diagram.datadictionary#c42mg8"/>
+    <sourcePin href="diagram.datadictionary#bt3ula"/>
+  </flows>
+  <flows id="bdexdv" entityName="customerNameFromClerk" sourceNode="fis13o" destinationNode="dc87sb">
+    <destinationPin href="diagram.datadictionary#z77n8r"/>
+    <sourcePin href="diagram.datadictionary#now1vq"/>
+  </flows>
+  <flows id="y9tyvs" entityName="customerNameFromManager" sourceNode="o70b5h" destinationNode="dc87sb">
+    <destinationPin href="diagram.datadictionary#lhkzv"/>
+    <sourcePin href="diagram.datadictionary#en7hj8"/>
+  </flows>
+  <flows id="nr7w9" entityName="customer" sourceNode="dc87sb" destinationNode="o70b5h">
+    <destinationPin href="diagram.datadictionary#xeq4fj"/>
+    <sourcePin href="diagram.datadictionary#tbd5h7"/>
+  </flows>
+  <flows id="nqphk" entityName="customer" sourceNode="dc87sb" destinationNode="flsgz">
+    <destinationPin href="diagram.datadictionary#wwtile"/>
+    <sourcePin href="diagram.datadictionary#lsac3j"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:Process" id="nf0gyyq" entityName="determine credit line">
+    <behavior href="diagram.datadictionary#_6LrPTzrUEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="1u15zn" entityName="register celebrity">
+    <behavior href="diagram.datadictionary#_6LrPUzrUEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="flsgz" entityName="determine credit line">
+    <behavior href="diagram.datadictionary#_6LrPVzrUEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Store" id="hozzh7" entityName="Customer Storage">
+    <behavior href="diagram.datadictionary#_6LrPWzrUEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Store" id="mv2ojn" entityName="Celebrity Customer Storage">
+    <behavior href="diagram.datadictionary#_6LrPYDrUEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="dc87sb" entityName="find customer">
+    <behavior href="diagram.datadictionary#_6LrPYzrUEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="j02dzm" entityName="find customer">
+    <behavior href="diagram.datadictionary#_6LrPajrUEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="hpl7cm" entityName="register customer">
+    <behavior href="diagram.datadictionary#_6LrPcDrUEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="84a5bi" entityName="move customer">
+    <behavior href="diagram.datadictionary#_6LrPdDrUEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Store" id="vk7p9" entityName="Storage">
+    <behavior href="diagram.datadictionary#_6LrPeTrUEfCJkoMBjFpfFw"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="o70b5h" entityName="Manager">
+    <behavior href="diagram.datadictionary#_6LrPfTrUEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#7ftw9n"/>
+    <properties href="diagram.datadictionary#w732lv"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="370gkb" entityName="Clerk Asia">
+    <behavior href="diagram.datadictionary#_6LrPgzrUEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#tk7juo"/>
+    <properties href="diagram.datadictionary#fpzrr"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="fis13o" entityName="Clerk USA">
+    <behavior href="diagram.datadictionary#_6LrPiDrUEfCJkoMBjFpfFw"/>
+    <properties href="diagram.datadictionary#7ftw9n"/>
+    <properties href="diagram.datadictionary#fpzrr"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

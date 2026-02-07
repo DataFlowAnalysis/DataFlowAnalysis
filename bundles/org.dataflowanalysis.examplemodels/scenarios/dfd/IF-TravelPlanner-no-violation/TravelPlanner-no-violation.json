@@ -1,0 +1,2162 @@
+{
+    "model": {
+        "canvasBounds": {
+            "x": 0,
+            "y": 0,
+            "width": 2333.75,
+            "height": 1168.75
+        },
+        "scroll": {
+            "x": 5.014997321906805,
+            "y": -501.1855918585967
+        },
+        "zoom": 0.9703742203742204,
+        "position": {
+            "x": 0,
+            "y": 0
+        },
+        "size": {
+            "width": -1,
+            "height": -1
+        },
+        "features": {},
+        "type": "graph",
+        "id": "root",
+        "children": [
+            {
+                "routingPoints": [
+                    {
+                        "x": 104,
+                        "y": 91.66666666666666
+                    },
+                    {
+                        "x": 124,
+                        "y": 91.66666666666666
+                    },
+                    {
+                        "x": 124,
+                        "y": 154
+                    },
+                    {
+                        "x": 359,
+                        "y": 154
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "ccd",
+                "features": {},
+                "id": "khsd5",
+                "type": "edge:arrow",
+                "sourceId": "wksxi8",
+                "targetId": "ywc46",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 523.5,
+                    "y": 22.999999999999986
+                },
+                "size": {
+                    "width": 117,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Flight Storage",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "4omupj",
+                        "labelTypeValueId": "j9b45"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "fzczu8",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 113.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward flights",
+                        "features": {},
+                        "id": "3kxkmj",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    },
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    }
+                ],
+                "features": {},
+                "id": "7vo064",
+                "type": "node:storage",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 12,
+                    "y": 58.41666666666665
+                },
+                "size": {
+                    "width": 85,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "User",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "4omupj",
+                        "labelTypeValueId": "spyzx"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 81.5,
+                            "y": 5.25
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "nhcrad",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 81.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "set ClassificationLevel.UserAirlineAgency",
+                        "features": {},
+                        "id": "4wbyft",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 81.5,
+                            "y": 29.75
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "set ClassificationLevel.User",
+                        "features": {},
+                        "id": "wksxi8",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    },
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    },
+                    {
+                        "message": "Propagated: ClassificationLevel.User",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1978868503
+                    }
+                ],
+                "features": {},
+                "id": "7oii5l",
+                "type": "node:input-output",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 366,
+                    "y": 138
+                },
+                "size": {
+                    "width": 108,
+                    "height": 32
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "CCD Storage",
+                "color": "var(--color-primary)",
+                "labels": [],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 12.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "ywc46",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 104.5,
+                            "y": 12.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward ccd",
+                        "features": {},
+                        "id": "7t8z6",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.User",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1978868503
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.User",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1978868503
+                    }
+                ],
+                "features": {},
+                "id": "xfx2vn",
+                "type": "node:storage",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1899,
+                    "y": 53.83333333333333
+                },
+                "size": {
+                    "width": 136,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Booking Storage",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "4omupj",
+                        "labelTypeValueId": "j9b45"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "u32kc",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Incoming: ClassificationLevel.UserAirlineAgency, ClassificationLevel.UserAirline",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    }
+                ],
+                "features": {},
+                "id": "pnz9vg",
+                "type": "node:storage",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 690,
+                    "y": 131
+                },
+                "size": {
+                    "width": 85,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Read CCD",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "4omupj",
+                        "labelTypeValueId": "spyzx"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "m0inns",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 81.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward ccd",
+                        "features": {},
+                        "id": "7oedl8",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.User",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1978868503
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.User",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1978868503
+                    }
+                ],
+                "features": {},
+                "id": "mwx7r",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 481,
+                        "y": 154
+                    },
+                    {
+                        "x": 683,
+                        "y": 154
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "ccd",
+                "features": {},
+                "id": "haqjb",
+                "type": "edge:arrow",
+                "sourceId": "7t8z6",
+                "targetId": "m0inns",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 979,
+                    "y": 131
+                },
+                "size": {
+                    "width": 113,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Declassify CCD",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "4omupj",
+                        "labelTypeValueId": "spyzx"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "ppwio",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 109.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "set ClassificationLevel.UserAirline",
+                        "features": {},
+                        "id": "vus1qn",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirline",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.User",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 1978868503
+                    }
+                ],
+                "features": {},
+                "id": "1mdbm",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 782,
+                        "y": 154
+                    },
+                    {
+                        "x": 972,
+                        "y": 154
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "ccd",
+                "features": {},
+                "id": "q0ewe",
+                "type": "edge:arrow",
+                "sourceId": "7oedl8",
+                "targetId": "ppwio",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1136,
+                    "y": 36.91666666666666
+                },
+                "size": {
+                    "width": 128,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Redirect Flights",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "4omupj",
+                        "labelTypeValueId": "6opssg"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "wczxac",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 124.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward filtered_flights",
+                        "features": {},
+                        "id": "cw3g9f",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    },
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    }
+                ],
+                "features": {},
+                "id": "cypvh",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 829,
+                    "y": 36.91666666666666
+                },
+                "size": {
+                    "width": 106,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Filter Flights",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "4omupj",
+                        "labelTypeValueId": "j9b45"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 28.33333333333333
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "sh7vz",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 10.666666666666666
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "zit8di",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 102.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward query\nforward flights",
+                        "features": {},
+                        "id": "vuqwb",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.UserAirlineAgency, ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    },
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.UserAirlineAgency, ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    }
+                ],
+                "features": {},
+                "id": "uxmmil",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 647.5,
+                        "y": 43.999999999999986
+                    },
+                    {
+                        "x": 802,
+                        "y": 43.999999999999986
+                    },
+                    {
+                        "x": 802,
+                        "y": 51.08333333333333
+                    },
+                    {
+                        "x": 822,
+                        "y": 51.08333333333332
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "flights",
+                "features": {},
+                "id": "kgzj3",
+                "type": "edge:arrow",
+                "sourceId": "3kxkmj",
+                "targetId": "zit8di",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 942,
+                        "y": 59.91666666666666
+                    },
+                    {
+                        "x": 1129,
+                        "y": 59.91666666666666
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "filtered_flights",
+                "features": {},
+                "id": "0l19p7",
+                "type": "edge:arrow",
+                "sourceId": "vuqwb",
+                "targetId": "wczxac",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 518,
+                    "y": 84.99999999999999
+                },
+                "size": {
+                    "width": 128,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Redirect Request",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "4omupj",
+                        "labelTypeValueId": "6opssg"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "pvv8g7",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 124.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward criteria",
+                        "features": {},
+                        "id": "b2gy3g",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    },
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    }
+                ],
+                "features": {},
+                "id": "s2s51h",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 653,
+                        "y": 107.99999999999999
+                    },
+                    {
+                        "x": 802,
+                        "y": 107.99999999999999
+                    },
+                    {
+                        "x": 802,
+                        "y": 68.74999999999999
+                    },
+                    {
+                        "x": 822,
+                        "y": 68.74999999999999
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "query",
+                "features": {},
+                "id": "7j7x9d",
+                "type": "edge:arrow",
+                "sourceId": "b2gy3g",
+                "targetId": "sh7vz",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 191,
+                    "y": 84.99999999999999
+                },
+                "size": {
+                    "width": 131,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Dispatch Request",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "4omupj",
+                        "labelTypeValueId": "spyzx"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "f7gckn",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 127.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward criteria",
+                        "features": {},
+                        "id": "iuewe5",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    },
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    }
+                ],
+                "features": {},
+                "id": "19m6h",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 104,
+                        "y": 79.41666666666666
+                    },
+                    {
+                        "x": 134,
+                        "y": 79.41666666666666
+                    },
+                    {
+                        "x": 134,
+                        "y": 107.99999999999999
+                    },
+                    {
+                        "x": 184,
+                        "y": 107.99999999999999
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "criteria",
+                "features": {},
+                "id": "63smub",
+                "type": "edge:arrow",
+                "sourceId": "4wbyft",
+                "targetId": "f7gckn",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 329,
+                        "y": 107.99999999999999
+                    },
+                    {
+                        "x": 511,
+                        "y": 107.99999999999999
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "criteria",
+                "features": {},
+                "id": "nyt9xt",
+                "type": "edge:arrow",
+                "sourceId": "iuewe5",
+                "targetId": "pvv8g7",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 215,
+                    "y": 22.999999999999986
+                },
+                "size": {
+                    "width": 107,
+                    "height": 42
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Flight Planner",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "4omupj",
+                        "labelTypeValueId": "j9b45"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 103.5,
+                            "y": 17.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "set ClassificationLevel.UserAirlineAgency",
+                        "features": {},
+                        "id": "rd139x",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    },
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    }
+                ],
+                "features": {},
+                "id": "4g8hm",
+                "type": "node:input-output",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 329,
+                        "y": 43.999999999999986
+                    },
+                    {
+                        "x": 516.5,
+                        "y": 43.999999999999986
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "flights",
+                "features": {},
+                "id": "9onei8",
+                "type": "edge:arrow",
+                "sourceId": "rd139x",
+                "targetId": "fzczu8",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1690,
+                    "y": 117.83333333333333
+                },
+                "size": {
+                    "width": 135,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Send Commission",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "4omupj",
+                        "labelTypeValueId": "j9b45"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 131.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward selected_flight",
+                        "features": {},
+                        "id": "640ff3",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "iuunr",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    }
+                ],
+                "features": {},
+                "id": "l5l0c",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1899,
+                    "y": 117.83333333333333
+                },
+                "size": {
+                    "width": 156,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Confirm Commission",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "4omupj",
+                        "labelTypeValueId": "6opssg"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "8woe0e",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 152.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": true,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward commission",
+                        "features": {},
+                        "id": "lsy8y6",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    }
+                ],
+                "features": {},
+                "id": "ximedi",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1832,
+                        "y": 140.83333333333331
+                    },
+                    {
+                        "x": 1892,
+                        "y": 140.83333333333331
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "commission",
+                "features": {},
+                "id": "fr9rvr",
+                "type": "edge:arrow",
+                "sourceId": "640ff3",
+                "targetId": "8woe0e",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 2139,
+                    "y": 59.99999999999999
+                },
+                "size": {
+                    "width": 128,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Confirm Booking",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "4omupj",
+                        "labelTypeValueId": "j9b45"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 28.33333333333333
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "hdd0wg",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 10.666666666666666
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward confirmation",
+                        "features": {},
+                        "id": "3byppa",
+                        "type": "port:dfd-output",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    }
+                ],
+                "features": {},
+                "id": "rauvj",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 2132,
+                        "y": 74.16666666666666
+                    },
+                    {
+                        "x": 2112,
+                        "y": 74.16666666666666
+                    },
+                    {
+                        "x": 2112,
+                        "y": 12
+                    },
+                    {
+                        "x": 124,
+                        "y": 12
+                    },
+                    {
+                        "x": 124,
+                        "y": 67.16666666666666
+                    },
+                    {
+                        "x": 104,
+                        "y": 67.16666666666666
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "confirmation",
+                "features": {},
+                "id": "3izhze",
+                "type": "edge:arrow",
+                "sourceId": "3byppa",
+                "targetId": "nhcrad",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1517,
+                    "y": 51.83333333333333
+                },
+                "size": {
+                    "width": 89,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Book Flight",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "4omupj",
+                        "labelTypeValueId": "spyzx"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 28.33333333333333
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "m5shri",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 85.5,
+                            "y": 10.666666666666666
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward declassified_ccd",
+                        "features": {},
+                        "id": "ggbmev",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": 85.5,
+                            "y": 28.33333333333333
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward selected_flight",
+                        "features": {},
+                        "id": "7uly6",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 10.666666666666666
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "c5xbx",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    },
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    },
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirline",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.UserAirline",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    }
+                ],
+                "features": {},
+                "id": "afrzu",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1099,
+                        "y": 154
+                    },
+                    {
+                        "x": 1490,
+                        "y": 154
+                    },
+                    {
+                        "x": 1490,
+                        "y": 83.66666666666666
+                    },
+                    {
+                        "x": 1510,
+                        "y": 83.66666666666666
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "declassified_ccd",
+                "features": {},
+                "id": "ckextn",
+                "type": "edge:arrow",
+                "sourceId": "vus1qn",
+                "targetId": "m5shri",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1613,
+                        "y": 83.66666666666666
+                    },
+                    {
+                        "x": 1633,
+                        "y": 83.66666666666666
+                    },
+                    {
+                        "x": 1633,
+                        "y": 140.83333333333331
+                    },
+                    {
+                        "x": 1683,
+                        "y": 140.83333333333331
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "selected_flight",
+                "features": {},
+                "id": "mtguhp",
+                "type": "edge:arrow",
+                "sourceId": "7uly6",
+                "targetId": "iuunr",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1338,
+                    "y": 36.91666666666666
+                },
+                "size": {
+                    "width": 95,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Select Flight",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "4omupj",
+                        "labelTypeValueId": "spyzx"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 91.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward filtered_flights",
+                        "features": {},
+                        "id": "okdh3",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "3ejj8",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 101953150
+                    },
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.UserAirlineAgency",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    }
+                ],
+                "features": {},
+                "id": "tpwijk",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1440,
+                        "y": 59.91666666666666
+                    },
+                    {
+                        "x": 1490,
+                        "y": 59.91666666666666
+                    },
+                    {
+                        "x": 1490,
+                        "y": 66
+                    },
+                    {
+                        "x": 1510,
+                        "y": 66
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "selected_flight",
+                "features": {},
+                "id": "6nuba7",
+                "type": "edge:arrow",
+                "sourceId": "okdh3",
+                "targetId": "c5xbx",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "position": {
+                    "x": 1693.3333333333333,
+                    "y": 51.83333333333333
+                },
+                "size": {
+                    "width": 125,
+                    "height": 46
+                },
+                "strokeWidth": 0,
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "Process Booking",
+                "color": "var(--color-primary)",
+                "labels": [
+                    {
+                        "labelTypeId": "4omupj",
+                        "labelTypeValueId": "j9b45"
+                    }
+                ],
+                "ports": [
+                    {
+                        "position": {
+                            "x": 121.5,
+                            "y": 19.5
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "behavior": "forward selected_flight,declassified_ccd\nassign ClassificationLevel.User if ClassificationLevel.User from declassified_ccd,selected_flight\nassign ClassificationLevel.UserAirline if ClassificationLevel.UserAirline from declassified_ccd,selected_flight\nassign ClassificationLevel.UserAirlineAgency if ClassificationLevel.UserAirlineAgency from declassified_ccd,selected_flight",
+                        "features": {},
+                        "id": "8igzl",
+                        "type": "port:dfd-output",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 10.666666666666666
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "70i8yq",
+                        "type": "port:dfd-input",
+                        "children": []
+                    },
+                    {
+                        "position": {
+                            "x": -3.5,
+                            "y": 28.33333333333333
+                        },
+                        "size": {
+                            "width": 7,
+                            "height": 7
+                        },
+                        "strokeWidth": 0,
+                        "selected": false,
+                        "hoverFeedback": false,
+                        "opacity": 1,
+                        "features": {},
+                        "id": "l4xfbo",
+                        "type": "port:dfd-input",
+                        "children": []
+                    }
+                ],
+                "hideLabels": false,
+                "minimumWidth": 50,
+                "annotations": [
+                    {
+                        "message": "Propagated: ClassificationLevel.UserAirlineAgency, ClassificationLevel.UserAirline",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    },
+                    {
+                        "message": "Incoming: ClassificationLevel.UserAirlineAgency, ClassificationLevel.UserAirline",
+                        "icon": "tag",
+                        "color": "#FFFFFF",
+                        "tfg": 880862319
+                    }
+                ],
+                "features": {},
+                "id": "djba98",
+                "type": "node:function",
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1825.3333333333333,
+                        "y": 74.83333333333333
+                    },
+                    {
+                        "x": 1892,
+                        "y": 74.83333333333333
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "booking",
+                "features": {},
+                "id": "fabiz",
+                "type": "edge:arrow",
+                "sourceId": "8igzl",
+                "targetId": "u32kc",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1613,
+                        "y": 66
+                    },
+                    {
+                        "x": 1686.3333333333333,
+                        "y": 66
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "declassified_ccd",
+                "features": {},
+                "id": "6aitfo",
+                "type": "edge:arrow",
+                "sourceId": "ggbmev",
+                "targetId": "70i8yq",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1613,
+                        "y": 83.66666666666666
+                    },
+                    {
+                        "x": 1686.3333333333333,
+                        "y": 83.66666666666666
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "selected_flight",
+                "features": {},
+                "id": "ac03i",
+                "type": "edge:arrow",
+                "sourceId": "7uly6",
+                "targetId": "l4xfbo",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 1271,
+                        "y": 59.91666666666666
+                    },
+                    {
+                        "x": 1331,
+                        "y": 59.91666666666666
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "filtered_flights",
+                "features": {},
+                "id": "nya0m",
+                "type": "edge:arrow",
+                "sourceId": "cw3g9f",
+                "targetId": "3ejj8",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            },
+            {
+                "routingPoints": [
+                    {
+                        "x": 2062,
+                        "y": 140.83333333333331
+                    },
+                    {
+                        "x": 2112,
+                        "y": 140.83333333333331
+                    },
+                    {
+                        "x": 2112,
+                        "y": 91.83333333333331
+                    },
+                    {
+                        "x": 2132,
+                        "y": 91.83333333333331
+                    }
+                ],
+                "selected": false,
+                "hoverFeedback": false,
+                "opacity": 1,
+                "text": "confirmation",
+                "features": {},
+                "id": "re4ups",
+                "type": "edge:arrow",
+                "sourceId": "lsy8y6",
+                "targetId": "hdd0wg",
+                "labels": null,
+                "ports": null,
+                "annotations": null,
+                "children": []
+            }
+        ]
+    },
+    "labelTypes": [
+        {
+            "id": "4h3wzk",
+            "name": "ClassificationLevel",
+            "values": [
+                {
+                    "id": "zzvphn",
+                    "text": "User"
+                },
+                {
+                    "id": "veaan9",
+                    "text": "UserAirline"
+                },
+                {
+                    "id": "r18z6",
+                    "text": "UserAirlineAgency"
+                }
+            ]
+        },
+        {
+            "id": "4omupj",
+            "name": "ClearanceLevel",
+            "values": [
+                {
+                    "id": "spyzx",
+                    "text": "User"
+                },
+                {
+                    "id": "j9b45",
+                    "text": "UserAirline"
+                },
+                {
+                    "id": "6opssg",
+                    "text": "UserAirlineAgency"
+                }
+            ]
+        }
+    ],
+    "constraints": [
+        {
+            "name": "SafeCCD",
+            "constraint": "data ClassificationLevel.User neverFlows vertex ClearanceLevel.UserAirline"
+        },
+        {
+            "name": "SafeCCD2",
+            "constraint": "data ClassificationLevel.User neverFlows vertex ClearanceLevel.UserAirlineAgency"
+        }
+    ],
+    "mode": "edit",
+    "version": 1
+}

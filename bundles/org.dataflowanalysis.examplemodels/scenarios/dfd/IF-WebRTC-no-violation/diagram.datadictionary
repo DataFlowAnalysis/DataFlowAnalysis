@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_WjX7wS_sEfCy_4XEclxE_A">
+  <labelTypes id="2oy5e" entityName="Level">
+    <label id="i4th7s" entityName="Low"/>
+    <label id="pi4wc" entityName="High"/>
+  </labelTypes>
+  <labelTypes id="ghbgv" entityName="Zone">
+    <label id="4ujv3" entityName="Trust"/>
+    <label id="1umvuj" entityName="Attack"/>
+  </labelTypes>
+  <labelTypes id="l85mp" entityName="ContainedClassification">
+    <label id="o0fvaq" entityName="High"/>
+    <label id="ig9578" entityName="Low"/>
+  </labelTypes>
+  <behavior id="_WjX7zC_sEfCy_4XEclxE_A" entityName="X">
+    <inPin id="4nq8" entityName="X_in_AliceBrowserID"/>
+    <outPin id="znmepo" entityName="X_out_AliceBrowserID"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZKAi_sEfCy_4XEclxE_A" outputPin="znmepo" inputPins="4nq8"/>
+  </behavior>
+  <behavior id="_WjX70C_sEfCy_4XEclxE_A" entityName="readBrowserID">
+    <inPin id="q8ncc" entityName="readBrowserID_in_AliceBrowserID"/>
+    <outPin id="vddr5" entityName="readBrowserID_out_AliceBrowserID"/>
+    <outPin id="89fc4" entityName="readBrowserID_out_AliceBrowserID"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjYjhi_sEfCy_4XEclxE_A" outputPin="89fc4" inputPins="q8ncc"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjYjhy_sEfCy_4XEclxE_A" outputPin="vddr5" inputPins="q8ncc"/>
+  </behavior>
+  <behavior id="_WjX71S_sEfCy_4XEclxE_A" entityName="BrowserInitializer">
+    <outPin id="j17l3m" entityName="BrowserInitializer_out_APort"/>
+    <outPin id="dykhuy" entityName="BrowserInitializer_out_AliceBrowserID"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WjZKDC_sEfCy_4XEclxE_A" outputPin="j17l3m" outputLabels="i4th7s"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WjZKDS_sEfCy_4XEclxE_A" outputPin="dykhuy" outputLabels="pi4wc"/>
+  </behavior>
+  <behavior id="_WjX72S_sEfCy_4XEclxE_A" entityName="announcePort">
+    <inPin id="9nzqj5" entityName="announcePort_in_APort"/>
+    <outPin id="m4vv3q" entityName="announcePort_out_APort"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZJ_S_sEfCy_4XEclxE_A" outputPin="m4vv3q" inputPins="9nzqj5"/>
+  </behavior>
+  <behavior id="_WjX73S_sEfCy_4XEclxE_A" entityName="sendOwnMedia">
+    <inPin id="1haxv9" entityName="sendOwnMedia_in_AMedia"/>
+    <outPin id="nl9sci" entityName="sendOwnMedia_out_AMedia"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZKAS_sEfCy_4XEclxE_A" outputPin="nl9sci" inputPins="1haxv9"/>
+  </behavior>
+  <behavior id="_WjX74S_sEfCy_4XEclxE_A" entityName="Alice">
+    <inPin id="x94och" entityName="Alice_in_BMedia"/>
+    <outPin id="tuvwex" entityName="Alice_out_AliceSessionData"/>
+    <outPin id="qjh1xq" entityName="Alice_out_AMedia"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WjZKAy_sEfCy_4XEclxE_A" outputPin="qjh1xq" outputLabels="pi4wc"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WjZKBC_sEfCy_4XEclxE_A" outputPin="tuvwex" outputLabels="pi4wc"/>
+  </behavior>
+  <behavior id="_WjX75i_sEfCy_4XEclxE_A" entityName="receiveMedia">
+    <inPin id="4tnqj" entityName="receiveMedia_in_BMedia"/>
+    <outPin id="cp3h6c" entityName="receiveMedia_out_BMedia"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZJ5y_sEfCy_4XEclxE_A" outputPin="cp3h6c" inputPins="4tnqj"/>
+  </behavior>
+  <behavior id="_WjX76i_sEfCy_4XEclxE_A" entityName="initializeSession">
+    <inPin id="3y039t" entityName="initializeSession_in_AliceSessionData"/>
+    <outPin id="higebw" entityName="initializeSession_out_AliceSessionData"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjYjni_sEfCy_4XEclxE_A" outputPin="higebw" inputPins="3y039t"/>
+  </behavior>
+  <behavior id="_WjX77i_sEfCy_4XEclxE_A" entityName="readBrowserID">
+    <inPin id="a73nte" entityName="readBrowserID_in_AliceBrowserID"/>
+    <outPin id="lsd99g" entityName="readBrowserID_out_AliceBrowserID"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjYjoC_sEfCy_4XEclxE_A" outputPin="lsd99g" inputPins="a73nte"/>
+  </behavior>
+  <behavior id="_WjX78i_sEfCy_4XEclxE_A" entityName="unpackMediaPackage">
+    <inPin id="8wymlj" entityName="unpackMediaPackage_in_BMediaPackage"/>
+    <outPin id="de3ffs" entityName="unpackMediaPackage_out_BMedia"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjYjhS_sEfCy_4XEclxE_A" outputPin="de3ffs" inputPins="8wymlj"/>
+  </behavior>
+  <behavior id="_WjX79i_sEfCy_4XEclxE_A" entityName="createMediaPackage">
+    <inPin id="0ywfgo" entityName="createMediaPackage_in_AMedia"/>
+    <inPin id="iiyu36" entityName="createMediaPackage_in_BPort"/>
+    <inPin id="qwf89c" entityName="createMediaPackage_in_BobBrowserID"/>
+    <inPin id="u4bl3" entityName="createMediaPackage_in_AliceBrowserID"/>
+    <outPin id="thpo1" entityName="createMediaPackage_out_AMediaPackage"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZKDi_sEfCy_4XEclxE_A" outputPin="thpo1" inputPins="0ywfgo"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_WjZKDy_sEfCy_4XEclxE_A" outputPin="thpo1" outputLabels="i4th7s" inputPins="u4bl3 0ywfgo qwf89c iiyu36">
+      <term xsi:type="datadictionary:LabelReference" id="_WjZKEC_sEfCy_4XEclxE_A" label="i4th7s"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_WjZKES_sEfCy_4XEclxE_A" outputPin="thpo1" outputLabels="pi4wc" inputPins="u4bl3 0ywfgo qwf89c iiyu36">
+      <term xsi:type="datadictionary:LabelReference" id="_WjZKEi_sEfCy_4XEclxE_A" label="pi4wc"/>
+    </assignment>
+  </behavior>
+  <behavior id="_WjX7_S_sEfCy_4XEclxE_A" entityName="extractOtherSide">
+    <inPin id="ab44r" entityName="extractOtherSide_in_BobSessionData"/>
+    <outPin id="g4iogi" entityName="extractOtherSide_out_BobBrowserID"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZJ9C_sEfCy_4XEclxE_A" outputPin="g4iogi" inputPins="ab44r"/>
+  </behavior>
+  <behavior id="_WjX8AS_sEfCy_4XEclxE_A" entityName="decryptBobSessionData">
+    <inPin id="zpof6l" entityName="decryptBobSessionData_in_EncrBobSessionData"/>
+    <outPin id="luul5j" entityName="decryptBobSessionData_out_BobSessionData"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZJ4y_sEfCy_4XEclxE_A" outputPin="luul5j" inputPins="zpof6l"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_WjZJ5C_sEfCy_4XEclxE_A" outputPin="luul5j" outputLabels="pi4wc">
+      <term xsi:type="datadictionary:LabelReference" id="_WjZJ5S_sEfCy_4XEclxE_A" label="o0fvaq"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_WjZJ5i_sEfCy_4XEclxE_A" outputPin="luul5j" outputLabels="o0fvaq"/>
+  </behavior>
+  <behavior id="_WjX8BS_sEfCy_4XEclxE_A" entityName="readOtherBrowserID">
+    <inPin id="ns5ftm" entityName="readOtherBrowserID_in_BobBrowserID"/>
+    <outPin id="mvy6qg" entityName="readOtherBrowserID_out_BobBrowserID"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZJ_C_sEfCy_4XEclxE_A" outputPin="mvy6qg" inputPins="ns5ftm"/>
+  </behavior>
+  <behavior id="_WjX8CS_sEfCy_4XEclxE_A" entityName="decryptMedia">
+    <inPin id="qaq5qv" entityName="decryptMedia_in_EncrBMedia"/>
+    <outPin id="yzaz7l" entityName="decryptMedia_out_BMediaPackage"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjYjkS_sEfCy_4XEclxE_A" outputPin="yzaz7l" inputPins="qaq5qv"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_WjYjki_sEfCy_4XEclxE_A" outputPin="yzaz7l" outputLabels="pi4wc">
+      <term xsi:type="datadictionary:LabelReference" id="_WjYjky_sEfCy_4XEclxE_A" label="o0fvaq"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_WjYjlC_sEfCy_4XEclxE_A" outputPin="yzaz7l" outputLabels="o0fvaq"/>
+  </behavior>
+  <behavior id="_WjX8DS_sEfCy_4XEclxE_A" entityName="receiveBobEncryptedSessionData">
+    <inPin id="hfpzpm" entityName="receiveBobEncryptedSessionData_in_EncrBobSessionData"/>
+    <outPin id="rv0tdq" entityName="receiveBobEncryptedSessionData_out_EncrBobSessionData"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjYjkC_sEfCy_4XEclxE_A" outputPin="rv0tdq" inputPins="hfpzpm"/>
+  </behavior>
+  <behavior id="_WjX8ES_sEfCy_4XEclxE_A" entityName="receiveOtherPort">
+    <inPin id="c11kr" entityName="receiveOtherPort_in_BPort"/>
+    <outPin id="u5j79o" entityName="receiveOtherPort_out_BPort"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjYjfC_sEfCy_4XEclxE_A" outputPin="u5j79o" inputPins="c11kr"/>
+  </behavior>
+  <behavior id="_WjX8FS_sEfCy_4XEclxE_A" entityName="publishPort">
+    <inPin id="sb13o" entityName="publishPort_in_APort"/>
+    <outPin id="5vluv" entityName="publishPort_out_APort"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjYjjy_sEfCy_4XEclxE_A" outputPin="5vluv" inputPins="sb13o"/>
+  </behavior>
+  <behavior id="_WjX8GS_sEfCy_4XEclxE_A" entityName="receivePort">
+    <inPin id="7936la" entityName="receivePort_in_APort"/>
+    <outPin id="h5e38j" entityName="receivePort_out_APort"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZJ8y_sEfCy_4XEclxE_A" outputPin="h5e38j" inputPins="7936la"/>
+  </behavior>
+  <behavior id="_WjX8HS_sEfCy_4XEclxE_A" entityName="announcePort">
+    <inPin id="mr49y" entityName="announcePort_in_BPort"/>
+    <outPin id="9n5tcd" entityName="announcePort_out_BPort"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZJ8C_sEfCy_4XEclxE_A" outputPin="9n5tcd" inputPins="mr49y"/>
+  </behavior>
+  <behavior id="_WjX8IS_sEfCy_4XEclxE_A" entityName="readOtherBrowserID">
+    <inPin id="i53yy" entityName="readOtherBrowserID_in_AliceBrowserID"/>
+    <outPin id="4izscn" entityName="readOtherBrowserID_out_AliceBrowserID"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjYjnS_sEfCy_4XEclxE_A" outputPin="4izscn" inputPins="i53yy"/>
+  </behavior>
+  <behavior id="_WjX8JS_sEfCy_4XEclxE_A" entityName="encryptMedia">
+    <inPin id="763sm" entityName="encryptMedia_in_BMediaPackage"/>
+    <outPin id="975bqg" entityName="encryptMedia_out_EncrBMedia"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZKBi_sEfCy_4XEclxE_A" outputPin="975bqg" inputPins="763sm"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_WjZKBy_sEfCy_4XEclxE_A" outputPin="975bqg" outputLabels="o0fvaq">
+      <term xsi:type="datadictionary:LabelReference" id="_WjZKCC_sEfCy_4XEclxE_A" label="pi4wc"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_WjZKCS_sEfCy_4XEclxE_A" outputPin="975bqg" outputLabels="ig9578">
+      <term xsi:type="datadictionary:LabelReference" id="_WjZKCi_sEfCy_4XEclxE_A" label="i4th7s"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WjZKCy_sEfCy_4XEclxE_A" outputPin="975bqg" outputLabels="i4th7s"/>
+  </behavior>
+  <behavior id="_WjX8KS_sEfCy_4XEclxE_A" entityName="sendOwnMedia">
+    <inPin id="qkwcff" entityName="sendOwnMedia_in_BMedia"/>
+    <outPin id="zot3u3" entityName="sendOwnMedia_out_BMedia"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjYjoi_sEfCy_4XEclxE_A" outputPin="zot3u3" inputPins="qkwcff"/>
+  </behavior>
+  <behavior id="_WjYi0i_sEfCy_4XEclxE_A" entityName="receiveMedia">
+    <inPin id="rw721o" entityName="receiveMedia_in_APedia"/>
+    <outPin id="h1fb6n" entityName="receiveMedia_out_AMedia"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZJ4C_sEfCy_4XEclxE_A" outputPin="h1fb6n" inputPins="rw721o"/>
+  </behavior>
+  <behavior id="_WjYi1i_sEfCy_4XEclxE_A" entityName="unpackMediaPackage">
+    <inPin id="1wntfi" entityName="unpackMediaPackage_in_AMediaPackage"/>
+    <outPin id="2wkopm" entityName="unpackMediaPackage_out_APedia"/>
+  </behavior>
+  <behavior id="_WjYi2i_sEfCy_4XEclxE_A" entityName="readBrowserID">
+    <inPin id="9zyn4e" entityName="readBrowserID_in_BobBrowserID"/>
+    <outPin id="3r3m84" entityName="readBrowserID_out_BobBrowserID"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjYjpC_sEfCy_4XEclxE_A" outputPin="3r3m84" inputPins="9zyn4e"/>
+  </behavior>
+  <behavior id="_WjYi3i_sEfCy_4XEclxE_A" entityName="publishBobBrowserID">
+    <inPin id="f0to0c" entityName="publishBobBrowserID_in_BobBrowserID"/>
+    <outPin id="cbyha" entityName="publishBobBrowserID_out_BobBrowserID"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZJ4i_sEfCy_4XEclxE_A" outputPin="cbyha" inputPins="f0to0c"/>
+  </behavior>
+  <behavior id="_WjYi4i_sEfCy_4XEclxE_A" entityName="decryptMedia">
+    <inPin id="lsmnjt" entityName="decryptMedia_in_EncrAMedia"/>
+    <outPin id="mobqo" entityName="decryptMedia_out_AMediaPackage"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjYjmS_sEfCy_4XEclxE_A" outputPin="mobqo" inputPins="lsmnjt"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_WjYjmi_sEfCy_4XEclxE_A" outputPin="mobqo" outputLabels="pi4wc">
+      <term xsi:type="datadictionary:LabelReference" id="_WjYjmy_sEfCy_4XEclxE_A" label="o0fvaq"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_WjYjnC_sEfCy_4XEclxE_A" outputPin="mobqo" outputLabels="o0fvaq"/>
+  </behavior>
+  <behavior id="_WjYi5i_sEfCy_4XEclxE_A" entityName="decryptAliceSessionData">
+    <inPin id="ih10k" entityName="decryptAliceSessionData_in_EncrAliceSessionData"/>
+    <outPin id="1y2tiw" entityName="decryptAliceSessionData_out_AliceSessionData"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjYjlS_sEfCy_4XEclxE_A" outputPin="1y2tiw" inputPins="ih10k"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_WjYjli_sEfCy_4XEclxE_A" outputPin="1y2tiw" outputLabels="pi4wc">
+      <term xsi:type="datadictionary:LabelReference" id="_WjYjly_sEfCy_4XEclxE_A" label="o0fvaq"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_WjYjmC_sEfCy_4XEclxE_A" outputPin="1y2tiw" outputLabels="o0fvaq"/>
+  </behavior>
+  <behavior id="_WjYi6i_sEfCy_4XEclxE_A" entityName="transmitBrowserID">
+    <inPin id="309xyr" entityName="transmitBrowserID_in_AliceBrowserID"/>
+    <inPin id="iw9qix" entityName="transmitBrowserID_in_BobBrowserID"/>
+    <outPin id="szcnha" entityName="transmitBrowserID_out_AliceBrowserID"/>
+  </behavior>
+  <behavior id="_WjYi7y_sEfCy_4XEclxE_A" entityName="storeBrowserID">
+    <inPin id="rw7dy" entityName="storeBrowserID_in_AliceBrowserID"/>
+    <outPin id="10vo4" entityName="storeBrowserID_out_AliceBrowserID"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZKBS_sEfCy_4XEclxE_A" outputPin="10vo4" inputPins="rw7dy"/>
+  </behavior>
+  <behavior id="_WjYi8y_sEfCy_4XEclxE_A" entityName="Bob">
+    <inPin id="zkaho" entityName="Bob_in_AMedia"/>
+    <outPin id="xq6rl7" entityName="Bob_out_BMedia"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WjZKEy_sEfCy_4XEclxE_A" outputPin="xq6rl7" outputLabels="pi4wc"/>
+  </behavior>
+  <behavior id="_WjYi9y_sEfCy_4XEclxE_A" entityName="BrowserInitializer">
+    <outPin id="6gi2i9" entityName="BrowserInitializer_out_BPort"/>
+    <outPin id="su28h" entityName="BrowserInitializer_out_BobBrowserID"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WjYjgy_sEfCy_4XEclxE_A" outputPin="6gi2i9" outputLabels="i4th7s"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WjYjhC_sEfCy_4XEclxE_A" outputPin="su28h" outputLabels="pi4wc"/>
+  </behavior>
+  <behavior id="_WjYi-y_sEfCy_4XEclxE_A" entityName="transmitBrowserID">
+    <inPin id="4k5un9" entityName="transmitBrowserID_in_BobBrowserID"/>
+    <inPin id="s4fqj9" entityName="transmitBrowserID_in_AliceBrowserID"/>
+    <outPin id="f4c77o" entityName="transmitBrowserID_out_BobBrowserID"/>
+  </behavior>
+  <behavior id="_WjYjAC_sEfCy_4XEclxE_A" entityName="storeBrowserID">
+    <inPin id="pr107" entityName="storeBrowserID_in_BobBrowserID"/>
+    <outPin id="3gy6do" entityName="storeBrowserID_out_BobBrowserID"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZKFC_sEfCy_4XEclxE_A" outputPin="3gy6do" inputPins="pr107"/>
+  </behavior>
+  <behavior id="_WjYjBC_sEfCy_4XEclxE_A" entityName="readBrowserID">
+    <inPin id="0evnkv" entityName="readBrowserID_in_BobBrowserID"/>
+    <outPin id="fe07l" entityName="readBrowserID_out_BobBrowserID"/>
+    <outPin id="40hp5l" entityName="readBrowserID_out_BobBrowserID"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZJ_y_sEfCy_4XEclxE_A" outputPin="fe07l" inputPins="0evnkv"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZKAC_sEfCy_4XEclxE_A" outputPin="40hp5l" inputPins="0evnkv"/>
+  </behavior>
+  <behavior id="_WjYjCS_sEfCy_4XEclxE_A" entityName="encryptSessionData">
+    <inPin id="5rj7x" entityName="encryptSessionData_in_BobSessionData"/>
+    <outPin id="bvf1j" entityName="encryptSessionData_out_EncrBobSessionData"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjYjiC_sEfCy_4XEclxE_A" outputPin="bvf1j" inputPins="5rj7x"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_WjYjiS_sEfCy_4XEclxE_A" outputPin="bvf1j" outputLabels="o0fvaq">
+      <term xsi:type="datadictionary:LabelReference" id="_WjYjii_sEfCy_4XEclxE_A" label="pi4wc"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_WjYjiy_sEfCy_4XEclxE_A" outputPin="bvf1j" outputLabels="ig9578">
+      <term xsi:type="datadictionary:LabelReference" id="_WjYjjC_sEfCy_4XEclxE_A" label="i4th7s"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WjYjjS_sEfCy_4XEclxE_A" outputPin="bvf1j" outputLabels="i4th7s"/>
+  </behavior>
+  <behavior id="_WjYjDS_sEfCy_4XEclxE_A" entityName="extractOtherSide">
+    <inPin id="013qyp" entityName="extractOtherSide_in_AliceSessionData"/>
+    <outPin id="sj88v" entityName="extractOtherSide_out_AliceBrowserID"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZJ8i_sEfCy_4XEclxE_A" outputPin="sj88v" inputPins="013qyp"/>
+  </behavior>
+  <behavior id="_WjYjES_sEfCy_4XEclxE_A" entityName="receiveOtherPort">
+    <inPin id="jmkk2o" entityName="receiveOtherPort_in_APort"/>
+    <outPin id="o9tsgj" entityName="receiveOtherPort_out_APort"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjYjoy_sEfCy_4XEclxE_A" outputPin="o9tsgj" inputPins="jmkk2o"/>
+  </behavior>
+  <behavior id="_WjYjFS_sEfCy_4XEclxE_A" entityName="Y">
+    <inPin id="f9f1su" entityName="Y_in_BobBrowserID"/>
+    <outPin id="9xfga8" entityName="Y_out_BobBrowserID"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZJ_i_sEfCy_4XEclxE_A" outputPin="9xfga8" inputPins="f9f1su"/>
+  </behavior>
+  <behavior id="_WjYjGS_sEfCy_4XEclxE_A" entityName="publishAliceBrowserID">
+    <inPin id="er3n3o" entityName="publishAliceBrowserID_in_AliceBrowserID"/>
+    <outPin id="3lodcf" entityName="publishAliceBrowserID_out_AliceBrowserID"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjYjji_sEfCy_4XEclxE_A" outputPin="3lodcf" inputPins="er3n3o"/>
+  </behavior>
+  <behavior id="_WjYjHS_sEfCy_4XEclxE_A" entityName="dispatchResponseSessionData">
+    <inPin id="d3bsd" entityName="dispatchResponseSessionData_in_EncrBobSessionData"/>
+    <outPin id="hiznyo5" entityName="dispatchResponseSessionData_out_EncrBobSessionData"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZJ8S_sEfCy_4XEclxE_A" outputPin="hiznyo5" inputPins="d3bsd"/>
+  </behavior>
+  <behavior id="_WjYjIS_sEfCy_4XEclxE_A" entityName="createBobSessionData">
+    <inPin id="tox52" entityName="createBobSessionData_in_AliceSessionData"/>
+    <outPin id="ipv7lc" entityName="createBobSessionData_out_AliceSessionData"/>
+    <outPin id="xi34jj" entityName="createBobSessionData_out_BobSessionData"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZJ7i_sEfCy_4XEclxE_A" outputPin="ipv7lc" inputPins="tox52"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZJ7y_sEfCy_4XEclxE_A" outputPin="xi34jj" inputPins="tox52"/>
+  </behavior>
+  <behavior id="_WjYjJi_sEfCy_4XEclxE_A" entityName="encryptMedia">
+    <inPin id="qdgw2" entityName="encryptMedia_in_AMediaPackage"/>
+    <outPin id="97rs1p" entityName="encryptMedia_out_EncrAMedia"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZJ6C_sEfCy_4XEclxE_A" outputPin="97rs1p" inputPins="qdgw2"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_WjZJ6S_sEfCy_4XEclxE_A" outputPin="97rs1p" outputLabels="o0fvaq">
+      <term xsi:type="datadictionary:LabelReference" id="_WjZJ6i_sEfCy_4XEclxE_A" label="pi4wc"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_WjZJ6y_sEfCy_4XEclxE_A" outputPin="97rs1p" outputLabels="ig9578">
+      <term xsi:type="datadictionary:LabelReference" id="_WjZJ7C_sEfCy_4XEclxE_A" label="i4th7s"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WjZJ7S_sEfCy_4XEclxE_A" outputPin="97rs1p" outputLabels="i4th7s"/>
+  </behavior>
+  <behavior id="_WjYjKi_sEfCy_4XEclxE_A" entityName="createMediaPackage">
+    <inPin id="6ju2m" entityName="createMediaPackage_in_APort"/>
+    <inPin id="arnwux" entityName="createMediaPackage_in_BobBrowserID"/>
+    <inPin id="062sem" entityName="createMediaPackage_in_AliceBrowserID"/>
+    <inPin id="7wtk0q" entityName="createMediaPackage_in_BMedia"/>
+    <outPin id="1oejq5" entityName="createMediaPackage_out_BMediaPackage"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjYjfi_sEfCy_4XEclxE_A" outputPin="1oejq5" inputPins="062sem"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_WjYjfy_sEfCy_4XEclxE_A" outputPin="1oejq5" outputLabels="i4th7s" inputPins="062sem 6ju2m 7wtk0q arnwux">
+      <term xsi:type="datadictionary:LabelReference" id="_WjYjgC_sEfCy_4XEclxE_A" label="i4th7s"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_WjYjgS_sEfCy_4XEclxE_A" outputPin="1oejq5" outputLabels="pi4wc" inputPins="062sem 6ju2m 7wtk0q arnwux">
+      <term xsi:type="datadictionary:LabelReference" id="_WjYjgi_sEfCy_4XEclxE_A" label="pi4wc"/>
+    </assignment>
+  </behavior>
+  <behavior id="_WjYjMS_sEfCy_4XEclxE_A" entityName="receivePort">
+    <inPin id="9mi8c" entityName="receivePort_in_BPort"/>
+    <outPin id="lpozwb" entityName="receivePort_out_BPort"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjYjoS_sEfCy_4XEclxE_A" outputPin="lpozwb" inputPins="9mi8c"/>
+  </behavior>
+  <behavior id="_WjYjNS_sEfCy_4XEclxE_A" entityName="publishPort">
+    <inPin id="zhm6uf" entityName="publishPort_in_BPort"/>
+    <outPin id="32bke" entityName="publishPort_out_BPort"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZJ4S_sEfCy_4XEclxE_A" outputPin="32bke" inputPins="zhm6uf"/>
+  </behavior>
+  <behavior id="_WjYjOS_sEfCy_4XEclxE_A" entityName="receiveAliceEncryptedSessionData">
+    <inPin id="3fik1r" entityName="receiveAliceEncryptedSessionData_in_EncrAliceSessionData"/>
+    <outPin id="lrrkli" entityName="receiveAliceEncryptedSessionData_out_EncrAliceSessionData"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjYjny_sEfCy_4XEclxE_A" outputPin="lrrkli" inputPins="3fik1r"/>
+  </behavior>
+  <behavior id="_WjYjPS_sEfCy_4XEclxE_A" entityName="dispatchInitialSessionData">
+    <inPin id="3gxri9" entityName="dispatchInitialSessionData_in_EncrAliceSessionData"/>
+    <outPin id="17wj7" entityName="dispatchInitialSessionData_out_EncrAliceSessionData"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjYjfS_sEfCy_4XEclxE_A" outputPin="17wj7" inputPins="3gxri9"/>
+  </behavior>
+  <behavior id="_WjYjQS_sEfCy_4XEclxE_A" entityName="createEncryptedSessionData">
+    <inPin id="ma6cps" entityName="createEncryptedSessionData_in_AliceSessionData"/>
+    <outPin id="roq3yp" entityName="createEncryptedSessionData_out_EncrAliceSessionData"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WjZJ9S_sEfCy_4XEclxE_A" outputPin="roq3yp" inputPins="ma6cps"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WjZJ9i_sEfCy_4XEclxE_A" outputPin="roq3yp" outputLabels="i4th7s"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_WjZJ9y_sEfCy_4XEclxE_A" outputPin="roq3yp" outputLabels="pi4wc"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_WjZJ-C_sEfCy_4XEclxE_A" outputPin="roq3yp" outputLabels="o0fvaq" inputPins="ma6cps">
+      <term xsi:type="datadictionary:LabelReference" id="_WjZJ-S_sEfCy_4XEclxE_A" label="pi4wc"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_WjZJ-i_sEfCy_4XEclxE_A" outputPin="roq3yp" outputLabels="ig9578" inputPins="ma6cps">
+      <term xsi:type="datadictionary:LabelReference" id="_WjZJ-y_sEfCy_4XEclxE_A" label="i4th7s"/>
+    </assignment>
+  </behavior>
+</datadictionary:DataDictionary>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://dataflowanalysis.org/dfd/dataflowdiagram" id="_88scgC_rEfCy_4XEclxE_A">
+  <flows id="5anyx" entityName="Policy" sourceNode="bqt06n" destinationNode="va8o3">
+    <destinationPin href="diagram.datadictionary#5pimrr"/>
+    <sourcePin href="diagram.datadictionary#jj2kv"/>
+  </flows>
+  <flows id="r15zy" entityName="BobPubKey" sourceNode="bqt06n" destinationNode="8jeed">
+    <destinationPin href="diagram.datadictionary#ha7uux"/>
+    <sourcePin href="diagram.datadictionary#dqgr4p"/>
+  </flows>
+  <flows id="nz3yhh" entityName="EmailBodyEncryptedAndHeader" sourceNode="hkp4w" destinationNode="f63vu">
+    <destinationPin href="diagram.datadictionary#pepa57"/>
+    <sourcePin href="diagram.datadictionary#ght5jh"/>
+  </flows>
+  <flows id="gbsege" entityName="EmailBodyEncryptedAndHeader" sourceNode="f63vu" destinationNode="hxkxn">
+    <destinationPin href="diagram.datadictionary#kee28"/>
+    <sourcePin href="diagram.datadictionary#yddkf8"/>
+  </flows>
+  <flows id="o05t5c" entityName="Policy" sourceNode="bqt06n" destinationNode="1vhoyg">
+    <destinationPin href="diagram.datadictionary#j5x56q"/>
+    <sourcePin href="diagram.datadictionary#x8tisi"/>
+  </flows>
+  <flows id="lngzw6" entityName="Policy" sourceNode="va8o3" destinationNode="z8h0ig">
+    <destinationPin href="diagram.datadictionary#4lufz4"/>
+    <sourcePin href="diagram.datadictionary#49wgwa"/>
+  </flows>
+  <flows id="p8sfo5" entityName="Policy" sourceNode="5lmyig" destinationNode="bqt06n">
+    <destinationPin href="diagram.datadictionary#npnfsr"/>
+    <sourcePin href="diagram.datadictionary#56zk5"/>
+  </flows>
+  <flows id="h9mc18" entityName="EmailBodyAndHeader" sourceNode="go7xt" destinationNode="z8h0ig">
+    <destinationPin href="diagram.datadictionary#nbmstb"/>
+    <sourcePin href="diagram.datadictionary#gjkcwb"/>
+  </flows>
+  <flows id="d6vdc8" entityName="EmailBodyAndHeader" sourceNode="z8h0ig" destinationNode="8jeed">
+    <destinationPin href="diagram.datadictionary#j4srg5"/>
+    <sourcePin href="diagram.datadictionary#5h320d"/>
+  </flows>
+  <flows id="85rkeq" entityName="Policy" sourceNode="1vhoyg" destinationNode="vk1unm">
+    <destinationPin href="diagram.datadictionary#fsa88r"/>
+    <sourcePin href="diagram.datadictionary#e4iwfq"/>
+  </flows>
+  <flows id="qk7mnr" entityName="BobPrivateKey" sourceNode="vk1unm" destinationNode="hxkxn">
+    <destinationPin href="diagram.datadictionary#wvh329"/>
+    <sourcePin href="diagram.datadictionary#up10a"/>
+  </flows>
+  <flows id="idrnq" entityName="BobPrivateKey" sourceNode="uuw6nr" destinationNode="vk1unm">
+    <destinationPin href="diagram.datadictionary#me6naz"/>
+    <sourcePin href="diagram.datadictionary#axn537"/>
+  </flows>
+  <flows id="0wdhf4" entityName="EmailBodyEncryptedAndHeaderAndBobPriveteKey" sourceNode="hxkxn" destinationNode="6yd2y">
+    <destinationPin href="diagram.datadictionary#7qbb6p"/>
+    <sourcePin href="diagram.datadictionary#jut89"/>
+  </flows>
+  <flows id="d2ss6" entityName="EmailBodyAndHeader" sourceNode="6yd2y" destinationNode="lp8zpn">
+    <destinationPin href="diagram.datadictionary#nvcwzl"/>
+    <sourcePin href="diagram.datadictionary#efr0hs"/>
+  </flows>
+  <flows id="o9bfyp" entityName="EmailBodyHeaderAndBobPubKey" sourceNode="8jeed" destinationNode="z1tv5n">
+    <destinationPin href="diagram.datadictionary#z3y4gi"/>
+    <sourcePin href="diagram.datadictionary#q1dfhk"/>
+  </flows>
+  <flows id="z6bwxc" entityName="EmailBodyEncryptedHeader" sourceNode="z1tv5n" destinationNode="hkp4w">
+    <destinationPin href="diagram.datadictionary#fh2"/>
+    <sourcePin href="diagram.datadictionary#bs0h4"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:Process" id="z8h0ig" entityName="split mail">
+    <behavior href="diagram.datadictionary#_88scjC_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#nkwkcj"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="8jeed" entityName="prepare encryption">
+    <behavior href="diagram.datadictionary#_88sckS_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#nkwkcj"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="go7xt" entityName="Alice">
+    <behavior href="diagram.datadictionary#_88scli_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#nkwkcj"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Store" id="uuw6nr" entityName="Bob DS">
+    <behavior href="diagram.datadictionary#_88scmS_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#nkwkcj"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="6yd2y" entityName="decrypt">
+    <behavior href="diagram.datadictionary#_88scnC_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#nkwkcj"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="5lmyig" entityName="PolicyInitiator">
+    <behavior href="diagram.datadictionary#_88scoC_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#nkwkcj"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Store" id="bqt06n" entityName="Policy DS">
+    <behavior href="diagram.datadictionary#_88scoy_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#nkwkcj"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="1vhoyg" entityName="authorize">
+    <behavior href="diagram.datadictionary#_88scqS_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#nkwkcj"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="vk1unm" entityName="authorize key reading">
+    <behavior href="diagram.datadictionary#_88scrS_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#nkwkcj"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="va8o3" entityName="authorize">
+    <behavior href="diagram.datadictionary#_88scsi_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#nkwkcj"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="hxkxn" entityName="prepare decryption">
+    <behavior href="diagram.datadictionary#_88scti_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#nkwkcj"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="lp8zpn" entityName="Bob">
+    <behavior href="diagram.datadictionary#_88scuy_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#nkwkcj"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="hkp4w" entityName="SMTP">
+    <behavior href="diagram.datadictionary#_88scvi_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#vbkupo"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="f63vu" entityName="POP3">
+    <behavior href="diagram.datadictionary#_88scwi_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#vbkupo"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="z1tv5n" entityName="encrypt">
+    <behavior href="diagram.datadictionary#_88scxi_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#nkwkcj"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

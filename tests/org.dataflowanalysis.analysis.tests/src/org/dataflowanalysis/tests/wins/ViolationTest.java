@@ -4,6 +4,7 @@ import static org.dataflowanalysis.analysis.tests.integration.AnalysisUtils.TEST
 
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
@@ -24,9 +25,9 @@ public class ViolationTest {
 
     @Test
     public void testViolationOutput() {
-        final var dfdPath = Paths.get("scenarios", "dfd", "OnlineShop", "default.dataflowdiagram")
+        final var dfdPath = Paths.get("scenarios", "dfd", "CustomOnlineShop", "default.dataflowdiagram")
                 .toString();
-        final var ddPath = Paths.get("scenarios", "dfd", "OnlineShop", "default.datadictionary")
+        final var ddPath = Paths.get("scenarios", "dfd", "CustomOnlineShop", "default.datadictionary")
                 .toString();
 
         analysis = new DFDDataFlowAnalysisBuilder().standalone()
@@ -66,7 +67,10 @@ public class ViolationTest {
                 logger.info("Label am Knoten: " + vertex.getAllVertexCharacteristics());
                 logger.info("Daten am Knoten: " + vertex.getAllDataCharacteristics());
             }
-            logger.info("Violation im Teilgraph: " + result.getTransposeFlowGraph().toString());
+            logger.info("Violation im Teilgraph:\n" + result.getTransposeFlowGraph().getVertices()
+            		.stream()
+            		.map(AbstractVertex::createPrintableNodeInformation)
+            		.collect(Collectors.joining("\n")));
         }
 
     }

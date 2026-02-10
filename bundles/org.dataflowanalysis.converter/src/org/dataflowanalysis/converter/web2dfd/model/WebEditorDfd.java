@@ -8,8 +8,13 @@ import java.util.List;
  * Represents a web editor data flow diagram
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record WebEditorDfd(Model model, List<WebEditorLabelType> labelTypes, String mode, List<Constraint> constraints) {
+public record WebEditorDfd(Model model, List<WebEditorLabelType> labelTypes, String mode, List<Constraint> constraints, List<Violation> violations) {
 
+	//TODO:DOCUMENTATION
+	public WebEditorDfd withViolations(List<Violation> violations) {
+        return new WebEditorDfd(model, labelTypes, mode, constraints, violations);
+    }
+	
     /**
      * Sorts the data flow diagram based on the id's of the contents
      */
@@ -32,4 +37,5 @@ public record WebEditorDfd(Model model, List<WebEditorLabelType> labelTypes, Str
             }
         }
     }
+    
 }

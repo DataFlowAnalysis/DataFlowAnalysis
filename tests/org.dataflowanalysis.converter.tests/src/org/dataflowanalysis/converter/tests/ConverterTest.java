@@ -1,8 +1,8 @@
 package org.dataflowanalysis.converter.tests;
 
 import java.io.File;
-import java.nio.file.Paths;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 

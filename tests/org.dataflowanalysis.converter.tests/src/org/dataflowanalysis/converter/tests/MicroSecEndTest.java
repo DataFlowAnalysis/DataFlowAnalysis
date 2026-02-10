@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -39,11 +38,15 @@ import org.junit.jupiter.api.Test;
 public class MicroSecEndTest extends ConverterTest {
     private Micro2DFDConverter micro2DFDConverter;
 
-    private final String ANILALLEWAR_PATH = TEST_JSONS.resolve("tuhh").resolve("anilallewar.json").toString();
-    private final MicroConverterModel ANILALLEWAR = new MicroConverterModel(ANILALLEWAR_PATH);
-    private final String TO_PLANT = TEST_JSONS.resolve("tuhh").resolve("toPlant.txt")
+    private final String ANILALLEWAR_PATH = TEST_JSONS.resolve("tuhh")
+            .resolve("anilallewar.json")
             .toString();
-    private final String FROM_PLANT = TEST_JSONS.resolve("tuhh").resolve("fromPlant.json")
+    private final MicroConverterModel ANILALLEWAR = new MicroConverterModel(ANILALLEWAR_PATH);
+    private final String TO_PLANT = TEST_JSONS.resolve("tuhh")
+            .resolve("toPlant.txt")
+            .toString();
+    private final String FROM_PLANT = TEST_JSONS.resolve("tuhh")
+            .resolve("fromPlant.json")
             .toString();
     private final String JSON = "json";
     private final String TXT = "txt";

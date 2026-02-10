@@ -19,9 +19,8 @@ import org.junit.jupiter.api.Test;
 public class WebEditorTest extends ConverterTest {
     private DFD2WebConverter dfd2WebConverter;
     private Web2DFDConverter web2DFDConverter;
-    
-    private final WebEditorConverterModel minimalWebDFD = new WebEditorConverterModel(TEST_JSONS
-            .resolve("webJson")
+
+    private final WebEditorConverterModel minimalWebDFD = new WebEditorConverterModel(TEST_JSONS.resolve("webJson")
             .resolve("minimal.json")
             .toString());
     private final String tempWebDFD = "test";

@@ -22,6 +22,7 @@ import org.dataflowanalysis.examplemodels.results.ExpectedCharacteristic;
 import org.dataflowanalysis.examplemodels.results.ExpectedViolation;
 import org.dataflowanalysis.examplemodels.results.dfd.DFDExampleModelResult;
 import org.dataflowanalysis.examplemodels.results.dfd.models.BranchingResult;
+import org.dataflowanalysis.examplemodels.results.dfd.scenarios.*;
 import org.dataflowanalysis.examplemodels.results.dfd.scenarios.AppleWallet;
 import org.dataflowanalysis.examplemodels.results.dfd.scenarios.CMACaseStudy;
 import org.dataflowanalysis.examplemodels.results.dfd.scenarios.CWANoViolation;
@@ -69,7 +70,19 @@ public class ExampleModelsTest {
                 Arguments.of(new CWANoViolation()), Arguments.of(new VWCariad()), Arguments.of(new CWAPersonalDataViolation()),
                 Arguments.of(new CWARPIViolation()), Arguments.of(new ComponentTestingCaseStudy()), Arguments.of(new ECUUpdateCaseStudy()),
                 Arguments.of(new MiniTwitCaseStudy()), Arguments.of(new HipaaCaseStudy()), Arguments.of(new DocProc()),
-                Arguments.of(new AppleWallet()), Arguments.of(new CMACaseStudy()));
+                Arguments.of(new AppleWallet()), Arguments.of(new CMACaseStudy()), Arguments.of(new ACABACNoViolationResult()),
+                Arguments.of(new ACABACViolationResult()), Arguments.of(new ACContactSMSNoViolationResult()),
+                Arguments.of(new ACContactSMSViolationResult()), Arguments.of(new ACDACNoViolationResult()), Arguments.of(new ACDACViolationResult()),
+                Arguments.of(new ACDistanceTrackerNoViolationResult()), Arguments.of(new ACDistanceTrackerViolationResult()),
+                Arguments.of(new ACMACNoViolationResult()), Arguments.of(new ACMACViolationResult()),
+                Arguments.of(new ACTravelPlannerNoViolationResult()), Arguments.of(new ACTravelPlannerViolationResult()),
+                Arguments.of(new IFContactSMSNoViolationResult()), Arguments.of(new IFContactSMSViolationResult()),
+                Arguments.of(new IFFriendMapNoViolationResult()), Arguments.of(new IFFriendMapViolationResult()),
+                Arguments.of(new IFHospitalNoViolationResult()), Arguments.of(new IFHospitalViolationResult()),
+                Arguments.of(new IFJPMailNoViolationResult()), Arguments.of(new IFJPMailViolationResult()),
+                Arguments.of(new IFPrivateTaxiNoViolationResult()), Arguments.of(new IFTravelPlannerNoViolationResult()),
+                Arguments.of(new IFTravelPlannerViolationResult()), Arguments.of(new IFWebRTCNoViolationResult()),
+                Arguments.of(new IFWebRTCViolationResult()));
     }
 
     @ParameterizedTest

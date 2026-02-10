@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dataflowdiagram:DataFlowDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dataflowdiagram="http://dataflowanalysis.org/dfd/dataflowdiagram" id="_3Spq0C_rEfCy_4XEclxE_A">
+  <flows id="od8y9n" entityName="ModifiedList" sourceNode="gdpwp7" destinationNode="v4uvbf">
+    <destinationPin href="diagram.datadictionary#had3gk"/>
+    <sourcePin href="diagram.datadictionary#8fax3"/>
+  </flows>
+  <flows id="yn8tja" entityName="PatientList" sourceNode="v4uvbf" destinationNode="crvlpc">
+    <destinationPin href="diagram.datadictionary#vdm66g"/>
+    <sourcePin href="diagram.datadictionary#21kgg6"/>
+  </flows>
+  <flows id="rfpdk" entityName="ModifiedList" sourceNode="u97b9g" destinationNode="gdpwp7">
+    <destinationPin href="diagram.datadictionary#dw9x6"/>
+    <sourcePin href="diagram.datadictionary#wjr6oj"/>
+  </flows>
+  <flows id="ttx3un" entityName="PatientList" sourceNode="nbsblj" destinationNode="rwbqz8">
+    <destinationPin href="diagram.datadictionary#7kibom"/>
+    <sourcePin href="diagram.datadictionary#jo6h45"/>
+  </flows>
+  <flows id="k7vkxr" entityName="PatientListFromDropBox" sourceNode="rwbqz8" destinationNode="u97b9g">
+    <destinationPin href="diagram.datadictionary#eq6qts"/>
+    <sourcePin href="diagram.datadictionary#d12yh6"/>
+  </flows>
+  <flows id="yu5c6g" entityName="Policy" sourceNode="x3cwfp" destinationNode="ab5fpi">
+    <destinationPin href="diagram.datadictionary#vajqji"/>
+    <sourcePin href="diagram.datadictionary#hyaqe3"/>
+  </flows>
+  <flows id="ar96vo" entityName="AppCode" sourceNode="x3cwfp" destinationNode="0d5i8d">
+    <destinationPin href="diagram.datadictionary#787num"/>
+    <sourcePin href="diagram.datadictionary#nf9anh"/>
+  </flows>
+  <flows id="2kfpo" entityName="Permissions" sourceNode="ab5fpi" destinationNode="3onm28">
+    <destinationPin href="diagram.datadictionary#nasu4g"/>
+    <sourcePin href="diagram.datadictionary#q7p2fo"/>
+  </flows>
+  <flows id="s4i6a9" entityName="Permissions" sourceNode="3onm28" destinationNode="7wsyks">
+    <destinationPin href="diagram.datadictionary#8c5u5i"/>
+    <sourcePin href="diagram.datadictionary#h17z4xg"/>
+  </flows>
+  <flows id="89coh8" entityName="AppCode" sourceNode="0d5i8d" destinationNode="7wsyks">
+    <destinationPin href="diagram.datadictionary#dfzgv8"/>
+    <sourcePin href="diagram.datadictionary#b0dkii"/>
+  </flows>
+  <flows id="6sqii9" entityName="Request" sourceNode="7wsyks" destinationNode="8z1us">
+    <destinationPin href="diagram.datadictionary#5wygjo"/>
+    <sourcePin href="diagram.datadictionary#tdg2xk"/>
+  </flows>
+  <flows id="whr1ba" entityName="PatientList" sourceNode="ufl6uu" destinationNode="u97b9g">
+    <destinationPin href="diagram.datadictionary#5b8q6p"/>
+    <sourcePin href="diagram.datadictionary#5utn3"/>
+  </flows>
+  <flows id="jjw5ub" entityName="Request" sourceNode="8z1us" destinationNode="8h5pxp">
+    <destinationPin href="diagram.datadictionary#816n4i"/>
+    <sourcePin href="diagram.datadictionary#qknlw"/>
+  </flows>
+  <flows id="sp09ub" entityName="PatientList" sourceNode="8h5pxp" destinationNode="nbsblj">
+    <destinationPin href="diagram.datadictionary#x8a4ds"/>
+    <sourcePin href="diagram.datadictionary#nu74kp"/>
+  </flows>
+  <flows id="1ia3os" entityName="PatientList" sourceNode="8h5pxp" destinationNode="a5ll3i">
+    <destinationPin href="diagram.datadictionary#kauuko"/>
+    <sourcePin href="diagram.datadictionary#3qhlk"/>
+  </flows>
+  <flows id="vodspb" entityName="PatientListEncrypted" sourceNode="crvlpc" destinationNode="8h5pxp">
+    <destinationPin href="diagram.datadictionary#l2y459"/>
+    <sourcePin href="diagram.datadictionary#38s8us"/>
+  </flows>
+  <nodes xsi:type="dataflowdiagram:Process" id="nbsblj" entityName="recieve patient list">
+    <behavior href="diagram.datadictionary#_3Spq3C_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#5ssja"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Store" id="rwbqz8" entityName="DropBox">
+    <behavior href="diagram.datadictionary#_3Spq4C_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#5ssja"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="ufl6uu" entityName="Employee">
+    <behavior href="diagram.datadictionary#_3Spq5C_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#5ssja"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="u97b9g" entityName="modify patient list">
+    <behavior href="diagram.datadictionary#_3Spq5y_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#5ssja"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Store" id="v4uvbf" entityName="HospitalDS">
+    <behavior href="diagram.datadictionary#_3Spq7C_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#5ssja"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="gdpwp7" entityName="write list">
+    <behavior href="diagram.datadictionary#_3Spq8C_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#5ssja"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="crvlpc" entityName="declassify">
+    <behavior href="diagram.datadictionary#_3Spq9C_rEfCy_4XEclxE_A"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="8z1us" entityName="request patient list">
+    <behavior href="diagram.datadictionary#_3Spq-C_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#5ssja"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="x3cwfp" entityName="HospitalApp">
+    <behavior href="diagram.datadictionary#_3Spq_C_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#5ssja"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="ab5fpi" entityName="authorize">
+    <behavior href="diagram.datadictionary#_3SprAC_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#5ssja"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="0d5i8d" entityName="load app code">
+    <behavior href="diagram.datadictionary#_3SprBC_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#5ssja"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="3onm28" entityName="authorize">
+    <behavior href="diagram.datadictionary#_3SprCC_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#5ssja"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="7wsyks" entityName="build list request">
+    <behavior href="diagram.datadictionary#_3SprDC_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#5ssja"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:Process" id="8h5pxp" entityName="receive patient list">
+    <behavior href="diagram.datadictionary#_3SprES_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#5ssja"/>
+  </nodes>
+  <nodes xsi:type="dataflowdiagram:External" id="a5ll3i" entityName="Attacker">
+    <behavior href="diagram.datadictionary#_3SprFy_rEfCy_4XEclxE_A"/>
+    <properties href="diagram.datadictionary#tffy3w"/>
+  </nodes>
+</dataflowdiagram:DataFlowDiagram>

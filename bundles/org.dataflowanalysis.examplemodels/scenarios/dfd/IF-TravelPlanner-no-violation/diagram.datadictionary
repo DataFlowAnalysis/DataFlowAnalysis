@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_1ymjsVZTEfCRrfw2FPYOHw">
+  <labelTypes id="4h3wzk" entityName="ClassificationLevel">
+    <label id="zzvphn" entityName="User"/>
+    <label id="veaan9" entityName="UserAirline"/>
+    <label id="r18z6" entityName="UserAirlineAgency"/>
+  </labelTypes>
+  <labelTypes id="4omupj" entityName="ClearanceLevel">
+    <label id="spyzx" entityName="User"/>
+    <label id="j9b45" entityName="UserAirline"/>
+    <label id="6opssg" entityName="UserAirlineAgency"/>
+  </labelTypes>
+  <behavior id="_1ynKx1ZTEfCRrfw2FPYOHw" entityName="Flight Storage">
+    <inPin id="fzczu8" entityName="Flight Storage_in_flights"/>
+    <outPin id="3kxkmj" entityName="Flight Storage_out_flights"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_1ynLIlZTEfCRrfw2FPYOHw" outputPin="3kxkmj" inputPins="fzczu8"/>
+  </behavior>
+  <behavior id="_1ynKy1ZTEfCRrfw2FPYOHw" entityName="filter flights">
+    <inPin id="sh7vz" entityName="filter flights_in_query"/>
+    <inPin id="zit8di" entityName="filter flights_in_flights"/>
+    <outPin id="vuqwb" entityName="filter flights_out_filteredFlights"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_1ynLMVZTEfCRrfw2FPYOHw" outputPin="vuqwb" inputPins="sh7vz"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_1ynLMlZTEfCRrfw2FPYOHw" outputPin="vuqwb" inputPins="zit8di"/>
+  </behavior>
+  <behavior id="_1ynK0FZTEfCRrfw2FPYOHw" entityName="dispatch request">
+    <inPin id="f7gckn" entityName="dispatch request_in_criteria"/>
+    <outPin id="iuewe5" entityName="dispatch request_out_criteria"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_1ynLJVZTEfCRrfw2FPYOHw" outputPin="iuewe5" inputPins="f7gckn"/>
+  </behavior>
+  <behavior id="_1ynK1FZTEfCRrfw2FPYOHw" entityName="select flight">
+    <inPin id="3ejj8" entityName="select flight_in_filteredFlights"/>
+    <outPin id="okdh3" entityName="select flight_out_selectedFlight"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_1ynLNlZTEfCRrfw2FPYOHw" outputPin="okdh3" inputPins="3ejj8"/>
+  </behavior>
+  <behavior id="_1ynK2FZTEfCRrfw2FPYOHw" entityName="redirect request">
+    <inPin id="pvv8g7" entityName="redirect request_in_criteria"/>
+    <outPin id="b2gy3g" entityName="redirect request_out_query"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_1ynLI1ZTEfCRrfw2FPYOHw" outputPin="b2gy3g" inputPins="pvv8g7"/>
+  </behavior>
+  <behavior id="_1ynK3FZTEfCRrfw2FPYOHw" entityName="declassify CCD">
+    <inPin id="ppwio" entityName="declassify CCD_in_ccd"/>
+    <outPin id="vus1qn" entityName="declassify CCD_out_declassifiedCCD"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_1ynLNVZTEfCRrfw2FPYOHw" outputPin="vus1qn" outputLabels="veaan9"/>
+  </behavior>
+  <behavior id="_1ynK4FZTEfCRrfw2FPYOHw" entityName="User">
+    <inPin id="nhcrad" entityName="User_in_confirmation"/>
+    <outPin id="4wbyft" entityName="User_out_criteria"/>
+    <outPin id="wksxi8" entityName="User_out_ccd"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_1ynLJ1ZTEfCRrfw2FPYOHw" outputPin="4wbyft" outputLabels="r18z6"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_1ynLKFZTEfCRrfw2FPYOHw" outputPin="wksxi8" outputLabels="zzvphn"/>
+  </behavior>
+  <behavior id="_1ynK5VZTEfCRrfw2FPYOHw" entityName="FlightPlanner">
+    <outPin id="rd139x" entityName="FlightPlanner_out_flights"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_1ynLIVZTEfCRrfw2FPYOHw" outputPin="rd139x" outputLabels="r18z6"/>
+  </behavior>
+  <behavior id="_1ynK6FZTEfCRrfw2FPYOHw" entityName="redirect flights">
+    <inPin id="wczxac" entityName="redirect flights_in_filteredFlights"/>
+    <outPin id="cw3g9f" entityName="redirect flights_out_filteredFlights"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_1ynLOFZTEfCRrfw2FPYOHw" outputPin="cw3g9f" inputPins="wczxac"/>
+  </behavior>
+  <behavior id="_1ynK7FZTEfCRrfw2FPYOHw" entityName="CCD Storage">
+    <inPin id="ywc46" entityName="CCD Storage_in_ccd"/>
+    <outPin id="7t8z6" entityName="CCD Storage_out_ccd"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_1ynLMFZTEfCRrfw2FPYOHw" outputPin="7t8z6" inputPins="ywc46"/>
+  </behavior>
+  <behavior id="_1ynK8FZTEfCRrfw2FPYOHw" entityName="read CCD">
+    <inPin id="m0inns" entityName="read CCD_in_ccd"/>
+    <outPin id="7oedl8" entityName="read CCD_out_ccd"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_1ynLN1ZTEfCRrfw2FPYOHw" outputPin="7oedl8" inputPins="m0inns"/>
+  </behavior>
+  <behavior id="_1ynK9FZTEfCRrfw2FPYOHw" entityName="confim commision">
+    <inPin id="8woe0e" entityName="confim commision_in_commission"/>
+    <outPin id="lsy8y6" entityName="confim commision_out_confirmation"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_1ynLJlZTEfCRrfw2FPYOHw" outputPin="lsy8y6" inputPins="8woe0e"/>
+  </behavior>
+  <behavior id="_1ynK-FZTEfCRrfw2FPYOHw" entityName="confirm booking">
+    <inPin id="hdd0wg" entityName="confirm booking_in_confirmation"/>
+    <outPin id="3byppa" entityName="confirm booking_out_confirmation"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_1ynLJFZTEfCRrfw2FPYOHw" outputPin="3byppa" inputPins="hdd0wg"/>
+  </behavior>
+  <behavior id="_1ynK_FZTEfCRrfw2FPYOHw" entityName="send commition">
+    <inPin id="iuunr" entityName="send commition_in_selectedFlight"/>
+    <outPin id="640ff3" entityName="send commition_out_commission"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_1ynLIFZTEfCRrfw2FPYOHw" outputPin="640ff3" inputPins="iuunr"/>
+  </behavior>
+  <behavior id="_1ynLAFZTEfCRrfw2FPYOHw" entityName="Booking Storage">
+    <inPin id="u32kc" entityName="Booking Storage_in_booking"/>
+  </behavior>
+  <behavior id="_1ynLA1ZTEfCRrfw2FPYOHw" entityName="process booking">
+    <inPin id="l4xfbo" entityName="process booking_in_selectedFlight"/>
+    <inPin id="70i8yq" entityName="process booking_in_declassifiedCCD"/>
+    <outPin id="8igzl" entityName="process booking_out_booking"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_1ynLKVZTEfCRrfw2FPYOHw" outputPin="8igzl" inputPins="l4xfbo 70i8yq"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_1ynLKlZTEfCRrfw2FPYOHw" outputPin="8igzl" outputLabels="zzvphn" inputPins="70i8yq l4xfbo">
+      <term xsi:type="datadictionary:LabelReference" id="_1ynLK1ZTEfCRrfw2FPYOHw" label="zzvphn"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_1ynLLFZTEfCRrfw2FPYOHw" outputPin="8igzl" outputLabels="veaan9" inputPins="70i8yq l4xfbo">
+      <term xsi:type="datadictionary:LabelReference" id="_1ynLLVZTEfCRrfw2FPYOHw" label="veaan9"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_1ynLLlZTEfCRrfw2FPYOHw" outputPin="8igzl" outputLabels="r18z6" inputPins="70i8yq l4xfbo">
+      <term xsi:type="datadictionary:LabelReference" id="_1ynLL1ZTEfCRrfw2FPYOHw" label="r18z6"/>
+    </assignment>
+  </behavior>
+  <behavior id="_1ynLCFZTEfCRrfw2FPYOHw" entityName="book flight">
+    <inPin id="m5shri" entityName="book flight_in_declassifiedCCD"/>
+    <inPin id="c5xbx" entityName="book flight_in_selectedFlight"/>
+    <outPin id="7uly6" entityName="book flight_out_selectedFlightselectedFlight"/>
+    <outPin id="ggbmev" entityName="book flight_out_declassifiedCCD"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_1ynLM1ZTEfCRrfw2FPYOHw" outputPin="ggbmev" inputPins="m5shri"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_1ynLNFZTEfCRrfw2FPYOHw" outputPin="7uly6" inputPins="c5xbx"/>
+  </behavior>
+</datadictionary:DataDictionary>

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
-import java.nio.file.Paths;
 import org.dataflowanalysis.converter.dfd2web.DFD2WebConverter;
 import org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary;
 import org.dataflowanalysis.converter.web2dfd.Web2DFDConverter;
@@ -20,8 +19,10 @@ import org.junit.jupiter.api.Test;
 public class WebEditorTest extends ConverterTest {
     private DFD2WebConverter dfd2WebConverter;
     private Web2DFDConverter web2DFDConverter;
-
-    private final WebEditorConverterModel minimalWebDFD = new WebEditorConverterModel(Paths.get(TEST_JSONS, "minimal.json")
+    
+    private final WebEditorConverterModel minimalWebDFD = new WebEditorConverterModel(TEST_JSONS
+            .resolve("webJson")
+            .resolve("minimal.json")
             .toString());
     private final String tempWebDFD = "test";
 

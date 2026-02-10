@@ -39,12 +39,11 @@ import org.junit.jupiter.api.Test;
 public class MicroSecEndTest extends ConverterTest {
     private Micro2DFDConverter micro2DFDConverter;
 
-    private final String ANILALLEWAR_PATH = Paths.get(TEST_JSONS, "anilallewar.json")
-            .toString();
+    private final String ANILALLEWAR_PATH = TEST_JSONS.resolve("tuhh").resolve("anilallewar.json").toString();
     private final MicroConverterModel ANILALLEWAR = new MicroConverterModel(ANILALLEWAR_PATH);
-    private final String TO_PLANT = Paths.get(TEST_JSONS, "toPlant.txt")
+    private final String TO_PLANT = TEST_JSONS.resolve("tuhh").resolve("toPlant.txt")
             .toString();
-    private final String FROM_PLANT = Paths.get(TEST_JSONS, "fromPlant.json")
+    private final String FROM_PLANT = TEST_JSONS.resolve("tuhh").resolve("fromPlant.json")
             .toString();
     private final String JSON = "json";
     private final String TXT = "txt";

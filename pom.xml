@@ -145,41 +145,41 @@
 			</configuration>
 		</plugin>
 		<plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>0.8.11</version>
-                        <executions>
+			<groupId>org.jacoco</groupId>
+			<artifactId>jacoco-maven-plugin</artifactId>
+			<version>0.8.11</version>
+			<executions>
 
-                                <!-- Attach agent to tests -->
-                                <execution>
-                                        <id>prepare-agent</id>
-                                        <goals>
-                                                <goal>prepare-agent</goal>
-                                        </goals>
-                                </execution>
-
-                                <execution>
-  					<id>report-aggregate</id>
-  					<phase>verify</phase>
-  					<goals>
-   						<goal>report-aggregate</goal>
-  					</goals>
-  					<configuration>
-    						<outputDirectory>${project.build.directory}/site/jacoco-aggregate</outputDirectory>
-    						<formats>
-      							<format>XML</format>
-    						</formats>
-
-    						<!-- Optional but often helps in multi-module reactors -->
-    						<dataFileIncludes>
-      							<dataFileInclude>**/target/jacoco.exec</dataFileInclude>
-      							<dataFileInclude>**/target/*.exec</dataFileInclude>
-    						</dataFileIncludes>
-  					</configuration>
+				<!-- Attach agent to tests -->
+				<execution>
+					<id>prepare-agent</id>
+					<goals>
+						<goal>prepare-agent</goal>
+					</goals>
 				</execution>
 
-                         </executions>
-                </plugin>
+				<execution>
+					<id>report-aggregate</id>
+					<phase>verify</phase>
+					<goals>
+						<goal>report-aggregate</goal>
+					</goals>
+					<configuration>
+						<outputDirectory>${project.build.directory}/site/jacoco-aggregate</outputDirectory>
+						<formats>
+							<format>XML</format>
+						</formats>
+
+						<!-- Optional but often helps in multi-module reactors -->
+						<dataFileIncludes>
+							<dataFileInclude>**/target/jacoco.exec</dataFileInclude>
+							<dataFileInclude>**/target/*.exec</dataFileInclude>
+						</dataFileIncludes>
+					</configuration>
+				</execution>
+
+			</executions>
+		</plugin>
 
 	</plugins>
  </build>

@@ -95,4 +95,21 @@ public class VertexNameSelector extends VertexSelector {
         string.advance(1);
         return ParseResult.ok(new VertexNameSelector(split[0], inverted, context));
     }
+
+    /**
+     * Returns the vertex name stored in the vertex name selector
+     * @return Returns the name stored in the selector
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Returns, whether the vertex name selector is inverted
+     * @return Returns true, if the vertex name selector is inverted. Otherwise, this method returns false
+     */
+    public boolean isInverted() {
+        return inverted;
+    }
+
 }

@@ -2,7 +2,6 @@ package org.dataflowanalysis.analysis.dsl.constraint;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.selectors.*;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;

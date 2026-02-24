@@ -18,6 +18,9 @@ import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.core.DFDTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dfd.simple.DFDSimpleTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
+import org.dataflowanalysis.analysis.dsl.result.DSLResult;
+import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.converter.Converter;
 import org.dataflowanalysis.converter.ConverterModel;
@@ -156,8 +159,7 @@ public class DFD2WebConverter extends Converter {
         return constraints.stream()
                 .flatMap(constraint -> constraint.findViolations(collection).stream()
                         .map(result -> {
-                        	logger.info("violation found with contraint " + constraint + " and result " + result);
-                        return new ViolationTuple(constraint, result);}
+                        	return new ViolationTuple(constraint, result);}
                         ))
                 .collect(Collectors.toList());
     }
@@ -238,12 +240,34 @@ public class DFD2WebConverter extends Converter {
     //TODO: DOCUMENTATION
     private List<Violation> createViolations(List<ViolationTuple> violationTuples) {
     	List<Violation> violations = violationTuples.stream()
-                .map(tuple -> new Violation(
-                    tuple.constraint().getName(),
-                    tuple.result().getTransposeFlowGraph().stream()
-                        .map(v -> ((Node) v.getReferencedElement()).getEntityName())
-                        .toList()
-                ))
+                .map(tuple -> {
+                	DSLResult result = tuple.result();
+                	AnalysisConstraint constraint = tuple.constraint();
+                	
+                	List<? extends AbstractVertex<?>> violatedVertices = result.getMatchedVertices(); 
+                	List<? extends AbstractVertex<?>> tfg = result.getTransposeFlowGraph().getVertices();
+                	
+                	List<AbstractSelector> selectors = constraint.getDataSourceSelectors().getSelectors();
+                	List<AbstractVertex<?>> inducingVertices = new ArrayList<>();
+                	
+                	for (AbstractSelector selector : selectors) {
+                		for (AbstractVertex<?> vertex : tfg) {
+                			boolean isNewlyAdded = ((DataCharacteristicsSelector) selector).isAddedToCharacteristics(vertex);
+                			if (isNewlyAdded) {
+                				inducingVertices.add(vertex);
+                			}
+                		}
+                	}
+                	
+                	logger.info("violation found: " + 
+                			"\nconstaint " + constraint.toString() + 
+                			"\ntfg " + tfg.toString() +
+                			"\nviolated " + violatedVertices +
+                			"\ninducing " + inducingVertices.toString());
+                	
+                	return new Violation(constraint.toString(), tfg.toString(), violatedVertices.toString(), inducingVertices.toString());
+                }
+               )
                 .toList();
     	return violations;
     }

@@ -95,9 +95,10 @@ public abstract class AbstractTransposeFlowGraph {
 
     @Override
     public String toString() {
-        return this.getVertices()
-                .stream()
-                .map(AbstractVertex::toString)
-                .reduce("", (t, u) -> String.format("%s%s%s", t, System.lineSeparator(), u));
+//        return this.getVertices()
+//                .stream()
+//                .map(AbstractVertex::toString)
+//                .reduce("", (t, u) -> String.format("%s%s%s", t, System.lineSeparator(), u));
+    	return this.getVertices().toString();
     }
 }

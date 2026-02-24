@@ -2,6 +2,7 @@ package org.dataflowanalysis.analysis.dsl.constraint;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.selectors.*;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
@@ -60,7 +61,7 @@ public class DSLNodeSourceSelector {
         characteristicValues
                 .forEach(it -> data.add(new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
                         ConstraintVariableReference.ofConstant(List.of(it)))));
-        this.analysisConstraint.addNodeSourceSelector(new VertexCharacteristicsListSelector(analysisConstraint.getContext(), data));
+        this.analysisConstraint.addNodeSourceSelector(new VertexCharacteristicsListSelector(analysisConstraint.getContext(), data, false, true));
         return this;
     }
 
@@ -104,7 +105,7 @@ public class DSLNodeSourceSelector {
         characteristicValues
                 .forEach(it -> data.add(new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
                         ConstraintVariableReference.ofConstant(List.of(it)))));
-        this.analysisConstraint.addNodeSourceSelector(new VertexCharacteristicsListSelector(analysisConstraint.getContext(), data, true));
+        this.analysisConstraint.addNodeSourceSelector(new VertexCharacteristicsListSelector(analysisConstraint.getContext(), data, true, true));
         return this;
     }
 

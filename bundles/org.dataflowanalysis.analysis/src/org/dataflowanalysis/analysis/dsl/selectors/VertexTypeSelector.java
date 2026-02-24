@@ -105,4 +105,12 @@ public class VertexTypeSelector extends VertexSelector {
     public VertexType getVertexType() {
         return vertexType;
     }
+
+    /**
+     * Returns, whether the vertex type selector is inverted
+     * @return Returns true, if the vertex type selector is inverted. Otherwise, this method returns false
+     */
+    public boolean isInverted() {
+        return inverted;
+    }
 }

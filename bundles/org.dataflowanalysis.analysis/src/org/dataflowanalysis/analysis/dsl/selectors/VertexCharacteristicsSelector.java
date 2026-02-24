@@ -2,6 +2,7 @@ package org.dataflowanalysis.analysis.dsl.selectors;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
@@ -139,6 +140,14 @@ public class VertexCharacteristicsSelector extends VertexSelector {
     public boolean isInverted() {
         return inverted;
     }
+
+	/**
+	 * Returns, whether the vertex characteristics selector is recursive
+	 * @return Returns true, if the vertex characteristics selector is recursive. Otherwise, this method returns false
+	 */
+	public boolean isRecursive() {
+		return recursive;
+	}
 
     /**
      * Returns the vertex characteristic stored in the vertex characteristic selector

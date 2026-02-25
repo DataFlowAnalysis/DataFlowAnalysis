@@ -113,4 +113,12 @@ public class VertexTypeSelector extends VertexSelector {
     public boolean isInverted() {
         return inverted;
     }
+
+    /**
+     * Returns, whether the vertex type selector is recursive
+     * @return Returns true, if the vertex type selector is recursive. Otherwise, this method returns false
+     */
+    public boolean isRecursive() {
+        return recursive;
+    }
 }

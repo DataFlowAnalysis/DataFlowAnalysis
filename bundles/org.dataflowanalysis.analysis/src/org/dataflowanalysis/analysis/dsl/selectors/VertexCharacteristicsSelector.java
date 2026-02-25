@@ -140,13 +140,13 @@ public class VertexCharacteristicsSelector extends VertexSelector {
         return inverted;
     }
 
-	/**
-	 * Returns, whether the vertex characteristics selector is recursive
-	 * @return Returns true, if the vertex characteristics selector is recursive. Otherwise, this method returns false
-	 */
-	public boolean isRecursive() {
-		return recursive;
-	}
+    /**
+     * Returns, whether the vertex characteristics selector is recursive
+     * @return Returns true, if the vertex characteristics selector is recursive. Otherwise, this method returns false
+     */
+    public boolean isRecursive() {
+        return recursive;
+    }
 
     /**
      * Returns the vertex characteristic stored in the vertex characteristic selector

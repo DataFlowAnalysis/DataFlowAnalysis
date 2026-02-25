@@ -60,7 +60,7 @@ public class DSLNodeSourceSelector {
         characteristicValues
                 .forEach(it -> data.add(new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
                         ConstraintVariableReference.ofConstant(List.of(it)))));
-        this.analysisConstraint.addNodeSourceSelector(new VertexCharacteristicsListSelector(analysisConstraint.getContext(), data, false, true));
+        this.analysisConstraint.addNodeSourceSelector(new VertexCharacteristicsListSelector(analysisConstraint.getContext(), data));
         return this;
     }
 
@@ -104,7 +104,7 @@ public class DSLNodeSourceSelector {
         characteristicValues
                 .forEach(it -> data.add(new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
                         ConstraintVariableReference.ofConstant(List.of(it)))));
-        this.analysisConstraint.addNodeSourceSelector(new VertexCharacteristicsListSelector(analysisConstraint.getContext(), data, true, true));
+        this.analysisConstraint.addNodeSourceSelector(new VertexCharacteristicsListSelector(analysisConstraint.getContext(), data, true));
         return this;
     }
 

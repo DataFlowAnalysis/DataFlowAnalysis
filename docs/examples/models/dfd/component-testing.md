@@ -1,8 +1,14 @@
 # 📊 Diagram:  Component Testing System Case Study
 
+::: tip Available Online
+This model is available to view using the online editor!
+<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/ComponentTestingCaseStudy/ComponentTestingCaseStudy.json"></VPButton>
+::: 
+
 ## 🔗 Link to Original Paper/Article
 [View Full Main Source](<https://www.sciencedirect.com/science/article/pii/S016412122100100X?via%3Dihub>)
 
+[Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/ComponentTestingCaseStudy)
 
 ## 📝 Short Description
 This diagram illustrates the first case study in the paper, which briefly describes a system focused on component testing. The diagram shows the flow of data between the different components in the system. The paper does not describe the structure of these systems as they belong to private companies. For this reason we took the liberty of adding some components to the very brief description that is given.
@@ -39,5 +45,9 @@ Starting from the left side of the diagram there is the __Test Operator__ node, 
 
 
 
+
+<script setup>
+import { VPButton } from 'vitepress/theme'
+</script>
 
 

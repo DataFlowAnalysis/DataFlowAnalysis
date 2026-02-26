@@ -1,7 +1,14 @@
 # 📊 Diagram: Health Insurance Portability and Accountability Act (HIPAA) Case-Study
 
+::: tip Available Online
+This model is available to view using the online editor!
+<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/HipaaCaseStudy/Hipaa_CaseStudy.json"></VPButton>
+::: 
+
 ## 🔗 Link to Original Paper/Article
 [View Full Main Source](<https://www.research-collection.ethz.ch/handle/20.500.11850/641986>)
+
+[Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/HipaaCaseStudy)
 
 
 ## 📝 Short Description
@@ -48,5 +55,9 @@ The left side of the diagram shows the user entering its _credentials_ (_email_,
 
 
 
+
+<script setup>
+import { VPButton } from 'vitepress/theme'
+</script>
 
 

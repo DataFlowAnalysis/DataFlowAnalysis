@@ -34,6 +34,17 @@ public class DataCharacteristicsSelector extends DataSelector {
         return matchesDataCharacteristics(vertex, vertex.getAllIncomingDataCharacteristics());
     }
     
+    /**
+     * Determines whether the given vertex matches the data characteristics selector
+     * for the provided list of data characteristics.
+     * <p/>
+     * This method contains the core matching logic extracted from {@link #matches(AbstractVertex)},
+     * allowing reuse with arbitrary data characteristic lists beyond just incoming data.
+     * @param vertex Vertex to evaluate the selector against
+     * @param dataCharacteristics List of {@link DataCharacteristic} to match against
+     * @return Returns true if any variable in the provided characteristics matches the selector.
+     *         If inverted, returns true only if all variables do not match.
+     */
     public boolean matchesDataCharacteristics(AbstractVertex<?> vertex, List<DataCharacteristic> dataCharacteristics) {
     	List<String> variableNames = dataCharacteristics.stream()
     			.map(DataCharacteristic::variableName)
@@ -68,6 +79,16 @@ public class DataCharacteristicsSelector extends DataSelector {
 		                .anyMatch(it -> it);
     }
     
+    /**
+     * Determines whether the data characteristic represented by this selector is newly
+     * introduced at the given vertex, i.e. it was not present in the overall data characteristics
+     * but appears in the outgoing data characteristics.
+     * <p/>
+     * This is useful for identifying where in the data flow a characteristic is first applied.
+     * @param vertex Vertex to check for characteristic introduction
+     * @return Returns true if the characteristic does not match all data characteristics of the
+     *         vertex but does match the outgoing data characteristics, indicating it was added here.
+     */
     public boolean isAddedToCharacteristics(AbstractVertex<?> vertex) {
     	return !matchesDataCharacteristics(vertex, vertex.getAllDataCharacteristics()) && matchesDataCharacteristics(vertex, vertex.getAllOutgoingDataCharacteristics());
     }

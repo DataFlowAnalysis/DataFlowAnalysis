@@ -67,9 +67,6 @@ public class DFD2WebConverter extends Converter {
             throw new IllegalArgumentException("Invalid input for Model Conversion");
         }
         
-        //TODO: DOCUMENTATION
-        logger.warn("You are using the converter provided by Dalu Wins");
-        
         var complete = dfdModel.get();
         var constraints = this.constraints.orElse(null);
         var finderClass = this.transposeFlowGraphFinder.orElse(null);
@@ -108,7 +105,17 @@ public class DFD2WebConverter extends Converter {
         this.readOnly = readOnly;
     }
 
-    //TODO: DOCUMENTATION
+    /**
+     * Creates a mapping from each node in the data flow diagram to its list of annotations.
+     * <p/>
+     * Annotations include label propagation information for each vertex as well as violation
+     * markers for any constraint violations found in the provided violation tuples.
+     * @param complete DFD / DD combination
+     * @param constraints List of constraints (optional)
+     * @param finderClass Custom TFG finder class (optional)
+     * @param violationTuples Pre-computed list of constraint violations
+     * @return Map from each {@link Node} to its list of {@link Annotation} objects
+     */
     private Map<Node, List<Annotation>> createNodeAnnotationMap(DataFlowDiagramAndDictionary complete, 
             List<AnalysisConstraint> constraints,
             Class<? extends TransposeFlowGraphFinder> finderClass,
@@ -142,7 +149,17 @@ public class DFD2WebConverter extends Converter {
 		return mapNodeToAnnotations;
 	}
     
-    //TODO: DOCUMENTATION
+    /**
+     * Analyzes the given data flow diagram for constraint violations.
+     * <p/>
+     * Evaluates all transpose flow graphs and checks each provided constraint against them,
+     * returning a flat list of all violations found as {@link ViolationTuple} objects.
+     * Returns an empty list if no constraints are provided.
+     * @param complete DFD / DD combination to analyze
+     * @param constraints List of constraints to check, may be null or empty
+     * @param finderClass Custom TFG finder class (optional)
+     * @return List of {@link ViolationTuple} objects, each pairing a violated constraint with its result
+     */
     public List<ViolationTuple> analyzeViolations(DataFlowDiagramAndDictionary complete, 
                                                  List<AnalysisConstraint> constraints, 
                                                  Class<? extends TransposeFlowGraphFinder> finderClass) {
@@ -231,13 +248,22 @@ public class DFD2WebConverter extends Converter {
 
         createNodes(dataFlowDiagram, children, mapNodeToAnnotation);
         
-        //TODO: DOCUMENTATION
+        // Convert violation tuples into web editor violation objects for the output model
         List<Violation> webViolations = createViolations(violationTuples);
         
         return new WebEditorDfd(new Model("graph", "root", children), labelTypes, readOnly ? "view" : "edit", new ArrayList<>(), webViolations);
     }
     
-    //TODO: DOCUMENTATION
+    /**
+     * Converts a list of {@link ViolationTuple} objects into {@link Violation} objects
+     * for use in the web editor format.
+     * <p/>
+     * For each violation, identifies the inducing vertices — the nodes where the violating
+     * characteristic was first introduced — using {@link DataCharacteristicsSelector#isAddedToCharacteristics(AbstractVertex)}.
+     * @param violationTuples List of violation tuples to convert
+     * @return List of {@link Violation} objects containing constraint, flow graph, violated vertex,
+     *         and inducing vertex information
+     */
     private List<Violation> createViolations(List<ViolationTuple> violationTuples) {
     	List<Violation> violations = violationTuples.stream()
                 .map(tuple -> {

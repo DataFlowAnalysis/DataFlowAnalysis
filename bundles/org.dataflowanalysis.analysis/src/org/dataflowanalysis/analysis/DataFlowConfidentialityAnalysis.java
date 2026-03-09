@@ -24,11 +24,6 @@ public abstract class DataFlowConfidentialityAnalysis {
     public static final String PLUGIN_PATH = "org.dataflowanalysis.analysis";
     private final Logger logger = LoggerManager.getLogger(DataFlowConfidentialityAnalysis.class);
     
-    public static void logVersion() {
-    	Logger logger = LoggerManager.getLogger(DataFlowConfidentialityAnalysis.class);
-    	logger.warn("You are using the forked version by Dalu Wins");
-    }
-
     /**
      * Initializes the analysis by setting up the execution environment and loading the referenced models
      */

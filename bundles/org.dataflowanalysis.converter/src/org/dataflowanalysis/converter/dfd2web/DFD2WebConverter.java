@@ -291,7 +291,18 @@ public class DFD2WebConverter extends Converter {
                 			"\nviolated " + violatedVertices +
                 			"\ninducing " + inducingVertices.toString());
                 	
-                	return new Violation(constraint.toString(), tfg.toString(), violatedVertices.toString(), inducingVertices.toString());
+                	return new Violation(
+                		    constraint.toString(),
+                		    tfg.stream()
+	                		    .map(v -> ((Node) v.getReferencedElement()).getEntityName())
+	                		    .collect(Collectors.toList()),
+	                		violatedVertices.stream()
+	                		    .map(v -> ((Node) v.getReferencedElement()).getEntityName())
+	                		    .collect(Collectors.toList()),
+	                		inducingVertices.stream()
+	                		    .map(v -> ((Node) v.getReferencedElement()).getEntityName())
+	                		    .collect(Collectors.toList())
+                		);
                 }
                )
                 .toList();

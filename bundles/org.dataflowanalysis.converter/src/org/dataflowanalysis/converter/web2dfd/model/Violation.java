@@ -10,6 +10,9 @@ import java.util.List;
  * @param violatedVertices String representation of the vertices where the constraint is violated
  * @param inducingVertices String representation of the vertices where the violating characteristic was first introduced
  */
-public record Violation(String constraint, String tfg, String violatedVertices, String inducingVertices) {
-
-}
+public record Violation(
+	    String constraint,
+	    List<String> tfg,
+	    List<String> violatedVertices,
+	    List<String> inducingVertices
+	) {}

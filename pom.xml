@@ -9,6 +9,7 @@
  <properties>
 	<tycho.version>4.0.9</tycho.version>
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  	<sonar.organization>xdecaf</sonar.organization>
  </properties>
 
  <build>
@@ -143,6 +144,43 @@
 				</java>
 			</configuration>
 		</plugin>
+		<plugin>
+			<groupId>org.jacoco</groupId>
+			<artifactId>jacoco-maven-plugin</artifactId>
+			<version>0.8.11</version>
+			<executions>
+
+				<!-- Attach agent to tests -->
+				<execution>
+					<id>prepare-agent</id>
+					<goals>
+						<goal>prepare-agent</goal>
+					</goals>
+				</execution>
+
+				<execution>
+					<id>report-aggregate</id>
+					<phase>verify</phase>
+					<goals>
+						<goal>report-aggregate</goal>
+					</goals>
+					<configuration>
+						<outputDirectory>${project.build.directory}/site/jacoco-aggregate</outputDirectory>
+						<formats>
+							<format>XML</format>
+						</formats>
+
+						<!-- Optional but often helps in multi-module reactors -->
+						<dataFileIncludes>
+							<dataFileInclude>**/target/jacoco.exec</dataFileInclude>
+							<dataFileInclude>**/target/*.exec</dataFileInclude>
+						</dataFileIncludes>
+					</configuration>
+				</execution>
+
+			</executions>
+		</plugin>
+
 	</plugins>
  </build>
  

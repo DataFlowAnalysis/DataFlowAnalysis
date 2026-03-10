@@ -31,38 +31,66 @@ public class DataCharacteristicsSelector extends DataSelector {
 
     @Override
     public boolean matches(AbstractVertex<?> vertex) {
-        List<String> variableNames = vertex.getAllIncomingDataCharacteristics()
-                .stream()
-                .map(DataCharacteristic::variableName)
-                .toList();
-        if (variableNames.isEmpty()) {
-            return false;
-        }
-        List<Boolean> results = new ArrayList<>();
-        for (String variableName : variableNames) {
-            List<CharacteristicValue> presentCharacteristics = vertex.getAllIncomingDataCharacteristics()
-                    .stream()
-                    .filter(it -> it.variableName()
-                            .equals(variableName))
-                    .flatMap(it -> it.characteristics()
-                            .stream())
-                    .toList();
-            List<String> characteristicTypes = new ArrayList<>();
-            List<String> characteristicValues = new ArrayList<>();
-            List<Boolean> matches = presentCharacteristics.stream()
-                    .map(it -> this.dataCharacteristic.matchesCharacteristic(context, vertex, it, variableName, characteristicTypes,
-                            characteristicValues))
-                    .toList();
-            this.dataCharacteristic.applyResults(context, vertex, variableName, characteristicTypes, characteristicValues);
-            results.add(this.inverted ? matches.stream()
-                    .noneMatch(it -> it)
-                    : matches.stream()
-                            .anyMatch(it -> it));
-        }
-        return this.inverted ? results.stream()
-                .allMatch(it -> it)
-                : results.stream()
-                        .anyMatch(it -> it);
+        return matchesDataCharacteristics(vertex, vertex.getAllIncomingDataCharacteristics());
+    }
+    
+    /**
+     * Determines whether the given vertex matches the data characteristics selector
+     * for the provided list of data characteristics.
+     * <p/>
+     * This method contains the core matching logic extracted from {@link #matches(AbstractVertex)},
+     * allowing reuse with arbitrary data characteristic lists beyond just incoming data.
+     * @param vertex Vertex to evaluate the selector against
+     * @param dataCharacteristics List of {@link DataCharacteristic} to match against
+     * @return Returns true if any variable in the provided characteristics matches the selector.
+     *         If inverted, returns true only if all variables do not match.
+     */
+    public boolean matchesDataCharacteristics(AbstractVertex<?> vertex, List<DataCharacteristic> dataCharacteristics) {
+    	List<String> variableNames = dataCharacteristics.stream()
+    			.map(DataCharacteristic::variableName)
+    			.toList();
+		if (variableNames.isEmpty()) {
+		    return false;
+		}
+		List<Boolean> results = new ArrayList<>();
+		for (String variableName : variableNames) {
+		    List<CharacteristicValue> presentCharacteristics = dataCharacteristics
+		            .stream()
+		            .filter(it -> it.variableName()
+		                    .equals(variableName))
+		            .flatMap(it -> it.characteristics()
+		                    .stream())
+		            .toList();
+		    List<String> characteristicTypes = new ArrayList<>();
+		    List<String> characteristicValues = new ArrayList<>();
+		    List<Boolean> matches = presentCharacteristics.stream()
+		            .map(it -> this.dataCharacteristic.matchesCharacteristic(context, vertex, it, variableName, characteristicTypes,
+		                    characteristicValues))
+		            .toList();
+		    this.dataCharacteristic.applyResults(context, vertex, variableName, characteristicTypes, characteristicValues);
+		    results.add(this.inverted ? matches.stream()
+		            .noneMatch(it -> it)
+		            : matches.stream()
+		                    .anyMatch(it -> it));
+		}
+		return this.inverted ? results.stream()
+		        .allMatch(it -> it)
+		        : results.stream()
+		                .anyMatch(it -> it);
+    }
+    
+    /**
+     * Determines whether the data characteristic represented by this selector is newly
+     * introduced at the given vertex, i.e. it was not present in the overall data characteristics
+     * but appears in the outgoing data characteristics.
+     * <p/>
+     * This is useful for identifying where in the data flow a characteristic is first applied.
+     * @param vertex Vertex to check for characteristic introduction
+     * @return Returns true if the characteristic does not match all data characteristics of the
+     *         vertex but does match the outgoing data characteristics, indicating it was added here.
+     */
+    public boolean isAddedToCharacteristics(AbstractVertex<?> vertex) {
+    	return !matchesDataCharacteristics(vertex, vertex.getAllDataCharacteristics()) && matchesDataCharacteristics(vertex, vertex.getAllOutgoingDataCharacteristics());
     }
 
     public boolean isInverted() {

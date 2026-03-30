@@ -9,6 +9,8 @@ import org.dataflowanalysis.analysis.dsl.context.DSLContext;
  * {@link AbstractSelector#matches(AbstractVertex)} that indicates whether the provide vertex matches the selector
  */
 public abstract class AbstractSelector extends AbstractParseable {
+    protected static final String DSL_CONTAINS = "contains";
+
     protected DSLContext context;
 
     /**

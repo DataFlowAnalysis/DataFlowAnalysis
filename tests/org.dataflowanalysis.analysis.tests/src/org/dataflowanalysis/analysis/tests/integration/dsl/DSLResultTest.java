@@ -10,6 +10,7 @@ import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.dsl.DFDDSLContextProvider;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.AnalysisQuery;
+import org.dataflowanalysis.analysis.dsl.SimpleAnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
 import org.dataflowanalysis.analysis.dsl.query.QueryDSL;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
@@ -84,7 +85,7 @@ public class DSLResultTest extends BaseTest {
 
     @Test
     public void testDataObjects() {
-        AnalysisConstraint constraint = new AnalysisConstraint("default");
+        AnalysisConstraint constraint = new SimpleAnalysisConstraint("default");
         constraint.addDataSourceSelector(new DataCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(
                 ConstraintVariableReference.ofConstant(List.of("DataSensitivity")), ConstraintVariableReference.ofConstant(List.of("Personal")))));
         constraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(
@@ -95,7 +96,7 @@ public class DSLResultTest extends BaseTest {
 
     @Test
     public void testStringify() {
-        AnalysisConstraint constraint = new AnalysisConstraint("testDSL");
+        AnalysisConstraint constraint = new SimpleAnalysisConstraint("testDSL");
         constraint.addDataSourceSelector(new DataCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(
                 ConstraintVariableReference.ofConstant(List.of("DataSensitivity")), ConstraintVariableReference.ofConstant(List.of("Personal")))));
         constraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(
@@ -198,14 +199,14 @@ public class DSLResultTest extends BaseTest {
 
     @Test
     public void cannotParseOnlyVertexSelectors() {
-        ParseResult<AnalysisConstraint> constraint = AnalysisConstraint
+        ParseResult<SimpleAnalysisConstraint> constraint = SimpleAnalysisConstraint
                 .fromString(new StringView("- Test: vertex type PROCESS neverFlows vertex type STORE"), new DFDDSLContextProvider());
         assertTrue(constraint.failed());
     }
 
     private void evaluateAnalysis(AnalysisConstraint constraint, DataFlowConfidentialityAnalysis analysis, List<ConstraintData> expectedResults) {
         logger.info("DSL String: " + constraint.toString());
-        ParseResult<AnalysisConstraint> constraintParsed = AnalysisConstraint.fromString(new StringView(constraint.toString()),
+        ParseResult<SimpleAnalysisConstraint> constraintParsed = SimpleAnalysisConstraint.fromString(new StringView(constraint.toString()),
                 new PCMDSLContextProvider());
         if (constraintParsed.failed()) {
             fail(System.lineSeparator() + constraintParsed.getError());

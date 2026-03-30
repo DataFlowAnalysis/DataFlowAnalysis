@@ -33,11 +33,11 @@ public class VariableNameSelectorTest {
     }
 
     private static Stream<Arguments> correctVariableNameSelectors() {
-        return Stream.of(Arguments.of("named name", "name"), Arguments.of("named otherA.otherB", "otherA.otherB"),
-                Arguments.of("named some string with spaces", "some"));
+        return Stream.of(Arguments.of("dataName name", "name"), Arguments.of("dataName otherA.otherB", "otherA.otherB"),
+                Arguments.of("dataName some string with spaces", "some"));
     }
 
     private static Stream<Arguments> incorrectVariableNameSelectors() {
-        return Stream.of(Arguments.of("named"), Arguments.of(""), Arguments.of("named "));
+        return Stream.of(Arguments.of("dataName"), Arguments.of(""), Arguments.of("dataName "));
     }
 }

@@ -3,7 +3,7 @@ This diagram illustrates the data flow between the components/functionalities of
 
 ::: tip Available Online
 This model is available to view using the online editor!
-<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/CMACaseStudy/CMACaseStudy.json"></VPButton>
+<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/CMACaseStudy/CMACaseStudy.json&layout=true"></VPButton>
 ::: 
 
 # 📊 Diagram: Conference Management App (CMA) Case-Study

@@ -2,9 +2,9 @@
 
 ::: tip Available Online
 This model is available to view using the online editor!
-<VPButton text="Open In Online Editor (No Violations)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/CWA/NoViolation/CWANoViolation.json"></VPButton>
-<VPButton text="Open In Online Editor (PersonalDataViolation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/CWA/PersonalDataViolation/CWAPersonaldataViolation.json"></VPButton>
-<VPButton text="Open In Online Editor (RPI Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/CWA/RPIViolation/CWARPIViolation.json"></VPButton>
+<VPButton text="Open In Online Editor (No Violations)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/CWA/NoViolation/CWANoViolation.json&layout=true"></VPButton>
+<VPButton text="Open In Online Editor (PersonalDataViolation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/CWA/PersonalDataViolation/CWAPersonaldataViolation.json&layout=true"></VPButton>
+<VPButton text="Open In Online Editor (RPI Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/CWA/RPIViolation/CWARPIViolation.json&layout=true"></VPButton>
 ::: 
 
 

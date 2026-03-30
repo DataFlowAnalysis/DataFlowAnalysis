@@ -2,7 +2,7 @@
 
 ::: tip Available Online
 This model is available to view using the online editor!
-<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/HipaaCaseStudy/Hipaa_CaseStudy.json"></VPButton>
+<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/HipaaCaseStudy/Hipaa_CaseStudy.json&layout=true"></VPButton>
 ::: 
 
 ## 🔗 Link to Original Paper/Article

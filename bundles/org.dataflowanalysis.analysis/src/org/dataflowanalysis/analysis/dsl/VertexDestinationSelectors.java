@@ -5,11 +5,7 @@ import java.util.List;
 import java.util.StringJoiner;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
-import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsListSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexNameSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexTypeSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.*;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
@@ -98,6 +94,16 @@ public class VertexDestinationSelectors extends AbstractParseable {
             var typeSelector = VertexTypeSelector.fromString(string, context);
             if (typeSelector.successful()) {
                 selectors.add(typeSelector.getResult());
+                continue;
+            }
+            var vertexNameSelector = VertexNameSelector.fromString(string, context);
+            if (vertexNameSelector.successful()) {
+                selectors.add(vertexNameSelector.getResult());
+                continue;
+            }
+            var anySelector = AnySelector.fromString(string, context);
+            if (anySelector.successful()) {
+                selectors.add(anySelector.getResult());
                 continue;
             }
             break;

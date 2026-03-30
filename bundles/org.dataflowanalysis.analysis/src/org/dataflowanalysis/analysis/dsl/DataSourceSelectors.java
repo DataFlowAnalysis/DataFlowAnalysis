@@ -5,10 +5,7 @@ import java.util.List;
 import java.util.StringJoiner;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
-import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicListSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.VariableNameSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.*;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
@@ -91,6 +88,11 @@ public class DataSourceSelectors extends AbstractParseable {
             var nameSelector = VariableNameSelector.fromString(string, context);
             if (nameSelector.successful()) {
                 selectors.add(nameSelector.getResult());
+                continue;
+            }
+            var anySelector = AnySelector.fromString(string, context);
+            if (anySelector.successful()) {
+                selectors.add(anySelector.getResult());
                 continue;
             }
             break;

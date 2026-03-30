@@ -111,7 +111,7 @@ public class DSLNodeDestinationSelector {
      * @return DSL node selector to add more constraints
      */
     public DSLNodeDestinationSelector withoutVertexName(String vertexName) {
-        this.analysisConstraint.addNodeDestinationSelector(new VertexNameSelector(vertexName, true, analysisConstraint.getContext()));
+        this.analysisConstraint.addNodeDestinationSelector(new VertexNameSelector(vertexName, true, false, analysisConstraint.getContext()));
         return this;
     }
 

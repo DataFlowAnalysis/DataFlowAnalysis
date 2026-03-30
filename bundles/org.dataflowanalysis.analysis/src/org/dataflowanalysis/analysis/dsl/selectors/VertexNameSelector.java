@@ -10,11 +10,12 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 import tools.mdsd.modelingfoundations.identifier.NamedElement;
 
 public class VertexNameSelector extends VertexSelector {
-    private static final String DSL_KEYWORD = "named";
+    private static final String DSL_KEYWORD = "vertexName";
     private static final Logger logger = LoggerManager.getLogger(VertexNameSelector.class);
 
     private final String name;
     private final boolean inverted;
+    private final boolean contains;
 
     /**
      * Create a new {@link VertexNameSelector} that matches vertices with the given name.
@@ -25,6 +26,7 @@ public class VertexNameSelector extends VertexSelector {
         super(context);
         this.name = name;
         this.inverted = false;
+        this.contains = false;
     }
 
     /**
@@ -34,10 +36,11 @@ public class VertexNameSelector extends VertexSelector {
      * @param inverted Denotes whether the selector should be inverted or not
      * @param context Context of the DSL Selector
      */
-    public VertexNameSelector(String name, boolean inverted, DSLContext context) {
+    public VertexNameSelector(String name, boolean inverted, boolean contains, DSLContext context) {
         super(context);
         this.name = name;
         this.inverted = inverted;
+        this.contains = contains;
     }
 
     @Override
@@ -50,18 +53,27 @@ public class VertexNameSelector extends VertexSelector {
         } else {
             return false;
         }
-        return this.inverted ? !vertexName.equalsIgnoreCase(this.name) : vertexName.equalsIgnoreCase(this.name);
+        boolean nameMatches = this.contains ? vertexName.contains(this.name) : vertexName.equalsIgnoreCase(this.name);
+        return this.inverted != nameMatches;
     }
 
     @Override
     public String toString() {
-        return this.inverted ? DSL_INVERTED_SYMBOL + DSL_KEYWORD + " " + this.name : DSL_KEYWORD + " " + this.name;
+        StringBuilder stringBuilder = new StringBuilder();
+        if (this.inverted)
+            stringBuilder.append(DSL_INVERTED_SYMBOL + " ");
+        stringBuilder.append(DSL_KEYWORD);
+        stringBuilder.append(" ");
+        if (this.contains)
+            stringBuilder.append(DSL_CONTAINS + " ");
+        stringBuilder.append(this.name);
+        return stringBuilder.toString();
     }
 
     /**
      * Parses a {@link VertexNameSelector} object from the given view on a string
      * <p/>
-     * This method expects the following format: {@code named <Name>}
+     * This method expects the following format: {@code vertexName <Name>}
      * @param string String view on the string that is parsed
      * @return {@link ParseResult} containing the {@link VertexNameSelector} object
      */
@@ -80,7 +92,20 @@ public class VertexNameSelector extends VertexSelector {
         if (!string.startsWith(DSL_KEYWORD)) {
             return string.expect(DSL_KEYWORD);
         }
-        string.advance(DSL_KEYWORD.length() + 1);
+        string.advance(DSL_KEYWORD.length());
+        string.skipWhitespace();
+
+        if (string.invalid() || string.empty()) {
+            string.setPosition(position);
+            return ParseResult.error("Cannot parse vertex name selector from empty or invalid string!");
+        }
+
+        boolean contains = false;
+        if (string.startsWith(DSL_CONTAINS)) {
+            string.advance(DSL_CONTAINS.length());
+            contains = true;
+        }
+        string.skipWhitespace();
         if (string.invalid() || string.empty()) {
             string.setPosition(position);
             return ParseResult.error("Cannot parse vertex name selector from empty or invalid string!");
@@ -93,7 +118,7 @@ public class VertexNameSelector extends VertexSelector {
         }
         string.advance(split[0].length());
         string.advance(1);
-        return ParseResult.ok(new VertexNameSelector(split[0], inverted, context));
+        return ParseResult.ok(new VertexNameSelector(split[0], inverted, contains, context));
     }
 
     /**

@@ -34,7 +34,8 @@ public class PCMUserTransposeFlowGraphFinder {
         this.sinks = sinks;
     }
 
-    public PCMUserTransposeFlowGraphFinder(ResourceProvider resourceProvider, PCMTransposeFlowGraph currentTransposeFlowGraph, List<Entity> sinks) {
+    public PCMUserTransposeFlowGraphFinder(ResourceProvider resourceProvider,
+            PCMTransposeFlowGraph currentTransposeFlowGraph, List<Entity> sinks) {
         this.resourceProvider = resourceProvider;
         this.currentTransposeFlowGraph = currentTransposeFlowGraph;
         this.sinks = sinks;
@@ -59,8 +60,9 @@ public class PCMUserTransposeFlowGraphFinder {
 
         } else {
             // default case: skip action and continue with successor
-            logger.info(String.format("Action %s has unsupported type of %s and is skipped.", initialAction.getId(), initialAction.getClass()
-                    .getName()));
+            logger.info(String.format("Action %s has unsupported type of %s and is skipped.", initialAction.getId(),
+                    initialAction.getClass()
+                            .getName()));
             return findSequencesForUserAction(initialAction.getSuccessor());
         }
     }
@@ -70,16 +72,19 @@ public class PCMUserTransposeFlowGraphFinder {
         if (this.currentTransposeFlowGraph.getSink() == null) {
             startElement = new UserPCMVertex<>(currentAction, resourceProvider);
         } else {
-            startElement = new UserPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), resourceProvider);
+            startElement = new UserPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()),
+                    resourceProvider);
         }
         this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(startElement);
         return findSequencesForUserAction(currentAction.getSuccessor());
     }
 
     protected List<PCMTransposeFlowGraph> findSequencesForUserStopAction(Stop currentAction) {
-        var stopElement = new UserPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), resourceProvider);
+        var stopElement = new UserPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()),
+                resourceProvider);
 
-        Optional<AbstractUserAction> parentAction = PCMQueryUtils.findParentOfType(currentAction, AbstractUserAction.class, false);
+        Optional<AbstractUserAction> parentAction = PCMQueryUtils.findParentOfType(currentAction,
+                AbstractUserAction.class, false);
         if (parentAction.isEmpty()) {
             return List.of(new PCMTransposeFlowGraph(stopElement));
         } else {
@@ -98,20 +103,22 @@ public class PCMUserTransposeFlowGraphFinder {
                 .map(it -> {
                     Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping = new IdentityHashMap<>();
                     PCMTransposeFlowGraph clonedTransposeFlowGraph = this.currentTransposeFlowGraph.copy(vertexMapping);
-                    return new PCMUserTransposeFlowGraphFinder(this.resourceProvider, clonedTransposeFlowGraph, this.sinks)
-                            .findSequencesForUserAction(it);
+                    return new PCMUserTransposeFlowGraphFinder(this.resourceProvider, clonedTransposeFlowGraph,
+                            this.sinks).findSequencesForUserAction(it);
                 })
                 .flatMap(List::stream)
                 .toList();
     }
 
     protected List<PCMTransposeFlowGraph> findSequencesForEntryLevelSystemCall(EntryLevelSystemCall currentAction) {
-        var callingEntity = new CallingUserPCMVertex(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), true, resourceProvider);
+        var callingEntity = new CallingUserPCMVertex(currentAction, List.of(this.currentTransposeFlowGraph.getSink()),
+                true, resourceProvider);
         this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(callingEntity);
 
         OperationProvidedRole calledRole = currentAction.getProvidedRole_EntryLevelSystemCall();
         OperationSignature calledSignature = currentAction.getOperationSignature__EntryLevelSystemCall();
-        Optional<SEFFWithContext> calledSEFF = PCMQueryUtils.findCalledSEFF(calledRole, calledSignature, new ArrayDeque<>());
+        Optional<SEFFWithContext> calledSEFF = PCMQueryUtils.findCalledSEFF(calledRole, calledSignature,
+                new ArrayDeque<>());
 
         if (calledSEFF.isEmpty()) {
             logger.error(String.format("Could not find the called SEFF for the action %s", currentAction));
@@ -129,13 +136,14 @@ public class PCMUserTransposeFlowGraphFinder {
 
                 SEFFFinderContext finderContext = new SEFFFinderContext(calledSEFF.get()
                         .context(), callers, calledSignature.getParameters__OperationSignature());
-                return new PCMSEFFTransposeFlowGraphFinder(resourceProvider, finderContext, sinks, this.currentTransposeFlowGraph)
-                        .findSequencesForSEFFAction(SEFFStartAction.get());
+                return new PCMSEFFTransposeFlowGraphFinder(resourceProvider, finderContext, sinks,
+                        this.currentTransposeFlowGraph).findSequencesForSEFFAction(SEFFStartAction.get());
             }
         }
     }
 
-    public List<PCMTransposeFlowGraph> findSequencesForUserActionReturning(EntryLevelSystemCall currentAction, AbstractPCMVertex<?> caller) {
+    public List<PCMTransposeFlowGraph> findSequencesForUserActionReturning(EntryLevelSystemCall currentAction,
+            AbstractPCMVertex<?> caller) {
         List<AbstractPCMVertex<?>> previousVertices = new ArrayList<>();
         previousVertices.add(caller);
         previousVertices.add(this.currentTransposeFlowGraph.getSink());

@@ -30,8 +30,8 @@ public class VertexNameSelector extends VertexSelector {
     }
 
     /**
-     * Create a new {@link VertexNameSelector} that matches vertices with the given name. Additionally, the inverted boolean
-     * denotes whether the selector is inverted or not
+     * Create a new {@link VertexNameSelector} that matches vertices with the given name. Additionally, the inverted
+     * boolean denotes whether the selector is inverted or not
      * @param name Name the vertex should (or should not) have
      * @param inverted Denotes whether the selector should be inverted or not
      * @param context Context of the DSL Selector

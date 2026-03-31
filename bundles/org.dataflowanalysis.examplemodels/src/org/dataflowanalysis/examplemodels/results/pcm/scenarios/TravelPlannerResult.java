@@ -43,21 +43,27 @@ public class TravelPlannerResult implements PCMExampleModelResult {
 
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
-        return List.of(new ExpectedViolation(0, PCMIdentifier.of("_vorK8fVeEeuMKba1Qn68bg", true),
-                List.of(new ExpectedCharacteristic("AssignedRoles", "Airline")),
-                Map.of("flight", List.of(new ExpectedCharacteristic("GrantedRoles", "User"), new ExpectedCharacteristic("GrantedRoles", "Airline")),
-                        "ccd", List.of(new ExpectedCharacteristic("GrantedRoles", "User")))),
+        return List.of(
+                new ExpectedViolation(0, PCMIdentifier.of("_vorK8fVeEeuMKba1Qn68bg", true),
+                        List.of(new ExpectedCharacteristic("AssignedRoles", "Airline")),
+                        Map.of("flight",
+                                List.of(new ExpectedCharacteristic("GrantedRoles", "User"),
+                                        new ExpectedCharacteristic("GrantedRoles", "Airline")),
+                                "ccd", List.of(new ExpectedCharacteristic("GrantedRoles", "User")))),
                 new ExpectedViolation(0, PCMIdentifier.of("_7HCu4PViEeuMKba1Qn68bg", false),
                         List.of(new ExpectedCharacteristic("AssignedRoles", "Airline")),
                         Map.of("flight",
-                                List.of(new ExpectedCharacteristic("GrantedRoles", "User"), new ExpectedCharacteristic("GrantedRoles", "Airline")),
+                                List.of(new ExpectedCharacteristic("GrantedRoles", "User"),
+                                        new ExpectedCharacteristic("GrantedRoles", "Airline")),
                                 "ccd", List.of(new ExpectedCharacteristic("GrantedRoles", "User")))),
                 new ExpectedViolation(0, PCMIdentifier.of("_vorK8vVeEeuMKba1Qn68bg", false),
                         List.of(new ExpectedCharacteristic("AssignedRoles", "Airline")),
                         Map.of("flight",
-                                List.of(new ExpectedCharacteristic("GrantedRoles", "User"), new ExpectedCharacteristic("GrantedRoles", "Airline")),
+                                List.of(new ExpectedCharacteristic("GrantedRoles", "User"),
+                                        new ExpectedCharacteristic("GrantedRoles", "Airline")),
                                 "ccd", List.of(new ExpectedCharacteristic("GrantedRoles", "User")), "RETURN",
-                                List.of(new ExpectedCharacteristic("GrantedRoles", "User"), new ExpectedCharacteristic("GrantedRoles", "Airline")))));
+                                List.of(new ExpectedCharacteristic("GrantedRoles", "User"),
+                                        new ExpectedCharacteristic("GrantedRoles", "Airline")))));
     }
 
     @Override

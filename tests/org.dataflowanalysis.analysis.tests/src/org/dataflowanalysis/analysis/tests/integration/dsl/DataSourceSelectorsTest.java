@@ -16,7 +16,8 @@ public class DataSourceSelectorsTest {
     @MethodSource("correctDataSourceSelectors")
     public void shouldParseCorrectly(String dataSourceSelectorString) {
         StringView stringView = new StringView(dataSourceSelectorString);
-        ParseResult<DataSourceSelectors> dataSourceSelectors = DataSourceSelectors.fromString(stringView, new DSLContext());
+        ParseResult<DataSourceSelectors> dataSourceSelectors = DataSourceSelectors.fromString(stringView,
+                new DSLContext());
         assertTrue(dataSourceSelectors.successful());
         assertTrue(stringView.empty());
         assertEquals(dataSourceSelectorString, dataSourceSelectors.getResult()
@@ -27,13 +28,15 @@ public class DataSourceSelectorsTest {
     @MethodSource("incorrectDataSourceSelectors")
     public void shouldNotParse(String dataSourceSelectorString) {
         StringView stringView = new StringView(dataSourceSelectorString);
-        ParseResult<DataSourceSelectors> dataSourceSelectors = DataSourceSelectors.fromString(stringView, new DSLContext());
+        ParseResult<DataSourceSelectors> dataSourceSelectors = DataSourceSelectors.fromString(stringView,
+                new DSLContext());
         assertTrue(dataSourceSelectors.failed() || !stringView.empty());
     }
 
     private static Stream<Arguments> correctDataSourceSelectors() {
-        return Stream.of(Arguments.of("data A.B"), Arguments.of("data otherA.otherB"), Arguments.of("data A.B dataName C"),
-                Arguments.of("data A.B,C.D dataName E"), Arguments.of("data A.B,C.D E.F dataName G"));
+        return Stream.of(Arguments.of("data A.B"), Arguments.of("data otherA.otherB"),
+                Arguments.of("data A.B dataName C"), Arguments.of("data A.B,C.D dataName E"),
+                Arguments.of("data A.B,C.D E.F dataName G"));
     }
 
     private static Stream<Arguments> incorrectDataSourceSelectors() {

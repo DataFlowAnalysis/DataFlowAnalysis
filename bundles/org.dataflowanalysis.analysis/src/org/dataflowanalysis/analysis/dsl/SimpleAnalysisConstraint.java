@@ -31,9 +31,10 @@ public class SimpleAnalysisConstraint extends AnalysisConstraint {
         super(name);
     }
 
-    public SimpleAnalysisConstraint(String name, org.dataflowanalysis.analysis.dsl.groups.SourceSelectors sourceSelectors,
-            DestinationSelectors destinationSelectors, org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors conditionalSelectors,
-            DSLContext context) {
+    public SimpleAnalysisConstraint(String name,
+            org.dataflowanalysis.analysis.dsl.groups.SourceSelectors sourceSelectors,
+            DestinationSelectors destinationSelectors,
+            org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors conditionalSelectors, DSLContext context) {
         super(name, sourceSelectors, FlowType.NEVER_FLOWS, destinationSelectors, conditionalSelectors, context);
     }
 
@@ -91,7 +92,8 @@ public class SimpleAnalysisConstraint extends AnalysisConstraint {
         return dslString.toString();
     }
 
-    public static ParseResult<SimpleAnalysisConstraint> fromString(StringView string, DSLContextProvider contextProvider) {
+    public static ParseResult<SimpleAnalysisConstraint> fromString(StringView string,
+            DSLContextProvider contextProvider) {
         DSLContext context = new DSLContext(contextProvider);
         string.skipWhitespace();
         if (!string.startsWith(SIMPLE_DSL_TOKEN)) {
@@ -124,11 +126,13 @@ public class SimpleAnalysisConstraint extends AnalysisConstraint {
         }
         string.skipWhitespace();
         if (string.empty()) {
-            return ParseResult.ok(new SimpleAnalysisConstraint(name, sourceSelectors.getResult(), new DestinationSelectors(),
-                    new org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors(), context));
+            return ParseResult
+                    .ok(new SimpleAnalysisConstraint(name, sourceSelectors.getResult(), new DestinationSelectors(),
+                            new org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors(), context));
         }
 
-        ParseResult<DestinationSelectors> destinationSelectorsParseResult = DestinationSelectors.fromString(string, context);
+        ParseResult<DestinationSelectors> destinationSelectorsParseResult = DestinationSelectors.fromString(string,
+                context);
         if (destinationSelectorsParseResult.failed()) {
             return ParseResult.error(destinationSelectorsParseResult.getError());
         }
@@ -154,9 +158,11 @@ public class SimpleAnalysisConstraint extends AnalysisConstraint {
                         .getDataSourceSelectors()
                         .getSelectors()
                         .isEmpty()) {
-            return ParseResult.error("Cannot create DSL constraint from purely vertex selectors! This behavior is not implemented yet!");
+            return ParseResult.error(
+                    "Cannot create DSL constraint from purely vertex selectors! This behavior is not implemented yet!");
         }
-        return ParseResult.ok(new SimpleAnalysisConstraint(name, sourceSelectors.getResult(), destinationSelectors, conditionalSelectors, context));
+        return ParseResult.ok(new SimpleAnalysisConstraint(name, sourceSelectors.getResult(), destinationSelectors,
+                conditionalSelectors, context));
     }
 
 }

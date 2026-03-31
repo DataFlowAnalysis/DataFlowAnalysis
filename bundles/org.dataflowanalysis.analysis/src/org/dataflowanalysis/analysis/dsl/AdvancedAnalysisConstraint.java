@@ -17,9 +17,10 @@ public class AdvancedAnalysisConstraint extends AnalysisConstraint {
         super(name);
     }
 
-    public AdvancedAnalysisConstraint(String name, org.dataflowanalysis.analysis.dsl.groups.SourceSelectors sourceSelectors, FlowType flowType,
-            DestinationSelectors destinationSelectors, org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors conditionalSelectors,
-            DSLContext context) {
+    public AdvancedAnalysisConstraint(String name,
+            org.dataflowanalysis.analysis.dsl.groups.SourceSelectors sourceSelectors, FlowType flowType,
+            DestinationSelectors destinationSelectors,
+            org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors conditionalSelectors, DSLContext context) {
         super(name, sourceSelectors, flowType, destinationSelectors, conditionalSelectors, context);
     }
 
@@ -43,7 +44,8 @@ public class AdvancedAnalysisConstraint extends AnalysisConstraint {
         return dslString.toString();
     }
 
-    public static ParseResult<? extends AnalysisConstraint> fromString(StringView string, DSLContextProvider contextProvider) {
+    public static ParseResult<? extends AnalysisConstraint> fromString(StringView string,
+            DSLContextProvider contextProvider) {
         DSLContext context = new DSLContext(contextProvider);
         string.skipWhitespace();
         if (!string.startsWith(ADVANCED_DSL_TOKEN)) {
@@ -76,11 +78,13 @@ public class AdvancedAnalysisConstraint extends AnalysisConstraint {
 
         string.skipWhitespace();
         if (string.empty()) {
-            return ParseResult.ok(new AdvancedAnalysisConstraint(name, sourceSelectors.getResult(), flowType.getResult(), new DestinationSelectors(),
+            return ParseResult.ok(new AdvancedAnalysisConstraint(name, sourceSelectors.getResult(),
+                    flowType.getResult(), new DestinationSelectors(),
                     new org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors(), context));
         }
 
-        ParseResult<DestinationSelectors> destinationSelectorsParseResult = DestinationSelectors.fromString(string, context);
+        ParseResult<DestinationSelectors> destinationSelectorsParseResult = DestinationSelectors.fromString(string,
+                context);
         if (destinationSelectorsParseResult.failed()) {
             return ParseResult.error(destinationSelectorsParseResult.getError());
         }
@@ -96,7 +100,7 @@ public class AdvancedAnalysisConstraint extends AnalysisConstraint {
         if (!string.empty()) {
             return ParseResult.error("Unexpected symbols: " + string.getString());
         }
-        return ParseResult.ok(new AdvancedAnalysisConstraint(name, sourceSelectors.getResult(), flowType.getResult(), destinationSelectors,
-                conditionalSelectors, context));
+        return ParseResult.ok(new AdvancedAnalysisConstraint(name, sourceSelectors.getResult(), flowType.getResult(),
+                destinationSelectors, conditionalSelectors, context));
     }
 }

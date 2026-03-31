@@ -20,10 +20,10 @@ public record MicroSecEnd(List<Service> services,
         @JsonProperty("information_flows") List<InformationFlow> informationFlows) {
 
     /**
-     * Sorts the components of the MicroSecEnd model based on predefined criteria. Services and external entities are sorted
-     * alphabetically by their names. Information flows are sorted first by the sender's name and then by the receiver's
-     * name. Additionally, stereotypes within services, external entities, and information flows are also sorted
-     * alphabetically.
+     * Sorts the components of the MicroSecEnd model based on predefined criteria. Services and external entities are
+     * sorted alphabetically by their names. Information flows are sorted first by the sender's name and then by the
+     * receiver's name. Additionally, stereotypes within services, external entities, and information flows are also
+     * sorted alphabetically.
      */
     public void sort() {
         services().sort(Comparator.comparing(Service::name));

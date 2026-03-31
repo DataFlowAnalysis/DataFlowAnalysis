@@ -49,7 +49,8 @@ public class VariableNameSelector extends DataSelector {
 
     @Override
     public String toString() {
-        return this.contains ? DSL_KEYWORD + " " + DSL_CONTAINS + " " + this.variableName : DSL_KEYWORD + " " + this.variableName;
+        return this.contains ? DSL_KEYWORD + " " + DSL_CONTAINS + " " + this.variableName
+                : DSL_KEYWORD + " " + this.variableName;
     }
 
     /**

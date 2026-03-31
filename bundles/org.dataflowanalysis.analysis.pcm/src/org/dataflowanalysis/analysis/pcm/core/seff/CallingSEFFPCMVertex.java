@@ -30,8 +30,9 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
      * @param parameter List of Parameters that are available for the calling SEFF
      * @param isCalling Is true, when another method is called. Otherwise, a called method is returned from
      */
-    public CallingSEFFPCMVertex(ExternalCallAction element, List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
-            List<Parameter> parameter, boolean isCalling, ResourceProvider resourceProvider) {
+    public CallingSEFFPCMVertex(ExternalCallAction element, List<? extends AbstractPCMVertex<?>> previousElements,
+            Deque<AssemblyContext> context, List<Parameter> parameter, boolean isCalling,
+            ResourceProvider resourceProvider) {
         super(element, previousElements, context, parameter, resourceProvider);
         this.isCalling = isCalling;
     }
@@ -51,8 +52,8 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
             this.checkCallParameter(this.getReferencedElement()
                     .getCalledService_ExternalService(), variableCharacterisations);
         }
-        List<DataCharacteristic> outgoingDataCharacteristics = this.getDataCharacteristics(nodeCharacteristics, variableCharacterisations,
-                incomingDataCharacteristics);
+        List<DataCharacteristic> outgoingDataCharacteristics = this.getDataCharacteristics(nodeCharacteristics,
+                variableCharacterisations, incomingDataCharacteristics);
         if (this.isReturning()) {
             outgoingDataCharacteristics = outgoingDataCharacteristics.stream()
                     .filter(it -> !it.getVariableName()
@@ -69,8 +70,9 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
      * @return Returns a list of variable characterizations that are applicable to the current vertex
      */
     private List<ConfidentialityVariableCharacterisation> getVariableCharacterizations() {
-        Stream<VariableUsage> relevantVariableUsages = this.isCalling ? super.getReferencedElement().getInputVariableUsages__CallAction()
-                .stream()
+        Stream<VariableUsage> relevantVariableUsages = this.isCalling
+                ? super.getReferencedElement().getInputVariableUsages__CallAction()
+                        .stream()
                 : super.getReferencedElement().getReturnVariableUsage__CallReturnAction()
                         .stream();
         return relevantVariableUsages.flatMap(it -> it.getVariableCharacterisation_VariableUsage()

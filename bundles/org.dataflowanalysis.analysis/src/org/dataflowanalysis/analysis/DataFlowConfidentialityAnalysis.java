@@ -38,8 +38,8 @@ public abstract class DataFlowConfidentialityAnalysis {
     /**
      * Evaluates a given condition on a transpose flow graph and returns all elements that violate the given condition
      * @param transposeFlowGraph Transpose flow graph that is analyzed by the analysis
-     * @param condition Condition that describes a violation at one vertex. If the condition returns true, the condition is
-     * violated and the vertex is included in the output. Otherwise, the vertex is not included in the result of this
+     * @param condition Condition that describes a violation at one vertex. If the condition returns true, the condition
+     * is violated and the vertex is included in the output. Otherwise, the vertex is not included in the result of this
      * method.
      * @return Returns a list of all nodes that matched the given condition
      */

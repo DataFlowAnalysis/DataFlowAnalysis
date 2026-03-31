@@ -50,7 +50,8 @@ public abstract class AnalysisConstraint {
         this.context = new DSLContext();
     }
 
-    public AnalysisConstraint(String name, SourceSelectors sourceSelectors, FlowType flowType, DestinationSelectors destinationSelectors,
+    public AnalysisConstraint(String name, SourceSelectors sourceSelectors, FlowType flowType,
+            DestinationSelectors destinationSelectors,
             org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors conditionalSelectors, DSLContext context) {
         this.name = name;
         this.sourceSelectors = sourceSelectors;
@@ -125,7 +126,8 @@ public abstract class AnalysisConstraint {
      * @param contextProvider Context provider used to parse analysis-specific contents
      * @return Returns a {@link ParseResult} that may contain the {@link AnalysisConstraint}
      */
-    public static ParseResult<? extends AnalysisConstraint> fromString(StringView string, DSLContextProvider contextProvider) {
+    public static ParseResult<? extends AnalysisConstraint> fromString(StringView string,
+            DSLContextProvider contextProvider) {
         string.skipWhitespace();
         if (string.startsWith(SIMPLE_DSL_TOKEN)) {
             return SimpleAnalysisConstraint.fromString(string, contextProvider);

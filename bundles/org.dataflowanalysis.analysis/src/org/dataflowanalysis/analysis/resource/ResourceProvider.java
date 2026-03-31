@@ -33,8 +33,8 @@ public abstract class ResourceProvider {
     protected final ResourceSet resources = new ResourceSetImpl();
 
     /**
-     * Loads the required resources for a {@link DataFlowConfidentialityAnalysis}. The loaded resources should be saved into
-     * {@link ResourceProvider#resources}
+     * Loads the required resources for a {@link DataFlowConfidentialityAnalysis}. The loaded resources should be saved
+     * into {@link ResourceProvider#resources}
      */
     public abstract void loadRequiredResources();
 
@@ -146,8 +146,8 @@ public abstract class ResourceProvider {
      * Finds an element that fulfills the given condition in a given resource
      * @param condition Condition the element should fulfill
      * @param resource Resource that should be searched
-     * @return Returns the first entity, that fulfills the condition. As an element satisfying the condition may not exist,
-     * the result is wrapped in an {@link Optional}
+     * @return Returns the first entity, that fulfills the condition. As an element satisfying the condition may not
+     * exist, the result is wrapped in an {@link Optional}
      */
     private Optional<EObject> findInResource(Predicate<EObject> condition, Resource resource) {
         if (resource == null) {

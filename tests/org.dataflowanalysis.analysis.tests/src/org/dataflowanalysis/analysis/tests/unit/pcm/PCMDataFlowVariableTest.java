@@ -24,15 +24,16 @@ public class PCMDataFlowVariableTest {
     }
 
     private static Stream<Arguments> getInvalidPCMDataFlowVariables() {
-        return Stream.of(Arguments.of("", "Location", "nonEU"), Arguments.of("", "", ""), Arguments.of(null, null, null),
-                Arguments.of("RETURN", null, null));
+        return Stream.of(Arguments.of("", "Location", "nonEU"), Arguments.of("", "", ""),
+                Arguments.of(null, null, null), Arguments.of("RETURN", null, null));
     }
 
     @ParameterizedTest
     @MethodSource("getValidPCMDataFlowVariables")
     public void shouldParse(String variableName, String characteristicType, String characteristicValue) {
         DataCharacteristic dataCharacteristic = new DataCharacteristic(variableName,
-                List.of(new PCMCharacteristicValue(this.getCharacteristicType(characteristicType), this.getLiteral(characteristicValue))));
+                List.of(new PCMCharacteristicValue(this.getCharacteristicType(characteristicType),
+                        this.getLiteral(characteristicValue))));
         assertEquals(variableName, dataCharacteristic.getVariableName(), "Variable name should parse correctly");
         assertEquals(characteristicType, dataCharacteristic.getAllCharacteristics()
                 .get(0)
@@ -45,23 +46,29 @@ public class PCMDataFlowVariableTest {
     @ParameterizedTest
     @MethodSource("getInvalidPCMDataFlowVariables")
     public void shouldNotParse(String variableName, String characteristicType, String characteristicValue) {
-        assertThrows(IllegalArgumentException.class, () -> new DataCharacteristic(variableName,
-                List.of(new PCMCharacteristicValue(this.getCharacteristicType(characteristicType), this.getLiteral(characteristicValue)))));
+        assertThrows(IllegalArgumentException.class,
+                () -> new DataCharacteristic(variableName,
+                        List.of(new PCMCharacteristicValue(this.getCharacteristicType(characteristicType),
+                                this.getLiteral(characteristicValue)))));
     }
 
     @ParameterizedTest
     @MethodSource("getValidPCMDataFlowVariables")
-    public void shouldDisplayCorrectly(String variableName, String characteristicType, String characteristicValue, String expectedDisplayName) {
+    public void shouldDisplayCorrectly(String variableName, String characteristicType, String characteristicValue,
+            String expectedDisplayName) {
         DataCharacteristic dataCharacteristic = new DataCharacteristic(variableName,
-                List.of(new PCMCharacteristicValue(this.getCharacteristicType(characteristicType), this.getLiteral(characteristicValue))));
-        assertEquals(expectedDisplayName, dataCharacteristic.toString(), "Data Characteristic should display correctly with toString()");
+                List.of(new PCMCharacteristicValue(this.getCharacteristicType(characteristicType),
+                        this.getLiteral(characteristicValue))));
+        assertEquals(expectedDisplayName, dataCharacteristic.toString(),
+                "Data Characteristic should display correctly with toString()");
     }
 
     @ParameterizedTest
     @MethodSource("getValidPCMDataFlowVariables")
     public void shouldFindCorrectly(String variableName, String characteristicType, String characteristicValue) {
         DataCharacteristic dataCharacteristic = new DataCharacteristic(variableName,
-                List.of(new PCMCharacteristicValue(this.getCharacteristicType(characteristicType), this.getLiteral(characteristicValue))));
+                List.of(new PCMCharacteristicValue(this.getCharacteristicType(characteristicType),
+                        this.getLiteral(characteristicValue))));
         List<CharacteristicValue> result = dataCharacteristic.getCharacteristicsWithName(characteristicType);
         assertEquals(1, result.size(), "Should find exactly one characteristic value with type");
         assertEquals(characteristicValue, result.get(0)
@@ -69,7 +76,8 @@ public class PCMDataFlowVariableTest {
     }
 
     private EnumCharacteristicType getCharacteristicType(String characteristicTypeName) {
-        EnumCharacteristicType characteristicType = DataDictionaryCharacterizedFactory.eINSTANCE.createEnumCharacteristicType();
+        EnumCharacteristicType characteristicType = DataDictionaryCharacterizedFactory.eINSTANCE
+                .createEnumCharacteristicType();
         characteristicType.setName(characteristicTypeName);
         return characteristicType;
     }

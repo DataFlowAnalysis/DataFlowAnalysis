@@ -82,6 +82,10 @@ public class VariableNameSelector extends DataSelector {
             string.advance(DSL_CONTAINS.length());
         }
         string.skipWhitespace();
+        if (string.invalid() || string.empty()) {
+            string.setPosition(position);
+            return ParseResult.error("Cannot parse variable name selector from empty or invalid string!");
+        }
         String[] split = string.getString()
                 .split(" ");
         if (split.length == 0 || split[0].isEmpty()) {

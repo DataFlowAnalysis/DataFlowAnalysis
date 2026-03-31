@@ -10,7 +10,7 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 import tools.mdsd.modelingfoundations.identifier.NamedElement;
 
 public class VertexNameSelector extends VertexSelector {
-    private static final String DSL_KEYWORD = "vertexName";
+    private static final String DSL_KEYWORD = "name";
     private static final Logger logger = LoggerManager.getLogger(VertexNameSelector.class);
 
     private final String name;

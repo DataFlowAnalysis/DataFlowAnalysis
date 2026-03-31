@@ -5,6 +5,9 @@ import java.util.StringJoiner;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.context.DSLContextProvider;
+import org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors;
+import org.dataflowanalysis.analysis.dsl.groups.DestinationSelectors;
+import org.dataflowanalysis.analysis.dsl.groups.SourceSelectors;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
@@ -14,8 +17,9 @@ public class AdvancedAnalysisConstraint extends AnalysisConstraint {
         super(name);
     }
 
-    public AdvancedAnalysisConstraint(String name, SourceSelectors sourceSelectors, FlowType flowType, DestinationSelectors destinationSelectors,
-            ConditionalSelectors conditionalSelectors, DSLContext context) {
+    public AdvancedAnalysisConstraint(String name, org.dataflowanalysis.analysis.dsl.groups.SourceSelectors sourceSelectors, FlowType flowType,
+            DestinationSelectors destinationSelectors, org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors conditionalSelectors,
+            DSLContext context) {
         super(name, sourceSelectors, flowType, destinationSelectors, conditionalSelectors, context);
     }
 
@@ -73,7 +77,7 @@ public class AdvancedAnalysisConstraint extends AnalysisConstraint {
         string.skipWhitespace();
         if (string.empty()) {
             return ParseResult.ok(new AdvancedAnalysisConstraint(name, sourceSelectors.getResult(), flowType.getResult(), new DestinationSelectors(),
-                    new ConditionalSelectors(), context));
+                    new org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors(), context));
         }
 
         ParseResult<DestinationSelectors> destinationSelectorsParseResult = DestinationSelectors.fromString(string, context);
@@ -83,8 +87,10 @@ public class AdvancedAnalysisConstraint extends AnalysisConstraint {
         DestinationSelectors destinationSelectors = destinationSelectorsParseResult.getResult();
 
         string.skipWhitespace();
-        ParseResult<ConditionalSelectors> conditionalSelectorsParseResult = ConditionalSelectors.fromString(string, context);
-        ConditionalSelectors conditionalSelectors = conditionalSelectorsParseResult.or(new ConditionalSelectors());
+        ParseResult<org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors> conditionalSelectorsParseResult = org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors
+                .fromString(string, context);
+        org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors conditionalSelectors = conditionalSelectorsParseResult
+                .or(new ConditionalSelectors());
 
         string.skipWhitespace();
         if (!string.empty()) {

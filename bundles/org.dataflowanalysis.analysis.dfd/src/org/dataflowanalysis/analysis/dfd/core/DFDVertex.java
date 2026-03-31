@@ -65,6 +65,10 @@ public class DFDVertex extends AbstractVertex<Node> {
         evaluatePreviousVertices();
 
         List<CharacteristicValue> vertexCharacteristics = determineNodeCharacteristics();
+        Set<CharacteristicValue> previousVertexCharacteristics = new HashSet<>(vertexCharacteristics);
+        this.getPinDFDVertexMap()
+                .values()
+                .forEach(vertex -> previousVertexCharacteristics.addAll(vertex.getAllPreviousVertexCharacteristics()));
 
         Map<Pin, List<Label>> inputPinsIncomingLabelMap = new HashMap<>();
         this.getPinFlowMap()
@@ -73,7 +77,8 @@ public class DFDVertex extends AbstractVertex<Node> {
 
         List<DataCharacteristic> dataCharacteristics = new ArrayList<>(this.createDataCharacteristicsFromLabels(inputPinsIncomingLabelMap));
         List<DataCharacteristic> outgoingDataCharacteristics = new ArrayList<>();
-        this.setPropagationResult(dataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics);
+        this.setPropagationResult(dataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics,
+                previousVertexCharacteristics);
     }
 
     /**
@@ -105,6 +110,10 @@ public class DFDVertex extends AbstractVertex<Node> {
         evaluatePreviousVertices();
 
         List<CharacteristicValue> vertexCharacteristics = determineNodeCharacteristics();
+        Set<CharacteristicValue> previousVertexCharacteristics = new HashSet<>(vertexCharacteristics);
+        this.getPinDFDVertexMap()
+                .values()
+                .forEach(vertex -> previousVertexCharacteristics.addAll(vertex.getAllPreviousVertexCharacteristics()));
 
         Map<Pin, List<Label>> inputPinsIncomingLabelMap = new HashMap<>();
         this.getPinFlowMap()
@@ -118,8 +127,10 @@ public class DFDVertex extends AbstractVertex<Node> {
         outputPinsOutgoingLabelMap.entrySet()
                 .removeIf(e -> !outPinsForOutgoing.contains(e.getKey()));
 
-        List<DataCharacteristic> outgoingDataCharacteristics = new ArrayList<>(this.createDataCharacteristicsFromLabels(outputPinsOutgoingLabelMap));
-        this.setPropagationResult(dataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics);
+        List<DataCharacteristic> outgoingDataCharacteristics = new ArrayList<>(
+                this.createDataCharacteristicsFromLabels(outputPinsOutgoingLabelMap));
+        this.setPropagationResult(dataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics,
+                previousVertexCharacteristics);
     }
 
     /**

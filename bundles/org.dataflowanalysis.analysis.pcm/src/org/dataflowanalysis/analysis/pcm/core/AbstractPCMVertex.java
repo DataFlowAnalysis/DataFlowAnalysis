@@ -4,6 +4,7 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
@@ -59,12 +60,15 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      * that are not evaluated.
      * @param incomingDataCharacteristics Incoming data characteristics that flow into the vertex
      * @param outgoingDataCharacteristics Outgoing data characteristics that flow out of the vertex
-     * @param vertexCharacteristics Vertex characteristics present at the node
+     * @param vertexCharacteristics Vertex characteristics present at the vertex
+     * @param previousVertexCharacteristics Vertex characteristics present at previous vertices
      */
     @Override
     protected void setPropagationResult(List<DataCharacteristic> incomingDataCharacteristics,
-            List<DataCharacteristic> outgoingDataCharacteristics, List<CharacteristicValue> vertexCharacteristics) {
-        super.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics);
+            List<DataCharacteristic> outgoingDataCharacteristics, List<CharacteristicValue> vertexCharacteristics,
+            Set<CharacteristicValue> previousVertexCharacteristics) {
+        super.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics,
+                previousVertexCharacteristics);
     }
 
     @Override
@@ -149,7 +153,8 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
             Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
         if (this.isEvaluated()) {
             copy.setPropagationResult(this.getAllIncomingDataCharacteristics(),
-                    this.getAllOutgoingDataCharacteristics(), this.getVertexCharacteristics());
+                    this.getAllOutgoingDataCharacteristics(), this.getVertexCharacteristics(),
+                    this.getAllPreviousVertexCharacteristics());
         }
         vertexMapping.put(this, copy);
 

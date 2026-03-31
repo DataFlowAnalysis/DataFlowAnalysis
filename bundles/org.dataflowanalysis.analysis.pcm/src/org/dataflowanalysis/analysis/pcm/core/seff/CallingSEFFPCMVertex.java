@@ -3,9 +3,11 @@ package org.dataflowanalysis.analysis.pcm.core.seff;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
@@ -45,14 +47,17 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
     @Override
     public void evaluateDataFlow() {
         List<DataCharacteristic> incomingDataCharacteristics = this.getIncomingDataCharacteristics();
-        List<CharacteristicValue> nodeCharacteristics = this.getVertexCharacteristics();
+        List<CharacteristicValue> vertexCharacteristics = this.getVertexCharacteristics();
+        Set<CharacteristicValue> previousVertexCharacteristics = new HashSet<>(vertexCharacteristics);
+        this.getPreviousElements()
+                .forEach(vertex -> previousVertexCharacteristics.addAll(vertex.getAllPreviousVertexCharacteristics()));
 
         List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.getVariableCharacterizations();
         if (this.isCalling()) {
             this.checkCallParameter(this.getReferencedElement()
                     .getCalledService_ExternalService(), variableCharacterisations);
         }
-        List<DataCharacteristic> outgoingDataCharacteristics = this.getDataCharacteristics(nodeCharacteristics,
+        List<DataCharacteristic> outgoingDataCharacteristics = this.getDataCharacteristics(vertexCharacteristics,
                 variableCharacterisations, incomingDataCharacteristics);
         if (this.isReturning()) {
             outgoingDataCharacteristics = outgoingDataCharacteristics.stream()
@@ -60,7 +65,8 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
                             .equals("RETURN"))
                     .collect(Collectors.toList());
         }
-        this.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, nodeCharacteristics);
+        this.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics,
+                previousVertexCharacteristics);
     }
 
     /**

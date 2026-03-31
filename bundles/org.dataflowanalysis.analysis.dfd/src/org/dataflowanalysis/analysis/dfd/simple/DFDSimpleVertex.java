@@ -2,6 +2,7 @@ package org.dataflowanalysis.analysis.dfd.simple;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +66,9 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
         previousVertices.forEach(DFDSimpleVertex::evaluateDataFlow);
 
         List<CharacteristicValue> vertexCharacteristics = determineNodeCharacteristics();
+        Set<CharacteristicValue> previousVertexCharacteristics = new HashSet<>(vertexCharacteristics);
+        this.getPreviousElements()
+                .forEach(vertex -> previousVertexCharacteristics.addAll(vertex.getAllPreviousVertexCharacteristics()));
 
         List<DataCharacteristic> incomingCharacteristics = previousVertices.stream()
                 .map(AbstractVertex::getAllOutgoingDataCharacteristics)
@@ -79,7 +83,8 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
         List<DataCharacteristic> outgoingDataCharacteristics = new ArrayList<>(
                 this.createDataCharacteristicsFromLabels(outgoingLabelPerPin));
 
-        this.setPropagationResult(incomingCharacteristics, outgoingDataCharacteristics, vertexCharacteristics);
+        this.setPropagationResult(incomingCharacteristics, outgoingDataCharacteristics, vertexCharacteristics,
+                previousVertexCharacteristics);
     }
 
     /**

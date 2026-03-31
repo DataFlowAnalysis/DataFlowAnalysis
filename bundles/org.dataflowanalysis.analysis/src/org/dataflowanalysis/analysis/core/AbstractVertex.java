@@ -20,15 +20,17 @@ public abstract class AbstractVertex<T> {
     private Optional<List<DataCharacteristic>> incomingDataCharacteristics;
     private Optional<List<DataCharacteristic>> outgoingDataCharacteristics;
     private Optional<List<CharacteristicValue>> vertexCharacteristics;
+    private Optional<Set<CharacteristicValue>> previousVertexCharacteristics;
 
     /**
-     * Constructs a new action sequence element with empty data characteristics and node characteristics
+     * Constructs a new vertex with empty data characteristics and node characteristics
      */
     public AbstractVertex(T referencedElement) {
         this.referencedElement = referencedElement;
         this.incomingDataCharacteristics = Optional.empty();
         this.outgoingDataCharacteristics = Optional.empty();
         this.vertexCharacteristics = Optional.empty();
+        this.previousVertexCharacteristics = Optional.empty();
     }
 
     /**
@@ -41,14 +43,15 @@ public abstract class AbstractVertex<T> {
     public abstract String toString();
 
     /**
-     * Sets the propagation result of the Vertex to the given result. This method should only be called once on elements
+     * Sets the propagation result of the vertex to the given result. This method should only be called once on elements
      * that are not evaluated.
      * @param incomingDataCharacteristics Incoming data characteristics that flow into the vertex
      * @param outgoingDataCharacteristics Outgoing data characteristics that flow out of the vertex
      * @param vertexCharacteristics Vertex characteristics present at the node
      */
     protected void setPropagationResult(List<DataCharacteristic> incomingDataCharacteristics,
-            List<DataCharacteristic> outgoingDataCharacteristics, List<CharacteristicValue> vertexCharacteristics) {
+            List<DataCharacteristic> outgoingDataCharacteristics, List<CharacteristicValue> vertexCharacteristics,
+            Set<CharacteristicValue> previousVertexCharacteristics) {
         if (this.isEvaluated()) {
             logger.error("Cannot set propagation result of already evaluated vertex");
             throw new IllegalArgumentException();
@@ -56,11 +59,12 @@ public abstract class AbstractVertex<T> {
         this.incomingDataCharacteristics = Optional.of(new ArrayList<>(incomingDataCharacteristics));
         this.outgoingDataCharacteristics = Optional.of(new ArrayList<>(outgoingDataCharacteristics));
         this.vertexCharacteristics = Optional.of(new ArrayList<>(vertexCharacteristics));
+        this.previousVertexCharacteristics = Optional.of(new HashSet<>(previousVertexCharacteristics));
     }
 
     /**
-     * Returns whether the action sequence element has been evaluated
-     * @return Returns true, if the node is evaluated. Otherwise, the method returns false
+     * Returns whether the vertex has been evaluated
+     * @return Returns true, if the vertex is evaluated. Otherwise, the method returns false
      */
     public boolean isEvaluated() {
         return this.incomingDataCharacteristics.isPresent() && this.outgoingDataCharacteristics.isPresent()
@@ -77,7 +81,7 @@ public abstract class AbstractVertex<T> {
     }
 
     /**
-     * Returns a list of all data characteristics that are present for the action sequence element
+     * Returns a list of all data characteristics that are present for the vertex
      * @return List of present data characteristics
      */
     public List<DataCharacteristic> getAllDataCharacteristics() {
@@ -85,7 +89,7 @@ public abstract class AbstractVertex<T> {
     }
 
     /**
-     * Returns a list of all incoming data characteristics that are present for the action sequence element
+     * Returns a list of all incoming data characteristics that are present for the vertex
      * @return List of present incoming data characteristics (e.g. the variables at the input pin of the DFD
      * representation)
      */
@@ -94,7 +98,7 @@ public abstract class AbstractVertex<T> {
     }
 
     /**
-     * Returns a list of all outgoing data characteristics that are present for the action sequence element
+     * Returns a list of all outgoing data characteristics that are present for the vertex
      * @return List of present outgoing data characteristics (e.g. the variables at the output pin of the DFD
      * representation)
      */
@@ -103,11 +107,20 @@ public abstract class AbstractVertex<T> {
     }
 
     /**
-     * Returns a list of all present node characteristics for the action sequence element
-     * @return List of present node characteristics
+     * Returns a list of all present vertex characteristics for the vertex
+     * @return List of present vertex characteristics
      */
     public List<CharacteristicValue> getAllVertexCharacteristics() {
         return this.vertexCharacteristics.orElseThrow(IllegalStateException::new);
+    }
+
+    /**
+     * Returns a list of all vertex characteristics that were present at {@link AbstractVertex} before the current
+     * vertex
+     * @return List of previous vertex characteristics
+     */
+    public Set<CharacteristicValue> getAllPreviousVertexCharacteristics() {
+        return this.previousVertexCharacteristics.orElseThrow(IllegalStateException::new);
     }
 
     /**
@@ -128,7 +141,7 @@ public abstract class AbstractVertex<T> {
     /**
      * Returns a list of vertex characteristics with the given characteristic type
      * <p>
-     * See {@link AbstractVertex#getDataCharacteristics(String)} for a similar method for data flow variables
+     * See {@link AbstractVertex#getDataCharacteristicMap(String)} for a similar method for data flow variables
      * @param requiredCharacteristicTypeName Name of the characteristic type
      * @return Returns a list of all vertex characteristics matching the characteristic type
      */
@@ -143,7 +156,7 @@ public abstract class AbstractVertex<T> {
     /**
      * Returns a list of vertex characteristic value names with the given characteristic type
      * <p>
-     * See {@link AbstractVertex#getDataCharacteristicNames(String)} for a similar method for data flow variables
+     * See {@link AbstractVertex#getDataCharacteristicNamesMap(String)} for a similar method for data flow variables
      * @param requiredCharacteristicTypeName Name of the characteristic type
      * @return Returns a list of all vertex characteristics matching the characteristic type
      */

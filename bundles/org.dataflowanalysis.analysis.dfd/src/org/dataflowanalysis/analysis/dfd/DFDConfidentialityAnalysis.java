@@ -25,16 +25,17 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
     protected final String modelProjectName;
     protected final Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinderClass;
 
-    public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider, Optional<Class<? extends Plugin>> modelProjectActivator,
-            String modelProjectName, Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinderClass) {
+    public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider,
+            Optional<Class<? extends Plugin>> modelProjectActivator, String modelProjectName,
+            Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinderClass) {
         this.resourceProvider = resourceProvider;
         this.modelProjectActivator = modelProjectActivator;
         this.modelProjectName = modelProjectName;
         this.transposeFlowGraphFinderClass = transposeFlowGraphFinderClass;
     }
 
-    public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider, Optional<Class<? extends Plugin>> modelProjectActivator,
-            String modelProjectName) {
+    public DFDConfidentialityAnalysis(DFDResourceProvider resourceProvider,
+            Optional<Class<? extends Plugin>> modelProjectActivator, String modelProjectName) {
         this.resourceProvider = resourceProvider;
         this.modelProjectActivator = modelProjectActivator;
         this.modelProjectName = modelProjectName;
@@ -52,8 +53,8 @@ public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis 
             var initializationBuilder = StandaloneInitializerBuilder.builder()
                     .registerProjectURI(DFDConfidentialityAnalysis.class, DFDConfidentialityAnalysis.PLUGIN_PATH);
 
-            this.modelProjectActivator
-                    .ifPresent(projectActivator -> initializationBuilder.registerProjectURI(projectActivator, this.modelProjectName));
+            this.modelProjectActivator.ifPresent(projectActivator -> initializationBuilder
+                    .registerProjectURI(projectActivator, this.modelProjectName));
 
             initializationBuilder.build()
                     .init();

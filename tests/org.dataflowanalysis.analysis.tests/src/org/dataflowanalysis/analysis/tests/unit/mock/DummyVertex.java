@@ -34,8 +34,8 @@ public class DummyVertex extends AbstractVertex<String> {
     }
 
     @Override
-    public void setPropagationResult(List<DataCharacteristic> incomingDataCharacteristics, List<DataCharacteristic> outgoingDataCharacteristics,
-            List<CharacteristicValue> vertexCharacteristics) {
+    public void setPropagationResult(List<DataCharacteristic> incomingDataCharacteristics,
+            List<DataCharacteristic> outgoingDataCharacteristics, List<CharacteristicValue> vertexCharacteristics) {
         super.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics);
     }
 

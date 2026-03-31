@@ -24,7 +24,8 @@ public class SEFFFinderContext {
      * @param callers List of callers that called the SEFF element
      * @param parameter List of parameters present at the SEFF element
      */
-    public SEFFFinderContext(Deque<AssemblyContext> context, Deque<AbstractPCMVertex<?>> callers, List<Parameter> parameter) {
+    public SEFFFinderContext(Deque<AssemblyContext> context, Deque<AbstractPCMVertex<?>> callers,
+            List<Parameter> parameter) {
         this.context = context;
         this.callers = callers;
         this.parameter = parameter;

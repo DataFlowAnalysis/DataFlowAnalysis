@@ -16,7 +16,8 @@ public class DataSourceSelectorsTest {
     @MethodSource("correctDataSourceSelectors")
     public void shouldParseCorrectly(String dataSourceSelectorString) {
         StringView stringView = new StringView(dataSourceSelectorString);
-        ParseResult<DataSourceSelectors> dataSourceSelectors = DataSourceSelectors.fromString(stringView, new DSLContext());
+        ParseResult<DataSourceSelectors> dataSourceSelectors = DataSourceSelectors.fromString(stringView,
+                new DSLContext());
         assertTrue(dataSourceSelectors.successful());
         assertTrue(stringView.empty());
         assertEquals(dataSourceSelectorString, dataSourceSelectors.getResult()
@@ -27,7 +28,8 @@ public class DataSourceSelectorsTest {
     @MethodSource("incorrectDataSourceSelectors")
     public void shouldNotParse(String dataSourceSelectorString) {
         StringView stringView = new StringView(dataSourceSelectorString);
-        ParseResult<DataSourceSelectors> dataSourceSelectors = DataSourceSelectors.fromString(stringView, new DSLContext());
+        ParseResult<DataSourceSelectors> dataSourceSelectors = DataSourceSelectors.fromString(stringView,
+                new DSLContext());
         assertTrue(dataSourceSelectors.failed() || !stringView.empty());
     }
 

@@ -94,7 +94,8 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
      * Registers a custom TransposeFlowGraphFinder for the analysis
      * @param transposeFlowGraphFinderClass Custom TransposeFlowGraphFinder of the analysis
      */
-    public DFDDataFlowAnalysisBuilder useTransposeFlowGraphFinder(Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinderClass) {
+    public DFDDataFlowAnalysisBuilder useTransposeFlowGraphFinder(
+            Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinderClass) {
         this.customTransposeFlowGraphFinderClass = transposeFlowGraphFinderClass;
         return this;
     }
@@ -104,12 +105,16 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
      */
     private DFDResourceProvider getEffectiveResourceProvider() {
         if (this.customResourceProvider.isEmpty()) {
-            URI dataDictionaryUri = this.modelProjectName.isEmpty() ? URI.createFileURI(Paths.get(this.dataDictionaryPath)
-                    .toAbsolutePath()
-                    .toString()) : ResourceUtils.createRelativePluginURI(this.dataDictionaryPath, this.modelProjectName);
-            URI dataFlowDiagramUri = this.modelProjectName.isEmpty() ? URI.createFileURI(Paths.get(this.dataFlowDiagramPath)
-                    .toAbsolutePath()
-                    .toString()) : ResourceUtils.createRelativePluginURI(this.dataFlowDiagramPath, this.modelProjectName);
+            URI dataDictionaryUri = this.modelProjectName.isEmpty()
+                    ? URI.createFileURI(Paths.get(this.dataDictionaryPath)
+                            .toAbsolutePath()
+                            .toString())
+                    : ResourceUtils.createRelativePluginURI(this.dataDictionaryPath, this.modelProjectName);
+            URI dataFlowDiagramUri = this.modelProjectName.isEmpty()
+                    ? URI.createFileURI(Paths.get(this.dataFlowDiagramPath)
+                            .toAbsolutePath()
+                            .toString())
+                    : ResourceUtils.createRelativePluginURI(this.dataFlowDiagramPath, this.modelProjectName);
 
             return new DFDURIResourceProvider(dataFlowDiagramUri, dataDictionaryUri);
         }
@@ -121,11 +126,13 @@ public class DFDDataFlowAnalysisBuilder extends DataFlowAnalysisBuilder {
      */
     protected void validate() {
         super.validate();
-        if (this.customResourceProvider.isEmpty() && (this.dataDictionaryPath == null || this.dataDictionaryPath.isEmpty())) {
+        if (this.customResourceProvider.isEmpty()
+                && (this.dataDictionaryPath == null || this.dataDictionaryPath.isEmpty())) {
             logger.error("A data dictionary is required to run the data flow analysis",
                     new IllegalStateException("The DFD analysis requires a data dictionary"));
         }
-        if (this.customResourceProvider.isEmpty() && (this.dataFlowDiagramPath == null || this.dataFlowDiagramPath.isEmpty())) {
+        if (this.customResourceProvider.isEmpty()
+                && (this.dataFlowDiagramPath == null || this.dataFlowDiagramPath.isEmpty())) {
             logger.error("A data flow diagram is required to run the data flow analysis",
                     new IllegalStateException("The DFD analysis requires a data flow diagram"));
         }

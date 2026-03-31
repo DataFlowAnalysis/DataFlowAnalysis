@@ -47,7 +47,8 @@ public class DemoTest {
         // #region init
         final Path usageModelPath = Paths.get("scenarios", "pcm", "InternationalOnlineShop", "default.usagemodel");
         final Path allocationPath = Paths.get("scenarios", "pcm", "InternationalOnlineShop", "default.allocation");
-        final Path nodeCharacteristicsPath = Paths.get("scenarios", "pcm", "InternationalOnlineShop", "default.nodecharacteristics");
+        final Path nodeCharacteristicsPath = Paths.get("scenarios", "pcm", "InternationalOnlineShop",
+                "default.nodecharacteristics");
 
         pcmAnalysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)

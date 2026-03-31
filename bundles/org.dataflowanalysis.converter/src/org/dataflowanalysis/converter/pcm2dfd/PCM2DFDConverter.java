@@ -94,27 +94,29 @@ public class PCM2DFDConverter extends Converter {
             String elementName = cast.getReferencedElement()
                     .getEntityName();
             if (cast.getReferencedElement() instanceof StartAction) {
-                Optional<ResourceDemandingSEFF> seff = PCMQueryUtils.findParentOfType(cast.getReferencedElement(), ResourceDemandingSEFF.class,
-                        false);
+                Optional<ResourceDemandingSEFF> seff = PCMQueryUtils.findParentOfType(cast.getReferencedElement(),
+                        ResourceDemandingSEFF.class, false);
                 if (seff.isPresent()) {
                     elementName = "Beginning " + seff.get()
                             .getDescribedService__SEFF()
                             .getEntityName();
                 }
                 if (cast.isBranching() && seff.isPresent()) {
-                    BranchAction branchAction = PCMQueryUtils.findParentOfType(cast.getReferencedElement(), BranchAction.class, false)
+                    BranchAction branchAction = PCMQueryUtils
+                            .findParentOfType(cast.getReferencedElement(), BranchAction.class, false)
                             .orElseThrow(() -> new IllegalStateException("Cannot find branch action"));
                     AbstractBranchTransition branchTransition = PCMQueryUtils
                             .findParentOfType(cast.getReferencedElement(), AbstractBranchTransition.class, false)
                             .orElseThrow(() -> new IllegalStateException("Cannot find branch transition"));
                     elementName = "Branching " + seff.get()
                             .getDescribedService__SEFF()
-                            .getEntityName() + "." + branchAction.getEntityName() + "." + branchTransition.getEntityName();
+                            .getEntityName() + "." + branchAction.getEntityName() + "."
+                            + branchTransition.getEntityName();
                 }
             }
             if (cast.getReferencedElement() instanceof StopAction) {
-                Optional<ResourceDemandingSEFF> seff = PCMQueryUtils.findParentOfType(cast.getReferencedElement(), ResourceDemandingSEFF.class,
-                        false);
+                Optional<ResourceDemandingSEFF> seff = PCMQueryUtils.findParentOfType(cast.getReferencedElement(),
+                        ResourceDemandingSEFF.class, false);
                 if (seff.isPresent()) {
                     elementName = "Ending " + seff.get()
                             .getDescribedService__SEFF()
@@ -233,7 +235,8 @@ public class PCM2DFDConverter extends Converter {
      * @param sourceVertex Given source pcm vertex of the flow
      * @param destinationVertex Given destination of the flow
      */
-    private void createFlows(AbstractPCMVertex<? extends Entity> sourceVertex, AbstractPCMVertex<? extends Entity> destinationVertex) {
+    private void createFlows(AbstractPCMVertex<? extends Entity> sourceVertex,
+            AbstractPCMVertex<? extends Entity> destinationVertex) {
         var intersectingDataCharacteristics = sourceVertex.getAllOutgoingDataCharacteristics()
                 .stream()
                 .map(DataCharacteristic::getVariableName)
@@ -541,7 +544,8 @@ public class PCM2DFDConverter extends Converter {
                                 .addAll(it.getAllCharacteristics()
                                         .stream()
                                         .map(characteristicValue -> {
-                                            LabelType type = this.getOrCreateLabelType(characteristicValue.getTypeName());
+                                            LabelType type = this
+                                                    .getOrCreateLabelType(characteristicValue.getTypeName());
                                             return this.getOrCreateDFDLabel(characteristicValue.getValueName(), type);
                                         })
                                         .toList());
@@ -563,9 +567,9 @@ public class PCM2DFDConverter extends Converter {
                 .isEmpty()
                 && vertex.getAllOutgoingDataCharacteristics()
                         .isEmpty()
-                && !(vertex instanceof UserPCMVertex<?>
-                        && ((AbstractUserAction) vertex.getReferencedElement()).getScenarioBehaviour_AbstractUserAction()
-                                .getUsageScenario_SenarioBehaviour() != null)) {
+                && !(vertex instanceof UserPCMVertex<?> && ((AbstractUserAction) vertex.getReferencedElement())
+                        .getScenarioBehaviour_AbstractUserAction()
+                        .getUsageScenario_SenarioBehaviour() != null)) {
             assignments.add(this.preserveControlFlow(node, vertex));
         }
         return assignments;
@@ -578,7 +582,8 @@ public class PCM2DFDConverter extends Converter {
      * @param dataCharacteristic Data characteristic that is forwarded
      * @return Returns an assignment that forwards the given data characteristic
      */
-    private AbstractAssignment forwardCharacteristic(Node node, AbstractPCMVertex<?> vertex, DataCharacteristic dataCharacteristic) {
+    private AbstractAssignment forwardCharacteristic(Node node, AbstractPCMVertex<?> vertex,
+            DataCharacteristic dataCharacteristic) {
         ForwardingAssignment assignment = datadictionaryFactory.eINSTANCE.createForwardingAssignment();
         Pin inPin = node.getBehavior()
                 .getInPin()
@@ -587,7 +592,8 @@ public class PCM2DFDConverter extends Converter {
                         .equals(dataCharacteristic.getVariableName()))
                 .findAny()
                 .orElseThrow(() -> {
-                    logger.error("Cannot find required in-pin " + dataCharacteristic.getVariableName() + " at vertex with name " + vertex);
+                    logger.error("Cannot find required in-pin " + dataCharacteristic.getVariableName()
+                            + " at vertex with name " + vertex);
                     return new NoSuchElementException();
                 });
         Pin outPin = node.getBehavior()
@@ -597,7 +603,8 @@ public class PCM2DFDConverter extends Converter {
                         .equals(dataCharacteristic.getVariableName()))
                 .findAny()
                 .orElseThrow(() -> {
-                    logger.error("Cannot find required out-pin " + dataCharacteristic.getVariableName() + " at vertex with name " + vertex);
+                    logger.error("Cannot find required out-pin " + dataCharacteristic.getVariableName()
+                            + " at vertex with name " + vertex);
                     return new NoSuchElementException();
                 });
         assignment.getInputPins()
@@ -641,7 +648,8 @@ public class PCM2DFDConverter extends Converter {
     }
 
     /**
-     * Processes the given variable characterization with the given converted DFD behavior and node with a given PCM vertex
+     * Processes the given variable characterization with the given converted DFD behavior and node with a given PCM
+     * vertex
      * @param variableCharacterisation Variable characterization of the PCM vertex
      * @param behaviour Resulting behavior of the DFD node
      * @param node DFD node that is converted to
@@ -649,8 +657,9 @@ public class PCM2DFDConverter extends Converter {
      * @return Returns a list of all assignments that must be added to the DFD behavior to reflect the PCM variable
      * characterization
      */
-    private List<AbstractAssignment> processCharacterization(ConfidentialityVariableCharacterisation variableCharacterisation, Behavior behaviour,
-            Node node, AbstractPCMVertex<?> vertex) {
+    private List<AbstractAssignment> processCharacterization(
+            ConfidentialityVariableCharacterisation variableCharacterisation, Behavior behaviour, Node node,
+            AbstractPCMVertex<?> vertex) {
         var leftHandSide = (LhsEnumCharacteristicReference) variableCharacterisation.getLhs();
 
         EnumCharacteristicType characteristicType = (EnumCharacteristicType) leftHandSide.getCharacteristicType();
@@ -663,12 +672,15 @@ public class PCM2DFDConverter extends Converter {
         if (characteristicType == null && characteristicValue == null) {
             return List.of(this.processFullForwardingAssignment(node, rightHandSide, reference));
         } else if (characteristicValue == null) {
-            return this.processHalfForwardingAssignment(node, rightHandSide, reference, vertex, behaviour, characteristicType);
+            return this.processHalfForwardingAssignment(node, rightHandSide, reference, vertex, behaviour,
+                    characteristicType);
         } else {
             if (!Objects.nonNull(characteristicType)) {
-                throw new IllegalArgumentException("Invalid assignment contains characteristic value, but no characteristic type");
+                throw new IllegalArgumentException(
+                        "Invalid assignment contains characteristic value, but no characteristic type");
             }
-            return List.of(this.processAssignment(node, rightHandSide, behaviour, reference, characteristicType, characteristicValue));
+            return List.of(this.processAssignment(node, rightHandSide, behaviour, reference, characteristicType,
+                    characteristicValue));
         }
     }
 
@@ -679,7 +691,8 @@ public class PCM2DFDConverter extends Converter {
      * @param reference Reference that determines the destination of the forwarded variable
      * @return Returns an DFD assignment that reflects the PCM full forwarding assignment
      */
-    private AbstractAssignment processFullForwardingAssignment(Node node, Term rightHandSide, AbstractNamedReference reference) {
+    private AbstractAssignment processFullForwardingAssignment(Node node, Term rightHandSide,
+            AbstractNamedReference reference) {
         if (!(rightHandSide instanceof NamedEnumCharacteristicReference namedEnumCharacteristicReference)) {
             return datadictionaryFactory.eINSTANCE.createForwardingAssignment();
         }
@@ -708,18 +721,20 @@ public class PCM2DFDConverter extends Converter {
     }
 
     /**
-     * Process a half forwarding assignment on a PCM vertex, resulting in multiple DFD assignments that model the assignment
+     * Process a half forwarding assignment on a PCM vertex, resulting in multiple DFD assignments that model the
+     * assignment
      * @param node DFD node that is converted to
      * @param rightHandSide Term that determines the data characteristic origin
      * @param reference Reference that determines the data characteristic destination
      * @param vertex PCM vertex that has the given assignment
      * @param behavior DFD behavior that is converted to
      * @param characteristicType PCM characteristic type that is forwarded
-     * @return Returns a list of abstract assignments that reflects the forwarding of all characteristic values of a given
-     * type
+     * @return Returns a list of abstract assignments that reflects the forwarding of all characteristic values of a
+     * given type
      */
-    private List<AbstractAssignment> processHalfForwardingAssignment(Node node, Term rightHandSide, AbstractNamedReference reference,
-            AbstractPCMVertex<?> vertex, Behavior behavior, EnumCharacteristicType characteristicType) {
+    private List<AbstractAssignment> processHalfForwardingAssignment(Node node, Term rightHandSide,
+            AbstractNamedReference reference, AbstractPCMVertex<?> vertex, Behavior behavior,
+            EnumCharacteristicType characteristicType) {
         List<AbstractAssignment> assignments = new ArrayList<>();
         List<Literal> forwardedValues = characteristicType.getType()
                 .getLiterals();
@@ -746,7 +761,8 @@ public class PCM2DFDConverter extends Converter {
         return assignments;
     }
 
-    private void setPins(Assignment assignment, org.dataflowanalysis.dfd.datadictionary.Term term, Term rightHandSide, Node node, Behavior behavior) {
+    private void setPins(Assignment assignment, org.dataflowanalysis.dfd.datadictionary.Term term, Term rightHandSide,
+            Node node, Behavior behavior) {
         assignment.setTerm(term);
         if (rightHandSide instanceof NamedEnumCharacteristicReference namedEnumCharacteristicReference) {
             Pin inPin = node.getBehavior()
@@ -775,8 +791,8 @@ public class PCM2DFDConverter extends Converter {
      * @param characteristicValue Characteristic value that is assigned to
      * @return Returns an assignment that models the PCM behavior at the given vertex
      */
-    private AbstractAssignment processAssignment(Node node, Term rightHandSide, Behavior behaviour, AbstractNamedReference reference,
-            EnumCharacteristicType characteristicType, Literal characteristicValue) {
+    private AbstractAssignment processAssignment(Node node, Term rightHandSide, Behavior behaviour,
+            AbstractNamedReference reference, EnumCharacteristicType characteristicType, Literal characteristicValue) {
         Assignment assignment = datadictionaryFactory.eINSTANCE.createAssignment();
         LabelType labelType = getOrCreateLabelType(characteristicType.getName());
 
@@ -804,7 +820,8 @@ public class PCM2DFDConverter extends Converter {
      * @param dataDictionary the Data Dictionary
      */
     public void convertBehavior(AbstractPCMVertex<?> pcmVertex, Node node, DataDictionary dataDictionary) {
-        List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.getVariableCharacterizations(pcmVertex);
+        List<ConfidentialityVariableCharacterisation> variableCharacterisations = this
+                .getVariableCharacterizations(pcmVertex);
 
         Behavior behaviour = node.getBehavior();
         List<AbstractAssignment> assignments = this.getAssignments(pcmVertex, node);
@@ -835,7 +852,8 @@ public class PCM2DFDConverter extends Converter {
      * @param dataDictionary the Data Dictionary
      * @return the parsed Term
      */
-    public org.dataflowanalysis.dfd.datadictionary.Term parseTerm(Term rightHandSide, DataDictionary dataDictionary, Label wildcardLabel) {
+    public org.dataflowanalysis.dfd.datadictionary.Term parseTerm(Term rightHandSide, DataDictionary dataDictionary,
+            Label wildcardLabel) {
         if (rightHandSide instanceof True) {
             return datadictionaryFactory.eINSTANCE.createTRUE();
         } else if (rightHandSide instanceof False) {

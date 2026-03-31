@@ -15,8 +15,8 @@ public abstract class FlowGraphCollection {
     private List<? extends AbstractTransposeFlowGraph> transposeFlowGraphs;
 
     /**
-     * Creates a new collection of flow graphs. {@link FlowGraphCollection#initialize(ResourceProvider)} should be called
-     * before this class is used
+     * Creates a new collection of flow graphs. {@link FlowGraphCollection#initialize(ResourceProvider)} should be
+     * called before this class is used
      */
     public FlowGraphCollection() {
     }
@@ -35,7 +35,8 @@ public abstract class FlowGraphCollection {
      * @param resourceProvider Resource provider used to find transpose flow graphs
      * @param transposeFlowGraphFinder transposeFlowGraphFinder used to find transpose flow graphs
      */
-    public void initialize(ResourceProvider resourceProvider, Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinder) {
+    public void initialize(ResourceProvider resourceProvider,
+            Class<? extends TransposeFlowGraphFinder> transposeFlowGraphFinder) {
         this.resourceProvider = resourceProvider;
         this.transposeFlowGraphFinderClass = transposeFlowGraphFinder;
         this.transposeFlowGraphs = this.findTransposeFlowGraphs();
@@ -56,20 +57,22 @@ public abstract class FlowGraphCollection {
      * @param transposeFlowGraphs List of transpose flow graphs that are contained in the flow graph
      * @param resourceProvider Resource provider that provides model files to the transpose flow graph finder
      */
-    public FlowGraphCollection(List<? extends AbstractTransposeFlowGraph> transposeFlowGraphs, ResourceProvider resourceProvider) {
+    public FlowGraphCollection(List<? extends AbstractTransposeFlowGraph> transposeFlowGraphs,
+            ResourceProvider resourceProvider) {
         this.transposeFlowGraphs = transposeFlowGraphs;
         this.resourceProvider = resourceProvider;
     }
 
     /**
-     * Determines the transpose flow graphs present in the model pointed to by {@link FlowGraphCollection#resourceProvider}
+     * Determines the transpose flow graphs present in the model pointed to by
+     * {@link FlowGraphCollection#resourceProvider}
      * @return Returns a list of (unevaluated) transpose flow graphs contained in the model
      */
     public abstract List<? extends AbstractTransposeFlowGraph> findTransposeFlowGraphs();
 
     /**
-     * Evaluates the collection of flow graphs with label propagation. An evaluated copy of the flow graph is returned by
-     * this method
+     * Evaluates the collection of flow graphs with label propagation. An evaluated copy of the flow graph is returned
+     * by this method
      */
     public void evaluate() {
         this.transposeFlowGraphs = this.getTransposeFlowGraphs()

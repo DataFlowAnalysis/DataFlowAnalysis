@@ -38,14 +38,16 @@ public class DFDSimpleVertexTest {
         Flow c2d = ((Flow) mapNameToEntity.get("c2d"));
         Flow d2e = ((Flow) mapNameToEntity.get("d2e"));
 
-        DFDSimpleVertex aVertex = new DFDSimpleVertex((Node) mapNameToEntity.get("a"), new HashSet<>(), Map.of(a2b.getSourcePin(), a2b));
+        DFDSimpleVertex aVertex = new DFDSimpleVertex((Node) mapNameToEntity.get("a"), new HashSet<>(),
+                Map.of(a2b.getSourcePin(), a2b));
         DFDSimpleVertex bVertex = new DFDSimpleVertex((Node) mapNameToEntity.get("b"), Set.of(aVertex),
                 Map.of(a2b.getDestinationPin(), a2b, b2c.getSourcePin(), b2c));
         DFDSimpleVertex cVertex = new DFDSimpleVertex((Node) mapNameToEntity.get("c"), Set.of(bVertex),
                 Map.of(b2c.getDestinationPin(), b2c, c2d.getSourcePin(), c2d));
         DFDSimpleVertex dVertex = new DFDSimpleVertex((Node) mapNameToEntity.get("d"), Set.of(cVertex),
                 Map.of(c2d.getDestinationPin(), c2d, d2e.getSourcePin(), d2e));
-        DFDSimpleVertex eVertex = new DFDSimpleVertex((Node) mapNameToEntity.get("e"), Set.of(dVertex), Map.of(d2e.getDestinationPin(), d2e));
+        DFDSimpleVertex eVertex = new DFDSimpleVertex((Node) mapNameToEntity.get("e"), Set.of(dVertex),
+                Map.of(d2e.getDestinationPin(), d2e));
 
         eVertex.evaluateDataFlow();
 

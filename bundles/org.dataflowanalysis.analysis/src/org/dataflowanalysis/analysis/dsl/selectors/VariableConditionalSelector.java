@@ -95,7 +95,8 @@ public class VariableConditionalSelector extends AbstractParseable implements Co
         boolean inverted = string.startsWith(DSL_INVERTED_SYMBOL);
         if (inverted)
             string.advance(DSL_INVERTED_SYMBOL.length());
-        ParseResult<ConstraintVariableReference> constraintVariableReference = ConstraintVariableReference.fromString(string);
+        ParseResult<ConstraintVariableReference> constraintVariableReference = ConstraintVariableReference
+                .fromString(string);
         if (constraintVariableReference.failed()) {
             string.setPosition(position);
             return ParseResult.error(constraintVariableReference.getError());

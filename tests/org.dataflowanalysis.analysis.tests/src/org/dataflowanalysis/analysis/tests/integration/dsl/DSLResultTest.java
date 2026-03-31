@@ -44,7 +44,8 @@ public class DSLResultTest extends BaseTest {
                 .withCharacteristic("ServerLocation", "nonEU")
                 .create();
 
-        evaluateAnalysis(constraint, internationalOnlineShopAnalysis, ConstraintViolations.internationalOnlineShopViolations);
+        evaluateAnalysis(constraint, internationalOnlineShopAnalysis,
+                ConstraintViolations.internationalOnlineShopViolations);
     }
 
     @Test
@@ -85,22 +86,28 @@ public class DSLResultTest extends BaseTest {
     @Test
     public void testDataObjects() {
         AnalysisConstraint constraint = new AnalysisConstraint("default");
-        constraint.addDataSourceSelector(new DataCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(
-                ConstraintVariableReference.ofConstant(List.of("DataSensitivity")), ConstraintVariableReference.ofConstant(List.of("Personal")))));
-        constraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(
-                ConstraintVariableReference.ofConstant(List.of("ServerLocation")), ConstraintVariableReference.ofConstant(List.of("nonEU")))));
+        constraint.addDataSourceSelector(new DataCharacteristicsSelector(constraint.getContext(),
+                new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("DataSensitivity")),
+                        ConstraintVariableReference.ofConstant(List.of("Personal")))));
+        constraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(constraint.getContext(),
+                new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("ServerLocation")),
+                        ConstraintVariableReference.ofConstant(List.of("nonEU")))));
 
-        evaluateAnalysis(constraint, internationalOnlineShopAnalysis, ConstraintViolations.internationalOnlineShopViolations);
+        evaluateAnalysis(constraint, internationalOnlineShopAnalysis,
+                ConstraintViolations.internationalOnlineShopViolations);
     }
 
     @Test
     public void testStringify() {
         AnalysisConstraint constraint = new AnalysisConstraint("testDSL");
-        constraint.addDataSourceSelector(new DataCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(
-                ConstraintVariableReference.ofConstant(List.of("DataSensitivity")), ConstraintVariableReference.ofConstant(List.of("Personal")))));
-        constraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(
-                ConstraintVariableReference.ofConstant(List.of("ServerLocation")), ConstraintVariableReference.ofConstant(List.of("nonEU")))));
-        assertEquals("- testDSL: data DataSensitivity.Personal neverFlows vertex ServerLocation.nonEU", constraint.toString());
+        constraint.addDataSourceSelector(new DataCharacteristicsSelector(constraint.getContext(),
+                new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("DataSensitivity")),
+                        ConstraintVariableReference.ofConstant(List.of("Personal")))));
+        constraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(constraint.getContext(),
+                new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("ServerLocation")),
+                        ConstraintVariableReference.ofConstant(List.of("nonEU")))));
+        assertEquals("- testDSL: data DataSensitivity.Personal neverFlows vertex ServerLocation.nonEU",
+                constraint.toString());
     }
 
     @Test
@@ -198,15 +205,17 @@ public class DSLResultTest extends BaseTest {
 
     @Test
     public void cannotParseOnlyVertexSelectors() {
-        ParseResult<AnalysisConstraint> constraint = AnalysisConstraint
-                .fromString(new StringView("- Test: vertex type PROCESS neverFlows vertex type STORE"), new DFDDSLContextProvider());
+        ParseResult<AnalysisConstraint> constraint = AnalysisConstraint.fromString(
+                new StringView("- Test: vertex type PROCESS neverFlows vertex type STORE"),
+                new DFDDSLContextProvider());
         assertTrue(constraint.failed());
     }
 
-    private void evaluateAnalysis(AnalysisConstraint constraint, DataFlowConfidentialityAnalysis analysis, List<ConstraintData> expectedResults) {
+    private void evaluateAnalysis(AnalysisConstraint constraint, DataFlowConfidentialityAnalysis analysis,
+            List<ConstraintData> expectedResults) {
         logger.info("DSL String: " + constraint.toString());
-        ParseResult<AnalysisConstraint> constraintParsed = AnalysisConstraint.fromString(new StringView(constraint.toString()),
-                new PCMDSLContextProvider());
+        ParseResult<AnalysisConstraint> constraintParsed = AnalysisConstraint
+                .fromString(new StringView(constraint.toString()), new PCMDSLContextProvider());
         if (constraintParsed.failed()) {
             fail(System.lineSeparator() + constraintParsed.getError());
         }

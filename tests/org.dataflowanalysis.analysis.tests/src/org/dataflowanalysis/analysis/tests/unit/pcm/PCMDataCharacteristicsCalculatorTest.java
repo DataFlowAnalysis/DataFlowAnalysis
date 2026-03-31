@@ -72,16 +72,17 @@ class PCMDataCharacteristicsCalculatorTest {
         return Stream.of(
                 // ccd.A.B := TRUE
                 Arguments.of(getCharacterization("ccd", "A", "B", getTrueRhs()),
-                        Map.of("ccd", List.of(ExpectedCharacteristic.of("A", "B")), "RETURN", List.of(ExpectedCharacteristic.of("otherA", "B")))),
+                        Map.of("ccd", List.of(ExpectedCharacteristic.of("A", "B")), "RETURN",
+                                List.of(ExpectedCharacteristic.of("otherA", "B")))),
                 // ccd.A.* := true
                 Arguments.of(getCharacterization("ccd", "A", STAR, getTrueRhs()),
-                        Map.of("ccd", List.of(ExpectedCharacteristic.of("A", "B"), ExpectedCharacteristic.of("A", "C")), "RETURN",
-                                List.of(ExpectedCharacteristic.of("otherA", "B")))),
+                        Map.of("ccd", List.of(ExpectedCharacteristic.of("A", "B"), ExpectedCharacteristic.of("A", "C")),
+                                "RETURN", List.of(ExpectedCharacteristic.of("otherA", "B")))),
                 // ccd.*.* := true
-                Arguments.of(getCharacterization("ccd", STAR, STAR, getTrueRhs()), Map.of("ccd",
-                        List.of(ExpectedCharacteristic.of("A", "B"), ExpectedCharacteristic.of("A", "C"), ExpectedCharacteristic.of("otherA", "B"),
-                                ExpectedCharacteristic.of("otherA", "C")),
-                        "RETURN", List.of(ExpectedCharacteristic.of("otherA", "B")))),
+                Arguments.of(getCharacterization("ccd", STAR, STAR, getTrueRhs()),
+                        Map.of("ccd", List.of(ExpectedCharacteristic.of("A", "B"), ExpectedCharacteristic.of("A", "C"),
+                                ExpectedCharacteristic.of("otherA", "B"), ExpectedCharacteristic.of("otherA", "C")),
+                                "RETURN", List.of(ExpectedCharacteristic.of("otherA", "B")))),
                 // ccd.*.* := RETURN.*.*
                 Arguments.of(getCharacterization("ccd", STAR, STAR, getReference("RETURN", STAR, STAR)),
                         Map.of("ccd", List.of(ExpectedCharacteristic.of("otherA", "B")), "RETURN",
@@ -91,20 +92,23 @@ class PCMDataCharacteristicsCalculatorTest {
                         Map.of("ccd", List.of(), "RETURN", List.of(ExpectedCharacteristic.of("otherA", "B")))),
                 // ccd.A.B := container.NodeType.NodeValue
                 Arguments.of(getCharacterization("ccd", "A", "B", getReference("container", "NodeType", "NodeValue")),
-                        Map.of("ccd", List.of(ExpectedCharacteristic.of("A", "B")), "RETURN", List.of(ExpectedCharacteristic.of("otherA", "B")))));
+                        Map.of("ccd", List.of(ExpectedCharacteristic.of("A", "B")), "RETURN",
+                                List.of(ExpectedCharacteristic.of("otherA", "B")))));
     }
 
     @ParameterizedTest
     @MethodSource("getValidCharacterizations")
     public void shouldAcceptValidCharacterizations(ConfidentialityVariableCharacterisation characterisation) {
-        PCMDataCharacteristicsCalculator calculator = new PCMDataCharacteristicsCalculator(List.of(), List.of(), dummyResourceProvider);
+        PCMDataCharacteristicsCalculator calculator = new PCMDataCharacteristicsCalculator(List.of(), List.of(),
+                dummyResourceProvider);
         assertDoesNotThrow(() -> calculator.evaluate(characterisation));
     }
 
     @ParameterizedTest
     @MethodSource("getInvalidCharacterizations")
     public void shouldRejectInvalidCharacterizations(ConfidentialityVariableCharacterisation characterisation) {
-        PCMDataCharacteristicsCalculator calculator = new PCMDataCharacteristicsCalculator(List.of(), List.of(), dummyResourceProvider);
+        PCMDataCharacteristicsCalculator calculator = new PCMDataCharacteristicsCalculator(List.of(), List.of(),
+                dummyResourceProvider);
         assertThrows(IllegalArgumentException.class, () -> calculator.evaluate(characterisation));
     }
 
@@ -113,8 +117,8 @@ class PCMDataCharacteristicsCalculatorTest {
     public void shouldCalculateCorrectCharacteristics(ConfidentialityVariableCharacterisation characterisation,
             Map<String, List<ExpectedCharacteristic>> expectedResult) {
         PCMDataCharacteristicsCalculator calculator = new PCMDataCharacteristicsCalculator(
-                List.of(new CharacteristicsFactory("RETURN").with("otherA.B")), List.of(DummyCharacteristicValue.fromString("NodeType.NodeValue")),
-                dummyResourceProvider);
+                List.of(new CharacteristicsFactory("RETURN").with("otherA.B")),
+                List.of(DummyCharacteristicValue.fromString("NodeType.NodeValue")), dummyResourceProvider);
         calculator.evaluate(characterisation);
         var result = calculator.getCalculatedCharacteristics();
         assertEquals(expectedResult.size(), result.size());
@@ -136,9 +140,10 @@ class PCMDataCharacteristicsCalculatorTest {
         }
     }
 
-    private static ConfidentialityVariableCharacterisation getCharacterization(String variableName, String characteristicType,
-            String characteristicValue, Term term) {
-        ConfidentialityVariableCharacterisation characterisation = ConfidentialityFactory.eINSTANCE.createConfidentialityVariableCharacterisation();
+    private static ConfidentialityVariableCharacterisation getCharacterization(String variableName,
+            String characteristicType, String characteristicValue, Term term) {
+        ConfidentialityVariableCharacterisation characterisation = ConfidentialityFactory.eINSTANCE
+                .createConfidentialityVariableCharacterisation();
         characterisation.setVariableUsage_VariableCharacterisation(getVariableUsage(variableName));
         characterisation.setLhs(getLhs(characteristicType, characteristicValue));
         characterisation.setRhs(term);
@@ -158,7 +163,8 @@ class PCMDataCharacteristicsCalculatorTest {
         LhsEnumCharacteristicReference lhs = ExpressionFactory.eINSTANCE.createLhsEnumCharacteristicReference();
 
         if (Objects.nonNull(characteristicTypeName)) {
-            CharacteristicType characteristicType = DataDictionaryCharacterizedFactory.eINSTANCE.createEnumCharacteristicType();
+            CharacteristicType characteristicType = DataDictionaryCharacterizedFactory.eINSTANCE
+                    .createEnumCharacteristicType();
             characteristicType.setName(characteristicTypeName);
             lhs.setCharacteristicType(characteristicType);
         }
@@ -186,7 +192,8 @@ class PCMDataCharacteristicsCalculatorTest {
         return term;
     }
 
-    private static Term getReference(String variableName, String characteristicTypeName, String characteristicValueName) {
+    private static Term getReference(String variableName, String characteristicTypeName,
+            String characteristicValueName) {
         NamedEnumCharacteristicReference term = ExpressionFactory.eINSTANCE.createNamedEnumCharacteristicReference();
 
         AbstractNamedReference namedReference = StoexFactory.eINSTANCE.createVariableReference();
@@ -194,7 +201,8 @@ class PCMDataCharacteristicsCalculatorTest {
         term.setNamedReference(namedReference);
 
         if (Objects.nonNull(characteristicTypeName)) {
-            CharacteristicType characteristicType = DataDictionaryCharacterizedFactory.eINSTANCE.createEnumCharacteristicType();
+            CharacteristicType characteristicType = DataDictionaryCharacterizedFactory.eINSTANCE
+                    .createEnumCharacteristicType();
             characteristicType.setName(characteristicTypeName);
             term.setCharacteristicType(characteristicType);
         }

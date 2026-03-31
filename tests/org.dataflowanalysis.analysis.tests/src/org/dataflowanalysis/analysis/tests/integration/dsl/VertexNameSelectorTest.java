@@ -16,8 +16,8 @@ public class VertexNameSelectorTest {
     @ParameterizedTest
     @MethodSource("correctVertexNameSelectors")
     public void shouldParseCorrectly(String variableNameSelectorString, String expectedVariableName) {
-        ParseResult<VariableNameSelector> variableNameSelector = VariableNameSelector.fromString(new StringView(variableNameSelectorString),
-                new DSLContext());
+        ParseResult<VariableNameSelector> variableNameSelector = VariableNameSelector
+                .fromString(new StringView(variableNameSelectorString), new DSLContext());
         assertTrue(variableNameSelector.successful());
         assertEquals(expectedVariableName, variableNameSelector.getResult()
                 .getVariableName());
@@ -26,8 +26,8 @@ public class VertexNameSelectorTest {
     @ParameterizedTest
     @MethodSource("incorrectVertexNameSelectors")
     public void shouldNotParse(String variableNameSelectorString) {
-        ParseResult<VariableNameSelector> variableNameSelector = VariableNameSelector.fromString(new StringView(variableNameSelectorString),
-                new DSLContext());
+        ParseResult<VariableNameSelector> variableNameSelector = VariableNameSelector
+                .fromString(new StringView(variableNameSelectorString), new DSLContext());
         assertTrue(variableNameSelector.failed());
     }
 

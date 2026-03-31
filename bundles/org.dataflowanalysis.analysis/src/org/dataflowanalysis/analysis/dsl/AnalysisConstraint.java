@@ -50,8 +50,9 @@ public class AnalysisConstraint {
         this.context = new DSLContext();
     }
 
-    public AnalysisConstraint(String name, VertexSourceSelectors vertexSourceSelectors, DataSourceSelectors dataSourceSelectors,
-            VertexDestinationSelectors vertexDestinationSelectors, ConditionalSelectors conditionalSelectors, DSLContext context) {
+    public AnalysisConstraint(String name, VertexSourceSelectors vertexSourceSelectors,
+            DataSourceSelectors dataSourceSelectors, VertexDestinationSelectors vertexDestinationSelectors,
+            ConditionalSelectors conditionalSelectors, DSLContext context) {
         this.name = name;
         this.vertexSourceSelectors = vertexSourceSelectors;
         this.dataSourceSelectors = dataSourceSelectors;
@@ -219,18 +220,20 @@ public class AnalysisConstraint {
 
         string.skipWhitespace();
         if (string.empty()) {
-            return ParseResult.ok(new AnalysisConstraint(name, vertexSourceSelectors, dataSourceSelectors, new VertexDestinationSelectors(),
-                    new ConditionalSelectors(), context));
+            return ParseResult.ok(new AnalysisConstraint(name, vertexSourceSelectors, dataSourceSelectors,
+                    new VertexDestinationSelectors(), new ConditionalSelectors(), context));
         }
 
-        ParseResult<VertexDestinationSelectors> nodeDestinationSelectorsParseResult = VertexDestinationSelectors.fromString(string, context);
+        ParseResult<VertexDestinationSelectors> nodeDestinationSelectorsParseResult = VertexDestinationSelectors
+                .fromString(string, context);
         if (nodeDestinationSelectorsParseResult.failed()) {
             return ParseResult.error(nodeDestinationSelectorsParseResult.getError());
         }
         VertexDestinationSelectors vertexDestinationSelectors = nodeDestinationSelectorsParseResult.getResult();
 
         string.skipWhitespace();
-        ParseResult<ConditionalSelectors> conditionalSelectorsParseResult = ConditionalSelectors.fromString(string, context);
+        ParseResult<ConditionalSelectors> conditionalSelectorsParseResult = ConditionalSelectors.fromString(string,
+                context);
         ConditionalSelectors conditionalSelectors = conditionalSelectorsParseResult.or(new ConditionalSelectors());
 
         string.skipWhitespace();
@@ -243,10 +246,11 @@ public class AnalysisConstraint {
                         .isEmpty()
                 && dataSourceSelectors.getSelectors()
                         .isEmpty()) {
-            return ParseResult.error("Cannot create DSL constraint from purely vertex selectors! This behavior is not implemented yet!");
+            return ParseResult.error(
+                    "Cannot create DSL constraint from purely vertex selectors! This behavior is not implemented yet!");
         }
-        return ParseResult.ok(
-                new AnalysisConstraint(name, vertexSourceSelectors, dataSourceSelectors, vertexDestinationSelectors, conditionalSelectors, context));
+        return ParseResult.ok(new AnalysisConstraint(name, vertexSourceSelectors, dataSourceSelectors,
+                vertexDestinationSelectors, conditionalSelectors, context));
     }
 
     /**

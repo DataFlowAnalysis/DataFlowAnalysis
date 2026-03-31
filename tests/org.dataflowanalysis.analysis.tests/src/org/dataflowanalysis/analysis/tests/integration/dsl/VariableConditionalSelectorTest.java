@@ -39,10 +39,12 @@ public class VariableConditionalSelectorTest {
 
     private static Stream<Arguments> correctVariableConditionalSelectors() {
         return Stream.of(Arguments.of("present name", "name"), Arguments.of("present otherA.otherB", "otherA"),
-                Arguments.of("present some string with spaces", "some"), Arguments.of("present !otherName", "otherName"));
+                Arguments.of("present some string with spaces", "some"),
+                Arguments.of("present !otherName", "otherName"));
     }
 
     private static Stream<Arguments> incorrectVariableConditionalSelectors() {
-        return Stream.of(Arguments.of("present"), Arguments.of(""), Arguments.of("present "), Arguments.of("present !"));
+        return Stream.of(Arguments.of("present"), Arguments.of(""), Arguments.of("present "),
+                Arguments.of("present !"));
     }
 }

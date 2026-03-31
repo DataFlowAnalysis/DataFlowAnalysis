@@ -87,8 +87,8 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
     }
 
     /**
-     * Returns the resource provider of the analysis. The resource provider may be used to access the loaded PCM model of
-     * the analysis.
+     * Returns the resource provider of the analysis. The resource provider may be used to access the loaded PCM model
+     * of the analysis.
      * @return Resource provider of the analysis
      */
     public ResourceProvider getResourceProvider() {
@@ -118,11 +118,13 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
     private boolean initStandalone() {
         try {
             var initializationBuilder = StandaloneInitializerBuilder.builder()
-                    .registerProjectURI(DataFlowConfidentialityAnalysis.class, DataFlowConfidentialityAnalysis.PLUGIN_PATH)
-                    .registerProjectURI(PCMDataFlowConfidentialityAnalysis.class, PCMDataFlowConfidentialityAnalysis.PLUGIN_PATH);
+                    .registerProjectURI(DataFlowConfidentialityAnalysis.class,
+                            DataFlowConfidentialityAnalysis.PLUGIN_PATH)
+                    .registerProjectURI(PCMDataFlowConfidentialityAnalysis.class,
+                            PCMDataFlowConfidentialityAnalysis.PLUGIN_PATH);
 
-            this.modelProjectActivator
-                    .ifPresent(projectActivator -> initializationBuilder.registerProjectURI(projectActivator, this.modelProjectName));
+            this.modelProjectActivator.ifPresent(projectActivator -> initializationBuilder
+                    .registerProjectURI(projectActivator, this.modelProjectName));
 
             initializationBuilder.build()
                     .init();
@@ -146,7 +148,8 @@ public class PCMDataFlowConfidentialityAnalysis extends DataFlowConfidentialityA
             this.resourceProvider.loadRequiredResources();
             this.resourceProvider.validate();
 
-            this.dataDictionaries = this.resourceProvider.lookupToplevelElement(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
+            this.dataDictionaries = this.resourceProvider
+                    .lookupToplevelElement(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
                     .stream()
                     .filter(PCMDataDictionary.class::isInstance)
                     .map(PCMDataDictionary.class::cast)

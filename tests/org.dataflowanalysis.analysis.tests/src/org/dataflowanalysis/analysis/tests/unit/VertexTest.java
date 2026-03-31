@@ -44,7 +44,8 @@ public class VertexTest {
         var outgoingCharacteristics = List.of(CharacteristicsFactory.of("outgoing")
                 .with("Type.Value"));
         List<CharacteristicValue> vertexCharacteristics = List.of(DummyCharacteristicValue.fromString("Type.Value"));
-        assertDoesNotThrow(() -> vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics, vertexCharacteristics));
+        assertDoesNotThrow(() -> vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics,
+                vertexCharacteristics));
     }
 
     @Test
@@ -62,8 +63,8 @@ public class VertexTest {
         }
         LoggerManager.getInstance()
                 .setLevel(Level.OFF);
-        assertThrowsExactly(IllegalArgumentException.class,
-                () -> vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics, vertexCharacteristics));
+        assertThrowsExactly(IllegalArgumentException.class, () -> vertex.setPropagationResult(incomingCharacteristics,
+                outgoingCharacteristics, vertexCharacteristics));
         LoggerManager.getInstance()
                 .resetLevel();
     }

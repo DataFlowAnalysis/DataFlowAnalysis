@@ -54,7 +54,8 @@ public class DFDTestUtil {
      * @param dataDictionary Container to be filled
      * @return Map mapping entity names to nodes, flows and labels
      */
-    public static Map<String, Entity> createBasicDFDandDD(DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary) {
+    public static Map<String, Entity> createBasicDFDandDD(DataFlowDiagram dataFlowDiagram,
+            DataDictionary dataDictionary) {
         Map<String, Entity> mapNameToEntity = new HashMap<>();
 
         Node a = createNode("a", dataFlowDiagram, dataDictionary);
@@ -228,7 +229,8 @@ public class DFDTestUtil {
      * @param name Name of the new flow
      * @return created flow
      */
-    public static Flow createFlow(Node sourceNode, Node destinationNode, Pin sourcePin, Pin destinationPin, String name) {
+    public static Flow createFlow(Node sourceNode, Node destinationNode, Pin sourcePin, Pin destinationPin,
+            String name) {
         Flow flow = dfdFactory.createFlow();
         flow.setDestinationNode(destinationNode);
         flow.setSourceNode(sourceNode);

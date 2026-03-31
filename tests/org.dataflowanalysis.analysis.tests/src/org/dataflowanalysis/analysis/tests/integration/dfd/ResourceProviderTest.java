@@ -35,8 +35,10 @@ public class ResourceProviderTest {
     public void setUp() {
         final Path minimalDataFlowDiagramPath = Paths.get("models", "dfd", "Branching", "default.dataflowdiagram");
         final Path minimalDataDictionaryPath = Paths.get("models", "dfd", "Branching", "default.datadictionary");
-        final var minimalDataFlowDiagramPathDirect = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "dfd", "Branching", "default.dataflowdiagram");
-        final var minimalDataDictionaryPathDirect = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "dfd", "Branching", "default.datadictionary");
+        final var minimalDataFlowDiagramPathDirect = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "dfd", "Branching",
+                "default.dataflowdiagram");
+        final var minimalDataDictionaryPathDirect = Paths.get(TEST_MODEL_PROJECT_NAME, "models", "dfd", "Branching",
+                "default.datadictionary");
 
         var dfdUri = URI.createPlatformPluginURI(minimalDataFlowDiagramPathDirect.toString(), false);
         var ddUri = URI.createPlatformPluginURI(minimalDataDictionaryPathDirect.toString(), false);
@@ -59,7 +61,8 @@ public class ResourceProviderTest {
 
     @Test
     public void testCustomResourceProvider() {
-        DFDModelResourceProvider dfdModelResourceProvider = new DFDModelResourceProvider(this.dataDictionary, this.dataFlowDiagram);
+        DFDModelResourceProvider dfdModelResourceProvider = new DFDModelResourceProvider(this.dataDictionary,
+                this.dataFlowDiagram);
 
         var analysis = new DFDDataFlowAnalysisBuilder().standalone()
                 .useCustomResourceProvider(dfdModelResourceProvider)

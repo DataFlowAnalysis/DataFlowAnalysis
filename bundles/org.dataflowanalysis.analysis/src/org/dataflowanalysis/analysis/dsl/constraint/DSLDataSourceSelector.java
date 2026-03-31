@@ -38,12 +38,15 @@ public class DSLDataSourceSelector {
     /**
      * Matches source vertices with the given characteristic type and characteristic value
      * @param characteristicType Characteristic type that must be present at the source vertex
-     * @param characteristicValueVariable Characteristic value variable reference that must be present at the source vertex
+     * @param characteristicValueVariable Characteristic value variable reference that must be present at the source
+     * vertex
      * @return Returns DSL constraint builder for source vertex data
      */
-    public DSLDataSourceSelector withLabel(String characteristicType, ConstraintVariableReference characteristicValueVariable) {
+    public DSLDataSourceSelector withLabel(String characteristicType,
+            ConstraintVariableReference characteristicValueVariable) {
         this.analysisConstraint.addDataSourceSelector(new DataCharacteristicsSelector(analysisConstraint.getContext(),
-                new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), characteristicValueVariable)));
+                new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
+                        characteristicValueVariable)));
         return this;
     }
 
@@ -57,10 +60,11 @@ public class DSLDataSourceSelector {
      */
     public DSLDataSourceSelector withLabel(String characteristicType, List<String> characteristicValues) {
         List<CharacteristicsSelectorData> data = new ArrayList<>();
-        characteristicValues
-                .forEach(it -> data.add(new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
+        characteristicValues.forEach(it -> data.add(
+                new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
                         ConstraintVariableReference.ofConstant(List.of(it)))));
-        this.analysisConstraint.addDataSourceSelector(new DataCharacteristicListSelector(analysisConstraint.getContext(), data));
+        this.analysisConstraint
+                .addDataSourceSelector(new DataCharacteristicListSelector(analysisConstraint.getContext(), data));
         return this;
     }
 
@@ -88,10 +92,11 @@ public class DSLDataSourceSelector {
      */
     public DSLDataSourceSelector withoutLabel(String characteristicType, List<String> characteristicValues) {
         List<CharacteristicsSelectorData> data = new ArrayList<>();
-        characteristicValues.forEach(
-                characteristicValue -> data.add(new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
+        characteristicValues.forEach(characteristicValue -> data.add(
+                new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
                         ConstraintVariableReference.ofConstant(List.of(characteristicValue)))));
-        this.analysisConstraint.addDataSourceSelector(new DataCharacteristicListSelector(this.analysisConstraint.getContext(), data, true));
+        this.analysisConstraint.addDataSourceSelector(
+                new DataCharacteristicListSelector(this.analysisConstraint.getContext(), data, true));
         return this;
     }
 

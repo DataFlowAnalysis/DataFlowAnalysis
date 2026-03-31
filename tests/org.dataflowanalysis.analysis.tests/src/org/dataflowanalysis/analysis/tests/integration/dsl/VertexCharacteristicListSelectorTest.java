@@ -17,8 +17,8 @@ public class VertexCharacteristicListSelectorTest {
     @MethodSource("correctVertexCharacteristicSelectors")
     public void shouldParseCorrectly(String VertexCharacteristicsSelectorString, boolean inverted) {
         StringView stringView = new StringView(VertexCharacteristicsSelectorString);
-        ParseResult<VertexCharacteristicsListSelector> VertexCharacteristicsSelector = VertexCharacteristicsListSelector.fromString(stringView,
-                new DSLContext());
+        ParseResult<VertexCharacteristicsListSelector> VertexCharacteristicsSelector = VertexCharacteristicsListSelector
+                .fromString(stringView, new DSLContext());
         assertTrue(VertexCharacteristicsSelector.successful());
         assertTrue(stringView.empty());
         assertEquals(inverted, VertexCharacteristicsSelector.getResult()
@@ -31,8 +31,8 @@ public class VertexCharacteristicListSelectorTest {
     @MethodSource("incorrectVertexCharacteristicSelectors")
     public void shouldNotParse(String VertexCharacteristicsSelectorString) {
         StringView stringView = new StringView(VertexCharacteristicsSelectorString);
-        ParseResult<VertexCharacteristicsListSelector> VertexCharacteristicsSelector = VertexCharacteristicsListSelector.fromString(stringView,
-                new DSLContext());
+        ParseResult<VertexCharacteristicsListSelector> VertexCharacteristicsSelector = VertexCharacteristicsListSelector
+                .fromString(stringView, new DSLContext());
         assertTrue(VertexCharacteristicsSelector.failed() || !stringView.empty());
     }
 
@@ -42,7 +42,7 @@ public class VertexCharacteristicListSelectorTest {
     }
 
     private static Stream<Arguments> incorrectVertexCharacteristicSelectors() {
-        return Stream.of(Arguments.of(".B"), Arguments.of("!.B"), Arguments.of("A."), Arguments.of("!"), Arguments.of("!."), Arguments.of("A.B,"),
-                Arguments.of("A.B,C."), Arguments.of(","));
+        return Stream.of(Arguments.of(".B"), Arguments.of("!.B"), Arguments.of("A."), Arguments.of("!"),
+                Arguments.of("!."), Arguments.of("A.B,"), Arguments.of("A.B,C."), Arguments.of(","));
     }
 }

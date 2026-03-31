@@ -68,10 +68,14 @@ public class VWCariad implements DFDExampleModelResult {
 
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
-        return List.of(new ExpectedViolation(22, new DFDIdentifier("poscub"), List.of(new ExpectedCharacteristic("EndpointConfiguration", "Public")),
-                Map.of("xa0por", List.of(new ExpectedCharacteristic("DataSensitivity", "Confidential"),
-                        new ExpectedCharacteristic("RequestSensitivity", "Confidential"), new ExpectedCharacteristic("DataBaseToken", "AWSToken"),
-                        new ExpectedCharacteristic("DataEncryption", "NonEncrypted")))),
+        return List.of(
+                new ExpectedViolation(22, new DFDIdentifier("poscub"),
+                        List.of(new ExpectedCharacteristic("EndpointConfiguration", "Public")),
+                        Map.of("xa0por",
+                                List.of(new ExpectedCharacteristic("DataSensitivity", "Confidential"),
+                                        new ExpectedCharacteristic("RequestSensitivity", "Confidential"),
+                                        new ExpectedCharacteristic("DataBaseToken", "AWSToken"),
+                                        new ExpectedCharacteristic("DataEncryption", "NonEncrypted")))),
                 new ExpectedViolation(18, new DFDIdentifier("14coqs"),
                         List.of(new ExpectedCharacteristic("DataBaseType", "AzureDataLake"),
                                 new ExpectedCharacteristic("EndpointConfiguration", "Private")),

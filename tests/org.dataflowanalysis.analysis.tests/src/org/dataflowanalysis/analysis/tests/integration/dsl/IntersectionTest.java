@@ -14,7 +14,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 public class IntersectionTest {
     @ParameterizedTest
     @MethodSource("correctIntersectionSelector")
-    public void shouldParseCorrectly(String intersectionString, String expectedFirstVariable, String expectedSecondVariable) {
+    public void shouldParseCorrectly(String intersectionString, String expectedFirstVariable,
+            String expectedSecondVariable) {
         ParseResult<Intersection> intersectionSelector = Intersection.fromString(new StringView(intersectionString));
         assertTrue(intersectionSelector.successful());
         assertTrue(intersectionSelector.getResult()
@@ -49,7 +50,7 @@ public class IntersectionTest {
     }
 
     private static Stream<Arguments> incorrectIntersectionSelectors() {
-        return Stream.of(Arguments.of("intersection(A, BC)"), Arguments.of(""), Arguments.of("intersection "), Arguments.of("intersection(A,)"),
-                Arguments.of("intersection(A,B"), Arguments.of("intersection(A,(A)"));
+        return Stream.of(Arguments.of("intersection(A, BC)"), Arguments.of(""), Arguments.of("intersection "),
+                Arguments.of("intersection(A,)"), Arguments.of("intersection(A,B"), Arguments.of("intersection(A,(A)"));
     }
 }

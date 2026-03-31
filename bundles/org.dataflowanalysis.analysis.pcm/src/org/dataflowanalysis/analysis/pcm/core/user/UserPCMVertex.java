@@ -31,7 +31,8 @@ public class UserPCMVertex<T extends AbstractUserAction> extends AbstractPCMVert
      * @param previousElements List of vertices that preceded the pcm user vertex
      * @param resourceProvider Resource provider used to calculate characteristics
      */
-    public UserPCMVertex(T element, List<? extends AbstractPCMVertex<?>> previousElements, ResourceProvider resourceProvider) {
+    public UserPCMVertex(T element, List<? extends AbstractPCMVertex<?>> previousElements,
+            ResourceProvider resourceProvider) {
         super(element, previousElements, new ArrayDeque<>(), resourceProvider);
     }
 

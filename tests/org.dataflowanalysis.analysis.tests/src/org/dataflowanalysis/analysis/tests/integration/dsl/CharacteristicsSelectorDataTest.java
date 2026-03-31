@@ -53,6 +53,7 @@ public class CharacteristicsSelectorDataTest {
     }
 
     private static Stream<Arguments> incorrectCharacteristicSelectors() {
-        return Stream.of(Arguments.of(".B"), Arguments.of("A."), Arguments.of("justSomeText"), Arguments.of(""), Arguments.of("!"));
+        return Stream.of(Arguments.of(".B"), Arguments.of("A."), Arguments.of("justSomeText"), Arguments.of(""),
+                Arguments.of("!"));
     }
 }

@@ -35,8 +35,8 @@ public class PCMDataCharacteristicsCalculator {
      * @param nodeCharacteristics Vertex characteristics that might be referenced in the calculator
      * @param resourceProvider Resource provider to resolve unknown characteristics in the dictionary
      */
-    public PCMDataCharacteristicsCalculator(List<DataCharacteristic> initialCharacteristics, List<CharacteristicValue> nodeCharacteristics,
-            ResourceProvider resourceProvider) {
+    public PCMDataCharacteristicsCalculator(List<DataCharacteristic> initialCharacteristics,
+            List<CharacteristicValue> nodeCharacteristics, ResourceProvider resourceProvider) {
         this.currentVariables = new ArrayList<>(initialCharacteristics);
         this.resourceLoader = resourceProvider;
         createNodeCharacteristicsContainer(nodeCharacteristics);
@@ -46,7 +46,8 @@ public class PCMDataCharacteristicsCalculator {
      * Create the container for vertex characteristics. Each node characteristic is saved within the container data
      * characteristics with its characteristic type and value.
      * <p>
-     * Furthermore, vertex characteristics cannot be modified by variable characterisations, so this variable is read-only.
+     * Furthermore, vertex characteristics cannot be modified by variable characterisations, so this variable is
+     * read-only.
      * @param vertexCharacteristics Given list of vertex characteristics present at the current node
      */
     private void createNodeCharacteristicsContainer(List<CharacteristicValue> vertexCharacteristics) {
@@ -82,10 +83,11 @@ public class PCMDataCharacteristicsCalculator {
         DataCharacteristic existingCharacteristic = this.getDataCharacteristicByReference(reference)
                 .orElse(new DataCharacteristic(reference.getReferenceName()));
 
-        List<CharacteristicValue> modifiedCharacteristics = calculateModifiedCharacteristics(existingCharacteristic, characteristicType,
-                characteristicValue);
+        List<CharacteristicValue> modifiedCharacteristics = calculateModifiedCharacteristics(existingCharacteristic,
+                characteristicType, characteristicValue);
 
-        DataCharacteristic modifiedVariable = createModifiedDataCharacteristic(existingCharacteristic, modifiedCharacteristics, rightHandSide);
+        DataCharacteristic modifiedVariable = createModifiedDataCharacteristic(existingCharacteristic,
+                modifiedCharacteristics, rightHandSide);
         currentVariables.remove(existingCharacteristic);
         currentVariables.add(modifiedVariable);
     }
@@ -93,8 +95,8 @@ public class PCMDataCharacteristicsCalculator {
     /**
      * Get a data characteristic by a named reference
      * @param reference Named reference, which contains the name of the data characteristics
-     * @return Returns an Optional containing the data characteristic, if the variable can be found in the list of currently
-     * available data characteristics
+     * @return Returns an Optional containing the data characteristic, if the variable can be found in the list of
+     * currently available data characteristics
      */
     private Optional<DataCharacteristic> getDataCharacteristicByReference(AbstractNamedReference reference) {
         String variableName = reference.getReferenceName();
@@ -105,12 +107,12 @@ public class PCMDataCharacteristicsCalculator {
     }
 
     /**
-     * Creates a modified data characteristic according to the old characteristics of the existing data characteristic and
-     * the modified characteristics.
+     * Creates a modified data characteristic according to the old characteristics of the existing data characteristic
+     * and the modified characteristics.
      * @param existingCharacteristic Existing data characteristic with the same name
      * @param modifiedCharacteristics Characteristics of the data characteristic that are modified
-     * @param rightHandSide Right hand side of the variable characterization, to indicate whether a characteristic is added
-     * or not
+     * @param rightHandSide Right hand side of the variable characterization, to indicate whether a characteristic is
+     * added or not
      * @return Returns a new data characteristic with the updated characteristics
      */
     private DataCharacteristic createModifiedDataCharacteristic(DataCharacteristic existingCharacteristic,
@@ -182,9 +184,11 @@ public class PCMDataCharacteristicsCalculator {
         } else if (term instanceof NamedEnumCharacteristicReference) {
             return evaluateNamedReference((NamedEnumCharacteristicReference) term, characteristicValue);
         } else if (term instanceof And andTerm) {
-            return evaluateTerm(andTerm.getLeft(), characteristicValue) && evaluateTerm(andTerm.getRight(), characteristicValue);
+            return evaluateTerm(andTerm.getLeft(), characteristicValue)
+                    && evaluateTerm(andTerm.getRight(), characteristicValue);
         } else if (term instanceof Or orTerm) {
-            return evaluateTerm(orTerm.getLeft(), characteristicValue) || evaluateTerm(orTerm.getRight(), characteristicValue);
+            return evaluateTerm(orTerm.getLeft(), characteristicValue)
+                    || evaluateTerm(orTerm.getRight(), characteristicValue);
         } else if (term instanceof Not notTerm) {
             return !evaluateTerm(notTerm.getTerm(), characteristicValue);
         } else {
@@ -199,7 +203,8 @@ public class PCMDataCharacteristicsCalculator {
      * @param characteristicValue Characteristic value that is modified
      * @return Returns, whether the characteristic reference evaluates to true or false (or is undefined)
      */
-    private boolean evaluateNamedReference(NamedEnumCharacteristicReference characteristicReference, CharacteristicValue characteristicValue) {
+    private boolean evaluateNamedReference(NamedEnumCharacteristicReference characteristicReference,
+            CharacteristicValue characteristicValue) {
         if (characteristicReference.getNamedReference()
                 .getReferenceName()
                 .isBlank()) {
@@ -214,8 +219,10 @@ public class PCMDataCharacteristicsCalculator {
                 ? characteristicReference.getCharacteristicType()
                         .getName()
                 : characteristicValue.getTypeName();
-        var characteristicReferenceValueName = characteristicReference.getLiteral() != null ? characteristicReference.getLiteral()
-                .getName() : characteristicValue.getValueName();
+        var characteristicReferenceValueName = characteristicReference.getLiteral() != null
+                ? characteristicReference.getLiteral()
+                        .getName()
+                : characteristicValue.getValueName();
 
         var characteristic = dataCharacteristic.getAllCharacteristics()
                 .stream()
@@ -233,9 +240,11 @@ public class PCMDataCharacteristicsCalculator {
      * @param characteristicType Optional bound for the discovered characteristics
      * @return List of characteristics available for the given characteristic and satisfying the possible bound
      */
-    private List<CharacteristicValue> discoverNewVariables(DataCharacteristic characteristic, Optional<EnumCharacteristicType> characteristicType) {
+    private List<CharacteristicValue> discoverNewVariables(DataCharacteristic characteristic,
+            Optional<EnumCharacteristicType> characteristicType) {
         List<CharacteristicValue> updatedCharacteristicValues = new ArrayList<>();
-        var dataDictionaries = this.resourceLoader.lookupToplevelElement(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
+        var dataDictionaries = this.resourceLoader
+                .lookupToplevelElement(DictionaryPackage.eINSTANCE.getPCMDataDictionary())
                 .stream()
                 .filter(PCMDataDictionary.class::isInstance)
                 .map(PCMDataDictionary.class::cast)
@@ -250,7 +259,8 @@ public class PCMDataCharacteristicsCalculator {
                 .filter(EnumCharacteristicType.class::isInstance)
                 .map(EnumCharacteristicType.class::cast)
                 .collect(Collectors.collectingAndThen(
-                        Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(EnumCharacteristicType::getName))),
+                        Collectors.toCollection(
+                                () -> new TreeSet<>(Comparator.comparing(EnumCharacteristicType::getName))),
                         ArrayList<EnumCharacteristicType>::new));
 
         characteristicTypes.forEach(enumCharacteristicType -> enumCharacteristicType.getType()

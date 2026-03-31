@@ -26,14 +26,16 @@ public class VertexCharacteristicsSelector extends VertexSelector {
         this.recursive = false;
     }
 
-    public VertexCharacteristicsSelector(DSLContext context, CharacteristicsSelectorData vertexCharacteristics, boolean inverted) {
+    public VertexCharacteristicsSelector(DSLContext context, CharacteristicsSelectorData vertexCharacteristics,
+            boolean inverted) {
         super(context);
         this.vertexCharacteristics = vertexCharacteristics;
         this.inverted = inverted;
         this.recursive = false;
     }
 
-    public VertexCharacteristicsSelector(DSLContext context, CharacteristicsSelectorData vertexCharacteristics, boolean inverted, boolean recursive) {
+    public VertexCharacteristicsSelector(DSLContext context, CharacteristicsSelectorData vertexCharacteristics,
+            boolean inverted, boolean recursive) {
         super(context);
         this.vertexCharacteristics = vertexCharacteristics;
         this.inverted = inverted;
@@ -52,8 +54,8 @@ public class VertexCharacteristicsSelector extends VertexSelector {
             List<String> characteristicTypes = new ArrayList<>();
             List<String> characteristicValues = new ArrayList<>();
             List<Boolean> matches = presentCharacteristics.stream()
-                    .map(it -> this.vertexCharacteristics.matchesCharacteristic(context, vertex, it, ConstraintVariable.CONSTANT_NAME,
-                            characteristicTypes, characteristicValues))
+                    .map(it -> this.vertexCharacteristics.matchesCharacteristic(context, vertex, it,
+                            ConstraintVariable.CONSTANT_NAME, characteristicTypes, characteristicValues))
                     .toList();
             results.add(this.inverted ? matches.stream()
                     .noneMatch(it -> it)
@@ -75,10 +77,11 @@ public class VertexCharacteristicsSelector extends VertexSelector {
             List<String> characteristicTypes = new ArrayList<>();
             List<String> characteristicValues = new ArrayList<>();
             List<Boolean> matches = presentCharacteristics.stream()
-                    .map(it -> this.vertexCharacteristics.matchesCharacteristic(context, vertex, it, variableName, characteristicTypes,
-                            characteristicValues))
+                    .map(it -> this.vertexCharacteristics.matchesCharacteristic(context, vertex, it, variableName,
+                            characteristicTypes, characteristicValues))
                     .toList();
-            this.vertexCharacteristics.applyResults(context, vertex, variableName, characteristicTypes, characteristicValues);
+            this.vertexCharacteristics.applyResults(context, vertex, variableName, characteristicTypes,
+                    characteristicValues);
             results.add(this.inverted ? matches.stream()
                     .noneMatch(it -> it)
                     : matches.stream()

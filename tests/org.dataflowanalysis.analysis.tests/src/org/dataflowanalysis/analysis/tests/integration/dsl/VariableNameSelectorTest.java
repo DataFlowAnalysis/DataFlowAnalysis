@@ -16,28 +16,36 @@ public class VariableNameSelectorTest {
 
     @ParameterizedTest
     @MethodSource("correctVariableNameSelectors")
-    public void shouldParseCorrectly(String variableNameSelectorString, String expectedVariableName) {
-        ParseResult<VariableNameSelector> variableNameSelector = VariableNameSelector
-                .fromString(new StringView(variableNameSelectorString), new DSLContext());
+    public void shouldParseCorrectly(String variableNameSelectorString, String expectedVariableName,
+            boolean expectEmpty) {
+        StringView string = new StringView(variableNameSelectorString);
+        ParseResult<VariableNameSelector> variableNameSelector = VariableNameSelector.fromString(string,
+                new DSLContext());
         assertTrue(variableNameSelector.successful());
         assertEquals(expectedVariableName, variableNameSelector.getResult()
                 .getVariableName());
+        assertEquals(expectEmpty, string.empty());
     }
 
     @ParameterizedTest
     @MethodSource("incorrectVariableNameSelectors")
     public void shouldNotParse(String variableNameSelectorString) {
-        ParseResult<VariableNameSelector> variableNameSelector = VariableNameSelector
-                .fromString(new StringView(variableNameSelectorString), new DSLContext());
+        StringView string = new StringView(variableNameSelectorString);
+        ParseResult<VariableNameSelector> variableNameSelector = VariableNameSelector.fromString(string,
+                new DSLContext());
         assertTrue(variableNameSelector.failed());
+        assertEquals(0, string.getPosition());
     }
 
     private static Stream<Arguments> correctVariableNameSelectors() {
-        return Stream.of(Arguments.of("dataName name", "name"), Arguments.of("dataName otherA.otherB", "otherA.otherB"),
-                Arguments.of("dataName some string with spaces", "some"));
+        return Stream.of(Arguments.of("dataName name", "name", true),
+                Arguments.of("dataName otherA.otherB", "otherA.otherB", true),
+                Arguments.of("dataName some string with spaces", "some", false),
+                Arguments.of("dataName contains test", "test", true));
     }
 
     private static Stream<Arguments> incorrectVariableNameSelectors() {
-        return Stream.of(Arguments.of("dataName"), Arguments.of(""), Arguments.of("dataName "));
+        return Stream.of(Arguments.of("dataName"), Arguments.of(""), Arguments.of("dataName "),
+                Arguments.of("dataName contains"), Arguments.of("dataName contains "));
     }
 }

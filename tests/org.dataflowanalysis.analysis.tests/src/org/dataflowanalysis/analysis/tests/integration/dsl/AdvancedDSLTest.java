@@ -11,14 +11,14 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 public class AdvancedDSLTest {
-    public static final Stream<Arguments> correctAdvancedDSL() {
+    public static Stream<Arguments> correctAdvancedDSL() {
         return Stream.of(Arguments.of("* test1: data A.B neverFlows data C.D"), Arguments.of("* test2: vertex A.B neverFlows vertex C.D"),
                 Arguments.of("* test3: data A.B flows vertex C.D"), Arguments.of("* test4: data A.B alwaysFlows vertex C.D"),
                 Arguments.of("* test5: data A.B notAlwaysFlows vertex C.D"), Arguments.of("* test6: data A.B neverFlows vertex any"),
-                Arguments.of("* test6: data A.B neverFlows data any"), Arguments.of("* test7: data dataName contains \"Test\" neverFlows vertex C.D"),
-                Arguments.of("* test7: data dataName Test neverFlows vertex C.D"),
-                Arguments.of("* test8: data A.B neverFlows vertex vertexName Test"),
-                Arguments.of("* test8: data A.B neverFlows vertex vertexName contains \"Test\""));
+                Arguments.of("* test7: data A.B neverFlows data any"), Arguments.of("* test8: data dataName contains Test neverFlows vertex C.D"),
+                Arguments.of("* test9: data dataName Test neverFlows vertex C.D"),
+                Arguments.of("* test10: data A.B neverFlows vertex vertexName Test"),
+                Arguments.of("* test11: data A.B neverFlows vertex vertexName contains Test"));
     }
 
     @ParameterizedTest

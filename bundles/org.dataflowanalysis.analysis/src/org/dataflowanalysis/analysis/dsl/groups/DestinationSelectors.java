@@ -1,8 +1,10 @@
-package org.dataflowanalysis.analysis.dsl;
+package org.dataflowanalysis.analysis.dsl.groups;
 
 import com.google.common.collect.Streams;
 import java.util.List;
 import java.util.StringJoiner;
+import org.dataflowanalysis.analysis.dsl.AbstractParseable;
+import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
 import org.dataflowanalysis.analysis.utils.ParseResult;

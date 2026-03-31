@@ -5,6 +5,12 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.context.DSLContextProvider;
+import org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors;
+import org.dataflowanalysis.analysis.dsl.groups.DataSourceSelectors;
+import org.dataflowanalysis.analysis.dsl.groups.DestinationSelectors;
+import org.dataflowanalysis.analysis.dsl.groups.SourceSelectors;
+import org.dataflowanalysis.analysis.dsl.groups.VertexDestinationSelectors;
+import org.dataflowanalysis.analysis.dsl.groups.VertexSourceSelectors;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
@@ -26,10 +32,10 @@ public abstract class AnalysisConstraint {
 
     private final Logger logger = LoggerManager.getLogger(AnalysisConstraint.class);
     protected final String name;
-    protected final SourceSelectors sourceSelectors;
+    protected final org.dataflowanalysis.analysis.dsl.groups.SourceSelectors sourceSelectors;
     protected final FlowType flowType;
     protected final DestinationSelectors destinationSelectors;
-    protected final ConditionalSelectors conditionalSelectors;
+    protected final org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors conditionalSelectors;
     protected final DSLContext context;
 
     /**
@@ -37,15 +43,15 @@ public abstract class AnalysisConstraint {
      */
     public AnalysisConstraint(String name) {
         this.name = name;
-        this.sourceSelectors = new SourceSelectors();
+        this.sourceSelectors = new org.dataflowanalysis.analysis.dsl.groups.SourceSelectors();
         this.flowType = FlowType.NEVER_FLOWS;
         this.destinationSelectors = new DestinationSelectors();
-        this.conditionalSelectors = new ConditionalSelectors();
+        this.conditionalSelectors = new org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors();
         this.context = new DSLContext();
     }
 
     public AnalysisConstraint(String name, SourceSelectors sourceSelectors, FlowType flowType, DestinationSelectors destinationSelectors,
-            ConditionalSelectors conditionalSelectors, DSLContext context) {
+            org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors conditionalSelectors, DSLContext context) {
         this.name = name;
         this.sourceSelectors = sourceSelectors;
         this.flowType = flowType;

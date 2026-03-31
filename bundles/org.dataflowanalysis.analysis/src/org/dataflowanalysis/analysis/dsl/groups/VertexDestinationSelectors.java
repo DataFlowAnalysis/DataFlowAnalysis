@@ -1,9 +1,11 @@
-package org.dataflowanalysis.analysis.dsl;
+package org.dataflowanalysis.analysis.dsl.groups;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.dsl.AbstractParseable;
+import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.selectors.*;
 import org.dataflowanalysis.analysis.utils.LoggerManager;

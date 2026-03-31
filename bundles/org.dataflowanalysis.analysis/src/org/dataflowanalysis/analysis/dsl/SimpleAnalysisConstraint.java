@@ -10,6 +10,9 @@ import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.context.DSLContextProvider;
+import org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors;
+import org.dataflowanalysis.analysis.dsl.groups.DestinationSelectors;
+import org.dataflowanalysis.analysis.dsl.groups.SourceSelectors;
 import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
@@ -28,8 +31,9 @@ public class SimpleAnalysisConstraint extends AnalysisConstraint {
         super(name);
     }
 
-    public SimpleAnalysisConstraint(String name, SourceSelectors sourceSelectors, DestinationSelectors destinationSelectors,
-            ConditionalSelectors conditionalSelectors, DSLContext context) {
+    public SimpleAnalysisConstraint(String name, org.dataflowanalysis.analysis.dsl.groups.SourceSelectors sourceSelectors,
+            DestinationSelectors destinationSelectors, org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors conditionalSelectors,
+            DSLContext context) {
         super(name, sourceSelectors, FlowType.NEVER_FLOWS, destinationSelectors, conditionalSelectors, context);
     }
 
@@ -120,8 +124,8 @@ public class SimpleAnalysisConstraint extends AnalysisConstraint {
         }
         string.skipWhitespace();
         if (string.empty()) {
-            return ParseResult.ok(
-                    new SimpleAnalysisConstraint(name, sourceSelectors.getResult(), new DestinationSelectors(), new ConditionalSelectors(), context));
+            return ParseResult.ok(new SimpleAnalysisConstraint(name, sourceSelectors.getResult(), new DestinationSelectors(),
+                    new org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors(), context));
         }
 
         ParseResult<DestinationSelectors> destinationSelectorsParseResult = DestinationSelectors.fromString(string, context);
@@ -131,8 +135,10 @@ public class SimpleAnalysisConstraint extends AnalysisConstraint {
         DestinationSelectors destinationSelectors = destinationSelectorsParseResult.getResult();
 
         string.skipWhitespace();
-        ParseResult<ConditionalSelectors> conditionalSelectorsParseResult = ConditionalSelectors.fromString(string, context);
-        ConditionalSelectors conditionalSelectors = conditionalSelectorsParseResult.or(new ConditionalSelectors());
+        ParseResult<org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors> conditionalSelectorsParseResult = org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors
+                .fromString(string, context);
+        org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors conditionalSelectors = conditionalSelectorsParseResult
+                .or(new ConditionalSelectors());
 
         string.skipWhitespace();
         if (!string.empty()) {

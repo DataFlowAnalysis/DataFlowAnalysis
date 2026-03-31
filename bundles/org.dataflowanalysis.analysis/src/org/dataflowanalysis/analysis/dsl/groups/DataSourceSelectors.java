@@ -1,25 +1,31 @@
-package org.dataflowanalysis.analysis.dsl;
+package org.dataflowanalysis.analysis.dsl.groups;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.dsl.AbstractParseable;
+import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.selectors.*;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
-public class DataDestinationSelectors extends AbstractParseable {
-    private static final Logger logger = LoggerManager.getLogger(DataDestinationSelectors.class);
+/**
+ * Represents the source data {@link AbstractSelector} matched by an {@link AnalysisConstraint}
+ */
+public class DataSourceSelectors extends AbstractParseable {
+    private static final Logger logger = LoggerManager.getLogger(DataSourceSelectors.class);
     private static final String DSL_KEYWORD = "data";
+
     private final List<AbstractSelector> selectors;
 
-    public DataDestinationSelectors() {
-        this.selectors = new ArrayList<>();
+    public DataSourceSelectors() {
+        selectors = new ArrayList<>();
     }
 
-    public DataDestinationSelectors(List<AbstractSelector> selectors) {
+    public DataSourceSelectors(List<AbstractSelector> selectors) {
         this.selectors = selectors;
     }
 
@@ -28,7 +34,7 @@ public class DataDestinationSelectors extends AbstractParseable {
     }
 
     public List<AbstractSelector> getSelectors() {
-        return selectors;
+        return new ArrayList<>(selectors);
     }
 
     @Override
@@ -51,7 +57,7 @@ public class DataDestinationSelectors extends AbstractParseable {
      * @return Returns a {@link ParseResult} that may contain the {@link DataSourceSelectors} of the
      * {@link AnalysisConstraint}
      */
-    public static ParseResult<DataDestinationSelectors> fromString(StringView string, DSLContext context) {
+    public static ParseResult<DataSourceSelectors> fromString(StringView string, DSLContext context) {
         string.skipWhitespace();
         if (string.invalid()) {
             return ParseResult.error("Unexpected end of input!");
@@ -97,7 +103,7 @@ public class DataDestinationSelectors extends AbstractParseable {
             string.setPosition(position);
             return ParseResult.error("Keyword " + DSL_KEYWORD + " is missing any selectors!");
         }
-        DataDestinationSelectors dataSourceSelectors = new DataDestinationSelectors(selectors);
+        DataSourceSelectors dataSourceSelectors = new DataSourceSelectors(selectors);
         return ParseResult.ok(dataSourceSelectors);
     }
 }

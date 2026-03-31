@@ -25,7 +25,8 @@ public class ConstraintFeatureTest extends ConstraintTest {
         var usageModelPath = Paths.get("models", "pcm", "NodeCharacteristics", "default.usagemodel");
         var allocationPath = Paths.get("models", "pcm", "NodeCharacteristics", "default.allocation");
         var nodeCharacteristicsPath = Paths.get("models", "pcm", "NodeCharacteristics", "default.nodecharacteristics");
-        PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
+        PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath,
+                nodeCharacteristicsPath);
 
         PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
@@ -53,8 +54,10 @@ public class ConstraintFeatureTest extends ConstraintTest {
     public void testCompositeCharacteristics() {
         var usageModelPath = Paths.get("models", "pcm", "CompositeCharacteristics", "default.usagemodel");
         var allocationPath = Paths.get("models", "pcm", "CompositeCharacteristics", "default.allocation");
-        var nodeCharacteristicsPath = Paths.get("models", "pcm", "CompositeCharacteristics", "default.nodecharacteristics");
-        PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
+        var nodeCharacteristicsPath = Paths.get("models", "pcm", "CompositeCharacteristics",
+                "default.nodecharacteristics");
+        PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath,
+                nodeCharacteristicsPath);
 
         PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();
@@ -83,7 +86,8 @@ public class ConstraintFeatureTest extends ConstraintTest {
         var usageModelPath = Paths.get("models", "pcm", "IgnoredNodes", "default.usagemodel");
         var allocationPath = Paths.get("models", "pcm", "IgnoredNodes", "default.allocation");
         var nodeCharacteristicsPath = Paths.get("models", "pcm", "IgnoredNodes", "default.nodecharacteristics");
-        PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
+        PCMDataFlowConfidentialityAnalysis analysis = super.initializeAnalysis(usageModelPath, allocationPath,
+                nodeCharacteristicsPath);
 
         PCMFlowGraphCollection flowGraph = analysis.findFlowGraphs();
         flowGraph.evaluate();

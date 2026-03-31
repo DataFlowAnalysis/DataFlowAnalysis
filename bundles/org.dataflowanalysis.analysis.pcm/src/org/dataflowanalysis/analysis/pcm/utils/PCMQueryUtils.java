@@ -77,7 +77,8 @@ public class PCMQueryUtils {
                 .toList();
 
         if (candidates.size() > 1) {
-            logger.warn(String.format("UsageScenario %s contains more than one start action.", scenarioBehavior.getEntityName()));
+            logger.warn(String.format("UsageScenario %s contains more than one start action.",
+                    scenarioBehavior.getEntityName()));
         }
 
         return candidates.stream()
@@ -127,8 +128,8 @@ public class PCMQueryUtils {
      * @param <T> Type of the parent
      * @param object Modeling object the search should be started at
      * @param clazz Type class of the parent
-     * @param includeSelf Should be true, if the search should include the container itself. Otherwise, this should be set
-     * to false
+     * @param includeSelf Should be true, if the search should include the container itself. Otherwise, this should be
+     * set to false
      * @return Returns, if found, the parent of the given object with the given type
      */
     @SuppressWarnings("unchecked")
@@ -144,22 +145,25 @@ public class PCMQueryUtils {
 
     /**
      * Finds a called SEFF and the corresponding stack of assembly contexts. It requires the context of the resolution
-     * process to be specified as stack of assembly contexts. The resulting stack can be completely different to the stack
-     * from which the call originated because composite components do not provide SEFFs but only contribute to the stack.
+     * process to be specified as stack of assembly contexts. The resulting stack can be completely different to the
+     * stack from which the call originated because composite components do not provide SEFFs but only contribute to the
+     * stack.
      * @param providedRole The provided role that points to the identifying component.
      * @param calledSignature The signature that the SEFF describes.
-     * @param context The stack of assembly contexts that identifies the point from which the call shall be resolved. The
-     * list starts with the most outer assembly context.
+     * @param context The stack of assembly contexts that identifies the point from which the call shall be resolved.
+     * The list starts with the most outer assembly context.
      * @return A tuple of the resolved SEFF and the assembly context stack.
      */
-    public static Optional<SEFFWithContext> findCalledSEFF(ProvidedRole providedRole, Signature calledSignature, Deque<AssemblyContext> context) {
+    public static Optional<SEFFWithContext> findCalledSEFF(ProvidedRole providedRole, Signature calledSignature,
+            Deque<AssemblyContext> context) {
 
         Deque<AssemblyContext> newContexts = new ArrayDeque<>(context);
         ProvidedRole role = providedRole;
         InterfaceProvidingEntity providingComponent = role.getProvidingEntity_ProvidedRole();
 
         while (providingComponent instanceof ComposedStructure) {
-            Optional<ProvidedDelegationConnector> connector = findProvidedDelegationConnector((ComposedStructure) providingComponent, role);
+            Optional<ProvidedDelegationConnector> connector = findProvidedDelegationConnector(
+                    (ComposedStructure) providingComponent, role);
 
             if (connector.isEmpty()) {
                 throw new IllegalStateException("Unable to find provided delegation connector.");
@@ -197,16 +201,17 @@ public class PCMQueryUtils {
 
     /**
      * Finds a called SEFF and the corresponding stack of assembly contexts. It requires the context of the resolution
-     * process to be specified as stack of assembly contexts. The resulting stack can be completely different to the stack
-     * from which the call originated because composite components do not provide SEFFs but only contribute to the stack.
+     * process to be specified as stack of assembly contexts. The resulting stack can be completely different to the
+     * stack from which the call originated because composite components do not provide SEFFs but only contribute to the
+     * stack.
      * @param requiredRole The required role that points to the required component.
      * @param calledSignature The signature that the SEFF describes.
-     * @param context The stack of assembly contexts that identifies the point from which the call shall be resolved. The
-     * list starts with the most outer assembly context.
+     * @param context The stack of assembly contexts that identifies the point from which the call shall be resolved.
+     * The list starts with the most outer assembly context.
      * @return A tuple of the resolved SEFF and the assembly context stack.
      */
-    public static Optional<SEFFWithContext> findCalledSEFF(RequiredRole requiredRole, OperationSignature calledSignature,
-            Deque<AssemblyContext> context) {
+    public static Optional<SEFFWithContext> findCalledSEFF(RequiredRole requiredRole,
+            OperationSignature calledSignature, Deque<AssemblyContext> context) {
 
         ComposedStructure composedStructure = context.getLast()
                 .getParentStructure__AssemblyContext();
@@ -253,7 +258,8 @@ public class PCMQueryUtils {
         }
     }
 
-    private static Optional<ProvidedDelegationConnector> findProvidedDelegationConnector(ComposedStructure component, ProvidedRole outerRole) {
+    private static Optional<ProvidedDelegationConnector> findProvidedDelegationConnector(ComposedStructure component,
+            ProvidedRole outerRole) {
         return component.getConnectors__ComposedStructure()
                 .stream()
                 .filter(ProvidedDelegationConnector.class::isInstance)
@@ -394,7 +400,8 @@ public class PCMQueryUtils {
      * @param component {@link AssemblyContext} that must be started by the {@link SEFFPCMVertex} elements
      * @return Returns a list of all {@link SEFFPCMVertex} that begin the {@link AssemblyContext}
      */
-    public static List<SEFFPCMVertex<?>> findStartActionsOfAssemblyContext(FlowGraphCollection flowGraphs, AssemblyContext component) {
+    public static List<SEFFPCMVertex<?>> findStartActionsOfAssemblyContext(FlowGraphCollection flowGraphs,
+            AssemblyContext component) {
         List<SEFFPCMVertex<?>> matches = new ArrayList<>();
         for (AbstractTransposeFlowGraph transposeFlowGraph : flowGraphs.getTransposeFlowGraphs()) {
             var candidates = transposeFlowGraph.getVertices()
@@ -464,8 +471,10 @@ public class PCMQueryUtils {
      * @param signature {@link OperationSignature} that the {@link CallingUserPCMVertex} must call
      * @return Returns a list of {@link CallingUserPCMVertex} that call using the given {@link OperationSignature}
      */
-    public static List<CallingUserPCMVertex> findEntryLevelSystemCallsViaSignature(FlowGraphCollection flowGraphs, OperationSignature signature) {
-        var candidates = findEntryLevelSystemCallsViaInterface(flowGraphs, signature.getInterface__OperationSignature());
+    public static List<CallingUserPCMVertex> findEntryLevelSystemCallsViaSignature(FlowGraphCollection flowGraphs,
+            OperationSignature signature) {
+        var candidates = findEntryLevelSystemCallsViaInterface(flowGraphs,
+                signature.getInterface__OperationSignature());
         return candidates.stream()
                 .filter(it -> it.getReferencedElement()
                         .getOperationSignature__EntryLevelSystemCall()
@@ -479,7 +488,8 @@ public class PCMQueryUtils {
      * @param operationInterface {@link OperationInterface} that the {@link CallingSEFFPCMVertex} must call
      * @return Returns a list of {@link CallingSEFFPCMVertex} that call using the given {@link OperationInterface}
      */
-    public static List<CallingSEFFPCMVertex> findExternalCallsViaInterface(FlowGraphCollection flowGraphs, OperationInterface operationInterface) {
+    public static List<CallingSEFFPCMVertex> findExternalCallsViaInterface(FlowGraphCollection flowGraphs,
+            OperationInterface operationInterface) {
         List<CallingSEFFPCMVertex> matches = new ArrayList<>();
         for (AbstractTransposeFlowGraph transposeFlowGraph : flowGraphs.getTransposeFlowGraphs()) {
             var externalCalls = transposeFlowGraph.getVertices()
@@ -503,8 +513,10 @@ public class PCMQueryUtils {
      * @param signature {@link OperationSignature} that the {@link CallingSEFFPCMVertex} must call
      * @return Returns a list of {@link CallingSEFFPCMVertex} that call using the given {@link OperationSignature}
      */
-    public static List<CallingSEFFPCMVertex> findExternalCallsViaSignature(FlowGraphCollection flowGraphs, OperationSignature signature) {
-        var candidates = PCMQueryUtils.findExternalCallsViaInterface(flowGraphs, signature.getInterface__OperationSignature());
+    public static List<CallingSEFFPCMVertex> findExternalCallsViaSignature(FlowGraphCollection flowGraphs,
+            OperationSignature signature) {
+        var candidates = PCMQueryUtils.findExternalCallsViaInterface(flowGraphs,
+                signature.getInterface__OperationSignature());
         return candidates.stream()
                 .filter(it -> it.getReferencedElement()
                         .getCalledService_ExternalService()
@@ -517,10 +529,11 @@ public class PCMQueryUtils {
      * {@link OperationInterface}
      * @param flowGraphs Flow Graphs that are searched
      * @param operationInterface {@link OperationInterface} the {@link SEFFPCMVertex} elements must start
-     * @return Returns all {@link SEFFPCMVertex} that are {@link StartAction} elements which start the implementation of the
-     * given {@link OperationInterface}
+     * @return Returns all {@link SEFFPCMVertex} that are {@link StartAction} elements which start the implementation of
+     * the given {@link OperationInterface}
      */
-    public static List<SEFFPCMVertex<?>> findStartActionsOfSEFFsThatImplement(FlowGraphCollection flowGraphs, OperationInterface operationInterface) {
+    public static List<SEFFPCMVertex<?>> findStartActionsOfSEFFsThatImplement(FlowGraphCollection flowGraphs,
+            OperationInterface operationInterface) {
         List<SEFFPCMVertex<?>> matches = new ArrayList<>();
         for (AbstractTransposeFlowGraph transposeFlowGraph : flowGraphs.getTransposeFlowGraphs()) {
             var startActions = transposeFlowGraph.getVertices()
@@ -553,10 +566,11 @@ public class PCMQueryUtils {
      * {@link OperationSignature}
      * @param flowGraphs Flow Graphs that are searched
      * @param signature {@link OperationSignature} the {@link SEFFPCMVertex} elements must start
-     * @return Returns all {@link SEFFPCMVertex} that are {@link StartAction} elements which start the implementation of the
-     * given {@link OperationSignature}
+     * @return Returns all {@link SEFFPCMVertex} that are {@link StartAction} elements which start the implementation of
+     * the given {@link OperationSignature}
      */
-    public static List<SEFFPCMVertex<?>> findStartActionsOfSEFFsThatImplement(FlowGraphCollection flowGraphs, OperationSignature signature) {
+    public static List<SEFFPCMVertex<?>> findStartActionsOfSEFFsThatImplement(FlowGraphCollection flowGraphs,
+            OperationSignature signature) {
         var actionsThatImplementInterface = PCMQueryUtils.findStartActionsOfSEFFsThatImplement(flowGraphs,
                 signature.getInterface__OperationSignature());
         List<SEFFPCMVertex<?>> matches = new ArrayList<>();
@@ -577,7 +591,8 @@ public class PCMQueryUtils {
      * @param element {@link AbstractPCMVertex} that must be contained in the {@link PCMTransposeFlowGraph}
      * @return Returns a list of all {@link PCMTransposeFlowGraph} that must contain the {@link AbstractPCMVertex}
      */
-    public static List<PCMTransposeFlowGraph> findTransposeFlowGraphsWithElement(FlowGraphCollection flowGraphs, AbstractPCMVertex<?> element) {
+    public static List<PCMTransposeFlowGraph> findTransposeFlowGraphsWithElement(FlowGraphCollection flowGraphs,
+            AbstractPCMVertex<?> element) {
         return flowGraphs.getTransposeFlowGraphs()
                 .stream()
                 .filter(PCMTransposeFlowGraph.class::isInstance)
@@ -613,8 +628,8 @@ public class PCMQueryUtils {
      * @return Returns a list of {@link AbstractPCMVertex} that match the given {@link UsageScenario} or
      * {@link ResourceContainer}
      */
-    public List<? extends AbstractPCMVertex<?>> findProcessesThatRepresentResourceContainerOrUsageScenario(FlowGraphCollection flowGraphs,
-            PCMResourceProvider resourceProvider, Entity actor) {
+    public List<? extends AbstractPCMVertex<?>> findProcessesThatRepresentResourceContainerOrUsageScenario(
+            FlowGraphCollection flowGraphs, PCMResourceProvider resourceProvider, Entity actor) {
         if (actor instanceof UsageScenario usageScenario) {
             List<CallingUserPCMVertex> matches = new ArrayList<>();
             for (AbstractTransposeFlowGraph transposeFlowGraph : flowGraphs.getTransposeFlowGraphs()) {
@@ -667,7 +682,8 @@ public class PCMQueryUtils {
      * @throws IllegalStateException Thrown if the specified model cannot be found
      * @param <T> Type parameter that describes the class of the returned element
      */
-    private static <T extends NamedElement> T lookupPCMModel(ResourceProvider resourceProvider, EClass eclazz, Class<T> clazz) {
+    private static <T extends NamedElement> T lookupPCMModel(ResourceProvider resourceProvider, EClass eclazz,
+            Class<T> clazz) {
         Objects.requireNonNull(eclazz);
         Objects.requireNonNull(clazz);
         List<T> allPCMModelsOfGivenType = resourceProvider.lookupToplevelElement(eclazz)
@@ -678,8 +694,8 @@ public class PCMQueryUtils {
         if (!allPCMModelsOfGivenType.isEmpty()) {
             return allPCMModelsOfGivenType.get(0);
         } else {
-            throw new IllegalStateException(
-                    String.format("None or more than one model of type %s found in the loaded resources.", clazz.getSimpleName()));
+            throw new IllegalStateException(String.format(
+                    "None or more than one model of type %s found in the loaded resources.", clazz.getSimpleName()));
         }
     }
 
@@ -689,7 +705,8 @@ public class PCMQueryUtils {
      * @return Returns the {@link Repository} model of the contained elements
      */
     private static Repository lookupRepositoryModel(ResourceProvider resourceProvider) {
-        return PCMQueryUtils.lookupPCMModel(resourceProvider, RepositoryPackage.eINSTANCE.getRepository(), Repository.class);
+        return PCMQueryUtils.lookupPCMModel(resourceProvider, RepositoryPackage.eINSTANCE.getRepository(),
+                Repository.class);
     }
 
     /**
@@ -707,8 +724,8 @@ public class PCMQueryUtils {
      * @return Returns the {@link ResourceEnvironment} model of the contained elements
      */
     private static ResourceEnvironment lookupResourceEnvironmentModel(ResourceProvider resourceProvider) {
-        return PCMQueryUtils.lookupPCMModel(resourceProvider, ResourceenvironmentPackage.eINSTANCE.getResourceEnvironment(),
-                ResourceEnvironment.class);
+        return PCMQueryUtils.lookupPCMModel(resourceProvider,
+                ResourceenvironmentPackage.eINSTANCE.getResourceEnvironment(), ResourceEnvironment.class);
     }
 
     /**
@@ -747,7 +764,8 @@ public class PCMQueryUtils {
                     .toList();
 
             for (var vertex : startActionElements) {
-                Optional<BranchAction> branchAction = PCMQueryUtils.findParentOfType(vertex.getReferencedElement(), BranchAction.class, false);
+                Optional<BranchAction> branchAction = PCMQueryUtils.findParentOfType(vertex.getReferencedElement(),
+                        BranchAction.class, false);
 
                 if (branchAction.isPresent() && branchAction.get()
                         .getId()

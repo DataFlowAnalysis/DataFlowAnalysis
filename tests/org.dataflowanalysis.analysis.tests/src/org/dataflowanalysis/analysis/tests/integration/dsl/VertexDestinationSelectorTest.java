@@ -24,15 +24,18 @@ public class VertexDestinationSelectorTest {
     @MethodSource("incorrectVertexDestinationSelectors")
     public void shouldNotParse(String vertexDestinationSelectorString) {
         StringView stringView = new StringView(vertexDestinationSelectorString);
-        ParseResult<VertexDestinationSelectors> vertexDestinationSelectors = VertexDestinationSelectors.fromString(stringView, new DSLContext());
+        ParseResult<VertexDestinationSelectors> vertexDestinationSelectors = VertexDestinationSelectors
+                .fromString(stringView, new DSLContext());
         assertTrue(vertexDestinationSelectors.failed() || !stringView.empty());
     }
 
     private static Stream<Arguments> correctVertexDestinationSelectors() {
-        return Stream.of(Arguments.of("vertex A.B"), Arguments.of("vertex otherA.otherB"), Arguments.of("vertex A.B C.D"));
+        return Stream.of(Arguments.of("vertex A.B"), Arguments.of("vertex otherA.otherB"),
+                Arguments.of("vertex A.B C.D"));
     }
 
     private static Stream<Arguments> incorrectVertexDestinationSelectors() {
-        return Stream.of(Arguments.of("vertex A"), Arguments.of(""), Arguments.of("vertex"), Arguments.of("vertex A.B C"));
+        return Stream.of(Arguments.of("vertex A"), Arguments.of(""), Arguments.of("vertex"),
+                Arguments.of("vertex A.B C"));
     }
 }

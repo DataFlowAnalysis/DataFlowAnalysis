@@ -23,7 +23,8 @@ public class Intersection extends AbstractParseable implements SetOperation {
         this.secondVariable = secondVariable;
     }
 
-    public static Intersection of(ConstraintVariableReference firstVariable, ConstraintVariableReference secondVariable) {
+    public static Intersection of(ConstraintVariableReference firstVariable,
+            ConstraintVariableReference secondVariable) {
         return new Intersection(firstVariable, secondVariable);
     }
 
@@ -56,7 +57,8 @@ public class Intersection extends AbstractParseable implements SetOperation {
 
     @Override
     public String toString() {
-        return DSL_KEYWORD + DSL_PAREN_OPEN + firstVariable.toString() + DSL_DELIMITER + secondVariable.toString() + DSL_PAREN_CLOSE;
+        return DSL_KEYWORD + DSL_PAREN_OPEN + firstVariable.toString() + DSL_DELIMITER + secondVariable.toString()
+                + DSL_PAREN_CLOSE;
     }
 
     /**
@@ -84,7 +86,8 @@ public class Intersection extends AbstractParseable implements SetOperation {
         }
         string.advance(DSL_PAREN_OPEN.length());
 
-        ParseResult<ConstraintVariableReference> firstConstraintVariableReference = ConstraintVariableReference.fromString(string);
+        ParseResult<ConstraintVariableReference> firstConstraintVariableReference = ConstraintVariableReference
+                .fromString(string);
         if (firstConstraintVariableReference.failed()) {
             string.setPosition(position);
             return ParseResult.error(firstConstraintVariableReference.getError());
@@ -99,7 +102,8 @@ public class Intersection extends AbstractParseable implements SetOperation {
         }
         string.advance(DSL_DELIMITER.length());
 
-        ParseResult<ConstraintVariableReference> secondConstraintVariableReference = ConstraintVariableReference.fromString(string);
+        ParseResult<ConstraintVariableReference> secondConstraintVariableReference = ConstraintVariableReference
+                .fromString(string);
         if (secondConstraintVariableReference.failed()) {
             string.setPosition(position);
             return ParseResult.error(secondConstraintVariableReference.getError());
@@ -113,6 +117,7 @@ public class Intersection extends AbstractParseable implements SetOperation {
             return string.expect(DSL_PAREN_CLOSE);
         }
         string.advance(DSL_PAREN_CLOSE.length());
-        return ParseResult.ok(new Intersection(firstConstraintVariableReference.getResult(), secondConstraintVariableReference.getResult()));
+        return ParseResult.ok(new Intersection(firstConstraintVariableReference.getResult(),
+                secondConstraintVariableReference.getResult()));
     }
 }

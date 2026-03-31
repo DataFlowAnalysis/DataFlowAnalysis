@@ -28,14 +28,16 @@ public class SourceSelectorsTest {
     @MethodSource("incorrectSourceSelectors")
     public void shouldNotParse(String sourceSelector) {
         StringView stringView = new StringView(sourceSelector);
-        ParseResult<SourceSelectors> dataCharacteristicsSelector = SourceSelectors.fromString(stringView, new DSLContext());
+        ParseResult<SourceSelectors> dataCharacteristicsSelector = SourceSelectors.fromString(stringView,
+                new DSLContext());
         assertTrue(dataCharacteristicsSelector.failed() || !stringView.empty());
     }
 
     private static Stream<Arguments> correctSourceSelectors() {
         return Stream.of(Arguments.of("vertex A.B"), Arguments.of("data A.B"), Arguments.of("data A.B vertex A.B"),
                 Arguments.of("data otherA.otherB vertex A.B C.D"), Arguments.of("data A.B dataName C vertex A.B C.D"),
-                Arguments.of("data A.B,C.D dataName E vertex otherA.otherB"), Arguments.of("data A.B,C.D E.F dataName G vertex A.B C.D"),
+                Arguments.of("data A.B,C.D dataName E vertex otherA.otherB"),
+                Arguments.of("data A.B,C.D E.F dataName G vertex A.B C.D"),
                 Arguments.of("data A.B,C.D \ndataName E \n\tvertex otherA.otherB"),
                 Arguments.of("data A.B,C.D E.F \n\n\n\tdataName G \n\n\n\n\tvertex A.B C.D"));
     }

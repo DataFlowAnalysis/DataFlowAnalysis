@@ -47,8 +47,8 @@ public abstract class AbstractVertex<T> {
      * @param outgoingDataCharacteristics Outgoing data characteristics that flow out of the vertex
      * @param vertexCharacteristics Vertex characteristics present at the node
      */
-    protected void setPropagationResult(List<DataCharacteristic> incomingDataCharacteristics, List<DataCharacteristic> outgoingDataCharacteristics,
-            List<CharacteristicValue> vertexCharacteristics) {
+    protected void setPropagationResult(List<DataCharacteristic> incomingDataCharacteristics,
+            List<DataCharacteristic> outgoingDataCharacteristics, List<CharacteristicValue> vertexCharacteristics) {
         if (this.isEvaluated()) {
             logger.error("Cannot set propagation result of already evaluated vertex");
             throw new IllegalArgumentException();
@@ -63,12 +63,13 @@ public abstract class AbstractVertex<T> {
      * @return Returns true, if the node is evaluated. Otherwise, the method returns false
      */
     public boolean isEvaluated() {
-        return this.incomingDataCharacteristics.isPresent() && this.outgoingDataCharacteristics.isPresent() && this.vertexCharacteristics.isPresent();
+        return this.incomingDataCharacteristics.isPresent() && this.outgoingDataCharacteristics.isPresent()
+                && this.vertexCharacteristics.isPresent();
     }
 
     /**
-     * Returns the referenced model element by the abstract vertex. Multiple vertices may reference the same model element,
-     * but one vertex always references exactly one model element.
+     * Returns the referenced model element by the abstract vertex. Multiple vertices may reference the same model
+     * element, but one vertex always references exactly one model element.
      * @return Returns the reference element by the vertex
      */
     public T getReferencedElement() {
@@ -85,7 +86,8 @@ public abstract class AbstractVertex<T> {
 
     /**
      * Returns a list of all incoming data characteristics that are present for the action sequence element
-     * @return List of present incoming data characteristics (e.g. the variables at the input pin of the DFD representation)
+     * @return List of present incoming data characteristics (e.g. the variables at the input pin of the DFD
+     * representation)
      */
     public List<DataCharacteristic> getAllIncomingDataCharacteristics() {
         return this.incomingDataCharacteristics.orElseThrow(IllegalStateException::new);
@@ -155,7 +157,8 @@ public abstract class AbstractVertex<T> {
     }
 
     /**
-     * Returns a map containing the characteristic values with the given characteristic type for each data characteristic
+     * Returns a map containing the characteristic values with the given characteristic type for each data
+     * characteristic
      * <p>
      * To get the characteristic value names for the data characteristics use
      * {@link AbstractVertex#getDataCharacteristicNamesMap(String)}
@@ -165,7 +168,8 @@ public abstract class AbstractVertex<T> {
     public Map<String, List<CharacteristicValue>> getDataCharacteristicMap(String requiredCharacteristicTypeName) {
         return this.getAllIncomingDataCharacteristics()
                 .stream()
-                .collect(Collectors.toMap(DataCharacteristic::getVariableName, it -> it.getCharacteristicsWithName(requiredCharacteristicTypeName)));
+                .collect(Collectors.toMap(DataCharacteristic::getVariableName,
+                        it -> it.getCharacteristicsWithName(requiredCharacteristicTypeName)));
     }
 
     /**
@@ -180,16 +184,17 @@ public abstract class AbstractVertex<T> {
     public Map<String, List<String>> getDataCharacteristicNamesMap(String requiredCharacteristicTypeName) {
         return this.getAllIncomingDataCharacteristics()
                 .stream()
-                .collect(Collectors.toMap(DataCharacteristic::getVariableName, it -> it.getCharacteristicsWithName(requiredCharacteristicTypeName)
-                        .stream()
-                        .map(CharacteristicValue::getValueName)
-                        .toList()));
+                .collect(Collectors.toMap(DataCharacteristic::getVariableName,
+                        it -> it.getCharacteristicsWithName(requiredCharacteristicTypeName)
+                                .stream()
+                                .map(CharacteristicValue::getValueName)
+                                .toList()));
     }
 
     /**
      * Returns a string with detailed information about a vertex's data and vertex characteristics
-     * @return Returns a String with the node's string representation and a list of all related characteristics types and
-     * literals
+     * @return Returns a String with the node's string representation and a list of all related characteristics types
+     * and literals
      */
     public String createPrintableNodeInformation() {
         String template = """
@@ -200,7 +205,8 @@ public abstract class AbstractVertex<T> {
         String nodeCharacteristics = createPrintableCharacteristicsList(this.getAllVertexCharacteristics());
         String dataCharacteristics = this.getAllDataCharacteristics()
                 .stream()
-                .map(e -> String.format("%s [%s]", e.variableName(), createPrintableCharacteristicsList(e.getAllCharacteristics())))
+                .map(e -> String.format("%s [%s]", e.variableName(),
+                        createPrintableCharacteristicsList(e.getAllCharacteristics())))
                 .collect(Collectors.joining(", "));
 
         return String.format(template, this, nodeCharacteristics, dataCharacteristics);

@@ -21,7 +21,8 @@ public record Port(String behavior, String id, String type, List<Object> childre
         if (!this.type.equals(other.type)) {
             return false;
         } else if (this.type.equals("port:dfd-output")) {
-            return this.id.equals(other.id) && this.behavior.equals(other.behavior) && this.children.equals(other.children);
+            return this.id.equals(other.id) && this.behavior.equals(other.behavior)
+                    && this.children.equals(other.children);
         } else {
             return this.id.equals(other.id) && this.children.equals(other.children);
         }

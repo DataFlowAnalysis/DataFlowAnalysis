@@ -23,8 +23,9 @@ public class ActionSequenceFinderTest extends BaseTest {
         PCMFlowGraphCollection flowGraph = travelPlannerAnalysis.findFlowGraphs();
         assertEquals(ActionSequenceFinderPaths.travelPlannerPaths.size(), flowGraph.getTransposeFlowGraphs()
                 .size(),
-                String.format("Expected two dataflow sequences, but found %s sequences", flowGraph.getTransposeFlowGraphs()
-                        .size()));
+                String.format("Expected two dataflow sequences, but found %s sequences",
+                        flowGraph.getTransposeFlowGraphs()
+                                .size()));
         flowGraph.getTransposeFlowGraphs()
                 .forEach(logger::trace);
     }
@@ -37,8 +38,9 @@ public class ActionSequenceFinderTest extends BaseTest {
         PCMFlowGraphCollection flowGraph = internationalOnlineShopAnalysis.findFlowGraphs();
         assertEquals(ActionSequenceFinderPaths.internationalOnlineShopPaths.size(), flowGraph.getTransposeFlowGraphs()
                 .size(),
-                String.format("Expected two dataflow sequences, but found %s sequences", flowGraph.getTransposeFlowGraphs()
-                        .size()));
+                String.format("Expected two dataflow sequences, but found %s sequences",
+                        flowGraph.getTransposeFlowGraphs()
+                                .size()));
         flowGraph.getTransposeFlowGraphs()
                 .forEach(logger::trace);
     }
@@ -51,8 +53,9 @@ public class ActionSequenceFinderTest extends BaseTest {
         PCMFlowGraphCollection flowGraph = onlineShopAnalysis.findFlowGraphs();
         assertEquals(ActionSequenceFinderPaths.onlineShopPaths.size(), flowGraph.getTransposeFlowGraphs()
                 .size(),
-                String.format("Expected two dataflow sequences, but found %s sequences", flowGraph.getTransposeFlowGraphs()
-                        .size()));
+                String.format("Expected two dataflow sequences, but found %s sequences",
+                        flowGraph.getTransposeFlowGraphs()
+                                .size()));
         flowGraph.getTransposeFlowGraphs()
                 .forEach(logger::trace);
     }

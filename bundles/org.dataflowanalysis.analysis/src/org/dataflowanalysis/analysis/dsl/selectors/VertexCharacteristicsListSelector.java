@@ -21,22 +21,24 @@ public class VertexCharacteristicsListSelector extends VertexSelector {
     private final boolean inverted;
     private final boolean recursive;
 
-    public VertexCharacteristicsListSelector(DSLContext context, List<CharacteristicsSelectorData> vertexCharacteristics) {
+    public VertexCharacteristicsListSelector(DSLContext context,
+            List<CharacteristicsSelectorData> vertexCharacteristics) {
         super(context);
         this.vertexCharacteristics = vertexCharacteristics;
         this.inverted = false;
         this.recursive = false;
     }
 
-    public VertexCharacteristicsListSelector(DSLContext context, List<CharacteristicsSelectorData> vertexCharacteristics, boolean inverted) {
+    public VertexCharacteristicsListSelector(DSLContext context,
+            List<CharacteristicsSelectorData> vertexCharacteristics, boolean inverted) {
         super(context);
         this.vertexCharacteristics = vertexCharacteristics;
         this.inverted = inverted;
         this.recursive = false;
     }
 
-    public VertexCharacteristicsListSelector(DSLContext context, List<CharacteristicsSelectorData> vertexCharacteristics, boolean inverted,
-            boolean recursive) {
+    public VertexCharacteristicsListSelector(DSLContext context,
+            List<CharacteristicsSelectorData> vertexCharacteristics, boolean inverted, boolean recursive) {
         super(context);
         this.vertexCharacteristics = vertexCharacteristics;
         this.inverted = inverted;
@@ -57,8 +59,8 @@ public class VertexCharacteristicsListSelector extends VertexSelector {
                 List<String> characteristicTypes = new ArrayList<>();
                 List<String> characteristicValues = new ArrayList<>();
                 List<Boolean> matches = presentCharacteristics.stream()
-                        .map(it -> vertexCharacteristic.matchesCharacteristic(context, vertex, it, ConstraintVariable.CONSTANT_NAME,
-                                characteristicTypes, characteristicValues))
+                        .map(it -> vertexCharacteristic.matchesCharacteristic(context, vertex, it,
+                                ConstraintVariable.CONSTANT_NAME, characteristicTypes, characteristicValues))
                         .toList();
                 vertexCharacteristicResult.add(this.inverted ? matches.stream()
                         .noneMatch(it -> it)
@@ -86,10 +88,11 @@ public class VertexCharacteristicsListSelector extends VertexSelector {
                 List<String> characteristicTypes = new ArrayList<>();
                 List<String> characteristicValues = new ArrayList<>();
                 List<Boolean> matches = presentCharacteristics.stream()
-                        .map(it -> vertexCharacteristic.matchesCharacteristic(context, vertex, it, variableName, characteristicTypes,
-                                characteristicValues))
+                        .map(it -> vertexCharacteristic.matchesCharacteristic(context, vertex, it, variableName,
+                                characteristicTypes, characteristicValues))
                         .toList();
-                vertexCharacteristic.applyResults(context, vertex, variableName, characteristicTypes, characteristicValues);
+                vertexCharacteristic.applyResults(context, vertex, variableName, characteristicTypes,
+                        characteristicValues);
                 vertexCharacteristicResult.add(this.inverted ? matches.stream()
                         .noneMatch(it -> it)
                         : matches.stream()
@@ -164,7 +167,8 @@ public class VertexCharacteristicsListSelector extends VertexSelector {
         }
         if (selectors.size() <= 1) {
             string.setPosition(position);
-            return ParseResult.error("Cannot parse data characteristic list selector as the list is empty or one element!");
+            return ParseResult
+                    .error("Cannot parse data characteristic list selector as the list is empty or one element!");
         }
         string.advance(1);
         return ParseResult.ok(new VertexCharacteristicsListSelector(context, selectors, inverted));
@@ -180,7 +184,8 @@ public class VertexCharacteristicsListSelector extends VertexSelector {
 
     /**
      * Returns, whether the vertex characteristics list selector is recursive
-     * @return Returns true, if the vertex characteristics list selector is recursive. Otherwise, this method returns false
+     * @return Returns true, if the vertex characteristics list selector is recursive. Otherwise, this method returns
+     * false
      */
     public boolean isRecursive() {
         return recursive;

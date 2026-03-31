@@ -44,8 +44,8 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
      * Creates a new vertex with the given referenced node and pin mappings
      * @param node Node that is referenced by the vertex
      * @param previousVertices list of previous vertices
-     * @param mapPinToFlow Map containing relationships between the pins of the vertex and the flows connecting the node to
-     * other vertices
+     * @param mapPinToFlow Map containing relationships between the pins of the vertex and the flows connecting the node
+     * to other vertices
      */
     public DFDSimpleVertex(Node node, Set<DFDSimpleVertex> previousVertices, Map<Pin, Flow> mapPinToFlow) {
         super(node);
@@ -76,7 +76,8 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
                 .getAssignment()
                 .forEach(it -> handleOutgoingAssignments(it, incomingCharacteristics, outgoingLabelPerPin));
 
-        List<DataCharacteristic> outgoingDataCharacteristics = new ArrayList<>(this.createDataCharacteristicsFromLabels(outgoingLabelPerPin));
+        List<DataCharacteristic> outgoingDataCharacteristics = new ArrayList<>(
+                this.createDataCharacteristicsFromLabels(outgoingLabelPerPin));
 
         this.setPropagationResult(incomingCharacteristics, outgoingDataCharacteristics, vertexCharacteristics);
     }
@@ -89,7 +90,8 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
         List<CharacteristicValue> nodeCharacteristics = new ArrayList<>();
         this.getReferencedElement()
                 .getProperties()
-                .forEach(label -> nodeCharacteristics.add(new DFDCharacteristicValue((LabelType) label.eContainer(), label)));
+                .forEach(label -> nodeCharacteristics
+                        .add(new DFDCharacteristicValue((LabelType) label.eContainer(), label)));
         return nodeCharacteristics;
     }
 
@@ -99,8 +101,8 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
      * @param incomingDataCharacteristics incoming characteristics as list
      * @param outgoingLabelPerPin Maps Output Pins to Outgoing Labels, to be filled by method
      */
-    private void handleOutgoingAssignments(AbstractAssignment abstractAssignment, List<DataCharacteristic> incomingDataCharacteristics,
-            Map<Pin, Set<Label>> outgoingLabelPerPin) {
+    private void handleOutgoingAssignments(AbstractAssignment abstractAssignment,
+            List<DataCharacteristic> incomingDataCharacteristics, Map<Pin, Set<Label>> outgoingLabelPerPin) {
         // Takes the labels of all incoming Characteristics whos names match the flows arriving on all input pins of the
         // assignment
         var incomingLabels = incomingDataCharacteristics.stream()
@@ -108,7 +110,8 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
                     return mapPinToFlow.keySet()
                             .stream()
                             .filter(key -> {
-                                if (abstractAssignment instanceof UnsetAssignment || abstractAssignment instanceof SetAssignment)
+                                if (abstractAssignment instanceof UnsetAssignment
+                                        || abstractAssignment instanceof SetAssignment)
                                     return false;
                                 if (abstractAssignment instanceof Assignment assignment)
                                     return assignment.getInputPins()
@@ -166,7 +169,8 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
         return pinToLabelMap.keySet()
                 .stream()
                 .map(pin -> new DataCharacteristic(mapPinToFlow.get(pin)
-                        .getEntityName(), new ArrayList<CharacteristicValue>(this.getCharacteristicValuesForPin(pin, pinToLabelMap))))
+                        .getEntityName(),
+                        new ArrayList<CharacteristicValue>(this.getCharacteristicValuesForPin(pin, pinToLabelMap))))
                 .filter(it -> it.getAllCharacteristics()
                         .size() > 0)
                 .toList();

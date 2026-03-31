@@ -26,8 +26,9 @@ public class LabelPropagationTest extends BaseTest {
                     .size() >= characteristicData.sequenceIndex());
 
             assertCharacteristicPresent(flowGraph.getTransposeFlowGraphs()
-                    .get(characteristicData.sequenceIndex()), characteristicData.elementIndex(), characteristicData.variable(),
-                    characteristicData.characteristicType(), characteristicData.characteristicValue());
+                    .get(characteristicData.sequenceIndex()), characteristicData.elementIndex(),
+                    characteristicData.variable(), characteristicData.characteristicType(),
+                    characteristicData.characteristicValue());
         }
     }
 
@@ -46,8 +47,9 @@ public class LabelPropagationTest extends BaseTest {
                     .size() >= characteristicData.sequenceIndex());
 
             assertCharacteristicPresent(flowGraph.getTransposeFlowGraphs()
-                    .get(characteristicData.sequenceIndex()), characteristicData.elementIndex(), characteristicData.variable(),
-                    characteristicData.characteristicType(), characteristicData.characteristicValue());
+                    .get(characteristicData.sequenceIndex()), characteristicData.elementIndex(),
+                    characteristicData.variable(), characteristicData.characteristicType(),
+                    characteristicData.characteristicValue());
         }
     }
 
@@ -66,8 +68,9 @@ public class LabelPropagationTest extends BaseTest {
                     .size() >= characteristicData.sequenceIndex());
 
             assertCharacteristicPresent(flowGraph.getTransposeFlowGraphs()
-                    .get(characteristicData.sequenceIndex()), characteristicData.elementIndex(), characteristicData.variable(),
-                    characteristicData.characteristicType(), characteristicData.characteristicValue());
+                    .get(characteristicData.sequenceIndex()), characteristicData.elementIndex(),
+                    characteristicData.variable(), characteristicData.characteristicType(),
+                    characteristicData.characteristicValue());
         }
     }
 

@@ -44,8 +44,8 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      * @param context Assembly context of the vertex
      * @param resourceProvider Resource provider of the vertex used to calculate vertex and data characteristics
      */
-    public AbstractPCMVertex(T referencedElement, List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
-            ResourceProvider resourceProvider) {
+    public AbstractPCMVertex(T referencedElement, List<? extends AbstractPCMVertex<?>> previousElements,
+            Deque<AssemblyContext> context, ResourceProvider resourceProvider) {
         super(referencedElement);
         this.context = context;
         this.resourceProvider = resourceProvider;
@@ -62,8 +62,8 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      * @param vertexCharacteristics Vertex characteristics present at the node
      */
     @Override
-    protected void setPropagationResult(List<DataCharacteristic> incomingDataCharacteristics, List<DataCharacteristic> outgoingDataCharacteristics,
-            List<CharacteristicValue> vertexCharacteristics) {
+    protected void setPropagationResult(List<DataCharacteristic> incomingDataCharacteristics,
+            List<DataCharacteristic> outgoingDataCharacteristics, List<CharacteristicValue> vertexCharacteristics) {
         super.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics);
     }
 
@@ -96,22 +96,24 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      * @return Returns a list of vertex characteristics that are applied to the pcm vertex
      */
     protected List<CharacteristicValue> getVertexCharacteristics() {
-        PCMVertexCharacteristicsCalculator vertexCharacteristicsCalculator = new PCMVertexCharacteristicsCalculator(this.resourceProvider);
+        PCMVertexCharacteristicsCalculator vertexCharacteristicsCalculator = new PCMVertexCharacteristicsCalculator(
+                this.resourceProvider);
         return vertexCharacteristicsCalculator.getVertexCharacteristics(this.referencedElement, this.context);
     }
 
     /**
-     * Calculate the data characteristics for the vertex with the given vertex characteristics, variable characterizations
-     * and old data characteristics
+     * Calculate the data characteristics for the vertex with the given vertex characteristics, variable
+     * characterizations and old data characteristics
      * @param vertexCharacteristics Vertex characteristics present at the vertex
      * @param variableCharacterisations Variable characterizations present in the model
      * @param oldDataCharacteristics Old data characteristics present at the node
      * @return Returns a list of data characteristics that are applied to the sequence element
      */
     protected List<DataCharacteristic> getDataCharacteristics(List<CharacteristicValue> vertexCharacteristics,
-            List<ConfidentialityVariableCharacterisation> variableCharacterisations, List<DataCharacteristic> oldDataCharacteristics) {
-        PCMDataCharacteristicsCalculator dataCharacteristicsCalculator = new PCMDataCharacteristicsCalculator(oldDataCharacteristics,
-                vertexCharacteristics, this.resourceProvider);
+            List<ConfidentialityVariableCharacterisation> variableCharacterisations,
+            List<DataCharacteristic> oldDataCharacteristics) {
+        PCMDataCharacteristicsCalculator dataCharacteristicsCalculator = new PCMDataCharacteristicsCalculator(
+                oldDataCharacteristics, vertexCharacteristics, this.resourceProvider);
         variableCharacterisations.forEach(dataCharacteristicsCalculator::evaluate);
         return dataCharacteristicsCalculator.getCalculatedCharacteristics();
     }
@@ -121,7 +123,8 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      * @param callSignature Call Signature of the call
      * @param variableCharacterisations Variable characterizations that are applied to the sequence element
      */
-    protected void checkCallParameter(OperationSignature callSignature, List<ConfidentialityVariableCharacterisation> variableCharacterisations) {
+    protected void checkCallParameter(OperationSignature callSignature,
+            List<ConfidentialityVariableCharacterisation> variableCharacterisations) {
         List<String> parameter = callSignature.getParameters__OperationSignature()
                 .stream()
                 .map(Parameter::getParameterName)
@@ -136,15 +139,17 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
         referencedParameter.stream()
                 .filter(it -> !parameter.contains(it))
                 .forEach(it -> {
-                    logger.warn("Unknown reference to variable " + it + " in variable characterisation in vertex " + this.referencedElement);
+                    logger.warn("Unknown reference to variable " + it + " in variable characterisation in vertex "
+                            + this.referencedElement);
                     logger.warn("Present variables:" + parameter + ", Referenced parameter: " + referencedParameter);
                 });
     }
 
-    protected AbstractPCMVertex<?> updateCopy(AbstractPCMVertex<?> copy, Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
+    protected AbstractPCMVertex<?> updateCopy(AbstractPCMVertex<?> copy,
+            Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
         if (this.isEvaluated()) {
-            copy.setPropagationResult(this.getAllIncomingDataCharacteristics(), this.getAllOutgoingDataCharacteristics(),
-                    this.getVertexCharacteristics());
+            copy.setPropagationResult(this.getAllIncomingDataCharacteristics(),
+                    this.getAllOutgoingDataCharacteristics(), this.getVertexCharacteristics());
         }
         vertexMapping.put(this, copy);
 

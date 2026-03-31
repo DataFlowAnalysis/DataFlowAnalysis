@@ -22,12 +22,13 @@ public final class CharacteristicsSelectorData extends AbstractParseable {
     private final ConstraintVariableReference characteristicValue;
 
     /**
-     * Creates a new characteristics data object with the given {@link ConstraintVariableReference} as characteristic type
-     * and value
+     * Creates a new characteristics data object with the given {@link ConstraintVariableReference} as characteristic
+     * type and value
      * @param characteristicType {@link ConstraintVariableReference} used as characteristic type
      * @param characteristicValue {@link ConstraintVariableReference} used as characteristic value
      */
-    public CharacteristicsSelectorData(ConstraintVariableReference characteristicType, ConstraintVariableReference characteristicValue) {
+    public CharacteristicsSelectorData(ConstraintVariableReference characteristicType,
+            ConstraintVariableReference characteristicValue) {
         this.characteristicType = characteristicType;
         this.characteristicValue = characteristicValue;
     }
@@ -36,12 +37,16 @@ public final class CharacteristicsSelectorData extends AbstractParseable {
      * Determines whether a characteristic matches the saved reference
      * @param context DSL Matching context
      * @param characteristic Provided characteristic that should be matched
-     * @return Returns true of the provided characteristic matches the saved reference. Otherwise, the method returns false.
+     * @return Returns true of the provided characteristic matches the saved reference. Otherwise, the method returns
+     * false.
      */
-    public boolean matchesCharacteristic(DSLContext context, AbstractVertex<?> vertex, CharacteristicValue characteristic, String variableName,
-            List<String> characteristicTypes, List<String> characteristicValues) {
-        var characteristicTypeVariable = context.getMapping(DSLContextKey.of(variableName, vertex), this.characteristicType());
-        var characteristicValueVariable = context.getMapping(DSLContextKey.of(variableName, vertex), this.characteristicValue());
+    public boolean matchesCharacteristic(DSLContext context, AbstractVertex<?> vertex,
+            CharacteristicValue characteristic, String variableName, List<String> characteristicTypes,
+            List<String> characteristicValues) {
+        var characteristicTypeVariable = context.getMapping(DSLContextKey.of(variableName, vertex),
+                this.characteristicType());
+        var characteristicValueVariable = context.getMapping(DSLContextKey.of(variableName, vertex),
+                this.characteristicValue());
 
         if (characteristicTypeVariable.hasValues() && !characteristicTypeVariable.getPossibleValues()
                 .get()
@@ -57,16 +62,19 @@ public final class CharacteristicsSelectorData extends AbstractParseable {
         if (!characteristicTypeVariable.isConstant() && !characteristicTypes.contains(characteristic.getTypeName())) {
             characteristicTypes.add(characteristic.getTypeName());
         }
-        if (!characteristicValueVariable.isConstant() && !characteristicValues.contains(characteristic.getValueName())) {
+        if (!characteristicValueVariable.isConstant()
+                && !characteristicValues.contains(characteristic.getValueName())) {
             characteristicValues.add(characteristic.getValueName());
         }
         return true;
     }
 
-    public void applyResults(DSLContext context, AbstractVertex<?> vertex, String variableName, List<String> characteristicTypes,
-            List<String> characteristicValues) {
-        var characteristicTypeVariable = context.getMapping(DSLContextKey.of(variableName, vertex), this.characteristicType());
-        var characteristicValueVariable = context.getMapping(DSLContextKey.of(variableName, vertex), this.characteristicValue());
+    public void applyResults(DSLContext context, AbstractVertex<?> vertex, String variableName,
+            List<String> characteristicTypes, List<String> characteristicValues) {
+        var characteristicTypeVariable = context.getMapping(DSLContextKey.of(variableName, vertex),
+                this.characteristicType());
+        var characteristicValueVariable = context.getMapping(DSLContextKey.of(variableName, vertex),
+                this.characteristicValue());
 
         if (!characteristicTypeVariable.isConstant()) {
             characteristicTypeVariable.addPossibleValues(characteristicTypes);
@@ -115,7 +123,8 @@ public final class CharacteristicsSelectorData extends AbstractParseable {
             string.setPosition(position);
             return ParseResult.error(characteristicValue.getError());
         }
-        return ParseResult.ok(new CharacteristicsSelectorData(characteristicType.getResult(), characteristicValue.getResult()));
+        return ParseResult
+                .ok(new CharacteristicsSelectorData(characteristicType.getResult(), characteristicValue.getResult()));
     }
 
     /**

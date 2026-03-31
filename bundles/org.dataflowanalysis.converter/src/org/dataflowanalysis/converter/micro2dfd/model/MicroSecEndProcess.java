@@ -49,6 +49,7 @@ public abstract class MicroSecEndProcess {
             return false;
         }
         MicroSecEndProcess other = (MicroSecEndProcess) obj;
-        return this.name.equals(other.name) && this.stereotypes.equals(other.stereotypes) && this.taggedValues.equals(other.taggedValues);
+        return this.name.equals(other.name) && this.stereotypes.equals(other.stereotypes)
+                && this.taggedValues.equals(other.taggedValues);
     }
 }

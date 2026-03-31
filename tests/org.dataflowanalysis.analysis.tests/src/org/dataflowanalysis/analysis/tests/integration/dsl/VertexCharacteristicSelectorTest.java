@@ -33,10 +33,12 @@ public class VertexCharacteristicSelectorTest {
     }
 
     private static Stream<Arguments> correctVertexCharacteristicSelectors() {
-        return Stream.of(Arguments.of("A.B", false), Arguments.of("otherA.otherB", false), Arguments.of("!invertedA.invertedB", true));
+        return Stream.of(Arguments.of("A.B", false), Arguments.of("otherA.otherB", false),
+                Arguments.of("!invertedA.invertedB", true));
     }
 
     private static Stream<Arguments> incorrectVertexCharacteristicSelectors() {
-        return Stream.of(Arguments.of(".B"), Arguments.of("!.B"), Arguments.of("A."), Arguments.of("!"), Arguments.of("!."));
+        return Stream.of(Arguments.of(".B"), Arguments.of("!.B"), Arguments.of("A."), Arguments.of("!"),
+                Arguments.of("!."));
     }
 }

@@ -23,7 +23,8 @@ public final class DestinationSelectors extends AbstractParseable {
         this.vertexDestinationSelectors = new VertexDestinationSelectors();
     }
 
-    public DestinationSelectors(DataDestinationSelectors dataDestinationSelectors, VertexDestinationSelectors vertexDestinationSelectors) {
+    public DestinationSelectors(DataDestinationSelectors dataDestinationSelectors,
+            VertexDestinationSelectors vertexDestinationSelectors) {
         this.dataDestinationSelectors = dataDestinationSelectors;
         this.vertexDestinationSelectors = vertexDestinationSelectors;
     }
@@ -54,7 +55,8 @@ public final class DestinationSelectors extends AbstractParseable {
 
     public static ParseResult<DestinationSelectors> fromString(StringView string, DSLContext context) {
         string.skipWhitespace();
-        ParseResult<DataDestinationSelectors> dataDestinationSelector = DataDestinationSelectors.fromString(string, context);
+        ParseResult<DataDestinationSelectors> dataDestinationSelector = DataDestinationSelectors.fromString(string,
+                context);
         ParseResult<VertexDestinationSelectors> vertexDestinationSelector;
         if (dataDestinationSelector.successful()) {
             string.skipWhitespace();
@@ -69,11 +71,14 @@ public final class DestinationSelectors extends AbstractParseable {
         }
 
         if (vertexDestinationSelector.successful() && dataDestinationSelector.successful()) {
-            return ParseResult.ok(new DestinationSelectors(dataDestinationSelector.getResult(), vertexDestinationSelector.getResult()));
+            return ParseResult.ok(new DestinationSelectors(dataDestinationSelector.getResult(),
+                    vertexDestinationSelector.getResult()));
         } else if (dataDestinationSelector.successful()) {
-            return ParseResult.ok(new DestinationSelectors(dataDestinationSelector.getResult(), new VertexDestinationSelectors()));
+            return ParseResult.ok(
+                    new DestinationSelectors(dataDestinationSelector.getResult(), new VertexDestinationSelectors()));
         } else if (vertexDestinationSelector.successful()) {
-            return ParseResult.ok(new DestinationSelectors(new DataDestinationSelectors(), vertexDestinationSelector.getResult()));
+            return ParseResult.ok(
+                    new DestinationSelectors(new DataDestinationSelectors(), vertexDestinationSelector.getResult()));
         } else {
             return ParseResult.ok(new DestinationSelectors());
         }

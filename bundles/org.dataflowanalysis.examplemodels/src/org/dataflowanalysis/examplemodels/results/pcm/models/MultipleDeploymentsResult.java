@@ -29,10 +29,12 @@ public class MultipleDeploymentsResult implements PCMExampleModelResult {
     public List<ExpectedViolation> getExpectedViolations() {
         return List.of(
                 new ExpectedViolation(0, PCMIdentifier.of("_dQ568HQSEe2fd909RlIZZw", true),
-                        List.of(new ExpectedCharacteristic("ServerLocation", "nonEU"), new ExpectedCharacteristic("ServerLocation", "EU")),
+                        List.of(new ExpectedCharacteristic("ServerLocation", "nonEU"),
+                                new ExpectedCharacteristic("ServerLocation", "EU")),
                         Map.of("userdata", List.of(new ExpectedCharacteristic("DataSensitivity", "Personal")))),
                 new ExpectedViolation(0, PCMIdentifier.of("_dQ568XQSEe2fd909RlIZZw", false),
-                        List.of(new ExpectedCharacteristic("ServerLocation", "nonEU"), new ExpectedCharacteristic("ServerLocation", "EU")),
+                        List.of(new ExpectedCharacteristic("ServerLocation", "nonEU"),
+                                new ExpectedCharacteristic("ServerLocation", "EU")),
                         Map.of("userdata", List.of(new ExpectedCharacteristic("DataSensitivity", "Personal")))));
     }
 

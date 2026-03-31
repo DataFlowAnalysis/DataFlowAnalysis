@@ -18,8 +18,8 @@ public class DataCharacteristicListSelectorTest {
     @MethodSource("correctDataCharacteristicSelectors")
     public void shouldParseCorrectly(String dataCharacteristicsSelectorString, boolean inverted) {
         StringView stringView = new StringView(dataCharacteristicsSelectorString);
-        ParseResult<DataCharacteristicListSelector> dataCharacteristicsSelector = DataCharacteristicListSelector.fromString(stringView,
-                new DSLContext());
+        ParseResult<DataCharacteristicListSelector> dataCharacteristicsSelector = DataCharacteristicListSelector
+                .fromString(stringView, new DSLContext());
         assertTrue(dataCharacteristicsSelector.successful());
         assertTrue(stringView.empty());
         assertEquals(inverted, dataCharacteristicsSelector.getResult()
@@ -32,8 +32,8 @@ public class DataCharacteristicListSelectorTest {
     @MethodSource("incorrectDataCharacteristicSelectors")
     public void shouldNotParse(String dataCharacteristicsSelectorString) {
         StringView stringView = new StringView(dataCharacteristicsSelectorString);
-        ParseResult<DataCharacteristicListSelector> dataCharacteristicsSelector = DataCharacteristicListSelector.fromString(stringView,
-                new DSLContext());
+        ParseResult<DataCharacteristicListSelector> dataCharacteristicsSelector = DataCharacteristicListSelector
+                .fromString(stringView, new DSLContext());
         assertTrue(dataCharacteristicsSelector.failed() || !stringView.empty());
     }
 
@@ -43,7 +43,7 @@ public class DataCharacteristicListSelectorTest {
     }
 
     private static Stream<Arguments> incorrectDataCharacteristicSelectors() {
-        return Stream.of(Arguments.of(".B"), Arguments.of("!.B"), Arguments.of("A."), Arguments.of("!"), Arguments.of("!."), Arguments.of("A.B,"),
-                Arguments.of("A.B,C."), Arguments.of(","));
+        return Stream.of(Arguments.of(".B"), Arguments.of("!.B"), Arguments.of("A."), Arguments.of("!"),
+                Arguments.of("!."), Arguments.of("A.B,"), Arguments.of("A.B,C."), Arguments.of(","));
     }
 }

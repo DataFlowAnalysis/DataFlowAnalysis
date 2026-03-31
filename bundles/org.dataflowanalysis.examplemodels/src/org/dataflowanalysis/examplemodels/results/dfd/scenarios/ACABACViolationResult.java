@@ -34,17 +34,24 @@ public class ACABACViolationResult implements DFDExampleModelResult {
     public List<ExpectedViolation> getExpectedViolations() {
         return List.of(
                 new ExpectedViolation(2, new DFDIdentifier("370gkb"),
-                        List.of(new ExpectedCharacteristic("NodeRole", "Clerk"), new ExpectedCharacteristic("NodeLocation", "Asia")), Map.of(
-                                "t2a5tp", List.of(new ExpectedCharacteristic("DataOrigin", "Asia"),
-                                        new ExpectedCharacteristic("DataStatus", "Regular"), new ExpectedCharacteristic("DataStatus", "Celebrity")),
+                        List.of(new ExpectedCharacteristic("NodeRole", "Clerk"),
+                                new ExpectedCharacteristic("NodeLocation", "Asia")),
+                        Map.of("t2a5tp",
+                                List.of(new ExpectedCharacteristic("DataOrigin", "Asia"),
+                                        new ExpectedCharacteristic("DataStatus", "Regular"),
+                                        new ExpectedCharacteristic("DataStatus", "Celebrity")),
                                 "bgccb",
-                                List.of(new ExpectedCharacteristic("DataOrigin", "Asia"), new ExpectedCharacteristic("DataStatus", "Regular"),
+                                List.of(new ExpectedCharacteristic("DataOrigin", "Asia"),
+                                        new ExpectedCharacteristic("DataStatus", "Regular"),
                                         new ExpectedCharacteristic("DataStatus", "Celebrity")))),
 
                 new ExpectedViolation(3, new DFDIdentifier("fis13o"),
-                        List.of(new ExpectedCharacteristic("NodeRole", "Clerk"), new ExpectedCharacteristic("NodeLocation", "USA")),
-                        Map.of("jrprc", List.of(new ExpectedCharacteristic("DataOrigin", "USA"), new ExpectedCharacteristic("DataStatus", "Regular"),
-                                new ExpectedCharacteristic("DataStatus", "Celebrity")))));
+                        List.of(new ExpectedCharacteristic("NodeRole", "Clerk"),
+                                new ExpectedCharacteristic("NodeLocation", "USA")),
+                        Map.of("jrprc",
+                                List.of(new ExpectedCharacteristic("DataOrigin", "USA"),
+                                        new ExpectedCharacteristic("DataStatus", "Regular"),
+                                        new ExpectedCharacteristic("DataStatus", "Celebrity")))));
     }
 
     @Override

@@ -9,7 +9,7 @@ import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
 public class VariableNameSelector extends DataSelector {
-    private static final String DSL_KEYWORD = "dataName";
+    private static final String DSL_KEYWORD = "name";
     private static final Logger logger = LoggerManager.getLogger(VariableNameSelector.class);
 
     private final String variableName;

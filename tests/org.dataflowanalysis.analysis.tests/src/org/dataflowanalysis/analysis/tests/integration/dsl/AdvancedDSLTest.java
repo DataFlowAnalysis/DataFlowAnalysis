@@ -17,12 +17,18 @@ public class AdvancedDSLTest {
                 Arguments.of("* test3: data A.B flows vertex C.D"),
                 Arguments.of("* test4: data A.B alwaysFlows vertex C.D"),
                 Arguments.of("* test5: data A.B notAlwaysFlows vertex C.D"),
+
                 Arguments.of("* test6: data A.B neverFlows vertex any"),
-                Arguments.of("* test7: data A.B neverFlows data any"),
-                Arguments.of("* test8: data dataName contains Test neverFlows vertex C.D"),
-                Arguments.of("* test9: data dataName Test neverFlows vertex C.D"),
-                Arguments.of("* test10: data A.B neverFlows vertex vertexName Test"),
-                Arguments.of("* test11: data A.B neverFlows vertex vertexName contains Test"));
+                Arguments.of("* test7: data A.B neverFlows data C.D"), // data with A.B neverFlow to any node with C.D
+                                                                       // (across TFGs)
+                Arguments.of("* test8: vertex A.B neverFlows vertex C.D"),
+                Arguments.of("* test9: vertex A.B neverFlows data C.D"), // data from vertex A.B neverFlows data C.D
+                                                                         // (across TFGs)
+
+                Arguments.of("* test10: data name contains Test neverFlows vertex C.D"),
+                Arguments.of("* test11: data name Test neverFlows vertex C.D"),
+                Arguments.of("* test12: data A.B neverFlows vertex name Test"),
+                Arguments.of("* test13: data A.B neverFlows vertex name contains Test"));
     }
 
     @ParameterizedTest

@@ -40,14 +40,15 @@ public class AnalysisUtils {
     }
 
     /**
-     * <em>Assert</em> that the elements in {@code sequence} and {@code expectedType} are ordered like the provided list of
-     * classes
+     * <em>Assert</em> that the elements in {@code sequence} and {@code expectedType} are ordered like the provided list
+     * of classes
      * <p>
      * If {@code sequence} is {@code null} or the sequences are of different length, they are considered unequal
      * @param sequence ActionSequence to be inspected
      * @param expectedElementTypes Expected types of the given ActionSequence at all indexes
      */
-    public static void assertSequenceElements(AbstractTransposeFlowGraph sequence, List<Class<?>> expectedElementTypes) {
+    public static void assertSequenceElements(AbstractTransposeFlowGraph sequence,
+            List<Class<?>> expectedElementTypes) {
         var elements = sequence.getVertices();
 
         assertNotNull(elements);
@@ -67,20 +68,22 @@ public class AnalysisUtils {
      * @return Problem message for the assertion
      */
     private static String createProblemMessage(int index, Class<?> expectedType, Class<?> actualType) {
-        return String.format("Type mismatch at index %d. Expected: %s, actual: %s.", index, expectedType.getSimpleName(), actualType.getSimpleName());
+        return String.format("Type mismatch at index %d. Expected: %s, actual: %s.", index,
+                expectedType.getSimpleName(), actualType.getSimpleName());
     }
 
     /**
-     * <em>Assert</em> that {@code sequence} at the given {@code index} has the entity name of {@code expectedName} and is a
-     * SEFF Element
+     * <em>Assert</em> that {@code sequence} at the given {@code index} has the entity name of {@code expectedName} and
+     * is a SEFF Element
      * <p>
-     * If both {@code sequence} or {@code expectedName} are {@code null} or the sequences are of different length, they are
-     * considered unequal
+     * If both {@code sequence} or {@code expectedName} are {@code null} or the sequences are of different length, they
+     * are considered unequal
      * @param sequence ActionSequence to be inspected
      * @param index Index into the given sequence
      * @param expectedName Expected name at the given {@code index} into the given {@code sequence}
      */
-    public static void assertSEFFSequenceElementContent(AbstractTransposeFlowGraph sequence, int index, String expectedName) {
+    public static void assertSEFFSequenceElementContent(AbstractTransposeFlowGraph sequence, int index,
+            String expectedName) {
         assertNotNull(sequence.getVertices());
         assertTrue(sequence.getVertices()
                 .size() >= index + 1);
@@ -96,16 +99,17 @@ public class AnalysisUtils {
     }
 
     /**
-     * <em>Assert</em> that {@code sequence} at the given {@code index} has the entity name of {@code expectedName} and is a
-     * User Element
+     * <em>Assert</em> that {@code sequence} at the given {@code index} has the entity name of {@code expectedName} and
+     * is a User Element
      * <p>
-     * If both {@code sequence} or {@code expectedName} are {@code null} or the sequences are of different length, they are
-     * considered unequal
+     * If both {@code sequence} or {@code expectedName} are {@code null} or the sequences are of different length, they
+     * are considered unequal
      * @param sequence ActionSequence to be inspected
      * @param index Index into the given sequence
      * @param expectedName Expected name at the given {@code index} into the given {@code sequence}
      */
-    public static void assertUserSequenceElementContent(AbstractTransposeFlowGraph sequence, int index, String expectedName) {
+    public static void assertUserSequenceElementContent(AbstractTransposeFlowGraph sequence, int index,
+            String expectedName) {
         assertNotNull(sequence.getVertices());
         assertTrue(sequence.getVertices()
                 .size() >= index + 1);
@@ -123,16 +127,16 @@ public class AnalysisUtils {
     /**
      * <em>Assert</em> that {@code sequence} at the given {@code index} has the given characteristic type and value.
      * <p>
-     * If both {@code sequence} or {@code expectedName} are {@code null} or the sequences are of different length, they are
-     * considered unequal
+     * If both {@code sequence} or {@code expectedName} are {@code null} or the sequences are of different length, they
+     * are considered unequal
      * @param sequence ActionSequence to be inspected
      * @param index Index into the given sequence
      * @param variableName Name of the DataFlow variable at the given {@code index}
      * @param characteristicType Expected characteristic type at the given {@code index}
      * @param characteristicValue Expected characteristic value at the given {@code index}
      */
-    public static void assertCharacteristicPresent(AbstractTransposeFlowGraph sequence, int index, String variableName, String characteristicType,
-            String characteristicValue) {
+    public static void assertCharacteristicPresent(AbstractTransposeFlowGraph sequence, int index, String variableName,
+            String characteristicType, String characteristicValue) {
         var sequenceElement = sequence.getVertices()
                 .get(index);
         var dataCharacteristic = sequenceElement.getAllDataCharacteristics()
@@ -142,7 +146,8 @@ public class AnalysisUtils {
                 .findAny();
 
         if (dataCharacteristic.isEmpty()) {
-            fail(String.format("Did not find dataflow variable with name %s at sequence element %s", variableName, sequenceElement));
+            fail(String.format("Did not find dataflow variable with name %s at sequence element %s", variableName,
+                    sequenceElement));
         }
 
         var result = dataCharacteristic.get()
@@ -155,8 +160,8 @@ public class AnalysisUtils {
                 .findAny();
 
         if (result.isEmpty()) {
-            fail(String.format("Could not find dataflow variable %s.%s.%s at sequence element %s", variableName, characteristicType,
-                    characteristicValue, sequenceElement));
+            fail(String.format("Could not find dataflow variable %s.%s.%s at sequence element %s", variableName,
+                    characteristicType, characteristicValue, sequenceElement));
         }
     }
 
@@ -164,16 +169,16 @@ public class AnalysisUtils {
      * <em>Assert</em> that {@code sequence} at the given {@code index} does not have the given characteristic type and
      * value.
      * <p>
-     * If both {@code sequence} or {@code expectedName} are {@code null} or the sequences are of different length, they are
-     * considered unequal
+     * If both {@code sequence} or {@code expectedName} are {@code null} or the sequences are of different length, they
+     * are considered unequal
      * @param sequence ActionSequence to be inspected
      * @param index Index into the given sequence
      * @param variableName Name of the DataFlow variable at the given {@code index}
      * @param characteristicType Expected characteristic type at the given {@code index}
      * @param characteristicValue Expected characteristic value at the given {@code index}
      */
-    public static void assertCharacteristicAbsent(AbstractTransposeFlowGraph sequence, int index, String variableName, String characteristicType,
-            String characteristicValue) {
+    public static void assertCharacteristicAbsent(AbstractTransposeFlowGraph sequence, int index, String variableName,
+            String characteristicType, String characteristicValue) {
         if (sequence.getVertices()
                 .size() < index) {
             fail("Action sequence with length " + sequence.getVertices()

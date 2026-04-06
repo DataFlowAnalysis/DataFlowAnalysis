@@ -181,11 +181,11 @@ public class MicroSecEndTest {
     }
 
     /**
-     * If all TransposeFlowGraphs violate the constraint, the violation is valid --> if one TransposeFlowGraph has a secret
-     * manager constraint is not triggered
+     * If all TransposeFlowGraphs violate the constraint, the violation is valid --> if one TransposeFlowGraph has a
+     * secret manager constraint is not triggered
      */
-    private void missingSecretManager(Map<Integer, List<AbstractTransposeFlowGraph>> violatingTransposeFlowGraphs, Set<Integer> violationsSet,
-            int numOfTransposeFlowGraphs) {
+    private void missingSecretManager(Map<Integer, List<AbstractTransposeFlowGraph>> violatingTransposeFlowGraphs,
+            Set<Integer> violationsSet, int numOfTransposeFlowGraphs) {
         if (violatingTransposeFlowGraphs.get(18)
                 .size() >= numOfTransposeFlowGraphs) {
             violationsSet.add(18);
@@ -193,11 +193,11 @@ public class MicroSecEndTest {
     }
 
     /**
-     * If all TransposeFlowGraphs violate the constraint, the violation is valid --> if one TransposeFlowGraph has a logging
-     * server constraint is not triggered
+     * If all TransposeFlowGraphs violate the constraint, the violation is valid --> if one TransposeFlowGraph has a
+     * logging server constraint is not triggered
      */
-    private void missingLoggingServer(Map<Integer, List<AbstractTransposeFlowGraph>> violatingTransposeFlowGraphs, Set<Integer> violationsSet,
-            int numOfTransposeFlowGraphs) {
+    private void missingLoggingServer(Map<Integer, List<AbstractTransposeFlowGraph>> violatingTransposeFlowGraphs,
+            Set<Integer> violationsSet, int numOfTransposeFlowGraphs) {
         if (violatingTransposeFlowGraphs.get(9)
                 .size() >= numOfTransposeFlowGraphs) {
             violationsSet.add(9);
@@ -205,13 +205,14 @@ public class MicroSecEndTest {
         }
     }
 
-    private boolean hasNodeWithCharacteristic(AbstractTransposeFlowGraph transposeFlowGraph, String constraintRuleType, String constraintRule) {
+    private boolean hasNodeWithCharacteristic(AbstractTransposeFlowGraph transposeFlowGraph, String constraintRuleType,
+            String constraintRule) {
         return transposeFlowGraph.stream()
                 .anyMatch(node -> hasNodeCharacteristic(node, constraintRuleType, constraintRule));
     }
 
-    private boolean checkDataCharacteristicImplication(AbstractVertex<?> node, String constraintPrequisiteType, String constraintPrequisite,
-            String constraintRuleType, String constraintRule) {
+    private boolean checkDataCharacteristicImplication(AbstractVertex<?> node, String constraintPrequisiteType,
+            String constraintPrequisite, String constraintRuleType, String constraintRule) {
         var dataCharecteristicsByVariableOfPrequisitType = node.getDataCharacteristicNamesMap(constraintPrequisiteType);
         var dataCharecteristicsByVariableOfRuleType = node.getDataCharacteristicMap(constraintRuleType);
 
@@ -237,7 +238,8 @@ public class MicroSecEndTest {
     private void hasGateway(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
         if ((hasNodeCharacteristic(node, "Stereotype", "internal")
                 && checkDataCharacteristicImplication(node, "Stereotype", "entrypoint", "Stereotype", "gateway"))
-                || (hasNodeCharacteristic(node, "Stereotype", "gateway") && hasNodeCharacteristic(node, "Stereotype", "internal"))) {
+                || (hasNodeCharacteristic(node, "Stereotype", "gateway")
+                        && hasNodeCharacteristic(node, "Stereotype", "internal"))) {
             violationsSet.add(1);
 
         }
@@ -254,12 +256,13 @@ public class MicroSecEndTest {
 
     /**
      * Authorization and authentication processes should be decoupled from other services and should be implemented at
-     * platform level to enable reuse by different services. Since 3 is parent of 6, we need to note the violation 6 as well
+     * platform level to enable reuse by different services. Since 3 is parent of 6, we need to note the violation 6 as
+     * well
      */
     private void hasOptionalAuthorizedEntrypoint(Set<Integer> violationsSet, int variant, AbstractVertex<?> node,
             List<? extends AbstractTransposeFlowGraph> list) {
-        if (hasNodeCharacteristic(node, "Stereotype", "internal")
-                && checkDataCharacteristicImplication(node, "Stereotype", "entrypoint", "Stereotype", "authorization_server")) {
+        if (hasNodeCharacteristic(node, "Stereotype", "internal") && checkDataCharacteristicImplication(node,
+                "Stereotype", "entrypoint", "Stereotype", "authorization_server")) {
 
             var filteredTFGS = list.stream()
                     .filter(tfg -> tfg.getVertices()
@@ -270,7 +273,8 @@ public class MicroSecEndTest {
             if (filteredTFGS.stream()
                     .anyMatch(tfg -> tfg.getVertices()
                             .stream()
-                            .anyMatch(vertex -> hasDataCharacteristicInAnyVariable(vertex, "Stereotype", "authorization_server")))) {
+                            .anyMatch(vertex -> hasDataCharacteristicInAnyVariable(vertex, "Stereotype",
+                                    "authorization_server")))) {
                 return;
             }
 
@@ -286,8 +290,8 @@ public class MicroSecEndTest {
      * exposed outside. They should be used for authentication and authorization at all levels.
      */
     private void hasTransformedEntryIdentity(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
-        if (hasNodeCharacteristic(node, "Stereotype", "internal")
-                && checkDataCharacteristicImplication(node, "Stereotype", "entrypoint", "Stereotype", "transform_identity_representation")) {
+        if (hasNodeCharacteristic(node, "Stereotype", "internal") && checkDataCharacteristicImplication(node,
+                "Stereotype", "entrypoint", "Stereotype", "transform_identity_representation")) {
             violationsSet.add(4);
         }
     }
@@ -296,7 +300,8 @@ public class MicroSecEndTest {
      * Authentication tokens should be validated
      */
     private void hasTokenValidation(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
-        if (hasDataCharacteristicInAnyVariable(node, "Stereotype", "entrypoint") && hasNodeCharacteristic(node, "Stereotype", "internal")
+        if (hasDataCharacteristicInAnyVariable(node, "Stereotype", "entrypoint")
+                && hasNodeCharacteristic(node, "Stereotype", "internal")
                 && !hasNodeCharacteristic(node, "Stereotype", "token_validation")) {
             violationsSet.add(5);
         }
@@ -314,10 +319,12 @@ public class MicroSecEndTest {
     }
 
     /**
-     * All communication traffic from external users and entities should be encrypted using secure communication protocols
+     * All communication traffic from external users and entities should be encrypted using secure communication
+     * protocols
      */
     private void hasEncryptedEntryConnection(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
-        if (checkDataCharacteristicImplication(node, "Stereotype", "entrypoint", "Stereotype", "encrypted_connection")) {
+        if (checkDataCharacteristicImplication(node, "Stereotype", "entrypoint", "Stereotype",
+                "encrypted_connection")) {
             violationsSet.add(7);
         }
     }
@@ -334,7 +341,8 @@ public class MicroSecEndTest {
     /**
      * A central logging subsystem which includes a monitoring dashboard should exist.
      */
-    private void hasLoggingServer(AbstractTransposeFlowGraph aTFG, Map<Integer, List<AbstractTransposeFlowGraph>> existenceViolations) {
+    private void hasLoggingServer(AbstractTransposeFlowGraph aTFG,
+            Map<Integer, List<AbstractTransposeFlowGraph>> existenceViolations) {
         existenceViolations.putIfAbsent(9, new ArrayList<AbstractTransposeFlowGraph>());
         if (!hasNodeWithCharacteristic(aTFG, "Stereotype", "logging_server")) {
             existenceViolations.get(9)
@@ -343,13 +351,14 @@ public class MicroSecEndTest {
     }
 
     /**
-     * For all microservices, there should exist a local logging agent decoupled from the microservice but deployed on the
-     * same host. Log data from microservices should not be send to the central logging system directly, but collected by
-     * the logging agent, written to a local file, and eventually send to the central system by it. Since 10 is parent of
-     * 11, we need to note the violation 11 as well
+     * For all microservices, there should exist a local logging agent decoupled from the microservice but deployed on
+     * the same host. Log data from microservices should not be send to the central logging system directly, but
+     * collected by the logging agent, written to a local file, and eventually send to the central system by it. Since
+     * 10 is parent of 11, we need to note the violation 11 as well
      */
     private void hasLocalLogging(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
-        if (hasNodeCharacteristic(node, "Stereotype", "internal") && !hasNodeCharacteristic(node, "Stereotype", "local_logging")) {
+        if (hasNodeCharacteristic(node, "Stereotype", "internal")
+                && !hasNodeCharacteristic(node, "Stereotype", "local_logging")) {
             violationsSet.add(10);
             violationsSet.add(11);
         }
@@ -359,15 +368,16 @@ public class MicroSecEndTest {
      * The local logging agent should sanitize the log data and remove any PII, passwords, API keys, etc.
      */
     private void hasLogSanitization(Set<Integer> violationsSet, int variant, AbstractVertex<?> node) {
-        if (hasNodeCharacteristic(node, "Stereotype", "local_logging") && !hasNodeCharacteristic(node, "Stereotype", "log_sanitization")) {
+        if (hasNodeCharacteristic(node, "Stereotype", "local_logging")
+                && !hasNodeCharacteristic(node, "Stereotype", "log_sanitization")) {
             violationsSet.add(11);
         }
     }
 
     /**
-     * A message broker should be used to realize the communication between local logging agent and central logging system.
-     * These two should use mutual authentication and encrypt all transmitted data and availability should be ensured by
-     * providing periodic health and status data.
+     * A message broker should be used to realize the communication between local logging agent and central logging
+     * system. These two should use mutual authentication and encrypt all transmitted data and availability should be
+     * ensured by providing periodic health and status data.
      */
     private void hasOptionalMessageBroker(Set<Integer> violationsSet, int variant, AbstractVertex<?> node,
             List<? extends AbstractTransposeFlowGraph> list) {
@@ -383,7 +393,8 @@ public class MicroSecEndTest {
             if (filteredTFGS.stream()
                     .anyMatch(tfg -> tfg.getVertices()
                             .stream()
-                            .anyMatch(vertex -> hasDataCharacteristicInAnyVariable(vertex, "Stereotype", "message_broker")))) {
+                            .anyMatch(vertex -> hasDataCharacteristicInAnyVariable(vertex, "Stereotype",
+                                    "message_broker")))) {
                 return;
             }
             violationsSet.add(12);

@@ -149,12 +149,14 @@ public class PCMVertexCharacteristicsCalculator {
         allocationContexts.stream()
                 .filter(it -> context.contains(it.getAssemblyContext_AllocationContext()))
                 .forEach(it -> {
-                    resolvedAssignees.addAll(getAllocationAssignees(assignments, it.getAssemblyContext_AllocationContext()));
-                    resolvedAssignees.addAll(getResourceAssignees(assignments, it.getResourceContainer_AllocationContext()));
+                    resolvedAssignees
+                            .addAll(getAllocationAssignees(assignments, it.getAssemblyContext_AllocationContext()));
+                    resolvedAssignees
+                            .addAll(getResourceAssignees(assignments, it.getResourceContainer_AllocationContext()));
                     if (it.getAssemblyContext_AllocationContext()
                             .getEncapsulatedComponent__AssemblyContext() instanceof CompositeComponent) {
-                        resolvedAssignees.addAll(
-                                getCompositeComponentAssignees(assignments, context, (CompositeComponent) it.getAssemblyContext_AllocationContext()
+                        resolvedAssignees.addAll(getCompositeComponentAssignees(assignments, context,
+                                (CompositeComponent) it.getAssemblyContext_AllocationContext()
                                         .getEncapsulatedComponent__AssemblyContext()));
                     }
                 });
@@ -200,8 +202,8 @@ public class PCMVertexCharacteristicsCalculator {
      * @param compositeComponent Given composite component
      * @return Returns the list of all contained assignees of a SEFF node inside a given composite component
      */
-    private List<AbstractAssignee> getCompositeComponentAssignees(Assignments assignments, Deque<AssemblyContext> context,
-            CompositeComponent compositeComponent) {
+    private List<AbstractAssignee> getCompositeComponentAssignees(Assignments assignments,
+            Deque<AssemblyContext> context, CompositeComponent compositeComponent) {
         List<AbstractAssignee> evaluatedAssignees = new ArrayList<>();
         List<AssemblyContext> assemblyContexts = compositeComponent.getAssemblyContexts__ComposedStructure();
         for (AssemblyContext assemblyContext : assemblyContexts) {
@@ -239,7 +241,8 @@ public class PCMVertexCharacteristicsCalculator {
                 }
                 this.checkCharacteristics(resource.getCharacteristics());
             } else if (assignee instanceof AssemblyAssignee assembly) {
-                if (!this.presentInAssembly(assembly.getAssemblycontext()) && !this.presentInComposite(assembly.getAssemblycontext())) {
+                if (!this.presentInAssembly(assembly.getAssemblycontext())
+                        && !this.presentInComposite(assembly.getAssemblycontext())) {
                     throw new IllegalStateException("Referenced Assembly context is not loaded!");
                 }
                 this.checkCharacteristics(assembly.getCharacteristics());
@@ -252,11 +255,12 @@ public class PCMVertexCharacteristicsCalculator {
     /**
      * Determines whether a given usageScenario is currently loaded in the resources of the analysis
      * @param usageScenario Given usage scenario that is searched for
-     * @return Returns true, if the usage scenario could be found in the resources of the analysis. Otherwise, the method
-     * returns false.
+     * @return Returns true, if the usage scenario could be found in the resources of the analysis. Otherwise, the
+     * method returns false.
      */
     private boolean presentInUsageModel(UsageScenario usageScenario) {
-        List<UsageModel> usageModel = this.resourceLoader.lookupToplevelElement(UsagemodelPackage.eINSTANCE.getUsageModel())
+        List<UsageModel> usageModel = this.resourceLoader
+                .lookupToplevelElement(UsagemodelPackage.eINSTANCE.getUsageModel())
                 .parallelStream()
                 .filter(UsageModel.class::isInstance)
                 .map(UsageModel.class::cast)
@@ -308,7 +312,8 @@ public class PCMVertexCharacteristicsCalculator {
      * returns false.
      */
     private boolean presentInComposite(AssemblyContext assemblyContext) {
-        List<Repository> repositories = this.resourceLoader.lookupToplevelElement(RepositoryPackage.eINSTANCE.getRepository())
+        List<Repository> repositories = this.resourceLoader
+                .lookupToplevelElement(RepositoryPackage.eINSTANCE.getRepository())
                 .parallelStream()
                 .filter(Repository.class::isInstance)
                 .map(Repository.class::cast)

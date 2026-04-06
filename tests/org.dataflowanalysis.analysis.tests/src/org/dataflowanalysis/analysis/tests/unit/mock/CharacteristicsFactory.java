@@ -16,7 +16,8 @@ public class CharacteristicsFactory {
     public DataCharacteristic with(String... characteristics) {
         DataCharacteristic dataCharacteristic = new DataCharacteristic(variableName);
         for (String characteristic : characteristics) {
-            dataCharacteristic = dataCharacteristic.addCharacteristic(DummyCharacteristicValue.fromString(characteristic));
+            dataCharacteristic = dataCharacteristic
+                    .addCharacteristic(DummyCharacteristicValue.fromString(characteristic));
         }
         return dataCharacteristic;
     }

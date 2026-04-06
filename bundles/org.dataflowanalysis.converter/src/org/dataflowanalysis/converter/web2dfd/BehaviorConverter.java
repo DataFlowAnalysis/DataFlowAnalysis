@@ -36,8 +36,8 @@ public class BehaviorConverter {
     }
 
     /**
-     * Converts a string expression into a {@link Term} instance. The expression can include logical operators (&&, ||, !)
-     * and operands represented by strings.
+     * Converts a string expression into a {@link Term} instance. The expression can include logical operators (&&, ||,
+     * !) and operands represented by strings.
      * @param expression the logical expression to convert
      * @return the {@link Term} representation of the expression
      */
@@ -166,11 +166,13 @@ public class BehaviorConverter {
             return "TRUE";
         } else if (term instanceof AND and) {
             List<Term> operands = and.getTerms();
-            String result = termToString(operands.get(0), true) + " " + LOGICAL_AND + " " + termToString(operands.get(1), true);
+            String result = termToString(operands.get(0), true) + " " + LOGICAL_AND + " "
+                    + termToString(operands.get(1), true);
             return isNested ? "(" + result + ")" : result;
         } else if (term instanceof OR or) {
             List<Term> operands = or.getTerms();
-            String result = termToString(operands.get(0), true) + " " + LOGICAL_OR + " " + termToString(operands.get(1), true);
+            String result = termToString(operands.get(0), true) + " " + LOGICAL_OR + " "
+                    + termToString(operands.get(1), true);
             return isNested ? "(" + result + ")" : result;
         } else if (term instanceof NOT not) {
             if (not.getNegatedTerm() instanceof TRUE) {
@@ -213,7 +215,8 @@ public class BehaviorConverter {
                 token.append(current);
 
                 // For && and ||, make sure to capture both characters
-                if ((current == '&' || current == '|') && i + 1 < expression.length() && expression.charAt(i + 1) == current) {
+                if ((current == '&' || current == '|') && i + 1 < expression.length()
+                        && expression.charAt(i + 1) == current) {
                     i++; // Skip the next character since it's part of the operator
                     token.append(current);
                 }

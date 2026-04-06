@@ -66,7 +66,8 @@ public class DFD2WebConverter extends Converter {
                 .dataFlowDiagram(),
                 dfdModel.get()
                         .dataDictionary(),
-                createNodeAnnotationMap(dfdModel.get(), this.constraints.orElse(null), this.transposeFlowGraphFinder.orElse(null)));
+                createNodeAnnotationMap(dfdModel.get(), this.constraints.orElse(null),
+                        this.transposeFlowGraphFinder.orElse(null)));
         return new WebEditorConverterModel(webEditorDfd);
     }
 
@@ -101,8 +102,8 @@ public class DFD2WebConverter extends Converter {
      * @param finderClass Custom TFG Finder (optional)
      * @return Returns the annotations that should be added to nodes in the data flow diagram
      */
-    private Map<Node, List<Annotation>> createNodeAnnotationMap(DataFlowDiagramAndDictionary complete, List<AnalysisConstraint> constraints,
-            Class<? extends TransposeFlowGraphFinder> finderClass) {
+    private Map<Node, List<Annotation>> createNodeAnnotationMap(DataFlowDiagramAndDictionary complete,
+            List<AnalysisConstraint> constraints, Class<? extends TransposeFlowGraphFinder> finderClass) {
         var collection = getTransposeFlowGraphs(complete, finderClass).stream()
                 .map(AbstractTransposeFlowGraph::evaluate)
                 .toList();
@@ -170,8 +171,8 @@ public class DFD2WebConverter extends Converter {
         return annotations;
     }
 
-    private static List<? extends AbstractTransposeFlowGraph> getTransposeFlowGraphs(DataFlowDiagramAndDictionary complete,
-            Class<? extends TransposeFlowGraphFinder> finderClass) {
+    private static List<? extends AbstractTransposeFlowGraph> getTransposeFlowGraphs(
+            DataFlowDiagramAndDictionary complete, Class<? extends TransposeFlowGraphFinder> finderClass) {
         TransposeFlowGraphFinder finder;
         if (finderClass == null)
             finder = new DFDTransposeFlowGraphFinder(complete.dataDictionary(), complete.dataFlowDiagram());
@@ -195,7 +196,8 @@ public class DFD2WebConverter extends Converter {
         }
     }
 
-    private WebEditorDfd processDfd(DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary, Map<Node, List<Annotation>> mapNodeToAnnotation) {
+    private WebEditorDfd processDfd(DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary,
+            Map<Node, List<Annotation>> mapNodeToAnnotation) {
         inputPinToFlowNamesMap = new HashMap<>();
         List<Child> children = new ArrayList<>();
         List<WebEditorLabelType> labelTypes = new ArrayList<>();
@@ -208,10 +210,12 @@ public class DFD2WebConverter extends Converter {
 
         createNodes(dataFlowDiagram, children, mapNodeToAnnotation);
 
-        return new WebEditorDfd(new Model("graph", "root", children), labelTypes, readOnly ? "view" : "edit", new ArrayList<>());
+        return new WebEditorDfd(new Model("graph", "root", children), labelTypes, readOnly ? "view" : "edit",
+                new ArrayList<>());
     }
 
-    private void createNodes(DataFlowDiagram dataFlowDiagram, List<Child> children, Map<Node, List<Annotation>> mapNodeToAnnotation) {
+    private void createNodes(DataFlowDiagram dataFlowDiagram, List<Child> children,
+            Map<Node, List<Annotation>> mapNodeToAnnotation) {
         for (Node node : dataFlowDiagram.getNodes()) {
             String text = node.getEntityName();
             String id = node.getId();
@@ -239,19 +243,21 @@ public class DFD2WebConverter extends Converter {
 
             node.getBehavior()
                     .getInPin()
-                    .forEach(pin -> ports.add(new Port(null, pin.getId(), "port:dfd-input", new ArrayList<>(), null, null)));
+                    .forEach(pin -> ports
+                            .add(new Port(null, pin.getId(), "port:dfd-input", new ArrayList<>(), null, null)));
 
             Map<Pin, List<AbstractAssignment>> mapPinToAssignments = mapping(node);
 
             node.getBehavior()
                     .getOutPin()
-                    .forEach(pin -> ports.add(new Port(createBehaviorString(mapPinToAssignments.get(pin)), pin.getId(), "port:dfd-output",
-                            new ArrayList<>(), null, null)));
+                    .forEach(pin -> ports.add(new Port(createBehaviorString(mapPinToAssignments.get(pin)), pin.getId(),
+                            "port:dfd-output", new ArrayList<>(), null, null)));
             if (mapNodeToAnnotation == null)
-                children.add(new Child(text, labels, ports, id, type, null, null, null, new ArrayList<>(), null, null, null));
+                children.add(new Child(text, labels, ports, id, type, null, null, null, new ArrayList<>(), null, null,
+                        null));
             else
-                children.add(new Child(text, labels, ports, id, type, null, null, mapNodeToAnnotation.get(node), new ArrayList<>(),
-                        new Position(0, 0), null, null));
+                children.add(new Child(text, labels, ports, id, type, null, null, mapNodeToAnnotation.get(node),
+                        new ArrayList<>(), new Position(0, 0), null, null));
         }
     }
 
@@ -292,7 +298,8 @@ public class DFD2WebConverter extends Converter {
         String targetId = flow.getDestinationPin()
                 .getId();
         String text = controlFlowNameMap.getOrDefault(flow, flow.getEntityName());
-        return new Child(text, null, null, id, type, sourceId, targetId, null, new ArrayList<>(), null, null, new ArrayList<>());
+        return new Child(text, null, null, id, type, sourceId, targetId, null, new ArrayList<>(), null, null,
+                new ArrayList<>());
     }
 
     private Map<Pin, List<AbstractAssignment>> mapping(Node node) {
@@ -361,12 +368,14 @@ public class DFD2WebConverter extends Converter {
     private String getStringFromOutLabels(List<Label> outLabels) {
         List<String> outLabelsAsStrings = new ArrayList<>();
 
-        outLabels.forEach(label -> outLabelsAsStrings.add(((LabelType) label.eContainer()).getEntityName() + "." + label.getEntityName()));
+        outLabels.forEach(label -> outLabelsAsStrings
+                .add(((LabelType) label.eContainer()).getEntityName() + "." + label.getEntityName()));
 
         return String.join(DELIMITER_MULTI_LABEL, outLabelsAsStrings);
     }
 
-    private void fillPinToFlowNamesMap(Map<Pin, List<String>> map, Flow flow, HashMap<Flow, String> controlFlowNameMap) {
+    private void fillPinToFlowNamesMap(Map<Pin, List<String>> map, Flow flow,
+            HashMap<Flow, String> controlFlowNameMap) {
         if (map.containsKey(flow.getDestinationPin())) {
             map.get(flow.getDestinationPin())
                     .add(controlFlowNameMap.getOrDefault(flow, flow.getEntityName()));

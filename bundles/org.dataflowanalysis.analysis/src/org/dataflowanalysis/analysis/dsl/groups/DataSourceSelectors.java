@@ -1,33 +1,31 @@
-package org.dataflowanalysis.analysis.dsl;
+package org.dataflowanalysis.analysis.dsl.groups;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.dsl.AbstractParseable;
+import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
-import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsListSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexNameSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexTypeSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.*;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
 /**
- * Represents the destination vertex {@link AbstractSelector} matched by an {@link AnalysisConstraint}
+ * Represents the source data {@link AbstractSelector} matched by an {@link AnalysisConstraint}
  */
-public class VertexDestinationSelectors extends AbstractParseable {
-    private static final String DSL_KEYWORD = "vertex";
-    private static final Logger logger = LoggerManager.getLogger(VertexDestinationSelectors.class);
+public class DataSourceSelectors extends AbstractParseable {
+    private static final Logger logger = LoggerManager.getLogger(DataSourceSelectors.class);
+    private static final String DSL_KEYWORD = "data";
 
     private final List<AbstractSelector> selectors;
 
-    public VertexDestinationSelectors() {
+    public DataSourceSelectors() {
         selectors = new ArrayList<>();
     }
 
-    public VertexDestinationSelectors(List<AbstractSelector> selectors) {
+    public DataSourceSelectors(List<AbstractSelector> selectors) {
         this.selectors = selectors;
     }
 
@@ -53,13 +51,13 @@ public class VertexDestinationSelectors extends AbstractParseable {
     }
 
     /**
-     * Parses the {@link VertexDestinationSelectors} of an {@link AnalysisConstraint}.
+     * Parses the {@link DataSourceSelectors} of an {@link AnalysisConstraint}.
      * @param string String view on the string that is parsed
      * @param context DSL context used during parsing
-     * @return Returns a {@link ParseResult} that may contain the {@link VertexDestinationSelectors} of the
+     * @return Returns a {@link ParseResult} that may contain the {@link DataSourceSelectors} of the
      * {@link AnalysisConstraint}
      */
-    public static ParseResult<VertexDestinationSelectors> fromString(StringView string, DSLContext context) {
+    public static ParseResult<DataSourceSelectors> fromString(StringView string, DSLContext context) {
         string.skipWhitespace();
         if (string.invalid()) {
             return ParseResult.error("Unexpected end of input!");
@@ -78,26 +76,9 @@ public class VertexDestinationSelectors extends AbstractParseable {
         logger.debug("Parsing: " + string.getString());
         List<AbstractSelector> selectors = new ArrayList<>();
         while (!string.invalid()) {
-            string.skipWhitespace();
-            var listSelector = VertexCharacteristicsListSelector.fromString(string, context);
-            if (listSelector.successful()) {
-                selectors.add(listSelector.getResult());
-                continue;
-            }
-
-            var selector = VertexCharacteristicsSelector.fromString(string, context);
+            var selector = AbstractSelector.fromString(string, context);
             if (selector.successful()) {
                 selectors.add(selector.getResult());
-                continue;
-            }
-            var nameSelector = VertexNameSelector.fromString(string, context);
-            if (nameSelector.successful()) {
-                selectors.add(nameSelector.getResult());
-                continue;
-            }
-            var typeSelector = VertexTypeSelector.fromString(string, context);
-            if (typeSelector.successful()) {
-                selectors.add(typeSelector.getResult());
                 continue;
             }
             break;
@@ -106,7 +87,7 @@ public class VertexDestinationSelectors extends AbstractParseable {
             string.setPosition(position);
             return ParseResult.error("Keyword " + DSL_KEYWORD + " is missing any selectors!");
         }
-        VertexDestinationSelectors vertexDestinationSelectors = new VertexDestinationSelectors(selectors);
-        return ParseResult.ok(vertexDestinationSelectors);
+        DataSourceSelectors dataSourceSelectors = new DataSourceSelectors(selectors);
+        return ParseResult.ok(dataSourceSelectors);
     }
 }

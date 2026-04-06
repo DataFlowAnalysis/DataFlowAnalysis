@@ -71,7 +71,8 @@ public class Web2DFDConverter extends Converter {
 
         createLabelTypes(webdfd, idToLabelMap, dataDictionary);
 
-        createNodes(webdfd, pinToNodeMap, idToPinMap, idToLabelMap, nodeOutpinBehaviorMap, dataFlowDiagram, dataDictionary);
+        createNodes(webdfd, pinToNodeMap, idToPinMap, idToLabelMap, nodeOutpinBehaviorMap, dataFlowDiagram,
+                dataDictionary);
 
         createFlows(webdfd, pinToNodeMap, idToPinMap, dataFlowDiagram);
 
@@ -81,14 +82,16 @@ public class Web2DFDConverter extends Converter {
 
         nodesInBehavior.forEach(node -> {
             Map<Pin, String> outpinBehaviors = nodeOutpinBehaviorMap.get(node);
-            outpinBehaviors.forEach((outpin, behavior) -> parseBehavior(node, outpin, behavior, dataFlowDiagram, dataDictionary));
+            outpinBehaviors.forEach(
+                    (outpin, behavior) -> parseBehavior(node, outpin, behavior, dataFlowDiagram, dataDictionary));
         });
 
         return new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary);
     }
 
-    private void createNodes(WebEditorDfd webdfd, Map<String, Node> pinToNodeMap, Map<String, Pin> pinMap, Map<String, Label> idToLabelMap,
-            Map<Node, Map<Pin, String>> nodeOutpinBehavior, DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary) {
+    private void createNodes(WebEditorDfd webdfd, Map<String, Node> pinToNodeMap, Map<String, Pin> pinMap,
+            Map<String, Label> idToLabelMap, Map<Node, Map<Pin, String>> nodeOutpinBehavior,
+            DataFlowDiagram dataFlowDiagram, DataDictionary dataDictionary) {
         for (Child child : webdfd.model()
                 .children()) {
             String[] type = child.type()
@@ -136,7 +139,8 @@ public class Web2DFDConverter extends Converter {
         }
     }
 
-    private void createFlows(WebEditorDfd webdfd, Map<String, Node> pinToNodeMap, Map<String, Pin> pinMap, DataFlowDiagram dataFlowDiagram) {
+    private void createFlows(WebEditorDfd webdfd, Map<String, Node> pinToNodeMap, Map<String, Pin> pinMap,
+            DataFlowDiagram dataFlowDiagram) {
 
         webdfd.model()
                 .children()
@@ -167,8 +171,8 @@ public class Web2DFDConverter extends Converter {
 
     }
 
-    private void createPins(Map<String, Node> pinToNodeMap, Map<String, Pin> pinMap, Map<Node, Map<Pin, String>> nodeOutpinBehavior, Child child,
-            Node node) {
+    private void createPins(Map<String, Node> pinToNodeMap, Map<String, Pin> pinMap,
+            Map<Node, Map<Pin, String>> nodeOutpinBehavior, Child child, Node node) {
         for (Port port : child.ports()) {
             switch (port.type()) {
                 case "port:dfd-input" -> pinMap.put(port.id(), createInPin(node, port));
@@ -301,7 +305,8 @@ public class Web2DFDConverter extends Converter {
                             .filter(label -> label.getEntityName()
                                     .equals(valueName))
                             .findAny()
-                            .orElseThrow(() -> new IllegalArgumentException("Label:" + typeValuePair + " does not exist!"));
+                            .orElseThrow(
+                                    () -> new IllegalArgumentException("Label:" + typeValuePair + " does not exist!"));
                     labels.add(value);
                 });
         return labels;

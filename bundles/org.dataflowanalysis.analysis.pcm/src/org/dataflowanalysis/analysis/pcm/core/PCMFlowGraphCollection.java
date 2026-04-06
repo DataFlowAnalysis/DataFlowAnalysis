@@ -26,7 +26,8 @@ public class PCMFlowGraphCollection extends FlowGraphCollection {
         super(resourceProvider);
     }
 
-    public PCMFlowGraphCollection(List<? extends AbstractTransposeFlowGraph> transposeFlowGraphs, ResourceProvider resourceProvider) {
+    public PCMFlowGraphCollection(List<? extends AbstractTransposeFlowGraph> transposeFlowGraphs,
+            ResourceProvider resourceProvider) {
         super(transposeFlowGraphs, resourceProvider);
     }
 

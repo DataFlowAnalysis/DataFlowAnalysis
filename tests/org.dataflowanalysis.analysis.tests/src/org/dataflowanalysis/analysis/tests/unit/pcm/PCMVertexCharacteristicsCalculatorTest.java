@@ -38,10 +38,12 @@ public class PCMVertexCharacteristicsCalculatorTest {
         usageScenario = dummyResourceProvider.getUsageScenario("UsageScenario");
         otherUsageScenario = dummyResourceProvider.getUsageScenario("OtherUsageScenario");
         ResourceContainer resourceContainer = dummyResourceProvider.getResourceContainer("ResourceContainer");
-        ResourceContainer otherResourceContainer = dummyResourceProvider.getResourceContainer("AnotherResourceContainer");
+        ResourceContainer otherResourceContainer = dummyResourceProvider
+                .getResourceContainer("AnotherResourceContainer");
         assemblyContext = dummyResourceProvider.addAssemblyContext("AssemblyContext", resourceContainer);
         otherAssemblyContext = dummyResourceProvider.addAssemblyContext("OtherAssemblyContext", otherResourceContainer);
-        resourceAssemblyContext = dummyResourceProvider.addAssemblyContext("ResourceAssemblyContext", resourceContainer);
+        resourceAssemblyContext = dummyResourceProvider.addAssemblyContext("ResourceAssemblyContext",
+                resourceContainer);
 
         dummyResourceProvider.addUsageAssignment(usageScenario, "A", "B");
         dummyResourceProvider.addAssemblyAssignment(assemblyContext, "A", "C");
@@ -49,14 +51,16 @@ public class PCMVertexCharacteristicsCalculatorTest {
     }
 
     private static Stream<Arguments> getValidCharacterizationsResult() {
-        return Stream.of(Arguments.of(getAbstractUserAction(usageScenario), List.of(), List.of(ExpectedCharacteristic.of("A", "B"))),
+        return Stream.of(
+                Arguments.of(getAbstractUserAction(usageScenario), List.of(),
+                        List.of(ExpectedCharacteristic.of("A", "B"))),
                 Arguments.of(getAbstractUserAction(otherUsageScenario), List.of(), List.of()),
                 Arguments.of(getUserAction(), List.of(assemblyContext),
                         List.of(ExpectedCharacteristic.of("A", "C"), ExpectedCharacteristic.of("A", "D"))),
                 Arguments.of(getUserAction(), List.of(otherAssemblyContext, assemblyContext),
                         List.of(ExpectedCharacteristic.of("A", "C"), ExpectedCharacteristic.of("A", "D"))),
-                Arguments.of(getUserAction(), List.of(otherAssemblyContext), List.of()),
-                Arguments.of(getUserAction(), List.of(resourceAssemblyContext), List.of(ExpectedCharacteristic.of("A", "D"))));
+                Arguments.of(getUserAction(), List.of(otherAssemblyContext), List.of()), Arguments.of(getUserAction(),
+                        List.of(resourceAssemblyContext), List.of(ExpectedCharacteristic.of("A", "D"))));
     }
 
     @Test

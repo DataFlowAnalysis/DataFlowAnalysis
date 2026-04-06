@@ -76,36 +76,9 @@ public class VertexDestinationSelectors extends AbstractParseable {
         logger.debug("Parsing: " + string.getString());
         List<AbstractSelector> selectors = new ArrayList<>();
         while (!string.invalid()) {
-            string.skipWhitespace();
-            var listSelector = VertexCharacteristicsListSelector.fromString(string, context);
-            if (listSelector.successful()) {
-                selectors.add(listSelector.getResult());
-                continue;
-            }
-
-            var selector = VertexCharacteristicsSelector.fromString(string, context);
+            var selector = AbstractSelector.fromString(string, context);
             if (selector.successful()) {
                 selectors.add(selector.getResult());
-                continue;
-            }
-            var nameSelector = VertexNameSelector.fromString(string, context);
-            if (nameSelector.successful()) {
-                selectors.add(nameSelector.getResult());
-                continue;
-            }
-            var typeSelector = VertexTypeSelector.fromString(string, context);
-            if (typeSelector.successful()) {
-                selectors.add(typeSelector.getResult());
-                continue;
-            }
-            var vertexNameSelector = VertexNameSelector.fromString(string, context);
-            if (vertexNameSelector.successful()) {
-                selectors.add(vertexNameSelector.getResult());
-                continue;
-            }
-            var anySelector = AnySelector.fromString(string, context);
-            if (anySelector.successful()) {
-                selectors.add(anySelector.getResult());
                 continue;
             }
             break;

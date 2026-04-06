@@ -9,7 +9,7 @@ public enum FlowType {
     ALWAYS_FLOWS("alwaysFlows"),
     NOT_ALWAYS_FLOWS("notAlwaysFlows");
 
-    private String name;
+    private final String name;
 
     FlowType(String name) {
         this.name = name;
@@ -37,6 +37,6 @@ public enum FlowType {
             string.advance("notAlwaysFlows".length());
             return ParseResult.ok(FlowType.NOT_ALWAYS_FLOWS);
         }
-        return ParseResult.error("Invalid flow type!");
+        return ParseResult.error("Invalid flow type: %s!".formatted(string.getString()));
     }
 }

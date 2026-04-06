@@ -76,25 +76,9 @@ public class DataSourceSelectors extends AbstractParseable {
         logger.debug("Parsing: " + string.getString());
         List<AbstractSelector> selectors = new ArrayList<>();
         while (!string.invalid()) {
-            string.skipWhitespace();
-            var listSelector = DataCharacteristicListSelector.fromString(string, context);
-            if (listSelector.successful()) {
-                selectors.add(listSelector.getResult());
-                continue;
-            }
-            var selector = DataCharacteristicsSelector.fromString(string, context);
+            var selector = AbstractSelector.fromString(string, context);
             if (selector.successful()) {
                 selectors.add(selector.getResult());
-                continue;
-            }
-            var nameSelector = VariableNameSelector.fromString(string, context);
-            if (nameSelector.successful()) {
-                selectors.add(nameSelector.getResult());
-                continue;
-            }
-            var anySelector = AnySelector.fromString(string, context);
-            if (anySelector.successful()) {
-                selectors.add(anySelector.getResult());
                 continue;
             }
             break;

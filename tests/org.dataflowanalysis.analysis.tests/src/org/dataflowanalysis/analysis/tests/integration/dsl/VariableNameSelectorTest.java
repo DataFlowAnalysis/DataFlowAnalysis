@@ -38,14 +38,14 @@ public class VariableNameSelectorTest {
     }
 
     private static Stream<Arguments> correctVariableNameSelectors() {
-        return Stream.of(Arguments.of("dataName name", "name", true),
-                Arguments.of("dataName otherA.otherB", "otherA.otherB", true),
-                Arguments.of("dataName some string with spaces", "some", false),
-                Arguments.of("dataName contains test", "test", true));
+        return Stream.of(Arguments.of("name name", "name", true),
+                Arguments.of("name otherA.otherB", "otherA.otherB", true),
+                Arguments.of("name some string with spaces", "some", false),
+                Arguments.of("name contains test", "test", true));
     }
 
     private static Stream<Arguments> incorrectVariableNameSelectors() {
-        return Stream.of(Arguments.of("dataName"), Arguments.of(""), Arguments.of("dataName "),
-                Arguments.of("dataName contains"), Arguments.of("dataName contains "));
+        return Stream.of(Arguments.of("name"), Arguments.of(""), Arguments.of("name "), Arguments.of("name contains"),
+                Arguments.of("name contains "));
     }
 }

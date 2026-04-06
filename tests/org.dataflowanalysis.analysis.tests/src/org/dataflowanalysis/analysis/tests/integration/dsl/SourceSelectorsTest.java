@@ -35,11 +35,11 @@ public class SourceSelectorsTest {
 
     private static Stream<Arguments> correctSourceSelectors() {
         return Stream.of(Arguments.of("vertex A.B"), Arguments.of("data A.B"), Arguments.of("data A.B vertex A.B"),
-                Arguments.of("data otherA.otherB vertex A.B C.D"), Arguments.of("data A.B dataName C vertex A.B C.D"),
-                Arguments.of("data A.B,C.D dataName E vertex otherA.otherB"),
-                Arguments.of("data A.B,C.D E.F dataName G vertex A.B C.D"),
-                Arguments.of("data A.B,C.D \ndataName E \n\tvertex otherA.otherB"),
-                Arguments.of("data A.B,C.D E.F \n\n\n\tdataName G \n\n\n\n\tvertex A.B C.D"));
+                Arguments.of("data otherA.otherB vertex A.B C.D"), Arguments.of("data A.B name C vertex A.B C.D"),
+                Arguments.of("data A.B,C.D name E vertex otherA.otherB"),
+                Arguments.of("data A.B,C.D E.F name G vertex A.B C.D"),
+                Arguments.of("data A.B,C.D \nname E \n\tvertex otherA.otherB"),
+                Arguments.of("data A.B,C.D E.F \n\n\n\tname G \n\n\n\n\tvertex A.B C.D"));
     }
 
     private static Stream<Arguments> incorrectSourceSelectors() {

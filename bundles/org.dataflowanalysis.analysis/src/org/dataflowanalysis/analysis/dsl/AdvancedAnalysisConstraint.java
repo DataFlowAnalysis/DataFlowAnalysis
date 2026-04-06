@@ -26,7 +26,7 @@ public class AdvancedAnalysisConstraint extends AnalysisConstraint {
 
     @Override
     public List<DSLResult> findViolations(FlowGraphCollection flowGraphCollection) {
-        return List.of();
+        throw new RuntimeException("Not yet implemented!");
     }
 
     @Override

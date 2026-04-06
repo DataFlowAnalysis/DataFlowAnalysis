@@ -34,14 +34,14 @@ public class VertexNameSelectorTest {
     }
 
     private static Stream<Arguments> correctVertexNameSelectors() {
-        return Stream.of(Arguments.of("vertexName name", "name", true),
-                Arguments.of("vertexName otherA.otherB", "otherA.otherB", true),
-                Arguments.of("vertexName some string with spaces", "some", false),
-                Arguments.of("vertexName contains name", "name", true));
+        return Stream.of(Arguments.of("name name", "name", true),
+                Arguments.of("name otherA.otherB", "otherA.otherB", true),
+                Arguments.of("name some string with spaces", "some", false),
+                Arguments.of("name contains name", "name", true));
     }
 
     private static Stream<Arguments> incorrectVertexNameSelectors() {
-        return Stream.of(Arguments.of("vertexName"), Arguments.of(""), Arguments.of("vertexName "),
-                Arguments.of("vertexName contains"), Arguments.of("vertexName contains "));
+        return Stream.of(Arguments.of("name"), Arguments.of(""), Arguments.of("name "), Arguments.of("name contains"),
+                Arguments.of("name contains "));
     }
 }

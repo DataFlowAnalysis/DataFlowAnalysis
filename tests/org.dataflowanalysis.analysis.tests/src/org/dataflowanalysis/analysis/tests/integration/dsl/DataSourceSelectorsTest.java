@@ -34,9 +34,8 @@ public class DataSourceSelectorsTest {
     }
 
     private static Stream<Arguments> correctDataSourceSelectors() {
-        return Stream.of(Arguments.of("data A.B"), Arguments.of("data otherA.otherB"),
-                Arguments.of("data A.B dataName C"), Arguments.of("data A.B,C.D dataName E"),
-                Arguments.of("data A.B,C.D E.F dataName G"));
+        return Stream.of(Arguments.of("data A.B"), Arguments.of("data otherA.otherB"), Arguments.of("data A.B name C"),
+                Arguments.of("data A.B,C.D name E"), Arguments.of("data A.B,C.D E.F name G"));
     }
 
     private static Stream<Arguments> incorrectDataSourceSelectors() {

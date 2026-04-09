@@ -1,7 +1,16 @@
   # 📊 Diagram: Corona Warn App (CWA)
 
+::: tip Available Online
+This model is available to view using the online editor!
+<VPButton text="Open In Online Editor (No Violations)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/CWA/NoViolation/CWANoViolation.json&layout=true"></VPButton>
+<VPButton text="Open In Online Editor (PersonalDataViolation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/CWA/PersonalDataViolation/CWAPersonaldataViolation.json&layout=true"></VPButton>
+<VPButton text="Open In Online Editor (RPI Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/CWA/RPIViolation/CWARPIViolation.json&layout=true"></VPButton>
+::: 
+
+
 ## 🔗 Link to Original Paper/Article
 [View Full Main Source](<https://github.com/corona-warn-app/cwa-documentation/blob/main/solution_architecture.md>)
+[Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/CWA)
 
 ## 📝 Short Description
 This diagram illustrates the complex data flow of the Corona-Warn-App (CWA), as stated in their documentation. The architecture is divided into three main components: **Corona-Warn-App**, **Verification Server** and **Corona-Warn-App Server**. The first one runs on the user's mobile phone. This component is responsible for scanning nearby users' keys via *Bluetooth Low Energy (BLE)*, interacting with the *Exposure Notification Framework*, and communicating with the *Data Donation Server*. The second one verifies test results received from the *Test Result Server*. The last one receives diagnosis keys from the CWA and analytics data from the *Data Donation Server*. It stores this data and, via the *Content Delivery Network (CDN)*, makes it available to other users, allowing them to determine whether they have been in contact with someone who tested positive.
@@ -123,5 +132,9 @@ Although no violations were found in the original CWA architecture, we have slig
 
 
 
+
+<script setup>
+import { VPButton } from 'vitepress/theme'
+</script>
 
 

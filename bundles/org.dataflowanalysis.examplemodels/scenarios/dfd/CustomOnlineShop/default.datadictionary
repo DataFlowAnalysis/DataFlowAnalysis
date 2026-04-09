@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_XARVcQVLEfG48_Tb7aL1qA">
+  <labelTypes id="_T_-DkL6EEe6fAKdvyu1GEg" entityName="Sensitivity">
+    <label id="_VPo7sL6EEe6fAKdvyu1GEg" entityName="Personal"/>
+    <label id="_WM1jwL6EEe6fAKdvyu1GEg" entityName="Public"/>
+  </labelTypes>
+  <labelTypes id="_XQxtAb6EEe6fAKdvyu1GEg" entityName="Location">
+    <label id="_YruBAL6EEe6fAKdvyu1GEg" entityName="EU"/>
+    <label id="_Zd8vML6EEe6fAKdvyu1GEg" entityName="nonEU"/>
+  </labelTypes>
+  <labelTypes id="_a84LUb6EEe6fAKdvyu1GEg" entityName="Encryption">
+    <label id="_fvwEcL6EEe6fAKdvyu1GEg" entityName="Encrypted"/>
+  </labelTypes>
+  <behavior id="_XARVewVLEfG48_Tb7aL1qA" entityName="User">
+    <inPin id="_vgOTkL6EEe6fAKdvyu1GEg" entityName="User_in_items"/>
+    <outPin id="_xDI30b6EEe6fAKdvyu1GEg" entityName="User_out_request"/>
+    <outPin id="_5mEiMb6EEe6fAKdvyu1GEg" entityName="User_out_data"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_XAR8owVLEfG48_Tb7aL1qA" outputPin="_xDI30b6EEe6fAKdvyu1GEg" outputLabels="_WM1jwL6EEe6fAKdvyu1GEg">
+      <term xsi:type="datadictionary:TRUE" id="_XAR8pAVLEfG48_Tb7aL1qA"/>
+    </assignment>
+    <assignment xsi:type="datadictionary:Assignment" id="_XAR8pQVLEfG48_Tb7aL1qA" outputPin="_5mEiMb6EEe6fAKdvyu1GEg" outputLabels="_VPo7sL6EEe6fAKdvyu1GEg">
+      <term xsi:type="datadictionary:TRUE" id="_XAR8pgVLEfG48_Tb7aL1qA"/>
+    </assignment>
+  </behavior>
+  <behavior id="_XARVgAVLEfG48_Tb7aL1qA" entityName="view">
+    <inPin id="_UQQ3cL6GEe6fAKdvyu1GEg" entityName="view_in_request"/>
+    <outPin id="_WsXGcb6GEe6fAKdvyu1GEg" entityName="view_out_request"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_XAR8qAVLEfG48_Tb7aL1qA" outputPin="_WsXGcb6GEe6fAKdvyu1GEg" inputPins="_UQQ3cL6GEe6fAKdvyu1GEg"/>
+  </behavior>
+  <behavior id="_XAR8ggVLEfG48_Tb7aL1qA" entityName="display">
+    <inPin id="_lRF7ML6GEe6fAKdvyu1GEg" entityName="display_in_items"/>
+    <outPin id="_mkJegb6GEe6fAKdvyu1GEg" entityName="display_out_items"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_XAR8ogVLEfG48_Tb7aL1qA" outputPin="_mkJegb6GEe6fAKdvyu1GEg" inputPins="_lRF7ML6GEe6fAKdvyu1GEg"/>
+  </behavior>
+  <behavior id="_XAR8hgVLEfG48_Tb7aL1qA" entityName="buy">
+    <inPin id="_xM37QL6HEe6fAKdvyu1GEg" entityName="buy_in_data"/>
+    <outPin id="_yZ354b6HEe6fAKdvyu1GEg" entityName="buy_out_data"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_XAR8rAVLEfG48_Tb7aL1qA" outputPin="_yZ354b6HEe6fAKdvyu1GEg" inputPins="_xM37QL6HEe6fAKdvyu1GEg"/>
+  </behavior>
+  <behavior id="_XAR8igVLEfG48_Tb7aL1qA" entityName="process">
+    <inPin id="_1xf9AL6HEe6fAKdvyu1GEg" entityName="process_in_data"/>
+    <outPin id="_283j8b6HEe6fAKdvyu1GEg" entityName="process_out_data"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_XAR8pwVLEfG48_Tb7aL1qA" outputPin="_283j8b6HEe6fAKdvyu1GEg" inputPins="_1xf9AL6HEe6fAKdvyu1GEg"/>
+  </behavior>
+  <behavior id="_XAR8jgVLEfG48_Tb7aL1qA" entityName="encrypt">
+    <inPin id="_Jx9aoL6IEe6fAKdvyu1GEg" entityName="encrypt_in_data"/>
+    <outPin id="_Mc7MEb6IEe6fAKdvyu1GEg" entityName="encrypt_out_data"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_XAR8rQVLEfG48_Tb7aL1qA" outputPin="_Mc7MEb6IEe6fAKdvyu1GEg" inputPins="_Jx9aoL6IEe6fAKdvyu1GEg"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_XAR8rgVLEfG48_Tb7aL1qA" outputPin="_Mc7MEb6IEe6fAKdvyu1GEg" outputLabels="_fvwEcL6EEe6fAKdvyu1GEg">
+      <term xsi:type="datadictionary:TRUE" id="_XAR8rwVLEfG48_Tb7aL1qA"/>
+    </assignment>
+  </behavior>
+  <behavior id="_XAR8kgVLEfG48_Tb7aL1qA" entityName="Database">
+    <inPin id="_zWPQ8L6GEe6fAKdvyu1GEg" entityName="Database_in_requestdata2"/>
+    <outPin id="_5krJIb6GEe6fAKdvyu1GEg" entityName="Database_out_items"/>
+    <assignment xsi:type="datadictionary:Assignment" id="_XAR8qQVLEfG48_Tb7aL1qA" outputPin="_5krJIb6GEe6fAKdvyu1GEg" outputLabels="_WM1jwL6EEe6fAKdvyu1GEg">
+      <term xsi:type="datadictionary:TRUE" id="_XAR8qgVLEfG48_Tb7aL1qA"/>
+    </assignment>
+  </behavior>
+  <behavior id="_XAR8lgVLEfG48_Tb7aL1qA" entityName="Storage">
+    <inPin id="a0kw7a" entityName="Storage_in_data"/>
+    <outPin id="7o0t64" entityName="Storage_out_data2"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_XAR8qwVLEfG48_Tb7aL1qA" outputPin="7o0t64" inputPins="a0kw7a"/>
+  </behavior>
+</datadictionary:DataDictionary>

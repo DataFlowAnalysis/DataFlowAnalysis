@@ -23,7 +23,7 @@ import org.eclipse.xtext.resource.containers.ResourceSetBasedAllContainersStateP
 public abstract class DataFlowConfidentialityAnalysis {
     public static final String PLUGIN_PATH = "org.dataflowanalysis.analysis";
     private final Logger logger = LoggerManager.getLogger(DataFlowConfidentialityAnalysis.class);
-
+    
     /**
      * Initializes the analysis by setting up the execution environment and loading the referenced models
      */

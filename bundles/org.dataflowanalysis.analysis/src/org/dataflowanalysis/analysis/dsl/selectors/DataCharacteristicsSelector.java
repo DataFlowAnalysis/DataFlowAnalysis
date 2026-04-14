@@ -103,7 +103,6 @@ public class DataCharacteristicsSelector extends DataSelector {
             string.setPosition(position);
             return ParseResult.error(selectorData.getError());
         }
-        string.advance(1);
         return ParseResult.ok(new DataCharacteristicsSelector(context, selectorData.getResult(), inverted));
     }
 

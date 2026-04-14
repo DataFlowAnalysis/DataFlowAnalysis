@@ -30,31 +30,16 @@ public abstract class AbstractSelector extends AbstractParseable {
      */
     public abstract boolean matches(AbstractVertex<?> vertex);
 
-    public static ParseResult<? extends AbstractSelector> fromString(StringView string, DSLContext context) {
+    public static ParseResult<? extends AbstractSelector> fromString(StringView string, DSLContext context,
+            boolean data) {
         if (string.empty() || string.invalid()) {
             return ParseResult.error("Not a valid constraint");
         }
         string.skipWhitespace();
-        var nameSelector = VariableNameSelector.fromString(string, context);
-        if (nameSelector.successful()) {
-            return ParseResult.ok(nameSelector.getResult());
+        if (data) {
+            return DataSelector.fromString(string, context);
+        } else {
+            return VertexSelector.fromString(string, context);
         }
-        var vertexNameSelector = VertexNameSelector.fromString(string, context);
-        if (vertexNameSelector.successful()) {
-            return ParseResult.ok(vertexNameSelector.getResult());
-        }
-        var listSelector = DataCharacteristicListSelector.fromString(string, context);
-        if (listSelector.successful()) {
-            return ParseResult.ok(listSelector.getResult());
-        }
-        var selector = DataCharacteristicsSelector.fromString(string, context);
-        if (selector.successful()) {
-            return ParseResult.ok(selector.getResult());
-        }
-        var anySelector = AnySelector.fromString(string, context);
-        if (anySelector.successful()) {
-            return ParseResult.ok(anySelector.getResult());
-        }
-        return ParseResult.error("Not a valid constraint");
     }
 }

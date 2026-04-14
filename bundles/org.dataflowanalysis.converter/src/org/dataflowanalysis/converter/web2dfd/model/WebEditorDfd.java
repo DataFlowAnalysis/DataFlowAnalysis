@@ -8,8 +8,21 @@ import java.util.List;
  * Represents a web editor data flow diagram
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record WebEditorDfd(Model model, List<WebEditorLabelType> labelTypes, String mode, List<Constraint> constraints) {
+public record WebEditorDfd(Model model, List<WebEditorLabelType> labelTypes, String mode, List<Constraint> constraints, List<Violation> violations) {
+	
 
+	/**
+	 * Returns a new {@link WebEditorDfd} with the given list of violations, keeping all other fields unchanged.
+	 * <p/>
+	 * Follows the copy-with pattern, producing a modified copy of this immutable record
+	 * without altering the original instance.
+	 * @param violations List of {@link Violation} objects to include in the new instance
+	 * @return A new {@link WebEditorDfd} instance with the updated violations
+	 */
+	public WebEditorDfd withViolations(List<Violation> violations) {
+        return new WebEditorDfd(model, labelTypes, mode, constraints, violations);
+    }
+	
     /**
      * Sorts the data flow diagram based on the id's of the contents
      */
@@ -32,4 +45,5 @@ public record WebEditorDfd(Model model, List<WebEditorLabelType> labelTypes, Str
             }
         }
     }
+    
 }

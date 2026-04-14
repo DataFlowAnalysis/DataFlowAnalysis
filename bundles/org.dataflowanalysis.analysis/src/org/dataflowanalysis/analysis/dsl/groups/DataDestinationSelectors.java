@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.dsl.AbstractParseable;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.dsl.logic.LogicalOperator;
 import org.dataflowanalysis.analysis.dsl.selectors.*;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
@@ -72,7 +73,7 @@ public class DataDestinationSelectors extends AbstractParseable {
         logger.debug("Parsing: " + string.getString());
         List<AbstractSelector> selectors = new ArrayList<>();
         while (!string.invalid()) {
-            var selector = AbstractSelector.fromString(string, context);
+            var selector = LogicalOperator.fromString(string, context, true);
             if (selector.successful()) {
                 selectors.add(selector.getResult());
                 continue;

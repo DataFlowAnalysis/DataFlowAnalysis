@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="ASCII"?>
+<datadictionary:DataDictionary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:datadictionary="http://dataflowanalysis.org/dfd/datadictionary" id="_Wl8oISzjEfGakd8fZofPcQ">
+  <labelTypes id="tfywo8" entityName="Layers">
+    <label id="ztaftv" entityName="Frontend"/>
+    <label id="8pfky" entityName="Backend"/>
+    <label id="x3bjxn" entityName="ThirdParty"/>
+  </labelTypes>
+  <labelTypes id="k8nqns" entityName="ConsumerInfo">
+    <label id="2cg7p" entityName="EId"/>
+    <label id="9j7i6" entityName="IdToken"/>
+    <label id="w02jr" entityName="UserId"/>
+    <label id="za3ea8" entityName="Account"/>
+    <label id="1n3gdv" entityName="tcToken"/>
+    <label id="akwuyp" entityName="PIN"/>
+    <label id="qhdfm" entityName="Pseudonym"/>
+    <label id="kc0vf9" entityName="EIddata"/>
+    <label id="7qluyl" entityName="CustomerIData"/>
+    <label id="9tfon" entityName="ZipCode"/>
+  </labelTypes>
+  <labelTypes id="p2d18" entityName="Requests">
+    <label id="gdfxj" entityName="SAML"/>
+    <label id="rm3ly" entityName="PIN"/>
+    <label id="m2k1pj" entityName="ForceUpdate"/>
+  </labelTypes>
+  <labelTypes id="747zvg" entityName="Response">
+    <label id="6o58br" entityName="SAML"/>
+    <label id="185t7" entityName="Confirmation"/>
+  </labelTypes>
+  <labelTypes id="khdtj" entityName="Component">
+    <label id="87ug2e" entityName="StorefrontApp/Web"/>
+    <label id="q2yo05" entityName="EIdConnector"/>
+    <label id="di2olv" entityName="AusweisApp2"/>
+    <label id="znmxq" entityName="CDC"/>
+    <label id="qanzrb" entityName="CommerceAPI"/>
+    <label id="mcyaeb" entityName="ELSTERConnector"/>
+    <label id="mnhvs8" entityName="ELSTERIdP"/>
+    <label id="iwloeg" entityName="Mirakl"/>
+    <label id="o8xwdq" entityName="SellerReplicator"/>
+    <label id="odvhaf" entityName="Commerce Cloud"/>
+    <label id="o224c" entityName="HANA"/>
+  </labelTypes>
+  <labelTypes id="qv50kn" entityName="CulturalProviderInfo">
+    <label id="nb7e4" entityName="Email"/>
+    <label id="ns1i8" entityName="ShopName"/>
+    <label id="rf6lzp" entityName="ELSTERCertificate"/>
+    <label id="r3ss6r" entityName="Password"/>
+    <label id="d0c5lq" entityName="CompanyInfo"/>
+    <label id="0kzpdwg" entityName="ZipcodesCsv"/>
+    <label id="xgyyv" entityName="GeocodedZipcodes"/>
+  </labelTypes>
+  <labelTypes id="lpfnb8" entityName="ELSTERConnector">
+    <label id="n5s5jw" entityName="Session"/>
+  </labelTypes>
+  <labelTypes id="ut568t" entityName="CDCData">
+    <label id="qat3zn" entityName="Sellers"/>
+  </labelTypes>
+  <labelTypes id="m80tpt" entityName="Mirakl">
+    <label id="q2qu53" entityName="SucessMessage"/>
+    <label id="gzcug" entityName="ErrorMessage"/>
+    <label id="mwzhyn" entityName="Offers"/>
+    <label id="ej74ak" entityName="Sellers"/>
+  </labelTypes>
+  <behavior id="_Wl8oVizjEfGakd8fZofPcQ" entityName="Customer Data Cloud">
+    <inPin id="ioyi74" entityName="Customer Data Cloud_in_pseudonym"/>
+    <outPin id="2euqrq" entityName="Customer Data Cloud_out_idToken"/>
+    <outPin id="8e336" entityName="Customer Data Cloud_out_account"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WmCHsSzjEfGakd8fZofPcQ" outputPin="8e336" outputLabels="za3ea8"/>
+  </behavior>
+  <behavior id="_Wl8oWyzjEfGakd8fZofPcQ" entityName="Consumer">
+    <inPin id="re3a5r" entityName="Consumer_in_request_pin"/>
+    <inPin id="ecszq" entityName="Consumer_in_confirmation"/>
+    <outPin id="tv3uvk" entityName="Consumer_out_eID"/>
+    <outPin id="njyoxa" entityName="Consumer_out_pin"/>
+    <outPin id="y74t78" entityName="Consumer_out_zipcode_search"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Wl_EYSzjEfGakd8fZofPcQ" outputPin="njyoxa" outputLabels="akwuyp"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Wl_EYizjEfGakd8fZofPcQ" outputPin="tv3uvk" outputLabels="2cg7p"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Wl_EYyzjEfGakd8fZofPcQ" outputPin="y74t78" outputLabels="9tfon"/>
+  </behavior>
+  <behavior id="_Wl9PNCzjEfGakd8fZofPcQ" entityName="Storefront App/Web">
+    <inPin id="6f995l" entityName="Storefront App/Web_in_idToken"/>
+    <inPin id="gbvlu" entityName="Storefront App/Web_in_eID"/>
+    <inPin id="u0y399" entityName="Storefront App/Web_in_confirmation"/>
+    <inPin id="bh705m" entityName="Storefront App/Web_in_customer_data"/>
+    <outPin id="2e4hva" entityName="Storefront App/Web_out_idToken"/>
+    <outPin id="2sci5c" entityName="Storefront App/Web_out_force_update"/>
+    <outPin id="10ikm" entityName="Storefront App/Web_out_confirmation"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WmCuxizjEfGakd8fZofPcQ" outputPin="10ikm" inputPins="u0y399"/>
+  </behavior>
+  <behavior id="_Wl9PPSzjEfGakd8fZofPcQ" entityName="eID Connector">
+    <inPin id="o5vpxc" entityName="eID Connector_in_idToken"/>
+    <inPin id="yrbtd" entityName="eID Connector_in_account"/>
+    <inPin id="y5y5w9" entityName="eID Connector_in_saml_response"/>
+    <outPin id="8q1cia" entityName="eID Connector_out_idToken"/>
+    <outPin id="wuckyo" entityName="eID Connector_out_account"/>
+    <outPin id="oo7lyd" entityName="eID Connector_out_pseudonym"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WmBgoCzjEfGakd8fZofPcQ" outputPin="oo7lyd" outputLabels="qhdfm"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WmBgoSzjEfGakd8fZofPcQ" outputPin="wuckyo" inputPins="yrbtd"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WmBgoizjEfGakd8fZofPcQ" outputPin="8q1cia" inputPins="o5vpxc"/>
+  </behavior>
+  <behavior id="_Wl9PRSzjEfGakd8fZofPcQ" entityName="determine_tcTokenUrl">
+    <inPin id="07dvj" entityName="determine_tcTokenUrl_in_idToken"/>
+    <outPin id="09404" entityName="determine_tcTokenUrl_out_idToken"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WmDV0izjEfGakd8fZofPcQ" outputPin="09404" inputPins="07dvj"/>
+  </behavior>
+  <behavior id="_Wl9PSSzjEfGakd8fZofPcQ" entityName="validate_idToken">
+    <inPin id="pimk0d" entityName="validate_idToken_in_idToken"/>
+    <outPin id="7cqpu" entityName="validate_idToken_out_userId"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Wl_EbCzjEfGakd8fZofPcQ" outputPin="7cqpu" outputLabels="w02jr"/>
+  </behavior>
+  <behavior id="_Wl9PTSzjEfGakd8fZofPcQ" entityName="Customer Data Cloud">
+    <inPin id="d51npm" entityName="Customer Data Cloud_in_userId"/>
+    <inPin id="r49jvp" entityName="Customer Data Cloud_in_cultural_provider_registration_data"/>
+    <inPin id="wvxn1i" entityName="Customer Data Cloud_in_sellers"/>
+    <outPin id="pi8yx9" entityName="Customer Data Cloud_out_account"/>
+    <outPin id="8tvb7" entityName="Customer Data Cloud_out_cultural_provider_registration_data"/>
+    <outPin id="0zmu0o" entityName="Customer Data Cloud_out_sellers"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WmCHtSzjEfGakd8fZofPcQ" outputPin="pi8yx9" outputLabels="za3ea8"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WmCHtizjEfGakd8fZofPcQ" outputPin="0zmu0o" inputPins="wvxn1i"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WmCHtyzjEfGakd8fZofPcQ" outputPin="8tvb7" inputPins="r49jvp"/>
+  </behavior>
+  <behavior id="_Wl9PVSzjEfGakd8fZofPcQ" entityName="generate_SAML_request">
+    <inPin id="9lo2mj" entityName="generate_SAML_request_in_saml_request"/>
+    <outPin id="fy6x69" entityName="generate_SAML_request_out_saml_request"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WmCuyCzjEfGakd8fZofPcQ" outputPin="fy6x69" inputPins="9lo2mj"/>
+  </behavior>
+  <behavior id="_Wl9PWSzjEfGakd8fZofPcQ" entityName="check_unverified_account">
+    <inPin id="l3tvr" entityName="check_unverified_account_in_account"/>
+    <outPin id="mb24ir" entityName="check_unverified_account_out_saml_request"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WmCuxyzjEfGakd8fZofPcQ" outputPin="mb24ir" outputLabels="gdfxj"/>
+  </behavior>
+  <behavior id="_Wl9PXSzjEfGakd8fZofPcQ" entityName="forward_saml_request">
+    <inPin id="hn0g18" entityName="forward_saml_request_in_saml_request"/>
+    <outPin id="figwzy" entityName="forward_saml_request_out_saml_request"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Wl_EbSzjEfGakd8fZofPcQ" outputPin="figwzy" inputPins="hn0g18"/>
+  </behavior>
+  <behavior id="_Wl9PYSzjEfGakd8fZofPcQ" entityName="eID Service">
+    <inPin id="9hfi79" entityName="eID Service_in_saml_request"/>
+    <outPin id="aynn2t" entityName="eID Service_out_tcToken"/>
+  </behavior>
+  <behavior id="_Wl9PZSzjEfGakd8fZofPcQ" entityName="prompt_for_PIN">
+    <inPin id="vy3kt" entityName="prompt_for_PIN_in_request_pin"/>
+    <outPin id="et95tn" entityName="prompt_for_PIN_out_request_pin"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WmDV0SzjEfGakd8fZofPcQ" outputPin="et95tn" inputPins="vy3kt"/>
+  </behavior>
+  <behavior id="_Wl9PaSzjEfGakd8fZofPcQ" entityName="AusweisApp2 Client">
+    <inPin id="md2v8k" entityName="AusweisApp2 Client_in_idToken"/>
+    <inPin id="fu0bnp" entityName="AusweisApp2 Client_in_saml_request"/>
+    <inPin id="9278cn" entityName="AusweisApp2 Client_in_tcToken"/>
+    <inPin id="bdi6ul" entityName="AusweisApp2 Client_in_pin"/>
+    <outPin id="kb4kjl" entityName="AusweisApp2 Client_out_idToken"/>
+    <outPin id="omko37" entityName="AusweisApp2 Client_out_saml_request"/>
+    <outPin id="rbz1pc" entityName="AusweisApp2 Client_out_request_pin"/>
+    <outPin id="l7jbb" entityName="AusweisApp2 Client_out_saml_response"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WmDV1izjEfGakd8fZofPcQ" outputPin="rbz1pc" outputLabels="rm3ly"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WmDV1yzjEfGakd8fZofPcQ" outputPin="omko37" inputPins="fu0bnp"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WmDV2CzjEfGakd8fZofPcQ" outputPin="kb4kjl" inputPins="md2v8k"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WmD84CzjEfGakd8fZofPcQ" outputPin="l7jbb" outputLabels="6o58br"/>
+  </behavior>
+  <behavior id="_Wl9PcyzjEfGakd8fZofPcQ" entityName="get_account">
+    <inPin id="yfhges" entityName="get_account_in_pseudonym"/>
+    <outPin id="2ih8ti" entityName="get_account_out_pseudonym"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WmCHsyzjEfGakd8fZofPcQ" outputPin="2ih8ti" inputPins="yfhges"/>
+  </behavior>
+  <behavior id="_Wl9PdyzjEfGakd8fZofPcQ" entityName="force_update_balance">
+    <inPin id="vt9jln" entityName="force_update_balance_in_force_update"/>
+    <outPin id="4ywkbv" entityName="force_update_balance_out_force_update"/>
+  </behavior>
+  <behavior id="_Wl9PeyzjEfGakd8fZofPcQ" entityName="update_customer">
+    <inPin id="hx4t6d" entityName="update_customer_in_account"/>
+  </behavior>
+  <behavior id="_Wl9PfizjEfGakd8fZofPcQ" entityName="Commerce API">
+    <inPin id="ewodvh" entityName="Commerce API_in_force_update"/>
+    <outPin id="ivq908" entityName="Commerce API_out_accountcustomer_data"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Wl-dUCzjEfGakd8fZofPcQ" outputPin="ivq908" outputLabels="za3ea8"/>
+  </behavior>
+  <behavior id="_Wl9PgizjEfGakd8fZofPcQ" entityName="update_balance">
+    <inPin id="1ncen7" entityName="update_balance_in_customer_data"/>
+    <outPin id="jxip1" entityName="update_balance_out_customer_data"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Wl-dVizjEfGakd8fZofPcQ" outputPin="jxip1" inputPins="1ncen7"/>
+  </behavior>
+  <behavior id="_Wl9PhizjEfGakd8fZofPcQ" entityName="forward_saml_response">
+    <inPin id="m4vcvj" entityName="forward_saml_response_in_saml_response"/>
+    <outPin id="me8p3r" entityName="forward_saml_response_out_saml_response"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WmCHuCzjEfGakd8fZofPcQ" outputPin="me8p3r" inputPins="m4vcvj"/>
+  </behavior>
+  <behavior id="_Wl9PiizjEfGakd8fZofPcQ" entityName="check_account">
+    <inPin id="i3f2p" entityName="check_account_in_account"/>
+    <outPin id="i7gqx" entityName="check_account_out_eID_data"/>
+  </behavior>
+  <behavior id="_Wl9PjizjEfGakd8fZofPcQ" entityName="mark_as_verified">
+    <inPin id="muswpe" entityName="mark_as_verified_in_eID_data"/>
+    <outPin id="a7co8" entityName="mark_as_verified_out_confirmation"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Wl_EYCzjEfGakd8fZofPcQ" outputPin="a7co8" outputLabels="185t7"/>
+  </behavior>
+  <behavior id="_Wl9PkizjEfGakd8fZofPcQ" entityName="Self-Service Registration UI">
+    <inPin id="61371u" entityName="Self-Service Registration UI_in_provider_info"/>
+    <inPin id="z27lip" entityName="Self-Service Registration UI_in_saml_request"/>
+    <inPin id="48l5vr" entityName="Self-Service Registration UI_in_elster_data"/>
+    <inPin id="4jgusc" entityName="Self-Service Registration UI_in_saml_response"/>
+    <outPin id="oqb79f" entityName="Self-Service Registration UI_out_provider_info"/>
+    <outPin id="v8noau" entityName="Self-Service Registration UI_out_saml_request"/>
+    <outPin id="p7lhm5" entityName="Self-Service Registration UI_out_elster_data"/>
+    <outPin id="b7wm0q" entityName="Self-Service Registration UI_out_saml_response"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Wl_EZyzjEfGakd8fZofPcQ" outputPin="b7wm0q" inputPins="4jgusc"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Wl_EaCzjEfGakd8fZofPcQ" outputPin="v8noau" inputPins="z27lip"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Wl_EaSzjEfGakd8fZofPcQ" outputPin="oqb79f" inputPins="61371u"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Wl_EaizjEfGakd8fZofPcQ" outputPin="p7lhm5" inputPins="48l5vr"/>
+  </behavior>
+  <behavior id="_Wl9PnCzjEfGakd8fZofPcQ" entityName="validate_input">
+    <inPin id="r0t3dj" entityName="validate_input_in_provider_info"/>
+    <outPin id="1t7m2" entityName="validate_input_out_provider_info"/>
+  </behavior>
+  <behavior id="_Wl9PoCzjEfGakd8fZofPcQ" entityName="ELSTER Connector">
+    <inPin id="0x191v" entityName="ELSTER Connector_in_provider_info"/>
+    <outPin id="mwy2g" entityName="ELSTER Connector_out_provider_info"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Wl-dXSzjEfGakd8fZofPcQ" outputPin="mwy2g" inputPins="0x191v"/>
+  </behavior>
+  <behavior id="_Wl9PpCzjEfGakd8fZofPcQ" entityName="generate_session">
+    <outPin id="esak79" entityName="generate_session_out_session"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WmDV1SzjEfGakd8fZofPcQ" outputPin="esak79" outputLabels="n5s5jw"/>
+  </behavior>
+  <behavior id="_Wl9PpyzjEfGakd8fZofPcQ" entityName="generate_SAML request">
+    <outPin id="6w6aaf" entityName="generate_SAML request_out_saml_request"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WmDV0CzjEfGakd8fZofPcQ" outputPin="6w6aaf" outputLabels="gdfxj"/>
+  </behavior>
+  <behavior id="_Wl9PqizjEfGakd8fZofPcQ" entityName="associate_data">
+    <inPin id="bkhui" entityName="associate_data_in_sessionprovider_infosaml_request"/>
+    <outPin id="wbxkl3" entityName="associate_data_out_saml_request"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WmCuwSzjEfGakd8fZofPcQ" outputPin="wbxkl3" inputPins="bkhui"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_WmCuwizjEfGakd8fZofPcQ" outputPin="wbxkl3" outputLabels="nb7e4"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_WmCuwyzjEfGakd8fZofPcQ" outputPin="wbxkl3" outputLabels="ns1i8"/>
+    <assignment xsi:type="datadictionary:UnsetAssignment" id="_WmCuxCzjEfGakd8fZofPcQ" outputPin="wbxkl3" outputLabels="n5s5jw"/>
+  </behavior>
+  <behavior id="_Wl9PrizjEfGakd8fZofPcQ" entityName="ELSTER IdP">
+    <inPin id="db77j" entityName="ELSTER IdP_in_saml_request"/>
+    <inPin id="hhh54o" entityName="ELSTER IdP_in_elster_data"/>
+    <outPin id="qjgcne" entityName="ELSTER IdP_out_"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WmCuwCzjEfGakd8fZofPcQ" outputPin="qjgcne" inputPins="hhh54o"/>
+  </behavior>
+  <behavior id="_Wl9PsyzjEfGakd8fZofPcQ" entityName="Cultural Provider">
+    <outPin id="fm742" entityName="Cultural Provider_out_provider_info"/>
+    <outPin id="cry3f7" entityName="Cultural Provider_out_elster_data"/>
+    <outPin id="es0qib" entityName="Cultural Provider_out_zipcodes_csv"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Wl-dUSzjEfGakd8fZofPcQ" outputPin="cry3f7" outputLabels="rf6lzp"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Wl-dUizjEfGakd8fZofPcQ" outputPin="cry3f7" outputLabels="r3ss6r"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Wl-dUyzjEfGakd8fZofPcQ" outputPin="es0qib" outputLabels="0kzpdwg"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Wl-dVCzjEfGakd8fZofPcQ" outputPin="fm742" outputLabels="nb7e4"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Wl-dVSzjEfGakd8fZofPcQ" outputPin="fm742" outputLabels="ns1i8"/>
+  </behavior>
+  <behavior id="_Wl92QSzjEfGakd8fZofPcQ" entityName="generate_SAML_response">
+    <inPin id="6anxe" entityName="generate_SAML_response_in_"/>
+    <outPin id="y91yue" entityName="generate_SAML_response_out_saml_response"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WmCHsizjEfGakd8fZofPcQ" outputPin="y91yue" outputLabels="6o58br"/>
+  </behavior>
+  <behavior id="_Wl92RSzjEfGakd8fZofPcQ" entityName="validate_SAML_response">
+    <inPin id="4y1oz" entityName="validate_SAML_response_in_saml_response"/>
+    <outPin id="pk25wi" entityName="validate_SAML_response_out_cultural_provider_registration_data"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WmD84SzjEfGakd8fZofPcQ" outputPin="pk25wi" outputLabels="d0c5lq"/>
+  </behavior>
+  <behavior id="_Wl92SSzjEfGakd8fZofPcQ" entityName="store_data">
+    <inPin id="a8774l" entityName="store_data_in_cultural_provider_registration_data"/>
+  </behavior>
+  <behavior id="_Wl92TCzjEfGakd8fZofPcQ" entityName="Seller Replicator">
+    <outPin id="3khz8" entityName="Seller Replicator_out_sellers"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WmCHsCzjEfGakd8fZofPcQ" outputPin="3khz8" outputLabels="qat3zn"/>
+  </behavior>
+  <behavior id="_Wl92TyzjEfGakd8fZofPcQ" entityName="Mirakl">
+    <inPin id="an9eoo" entityName="Mirakl_in_cultural_provider_data"/>
+    <inPin id="n59ae9" entityName="Mirakl_in_sellers_and_offers"/>
+    <outPin id="dsvp8" entityName="Mirakl_out_cultural_provider_data"/>
+    <outPin id="t1qzgs" entityName="Mirakl_out_sellers_and_offers"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WmDV0yzjEfGakd8fZofPcQ" outputPin="dsvp8" inputPins="an9eoo"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WmDV1CzjEfGakd8fZofPcQ" outputPin="t1qzgs" inputPins="n59ae9"/>
+  </behavior>
+  <behavior id="_Wl92VSzjEfGakd8fZofPcQ" entityName="create_sellers_and_users">
+    <inPin id="78x7w" entityName="create_sellers_and_users_in_cultural_provider_data"/>
+    <outPin id="axm6xh" entityName="create_sellers_and_users_out_result_message"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Wl-dWyzjEfGakd8fZofPcQ" outputPin="axm6xh" outputLabels="gzcug"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Wl-dXCzjEfGakd8fZofPcQ" outputPin="axm6xh" outputLabels="q2qu53"/>
+  </behavior>
+  <behavior id="_Wl92WSzjEfGakd8fZofPcQ" entityName="flag_sellers">
+    <inPin id="fvj5l4" entityName="flag_sellers_in_result_message"/>
+    <inPin id="6put2q" entityName="flag_sellers_in_sellers"/>
+    <outPin id="7xmki" entityName="flag_sellers_out_cultural_provider_data"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Wl-dWCzjEfGakd8fZofPcQ" outputPin="7xmki" outputLabels="d0c5lq"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Wl-dWSzjEfGakd8fZofPcQ" outputPin="7xmki" outputLabels="ns1i8"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Wl-dWizjEfGakd8fZofPcQ" outputPin="7xmki" outputLabels="nb7e4"/>
+  </behavior>
+  <behavior id="_Wl92XizjEfGakd8fZofPcQ" entityName="Solr">
+    <inPin id="oedfq" entityName="Solr_in_zipcode_search"/>
+    <inPin id="ppq9ps" entityName="Solr_in_sellers_and_offers"/>
+  </behavior>
+  <behavior id="_Wl92YizjEfGakd8fZofPcQ" entityName="Seller and Offers">
+    <inPin id="y4c2lq" entityName="Seller and Offers_in_sellers_and_offers"/>
+    <outPin id="0sy0c" entityName="Seller and Offers_out_sellers_and_offers"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Wl_EZizjEfGakd8fZofPcQ" outputPin="0sy0c" inputPins="y4c2lq"/>
+  </behavior>
+  <behavior id="_Wl92ZizjEfGakd8fZofPcQ" entityName="import_sellers_and_offers">
+    <inPin id="c7efs" entityName="import_sellers_and_offers_in_sellers_and_offers"/>
+    <outPin id="woifhn" entityName="import_sellers_and_offers_out_sellers_and_offers"/>
+  </behavior>
+  <behavior id="_Wl92aizjEfGakd8fZofPcQ" entityName="Sellers and Offers">
+    <outPin id="rpmimq" entityName="Sellers and Offers_out_sellers_and_offers"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Wl_EZCzjEfGakd8fZofPcQ" outputPin="rpmimq" outputLabels="ej74ak"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_Wl_EZSzjEfGakd8fZofPcQ" outputPin="rpmimq" outputLabels="mwzhyn"/>
+  </behavior>
+  <behavior id="_Wl92bSzjEfGakd8fZofPcQ" entityName="upload_csv_zipcodes">
+    <inPin id="9nhjfs" entityName="upload_csv_zipcodes_in_zipcodes_csv"/>
+    <outPin id="47bpra" entityName="upload_csv_zipcodes_out_zipcodes_csv"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Wl-dVyzjEfGakd8fZofPcQ" outputPin="47bpra" inputPins="9nhjfs"/>
+  </behavior>
+  <behavior id="_Wl92cSzjEfGakd8fZofPcQ" entityName="geocode_zipcodes">
+    <inPin id="imdny" entityName="geocode_zipcodes_in_zipcodes_csv"/>
+    <outPin id="z3xz2x" entityName="geocode_zipcodes_out_zipcodes_csv"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_WmCuxSzjEfGakd8fZofPcQ" outputPin="z3xz2x" inputPins="imdny"/>
+  </behavior>
+  <behavior id="_Wl92dSzjEfGakd8fZofPcQ" entityName="Products Controller">
+    <inPin id="n80n2g" entityName="Products Controller_in_zipcode_search"/>
+    <inPin id="n09bhf" entityName="Products Controller_in_geocoded_zipcodes"/>
+    <outPin id="l2bw3d" entityName="Products Controller_out_zipcode_search"/>
+    <assignment xsi:type="datadictionary:ForwardingAssignment" id="_Wl_EayzjEfGakd8fZofPcQ" outputPin="l2bw3d" inputPins="n80n2g"/>
+  </behavior>
+  <behavior id="_Wl92eizjEfGakd8fZofPcQ" entityName="HANA Spatial Service">
+    <inPin id="9t1imq" entityName="HANA Spatial Service_in_zipcodes_csv"/>
+    <outPin id="0zgtek" entityName="HANA Spatial Service_out_geocoded_zipcodes"/>
+    <assignment xsi:type="datadictionary:SetAssignment" id="_WmCHtCzjEfGakd8fZofPcQ" outputPin="0zgtek" outputLabels="xgyyv"/>
+  </behavior>
+</datadictionary:DataDictionary>

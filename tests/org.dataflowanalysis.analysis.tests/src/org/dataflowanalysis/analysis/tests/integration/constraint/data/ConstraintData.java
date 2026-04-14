@@ -33,13 +33,15 @@ public class ConstraintData {
     }
 
     public boolean hasDataCharacteristics(DataCharacteristic actualDataCharacteristic) {
-        List<CharacteristicValueData> expectedCharacteristicValues = this.dataCharacteristics.get(actualDataCharacteristic.variableName());
+        List<CharacteristicValueData> expectedCharacteristicValues = this.dataCharacteristics
+                .get(actualDataCharacteristic.variableName());
         return actualDataCharacteristic.characteristics()
                 .stream()
                 .allMatch(it -> hasCharacteristicValue(expectedCharacteristicValues, it));
     }
 
-    private boolean hasCharacteristicValue(List<CharacteristicValueData> data, CharacteristicValue actualCharacteristicValue) {
+    private boolean hasCharacteristicValue(List<CharacteristicValueData> data,
+            CharacteristicValue actualCharacteristicValue) {
         return data.stream()
                 .filter(it -> actualCharacteristicValue.getTypeName()
                         .equals(it.characteristicType()))

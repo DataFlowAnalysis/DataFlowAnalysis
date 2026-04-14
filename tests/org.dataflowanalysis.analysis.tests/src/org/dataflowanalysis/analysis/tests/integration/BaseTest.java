@@ -21,7 +21,8 @@ public class BaseTest {
     public void initializeOnlineShopAnalysis() {
         final var usageModelPath = Paths.get("scenarios", "pcm", "BranchingOnlineShop", "default.usagemodel");
         final var allocationPath = Paths.get("scenarios", "pcm", "BranchingOnlineShop", "default.allocation");
-        final var nodeCharacteristicsPath = Paths.get("scenarios", "pcm", "BranchingOnlineShop", "default.nodecharacteristics");
+        final var nodeCharacteristicsPath = Paths.get("scenarios", "pcm", "BranchingOnlineShop",
+                "default.nodecharacteristics");
 
         onlineShopAnalysis = this.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
         onlineShopAnalysis.initializeAnalysis();
@@ -31,9 +32,11 @@ public class BaseTest {
     public void initializeInternationalOnlineShopAnalysis() {
         final var usageModelPath = Paths.get("scenarios", "pcm", "InternationalOnlineShop", "default.usagemodel");
         final var allocationPath = Paths.get("scenarios", "pcm", "InternationalOnlineShop", "default.allocation");
-        final var nodeCharacteristicsPath = Paths.get("scenarios", "pcm", "InternationalOnlineShop", "default.nodecharacteristics");
+        final var nodeCharacteristicsPath = Paths.get("scenarios", "pcm", "InternationalOnlineShop",
+                "default.nodecharacteristics");
 
-        internationalOnlineShopAnalysis = this.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
+        internationalOnlineShopAnalysis = this.initializeAnalysis(usageModelPath, allocationPath,
+                nodeCharacteristicsPath);
         internationalOnlineShopAnalysis.initializeAnalysis();
     }
 
@@ -41,13 +44,15 @@ public class BaseTest {
     public void initializeTravelPlannerAnalysis() {
         final var usageModelPath = Paths.get("scenarios", "pcm", "TravelPlanner", "travelPlanner.usagemodel");
         final var allocationPath = Paths.get("scenarios", "pcm", "TravelPlanner", "travelPlanner.allocation");
-        final var nodeCharacteristicsPath = Paths.get("scenarios", "pcm", "TravelPlanner", "travelPlanner.nodecharacteristics");
+        final var nodeCharacteristicsPath = Paths.get("scenarios", "pcm", "TravelPlanner",
+                "travelPlanner.nodecharacteristics");
 
         travelPlannerAnalysis = this.initializeAnalysis(usageModelPath, allocationPath, nodeCharacteristicsPath);
         travelPlannerAnalysis.initializeAnalysis();
     }
 
-    protected PCMDataFlowConfidentialityAnalysis initializeAnalysis(Path usagePath, Path allocationPath, Path nodePath) {
+    protected PCMDataFlowConfidentialityAnalysis initializeAnalysis(Path usagePath, Path allocationPath,
+            Path nodePath) {
         PCMDataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
                 .modelProjectName(TEST_MODEL_PROJECT_NAME)
                 .usePluginActivator(Activator.class)

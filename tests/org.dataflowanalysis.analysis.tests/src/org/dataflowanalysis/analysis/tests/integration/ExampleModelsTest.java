@@ -58,29 +58,33 @@ public class ExampleModelsTest {
     private final Logger logger = LoggerManager.getLogger(ExampleModelsTest.class);
 
     private static Stream<Arguments> providePCMExampleModelViolations() {
-        return Stream.of(Arguments.of(new BankBranchesResult()), Arguments.of(new BranchingOnlineShopResult()), Arguments.of(new CompositeResult()),
-                Arguments.of(new CoronaWarnAppResult()), Arguments.of(new IgnoredNodesResult()), Arguments.of(new InternationalOnlineShopResult()),
+        return Stream.of(Arguments.of(new BankBranchesResult()), Arguments.of(new BranchingOnlineShopResult()),
+                Arguments.of(new CompositeResult()), Arguments.of(new CoronaWarnAppResult()),
+                Arguments.of(new IgnoredNodesResult()), Arguments.of(new InternationalOnlineShopResult()),
                 Arguments.of(new MaaSTicketSystemResult()), Arguments.of(new MultipleDeploymentsResult()),
-                Arguments.of(new NodeCharacteristicsResult()), Arguments.of(new TravelPlannerResult()), Arguments.of(new VariableReturnResult()),
-                Arguments.of(new EVerest()));
+                Arguments.of(new NodeCharacteristicsResult()), Arguments.of(new TravelPlannerResult()),
+                Arguments.of(new VariableReturnResult()), Arguments.of(new EVerest()));
     }
 
     private static Stream<Arguments> provideDFDExampleModelViolations() {
-        return Stream.of(Arguments.of(new BranchingResult()), Arguments.of(new OnlineShopResult()), Arguments.of(new SimpleOnlineShopResult()),
-                Arguments.of(new CWANoViolation()), Arguments.of(new VWCariad()), Arguments.of(new CWAPersonalDataViolation()),
-                Arguments.of(new CWARPIViolation()), Arguments.of(new ComponentTestingCaseStudy()), Arguments.of(new ECUUpdateCaseStudy()),
-                Arguments.of(new MiniTwitCaseStudy()), Arguments.of(new HipaaCaseStudy()), Arguments.of(new DocProc()),
-                Arguments.of(new AppleWallet()), Arguments.of(new CMACaseStudy()), Arguments.of(new ACABACNoViolationResult()),
+        return Stream.of(Arguments.of(new BranchingResult()), Arguments.of(new OnlineShopResult()),
+                Arguments.of(new SimpleOnlineShopResult()), Arguments.of(new CWANoViolation()),
+                Arguments.of(new VWCariad()), Arguments.of(new CWAPersonalDataViolation()),
+                Arguments.of(new CWARPIViolation()), Arguments.of(new ComponentTestingCaseStudy()),
+                Arguments.of(new ECUUpdateCaseStudy()), Arguments.of(new MiniTwitCaseStudy()),
+                Arguments.of(new HipaaCaseStudy()), Arguments.of(new DocProc()), Arguments.of(new AppleWallet()),
+                Arguments.of(new CMACaseStudy()), Arguments.of(new ACABACNoViolationResult()),
                 Arguments.of(new ACABACViolationResult()), Arguments.of(new ACContactSMSNoViolationResult()),
-                Arguments.of(new ACContactSMSViolationResult()), Arguments.of(new ACDACNoViolationResult()), Arguments.of(new ACDACViolationResult()),
-                Arguments.of(new ACDistanceTrackerNoViolationResult()), Arguments.of(new ACDistanceTrackerViolationResult()),
-                Arguments.of(new ACMACNoViolationResult()), Arguments.of(new ACMACViolationResult()),
-                Arguments.of(new ACTravelPlannerNoViolationResult()), Arguments.of(new ACTravelPlannerViolationResult()),
-                Arguments.of(new IFContactSMSNoViolationResult()), Arguments.of(new IFContactSMSViolationResult()),
-                Arguments.of(new IFFriendMapNoViolationResult()), Arguments.of(new IFFriendMapViolationResult()),
-                Arguments.of(new IFHospitalNoViolationResult()), Arguments.of(new IFHospitalViolationResult()),
-                Arguments.of(new IFJPMailNoViolationResult()), Arguments.of(new IFJPMailViolationResult()),
-                Arguments.of(new IFPrivateTaxiNoViolationResult()), Arguments.of(new IFTravelPlannerNoViolationResult()),
+                Arguments.of(new ACContactSMSViolationResult()), Arguments.of(new ACDACNoViolationResult()),
+                Arguments.of(new ACDACViolationResult()), Arguments.of(new ACDistanceTrackerNoViolationResult()),
+                Arguments.of(new ACDistanceTrackerViolationResult()), Arguments.of(new ACMACNoViolationResult()),
+                Arguments.of(new ACMACViolationResult()), Arguments.of(new ACTravelPlannerNoViolationResult()),
+                Arguments.of(new ACTravelPlannerViolationResult()), Arguments.of(new IFContactSMSNoViolationResult()),
+                Arguments.of(new IFContactSMSViolationResult()), Arguments.of(new IFFriendMapNoViolationResult()),
+                Arguments.of(new IFFriendMapViolationResult()), Arguments.of(new IFHospitalNoViolationResult()),
+                Arguments.of(new IFHospitalViolationResult()), Arguments.of(new IFJPMailNoViolationResult()),
+                Arguments.of(new IFJPMailViolationResult()), Arguments.of(new IFPrivateTaxiNoViolationResult()),
+                Arguments.of(new IFTravelPlannerNoViolationResult()),
                 Arguments.of(new IFTravelPlannerViolationResult()), Arguments.of(new IFWebRTCNoViolationResult()),
                 Arguments.of(new IFWebRTCViolationResult()));
     }
@@ -124,7 +128,8 @@ public class ExampleModelsTest {
         shouldReturnCorrectViolations(analysis, exampleModelResult);
     }
 
-    private void shouldReturnCorrectViolations(DataFlowConfidentialityAnalysis analysis, ExampleModelResult exampleModelResult) {
+    private void shouldReturnCorrectViolations(DataFlowConfidentialityAnalysis analysis,
+            ExampleModelResult exampleModelResult) {
         Assumptions.assumeTrue(!exampleModelResult.getDSLConstraints()
                 .isEmpty(), "Example Model does not define any constraints!");
         analysis.initializeAnalysis();
@@ -154,15 +159,15 @@ public class ExampleModelsTest {
                         .findAny();
             }
             if (violatingVertex.isEmpty()) {
-                logger.error(String.format("Could not find vertex with id %s in TFG with index %s", expectedViolation.getIdentifier(),
-                        expectedViolation.getFlowGraphIndex()));
+                logger.error(String.format("Could not find vertex with id %s in TFG with index %s",
+                        expectedViolation.getIdentifier(), expectedViolation.getFlowGraphIndex()));
                 logger.error("Found the following violations:");
                 for (DSLResult violatingTFG : violatingVertices) {
                     logger.error(String.format("Index %s: %s", flowGraphs.getTransposeFlowGraphs()
                             .indexOf(violatingTFG.getTransposeFlowGraph()), violatingTFG));
                 }
-                fail(String.format("Could not find vertex with id %s in TFG with index %s", expectedViolation.getIdentifier(),
-                        expectedViolation.getFlowGraphIndex()));
+                fail(String.format("Could not find vertex with id %s in TFG with index %s",
+                        expectedViolation.getIdentifier(), expectedViolation.getFlowGraphIndex()));
             }
             testViolations(violatingVertex.get(), expectedViolation, expectedViolation.getFlowGraphIndex());
         }
@@ -175,51 +180,60 @@ public class ExampleModelsTest {
                         .filter(it -> it.references(violatingVertex, transposeFlowGraphIndex))
                         .findAny();
                 if (expectedViolation.isEmpty()) {
-                    logger.error(String.format("Could not find expected violation for vertex with id %s in TFG at index %s!",
-                            violatingVertex.toString(), transposeFlowGraphIndex));
+                    logger.error(
+                            String.format("Could not find expected violation for vertex with id %s in TFG at index %s!",
+                                    violatingVertex.toString(), transposeFlowGraphIndex));
                     logger.error("Found the following violations:");
                     for (DSLResult violatingTFG : violatingVertices) {
                         logger.error(String.format("Index %s: %s", flowGraphs.getTransposeFlowGraphs()
                                 .indexOf(violatingTFG.getTransposeFlowGraph()), violatingTFG));
                     }
-                    logger.error(String.format("Expected the following violations: %s", exampleModelResult.getExpectedViolations()));
-                    fail(String.format("Could not find expected violation for vertex with id %s in TFG at index %s!", violatingVertex.toString(),
-                            transposeFlowGraphIndex));
+                    logger.error(String.format("Expected the following violations: %s",
+                            exampleModelResult.getExpectedViolations()));
+                    fail(String.format("Could not find expected violation for vertex with id %s in TFG at index %s!",
+                            violatingVertex.toString(), transposeFlowGraphIndex));
                 }
                 testViolations(violatingVertex, expectedViolation.get(), transposeFlowGraphIndex);
             }
         }
     }
 
-    private void testViolations(AbstractVertex<?> violatingVertex, ExpectedViolation expectedViolation, int transposeFlowGraphIndex) {
+    private void testViolations(AbstractVertex<?> violatingVertex, ExpectedViolation expectedViolation,
+            int transposeFlowGraphIndex) {
         List<ExpectedCharacteristic> missingNodeCharacteristics = expectedViolation
                 .hasNodeCharacteristic(violatingVertex.getAllVertexCharacteristics());
         if (!missingNodeCharacteristics.isEmpty()) {
-            logger.error(String.format("Vertex %s at TFG %s is missing the following node characteristics: %s", violatingVertex,
-                    transposeFlowGraphIndex, missingNodeCharacteristics));
-            fail(String.format("Vertex %s is missing the following node characteristics: %s", violatingVertex, missingNodeCharacteristics));
+            logger.error(String.format("Vertex %s at TFG %s is missing the following node characteristics: %s",
+                    violatingVertex, transposeFlowGraphIndex, missingNodeCharacteristics));
+            fail(String.format("Vertex %s is missing the following node characteristics: %s", violatingVertex,
+                    missingNodeCharacteristics));
         }
 
-        var incorrectNodeCharacteristics = expectedViolation.hasIncorrectNodeCharacteristics(violatingVertex.getAllVertexCharacteristics());
+        var incorrectNodeCharacteristics = expectedViolation
+                .hasIncorrectNodeCharacteristics(violatingVertex.getAllVertexCharacteristics());
         if (!incorrectNodeCharacteristics.isEmpty()) {
-            logger.error(String.format("Vertex %s at TFG %s has the following incorrect node characteristics: %s", violatingVertex,
-                    transposeFlowGraphIndex, incorrectNodeCharacteristics));
-            fail(String.format("Vertex %s has the following incorrect node characteristics: %s", violatingVertex, incorrectNodeCharacteristics));
+            logger.error(String.format("Vertex %s at TFG %s has the following incorrect node characteristics: %s",
+                    violatingVertex, transposeFlowGraphIndex, incorrectNodeCharacteristics));
+            fail(String.format("Vertex %s has the following incorrect node characteristics: %s", violatingVertex,
+                    incorrectNodeCharacteristics));
         }
 
         Map<String, List<ExpectedCharacteristic>> missingDataCharacteristics = expectedViolation
                 .hasDataCharacteristics(violatingVertex.getAllDataCharacteristics());
         if (!missingDataCharacteristics.isEmpty()) {
-            logger.error(String.format("Vertex %s at TFG %s is missing the following data characteristics: %s", violatingVertex,
-                    transposeFlowGraphIndex, missingDataCharacteristics));
-            fail(String.format("Vertex %s is missing the following data characteristics: %s", violatingVertex, missingDataCharacteristics));
+            logger.error(String.format("Vertex %s at TFG %s is missing the following data characteristics: %s",
+                    violatingVertex, transposeFlowGraphIndex, missingDataCharacteristics));
+            fail(String.format("Vertex %s is missing the following data characteristics: %s", violatingVertex,
+                    missingDataCharacteristics));
         }
 
-        var incorrectDataCharacteristics = expectedViolation.hasMissingDataCharacteristics(violatingVertex.getAllDataCharacteristics());
+        var incorrectDataCharacteristics = expectedViolation
+                .hasMissingDataCharacteristics(violatingVertex.getAllDataCharacteristics());
         if (!incorrectDataCharacteristics.isEmpty()) {
-            logger.error(String.format("Vertex %s at TFG %s has the following incorrect data characteristics: %s", violatingVertex,
-                    transposeFlowGraphIndex, incorrectDataCharacteristics));
-            fail(String.format("Vertex %s has the following incorrect data characteristics: %s", violatingVertex, incorrectDataCharacteristics));
+            logger.error(String.format("Vertex %s at TFG %s has the following incorrect data characteristics: %s",
+                    violatingVertex, transposeFlowGraphIndex, incorrectDataCharacteristics));
+            fail(String.format("Vertex %s has the following incorrect data characteristics: %s", violatingVertex,
+                    incorrectDataCharacteristics));
         }
     }
 }

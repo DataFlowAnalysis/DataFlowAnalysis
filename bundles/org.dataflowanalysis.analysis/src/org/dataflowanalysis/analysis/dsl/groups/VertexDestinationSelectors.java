@@ -1,15 +1,14 @@
-package org.dataflowanalysis.analysis.dsl;
+package org.dataflowanalysis.analysis.dsl.groups;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.dsl.AbstractParseable;
+import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
-import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsListSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexNameSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexTypeSelector;
+import org.dataflowanalysis.analysis.dsl.logic.LogicalOperator;
+import org.dataflowanalysis.analysis.dsl.selectors.*;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
@@ -78,26 +77,9 @@ public class VertexDestinationSelectors extends AbstractParseable {
         logger.debug("Parsing: " + string.getString());
         List<AbstractSelector> selectors = new ArrayList<>();
         while (!string.invalid()) {
-            string.skipWhitespace();
-            var listSelector = VertexCharacteristicsListSelector.fromString(string, context);
-            if (listSelector.successful()) {
-                selectors.add(listSelector.getResult());
-                continue;
-            }
-
-            var selector = VertexCharacteristicsSelector.fromString(string, context);
+            var selector = LogicalOperator.fromString(string, context, false);
             if (selector.successful()) {
                 selectors.add(selector.getResult());
-                continue;
-            }
-            var nameSelector = VertexNameSelector.fromString(string, context);
-            if (nameSelector.successful()) {
-                selectors.add(nameSelector.getResult());
-                continue;
-            }
-            var typeSelector = VertexTypeSelector.fromString(string, context);
-            if (typeSelector.successful()) {
-                selectors.add(typeSelector.getResult());
                 continue;
             }
             break;

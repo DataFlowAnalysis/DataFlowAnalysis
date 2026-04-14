@@ -4,9 +4,12 @@ import java.util.List;
 
 public class LabelPropagationCharacteristics {
 
-    public static final List<CharacteristicsData> travelPlannerCharacteristics = List.of(new CharacteristicsData(0, 2, "ccd", "GrantedRoles", "User"),
-            new CharacteristicsData(0, 6, "query", "GrantedRoles", "User"), new CharacteristicsData(0, 6, "query", "GrantedRoles", "Airline"),
-            new CharacteristicsData(1, 2, "flight", "GrantedRoles", "User"), new CharacteristicsData(1, 2, "flight", "GrantedRoles", "Airline"));
+    public static final List<CharacteristicsData> travelPlannerCharacteristics = List.of(
+            new CharacteristicsData(0, 2, "ccd", "GrantedRoles", "User"),
+            new CharacteristicsData(0, 6, "query", "GrantedRoles", "User"),
+            new CharacteristicsData(0, 6, "query", "GrantedRoles", "Airline"),
+            new CharacteristicsData(1, 2, "flight", "GrantedRoles", "User"),
+            new CharacteristicsData(1, 2, "flight", "GrantedRoles", "Airline"));
 
     public static final List<CharacteristicsData> onlineShopCharacteristics = List.of(
             new CharacteristicsData(0, 6, "RETURN", "DataSensitivity", "Public"),

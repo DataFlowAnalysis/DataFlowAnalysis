@@ -23,7 +23,8 @@ public class DataCharacteristicsSelector extends DataSelector {
         this.inverted = false;
     }
 
-    public DataCharacteristicsSelector(DSLContext context, CharacteristicsSelectorData dataCharacteristic, boolean inverted) {
+    public DataCharacteristicsSelector(DSLContext context, CharacteristicsSelectorData dataCharacteristic,
+            boolean inverted) {
         super(context);
         this.dataCharacteristic = dataCharacteristic;
         this.inverted = inverted;
@@ -50,10 +51,11 @@ public class DataCharacteristicsSelector extends DataSelector {
             List<String> characteristicTypes = new ArrayList<>();
             List<String> characteristicValues = new ArrayList<>();
             List<Boolean> matches = presentCharacteristics.stream()
-                    .map(it -> this.dataCharacteristic.matchesCharacteristic(context, vertex, it, variableName, characteristicTypes,
-                            characteristicValues))
+                    .map(it -> this.dataCharacteristic.matchesCharacteristic(context, vertex, it, variableName,
+                            characteristicTypes, characteristicValues))
                     .toList();
-            this.dataCharacteristic.applyResults(context, vertex, variableName, characteristicTypes, characteristicValues);
+            this.dataCharacteristic.applyResults(context, vertex, variableName, characteristicTypes,
+                    characteristicValues);
             results.add(this.inverted ? matches.stream()
                     .noneMatch(it -> it)
                     : matches.stream()
@@ -101,7 +103,6 @@ public class DataCharacteristicsSelector extends DataSelector {
             string.setPosition(position);
             return ParseResult.error(selectorData.getError());
         }
-        string.advance(1);
         return ParseResult.ok(new DataCharacteristicsSelector(context, selectorData.getResult(), inverted));
     }
 

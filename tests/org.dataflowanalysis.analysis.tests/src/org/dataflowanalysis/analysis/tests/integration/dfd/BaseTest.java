@@ -31,7 +31,8 @@ public class BaseTest {
                 .build();
     }
 
-    private List<? extends AbstractVertex<?>> getViolationsForConstraint(Predicate<? super AbstractVertex<?>> constraint) {
+    private List<? extends AbstractVertex<?>> getViolationsForConstraint(
+            Predicate<? super AbstractVertex<?>> constraint) {
         this.analysis.initializeAnalysis();
         DFDFlowGraphCollection flowGraph = this.analysis.findFlowGraphs();
         flowGraph.evaluate();

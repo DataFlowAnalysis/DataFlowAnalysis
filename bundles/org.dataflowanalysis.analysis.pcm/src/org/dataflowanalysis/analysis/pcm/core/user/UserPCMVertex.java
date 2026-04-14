@@ -1,8 +1,10 @@
 package org.dataflowanalysis.analysis.pcm.core.user;
 
 import java.util.ArrayDeque;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
@@ -31,17 +33,22 @@ public class UserPCMVertex<T extends AbstractUserAction> extends AbstractPCMVert
      * @param previousElements List of vertices that preceded the pcm user vertex
      * @param resourceProvider Resource provider used to calculate characteristics
      */
-    public UserPCMVertex(T element, List<? extends AbstractPCMVertex<?>> previousElements, ResourceProvider resourceProvider) {
+    public UserPCMVertex(T element, List<? extends AbstractPCMVertex<?>> previousElements,
+            ResourceProvider resourceProvider) {
         super(element, previousElements, new ArrayDeque<>(), resourceProvider);
     }
 
     @Override
     public void evaluateDataFlow() {
         List<DataCharacteristic> incomingDataCharacteristics = this.getIncomingDataCharacteristics();
-        List<CharacteristicValue> nodeCharacteristics = this.getVertexCharacteristics();
+        List<CharacteristicValue> vertexCharacteristics = this.getVertexCharacteristics();
+        Set<CharacteristicValue> previousVertexCharacteristics = new HashSet<>(vertexCharacteristics);
+        this.getPreviousElements()
+                .forEach(vertex -> previousVertexCharacteristics.addAll(vertex.getAllPreviousVertexCharacteristics()));
 
         if (this.getReferencedElement() instanceof Start || this.getReferencedElement() instanceof Stop) {
-            this.setPropagationResult(incomingDataCharacteristics, incomingDataCharacteristics, nodeCharacteristics);
+            this.setPropagationResult(incomingDataCharacteristics, incomingDataCharacteristics, vertexCharacteristics,
+                    previousVertexCharacteristics);
             return;
         }
         logger.error("Found unexpected sequence element of unknown PCM type " + this.getReferencedElement()

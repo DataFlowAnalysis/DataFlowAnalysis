@@ -20,16 +20,19 @@ public class DSLQueryDataSelector {
         return this;
     }
 
-    public DSLQueryDataSelector withLabel(String characteristicType, ConstraintVariableReference characteristicValueVariable) {
+    public DSLQueryDataSelector withLabel(String characteristicType,
+            ConstraintVariableReference characteristicValueVariable) {
         this.analysisQuery.addFlowSource(new DataCharacteristicsSelector(analysisQuery.getContext(),
-                new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), characteristicValueVariable)));
+                new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
+                        characteristicValueVariable)));
         return this;
     }
 
     public DSLQueryDataSelector withLabel(String characteristicType, List<String> characteristicValues) {
-        characteristicValues
-                .forEach(characteristicValue -> this.analysisQuery.addFlowSource(new DataCharacteristicsSelector(analysisQuery.getContext(),
-                        new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
+        characteristicValues.forEach(characteristicValue -> this.analysisQuery
+                .addFlowSource(new DataCharacteristicsSelector(analysisQuery.getContext(),
+                        new CharacteristicsSelectorData(
+                                ConstraintVariableReference.ofConstant(List.of(characteristicType)),
                                 ConstraintVariableReference.ofConstant(List.of(characteristicValue))))));
         return this;
     }
@@ -43,9 +46,10 @@ public class DSLQueryDataSelector {
     }
 
     public DSLQueryDataSelector withoutLabel(String characteristicType, List<String> characteristicValues) {
-        characteristicValues
-                .forEach(characteristicValue -> this.analysisQuery.addFlowSource(new DataCharacteristicsSelector(analysisQuery.getContext(),
-                        new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
+        characteristicValues.forEach(characteristicValue -> this.analysisQuery
+                .addFlowSource(new DataCharacteristicsSelector(analysisQuery.getContext(),
+                        new CharacteristicsSelectorData(
+                                ConstraintVariableReference.ofConstant(List.of(characteristicType)),
                                 ConstraintVariableReference.ofConstant(List.of(characteristicValue))),
                         true)));
         return this;

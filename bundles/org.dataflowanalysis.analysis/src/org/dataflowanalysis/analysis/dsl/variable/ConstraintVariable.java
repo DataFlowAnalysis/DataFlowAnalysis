@@ -91,8 +91,8 @@ public class ConstraintVariable {
 
     /**
      * Returns the assigned values of the constraint variable
-     * @return Returns an optional containing possible values of the constraint variable. If none have been set, the method
-     * returns an empty optional
+     * @return Returns an optional containing possible values of the constraint variable. If none have been set, the
+     * method returns an empty optional
      */
     public Optional<List<String>> getPossibleValues() {
         return possibleValues;

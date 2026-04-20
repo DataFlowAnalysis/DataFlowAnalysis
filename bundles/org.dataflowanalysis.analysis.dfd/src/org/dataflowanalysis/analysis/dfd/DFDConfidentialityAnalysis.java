@@ -15,7 +15,7 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializationExce
 import tools.mdsd.library.standalone.initialization.StandaloneInitializerBuilder;
 
 /**
- * This class represents a toplevel dfd confidentiality analysis which allows analysis of a given model
+ * This class represents a top level dfd confidentiality analysis which allows analysis of a given model
  */
 public class DFDConfidentialityAnalysis extends DataFlowConfidentialityAnalysis {
     private final Logger logger = LoggerManager.getLogger(DFDConfidentialityAnalysis.class);

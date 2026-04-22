@@ -1,7 +1,14 @@
-# 📊 Diagram: Apple Wallet Case Study
+# 📊 Diagram: Kulturpass
+
+::: tip Available Online
+This model is available to view using the online editor!
+<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/Kulturpass/Kulturpass.json&layout=true"></VPButton>
+::: 
 
 ## 🔗 Link to Original Paper/Article
 [View Full Main Source](https://github.com/kulturpass-de/kulturpass-documentation/tree/main)
+
+[Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/Kulturpass)
 
 ## 📝 Short Description
 This DFD represents the documented structure and data flows in the Kulturpass DE documentation. The main parts of the DFD are the Frontend Layer, mainly composed of the Mirakl UI and the Backend Layer, mainly composed of the Customer Data Cloud (CDC) and Mirakl. The DFD shows the data flows on the seller registration process with ELSTER, user identification with eID and geospatial search concepts.
@@ -72,3 +79,7 @@ This DFD represents the documented structure and data flows in the Kulturpass DE
 None
 ## 🚨 Violations
 None
+
+<script setup>
+import { VPButton } from 'vitepress/theme'
+</script>

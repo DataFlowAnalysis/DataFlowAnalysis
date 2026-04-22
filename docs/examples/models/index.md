@@ -28,6 +28,7 @@
 | [Hospital-Violation (Information Flow)](/examples/models/dfd/IF-Hospital-violation)                               | DFD        |
 | [JPMail-No-Violation (Information Flow)](/examples/models/dfd/IF-JPMail-no-violation)                             | DFD        |
 | [JPMail-Violation (Information Flow)](/examples/models/dfd/IF-JPMail-violation)                                   | DFD        |
+| [Kulturpass](/examples/models/dfd/kulturpass)                                                                     | DFD        |
 | [MilitaryAircraftController-No-Violation (Access Control)](/examples/models/dfd/AC-MAC-no-violation)              | DFD        |
 | [MilitaryAircraftController-Violation (Access Control)](/examples/models/dfd/AC-MAC-violation)                    | DFD        |
 | [MiniTwit](/examples/models/dfd/mini-twit)                                                                        | DFD        |

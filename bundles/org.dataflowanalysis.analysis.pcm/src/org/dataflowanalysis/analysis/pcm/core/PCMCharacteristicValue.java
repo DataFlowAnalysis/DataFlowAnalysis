@@ -10,12 +10,14 @@ public final class PCMCharacteristicValue implements CharacteristicValue {
     private final Literal characteristicLiteral;
 
     public PCMCharacteristicValue(EnumCharacteristicType characteristicType, Literal characteristicLiteral) {
-        if (Objects.isNull(characteristicType) || Objects.isNull(characteristicType.getName()) || characteristicType.getName()
-                .isBlank()) {
+        if (Objects.isNull(characteristicType) || Objects.isNull(characteristicType.getName())
+                || characteristicType.getName()
+                        .isBlank()) {
             throw new IllegalArgumentException("Characteristic type cannot be null or empty");
         }
-        if (Objects.isNull(characteristicLiteral) || Objects.isNull(characteristicLiteral.getName()) || characteristicLiteral.getName()
-                .isBlank()) {
+        if (Objects.isNull(characteristicLiteral) || Objects.isNull(characteristicLiteral.getName())
+                || characteristicLiteral.getName()
+                        .isBlank()) {
             throw new IllegalArgumentException("Characteristic literal cannot be null or empty");
         }
         this.characteristicType = characteristicType;

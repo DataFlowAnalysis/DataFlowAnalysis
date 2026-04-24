@@ -1,14 +1,14 @@
-package org.dataflowanalysis.analysis.dsl;
+package org.dataflowanalysis.analysis.dsl.groups;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.dsl.AbstractParseable;
+import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
-import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicListSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.VariableNameSelector;
+import org.dataflowanalysis.analysis.dsl.logic.LogicalOperator;
+import org.dataflowanalysis.analysis.dsl.selectors.*;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
@@ -77,20 +77,9 @@ public class DataSourceSelectors extends AbstractParseable {
         logger.debug("Parsing: " + string.getString());
         List<AbstractSelector> selectors = new ArrayList<>();
         while (!string.invalid()) {
-            string.skipWhitespace();
-            var listSelector = DataCharacteristicListSelector.fromString(string, context);
-            if (listSelector.successful()) {
-                selectors.add(listSelector.getResult());
-                continue;
-            }
-            var selector = DataCharacteristicsSelector.fromString(string, context);
+            var selector = LogicalOperator.fromString(string, context, true);
             if (selector.successful()) {
                 selectors.add(selector.getResult());
-                continue;
-            }
-            var nameSelector = VariableNameSelector.fromString(string, context);
-            if (nameSelector.successful()) {
-                selectors.add(nameSelector.getResult());
                 continue;
             }
             break;

@@ -33,9 +33,11 @@ public class ACContactSMSViolationResult implements DFDExampleModelResult {
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
         return List.of(
-                new ExpectedViolation(3, new DFDIdentifier("ztul2"), List.of(new ExpectedCharacteristic("Role", "Receiver")),
+                new ExpectedViolation(3, new DFDIdentifier("ztul2"),
+                        List.of(new ExpectedCharacteristic("Role", "Receiver")),
                         Map.of("9ru4y", List.of(new ExpectedCharacteristic("AccessRights", "User")))),
-                new ExpectedViolation(3, new DFDIdentifier("6oilhg"), List.of(new ExpectedCharacteristic("Role", "Receiver")),
+                new ExpectedViolation(3, new DFDIdentifier("6oilhg"),
+                        List.of(new ExpectedCharacteristic("Role", "Receiver")),
                         Map.of("e45gpj", List.of(new ExpectedCharacteristic("AccessRights", "User")))));
     }
 

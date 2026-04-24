@@ -3,8 +3,8 @@ package org.dataflowanalysis.analysis.tests.integration.dsl;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.stream.Stream;
-import org.dataflowanalysis.analysis.dsl.VertexSourceSelectors;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.dsl.groups.VertexSourceSelectors;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -16,7 +16,8 @@ public class VertexSourceSelectorTest {
     @MethodSource("correctVertexSourceSelectors")
     public void shouldParseCorrectly(String vertexSourceSelectorString) {
         StringView stringView = new StringView(vertexSourceSelectorString);
-        ParseResult<VertexSourceSelectors> vertexSourceSelectors = VertexSourceSelectors.fromString(stringView, new DSLContext());
+        ParseResult<VertexSourceSelectors> vertexSourceSelectors = VertexSourceSelectors.fromString(stringView,
+                new DSLContext());
         assertTrue(vertexSourceSelectors.successful());
         assertTrue(stringView.empty());
         assertEquals(vertexSourceSelectorString, vertexSourceSelectors.getResult()
@@ -27,17 +28,18 @@ public class VertexSourceSelectorTest {
     @MethodSource("incorrectVertexSourceSelectors")
     public void shouldNotParse(String vertexSourceSelectorString) {
         StringView stringView = new StringView(vertexSourceSelectorString);
-        ParseResult<VertexSourceSelectors> vertexSourceSelectors = VertexSourceSelectors.fromString(stringView, new DSLContext());
+        ParseResult<VertexSourceSelectors> vertexSourceSelectors = VertexSourceSelectors.fromString(stringView,
+                new DSLContext());
         assertTrue(vertexSourceSelectors.failed() || !stringView.empty());
     }
 
     private static Stream<Arguments> correctVertexSourceSelectors() {
-        return Stream.of(Arguments.of("vertex A.B A.B,A.C"), Arguments.of("vertex otherA.otherB"), Arguments.of("vertex A.B C.D"),
-                Arguments.of("vertex A.B,C.D"));
+        return Stream.of(Arguments.of("vertex A.B A.B,A.C"), Arguments.of("vertex otherA.otherB"),
+                Arguments.of("vertex A.B C.D"), Arguments.of("vertex A.B,C.D"));
     }
 
     private static Stream<Arguments> incorrectVertexSourceSelectors() {
-        return Stream.of(Arguments.of("vertex A"), Arguments.of(""), Arguments.of("vertex"), Arguments.of("vertex A.B C"),
-                Arguments.of("vertex A.B,C."));
+        return Stream.of(Arguments.of("vertex A"), Arguments.of(""), Arguments.of("vertex"),
+                Arguments.of("vertex A.B C"), Arguments.of("vertex A.B,C."));
     }
 }

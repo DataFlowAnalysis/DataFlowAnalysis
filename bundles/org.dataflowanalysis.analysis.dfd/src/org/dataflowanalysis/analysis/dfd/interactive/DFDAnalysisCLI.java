@@ -28,13 +28,14 @@ public class DFDAnalysisCLI {
      * If the program is called without any arguments, the command line interface starts in interactive mode.
      * <p/>
      * If the program is called with arguments, the arguments must follow the following format: 1. Path to a
-     * .dataflowdiagram file 2. Path to a .datadictionary file 3. Either a path to a .dfadsl file or a DSL constraint as a
-     * string
+     * .dataflowdiagram file 2. Path to a .datadictionary file 3. Either a path to a .dfadsl file or a DSL constraint as
+     * a string
      * @param args Arguments passed to the program via the command line call
      */
     public static void main(String[] args) {
         if (args.length != 0 && args.length != 3) {
-            logger.error("Please provide either no arguments, or a path to a .dataflowdiagram and .datadictionary file!");
+            logger.error(
+                    "Please provide either no arguments, or a path to a .dataflowdiagram and .datadictionary file!");
             System.exit(-1);
         }
         DFDConfidentialityAnalysis analysis;

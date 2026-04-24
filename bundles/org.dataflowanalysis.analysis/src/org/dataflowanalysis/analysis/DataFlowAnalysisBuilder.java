@@ -39,8 +39,8 @@ public abstract class DataFlowAnalysisBuilder {
 
     /**
      * Sets the model project name of the analysis that is used to resolve paths to the files of the model. Example: For
-     * models contained in the {@code org.dataflowanalysis.analysis.testmodels} project/bundle the modelProjectName would be
-     * equal to that name.
+     * models contained in the {@code org.dataflowanalysis.analysis.testmodels} project/bundle the modelProjectName
+     * would be equal to that name.
      * @return Builder of the analysis
      */
     public DataFlowAnalysisBuilder modelProjectName(String modelProjectName) {
@@ -49,10 +49,10 @@ public abstract class DataFlowAnalysisBuilder {
     }
 
     /**
-     * Sets the plugin activator project name of the analysis. The plugin activator is required to load model files from a
-     * project outside the analysis project. Example: For the models contained in the
-     * {@code org.dataflowanalysis.analysis.testmodels} project/bundle the pluginActivator is the basic class present in the
-     * sources of that project
+     * Sets the plugin activator project name of the analysis. The plugin activator is required to load model files from
+     * a project outside the analysis project. Example: For the models contained in the
+     * {@code org.dataflowanalysis.analysis.testmodels} project/bundle the pluginActivator is the basic class present in
+     * the sources of that project
      * @return Builder of the analysis
      */
     public DataFlowAnalysisBuilder usePluginActivator(Class<? extends Plugin> activator) {
@@ -62,8 +62,8 @@ public abstract class DataFlowAnalysisBuilder {
 
     /**
      * Validates the stored data and finds potential issues that prevent the analysis from working correctly.
-     * @throws IllegalStateException This method throws an {@link IllegalStateException} when an analysis cannot be built
-     * with the current data
+     * @throws IllegalStateException This method throws an {@link IllegalStateException} when an analysis cannot be
+     * built with the current data
      */
     protected void validate() {
         if (!this.standalone) {
@@ -74,8 +74,8 @@ public abstract class DataFlowAnalysisBuilder {
 
     /**
      * Builds a new analysis from the given data and returns the analysis object.
-     * @throws IllegalStateException This method throws an {@link IllegalStateException} when an analysis cannot be built
-     * with the current data
+     * @throws IllegalStateException This method throws an {@link IllegalStateException} when an analysis cannot be
+     * built with the current data
      */
     public abstract DataFlowConfidentialityAnalysis build();
 }

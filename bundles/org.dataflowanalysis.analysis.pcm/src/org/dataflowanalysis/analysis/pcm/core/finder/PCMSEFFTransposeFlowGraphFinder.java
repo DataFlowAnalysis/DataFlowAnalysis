@@ -36,8 +36,8 @@ public class PCMSEFFTransposeFlowGraphFinder {
     private final List<Entity> sinks;
     private PCMTransposeFlowGraph currentTransposeFlowGraph;
 
-    public PCMSEFFTransposeFlowGraphFinder(ResourceProvider resourceProvider, SEFFFinderContext context, List<Entity> sinks,
-            PCMTransposeFlowGraph currentTransposeFlowGraph) {
+    public PCMSEFFTransposeFlowGraphFinder(ResourceProvider resourceProvider, SEFFFinderContext context,
+            List<Entity> sinks, PCMTransposeFlowGraph currentTransposeFlowGraph) {
         this.resourceProvider = resourceProvider;
         this.context = context;
         this.sinks = sinks;
@@ -63,8 +63,9 @@ public class PCMSEFFTransposeFlowGraphFinder {
 
         } else {
             // default case: skip action and continue with successor
-            logger.info(String.format("Action %s has unsupported type of %s and is skipped.", currentAction.getId(), currentAction.getClass()
-                    .getName()));
+            logger.info(String.format("Action %s has unsupported type of %s and is skipped.", currentAction.getId(),
+                    currentAction.getClass()
+                            .getName()));
             return findSequencesForSEFFAction(currentAction.getSuccessor_AbstractAction());
         }
     }
@@ -72,10 +73,11 @@ public class PCMSEFFTransposeFlowGraphFinder {
     protected List<PCMTransposeFlowGraph> findSequencesForSEFFStartAction(StartAction currentAction) {
         SEFFPCMVertex<?> startElement;
         if (this.currentTransposeFlowGraph.getSink() == null) {
-            startElement = new SEFFPCMVertex<>(currentAction, List.of(), context.getContext(), context.getParameter(), resourceProvider);
+            startElement = new SEFFPCMVertex<>(currentAction, List.of(), context.getContext(), context.getParameter(),
+                    resourceProvider);
         } else {
-            startElement = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), context.getContext(),
-                    context.getParameter(), resourceProvider);
+            startElement = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()),
+                    context.getContext(), context.getParameter(), resourceProvider);
         }
         this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(startElement);
         if (this.sinks.stream()
@@ -87,8 +89,8 @@ public class PCMSEFFTransposeFlowGraphFinder {
     }
 
     protected List<PCMTransposeFlowGraph> findSequencesForSEFFStopAction(StopAction currentAction) {
-        var stopElement = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), context.getContext(),
-                context.getParameter(), resourceProvider);
+        var stopElement = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()),
+                context.getContext(), context.getParameter(), resourceProvider);
         this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(stopElement);
         if (this.sinks.stream()
                 .anyMatch(it -> it.getId()
@@ -96,7 +98,8 @@ public class PCMSEFFTransposeFlowGraphFinder {
             return List.of(currentTransposeFlowGraph);
         }
 
-        Optional<AbstractAction> parentAction = PCMQueryUtils.findParentOfType(currentAction, AbstractAction.class, false);
+        Optional<AbstractAction> parentAction = PCMQueryUtils.findParentOfType(currentAction, AbstractAction.class,
+                false);
         if (parentAction.isPresent()) {
             AbstractAction successor = parentAction.get()
                     .getSuccessor_AbstractAction();
@@ -110,8 +113,8 @@ public class PCMSEFFTransposeFlowGraphFinder {
 
     protected List<PCMTransposeFlowGraph> findSequencesForSEFFExternalCallAction(ExternalCallAction currentAction) {
 
-        var callingEntity = new CallingSEFFPCMVertex(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), context.getContext(),
-                context.getParameter(), true, resourceProvider);
+        var callingEntity = new CallingSEFFPCMVertex(currentAction, List.of(this.currentTransposeFlowGraph.getSink()),
+                context.getContext(), context.getParameter(), true, resourceProvider);
         this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(callingEntity);
         if (this.sinks.stream()
                 .anyMatch(it -> it.getId()
@@ -121,7 +124,8 @@ public class PCMSEFFTransposeFlowGraphFinder {
 
         OperationRequiredRole calledRole = currentAction.getRole_ExternalService();
         OperationSignature calledSignature = currentAction.getCalledService_ExternalService();
-        Optional<SEFFWithContext> calledSEFF = PCMQueryUtils.findCalledSEFF(calledRole, calledSignature, context.getContext());
+        Optional<SEFFWithContext> calledSEFF = PCMQueryUtils.findCalledSEFF(calledRole, calledSignature,
+                context.getContext());
 
         if (calledSEFF.isEmpty()) {
             logger.error(String.format("Could not find the called SEFF for the action %s", currentAction));
@@ -146,8 +150,8 @@ public class PCMSEFFTransposeFlowGraphFinder {
 
     protected List<PCMTransposeFlowGraph> findSequencesForSEFFSetVariableAction(SetVariableAction currentAction) {
 
-        var newEntity = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()), context.getContext(),
-                context.getParameter(), resourceProvider);
+        var newEntity = new SEFFPCMVertex<>(currentAction, List.of(this.currentTransposeFlowGraph.getSink()),
+                context.getContext(), context.getParameter(), resourceProvider);
         this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(newEntity);
         if (this.sinks.stream()
                 .anyMatch(it -> it.getId()
@@ -170,19 +174,20 @@ public class PCMSEFFTransposeFlowGraphFinder {
                     PCMTransposeFlowGraph clonedTransposeFlowGraph = this.currentTransposeFlowGraph.copy(vertexMapping);
                     SEFFFinderContext clonedContext = new SEFFFinderContext(context);
                     clonedContext.replaceCallers(vertexMapping);
-                    return new PCMSEFFTransposeFlowGraphFinder(resourceProvider, clonedContext, sinks, clonedTransposeFlowGraph)
-                            .findSequencesForSEFFAction(it);
+                    return new PCMSEFFTransposeFlowGraphFinder(resourceProvider, clonedContext, sinks,
+                            clonedTransposeFlowGraph).findSequencesForSEFFAction(it);
                 })
                 .flatMap(List::stream)
                 .toList();
     }
 
-    protected List<PCMTransposeFlowGraph> findSequencesForSEFFActionReturning(ExternalCallAction currentAction, AbstractPCMVertex<?> caller) {
+    protected List<PCMTransposeFlowGraph> findSequencesForSEFFActionReturning(ExternalCallAction currentAction,
+            AbstractPCMVertex<?> caller) {
         List<AbstractPCMVertex<?>> previousVertices = new ArrayList<>();
         previousVertices.add(caller);
         previousVertices.add(this.currentTransposeFlowGraph.getSink());
-        this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(
-                new CallingSEFFPCMVertex(currentAction, previousVertices, context.getContext(), context.getParameter(), false, resourceProvider));
+        this.currentTransposeFlowGraph = new PCMTransposeFlowGraph(new CallingSEFFPCMVertex(currentAction,
+                previousVertices, context.getContext(), context.getParameter(), false, resourceProvider));
         if (this.sinks.stream()
                 .anyMatch(it -> it.getId()
                         .equals(currentAction.getId()))) {
@@ -199,8 +204,9 @@ public class PCMSEFFTransposeFlowGraphFinder {
             return returnToSEFFCaller((CallingSEFFPCMVertex) caller);
 
         } else {
-            throw new IllegalArgumentException(String.format("No dispatch logic for call of type %s available.", caller.getClass()
-                    .getSimpleName()));
+            throw new IllegalArgumentException(
+                    String.format("No dispatch logic for call of type %s available.", caller.getClass()
+                            .getSimpleName()));
         }
     }
 

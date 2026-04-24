@@ -16,8 +16,9 @@ public class CharacteristicsSelectorDataTest {
     @ParameterizedTest
     @MethodSource("correctCharacteristicSelectors")
     public void shouldParseCorrectly(String variableReference, String characteristicType, String characteristicValue) {
+        StringView string = new StringView(variableReference);
         ParseResult<CharacteristicsSelectorData> characteristicsSelectorData = CharacteristicsSelectorData
-                .fromString(new StringView(variableReference));
+                .fromString(string);
         assertTrue(characteristicsSelectorData.successful());
         assertTrue(characteristicsSelectorData.getResult()
                 .characteristicType()
@@ -49,10 +50,11 @@ public class CharacteristicsSelectorDataTest {
 
     private static Stream<Arguments> correctCharacteristicSelectors() {
         return Stream.of(Arguments.of("A.B", "A", "B"), Arguments.of("otherA.otherB", "otherA", "otherB"),
-                Arguments.of("utf-8Ä.utf-8Ö", "utf-8Ä", "utf-8Ö"));
+                Arguments.of("utf-8Ä.utf-8Ö", "utf-8Ä", "utf-8Ö"), Arguments.of("A.B)", "A", "B"));
     }
 
     private static Stream<Arguments> incorrectCharacteristicSelectors() {
-        return Stream.of(Arguments.of(".B"), Arguments.of("A."), Arguments.of("justSomeText"), Arguments.of(""), Arguments.of("!"));
+        return Stream.of(Arguments.of(".B"), Arguments.of("A."), Arguments.of("justSomeText"), Arguments.of(""),
+                Arguments.of("!"));
     }
 }

@@ -102,7 +102,8 @@ public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFind
                     outgoingFlows.forEach(it -> {
                         if (!it.getEntityName()
                                 .equals(flowname))
-                            throw new IllegalArgumentException("DFD not simple: All outgoing flows from one pin must have the same name");
+                            throw new IllegalArgumentException(
+                                    "DFD not simple: All outgoing flows from one pin must have the same name");
                     });
                     var outgoingFlow = outgoingFlows.get(0);
                     pinToFlowMap.put(pin, outgoingFlow);
@@ -153,10 +154,11 @@ public class DFDSimpleTransposeFlowGraphFinder implements TransposeFlowGraphFind
                     .getInPin()) {
                 for (AbstractAssignment abstractAssignment : node.getBehavior()
                         .getAssignment()) {
-                    if ((abstractAssignment instanceof ForwardingAssignment forwardingAssignment && forwardingAssignment.getInputPins()
-                            .contains(inputPin)) || (abstractAssignment instanceof Assignment assignment
-                                    && assignment.getInputPins()
-                                            .contains(inputPin))) {
+                    if ((abstractAssignment instanceof ForwardingAssignment forwardingAssignment
+                            && forwardingAssignment.getInputPins()
+                                    .contains(inputPin))
+                            || (abstractAssignment instanceof Assignment assignment && assignment.getInputPins()
+                                    .contains(inputPin))) {
                         endNodes.remove(node);
                         break;
                     }

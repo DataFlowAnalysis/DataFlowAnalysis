@@ -15,7 +15,8 @@ public class TransposeFlowGraphTest {
         var vertexB = DummyVertex.of("B");
         var vertexC = DummyVertex.of("C");
         var vertexA = DummyVertex.of("A", List.of(vertexB, vertexC));
-        return Stream.of(Arguments.of(DummyTransposeFlowGraph.of("1"), 1), Arguments.of(DummyTransposeFlowGraph.of("1", "2", "3"), 3),
+        return Stream.of(Arguments.of(DummyTransposeFlowGraph.of("1"), 1),
+                Arguments.of(DummyTransposeFlowGraph.of("1", "2", "3"), 3),
                 Arguments.of(DummyTransposeFlowGraph.of(vertexA), 3));
     }
 
@@ -68,7 +69,8 @@ public class TransposeFlowGraphTest {
 
     @ParameterizedTest
     @MethodSource("succeedingVerticesTransposeFlowGraph")
-    public void shouldDeterminePreviousVertex(DummyTransposeFlowGraph transposeFlowGraph, DummyVertex vertex, List<DummyVertex> expectedResult) {
+    public void shouldDeterminePreviousVertex(DummyTransposeFlowGraph transposeFlowGraph, DummyVertex vertex,
+            List<DummyVertex> expectedResult) {
         assertIterableEquals(expectedResult, transposeFlowGraph.getSucceedingVertices(vertex));
     }
 }

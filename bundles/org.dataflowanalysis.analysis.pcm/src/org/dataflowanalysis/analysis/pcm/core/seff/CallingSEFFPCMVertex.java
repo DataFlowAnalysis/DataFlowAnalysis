@@ -3,9 +3,11 @@ package org.dataflowanalysis.analysis.pcm.core.seff;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
@@ -30,8 +32,9 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
      * @param parameter List of Parameters that are available for the calling SEFF
      * @param isCalling Is true, when another method is called. Otherwise, a called method is returned from
      */
-    public CallingSEFFPCMVertex(ExternalCallAction element, List<? extends AbstractPCMVertex<?>> previousElements, Deque<AssemblyContext> context,
-            List<Parameter> parameter, boolean isCalling, ResourceProvider resourceProvider) {
+    public CallingSEFFPCMVertex(ExternalCallAction element, List<? extends AbstractPCMVertex<?>> previousElements,
+            Deque<AssemblyContext> context, List<Parameter> parameter, boolean isCalling,
+            ResourceProvider resourceProvider) {
         super(element, previousElements, context, parameter, resourceProvider);
         this.isCalling = isCalling;
     }
@@ -44,22 +47,26 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
     @Override
     public void evaluateDataFlow() {
         List<DataCharacteristic> incomingDataCharacteristics = this.getIncomingDataCharacteristics();
-        List<CharacteristicValue> nodeCharacteristics = this.getVertexCharacteristics();
+        List<CharacteristicValue> vertexCharacteristics = this.getVertexCharacteristics();
+        Set<CharacteristicValue> previousVertexCharacteristics = new HashSet<>(vertexCharacteristics);
+        this.getPreviousElements()
+                .forEach(vertex -> previousVertexCharacteristics.addAll(vertex.getAllPreviousVertexCharacteristics()));
 
         List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.getVariableCharacterizations();
         if (this.isCalling()) {
             this.checkCallParameter(this.getReferencedElement()
                     .getCalledService_ExternalService(), variableCharacterisations);
         }
-        List<DataCharacteristic> outgoingDataCharacteristics = this.getDataCharacteristics(nodeCharacteristics, variableCharacterisations,
-                incomingDataCharacteristics);
+        List<DataCharacteristic> outgoingDataCharacteristics = this.getDataCharacteristics(vertexCharacteristics,
+                variableCharacterisations, incomingDataCharacteristics);
         if (this.isReturning()) {
             outgoingDataCharacteristics = outgoingDataCharacteristics.stream()
                     .filter(it -> !it.getVariableName()
                             .equals("RETURN"))
                     .collect(Collectors.toList());
         }
-        this.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, nodeCharacteristics);
+        this.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics,
+                previousVertexCharacteristics);
     }
 
     /**
@@ -69,8 +76,9 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
      * @return Returns a list of variable characterizations that are applicable to the current vertex
      */
     private List<ConfidentialityVariableCharacterisation> getVariableCharacterizations() {
-        Stream<VariableUsage> relevantVariableUsages = this.isCalling ? super.getReferencedElement().getInputVariableUsages__CallAction()
-                .stream()
+        Stream<VariableUsage> relevantVariableUsages = this.isCalling
+                ? super.getReferencedElement().getInputVariableUsages__CallAction()
+                        .stream()
                 : super.getReferencedElement().getReturnVariableUsage__CallReturnAction()
                         .stream();
         return relevantVariableUsages.flatMap(it -> it.getVariableCharacterisation_VariableUsage()

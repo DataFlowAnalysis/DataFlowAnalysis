@@ -57,7 +57,8 @@ public class PCMDataFlowConfidentialityAnalysisBuilder extends DataFlowAnalysisB
      * @param relativeNodeCharacteristicsModelPath Relative path to the node characteristics model
      * @return Returns builder object of the analysis
      */
-    public PCMDataFlowConfidentialityAnalysisBuilder useNodeCharacteristicsModel(String relativeNodeCharacteristicsModelPath) {
+    public PCMDataFlowConfidentialityAnalysisBuilder useNodeCharacteristicsModel(
+            String relativeNodeCharacteristicsModelPath) {
         this.relativeNodeCharacteristicsPath = relativeNodeCharacteristicsModelPath;
         return this;
     }
@@ -107,12 +108,16 @@ public class PCMDataFlowConfidentialityAnalysisBuilder extends DataFlowAnalysisB
         URI usageModelUri = this.modelProjectName.isEmpty() ? URI.createFileURI(Paths.get(this.relativeUsageModelPath)
                 .toAbsolutePath()
                 .toString()) : ResourceUtils.createRelativePluginURI(this.relativeUsageModelPath, modelProjectName);
-        URI allocationModelUri = this.modelProjectName.isEmpty() ? URI.createFileURI(Paths.get(this.relativeAllocationModelPath)
-                .toAbsolutePath()
-                .toString()) : ResourceUtils.createRelativePluginURI(this.relativeAllocationModelPath, modelProjectName);
-        URI nodeCharacteristicsUri = this.modelProjectName.isEmpty() ? URI.createFileURI(Paths.get(this.relativeNodeCharacteristicsPath)
-                .toAbsolutePath()
-                .toString()) : ResourceUtils.createRelativePluginURI(this.relativeNodeCharacteristicsPath, modelProjectName);
+        URI allocationModelUri = this.modelProjectName.isEmpty()
+                ? URI.createFileURI(Paths.get(this.relativeAllocationModelPath)
+                        .toAbsolutePath()
+                        .toString())
+                : ResourceUtils.createRelativePluginURI(this.relativeAllocationModelPath, modelProjectName);
+        URI nodeCharacteristicsUri = this.modelProjectName.isEmpty()
+                ? URI.createFileURI(Paths.get(this.relativeNodeCharacteristicsPath)
+                        .toAbsolutePath()
+                        .toString())
+                : ResourceUtils.createRelativePluginURI(this.relativeNodeCharacteristicsPath, modelProjectName);
 
         return new PCMURIResourceProvider(usageModelUri, allocationModelUri, nodeCharacteristicsUri);
     }
@@ -122,10 +127,13 @@ public class PCMDataFlowConfidentialityAnalysisBuilder extends DataFlowAnalysisB
      */
     protected void validate() {
         super.validate();
-        if (this.customResourceProvider.isEmpty() && (this.relativeUsageModelPath == null || this.relativeUsageModelPath.isEmpty())) {
-            logger.error("The dataflow analysis requires a path to a usage model", new IllegalStateException("The Analysis requires a usage model"));
+        if (this.customResourceProvider.isEmpty()
+                && (this.relativeUsageModelPath == null || this.relativeUsageModelPath.isEmpty())) {
+            logger.error("The dataflow analysis requires a path to a usage model",
+                    new IllegalStateException("The Analysis requires a usage model"));
         }
-        if (this.customResourceProvider.isEmpty() && (this.relativeAllocationModelPath == null || this.relativeAllocationModelPath.isEmpty())) {
+        if (this.customResourceProvider.isEmpty()
+                && (this.relativeAllocationModelPath == null || this.relativeAllocationModelPath.isEmpty())) {
             logger.error("The dataflow analysis requires a path to an allocation model",
                     new IllegalStateException("The Analysis requires an allocation model"));
         }
@@ -144,8 +152,8 @@ public class PCMDataFlowConfidentialityAnalysisBuilder extends DataFlowAnalysisB
         }
         if (this.customResourceProvider.isEmpty()
                 && (this.relativeNodeCharacteristicsPath == null || this.relativeNodeCharacteristicsPath.isEmpty())) {
-            logger.warn(
-                    "Using node characteristic model without specifying path to the assignment model. No node" + " characteristics will be applied!");
+            logger.warn("Using node characteristic model without specifying path to the assignment model. No node"
+                    + " characteristics will be applied!");
         }
     }
 

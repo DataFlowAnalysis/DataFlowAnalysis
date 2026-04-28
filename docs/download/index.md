@@ -18,14 +18,14 @@ Afterwards, visit [Getting Started](/wiki/gettingstarted.md) to learn more about
 
 ## Eclipse Product <Badge type="info">Recommended</Badge>
 
-Our [Eclipse Product](https://updatesite.palladio-simulator.com/DataFlowAnalysis/product/releases/) is a pre-configured Eclipse desktop application with all required dependencies installed to quickly get started.
-We provide the Eclipse Product for all major operation systems.
+Our [Eclipse Product](https://github.com/DataFlowAnalysis/product/releases/latest) is a pre-configured Eclipse desktop application with all required dependencies installed to quickly get started.
+We provide the Eclipse Product for all major operating systems.
 
-<VPButton text='Windows 10 & 11' href="https://github.com/DataFlowAnalysis/DataFlowAnalysis/releases/download/latest/DataFlowAnalysis.win32.win32.x86_64.zip" />  
-<VPButton text='Linux (GTK)' href="https://github.com/DataFlowAnalysis/DataFlowAnalysis/releases/download/latest/DataFlowAnalysis.linux.gtk.x86_64.zip" /> 
-<VPButton text='macOS (ARM)' href="https://github.com/DataFlowAnalysis/DataFlowAnalysis/releases/download/latest/DataFlowAnalysis.macosx.cocoa.aarch64.tar.gz" /> 
-<VPButton text='macOS (Intel)' href="https://github.com/DataFlowAnalysis/DataFlowAnalysis/releases/download/latest/DataFlowAnalysis.macosx.cocoa.x86_64.zip" /> 
-<VPButton text='Plugins (for IntelliJ)' href="https://github.com/DataFlowAnalysis/DataFlowAnalysis/releases/download/latest/DataFlowAnalysis.jars.tar.gz" /> 
+<VPButton text='Windows 10 & 11' href="https://github.com/DataFlowAnalysis/product/releases/latest/download/DataFlowAnalysis.win32.win32.x86_64.zip" />  
+<VPButton text='Linux (GTK)' href="https://github.com/DataFlowAnalysis/product/releases/latest/download/DataFlowAnalysis.linux.gtk.x86_64.zip" /> 
+<VPButton text='macOS (ARM)' href="https://github.com/DataFlowAnalysis/product/releases/latest/download/DataFlowAnalysis.macosx.cocoa.aarch64.tar.gz" /> 
+<VPButton text='macOS (Intel)' href="https://github.com/DataFlowAnalysis/product/releases/latest/download/DataFlowAnalysis.macosx.cocoa.x86_64.zip" /> 
+<VPButton text='Plugins (for IntelliJ)' href="https://github.com/DataFlowAnalysis/product/releases/latest/download/DataFlowAnalysis.jars.tar.gz" /> 
 
 ## Eclipse Updatesite
 

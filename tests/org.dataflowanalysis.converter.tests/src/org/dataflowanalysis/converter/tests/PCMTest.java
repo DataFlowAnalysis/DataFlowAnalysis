@@ -41,7 +41,6 @@ import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.dataflowanalysis.examplemodels.Activator;
 import org.eclipse.core.runtime.Plugin;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -69,7 +68,6 @@ public class PCMTest extends ConverterTest {
 
     @Test
     @DisplayName("Test PCM2DFD EVerest")
-    @Disabled
     public void everestToDfd() {
         testSpecificModel("EVerest", "default", TEST_MODELS, "everest.json", null);
     }

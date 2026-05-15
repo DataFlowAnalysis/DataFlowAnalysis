@@ -41,6 +41,7 @@ import org.dataflowanalysis.dfd.dataflowdiagram.DataFlowDiagram;
 import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.dataflowanalysis.examplemodels.Activator;
 import org.eclipse.core.runtime.Plugin;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -64,6 +65,19 @@ public class PCMTest extends ConverterTest {
     @DisplayName("Test PCM2DFD CWA")
     public void cwaToDfd() {
         testSpecificModel("CoronaWarnApp", "default", TEST_MODELS, "cwa.json", null);
+    }
+
+    @Test
+    @DisplayName("Test PCM2DFD EVerest")
+    @Disabled
+    public void everestToDfd() {
+        testSpecificModel("EVerest", "default", TEST_MODELS, "everest.json", null);
+    }
+
+    @Test
+    @DisplayName("Test PCM2DFD Cocar")
+    public void cocarToDfd() {
+        testSpecificModel("CoCarNextGen", "AudiA6C8", TEST_MODELS, "cocar.json", null);
     }
 
     @Test

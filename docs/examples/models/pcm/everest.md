@@ -1,7 +1,13 @@
 # 📊 Diagram: EVerest
+::: tip Available Online
+This model (converted to a data flow diagram) is available to view using the online editor!
+<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/pcm/EVerest/everest.json&layout=true"></VPButton>
+:::
 
 ## 🔗 Link to Original Paper/Article
 <!--[View Full Main Source](link)-->
+
+[Open Example Model in Example Models Bundles](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/pcm/EVerest)
 
 ## 📝 Short Description
 The EVerest model is based on an industry-driven open source project for Electric Vehicle charging stations and contains security requirements, documentation, a software architecture, and code. The requirements are manually labeled and include labels for security objectives, security elements, and trace links.
@@ -50,3 +56,8 @@ The EVerest model is based on an industry-driven open source project for Electri
 
 ## 🚨 Violations
 [see expected results](https://github.com/DataFlowAnalysis/DataFlowAnalysis/blob/main/bundles/org.dataflowanalysis.examplemodels/src/org/dataflowanalysis/examplemodels/results/pcm/scenarios/EVerest.java)
+
+
+<script setup>
+import { VPButton } from 'vitepress/theme'
+</script>

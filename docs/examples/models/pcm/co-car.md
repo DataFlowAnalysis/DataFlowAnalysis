@@ -1,4 +1,9 @@
 # 📊 Diagram: CoCarNextGen
+::: tip Available Online
+This model (converted to a data flow diagram) is available to view using the online editor!
+<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/pcm/CoCarNextGen/cocar.json&layout=true"></VPButton>
+::: 
+
 
 ## 🔗 Link to Original Paper/Article
 [View Model Files in Repository](<https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/pcm/CoCarNextGen>)
@@ -9,6 +14,7 @@
 
 [View Audi Bedienung und Anzeige, Infotainment](<https://www.audi-mediacenter.com/de/audi-technik-lexikon-7180/bedienung-und-anzeige-infotainment-16948>)
 
+[Open Example Model in Example Models Bundles](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/pcm/CoCarNextGen)
 
 ## 📝 Short Description
 This model represents a high-level architecture of an **Audi A6 vehicle**, focusing on sensor-based perception, centralized driver assistance, infotainment, and cloud connectivity. Environmental data is collected by multiple sensors (radar, cameras, ultrasonic) and fused centrally by the **zFAS** unit to create a consistent world model for driver assistance functions. These functions are processed by the **Central Comfort Control Unit** and translated into vehicle actuation commands via the **DriveByWire Control Unit**. In parallel, the **MIB 2+** infotainment platform provides human–machine interaction, navigation, voice control, smartphone integration, and **Car-to-X** communication. Connectivity to external cloud services, including **HERE** servers, **Google** navigation services, **Audi Car-to-X** backends, and online speech recognition, is realized through a **Gateway Control Unit**, enabling advanced navigation, traffic awareness, and connected services while maintaining a clear separation between in-vehicle systems and external backends.
@@ -93,5 +99,9 @@ search.
 
 
 
+
+<script setup>
+import { VPButton } from 'vitepress/theme'
+</script>
 
 

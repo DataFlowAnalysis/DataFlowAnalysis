@@ -46,9 +46,9 @@ search.
 - **2. Voice Control**: This component allows natural language interaction for online commands through the **OnlineSpeechRecognitionBackend**.
 - **3. Self-learning Navigation System**: This component suggests routes based on the learned driver behavior and habits. The route and traffic calculations are done by the **HERE servers**. There is also the possibility to use the Google Earth navigation system, which is offered through the **MMINavigationPlus** component. This component connects to the Google Earth Navigation backend for achieving this purpose.
 - **4. Car2xModule**: This component handles vehicle-to-backend communication for things such as hazard warning (possibly received from the cameras/sensors) or traffic information (based on the gps location).
-- **5. Smartphone interface**: The smartphone interfaceenables app integration and vehicle status access. The owner´s smartphone, running the **myAudi App**, enables **accessing calendar information**, **finding the car or navigation functionality** and **remote comfort features**. This last features are done through the **SmartPhoneConnectability** component, which is able to send the signals to the **HeatedSeatCU**, **CentralLockingCU** and **AuxiliaryHeatingCU**.
+- **5. Smartphone interface**: The smartphone interface enables app integration and vehicle status access. The owner´s smartphone, running the **myAudi App**, enables **accessing calendar information**, **finding the car or navigation functionality** and **remote comfort features**. This last features are done through the **SmartPhoneConnectability** component, which is able to send the signals to the **HeatedSeatCU**, **CentralLockingCU** and **AuxiliaryHeatingCU**.
 
-**6. Gateway Control Unit**: The Gateway Control Unit connects **in-vehicle networks** with **external networks** such as the HERE or Google Servers, AudiCar 2 Backend and Online Speach Recognition Backend. 
+**6. Gateway Control Unit**: The Gateway Control Unit connects **in-vehicle networks** with **external networks** such as the HERE or Google Servers, AudiCar 2 Backend and Online Speech Recognition Backend. 
 
 **7. HERE Servers**: The model also represents the functionality provided by the **HERE Servers** as the **HERETrafficLoadCalculation**, **HERERouteCalculation** and **HERELocationBasedSearch** components.
 
@@ -61,7 +61,7 @@ search.
         - __VehicleIdentifier__: The data is the identifier of the vehicle
         - __Car2X__: 
         - __GPSLocation__: The data is the GPSLocation of the car
-        - __Navigation__: The data is the navgation data of the route
+        - __Navigation__: The data is the navigation data of the route
         - __ExternalAuth__: The data is an external authentication
         - __Traffic__: The data is the traffic data
         - __DriveControlInstruction__: The data is a drive control instruction

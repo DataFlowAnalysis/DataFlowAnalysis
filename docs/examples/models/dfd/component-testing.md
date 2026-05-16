@@ -27,7 +27,7 @@ Starting from the left side of the diagram there is the __Test Operator__ node, 
         - __TestRequest__: Request from the operator to test a component
         - __AccessToken__: Access token generated after the credentials have been checked to do some operations
         - __Component__: Component which the test data will be tested on
-        - __SimulationData__: Data from the simulatior
+        - __SimulationData__: Data from the simulator
         - __Measurements__: Measurements from the testing of the component
         - __TestData__: Data from running the test
         

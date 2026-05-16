@@ -2,7 +2,8 @@
 
 ::: tip Available Online
 This model is available to view using the online editor!
-<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-TravelPlanner-violation/TravelPlanner-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (No Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-TravelPlanner-no-violation/TravelPlanner-no-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (SafeCCD Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-TravelPlanner-violation/TravelPlanner-violation.json"></VPButton>
 ::: 
 
 ## 🔗 Link to Original Paper/Article
@@ -45,7 +46,9 @@ The permissions of a vertex are denoted by `AssignedRoles`.
 - `SafeCCD: data Levels.User neverFlows vertex Role.Airline`
 
 ## 🚨 Violations
-The error introduced in the case is that credit card data (__ccd__) can bypass the declassification process, which implies a missing access permission. 
+Although no violations were found in the original architecture, we have slightly modified the diagram to produce one alternate version in which violations are introduced:
+
+- Credit card data (__ccd__) can bypass the declassification process, which implies a missing access permission. 
 
 <script setup>
 import { VPButton } from 'vitepress/theme'

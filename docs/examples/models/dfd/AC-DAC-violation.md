@@ -2,7 +2,8 @@
 
 ::: tip Available Online
 This model is available to view using the online editor!
-<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-DAC-violation/DAC-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (No Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-DAC-no-violation/DAC-no-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (Isolation Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-DAC-violation/DAC-violation.json"></VPButton>
 ::: 
 
 ## 🔗 Link to Original Paper/Article
@@ -32,7 +33,9 @@ The __Indexing Bot__ is not allowed to read or access __Family Pictures__ in any
 - `Isolation: data !Read.IndexingBot neverFlows vertex Identity.IndexingBot`
 
 ## 🚨 Violations
-The error introduced in the case is that the __IndexingBot__ reads *pictures*. 
+Although no violations were found in the original architecture, we have slightly modified the diagram to produce one alternate version in which violations are introduced:
+
+- __IndexingBot__ reads *pictures*. 
 
 
 <script setup>

@@ -2,7 +2,9 @@
 
 ::: tip Available Online
 This model is available to view using the online editor!
-<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-FriendMap-violation/FriendMap-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (No Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-FriendMap-no-violation/FriendMap-no-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (Safety Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-FriendMap-violation/FriendMap-violation.json"></VPButton>
+
 ::: 
 
 ## 🔗 Link to Original Paper/Article
@@ -24,7 +26,7 @@ The majority of the components are located in a `Trust` **Zone**. When creating 
 ### 🗂️ Data Labels:
 - **Level**: There are two types of levels: `High` and `Low`. `High` dominates `Low`.
 ### 🏷️ Node Labels:
-- **Actor**: There are four actors in this model: `Google`, `Alice`, `SocialNetwork` and `CreateMap`. A node is not nessecarily part of a zone.
+- **Actor**: There are four actors in this model: `Google`, `Alice`, `SocialNetwork` and `CreateMap`. A node is not necessarily part of a zone.
 - **Zone**: There are two zones in this model: `Attack` and `Trust`. A node always part of one of these zones.
 
 ## ⚠️ Constraints
@@ -33,7 +35,9 @@ System parts or actors in the attack zone must not have access to data classifie
 - `Safety: data Level.High neverFlows vertex Zone.Attack`
 
 ## 🚨 Violations
-The error introduced in the case is that the locations are not encrypted anymore before sending them to `Google`. The new direct data flow is called *locations*.
+Although no violations were found in the original architecture, we have slightly modified the diagram to produce one alternate version in which violations are introduced:
+
+- The locations are not encrypted anymore before sending them to `Google`. The new direct data flow is called *locations*.
 
 
 <script setup>

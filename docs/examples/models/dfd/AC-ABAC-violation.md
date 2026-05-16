@@ -2,7 +2,8 @@
 
 ::: tip Available Online
 This model is available to view using the online editor!
-<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-abac-violation/abac-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (No Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-abac-no-violation/abac-no-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (Security Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-abac-violation/abac-violation.json"></VPButton>
 ::: 
 
 ## 🔗 Link to Original Paper/Article
@@ -34,7 +35,9 @@ Clerks are not supposed to be able to access Celebrity customer data.
 `- Security: data DataStatus.Celebrity neverFlows vertex NodeRole.Clerk`
 
 ## 🚨 Violations
-The introduced flow *celebrity_customer_details* lets `Celebrity` data  data flows into the normal __Customer Storage__, which the __Clerk US__ can access.
+Although no violations were found in the original architecture, we have slightly modified the diagram to produce one alternate version in which violations are introduced:
+
+-The introduced flow *celebrity_customer_details* lets `Celebrity` data flow into the normal __Customer Storage__, which the __Clerk US__ can access.
 
 
 <script setup>

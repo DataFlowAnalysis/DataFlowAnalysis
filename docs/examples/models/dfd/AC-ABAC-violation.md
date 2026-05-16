@@ -37,7 +37,7 @@ Clerks are not supposed to be able to access Celebrity customer data.
 ## 🚨 Violations
 Although no violations were found in the original architecture, we have slightly modified the diagram to produce one alternate version in which violations are introduced:
 
--The introduced flow *celebrity_customer_details* lets `Celebrity` data  data flows into the normal __Customer Storage__, which the __Clerk US__ can access.
+-The introduced flow *celebrity_customer_details* lets `Celebrity` data flow into the normal __Customer Storage__, which the __Clerk US__ can access.
 
 
 <script setup>

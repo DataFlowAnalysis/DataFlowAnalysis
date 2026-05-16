@@ -2,7 +2,8 @@
 
 ::: tip Available Online
 This model is available to view using the online editor!
-<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-MilitaryAircraftController-violation/MilitaryAircraftController-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (No Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-MilitaryAircraftController-no-violation/MAC-no-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (SC Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-MilitaryAircraftController-violation/MAC-violation.json"></VPButton>
 ::: 
 
 ## 🔗 Link to Original Paper/Article
@@ -23,7 +24,7 @@ __Weather Data__ is provided by a __Clerk__ and, as it is `Unclassified` Data, s
 ### 🗂️ Data Labels:
 - **ClassificationLevel**: There are three classification levels for a data flow. These are the same as the clearance levels for nodes. A data flow may not traverse a node it for which it does not have the needed classification level.
 ### 🏷️ Node Labels:
-- **ClearanceLevel**: There are three clearance levels. These are, in descending heirarchy: `Secret`, `Classified`, `Unclassified`. Each following level is a subset of the preceding level(s).
+- **ClearanceLevel**: There are three clearance levels. These are, in descending hierarchy: `Secret`, `Classified`, `Unclassified`. Each following level is a subset of the preceding level(s).
 
 ## ⚠️ Constraints
 ### SecretConstraint
@@ -35,7 +36,9 @@ This constraint ensures that data designated `Classified` does not flow to nodes
 - `ClassifiedConstraint:  ClassificationLevel.Classified neverFlows vertex ClearanceLevel.Unclassified`
 
 ## 🚨 Violations
-The error introduced in the case is that the flight controller uses the positions of military planes to determine a new route. This additional flow is called __plane_positions__.
+Although no violations were found in the original architecture, we have slightly modified the diagram to produce one alternate version in which violations are introduced:
+
+- The flight controller uses the positions of military planes to determine a new route violating SecretConstraint. This additional flow is called __plane_positions__.
 
 <script setup>
 import { VPButton } from 'vitepress/theme'

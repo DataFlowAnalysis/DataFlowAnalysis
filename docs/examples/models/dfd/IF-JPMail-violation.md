@@ -2,7 +2,8 @@
 
 ::: tip Available Online
 This model is available to view using the online editor!
-<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-JPMAil-violation/JPMAil-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (No Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-JPMail-no-violation/IF-JPMail-no-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (SC Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-JPMail-violation/JPMail-violation.json"></VPButton>
 ::: 
 
 ## 🔗 Link to Original Paper/Article
@@ -34,7 +35,9 @@ The fundamental requirement is that system parts or actors in the attack zone mu
 - `SafetyConstraint: Level.High neverFlows vertex Zone.Attack`
 
 ## 🚨 Violations
-The error introduced in the case is that the email body is not encrypted anymore but transmitted directly. The mail servers now have access to the plaintext of the mail body.
+Although no violations were found in the original architecture, we have slightly modified the diagram to produce one alternate version in which violations are introduced:
+
+-Email body is not encrypted anymore but transmitted directly. The mail servers now have access to the plaintext of the mail body.
 
 <script setup>
 import { VPButton } from 'vitepress/theme'

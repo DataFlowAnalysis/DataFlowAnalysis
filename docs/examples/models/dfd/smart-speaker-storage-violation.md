@@ -2,7 +2,9 @@
 
 ::: tip Available Online
 This model is available to view using the online editor!
-<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/PurposeLimitationsPaper/StorageConstraintViolation.json"></VPButton>
+<VPButton text="Open In Online Editor (No Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/PurposeLimitationsPaper/NoViolation.json"></VPButton>
+<VPButton text="Open In Online Editor (Permission Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/PurposeLimitationsPaper/GuestViolation.json"></VPButton>
+<VPButton text="Open In Online Editor (Storage Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/PurposeLimitationsPaper/StorageConstraintViolation.json"></VPButton>
 ::: 
 
 ## 🔗 Link to Original Paper
@@ -13,7 +15,7 @@ This model is available to view using the online editor!
 [Repository](https://github.com/alshareef-hanaa/PL-DFD)
 
 ## 📝 Short Description
-This diagram shows a fictional Smart Speaker system. The use cases include the download and install process aswell as voice-guided command sequences and data exchanges with third parties.
+This diagram shows a fictional Smart Speaker system. The use cases include the download and install process as well as voice-guided command sequences and data exchanges with third parties.
 
 ## 🔤 Abbreviations
 - `CMD`: Command
@@ -43,11 +45,15 @@ This constraint ensures that data flows marked for `Storage` **Purposes** are ne
 - `StorageConstraint: data Purpose.Storage neverFlows vertex ComponentCategory.ThirdPartyPartner`
 
 ### PermissionConstraint
-This constraint ensures that data without permissions is not processed withhin the `UserHomeDevice`.
+This constraint ensures that data without permissions is not processed within the `UserHomeDevice`.
 - `PermissionConstraint: data Purpose.NoPermission neverFlows vertex ComponentCategory.UserHomeDevice`
 
 ## 🚨 Violations
-User data marked for storage flows to a __Third-Party Partner__, which violates the StorageConstraint.
+Although no violations were found in the original CWA architecture, we have slightly modified the diagram to produce two alternate versions in which violations are introduced:
+
+- In the first diagram, as the new user has not given their permission for their voice data to be used within the system, the PermissionConstraint is violated.
+
+- In the second diagram, user data marked for storage flows to a __Third-Party Partner__, which violates the StorageConstraint.
 
 
 <script setup>

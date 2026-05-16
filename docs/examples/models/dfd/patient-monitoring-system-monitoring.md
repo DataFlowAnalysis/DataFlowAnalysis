@@ -11,7 +11,7 @@ PatientMonitoringSystemPaper/Monitoring.json"></VPButton>
 [Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/PatientMonitoringSystemPaper)
 
 ## 📝 Short Description
-This Diagram shows the structure of the Patient Ponitoring System with a focus on the monitoring features of the system.
+This Diagram shows the structure of the Patient Monitoring System with a focus on the monitoring features of the system.
 
 ## 🔤 Abbreviations
 - `GP`: General Practitioner
@@ -24,7 +24,7 @@ The patient can see a simplified version of their health data via a __Patient In
 
 ## 🏷️ Label description
 ### 🗂️ Data Labels:
-- **DataType**: There are different types of sata in this system: `RawData` from the different sensors, `PackagedData` in communication channels` and `SimplifiedData`, which is the only data type the patient may access.
+- **DataType**: There are different types of data in this system: `RawData` from the different sensors, `PackagedData` in communication channels` and `SimplifiedData`, which is the only data type the patient may access.
 
 ### 🏷️ Node Labels:
 - **PMS**: The PMS is comprised of two parts: A `Gateway` and a `BackEnd` part. These parts communicate via __Communication Technologies__. 
@@ -36,7 +36,7 @@ This constraint ensures that no raw data from the sensors flows to the __Physici
 - `DataSec: data DataType.RawData neverFlows vertex PMS.BackEnd`
 
 ### SimplePatient
-The __Patient__ may only see a part of the data and risk analysis there is. This data is labelley `SimplifiedData`. The constraint ensures that this is the only data the patient may access.
+The __Patient__ may only see a part of the data and risk analysis there is. This data is labelled `SimplifiedData`. The constraint ensures that this is the only data the patient may access.
 - `SimplePatient: data DataType.PackagedData neverFlows vertex Role.Patient`
 
 ## 🚨 Violations

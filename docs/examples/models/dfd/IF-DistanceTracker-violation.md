@@ -2,7 +2,8 @@
 
 ::: tip Available Online
 This model is available to view using the online editor!
-<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-DistanceTracker-violation/DistanceTracker-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (No Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-DistanceTracker-no-violation/DistanceTracker-no-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (DC Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-DistanceTracker-violation/DistanceTracker-violation.json"></VPButton>
 ::: 
 
 ## 🔗 Link to Original Paper/Article
@@ -30,7 +31,9 @@ This constraint ensures that no data flow passes a node it does not have the cor
 - `DistanceConstraint: ClassificationLevel.UserTrackingService neverFlows vertex ClearanceLevel.OnlyDistance`
 
 ## 🚨 Violations
-The error introduced in the case is that the calculated distance can bypass the declassification process with *distance_violation*, which implies a higher classification level.
+Although no violations were found in the original architecture, we have slightly modified the diagram to produce one alternate version in which violations are introduced:
+
+- Calculated distance can bypass the declassification process with *distance_violation*, which implies a higher classification level.
 
 
 <script setup>

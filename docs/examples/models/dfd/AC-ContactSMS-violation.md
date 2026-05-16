@@ -2,7 +2,8 @@
 
 ::: tip Available Online
 This model is available to view using the online editor!
-<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-ContactSMS-violation/ContactSMS-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (No Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-ContactSMS-no-violation/ContactSMS-no-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (AccessRights Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-ContactSMS-violation/ContactSMS-violation.json"></VPButton>
 :::
 
 ## 🔗 Link to Original Paper/Article
@@ -30,7 +31,9 @@ Data may only flow into `Role` nodes if the flow has the corresponding `AccessRi
 - `AccessRights: data !AccessRights.Receiver neverFlows vertex Role.Receiver`
 
 ## 🚨 Violations
-The introduced flow *contact_direct* bypasses __Extract Number__, which implies a missing access permission.
+Although no violations were found in the original architecture, we have slightly modified the diagram to produce one alternate version in which violations are introduced:
+
+- The introduced flow *contact_direct* bypasses __Extract Number__, which implies a missing access permission.
 
 
 <script setup>

@@ -2,7 +2,8 @@
 
 ::: tip Available Online
 This model is available to view using the online editor!
-<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-WebRTC-violation/WebRTC-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (No Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-WebRTC-no-violation/WebRTC-no-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (Safety Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-WebRTC-violation/WebRTC-violation.json"></VPButton>
 ::: 
 
 ## 🔗 Link to Original Paper/Article
@@ -33,7 +34,9 @@ The fundamental requirement is that system parts or actors in the attack zone mu
 - `Safety: data Level.High neverFlows vertex Zone.Attack`
 
 ## 🚨 Violations
-The error introduced in the case is that the session data of Bob can be sent unencrypted to the signaling server. We name the violating flow *bob_session_data* to ease finding the flow in the flow stack. 
+Although no violations were found in the original architecture, we have slightly modified the diagram to produce one alternate version in which violations are introduced:
+
+-Session data of Bob can be sent unencrypted to the signaling server. We name the violating flow *bob_session_data* to ease finding the flow in the flow stack. 
 
 
 <script setup>

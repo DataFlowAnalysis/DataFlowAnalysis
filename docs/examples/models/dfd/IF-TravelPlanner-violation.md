@@ -43,7 +43,7 @@ Finally, the booking confirmation is returned to the user.
 ### SafeCCD, SafeCCD2
 Data that should only be accessed by a certain role, denoted by `GrantedRoles`, should only be accessible at nodes with the correct permissions.
 - `data ClassificationLevel.User neverFlows vertex ClearanceLevel.UserAirline`
-- `data ClassificationLevel.User neverFlows vertex ClearanceLevel.UserAirline`
+- `data ClassificationLevel.User neverFlows vertex ClearanceLevel.UserAirlineAgency`
 
 ## 🚨 Violations
 Although no violations were found in the original architecture, we have slightly modified the diagram to produce one alternate version in which violations are introduced:

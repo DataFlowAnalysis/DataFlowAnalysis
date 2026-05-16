@@ -11,7 +11,7 @@ This model (converted to a data flow diagram) is available to view using the onl
 [Open Example Model in Example Models Bundles](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/pcm/MaaSTicketSystem)
 
 ## 📝 Short Description
-The MaaS ticketing system is a distributed system in which customer manage and operate a vehicle which generates data that needs to be collected, managed, analyzed and sufficiently secured.
+The MaaS ticketing system is a distributed system in which customers manage and operate a vehicle which generates data that needs to be collected, managed, analyzed and sufficiently secured.
 
 ## 🔤 Abbreviations 
 - MaaS: Mobility as a Service

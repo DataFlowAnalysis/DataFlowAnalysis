@@ -1,4 +1,4 @@
-# 📊 Model: (AccessControl-DAC-violation)
+# 📊 Model: (AccessControl-DAC)
 
 ::: tip Available Online
 This model is available to view using the online editor!

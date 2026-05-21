@@ -1,9 +1,8 @@
-# 📊 Model: (InformationFlow-ContactSMS-violation)
+# 📊 Model: (InformationFlow-ContactSMS-no-violation)
 
 ::: tip Available Online
 This model is available to view using the online editor!
-<VPButton text="Open In Online Editor (No Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-ContactSMS-no-violation/ContactSMS-no-violation.json"></VPButton>
-<VPButton text="Open In Online Editor (CD Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-ContactSMS-violation/ContactSMS-no-violation.json"></VPButton>
+<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-ContactSMS-no-violation/ContactSMS-no-violation.json"></VPButton>
 :::
 
 ## 🔗 Link to Original Paper/Article
@@ -31,9 +30,7 @@ Data may only flow into `ClearanceLevel` nodes if the flow has the corresponding
 - `ContactDirect: data !ClassificationLevel.UserReceiver neverFlows vertex ClearanceLevel.UserReceiver`
 
 ## 🚨 Violations
-Although no violations were found in the original architecture, we have slightly modified the diagram to produce one alternate version in which violations are introduced:
-
-- The introduced flow *contact_direct* bypasses __Extract Number__, which implies a missing access permission.
+None
 
 
 <script setup>

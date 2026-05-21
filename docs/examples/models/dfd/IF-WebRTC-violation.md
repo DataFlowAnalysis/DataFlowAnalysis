@@ -1,4 +1,4 @@
-# 📊 Model: (InformationFlow-WebRTC-violation)
+# 📊 Model: (InformationFlow-WebRTC)
 
 ::: tip Available Online
 This model is available to view using the online editor!

@@ -1,4 +1,4 @@
-# 📊 Model: (InformationFlow-Hospital-violation)
+# 📊 Model: (InformationFlow-Hospital)
 
 ::: tip Available Online
 This model is available to view using the online editor!

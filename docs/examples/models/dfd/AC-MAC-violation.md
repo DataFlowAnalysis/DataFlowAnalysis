@@ -1,4 +1,4 @@
-# 📊 Model: (AccessControl-MAC-violation)
+# 📊 Model: (AccessControl-MAC)
 
 ::: tip Available Online
 This model is available to view using the online editor!

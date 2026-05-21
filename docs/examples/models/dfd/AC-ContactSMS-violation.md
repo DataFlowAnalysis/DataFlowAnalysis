@@ -1,4 +1,4 @@
-# 📊 Model: (AccessControl-ContactSMS-violation)
+# 📊 Model: (AccessControl-ContactSMS)
 
 ::: tip Available Online
 This model is available to view using the online editor!

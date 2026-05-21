@@ -1,4 +1,4 @@
-# 📊 Model: (InformationFlow-JPMail-violation)
+# 📊 Model: (InformationFlow-JPMail)
 
 ::: tip Available Online
 This model is available to view using the online editor!

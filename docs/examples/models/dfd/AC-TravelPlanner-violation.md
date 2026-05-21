@@ -1,4 +1,4 @@
-# 📊 Model: (AccessControl-TravelPlanner-violation)
+# 📊 Model: (AccessControl-TravelPlanner)
 
 ::: tip Available Online
 This model is available to view using the online editor!

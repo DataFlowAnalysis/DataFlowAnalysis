@@ -1,4 +1,4 @@
-# 📊 Model: (InformationFlow-DistanceTracker-violation)
+# 📊 Model: (InformationFlow-DistanceTracker)
 
 ::: tip Available Online
 This model is available to view using the online editor!

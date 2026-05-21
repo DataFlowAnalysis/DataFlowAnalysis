@@ -4,7 +4,7 @@ They commonly consist of two parts:
 A set of *source selectors* and a set of *destination selectors*.
 Additionally, one can define some relationships between the two selectors using *conditional selectors*.
 
-For examples, see the [DSL Examples](/examples/dsl).
+For examples, see the [DSL Examples](/examples/).
 
 ## Source Selectors
 A **source selector** describes the origin of a data flow through the system.

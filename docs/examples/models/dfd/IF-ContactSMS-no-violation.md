@@ -7,7 +7,8 @@ This model is available to view using the online editor!
 
 ## 🔗 Link to Original Paper/Article
 [View Source](https://ieeexplore.ieee.org/document/8703910)
-[Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-ContactSMS-violation)
+
+[Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-ContactSMS-no-violation)
 
 ## 📝 Short Description
 The case is about a user managing contacts and sending a SMS.

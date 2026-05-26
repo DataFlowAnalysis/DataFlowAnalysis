@@ -35,7 +35,7 @@ The fundamental requirement is that system parts or actors in the attack zone mu
 ## 🚨 Violations
 Although no violations were found in the original architecture, we have slightly modified the diagram to produce one alternate version in which violations are introduced:
 
--Patient list is not encrypted anymore when receiving the patient list. The attacker has access to the receiving process and therefore to data received at this process. The new direct data flow is called *patient_list*.
+- Patient list is not encrypted anymore when receiving the patient list. The attacker has access to the receiving process and therefore to data received at this process. The new direct data flow is called *patient_list*.
 
 
 

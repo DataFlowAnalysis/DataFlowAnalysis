@@ -24,7 +24,7 @@ The patient can see a simplified version of their health data via a __Patient In
 
 ## 🏷️ Label description
 ### 🗂️ Data Labels:
-- **DataType**: There are different types of data in this system: `RawData` from the different sensors, `PackagedData` in communication channels` and `SimplifiedData`, which is the only data type the patient may access.
+- **DataType**: There are different types of data in this system: `RawData` from the different sensors, `PackagedData` in communication channels and `SimplifiedData`, which is the only data type the patient may access.
 
 ### 🏷️ Node Labels:
 - **PMS**: The PMS is comprised of two parts: A `Gateway` and a `BackEnd` part. These parts communicate via __Communication Technologies__. 

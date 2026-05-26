@@ -1,4 +1,4 @@
-# 📊 Diagram: (Smart Speaker Platform from `Precise Analysis of Purpose Limitation in Data Flow Diagrams)
+# 📊 Diagram: (Smart Speaker Platform from `Precise Analysis of Purpose Limitation in Data Flow Diagrams`)
 
 ::: tip Available Online
 This model is available to view using the online editor!
@@ -49,7 +49,7 @@ This constraint ensures that data without permissions is not processed within th
 - `PermissionConstraint: data Purpose.NoPermission neverFlows vertex ComponentCategory.UserHomeDevice`
 
 ## 🚨 Violations
-Although no violations were found in the original CWA architecture, we have slightly modified the diagram to produce two alternate versions in which violations are introduced:
+Although no violations were found in the original architecture, we have slightly modified the diagram to produce two alternate versions in which violations are introduced:
 
 - In the first diagram, as the new user has not given their permission for their voice data to be used within the system, the PermissionConstraint is violated.
 

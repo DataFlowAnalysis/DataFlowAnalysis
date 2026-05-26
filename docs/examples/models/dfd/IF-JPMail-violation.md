@@ -37,7 +37,7 @@ The fundamental requirement is that system parts or actors in the attack zone mu
 ## 🚨 Violations
 Although no violations were found in the original architecture, we have slightly modified the diagram to produce one alternate version in which violations are introduced:
 
--Email body is not encrypted anymore but transmitted directly. The mail servers now have access to the plaintext of the mail body.
+- Email body is not encrypted anymore but transmitted directly. The mail servers now have access to the plaintext of the mail body.
 
 <script setup>
 import { VPButton } from 'vitepress/theme'

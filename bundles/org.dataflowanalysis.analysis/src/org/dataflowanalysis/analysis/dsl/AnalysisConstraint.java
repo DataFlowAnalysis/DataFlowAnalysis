@@ -6,6 +6,7 @@ import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.context.DSLContextProvider;
 import org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors;
+import org.dataflowanalysis.analysis.dsl.groups.DataDestinationSelectors;
 import org.dataflowanalysis.analysis.dsl.groups.DataSourceSelectors;
 import org.dataflowanalysis.analysis.dsl.groups.DestinationSelectors;
 import org.dataflowanalysis.analysis.dsl.groups.SourceSelectors;
@@ -14,6 +15,7 @@ import org.dataflowanalysis.analysis.dsl.groups.VertexSourceSelectors;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.VertexSelector;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
@@ -80,7 +82,7 @@ public abstract class AnalysisConstraint {
      * Adds a node source selector to the constraint
      * @param selector Node source selector that is added to the constraint
      */
-    public void addNodeSourceSelector(AbstractSelector selector) {
+    public void addNodeSourceSelector(VertexSelector selector) {
         this.sourceSelectors.addVertexSourceSelector(selector);
     }
 
@@ -160,6 +162,14 @@ public abstract class AnalysisConstraint {
      */
     public VertexSourceSelectors getVertexSourceSelectors() {
         return this.sourceSelectors.getVertexSourceSelectors();
+    }
+
+    /**
+     * Returns the data destination selectors of the analysis constraint
+     * @return Returns the saved data destination selectors
+     */
+    public DataDestinationSelectors getDataDestinationSelectors() {
+        return this.destinationSelectors.getDataDestinationSelectors();
     }
 
     /**

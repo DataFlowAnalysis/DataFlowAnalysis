@@ -1,18 +1,30 @@
 package org.dataflowanalysis.analysis.dsl;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.StringJoiner;
+import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
+import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.context.DSLContextProvider;
 import org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors;
 import org.dataflowanalysis.analysis.dsl.groups.DestinationSelectors;
 import org.dataflowanalysis.analysis.dsl.groups.SourceSelectors;
+import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
+import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.VertexSelector;
+import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
 public class AdvancedAnalysisConstraint extends AnalysisConstraint {
+    private static final Logger logger = LoggerManager.getLogger(AdvancedAnalysisConstraint.class);
+
     public AdvancedAnalysisConstraint(String name) {
         super(name);
     }
@@ -26,7 +38,101 @@ public class AdvancedAnalysisConstraint extends AnalysisConstraint {
 
     @Override
     public List<DSLResult> findViolations(FlowGraphCollection flowGraphCollection) {
-        throw new RuntimeException("Not yet implemented!");
+        List<DSLResult> results = new ArrayList<>();
+        for (AbstractTransposeFlowGraph transposeFlowGraph : flowGraphCollection.getTransposeFlowGraphs()) {
+            DSLConstraintTrace constraintTrace = new DSLConstraintTrace();
+            List<AbstractVertex<?>> violations = new ArrayList<>();
+            for (AbstractVertex<?> vertex : transposeFlowGraph.getVertices()) {
+                boolean matched = true;
+                if (!this.getDataSourceSelectors()
+                        .getSelectors()
+                        .isEmpty()
+                        && !this.getDataDestinationSelectors()
+                                .getSelectors()
+                                .isEmpty()) {
+                    var alternateNodes = flowGraphCollection.getTransposeFlowGraphs()
+                            .stream()
+                            .map(AbstractTransposeFlowGraph::getVertices)
+                            .flatMap(Collection::stream)
+                            .filter(it -> it.getReferencedElement()
+                                    .equals(vertex.getReferencedElement()))
+                            .toList();
+                    for (AbstractSelector dataSourceSelector : this.getDataSourceSelectors()
+                            .getSelectors()) {
+                        if (!dataSourceSelector.matches(vertex)) {
+                            logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, dataSourceSelector));
+                            matched = false;
+                            constraintTrace.addMissingSelector(vertex, dataSourceSelector);
+                        }
+                    }
+                    for (AbstractVertex<?> alternateVertex : alternateNodes) {
+                        boolean matchedAlternateVertex = true;
+                        for (AbstractSelector dataDestinationSelector : this.getDataDestinationSelectors()
+                                .getSelectors()) {
+                            if (!dataDestinationSelector.matches(alternateVertex)) {
+                                logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, dataDestinationSelector));
+                                constraintTrace.addMissingSelector(vertex, dataDestinationSelector);
+                            }
+                        }
+                        if (!matchedAlternateVertex) {
+                            matched = false;
+                        }
+                    }
+                } else {
+                    for (AbstractSelector dataSourceSelector : this.getDataSourceSelectors()
+                            .getSelectors()) {
+                        if (!dataSourceSelector.matches(vertex)) {
+                            logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, dataSourceSelector));
+                            matched = false;
+                            constraintTrace.addMissingSelector(vertex, dataSourceSelector);
+                        }
+                    }
+                    for (AbstractSelector dataDestinationSelector : this.getDataDestinationSelectors()
+                            .getSelectors()) {
+                        if (!dataDestinationSelector.matches(vertex)) {
+                            logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, dataDestinationSelector));
+                            matched = false;
+                            constraintTrace.addMissingSelector(vertex, dataDestinationSelector);
+                        }
+                    }
+                }
+                for (VertexSelector vertexSourceSelector : this.getVertexSourceSelectors()
+                        .getSelectors()) {
+                    if (!vertexSourceSelector.matches(vertex, vertex.getAllPreviousVertexCharacteristics()
+                            .stream()
+                            .toList())) {
+                        logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, vertexSourceSelector));
+                        matched = false;
+                        constraintTrace.addMissingSelector(vertex, vertexSourceSelector);
+                    }
+                }
+                for (AbstractSelector vertexDestinationSelectors : this.getVertexDestinationSelectors()
+                        .getSelectors()) {
+                    if (!vertexDestinationSelectors.matches(vertex)) {
+                        logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, vertexDestinationSelectors));
+                        matched = false;
+                        constraintTrace.addMissingSelector(vertex, vertexDestinationSelectors);
+                    }
+                }
+                for (ConditionalSelector selector : this.conditionalSelectors.getSelectors()) {
+                    if (!selector.matchesSelector(vertex, context)) {
+                        logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, selector));
+                        matched = false;
+                        constraintTrace.addMissingConditionalSelector(vertex, selector);
+                    }
+                }
+                if (matched) {
+                    logger.debug(String.format(SUCCEEDED_MATCHING_MESSAGE, vertex));
+                    violations.add(vertex);
+                }
+            }
+            if (!violations.isEmpty()) {
+                results.add(new DSLResult(transposeFlowGraph, violations, constraintTrace));
+            } else {
+                logger.debug(String.format(OMMITED_TRANSPOSE_FLOW_GRAPH, transposeFlowGraph));
+            }
+        }
+        return results;
     }
 
     @Override
@@ -44,7 +150,7 @@ public class AdvancedAnalysisConstraint extends AnalysisConstraint {
         return dslString.toString();
     }
 
-    public static ParseResult<? extends AnalysisConstraint> fromString(StringView string,
+    public static ParseResult<AdvancedAnalysisConstraint> fromString(StringView string,
             DSLContextProvider contextProvider) {
         DSLContext context = new DSLContext(contextProvider);
         string.skipWhitespace();

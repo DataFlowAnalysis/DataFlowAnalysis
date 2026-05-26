@@ -20,21 +20,21 @@ public class VertexSourceSelectors extends AbstractParseable {
     private static final String DSL_KEYWORD = "vertex";
     private static final Logger logger = LoggerManager.getLogger(VertexSourceSelectors.class);
 
-    private final List<AbstractSelector> selectors;
+    private final List<VertexSelector> selectors;
 
     public VertexSourceSelectors() {
         selectors = new ArrayList<>();
     }
 
-    public VertexSourceSelectors(List<AbstractSelector> selectors) {
+    public VertexSourceSelectors(List<VertexSelector> selectors) {
         this.selectors = selectors;
     }
 
-    public void addSelector(AbstractSelector selector) {
+    public void addSelector(VertexSelector selector) {
         this.selectors.add(selector);
     }
 
-    public List<AbstractSelector> getSelectors() {
+    public List<VertexSelector> getSelectors() {
         return new ArrayList<>(selectors);
     }
 
@@ -75,11 +75,11 @@ public class VertexSourceSelectors extends AbstractParseable {
             return ParseResult.error("Unexpected end of input!");
         }
         logger.debug("Parsing: " + string.getString());
-        List<AbstractSelector> selectors = new ArrayList<>();
+        List<VertexSelector> selectors = new ArrayList<>();
         while (!string.invalid()) {
             var selector = LogicalOperator.fromString(string, context, false);
-            if (selector.successful()) {
-                selectors.add(selector.getResult());
+            if (selector.successful() && selector.getResult() instanceof VertexSelector vertexSelector) {
+                selectors.add(vertexSelector);
                 continue;
             }
             break;

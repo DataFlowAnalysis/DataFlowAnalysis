@@ -43,14 +43,13 @@ public class VertexCharacteristicsSelector extends VertexSelector {
     }
 
     @Override
-    public boolean matches(AbstractVertex<?> vertex) {
+    public boolean matches(AbstractVertex<?> vertex, List<CharacteristicValue> presentCharacteristics) {
         List<String> variableNames = vertex.getAllIncomingDataCharacteristics()
                 .stream()
                 .map(DataCharacteristic::variableName)
                 .toList();
         List<Boolean> results = new ArrayList<>();
         if (variableNames.isEmpty()) {
-            List<CharacteristicValue> presentCharacteristics = vertex.getAllVertexCharacteristics();
             List<String> characteristicTypes = new ArrayList<>();
             List<String> characteristicValues = new ArrayList<>();
             List<Boolean> matches = presentCharacteristics.stream()
@@ -73,7 +72,6 @@ public class VertexCharacteristicsSelector extends VertexSelector {
             return result;
         }
         for (String variableName : variableNames) {
-            List<CharacteristicValue> presentCharacteristics = vertex.getAllVertexCharacteristics();
             List<String> characteristicTypes = new ArrayList<>();
             List<String> characteristicValues = new ArrayList<>();
             List<Boolean> matches = presentCharacteristics.stream()

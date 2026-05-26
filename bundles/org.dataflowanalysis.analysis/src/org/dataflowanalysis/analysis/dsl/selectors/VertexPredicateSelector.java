@@ -1,7 +1,9 @@
 package org.dataflowanalysis.analysis.dsl.selectors;
 
+import java.util.List;
 import java.util.function.Predicate;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 
 public class VertexPredicateSelector extends VertexSelector {
@@ -13,7 +15,7 @@ public class VertexPredicateSelector extends VertexSelector {
     }
 
     @Override
-    public boolean matches(AbstractVertex<?> vertex) {
+    public boolean matches(AbstractVertex<?> vertex, List<CharacteristicValue> presentCharacteristics) {
         return predicate.test(vertex);
     }
 }

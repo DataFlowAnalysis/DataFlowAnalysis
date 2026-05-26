@@ -1,7 +1,9 @@
 package org.dataflowanalysis.analysis.dsl.selectors;
 
+import java.util.List;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
+import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
@@ -37,7 +39,7 @@ public class VertexTypeSelector extends VertexSelector {
     }
 
     @Override
-    public boolean matches(AbstractVertex<?> vertex) {
+    public boolean matches(AbstractVertex<?> vertex, List<CharacteristicValue> presentCharacteristics) {
         if (this.recursive) {
             return this.inverted ? !this.vertexType.matches(vertex) && vertex.getPreviousElements()
                     .stream()

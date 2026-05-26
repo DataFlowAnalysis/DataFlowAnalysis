@@ -86,6 +86,11 @@ public abstract class LogicalOperator extends AbstractSelector {
     public static ParseResult<? extends AbstractSelector> parseUnaryOperation(StringView string, DSLContext context,
             boolean data, short precedence) {
         int position = string.getPosition();
+        var negatedSelector = parseBasicExpression(string, context, data);
+        if (negatedSelector.successful()) {
+            return negatedSelector;
+        }
+        string.setPosition(position);
         var operator = Operator.fromString(string);
         if (operator.failed()) {
             string.setPosition(position);

@@ -7,6 +7,7 @@ import org.dataflowanalysis.analysis.dsl.AbstractParseable;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.VertexSelector;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
@@ -44,7 +45,7 @@ public final class SourceSelectors extends AbstractParseable {
         return dataSourceSelectors;
     }
 
-    public void addVertexSourceSelector(AbstractSelector selector) {
+    public void addVertexSourceSelector(VertexSelector selector) {
         this.vertexSourceSelectors.addSelector(selector);
     }
 

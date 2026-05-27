@@ -4,10 +4,12 @@ import static org.dataflowanalysis.analysis.tests.integration.AnalysisUtils.TEST
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.stream.Stream;
 import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
+import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
@@ -25,9 +27,17 @@ public class AdvancedDSLTest {
                 Arguments.of("* test4: data A.B alwaysFlows vertex C.D"),
                 Arguments.of("* test5: data A.B notAlwaysFlows vertex C.D"),
 
-                Arguments.of("* test6: data A.B neverFlows vertex any"),
-                Arguments.of("* test7: data A.B neverFlows data C.D"), // data with A.B neverFlow to any node with C.D
-                                                                       // (across TFGs)
+                Arguments.of("* test6: data A.B neverFlows any"), Arguments.of("* test7: data A.B neverFlows data C.D"), // data
+                                                                                                                         // with
+                                                                                                                         // A.B
+                                                                                                                         // neverFlow
+                                                                                                                         // to
+                                                                                                                         // any
+                                                                                                                         // node
+                                                                                                                         // with
+                                                                                                                         // C.D
+                                                                                                                         // (across
+                                                                                                                         // TFGs)
                 Arguments.of("* test8: vertex A.B neverFlows vertex C.D"),
                 Arguments.of("* test9: vertex A.B neverFlows data C.D"), // data from vertex A.B neverFlows data C.D
                                                                          // (across TFGs)
@@ -35,7 +45,12 @@ public class AdvancedDSLTest {
                 Arguments.of("* test10: data name contains Test neverFlows vertex C.D"),
                 Arguments.of("* test11: data name Test neverFlows vertex C.D"),
                 Arguments.of("* test12: data A.B neverFlows vertex name Test"),
-                Arguments.of("* test13: data A.B neverFlows vertex name contains Test"));
+
+                Arguments.of("* test13: data A.B and data C.D neverFlows vertex name Test"),
+                Arguments.of("* test14: data A.B and vertex C.D neverFlows vertex name Test"),
+                Arguments.of("* test15: (data A.B or vertex C.D) and data E.F neverFlows vertex name Test"),
+
+                Arguments.of("* test16: data A.B neverFlows vertex name contains Test"));
     }
 
     @ParameterizedTest
@@ -53,27 +68,15 @@ public class AdvancedDSLTest {
     public void testVertexToVertexWithStandardModel() {
         ParseResult<? extends AnalysisConstraint> constraint = AnalysisConstraint
                 .fromString(new StringView("* default: vertex Location.EU neverFlows vertex Location.nonEU"));
-        if (constraint.failed()) {
-            fail(constraint.getError());
-        }
+        List<DSLResult> violations = evaluateStandardModel(constraint);
+        assertEquals(2, violations.size());
+    }
 
-        final var dataFlowDiagramPath = Paths.get("scenarios", "dfd", "OnlineShop", "default.dataflowdiagram");
-        final var dataDictionaryPath = Paths.get("scenarios", "dfd", "OnlineShop", "default.datadictionary");
-
-        var analysis = new DFDDataFlowAnalysisBuilder().standalone()
-                .modelProjectName(TEST_MODEL_PROJECT_NAME)
-                .usePluginActivator(Activator.class)
-                .useDataFlowDiagram(dataFlowDiagramPath.toString())
-                .useDataDictionary(dataDictionaryPath.toString())
-                .build();
-        analysis.initializeAnalysis();
-        var flowGraphCollection = analysis.findFlowGraphs();
-        flowGraphCollection.evaluate();
-
-        LoggerManager.getInstance()
-                .setLevel(Level.TRACE);
-        var violations = constraint.getResult()
-                .findViolations(flowGraphCollection);
+    @Test
+    public void testVertexNameToVertexWithStandardModel() {
+        ParseResult<? extends AnalysisConstraint> constraint = AnalysisConstraint
+                .fromString(new StringView("* default: vertex name contains User neverFlows vertex Location.nonEU"));
+        List<DSLResult> violations = evaluateStandardModel(constraint);
         assertEquals(2, violations.size());
     }
 
@@ -81,6 +84,19 @@ public class AdvancedDSLTest {
     public void testDataToDataWithStandardModel() {
         ParseResult<? extends AnalysisConstraint> constraint = AnalysisConstraint
                 .fromString(new StringView("* default: data Sensitivity.Public neverFlows data Encryption.Encrypted"));
+        List<DSLResult> violations = evaluateStandardModel(constraint);
+        assertEquals(1, violations.size());
+    }
+
+    @Test
+    public void testComplexWithStandardModel() {
+        ParseResult<? extends AnalysisConstraint> constraint = AnalysisConstraint.fromString(new StringView(
+                "* default: vertex Location.EU and data !Encryption.Encrypted neverFlows vertex Location.nonEU"));
+        List<DSLResult> violations = evaluateStandardModel(constraint);
+        assertEquals(1, violations.size());
+    }
+
+    private List<DSLResult> evaluateStandardModel(ParseResult<? extends AnalysisConstraint> constraint) {
         if (constraint.failed()) {
             fail(constraint.getError());
         }
@@ -100,8 +116,7 @@ public class AdvancedDSLTest {
 
         LoggerManager.getInstance()
                 .setLevel(Level.TRACE);
-        var violations = constraint.getResult()
+        return constraint.getResult()
                 .findViolations(flowGraphCollection);
-        assertEquals(2, violations.size());
     }
 }

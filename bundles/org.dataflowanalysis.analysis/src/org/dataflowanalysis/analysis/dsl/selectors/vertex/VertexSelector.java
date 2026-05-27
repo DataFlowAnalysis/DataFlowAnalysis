@@ -1,33 +1,27 @@
-package org.dataflowanalysis.analysis.dsl.selectors;
+package org.dataflowanalysis.analysis.dsl.selectors.vertex;
 
-import java.util.List;
-import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
 public abstract class VertexSelector extends AbstractSelector {
+    private static final String DSL_KEYWORD = "vertex";
+
     public VertexSelector(DSLContext context) {
         super(context);
     }
 
-    @Override
-    public boolean matches(AbstractVertex<?> vertex) {
-        return this.matches(vertex, vertex.getAllVertexCharacteristics());
-    }
-
-    /**
-     * Determines whether the selector matches the given vertex
-     * @param vertex {@link AbstractVertex} that is matched
-     * @return Returns true, if the selector matches the vertex. Otherwise, the method returns false
-     */
-    public abstract boolean matches(AbstractVertex<?> vertex, List<CharacteristicValue> presentCharacteristics);
-
-    public static ParseResult<? extends AbstractSelector> fromString(StringView string, DSLContext context) {
+    public static ParseResult<VertexSelector> fromString(StringView string, DSLContext context) {
+        string.skipWhitespace();
+        int position = string.getPosition();
         if (string.empty() || string.invalid()) {
             return ParseResult.error("Not a valid constraint");
         }
+        if (!string.startsWith(DSL_KEYWORD)) {
+            return string.expect(DSL_KEYWORD);
+        }
+        string.advance(DSL_KEYWORD.length() + 1);
         string.skipWhitespace();
         var vertexCharacteristicsListSelector = VertexCharacteristicsListSelector.fromString(string, context);
         if (vertexCharacteristicsListSelector.successful()) {
@@ -41,10 +35,22 @@ public abstract class VertexSelector extends AbstractSelector {
         if (vertexNameSelector.successful()) {
             return ParseResult.ok(vertexNameSelector.getResult());
         }
-        var anySelector = AnySelector.fromString(string, context);
-        if (anySelector.successful()) {
-            return ParseResult.ok(anySelector.getResult());
-        }
+        string.setPosition(position);
         return ParseResult.error("Not a valid constraint");
+    }
+
+    @Override
+    public boolean hasDataSelector() {
+        return false;
+    }
+
+    @Override
+    public boolean hasVertexSelector() {
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return DSL_KEYWORD;
     }
 }

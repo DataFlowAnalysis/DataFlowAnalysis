@@ -6,6 +6,11 @@ import java.util.function.Predicate;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.selectors.*;
+import org.dataflowanalysis.analysis.dsl.selectors.logic.AndLogicalOperator;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexCharacteristicsListSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexCharacteristicsSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexNameSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexPredicateSelector;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
 
 /**
@@ -29,9 +34,16 @@ public class DSLNodeDestinationSelector {
      * @return DSL node selector to add more constraints
      */
     public DSLNodeDestinationSelector withCharacteristic(String characteristicType, String characteristicValue) {
-        this.analysisConstraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(analysisConstraint.getContext(),
+        AbstractSelector selector = new VertexCharacteristicsSelector(analysisConstraint.getContext(),
                 new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
-                        ConstraintVariableReference.ofConstant(List.of(characteristicValue)))));
+                        ConstraintVariableReference.ofConstant(List.of(characteristicValue))));
+        if (!(this.analysisConstraint.getDestinationSelector() instanceof AnySelector)) {
+            AndLogicalOperator operator = new AndLogicalOperator(this.analysisConstraint.getDestinationSelector(),
+                    selector, analysisConstraint.getContext());
+            this.analysisConstraint.setDestinationSelector(operator);
+        } else {
+            this.analysisConstraint.setDestinationSelector(selector);
+        }
         return this;
     }
 
@@ -41,9 +53,18 @@ public class DSLNodeDestinationSelector {
      * @param characteristicValueVariable Node characteristic value variable reference that must be present at the vertex
      * @return DSL node selector to add more constraints
      */
-    public DSLNodeDestinationSelector withCharacteristic(String characteristicType, ConstraintVariableReference characteristicValueVariable) {
-        this.analysisConstraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(analysisConstraint.getContext(),
-                new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)), characteristicValueVariable)));
+    public DSLNodeDestinationSelector withCharacteristic(String characteristicType,
+            ConstraintVariableReference characteristicValueVariable) {
+        AbstractSelector selector = new VertexCharacteristicsSelector(analysisConstraint.getContext(),
+                new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
+                        characteristicValueVariable));
+        if (!(this.analysisConstraint.getDestinationSelector() instanceof AnySelector)) {
+            AndLogicalOperator operator = new AndLogicalOperator(this.analysisConstraint.getDestinationSelector(),
+                    selector, analysisConstraint.getContext());
+            this.analysisConstraint.setDestinationSelector(operator);
+        } else {
+            this.analysisConstraint.setDestinationSelector(selector);
+        }
         return this;
     }
 
@@ -60,7 +81,14 @@ public class DSLNodeDestinationSelector {
         characteristicValues
                 .forEach(it -> data.add(new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
                         ConstraintVariableReference.ofConstant(List.of(it)))));
-        this.analysisConstraint.addNodeDestinationSelector(new VertexCharacteristicsListSelector(analysisConstraint.getContext(), data));
+        AbstractSelector selector = new VertexCharacteristicsListSelector(analysisConstraint.getContext(), data);
+        if (!(this.analysisConstraint.getDestinationSelector() instanceof AnySelector)) {
+            AndLogicalOperator operator = new AndLogicalOperator(this.analysisConstraint.getDestinationSelector(),
+                    selector, analysisConstraint.getContext());
+            this.analysisConstraint.setDestinationSelector(operator);
+        } else {
+            this.analysisConstraint.setDestinationSelector(selector);
+        }
         return this;
     }
 
@@ -71,10 +99,17 @@ public class DSLNodeDestinationSelector {
      * @return DSL node selector to add more constraints
      */
     public DSLNodeDestinationSelector withoutCharacteristic(String characteristicType, String characteristicValue) {
-        this.analysisConstraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(analysisConstraint.getContext(),
+        AbstractSelector selector = new VertexCharacteristicsSelector(analysisConstraint.getContext(),
                 new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
                         ConstraintVariableReference.ofConstant(List.of(characteristicValue))),
-                true));
+                true);
+        if (!(this.analysisConstraint.getDestinationSelector() instanceof AnySelector)) {
+            AndLogicalOperator operator = new AndLogicalOperator(this.analysisConstraint.getDestinationSelector(),
+                    selector, analysisConstraint.getContext());
+            this.analysisConstraint.setDestinationSelector(operator);
+        } else {
+            this.analysisConstraint.setDestinationSelector(selector);
+        }
         return this;
     }
 
@@ -91,7 +126,14 @@ public class DSLNodeDestinationSelector {
         characteristicValues
                 .forEach(it -> data.add(new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
                         ConstraintVariableReference.ofConstant(List.of(it)))));
-        this.analysisConstraint.addNodeDestinationSelector(new VertexCharacteristicsListSelector(analysisConstraint.getContext(), data, true));
+        AbstractSelector selector = new VertexCharacteristicsListSelector(analysisConstraint.getContext(), data, true);
+        if (!(this.analysisConstraint.getDestinationSelector() instanceof AnySelector)) {
+            AndLogicalOperator operator = new AndLogicalOperator(this.analysisConstraint.getDestinationSelector(),
+                    selector, analysisConstraint.getContext());
+            this.analysisConstraint.setDestinationSelector(operator);
+        } else {
+            this.analysisConstraint.setDestinationSelector(selector);
+        }
         return this;
     }
 
@@ -101,7 +143,14 @@ public class DSLNodeDestinationSelector {
      * @return DSL node selector to add more constraints
      */
     public DSLNodeDestinationSelector withVertexName(String vertexName) {
-        this.analysisConstraint.addNodeDestinationSelector(new VertexNameSelector(vertexName, analysisConstraint.getContext()));
+        AbstractSelector selector = new VertexNameSelector(vertexName, analysisConstraint.getContext());
+        if (!(this.analysisConstraint.getDestinationSelector() instanceof AnySelector)) {
+            AndLogicalOperator operator = new AndLogicalOperator(this.analysisConstraint.getDestinationSelector(),
+                    selector, analysisConstraint.getContext());
+            this.analysisConstraint.setDestinationSelector(operator);
+        } else {
+            this.analysisConstraint.setDestinationSelector(selector);
+        }
         return this;
     }
 
@@ -111,7 +160,14 @@ public class DSLNodeDestinationSelector {
      * @return DSL node selector to add more constraints
      */
     public DSLNodeDestinationSelector withoutVertexName(String vertexName) {
-        this.analysisConstraint.addNodeDestinationSelector(new VertexNameSelector(vertexName, true, false, analysisConstraint.getContext()));
+        AbstractSelector selector = new VertexNameSelector(vertexName, true, false, analysisConstraint.getContext());
+        if (!(this.analysisConstraint.getDestinationSelector() instanceof AnySelector)) {
+            AndLogicalOperator operator = new AndLogicalOperator(this.analysisConstraint.getDestinationSelector(),
+                    selector, analysisConstraint.getContext());
+            this.analysisConstraint.setDestinationSelector(operator);
+        } else {
+            this.analysisConstraint.setDestinationSelector(selector);
+        }
         return this;
     }
 
@@ -123,7 +179,14 @@ public class DSLNodeDestinationSelector {
      * @return DSL node selector to add more constraints
      */
     public DSLNodeDestinationSelector with(Predicate<AbstractVertex<?>> predicate) {
-        this.analysisConstraint.addNodeDestinationSelector(new VertexPredicateSelector(analysisConstraint.getContext(), predicate));
+        AbstractSelector selector = new VertexPredicateSelector(analysisConstraint.getContext(), predicate);
+        if (!(this.analysisConstraint.getDestinationSelector() instanceof AnySelector)) {
+            AndLogicalOperator operator = new AndLogicalOperator(this.analysisConstraint.getDestinationSelector(),
+                    selector, analysisConstraint.getContext());
+            this.analysisConstraint.setDestinationSelector(operator);
+        } else {
+            this.analysisConstraint.setDestinationSelector(selector);
+        }
         return this;
     }
 

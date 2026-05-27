@@ -1,11 +1,13 @@
 package org.dataflowanalysis.analysis.dfd.dsl;
 
+import java.util.List;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dfd.core.DFDVertex;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexType;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexType;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 import org.dataflowanalysis.dfd.dataflowdiagram.External;
+import org.dataflowanalysis.dfd.dataflowdiagram.Node;
 import org.dataflowanalysis.dfd.dataflowdiagram.Process;
 import org.dataflowanalysis.dfd.dataflowdiagram.Store;
 
@@ -49,5 +51,16 @@ public enum DFDVertexType implements VertexType {
             return ParseResult.ok(DFDVertexType.STORE);
         }
         return ParseResult.error("Invalid dfd vertex type!");
+    }
+
+    public static List<VertexType> fromElement(Node node) {
+        if (node instanceof External) {
+            return List.of(DFDVertexType.EXTERNAL);
+        } else if (node instanceof Process) {
+            return List.of(DFDVertexType.PROCESS);
+        } else if (node instanceof Store) {
+            return List.of(DFDVertexType.STORE);
+        }
+        throw new IllegalArgumentException("Node is not a known type!");
     }
 }

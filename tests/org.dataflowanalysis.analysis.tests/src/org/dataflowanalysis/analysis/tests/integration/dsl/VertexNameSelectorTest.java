@@ -1,11 +1,11 @@
 package org.dataflowanalysis.analysis.tests.integration.dsl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.stream.Stream;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexNameSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexNameSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexSelector;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,18 +17,22 @@ public class VertexNameSelectorTest {
     @MethodSource("correctVertexNameSelectors")
     public void shouldParseCorrectly(String vertexNameSelectorString, String expectedVertexName, boolean expectEmpty) {
         StringView string = new StringView(vertexNameSelectorString);
-        ParseResult<VertexNameSelector> vertexNameSelector = VertexNameSelector.fromString(string, new DSLContext());
-        assertTrue(vertexNameSelector.successful());
-        assertEquals(expectedVertexName, vertexNameSelector.getResult()
-                .getName());
-        assertEquals(expectEmpty, string.empty());
+        ParseResult<VertexSelector> selector = VertexNameSelector.fromString(string, new DSLContext());
+        assertTrue(selector.successful());
+
+        if (selector.getResult() instanceof VertexNameSelector vertexNameSelector) {
+            assertEquals(expectedVertexName, vertexNameSelector.getName());
+            assertEquals(expectEmpty, string.empty());
+        } else {
+            fail("Selector is not a vertex name selector");
+        }
     }
 
     @ParameterizedTest
     @MethodSource("incorrectVertexNameSelectors")
     public void shouldNotParse(String vertexNameSelectorString) {
         StringView string = new StringView(vertexNameSelectorString);
-        ParseResult<VertexNameSelector> vertexNameSelector = VertexNameSelector.fromString(string, new DSLContext());
+        ParseResult<VertexSelector> vertexNameSelector = VertexNameSelector.fromString(string, new DSLContext());
         assertTrue(vertexNameSelector.failed());
         assertEquals(0, string.getPosition());
     }

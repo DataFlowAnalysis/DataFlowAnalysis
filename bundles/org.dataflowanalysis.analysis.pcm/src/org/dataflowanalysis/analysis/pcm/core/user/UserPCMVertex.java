@@ -1,14 +1,15 @@
 package org.dataflowanalysis.analysis.pcm.core.user;
 
 import java.util.ArrayDeque;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
+import org.dataflowanalysis.analysis.core.VertexInformation;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexType;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
+import org.dataflowanalysis.analysis.pcm.dsl.PCMVertexType;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
@@ -42,19 +43,24 @@ public class UserPCMVertex<T extends AbstractUserAction> extends AbstractPCMVert
     public void evaluateDataFlow() {
         List<DataCharacteristic> incomingDataCharacteristics = this.getIncomingDataCharacteristics();
         List<CharacteristicValue> vertexCharacteristics = this.getVertexCharacteristics();
-        Set<CharacteristicValue> previousVertexCharacteristics = new HashSet<>(vertexCharacteristics);
+        VertexInformation vertexInformation = VertexInformation.fromVertex(vertexCharacteristics, this);
         this.getPreviousElements()
-                .forEach(vertex -> previousVertexCharacteristics.addAll(vertex.getAllPreviousVertexCharacteristics()));
+                .forEach(vertexInformation::extendInformation);
 
         if (this.getReferencedElement() instanceof Start || this.getReferencedElement() instanceof Stop) {
             this.setPropagationResult(incomingDataCharacteristics, incomingDataCharacteristics, vertexCharacteristics,
-                    previousVertexCharacteristics);
+                    vertexInformation);
             return;
         }
         logger.error("Found unexpected sequence element of unknown PCM type " + this.getReferencedElement()
                 .getClass()
                 .getName());
         throw new IllegalStateException("Unexpected action sequence element with unknown PCM type");
+    }
+
+    @Override
+    public List<VertexType> getVertexTypes() {
+        return List.of(PCMVertexType.USER);
     }
 
     @Override

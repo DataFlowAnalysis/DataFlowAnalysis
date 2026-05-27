@@ -1,11 +1,11 @@
 package org.dataflowanalysis.analysis.tests.integration.dsl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.stream.Stream;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
-import org.dataflowanalysis.analysis.dsl.selectors.VariableNameSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.data.DataSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.data.VariableNameSelector;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,20 +19,21 @@ public class VariableNameSelectorTest {
     public void shouldParseCorrectly(String variableNameSelectorString, String expectedVariableName,
             boolean expectEmpty) {
         StringView string = new StringView(variableNameSelectorString);
-        ParseResult<VariableNameSelector> variableNameSelector = VariableNameSelector.fromString(string,
-                new DSLContext());
-        assertTrue(variableNameSelector.successful());
-        assertEquals(expectedVariableName, variableNameSelector.getResult()
-                .getVariableName());
-        assertEquals(expectEmpty, string.empty());
+        ParseResult<DataSelector> selector = VariableNameSelector.fromString(string, new DSLContext());
+        assertTrue(selector.successful());
+        if (selector.getResult() instanceof VariableNameSelector variableNameSelector) {
+            assertEquals(expectedVariableName, variableNameSelector.getVariableName());
+            assertEquals(expectEmpty, string.empty());
+        } else {
+            fail("Selector is not a variable name selector");
+        }
     }
 
     @ParameterizedTest
     @MethodSource("incorrectVariableNameSelectors")
     public void shouldNotParse(String variableNameSelectorString) {
         StringView string = new StringView(variableNameSelectorString);
-        ParseResult<VariableNameSelector> variableNameSelector = VariableNameSelector.fromString(string,
-                new DSLContext());
+        ParseResult<DataSelector> variableNameSelector = VariableNameSelector.fromString(string, new DSLContext());
         assertTrue(variableNameSelector.failed());
         assertEquals(0, string.getPosition());
     }

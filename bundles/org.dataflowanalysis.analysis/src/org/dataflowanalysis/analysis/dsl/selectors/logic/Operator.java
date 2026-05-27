@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.dsl.logic;
+package org.dataflowanalysis.analysis.dsl.selectors.logic;
 
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;

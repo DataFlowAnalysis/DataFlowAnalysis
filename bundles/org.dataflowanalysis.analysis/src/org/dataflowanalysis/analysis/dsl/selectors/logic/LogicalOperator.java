@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.dsl.logic;
+package org.dataflowanalysis.analysis.dsl.selectors.logic;
 
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
@@ -6,10 +6,10 @@ import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 
 public abstract class LogicalOperator extends AbstractSelector {
-    protected static final String DSL_NEGATION = "!";
-    protected static final String DSL_AND = "&";
-    protected static final String DSL_XOR = "^";
-    protected static final String DSL_OR = "|";
+    protected static final String DSL_NEGATION = "not";
+    protected static final String DSL_AND = "and";
+    protected static final String DSL_XOR = "xor";
+    protected static final String DSL_OR = "or";
 
     /**
      * Creates a new selector with the given {@link DSLContext}
@@ -19,9 +19,8 @@ public abstract class LogicalOperator extends AbstractSelector {
         super(context);
     }
 
-    public static ParseResult<? extends AbstractSelector> fromString(StringView string, DSLContext context,
-            boolean data) {
-        var leftHandSide = LogicalOperator.fromString(string, context, data, Operator.MAX_PRECEDENCE);
+    public static ParseResult<? extends AbstractSelector> fromString(StringView string, DSLContext context) {
+        var leftHandSide = LogicalOperator.fromString(string, context, Operator.MAX_PRECEDENCE);
         if (leftHandSide.failed()) {
             return ParseResult.error("Cannot parse logical expression from string");
         }
@@ -29,14 +28,15 @@ public abstract class LogicalOperator extends AbstractSelector {
     }
 
     public static ParseResult<? extends AbstractSelector> fromString(StringView string, DSLContext context,
-            boolean data, short precedence) {
+            short precedence) {
         if (precedence == 1) {
-            return LogicalOperator.parseUnaryOperation(string, context, data, precedence);
+            return LogicalOperator.parseUnaryOperation(string, context, precedence);
         } else if (precedence == 0) {
-            return LogicalOperator.parseBasicExpression(string, context, data);
+            return LogicalOperator.parseBasicExpression(string, context);
         }
 
-        var leftHandSideParseResult = LogicalOperator.fromString(string, context, data, (short) (precedence - 1));
+        var leftHandSideParseResult = LogicalOperator.fromString(string, context, (short) (precedence - 1));
+        string.skipWhitespace();
         if (leftHandSideParseResult.failed()) {
             return ParseResult.error("Cannot parse logical expression from string");
         }
@@ -53,7 +53,7 @@ public abstract class LogicalOperator extends AbstractSelector {
                 case NOT -> {
                 }
                 case OR -> {
-                    var rightHandSide = LogicalOperator.fromString(string, context, data, (short) (precedence - 1));
+                    var rightHandSide = LogicalOperator.fromString(string, context, (short) (precedence - 1));
                     if (rightHandSide.failed()) {
                         return ParseResult.error("Cannot parse logical expression from string");
                     }
@@ -61,7 +61,7 @@ public abstract class LogicalOperator extends AbstractSelector {
                     continue;
                 }
                 case AND -> {
-                    var rightHandSide = LogicalOperator.fromString(string, context, data, (short) (precedence - 1));
+                    var rightHandSide = LogicalOperator.fromString(string, context, (short) (precedence - 1));
                     if (rightHandSide.failed()) {
                         return ParseResult.error("Cannot parse logical expression from string");
                     }
@@ -69,7 +69,7 @@ public abstract class LogicalOperator extends AbstractSelector {
                     continue;
                 }
                 case XOR -> {
-                    var rightHandSide = LogicalOperator.fromString(string, context, data, (short) (precedence - 1));
+                    var rightHandSide = LogicalOperator.fromString(string, context, (short) (precedence - 1));
                     if (rightHandSide.failed()) {
                         return ParseResult.error("Cannot parse logical expression from string");
                     }
@@ -84,9 +84,9 @@ public abstract class LogicalOperator extends AbstractSelector {
     }
 
     public static ParseResult<? extends AbstractSelector> parseUnaryOperation(StringView string, DSLContext context,
-            boolean data, short precedence) {
+            short precedence) {
         int position = string.getPosition();
-        var negatedSelector = parseBasicExpression(string, context, data);
+        var negatedSelector = parseBasicExpression(string, context);
         if (negatedSelector.successful()) {
             return negatedSelector;
         }
@@ -94,11 +94,11 @@ public abstract class LogicalOperator extends AbstractSelector {
         var operator = Operator.fromString(string);
         if (operator.failed()) {
             string.setPosition(position);
-            return LogicalOperator.fromString(string, context, data, (short) (precedence - 1));
+            return LogicalOperator.fromString(string, context, (short) (precedence - 1));
         }
         switch (operator.getResult()) {
             case NOT -> {
-                var selector = LogicalOperator.fromString(string, context, data, (short) (precedence - 1));
+                var selector = LogicalOperator.fromString(string, context, (short) (precedence - 1));
                 if (selector.failed()) {
                     string.setPosition(position);
                     return ParseResult.error("Cannot parse logical expression from string");
@@ -107,30 +107,32 @@ public abstract class LogicalOperator extends AbstractSelector {
             }
             case OR, AND, XOR -> {
                 string.setPosition(position);
-                return LogicalOperator.fromString(string, context, data, (short) (precedence - 1));
+                return LogicalOperator.fromString(string, context, (short) (precedence - 1));
             }
         }
         string.setPosition(position);
-        return LogicalOperator.fromString(string, context, data, (short) (precedence - 1));
+        return LogicalOperator.fromString(string, context, (short) (precedence - 1));
     }
 
-    public static ParseResult<? extends AbstractSelector> parseBasicExpression(StringView string, DSLContext context,
-            boolean data) {
+    public static ParseResult<? extends AbstractSelector> parseBasicExpression(StringView string, DSLContext context) {
         if (string.invalid() || string.empty()) {
             return ParseResult.error("Cannot get expression from basic string!");
         }
         if (string.startsWith(DSL_PAREN_OPEN)) {
             string.advance(DSL_PAREN_OPEN.length());
-            var expression = LogicalOperator.fromString(string, context, data);
+            var expression = LogicalOperator.fromString(string, context);
             if (string.empty() || string.invalid()) {
                 return ParseResult.error("No closing bracket after expression");
+            }
+            if (expression.failed()) {
+                return ParseResult.error("No valid expression in bracket");
             }
             if (!string.startsWith(DSL_PAREN_CLOSE)) {
                 return string.expect(DSL_PAREN_CLOSE);
             }
             string.advance(DSL_PAREN_CLOSE.length());
-            return expression;
+            return ParseResult.ok(new LogicalGroupOperator(expression.getResult(), context));
         }
-        return AbstractSelector.fromString(string, context, data);
+        return AbstractSelector.fromString(string, context);
     }
 }

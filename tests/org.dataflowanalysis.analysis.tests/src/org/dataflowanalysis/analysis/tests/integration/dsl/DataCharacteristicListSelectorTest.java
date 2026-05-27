@@ -1,11 +1,11 @@
 package org.dataflowanalysis.analysis.tests.integration.dsl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.stream.Stream;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
-import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicListSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.data.DataCharacteristicListSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.data.DataSelector;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,22 +18,23 @@ public class DataCharacteristicListSelectorTest {
     @MethodSource("correctDataCharacteristicSelectors")
     public void shouldParseCorrectly(String dataCharacteristicsSelectorString, boolean inverted) {
         StringView stringView = new StringView(dataCharacteristicsSelectorString);
-        ParseResult<DataCharacteristicListSelector> dataCharacteristicsSelector = DataCharacteristicListSelector
-                .fromString(stringView, new DSLContext());
-        assertTrue(dataCharacteristicsSelector.successful());
+        ParseResult<DataSelector> selector = DataCharacteristicListSelector.fromString(stringView, new DSLContext());
+        assertTrue(selector.successful());
         assertTrue(stringView.empty());
-        assertEquals(inverted, dataCharacteristicsSelector.getResult()
-                .isInverted());
-        assertEquals(dataCharacteristicsSelectorString, dataCharacteristicsSelector.getResult()
-                .toString());
+        if (selector.getResult() instanceof DataCharacteristicListSelector dataCharacteristicsSelector) {
+            assertEquals(inverted, dataCharacteristicsSelector.isInverted());
+            assertEquals("data " + dataCharacteristicsSelectorString, dataCharacteristicsSelector.toString());
+        } else {
+            fail("Selector is not data characteristic list selector");
+        }
     }
 
     @ParameterizedTest
     @MethodSource("incorrectDataCharacteristicSelectors")
     public void shouldNotParse(String dataCharacteristicsSelectorString) {
         StringView stringView = new StringView(dataCharacteristicsSelectorString);
-        ParseResult<DataCharacteristicListSelector> dataCharacteristicsSelector = DataCharacteristicListSelector
-                .fromString(stringView, new DSLContext());
+        ParseResult<DataSelector> dataCharacteristicsSelector = DataCharacteristicListSelector.fromString(stringView,
+                new DSLContext());
         assertTrue(dataCharacteristicsSelector.failed() || !stringView.empty());
     }
 

@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.dsl.selectors;
+package org.dataflowanalysis.analysis.dsl.selectors.conditional;
 
 import java.util.List;
 import org.apache.log4j.Logger;

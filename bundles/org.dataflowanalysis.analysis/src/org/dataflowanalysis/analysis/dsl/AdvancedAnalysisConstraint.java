@@ -11,13 +11,12 @@ import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.context.DSLContextProvider;
 import org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors;
-import org.dataflowanalysis.analysis.dsl.groups.DestinationSelectors;
-import org.dataflowanalysis.analysis.dsl.groups.SourceSelectors;
 import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.AnySelector;
+import org.dataflowanalysis.analysis.dsl.selectors.conditional.ConditionalSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.logic.LogicalOperator;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
@@ -29,10 +28,8 @@ public class AdvancedAnalysisConstraint extends AnalysisConstraint {
         super(name);
     }
 
-    public AdvancedAnalysisConstraint(String name,
-            org.dataflowanalysis.analysis.dsl.groups.SourceSelectors sourceSelectors, FlowType flowType,
-            DestinationSelectors destinationSelectors,
-            org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors conditionalSelectors, DSLContext context) {
+    public AdvancedAnalysisConstraint(String name, AbstractSelector sourceSelectors, FlowType flowType,
+            AbstractSelector destinationSelectors, ConditionalSelectors conditionalSelectors, DSLContext context) {
         super(name, sourceSelectors, flowType, destinationSelectors, conditionalSelectors, context);
     }
 
@@ -44,12 +41,10 @@ public class AdvancedAnalysisConstraint extends AnalysisConstraint {
             List<AbstractVertex<?>> violations = new ArrayList<>();
             for (AbstractVertex<?> vertex : transposeFlowGraph.getVertices()) {
                 boolean matched = true;
-                if (!this.getDataSourceSelectors()
-                        .getSelectors()
-                        .isEmpty()
-                        && !this.getDataDestinationSelectors()
-                                .getSelectors()
-                                .isEmpty()) {
+                if (this.getSourceSelector()
+                        .hasDataSelector()
+                        && this.getDestinationSelector()
+                                .hasDataSelector()) {
                     var alternateNodes = flowGraphCollection.getTransposeFlowGraphs()
                             .stream()
                             .map(AbstractTransposeFlowGraph::getVertices)
@@ -57,61 +52,33 @@ public class AdvancedAnalysisConstraint extends AnalysisConstraint {
                             .filter(it -> it.getReferencedElement()
                                     .equals(vertex.getReferencedElement()))
                             .toList();
-                    for (AbstractSelector dataSourceSelector : this.getDataSourceSelectors()
-                            .getSelectors()) {
-                        if (!dataSourceSelector.matches(vertex)) {
-                            logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, dataSourceSelector));
-                            matched = false;
-                            constraintTrace.addMissingSelector(vertex, dataSourceSelector);
+                    if (!this.sourceSelector.matchesSource(vertex, constraintTrace)) {
+                        matched = false;
+                    }
+
+                    if (alternateNodes.isEmpty()) {
+                        matched = false;
+                    }
+                    boolean matchedAlternate = false;
+                    for (AbstractVertex<?> alternateVertex : alternateNodes) {
+                        // TODO: This should only evaluate the data destination selectors, right?
+                        boolean matchedAlternateVertex = this.getDestinationSelector()
+                                .matchesSource(alternateVertex, constraintTrace);
+                        if (matchedAlternateVertex) {
+                            matchedAlternate = true;
                         }
                     }
-                    for (AbstractVertex<?> alternateVertex : alternateNodes) {
-                        boolean matchedAlternateVertex = true;
-                        for (AbstractSelector dataDestinationSelector : this.getDataDestinationSelectors()
-                                .getSelectors()) {
-                            if (!dataDestinationSelector.matches(alternateVertex)) {
-                                logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, dataDestinationSelector));
-                                constraintTrace.addMissingSelector(vertex, dataDestinationSelector);
-                            }
-                        }
-                        if (!matchedAlternateVertex) {
-                            matched = false;
-                        }
+                    if (!matchedAlternate) {
+                        matched = false;
                     }
                 } else {
-                    for (AbstractSelector dataSourceSelector : this.getDataSourceSelectors()
-                            .getSelectors()) {
-                        if (!dataSourceSelector.matches(vertex)) {
-                            logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, dataSourceSelector));
-                            matched = false;
-                            constraintTrace.addMissingSelector(vertex, dataSourceSelector);
-                        }
-                    }
-                    for (AbstractSelector dataDestinationSelector : this.getDataDestinationSelectors()
-                            .getSelectors()) {
-                        if (!dataDestinationSelector.matches(vertex)) {
-                            logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, dataDestinationSelector));
-                            matched = false;
-                            constraintTrace.addMissingSelector(vertex, dataDestinationSelector);
-                        }
-                    }
-                }
-                for (VertexSelector vertexSourceSelector : this.getVertexSourceSelectors()
-                        .getSelectors()) {
-                    if (!vertexSourceSelector.matches(vertex, vertex.getAllPreviousVertexCharacteristics()
-                            .stream()
-                            .toList())) {
-                        logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, vertexSourceSelector));
+                    if (!this.getSourceSelector()
+                            .matchesSource(vertex, constraintTrace)) {
                         matched = false;
-                        constraintTrace.addMissingSelector(vertex, vertexSourceSelector);
                     }
-                }
-                for (AbstractSelector vertexDestinationSelectors : this.getVertexDestinationSelectors()
-                        .getSelectors()) {
-                    if (!vertexDestinationSelectors.matches(vertex)) {
-                        logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, vertexDestinationSelectors));
+                    if (!this.getDestinationSelector()
+                            .matchesDestination(vertex, constraintTrace)) {
                         matched = false;
-                        constraintTrace.addMissingSelector(vertex, vertexDestinationSelectors);
                     }
                 }
                 for (ConditionalSelector selector : this.conditionalSelectors.getSelectors()) {
@@ -140,9 +107,9 @@ public class AdvancedAnalysisConstraint extends AnalysisConstraint {
         StringJoiner dslString = new StringJoiner(" ");
         dslString.add(ADVANCED_DSL_TOKEN);
         dslString.add(this.name + DSL_NAME_SEPARATOR);
-        dslString.add(sourceSelectors.toString());
+        dslString.add(sourceSelector.toString());
         dslString.add(flowType.toString());
-        dslString.add(destinationSelectors.toString());
+        dslString.add(destinationSelector.toString());
         if (!this.conditionalSelectors.getSelectors()
                 .isEmpty()) {
             dslString.add(this.conditionalSelectors.toString());
@@ -172,10 +139,12 @@ public class AdvancedAnalysisConstraint extends AnalysisConstraint {
         }
         string.advance(DSL_NAME_SEPARATOR.length() + 1);
         string.skipWhitespace();
-        var sourceSelectors = SourceSelectors.fromString(string, context);
-        if (sourceSelectors.failed()) {
-            return ParseResult.error(sourceSelectors.getError());
+
+        var sourceSelector = LogicalOperator.fromString(string, context);
+        if (sourceSelector.failed()) {
+            return ParseResult.error(sourceSelector.getError());
         }
+
         string.skipWhitespace();
         var flowType = FlowType.fromString(string);
         if (flowType.failed()) {
@@ -184,29 +153,25 @@ public class AdvancedAnalysisConstraint extends AnalysisConstraint {
 
         string.skipWhitespace();
         if (string.empty()) {
-            return ParseResult.ok(new AdvancedAnalysisConstraint(name, sourceSelectors.getResult(),
-                    flowType.getResult(), new DestinationSelectors(),
-                    new org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors(), context));
+            return ParseResult.ok(new AdvancedAnalysisConstraint(name, sourceSelector.getResult(), flowType.getResult(),
+                    new AnySelector(context), new ConditionalSelectors(), context));
         }
 
-        ParseResult<DestinationSelectors> destinationSelectorsParseResult = DestinationSelectors.fromString(string,
-                context);
-        if (destinationSelectorsParseResult.failed()) {
-            return ParseResult.error(destinationSelectorsParseResult.getError());
+        var destinationSelector = LogicalOperator.fromString(string, context);
+        if (destinationSelector.failed()) {
+            return ParseResult.error(destinationSelector.getError());
         }
-        DestinationSelectors destinationSelectors = destinationSelectorsParseResult.getResult();
 
         string.skipWhitespace();
-        ParseResult<org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors> conditionalSelectorsParseResult = org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors
-                .fromString(string, context);
-        org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors conditionalSelectors = conditionalSelectorsParseResult
-                .or(new ConditionalSelectors());
+        ParseResult<ConditionalSelectors> conditionalSelectorsParseResult = ConditionalSelectors.fromString(string,
+                context);
+        ConditionalSelectors conditionalSelectors = conditionalSelectorsParseResult.or(new ConditionalSelectors());
 
         string.skipWhitespace();
         if (!string.empty()) {
             return ParseResult.error("Unexpected symbols: " + string.getString());
         }
-        return ParseResult.ok(new AdvancedAnalysisConstraint(name, sourceSelectors.getResult(), flowType.getResult(),
-                destinationSelectors, conditionalSelectors, context));
+        return ParseResult.ok(new AdvancedAnalysisConstraint(name, sourceSelector.getResult(), flowType.getResult(),
+                destinationSelector.getResult(), conditionalSelectors, context));
     }
 }

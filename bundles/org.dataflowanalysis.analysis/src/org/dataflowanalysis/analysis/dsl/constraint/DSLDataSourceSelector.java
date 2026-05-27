@@ -3,9 +3,12 @@ package org.dataflowanalysis.analysis.dsl.constraint;
 import java.util.ArrayList;
 import java.util.List;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
+import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.AnySelector;
 import org.dataflowanalysis.analysis.dsl.selectors.CharacteristicsSelectorData;
-import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicListSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.data.DataCharacteristicListSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.data.DataCharacteristicsSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.logic.AndLogicalOperator;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
 
 /**
@@ -29,9 +32,16 @@ public class DSLDataSourceSelector {
      * @return Returns DSL constraint builder for source vertex data
      */
     public DSLDataSourceSelector withLabel(String characteristicType, String characteristicValue) {
-        this.analysisConstraint.addDataSourceSelector(new DataCharacteristicsSelector(analysisConstraint.getContext(),
+        AbstractSelector selector = new DataCharacteristicsSelector(analysisConstraint.getContext(),
                 new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
-                        ConstraintVariableReference.ofConstant(List.of(characteristicValue)))));
+                        ConstraintVariableReference.ofConstant(List.of(characteristicValue))));
+        if (!(this.analysisConstraint.getSourceSelector() instanceof AnySelector)) {
+            AndLogicalOperator operator = new AndLogicalOperator(this.analysisConstraint.getSourceSelector(), selector,
+                    analysisConstraint.getContext());
+            this.analysisConstraint.setSourceSelector(operator);
+        } else {
+            this.analysisConstraint.setSourceSelector(selector);
+        }
         return this;
     }
 
@@ -44,9 +54,16 @@ public class DSLDataSourceSelector {
      */
     public DSLDataSourceSelector withLabel(String characteristicType,
             ConstraintVariableReference characteristicValueVariable) {
-        this.analysisConstraint.addDataSourceSelector(new DataCharacteristicsSelector(analysisConstraint.getContext(),
+        AbstractSelector selector = new DataCharacteristicsSelector(analysisConstraint.getContext(),
                 new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
-                        characteristicValueVariable)));
+                        characteristicValueVariable));
+        if (!(this.analysisConstraint.getSourceSelector() instanceof AnySelector)) {
+            AndLogicalOperator operator = new AndLogicalOperator(this.analysisConstraint.getSourceSelector(), selector,
+                    analysisConstraint.getContext());
+            this.analysisConstraint.setSourceSelector(operator);
+        } else {
+            this.analysisConstraint.setSourceSelector(selector);
+        }
         return this;
     }
 
@@ -63,8 +80,14 @@ public class DSLDataSourceSelector {
         characteristicValues.forEach(it -> data.add(
                 new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
                         ConstraintVariableReference.ofConstant(List.of(it)))));
-        this.analysisConstraint
-                .addDataSourceSelector(new DataCharacteristicListSelector(analysisConstraint.getContext(), data));
+        AbstractSelector selector = new DataCharacteristicListSelector(analysisConstraint.getContext(), data);
+        if (!(this.analysisConstraint.getSourceSelector() instanceof AnySelector)) {
+            AndLogicalOperator operator = new AndLogicalOperator(this.analysisConstraint.getSourceSelector(), selector,
+                    analysisConstraint.getContext());
+            this.analysisConstraint.setSourceSelector(operator);
+        } else {
+            this.analysisConstraint.setSourceSelector(selector);
+        }
         return this;
     }
 
@@ -75,10 +98,17 @@ public class DSLDataSourceSelector {
      * @return Returns DSL constraint builder for source vertex data
      */
     public DSLDataSourceSelector withoutLabel(String characteristicType, String characteristicValue) {
-        this.analysisConstraint.addDataSourceSelector(new DataCharacteristicsSelector(analysisConstraint.getContext(),
+        AbstractSelector selector = new DataCharacteristicsSelector(analysisConstraint.getContext(),
                 new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
                         ConstraintVariableReference.ofConstant(List.of(characteristicValue))),
-                true));
+                true);
+        if (!(this.analysisConstraint.getSourceSelector() instanceof AnySelector)) {
+            AndLogicalOperator operator = new AndLogicalOperator(this.analysisConstraint.getSourceSelector(), selector,
+                    analysisConstraint.getContext());
+            this.analysisConstraint.setSourceSelector(operator);
+        } else {
+            this.analysisConstraint.setSourceSelector(selector);
+        }
         return this;
     }
 
@@ -95,8 +125,15 @@ public class DSLDataSourceSelector {
         characteristicValues.forEach(characteristicValue -> data.add(
                 new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
                         ConstraintVariableReference.ofConstant(List.of(characteristicValue)))));
-        this.analysisConstraint.addDataSourceSelector(
-                new DataCharacteristicListSelector(this.analysisConstraint.getContext(), data, true));
+        AbstractSelector selector = new DataCharacteristicListSelector(this.analysisConstraint.getContext(), data,
+                true);
+        if (!(this.analysisConstraint.getSourceSelector() instanceof AnySelector)) {
+            AndLogicalOperator operator = new AndLogicalOperator(this.analysisConstraint.getSourceSelector(), selector,
+                    analysisConstraint.getContext());
+            this.analysisConstraint.setSourceSelector(operator);
+        } else {
+            this.analysisConstraint.setSourceSelector(selector);
+        }
         return this;
     }
 

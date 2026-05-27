@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.selectors.*;
+import org.dataflowanalysis.analysis.dsl.selectors.logic.AndLogicalOperator;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexCharacteristicsListSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexCharacteristicsSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexTypeSelector;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
 
 /**
@@ -27,10 +31,17 @@ public class DSLNodeSourceSelector {
      * @return Returns a dsl node source selector to add more constraints
      */
     public DSLNodeSourceSelector withCharacteristic(String characteristicType, String characteristicValue) {
-        this.analysisConstraint.addNodeSourceSelector(new VertexCharacteristicsSelector(analysisConstraint.getContext(),
+        AbstractSelector selector = new VertexCharacteristicsSelector(analysisConstraint.getContext(),
                 new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
                         ConstraintVariableReference.ofConstant(List.of(characteristicValue))),
-                false, true));
+                false, true);
+        if (!(this.analysisConstraint.getSourceSelector() instanceof AnySelector)) {
+            AndLogicalOperator operator = new AndLogicalOperator(this.analysisConstraint.getSourceSelector(), selector,
+                    analysisConstraint.getContext());
+            this.analysisConstraint.setSourceSelector(operator);
+        } else {
+            this.analysisConstraint.setSourceSelector(selector);
+        }
         return this;
     }
 
@@ -42,10 +53,17 @@ public class DSLNodeSourceSelector {
      */
     public DSLNodeSourceSelector withCharacteristic(String characteristicType,
             ConstraintVariableReference characteristicValueVariable) {
-        this.analysisConstraint.addNodeSourceSelector(new VertexCharacteristicsSelector(analysisConstraint.getContext(),
+        AbstractSelector selector = new VertexCharacteristicsSelector(analysisConstraint.getContext(),
                 new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
                         characteristicValueVariable),
-                false, true));
+                false, true);
+        if (!(this.analysisConstraint.getSourceSelector() instanceof AnySelector)) {
+            AndLogicalOperator operator = new AndLogicalOperator(this.analysisConstraint.getSourceSelector(), selector,
+                    analysisConstraint.getContext());
+            this.analysisConstraint.setSourceSelector(operator);
+        } else {
+            this.analysisConstraint.setSourceSelector(selector);
+        }
         return this;
     }
 
@@ -62,8 +80,14 @@ public class DSLNodeSourceSelector {
         characteristicValues.forEach(it -> data.add(
                 new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
                         ConstraintVariableReference.ofConstant(List.of(it)))));
-        this.analysisConstraint
-                .addNodeSourceSelector(new VertexCharacteristicsListSelector(analysisConstraint.getContext(), data));
+        AbstractSelector selector = new VertexCharacteristicsListSelector(analysisConstraint.getContext(), data);
+        if (!(this.analysisConstraint.getSourceSelector() instanceof AnySelector)) {
+            AndLogicalOperator operator = new AndLogicalOperator(this.analysisConstraint.getSourceSelector(), selector,
+                    analysisConstraint.getContext());
+            this.analysisConstraint.setSourceSelector(operator);
+        } else {
+            this.analysisConstraint.setSourceSelector(selector);
+        }
         return this;
     }
 
@@ -74,10 +98,17 @@ public class DSLNodeSourceSelector {
      * @return Returns a dsl node source selector to add more constraints
      */
     public DSLNodeSourceSelector withoutCharacteristic(String characteristicType, String characteristicValue) {
-        this.analysisConstraint.addNodeSourceSelector(new VertexCharacteristicsSelector(analysisConstraint.getContext(),
+        AbstractSelector selector = new VertexCharacteristicsSelector(analysisConstraint.getContext(),
                 new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
                         ConstraintVariableReference.ofConstant(List.of(characteristicValue))),
-                true, true));
+                true, true);
+        if (!(this.analysisConstraint.getSourceSelector() instanceof AnySelector)) {
+            AndLogicalOperator operator = new AndLogicalOperator(this.analysisConstraint.getSourceSelector(), selector,
+                    analysisConstraint.getContext());
+            this.analysisConstraint.setSourceSelector(operator);
+        } else {
+            this.analysisConstraint.setSourceSelector(selector);
+        }
         return this;
     }
 
@@ -89,10 +120,17 @@ public class DSLNodeSourceSelector {
      */
     public DSLNodeSourceSelector withoutCharacteristic(String characteristicType,
             ConstraintVariableReference characteristicValueVariable) {
-        this.analysisConstraint.addNodeSourceSelector(new VertexCharacteristicsSelector(analysisConstraint.getContext(),
+        AbstractSelector selector = new VertexCharacteristicsSelector(analysisConstraint.getContext(),
                 new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
                         characteristicValueVariable),
-                false, true));
+                false, true);
+        if (!(this.analysisConstraint.getSourceSelector() instanceof AnySelector)) {
+            AndLogicalOperator operator = new AndLogicalOperator(this.analysisConstraint.getSourceSelector(), selector,
+                    analysisConstraint.getContext());
+            this.analysisConstraint.setSourceSelector(operator);
+        } else {
+            this.analysisConstraint.setSourceSelector(selector);
+        }
         return this;
     }
 
@@ -109,8 +147,14 @@ public class DSLNodeSourceSelector {
         characteristicValues.forEach(it -> data.add(
                 new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
                         ConstraintVariableReference.ofConstant(List.of(it)))));
-        this.analysisConstraint.addNodeSourceSelector(
-                new VertexCharacteristicsListSelector(analysisConstraint.getContext(), data, true));
+        AbstractSelector selector = new VertexCharacteristicsListSelector(analysisConstraint.getContext(), data, true);
+        if (!(this.analysisConstraint.getSourceSelector() instanceof AnySelector)) {
+            AndLogicalOperator operator = new AndLogicalOperator(this.analysisConstraint.getSourceSelector(), selector,
+                    analysisConstraint.getContext());
+            this.analysisConstraint.setSourceSelector(operator);
+        } else {
+            this.analysisConstraint.setSourceSelector(selector);
+        }
         return this;
     }
 
@@ -119,9 +163,15 @@ public class DSLNodeSourceSelector {
      * @param vertexType Type of the vertex the vertices must have
      * @return Returns a dsl node source selector to add more constraints
      */
-    public DSLNodeSourceSelector withType(VertexType vertexType) {
-        this.analysisConstraint.addNodeSourceSelector(
-                new VertexTypeSelector(analysisConstraint.getContext(), vertexType, false, true));
+    public DSLNodeSourceSelector withType(org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexType vertexType) {
+        AbstractSelector selector = new VertexTypeSelector(analysisConstraint.getContext(), vertexType, false, true);
+        if (!(this.analysisConstraint.getSourceSelector() instanceof AnySelector)) {
+            AndLogicalOperator operator = new AndLogicalOperator(this.analysisConstraint.getSourceSelector(), selector,
+                    analysisConstraint.getContext());
+            this.analysisConstraint.setSourceSelector(operator);
+        } else {
+            this.analysisConstraint.setSourceSelector(selector);
+        }
         return this;
     }
 
@@ -130,9 +180,15 @@ public class DSLNodeSourceSelector {
      * @param vertexType Type of the vertex the vertices must not have
      * @return Returns a dsl node source selector to add more constraints
      */
-    public DSLNodeSourceSelector withoutType(VertexType vertexType) {
-        this.analysisConstraint
-                .addNodeSourceSelector(new VertexTypeSelector(analysisConstraint.getContext(), vertexType, true, true));
+    public DSLNodeSourceSelector withoutType(org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexType vertexType) {
+        AbstractSelector selector = new VertexTypeSelector(analysisConstraint.getContext(), vertexType, true, true);
+        if (!(this.analysisConstraint.getSourceSelector() instanceof AnySelector)) {
+            AndLogicalOperator operator = new AndLogicalOperator(this.analysisConstraint.getSourceSelector(), selector,
+                    analysisConstraint.getContext());
+            this.analysisConstraint.setSourceSelector(operator);
+        } else {
+            this.analysisConstraint.setSourceSelector(selector);
+        }
         return this;
     }
 

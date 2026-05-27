@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.dsl.selectors;
+package org.dataflowanalysis.analysis.dsl.selectors.data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,10 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
+import org.dataflowanalysis.analysis.dsl.AbstractParseable;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
+import org.dataflowanalysis.analysis.dsl.selectors.CharacteristicsSelectorData;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
@@ -31,7 +34,7 @@ public class DataCharacteristicsSelector extends DataSelector {
     }
 
     @Override
-    public boolean matches(AbstractVertex<?> vertex) {
+    public boolean matchesSource(AbstractVertex<?> vertex, DSLConstraintTrace dslConstraintTrace) {
         List<String> variableNames = vertex.getAllIncomingDataCharacteristics()
                 .stream()
                 .map(DataCharacteristic::variableName)
@@ -67,6 +70,12 @@ public class DataCharacteristicsSelector extends DataSelector {
                         .anyMatch(it -> it);
     }
 
+    @Override
+    public boolean matchesDestination(AbstractVertex<?> vertex, DSLConstraintTrace dslConstraintTrace) {
+        // TODO: Can I handle inter TFG flow here?
+        throw new IllegalStateException("Not yet implemented!");
+    }
+
     public boolean isInverted() {
         return inverted;
     }
@@ -74,9 +83,9 @@ public class DataCharacteristicsSelector extends DataSelector {
     @Override
     public String toString() {
         if (this.inverted) {
-            return DSL_INVERTED_SYMBOL + dataCharacteristic.toString();
+            return super.toString() + " " + AbstractParseable.DSL_INVERTED_SYMBOL + dataCharacteristic.toString();
         } else {
-            return dataCharacteristic.toString();
+            return super.toString() + " " + dataCharacteristic.toString();
         }
     }
 
@@ -87,7 +96,7 @@ public class DataCharacteristicsSelector extends DataSelector {
      * @param string String view on the string that is parsed
      * @return {@link ParseResult} containing the {@link DataCharacteristicsSelector} object
      */
-    public static ParseResult<DataCharacteristicsSelector> fromString(StringView string, DSLContext context) {
+    public static ParseResult<DataSelector> fromString(StringView string, DSLContext context) {
         string.skipWhitespace();
         if (string.invalid() || string.empty()) {
             return ParseResult.error("Cannot parse data characteristic selector from empty or invalid string!");
@@ -95,9 +104,9 @@ public class DataCharacteristicsSelector extends DataSelector {
         logger.debug("Parsing: " + string.getString());
         int position = string.getPosition();
         boolean inverted = string.getString()
-                .startsWith(DSL_INVERTED_SYMBOL);
+                .startsWith(AbstractParseable.DSL_INVERTED_SYMBOL);
         if (inverted)
-            string.advance(DSL_INVERTED_SYMBOL.length());
+            string.advance(AbstractParseable.DSL_INVERTED_SYMBOL.length());
         ParseResult<CharacteristicsSelectorData> selectorData = CharacteristicsSelectorData.fromString(string);
         if (selectorData.failed()) {
             string.setPosition(position);

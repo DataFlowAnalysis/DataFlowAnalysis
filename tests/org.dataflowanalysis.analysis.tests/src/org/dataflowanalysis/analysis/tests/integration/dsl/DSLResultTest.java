@@ -15,12 +15,8 @@ import org.dataflowanalysis.analysis.dsl.SimpleAnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
 import org.dataflowanalysis.analysis.dsl.query.QueryDSL;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
-import org.dataflowanalysis.analysis.dsl.selectors.CharacteristicsSelectorData;
-import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.Intersection;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.conditional.Intersection;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariable;
-import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
 import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.dsl.PCMDSLContextProvider;
 import org.dataflowanalysis.analysis.pcm.dsl.PCMVertexType;
@@ -84,33 +80,6 @@ public class DSLResultTest extends BaseTest {
                 .getScenarioBehaviour_AbstractUserAction()
                 .getUsageScenario_SenarioBehaviour()
                 .getEntityName());
-    }
-
-    @Test
-    public void testDataObjects() {
-        AnalysisConstraint constraint = new AdvancedAnalysisConstraint("default");
-        constraint.addDataSourceSelector(new DataCharacteristicsSelector(constraint.getContext(),
-                new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("DataSensitivity")),
-                        ConstraintVariableReference.ofConstant(List.of("Personal")))));
-        constraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(constraint.getContext(),
-                new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("ServerLocation")),
-                        ConstraintVariableReference.ofConstant(List.of("nonEU")))));
-
-        evaluateAnalysis(constraint, internationalOnlineShopAnalysis,
-                ConstraintViolations.internationalOnlineShopViolations);
-    }
-
-    @Test
-    public void testStringify() {
-        AnalysisConstraint constraint = new SimpleAnalysisConstraint("testDSL");
-        constraint.addDataSourceSelector(new DataCharacteristicsSelector(constraint.getContext(),
-                new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("DataSensitivity")),
-                        ConstraintVariableReference.ofConstant(List.of("Personal")))));
-        constraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(constraint.getContext(),
-                new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of("ServerLocation")),
-                        ConstraintVariableReference.ofConstant(List.of("nonEU")))));
-        assertEquals("- testDSL: data DataSensitivity.Personal neverFlows vertex ServerLocation.nonEU",
-                constraint.toString());
     }
 
     @Test

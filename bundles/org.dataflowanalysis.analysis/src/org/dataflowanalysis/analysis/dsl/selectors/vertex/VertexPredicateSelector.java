@@ -1,10 +1,9 @@
-package org.dataflowanalysis.analysis.dsl.selectors;
+package org.dataflowanalysis.analysis.dsl.selectors.vertex;
 
-import java.util.List;
 import java.util.function.Predicate;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
 
 public class VertexPredicateSelector extends VertexSelector {
     private final Predicate<AbstractVertex<?>> predicate;
@@ -15,7 +14,12 @@ public class VertexPredicateSelector extends VertexSelector {
     }
 
     @Override
-    public boolean matches(AbstractVertex<?> vertex, List<CharacteristicValue> presentCharacteristics) {
+    public boolean matchesSource(AbstractVertex<?> vertex, DSLConstraintTrace dslConstraintTrace) {
+        return predicate.test(vertex);
+    }
+
+    @Override
+    public boolean matchesDestination(AbstractVertex<?> vertex, DSLConstraintTrace dslConstraintTrace) {
         return predicate.test(vertex);
     }
 }

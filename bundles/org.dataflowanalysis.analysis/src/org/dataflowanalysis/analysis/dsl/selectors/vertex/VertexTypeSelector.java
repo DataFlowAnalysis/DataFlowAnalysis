@@ -1,10 +1,10 @@
-package org.dataflowanalysis.analysis.dsl.selectors;
+package org.dataflowanalysis.analysis.dsl.selectors.vertex;
 
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
@@ -39,24 +39,29 @@ public class VertexTypeSelector extends VertexSelector {
     }
 
     @Override
-    public boolean matches(AbstractVertex<?> vertex, List<CharacteristicValue> presentCharacteristics) {
-        if (this.recursive) {
-            return this.inverted ? !this.vertexType.matches(vertex) && vertex.getPreviousElements()
-                    .stream()
-                    .noneMatch(this::matches)
-                    : this.vertexType.matches(vertex) || vertex.getPreviousElements()
-                            .stream()
-                            .anyMatch(this::matches);
-        }
-        return this.inverted ? !this.vertexType.matches(vertex) : this.vertexType.matches(vertex);
+    public boolean matchesSource(AbstractVertex<?> vertex, DSLConstraintTrace dslConstraintTrace) {
+        return this.matches(vertex, dslConstraintTrace, vertex.getPreviousVertexInformation()
+                .getPreviousVertexTypes()
+                .stream()
+                .toList());
+    }
+
+    @Override
+    public boolean matchesDestination(AbstractVertex<?> vertex, DSLConstraintTrace dslConstraintTrace) {
+        return this.matches(vertex, dslConstraintTrace, vertex.getVertexTypes());
+    }
+
+    public boolean matches(AbstractVertex<?> vertex, DSLConstraintTrace dslConstraintTrace,
+            List<VertexType> vertexTypes) {
+        return this.inverted ? !vertexTypes.contains(this.vertexType) : vertexTypes.contains(this.vertexType);
     }
 
     @Override
     public String toString() {
         if (this.inverted) {
-            return DSL_KEYWORD + " " + DSL_INVERTED_SYMBOL + this.vertexType.toString();
+            return super.toString() + " " + DSL_KEYWORD + " " + DSL_INVERTED_SYMBOL + this.vertexType.toString();
         } else {
-            return DSL_KEYWORD + " " + this.vertexType.toString();
+            return super.toString() + " " + DSL_KEYWORD + " " + this.vertexType.toString();
         }
     }
 
@@ -67,7 +72,7 @@ public class VertexTypeSelector extends VertexSelector {
      * @param string String view on the string that is parsed
      * @return {@link ParseResult} containing the {@link VertexTypeSelector} object
      */
-    public static ParseResult<VertexTypeSelector> fromString(StringView string, DSLContext context) {
+    public static ParseResult<VertexSelector> fromString(StringView string, DSLContext context) {
         string.skipWhitespace();
         if (string.invalid() || string.empty()) {
             return ParseResult.error("Cannot parse vertex type selector from empty or invalid string!");

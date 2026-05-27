@@ -1,15 +1,16 @@
-package org.dataflowanalysis.analysis.dsl.selectors;
+package org.dataflowanalysis.analysis.dsl.selectors.vertex;
 
+import java.util.Collections;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.core.CharacteristicValue;
+import org.dataflowanalysis.analysis.dsl.AbstractParseable;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
+import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
-import org.palladiosimulator.pcm.core.entity.Entity;
-import tools.mdsd.modelingfoundations.identifier.NamedElement;
 
 public class VertexNameSelector extends VertexSelector {
     private static final String DSL_KEYWORD = "name";
@@ -46,28 +47,37 @@ public class VertexNameSelector extends VertexSelector {
     }
 
     @Override
-    public boolean matches(AbstractVertex<?> vertex, List<CharacteristicValue> presentCharacteristics) {
-        String vertexName;
-        if (vertex.getReferencedElement() instanceof NamedElement namedElement) {
-            vertexName = namedElement.getEntityName();
-        } else if (vertex.getReferencedElement() instanceof Entity pcmEntity) {
-            vertexName = pcmEntity.getEntityName();
-        } else {
-            return false;
-        }
-        boolean nameMatches = this.contains ? vertexName.contains(this.name) : vertexName.equalsIgnoreCase(this.name);
+    public boolean matchesSource(AbstractVertex<?> vertex, DSLConstraintTrace dslConstraintTrace) {
+        return this.matches(vertex, vertex.getPreviousVertexInformation()
+                .getPreviousVertexNames()
+                .stream()
+                .toList(), dslConstraintTrace);
+    }
+
+    @Override
+    public boolean matchesDestination(AbstractVertex<?> vertex, DSLConstraintTrace dslConstraintTrace) {
+        return this.matches(vertex, Collections.singletonList(vertex.getName()), dslConstraintTrace);
+    }
+
+    private boolean matches(AbstractVertex<?> vertex, List<String> vertexNames, DSLConstraintTrace dslConstraintTrace) {
+        boolean nameMatches = this.contains ? vertexNames.stream()
+                .anyMatch(it -> it.contains(this.name))
+                : vertexNames.stream()
+                        .anyMatch(it -> it.equalsIgnoreCase(this.name));
         return this.inverted != nameMatches;
     }
 
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(super.toString());
+        stringBuilder.append(" ");
         if (this.inverted)
-            stringBuilder.append(DSL_INVERTED_SYMBOL + " ");
+            stringBuilder.append(AbstractParseable.DSL_INVERTED_SYMBOL + " ");
         stringBuilder.append(DSL_KEYWORD);
         stringBuilder.append(" ");
         if (this.contains)
-            stringBuilder.append(DSL_CONTAINS + " ");
+            stringBuilder.append(AbstractSelector.DSL_CONTAINS + " ");
         stringBuilder.append(this.name);
         return stringBuilder.toString();
     }
@@ -79,7 +89,7 @@ public class VertexNameSelector extends VertexSelector {
      * @param string String view on the string that is parsed
      * @return {@link ParseResult} containing the {@link VertexNameSelector} object
      */
-    public static ParseResult<VertexNameSelector> fromString(StringView string, DSLContext context) {
+    public static ParseResult<VertexSelector> fromString(StringView string, DSLContext context) {
         string.skipWhitespace();
         if (string.invalid() || string.empty()) {
             return ParseResult.error("Cannot parse vertex name selector from empty or invalid string!");
@@ -87,10 +97,16 @@ public class VertexNameSelector extends VertexSelector {
         logger.debug("Parsing: " + string.getString());
         int position = string.getPosition();
         boolean inverted = false;
-        if (string.startsWith(DSL_INVERTED_SYMBOL)) {
-            string.advance(DSL_INVERTED_SYMBOL.length());
+        if (string.startsWith(AbstractParseable.DSL_INVERTED_SYMBOL)) {
+            string.advance(AbstractParseable.DSL_INVERTED_SYMBOL.length());
             inverted = true;
         }
+
+        if (string.invalid() || string.empty()) {
+            string.setPosition(position);
+            return ParseResult.error("Cannot parse vertex name selector from empty or invalid string!");
+        }
+
         if (!string.startsWith(DSL_KEYWORD)) {
             return string.expect(DSL_KEYWORD);
         }
@@ -103,8 +119,8 @@ public class VertexNameSelector extends VertexSelector {
         }
 
         boolean contains = false;
-        if (string.startsWith(DSL_CONTAINS)) {
-            string.advance(DSL_CONTAINS.length());
+        if (string.startsWith(AbstractSelector.DSL_CONTAINS)) {
+            string.advance(AbstractSelector.DSL_CONTAINS.length());
             contains = true;
         }
         string.skipWhitespace();

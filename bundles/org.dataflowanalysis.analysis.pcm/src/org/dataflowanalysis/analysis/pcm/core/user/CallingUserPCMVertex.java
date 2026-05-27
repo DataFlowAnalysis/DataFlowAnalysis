@@ -1,16 +1,17 @@
 package org.dataflowanalysis.analysis.pcm.core.user;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
+import org.dataflowanalysis.analysis.core.VertexInformation;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexType;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.CallReturnBehavior;
+import org.dataflowanalysis.analysis.pcm.dsl.PCMVertexType;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
@@ -40,9 +41,9 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
     public void evaluateDataFlow() {
         List<DataCharacteristic> incomingDataCharacteristics = this.getIncomingDataCharacteristics();
         List<CharacteristicValue> vertexCharacteristics = this.getVertexCharacteristics();
-        Set<CharacteristicValue> previousVertexCharacteristics = new HashSet<>(vertexCharacteristics);
+        VertexInformation vertexInformation = VertexInformation.fromVertex(vertexCharacteristics, this);
         this.getPreviousElements()
-                .forEach(vertex -> previousVertexCharacteristics.addAll(vertex.getAllPreviousVertexCharacteristics()));
+                .forEach(vertexInformation::extendInformation);
 
         List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.getVariableCharacterizations();
 
@@ -60,7 +61,7 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
                     .collect(Collectors.toList());
         }
         this.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics,
-                previousVertexCharacteristics);
+                vertexInformation);
     }
 
     /**
@@ -80,6 +81,11 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
                 .filter(ConfidentialityVariableCharacterisation.class::isInstance)
                 .map(ConfidentialityVariableCharacterisation.class::cast)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<VertexType> getVertexTypes() {
+        return List.of(PCMVertexType.USER, this.isCalling ? PCMVertexType.CALLING : PCMVertexType.RETURNING);
     }
 
     @Override

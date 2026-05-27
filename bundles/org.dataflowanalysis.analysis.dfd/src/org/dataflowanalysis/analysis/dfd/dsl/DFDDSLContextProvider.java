@@ -1,7 +1,7 @@
 package org.dataflowanalysis.analysis.dfd.dsl;
 
 import org.dataflowanalysis.analysis.dsl.context.DSLContextProvider;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexType;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexType;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 

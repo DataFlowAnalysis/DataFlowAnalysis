@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.stream.Stream;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
-import org.dataflowanalysis.analysis.dsl.logic.LogicalOperator;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.logic.LogicalOperator;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,10 +17,9 @@ public class LogicDSLTest {
     @MethodSource("correctLogicOperators")
     public void shouldParseCorrectly(String logicOperator) {
         StringView string = new StringView(logicOperator);
-        ParseResult<? extends AbstractSelector> vertexCharacteristicsSelector = LogicalOperator.fromString(string,
-                new DSLContext(), true);
-        if (vertexCharacteristicsSelector.failed()) {
-            fail(vertexCharacteristicsSelector.getError());
+        ParseResult<? extends AbstractSelector> selector = LogicalOperator.fromString(string, new DSLContext());
+        if (selector.failed()) {
+            fail(selector.getError());
         }
         assertTrue(string.empty());
     }
@@ -30,18 +29,19 @@ public class LogicDSLTest {
     public void shouldNotParse(String variableReference) {
         StringView string = new StringView(variableReference);
         ParseResult<? extends AbstractSelector> vertexCharacteristicsSelector = LogicalOperator.fromString(string,
-                new DSLContext(), true);
+                new DSLContext());
         assertTrue(vertexCharacteristicsSelector.failed());
         assertEquals(0, string.getPosition());
     }
 
     private static Stream<Arguments> correctLogicOperators() {
-        return Stream.of(Arguments.of("A.B"), Arguments.of("A.B | C.D"), Arguments.of("!A.B ^ C.D"),
-                Arguments.of("!A.B | C.D & E.F"), Arguments.of("!A.B | (C.D & E.F)"));
+        return Stream.of(Arguments.of("vertex A.B"), Arguments.of("vertex A.B or vertex C.D"),
+                Arguments.of("vertex !A.B xor vertex C.D"), Arguments.of("vertex !A.B or vertex C.D and vertex E.F"),
+                Arguments.of("vertex !A.B or (vertex C.D and vertex E.F)"));
     }
 
     private static Stream<Arguments> incorrectLogicOperators() {
-        return Stream.of(Arguments.of(".B &"), Arguments.of("!.B"), Arguments.of("A."), Arguments.of("!"),
-                Arguments.of("!. |"));
+        return Stream.of(Arguments.of("vertex .B and"), Arguments.of("vertex !.B"), Arguments.of("vertex A."),
+                Arguments.of("vertex !"), Arguments.of("vertex !. or"));
     }
 }

@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 import org.apache.log4j.Level;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
+import org.dataflowanalysis.analysis.core.VertexInformation;
 import org.dataflowanalysis.analysis.tests.unit.mock.CharacteristicsFactory;
 import org.dataflowanalysis.analysis.tests.unit.mock.DummyCharacteristicValue;
 import org.dataflowanalysis.analysis.tests.unit.mock.DummyVertex;
@@ -45,9 +46,9 @@ public class VertexTest {
         var outgoingCharacteristics = List.of(CharacteristicsFactory.of("outgoing")
                 .with("Type.Value"));
         List<CharacteristicValue> vertexCharacteristics = List.of(DummyCharacteristicValue.fromString("Type.Value"));
-        Set<CharacteristicValue> previousVertexCharacteristics = Set.of();
+        VertexInformation vertexInformation = new VertexInformation(Set.of(), Set.of(), Set.of());
         assertDoesNotThrow(() -> vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics,
-                vertexCharacteristics, previousVertexCharacteristics));
+                vertexCharacteristics, vertexInformation));
     }
 
     @Test
@@ -58,17 +59,17 @@ public class VertexTest {
         var outgoingCharacteristics = List.of(CharacteristicsFactory.of("outgoing")
                 .with("Type.Value"));
         List<CharacteristicValue> vertexCharacteristics = List.of(DummyCharacteristicValue.fromString("Type.Value"));
-        Set<CharacteristicValue> previousVertexCharacteristics = Set.of();
+        VertexInformation vertexInformation = new VertexInformation(Set.of(), Set.of(), Set.of());
         try {
             vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics, vertexCharacteristics,
-                    previousVertexCharacteristics);
+                    vertexInformation);
         } catch (Exception e) {
             fail(e);
         }
         LoggerManager.getInstance()
                 .setLevel(Level.OFF);
         assertThrowsExactly(IllegalArgumentException.class, () -> vertex.setPropagationResult(incomingCharacteristics,
-                outgoingCharacteristics, vertexCharacteristics, previousVertexCharacteristics));
+                outgoingCharacteristics, vertexCharacteristics, vertexInformation));
         LoggerManager.getInstance()
                 .resetLevel();
     }
@@ -81,11 +82,11 @@ public class VertexTest {
         var outgoingCharacteristics = List.of(CharacteristicsFactory.of("outgoing")
                 .with("Type.Value"));
         List<CharacteristicValue> vertexCharacteristics = List.of(DummyCharacteristicValue.fromString("Type.Value"));
-        Set<CharacteristicValue> previousVertexCharacteristics = Set.of();
+        VertexInformation vertexInformation = new VertexInformation(Set.of(), Set.of(), Set.of());
         assertFalse(vertex.isEvaluated());
         try {
             vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics, vertexCharacteristics,
-                    previousVertexCharacteristics);
+                    vertexInformation);
         } catch (Exception e) {
             fail(e);
         }
@@ -107,11 +108,11 @@ public class VertexTest {
         var outgoingCharacteristics = List.of(CharacteristicsFactory.of("outgoing")
                 .with("Type.Value"));
         List<CharacteristicValue> vertexCharacteristics = List.of(DummyCharacteristicValue.fromString("Type.Value"));
-        Set<CharacteristicValue> previousVertexCharacteristics = Set.of();
+        VertexInformation vertexInformation = new VertexInformation(Set.of(), Set.of(), Set.of());
         assertFalse(vertex.isEvaluated());
         try {
             vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics, vertexCharacteristics,
-                    previousVertexCharacteristics);
+                    vertexInformation);
         } catch (Exception e) {
             fail(e);
         }
@@ -145,11 +146,11 @@ public class VertexTest {
         var outgoingCharacteristics = List.of(CharacteristicsFactory.of("outgoing")
                 .with("Type.Value"));
         List<CharacteristicValue> vertexCharacteristics = List.of(DummyCharacteristicValue.fromString("Type.Value"));
-        Set<CharacteristicValue> previousVertexCharacteristics = Set.of();
+        VertexInformation vertexInformation = new VertexInformation(Set.of(), Set.of(), Set.of());
         assertFalse(vertex.isEvaluated());
         try {
             vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics, vertexCharacteristics,
-                    previousVertexCharacteristics);
+                    vertexInformation);
         } catch (Exception e) {
             fail(e);
         }
@@ -183,11 +184,11 @@ public class VertexTest {
         var outgoingCharacteristics = List.of(CharacteristicsFactory.of("outgoing")
                 .with("Type.Value"));
         List<CharacteristicValue> vertexCharacteristics = List.of(DummyCharacteristicValue.fromString("Type.Value"));
-        Set<CharacteristicValue> previousVertexCharacteristics = Set.of();
+        VertexInformation vertexInformation = new VertexInformation(Set.of(), Set.of(), Set.of());
         assertFalse(vertex.isEvaluated());
         try {
             vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics, vertexCharacteristics,
-                    previousVertexCharacteristics);
+                    vertexInformation);
         } catch (Exception e) {
             fail(e);
         }
@@ -216,11 +217,11 @@ public class VertexTest {
         var outgoingCharacteristics = List.of(CharacteristicsFactory.of("outgoing")
                 .with("Type.Value"));
         List<CharacteristicValue> vertexCharacteristics = List.of(DummyCharacteristicValue.fromString("Type.Value"));
-        Set<CharacteristicValue> previousVertexCharacteristics = Set.of();
+        VertexInformation vertexInformation = new VertexInformation(Set.of(), Set.of(), Set.of());
         assertFalse(vertex.isEvaluated());
         try {
             vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics, vertexCharacteristics,
-                    previousVertexCharacteristics);
+                    vertexInformation);
         } catch (Exception e) {
             fail(e);
         }
@@ -244,11 +245,11 @@ public class VertexTest {
         var outgoingCharacteristics = List.of(CharacteristicsFactory.of("outgoing")
                 .with("Type.Value"));
         List<CharacteristicValue> vertexCharacteristics = List.of(DummyCharacteristicValue.fromString("Type.Value"));
-        Set<CharacteristicValue> previousVertexCharacteristics = Set.of();
+        VertexInformation vertexInformation = new VertexInformation(Set.of(), Set.of(), Set.of());
         assertFalse(vertex.isEvaluated());
         try {
             vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics, vertexCharacteristics,
-                    previousVertexCharacteristics);
+                    vertexInformation);
         } catch (Exception e) {
             fail(e);
         }
@@ -285,11 +286,11 @@ public class VertexTest {
         var outgoingCharacteristics = List.of(CharacteristicsFactory.of("outgoing")
                 .with("Type.Value"));
         List<CharacteristicValue> vertexCharacteristics = List.of(DummyCharacteristicValue.fromString("Type.Value"));
-        Set<CharacteristicValue> previousVertexCharacteristics = Set.of();
+        VertexInformation vertexInformation = new VertexInformation(Set.of(), Set.of(), Set.of());
         assertFalse(vertex.isEvaluated());
         try {
             vertex.setPropagationResult(incomingCharacteristics, outgoingCharacteristics, vertexCharacteristics,
-                    previousVertexCharacteristics);
+                    vertexInformation);
         } catch (Exception e) {
             fail(e);
         }

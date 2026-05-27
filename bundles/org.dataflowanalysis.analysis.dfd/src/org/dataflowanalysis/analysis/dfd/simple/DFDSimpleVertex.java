@@ -15,7 +15,10 @@ import java.util.stream.Collectors;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
+import org.dataflowanalysis.analysis.core.VertexInformation;
 import org.dataflowanalysis.analysis.dfd.core.DFDCharacteristicValue;
+import org.dataflowanalysis.analysis.dfd.dsl.DFDVertexType;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexType;
 import org.dataflowanalysis.dfd.datadictionary.AND;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Assignment;
@@ -66,9 +69,10 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
         previousVertices.forEach(DFDSimpleVertex::evaluateDataFlow);
 
         List<CharacteristicValue> vertexCharacteristics = determineNodeCharacteristics();
+        VertexInformation vertexInformation = VertexInformation.fromVertex(vertexCharacteristics, this);
         Set<CharacteristicValue> previousVertexCharacteristics = new HashSet<>(vertexCharacteristics);
         this.getPreviousElements()
-                .forEach(vertex -> previousVertexCharacteristics.addAll(vertex.getAllPreviousVertexCharacteristics()));
+                .forEach(vertexInformation::extendInformation);
 
         List<DataCharacteristic> incomingCharacteristics = previousVertices.stream()
                 .map(AbstractVertex::getAllOutgoingDataCharacteristics)
@@ -84,7 +88,7 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
                 this.createDataCharacteristicsFromLabels(outgoingLabelPerPin));
 
         this.setPropagationResult(incomingCharacteristics, outgoingDataCharacteristics, vertexCharacteristics,
-                previousVertexCharacteristics);
+                vertexInformation);
     }
 
     /**
@@ -318,5 +322,10 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
     public String getName() {
         return this.getReferencedElement()
                 .getEntityName();
+    }
+
+    @Override
+    public List<VertexType> getVertexTypes() {
+        return DFDVertexType.fromElement(this.referencedElement);
     }
 }

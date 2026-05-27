@@ -3,7 +3,6 @@ package org.dataflowanalysis.analysis.dsl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
-import java.util.stream.Stream;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractTransposeFlowGraph;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
@@ -11,12 +10,11 @@ import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.context.DSLContextProvider;
 import org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors;
-import org.dataflowanalysis.analysis.dsl.groups.DestinationSelectors;
-import org.dataflowanalysis.analysis.dsl.groups.SourceSelectors;
 import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.AnySelector;
+import org.dataflowanalysis.analysis.dsl.selectors.conditional.ConditionalSelector;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
@@ -31,10 +29,8 @@ public class SimpleAnalysisConstraint extends AnalysisConstraint {
         super(name);
     }
 
-    public SimpleAnalysisConstraint(String name,
-            org.dataflowanalysis.analysis.dsl.groups.SourceSelectors sourceSelectors,
-            DestinationSelectors destinationSelectors,
-            org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors conditionalSelectors, DSLContext context) {
+    public SimpleAnalysisConstraint(String name, AbstractSelector sourceSelectors,
+            AbstractSelector destinationSelectors, ConditionalSelectors conditionalSelectors, DSLContext context) {
         super(name, sourceSelectors, FlowType.NEVER_FLOWS, destinationSelectors, conditionalSelectors, context);
     }
 
@@ -45,16 +41,11 @@ public class SimpleAnalysisConstraint extends AnalysisConstraint {
             List<AbstractVertex<?>> violations = new ArrayList<>();
             for (AbstractVertex<?> vertex : transposeFlowGraph.getVertices()) {
                 boolean matched = true;
-                for (AbstractSelector selector : Stream.concat(super.sourceSelectors.getSelectors()
-                        .stream(),
-                        super.destinationSelectors.getSelectors()
-                                .stream())
-                        .toList()) {
-                    if (!selector.matches(vertex)) {
-                        logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, selector));
-                        matched = false;
-                        constraintTrace.addMissingSelector(vertex, selector);
-                    }
+                if (super.sourceSelector.matchesSource(vertex, constraintTrace)) {
+                    matched = false;
+                }
+                if (super.destinationSelector.matchesDestination(vertex, constraintTrace)) {
+                    matched = false;
                 }
                 for (ConditionalSelector selector : this.conditionalSelectors.getSelectors()) {
                     if (!selector.matchesSelector(vertex, context)) {
@@ -82,9 +73,9 @@ public class SimpleAnalysisConstraint extends AnalysisConstraint {
         StringJoiner dslString = new StringJoiner(" ");
         dslString.add(SIMPLE_DSL_TOKEN);
         dslString.add(this.name + DSL_NAME_SEPARATOR);
-        dslString.add(sourceSelectors.toString());
+        dslString.add(sourceSelector.toString());
         dslString.add(FlowType.NEVER_FLOWS.toString());
-        dslString.add(destinationSelectors.toString());
+        dslString.add(destinationSelector.toString());
         if (!this.conditionalSelectors.getSelectors()
                 .isEmpty()) {
             dslString.add(this.conditionalSelectors.toString());
@@ -114,9 +105,10 @@ public class SimpleAnalysisConstraint extends AnalysisConstraint {
         }
         string.advance(DSL_NAME_SEPARATOR.length() + 1);
         string.skipWhitespace();
-        var sourceSelectors = SourceSelectors.fromString(string, context);
-        if (sourceSelectors.failed()) {
-            return ParseResult.error(sourceSelectors.getError());
+
+        var sourceSelector = AbstractSelector.fromString(string, context);
+        if (sourceSelector.failed()) {
+            return ParseResult.error(sourceSelector.getError());
         }
         string.skipWhitespace();
         var flowType = FlowType.fromString(string);
@@ -126,42 +118,33 @@ public class SimpleAnalysisConstraint extends AnalysisConstraint {
         }
         string.skipWhitespace();
         if (string.empty()) {
-            return ParseResult
-                    .ok(new SimpleAnalysisConstraint(name, sourceSelectors.getResult(), new DestinationSelectors(),
-                            new org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors(), context));
+            return ParseResult.ok(new SimpleAnalysisConstraint(name, sourceSelector.getResult(),
+                    new AnySelector(context), new ConditionalSelectors(), context));
         }
 
-        ParseResult<DestinationSelectors> destinationSelectorsParseResult = DestinationSelectors.fromString(string,
-                context);
-        if (destinationSelectorsParseResult.failed()) {
-            return ParseResult.error(destinationSelectorsParseResult.getError());
+        var destinationSelector = AbstractSelector.fromString(string, context);
+        if (destinationSelector.failed()) {
+            return ParseResult.error(destinationSelector.getError());
         }
-        DestinationSelectors destinationSelectors = destinationSelectorsParseResult.getResult();
+        AbstractSelector destinationSelectors = destinationSelector.getResult();
 
         string.skipWhitespace();
-        ParseResult<org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors> conditionalSelectorsParseResult = org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors
-                .fromString(string, context);
-        org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors conditionalSelectors = conditionalSelectorsParseResult
-                .or(new ConditionalSelectors());
+        ParseResult<ConditionalSelectors> conditionalSelectorsParseResult = ConditionalSelectors.fromString(string,
+                context);
+        ConditionalSelectors conditionalSelectors = conditionalSelectorsParseResult.or(new ConditionalSelectors());
 
         string.skipWhitespace();
         if (!string.empty()) {
             return ParseResult.error("Unexpected symbols: " + string.getString());
         }
-        if (!sourceSelectors.getResult()
-                .getVertexSourceSelectors()
-                .getSelectors()
-                .isEmpty()
-                && !destinationSelectors.getSelectors()
-                        .isEmpty()
-                && sourceSelectors.getResult()
-                        .getDataSourceSelectors()
-                        .getSelectors()
-                        .isEmpty()) {
+        if (!sourceSelector.getResult()
+                .hasVertexSelector()
+                && !(destinationSelectors.hasDataSelector() || sourceSelector.getResult()
+                        .hasDataSelector())) {
             return ParseResult.error(
                     "Cannot create DSL constraint from purely vertex selectors! This behavior is not implemented yet!");
         }
-        return ParseResult.ok(new SimpleAnalysisConstraint(name, sourceSelectors.getResult(), destinationSelectors,
+        return ParseResult.ok(new SimpleAnalysisConstraint(name, sourceSelector.getResult(), destinationSelectors,
                 conditionalSelectors, context));
     }
 

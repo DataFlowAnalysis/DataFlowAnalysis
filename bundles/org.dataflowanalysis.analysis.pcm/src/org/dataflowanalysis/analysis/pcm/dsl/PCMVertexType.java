@@ -1,7 +1,7 @@
 package org.dataflowanalysis.analysis.pcm.dsl;
 
 import org.dataflowanalysis.analysis.core.AbstractVertex;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexType;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexType;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.CallReturnBehavior;
 import org.dataflowanalysis.analysis.pcm.core.seff.SEFFPCMVertex;

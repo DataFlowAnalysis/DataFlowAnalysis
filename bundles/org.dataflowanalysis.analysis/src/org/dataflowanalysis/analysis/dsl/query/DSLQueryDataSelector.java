@@ -1,9 +1,15 @@
 package org.dataflowanalysis.analysis.dsl.query;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.dataflowanalysis.analysis.dsl.AnalysisQuery;
+import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.AnySelector;
 import org.dataflowanalysis.analysis.dsl.selectors.CharacteristicsSelectorData;
-import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.data.DataCharacteristicListSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.data.DataCharacteristicsSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.logic.AndLogicalOperator;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
 
 public class DSLQueryDataSelector {
@@ -14,44 +20,72 @@ public class DSLQueryDataSelector {
     }
 
     public DSLQueryDataSelector withLabel(String characteristicType, String characteristicValue) {
-        this.analysisQuery.addFlowSource(new DataCharacteristicsSelector(analysisQuery.getContext(),
+        AbstractSelector selector = new DataCharacteristicsSelector(analysisQuery.getContext(),
                 new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
-                        ConstraintVariableReference.ofConstant(List.of(characteristicValue)))));
+                        ConstraintVariableReference.ofConstant(List.of(characteristicValue))));
+        if (this.analysisQuery.getDataSources() instanceof AnySelector) {
+            this.analysisQuery.setDataSources(selector);
+        } else {
+            this.analysisQuery.setDataSources(new AndLogicalOperator(this.analysisQuery.getDataSources(), selector,
+                    this.analysisQuery.getContext()));
+        }
         return this;
     }
 
     public DSLQueryDataSelector withLabel(String characteristicType,
             ConstraintVariableReference characteristicValueVariable) {
-        this.analysisQuery.addFlowSource(new DataCharacteristicsSelector(analysisQuery.getContext(),
+        AbstractSelector selector = new DataCharacteristicsSelector(analysisQuery.getContext(),
                 new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
-                        characteristicValueVariable)));
+                        characteristicValueVariable));
+        if (this.analysisQuery.getDataSources() instanceof AnySelector) {
+            this.analysisQuery.setDataSources(selector);
+        } else {
+            this.analysisQuery.setDataSources(new AndLogicalOperator(this.analysisQuery.getDataSources(), selector,
+                    this.analysisQuery.getContext()));
+        }
         return this;
     }
 
     public DSLQueryDataSelector withLabel(String characteristicType, List<String> characteristicValues) {
-        characteristicValues.forEach(characteristicValue -> this.analysisQuery
-                .addFlowSource(new DataCharacteristicsSelector(analysisQuery.getContext(),
-                        new CharacteristicsSelectorData(
-                                ConstraintVariableReference.ofConstant(List.of(characteristicType)),
-                                ConstraintVariableReference.ofConstant(List.of(characteristicValue))))));
+        List<CharacteristicsSelectorData> characteristics = new ArrayList<>();
+        characteristicValues.forEach(characteristicValue -> characteristics.add(
+                new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
+                        ConstraintVariableReference.ofConstant(List.of(characteristicValue)))));
+        AbstractSelector selector = new DataCharacteristicListSelector(new DSLContext(), characteristics);
+        if (this.analysisQuery.getDataSources() instanceof AnySelector) {
+            this.analysisQuery.setDataSources(selector);
+        } else {
+            this.analysisQuery.setDataSources(new AndLogicalOperator(this.analysisQuery.getDataSources(), selector,
+                    this.analysisQuery.getContext()));
+        }
         return this;
     }
 
     public DSLQueryDataSelector withoutLabel(String characteristicType, String characteristicValue) {
-        this.analysisQuery.addFlowSource(new DataCharacteristicsSelector(analysisQuery.getContext(),
+        AbstractSelector selector = new DataCharacteristicsSelector(analysisQuery.getContext(),
                 new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
-                        ConstraintVariableReference.ofConstant(List.of(characteristicValue))),
-                true));
+                        ConstraintVariableReference.ofConstant(List.of(characteristicValue))));
+        if (this.analysisQuery.getDataSources() instanceof AnySelector) {
+            this.analysisQuery.setDataSources(selector);
+        } else {
+            this.analysisQuery.setDataSources(new AndLogicalOperator(this.analysisQuery.getDataSources(), selector,
+                    this.analysisQuery.getContext()));
+        }
         return this;
     }
 
     public DSLQueryDataSelector withoutLabel(String characteristicType, List<String> characteristicValues) {
-        characteristicValues.forEach(characteristicValue -> this.analysisQuery
-                .addFlowSource(new DataCharacteristicsSelector(analysisQuery.getContext(),
-                        new CharacteristicsSelectorData(
-                                ConstraintVariableReference.ofConstant(List.of(characteristicType)),
-                                ConstraintVariableReference.ofConstant(List.of(characteristicValue))),
-                        true)));
+        List<CharacteristicsSelectorData> characteristics = new ArrayList<>();
+        characteristicValues.forEach(characteristicValue -> characteristics.add(
+                new CharacteristicsSelectorData(ConstraintVariableReference.ofConstant(List.of(characteristicType)),
+                        ConstraintVariableReference.ofConstant(List.of(characteristicValue)))));
+        AbstractSelector selector = new DataCharacteristicListSelector(new DSLContext(), characteristics, true);
+        if (this.analysisQuery.getDataSources() instanceof AnySelector) {
+            this.analysisQuery.setDataSources(selector);
+        } else {
+            this.analysisQuery.setDataSources(new AndLogicalOperator(this.analysisQuery.getDataSources(), selector,
+                    this.analysisQuery.getContext()));
+        }
         return this;
     }
 

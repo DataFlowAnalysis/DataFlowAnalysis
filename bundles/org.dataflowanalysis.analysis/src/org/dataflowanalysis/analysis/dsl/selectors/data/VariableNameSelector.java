@@ -1,9 +1,10 @@
-package org.dataflowanalysis.analysis.dsl.selectors;
+package org.dataflowanalysis.analysis.dsl.selectors.data;
 
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
@@ -32,11 +33,17 @@ public class VariableNameSelector extends DataSelector {
     }
 
     @Override
-    public boolean matches(AbstractVertex<?> vertex) {
+    public boolean matchesSource(AbstractVertex<?> vertex, DSLConstraintTrace dslConstraintTrace) {
         return vertex.getAllDataCharacteristics()
                 .stream()
                 .map(DataCharacteristic::variableName)
                 .anyMatch(it -> this.contains ? it.contains(this.variableName) : it.equals(this.variableName));
+    }
+
+    @Override
+    public boolean matchesDestination(AbstractVertex<?> vertex, DSLConstraintTrace dslConstraintTrace) {
+        // TODO: Can I handle inter TFG flow here?
+        throw new IllegalStateException("Not yet implemented!");
     }
 
     /**
@@ -49,8 +56,8 @@ public class VariableNameSelector extends DataSelector {
 
     @Override
     public String toString() {
-        return this.contains ? DSL_KEYWORD + " " + DSL_CONTAINS + " " + this.variableName
-                : DSL_KEYWORD + " " + this.variableName;
+        return this.contains ? super.toString() + " " + DSL_KEYWORD + " " + DSL_CONTAINS + " " + this.variableName
+                : super.toString() + " " + DSL_KEYWORD + " " + this.variableName;
     }
 
     /**
@@ -60,7 +67,7 @@ public class VariableNameSelector extends DataSelector {
      * @param string String view on the string that is parsed
      * @return {@link ParseResult} containing the {@link VariableNameSelector} object
      */
-    public static ParseResult<VariableNameSelector> fromString(StringView string, DSLContext context) {
+    public static ParseResult<DataSelector> fromString(StringView string, DSLContext context) {
         string.skipWhitespace();
         if (string.invalid() || string.empty()) {
             return ParseResult.error("Cannot parse variable name selector from empty or invalid string!");

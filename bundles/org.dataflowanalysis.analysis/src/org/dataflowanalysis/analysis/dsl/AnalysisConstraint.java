@@ -6,16 +6,10 @@ import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.context.DSLContextProvider;
 import org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors;
-import org.dataflowanalysis.analysis.dsl.groups.DataDestinationSelectors;
-import org.dataflowanalysis.analysis.dsl.groups.DataSourceSelectors;
-import org.dataflowanalysis.analysis.dsl.groups.DestinationSelectors;
-import org.dataflowanalysis.analysis.dsl.groups.SourceSelectors;
-import org.dataflowanalysis.analysis.dsl.groups.VertexDestinationSelectors;
-import org.dataflowanalysis.analysis.dsl.groups.VertexSourceSelectors;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.AnySelector;
+import org.dataflowanalysis.analysis.dsl.selectors.conditional.ConditionalSelector;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
@@ -34,10 +28,11 @@ public abstract class AnalysisConstraint {
 
     private final Logger logger = LoggerManager.getLogger(AnalysisConstraint.class);
     protected final String name;
-    protected final org.dataflowanalysis.analysis.dsl.groups.SourceSelectors sourceSelectors;
     protected final FlowType flowType;
-    protected final DestinationSelectors destinationSelectors;
-    protected final org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors conditionalSelectors;
+
+    protected AbstractSelector sourceSelector;
+    protected AbstractSelector destinationSelector;
+    protected final ConditionalSelectors conditionalSelectors;
     protected final DSLContext context;
 
     /**
@@ -45,20 +40,20 @@ public abstract class AnalysisConstraint {
      */
     public AnalysisConstraint(String name) {
         this.name = name;
-        this.sourceSelectors = new org.dataflowanalysis.analysis.dsl.groups.SourceSelectors();
-        this.flowType = FlowType.NEVER_FLOWS;
-        this.destinationSelectors = new DestinationSelectors();
-        this.conditionalSelectors = new org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors();
         this.context = new DSLContext();
+        this.flowType = FlowType.NEVER_FLOWS;
+
+        this.sourceSelector = new AnySelector(this.context);
+        this.destinationSelector = new AnySelector(this.context);
+        this.conditionalSelectors = new ConditionalSelectors();
     }
 
-    public AnalysisConstraint(String name, SourceSelectors sourceSelectors, FlowType flowType,
-            DestinationSelectors destinationSelectors,
-            org.dataflowanalysis.analysis.dsl.groups.ConditionalSelectors conditionalSelectors, DSLContext context) {
+    public AnalysisConstraint(String name, AbstractSelector sourceSelector, FlowType flowType,
+            AbstractSelector destinationSelector, ConditionalSelectors conditionalSelectors, DSLContext context) {
         this.name = name;
-        this.sourceSelectors = sourceSelectors;
+        this.sourceSelector = sourceSelector;
         this.flowType = flowType;
-        this.destinationSelectors = destinationSelectors;
+        this.destinationSelector = destinationSelector;
         this.conditionalSelectors = conditionalSelectors;
         this.context = context;
     }
@@ -69,30 +64,6 @@ public abstract class AnalysisConstraint {
      * @return Returns a list of dsl results for each <b>violating</b> transpose flow graph
      */
     public abstract List<DSLResult> findViolations(FlowGraphCollection flowGraphCollection);
-
-    /**
-     * Adds a data source selector to the constraint
-     * @param selector Data source selector that is added to the constraint
-     */
-    public void addDataSourceSelector(AbstractSelector selector) {
-        this.sourceSelectors.addDataSourceSelector(selector);
-    }
-
-    /**
-     * Adds a node source selector to the constraint
-     * @param selector Node source selector that is added to the constraint
-     */
-    public void addNodeSourceSelector(VertexSelector selector) {
-        this.sourceSelectors.addVertexSourceSelector(selector);
-    }
-
-    /**
-     * Adds a flow destination selector to the constraint
-     * @param selector Flow destination selector that is added to the constraint
-     */
-    public void addNodeDestinationSelector(AbstractSelector selector) {
-        this.destinationSelectors.addVertexDestinationSelector(selector);
-    }
 
     /**
      * Adds a conditional selector to the constraint
@@ -138,6 +109,22 @@ public abstract class AnalysisConstraint {
         }
     }
 
+    public AbstractSelector getSourceSelector() {
+        return sourceSelector;
+    }
+
+    public AbstractSelector getDestinationSelector() {
+        return destinationSelector;
+    }
+
+    public void setSourceSelector(AbstractSelector sourceSelector) {
+        this.sourceSelector = sourceSelector;
+    }
+
+    public void setDestinationSelector(AbstractSelector destinationSelector) {
+        this.destinationSelector = destinationSelector;
+    }
+
     /**
      * Returns the name of the analysis constraint
      * <p/>
@@ -146,38 +133,6 @@ public abstract class AnalysisConstraint {
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * Returns the data source selectors of the analysis constraint
-     * @return Returns the saved data source selectors
-     */
-    public DataSourceSelectors getDataSourceSelectors() {
-        return this.sourceSelectors.getDataSourceSelectors();
-    }
-
-    /**
-     * Returns the vertex source selectors of the analysis constraint
-     * @return Returns the saved vertex source selectors
-     */
-    public VertexSourceSelectors getVertexSourceSelectors() {
-        return this.sourceSelectors.getVertexSourceSelectors();
-    }
-
-    /**
-     * Returns the data destination selectors of the analysis constraint
-     * @return Returns the saved data destination selectors
-     */
-    public DataDestinationSelectors getDataDestinationSelectors() {
-        return this.destinationSelectors.getDataDestinationSelectors();
-    }
-
-    /**
-     * Returns the vertex destination selectors of the analysis constraint
-     * @return Returns the saved vertex destination selectors
-     */
-    public VertexDestinationSelectors getVertexDestinationSelectors() {
-        return this.destinationSelectors.getVertexDestinationSelectors();
     }
 
     /**

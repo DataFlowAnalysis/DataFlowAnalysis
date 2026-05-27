@@ -3,8 +3,8 @@ package org.dataflowanalysis.analysis.tests.integration.dsl;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.stream.Stream;
-import org.dataflowanalysis.analysis.dsl.selectors.EmptySetOperationConditionalSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.Intersection;
+import org.dataflowanalysis.analysis.dsl.selectors.conditional.EmptySetOperationConditionalSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.conditional.Intersection;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 import org.junit.jupiter.params.ParameterizedTest;

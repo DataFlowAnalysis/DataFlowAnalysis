@@ -3,6 +3,7 @@ package org.dataflowanalysis.analysis.core;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexType;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 
 /**
@@ -20,7 +21,7 @@ public abstract class AbstractVertex<T> {
     private Optional<List<DataCharacteristic>> incomingDataCharacteristics;
     private Optional<List<DataCharacteristic>> outgoingDataCharacteristics;
     private Optional<List<CharacteristicValue>> vertexCharacteristics;
-    private Optional<Set<CharacteristicValue>> previousVertexCharacteristics;
+    private Optional<VertexInformation> previousVertexInformation;
 
     /**
      * Constructs a new vertex with empty data characteristics and node characteristics
@@ -30,7 +31,7 @@ public abstract class AbstractVertex<T> {
         this.incomingDataCharacteristics = Optional.empty();
         this.outgoingDataCharacteristics = Optional.empty();
         this.vertexCharacteristics = Optional.empty();
-        this.previousVertexCharacteristics = Optional.empty();
+        this.previousVertexInformation = Optional.empty();
     }
 
     /**
@@ -38,6 +39,18 @@ public abstract class AbstractVertex<T> {
      * outgoing data characteristics as well as vertex characteristics.
      */
     public abstract void evaluateDataFlow();
+
+    /**
+     * Returns the name of the vertex
+     * @return Name of the vertex
+     */
+    public abstract String getName();
+
+    /**
+     * Returns the vertex types of the vertex
+     * @return Vertex types of the vertex
+     */
+    public abstract List<VertexType> getVertexTypes();
 
     @Override
     public abstract String toString();
@@ -51,7 +64,7 @@ public abstract class AbstractVertex<T> {
      */
     protected void setPropagationResult(List<DataCharacteristic> incomingDataCharacteristics,
             List<DataCharacteristic> outgoingDataCharacteristics, List<CharacteristicValue> vertexCharacteristics,
-            Set<CharacteristicValue> previousVertexCharacteristics) {
+            VertexInformation vertexInformation) {
         if (this.isEvaluated()) {
             logger.error("Cannot set propagation result of already evaluated vertex");
             throw new IllegalArgumentException();
@@ -59,7 +72,7 @@ public abstract class AbstractVertex<T> {
         this.incomingDataCharacteristics = Optional.of(new ArrayList<>(incomingDataCharacteristics));
         this.outgoingDataCharacteristics = Optional.of(new ArrayList<>(outgoingDataCharacteristics));
         this.vertexCharacteristics = Optional.of(new ArrayList<>(vertexCharacteristics));
-        this.previousVertexCharacteristics = Optional.of(new HashSet<>(previousVertexCharacteristics));
+        this.previousVertexInformation = Optional.of(vertexInformation);
     }
 
     /**
@@ -119,8 +132,8 @@ public abstract class AbstractVertex<T> {
      * vertex
      * @return List of previous vertex characteristics
      */
-    public Set<CharacteristicValue> getAllPreviousVertexCharacteristics() {
-        return this.previousVertexCharacteristics.orElseThrow(IllegalStateException::new);
+    public VertexInformation getPreviousVertexInformation() {
+        return this.previousVertexInformation.orElseThrow(IllegalStateException::new);
     }
 
     /**

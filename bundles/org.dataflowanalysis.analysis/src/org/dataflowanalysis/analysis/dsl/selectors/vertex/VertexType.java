@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.dsl.selectors;
+package org.dataflowanalysis.analysis.dsl.selectors.vertex;
 
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 

@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.dsl.selectors;
+package org.dataflowanalysis.analysis.dsl.selectors.data;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,7 +8,10 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
+import org.dataflowanalysis.analysis.dsl.AbstractParseable;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
+import org.dataflowanalysis.analysis.dsl.selectors.CharacteristicsSelectorData;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
@@ -33,7 +36,7 @@ public class DataCharacteristicListSelector extends DataSelector {
     }
 
     @Override
-    public boolean matches(AbstractVertex<?> vertex) {
+    public boolean matchesSource(AbstractVertex<?> vertex, DSLConstraintTrace dslConstraintTrace) {
         List<String> variableNames = vertex.getAllIncomingDataCharacteristics()
                 .stream()
                 .map(DataCharacteristic::variableName)
@@ -75,18 +78,24 @@ public class DataCharacteristicListSelector extends DataSelector {
                         .anyMatch(it -> it);
     }
 
+    @Override
+    public boolean matchesDestination(AbstractVertex<?> vertex, DSLConstraintTrace dslConstraintTrace) {
+        // TODO: Can I handle inter TFG flow here?
+        throw new IllegalStateException("Not yet implemented!");
+    }
+
     public boolean isInverted() {
         return inverted;
     }
 
     @Override
     public String toString() {
-        StringJoiner dataCharacteristicsString = new StringJoiner(DSL_DELIMITER);
+        StringJoiner dataCharacteristicsString = new StringJoiner(AbstractParseable.DSL_DELIMITER);
         this.dataCharacteristics.forEach(it -> dataCharacteristicsString.add(it.toString()));
         if (this.inverted) {
-            return DSL_INVERTED_SYMBOL + dataCharacteristicsString;
+            return super.toString() + " " + AbstractParseable.DSL_INVERTED_SYMBOL + dataCharacteristicsString;
         } else {
-            return dataCharacteristicsString.toString();
+            return super.toString() + " " + dataCharacteristicsString.toString();
         }
     }
 
@@ -97,7 +106,7 @@ public class DataCharacteristicListSelector extends DataSelector {
      * @param string String view on the string that is parsed
      * @return {@link ParseResult} containing the {@link DataCharacteristicListSelector} object
      */
-    public static ParseResult<DataCharacteristicListSelector> fromString(StringView string, DSLContext context) {
+    public static ParseResult<DataSelector> fromString(StringView string, DSLContext context) {
         string.skipWhitespace();
         if (string.invalid() || string.empty()) {
             return ParseResult.error("Cannot parse characteristic list selector from empty or invalid string!");
@@ -105,20 +114,20 @@ public class DataCharacteristicListSelector extends DataSelector {
         logger.debug("Parsing: " + string.getString());
         int position = string.getPosition();
         boolean inverted = string.getString()
-                .startsWith(DSL_INVERTED_SYMBOL);
+                .startsWith(AbstractParseable.DSL_INVERTED_SYMBOL);
         if (inverted)
-            string.advance(DSL_INVERTED_SYMBOL.length());
+            string.advance(AbstractParseable.DSL_INVERTED_SYMBOL.length());
         List<CharacteristicsSelectorData> selectors = new ArrayList<>();
         ParseResult<CharacteristicsSelectorData> selectorData = CharacteristicsSelectorData.fromString(string);
         if (selectorData.successful()) {
             selectors.add(selectorData.getResult());
         }
         while (!(string.empty() || string.invalid() || string.startsWith(" "))) {
-            if (!string.startsWith(DSL_DELIMITER)) {
+            if (!string.startsWith(AbstractParseable.DSL_DELIMITER)) {
                 string.setPosition(position);
-                return string.expect(DSL_DELIMITER);
+                return string.expect(AbstractParseable.DSL_DELIMITER);
             }
-            string.advance(DSL_DELIMITER.length());
+            string.advance(AbstractParseable.DSL_DELIMITER.length());
             selectorData = CharacteristicsSelectorData.fromString(string);
             if (selectorData.successful()) {
                 selectors.add(selectorData.getResult());

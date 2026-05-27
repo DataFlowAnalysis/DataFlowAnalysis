@@ -5,6 +5,8 @@ import java.util.Set;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
+import org.dataflowanalysis.analysis.core.VertexInformation;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexType;
 
 public class DummyVertex extends AbstractVertex<String> {
     private final List<DummyVertex> previousElements;
@@ -29,17 +31,27 @@ public class DummyVertex extends AbstractVertex<String> {
 
     @Override
     public void evaluateDataFlow() {
-        this.setPropagationResult(List.of(), List.of(), List.of(), Set.of());
+        this.setPropagationResult(List.of(), List.of(), List.of(), new VertexInformation(Set.of(), Set.of(), Set.of()));
         this.getPreviousElements()
                 .forEach(AbstractVertex::evaluateDataFlow);
     }
 
     @Override
+    public String getName() {
+        return "";
+    }
+
+    @Override
+    public List<VertexType> getVertexTypes() {
+        return List.of();
+    }
+
+    @Override
     public void setPropagationResult(List<DataCharacteristic> incomingDataCharacteristics,
             List<DataCharacteristic> outgoingDataCharacteristics, List<CharacteristicValue> vertexCharacteristics,
-            Set<CharacteristicValue> previousVertexCharacteristics) {
+            VertexInformation vertexInformation) {
         super.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics,
-                previousVertexCharacteristics);
+                vertexInformation);
     }
 
     @Override

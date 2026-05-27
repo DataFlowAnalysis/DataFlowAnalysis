@@ -27,3 +27,9 @@
     1. `...`
 
 ## 🚨 Violations
+
+<script setup>
+import { VPButton } from 'vitepress/theme'
+</script>
+
+

@@ -67,6 +67,18 @@ public class PCMTest extends ConverterTest {
     }
 
     @Test
+    @DisplayName("Test PCM2DFD EVerest")
+    public void everestToDfd() {
+        testSpecificModel("EVerest", "default", TEST_MODELS, "everest.json", null);
+    }
+
+    @Test
+    @DisplayName("Test PCM2DFD Cocar")
+    public void cocarToDfd() {
+        testSpecificModel("CoCarNextGen", "AudiA6C8", TEST_MODELS, "cocar.json", null);
+    }
+
+    @Test
     @DisplayName("Test PCM2DFD TravelPlanner Behavior")
     public void testTravelPlannerBehavior() {
         final var usageModelPath = Paths.get("scenarios", "pcm", "TravelPlanner", "travelPlanner.usagemodel")

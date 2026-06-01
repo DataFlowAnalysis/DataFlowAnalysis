@@ -1,7 +1,6 @@
 package org.dataflowanalysis.analysis.dsl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.StringJoiner;
 import org.apache.log4j.Logger;
@@ -15,7 +14,8 @@ import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.AnySelector;
-import org.dataflowanalysis.analysis.dsl.selectors.conditional.ConditionalSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.flow.AbstractFlowType;
+import org.dataflowanalysis.analysis.dsl.selectors.flow.FlowType;
 import org.dataflowanalysis.analysis.dsl.selectors.logic.LogicalOperator;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
@@ -40,56 +40,10 @@ public class AdvancedAnalysisConstraint extends AnalysisConstraint {
             DSLConstraintTrace constraintTrace = new DSLConstraintTrace();
             List<AbstractVertex<?>> violations = new ArrayList<>();
             for (AbstractVertex<?> vertex : transposeFlowGraph.getVertices()) {
-                boolean matched = true;
-                if (this.getSourceSelector()
-                        .hasDataSelector()
-                        && this.getDestinationSelector()
-                                .hasDataSelector()) {
-                    var alternateNodes = flowGraphCollection.getTransposeFlowGraphs()
-                            .stream()
-                            .map(AbstractTransposeFlowGraph::getVertices)
-                            .flatMap(Collection::stream)
-                            .filter(it -> it.getReferencedElement()
-                                    .equals(vertex.getReferencedElement()))
-                            .toList();
-                    if (!this.sourceSelector.matchesSource(vertex, constraintTrace)) {
-                        matched = false;
-                    }
-
-                    if (alternateNodes.isEmpty()) {
-                        matched = false;
-                    }
-                    boolean matchedAlternate = false;
-                    for (AbstractVertex<?> alternateVertex : alternateNodes) {
-                        // TODO: This should only evaluate the data destination selectors, right?
-                        boolean matchedAlternateVertex = this.getDestinationSelector()
-                                .matchesSource(alternateVertex, constraintTrace);
-                        if (matchedAlternateVertex) {
-                            matchedAlternate = true;
-                        }
-                    }
-                    if (!matchedAlternate) {
-                        matched = false;
-                    }
-                } else {
-                    if (!this.getSourceSelector()
-                            .matchesSource(vertex, constraintTrace)) {
-                        matched = false;
-                    }
-                    if (!this.getDestinationSelector()
-                            .matchesDestination(vertex, constraintTrace)) {
-                        matched = false;
-                    }
-                }
-                for (ConditionalSelector selector : this.conditionalSelectors.getSelectors()) {
-                    if (!selector.matchesSelector(vertex, context)) {
-                        logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, selector));
-                        matched = false;
-                        constraintTrace.addMissingConditionalSelector(vertex, selector);
-                    }
-                }
+                AbstractFlowType instantiatedFlowType = this.flowType.instantiate(sourceSelector, destinationSelector,
+                        conditionalSelectors.getSelectors(), flowGraphCollection);
+                boolean matched = instantiatedFlowType.evaluateFlowType(vertex, constraintTrace, context);
                 if (matched) {
-                    logger.debug(String.format(SUCCEEDED_MATCHING_MESSAGE, vertex));
                     violations.add(vertex);
                 }
             }

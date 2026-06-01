@@ -10,6 +10,7 @@ import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.AnySelector;
 import org.dataflowanalysis.analysis.dsl.selectors.conditional.ConditionalSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.flow.FlowType;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
@@ -22,8 +23,6 @@ public abstract class AnalysisConstraint {
     protected static final String ADVANCED_DSL_TOKEN = "*";
     protected static final String DSL_NAME_SEPARATOR = ":";
 
-    protected static final String FAILED_MATCHING_MESSAGE = "Vertex %s failed to match selector %s";
-    protected static final String SUCCEEDED_MATCHING_MESSAGE = "Vertex %s matched all selectors";
     protected static final String OMMITED_TRANSPOSE_FLOW_GRAPH = "Transpose flow graph %s did not contain any violations. Omitting!";
 
     private final Logger logger = LoggerManager.getLogger(AnalysisConstraint.class);

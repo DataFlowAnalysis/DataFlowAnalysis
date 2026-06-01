@@ -14,7 +14,8 @@ import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
 import org.dataflowanalysis.analysis.dsl.selectors.AnySelector;
-import org.dataflowanalysis.analysis.dsl.selectors.conditional.ConditionalSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.flow.AbstractFlowType;
+import org.dataflowanalysis.analysis.dsl.selectors.flow.FlowType;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
@@ -40,22 +41,10 @@ public class SimpleAnalysisConstraint extends AnalysisConstraint {
             DSLConstraintTrace constraintTrace = new DSLConstraintTrace();
             List<AbstractVertex<?>> violations = new ArrayList<>();
             for (AbstractVertex<?> vertex : transposeFlowGraph.getVertices()) {
-                boolean matched = true;
-                if (super.sourceSelector.matchesSource(vertex, constraintTrace)) {
-                    matched = false;
-                }
-                if (super.destinationSelector.matchesDestination(vertex, constraintTrace)) {
-                    matched = false;
-                }
-                for (ConditionalSelector selector : this.conditionalSelectors.getSelectors()) {
-                    if (!selector.matchesSelector(vertex, context)) {
-                        logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, selector));
-                        matched = false;
-                        constraintTrace.addMissingConditionalSelector(vertex, selector);
-                    }
-                }
+                AbstractFlowType instantiatedFlowType = this.flowType.instantiate(sourceSelector, destinationSelector,
+                        conditionalSelectors.getSelectors(), flowGraphCollection);
+                boolean matched = instantiatedFlowType.evaluateFlowType(vertex, constraintTrace, context);
                 if (matched) {
-                    logger.debug(String.format(SUCCEEDED_MATCHING_MESSAGE, vertex));
                     violations.add(vertex);
                 }
             }

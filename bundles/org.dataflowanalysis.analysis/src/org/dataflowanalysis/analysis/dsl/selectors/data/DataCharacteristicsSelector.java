@@ -72,8 +72,39 @@ public class DataCharacteristicsSelector extends DataSelector {
 
     @Override
     public boolean matchesDestination(AbstractVertex<?> vertex, DSLConstraintTrace dslConstraintTrace) {
-        // TODO: Can I handle inter TFG flow here?
-        throw new IllegalStateException("Not yet implemented!");
+        List<String> variableNames = vertex.getAllIncomingDataCharacteristics()
+                .stream()
+                .map(DataCharacteristic::variableName)
+                .toList();
+        if (variableNames.isEmpty()) {
+            return false;
+        }
+        List<Boolean> results = new ArrayList<>();
+        for (String variableName : variableNames) {
+            List<CharacteristicValue> presentCharacteristics = vertex.getAllIncomingDataCharacteristics()
+                    .stream()
+                    .filter(it -> it.variableName()
+                            .equals(variableName))
+                    .flatMap(it -> it.characteristics()
+                            .stream())
+                    .toList();
+            List<String> characteristicTypes = new ArrayList<>();
+            List<String> characteristicValues = new ArrayList<>();
+            List<Boolean> matches = presentCharacteristics.stream()
+                    .map(it -> this.dataCharacteristic.matchesCharacteristic(context, vertex, it, variableName,
+                            characteristicTypes, characteristicValues))
+                    .toList();
+            this.dataCharacteristic.applyResults(context, vertex, variableName, characteristicTypes,
+                    characteristicValues);
+            results.add(this.inverted ? matches.stream()
+                    .noneMatch(it -> it)
+                    : matches.stream()
+                            .anyMatch(it -> it));
+        }
+        return this.inverted ? results.stream()
+                .allMatch(it -> it)
+                : results.stream()
+                        .anyMatch(it -> it);
     }
 
     public boolean isInverted() {

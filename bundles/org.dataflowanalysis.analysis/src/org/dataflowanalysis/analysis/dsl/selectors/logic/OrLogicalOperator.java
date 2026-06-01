@@ -1,5 +1,7 @@
 package org.dataflowanalysis.analysis.dsl.selectors.logic;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
@@ -19,14 +21,33 @@ public class OrLogicalOperator extends LogicalOperator {
         this.rhs = rhs;
     }
 
+    private List<String> variablePredicate(List<String> lhs, List<String> rhs) {
+        List<String> result = new ArrayList<>();
+        result.addAll(lhs);
+        result.addAll(rhs);
+        return result;
+    }
+
     @Override
     public boolean matchesSource(AbstractVertex<?> vertex, DSLConstraintTrace dslConstraintTrace) {
-        return lhs.matchesSource(vertex, dslConstraintTrace) || rhs.matchesSource(vertex, dslConstraintTrace);
+        var context = this.context.copy();
+        boolean resultLhs = lhs.matchesSource(vertex, dslConstraintTrace);
+        var contextLhs = this.context.copy();
+        boolean resultRhs = rhs.matchesSource(vertex, dslConstraintTrace);
+        var contextRhs = this.context.copy();
+        this.context.updateFromLogicalOperation(context, contextLhs, contextRhs, this::variablePredicate);
+        return resultLhs || resultRhs;
     }
 
     @Override
     public boolean matchesDestination(AbstractVertex<?> vertex, DSLConstraintTrace dslConstraintTrace) {
-        return lhs.matchesDestination(vertex, dslConstraintTrace) || rhs.matchesDestination(vertex, dslConstraintTrace);
+        var context = this.context.copy();
+        boolean resultLhs = lhs.matchesDestination(vertex, dslConstraintTrace);
+        var contextLhs = this.context.copy();
+        boolean resultRhs = rhs.matchesDestination(vertex, dslConstraintTrace);
+        var contextRhs = this.context.copy();
+        this.context.updateFromLogicalOperation(context, contextLhs, contextRhs, this::variablePredicate);
+        return resultLhs || resultRhs;
     }
 
     @Override

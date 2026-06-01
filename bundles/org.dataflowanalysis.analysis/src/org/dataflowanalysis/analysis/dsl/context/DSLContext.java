@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiFunction;
+import java.util.stream.Stream;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariable;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
@@ -18,7 +20,7 @@ import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
  * {@link DSLContextProvider} is required that is responsible for parsing vertex types
  */
 public class DSLContext {
-    private final Map<DSLContextKey, List<ConstraintVariable>> context;
+    private Map<DSLContextKey, List<ConstraintVariable>> context;
     private final Optional<DSLContextProvider> contextProvider;
 
     /**
@@ -31,6 +33,11 @@ public class DSLContext {
 
     public DSLContext(DSLContextProvider contextProvider) {
         this.context = new HashMap<>();
+        this.contextProvider = Optional.ofNullable(contextProvider);
+    }
+
+    public DSLContext(Map<DSLContextKey, List<ConstraintVariable>> context, DSLContextProvider contextProvider) {
+        this.context = context;
         this.contextProvider = Optional.ofNullable(contextProvider);
     }
 
@@ -101,5 +108,63 @@ public class DSLContext {
      */
     public Optional<DSLContextProvider> getContextProvider() {
         return contextProvider;
+    }
+
+    public Map<DSLContextKey, List<ConstraintVariable>> getContext() {
+        return context;
+    }
+
+    public DSLContext copy() {
+        Map<DSLContextKey, List<ConstraintVariable>> contextCopy = new HashMap<>();
+        for (var entry : this.context.entrySet()) {
+            List<ConstraintVariable> constraintVariables = new ArrayList<>();
+            entry.getValue()
+                    .forEach(it -> constraintVariables.add(it.copy()));
+            contextCopy.put(entry.getKey(), constraintVariables);
+        }
+        return new DSLContext(contextCopy, this.contextProvider.orElse(null));
+    }
+
+    public void updateFromLogicalOperation(DSLContext base, DSLContext lhs, DSLContext rhs,
+            BiFunction<List<String>, List<String>, List<String>> predicate) {
+        this.context = base.getContext();
+        var keys = Stream.concat(lhs.getContext()
+                .keySet()
+                .stream(),
+                rhs.getContext()
+                        .keySet()
+                        .stream())
+                .distinct()
+                .toList();
+        for (var key : keys) {
+            List<ConstraintVariable> lhsConstraintVariables = lhs.getContext()
+                    .get(key);
+            List<ConstraintVariable> rhsConstraintVariables = rhs.getContext()
+                    .get(key);
+            List<ConstraintVariable> resultConstraintVariables = new ArrayList<>();
+            List<String> names = Stream.concat(lhsConstraintVariables.stream(), rhsConstraintVariables.stream())
+                    .filter(it -> !it.isConstant())
+                    .map(ConstraintVariable::getName)
+                    .toList();
+            for (String name : names) {
+                var lhsConstraintVariable = lhsConstraintVariables.stream()
+                        .filter(it -> it.getName()
+                                .equals(name))
+                        .findFirst();
+                var rhsConstraintVariable = rhsConstraintVariables.stream()
+                        .filter(it -> it.getName()
+                                .equals(name))
+                        .findFirst();
+                if (lhsConstraintVariable.isPresent() && rhsConstraintVariable.isPresent()) {
+                    resultConstraintVariables.add(ConstraintVariable.fromLogicalOperation(lhsConstraintVariable.get(),
+                            rhsConstraintVariable.get(), predicate));
+                } else if (lhsConstraintVariable.isPresent()) {
+                    resultConstraintVariables.add(lhsConstraintVariable.get());
+                } else if (rhsConstraintVariable.isPresent()) {
+                    resultConstraintVariables.add(rhsConstraintVariable.get());
+                }
+            }
+            this.context.put(key, resultConstraintVariables);
+        }
     }
 }

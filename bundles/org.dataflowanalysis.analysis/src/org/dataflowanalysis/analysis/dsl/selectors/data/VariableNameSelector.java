@@ -42,8 +42,10 @@ public class VariableNameSelector extends DataSelector {
 
     @Override
     public boolean matchesDestination(AbstractVertex<?> vertex, DSLConstraintTrace dslConstraintTrace) {
-        // TODO: Can I handle inter TFG flow here?
-        throw new IllegalStateException("Not yet implemented!");
+        return vertex.getAllDataCharacteristics()
+                .stream()
+                .map(DataCharacteristic::variableName)
+                .anyMatch(it -> this.contains ? it.contains(this.variableName) : it.equals(this.variableName));
     }
 
     /**

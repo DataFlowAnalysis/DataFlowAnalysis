@@ -3,6 +3,7 @@ package org.dataflowanalysis.analysis.dsl.variable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiFunction;
 
 /**
  * Represents a constraint variable with its possible values
@@ -40,6 +41,15 @@ public class ConstraintVariable {
      */
     public static ConstraintVariableReference of(String name) {
         return ConstraintVariableReference.of(name);
+    }
+
+    public static ConstraintVariable fromLogicalOperation(ConstraintVariable lhs, ConstraintVariable rhs,
+            BiFunction<List<String>, List<String>, List<String>> predicate) {
+        List<String> values = predicate.apply(lhs.getPossibleValues()
+                .orElse(List.of()),
+                rhs.getPossibleValues()
+                        .orElse(List.of()));
+        return new ConstraintVariable(lhs.getName(), values);
     }
 
     /**
@@ -101,5 +111,9 @@ public class ConstraintVariable {
     @Override
     public String toString() {
         return this.name + " = {" + this.possibleValues.orElse(List.of("undefined")) + "}";
+    }
+
+    public ConstraintVariable copy() {
+        return new ConstraintVariable(this.name, this.possibleValues);
     }
 }

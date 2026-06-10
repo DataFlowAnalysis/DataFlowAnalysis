@@ -128,12 +128,8 @@ export default withMermaid({
         text: "Examples",
         items: [
           {
-            text: "Overview",
+            text: "Model and DSL Examples",
             link: "/examples/",
-          },
-          {
-            text: "DSL",
-            link: "/examples/dsl",
           },
         ],
       },

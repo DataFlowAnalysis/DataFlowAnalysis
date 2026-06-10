@@ -12,7 +12,7 @@ This model is available to view using the online editor!
 
 ## 📝 Short Description
 This diagram illustrates the issues associated with the Volkswagen (and Cariad) scandal and data leakage affecting their automobile fleet. It shows how information flows between the mobile app, internal servers (and storage), and the in-vehicle system.
-The first (leftmost) section of the diagram presents a simplified data flow from the mobile app, including functionalities such as login, retrieving the car's location, locking the car, and more. This part connects to Cariad’s main Spring application, which is primarily responsible for storing all vehicle-related data. Finally, on the right side of the diagram, we see the in-car system, composed of sensors, actuators, controllers, control modules, and communication components.
+The first (leftmost) section of the diagram presents a simplified data flow from the mobile app, including functionalities such as login, retrieving the car's location, locking the car, and more. This part connects to Cariads main Spring application, which is primarily responsible for storing all vehicle-related data. Finally, on the right side of the diagram, we see the in-car system, composed of sensors, actuators, controllers, control modules, and communication components.
 
 This DFD represents what we think the architecture of the system should look like, as this is private company information we have inferred the different sections of the diagram from information mentioned on the main source article, the Spring documentation and other resources regarding the inner functioning of car systems.
 
@@ -23,9 +23,9 @@ This DFD represents what we think the architecture of the system should look lik
 ## 📖 Extensive Description (if possible)
 Starting from the left side of the diagram there is the authentication process for a __Customer__ which want to be identified in the VWs Mobile App for accessing different functionalities of its car remotely. This can be seen through the __Mobile App UI__ nod and the corresponding function nodes such as __Start AC__, __Get Car Location__, etc.
 
-From those functionalities, the given commands to be executed on the car flow in to the Spring App through the __Spring Security__ node which verifies the secureness of those commands, and in case there is something wrong (e.g. wrong credentials) it send a *security_event* to the __Spring Actuator__ node. This central part of the diagram shows the main functionality of the VW-Cariads system. For our case study regarding the scandal the most important nodes are __Spring Web Controller__, __Spring Actuator__, and __Spring App Memory__. The first one manages the request (e.g. from the mobile app) and forwards them to the __Spring Actuator__. This second one then forwards the requests to the defined endpoints (e.g. __Aditevent Repository__, __Http Trace Endpoint__, etc). The last one (__Spring App Memory__) loads the memory of the spring app into the endpoint __Heapdump__ (which was the central point of the scandal as it had __public__ access).
+From those functionalities, the given commands to be executed on the car flow in to the Spring App through the __Spring Security__ node which verifies the secureness of those commands, and in case there is something wrong (e.g. wrong credentials) it send a *security_event* to the __Spring Actuator__ node. This central part of the diagram shows the main functionality of the VW-Cariads system. For our case study regarding the scandal the most important nodes are __Spring Web Controller__, __Spring Actuator__, and __Spring App Memory__. The first one manages the request (e.g. from the mobile app) and forwards them to the __Spring Actuator__. This second one then forwards the requests to the defined endpoints (e.g. __Auditevent Repository__, __Http Trace Endpoint__, etc). The last one (__Spring App Memory__) loads the memory of the spring app into the endpoint __Heapdump__ (which was the central point of the scandal as it had __public__ access).
 
-Finally the left-most part shows the inner components of the car such as the __High Perfomance Computer__ which receives the commands from the app and forwards them to the __Vehicle Communication Bus__ and finally to their respective components (e.g. __Navigation ECU__, __Body Control Module__, etc). The __High Performance Computer__ also manages the retrieving and storing of data from the car sensors and sends them to the Spring App through the __Azure event Grid__.
+Finally the left-most part shows the inner components of the car such as the __High Performance Computer__ which receives the commands from the app and forwards them to the __Vehicle Communication Bus__ and finally to their respective components (e.g. __Navigation ECU__, __Body Control Module__, etc). The __High Performance Computer__ also manages the retrieving and storing of data from the car sensors and sends them to the Spring App through the __Azure event Grid__.
 
 ## 🏷️ Label description
 
@@ -73,7 +73,7 @@ Finally the left-most part shows the inner components of the car such as the __H
         - __ECU__: Electronic Control Unit of the car for a given component of the car
 
 ## ⚠️ Constraints
-- Data which is classified as condifential can neverflow to an endpoint which is public:
+- Data which is classified as confidential can neverflow to an endpoint which is public:
 
     1. __confidential_data__: `data DataSensitivity.Confidential neverFlows vertex EndpointConfiguration.Public`
 

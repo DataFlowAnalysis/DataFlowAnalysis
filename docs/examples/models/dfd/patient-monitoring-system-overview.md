@@ -11,7 +11,7 @@ PatientMonitoringSystemPaper/Overview.json"></VPButton>
 [Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/PatientMonitoringSystemPaper)
 
 ## 📝 Short Description
-This Diagram shows the structure of the Patient Ponitoring System. A wearable Sensor periodically sends data to a data sync and to a local risk assessment unit. A General Practitioner is able to see this data and perform remote analysis on the patient's health. In extreme cases, Emergency Services are alerted.
+This Diagram shows the structure of the Patient Monitoring System. A wearable Sensor periodically sends data to a data sync and to a local risk assessment unit. A General Practitioner is able to see this data and perform remote analysis on the patient's health. In extreme cases, Emergency Services are alerted.
 
 ## 🔤 Abbreviations
 - `GP`: General Practitioner

@@ -1,32 +1,55 @@
-# 📊 Model: (AccessControl-ABAC-violation)
+# 📊 Model: (AccessControl-ABAC)
 
 ::: tip Available Online
 This model is available to view using the online editor!
-<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-abac-violation/abac-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (No Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-abac-no-violation/abac-no-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (Security Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-abac-violation/abac-violation.json"></VPButton>
 ::: 
 
 ## 🔗 Link to Original Paper/Article
-[View Source](https://www.scitepress.org/Link.aspx?doi=10.5220/0010515300260037)
-[Open Example Model in Example Models Bundle](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/AC-abac-violation)
+[View Full Main Source](https://doi.org/10.1016/j.jss.2021.111138)
+
+[Open Example Model in Example Models Bundles](https://github.com/DataFlowAnalysis/DataFlowAnalysis/tree/main/bundles/org.dataflowanalysis.examplemodels/scenarios/pcm/BankBranches)
 
 ## 📝 Short Description
-The case is about a banking system deployed in the USA and Asia. Clerks can register customers, look them up and determine a credit line for them. Managers can do everything Clerks can do but can also register celebrities or move customers between regions. 
+This Model represents a bank managing two different branches in the US and Asia.
+Normal Customers can be registered by clerks, meanwhile celebrities get registered by managers.
+Clerks are also able to use the system to determine the credit line a customer might be able to get.
+Additionally, managers are able to search for customers and move them to a different region
 
 ## 🔤 Abbreviations
-None.
 
-## 📖 Extensive Description
-The __Clerk US__ can register regular customers by *customer_details*. These customers are stored in the __Customer Storage__ and can be found by *customer_name*. 
-The __Manager__ located in the US can __Register Celebrity__ into a seperate __Celebrity Customer Storage__. Neither Clerk can access this data. 
-The __Manager__ can also change the customer location from `USA` to `Asia` via the node __Move Customer__. The *customer* is fetched by *customer_name* and stored into a __Customer Storage__ with the changed **DataOrigin** label. Now, the __Clerk Asia__ is able to find this *customer*.
+## 📖 Extensive Description (if possible)
+Entry points to the system are either accesses by clerks (`Role.Clerk`) or managers (`Role.Managers`) in one of the two regions the bank operates in (either `Location.USA` or `Location.Asia`)
+Customers can be registered by calling the `registerCustomer` function.
+Clerks are also able to determine the credit line of customers using `determineCreditLine`.
+Lastly, using `findCustomer` clerks can find customers in the backend of the system.
 
-## 🏷️ Label Description
-### 🗂️ Data Labels:
-- **DataOrigin**: Shows the originating region of a customer. This can be either `USA` or `Asia`.
-- **DataStatus**: This differentiates between `Customer` and `Celebrity`.
-### 🏷️ Node Labels:
-- **NodeRole**: This label designates an actor as `Clerk` or `Manager`.
-- **NodeLocation**: Shows the location of a clerk or manager in the banking system. This can be either `USA` or `Asia`.
+Managers are also able to register customers using `registerCustomer` in order to register celebrities.
+Additionally, they can use `moveCustomer` to move customers between the different regions of the bank.
+
+The backend consists of three basic components:
+The `CustomerHandling` component is responsible for registering customers and determining customer credit lines.
+The `CustomerMovement` component is used when customers are moved between regions.
+Lastly, the `CustomerStore` component stores the data of customers in a database.
+
+## 🏷️ Label description
+
+- ### 🗂️ Data Labels:
+    - ### Origin
+        - __USA__: Data originating from the United States 
+        - __Asia__: Data originating from Asia
+- ### 🏷️ Node Labels:
+    - ### Location
+        - __USA__: Bank Branch Location in the United States 
+        - __Asia__: Bank Branch Location in Asia 
+    - ### Role
+        - __Clerk__: System managed and accessible by a bank clerk 
+        - __Manager__: System managed and accessible to a manager 
+    - ### Status 
+        - __Regular__: Customer is a regular customer 
+        - __Celebrity__: Customer is a celebrity
+
 
 ## ⚠️ Constraints
 ### Security
@@ -34,7 +57,9 @@ Clerks are not supposed to be able to access Celebrity customer data.
 `- Security: data DataStatus.Celebrity neverFlows vertex NodeRole.Clerk`
 
 ## 🚨 Violations
-The introduced flow *celebrity_customer_details* lets `Celebrity` data  data flows into the normal __Customer Storage__, which the __Clerk US__ can access.
+Although no violations were found in the original architecture, we have slightly modified the diagram to produce one alternate version in which violations are introduced:
+
+- The introduced flow *celebrity_customer_details* lets `Celebrity` data flow into the normal __Customer Storage__, which the __Clerk US__ can access.
 
 
 <script setup>

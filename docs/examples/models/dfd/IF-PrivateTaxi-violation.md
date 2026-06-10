@@ -1,8 +1,9 @@
-# 📊 Model: (InformationFlow-PrivateTaxi-no-violation)
+# 📊 Model: (InformationFlow-PrivateTaxi)
 
 ::: tip Available Online
 This model is available to view using the online editor!
-<VPButton text="Open In Online Editor" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-PrivateTaxi-no-violation/PrivateTaxi-no-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (No Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-PrivateTaxi-no-violation/PrivateTaxi-no-violation.json"></VPButton>
+<VPButton text="Open In Online Editor (NKR Violation)" href="https://editor.dataflowanalysis.org/?file=https://raw.githubusercontent.com/DataFlowAnalysis/DataFlowAnalysis/refs/heads/main/bundles/org.dataflowanalysis.examplemodels/scenarios/dfd/IF-PrivateTaxi-violation/PrivateTaxi-violation.json"></VPButton>
 ::: 
 
 ## 🔗 Link to Original Paper/Article
@@ -38,7 +39,9 @@ The Distance Calculation Service must never get to know contact information of d
 - `NeverKnowContactInfo: CriticalDataType.ContactInformation neverFlows vertex Entity.CalcDistanceService`
 
 ## 🚨 Violations
-None.
+Although no violations were found in the original architecture, we have slightly modified the diagram to produce one alternate version in which violations are introduced:
+
+- Encrypted route details are shared with the PrivateTaxi violating the NeverKnowRoutes constraint.
 
 
 <script setup>

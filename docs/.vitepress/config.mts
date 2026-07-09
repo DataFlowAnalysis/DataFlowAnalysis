@@ -12,7 +12,7 @@ export default withMermaid({
       { text: "Home", link: "/" },
       { text: "Download", link: "/download/" },
       { text: "Publications", link: "/publications/" },
-      { text: "Documentation", link: "/wiki/gettingstarted" },
+      { text: "Documentation", link: "/wiki/" },
       { text: "Examples", link: "/examples/" },
     ],
 
@@ -61,7 +61,7 @@ export default withMermaid({
       {
         text: "Documentation",
         items: [
-          { text: "Getting Started", link: "/wiki/gettingstarted" },
+          { text: "Getting Started", link: "/wiki/" },
           {
             text: "Tooling",
             link: "/wiki/tooling",

@@ -10,7 +10,7 @@ We provide multiple ways to download and use the data flow analysis framework.
 The easiest way to get started is downloading our ready-to-use [Eclipse Product](#eclipse-product-recommended).
 Alternatively, all major artifacts are available on our [Eclipse Updatesite](#eclipse-updatesite) to be directly installed into the [Eclipse Modeling Framework](https://eclipse.dev/emf/).
 Last, if you only want to model and analyze simple data flow diagrams, you can use our [online editor](#online-editor) without any installation required.
-Afterwards, visit [Getting Started](/wiki/gettingstarted.md) to learn more about using the analysis.
+Afterwards, visit [Getting Started](/wiki/) to learn more about using the analysis.
 
 ::: info Current Release
 {{releaseInfo}}

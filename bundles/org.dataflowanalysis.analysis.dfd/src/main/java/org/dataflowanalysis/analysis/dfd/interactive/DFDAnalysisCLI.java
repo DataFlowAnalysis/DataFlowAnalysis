@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.DFDConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.dfd.DFDDataFlowAnalysisBuilder;
+import org.dataflowanalysis.analysis.dfd.dsl.DFDDSLContextProvider;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
@@ -135,7 +136,7 @@ public class DFDAnalysisCLI {
             List<String> lines = bufferedReader.lines()
                     .toList();
             for (int i = 0; i < lines.size(); i++) {
-                var parseResult = AnalysisConstraint.fromString(new StringView(lines.get(i)));
+                var parseResult = AnalysisConstraint.fromString(new StringView(lines.get(i)), new DFDDSLContextProvider());
                 if (parseResult.failed()) {
                     logger.error("Invalid constraint in line" + i + ":");
                     logger.error(parseResult.getError());
@@ -156,7 +157,7 @@ public class DFDAnalysisCLI {
      * @return Returns an analysis constraint parsed from the given string
      */
     private static AnalysisConstraint createConstraint(String constraintString) {
-        var parseResult = AnalysisConstraint.fromString(new StringView(constraintString));
+        var parseResult = AnalysisConstraint.fromString(new StringView(constraintString), new DFDDSLContextProvider());
         if (parseResult.failed()) {
             logger.error("Invalid constraint:");
             logger.error(parseResult.getError());

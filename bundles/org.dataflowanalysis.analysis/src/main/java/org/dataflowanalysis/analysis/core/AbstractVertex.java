@@ -17,9 +17,9 @@ public abstract class AbstractVertex<T> {
 
     protected final T referencedElement;
 
-    private Optional<List<DataCharacteristic>> incomingDataCharacteristics;
-    private Optional<List<DataCharacteristic>> outgoingDataCharacteristics;
-    private Optional<List<CharacteristicValue>> vertexCharacteristics;
+    protected Optional<List<DataCharacteristic>> incomingDataCharacteristics;
+    protected Optional<List<DataCharacteristic>> outgoingDataCharacteristics;
+    protected Optional<List<CharacteristicValue>> vertexCharacteristics;
 
     /**
      * Constructs a new action sequence element with empty data characteristics and node characteristics

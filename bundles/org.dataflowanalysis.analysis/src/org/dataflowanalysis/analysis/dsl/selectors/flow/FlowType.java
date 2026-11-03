@@ -25,6 +25,9 @@ public enum FlowType {
     }
 
     public static ParseResult<FlowType> fromString(StringView string) {
+        if (string.invalid() || string.empty()) {
+            return ParseResult.error("Cannot parse flow type from empty or invalid string!");
+        }
         if (string.startsWith("neverFlows")) {
             string.advance("neverFlows".length());
             return ParseResult.ok(FlowType.NEVER_FLOWS);

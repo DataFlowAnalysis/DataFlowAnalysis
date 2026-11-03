@@ -72,12 +72,14 @@ public class VertexNameSelector extends VertexSelector {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(super.toString());
         stringBuilder.append(" ");
-        if (this.inverted)
+        if (this.inverted) {
             stringBuilder.append(AbstractParseable.DSL_INVERTED_SYMBOL + " ");
+        }
         stringBuilder.append(DSL_KEYWORD);
         stringBuilder.append(" ");
-        if (this.contains)
+        if (this.contains) {
             stringBuilder.append(AbstractSelector.DSL_CONTAINS + " ");
+        }
         stringBuilder.append(this.name);
         return stringBuilder.toString();
     }

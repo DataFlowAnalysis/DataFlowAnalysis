@@ -1,4 +1,4 @@
-package org.dataflowanalysis.analysis.dsl.groups;
+package org.dataflowanalysis.analysis.dsl.selectors.conditional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,6 @@ import org.dataflowanalysis.analysis.dsl.AbstractParseable;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.selectors.VariableConditionalSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.conditional.ConditionalSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.conditional.EmptySetOperationConditionalSelector;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;

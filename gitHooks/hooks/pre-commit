@@ -1,2 +1,12 @@
 #!/usr/bin/env bash
+set -euo pipefail
+
+staged_files=$(git diff --cached --name-only --diff-filter=ACMR)
+
 mvn spotless:apply
+
+if [ -n "$staged_files" ]; then
+    echo "$staged_files" | while IFS= read -r file; do
+        [ -f "$file" ] && git add -- "$file"
+    done
+fi

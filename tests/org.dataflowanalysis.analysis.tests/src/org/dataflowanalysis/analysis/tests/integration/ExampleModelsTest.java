@@ -87,7 +87,8 @@ public class ExampleModelsTest {
                 Arguments.of(new IFTravelPlannerNoViolationResult()),
                 Arguments.of(new IFTravelPlannerViolationResult()), Arguments.of(new IFWebRTCNoViolationResult()),
                 Arguments.of(new IFWebRTCViolationResult(), Arguments.of(new KulturpassViolationResult()),
-                        Arguments.of(new PatientMonitoringSystemViolationResult()), Arguments.of(new SmartSpeakerViolationResult())));
+                        Arguments.of(new PatientMonitoringSystemViolationResult()),
+                        Arguments.of(new SmartSpeakerViolationResult())));
     }
 
     @ParameterizedTest

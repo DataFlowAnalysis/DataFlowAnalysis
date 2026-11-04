@@ -11,7 +11,8 @@ public class ExpectedViolation {
     private final List<ExpectedCharacteristic> vertexCharacteristics;
     private final Map<String, List<ExpectedCharacteristic>> dataCharacteristics;
 
-    public ExpectedViolation(int flowGraphIndex, Identifier identifier, List<ExpectedCharacteristic> vertexCharacteristics,
+    public ExpectedViolation(int flowGraphIndex, Identifier identifier,
+            List<ExpectedCharacteristic> vertexCharacteristics,
             Map<String, List<ExpectedCharacteristic>> dataCharacteristics) {
         this.flowGraphIndex = flowGraphIndex;
         this.identifier = identifier;
@@ -35,7 +36,8 @@ public class ExpectedViolation {
                 .toList();
     }
 
-    public Map<String, List<ExpectedCharacteristic>> hasDataCharacteristics(List<DataCharacteristic> actualDataCharacteristics) {
+    public Map<String, List<ExpectedCharacteristic>> hasDataCharacteristics(
+            List<DataCharacteristic> actualDataCharacteristics) {
         Map<String, List<ExpectedCharacteristic>> missingDataCharacteristics = new HashMap<>();
         for (var expectedDataCharacteristic : dataCharacteristics.entrySet()) {
             Optional<DataCharacteristic> actualDataCharacteristic = actualDataCharacteristics.stream()
@@ -43,7 +45,8 @@ public class ExpectedViolation {
                             .equals(expectedDataCharacteristic.getKey()))
                     .findAny();
             if (actualDataCharacteristic.isEmpty()) {
-                missingDataCharacteristics.put(expectedDataCharacteristic.getKey(), expectedDataCharacteristic.getValue());
+                missingDataCharacteristics.put(expectedDataCharacteristic.getKey(),
+                        expectedDataCharacteristic.getValue());
                 continue;
             }
             List<ExpectedCharacteristic> expectedCharacteristics = expectedDataCharacteristic.getValue();
@@ -61,7 +64,8 @@ public class ExpectedViolation {
         return missingDataCharacteristics;
     }
 
-    public Map<String, List<CharacteristicValue>> hasMissingDataCharacteristics(List<DataCharacteristic> actualDataCharacteristics) {
+    public Map<String, List<CharacteristicValue>> hasMissingDataCharacteristics(
+            List<DataCharacteristic> actualDataCharacteristics) {
         Map<String, List<CharacteristicValue>> missingDataCharacteristics = new HashMap<>();
         for (var actualDataCharacteristic : actualDataCharacteristics) {
             Optional<List<ExpectedCharacteristic>> expectedCharacteristics = this.dataCharacteristics.entrySet()
@@ -71,7 +75,8 @@ public class ExpectedViolation {
                     .map(Map.Entry::getValue)
                     .findAny();
             if (expectedCharacteristics.isEmpty()) {
-                missingDataCharacteristics.put(actualDataCharacteristic.getVariableName(), actualDataCharacteristic.getAllCharacteristics());
+                missingDataCharacteristics.put(actualDataCharacteristic.getVariableName(),
+                        actualDataCharacteristic.getAllCharacteristics());
                 continue;
             }
             List<CharacteristicValue> incorrectCharacteristics = new ArrayList<>();
@@ -87,7 +92,8 @@ public class ExpectedViolation {
         return missingDataCharacteristics;
     }
 
-    private boolean hasCharacteristicValue(ExpectedCharacteristic expectedCharacteristic, List<CharacteristicValue> actualCharacteristics) {
+    private boolean hasCharacteristicValue(ExpectedCharacteristic expectedCharacteristic,
+            List<CharacteristicValue> actualCharacteristics) {
         return actualCharacteristics.stream()
                 .filter(it -> expectedCharacteristic.characteristicType()
                         .equals(it.getTypeName()))
@@ -95,7 +101,8 @@ public class ExpectedViolation {
                         .equals(it.getValueName()));
     }
 
-    private boolean hasExpectedCharacteristic(List<ExpectedCharacteristic> expectedCharacteristics, CharacteristicValue actualCharacteristic) {
+    private boolean hasExpectedCharacteristic(List<ExpectedCharacteristic> expectedCharacteristics,
+            CharacteristicValue actualCharacteristic) {
         return expectedCharacteristics.stream()
                 .filter(it -> it.characteristicType()
                         .equals(actualCharacteristic.getTypeName()))
@@ -113,7 +120,7 @@ public class ExpectedViolation {
 
     @Override
     public String toString() {
-        return String.format("Expected %s in TFG %s with %s and %s", this.identifier, this.flowGraphIndex, this.dataCharacteristics,
-                this.vertexCharacteristics);
+        return String.format("Expected %s in TFG %s with %s and %s", this.identifier, this.flowGraphIndex,
+                this.dataCharacteristics, this.vertexCharacteristics);
     }
 }

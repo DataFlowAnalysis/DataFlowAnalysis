@@ -33,12 +33,17 @@ public class ACTravelPlannerViolationResult implements DFDExampleModelResult {
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
         return List.of(
-                new ExpectedViolation(0, new DFDIdentifier("djba98"), List.of(new ExpectedCharacteristic("Role", "Airline")),
+                new ExpectedViolation(0, new DFDIdentifier("djba98"),
+                        List.of(new ExpectedCharacteristic("Role", "Airline")),
                         Map.of("l4xfbo", List.of(new ExpectedCharacteristic("Levels", "UserAirlineAgency")), "70i8yq",
-                                List.of(new ExpectedCharacteristic("Levels", "UserAirline"), new ExpectedCharacteristic("Levels", "User")))),
-                new ExpectedViolation(0, new DFDIdentifier("pnz9vg"), List.of(new ExpectedCharacteristic("Role", "Airline")),
-                        Map.of("u32kc", List.of(new ExpectedCharacteristic("Levels", "UserAirlineAgency"),
-                                new ExpectedCharacteristic("Levels", "UserAirline"), new ExpectedCharacteristic("Levels", "User")))));
+                                List.of(new ExpectedCharacteristic("Levels", "UserAirline"),
+                                        new ExpectedCharacteristic("Levels", "User")))),
+                new ExpectedViolation(0, new DFDIdentifier("pnz9vg"),
+                        List.of(new ExpectedCharacteristic("Role", "Airline")),
+                        Map.of("u32kc",
+                                List.of(new ExpectedCharacteristic("Levels", "UserAirlineAgency"),
+                                        new ExpectedCharacteristic("Levels", "UserAirline"),
+                                        new ExpectedCharacteristic("Levels", "User")))));
     }
 
     @Override

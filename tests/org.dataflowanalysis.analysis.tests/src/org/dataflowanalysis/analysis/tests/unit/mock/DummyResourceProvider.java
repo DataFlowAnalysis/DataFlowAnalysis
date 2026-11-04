@@ -110,7 +110,8 @@ public class DummyResourceProvider extends PCMResourceProvider {
         enumeration.setName(type);
         enumeration.setId(String.valueOf(UUID.randomUUID()));
 
-        EnumCharacteristicType characteristicType = DataDictionaryCharacterizedFactory.eINSTANCE.createEnumCharacteristicType();
+        EnumCharacteristicType characteristicType = DataDictionaryCharacterizedFactory.eINSTANCE
+                .createEnumCharacteristicType();
         characteristicType.setId(String.valueOf(UUID.randomUUID()));
         characteristicType.setName(type);
         characteristicType.setType(enumeration);
@@ -199,7 +200,8 @@ public class DummyResourceProvider extends PCMResourceProvider {
         enumeration.setName(type);
         enumeration.setId(String.valueOf(UUID.randomUUID()));
 
-        EnumCharacteristicType characteristicType = DataDictionaryCharacterizedFactory.eINSTANCE.createEnumCharacteristicType();
+        EnumCharacteristicType characteristicType = DataDictionaryCharacterizedFactory.eINSTANCE
+                .createEnumCharacteristicType();
         characteristicType.setId(String.valueOf(UUID.randomUUID()));
         characteristicType.setName(type);
         characteristicType.setType(enumeration);

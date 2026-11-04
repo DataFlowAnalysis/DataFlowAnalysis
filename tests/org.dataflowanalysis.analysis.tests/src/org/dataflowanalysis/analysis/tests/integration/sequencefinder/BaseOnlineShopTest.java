@@ -118,7 +118,8 @@ public abstract class BaseOnlineShopTest {
                 var nodeLabels = retrieveNodeLabels(it);
                 var dataLabels = retrieveDataLabels(it);
 
-                return nodeLabels.contains("nonEU") && dataLabels.contains("Personal") && !dataLabels.contains("Encrypted");
+                return nodeLabels.contains("nonEU") && dataLabels.contains("Personal")
+                        && !dataLabels.contains("Encrypted");
             });
 
             assertEquals(0, violations.size());

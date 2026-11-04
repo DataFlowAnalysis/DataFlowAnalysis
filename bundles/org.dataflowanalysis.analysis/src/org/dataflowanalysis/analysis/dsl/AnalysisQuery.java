@@ -10,7 +10,9 @@ import org.dataflowanalysis.analysis.dsl.context.DSLContext;
 import org.dataflowanalysis.analysis.dsl.result.DSLConstraintTrace;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.AnySelector;
+import org.dataflowanalysis.analysis.dsl.selectors.SelectorEnvironment;
+import org.dataflowanalysis.analysis.dsl.selectors.conditional.ConditionalSelector;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 
 /**
@@ -22,7 +24,8 @@ public class AnalysisQuery {
     private static final String OMMITED_TRANSPOSE_FLOW_GRAPH = "Transpose flow graph %s did not contain any queried vertices. Omitting!";
 
     private final Logger logger = LoggerManager.getLogger(AnalysisQuery.class);
-    private final List<AbstractSelector> flowSource;
+    private AbstractSelector dataSources;
+    private AbstractSelector vertexDestinations;
     private final List<ConditionalSelector> selectors;
     private final DSLContext context;
 
@@ -30,9 +33,10 @@ public class AnalysisQuery {
      * Create a new empty analysis query
      */
     public AnalysisQuery() {
-        this.flowSource = new ArrayList<>();
-        this.selectors = new ArrayList<>();
         this.context = new DSLContext();
+        this.dataSources = new AnySelector(this.context);
+        this.vertexDestinations = new AnySelector(this.context);
+        this.selectors = new ArrayList<>();
     }
 
     /**
@@ -47,12 +51,12 @@ public class AnalysisQuery {
             List<AbstractVertex<?>> matchedVertices = new ArrayList<>();
             for (AbstractVertex<?> vertex : transposeFlowGraph.getVertices()) {
                 boolean matched = true;
-                for (AbstractSelector selector : this.flowSource) {
-                    if (!selector.matches(vertex)) {
-                        logger.debug(String.format(FAILED_MATCHING_MESSAGE, vertex, selector));
-                        matched = false;
-                        constraintTrace.addMissingSelector(vertex, selector);
-                    }
+                if (!this.dataSources.matches(vertex, SelectorEnvironment.SOURCE_SELECTOR, constraintTrace)) {
+                    matched = false;
+                }
+                if (!this.vertexDestinations.matches(vertex, SelectorEnvironment.DESTINATION_SELECTOR,
+                        constraintTrace)) {
+                    matched = false;
                 }
                 for (ConditionalSelector selector : this.selectors) {
                     if (!selector.matchesSelector(vertex, context)) {
@@ -75,12 +79,20 @@ public class AnalysisQuery {
         return results;
     }
 
-    /**
-     * Adds a flow source selector to the query
-     * @param selector Flow source selector that is added to the query
-     */
-    public void addFlowSource(AbstractSelector selector) {
-        this.flowSource.add(selector);
+    public AbstractSelector getDataSources() {
+        return dataSources;
+    }
+
+    public void setDataSources(AbstractSelector dataSources) {
+        this.dataSources = dataSources;
+    }
+
+    public AbstractSelector getVertexDestinations() {
+        return vertexDestinations;
+    }
+
+    public void setVertexDestinations(AbstractSelector vertexDestinations) {
+        this.vertexDestinations = vertexDestinations;
     }
 
     /**

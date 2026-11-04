@@ -33,9 +33,11 @@ public class IFJPMailViolationResult implements DFDExampleModelResult {
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
         return List.of(
-                new ExpectedViolation(0, new DFDIdentifier("hkp4w"), List.of(new ExpectedCharacteristic("Zone", "Attack")),
+                new ExpectedViolation(0, new DFDIdentifier("hkp4w"),
+                        List.of(new ExpectedCharacteristic("Zone", "Attack")),
                         Map.of("fh2", List.of(new ExpectedCharacteristic("Level", "High")))),
-                new ExpectedViolation(0, new DFDIdentifier("f63vu"), List.of(new ExpectedCharacteristic("Zone", "Attack")),
+                new ExpectedViolation(0, new DFDIdentifier("f63vu"),
+                        List.of(new ExpectedCharacteristic("Zone", "Attack")),
                         Map.of("pepa57", List.of(new ExpectedCharacteristic("Level", "High")))));
     }
 

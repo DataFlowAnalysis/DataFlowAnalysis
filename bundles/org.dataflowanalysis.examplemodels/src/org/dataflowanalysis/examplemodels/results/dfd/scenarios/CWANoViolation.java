@@ -31,7 +31,8 @@ public class CWANoViolation implements DFDExampleModelResult {
                         .withLabel("Identifiers", "PersonalData")
                         .neverFlows()
                         .toVertex()
-                        .withCharacteristic("Server", List.of("CWApp", "VerificationServer", "TestResultServer", "DDServer", "CWAppServer"))
+                        .withCharacteristic("Server",
+                                List.of("CWApp", "VerificationServer", "TestResultServer", "DDServer", "CWAppServer"))
                         .create());
     }
 

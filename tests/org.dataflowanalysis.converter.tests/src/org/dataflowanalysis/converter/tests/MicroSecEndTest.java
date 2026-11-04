@@ -251,7 +251,8 @@ public class MicroSecEndTest extends ConverterTest {
         return labelTypeName + "." + labelName;
     }
 
-    private void ensureCorrectDFDConversion(org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary complete) {
+    private void ensureCorrectDFDConversion(
+            org.dataflowanalysis.converter.dfd2web.DataFlowDiagramAndDictionary complete) {
         var web2DFDConverter = new Web2DFDConverter();
         var dfd2WebConverter = new DFD2WebConverter();
         var webBefore = dfd2WebConverter.convert(complete);

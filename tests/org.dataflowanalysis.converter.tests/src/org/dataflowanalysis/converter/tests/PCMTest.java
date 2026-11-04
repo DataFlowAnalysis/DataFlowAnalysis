@@ -22,7 +22,7 @@ import org.dataflowanalysis.analysis.dfd.core.DFDFlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.simple.DFDSimpleTransposeFlowGraphFinder;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
-import org.dataflowanalysis.analysis.dsl.selectors.Intersection;
+import org.dataflowanalysis.analysis.dsl.selectors.conditional.Intersection;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariable;
 import org.dataflowanalysis.analysis.pcm.PCMDataFlowConfidentialityAnalysisBuilder;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
@@ -110,7 +110,8 @@ public class PCMTest extends ConverterTest {
             }
         }
 
-        PCMConverterModel pcmConverterModel = new PCMConverterModel(TEST_MODELS, usageModelPath, allocationPath, nodeCharPath, Activator.class);
+        PCMConverterModel pcmConverterModel = new PCMConverterModel(TEST_MODELS, usageModelPath, allocationPath,
+                nodeCharPath, Activator.class);
         var dfd = new PCM2DFDConverter().convert(pcmConverterModel);
 
         // Assignment: flights.*.* := RETURN.*.*
@@ -205,7 +206,8 @@ public class PCMTest extends ConverterTest {
             }
         }
 
-        PCMConverterModel pcmConverterModel = new PCMConverterModel(modelLocation, usageModelPath, allocationPath, nodeCharPath, Activator.class);
+        PCMConverterModel pcmConverterModel = new PCMConverterModel(modelLocation, usageModelPath, allocationPath,
+                nodeCharPath, Activator.class);
         var complete = new PCM2DFDConverter().convert(pcmConverterModel);
 
         var dfd2WebConverter = new DFD2WebConverter();
@@ -221,13 +223,15 @@ public class PCMTest extends ConverterTest {
                 .size(), vertices.size());
 
         if (constraints != null && !constraints.isEmpty()) {
-            DFDSimpleTransposeFlowGraphFinder dfdTransposeFlowGraphFinder = new DFDSimpleTransposeFlowGraphFinder(dd, dfd);
-            var dfdTFGCollection = new DFDFlowGraphCollection(null, dfdTransposeFlowGraphFinder.findTransposeFlowGraphs()
-                    .stream()
-                    .map(it -> {
-                        return it.evaluate();
-                    })
-                    .toList());
+            DFDSimpleTransposeFlowGraphFinder dfdTransposeFlowGraphFinder = new DFDSimpleTransposeFlowGraphFinder(dd,
+                    dfd);
+            var dfdTFGCollection = new DFDFlowGraphCollection(null,
+                    dfdTransposeFlowGraphFinder.findTransposeFlowGraphs()
+                            .stream()
+                            .map(it -> {
+                                return it.evaluate();
+                            })
+                            .toList());
             List<String> nodeIds = new ArrayList<>();
             for (Node node : dfd.getNodes()) {
                 nodeIds.add(node.getId());
@@ -316,7 +320,8 @@ public class PCMTest extends ConverterTest {
                     .equals("aName")) {
                 continue;
             }
-            assertEquals(nodeNameStripped, nameMapping.get(strippedId), "Could not find PCM Vertex with ID: " + dfdId + " / " + strippedId);
+            assertEquals(nodeNameStripped, nameMapping.get(strippedId),
+                    "Could not find PCM Vertex with ID: " + dfdId + " / " + strippedId);
         }
     }
 
@@ -367,7 +372,8 @@ public class PCMTest extends ConverterTest {
     }
 
     private static Stream<Arguments> getPCMModels() {
-        return Stream.of(Arguments.of(TEST_MODELS, "scenarios/pcm/CoCarNextGen/AudiA6C8.usagemodel", "scenarios/pcm/CoCarNextGen/AudiA6C8.allocation",
+        return Stream.of(Arguments.of(TEST_MODELS, "scenarios/pcm/CoCarNextGen/AudiA6C8.usagemodel",
+                "scenarios/pcm/CoCarNextGen/AudiA6C8.allocation",
                 "scenarios/pcm/CoCarNextGen/AudiA6C8.nodecharacteristics", Activator.class));
     }
 
@@ -376,7 +382,8 @@ public class PCMTest extends ConverterTest {
     public void testValidDFD(String modelLocation, String usageModelPath, String allocationPath, String nodeCharPath,
             Class<? extends Plugin> activator) {
         PCM2DFDConverter converter = new PCM2DFDConverter();
-        PCMConverterModel converterModel = new PCMConverterModel(modelLocation, usageModelPath, allocationPath, nodeCharPath, activator);
+        PCMConverterModel converterModel = new PCMConverterModel(modelLocation, usageModelPath, allocationPath,
+                nodeCharPath, activator);
         DataFlowDiagramAndDictionary dfd = converter.convert(converterModel);
         for (Node node : dfd.dataFlowDiagram()
                 .getNodes()) {

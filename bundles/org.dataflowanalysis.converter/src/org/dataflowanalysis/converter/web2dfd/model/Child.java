@@ -25,8 +25,9 @@ import org.dataflowanalysis.converter.web2dfd.ChildSerializer;
 @JsonSerialize(using = ChildSerializer.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public record Child(String text, List<WebEditorLabel> labels, List<Port> ports, String id, String type, String sourceId, String targetId,
-        List<Annotation> annotations, List<Child> children, Position position, Size size, List<RoutingPoint> routingPoints) {
+public record Child(String text, List<WebEditorLabel> labels, List<Port> ports, String id, String type, String sourceId,
+        String targetId, List<Annotation> annotations, List<Child> children, Position position, Size size,
+        List<RoutingPoint> routingPoints) {
 
     @JsonCreator
     public static Child create(@JsonProperty("text") String text, @JsonProperty("labels") List<WebEditorLabel> labels,
@@ -36,7 +37,8 @@ public record Child(String text, List<WebEditorLabel> labels, List<Port> ports, 
             @JsonProperty("position") Position position, @JsonProperty("size") Size size,
             @JsonProperty("routingPoints") List<RoutingPoint> routingPoints) {
         return new Child(text, labels, ports, id, type, sourceId, targetId,
-                annotations == null && type.startsWith("node") ? new ArrayList<>() : annotations, children, position, size, routingPoints);
+                annotations == null && type.startsWith("node") ? new ArrayList<>() : annotations, children, position,
+                size, routingPoints);
     }
 
     /**

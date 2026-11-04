@@ -47,8 +47,8 @@ public class PCMConverterModel extends ConverterModel {
         allocationPath = PathUtils.normalizePathString(allocationPath, FILE_EXTENSION_ALLOCATION);
         nodeCharPath = PathUtils.normalizePathString(nodeCharPath, FILE_EXTENSION_NODE);
         DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
-                .useCustomResourceProvider(new PCMURIResourceProvider(URI.createFileURI(usageModelPath), URI.createFileURI(allocationPath),
-                        URI.createFileURI(nodeCharPath)))
+                .useCustomResourceProvider(new PCMURIResourceProvider(URI.createFileURI(usageModelPath),
+                        URI.createFileURI(allocationPath), URI.createFileURI(nodeCharPath)))
                 .build();
 
         analysis.initializeAnalysis();
@@ -64,8 +64,8 @@ public class PCMConverterModel extends ConverterModel {
         String nodeCharPath = this.getFilePath(scanner, FILE_EXTENSION_NODE);
 
         DataFlowConfidentialityAnalysis analysis = new PCMDataFlowConfidentialityAnalysisBuilder().standalone()
-                .useCustomResourceProvider(new PCMURIResourceProvider(URI.createFileURI(usageModelPath), URI.createFileURI(allocationPath),
-                        URI.createFileURI(nodeCharPath)))
+                .useCustomResourceProvider(new PCMURIResourceProvider(URI.createFileURI(usageModelPath),
+                        URI.createFileURI(allocationPath), URI.createFileURI(nodeCharPath)))
                 .build();
 
         analysis.initializeAnalysis();

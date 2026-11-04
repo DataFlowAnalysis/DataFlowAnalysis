@@ -46,11 +46,11 @@ public final class DataFlowDiagramAndDictionary extends PersistableConverterMode
      * @param inputDataFlowDiagram Relative path to the data flow diagram starting at the modeling project root
      * @param inputDataDictionary Relative path to the data dictionary starting at the modeling project root
      * @param activator Plugin activator that used to register the modeling project
-     * @throws StandaloneInitializationException Thrown when initialization of the project via the model project name and
-     * activator fails
+     * @throws StandaloneInitializationException Thrown when initialization of the project via the model project name
+     * and activator fails
      */
-    public DataFlowDiagramAndDictionary(String modelProjectName, String inputDataFlowDiagram, String inputDataDictionary, Class<?> activator)
-            throws StandaloneInitializationException {
+    public DataFlowDiagramAndDictionary(String modelProjectName, String inputDataFlowDiagram,
+            String inputDataDictionary, Class<?> activator) throws StandaloneInitializationException {
         super(ModelType.DFD);
         StandaloneInitializerBuilder.builder()
                 .registerProjectURI(activator, modelProjectName)
@@ -140,8 +140,10 @@ public final class DataFlowDiagramAndDictionary extends PersistableConverterMode
                 .toAbsolutePath()
                 .normalize();
 
-        Resource dfdResource = createResource(basePath + FILE_EXTENSION_DFD, new String[] {"dataflowdiagram"}, resourceSet);
-        Resource ddResource = createResource(basePath + FILE_EXTENSION_DD, new String[] {"datadictionary"}, resourceSet);
+        Resource dfdResource = createResource(basePath + FILE_EXTENSION_DFD, new String[] {"dataflowdiagram"},
+                resourceSet);
+        Resource ddResource = createResource(basePath + FILE_EXTENSION_DD, new String[] {"datadictionary"},
+                resourceSet);
 
         dfdResource.getContents()
                 .add(dataFlowDiagram);

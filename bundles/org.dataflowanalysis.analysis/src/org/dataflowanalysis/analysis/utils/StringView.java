@@ -89,8 +89,8 @@ public class StringView {
      * @param prefix Prefix that the view of the stored string is compared against
      * @throws IllegalArgumentException Throws a {@link IllegalArgumentException} if the view on the string is
      * {@link StringView#invalid()}
-     * @return Returns true, if the view of the stored string begins with the given prefix. Otherwise, the method returns
-     * false
+     * @return Returns true, if the view of the stored string begins with the given prefix. Otherwise, the method
+     * returns false
      */
     public boolean startsWith(String prefix) {
         if (this.invalid()) {
@@ -112,12 +112,14 @@ public class StringView {
         if (this.invalid()) {
             throw new IllegalArgumentException();
         }
-        return ParseResult.error(this.string + System.lineSeparator() + " ".repeat(this.index) + "- Error: Expected " + prefix);
+        return ParseResult
+                .error(this.string + System.lineSeparator() + " ".repeat(this.index) + "- Error: Expected " + prefix);
     }
 
     /**
      * Determines whether the string view has overrun and is empty
-     * @return Returns true, if the string view has overrun its bounds and is empty. Otherwise, the method returns false.
+     * @return Returns true, if the string view has overrun its bounds and is empty. Otherwise, the method returns
+     * false.
      */
     public boolean empty() {
         return this.string.length() <= this.index;

@@ -38,7 +38,8 @@ public final class DataCharacteristic {
      * @return Returns a new data characteristic object with the updated characteristic values
      */
     public DataCharacteristic addCharacteristic(CharacteristicValue characteristic) {
-        List<CharacteristicValue> newCharacteristics = Stream.concat(characteristics.stream(), Stream.of(characteristic))
+        List<CharacteristicValue> newCharacteristics = Stream
+                .concat(characteristics.stream(), Stream.of(characteristic))
                 .toList();
         return new DataCharacteristic(variableName, newCharacteristics);
     }
@@ -47,8 +48,8 @@ public final class DataCharacteristic {
      * Determines, whether the data characteristic has a characteristic value applied. This is determined by
      * {@link Object#equals(Object)}.
      * @param characteristic Characteristic value that is searched
-     * @return Returns true, if the data characteristic has the characteristic value applied. Otherwise, the method returns
-     * false.
+     * @return Returns true, if the data characteristic has the characteristic value applied. Otherwise, the method
+     * returns false.
      */
     public boolean hasCharacteristic(CharacteristicValue characteristic) {
         return this.characteristics.contains(characteristic);
@@ -76,8 +77,8 @@ public final class DataCharacteristic {
     }
 
     /**
-     * Returns the name of the data characteristic. For the data characteristic {@code ccd.Sensitivity.Personal}, it will
-     * return {@code ccd}
+     * Returns the name of the data characteristic. For the data characteristic {@code ccd.Sensitivity.Personal}, it
+     * will return {@code ccd}
      * @return Returns the name of the data characteristic
      */
     public String getVariableName() {

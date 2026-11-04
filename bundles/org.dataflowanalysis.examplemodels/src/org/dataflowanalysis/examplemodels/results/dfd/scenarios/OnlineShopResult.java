@@ -33,8 +33,9 @@ public class OnlineShopResult implements DFDExampleModelResult {
     @Override
     public List<ExpectedViolation> getExpectedViolations() {
         return List.of(new ExpectedViolation(2, new DFDIdentifier("_U27Lor6CEe6fAKdvyu1GEg"),
-                List.of(new ExpectedCharacteristic("Location", "nonEU")), Map.of("_zWPQ8L6GEe6fAKdvyu1GEg",
-                        List.of(new ExpectedCharacteristic("Sensitivity", "Personal"), new ExpectedCharacteristic("Encryption", "Encrypted")))));
+                List.of(new ExpectedCharacteristic("Location", "nonEU")),
+                Map.of("_zWPQ8L6GEe6fAKdvyu1GEg", List.of(new ExpectedCharacteristic("Sensitivity", "Personal"),
+                        new ExpectedCharacteristic("Encryption", "Encrypted")))));
     }
 
     @Override

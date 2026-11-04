@@ -59,7 +59,8 @@ public class WebEditorTest extends ConverterTest {
         completeBefore.save("./bin", tempWebDFD);
 
         WebEditorConverterModel webAfter = new WebEditorConverterModel(tempWebDFD + ".json");
-        DataFlowDiagramAndDictionary completeAfter = new DataFlowDiagramAndDictionary("./bin/test.dataflowdiagram", "./bin/test.datadictionary");
+        DataFlowDiagramAndDictionary completeAfter = new DataFlowDiagramAndDictionary("./bin/test.dataflowdiagram",
+                "./bin/test.datadictionary");
 
         assertEquals(minimalWebDFD.getModel(), webAfter.getModel());
         assertEquals(completeBefore.dataFlowDiagram()

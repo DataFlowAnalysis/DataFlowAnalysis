@@ -41,9 +41,11 @@ public class BehaviorTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"TRUE || FALSE", "TypeA.ValueA && TypeB.ValueB", "TypeA.ValueA || TypeB.ValueB", "!TypeA.ValueA && TypeB.ValueB",
-            "TypeA.ValueA || !TypeB.ValueB", "(TypeA.ValueA && TypeB.ValueB) || TypeC.ValueC", "!(TypeA.ValueA || TypeB.ValueB) && TypeC.ValueC",
-            "((TypeA.ValueA && TRUE) || !TypeB.ValueB) || FALSE", "(!TypeA.ValueA && TypeB.ValueB) || (TypeC.ValueC && !TypeD.ValueD)",
+    @ValueSource(strings = {"TRUE || FALSE", "TypeA.ValueA && TypeB.ValueB", "TypeA.ValueA || TypeB.ValueB",
+            "!TypeA.ValueA && TypeB.ValueB", "TypeA.ValueA || !TypeB.ValueB",
+            "(TypeA.ValueA && TypeB.ValueB) || TypeC.ValueC", "!(TypeA.ValueA || TypeB.ValueB) && TypeC.ValueC",
+            "((TypeA.ValueA && TRUE) || !TypeB.ValueB) || FALSE",
+            "(!TypeA.ValueA && TypeB.ValueB) || (TypeC.ValueC && !TypeD.ValueD)",
             "((TypeA.ValueA || !TypeB.ValueB) && TypeC.ValueC) || (TypeD.ValueD && !(TypeE.ValueE || TypeF.ValueF))",
             "!((TypeA.ValueA && (TypeB.ValueB || !TypeC.ValueC)) || (!(TypeD.ValueD && TypeE.ValueE) && (TypeF.ValueF || TypeG.ValueG)))"})
     @DisplayName("Test Behavior Conversion")
@@ -136,7 +138,8 @@ public class BehaviorTest {
         var webDfd = dfd2WebConverter.convert(new DataFlowDiagramAndDictionary(dataFlowDiagram, dataDictionary));
 
         testAssignment(webDfd.getModel(), "b",
-                List.of("assign type.value,type.value2 if !(type.value && TRUE) from a2b", "set type.value", "unset type.value2"));
+                List.of("assign type.value,type.value2 if !(type.value && TRUE) from a2b", "set type.value",
+                        "unset type.value2"));
     }
 
     @Test

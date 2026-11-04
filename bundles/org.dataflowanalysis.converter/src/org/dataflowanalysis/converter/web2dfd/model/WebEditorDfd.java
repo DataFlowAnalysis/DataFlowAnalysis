@@ -8,7 +8,8 @@ import java.util.List;
  * Represents a web editor data flow diagram
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record WebEditorDfd(Model model, List<WebEditorLabelType> labelTypes, String mode, List<Constraint> constraints) {
+public record WebEditorDfd(Model model, List<WebEditorLabelType> labelTypes, String mode,
+        List<Constraint> constraints) {
 
     /**
      * Sorts the data flow diagram based on the id's of the contents

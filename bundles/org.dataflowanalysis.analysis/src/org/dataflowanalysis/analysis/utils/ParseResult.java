@@ -33,7 +33,8 @@ public class ParseResult<T> {
 
     /**
      * Indicates whether the parse result contains a successful result
-     * @return Returns true, if the {@link ParseResult} contains a successful result. Otherwise, the method returns false
+     * @return Returns true, if the {@link ParseResult} contains a successful result. Otherwise, the method returns
+     * false
      */
     public boolean successful() {
         return result.isPresent();
@@ -60,7 +61,8 @@ public class ParseResult<T> {
 
     /**
      * Returns the contained error in the {@link ParseResult}, if present
-     * @throws NoSuchElementException Throws an {@link NoSuchElementException} when the {@link ParseResult} is successful
+     * @throws NoSuchElementException Throws an {@link NoSuchElementException} when the {@link ParseResult} is
+     * successful
      * @return Returns the contained error in the {@link ParseResult}
      */
     public String getError() {
@@ -84,8 +86,8 @@ public class ParseResult<T> {
     }
 
     /**
-     * Chains two {@link ParseResult}, if the {@link ParseResult} is erroneous. If the {@link ParseResult} is present, this
-     * function equals the identity function.
+     * Chains two {@link ParseResult}, if the {@link ParseResult} is erroneous. If the {@link ParseResult} is present,
+     * this function equals the identity function.
      * @param other Other {@link ParseResult} that is used, when this {@link ParseResult} is not erroneous
      * @return Returns this, when this {@link ParseResult} is successful. Otherwise, it returns the provided
      * {@link ParseResult}
@@ -99,8 +101,8 @@ public class ParseResult<T> {
     /**
      * Returns either this {@link ParseResult}, if it is successful, or the other provided value
      * @param other Other provided value of the same type as {@link T}
-     * @return Returns the contained successful value in the {@link ParseResult}, if it is present. Otherwise, the method
-     * returns the given parameter of the same type.
+     * @return Returns the contained successful value in the {@link ParseResult}, if it is present. Otherwise, the
+     * method returns the given parameter of the same type.
      */
     public T or(T other) {
         if (this.result.isPresent())

@@ -24,14 +24,14 @@ public class StandaloneConvertTask {
     private static final Logger logger = LoggerManager.getLogger(StandaloneConvertTask.class);
 
     /**
-     * Entry point of the interactive converter. Can be run interactively without any command line parameter or directly via
-     * the command line parameters
+     * Entry point of the interactive converter. Can be run interactively without any command line parameter or directly
+     * via the command line parameters
      * <p/>
      * During interactive mode users will be prompted for each input
      * <p/>
      * In direct mode parameters will be read from the command line arguments: 1. Conversion in the format
-     * ORIGIN2DESTINATION 2. Paths to models required for the origin model 3. Path to the folder the result should be saved
-     * in 4. File name of the resulting model files
+     * ORIGIN2DESTINATION 2. Paths to models required for the origin model 3. Path to the folder the result should be
+     * saved in 4. File name of the resulting model files
      * @param args Command line parameters
      */
     public static void main(String[] args) {
@@ -70,7 +70,8 @@ public class StandaloneConvertTask {
         PersistableConverterModel persistableConverterModel = converter.convert(converterModel);
 
         if (parameterList.size() != 2) {
-            System.err.println("Need two additional parameter for saving the converted model, but got: " + parameterList.size());
+            System.err.println(
+                    "Need two additional parameter for saving the converted model, but got: " + parameterList.size());
             System.exit(-1);
         }
         String filePath = parameterList.remove(0);
@@ -123,7 +124,8 @@ public class StandaloneConvertTask {
         ConverterModel input = getConverterModelInteractive(origin, scanner);
         PersistableConverterModel output = converter.convert(input);
 
-        System.out.println("Please enter a path to a folder where the files should be saved. Leave empty for current working directory");
+        System.out.println(
+                "Please enter a path to a folder where the files should be saved. Leave empty for current working directory");
         System.out.print("> ");
         String filePath = scanner.nextLine();
         if (filePath.isEmpty())

@@ -33,7 +33,8 @@ public class DFDVertexTest {
         Flow c2d = ((Flow) mapNameToEntity.get("c2d"));
         Flow d2e = ((Flow) mapNameToEntity.get("d2e"));
 
-        DFDVertex aVertex = new DFDVertex((Node) mapNameToEntity.get("a"), new HashMap<>(), Map.of(a2b.getSourcePin(), a2b));
+        DFDVertex aVertex = new DFDVertex((Node) mapNameToEntity.get("a"), new HashMap<>(),
+                Map.of(a2b.getSourcePin(), a2b));
         DFDVertex bVertex = new DFDVertex((Node) mapNameToEntity.get("b"), Map.of(a2b.getDestinationPin(), aVertex),
                 Map.of(a2b.getDestinationPin(), a2b));
         DFDVertex cVertex = new DFDVertex((Node) mapNameToEntity.get("c"), Map.of(b2c.getDestinationPin(), bVertex),

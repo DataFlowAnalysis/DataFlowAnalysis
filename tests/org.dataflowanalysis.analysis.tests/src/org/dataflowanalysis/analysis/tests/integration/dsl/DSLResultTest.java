@@ -8,17 +8,15 @@ import org.dataflowanalysis.analysis.DataFlowConfidentialityAnalysis;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.FlowGraphCollection;
 import org.dataflowanalysis.analysis.dfd.dsl.DFDDSLContextProvider;
+import org.dataflowanalysis.analysis.dsl.AdvancedAnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.AnalysisQuery;
+import org.dataflowanalysis.analysis.dsl.SimpleAnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.constraint.ConstraintDSL;
 import org.dataflowanalysis.analysis.dsl.query.QueryDSL;
 import org.dataflowanalysis.analysis.dsl.result.DSLResult;
-import org.dataflowanalysis.analysis.dsl.selectors.CharacteristicsSelectorData;
-import org.dataflowanalysis.analysis.dsl.selectors.DataCharacteristicsSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.Intersection;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.conditional.Intersection;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariable;
-import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
 import org.dataflowanalysis.analysis.pcm.core.user.UserPCMVertex;
 import org.dataflowanalysis.analysis.pcm.dsl.PCMDSLContextProvider;
 import org.dataflowanalysis.analysis.pcm.dsl.PCMVertexType;
@@ -44,7 +42,8 @@ public class DSLResultTest extends BaseTest {
                 .withCharacteristic("ServerLocation", "nonEU")
                 .create();
 
-        evaluateAnalysis(constraint, internationalOnlineShopAnalysis, ConstraintViolations.internationalOnlineShopViolations);
+        evaluateAnalysis(constraint, internationalOnlineShopAnalysis,
+                ConstraintViolations.internationalOnlineShopViolations);
     }
 
     @Test
@@ -68,6 +67,7 @@ public class DSLResultTest extends BaseTest {
                 .withType(PCMVertexType.USER)
                 .build();
         FlowGraphCollection flowGraphCollection = this.travelPlannerAnalysis.findFlowGraphs();
+        flowGraphCollection.evaluate();
         List<DSLResult> results = query.query(flowGraphCollection);
         List<? extends AbstractVertex<?>> queriedVertices = results.stream()
                 .map(DSLResult::getMatchedVertices)
@@ -80,27 +80,6 @@ public class DSLResultTest extends BaseTest {
                 .getScenarioBehaviour_AbstractUserAction()
                 .getUsageScenario_SenarioBehaviour()
                 .getEntityName());
-    }
-
-    @Test
-    public void testDataObjects() {
-        AnalysisConstraint constraint = new AnalysisConstraint("default");
-        constraint.addDataSourceSelector(new DataCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(
-                ConstraintVariableReference.ofConstant(List.of("DataSensitivity")), ConstraintVariableReference.ofConstant(List.of("Personal")))));
-        constraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(
-                ConstraintVariableReference.ofConstant(List.of("ServerLocation")), ConstraintVariableReference.ofConstant(List.of("nonEU")))));
-
-        evaluateAnalysis(constraint, internationalOnlineShopAnalysis, ConstraintViolations.internationalOnlineShopViolations);
-    }
-
-    @Test
-    public void testStringify() {
-        AnalysisConstraint constraint = new AnalysisConstraint("testDSL");
-        constraint.addDataSourceSelector(new DataCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(
-                ConstraintVariableReference.ofConstant(List.of("DataSensitivity")), ConstraintVariableReference.ofConstant(List.of("Personal")))));
-        constraint.addNodeDestinationSelector(new VertexCharacteristicsSelector(constraint.getContext(), new CharacteristicsSelectorData(
-                ConstraintVariableReference.ofConstant(List.of("ServerLocation")), ConstraintVariableReference.ofConstant(List.of("nonEU")))));
-        assertEquals("- testDSL: data DataSensitivity.Personal neverFlows vertex ServerLocation.nonEU", constraint.toString());
     }
 
     @Test
@@ -198,15 +177,17 @@ public class DSLResultTest extends BaseTest {
 
     @Test
     public void cannotParseOnlyVertexSelectors() {
-        ParseResult<AnalysisConstraint> constraint = AnalysisConstraint
-                .fromString(new StringView("- Test: vertex type PROCESS neverFlows vertex type STORE"), new DFDDSLContextProvider());
+        ParseResult<SimpleAnalysisConstraint> constraint = SimpleAnalysisConstraint.fromString(
+                new StringView("- Test: vertex type PROCESS neverFlows vertex type STORE"),
+                new DFDDSLContextProvider());
         assertTrue(constraint.failed());
     }
 
-    private void evaluateAnalysis(AnalysisConstraint constraint, DataFlowConfidentialityAnalysis analysis, List<ConstraintData> expectedResults) {
+    private void evaluateAnalysis(AnalysisConstraint constraint, DataFlowConfidentialityAnalysis analysis,
+            List<ConstraintData> expectedResults) {
         logger.info("DSL String: " + constraint.toString());
-        ParseResult<AnalysisConstraint> constraintParsed = AnalysisConstraint.fromString(new StringView(constraint.toString()),
-                new PCMDSLContextProvider());
+        ParseResult<AdvancedAnalysisConstraint> constraintParsed = AdvancedAnalysisConstraint
+                .fromString(new StringView(constraint.toString()), new PCMDSLContextProvider());
         if (constraintParsed.failed()) {
             fail(System.lineSeparator() + constraintParsed.getError());
         }

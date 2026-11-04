@@ -24,17 +24,19 @@ import org.dataflowanalysis.converter.web2dfd.Web2DFDConverter;
  * This class contains all possible conversions currently supported by the converter
  */
 public class ConversionTable {
-    private final Map<ConversionKey, Supplier<Converter>> conversionTable = Map.of(ConversionKey.of(ModelType.PCM, ModelType.DFD),
-            PCM2DFDConverter::new, ConversionKey.of(ModelType.DFD, ModelType.WEB_DFD), DFD2WebConverter::new,
-            ConversionKey.of(ModelType.PLANT, ModelType.MICRO), Plant2MicroConverter::new, ConversionKey.of(ModelType.MICRO, ModelType.DFD),
-            Micro2DFDConverter::new, ConversionKey.of(ModelType.WEB_DFD, ModelType.DFD), Web2DFDConverter::new);
+    private final Map<ConversionKey, Supplier<Converter>> conversionTable = Map.of(
+            ConversionKey.of(ModelType.PCM, ModelType.DFD), PCM2DFDConverter::new,
+            ConversionKey.of(ModelType.DFD, ModelType.WEB_DFD), DFD2WebConverter::new,
+            ConversionKey.of(ModelType.PLANT, ModelType.MICRO), Plant2MicroConverter::new,
+            ConversionKey.of(ModelType.MICRO, ModelType.DFD), Micro2DFDConverter::new,
+            ConversionKey.of(ModelType.WEB_DFD, ModelType.DFD), Web2DFDConverter::new);
 
     /**
-     * Determines the converter required to convert according to the given conversion key. If no direct conversion between
-     * the elements exists, it creates the shortest {@link ConverterChain}
+     * Determines the converter required to convert according to the given conversion key. If no direct conversion
+     * between the elements exists, it creates the shortest {@link ConverterChain}
      * <p/>
-     * For conversions via a {@link ConverterChain}, a Breath First Search (BFS) is performed to find the shortest path to
-     * the desired conversion.
+     * For conversions via a {@link ConverterChain}, a Breath First Search (BFS) is performed to find the shortest path
+     * to the desired conversion.
      * @param conversionKey Given conversion key that the converter should fulfil
      * @return Returns the converter that achieves the desired conversion
      * @throws IllegalArgumentException A valid converter cannot be found
@@ -66,7 +68,8 @@ public class ConversionTable {
     }
 
     /**
-     * Backtracks from the given destination to the origin of the conversion key with the given list of parent model types
+     * Backtracks from the given destination to the origin of the conversion key with the given list of parent model
+     * types
      * <p/>
      * This corresponds to the usual backtracking of a found route in Breadth First Search (BFS)
      * @param destination Destination of the converter chain
@@ -74,7 +77,8 @@ public class ConversionTable {
      * @param parent Mapping describing for each model (key) which models (values) can convert into it
      * @return Returns a {@link ConverterChain} implementing the conversion key
      */
-    private ConverterChain getConverterChain(ModelType destination, ConversionKey conversionKey, Map<ModelType, ModelType> parent) {
+    private ConverterChain getConverterChain(ModelType destination, ConversionKey conversionKey,
+            Map<ModelType, ModelType> parent) {
         List<Converter> converters = new ArrayList<>();
         while (destination != conversionKey.origin()) {
             ModelType parentModelType = parent.get(destination);
@@ -100,7 +104,8 @@ public class ConversionTable {
     }
 
     /**
-     * Determines all possible destinations for a model type. Destinations via other model types are included in the result
+     * Determines all possible destinations for a model type. Destinations via other model types are included in the
+     * result
      * @param origin Model type of the originating model
      * @return Returns a collection containing all possible (transitive) conversion destinations for the given origin
      */

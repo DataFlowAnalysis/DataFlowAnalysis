@@ -31,8 +31,10 @@ public class VariableReferenceTest {
     }
 
     private static Stream<Arguments> correctVariableReferences() {
-        return Stream.of(Arguments.of("$valid", "valid"), Arguments.of("$alsoValid1", "alsoValid1"), Arguments.of("$someNotAsciiÄ", "someNotAsciiÄ"),
-                Arguments.of("someConstant", ConstraintVariable.CONSTANT_NAME), Arguments.of("someOtherConstant", ConstraintVariable.CONSTANT_NAME),
+        return Stream.of(Arguments.of("$valid", "valid"), Arguments.of("$alsoValid1", "alsoValid1"),
+                Arguments.of("$someNotAsciiÄ", "someNotAsciiÄ"),
+                Arguments.of("someConstant", ConstraintVariable.CONSTANT_NAME),
+                Arguments.of("someOtherConstant", ConstraintVariable.CONSTANT_NAME),
                 Arguments.of("whatAbout$This?", ConstraintVariable.CONSTANT_NAME));
     }
 

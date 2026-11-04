@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dsl.AbstractParseable;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
+import org.dataflowanalysis.analysis.dsl.selectors.conditional.ConditionalSelector;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariable;
 import org.dataflowanalysis.analysis.dsl.variable.ConstraintVariableReference;
 import org.dataflowanalysis.analysis.utils.ParseResult;
@@ -95,7 +96,8 @@ public class VariableConditionalSelector extends AbstractParseable implements Co
         boolean inverted = string.startsWith(DSL_INVERTED_SYMBOL);
         if (inverted)
             string.advance(DSL_INVERTED_SYMBOL.length());
-        ParseResult<ConstraintVariableReference> constraintVariableReference = ConstraintVariableReference.fromString(string);
+        ParseResult<ConstraintVariableReference> constraintVariableReference = ConstraintVariableReference
+                .fromString(string);
         if (constraintVariableReference.failed()) {
             string.setPosition(position);
             return ParseResult.error(constraintVariableReference.getError());

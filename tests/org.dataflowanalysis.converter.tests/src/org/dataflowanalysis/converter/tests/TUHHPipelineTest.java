@@ -29,17 +29,21 @@ public class TUHHPipelineTest {
 
     public static final List<Integer> OUT_OF_SCOPE_VARIANTS = List.of(13, 14, 15, 16, 17);
 
-    public static final Map<String, List<Integer>> FAULTY_VARIANTS = Map.ofEntries(entry("callistaenterprise", List.of(4)),
-            entry("ewolff", List.of(3, 6)), entry("fernandoabcampos", List.of(3, 6)), entry("jferrater", List.of(1, 4)),
-            entry("mdeket", List.of(3, 6)), entry("mudigal-technologies", List.of(3, 6)), entry("rohitghatol", List.of(11)),
+    public static final Map<String, List<Integer>> FAULTY_VARIANTS = Map.ofEntries(
+            entry("callistaenterprise", List.of(4)), entry("ewolff", List.of(3, 6)),
+            entry("fernandoabcampos", List.of(3, 6)), entry("jferrater", List.of(1, 4)), entry("mdeket", List.of(3, 6)),
+            entry("mudigal-technologies", List.of(3, 6)), entry("rohitghatol", List.of(11)),
             entry("spring-petclinic", List.of(4)), entry("georgwittberger", List.of(9)));
 
-    public static final Map<String, List<Integer>> CYCLIC_SINK_VARIANTS = Map.ofEntries(entry("anilallewar", List.of(10)),
-            entry("ewolff", List.of(0, 2, 4, 7, 8, 11)), entry("ewolff-kafka", List.of(10, 11, 12)), entry("jferrater", List.of(10, 11, 12)),
+    public static final Map<String, List<Integer>> CYCLIC_SINK_VARIANTS = Map.ofEntries(
+            entry("anilallewar", List.of(10)), entry("ewolff", List.of(0, 2, 4, 7, 8, 11)),
+            entry("ewolff-kafka", List.of(10, 11, 12)), entry("jferrater", List.of(10, 11, 12)),
             entry("mdeket", List.of(0, 2, 4, 7, 8, 9, 10, 11, 12)), entry("mudigal-technologies", List.of(10, 12)),
-            entry("piomin", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 17, 18)), entry("rohitghatol", List.of(0, 6, 7, 8, 9)),
-            entry("shabbirdwd53", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 17, 18)), entry("spring-petclinic", List.of(10, 11, 12)),
-            entry("yidongnan", List.of(10, 11, 12)), entry("fernandoabcampos", List.of(0, 1, 2, 4, 5, 7, 8, 9, 10, 11, 12)));
+            entry("piomin", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 17, 18)),
+            entry("rohitghatol", List.of(0, 6, 7, 8, 9)),
+            entry("shabbirdwd53", List.of(0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 17, 18)),
+            entry("spring-petclinic", List.of(10, 11, 12)), entry("yidongnan", List.of(10, 11, 12)),
+            entry("fernandoabcampos", List.of(0, 1, 2, 4, 5, 7, 8, 9, 10, 11, 12)));
 
     @Disabled
     @Test
@@ -226,7 +230,8 @@ public class TUHHPipelineTest {
         }
     }
 
-    private int runPythonScript(String script, String in, String format, String out) throws InterruptedException, IOException {
+    private int runPythonScript(String script, String in, String format, String out)
+            throws InterruptedException, IOException {
         String[] command = {"python3", script, in, format, "-op", out};
 
         ProcessBuilder processBuilder = new ProcessBuilder(command);

@@ -1,11 +1,11 @@
 package org.dataflowanalysis.analysis.tests.integration.dsl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.stream.Stream;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
-import org.dataflowanalysis.analysis.dsl.selectors.VertexCharacteristicsListSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexCharacteristicsListSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexSelector;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,22 +17,24 @@ public class VertexCharacteristicListSelectorTest {
     @MethodSource("correctVertexCharacteristicSelectors")
     public void shouldParseCorrectly(String VertexCharacteristicsSelectorString, boolean inverted) {
         StringView stringView = new StringView(VertexCharacteristicsSelectorString);
-        ParseResult<VertexCharacteristicsListSelector> VertexCharacteristicsSelector = VertexCharacteristicsListSelector.fromString(stringView,
+        ParseResult<VertexSelector> selector = VertexCharacteristicsListSelector.fromString(stringView,
                 new DSLContext());
-        assertTrue(VertexCharacteristicsSelector.successful());
+        assertTrue(selector.successful());
         assertTrue(stringView.empty());
-        assertEquals(inverted, VertexCharacteristicsSelector.getResult()
-                .isInverted());
-        assertEquals(VertexCharacteristicsSelectorString, VertexCharacteristicsSelector.getResult()
-                .toString());
+        if (selector.getResult() instanceof VertexCharacteristicsListSelector vertexCharacteristicsSelector) {
+            assertEquals(inverted, vertexCharacteristicsSelector.isInverted());
+            assertEquals("vertex " + VertexCharacteristicsSelectorString, vertexCharacteristicsSelector.toString());
+        } else {
+            fail("Selector is not a vertex characteristic list selector");
+        }
     }
 
     @ParameterizedTest
     @MethodSource("incorrectVertexCharacteristicSelectors")
     public void shouldNotParse(String VertexCharacteristicsSelectorString) {
         StringView stringView = new StringView(VertexCharacteristicsSelectorString);
-        ParseResult<VertexCharacteristicsListSelector> VertexCharacteristicsSelector = VertexCharacteristicsListSelector.fromString(stringView,
-                new DSLContext());
+        ParseResult<VertexSelector> VertexCharacteristicsSelector = VertexCharacteristicsListSelector
+                .fromString(stringView, new DSLContext());
         assertTrue(VertexCharacteristicsSelector.failed() || !stringView.empty());
     }
 
@@ -42,7 +44,7 @@ public class VertexCharacteristicListSelectorTest {
     }
 
     private static Stream<Arguments> incorrectVertexCharacteristicSelectors() {
-        return Stream.of(Arguments.of(".B"), Arguments.of("!.B"), Arguments.of("A."), Arguments.of("!"), Arguments.of("!."), Arguments.of("A.B,"),
-                Arguments.of("A.B,C."), Arguments.of(","));
+        return Stream.of(Arguments.of(".B"), Arguments.of("!.B"), Arguments.of("A."), Arguments.of("!"),
+                Arguments.of("!."), Arguments.of("A.B,"), Arguments.of("A.B,C."), Arguments.of(","));
     }
 }

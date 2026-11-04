@@ -45,7 +45,8 @@ public class MaasTest {
                 var nodeLabels = retrieveNodeLabels(it);
                 var dataLabels = retrieveDataLabels(it);
 
-                return (!dataLabels.contains("Encrypted") || dataLabels.contains("FineGranular")) && dataLabels.contains("Customer")
+                return (!dataLabels.contains("Encrypted") || dataLabels.contains("FineGranular"))
+                        && dataLabels.contains("Customer")
                         && (dataLabels.contains("STS") || dataLabels.contains("LTS") || dataLabels.contains("TripData"))
                         && !nodeLabels.contains("Customer");
             });
@@ -60,8 +61,9 @@ public class MaasTest {
                 var nodeLabels = retrieveNodeLabels(it);
                 var dataLabels = retrieveDataLabels(it);
 
-                return dataLabels.contains("Vehicle") && dataLabels.contains("VehicleData") && dataLabels.contains("Customer")
-                        && dataLabels.contains("TripData") && nodeLabels.contains("Inspector");
+                return dataLabels.contains("Vehicle") && dataLabels.contains("VehicleData")
+                        && dataLabels.contains("Customer") && dataLabels.contains("TripData")
+                        && nodeLabels.contains("Inspector");
             });
 
             assertEquals(0, violations.size());
@@ -87,9 +89,10 @@ public class MaasTest {
                 var nodeLabels = retrieveNodeLabels(it);
                 var dataLabels = retrieveDataLabels(it);
 
-                return dataLabels.contains("FineGranular") && dataLabels.contains("Customer") && dataLabels.contains("TripData")
-                        && (nodeLabels.contains("SupportStaff") || nodeLabels.contains("BillingStaff") || nodeLabels.contains("AnalysisStaff")
-                                || nodeLabels.contains("Administrators"));
+                return dataLabels.contains("FineGranular") && dataLabels.contains("Customer")
+                        && dataLabels.contains("TripData")
+                        && (nodeLabels.contains("SupportStaff") || nodeLabels.contains("BillingStaff")
+                                || nodeLabels.contains("AnalysisStaff") || nodeLabels.contains("Administrators"));
             });
 
             assertEquals(0, violations.size());

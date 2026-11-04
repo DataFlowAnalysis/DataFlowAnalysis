@@ -7,8 +7,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
+import org.dataflowanalysis.analysis.core.VertexInformation;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexType;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.CallReturnBehavior;
+import org.dataflowanalysis.analysis.pcm.dsl.PCMVertexType;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
@@ -18,13 +21,13 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
     private final boolean isCalling;
 
     /**
-     * Creates a new User Action Sequence Element with an underlying Palladio Element and indication whether the SEFF Action
-     * is calling
+     * Creates a new User Action Sequence Element with an underlying Palladio Element and indication whether the SEFF
+     * Action is calling
      * @param element Underlying Palladio Element
      * @param isCalling Is true, when another method is called. Otherwise, a called method is returned from
      */
-    public CallingUserPCMVertex(EntryLevelSystemCall element, List<? extends AbstractPCMVertex<?>> previousElements, boolean isCalling,
-            ResourceProvider resourceProvider) {
+    public CallingUserPCMVertex(EntryLevelSystemCall element, List<? extends AbstractPCMVertex<?>> previousElements,
+            boolean isCalling, ResourceProvider resourceProvider) {
         super(element, previousElements, resourceProvider);
         this.isCalling = isCalling;
     }
@@ -37,7 +40,10 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
     @Override
     public void evaluateDataFlow() {
         List<DataCharacteristic> incomingDataCharacteristics = this.getIncomingDataCharacteristics();
-        List<CharacteristicValue> nodeCharacteristics = this.getVertexCharacteristics();
+        List<CharacteristicValue> vertexCharacteristics = this.getVertexCharacteristics();
+        VertexInformation vertexInformation = VertexInformation.fromVertex(vertexCharacteristics, this);
+        this.getPreviousElements()
+                .forEach(vertexInformation::extendInformation);
 
         List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.getVariableCharacterizations();
 
@@ -46,15 +52,16 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
                     .getOperationSignature__EntryLevelSystemCall(), variableCharacterisations);
         }
 
-        List<DataCharacteristic> outgoingDataCharacteristics = this.getDataCharacteristics(nodeCharacteristics, variableCharacterisations,
-                incomingDataCharacteristics);
+        List<DataCharacteristic> outgoingDataCharacteristics = this.getDataCharacteristics(vertexCharacteristics,
+                variableCharacterisations, incomingDataCharacteristics);
         if (this.isReturning()) {
             outgoingDataCharacteristics = outgoingDataCharacteristics.stream()
                     .filter(it -> !it.getVariableName()
                             .equals("RETURN"))
                     .collect(Collectors.toList());
         }
-        this.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, nodeCharacteristics);
+        this.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics,
+                vertexInformation);
     }
 
     /**
@@ -64,8 +71,9 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
      * @return Returns a list of variable characterizations that are applicable to the current vertex
      */
     private List<ConfidentialityVariableCharacterisation> getVariableCharacterizations() {
-        Stream<VariableUsage> relevantVariableUsages = this.isCalling ? super.getReferencedElement().getInputParameterUsages_EntryLevelSystemCall()
-                .stream()
+        Stream<VariableUsage> relevantVariableUsages = this.isCalling
+                ? super.getReferencedElement().getInputParameterUsages_EntryLevelSystemCall()
+                        .stream()
                 : super.getReferencedElement().getOutputParameterUsages_EntryLevelSystemCall()
                         .stream();
         return relevantVariableUsages.flatMap(it -> it.getVariableCharacterisation_VariableUsage()
@@ -73,6 +81,11 @@ public class CallingUserPCMVertex extends UserPCMVertex<EntryLevelSystemCall> im
                 .filter(ConfidentialityVariableCharacterisation.class::isInstance)
                 .map(ConfidentialityVariableCharacterisation.class::cast)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<VertexType> getVertexTypes() {
+        return List.of(PCMVertexType.USER, this.isCalling ? PCMVertexType.CALLING : PCMVertexType.RETURNING);
     }
 
     @Override

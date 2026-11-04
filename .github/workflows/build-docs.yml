@@ -24,7 +24,7 @@ jobs:
           npm run build
 
       - name: Upload Build as Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: docs-build
           path: ./docs/.vitepress/dist

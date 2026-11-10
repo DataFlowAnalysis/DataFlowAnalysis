@@ -42,9 +42,6 @@ tmp/
 org.eclipse.m2e.core.prefs
 
 # EMF/MWE2 codegen byproducts for the six datadictionary/dataflowdiagram model bundles.
-# The mwe2 generator (now run automatically by each bundle's own generate-sources phase)
-# always recreates a legacy PDE plugin scaffold alongside the real target/generated-sources
-# output; that scaffold isn't used by the plain-Maven build and shouldn't be committed.
 bundles/org.dataflowanalysis.dfd.datadictionary*/plugin.xml
 bundles/org.dataflowanalysis.dfd.datadictionary*/plugin.properties
 bundles/org.dataflowanalysis.dfd.datadictionary*/build.properties

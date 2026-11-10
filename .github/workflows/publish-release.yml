@@ -1,4 +1,4 @@
-name: Build Updatesite for Release
+name: Publish Release
 
 on:
   workflow_dispatch:
@@ -7,6 +7,9 @@ on:
 jobs:
   build_and_publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -15,25 +18,25 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: 17
+          java-version: 21
+          server-id: github
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
 
       - name: Setup Maven
         uses: stCarolas/setup-maven@v5
         with:
           maven-version: 3.9.6
 
-      - name: Build and Verify
-        run: mvn clean verify
+      - name: Set release version from tag
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          mvn versions:set -DnewVersion="$VERSION" -DgenerateBackupPoms=false -DprocessAllModules=true
 
       - name: Check formatting
         run: mvn spotless:check
 
-      - name: Publish Release Update Site
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          deploy_key: ${{ secrets.UPDATE_SITE_DEPLOY_KEY }}
-          external_repository: DataFlowAnalysis/updatesite
-          destination_dir: release/dataflowanalysis/${{ github.event.release.tag_name }}
-          publish_dir: releng/org.dataflowanalysis.analysis.updatesite/target/repository
-          publish_branch: main
-          
+      - name: Build, Verify and Publish Release
+        run: mvn clean deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

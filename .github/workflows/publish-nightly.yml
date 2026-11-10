@@ -1,4 +1,4 @@
-name: Build Updatesite for Nightly
+name: Publish Nightly Snapshot
 
 on:
   workflow_dispatch:
@@ -11,6 +11,9 @@ on:
 jobs:
   build_and_publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,22 +22,17 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: 17
+          java-version: 21
+          server-id: github
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
 
       - name: Setup Maven
         uses: stCarolas/setup-maven@v5
         with:
           maven-version: 3.9.6
 
-      - name: Build and Verify
-        run: mvn clean verify
-
-      - name: Publish Nightly Update Site
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          deploy_key: ${{ secrets.UPDATE_SITE_DEPLOY_KEY }}
-          external_repository: DataFlowAnalysis/updatesite
-          destination_dir: nightly/dataflowanalysis/
-          publish_dir: releng/org.dataflowanalysis.analysis.updatesite/target/repository
-          publish_branch: main
-          
+      - name: Build, Verify and Publish Snapshot
+        run: mvn clean deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

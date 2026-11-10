@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.dataflowanalysis.analysis</groupId>
+		<artifactId>parent</artifactId>
+		<version>5.0.0-SNAPSHOT</version>
+		<relativePath>../</relativePath>
+	</parent>
+	<groupId>org.dataflowanalysis.analysis</groupId>
+	<artifactId>bundles</artifactId>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>org.dataflowanalysis.dfd.datadictionary</module>
+		<module>org.dataflowanalysis.dfd.datadictionary.edit</module>
+		<module>org.dataflowanalysis.dfd.datadictionary.editor</module>
+		<module>org.dataflowanalysis.dfd.dataflowdiagram</module>
+		<module>org.dataflowanalysis.dfd.dataflowdiagram.edit</module>
+		<module>org.dataflowanalysis.dfd.dataflowdiagram.editor</module>
+		<module>org.dataflowanalysis.analysis</module>
+		<module>org.dataflowanalysis.analysis.pcm</module>
+		<module>org.dataflowanalysis.analysis.dfd</module>
+		<module>org.dataflowanalysis.converter</module>
+		<module>org.dataflowanalysis.examplemodels</module>
+	</modules>
+</project>

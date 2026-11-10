@@ -21,7 +21,7 @@
           git
           maven
           python3
-          openjdk17
+          openjdk21
         ];
       };
     });

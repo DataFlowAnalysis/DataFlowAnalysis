@@ -1,0 +1,24 @@
+module org.dataflowanalysis.dfd.dataflowdiagram.workflow.generate
+
+import org.eclipse.emf.mwe.utils.StandaloneSetup
+import org.eclipse.emf.mwe2.ecore.EcoreGenerator
+
+var workspaceRoot = "UNSET-workspaceRoot"
+
+Workflow {
+	bean = StandaloneSetup {
+		scanClassPath = true
+		platformUri = workspaceRoot
+
+		projectMapping = { projectName = "org.dataflowanalysis.dfd.dataflowdiagram" path = workspaceRoot }
+	}
+
+	component = EcoreGenerator {
+		generateCustomClasses = false
+		generateModel = true
+		generateEdit = false
+		generateEditor = false
+		genModel = "platform:/resource/org.dataflowanalysis.dfd.dataflowdiagram/model/dataflowdiagram.genmodel"
+		srcPath = "platform:/resource/org.dataflowanalysis.dfd.dataflowdiagram/target/generated-sources/mwe2"
+	}
+}

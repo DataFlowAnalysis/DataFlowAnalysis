@@ -1,0 +1,26 @@
+module org.dataflowanalysis.dfd.datadictionary.editor.workflow.generate
+
+import org.eclipse.emf.mwe.utils.StandaloneSetup
+import org.eclipse.emf.mwe2.ecore.EcoreGenerator
+
+var workspaceRoot = "UNSET-workspaceRoot"
+var datadictionaryPath = "UNSET-datadictionaryPath"
+
+Workflow {
+	bean = StandaloneSetup {
+		scanClassPath = true
+		platformUri = workspaceRoot
+
+		projectMapping = { projectName = "org.dataflowanalysis.dfd.datadictionary.editor" path = workspaceRoot }
+		projectMapping = { projectName = "org.dataflowanalysis.dfd.datadictionary" path = datadictionaryPath }
+	}
+
+	component = EcoreGenerator {
+		generateCustomClasses = false
+		generateModel = false
+		generateEdit = false
+		generateEditor = true
+		genModel = "platform:/resource/org.dataflowanalysis.dfd.datadictionary/model/datadictionary.genmodel"
+		srcPath = "platform:/resource/org.dataflowanalysis.dfd.datadictionary.editor/target/generated-sources/mwe2"
+	}
+}

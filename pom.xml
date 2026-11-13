@@ -53,17 +53,17 @@
 
  <repositories>
 	<repository>
-		<id>local-vendor-repo</id>
-		<name>Vendored P2-only dependencies (Palladio PCM, mdsd.tools, dataflowanalysis PCM extensions)</name>
-		<url>file://${maven.multiModuleProjectDirectory}/local-maven-repo</url>
+		<id>github-vendor</id>
+		<name>DataFlowAnalysisVendor GitHub Packages</name>
+		<url>https://maven.pkg.github.com/DataFlowAnalysis/DataFlowAnalysisVendor</url>
 	</repository>
  </repositories>
 
  <pluginRepositories>
 	<pluginRepository>
-		<id>local-vendor-repo</id>
-		<name>Vendored P2-only dependencies (Palladio PCM, mdsd.tools, dataflowanalysis PCM extensions)</name>
-		<url>file://${maven.multiModuleProjectDirectory}/local-maven-repo</url>
+		<id>github-vendor</id>
+		<name>DataFlowAnalysisVendor GitHub Packages</name>
+		<url>https://maven.pkg.github.com/DataFlowAnalysis/DataFlowAnalysisVendor</url>
 	</pluginRepository>
  </pluginRepositories>
 

@@ -27,6 +27,15 @@ jobs:
           server-username: GITHUB_ACTOR
           server-password: GITHUB_TOKEN
 
+      - name: Set up JDK (vendor packages)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 21
+          server-id: github-vendor
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
+
       - name: Setup Maven
         uses: stCarolas/setup-maven@v5
         with:

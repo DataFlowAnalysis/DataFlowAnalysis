@@ -17,6 +17,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 21
+          server-id: github-vendor
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
 
       - name: Setup Maven
         uses: stCarolas/setup-maven@v5
@@ -25,6 +28,8 @@ jobs:
 
       - name: Build and Verify
         run: mvn clean verify
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check formatting
         run: mvn spotless:check

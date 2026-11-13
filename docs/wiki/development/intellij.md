@@ -5,7 +5,7 @@ Make sure a JDK 21 is installed and configured in IntelliJ (File->Project Struct
 ## 2. Cloning and Opening the Project
 Clone the analysis repository to your desired location using `git clone`.
 Then use `File->Open` and select the cloned repository's root folder (the one containing the top-level `pom.xml`).
-IntelliJ will detect the Maven multi-module project and import all modules declared in the reactor `pom.xml` files automatically, resolving their dependencies from Maven Central and the repository's own `local-maven-repo/`.
+IntelliJ will detect the Maven multi-module project and import all modules declared in the reactor `pom.xml` files automatically, resolving their dependencies from Maven Central and GitHub Packages (DataFlowAnalysisVendor, for the P2-only vendor jars).
 
 If you only need a subset of the modules, use the Maven tool window (`View->Tool Windows->Maven`) to unlink the ones you don't need after the initial import.
 

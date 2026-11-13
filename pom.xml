@@ -1,128 +1,363 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
  <modelVersion>4.0.0</modelVersion>
  <groupId>org.dataflowanalysis.analysis</groupId>
  <artifactId>parent</artifactId>
  <version>5.0.0-SNAPSHOT</version>
  <packaging>pom</packaging>
 
+ <distributionManagement>
+	<repository>
+		<id>github</id>
+		<name>DataFlowAnalysis GitHub Packages</name>
+		<url>https://maven.pkg.github.com/DataFlowAnalysis/DataFlowAnalysis</url>
+	</repository>
+	<snapshotRepository>
+		<id>github</id>
+		<name>DataFlowAnalysis GitHub Packages</name>
+		<url>https://maven.pkg.github.com/DataFlowAnalysis/DataFlowAnalysis</url>
+	</snapshotRepository>
+ </distributionManagement>
+
  <properties>
-	<tycho.version>4.0.9</tycho.version>
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  	<sonar.organization>xdecaf</sonar.organization>
+	<maven.compiler.release>21</maven.compiler.release>
+	<sonar.organization>xdecaf</sonar.organization>
+
+	<vendor.groupId>org.dataflowanalysis.vendor</vendor.groupId>
+	<eclipse.platform.version>3.33.100</eclipse.platform.version>
+	<eclipse.resources.version>3.22.200</eclipse.resources.version>
+	<eclipse.ui.ide.version>3.22.600</eclipse.ui.ide.version>
+	<eclipse.ui.version>3.207.200</eclipse.ui.version>
+	<eclipse.ui.views.version>3.12.600</eclipse.ui.views.version>
+	<eclipse.ui.workbench.version>3.135.100</eclipse.ui.workbench.version>
+	<eclipse.jface.text.version>3.28.0</eclipse.jface.text.version>
+	<eclipse.equinox.common.version>3.20.100</eclipse.equinox.common.version>
+	<eclipse.swt.version>3.130.0</eclipse.swt.version>
+	<emf.ecore.version>2.36.0</emf.ecore.version>
+	<emf.ecore.xmi.version>2.37.0</emf.ecore.xmi.version>
+	<emf.common.version>2.30.0</emf.common.version>
+	<emf.edit.version>2.18.0</emf.edit.version>
+	<emf.ecore.change.version>2.15.0</emf.ecore.change.version>
+	<emf.codegen.ecore.version>2.38.0</emf.codegen.ecore.version>
+	<emf.codegen.version>2.23.0</emf.codegen.version>
+	<jdt.core.version>3.38.0</jdt.core.version>
+	<xtext.version>2.35.0</xtext.version>
+	<mwe.version>1.12.0</mwe.version>
+	<mwe2.version>2.18.0</mwe2.version>
+	<log4j.version>1.2.17</log4j.version>
+	<guava.version>33.3.0-jre</guava.version>
+	<jackson.version>2.18.4</jackson.version>
+	<junit.version>5.12.2</junit.version>
  </properties>
+
+ <repositories>
+	<repository>
+		<id>github-vendor</id>
+		<name>DataFlowAnalysisVendor GitHub Packages</name>
+		<url>https://maven.pkg.github.com/DataFlowAnalysis/DataFlowAnalysisVendor</url>
+	</repository>
+ </repositories>
+
+ <pluginRepositories>
+	<pluginRepository>
+		<id>github-vendor</id>
+		<name>DataFlowAnalysisVendor GitHub Packages</name>
+		<url>https://maven.pkg.github.com/DataFlowAnalysis/DataFlowAnalysisVendor</url>
+	</pluginRepository>
+ </pluginRepositories>
+
+ <dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.platform</groupId>
+			<artifactId>org.eclipse.core.runtime</artifactId>
+			<version>${eclipse.platform.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.platform</groupId>
+			<artifactId>org.eclipse.core.resources</artifactId>
+			<version>${eclipse.resources.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.platform</groupId>
+			<artifactId>org.eclipse.ui.ide</artifactId>
+			<version>${eclipse.ui.ide.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.ecore</artifactId>
+			<version>${emf.ecore.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.ecore.xmi</artifactId>
+			<version>${emf.ecore.xmi.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.common</artifactId>
+			<version>${emf.common.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.edit</artifactId>
+			<version>${emf.edit.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.ecore.change</artifactId>
+			<version>${emf.ecore.change.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.codegen.ecore</artifactId>
+			<version>${emf.codegen.ecore.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.codegen</artifactId>
+			<version>${emf.codegen.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jdt</groupId>
+			<artifactId>org.eclipse.jdt.core</artifactId>
+			<version>${jdt.core.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.platform</groupId>
+			<artifactId>org.eclipse.equinox.common</artifactId>
+			<version>${eclipse.equinox.common.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.platform</groupId>
+			<artifactId>org.eclipse.ui</artifactId>
+			<version>${eclipse.ui.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.platform</groupId>
+			<artifactId>org.eclipse.ui.views</artifactId>
+			<version>${eclipse.ui.views.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.platform</groupId>
+			<artifactId>org.eclipse.ui.workbench</artifactId>
+			<version>${eclipse.ui.workbench.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.platform</groupId>
+			<artifactId>org.eclipse.jface.text</artifactId>
+			<version>${eclipse.jface.text.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext</artifactId>
+			<version>${xtext.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext.xbase</artifactId>
+			<version>${xtext.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext.xbase.lib</artifactId>
+			<version>${xtext.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext.util</artifactId>
+			<version>${xtext.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext.common.types</artifactId>
+			<version>${xtext.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext.ecore</artifactId>
+			<version>${xtext.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.xtend</groupId>
+			<artifactId>org.eclipse.xtend.core</artifactId>
+			<version>${xtext.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.xtend</groupId>
+			<artifactId>org.eclipse.xtend.lib</artifactId>
+			<version>${xtext.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-params</artifactId>
+			<version>${junit.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.version}</version>
+		</dependency>
+
+		<!-- Vendored: no Maven Central equivalent exist -->
+		<dependency>
+			<groupId>${vendor.groupId}</groupId>
+			<artifactId>org.palladiosimulator.pcm</artifactId>
+			<version>5.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>${vendor.groupId}</groupId>
+			<artifactId>tools.mdsd.library.standalone.initialization</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>${vendor.groupId}</groupId>
+			<artifactId>tools.mdsd.library.standalone.initialization.log4j</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>${vendor.groupId}</groupId>
+			<artifactId>tools.mdsd.modelingfoundations.identifier</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>${vendor.groupId}</groupId>
+			<artifactId>tools.mdsd.modelingfoundations.identifier.edit</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>${vendor.groupId}</groupId>
+			<artifactId>org.dataflowanalysis.pcm.extension.dddsl</artifactId>
+			<version>5.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>${vendor.groupId}</groupId>
+			<artifactId>org.dataflowanalysis.pcm.extension.dictionary.characterized</artifactId>
+			<version>5.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>${vendor.groupId}</groupId>
+			<artifactId>org.dataflowanalysis.pcm.extension.nodecharacteristics</artifactId>
+			<version>0.1.0.202604060810</version>
+		</dependency>
+		<dependency>
+			<groupId>${vendor.groupId}</groupId>
+			<artifactId>org.eclipse.emf.edit.ui</artifactId>
+			<version>2.23.0.v20230211-1150</version>
+		</dependency>
+
+		<dependency>
+			<groupId>${vendor.groupId}</groupId>
+			<artifactId>tools.mdsd.ecoreworkflow.mwe2lib</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.mwe.utils</artifactId>
+			<version>${mwe.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.mwe.core</artifactId>
+			<version>${mwe.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.mwe2.launch</artifactId>
+			<version>${mwe2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.mwe2.lib</artifactId>
+			<version>${mwe2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.mwe2.language</artifactId>
+			<version>${mwe2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.mwe2.runtime</artifactId>
+			<version>${mwe2.version}</version>
+		</dependency>
+	</dependencies>
+ </dependencyManagement>
 
  <build>
 	<pluginManagement>
 		<plugins>
 			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-p2-director-plugin</artifactId>
-				<version>${tycho.version}</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.13.0</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.2.5</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.3.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.6.0</version>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<executable>java</executable>
+				</configuration>
 			</plugin>
 		</plugins>
 	</pluginManagement>
 	<plugins>
 		<plugin>
-			<groupId>org.eclipse.tycho</groupId>
-			<artifactId>tycho-maven-plugin</artifactId>
-			<version>${tycho.version}</version>
-			<extensions>true</extensions>
-		</plugin>
-		<!--Enable the replacement of the SNAPSHOT version in the final product configuration-->
-		<plugin>
-			<groupId>org.eclipse.tycho</groupId>
-			<artifactId>tycho-packaging-plugin</artifactId>
-			<version>${tycho.version}</version>
-			<executions>
-				<execution>
-					<phase>package</phase>
-					<id>package-feature</id>
-					<configuration>
-						<finalName>${project.artifactId}_${unqualifiedVersion}.${buildQualifier}</finalName>
-					</configuration>
-				</execution>
-			</executions>
-		</plugin>
-		<plugin>
-			<groupId>org.eclipse.tycho</groupId>
-			<artifactId>target-platform-configuration</artifactId>
-			<version>${tycho.version}</version>
-			<configuration>
-				<!-- Optional set the Java version you are using-->
-				<executionEnvironment>JavaSE-17</executionEnvironment>
-				<target>
-				  <file>../../releng/org.dataflowanalysis.analysis.targetplatform/org.dataflowanalysis.analysis.targetplatform.targetplatform.target</file>
-				</target>
-				<environments>
-					<environment>
-						<os>linux</os>
-						<ws>gtk</ws>
-						<arch>x86_64</arch>
-					</environment>
-					<environment>
-						<os>win32</os>
-						<ws>win32</ws>
-						<arch>x86_64</arch>
-					</environment>
-					<environment>
-						<os>macosx</os>
-						<ws>cocoa</ws>
-						<arch>x86_64</arch>
-					</environment>
-				</environments>
-			</configuration>
-		</plugin>
-		<plugin>
-			<groupId>org.eclipse.tycho</groupId>
-			<artifactId>tycho-source-plugin</artifactId>
-			<version>${tycho.version}</version>
-			<executions>
-				<execution>
-					<id>plugin-source</id>
-					<goals>
-						<goal>plugin-source</goal>
-					</goals>
-				</execution>
-				<execution>
-					<id>feature-source</id>
-					<goals>
-						<goal>feature-source</goal>
-					</goals>
-				</execution>
-			</executions>
-		</plugin>
-		<plugin>
-			<groupId>org.eclipse.tycho</groupId>
-			<artifactId>tycho-p2-plugin</artifactId>
-			<version>${tycho.version}</version>
-			<executions>
-				<execution>
-					<id>attached-p2-metadata</id>
-					<phase>package</phase>
-					<goals>
-						<goal>p2-metadata</goal>
-					</goals>
-				</execution>
-			</executions>
-		</plugin>
-		<plugin>
-			<groupId>org.eclipse.xtend</groupId>
-			<artifactId>xtend-maven-plugin</artifactId>
-			<version>2.30.0</version>
-			<executions>
-				<execution>
-					<goals>
-						<goal>compile</goal>
-					</goals>
-					<configuration>
-						<outputDirectory>xtend-gen</outputDirectory>
-						<javaSourceVersion>17</javaSourceVersion>
-					</configuration>
-				</execution>
-			</executions>
-		</plugin>
-    		<plugin>
 			<groupId>com.diffplug.spotless</groupId>
 			<artifactId>spotless-maven-plugin</artifactId>
 			<version>2.43.0</version>
@@ -134,7 +369,12 @@
 						<include>tests/**/*.java</include>
 					</includes>
 				    <excludes>
-						<exclude>**/src-gen/</exclude>
+						<exclude>bundles/org.dataflowanalysis.dfd.datadictionary/**</exclude>
+						<exclude>bundles/org.dataflowanalysis.dfd.datadictionary.edit/**</exclude>
+						<exclude>bundles/org.dataflowanalysis.dfd.datadictionary.editor/**</exclude>
+						<exclude>bundles/org.dataflowanalysis.dfd.dataflowdiagram/**</exclude>
+						<exclude>bundles/org.dataflowanalysis.dfd.dataflowdiagram.edit/**</exclude>
+						<exclude>bundles/org.dataflowanalysis.dfd.dataflowdiagram.editor/**</exclude>
 					</excludes>
 					<eclipse>
 						<file>${maven.multiModuleProjectDirectory}/formatter.xml</file>
@@ -150,7 +390,6 @@
 			<version>0.8.11</version>
 			<executions>
 
-				<!-- Attach agent to tests -->
 				<execution>
 					<id>prepare-agent</id>
 					<goals>
@@ -170,7 +409,6 @@
 							<format>XML</format>
 						</formats>
 
-						<!-- Optional but often helps in multi-module reactors -->
 						<dataFileIncludes>
 							<dataFileInclude>**/target/jacoco.exec</dataFileInclude>
 							<dataFileInclude>**/target/*.exec</dataFileInclude>
@@ -183,89 +421,46 @@
 
 	</plugins>
  </build>
- 
-  <profiles>
+
+ <profiles>
 	<profile>
-		<id>execute-generate-workflow</id>
+		<id>swt-linux</id>
 		<activation>
-			<file>
-				<exists>workflow/generate.mwe2</exists>
-			</file>
+			<os>
+				<family>unix</family>
+				<name>linux</name>
+			</os>
 		</activation>
-		<build>
-			<plugins>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>exec-maven-plugin</artifactId>
-					<version>3.1.0</version>
-					<executions>
-						<execution>
-							<id>ExecuteMWE2LauncherForGenerate</id>
-							<phase>generate-sources</phase>
-							<goals>
-								<goal>java</goal>
-							</goals>
-							<configuration>
-								<mainClass>org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher</mainClass>
-								<arguments>
-									<argument>/${project.basedir}/workflow/generate.mwe2</argument>
-									<argument>-p</argument>
-									<argument>workspaceRoot=/${maven.multiModuleProjectDirectory}</argument>
-								</arguments>
-								<classpathScope>compile</classpathScope>
-								<includePluginDependencies>true</includePluginDependencies>
-								<cleanupDaemonThreads>false</cleanupDaemonThreads> <!-- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=475098#c3 -->
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-			</plugins>
-		</build>
+		<properties>
+			<swt.artifactId>org.eclipse.swt.gtk.linux.x86_64</swt.artifactId>
+		</properties>
 	</profile>
 	<profile>
-		<id>execute-clean-workflow</id>
+		<id>swt-mac</id>
 		<activation>
-			<file>
-				<exists>workflow/clean.mwe2</exists>
-			</file>
+			<os>
+				<family>mac</family>
+			</os>
 		</activation>
-		<build>
-			<plugins>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>exec-maven-plugin</artifactId>
-					<version>3.1.0</version>
-					<executions>
-						<execution>
-							<id>ExecuteMWE2LauncherForClean</id>
-							<phase>clean</phase>
-							<goals>
-								<goal>java</goal>
-							</goals>
-							<configuration>
-								<mainClass>org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher</mainClass>
-								<arguments>
-									<argument>/${project.basedir}/workflow/clean.mwe2</argument>
-									<argument>-p</argument>
-									<argument>workspaceRoot=/${maven.multiModuleProjectDirectory}</argument>
-								</arguments>
-								<classpathScope>compile</classpathScope>
-								<includePluginDependencies>true</includePluginDependencies>
-								<cleanupDaemonThreads>false
-								</cleanupDaemonThreads> <!-- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=475098#c3 -->
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-			</plugins>
-		</build>
+		<properties>
+			<swt.artifactId>org.eclipse.swt.cocoa.macosx.x86_64</swt.artifactId>
+		</properties>
+	</profile>
+	<profile>
+		<id>swt-windows</id>
+		<activation>
+			<os>
+				<family>windows</family>
+			</os>
+		</activation>
+		<properties>
+			<swt.artifactId>org.eclipse.swt.win32.win32.x86_64</swt.artifactId>
+		</properties>
 	</profile>
  </profiles>
- 
+
  <modules>
-		<module>releng</module>
 		<module>bundles</module>
-		<module>features</module>
     <module>tests</module>
  </modules>
 </project>

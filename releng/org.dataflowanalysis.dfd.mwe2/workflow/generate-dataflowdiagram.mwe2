@@ -1,0 +1,52 @@
+module org.dataflowanalysis.dfd.mwe2.generate_dataflowdiagram
+
+import org.eclipse.emf.mwe.utils.StandaloneSetup
+import org.eclipse.emf.mwe2.ecore.EcoreGenerator
+import tools.mdsd.ecoreworkflow.mwe2lib.bean.EclipseRCPSupportingStandaloneSetup
+import tools.mdsd.ecoreworkflow.mwe2lib.component.*
+
+// Invoked by this bundle's own generate-sources execution (see its pom.xml), with the repo
+// root as the working directory -- Maven's exec-maven-plugin workingDirectory is pinned there.
+// Scoped to ONLY this bundle's output: writing solely into this bundle's own
+// target/generated-sources/mwe2 is what lets each of the six model/edit/editor bundles
+// regenerate safely within its own Maven lifecycle (generate-sources always runs after that
+// same module's own `clean`) without racing a sibling module's clean phase.
+var workspaceRoot = "."
+
+Workflow {
+	bean = EclipseRCPSupportingStandaloneSetup {
+		scanClassPath = true
+		platformUri = workspaceRoot
+
+		// No .project files in the plain-Maven layout; map project names to their
+		// directories explicitly instead of relying on workspace/.project scanning.
+		projectMapping = { projectName = "org.dataflowanalysis.dfd.datadictionary" path = "bundles/org.dataflowanalysis.dfd.datadictionary" }
+		projectMapping = { projectName = "org.dataflowanalysis.dfd.datadictionary.edit" path = "bundles/org.dataflowanalysis.dfd.datadictionary.edit" }
+		projectMapping = { projectName = "org.dataflowanalysis.dfd.datadictionary.editor" path = "bundles/org.dataflowanalysis.dfd.datadictionary.editor" }
+		projectMapping = { projectName = "org.dataflowanalysis.dfd.dataflowdiagram" path = "bundles/org.dataflowanalysis.dfd.dataflowdiagram" }
+		projectMapping = { projectName = "org.dataflowanalysis.dfd.dataflowdiagram.edit" path = "bundles/org.dataflowanalysis.dfd.dataflowdiagram.edit" }
+		projectMapping = { projectName = "org.dataflowanalysis.dfd.dataflowdiagram.editor" path = "bundles/org.dataflowanalysis.dfd.dataflowdiagram.editor" }
+
+		uriMap = {
+			from = "platform:/plugin/tools.mdsd.modelingfoundations.identifier/model/identifier.genmodel"
+			to = "platform:/resource/tools.mdsd.modelingfoundations.identifier/model/identifier.genmodel"
+		}
+		uriMap = {
+			from = "platform:/plugin/tools.mdsd.modelingfoundations.identifier/model/identifier.ecore"
+			to = "platform:/resource/tools.mdsd.modelingfoundations.identifier/model/identifier.ecore"
+		}
+	}
+
+	// Output location comes entirely from the genmodel's own modelDirectory/editDirectory/
+	// editorDirectory attributes, not from srcPath below, which EcoreGenerator only uses to
+	// detect hand-written "FooCustom.java" overrides (irrelevant here since
+	// generateCustomClasses is false, but the component requires an entry).
+	component = EcoreGenerator {
+		generateCustomClasses = false
+		generateModel = true
+		generateEdit = false
+		generateEditor = false
+		genModel = "platform:/resource/org.dataflowanalysis.dfd.dataflowdiagram/model/dataflowdiagram.genmodel"
+		srcPath = "platform:/resource/org.dataflowanalysis.dfd.dataflowdiagram/target/generated-sources/mwe2"
+	}
+}

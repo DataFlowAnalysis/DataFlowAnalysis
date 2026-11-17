@@ -8,14 +8,14 @@
 
  <distributionManagement>
 	<repository>
-		<id>github</id>
-		<name>DataFlowAnalysis GitHub Packages</name>
-		<url>https://maven.pkg.github.com/DataFlowAnalysis/DataFlowAnalysis</url>
+		<id>dataflowanalysis</id>
+		<name>DataFlowAnalysis Maven Repository (Releases)</name>
+		<url>file://${static.repo.path}</url>
 	</repository>
 	<snapshotRepository>
-		<id>github</id>
-		<name>DataFlowAnalysis GitHub Packages</name>
-		<url>https://maven.pkg.github.com/DataFlowAnalysis/DataFlowAnalysis</url>
+		<id>dataflowanalysis</id>
+		<name>DataFlowAnalysis Maven Repository (Snapshots)</name>
+		<url>file://${static.repo.path}</url>
 	</snapshotRepository>
  </distributionManagement>
 
@@ -25,6 +25,7 @@
 	<sonar.organization>xdecaf</sonar.organization>
 
 	<vendor.groupId>org.dataflowanalysis.vendor</vendor.groupId>
+	<static.repo.path>${project.build.directory}/staging-repo</static.repo.path>
 	<eclipse.platform.version>3.33.100</eclipse.platform.version>
 	<eclipse.resources.version>3.22.200</eclipse.resources.version>
 	<eclipse.ui.ide.version>3.22.600</eclipse.ui.ide.version>
@@ -52,18 +53,20 @@
  </properties>
 
  <repositories>
+	<!-- TODO: switch to https://maven.dataflowanalysis.org once DNS is set up -->
 	<repository>
-		<id>github-vendor</id>
-		<name>DataFlowAnalysisVendor GitHub Packages</name>
-		<url>https://maven.pkg.github.com/DataFlowAnalysis/DataFlowAnalysisVendor</url>
+		<id>dataflowanalysis</id>
+		<name>DataFlowAnalysis Maven Repository</name>
+		<url>https://dataflowanalysis.github.io/maven</url>
 	</repository>
  </repositories>
 
  <pluginRepositories>
+	<!-- TODO: switch to https://maven.dataflowanalysis.org once DNS is set up -->
 	<pluginRepository>
-		<id>github-vendor</id>
-		<name>DataFlowAnalysisVendor GitHub Packages</name>
-		<url>https://maven.pkg.github.com/DataFlowAnalysis/DataFlowAnalysisVendor</url>
+		<id>dataflowanalysis</id>
+		<name>DataFlowAnalysis Maven Repository</name>
+		<url>https://dataflowanalysis.github.io/maven</url>
 	</pluginRepository>
  </pluginRepositories>
 
@@ -230,7 +233,6 @@
 			<version>${junit.version}</version>
 		</dependency>
 
-		<!-- Vendored: no Maven Central equivalent exist -->
 		<dependency>
 			<groupId>${vendor.groupId}</groupId>
 			<artifactId>org.palladiosimulator.pcm</artifactId>

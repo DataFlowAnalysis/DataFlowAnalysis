@@ -51,9 +51,6 @@
 			<version>${eclipse.swt.version}</version>
 		</dependency>
 
-		<!-- EMF/MWE2 codegen toolchain, used only by the generate-model-code execution below.
-		     `provided` scope keeps it available on this module's own compile/exec classpath
-		     without leaking into downstream consumers' transitive dependencies. -->
 		<dependency>
 			<groupId>${vendor.groupId}</groupId>
 			<artifactId>tools.mdsd.ecoreworkflow.mwe2lib</artifactId>
@@ -113,11 +110,6 @@
 
 	<build>
 		<plugins>
-			<!-- Regenerates this bundle's own model code (editor only); see
-			     releng/org.dataflowanalysis.dfd.mwe2/workflow/generate-dataflowdiagram-editor.mwe2.
-			     Scoped per-bundle so this always runs after THIS module's own `clean`; a
-			     shared cross-module invocation would get wiped by a sibling's later clean
-			     phase in the same `mvn clean ...` run. -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>

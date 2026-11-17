@@ -13,35 +13,43 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Checkout Maven repo
+        uses: actions/checkout@v4
+        with:
+          repository: DataFlowAnalysis/maven
+          ref: gh-pages
+          path: maven-repo
+          token: ${{ secrets.MAVEN_DEPLOY_TOKEN }}
 
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: 21
-          server-id: github
-          server-username: GITHUB_ACTOR
-          server-password: GITHUB_TOKEN
-
-      - name: Set up JDK (vendor packages)
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: 21
-          server-id: github-vendor
-          server-username: GITHUB_ACTOR
-          server-password: GITHUB_TOKEN
 
       - name: Setup Maven
         uses: stCarolas/setup-maven@v5
         with:
           maven-version: 3.9.6
 
+      - name: Remove previous snapshot artifacts
+        run: |
+          if [ -d maven-repo/org/dataflowanalysis/analysis ]; then
+            find maven-repo/org/dataflowanalysis/analysis -type d -name '*-SNAPSHOT' -exec rm -rf {} +
+          fi
+
       - name: Build, Verify and Publish Snapshot
-        run: mvn clean deploy
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: mvn clean deploy -Dstatic.repo.path="${{ github.workspace }}/maven-repo"
+
+      - name: Push to static Maven repo
+        working-directory: maven-repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "Publish nightly snapshot $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push

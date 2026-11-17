@@ -24,9 +24,6 @@
 			<artifactId>tools.mdsd.modelingfoundations.identifier</artifactId>
 		</dependency>
 
-		<!-- EMF/MWE2 codegen toolchain, used only by the generate-model-code execution below.
-		     `provided` scope keeps it available on this module's own compile/exec classpath
-		     without leaking into downstream consumers' transitive dependencies. -->
 		<dependency>
 			<groupId>${vendor.groupId}</groupId>
 			<artifactId>tools.mdsd.ecoreworkflow.mwe2lib</artifactId>
@@ -91,13 +88,6 @@
 
 	<build>
 		<plugins>
-			<!-- Regenerates this bundle's own model code (base only, not edit/editor); see
-			     pluginManagement in the root pom and
-			     releng/org.dataflowanalysis.dfd.mwe2/workflow/generate-datadictionary.mwe2.
-			     Scoped per-bundle (rather than one shared invocation covering all six model/
-			     edit/editor bundles) so this always runs after THIS module's own `clean`;
-			     a shared cross-module invocation would get wiped by a sibling's later clean
-			     phase in the same `mvn clean ...` run. -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>

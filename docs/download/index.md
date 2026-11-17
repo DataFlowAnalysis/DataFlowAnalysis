@@ -43,6 +43,19 @@ https://dataflowanalysis.github.io//updatesite/release
 https://dataflowanalysis.github.io//updatesite/nightly
 ```
 
+## Maven Dependency
+
+If you want to use the analysis as a library in your own Java/Maven project, add our Maven repository:
+
+```xml
+<repositories>
+	<repository>
+		<id>dataflowanalysis</id>
+		<url>https://dataflowanalysis.github.io/maven</url>
+	</repository>
+</repositories>
+```
+
 ## Online Editor
 
 If you only want to edit and analyze data flow diagrams without further tool support or analysis extensions, just use our online editor, available at https://editor.dataflowanalysis.org/.

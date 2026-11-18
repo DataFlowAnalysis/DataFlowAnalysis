@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.dsl.selectors.AbstractSelector;
-import org.dataflowanalysis.analysis.dsl.selectors.ConditionalSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.conditional.ConditionalSelector;
 
 /**
  * Constraint trace that contains missing selectors and conditional selectors of all vertices

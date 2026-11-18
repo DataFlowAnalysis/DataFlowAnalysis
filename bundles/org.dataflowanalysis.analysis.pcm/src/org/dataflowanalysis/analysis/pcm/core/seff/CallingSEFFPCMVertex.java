@@ -10,8 +10,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
+import org.dataflowanalysis.analysis.core.VertexInformation;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexType;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
 import org.dataflowanalysis.analysis.pcm.core.CallReturnBehavior;
+import org.dataflowanalysis.analysis.pcm.dsl.PCMVertexType;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -44,22 +47,31 @@ public class CallingSEFFPCMVertex extends SEFFPCMVertex<ExternalCallAction> impl
     @Override
     public void evaluateDataFlow() {
         List<DataCharacteristic> incomingDataCharacteristics = this.getIncomingDataCharacteristics();
-        List<CharacteristicValue> nodeCharacteristics = this.getVertexCharacteristics();
+        List<CharacteristicValue> vertexCharacteristics = this.getVertexCharacteristics();
+        VertexInformation vertexInformation = VertexInformation.fromVertex(vertexCharacteristics, this);
+        this.getPreviousElements()
+                .forEach(vertexInformation::extendInformation);
 
         List<ConfidentialityVariableCharacterisation> variableCharacterisations = this.getVariableCharacterizations();
         if (this.isCalling()) {
             this.checkCallParameter(this.getReferencedElement()
                     .getCalledService_ExternalService(), variableCharacterisations);
         }
-        List<DataCharacteristic> outgoingDataCharacteristics = this.getDataCharacteristics(nodeCharacteristics, variableCharacterisations,
-                incomingDataCharacteristics);
+        List<DataCharacteristic> outgoingDataCharacteristics = this.getDataCharacteristics(vertexCharacteristics,
+                variableCharacterisations, incomingDataCharacteristics);
         if (this.isReturning()) {
             outgoingDataCharacteristics = outgoingDataCharacteristics.stream()
                     .filter(it -> !it.getVariableName()
                             .equals("RETURN"))
                     .collect(Collectors.toList());
         }
-        this.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, nodeCharacteristics);
+        this.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics,
+                vertexInformation);
+    }
+
+    @Override
+    public List<VertexType> getVertexTypes() {
+        return List.of(PCMVertexType.SEFF, this.isCalling ? PCMVertexType.CALLING : PCMVertexType.RETURNING);
     }
 
     /**

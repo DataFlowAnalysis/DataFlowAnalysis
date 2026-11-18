@@ -2,6 +2,7 @@ package org.dataflowanalysis.analysis.dfd.simple;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,10 @@ import java.util.stream.Collectors;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
+import org.dataflowanalysis.analysis.core.VertexInformation;
 import org.dataflowanalysis.analysis.dfd.core.DFDCharacteristicValue;
+import org.dataflowanalysis.analysis.dfd.dsl.DFDVertexType;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexType;
 import org.dataflowanalysis.dfd.datadictionary.AND;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Assignment;
@@ -65,6 +69,10 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
         previousVertices.forEach(DFDSimpleVertex::evaluateDataFlow);
 
         List<CharacteristicValue> vertexCharacteristics = determineNodeCharacteristics();
+        VertexInformation vertexInformation = VertexInformation.fromVertex(vertexCharacteristics, this);
+        Set<CharacteristicValue> previousVertexCharacteristics = new HashSet<>(vertexCharacteristics);
+        this.getPreviousElements()
+                .forEach(vertexInformation::extendInformation);
 
         List<DataCharacteristic> incomingCharacteristics = previousVertices.stream()
                 .map(AbstractVertex::getAllOutgoingDataCharacteristics)
@@ -78,7 +86,8 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
 
         List<DataCharacteristic> outgoingDataCharacteristics = new ArrayList<>(this.createDataCharacteristicsFromLabels(outgoingLabelPerPin));
 
-        this.setPropagationResult(incomingCharacteristics, outgoingDataCharacteristics, vertexCharacteristics);
+        this.setPropagationResult(incomingCharacteristics, outgoingDataCharacteristics, vertexCharacteristics,
+                vertexInformation);
     }
 
     /**
@@ -309,5 +318,10 @@ public class DFDSimpleVertex extends AbstractVertex<Node> {
     public String getName() {
         return this.getReferencedElement()
                 .getEntityName();
+    }
+
+    @Override
+    public List<VertexType> getVertexTypes() {
+        return DFDVertexType.fromElement(this.referencedElement);
     }
 }

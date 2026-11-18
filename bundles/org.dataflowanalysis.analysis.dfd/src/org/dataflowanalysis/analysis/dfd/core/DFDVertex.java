@@ -15,6 +15,9 @@ import java.util.stream.Collectors;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
+import org.dataflowanalysis.analysis.core.VertexInformation;
+import org.dataflowanalysis.analysis.dfd.dsl.DFDVertexType;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexType;
 import org.dataflowanalysis.dfd.datadictionary.AND;
 import org.dataflowanalysis.dfd.datadictionary.AbstractAssignment;
 import org.dataflowanalysis.dfd.datadictionary.Assignment;
@@ -65,6 +68,10 @@ public class DFDVertex extends AbstractVertex<Node> {
         evaluatePreviousVertices();
 
         List<CharacteristicValue> vertexCharacteristics = determineNodeCharacteristics();
+        VertexInformation vertexInformation = VertexInformation.fromVertex(vertexCharacteristics, this);
+        this.getPinDFDVertexMap()
+                .values()
+                .forEach(vertexInformation::extendInformation);
 
         Map<Pin, List<Label>> inputPinsIncomingLabelMap = new HashMap<>();
         this.getPinFlowMap()
@@ -73,7 +80,8 @@ public class DFDVertex extends AbstractVertex<Node> {
 
         List<DataCharacteristic> dataCharacteristics = new ArrayList<>(this.createDataCharacteristicsFromLabels(inputPinsIncomingLabelMap));
         List<DataCharacteristic> outgoingDataCharacteristics = new ArrayList<>();
-        this.setPropagationResult(dataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics);
+        this.setPropagationResult(dataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics,
+                vertexInformation);
     }
 
     /**
@@ -105,6 +113,10 @@ public class DFDVertex extends AbstractVertex<Node> {
         evaluatePreviousVertices();
 
         List<CharacteristicValue> vertexCharacteristics = determineNodeCharacteristics();
+        VertexInformation vertexInformation = VertexInformation.fromVertex(vertexCharacteristics, this);
+        this.getPinDFDVertexMap()
+                .values()
+                .forEach(vertexInformation::extendInformation);
 
         Map<Pin, List<Label>> inputPinsIncomingLabelMap = new HashMap<>();
         this.getPinFlowMap()
@@ -118,8 +130,10 @@ public class DFDVertex extends AbstractVertex<Node> {
         outputPinsOutgoingLabelMap.entrySet()
                 .removeIf(e -> !outPinsForOutgoing.contains(e.getKey()));
 
-        List<DataCharacteristic> outgoingDataCharacteristics = new ArrayList<>(this.createDataCharacteristicsFromLabels(outputPinsOutgoingLabelMap));
-        this.setPropagationResult(dataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics);
+        List<DataCharacteristic> outgoingDataCharacteristics = new ArrayList<>(
+                this.createDataCharacteristicsFromLabels(outputPinsOutgoingLabelMap));
+        this.setPropagationResult(dataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics,
+                vertexInformation);
     }
 
     /**
@@ -422,5 +436,10 @@ public class DFDVertex extends AbstractVertex<Node> {
     public String getName() {
         return this.getReferencedElement()
                 .getEntityName();
+    }
+
+    @Override
+    public List<VertexType> getVertexTypes() {
+        return DFDVertexType.fromElement(this.getReferencedElement());
     }
 }

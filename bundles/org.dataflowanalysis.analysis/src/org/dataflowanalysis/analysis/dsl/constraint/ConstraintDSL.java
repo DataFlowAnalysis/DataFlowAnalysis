@@ -1,5 +1,6 @@
 package org.dataflowanalysis.analysis.dsl.constraint;
 
+import org.dataflowanalysis.analysis.dsl.AdvancedAnalysisConstraint;
 import org.dataflowanalysis.analysis.dsl.AnalysisConstraint;
 
 /**
@@ -12,7 +13,7 @@ public class ConstraintDSL {
      * Creates a new constraint DSL type to create an {@link AnalysisConstraint}
      */
     public ConstraintDSL() {
-        this.analysisConstraint = new AnalysisConstraint("default");
+        this.analysisConstraint = new AdvancedAnalysisConstraint("default");
     }
 
     /**
@@ -20,7 +21,7 @@ public class ConstraintDSL {
      * @param name Name of the constraint
      */
     public ConstraintDSL(String name) {
-        this.analysisConstraint = new AnalysisConstraint(name);
+        this.analysisConstraint = new AdvancedAnalysisConstraint(name);
     }
 
     /**

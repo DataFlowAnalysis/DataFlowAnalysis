@@ -10,7 +10,10 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
+import org.dataflowanalysis.analysis.core.VertexInformation;
+import org.dataflowanalysis.analysis.dsl.selectors.vertex.VertexType;
 import org.dataflowanalysis.analysis.pcm.core.AbstractPCMVertex;
+import org.dataflowanalysis.analysis.pcm.dsl.PCMVertexType;
 import org.dataflowanalysis.analysis.pcm.utils.PCMQueryUtils;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
@@ -46,7 +49,10 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
     @Override
     public void evaluateDataFlow() {
         List<DataCharacteristic> incomingDataCharacteristics = this.getIncomingDataCharacteristics();
-        List<CharacteristicValue> nodeCharacteristics = this.getVertexCharacteristics();
+        List<CharacteristicValue> vertexCharacteristics = this.getVertexCharacteristics();
+        VertexInformation vertexInformation = VertexInformation.fromVertex(vertexCharacteristics, this);
+        this.getPreviousElements()
+                .forEach(vertexInformation::extendInformation);
 
         if (this.getReferencedElement() instanceof StartAction && !this.isBranching()) {
             List<String> variableNames = this.getParameter()
@@ -56,20 +62,24 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
             incomingDataCharacteristics = incomingDataCharacteristics.stream()
                     .filter(it -> variableNames.contains(it.variableName()))
                     .toList();
-            this.setPropagationResult(incomingDataCharacteristics, incomingDataCharacteristics, nodeCharacteristics);
+            this.setPropagationResult(incomingDataCharacteristics, incomingDataCharacteristics, vertexCharacteristics,
+                    vertexInformation);
             return;
         } else if (this.getReferencedElement() instanceof StartAction) {
-            this.setPropagationResult(incomingDataCharacteristics, incomingDataCharacteristics, nodeCharacteristics);
+            this.setPropagationResult(incomingDataCharacteristics, incomingDataCharacteristics, vertexCharacteristics,
+                    vertexInformation);
             return;
         } else if (this.getReferencedElement() instanceof StopAction && !this.isBranching()) {
             List<DataCharacteristic> outgoingDataCharacteristics = incomingDataCharacteristics.parallelStream()
                     .filter(it -> it.getVariableName()
                             .equals("RETURN"))
                     .collect(Collectors.toList());
-            this.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, nodeCharacteristics);
+            this.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics,
+                    vertexInformation);
             return;
         } else if (this.getReferencedElement() instanceof StopAction) {
-            this.setPropagationResult(incomingDataCharacteristics, incomingDataCharacteristics, nodeCharacteristics);
+            this.setPropagationResult(incomingDataCharacteristics, incomingDataCharacteristics, vertexCharacteristics,
+                    vertexInformation);
             return;
         } else if (!(this.getReferencedElement() instanceof SetVariableAction)) {
             logger.error("Found unexpected sequence element of unknown PCM type " + this.getReferencedElement()
@@ -87,9 +97,10 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
                 .map(ConfidentialityVariableCharacterisation.class::cast)
                 .toList();
 
-        List<DataCharacteristic> outgoingDataCharacteristics = this.getDataCharacteristics(nodeCharacteristics, variableCharacterisations,
-                incomingDataCharacteristics);
-        this.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, nodeCharacteristics);
+        List<DataCharacteristic> outgoingDataCharacteristics = this.getDataCharacteristics(vertexCharacteristics,
+                variableCharacterisations, incomingDataCharacteristics);
+        this.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics,
+                vertexInformation);
     }
 
     /**
@@ -108,6 +119,11 @@ public class SEFFPCMVertex<T extends AbstractAction> extends AbstractPCMVertex<T
     public boolean isBranching() {
         Optional<BranchAction> branchAction = PCMQueryUtils.findParentOfType(this.getReferencedElement(), BranchAction.class, false);
         return branchAction.isPresent();
+    }
+
+    @Override
+    public List<VertexType> getVertexTypes() {
+        return List.of(PCMVertexType.SEFF);
     }
 
     @Override

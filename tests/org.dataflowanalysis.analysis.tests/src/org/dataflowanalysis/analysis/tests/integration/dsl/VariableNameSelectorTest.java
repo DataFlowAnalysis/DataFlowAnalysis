@@ -1,11 +1,11 @@
 package org.dataflowanalysis.analysis.tests.integration.dsl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.stream.Stream;
 import org.dataflowanalysis.analysis.dsl.context.DSLContext;
-import org.dataflowanalysis.analysis.dsl.selectors.VariableNameSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.data.DataSelector;
+import org.dataflowanalysis.analysis.dsl.selectors.data.VariableNameSelector;
 import org.dataflowanalysis.analysis.utils.ParseResult;
 import org.dataflowanalysis.analysis.utils.StringView;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -16,28 +16,37 @@ public class VariableNameSelectorTest {
 
     @ParameterizedTest
     @MethodSource("correctVariableNameSelectors")
-    public void shouldParseCorrectly(String variableNameSelectorString, String expectedVariableName) {
-        ParseResult<VariableNameSelector> variableNameSelector = VariableNameSelector.fromString(new StringView(variableNameSelectorString),
-                new DSLContext());
-        assertTrue(variableNameSelector.successful());
-        assertEquals(expectedVariableName, variableNameSelector.getResult()
-                .getVariableName());
+    public void shouldParseCorrectly(String variableNameSelectorString, String expectedVariableName,
+            boolean expectEmpty) {
+        StringView string = new StringView(variableNameSelectorString);
+        ParseResult<DataSelector> selector = VariableNameSelector.fromString(string, new DSLContext());
+        assertTrue(selector.successful());
+        if (selector.getResult() instanceof VariableNameSelector variableNameSelector) {
+            assertEquals(expectedVariableName, variableNameSelector.getVariableName());
+            assertEquals(expectEmpty, string.empty());
+        } else {
+            fail("Selector is not a variable name selector");
+        }
     }
 
     @ParameterizedTest
     @MethodSource("incorrectVariableNameSelectors")
     public void shouldNotParse(String variableNameSelectorString) {
-        ParseResult<VariableNameSelector> variableNameSelector = VariableNameSelector.fromString(new StringView(variableNameSelectorString),
-                new DSLContext());
+        StringView string = new StringView(variableNameSelectorString);
+        ParseResult<DataSelector> variableNameSelector = VariableNameSelector.fromString(string, new DSLContext());
         assertTrue(variableNameSelector.failed());
+        assertEquals(0, string.getPosition());
     }
 
     private static Stream<Arguments> correctVariableNameSelectors() {
-        return Stream.of(Arguments.of("named name", "name"), Arguments.of("named otherA.otherB", "otherA.otherB"),
-                Arguments.of("named some string with spaces", "some"));
+        return Stream.of(Arguments.of("name name", "name", true),
+                Arguments.of("name otherA.otherB", "otherA.otherB", true),
+                Arguments.of("name some string with spaces", "some", false),
+                Arguments.of("name contains test", "test", true));
     }
 
     private static Stream<Arguments> incorrectVariableNameSelectors() {
-        return Stream.of(Arguments.of("named"), Arguments.of(""), Arguments.of("named "));
+        return Stream.of(Arguments.of("name"), Arguments.of(""), Arguments.of("name "), Arguments.of("name contains"),
+                Arguments.of("name contains "));
     }
 }

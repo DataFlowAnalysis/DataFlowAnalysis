@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.dataflowanalysis.analysis.core.AbstractVertex;
 import org.dataflowanalysis.analysis.core.CharacteristicValue;
 import org.dataflowanalysis.analysis.core.DataCharacteristic;
+import org.dataflowanalysis.analysis.core.VertexInformation;
 import org.dataflowanalysis.analysis.resource.ResourceProvider;
 import org.dataflowanalysis.analysis.utils.LoggerManager;
 import org.dataflowanalysis.pcm.extension.model.confidentiality.ConfidentialityVariableCharacterisation;
@@ -59,12 +60,15 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
      * that are not evaluated.
      * @param incomingDataCharacteristics Incoming data characteristics that flow into the vertex
      * @param outgoingDataCharacteristics Outgoing data characteristics that flow out of the vertex
-     * @param vertexCharacteristics Vertex characteristics present at the node
+     * @param vertexCharacteristics Vertex characteristics present at the vertex
+     * @param vertexInformation Vertex information present at previous vertices
      */
     @Override
-    protected void setPropagationResult(List<DataCharacteristic> incomingDataCharacteristics, List<DataCharacteristic> outgoingDataCharacteristics,
-            List<CharacteristicValue> vertexCharacteristics) {
-        super.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics);
+    protected void setPropagationResult(List<DataCharacteristic> incomingDataCharacteristics,
+            List<DataCharacteristic> outgoingDataCharacteristics, List<CharacteristicValue> vertexCharacteristics,
+            VertexInformation vertexInformation) {
+        super.setPropagationResult(incomingDataCharacteristics, outgoingDataCharacteristics, vertexCharacteristics,
+                vertexInformation);
     }
 
     @Override
@@ -143,8 +147,9 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
 
     protected AbstractPCMVertex<?> updateCopy(AbstractPCMVertex<?> copy, Map<AbstractPCMVertex<?>, AbstractPCMVertex<?>> vertexMapping) {
         if (this.isEvaluated()) {
-            copy.setPropagationResult(this.getAllIncomingDataCharacteristics(), this.getAllOutgoingDataCharacteristics(),
-                    this.getVertexCharacteristics());
+            copy.setPropagationResult(this.getAllIncomingDataCharacteristics(),
+                    this.getAllOutgoingDataCharacteristics(), this.getVertexCharacteristics(),
+                    this.getPreviousVertexInformation());
         }
         vertexMapping.put(this, copy);
 
@@ -202,5 +207,11 @@ public abstract class AbstractPCMVertex<T extends Entity> extends AbstractVertex
     public int hashCode() {
         return Objects.hash(this.getReferencedElement()
                 .getId());
+    }
+
+    @Override
+    public String getName() {
+        return this.getReferencedElement()
+                .getEntityName();
     }
 }

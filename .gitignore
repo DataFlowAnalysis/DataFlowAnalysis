@@ -20,6 +20,9 @@ Snap.*
 *.zip
 
 # Eclipse
+.classpath
+.project
+.settings/
 .loadpath
 .metadata
 .recommenders
@@ -37,6 +40,21 @@ tmp/
 .eclipse-pmd
 .checkstyle
 org.eclipse.m2e.core.prefs
+
+# EMF/MWE2 codegen byproducts for the six datadictionary/dataflowdiagram model bundles.
+# The mwe2 generator (now run automatically by each bundle's own generate-sources phase)
+# always recreates a legacy PDE plugin scaffold alongside the real target/generated-sources
+# output; that scaffold isn't used by the plain-Maven build and shouldn't be committed.
+bundles/org.dataflowanalysis.dfd.datadictionary*/plugin.xml
+bundles/org.dataflowanalysis.dfd.datadictionary*/plugin.properties
+bundles/org.dataflowanalysis.dfd.datadictionary*/build.properties
+bundles/org.dataflowanalysis.dfd.datadictionary*/META-INF/
+bundles/org.dataflowanalysis.dfd.datadictionary*/icons/
+bundles/org.dataflowanalysis.dfd.dataflowdiagram*/plugin.xml
+bundles/org.dataflowanalysis.dfd.dataflowdiagram*/plugin.properties
+bundles/org.dataflowanalysis.dfd.dataflowdiagram*/build.properties
+bundles/org.dataflowanalysis.dfd.dataflowdiagram*/META-INF/
+bundles/org.dataflowanalysis.dfd.dataflowdiagram*/icons/
 
 # Maven
 .mvn/timing.properties
@@ -62,3 +80,4 @@ xtend-gen/
 .idea/
 /out
 *.iml
+/.direnv

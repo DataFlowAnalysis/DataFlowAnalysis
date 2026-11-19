@@ -57,70 +57,54 @@ Most extensions don't need access to these directly: Using a normal dependency a
 
 ### Extending the metamodel itself
 
-A new Metamodel extension is build as a normal `.ecore`/`.genmodel` in the Eclipse Ecore editor, with `eSuperTypes`/`eType` pointing at the DFD types and `usedGenPackages` pointing at `dataflowdiagram.genmodel`/`datadictionary.genmodel`. 
-The editor writes these as relative, workspace-style paths (e.g. `../../../../../org.dataflowanalysis.dfd.dataflowdiagram/model/dataflowdiagram.ecore#//Node`), which do not resolve when modules are build independently.
-An external extension project needs to redirect them to the dependency jar at build time:
+A new metamodel extension is built as a normal `.ecore`/`.genmodel` in the Eclipse Ecore editor, with `eSuperTypes`/`eType` pointing at the DFD types and `usedGenPackages` pointing at `dataflowdiagram.genmodel`/`datadictionary.genmodel`.
+Code generation runs via a plain `.mwe2` workflow, invoked from Maven through `exec-maven-plugin`'s `java` goal:
 
-1. In the `pom.xml` of the bundle, resolve the dependency jar's path with `maven-dependency-plugin`'s `properties` goal, exposing a property like `${org.dataflowanalysis.analysis:dfd.dataflowdiagram:jar}` with the absolute path to the resolved jar.
-2. Using the path to the jar from step 1 and its internal path, pass the `archive:file:<jar>!/<path>` URI into a custom MWE2 code-generation workflow. 
-They can be launched via exec-maven-plugin's **`java` goal** via its `<arguments>`.
-   ```xml
-   <plugin>
-     <groupId>org.apache.maven.plugins</groupId>
-     <artifactId>maven-dependency-plugin</artifactId>
-     <executions>
-       <execution>
-         <id>resolve-dfd-genmodel-jars</id>
-         <phase>initialize</phase>
-         <goals><goal>properties</goal></goals>
-       </execution>
-     </executions>
-   </plugin>
-   <plugin>
-     <groupId>org.codehaus.mojo</groupId>
-     <artifactId>exec-maven-plugin</artifactId>
-     <executions>
-       <execution>
-         <id>generate-model-code</id>
-         <phase>generate-sources</phase>
-         <goals><goal>java</goal></goals>
-         <configuration>
-           <mainClass>org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher</mainClass>
-           <classpathScope>compile</classpathScope>
-           <workingDirectory>${maven.multiModuleProjectDirectory}</workingDirectory>
-           <arguments>
-             <argument>${maven.multiModuleProjectDirectory}/releng/org.myextension.mwe2/workflow/generate-myextension.mwe2</argument>
-             <argument>-p</argument>
-             <argument>dfdDataFlowDiagramGenModelUri=archive:file:${org.dataflowanalysis.analysis:dfd.dataflowdiagram:jar}!/model/dataflowdiagram.genmodel</argument>
-             <argument>-p</argument>
-             <argument>dfdDataFlowDiagramEcoreUri=archive:file:${org.dataflowanalysis.analysis:dfd.dataflowdiagram:jar}!/model/dataflowdiagram.ecore</argument>
-           </arguments>
-         </configuration>
-       </execution>
-     </executions>
-   </plugin>
-   ```
+```xml
+<plugin>
+  <groupId>org.codehaus.mojo</groupId>
+  <artifactId>exec-maven-plugin</artifactId>
+  <executions>
+    <execution>
+      <id>generate-model-code</id>
+      <phase>generate-sources</phase>
+      <goals><goal>java</goal></goals>
+      <configuration>
+        <mainClass>org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher</mainClass>
+        <classpathScope>compile</classpathScope>
+        <includePluginDependencies>true</includePluginDependencies>
+        <arguments>
+          <argument>${project.basedir}/workflow/generate.mwe2</argument>
+          <argument>-p</argument>
+          <argument>workspaceRoot=${project.basedir}</argument>
+        </arguments>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
+```
 
-3. In the `.mwe2` workflow, map the resolved `platform:/resource/...` URI to that `archive:` URI. 
+The workflow itself only requires `scanClassPath = true` to discover the referenced metamodels on a plain `org.eclipse.emf.mwe.utils.StandaloneSetup`.
+However, it is required to specify a `projectMapping` for the metamodel extension for MWE2 to find the defining plugin of the metamodel extension:
 
-   ```
-   var dfdDataFlowDiagramGenModelUri = "UNSET-dfdDataFlowDiagramGenModelUri"
-   var dfdDataFlowDiagramEcoreUri = "UNSET-dfdDataFlowDiagramEcoreUri"
+```
+var workspaceRoot = "UNSET-workspaceRoot"
 
-   bean = EclipseRCPSupportingStandaloneSetup {
-       ...
-       uriMap = {
-           from = "platform:/resource/org.dataflowanalysis.dfd.dataflowdiagram/model/dataflowdiagram.genmodel"
-           to = dfdDataFlowDiagramGenModelUri
-       }
-       uriMap = {
-           from = "platform:/resource/org.dataflowanalysis.dfd.dataflowdiagram/model/dataflowdiagram.ecore"
-           to = dfdDataFlowDiagramEcoreUri
-       }
+Workflow {
+	bean = StandaloneSetup {
+		scanClassPath = true
+		platformUri = workspaceRoot
 
-       registerGenModelFile = dfdDataFlowDiagramGenModelUri
-   }
-   ```
+		projectMapping = { projectName = "org.myextension.metamodel" path = workspaceRoot }
+	}
 
-For a usage example see the same mechanism this repository's own bundles use to reference the `identifier.ecore` base model. 
-The relevant files can be found in `bundles/org.dataflowanalysis.dfd.*/pom.xml` and the corresponding mwe2 workflow in `releng/org.dataflowanalysis.dfd.mwe2/*.mwe2`.
+	component = EcoreGenerator {
+		generateModel = true
+		genModel = "platform:/resource/org.myextension.metamodel/model/myextension.genmodel"
+		srcPath = "platform:/resource/org.myextension.metamodel/target/generated-sources/mwe2"
+	}
+}
+```
+
+A concrete example can be found at the [ContextAwareAnalysisFramework](https://github.com/MOCCAVI/ContextAwareAnalysisFramework) repository's `bundles/org.dataflowanalysis.contextawareframework.metamodel*/pom.xml` and `workflow/generate.mwe2` files.
+This repository's own bundles (`bundles/org.dataflowanalysis.dfd.*/pom.xml` and `workflow/generate.mwe2`) use the identical pattern for referencing the `identifier.ecore` base model.

@@ -27,8 +27,6 @@ Deselect the ones you don't need from the list and keep the following if you nee
 | `bundles/org.dataflowanalysis.dfd.datadictionary*`| Data Dictionary Metamodel                         | Only imported when modified   |
 | `bundles/org.dataflowanalysis.dfd.dataflowdiagram*`| Data Flow Diagram Metamodel                       | Only imported when modified   |
 
-Note that the artifact IDs of the three core analysis modules are `core`, `pcm` and `dfd` respectively (the `groupId` `org.dataflowanalysis.analysis` already carries the "analysis" prefix), but their folder names keep the longer `org.dataflowanalysis.analysis*` form shown above.
-
 ## 4. Testing the Setup
 If you have imported the `tests/org.dataflowanalysis.analysis.tests` module, you can run the analysis tests to test your setup.
 To do that navigate in the file explorer (typically on the left side) to that module's `src/test/java` folder.

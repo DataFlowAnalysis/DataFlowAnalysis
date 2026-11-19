@@ -116,6 +116,10 @@ export default withMermaid({
                 link: "/wiki/development/running-locally",
               },
               {
+                text: "Extending the Analysis",
+                link: "/wiki/development/extending",
+              },
+              {
                 text: "Style Guide",
                 link: "/wiki/development/style",
               },

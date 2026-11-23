@@ -35,3 +35,14 @@ If all tests run sucessfully, your development enviornment is setup correctly!
 
 ## 5. Using the Analysis 
 Now that you have setup the analysis locally, you can refer to the guide on running the analysis locally [here](/wiki/development/running-locally)
+
+## 6. Troubleshooting Build Failures
+The analysis uses genmodel-based code generation (see [Extending the Analysis](/wiki/development/extending)). 
+If importing or building the projects using Eclipse fails, check the following:
+
+- **Hundreds of "symbol not found" errors after a fresh import**: Code Generation likely never ran. 
+Try `Project -> Clean...` on the affected modules; if the problem persists, reimport the projects into eclipse.
+- **`release version 21 not supported` even though your JDK is 21**: Usually means *Maven* does not support Java 21 or a non-standard JDK.
+Install at least Maven 3.9 or newer and a standard JDK (e.g. [Eclipse Temurin](https://adoptium.net/)).
+- **Build works from a terminal but still fails inside Eclipse**: Eclipse's embedded Maven runs under whichever JVM launched Eclipse.
+Make sure that the selected JDK under `Window > Preferences > Java > Installed JREs` points to the correct JDK.
